@@ -1042,7 +1042,9 @@
     <string name="NotificationBarManager__establishing_signal_call">Establishing Signal call</string>
     <string name="NotificationBarManager__incoming_signal_call">Incoming Signal call</string>
     <string name="NotificationBarManager__incoming_signal_group_call">Incoming Signal group call</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Stopping Signal call service</string>
+    <!-- Temporary notification shown when starting the calling service -->
+    <string name="NotificationBarManager__starting_signal_call_service">Starting Molly call service</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Stopping Molly call service</string>
     <string name="NotificationBarManager__decline_call">Decline call</string>
     <string name="NotificationBarManager__answer_call">Answer call</string>
     <string name="NotificationBarManager__end_call">End call</string>
@@ -2739,6 +2741,7 @@
     <string name="preferences__internal_badges" translatable="false">Badges</string>
     <string name="preferences__internal_badges_enqueue_redemption" translatable="false">Enqueue redemption.</string>
     <string name="preferences__internal_badges_enqueue_keep_alive" translatable="false">Enqueue keep-alive.</string>
+    <string name="preferences__internal_badges_set_error_state" translatable="false">Set error state.</string>
     <string name="preferences__internal_release_channel" translatable="false">Release channel</string>
     <string name="preferences__internal_fetch_release_channel" translatable="false">Fetch release channel</string>
     <string name="preferences__internal_release_channel_set_last_version" translatable="false">Set last version seen back 10 versions</string>
@@ -2751,6 +2754,11 @@
     <string name="preferences__internal_clear_all_service_ids_description" translatable="false">Clears all known service IDs (except your own). Do not use on your personal device!</string>
     <string name="preferences__internal_clear_all_profile_keys" translatable="false">Clear all profile keys</string>
     <string name="preferences__internal_clear_all_profile_keys_description" translatable="false">Clears all known profile keys (except your own). Do not use on your personal device!</string>
+    <string name="preferences__internal_donor_error_expired_badge" translatable="false">Expired Badge</string>
+    <string name="preferences__internal_donor_error_charge_failure" translatable="false">Charge Failure</string>
+    <string name="preferences__internal_donor_error_cancelation_reason" translatable="false">Cancelation Reason</string>
+    <string name="preferences__internal_donor_error_save_and_finish" translatable="false">Save and Finish</string>
+    <string name="preferences__internal_donor_error_clear" translatable="false">Clear</string>
 
 
     <!-- Payments -->
@@ -4226,8 +4234,12 @@
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_automatically">Your recurring monthly donation was automatically cancelled because you were inactive for too long. Your %1$s badge is no longer visible on your profile.</string>
     <!-- Copy displayed when badge expires after payment failure -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled">Your recurring monthly donation was cancelled because we couldn\'t process your payment. Your badge is no longer visible on your profile.</string>
+    <!-- Copy displayed when badge expires after a payment failure and we have a displayable charge failure reason -->
+    <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled_s">Your recurring monthly donation was cancelled. %1$s Your %2$s badge is no longer visible on your profile.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">You can keep using Signal but to support the app and reactivate your badge, renew now.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Renew subscription</string>
+    <!-- Button label to send user to Google Pay website -->
+    <string name="ExpiredBadgeBottomSheetDialogFragment__go_to_google_pay">Go to Google Pay</string>
 
     <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Can\'t process subscription payment</string>
     <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">We\'re having trouble collecting your Signal Sustainer payment. Make sure your payment method is up to date. If it isn\'t, update it in Google Pay. Signal will try to process the payment again in a few days.</string>
@@ -4524,8 +4536,10 @@
     <string name="StoriesLandingItem__sending">Sending…</string>
     <!-- Label when multiple stories are pending sending -->
     <string name="StoriesLandingItem__sending_d">Sending %1$d…</string>
-    <!-- Label when a story fails to send -->
+    <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">Send failed</string>
+    <!-- Label when a story fails to send due to identity mismatch -->
+    <string name="StoriesLandingItem__partially_sent">Partially sent</string>
     <!-- Status label when a story fails to send indicating user action to retry -->
     <string name="StoriesLandingItem__tap_to_retry">Tap to retry</string>
     <!-- Title of dialog confirming decision to hide a story -->
@@ -4551,6 +4565,8 @@
     <string name="MyStories__delete_story">Delete story?</string>
     <!-- Message of dialog to confirm deletion of story -->
     <string name="MyStories__this_story_will_be_deleted">This story will be deleted for you and everyone who received it.</string>
+    <!-- Toast shown when story media cannot be saved -->
+    <string name="MyStories__unable_to_save">Unable to save</string>
     <!-- Displayed at bottom of story viewer when current item has views -->
     <plurals name="StoryViewerFragment__d_views">
         <item quantity="one">%1$d view</item>
@@ -4569,7 +4585,7 @@
     <string name="StoryViewerPageFragment__s_to_s">%1$s to %2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">Reply</string>
-    <!-- Displayed when viewing a group post from another user with no replies -->
+    <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
     <string name="StoryViewerPageFragment__reply_to_group">Reply to group</string>
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">No views yet</string>
@@ -4668,6 +4684,8 @@
     <string name="TextStoryPostLinkEntryFragment__share_a_link_with_viewers_of_your_story">Share a link with viewers of your story</string>
     <!-- Hint text for searching for a story text post recipient. -->
     <string name="TextStoryPostSendFragment__search">Search</string>
+    <!-- Toast shown when an unexpected error occurs while sending a text story -->
+    <string name="TextStoryPostSendFragment__an_unexpected_error_occurred_try_again">An unexpected error occurred</string>
     <!-- Title for screen allowing user to hide "My Story" entries from specific people -->
     <string name="HideStoryFromFragment__hide_story_from">Hide story from…</string>
     <!-- Done button label for hide story from screen -->
@@ -4766,7 +4784,9 @@
     <string name="StoriesLinkPopup__visit_link">Visit link</string>
 
     <!-- Duration and price information -->
-    <string name="GiftRowItem__s_dot_d_day_duration">%1$s · %2$d day duration</string>
+    <plurals name="GiftRowItem_s_dot_d_day_duration">
+        <item quantity="other">%1$s · %2$d day duration</item>
+    </plurals>
     <!-- Tagline for gift row items -->
     <string name="GiftRowItem__send_a_gift_badge">Send a gift badge</string>
     <!-- Headline text on start fragment for gifting a badge -->

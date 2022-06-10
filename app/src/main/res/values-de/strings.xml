@@ -903,7 +903,7 @@
   <string name="NotificationBarManager__establishing_signal_call">Signal-Anruf wird hergestellt</string>
   <string name="NotificationBarManager__incoming_signal_call">Eingehender Signal-Anruf</string>
   <string name="NotificationBarManager__incoming_signal_group_call">Eingehender Signal-Gruppenanruf</string>
-  <string name="NotificationBarManager__stopping_signal_call_service">Signals Anrufdienst wird gestoppt</string>
+  <string name="NotificationBarManager__stopping_signal_call_service">Mollys Anrufdienst wird gestoppt</string>
   <string name="NotificationBarManager__decline_call">Anruf ablehnen</string>
   <string name="NotificationBarManager__answer_call">Anruf annehmen</string>
   <string name="NotificationBarManager__end_call">Anruf beenden</string>
@@ -4080,7 +4080,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="ExpandModel__view_more">Mehr anzeigen</string>
   <string name="StoriesLinkPopup__visit_link">Link aufrufen</string>
   <!--Duration and price information-->
-  <string name="GiftRowItem__s_dot_d_day_duration">%1$s · %2$d Tage</string>
+  <!-- Removed by excludeNonTranslatables <string name="GiftRowItem__s_dot_d_day_duration">%1$s · %2$d Tage</string> -->
   <!--Tagline for gift row items-->
   <string name="GiftRowItem__send_a_gift_badge">Ein Geschenkabzeichen versenden</string>
   <!--Headline text on start fragment for gifting a badge-->
@@ -4100,7 +4100,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--Text explaining that this gift is a one time donation-->
   <string name="GiftFlowConfirmationFragment__one_time_donation">Einmalspende</string>
   <!--Hint for add message input-->
-  <string name="GiftFlowConfirmationFragment__add_a_message">Füg eine Nachricht hinzu</string>
+  <string name="GiftFlowConfirmationFragment__add_a_message">Füge eine Nachricht hinzu</string>
   <!--Displayed in the dialog while verifying the chosen recipient-->
   <string name="GiftFlowConfirmationFragment__verifying_recipient">Empänger wird verifiziert …</string>
   <!--Title for sheet shown when opening a redeemed gift-->
@@ -4143,18 +4143,18 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   </plurals>
   <!--Gift expiry days remaining-->
   <plurals name="Gifts__d_days_remaining">
-    <item quantity="one">%1$d verbleibender Tag</item>
-    <item quantity="other">%1$d verbleibende Tage</item>
+    <item quantity="one">%1$d Tag verbleibend</item>
+    <item quantity="other">%1$d Tage verbleibend</item>
   </plurals>
   <!--Gift expiry hours remaining-->
   <plurals name="Gifts__d_hours_remaining">
-    <item quantity="one">%1$d verbleibende Stunde</item>
-    <item quantity="other">%1$d verbleibende Stunden</item>
+    <item quantity="one">%1$d Stunde verbleibend</item>
+    <item quantity="other">%1$d Stunden verbleibend</item>
   </plurals>
   <!--Gift expiry minutes remaining-->
   <plurals name="Gifts__d_minutes_remaining">
-    <item quantity="one">%1$d verbleibende Minute</item>
-    <item quantity="other">%1$d verbleibende Minuten</item>
+    <item quantity="one">%1$d Minute verbleibend</item>
+    <item quantity="other">%1$d Minuten verbleibend</item>
   </plurals>
   <!--Gift expiry expired-->
   <string name="Gifts__expired">Abgelaufen</string>

@@ -9,20 +9,20 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import org.thoughtcrime.securesms.util.text.AfterTextChanged;
 
 public class DeviceLinkFragment extends Fragment implements View.OnClickListener {
 
-  private ConstraintLayout    container;
   private LinkClickedListener linkClickedListener;
   private Uri                 uri;
   private EditText            linkInput;
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup viewGroup, Bundle bundle) {
-    container = (ConstraintLayout) inflater.inflate(R.layout.device_link_fragment, container, false);
+    final ConstraintLayout container = (ConstraintLayout) inflater.inflate(R.layout.device_link_fragment, viewGroup, false);
 
     final View linkButton = container.findViewById(R.id.link_device);
     linkButton.setOnClickListener(this);
@@ -34,8 +34,11 @@ public class DeviceLinkFragment extends Fragment implements View.OnClickListener
       container.findViewById(R.id.device_link_input_layout).setVisibility(View.GONE);
     } else {
       linkButton.setEnabled(false);
-      linkInput.addTextChangedListener(new AfterTextChanged(editable -> container.findViewById(R.id.link_device).setEnabled(editable.length() > 0)));
+      linkInput.addTextChangedListener(
+          new AfterTextChanged(editable -> container.findViewById(R.id.link_device).setEnabled(editable.length() > 0)));
     }
+
+    ViewCompat.setTransitionName(container.findViewById(R.id.devices), "devices");
 
     return container;
   }

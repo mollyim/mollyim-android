@@ -84,8 +84,8 @@ ktlint {
     version = "0.43.2"
 }
 
-def canonicalVersionCode = 1059
-def canonicalVersionName = "5.39.3"
+def canonicalVersionCode = 1064
+def canonicalVersionName = "5.40.4"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -437,6 +437,7 @@ dependencies {
     freeImplementation project(':libfakegms')
     implementation project(":libnetcipher")
     implementation project(':contacts')
+    implementation project(':qr')
 
     implementation libs.libsignal.android
     implementation libs.google.protobuf.javalite

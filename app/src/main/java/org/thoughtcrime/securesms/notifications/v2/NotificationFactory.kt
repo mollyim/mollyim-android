@@ -32,12 +32,12 @@ import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.ServiceUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 
-private val TAG = Log.tag(NotificationFactory::class.java)
-
 /**
  * Given a notification state consisting of conversations of messages, show appropriate system notifications.
  */
 object NotificationFactory {
+
+  val TAG = Log.tag(NotificationFactory::class.java)
 
   fun notify(
     context: Context,
@@ -148,13 +148,17 @@ object NotificationFactory {
           threadsThatNewlyAlerted += conversation.thread
         }
 
-        notifyForConversation(
-          context = context,
-          conversation = conversation,
-          targetThread = targetThread,
-          defaultBubbleState = defaultBubbleState,
-          shouldAlert = (conversation.hasNewNotifications() || alertOverrides.contains(conversation.thread)) && !conversation.mostRecentNotification.individualRecipient.isSelf
-        )
+        try {
+          notifyForConversation(
+            context = context,
+            conversation = conversation,
+            targetThread = targetThread,
+            defaultBubbleState = defaultBubbleState,
+            shouldAlert = (conversation.hasNewNotifications() || alertOverrides.contains(conversation.thread)) && !conversation.mostRecentNotification.individualRecipient.isSelf
+          )
+        } catch (e: SecurityException) {
+          Log.w(TAG, "Too many pending intents device quirk", e)
+        }
       }
     }
 

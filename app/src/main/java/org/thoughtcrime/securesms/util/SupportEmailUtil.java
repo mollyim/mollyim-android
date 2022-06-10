@@ -80,6 +80,6 @@ public final class SupportEmailUtil {
   }
 
   private static CharSequence getSignalPackage(@NonNull Context context) {
-    return String.format("%s (%s)", BuildConfig.APPLICATION_ID, AppSignatureUtil.getAppSignature(context).orElse("Unknown"));
+    return String.format("%s (%s)", BuildConfig.APPLICATION_ID, AppSignatureUtil.getAppSignature(context));
   }
 }

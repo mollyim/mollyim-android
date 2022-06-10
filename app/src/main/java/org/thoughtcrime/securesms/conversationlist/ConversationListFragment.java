@@ -330,6 +330,30 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   @Override
+  public void onDestroyView() {
+    coordinator             = null;
+    list                    = null;
+    searchEmptyState        = null;
+    toolbarShadow           = null;
+    bottomActionBar         = null;
+    reminderView            = null;
+    emptyState              = null;
+    megaphoneContainer      = null;
+    paymentNotificationView = null;
+    voiceNotePlayerViewStub = null;
+    fab                     = null;
+    cameraFab               = null;
+    snapToTopDataObserver   = null;
+    itemAnimator            = null;
+
+    activeAdapter  = null;
+    defaultAdapter = null;
+    searchAdapter  = null;
+
+    super.onDestroyView();
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
 
@@ -591,8 +615,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
 
   private void initializeListAdapters() {
-    defaultAdapter          = new ConversationListAdapter(GlideApp.with(this), this);
-    searchAdapter           = new ConversationListSearchAdapter(GlideApp.with(this), this, Locale.getDefault());
+    defaultAdapter          = new ConversationListAdapter(getViewLifecycleOwner(), GlideApp.with(this), this);
+    searchAdapter           = new ConversationListSearchAdapter(getViewLifecycleOwner(), GlideApp.with(this), this, Locale.getDefault());
     searchAdapterDecoration = new StickyHeaderDecoration(searchAdapter, false, false, 0);
 
     setAdapter(defaultAdapter);
@@ -685,6 +709,10 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     int                 firstVisibleItem = layoutManager != null ? layoutManager.findFirstCompletelyVisibleItemPosition() : -1;
 
     defaultAdapter.submitList(conversations, () -> {
+      if (list == null) {
+        return;
+      }
+
       if (firstVisibleItem == 0) {
         list.scrollToPosition(0);
       }
@@ -1461,7 +1489,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
                             float dX, float dY, int actionState,
                             boolean isCurrentlyActive)
     {
-      if (viewHolder.itemView instanceof ConversationListItemInboxZero) return;
       float absoluteDx = Math.abs(dX);
 
       if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {

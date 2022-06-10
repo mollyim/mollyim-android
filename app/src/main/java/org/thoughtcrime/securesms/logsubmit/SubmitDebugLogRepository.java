@@ -70,6 +70,7 @@ public class SubmitDebugLogRepository {
     }
     add(new LogSectionNotifications());
     add(new LogSectionNotificationProfiles());
+    add(new LogSectionExoPlayerPool());
     add(new LogSectionKeyPreferences());
     add(new LogSectionPermissions());
     add(new LogSectionTrace());
