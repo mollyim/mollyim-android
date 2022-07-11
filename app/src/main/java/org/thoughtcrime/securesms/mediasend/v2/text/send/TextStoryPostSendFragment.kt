@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.signal.core.util.DimensionUnit
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.WrapperDialogFragment
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchConfiguration
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchMediator
@@ -29,13 +30,13 @@ import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.stories.dialogs.StoryDialogs
 import org.thoughtcrime.securesms.stories.settings.create.CreateStoryFlowDialogFragment
 import org.thoughtcrime.securesms.stories.settings.create.CreateStoryWithViewersFragment
-import org.thoughtcrime.securesms.stories.settings.hide.HideStoryFromDialogFragment
+import org.thoughtcrime.securesms.stories.settings.privacy.HideStoryFromDialogFragment
 import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.LifecycleDisposable
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
 
-class TextStoryPostSendFragment : Fragment(R.layout.stories_send_text_post_fragment), ChooseStoryTypeBottomSheet.Callback {
+class TextStoryPostSendFragment : Fragment(R.layout.stories_send_text_post_fragment), ChooseStoryTypeBottomSheet.Callback, WrapperDialogFragment.WrapperDialogFragmentCallback {
 
   private lateinit var shareListWrapper: View
   private lateinit var shareSelectionRecyclerView: RecyclerView
@@ -123,7 +124,7 @@ class TextStoryPostSendFragment : Fragment(R.layout.stories_send_text_post_fragm
     }
 
     val contactsRecyclerView: RecyclerView = view.findViewById(R.id.contacts_container)
-    contactSearchMediator = ContactSearchMediator(this, contactsRecyclerView, FeatureFlags.shareSelectionLimit(), true) { contactSearchState ->
+    contactSearchMediator = ContactSearchMediator(this, contactsRecyclerView, FeatureFlags.shareSelectionLimit(), true, { contactSearchState ->
       ContactSearchConfiguration.build {
         query = contactSearchState.query
 
@@ -135,7 +136,7 @@ class TextStoryPostSendFragment : Fragment(R.layout.stories_send_text_post_fragm
           )
         )
       }
-    }
+    })
 
     contactSearchMediator.getSelectionState().observe(viewLifecycleOwner) { selection ->
       shareSelectionAdapter.submitList(selection.mapIndexed { index, contact -> ShareSelectionMappingModel(contact.requireShareContact(), index == 0) })
@@ -194,5 +195,9 @@ class TextStoryPostSendFragment : Fragment(R.layout.stories_send_text_post_fragm
 
   override fun onGroupStoryClicked() {
     ChooseGroupStoryBottomSheet().show(parentFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+  }
+
+  override fun onWrapperDialogFragmentDismissed() {
+    contactSearchMediator.refresh()
   }
 }

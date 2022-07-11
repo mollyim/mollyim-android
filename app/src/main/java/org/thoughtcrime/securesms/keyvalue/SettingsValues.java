@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.keyvalue;
 
+import android.content.Context;
 import android.net.Uri;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.mms.SentMediaQuality;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
@@ -198,6 +200,34 @@ public final class SettingsValues extends SignalStoreValues {
 
   public int getMessageFontSize() {
     return getInteger(MESSAGE_FONT_SIZE, TextSecurePreferences.getMessageBodyTextSize(ApplicationDependencies.getApplication()));
+  }
+
+  public int getMessageQuoteFontSize(@NonNull Context context) {
+    int   currentMessageSize   = getMessageFontSize();
+    int[] possibleMessageSizes = context.getResources().getIntArray(R.array.pref_message_font_size_values);
+    int[] possibleQuoteSizes   = context.getResources().getIntArray(R.array.pref_message_font_quote_size_values);
+    int   sizeIndex            = Arrays.binarySearch(possibleMessageSizes, currentMessageSize);
+
+    if (sizeIndex < 0) {
+      int closestSizeIndex = 0;
+      int closestSizeDiff  = Integer.MAX_VALUE;
+
+      for (int i = 0; i < possibleMessageSizes.length; i++) {
+        int diff = Math.abs(possibleMessageSizes[i] - currentMessageSize);
+        if (diff < closestSizeDiff) {
+          closestSizeIndex = i;
+          closestSizeDiff  = diff;
+        }
+      }
+
+      int newSize = possibleMessageSizes[closestSizeIndex];
+      Log.w(TAG, "Using non-standard font size of " + currentMessageSize + ". Closest match was " + newSize + ". Updating.");
+
+      setMessageFontSize(newSize);
+      sizeIndex = Arrays.binarySearch(possibleMessageSizes, newSize);
+    }
+
+    return possibleQuoteSizes[sizeIndex];
   }
 
   public void setMessageFontSize(int messageFontSize) {
@@ -410,10 +440,14 @@ public final class SettingsValues extends SignalStoreValues {
 
     public static CensorshipCircumventionEnabled deserialize(int value) {
       switch (value) {
-        case 0: return DEFAULT;
-        case 1: return ENABLED;
-        case 2: return DISABLED;
-        default: throw new IllegalArgumentException("Bad value: " + value);
+        case 0:
+          return DEFAULT;
+        case 1:
+          return ENABLED;
+        case 2:
+          return DISABLED;
+        default:
+          throw new IllegalArgumentException("Bad value: " + value);
       }
     }
 
@@ -437,10 +471,14 @@ public final class SettingsValues extends SignalStoreValues {
 
     public static @NonNull Theme deserialize(@NonNull String value) {
       switch (value) {
-        case "system": return SYSTEM;
-        case "light":  return LIGHT;
-        case "dark":   return DARK;
-        default:       throw new IllegalArgumentException("Unrecognized value " + value);
+        case "system":
+          return SYSTEM;
+        case "light":
+          return LIGHT;
+        case "dark":
+          return DARK;
+        default:
+          throw new IllegalArgumentException("Unrecognized value " + value);
       }
     }
   }

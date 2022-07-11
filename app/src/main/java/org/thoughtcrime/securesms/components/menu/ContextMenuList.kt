@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.components.menu
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.thoughtcrime.securesms.R
@@ -76,6 +77,10 @@ class ContextMenuList(recyclerView: RecyclerView, onItemClick: () -> Unit) {
         model.item.action.run()
         onItemClick()
       }
+
+      val tintColor = ContextCompat.getColor(context, model.item.tintRes)
+      icon.setColorFilter(tintColor)
+      title.setTextColor(tintColor)
 
       when (model.displayType) {
         DisplayType.TOP -> itemView.setBackgroundResource(R.drawable.signal_context_menu_item_background_top)

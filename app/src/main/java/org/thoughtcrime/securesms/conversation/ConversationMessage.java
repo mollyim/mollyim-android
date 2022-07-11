@@ -32,16 +32,23 @@ public class ConversationMessage {
   @Nullable private final SpannableString        body;
   @NonNull  private final MultiselectCollection  multiselectCollection;
   @NonNull  private final MessageStyler.Result   styleResult;
+            private final boolean                hasBeenQuoted;
 
   private ConversationMessage(@NonNull MessageRecord messageRecord) {
-    this(messageRecord, null, null);
+    this(messageRecord, null, null, false);
+  }
+
+  private ConversationMessage(@NonNull MessageRecord messageRecord, boolean hasBeenQuoted) {
+    this(messageRecord, null, null, hasBeenQuoted);
   }
 
   private ConversationMessage(@NonNull MessageRecord messageRecord,
                               @Nullable CharSequence body,
-                              @Nullable List<Mention> mentions)
+                              @Nullable List<Mention> mentions,
+                              boolean hasBeenQuoted)
   {
     this.messageRecord = messageRecord;
+    this.hasBeenQuoted = hasBeenQuoted;
     this.mentions      = mentions != null ? mentions : Collections.emptyList();
 
     if (body != null) {
@@ -75,6 +82,10 @@ public class ConversationMessage {
 
   public @NonNull MultiselectCollection getMultiselectCollection() {
     return multiselectCollection;
+  }
+
+  public boolean hasBeenQuoted() {
+    return hasBeenQuoted;
   }
 
   @Override
@@ -119,8 +130,8 @@ public class ConversationMessage {
      * heavy work performed as the message is assumed to not have any mentions.
      */
     @AnyThread
-    public static @NonNull ConversationMessage createWithResolvedData(@NonNull MessageRecord messageRecord) {
-      return new ConversationMessage(messageRecord);
+    public static @NonNull ConversationMessage createWithResolvedData(@NonNull MessageRecord messageRecord, boolean hasBeenQuoted) {
+      return new ConversationMessage(messageRecord, hasBeenQuoted);
     }
 
     /**
@@ -128,15 +139,16 @@ public class ConversationMessage {
      * list of actual mentions. No database or heavy work performed as the body and mentions are assumed to be
      * fully updated with display names.
      *
-     * @param body     Contains appropriate {@link MentionAnnotation}s and is updated with actual profile names.
-     * @param mentions List of actual mentions (i.e., not placeholder) matching annotation ranges in body.
+     * @param body          Contains appropriate {@link MentionAnnotation}s and is updated with actual profile names.
+     * @param mentions      List of actual mentions (i.e., not placeholder) matching annotation ranges in body.
+     * @param hasBeenQuoted Whether or not the message has been quoted by another message.
      */
     @AnyThread
-    public static @NonNull ConversationMessage createWithResolvedData(@NonNull MessageRecord messageRecord, @Nullable CharSequence body, @Nullable List<Mention> mentions) {
+    public static @NonNull ConversationMessage createWithResolvedData(@NonNull MessageRecord messageRecord, @Nullable CharSequence body, @Nullable List<Mention> mentions, boolean hasBeenQuoted) {
       if (messageRecord.isMms() && mentions != null && !mentions.isEmpty()) {
-        return new ConversationMessage(messageRecord, body, mentions);
+        return new ConversationMessage(messageRecord, body, mentions, hasBeenQuoted);
       }
-      return new ConversationMessage(messageRecord, body, null);
+      return new ConversationMessage(messageRecord, body, null, hasBeenQuoted);
     }
 
     /**
@@ -147,11 +159,13 @@ public class ConversationMessage {
      */
     @WorkerThread
     public static @NonNull ConversationMessage createWithUnresolvedData(@NonNull Context context, @NonNull MessageRecord messageRecord, @Nullable List<Mention> mentions) {
+      boolean hasBeenQuoted = SignalDatabase.mmsSms().isQuoted(messageRecord);
+
       if (messageRecord.isMms() && mentions != null && !mentions.isEmpty()) {
         MentionUtil.UpdatedBodyAndMentions updated = MentionUtil.updateBodyAndMentionsWithDisplayNames(context, messageRecord, mentions);
-        return new ConversationMessage(messageRecord, updated.getBody(), updated.getMentions());
+        return new ConversationMessage(messageRecord, updated.getBody(), updated.getMentions(), hasBeenQuoted);
       }
-      return createWithResolvedData(messageRecord);
+      return createWithResolvedData(messageRecord, hasBeenQuoted);
     }
 
     /**
@@ -171,14 +185,33 @@ public class ConversationMessage {
      */
     @WorkerThread
     public static @NonNull ConversationMessage createWithUnresolvedData(@NonNull Context context, @NonNull MessageRecord messageRecord, @NonNull CharSequence body) {
+      boolean hasBeenQuoted = SignalDatabase.mmsSms().isQuoted(messageRecord);
+
       if (messageRecord.isMms()) {
         List<Mention> mentions = SignalDatabase.mentions().getMentionsForMessage(messageRecord.getId());
         if (!mentions.isEmpty()) {
           MentionUtil.UpdatedBodyAndMentions updated = MentionUtil.updateBodyAndMentionsWithDisplayNames(context, body, mentions);
-          return new ConversationMessage(messageRecord, updated.getBody(), updated.getMentions());
+          return new ConversationMessage(messageRecord, updated.getBody(), updated.getMentions(), hasBeenQuoted);
         }
       }
-      return createWithResolvedData(messageRecord, body, null);
+      return createWithResolvedData(messageRecord, body, null, hasBeenQuoted);
+    }
+
+    /**
+     * Creates a {@link ConversationMessage} wrapping the provided MessageRecord and body, and will query for potential mentions. If mentions
+     * are found, the body of the provided message will be updated and modified to match actual mentions. This will perform
+     * database operations to query for mentions and then to resolve mentions to display names.
+     */
+    @WorkerThread
+    public static @NonNull ConversationMessage createWithUnresolvedData(@NonNull Context context, @NonNull MessageRecord messageRecord, @NonNull CharSequence body, boolean hasBeenQuoted) {
+      if (messageRecord.isMms()) {
+        List<Mention> mentions = SignalDatabase.mentions().getMentionsForMessage(messageRecord.getId());
+        if (!mentions.isEmpty()) {
+          MentionUtil.UpdatedBodyAndMentions updated = MentionUtil.updateBodyAndMentionsWithDisplayNames(context, body, mentions);
+          return new ConversationMessage(messageRecord, updated.getBody(), updated.getMentions(), hasBeenQuoted);
+        }
+      }
+      return createWithResolvedData(messageRecord, body, null, hasBeenQuoted);
     }
   }
 }

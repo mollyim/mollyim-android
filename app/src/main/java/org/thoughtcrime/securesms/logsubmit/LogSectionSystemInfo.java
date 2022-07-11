@@ -70,7 +70,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("ACI           : ").append(locked ? "Unknown" : getCensoredAci(context)).append("\n");
     builder.append("Device ID     : ").append(locked ? "Unknown" : SignalStore.account().getDeviceId()).append("\n");
     builder.append("Censored      : ").append(locked ? "Unknown" : ApplicationDependencies.getSignalServiceNetworkAccess().isCensored()).append("\n");
-    builder.append("Network status: ").append(NetworkUtil.getNetworkStatus(context)).append("\n");
+    builder.append("Network Status: ").append(NetworkUtil.getNetworkStatus(context)).append("\n");
     builder.append("Play Services : ").append(getPlayServicesString(context)).append("\n");
     builder.append("FCM           : ").append(locked ? "Unknown" : SignalStore.account().isFcmEnabled()).append("\n");
     builder.append("BkgRestricted : ").append(Build.VERSION.SDK_INT >= 28 ? DeviceProperties.isBackgroundRestricted(context) : "N/A").append("\n");

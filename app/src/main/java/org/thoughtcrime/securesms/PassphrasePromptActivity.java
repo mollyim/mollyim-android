@@ -35,7 +35,6 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 
-import com.dd.CircularProgressButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import android.view.inputmethod.EditorInfo;
@@ -58,6 +57,7 @@ import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.SupportEmailUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton;
 
 import java.util.Arrays;
 
@@ -73,12 +73,12 @@ public class PassphrasePromptActivity extends PassphraseActivity {
 
   private static final String TAG = PassphrasePromptActivity.class.getSimpleName();
 
-  private View                   passphraseAuthContainer;
-  private View                   headerText;
-  private TextInputLayout        passphraseLayout;
-  private EditText               passphraseInput;
-  private CircularProgressButton okButton;
-  private View                   successView;
+  private View                           passphraseAuthContainer;
+  private View                           headerText;
+  private TextInputLayout                passphraseLayout;
+  private EditText                       passphraseInput;
+  private CircularProgressMaterialButton okButton;
+  private View                           successView;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
