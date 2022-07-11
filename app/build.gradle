@@ -514,8 +514,6 @@ dependencies {
 
     testImplementation testLibs.espresso.core
 
-    implementation libs.kotlin.stdlib.jdk8
-
     implementation libs.rxjava3.rxandroid
     implementation libs.rxjava3.rxkotlin
     implementation libs.rxdogtag
