@@ -95,6 +95,7 @@ class AdvancedPrivacySettingsViewModel(
     return AdvancedPrivacySettingsState(
       isPushEnabled = SignalStore.account().isRegistered,
       alwaysRelayCalls = TextSecurePreferences.isTurnOnly(ApplicationDependencies.getApplication()),
+      proxyEnabled = ApplicationDependencies.getNetworkManager().isProxyEnabled,
       censorshipCircumventionState = censorshipCircumventionState,
       censorshipCircumventionEnabled = getCensorshipCircumventionEnabled(censorshipCircumventionState),
       showSealedSenderStatusIcon = TextSecurePreferences.isShowUnidentifiedDeliveryIndicatorsEnabled(

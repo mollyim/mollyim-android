@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.components.settings.app.privacy.advanced
 data class AdvancedPrivacySettingsState(
   val isPushEnabled: Boolean,
   val alwaysRelayCalls: Boolean,
+  val proxyEnabled: Boolean,
   val censorshipCircumventionState: CensorshipCircumventionState,
   val censorshipCircumventionEnabled: Boolean,
   val showSealedSenderStatusIcon: Boolean,

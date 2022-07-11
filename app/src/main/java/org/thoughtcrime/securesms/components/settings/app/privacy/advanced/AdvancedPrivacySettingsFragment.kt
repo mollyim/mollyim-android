@@ -144,7 +144,8 @@ class AdvancedPrivacySettingsFragment : DSLSettingsFragment(R.string.preferences
       switchPref(
         title = DSLSettingsText.from(R.string.preferences_advanced__always_relay_calls),
         summary = DSLSettingsText.from(R.string.preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address),
-        isChecked = state.alwaysRelayCalls
+        isChecked = state.alwaysRelayCalls || state.proxyEnabled,
+        isEnabled = !state.proxyEnabled,
       ) {
         viewModel.setAlwaysRelayCalls(!state.alwaysRelayCalls)
       }
