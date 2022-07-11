@@ -26,7 +26,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal">
 
             <org.thoughtcrime.securesms.components.emoji.EmojiTextView
@@ -44,6 +43,7 @@
                 android:layout_height="13dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="18dp"
+                android:layout_marginTop="3sp"
                 android:layout_gravity="center"
                 android:tint="@color/conversation_item_update_text_color"
                 android:visibility="gone"
