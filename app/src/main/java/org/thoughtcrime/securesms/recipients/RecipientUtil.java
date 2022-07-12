@@ -118,6 +118,19 @@ public class RecipientUtil {
     return !resolved.isMmsGroup();
   }
 
+  public static int getDeviceCount(@NonNull Context context, @NonNull Recipient recipient) {
+    if (!recipient.isRegistered() || recipient.isGroup()) {
+      return 0;
+    }
+    try {
+      int linkedDevices = ApplicationDependencies.getSignalServiceMessageSender()
+                                                 .getSubDeviceSessions(toSignalServiceAddress(context, recipient)).size();
+      return linkedDevices + 1;
+    } catch (IOException e) {
+      return 0;
+    }
+  }
+
   public static List<Recipient> getEligibleForSending(@NonNull List<Recipient> recipients) {
     return Stream.of(recipients)
                  .filter(r -> r.getRegistered() != RegisteredState.NOT_REGISTERED)

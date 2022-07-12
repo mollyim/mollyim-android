@@ -73,6 +73,7 @@ import org.thoughtcrime.securesms.profiles.edit.EditProfileActivity
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientExporter
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.stories.StoryViewerArgs
@@ -312,7 +313,12 @@ class ConversationSettingsFragment : DSLSettingsFragment(
       )
 
       state.withRecipientSettingsState {
-        customPref(BioTextPreference.RecipientModel(recipient = state.recipient))
+        customPref(
+          BioTextPreference.RecipientModel(
+            recipient = state.recipient,
+            devices = RecipientUtil.getDeviceCount(requireContext(), state.recipient),
+          )
+        )
       }
 
       state.withGroupSettingsState { groupState ->

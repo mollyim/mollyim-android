@@ -82,4 +82,8 @@
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Lock Molly access with fingerprint or face recognition</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">No biometric features available on this device</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Please set up your biometrics in Android settings first</string>
+    <plurals name="BioTextPreference_n_devices">
+        <item quantity="one">%d device</item>
+        <item quantity="other">%d devices</item>
+    </plurals>
 </resources>

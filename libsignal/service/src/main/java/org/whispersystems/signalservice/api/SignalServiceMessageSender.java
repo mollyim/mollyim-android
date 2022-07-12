@@ -2113,7 +2113,7 @@ public class SignalServiceMessageSender {
   {
     List<OutgoingPushMessage> messages = new LinkedList<>();
 
-    List<Integer> subDevices = store.getSubDeviceSessions(recipient.getIdentifier());
+    List<Integer> subDevices = getSubDeviceSessions(recipient);
 
     List<Integer> deviceIds = new ArrayList<>(subDevices.size() + 1);
     deviceIds.add(SignalServiceAddress.DEFAULT_DEVICE_ID);
@@ -2130,6 +2130,10 @@ public class SignalServiceMessageSender {
     }
 
     return new OutgoingPushMessageList(recipient.getIdentifier(), timestamp, messages, online);
+  }
+
+  public List<Integer> getSubDeviceSessions(SignalServiceAddress recipient) {
+    return store.getSubDeviceSessions(recipient.getIdentifier());
   }
 
   private OutgoingPushMessage getEncryptedMessage(PushServiceSocket            socket,

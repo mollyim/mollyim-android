@@ -31,10 +31,12 @@ object BioTextPreference {
     abstract fun getHeadlineText(context: Context): CharSequence
     abstract fun getSubhead1Text(context: Context): String?
     abstract fun getSubhead2Text(): String?
+    abstract fun getSubhead2ExtraText(context: Context): String?
   }
 
   class RecipientModel(
     private val recipient: Recipient,
+    private val devices: Int,
   ) : BioTextPreferenceModel<RecipientModel>() {
 
     override fun getHeadlineText(context: Context): CharSequence {
@@ -63,6 +65,14 @@ object BioTextPreference {
 
     override fun getSubhead2Text(): String? = recipient.e164.map(PhoneNumberFormatter::prettyPrint).orElse(null)
 
+    override fun getSubhead2ExtraText(context: Context): String? {
+      return if (devices > 0) {
+        context.resources.getQuantityString(R.plurals.BioTextPreference_n_devices, devices, devices)
+      } else {
+        null
+      }
+    }
+
     override fun areContentsTheSame(newItem: RecipientModel): Boolean {
       return super.areContentsTheSame(newItem) && newItem.recipient.hasSameContent(recipient)
     }
@@ -82,6 +92,8 @@ object BioTextPreference {
 
     override fun getSubhead2Text(): String? = null
 
+    override fun getSubhead2ExtraText(context: Context): String? = null
+
     override fun areContentsTheSame(newItem: GroupModel): Boolean {
       return super.areContentsTheSame(newItem) &&
         groupTitle == newItem.groupTitle &&
@@ -98,6 +110,7 @@ object BioTextPreference {
     private val headline: TextView = itemView.findViewById(R.id.bio_preference_headline)
     private val subhead1: TextView = itemView.findViewById(R.id.bio_preference_subhead_1)
     protected val subhead2: TextView = itemView.findViewById(R.id.bio_preference_subhead_2)
+    protected val subhead2extra: TextView = itemView.findViewById(R.id.bio_preference_subhead_2_extra)
 
     override fun bind(model: T) {
       headline.text = model.getHeadlineText(context)
@@ -110,6 +123,11 @@ object BioTextPreference {
       model.getSubhead2Text().let {
         subhead2.text = it
         subhead2.visibility = if (it == null) View.GONE else View.VISIBLE
+      }
+
+      model.getSubhead2ExtraText(context).let {
+        subhead2extra.text = it
+        subhead2extra.visibility = if (it == null) View.GONE else View.VISIBLE
       }
     }
   }
