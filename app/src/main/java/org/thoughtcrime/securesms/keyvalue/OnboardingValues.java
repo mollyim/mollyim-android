@@ -37,9 +37,9 @@ public final class OnboardingValues extends SignalStoreValues {
   public void clearAll() {
     setShowNewGroup(false);
     setShowInviteFriends(false);
-    setShowEnableApkUpdate(false);
     setShowAppearance(false);
     setShowAddPhoto(false);
+    // MOLLY: Show card "Automatic Check for Updates" if auto-updater if disabled
   }
 
   public boolean hasOnboarding(@NonNull Context context) {
