@@ -36,7 +36,11 @@ class CircularProgressMaterialButton @JvmOverloads constructor(
   private val materialButton: MaterialButton = findViewById(R.id.button)
   private val progressIndicator: CircularProgressIndicator = findViewById(R.id.progress_indicator)
 
-  var progress = progressIndicator.progress
+  var progress: Int
+    get() = progressIndicator.progress
+    set(value) {
+      progressIndicator.progress = value
+    }
 
   var text: CharSequence?
     get() = materialButton.text
@@ -57,15 +61,23 @@ class CircularProgressMaterialButton @JvmOverloads constructor(
   }
 
   override fun setEnabled(enabled: Boolean) {
-    super.setEnabled(enabled)
-    materialButton.isEnabled = enabled
+    setButtonEnabled(enabled)
     progressIndicator.visible = enabled
   }
 
+  fun setButtonEnabled(enabled: Boolean) {
+    super.setEnabled(enabled)
+    materialButton.isEnabled = enabled
+  }
+
   override fun setClickable(clickable: Boolean) {
+    setButtonClickable(clickable)
+    progressIndicator.visible = clickable
+  }
+
+  fun setButtonClickable(clickable: Boolean) {
     super.setClickable(clickable)
     materialButton.isClickable = clickable
-    progressIndicator.visible = clickable
   }
 
   override fun onSaveInstanceState(): Parcelable {

@@ -51,6 +51,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
+            app:materialThemeOverlay="@style/ThemeOverlay.Signal.CircularProgressIndicator.Primary.Fixed"
             app:circularProgressMaterialButton__label="@string/prompt_passphrase_activity__unlock"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +62,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            android:tint="@color/signal_accent_primary"
+            android:tint="@color/signal_colorPrimary"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_check_outline_22" />
 

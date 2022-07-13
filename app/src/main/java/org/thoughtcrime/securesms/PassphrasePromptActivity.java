@@ -27,7 +27,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.TypefaceSpan;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,9 +36,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -232,7 +229,6 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     hint.setSpan(new TypefaceSpan("sans-serif-light"), 0, hint.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     passphraseInput.setHint(hint);
-    passphraseInput.setOnEditorActionListener(new PassphraseActionListener());
 
     okButton.setOnClickListener(this::onOkClicked);
   }
@@ -248,39 +244,26 @@ public class PassphrasePromptActivity extends PassphraseActivity {
                                    body);
   }
 
-  private class PassphraseActionListener implements TextView.OnEditorActionListener {
-    @Override
-    public boolean onEditorAction(TextView exampleView, int actionId, KeyEvent keyEvent) {
-      if ((keyEvent == null && actionId == EditorInfo.IME_ACTION_DONE) ||
-          (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
-           (actionId == EditorInfo.IME_NULL)))
-      {
-        if (okButton.isClickable()) {
-          okButton.performClick();
-        }
-        return true;
-      }
-      return keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_UP
-             && actionId == EditorInfo.IME_NULL;
-    }
-  }
-
   private void setInputEnabled(boolean enabled) {
     if (enabled) {
+      okButton.setButtonClickable(true);
+      okButton.cancelSpinning();
       passphraseInput.selectAll();
       passphraseInput.requestFocus();
     } else {
+      okButton.setButtonClickable(false);
+      okButton.setSpinning();
       passphraseInput.clearFocus();
     }
     passphraseLayout.setEnabled(enabled);
     passphraseLayout.setEndIconMode(enabled ? END_ICON_PASSWORD_TOGGLE : END_ICON_NONE);
-    okButton.setClickable(enabled);
     headerText.setEnabled(enabled);
   }
 
   private void showProgress(float x) {
     double y = 1 + Math.pow(1 - x, 1.5) * -1;
-    okButton.setProgress((int) (y * 99));
+    int progress = (int) (y * 100);
+    okButton.setProgress(progress);
   }
 
   private void showFailureAndEnableInput(boolean focusOnInput) {

@@ -271,6 +271,14 @@
         <item name="circularProgressIndicatorStyle">@style/Widget.Signal.CircularProgressIndicator.Medium.Indeterminate</item>
     </style>
 
+    <style name="ThemeOverlay.Signal.CircularProgressIndicator.Primary.Fixed" parent="ThemeOverlay.Signal.CircularProgressIndicator.Primary">
+        <item name="circularProgressIndicatorStyle">@style/Widget.Signal.CircularProgressIndicator.Medium.Fixed</item>
+    </style>
+
+    <style name="Widget.Signal.CircularProgressIndicator.Medium.Fixed" parent="Widget.Material3.CircularProgressIndicator.Medium">
+        <item name="android:indeterminate">false</item>
+    </style>
+
     <style name="Widget.Signal.CircularProgressIndicator.Medium.Indeterminate" parent="Widget.Material3.CircularProgressIndicator.Medium">
         <item name="android:indeterminate">true</item>
     </style>
