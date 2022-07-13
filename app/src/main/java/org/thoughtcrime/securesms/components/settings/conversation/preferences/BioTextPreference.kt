@@ -72,7 +72,7 @@ object BioTextPreference {
       return if (linkedDevices > 0) {
         context.resources.getQuantityString(R.plurals.BioTextPreference_n_linked_devices, linkedDevices, linkedDevices)
       } else {
-        context.getString(R.string.BioTextPreference_no_linked_devices);
+        context.getString(R.string.BioTextPreference_no_linked_devices)
       }
     }
 
