@@ -316,7 +316,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
         customPref(
           BioTextPreference.RecipientModel(
             recipient = state.recipient,
-            devices = RecipientUtil.getDeviceCount(requireContext(), state.recipient),
+            linkedDevices = RecipientUtil.getSubDeviceCount(requireContext(), state.recipient).orElse(null)
           )
         )
       }

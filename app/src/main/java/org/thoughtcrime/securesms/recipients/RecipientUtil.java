@@ -118,16 +118,16 @@ public class RecipientUtil {
     return !resolved.isMmsGroup();
   }
 
-  public static int getDeviceCount(@NonNull Context context, @NonNull Recipient recipient) {
+  public static Optional<Integer> getSubDeviceCount(@NonNull Context context, @NonNull Recipient recipient) {
     if (!recipient.isRegistered() || recipient.isGroup()) {
-      return 0;
+      return Optional.empty();
     }
     try {
-      int linkedDevices = ApplicationDependencies.getSignalServiceMessageSender()
-                                                 .getSubDeviceSessions(toSignalServiceAddress(context, recipient)).size();
-      return linkedDevices + 1;
+      List<Integer> subSessions = ApplicationDependencies.getSignalServiceMessageSender()
+                                                         .getSubDeviceSessions(toSignalServiceAddress(context, recipient));
+      return Optional.of(subSessions.size());
     } catch (IOException e) {
-      return 0;
+      return Optional.empty();
     }
   }
 

@@ -36,7 +36,7 @@ object BioTextPreference {
 
   class RecipientModel(
     private val recipient: Recipient,
-    private val devices: Int,
+    private val linkedDevices: Int?,
   ) : BioTextPreferenceModel<RecipientModel>() {
 
     override fun getHeadlineText(context: Context): CharSequence {
@@ -66,10 +66,13 @@ object BioTextPreference {
     override fun getSubhead2Text(): String? = recipient.e164.map(PhoneNumberFormatter::prettyPrint).orElse(null)
 
     override fun getSubhead2ExtraText(context: Context): String? {
-      return if (devices > 0) {
-        context.resources.getQuantityString(R.plurals.BioTextPreference_n_devices, devices, devices)
+      if (linkedDevices == null) {
+        return null
+      }
+      return if (linkedDevices > 0) {
+        context.resources.getQuantityString(R.plurals.BioTextPreference_n_devices, linkedDevices, linkedDevices)
       } else {
-        null
+        context.getString(R.string.BioTextPreference_no_linked_devices);
       }
     }
 
