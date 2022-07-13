@@ -78,4 +78,9 @@
     <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Bitte bestätigen Sie Ihre Identität, um Molly zu benutzen</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Keine biometrischen Funktionen auf diesem Gerät verfügbar</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Bitte richte zunächst deine biometrischen Daten in den Android-Einstellungen ein</string>
+    <string name="BioTextPreference_no_linked_devices">Keine verknüpften Geräte</string>
+    <plurals name="BioTextPreference_n_linked_devices">
+        <item quantity="one">%d verbundenes Gerät</item>
+        <item quantity="other">%d verbundene Geräte</item>
+    </plurals>
 </resources>

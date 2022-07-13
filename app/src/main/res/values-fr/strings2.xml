@@ -78,4 +78,9 @@
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Verrouillage de l\'accès à Molly par empreinte digitale ou reconnaissance faciale</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Veuillez d\'abord configurer vos données biométriques dans les paramètres Android</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Aucune fonction biométrique disponible sur cet appareil</string>
+    <string name="BioTextPreference_no_linked_devices">Aucun appareil lié</string>
+    <plurals name="BioTextPreference_n_linked_devices">
+        <item quantity="one">%d appareil lié</item>
+        <item quantity="other">%d appareils liés</item>
+    </plurals>
 </resources>

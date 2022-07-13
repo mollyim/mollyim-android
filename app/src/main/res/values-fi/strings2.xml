@@ -36,4 +36,10 @@
     <string name="preferences__network">Verkko</string>
     <string name="preferences_network__connection">Yhteys</string>
     <string name="preferences_network__online">Online</string>
+    <string name="BioTextPreference_no_linked_devices">Ei linkitettyjä laitteita</string>
+    <plurals name="BioTextPreference_n_linked_devices">
+        <item quantity="one">%d linkitetty laite</item>
+        <item quantity="other">%d linkitettyä laitteeta</item>
+    </plurals>
+    <string name="BlockUnblockDialog_delete_this_contact">Poistetaanko tämä yhteystieto\?</string>
 </resources>
