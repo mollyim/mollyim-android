@@ -342,7 +342,7 @@ public class InputPanel extends LinearLayout
       textColor = getContext().getResources().getColor(R.color.signal_colorOnSurface);
       textHintColor = getContext().getResources().getColor(R.color.signal_colorOnSurfaceVariant);
 
-      setBackground(new ColorDrawable(getContext().getResources().getColor(R.color.signal_colorSurface)));
+      setBackground(new ColorDrawable(getContext().getResources().getColor(R.color.signal_colorBackground)));
       composeContainer.setBackground(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), R.drawable.compose_background)));
     }
 
