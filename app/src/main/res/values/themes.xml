@@ -102,24 +102,14 @@
         <item name="contact_filter_toolbar_icon_tint">@color/signal_text_toolbar_subtitle</item>
     </style>
 
-    <style name="TextSecure.LightIntroTheme" parent="@style/Theme.AppCompat.Light">
+    <style name="TextSecure.LightIntroTheme" parent="@style/TextSecure.LightTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="colorAccent">@color/core_ultramarine</item>
-
-        <item name="android:textColorHint">#cc000000</item>
         <item name="android:windowBackground">@color/white</item>
-    </style>
-
-    <style name="TextSecure.DarkIntroTheme" parent="@style/Theme.AppCompat">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="colorAccent">@color/core_ultramarine_light</item>
-
-        <item name="android:textColorHint">@color/white</item>
-        <item name="android:windowBackground">@color/core_black</item>
+        <item name="android:statusBarColor">@color/core_ultramarine</item>
+        <item name="android:navigationBarColor">@color/core_black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
     </style>
 
     <style name="TextSecure.LightTheme.Popup" parent="TextSecure.LightTheme">

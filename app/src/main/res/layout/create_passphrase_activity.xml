@@ -73,25 +73,26 @@
             android:textIsSelectable="false"
             android:textSize="18sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/yes_button"
+            style="@style/Signal.Widget.Button.Large.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/PassphraseCreateActivity_turn_on_database_encryption"
             android:textColor="@color/core_ultramarine"
             app:backgroundTint="@color/core_white" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/no_button"
+            style="@style/Signal.Widget.Button.Medium.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:text="@string/RatingManager_no_thanks"
-            android:textColor="@color/transparent_white_80"
-            app:backgroundTint="@color/core_ultramarine_dark" />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/core_white"
+            android:text="@string/RatingManager_no_thanks" />
 
     </LinearLayout>
 </ScrollView>

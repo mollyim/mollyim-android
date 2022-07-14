@@ -24,7 +24,6 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.WindowUtil;
 
 /**
  * Activity for creating a user's local encryption passphrase.
@@ -44,8 +43,6 @@ public class PassphraseCreateActivity extends PassphraseActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    WindowUtil.setStatusBarColor(getWindow(), getResources().getColor(R.color.core_ultramarine));
-    setTheme(R.style.TextSecure_LightIntroTheme);
 
     setContentView(R.layout.create_passphrase_activity);
 
