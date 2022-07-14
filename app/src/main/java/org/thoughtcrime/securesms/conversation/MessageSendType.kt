@@ -60,7 +60,7 @@ sealed class MessageSendType(
   @Parcelize
   object SignalMessageSendType : MessageSendType(
     titleRes = R.string.ConversationActivity_transport_signal,
-    composeHintRes = R.string.conversation_activity__type_message_push,
+    composeHintRes = R.string.ConversationSettingsFragment__message,
     buttonDrawableRes = R.drawable.ic_send_lock_24,
     menuDrawableRes = R.drawable.ic_secure_24,
     backgroundColorRes = R.color.core_ultramarine,
