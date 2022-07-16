@@ -51,20 +51,19 @@ Besides that, you will find all the features of Signal plus some minor tweaks an
 
 ## Free and Open-Source
 
-Molly is open-source just like Signal. But both apps use Google's proprietary code to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
+Molly is open-source just like Signal. But Signal uses Google's proprietary software to provide some key features.
 
-You can install the Molly flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
+To support a 100% free and auditable app, Molly comes in two flavors: one with proprietary blobs as Signal and one without. They are called Molly and Molly-FOSS respectively. You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
 
 This table lists the current status of the dependencies:
 
-| Feature                                | Molly-FOSS | Molly            | Signal          |
-| -------------------------------------- | ---------- | ---------------- | --------------- |
-| Push notifications <sup>(1)</sup>      | ✘          | ⚠️ (FCM)         | ⚠ (FCM)         |
-| Websocket notifications <sup>(2)</sup> | ✔️          | ✔️               | ✔️               |
-| Location provider                      | ✘          | ⚠ (Google Maps) | ⚠ (Google Maps) |
+| Feature                               | Molly-FOSS  | Molly                | Signal               |
+| ------------------------------------- | ----------- | -------------------- | -------------------- |
+| Push notifications <sup>(1) (2)</sup> | ✔️ Websocket | ⚠️ FCM<br>✔️ Websocket | ⚠️ FCM<br>✔️ Websocket |
+| Location provider                     | ✘           | ⚠️ Google Maps        | ⚠️️️ Google Maps        |
 
-<sup>(1)</sup> If you are running a custom ROM and the app fails to register with Play Services, try the FOSS flavor.<br/>
-<sup>(2)</sup> You may need to disable the system battery optimizations to receive notifications in background.
+<sup>(1)</sup> You may need to disable the system battery optimizations to receive Websocket-based  push notifications in background.<br>
+<sup>(2)</sup> If you are running a custom ROM and the app fails to register with Play Services (FCM) try the FOSS flavor.
 
 ## Compatibility with Signal
 
