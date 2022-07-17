@@ -29,6 +29,9 @@ cd mollyim-android/reproducible-builds
 # Check out the release tag
 git checkout $VERSION
 
+# The following steps might be different for the chosen version.
+# Before proceeding, you should open this tutorial (README.md file) and review the instructions.
+
 # Build the APK using the Docker environment
 docker-compose up --build
 
