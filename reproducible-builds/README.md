@@ -18,7 +18,7 @@ You can compile you own release of Molly inside a Docker container and compare t
 
 ```shell
 # Set the release version you want to check
-export VERSION=v5.24.17-1
+export VERSION=v5.42.8-2
 
 # Clone the source code repository
 git clone https://github.com/mollyim/mollyim-android.git
