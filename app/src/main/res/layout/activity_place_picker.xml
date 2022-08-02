@@ -30,21 +30,21 @@
 
         <Button
             android:id="@+id/btnMapTypeNormal"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/Signal.Widget.Button.Large.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/preferences__map_normal" />
 
         <Button
             android:id="@+id/btnMapTypeSatellite"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/Signal.Widget.Button.Large.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/preferences__map_satellite" />
 
         <Button
             android:id="@+id/btnMapTypeTerrain"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/Signal.Widget.Button.Large.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/preferences__map_terrain" />
