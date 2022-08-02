@@ -440,7 +440,7 @@ public final class FeatureFlags {
    * NOTE: This feature is still under ongoing development, do not enable.
    */
   public static boolean stories() {
-    return getBoolean(STORIES, false);
+    return false;
   }
 
   /**
