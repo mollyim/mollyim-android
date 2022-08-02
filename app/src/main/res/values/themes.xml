@@ -102,7 +102,7 @@
         <item name="contact_filter_toolbar_icon_tint">@color/signal_text_toolbar_subtitle</item>
     </style>
 
-    <style name="TextSecure.LightIntroTheme" parent="@style/TextSecure.LightTheme">
+    <style name="TextSecure.LightIntroTheme" parent="@style/Signal.DayNight.Registration">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/white</item>
