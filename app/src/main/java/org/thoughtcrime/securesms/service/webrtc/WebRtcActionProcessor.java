@@ -16,6 +16,7 @@ import org.signal.ringrtc.CallId;
 import org.signal.ringrtc.CallManager;
 import org.signal.ringrtc.CallManager.RingUpdate;
 import org.signal.ringrtc.GroupCall;
+import org.signal.ringrtc.NetworkRoute;
 import org.thoughtcrime.securesms.components.sensors.Orientation;
 import org.thoughtcrime.securesms.components.webrtc.BroadcastVideoSink;
 import org.thoughtcrime.securesms.components.webrtc.EglBaseWrapper;
@@ -255,8 +256,15 @@ public abstract class WebRtcActionProcessor {
     return currentState;
   }
 
-  protected @NonNull WebRtcServiceState handleSetTelecomApproved(@NonNull WebRtcServiceState currentState, long callId) {
+  protected @NonNull WebRtcServiceState handleSetTelecomApproved(@NonNull WebRtcServiceState currentState, long callId, RecipientId recipientId) {
     Log.i(tag, "handleSetTelecomApproved(): call_id: " + callId);
+
+    RemotePeer peer = currentState.getCallInfoState().getPeerByCallId(new CallId(callId));
+    if (peer == null || !peer.callIdEquals(currentState.getCallInfoState().getActivePeer())) {
+      Log.w(tag, "Received telecom approval after call terminated. callId: " + callId + " recipient: " + recipientId);
+      webRtcInteractor.terminateCall(recipientId);
+      return currentState;
+    }
 
     currentState = currentState.builder()
                                .changeCallSetupState(new CallId(callId))
@@ -545,6 +553,22 @@ public abstract class WebRtcActionProcessor {
   public @NonNull WebRtcServiceState handleNetworkChanged(@NonNull WebRtcServiceState currentState, boolean available) {
     Log.i(tag, "handleNetworkChanged not processed");
     return currentState;
+  }
+
+  protected @NonNull WebRtcServiceState handleNetworkRouteChanged(@NonNull WebRtcServiceState currentState, @NonNull NetworkRoute networkRoute) {
+    Log.i(tag, "onNetworkRouteChanged: localAdapterType: " + networkRoute.getLocalAdapterType());
+    try {
+      webRtcInteractor.getCallManager().updateBandwidthMode(NetworkUtil.getCallingBandwidthMode(context, networkRoute.getLocalAdapterType()));
+    } catch (CallException e) {
+      Log.w(tag, "Unable to update bandwidth mode on CallManager", e);
+    }
+
+    PeerConnection.AdapterType type = networkRoute.getLocalAdapterType();
+    return currentState.builder()
+                       .changeLocalDeviceState()
+                       .setNetworkConnectionType(type)
+                       .commit()
+                       .build();
   }
 
   protected @NonNull WebRtcServiceState handleBandwidthModeUpdate(@NonNull WebRtcServiceState currentState) {

@@ -172,17 +172,25 @@
   <string name="ContactsDatabase_message_s">ข้อความ %s</string>
   <string name="ContactsDatabase_signal_call_s">สาย Signal %s</string>
   <!--ContactNameEditActivity-->
+  <!--Toolbar title for contact name edit activity-->
+  <string name="ContactNameEditActivity__edit_name">แก้ไขชื่อ</string>
   <string name="ContactNameEditActivity_given_name">ชื่อ</string>
   <string name="ContactNameEditActivity_family_name">สกุล</string>
   <string name="ContactNameEditActivity_prefix">คำนำหน้า</string>
   <string name="ContactNameEditActivity_suffix">คำต่อท้าย</string>
   <string name="ContactNameEditActivity_middle_name">ชื่อกลาง</string>
   <!--ContactShareEditActivity-->
+  <!--ContactShareEditActivity toolbar title-->
+  <string name="ContactShareEditActivity__send_contact">ส่งผู้ติดต่อ</string>
   <string name="ContactShareEditActivity_type_home">บ้าน</string>
   <string name="ContactShareEditActivity_type_mobile">มือถือ</string>
   <string name="ContactShareEditActivity_type_work">ที่ทำงาน</string>
   <string name="ContactShareEditActivity_type_missing">ที่อื่น</string>
   <string name="ContactShareEditActivity_invalid_contact">ผู้ติดต่อที่เลือกไม่ถูกต้อง</string>
+  <!--Content descrption for name edit button on contact share edit activity-->
+  <string name="ContactShareEditActivity__edit_name">แก้ไขชื่อ</string>
+  <!--Content description for user avatar in edit activity-->
+  <string name="ContactShareEditActivity__avatar">อวตาร</string>
   <!--ConversationItem-->
   <string name="ConversationItem_error_not_sent_tap_for_details">ไม่ถูกส่ง แตะเพื่อดูรายละเอียด</string>
   <string name="ConversationItem_error_partially_not_delivered">ส่งแล้วบางส่วน แตะเพื่อดูรายละเอียด</string>
@@ -272,6 +280,8 @@
     <item quantity="other">%d ข้อความที่ยังไม่ได้อ่าน</item>
   </plurals>
   <!--ConversationFragment-->
+  <!--Toast text when contacts activity is not found-->
+  <string name="ConversationFragment__contacts_app_not_found">ไม่พบแอปรายชื่อติดต่อ</string>
   <plurals name="ConversationFragment_delete_selected_messages">
     <item quantity="other">ลบข้อความที่เลือกหรือไม่?</item>
   </plurals>
@@ -853,6 +863,8 @@
   <string name="Megaphones_use_sms">ใช้ SMS</string>
   <string name="Megaphones_appearance">หน้าตา</string>
   <string name="Megaphones_add_photo">เพิ่มรูปภาพ</string>
+  <!--Title of a bottom sheet to render messages that all quote a specific message-->
+  <string name="MessageQuotesBottomSheet_replies">ตอบกลับ</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">กำลังโทร Signal อยู่</string>
   <string name="NotificationBarManager__establishing_signal_call">กำลังต่อสาย Signal</string>
@@ -1066,9 +1078,7 @@
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">ไม่สามารถส่งข้อความจาก %s ได้</string>
   <string name="MessageRecord_s_changed_their_phone_number">%1$s เปลี่ยนเบอร์โทรศัพท์</string>
   <!--Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost.-->
-  <!-- Removed by excludeNonTranslatables <string name="MessageRecord_like_this_new_feature_say_thanks_with_a_boost">ชอบฟีเจอร์ใหม่นี้หรือไม่ ขอบคุณด้วย Boost สิ</string> -->
-  <!--Update item message shown in the release channel when someone is not a sustainer so we ask them to consider becoming one-->
-  <!-- Removed by excludeNonTranslatables <string name="MessageRecord_signal_is_powered_by_people_like_you_become_a_sustainer_today">Signal ขับเคลื่อนโดยผู้ใช้เช่นคุณ ขอเชิญมาเป็นผู้สนับสนุนของเรา</string> -->
+  <string name="MessageRecord_like_this_new_feature_help_support_signal_with_a_one_time_donation">ชอบฟีเจอร์ใหม่นี้ใช่ไหม ช่วยสนับสนุน Signal ด้วยการบริจาคแบบครั้งเดียว</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s ได้เริ่มการโทรแบบกลุ่ม %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s อยู่ในการโทรแบบกลุ่ม %2$s</string>
@@ -1489,6 +1499,8 @@
   <string name="ThreadRecord__you_sent_a_gift">คุณส่งของขวัญแล้ว</string>
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">คุณแลกโล่ของขวัญแล้ว</string>
+  <!--Displayed in the conversation list when someone reacted to your story-->
+  <!--Displayed in the conversation list when you reacted to someone\'s story-->
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">ปรับรุ่น Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly รุ่นใหม่มาแล้ว แตะเพื่อปรับรุ่น</string>
@@ -1744,9 +1756,7 @@
   <string name="ConversationUpdateItem_view">ดู</string>
   <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">เวลาข้อความหายไปจะตั้งค่าเป็น %1$s เมื่อคุณส่งข้อความให้พวกเขา</string>
   <!--Update item button text to show to boost a feature-->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationUpdateItem_signal_boost">Signal Boost</string> -->
-  <!--Update item button text to show to become a sustainer in the release notes channel-->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationUpdateItem_become_a_sustainer">เป็นผู้สนับสนุน</string> -->
+  <string name="ConversationUpdateItem_donate">บริจาค</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">เล่น … หยุดชั่วคราว</string>
   <string name="audio_view__download_accessibility_description">ดาวน์โหลด</string>
@@ -1979,16 +1989,16 @@
   <string name="HelpFragment__debug_log">ปูมดีบัก:</string>
   <string name="HelpFragment__could_not_upload_logs">ไม่สามารถอัปโหลดปูม</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">กรุณาอธิบายละเอียดที่สุดเท่าที่จะทำได้ เพื่อช่วยให้เราเข้าใจปัญหา</string>
-  <!-- Removed by excludeNonTranslatables <string-array name="HelpFragment__categories_3">
-    <item>\-\- กรุณาเลือกตัวเลือก 1 อย่าง \-\-</item>
+  <string-array name="HelpFragment__categories_4">
+    <item>\-\- กรุณาเลือกหนึ่งรายการ \-\-</item>
     <item>มีบางอย่างไม่ทำงาน</item>
     <item>คำขอฟีเจอร์</item>
     <item>คำถาม</item>
     <item>ข้อเสนอแนะ</item>
     <item>อื่นๆ</item>
     <item>การชำระเงิน (MobileCoin)</item>
-    <item>ผู้สนับสนุน &amp; Signal Boost</item>
-  </string-array> -->
+    <item>การบริจาคและโล่</item>
+  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">ข้อความนี้</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">เพิ่งใช้</string>
@@ -2223,6 +2233,7 @@
   <string name="preferences_enter_proxy_address">ป้อนที่อยู่พร็อกซี</string>
   <string name="configurable_single_select__customize_option">กำหนดการตั้งค่า</string>
   <!--Internal only preferences-->
+  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">กิจกรรมทั้งหมด</string>
   <string name="PaymentsAllActivityFragment__all">ทั้งหมด</string>
@@ -2876,6 +2887,9 @@
   <string name="CallParticipant__you">คุณ</string>
   <string name="CallParticipant__you_on_another_device">คุณ (อยู่บนอุปกรณ์เครื่องอื่น)</string>
   <string name="CallParticipant__s_on_another_device">%1$s (อยู่บนอุปกรณ์เครื่องอื่น)</string>
+  <!--WifiToCellularPopupWindow-->
+  <!--Message shown during a call when the WiFi network is unusable, and cellular data starts to be used for the call instead.-->
+  <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">Wi-Fi สัญญาณอ่อน กำลังใช้อินเทอร์เน็ตมือถือ</string>
   <!--DeleteAccountFragment-->
   <string name="DeleteAccountFragment__deleting_your_account_will">การลบบัญชีของคุณจะส่งผลให้:</string>
   <string name="DeleteAccountFragment__enter_your_phone_number">ป้อนหมายเลขโทรศัพท์ของคุณ</string>
@@ -3349,6 +3363,10 @@
   <string name="MultiselectForwardFragment__share_with">แบ่งปันกับ</string>
   <string name="MultiselectForwardFragment__add_a_message">เพิ่มข้อความ</string>
   <string name="MultiselectForwardFragment__faster_forwards">ส่งต่อเร็วขึ้น</string>
+  <!--Displayed when user selects a video that will be clipped before sharing to a story-->
+  <string name="MultiselectForwardFragment__videos_will_be_trimmed">วิดีโอจะถูกตัดเป็นคลิปยาว 30 วินาที และส่งเป็นสตอรี่หลายสตอรี่</string>
+  <!--Displayed when user selects a video that cannot be sent as a story-->
+  <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">วิดีโอที่ส่งเป็นสตอรี่ต้องมีความยาวไม่เกิน 30 วินาที</string>
   <string name="MultiselectForwardFragment__forwarded_messages_are_now">ข้อความที่ถูกส่งต่อจะถูกส่งทันที</string>
   <plurals name="MultiselectForwardFragment_send_d_messages">
     <item quantity="other">ส่ง %1$d ข้อความ</item>
@@ -3759,6 +3777,8 @@
   <string name="StoriesLandingItem__share">แชร์…</string>
   <!--Context menu option to go to story chat-->
   <string name="StoriesLandingItem__go_to_chat">ไปที่แชต</string>
+  <!--Context menu option to go to story info-->
+  <string name="StoriesLandingItem__info">ข้อมูล</string>
   <!--Label when a story is pending sending-->
   <string name="StoriesLandingItem__sending">กำลังส่ง…</string>
   <!--Label when multiple stories are pending sending-->
@@ -3801,6 +3821,8 @@
   <plurals name="StoryViewerFragment__d_replies">
     <item quantity="other">ตอบกลับ %1$d</item>
   </plurals>
+  <!--Used when view receipts are disabled-->
+  <string name="StoryViewerPageFragment__views_off">ปิดการแจ้งว่าอ่านแล้ว</string>
   <!--Used to join views and replies when both exist on a story item-->
   <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
   <!--Displayed when viewing a post you sent-->
@@ -3813,6 +3835,10 @@
   <string name="StoryViewerPageFragment__reply_to_group">ตอบกลับกลุ่ม</string>
   <!--Displayed when a story has no views-->
   <string name="StoryViewsFragment__no_views_yet">ยังไม่มีคนดู</string>
+  <!--Displayed when user has disabled receipts-->
+  <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">เปิดใช้ตัวเลือกการแจ้งว่าอ่านแล้ว เพื่อแสดงว่าใครดูสตอรี่ของคุณ</string>
+  <!--Button label displayed when user has disabled receipts-->
+  <string name="StoryViewsFragment__go_to_settings">ไปที่การตั้งค่า</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">ยังไม่มีการตอบกลับ</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3845,10 +3871,28 @@
   <string name="MyStorySettingsFragment__who_can_see_this_story">ใครที่เห็นสตอรี่นี้ได้บ้าง</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">ซ่อนสตอรี่จาก</string>
-  <!--Summary of clickable option displaying how many people you have hidden your story from-->
+  <!--Privacy setting title for sending stories to all your signal connections-->
+  <string name="MyStorySettingsFragment__all_signal_connections">เครือข่าย Signal ทั้งหมด</string>
+  <!--Privacy setting description for sending stories to all your signal connections-->
+  <string name="MyStorySettingsFragment__share_with_all_connections"> แบ่งปันกับผู้ติดต่อทั้งหมด</string>
+  <!--Privacy setting title for sending stories to all except the specified connections-->
+  <string name="MyStorySettingsFragment__all_signal_connections_except">เครือข่าย Signal ทั้งหมด ยกเว้น…</string>
+  <!--Privacy setting description for sending stories to all except the specified connections-->
+  <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">ซ่อนสตอรี่ของคุณจากบางคน</string>
+  <!--Summary of clickable option displaying how many people you have excluded from your story-->
+  <plurals name="MyStorySettingsFragment__d_people_excluded">
+    <item quantity="other">ซ่อนจาก %1$d คน</item>
+  </plurals>
+  <!--Privacy setting title for only sharing your story with specified connections-->
+  <string name="MyStorySettingsFragment__only_share_with">แชร์ให้เฉพาะ…</string>
+  <!--Privacy setting description for only sharing your story with specified connections-->
+  <string name="MyStorySettingsFragment__only_share_with_selected_people">แชร์ให้เฉพาะคนที่เลือกเท่านั้น</string>
+  <!--Summary of clickable option displaying how many people you have included to send to in your story-->
   <plurals name="MyStorySettingsFragment__d_people">
     <item quantity="other">%1$d คน</item>
   </plurals>
+  <!--My story privacy fine print about what the privacy settings are for-->
+  <string name="MyStorySettingsFragment__choose_who_can_view_your_story">เลือกว่าจะให้ใครเห็นสตอรี่ของคุณบ้าง การเปลี่ยนแปลงจะไม่ส่งผลต่อสตอรี่ที่ส่งไปแล้ว</string>
   <!--Section header for options related to replies and reactions-->
   <string name="MyStorySettingsFragment__replies_amp_reactions">การตอบกลับ &amp; การตอบสนอง</string>
   <!--Switchable option for allowing replies and reactions on your stories-->
@@ -3857,10 +3901,10 @@
   <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">ให้คนที่ดูสตอรี่คุณตอบสนองและตอบกลับ</string>
   <!--Note about default sharing-->
   <string name="MyStorySettingsFragment__hide_your_story_from">ซ่อนสตอรี่จากคนบางคน ในค่าเริ่มต้น สตอรี่ของคุณจะถูกแชร์กับ %1$s ของคุณ</string>
-  <!--Signal connections linked text that opens the Signal Connections sheet-->
-  <!-- Removed by excludeNonTranslatables <string name="MyStorySettingsFragment__signal_connections">สายสัมพันธ์ Signal</string> -->
+  <!--Signal connections bolded text in the Signal Connections sheet-->
+  <string name="SignalConnectionsBottomSheet___signal_connections">เครือข่าย Signal</string>
   <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
-  <string name="SignalConnectionsBottomSheet__signal_connections_are_people"><strong>สายสัมพันธ์ Signal</strong> คือคนที่คุณได้เลือกที่จะไว้ใจ โดย</string>
+  <string name="SignalConnectionsBottomSheet__signal_connections_are_people">เครือข่าย Signal คือคนที่คุณได้เลือกที่จะไว้ใจ โดย:</string>
   <!--Signal connections sheet bullet point 1-->
   <string name="SignalConnectionsBottomSheet__starting_a_conversation">กำลังเริ่มต้นการสนทนา</string>
   <!--Signal connections sheet bullet point 2-->
@@ -3909,8 +3953,10 @@
   <string name="TextStoryPostSendFragment__search">ค้นหา</string>
   <!--Toast shown when an unexpected error occurs while sending a text story-->
   <string name="TextStoryPostSendFragment__an_unexpected_error_occurred_try_again">มีข้อผิดพลาดที่ไม่คาดคิดเกิดขึ้น</string>
-  <!--Title for screen allowing user to hide "My Story" entries from specific people-->
-  <!-- Removed by excludeNonTranslatables <string name="HideStoryFromFragment__hide_story_from">ซ่อนสตอรี่จาก…</string> -->
+  <!--Title for screen allowing user to exclude "My Story" entries from specific people-->
+  <string name="ChangeMyStoryMembershipFragment__all_except">ทุกคน ยกเว้น…</string>
+  <!--Title for screen allowing user to only share "My Story" entries with specific people-->
+  <string name="ChangeMyStoryMembershipFragment__only_share_with">แชร์ให้เฉพาะ…</string>
   <!--Done button label for hide story from screen-->
   <string name="HideStoryFromFragment__done">เสร็จสิ้น</string>
   <!--Dialog title for first time adding something to a story-->
@@ -4001,7 +4047,7 @@
   <!--Content description for expand contacts chevron-->
   <string name="ExpandModel__view_more">ดูเพิ่มเติม</string>
   <string name="StoriesLinkPopup__visit_link">ไปที่ลิงก์</string>
-  <!--Duration and price information-->
+  <!--Gift price and duration, formatted as: {price} dot {n} day duration-->
   <plurals name="GiftRowItem_s_dot_d_day_duration">
     <item quantity="other">ช่วงระยะเวลา %1$s · %2$d วัน</item>
   </plurals>
@@ -4063,6 +4109,26 @@
   <plurals name="ContactSearchItems__group_story_d_viewers">
     <item quantity="other">สตอรี่กลุ่ม · ผู้ชม %1$d </item>
   </plurals>
+  <!--Label under name for My Story when first sending to my story-->
+  <string name="ContactSearchItems__tap_to_choose_your_viewers">แตะเพื่อเลือกผู้ชมสตอรี่ของคุณ</string>
+  <!--Label for context menu item to open story settings-->
+  <string name="ContactSearchItems__story_settings">การตั้งค่าสตอรี่</string>
+  <!--Label for context menu item to remove a group story from contact results-->
+  <string name="ContactSearchItems__remove_story">ลบสตอรี่</string>
+  <!--Label for context menu item to delete a private story-->
+  <string name="ContactSearchItems__delete_story">ลบสตอรี่</string>
+  <!--Dialog title for removing a group story-->
+  <string name="ContactSearchMediator__remove_group_story">ลบสตอรี่กลุ่มใช่หรือไม่</string>
+  <!--Dialog message for removing a group story-->
+  <string name="ContactSearchMediator__this_will_remove">สตอรี่จะถูกลบออกจากรายการนี้ คุณจะยังสามารถรับชมสตอรี่จากกลุ่มนี้ได้</string>
+  <!--Dialog action item for removing a group story-->
+  <string name="ContactSearchMediator__remove">ลบ</string>
+  <!--Dialog title for deleting a private story-->
+  <string name="ContactSearchMediator__delete_story">ลบสตอรี่</string>
+  <!--Dialog message for deleting a private story-->
+  <string name="ContactSearchMediator__delete_the_private">ลบสตอรี่ส่วนตัว \"%1$s\" ใช่หรือไม่</string>
+  <!--Dialog action item for deleting a private story-->
+  <string name="ContactSearchMediator__delete">ลบ</string>
   <!--Gift expiry days remaining-->
   <plurals name="Gifts__d_days_remaining">
     <item quantity="other">เหลือ %1$d วัน</item>
@@ -4077,5 +4143,77 @@
   </plurals>
   <!--Gift expiry expired-->
   <string name="Gifts__expired">หมดอายุ</string>
+  <!--Label indicating that a user can tap to advance to the next post in a story-->
+  <string name="StoryFirstTimeNavigationView__tap_to_advance">แตะเพื่อดูโพสต์ต่อไป</string>
+  <!--Label indicating swipe direction to skip current story-->
+  <string name="StoryFirstTimeNavigationView__swipe_up_to_skip">ปัดขึ้นเพื่อข้าม</string>
+  <!--Label indicating swipe direction to exit story viewer-->
+  <string name="StoryFirstTimeNavigationView__swipe_right_to_exit">ปัดขวาเพื่อออก</string>
+  <!--Button label to confirm understanding of story navigation-->
+  <string name="StoryFirstTimeNagivationView__got_it">เข้าใจแล้ว</string>
+  <!--Content description for vertical context menu button in safety number sheet rows-->
+  <string name="SafetyNumberRecipientRowItem__open_context_menu">เปิดเมนูลัด</string>
+  <!--Sub-line when a user is verified.-->
+  <string name="SafetyNumberRecipientRowItem__s_dot_verified">%1$s · ตรวจยืนยันแล้ว</string>
+  <!--Sub-line when a user is verified.-->
+  <string name="SafetyNumberRecipientRowItem__verified">ตรวจยืนยันแล้ว</string>
+  <!--Title of safety number changes bottom sheet when showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__safety_number_changes">การเปลี่ยนแปลงหมายเลขความปลอดภัย</string>
+  <!--Message of safety number changes bottom sheet when showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__the_following_people">ผู้ติดต่อต่อไปนี้อาจติดตั้ง Signal ใหม่หรือเปลี่ยนอุปกรณ์ แตะที่ผู้ติดต่อเพื่อยืนยันหมายเลขความปลอดภัยใหม่ ขั้นตอนนี้จะทำหรือไม่ก็ได้</string>
+  <!--Title of safety number changes bottom sheet when not showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__safety_number_checkup">ตรวจสอบหมายเลขความปลอดภัย</string>
+  <!--Title of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <string name="SafetyNumberBottomSheetFragment__safety_number_checkup_complete">ตรวจสอบหมายเลขความปลอดภัยเรียบร้อย</string>
+  <!--Message of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">ตรวจสอบผู้ติดต่อทั้งหมดแล้ว แตะส่งเพื่อดำเนินการต่อ</string>
+  <!--Message of safety number changes bottom sheet when not showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">คุณมีผู้ติดต่อ %1$d คน ที่อาจติดตั้ง Signal ใหม่หรือเปลี่ยนอุปกรณ์ ก่อนที่คุณจะแบ่งปันสตอรี่กับผู้ติดต่อดังกล่าว ลองตรวจสอบหมายเลขความปลอดภัยหรือลบผู้ติดต่อออกจากสตอรี่ของคุณ</string>
+  <!--Menu action to launch safety number verification screen-->
+  <string name="SafetyNumberBottomSheetFragment__verify_safety_number">ตรวจยืนยันหมายเลขความปลอดภัย</string>
+  <!--Menu action to remove user from story-->
+  <string name="SafetyNumberBottomSheetFragment__remove_from_story">ลบจากสตอรี่</string>
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to send anyway-->
+  <string name="SafetyNumberBottomSheetFragment__send_anyway">ยืนยันที่จะส่ง</string>
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to review connections-->
+  <string name="SafetyNumberBottomSheetFragment__review_connections">ตรวจสอบผู้ติดต่อ</string>
+  <!--Empty state copy for SafetyNumberBottomSheetFragment-->
+  <string name="SafetyNumberBottomSheetFragment__no_more_recipients_to_show">ไม่มีผู้ติดต่ออยู่ในรายการแล้ว</string>
+  <!--Done button on safety number review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__done">เสร็จสิ้น</string>
+  <!--Title of safety number review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__safety_number_changes">การเปลี่ยนแปลงหมายเลขความปลอดภัย</string>
+  <!--Message of safety number review fragment-->
+  <plurals name="SafetyNumberReviewConnectionsFragment__d_recipients_may_have">
+    <item quantity="other">ผู้รับ %1$d คน อาจติดตั้ง Signal ใหม่หรือเปลี่ยนอุปกรณ์ แตะที่ผู้ติดต่อเพื่อยืนยันหมายเลขความปลอดภัยใหม่ ขั้นตอนนี้จะทำหรือไม่ก็ได้</item>
+  </plurals>
+  <!--Section header for 1:1 contacts in review fragment-->
+  <string name="SafetyNumberBucketRowItem__contacts">ผู้ติดต่อ</string>
+  <!--Context menu label for distribution list headers in review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__remove_all">ลบทั้งหมด</string>
+  <!--Context menu label for 1:1 contacts to remove from send-->
+  <string name="SafetyNumberReviewConnectionsFragment__remove">ลบ</string>
+  <!--Title of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__my_story_privacy">ความเป็นส่วนตัวของสตอรี่</string>
+  <!--Subtitle of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings">เลือกว่าจะให้ใครเห็นโพสต์ในสตอรี่ของฉัน คุณสามารถเปลี่ยนแปลงได้ทุกเมื่อในการตั้งค่า</string>
+  <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">เครือข่าย Signal ทั้งหมด</string>
+  <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">เครือข่าย Signal ทั้งหมด ยกเว้น…</string>
+  <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">แบ่งปันให้เฉพาะ…</string>
+  <!--Story info header sent heading-->
+  <string name="StoryInfoHeader__sent">ส่งแล้ว</string>
+  <!--Story info header received heading-->
+  <string name="StoryInfoHeader__received">ได้รับแล้ว</string>
+  <!--Story info header file size heading-->
+  <string name="StoryInfoHeader__file_size">ขนาดไฟล์</string>
+  <!--Story info "Sent to" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_to">ส่งถึง</string>
+  <!--Story info "Sent from" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_from">ส่งจาก</string>
+  <!--Story Info context menu label-->
+  <string name="StoryInfoBottomSheetDialogFragment__info">ข้อมูล</string>
   <!--EOF-->
 </resources>

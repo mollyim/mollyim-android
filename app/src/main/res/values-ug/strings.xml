@@ -168,17 +168,21 @@
   <string name="ContactsDatabase_message_s">ئۇچۇر%s</string>
   <string name="ContactsDatabase_signal_call_s">Signal چاقىرغىنى %s</string>
   <!--ContactNameEditActivity-->
+  <!--Toolbar title for contact name edit activity-->
   <string name="ContactNameEditActivity_given_name">ئىسىم</string>
   <string name="ContactNameEditActivity_family_name">تەگئات</string>
   <string name="ContactNameEditActivity_prefix">ئاتاق</string>
   <string name="ContactNameEditActivity_suffix">قوشۇمچە نام</string>
   <string name="ContactNameEditActivity_middle_name">ئوتتۇرانچى ئىسىم</string>
   <!--ContactShareEditActivity-->
+  <!--ContactShareEditActivity toolbar title-->
   <string name="ContactShareEditActivity_type_home">ئۆي</string>
   <string name="ContactShareEditActivity_type_mobile">يانفون</string>
   <string name="ContactShareEditActivity_type_work">خىزمەت</string>
   <string name="ContactShareEditActivity_type_missing">باشقىلار</string>
   <string name="ContactShareEditActivity_invalid_contact">تاللانغان ئالاقەداش ئىناۋەتسىز</string>
+  <!--Content descrption for name edit button on contact share edit activity-->
+  <!--Content description for user avatar in edit activity-->
   <!--ConversationItem-->
   <string name="ConversationItem_error_not_sent_tap_for_details">ئەۋەتىلمىدى، تەپسىلاتلار ئۈچۈن چېكىڭ</string>
   <string name="ConversationItem_error_partially_not_delivered">قىسمەن ئەۋەتىلدى، تەپسىلاتلار ئۈچۈن چېكىڭ</string>
@@ -267,6 +271,7 @@
     <item quantity="other">%dئوقۇلمىغان ئۇچۇر</item>
   </plurals>
   <!--ConversationFragment-->
+  <!--Toast text when contacts activity is not found-->
   <plurals name="ConversationFragment_delete_selected_messages">
     <item quantity="one">تاللانغان ئۇچۇرنى ئۆچۈرەمسىز؟</item>
     <item quantity="other">تاللانغان ئۇچۇرلارنى ئۆچۈرەمدۇ؟</item>
@@ -824,6 +829,7 @@
   <string name="Megaphones_use_sms">قىسقا ئۇچۇر ئىشلىتىش</string>
   <string name="Megaphones_appearance">كۆرۈنۈش</string>
   <string name="Megaphones_add_photo">رەسىم قوش</string>
+  <!--Title of a bottom sheet to render messages that all quote a specific message-->
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal چاقىرىشى داۋاملىشىۋاتىدۇ</string>
   <string name="NotificationBarManager__establishing_signal_call">Signal چاقىرىشى قۇرۇلۇۋاتىدۇ</string>
@@ -1040,7 +1046,6 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">باشقا بىر ئۈسكۈنىدە  %s بىلەن بولغان بىخەتەرلىك نومۇرىڭىزغا دەلىللەنمىدى بەلگىسى سالدىڭىز.</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">%s نىڭ بىر ئۇچۇرىنى يەتكۈزەلمىدى</string>
   <!--Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost.-->
-  <!--Update item message shown in the release channel when someone is not a sustainer so we ask them to consider becoming one-->
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s گۇرۇپپىغا چاقىرىشىنى باشلىدى. %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s گۇرۇپپا چاقىرىقىدا. %2$s</string>
@@ -1442,6 +1447,8 @@
   <!--Displayed in the notification when the user is sent a gift-->
   <!--Displayed in the notification when the user sends a gift-->
   <!--Displayed in the notification when the user has opened a received gift-->
+  <!--Displayed in the conversation list when someone reacted to your story-->
+  <!--Displayed in the conversation list when you reacted to someone\'s story-->
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Molly يېڭىلاش</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly نىڭ يېڭى نەشرى باركەن، چېكىپ يېڭىلاڭ</string>
@@ -1692,7 +1699,7 @@
   <string name="ConversationUpdateItem_view">كۆرسەت</string>
   <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">سىز ئۇلارغا ئۇچۇر يوللىغاندا غايىب ئۇچۇر ۋاقتى %1$s غا تەڭشەلدى.</string>
   <!--Update item button text to show to boost a feature-->
-  <!--Update item button text to show to become a sustainer in the release notes channel-->
+  <string name="ConversationUpdateItem_donate">ئىئانە قىلىڭ</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">قوي… تورمۇزلا</string>
   <string name="audio_view__download_accessibility_description">چۈشۈر</string>
@@ -2807,6 +2814,8 @@
   <string name="CallParticipant__you">سىز</string>
   <string name="CallParticipant__you_on_another_device">سىز (يەنە بىر ئۈسكۈنىدە)</string>
   <string name="CallParticipant__s_on_another_device">%1$s (يەنە بىر ئۈسكۈنىدە)</string>
+  <!--WifiToCellularPopupWindow-->
+  <!--Message shown during a call when the WiFi network is unusable, and cellular data starts to be used for the call instead.-->
   <!--DeleteAccountFragment-->
   <string name="DeleteAccountFragment__deleting_your_account_will">ھېساباتىڭىزنى ئۆچۈرۈۋېتىش:</string>
   <string name="DeleteAccountFragment__enter_your_phone_number">تېلېفون نومۇرىڭىزنى كىرگۈزۈڭ</string>
@@ -3262,6 +3271,8 @@
   <string name="MultiselectForwardFragment__share_with">ھەمبەھىرلەنگۈچى</string>
   <string name="MultiselectForwardFragment__add_a_message">بىز ئۇچۇر قوش</string>
   <string name="MultiselectForwardFragment__faster_forwards">تېزراق ئۇلاپ يوللاش</string>
+  <!--Displayed when user selects a video that will be clipped before sharing to a story-->
+  <!--Displayed when user selects a video that cannot be sent as a story-->
   <string name="MultiselectForwardFragment__forwarded_messages_are_now">ئۇلاپ يوللانغان ئۇچۇرلار ئەمدى دەرھال ئەۋەتىلىدۇ.</string>
   <plurals name="MultiselectForwardFragment_send_d_messages">
     <item quantity="one">‏%1$d ئۇچۇر يوللا</item>
@@ -3497,6 +3508,8 @@
   <string name="StoriesLandingItem__forward">ئۇلاپ يوللا</string>
   <!--Context menu option to share a story-->
   <!--Context menu option to go to story chat-->
+  <!--Context menu option to go to story info-->
+  <string name="StoriesLandingItem__info">ئۇچۇر</string>
   <!--Label when a story is pending sending-->
   <string name="StoriesLandingItem__sending">ئەۋەتىلىۋاتىدۇ…</string>
   <!--Label when multiple stories are pending sending-->
@@ -3519,6 +3532,7 @@
   <!--Toast shown when story media cannot be saved-->
   <!--Displayed at bottom of story viewer when current item has views-->
   <!--Displayed at bottom of story viewer when current item has replies-->
+  <!--Used when view receipts are disabled-->
   <!--Used to join views and replies when both exist on a story item-->
   <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
   <!--Displayed when viewing a post you sent-->
@@ -3529,6 +3543,8 @@
   <string name="StoryViewerPageFragment__reply">جاۋاب</string>
   <!--Label for the reply button in story viewer, which will launch the group story replies bottom sheet.-->
   <!--Displayed when a story has no views-->
+  <!--Displayed when user has disabled receipts-->
+  <!--Button label displayed when user has disabled receipts-->
   <!--Displayed when a story has no replies yet-->
   <!--Displayed for each user that reacted to a story when viewing replies-->
   <!--Label for story views tab-->
@@ -3547,12 +3563,20 @@
   <!--Page title for My Story options-->
   <!--Section heading for story visibility-->
   <!--Clickable option for selecting people to hide your story from-->
-  <!--Summary of clickable option displaying how many people you have hidden your story from-->
+  <!--Privacy setting title for sending stories to all your signal connections-->
+  <!--Privacy setting description for sending stories to all your signal connections-->
+  <!--Privacy setting title for sending stories to all except the specified connections-->
+  <!--Privacy setting description for sending stories to all except the specified connections-->
+  <!--Summary of clickable option displaying how many people you have excluded from your story-->
+  <!--Privacy setting title for only sharing your story with specified connections-->
+  <!--Privacy setting description for only sharing your story with specified connections-->
+  <!--Summary of clickable option displaying how many people you have included to send to in your story-->
+  <!--My story privacy fine print about what the privacy settings are for-->
   <!--Section header for options related to replies and reactions-->
   <!--Switchable option for allowing replies and reactions on your stories-->
   <!--Summary for switchable option allowing replies and reactions on your story-->
   <!--Note about default sharing-->
-  <!--Signal connections linked text that opens the Signal Connections sheet-->
+  <!--Signal connections bolded text in the Signal Connections sheet-->
   <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
   <!--Signal connections sheet bullet point 1-->
   <!--Signal connections sheet bullet point 2-->
@@ -3583,7 +3607,8 @@
   <!--Hint text for searching for a story text post recipient.-->
   <string name="TextStoryPostSendFragment__search">ئىزدە</string>
   <!--Toast shown when an unexpected error occurs while sending a text story-->
-  <!--Title for screen allowing user to hide "My Story" entries from specific people-->
+  <!--Title for screen allowing user to exclude "My Story" entries from specific people-->
+  <!--Title for screen allowing user to only share "My Story" entries with specific people-->
   <!--Done button label for hide story from screen-->
   <string name="HideStoryFromFragment__done">بولدى</string>
   <!--Dialog title for first time adding something to a story-->
@@ -3638,7 +3663,7 @@
   <!--Conversation Item label for reactions to an unavailable story-->
   <!--endregion-->
   <!--Content description for expand contacts chevron-->
-  <!--Duration and price information-->
+  <!--Gift price and duration, formatted as: {price} dot {n} day duration-->
   <!--Tagline for gift row items-->
   <!--Headline text on start fragment for gifting a badge-->
   <!--Description text on start fragment for gifting a badge-->
@@ -3671,9 +3696,68 @@
   <string name="ExpiredGiftSheetConfiguration__not_now">ھازىر ئەمەس</string>
   <!--Label under name for private stories-->
   <!--Label under name for group stories-->
+  <!--Label under name for My Story when first sending to my story-->
+  <!--Label for context menu item to open story settings-->
+  <!--Label for context menu item to remove a group story from contact results-->
+  <!--Label for context menu item to delete a private story-->
+  <!--Dialog title for removing a group story-->
+  <!--Dialog message for removing a group story-->
+  <!--Dialog action item for removing a group story-->
+  <string name="ContactSearchMediator__remove">چىقىرىۋەت</string>
+  <!--Dialog title for deleting a private story-->
+  <!--Dialog message for deleting a private story-->
+  <!--Dialog action item for deleting a private story-->
+  <string name="ContactSearchMediator__delete">ئۆچۈر</string>
   <!--Gift expiry days remaining-->
   <!--Gift expiry hours remaining-->
   <!--Gift expiry minutes remaining-->
   <!--Gift expiry expired-->
+  <!--Label indicating that a user can tap to advance to the next post in a story-->
+  <!--Label indicating swipe direction to skip current story-->
+  <!--Label indicating swipe direction to exit story viewer-->
+  <!--Button label to confirm understanding of story navigation-->
+  <string name="StoryFirstTimeNagivationView__got_it">بىلدىم</string>
+  <!--Content description for vertical context menu button in safety number sheet rows-->
+  <!--Sub-line when a user is verified.-->
+  <!--Sub-line when a user is verified.-->
+  <string name="SafetyNumberRecipientRowItem__verified">دەلىللەندى</string>
+  <!--Title of safety number changes bottom sheet when showing individual records-->
+  <!--Message of safety number changes bottom sheet when showing individual records-->
+  <!--Title of safety number changes bottom sheet when not showing individual records-->
+  <!--Title of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <!--Message of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <!--Message of safety number changes bottom sheet when not showing individual records-->
+  <!--Menu action to launch safety number verification screen-->
+  <string name="SafetyNumberBottomSheetFragment__verify_safety_number">بىخەتەرلىك نومۇر دەلىللە</string>
+  <!--Menu action to remove user from story-->
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to send anyway-->
+  <string name="SafetyNumberBottomSheetFragment__send_anyway">نىمىلا بولمىسۇن ئەۋەت</string>
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to review connections-->
+  <!--Empty state copy for SafetyNumberBottomSheetFragment-->
+  <!--Done button on safety number review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__done">بولدى</string>
+  <!--Title of safety number review fragment-->
+  <!--Message of safety number review fragment-->
+  <!--Section header for 1:1 contacts in review fragment-->
+  <string name="SafetyNumberBucketRowItem__contacts">ئالاقەداشلار</string>
+  <!--Context menu label for distribution list headers in review fragment-->
+  <!--Context menu label for 1:1 contacts to remove from send-->
+  <string name="SafetyNumberReviewConnectionsFragment__remove">چىقىرىۋەت</string>
+  <!--Title of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--Subtitle of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--Story info header sent heading-->
+  <string name="StoryInfoHeader__sent">يوللانغان</string>
+  <!--Story info header received heading-->
+  <string name="StoryInfoHeader__received">تاپشۇرۇۋېلىنغان</string>
+  <!--Story info header file size heading-->
+  <!--Story info "Sent to" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_to">يوللانغۇچى</string>
+  <!--Story info "Sent from" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_from">يوللىغۇچى</string>
+  <!--Story Info context menu label-->
+  <string name="StoryInfoBottomSheetDialogFragment__info">ئۇچۇر</string>
   <!--EOF-->
 </resources>

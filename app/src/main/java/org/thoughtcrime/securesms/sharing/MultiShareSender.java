@@ -17,10 +17,10 @@ import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SimpleTask;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.attachments.Attachment;
-import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey;
 import org.thoughtcrime.securesms.conversation.MessageSendType;
 import org.thoughtcrime.securesms.conversation.colors.ChatColors;
+import org.thoughtcrime.securesms.database.AttachmentDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.Mention;
@@ -32,9 +32,10 @@ import org.thoughtcrime.securesms.keyvalue.StorySend;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.mediasend.v2.text.TextStoryBackgroundColors;
+import org.thoughtcrime.securesms.mms.ImageSlide;
 import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
 import org.thoughtcrime.securesms.mms.OutgoingSecureMediaMessage;
-import org.thoughtcrime.securesms.mms.PartAuthority;
+import org.thoughtcrime.securesms.mms.SentMediaQuality;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.mms.SlideFactory;
@@ -54,6 +55,7 @@ import org.thoughtcrime.securesms.util.Util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -250,14 +252,14 @@ public final class MultiShareSender {
                                                     .flatMap(slide -> {
                                                       if (slide instanceof VideoSlide) {
                                                         return expandToClips(context, (VideoSlide) slide).stream();
+                                                      } else if (slide instanceof ImageSlide) {
+                                                        return java.util.stream.Stream.of(ensureDefaultQuality(context, (ImageSlide) slide));
                                                       } else {
                                                         return java.util.stream.Stream.of(slide);
                                                       }
                                                     })
                                                     .filter(it -> MediaUtil.isStorySupportedType(it.getContentType()))
                                                     .collect(Collectors.toList());
-
-        // For each video slide, we want to convert it into a media, then clip it, and then transform it BACK into a slide.
 
         for (final Slide slide : storySupportedSlides) {
           SlideDeck singletonDeck = new SlideDeck();
@@ -329,6 +331,26 @@ public final class MultiShareSender {
       return Collections.emptyList();
     } else {
       return Collections.singletonList(videoSlide);
+    }
+  }
+
+  private static Slide ensureDefaultQuality(@NonNull Context context, @NonNull ImageSlide imageSlide) {
+    Attachment attachment = imageSlide.asAttachment();
+    if (attachment.getTransformProperties().getSentMediaQuality() == SentMediaQuality.HIGH.getCode()) {
+      return new ImageSlide(
+          context,
+          attachment.getUri(),
+          attachment.getContentType(),
+          attachment.getSize(),
+          attachment.getWidth(),
+          attachment.getHeight(),
+          attachment.isBorderless(),
+          attachment.getCaption(),
+          attachment.getBlurHash(),
+          AttachmentDatabase.TransformProperties.empty()
+      );
+    } else {
+      return imageSlide;
     }
   }
 
@@ -418,7 +440,7 @@ public final class MultiShareSender {
       slideDeck.addSlide(new StickerSlide(context, multiShareArgs.getDataUri(), 0, multiShareArgs.getStickerLocator(), multiShareArgs.getDataType()));
     } else if (!multiShareArgs.getMedia().isEmpty()) {
       for (Media media : multiShareArgs.getMedia()) {
-        Slide slide = SlideFactory.getSlide(context, media.getMimeType(), media.getUri(), media.getWidth(), media.getHeight());
+        Slide slide = SlideFactory.getSlide(context, media.getMimeType(), media.getUri(), media.getWidth(), media.getHeight(), media.getTransformProperties().orElse(null));
         if (slide != null) {
           slideDeck.addSlide(slide);
         } else {
@@ -426,7 +448,7 @@ public final class MultiShareSender {
         }
       }
     } else if (multiShareArgs.getDataUri() != null) {
-      Slide slide = SlideFactory.getSlide(context, multiShareArgs.getDataType(), multiShareArgs.getDataUri(), 0, 0);
+      Slide slide = SlideFactory.getSlide(context, multiShareArgs.getDataType(), multiShareArgs.getDataUri(), 0, 0, null);
       if (slide != null) {
         slideDeck.addSlide(slide);
       } else {
@@ -441,10 +463,7 @@ public final class MultiShareSender {
     if (mentions.isEmpty() || !recipient.isPushV2Group() || !recipient.isActiveGroup()) {
       return Collections.emptyList();
     } else {
-      Set<RecipientId> validRecipientIds = recipient.getParticipants()
-                                                    .stream()
-                                                    .map(Recipient::getId)
-                                                    .collect(Collectors.toSet());
+      Set<RecipientId> validRecipientIds = new HashSet<>(recipient.getParticipantIds());
 
       return mentions.stream()
                      .filter(mention -> validRecipientIds.contains(mention.getRecipientId()))

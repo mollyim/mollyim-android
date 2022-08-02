@@ -28,6 +28,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.text.Annotation;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -43,6 +44,7 @@ import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.TouchDelegate;
 import android.view.View;
@@ -145,8 +147,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -174,8 +174,6 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   private static final int   SHRINK_BUBBLE_DELAY_MILLIS = 100;
   private static final long  MAX_CLUSTERING_TIME_DIFF   = TimeUnit.MINUTES.toMillis(3);
   private static final int   CONDENSED_MODE_MAX_LINES   = 3;
-
-  private static final Pattern NOT_URL_PATTERN = Pattern.compile("[^a-zA-Z0-9-._~:/?#\\[\\]@!$&'()\\*+,;=]");
 
   private ConversationMessage     conversationMessage;
   private MessageRecord           messageRecord;
@@ -1463,26 +1461,12 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     }
 
     if (hasLinks) {
-      URLSpan[] urlSpans = messageBody.getSpans(0, messageBody.length(), URLSpan.class);
-
-      for (URLSpan urlSpan : urlSpans) {
-        int start = messageBody.getSpanStart(urlSpan);
-        int end   = messageBody.getSpanEnd(urlSpan);
-
-        Matcher matcher = NOT_URL_PATTERN.matcher(messageBody.toString().substring(end));
-        if (matcher.find()) {
-          int     newEnd  = end + matcher.start();
-          URLSpan newSpan = new URLSpan(messageBody.toString().substring(start, newEnd));
-          messageBody.removeSpan(urlSpan);
-          messageBody.setSpan(newSpan, start, newEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-      }
-
-      Stream.of(urlSpans)
+      Stream.of(messageBody.getSpans(0, messageBody.length(), URLSpan.class))
             .filterNot(url -> LinkUtil.isLegalUrl(url.getURL()))
             .forEach(messageBody::removeSpan);
 
-      urlSpans = messageBody.getSpans(0, messageBody.length(), URLSpan.class);
+      URLSpan[] urlSpans = messageBody.getSpans(0, messageBody.length(), URLSpan.class);
+
       for (URLSpan urlSpan : urlSpans) {
         int     start = messageBody.getSpanStart(urlSpan);
         int     end   = messageBody.getSpanEnd(urlSpan);

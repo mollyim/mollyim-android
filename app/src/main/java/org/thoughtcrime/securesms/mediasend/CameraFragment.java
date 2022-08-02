@@ -5,13 +5,14 @@ import android.content.res.Configuration;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil;
 import org.thoughtcrime.securesms.mms.MediaConstraints;
 
 import java.io.FileDescriptor;
 import java.util.Optional;
+
+import io.reactivex.rxjava3.core.Flowable;
 
 public interface CameraFragment {
 
@@ -53,9 +54,8 @@ public interface CameraFragment {
     void onVideoCaptured(@NonNull FileDescriptor fd);
     void onVideoCaptureError();
     void onGalleryClicked();
-    int getDisplayRotation();
     void onCameraCountButtonClicked();
-    @NonNull LiveData<Optional<Media>> getMostRecentMediaItem();
+    @NonNull Flowable<Optional<Media>> getMostRecentMediaItem();
     @NonNull MediaConstraints getMediaConstraints();
     int getMaxVideoDuration();
   }

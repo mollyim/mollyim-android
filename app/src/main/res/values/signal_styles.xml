@@ -78,7 +78,7 @@
         <item name="android:textColor">@color/signal_button_secondary_text_selector</item>
         <item name="background">@color/signal_background_tertiary</item>
         <item name="rippleColor">@color/core_ultramarine</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Signal.Button.Rounded</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Signal.Circle</item>
     </style>
 
     <style name="Widget.Signal.Button.Small" parent="Widget.Material3.Button.TonalButton">
@@ -125,6 +125,11 @@
     <style name="Signal.Widget.Button.Medium.Secondary" parent="@style/Signal.Widget.Button.Base.Secondary">
         <item name="android:minHeight">36dp</item>
         <item name="strokeWidth">0dp</item>
+    </style>
+
+    <style name="Signal.Widget.Button.Medium.OutlinedButton" parent="Signal.Widget.Button.Medium.Secondary">
+        <item name="strokeColor">@color/button_outline_color_selector</item>
+        <item name="strokeWidth">1.5dp</item>
     </style>
 
     <style name="Signal.Widget.Button.Base.Tonal" parent="Widget.Material3.Button.TonalButton">

@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
-import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredential;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -27,9 +27,9 @@ import org.whispersystems.signalservice.api.crypto.ProfileCipher;
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
+import org.whispersystems.signalservice.api.util.ExpiringProfileCredentialUtil;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Refreshes the profile of the local user. Different from {@link RetrieveProfileJob} in that we
@@ -105,24 +105,23 @@ public class RefreshOwnProfileJob extends BaseJob {
     setProfileCapabilities(profile.getCapabilities());
     ensureUnidentifiedAccessCorrect(profile.getUnidentifiedAccess(), profile.isUnrestrictedUnidentifiedAccess());
 
-    Optional<ProfileKeyCredential> profileKeyCredential = profileAndCredential.getProfileKeyCredential();
-    if (profileKeyCredential.isPresent()) {
-      setProfileKeyCredential(self, ProfileKeyUtil.getSelfProfileKey(), profileKeyCredential.get());
-    }
+    profileAndCredential.getExpiringProfileKeyCredential()
+                        .ifPresent(expiringProfileKeyCredential -> setExpiringProfileKeyCredential(self, ProfileKeyUtil.getSelfProfileKey(), expiringProfileKeyCredential));
+
+    StoryOnboardingDownloadJob.Companion.enqueueIfNeeded();
   }
 
-  private void setProfileKeyCredential(@NonNull Recipient recipient,
-                                       @NonNull ProfileKey recipientProfileKey,
-                                       @NonNull ProfileKeyCredential credential)
+  private void setExpiringProfileKeyCredential(@NonNull Recipient recipient,
+                                               @NonNull ProfileKey recipientProfileKey,
+                                               @NonNull ExpiringProfileKeyCredential credential)
   {
     RecipientDatabase recipientDatabase = SignalDatabase.recipients();
     recipientDatabase.setProfileKeyCredential(recipient.getId(), recipientProfileKey, credential);
   }
 
   private static SignalServiceProfile.RequestType getRequestType(@NonNull Recipient recipient) {
-    return !recipient.hasProfileKeyCredential()
-           ? SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL
-           : SignalServiceProfile.RequestType.PROFILE;
+    return ExpiringProfileCredentialUtil.isValid(recipient.getExpiringProfileKeyCredential()) ? SignalServiceProfile.RequestType.PROFILE
+                                                                                              : SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL;
   }
 
   @Override

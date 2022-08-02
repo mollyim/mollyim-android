@@ -27,7 +27,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
@@ -51,7 +50,9 @@ import org.thoughtcrime.securesms.util.Stopwatch;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Optional;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * Camera capture implemented with the legacy camera API's. Should only be used if sdk < 21.
@@ -71,8 +72,10 @@ public class Camera1Fragment extends LoggingFragment implements CameraFragment,
   private Controller                   controller;
   private OrderEnforcer<Stage>         orderEnforcer;
   private Camera1Controller.Properties properties;
+  private RotationListener             rotationListener;
+  private Disposable                   rotationListenerDisposable;
+  private Disposable                   mostRecentItemDisposable = Disposable.disposed();
 
-  private final Observer<Optional<Media>> thumbObserver = this::presentRecentItemThumbnail;
   private boolean isThumbAvailable;
   private boolean isMediaSelected;
 
@@ -116,6 +119,7 @@ public class Camera1Fragment extends LoggingFragment implements CameraFragment,
     super.onViewCreated(view, savedInstanceState);
     requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
+    rotationListener  = new RotationListener(requireContext());
     cameraPreview     = view.findViewById(R.id.camera_preview);
     controlsContainer = view.findViewById(R.id.camera_controls_container);
 
@@ -161,8 +165,16 @@ public class Camera1Fragment extends LoggingFragment implements CameraFragment,
 
     orderEnforcer.run(Stage.SURFACE_AVAILABLE, () -> {
       camera.linkSurface(cameraPreview.getSurfaceTexture());
-      camera.setScreenRotation(controller.getDisplayRotation());
     });
+
+    rotationListenerDisposable = rotationListener.getObservable()
+                                                 .distinctUntilChanged()
+                                                 .filter(rotation -> rotation != RotationListener.Rotation.ROTATION_180)
+                                                 .subscribe(rotation -> {
+                                                   orderEnforcer.run(Stage.SURFACE_AVAILABLE, () -> {
+                                                     camera.setScreenRotation(rotation.getSurfaceRotation());
+                                                   });
+                                                 });
 
     orderEnforcer.run(Stage.CAMERA_PROPERTIES_AVAILABLE, this::updatePreviewScale);
     requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
@@ -171,6 +183,7 @@ public class Camera1Fragment extends LoggingFragment implements CameraFragment,
   @Override
   public void onPause() {
     super.onPause();
+    rotationListenerDisposable.dispose();
     camera.release();
     orderEnforcer.reset();
   }
@@ -178,7 +191,7 @@ public class Camera1Fragment extends LoggingFragment implements CameraFragment,
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    controller.getMostRecentMediaItem().removeObserver(thumbObserver);
+    mostRecentItemDisposable.dispose();
   }
 
   @Override
@@ -232,7 +245,6 @@ public class Camera1Fragment extends LoggingFragment implements CameraFragment,
 
   @Override
   public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-    orderEnforcer.run(Stage.SURFACE_AVAILABLE, () -> camera.setScreenRotation(controller.getDisplayRotation()));
     orderEnforcer.run(Stage.CAMERA_PROPERTIES_AVAILABLE, this::updatePreviewScale);
   }
 
@@ -258,19 +270,13 @@ public class Camera1Fragment extends LoggingFragment implements CameraFragment,
     controller.onCameraError();
   }
 
-  private void presentRecentItemThumbnail(Optional<Media> media) {
-    if (media == null) {
-      isThumbAvailable = false;
-      updateGalleryVisibility();
-      return;
-    }
-
+  private void presentRecentItemThumbnail(@Nullable Media media) {
     ImageView thumbnail = controlsContainer.findViewById(R.id.camera_gallery_button);
 
-    if (media.isPresent()) {
+    if (media != null) {
       thumbnail.setVisibility(View.VISIBLE);
       Glide.with(this)
-           .load(new DecryptableUri(media.get().getUri()))
+           .load(new DecryptableUri(media.getUri()))
            .centerCrop()
            .into(thumbnail);
     } else {
@@ -278,7 +284,7 @@ public class Camera1Fragment extends LoggingFragment implements CameraFragment,
       thumbnail.setImageResource(0);
     }
 
-    isThumbAvailable = media.isPresent();
+    isThumbAvailable = media != null;
     updateGalleryVisibility();
   }
 
@@ -318,8 +324,10 @@ public class Camera1Fragment extends LoggingFragment implements CameraFragment,
     View countButton   = requireView().findViewById(R.id.camera_review_button);
     View toggleSpacer  = requireView().findViewById(R.id.toggle_spacer);
 
-    controller.getMostRecentMediaItem().removeObserver(thumbObserver);
-    controller.getMostRecentMediaItem().observeForever(thumbObserver);
+    mostRecentItemDisposable.dispose();
+    mostRecentItemDisposable = controller.getMostRecentMediaItem()
+                                         .observeOn(AndroidSchedulers.mainThread())
+                                         .subscribe(item -> presentRecentItemThumbnail(item.orElse(null)));
 
     if (toggleSpacer != null) {
       if (Stories.isFeatureEnabled()) {

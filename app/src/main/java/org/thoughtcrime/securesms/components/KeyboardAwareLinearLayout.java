@@ -65,8 +65,7 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   private int viewInset;
 
   private boolean keyboardOpen = false;
-  private int     rotation     = -1;
-  private boolean isFullscreen = false;
+  private int     rotation     = 0;
   private boolean isBubble     = false;
 
   public KeyboardAwareLinearLayout(Context context) {
@@ -110,6 +109,10 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   }
 
   private void updateKeyboardState() {
+    updateKeyboardState(Integer.MAX_VALUE);
+  }
+
+  private void updateKeyboardState(int previousHeight) {
     if (viewInset == 0) viewInset = getViewInset();
 
     getWindowVisibleDisplayFrame(rect);
@@ -129,13 +132,18 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
         onKeyboardOpen(keyboardHeight);
       }
     } else if (keyboardOpen) {
-      onKeyboardClose();
+      if (previousHeight == keyboardHeight) {
+        onKeyboardClose();
+      } else {
+        postDelayed(() -> updateKeyboardState(keyboardHeight), 100);
+      }
     }
   }
 
   @Override
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
+    rotation = getDeviceRotation();
     if (getRootWindowInsets() != null) {
       int          bottomInset;
       WindowInsets windowInsets = getRootWindowInsets();
@@ -299,10 +307,6 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
 
   public void removeOnKeyboardShownListener(OnKeyboardShownListener listener) {
     shownListeners.remove(listener);
-  }
-
-  public void setFullscreen(boolean isFullscreen) {
-    this.isFullscreen = isFullscreen;
   }
 
   private void notifyHiddenListeners() {

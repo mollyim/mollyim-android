@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.mediasend.v2
 
+import androidx.annotation.WorkerThread
 import androidx.core.util.Consumer
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -16,7 +17,7 @@ object UntrustedRecords {
     return Completable.fromAction {
       val untrustedRecords: List<IdentityRecord> = checkForBadIdentityRecordsSync(contactSearchKeys)
       if (untrustedRecords.isNotEmpty()) {
-        throw UntrustedRecordsException(untrustedRecords)
+        throw UntrustedRecordsException(untrustedRecords, contactSearchKeys)
       }
     }.subscribeOn(Schedulers.io())
   }
@@ -27,12 +28,13 @@ object UntrustedRecords {
     }
   }
 
+  @WorkerThread
   private fun checkForBadIdentityRecordsSync(contactSearchKeys: Set<ContactSearchKey.RecipientSearchKey>): List<IdentityRecord> {
     val recipients: List<Recipient> = contactSearchKeys
       .map { Recipient.resolved(it.recipientId) }
       .map { recipient ->
         when {
-          recipient.isGroup -> recipient.participants
+          recipient.isGroup -> Recipient.resolvedList(recipient.participantIds)
           recipient.isDistributionList -> Recipient.resolvedList(SignalDatabase.distributionLists.getMembers(recipient.distributionListId.get()))
           else -> listOf(recipient)
         }
@@ -42,5 +44,5 @@ object UntrustedRecords {
     return ApplicationDependencies.getProtocolStore().aci().identities().getIdentityRecords(recipients).untrustedRecords
   }
 
-  class UntrustedRecordsException(val untrustedRecords: List<IdentityRecord>) : Throwable()
+  class UntrustedRecordsException(val untrustedRecords: List<IdentityRecord>, val destinations: Set<ContactSearchKey.RecipientSearchKey>) : Throwable()
 }

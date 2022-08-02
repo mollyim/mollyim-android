@@ -12,10 +12,19 @@ public class SecurePreferenceManager {
 
   private static final String TAG = Log.tag(SecurePreferenceManager.class);
 
+  private static volatile SharedPreferences securePreferences = null;
+
   public static SharedPreferences getSecurePreferences(Context context) {
-    EncryptedPreferences preferences = EncryptedPreferences.create(
+    if (securePreferences == null) {
+      securePreferences = createSecurePreferences(context);
+    }
+    return securePreferences;
+  }
+
+  private static SharedPreferences createSecurePreferences(Context context) {
+    EncryptedPreferences prefs = EncryptedPreferences.create(
             context, getSecurePreferencesName());
-    preferences.setEncryptionFilter((key) -> {
+    prefs.setEncryptionFilter((key) -> {
       switch (key) {
         case TextSecurePreferences.THEME_PREF:
         case TextSecurePreferences.LANGUAGE_PREF:
@@ -31,7 +40,7 @@ public class SecurePreferenceManager {
           return true;
       }
     });
-    return preferences;
+    return prefs;
   }
 
   public static String getSecurePreferencesName() {

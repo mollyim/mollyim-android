@@ -20,7 +20,6 @@ import org.thoughtcrime.securesms.components.menu.SignalContextMenu
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord
 import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.stories.landing.StoriesLandingItem
-import org.thoughtcrime.securesms.stories.my.MyStoriesItem
 import org.thoughtcrime.securesms.stories.viewer.page.StoryPost
 import org.thoughtcrime.securesms.stories.viewer.page.StoryViewerPageState
 import org.thoughtcrime.securesms.util.DeleteDialog
@@ -80,6 +79,7 @@ object StoryContextMenu {
   fun show(
     context: Context,
     anchorView: View,
+    previewView: View,
     model: StoriesLandingItem.Model,
     onDismiss: () -> Unit
   ) {
@@ -88,6 +88,7 @@ object StoryContextMenu {
       anchorView = anchorView,
       isFromSelf = model.data.primaryStory.messageRecord.isOutgoing,
       isToGroup = model.data.storyRecipient.isGroup,
+      isFromReleaseChannel = model.data.storyRecipient.isReleaseNotes,
       canHide = !model.data.isHidden,
       callbacks = object : Callbacks {
         override fun onHide() = model.onHideStory(model)
@@ -98,6 +99,7 @@ object StoryContextMenu {
         override fun onDismissed() = onDismiss()
         override fun onDelete() = model.onDeleteStory(model)
         override fun onSave() = model.onSave(model)
+        override fun onInfo() = model.onInfo(model, previewView)
       }
     )
   }
@@ -112,6 +114,7 @@ object StoryContextMenu {
     onGoToChat: (StoryPost) -> Unit,
     onSave: (StoryPost) -> Unit,
     onDelete: (StoryPost) -> Unit,
+    onInfo: (StoryPost) -> Unit,
     onDismiss: () -> Unit
   ) {
     val selectedStory: StoryPost = storyViewerPageState.posts[storyViewerPageState.selectedPostIndex]
@@ -120,6 +123,7 @@ object StoryContextMenu {
       anchorView = anchorView,
       isFromSelf = selectedStory.sender.isSelf,
       isToGroup = selectedStory.group != null,
+      isFromReleaseChannel = selectedStory.sender.isReleaseNotes,
       canHide = true,
       callbacks = object : Callbacks {
         override fun onHide() = onHide(selectedStory)
@@ -130,31 +134,7 @@ object StoryContextMenu {
         override fun onDismissed() = onDismiss()
         override fun onSave() = onSave(selectedStory)
         override fun onDelete() = onDelete(selectedStory)
-      }
-    )
-  }
-
-  fun show(
-    context: Context,
-    anchorView: View,
-    myStoriesItemModel: MyStoriesItem.Model,
-    onDismiss: () -> Unit
-  ) {
-    show(
-      context = context,
-      anchorView = anchorView,
-      isFromSelf = true,
-      isToGroup = false,
-      canHide = false,
-      callbacks = object : Callbacks {
-        override fun onHide() = throw NotImplementedError()
-        override fun onUnhide() = throw NotImplementedError()
-        override fun onForward() = myStoriesItemModel.onForwardClick(myStoriesItemModel)
-        override fun onShare() = myStoriesItemModel.onShareClick(myStoriesItemModel)
-        override fun onGoToChat() = throw NotImplementedError()
-        override fun onDismissed() = onDismiss()
-        override fun onSave() = myStoriesItemModel.onSaveClick(myStoriesItemModel)
-        override fun onDelete() = myStoriesItemModel.onDeleteClick(myStoriesItemModel)
+        override fun onInfo() = onInfo(selectedStory)
       }
     )
   }
@@ -164,6 +144,7 @@ object StoryContextMenu {
     anchorView: View,
     isFromSelf: Boolean,
     isToGroup: Boolean,
+    isFromReleaseChannel: Boolean,
     rootView: ViewGroup = anchorView.rootView as ViewGroup,
     canHide: Boolean,
     callbacks: Callbacks
@@ -208,13 +189,19 @@ object StoryContextMenu {
         )
       }
 
-      if (isToGroup || !isFromSelf) {
+      if ((isToGroup || !isFromSelf) && !isFromReleaseChannel) {
         add(
           ActionItem(R.drawable.ic_open_24_tinted, context.getString(R.string.StoriesLandingItem__go_to_chat)) {
             callbacks.onGoToChat()
           }
         )
       }
+
+      add(
+        ActionItem(R.drawable.ic_info_outline_message_details_24, context.getString(R.string.StoriesLandingItem__info)) {
+          callbacks.onInfo()
+        }
+      )
     }
 
     SignalContextMenu.Builder(anchorView, rootView)
@@ -236,5 +223,6 @@ object StoryContextMenu {
     fun onDismissed()
     fun onSave()
     fun onDelete()
+    fun onInfo()
   }
 }

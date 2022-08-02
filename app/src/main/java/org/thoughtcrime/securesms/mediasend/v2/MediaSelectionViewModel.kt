@@ -335,7 +335,13 @@ class MediaSelectionViewModel(
       return
     }
 
-    repository.uploadRepository.startUpload(media, store.state.recipient)
+    val filteredPreUploadMedia = if (Stories.isFeatureEnabled()) {
+      media.filter { Stories.MediaTransform.canPreUploadMedia(it) }
+    } else {
+      media
+    }
+
+    repository.uploadRepository.startUpload(filteredPreUploadMedia, store.state.recipient)
   }
 
   private fun cancelUpload(media: Media) {

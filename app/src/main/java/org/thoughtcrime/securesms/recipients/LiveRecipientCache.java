@@ -163,7 +163,7 @@ public final class LiveRecipientCache {
       }
 
       if (selfId == null) {
-        selfId = recipientDatabase.getAndPossiblyMerge(localAci, localE164, true);
+        selfId = recipientDatabase.getAndPossiblyMerge(localAci, localE164);
       }
 
       synchronized (localRecipientId) {
@@ -237,6 +237,6 @@ public final class LiveRecipientCache {
   }
 
   private boolean isValidForCache(@NonNull Recipient recipient) {
-    return !recipient.getId().isUnknown() && (recipient.hasServiceId() || recipient.getGroupId().isPresent() || recipient.hasSmsAddress());
+    return !recipient.getId().isUnknown() && (recipient.hasServiceId() || recipient.getGroupId().isPresent());
   }
 }

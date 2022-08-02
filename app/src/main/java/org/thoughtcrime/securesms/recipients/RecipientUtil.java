@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.exceptions.NotFoundException;
 
@@ -41,6 +42,16 @@ import java.util.Optional;
 public class RecipientUtil {
 
   private static final String TAG = Log.tag(RecipientUtil.class);
+
+  /**
+   * This method will do it's best to get a {@link ServiceId} for the provided recipient. This includes performing
+   * a possible network request if no ServiceId is available. If the request to get a ServiceId fails or the user is
+   * not registered, an IOException is thrown.
+   */
+  @WorkerThread
+  public static @NonNull ServiceId getOrFetchServiceId(@NonNull Context context, @NonNull Recipient recipient) throws IOException {
+    return toSignalServiceAddress(context, recipient).getServiceId();
+  }
 
   /**
    * This method will do it's best to craft a fully-populated {@link SignalServiceAddress} based on

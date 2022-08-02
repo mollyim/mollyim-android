@@ -36,7 +36,7 @@ dependencies {
     api libs.square.okhttp3
     api libs.square.okhttp3.dnsoverhttps
     api libs.square.okio
-    implementation libs.threeten.threetenbp
+    implementation libs.google.jsr305
 
     api libs.rxjava3.rxjava
 

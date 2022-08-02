@@ -71,7 +71,7 @@ public class MasterSecretUtil {
                                                    MasterSecret masterSecret,
                                                    char[] newPassphrase)
   {
-    SharedPreferences.Editor prefs = context.getSharedPreferences(PREFERENCES_NAME, 0).edit();
+    SharedPreferences.Editor prefs = getSharedPreferences(context).edit();
 
     String keyStoreAlias = null;
     String savedKeyStoreAlias = retrieve(context, "keystore_alias", KEY_ALIAS_DEFAULT);
@@ -212,7 +212,7 @@ public class MasterSecretUtil {
     MasterCipher masterCipher = new MasterCipher(masterSecret);
     ECKeyPair    keyPair      = Curve.generateKeyPair();
 
-    if (!context.getSharedPreferences(PREFERENCES_NAME, 0).edit()
+    if (!getSharedPreferences(context).edit()
         .putString(ASYMMETRIC_LOCAL_PUBLIC_DJB, Base64.encodeBytes(masterCipher.encryptPublicKey(keyPair.getPublicKey())))
         .putString(ASYMMETRIC_LOCAL_PRIVATE_DJB, Base64.encodeBytes(masterCipher.encryptPrivateKey(keyPair.getPrivateKey())))
         .commit()) {
@@ -236,7 +236,7 @@ public class MasterSecretUtil {
   }
 
   private static byte[] retrieve(Context context, String key) {
-    SharedPreferences settings = context.getSharedPreferences(PREFERENCES_NAME, 0);
+    SharedPreferences settings = getSharedPreferences(context);
     String encodedValue        = settings.getString(key, "");
 
     try {
@@ -248,17 +248,17 @@ public class MasterSecretUtil {
   }
 
   private static String retrieve(Context context, String key, String defaultValue) {
-    SharedPreferences settings = context.getSharedPreferences(PREFERENCES_NAME, 0);
+    SharedPreferences settings = getSharedPreferences(context);
     return settings.getString(key, defaultValue);
   }
 
   private static boolean retrieve(Context context, String key, boolean defaultValue) {
-    SharedPreferences settings = context.getSharedPreferences(PREFERENCES_NAME, 0);
+    SharedPreferences settings = getSharedPreferences(context);
     return settings.getBoolean(key, defaultValue);
   }
 
   private static long retrieve(Context context, String key, long defaultValue) {
-    SharedPreferences settings = context.getSharedPreferences(PREFERENCES_NAME, 0);
+    SharedPreferences settings = getSharedPreferences(context);
     return settings.getLong(key, defaultValue);
   }
 
@@ -342,5 +342,9 @@ public class MasterSecretUtil {
   private static boolean hasStrongBox(final Context context) {
     return Build.VERSION.SDK_INT >= 28 &&
            context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_STRONGBOX_KEYSTORE);
+  }
+
+  private static SharedPreferences getSharedPreferences(@NonNull Context context) {
+    return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
   }
 }

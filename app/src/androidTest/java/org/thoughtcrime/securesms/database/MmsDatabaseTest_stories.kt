@@ -3,11 +3,13 @@ package org.thoughtcrime.securesms.database
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.thoughtcrime.securesms.database.model.DistributionListId
+import org.thoughtcrime.securesms.database.model.ParentStoryId
 import org.thoughtcrime.securesms.database.model.StoryType
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.IncomingMediaMessage
@@ -17,6 +19,7 @@ import org.whispersystems.signalservice.api.push.ACI
 import org.whispersystems.signalservice.api.push.PNI
 import org.whispersystems.signalservice.api.push.ServiceId
 import java.util.UUID
+import java.util.concurrent.TimeUnit
 
 @Suppress("ClassName")
 @RunWith(AndroidJUnit4::class)
@@ -29,6 +32,7 @@ class MmsDatabaseTest_stories {
 
   private lateinit var myStory: Recipient
   private lateinit var recipients: List<RecipientId>
+  private lateinit var releaseChannelRecipient: Recipient
 
   @Before
   fun setUp() {
@@ -41,6 +45,9 @@ class MmsDatabaseTest_stories {
 
     myStory = Recipient.resolved(SignalDatabase.recipients.getOrInsertFromDistributionListId(DistributionListId.MY_STORY))
     recipients = (0 until 5).map { SignalDatabase.recipients.getOrInsertFromServiceId(ServiceId.from(UUID.randomUUID())) }
+    releaseChannelRecipient = Recipient.resolved(SignalDatabase.recipients.insertReleaseChannelRecipient())
+
+    SignalStore.releaseChannelValues().setReleaseChannelRecipientId(releaseChannelRecipient.id)
   }
 
   @Test
@@ -237,5 +244,136 @@ class MmsDatabaseTest_stories {
 
     // THEN
     assertTrue(result)
+  }
+
+  @Test
+  fun givenAGroupStoryWithNoReplies_whenICheckHasSelfReplyInGroupStory_thenIExpectFalse() {
+    // GIVEN
+    val groupStoryId = MmsHelper.insert(
+      recipient = myStory,
+      sentTimeMillis = 200,
+      storyType = StoryType.STORY_WITH_REPLIES,
+      threadId = -1L
+    )
+
+    // WHEN
+    val result = mms.hasSelfReplyInGroupStory(groupStoryId)
+
+    // THEN
+    assertFalse(result)
+  }
+
+  @Test
+  fun givenAGroupStoryWithAReplyFromSelf_whenICheckHasSelfReplyInGroupStory_thenIExpectTrue() {
+    // GIVEN
+    val groupStoryId = MmsHelper.insert(
+      recipient = myStory,
+      sentTimeMillis = 200,
+      storyType = StoryType.STORY_WITH_REPLIES,
+      threadId = -1L
+    )
+
+    MmsHelper.insert(
+      recipient = myStory,
+      sentTimeMillis = 201,
+      storyType = StoryType.NONE,
+      parentStoryId = ParentStoryId.GroupReply(groupStoryId)
+    )
+
+    // WHEN
+    val result = mms.hasSelfReplyInGroupStory(groupStoryId)
+
+    // THEN
+    assertTrue(result)
+  }
+
+  @Test
+  fun givenAGroupStoryWithAReactionFromSelf_whenICheckHasSelfReplyInGroupStory_thenIExpectFalse() {
+    // GIVEN
+    val groupStoryId = MmsHelper.insert(
+      recipient = myStory,
+      sentTimeMillis = 200,
+      storyType = StoryType.STORY_WITH_REPLIES,
+      threadId = -1L
+    )
+
+    MmsHelper.insert(
+      recipient = myStory,
+      sentTimeMillis = 201,
+      storyType = StoryType.NONE,
+      parentStoryId = ParentStoryId.GroupReply(groupStoryId),
+      isStoryReaction = true
+    )
+
+    // WHEN
+    val result = mms.hasSelfReplyInGroupStory(groupStoryId)
+
+    // THEN
+    assertFalse(result)
+  }
+
+  @Test
+  fun givenAGroupStoryWithAReplyFromSomeoneElse_whenICheckHasSelfReplyInGroupStory_thenIExpectFalse() {
+    // GIVEN
+    val groupStoryId = MmsHelper.insert(
+      recipient = myStory,
+      sentTimeMillis = 200,
+      storyType = StoryType.STORY_WITH_REPLIES,
+      threadId = -1L
+    )
+
+    MmsHelper.insert(
+      IncomingMediaMessage(
+        from = myStory.id,
+        sentTimeMillis = 201,
+        serverTimeMillis = 201,
+        receivedTimeMillis = 202,
+        parentStoryId = ParentStoryId.GroupReply(groupStoryId)
+      ),
+      -1
+    )
+
+    // WHEN
+    val result = mms.hasSelfReplyInGroupStory(groupStoryId)
+
+    // THEN
+    assertFalse(result)
+  }
+
+  @Test
+  fun givenNotViewedOnboardingAndOnlyStoryIsOnboardingAndAdded2DaysAgo_whenIGetOldestStoryTimestamp_thenIExpectNull() {
+    // GIVEN
+    val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(releaseChannelRecipient)
+    MmsHelper.insert(
+      recipient = releaseChannelRecipient,
+      sentTimeMillis = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(2),
+      storyType = StoryType.STORY_WITH_REPLIES,
+      threadId = threadId
+    )
+
+    // WHEN
+    val oldestTimestamp = SignalDatabase.mms.getOldestStorySendTimestamp(false)
+
+    // THEN
+    assertNull(oldestTimestamp)
+  }
+
+  @Test
+  fun givenViewedOnboardingAndOnlyStoryIsOnboardingAndAdded2DaysAgo_whenIGetOldestStoryTimestamp_thenIExpectNotNull() {
+    // GIVEN
+    val expected = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(2)
+    val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(releaseChannelRecipient)
+    MmsHelper.insert(
+      recipient = releaseChannelRecipient,
+      sentTimeMillis = expected,
+      storyType = StoryType.STORY_WITH_REPLIES,
+      threadId = threadId
+    )
+
+    // WHEN
+    val oldestTimestamp = SignalDatabase.mms.getOldestStorySendTimestamp(true)
+
+    // THEN
+    assertEquals(expected, oldestTimestamp)
   }
 }

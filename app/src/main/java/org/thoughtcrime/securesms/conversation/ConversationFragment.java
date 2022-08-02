@@ -154,6 +154,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageActivity;
 import org.thoughtcrime.securesms.revealable.ViewOnceUtil;
+import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
@@ -166,6 +167,7 @@ import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.HtmlUtil;
 import org.thoughtcrime.securesms.util.LifecycleDisposable;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
+import org.thoughtcrime.securesms.util.Projection;
 import org.thoughtcrime.securesms.util.RemoteDeleteUtil;
 import org.thoughtcrime.securesms.util.SaveAttachmentTask;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
@@ -195,6 +197,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import kotlin.Unit;
 
 @SuppressLint("StaticFieldLeak")
@@ -208,6 +211,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   private final ActionModeCallback  actionModeCallback     = new ActionModeCallback();
   private final ItemClickListener   selectionClickListener = new ConversationFragmentItemClickListener();
   private final LifecycleDisposable disposables            = new LifecycleDisposable();
+  private final LifecycleDisposable lastSeenDisposable     = new LifecycleDisposable();
 
   private ConversationFragmentListener listener;
 
@@ -217,7 +221,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   private Locale                      locale;
   private FrameLayout                 videoContainer;
   private RecyclerView                list;
-  private RecyclerView.ItemDecoration lastSeenDecoration;
+  private LastSeenHeader              lastSeenDecoration;
   private RecyclerView.ItemDecoration inlineDateDecoration;
   private ViewSwitcher                topLoadMoreView;
   private ViewSwitcher                bottomLoadMoreView;
@@ -249,7 +253,6 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   private Colorizer                  colorizer;
   private ConversationUpdateTick     conversationUpdateTick;
   private MultiselectItemDecoration  multiselectItemDecoration;
-  private LifecycleDisposable        lifecycleDisposable;
 
   private @Nullable ConversationData conversationData;
   private @Nullable ChatWallpaper    chatWallpaper;
@@ -277,6 +280,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle bundle) {
     disposables.bindTo(getViewLifecycleOwner());
+    lastSeenDisposable.bindTo(getViewLifecycleOwner());
 
     final View view = inflater.inflate(R.layout.conversation_fragment, container, false);
     videoContainer = view.findViewById(R.id.video_container);
@@ -340,9 +344,6 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     ).attachToRecyclerView(list);
 
     giphyMp4ProjectionRecycler = initializeGiphyMp4();
-
-    lifecycleDisposable = new LifecycleDisposable();
-    lifecycleDisposable.bindTo(getViewLifecycleOwner());
 
     this.groupViewModel         = new ViewModelProvider(getParentFragment(), new ConversationGroupViewModel.Factory()).get(ConversationGroupViewModel.class);
     this.messageCountsViewModel = new ViewModelProvider(getParentFragment()).get(MessageCountsViewModel.class);
@@ -424,6 +425,9 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     initializeListAdapter();
 
     conversationViewModel.getSearchQuery().observe(getViewLifecycleOwner(), this::onSearchQueryUpdated);
+
+    disposables.add(conversationViewModel.getMarkReadRequests()
+                                         .subscribe(timeSince -> markReadHelper.onViewsRevealed(timeSince)));
 
     return view;
   }
@@ -955,12 +959,23 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   }
 
   public void setLastSeen(long lastSeen) {
+    lastSeenDisposable.clear();
     if (lastSeenDecoration != null) {
       list.removeItemDecoration(lastSeenDecoration);
     }
 
     lastSeenDecoration = new LastSeenHeader(getListAdapter(), lastSeen);
     list.addItemDecoration(lastSeenDecoration, 0);
+
+    if (lastSeen > 0) {
+      lastSeenDisposable.add(conversationViewModel.getThreadUnreadCount()
+                                                  .distinctUntilChanged()
+                                                  .observeOn(AndroidSchedulers.mainThread())
+                                                  .subscribe(unreadCount -> {
+                                                    lastSeenDecoration.setUnreadCount(unreadCount);
+                                                    list.invalidateItemDecorations();
+                                                  }));
+    }
   }
 
   private void handleCopyMessage(final Set<MultiselectPart> multiselectParts) {
@@ -1363,7 +1378,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
                                           .max(Long::compareTo)
                                           .orElse(0L);
 
-      markReadHelper.onViewsRevealed(Math.max(record.getDateReceived(), latestReactionReceived));
+      conversationViewModel.submitMarkReadRequest(Math.max(record.getDateReceived(), latestReactionReceived));
     }
   }
 
@@ -1694,6 +1709,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
             requireContext(),
             new StoryViewerArgs.Builder(messageRecord.getQuote().getAuthor(), Recipient.resolved(messageRecord.getQuote().getAuthor()).shouldHideStory())
                                .withStoryId(messageRecord.getParentStoryId().asMessageId().getId())
+                               .isFromQuote(true)
                                .build()));
         return;
       }
@@ -1858,7 +1874,8 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
 
     @Override
     public void onIncomingIdentityMismatchClicked(@NonNull RecipientId recipientId) {
-      SafetyNumberChangeDialog.show(getParentFragmentManager(), recipientId);
+      SafetyNumberBottomSheet.forRecipientId(recipientId)
+                             .show(getParentFragmentManager());
     }
 
     @Override
@@ -2063,7 +2080,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   }
 
   private void handleBlockJoinRequest(@NonNull Recipient recipient) {
-    lifecycleDisposable.add(
+    disposables.add(
         groupViewModel.blockJoinRequests(ConversationFragment.this.recipient.get(), recipient)
                       .subscribe(result -> {
                         if (result.isFailure()) {

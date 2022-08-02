@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/core_black">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/media_gallery_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/core_black"
+        android:layout_height="@dimen/signal_m3_toolbar_height"
+        android:minHeight="@dimen/signal_m3_toolbar_height"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_left_white_24"
         app:menu="@menu/v2_media_gallery_fragment_toolbar_menu"
-        app:title="" />
+        app:navigationIcon="@drawable/ic_arrow_left_24"
+        app:title="@string/AttachmentKeyboard_gallery"
+        app:titleTextAppearance="@style/Signal.Text.TitleLarge" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/media_gallery_grid"
@@ -31,7 +31,7 @@
         android:id="@+id/bottom_bar_shade"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/core_black"
+        android:background="@color/signal_colorSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/media_gallery_bottom_bar_barrier" />
 
@@ -53,9 +53,9 @@
         android:layout_width="53dp"
         android:layout_height="0dp"
         android:background="@drawable/persistent_fading_edge"
-        app:layout_constraintTop_toTopOf="@id/media_gallery_selected"
         app:layout_constraintBottom_toBottomOf="@id/media_gallery_selected"
-        app:layout_constraintEnd_toEndOf="@id/media_gallery_selected" />
+        app:layout_constraintEnd_toEndOf="@id/media_gallery_selected"
+        app:layout_constraintTop_toTopOf="@id/media_gallery_selected" />
 
     <org.thoughtcrime.securesms.mediasend.v2.MediaCountIndicatorButton
         android:id="@+id/media_gallery_count_button"
@@ -63,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="@drawable/v2_media_count_indicator_background"
+        android:minHeight="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/media_gallery_selected"

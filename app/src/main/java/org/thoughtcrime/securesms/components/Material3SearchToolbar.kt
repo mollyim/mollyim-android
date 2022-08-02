@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.components
 
 import android.content.Context
 import android.graphics.PointF
-import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -46,10 +45,7 @@ class Material3SearchToolbar @JvmOverloads constructor(
   }
 
   fun display(x: Float, y: Float) {
-    if (Build.VERSION.SDK_INT < 21) {
-      visibility = VISIBLE
-      ViewUtil.focusAndShowKeyboard(input)
-    } else if (!visible) {
+    if (!visible) {
       circularRevealPoint.set(x, y)
 
       val animator = ViewAnimationUtils.createCircularReveal(this, x.toInt(), y.toInt(), 0f, width.toFloat())
@@ -66,17 +62,13 @@ class Material3SearchToolbar @JvmOverloads constructor(
       listener?.onSearchClosed()
       ViewUtil.hideKeyboard(context, input)
 
-      if (Build.VERSION.SDK_INT >= 21) {
-        val animator = ViewAnimationUtils.createCircularReveal(this, circularRevealPoint.x.toInt(), circularRevealPoint.y.toInt(), width.toFloat(), 0f)
-        animator.duration = 400
+      val animator = ViewAnimationUtils.createCircularReveal(this, circularRevealPoint.x.toInt(), circularRevealPoint.y.toInt(), width.toFloat(), 0f)
+      animator.duration = 400
 
-        animator.addListener(onEnd = {
-          visibility = INVISIBLE
-        })
-        animator.start()
-      } else {
+      animator.addListener(onEnd = {
         visibility = INVISIBLE
-      }
+      })
+      animator.start()
     }
   }
 

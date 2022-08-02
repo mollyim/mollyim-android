@@ -2,10 +2,11 @@ package org.thoughtcrime.securesms.database
 
 import android.net.Uri
 import org.signal.core.util.Bitmask
-import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredential
+import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential
 import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
+import org.thoughtcrime.securesms.database.model.ProfileAvatarFileDetails
 import org.thoughtcrime.securesms.database.model.RecipientRecord
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.profiles.ProfileName
@@ -29,7 +30,7 @@ object RecipientDatabaseTestUtils {
     groupAvatarId: Optional<Long> = Optional.empty(),
     systemContact: Boolean = false,
     isSelf: Boolean = false,
-    participants: List<Recipient> = listOf(),
+    participants: List<RecipientId> = listOf(),
     recipientId: RecipientId = RecipientId.from(Random.nextLong()),
     serviceId: ServiceId? = ServiceId.from(UUID.randomUUID()),
     username: String? = null,
@@ -47,7 +48,7 @@ object RecipientDatabaseTestUtils {
     expireMessages: Int = 0,
     registered: RecipientDatabase.RegisteredState = RecipientDatabase.RegisteredState.REGISTERED,
     profileKey: ByteArray = Random.nextBytes(32),
-    profileKeyCredential: ProfileKeyCredential? = null,
+    expiringProfileKeyCredential: ExpiringProfileKeyCredential? = null,
     systemProfileName: ProfileName = ProfileName.EMPTY,
     systemDisplayName: String? = null,
     systemContactPhoto: String? = null,
@@ -55,7 +56,7 @@ object RecipientDatabaseTestUtils {
     systemContactUri: String? = null,
     signalProfileName: ProfileName = ProfileName.EMPTY,
     signalProfileAvatar: String? = null,
-    hasProfileImage: Boolean = false,
+    profileAvatarFileDetails: ProfileAvatarFileDetails = ProfileAvatarFileDetails.NO_DETAILS,
     profileSharing: Boolean = false,
     lastProfileFetch: Long = 0L,
     notificationChannel: String? = null,
@@ -111,7 +112,7 @@ object RecipientDatabaseTestUtils {
         expireMessages,
         registered,
         profileKey,
-        profileKeyCredential,
+        expiringProfileKeyCredential,
         systemProfileName,
         systemDisplayName,
         systemContactPhoto,
@@ -119,7 +120,7 @@ object RecipientDatabaseTestUtils {
         systemContactUri,
         signalProfileName,
         signalProfileAvatar,
-        hasProfileImage,
+        profileAvatarFileDetails,
         profileSharing,
         lastProfileFetch,
         notificationChannel,

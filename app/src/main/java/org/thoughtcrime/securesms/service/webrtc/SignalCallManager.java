@@ -51,7 +51,6 @@ import org.thoughtcrime.securesms.service.webrtc.state.WebRtcEphemeralState;
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.BubbleUtil;
-import org.thoughtcrime.securesms.util.NetworkUtil;
 import org.thoughtcrime.securesms.util.RecipientAccessList;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
@@ -317,8 +316,8 @@ private void processStateless(@NonNull Function1<WebRtcEphemeralState, WebRtcEph
     process((s, p) -> p.handleSetUserAudioDevice(s, desiredDevice));
   }
 
-  public void setTelecomApproved(long callId) {
-    process((s, p) -> p.handleSetTelecomApproved(s, callId));
+  public void setTelecomApproved(long callId, @NonNull RecipientId recipientId) {
+    process((s, p) -> p.handleSetTelecomApproved(s, callId, recipientId));
   }
 
   public void dropCall(long callId) {
@@ -514,12 +513,7 @@ private void processStateless(@NonNull Function1<WebRtcEphemeralState, WebRtcEph
   }
 
   @Override public void onNetworkRouteChanged(Remote remote, NetworkRoute networkRoute) {
-    Log.i(TAG, "onNetworkRouteChanged: localAdapterType: " + networkRoute.getLocalAdapterType());
-    try {
-      callManager.updateBandwidthMode(NetworkUtil.getCallingBandwidthMode(context, networkRoute.getLocalAdapterType()));
-    } catch (CallException e) {
-      Log.w(TAG, "Unable to update bandwidth mode on CallManager", e);
-    }
+    process((s, p) -> p.handleNetworkRouteChanged(s, networkRoute));
   }
 
   @Override 
@@ -640,7 +634,7 @@ private void processStateless(@NonNull Function1<WebRtcEphemeralState, WebRtcEph
     SignalServiceCallMessage callMessage   = SignalServiceCallMessage.forOpaque(opaqueMessage, true, null);
 
     networkExecutor.execute(() -> {
-      Recipient recipient = Recipient.resolved(RecipientId.from(ServiceId.from(uuid), null));
+      Recipient recipient = Recipient.resolved(RecipientId.from(ServiceId.from(uuid)));
       if (recipient.isBlocked()) {
         return;
       }

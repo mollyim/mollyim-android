@@ -4,7 +4,7 @@
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
-            version('libsignal-client', '0.17.0')
+            version('libsignal-client', '0.18.1')
             version('exoplayer', '2.15.0')
             version('androidx-camera', '1.0.0-beta11')
             version('androidx-lifecycle', '2.3.1')
@@ -21,7 +21,7 @@ dependencyResolutionManagement {
             alias('androidx-appcompat').to('androidx.appcompat:appcompat:1.2.0')
             alias('androidx-constraintlayout').to('androidx.constraintlayout:constraintlayout:2.0.4')
             alias('androidx-window').to('androidx.window:window:1.0.0-alpha09')
-            alias('androidx-recyclerview').to('androidx.recyclerview:recyclerview:1.1.0')
+            alias('androidx-recyclerview').to('androidx.recyclerview:recyclerview:1.2.1')
             alias('androidx-legacy-support').to('androidx.legacy:legacy-support-v13:1.0.0')
             alias('androidx-legacy-preference').to('androidx.legacy:legacy-preference-v14:1.0.0')
             alias('androidx-cardview').to('androidx.cardview:cardview:1.0.0')
@@ -57,6 +57,7 @@ dependencyResolutionManagement {
             alias('google-zxing-android-integration').to('com.google.zxing:android-integration:3.3.0')
             alias('google-zxing-core').to('com.google.zxing:core:3.4.1')
             alias('google-ez-vcard').to('com.googlecode.ez-vcard:ez-vcard:0.9.11')
+            alias('google-jsr305').to('com.google.code.findbugs:jsr305:3.0.2')
 
             // Exoplayer
             alias('exoplayer-core').to('com.google.android.exoplayer', 'exoplayer-core').versionRef('exoplayer')
@@ -72,7 +73,7 @@ dependencyResolutionManagement {
             alias('libsignal-android').to('org.signal', 'libsignal-android').versionRef('libsignal-client')
             alias('signal-aesgcmprovider').to('org.signal:aesgcmprovider:0.0.3')
             alias('molly-argon2').to('im.molly:argon2:13.1-1')
-            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.20.10-1')
+            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.20.12-1')
             alias('signal-android-database-sqlcipher').to('org.signal:android-database-sqlcipher:4.4.3-S8')
 
             // MOLLY
@@ -86,7 +87,6 @@ dependencyResolutionManagement {
             alias('square-okhttp3-dnsoverhttps').to('com.squareup.okhttp3:okhttp-dnsoverhttps:3.12.13')
             alias('square-okio').to('com.squareup.okio:okio:2.2.2')
             alias('square-leakcanary').to('com.squareup.leakcanary:leakcanary-android:2.7')
-            alias('threeten-threetenbp').to('org.threeten:threetenbp:1.3.6')
             alias('rxjava3-rxjava').to('io.reactivex.rxjava3:rxjava:3.0.13')
             alias('rxjava3-rxandroid').to('io.reactivex.rxjava3:rxandroid:3.0.0')
             alias('rxjava3-rxkotlin').to('io.reactivex.rxjava3:rxkotlin:3.0.1')

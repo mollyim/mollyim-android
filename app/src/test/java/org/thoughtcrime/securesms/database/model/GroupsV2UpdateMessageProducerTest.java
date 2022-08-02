@@ -24,12 +24,12 @@ import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.storageservice.protos.groups.local.DecryptedGroupChange;
 import org.signal.storageservice.protos.groups.local.DecryptedMember;
 import org.signal.storageservice.protos.groups.local.DecryptedPendingMember;
-import org.thoughtcrime.securesms.keyvalue.ServiceIds;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.api.push.PNI;
 import org.whispersystems.signalservice.api.push.ServiceId;
+import org.whispersystems.signalservice.api.push.ServiceIds;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 
 import java.util.Arrays;
@@ -88,8 +88,8 @@ public final class GroupsV2UpdateMessageProducerTest {
 
     producer = new GroupsV2UpdateMessageProducer(ApplicationProvider.getApplicationContext(), new ServiceIds(ACI.from(you), PNI.from(UUID.randomUUID())), null);
 
-    recipientIdMockedStatic.when(() -> RecipientId.from(ServiceId.from(alice), null)).thenReturn(aliceId);
-    recipientIdMockedStatic.when(() -> RecipientId.from(ServiceId.from(bob), null)).thenReturn(bobId);
+    recipientIdMockedStatic.when(() -> RecipientId.from(ServiceId.from(alice))).thenReturn(aliceId);
+    recipientIdMockedStatic.when(() -> RecipientId.from(ServiceId.from(bob))).thenReturn(bobId);
     recipientMockedStatic.when(() -> Recipient.resolved(aliceId)).thenReturn(aliceRecipient);
     recipientMockedStatic.when(() -> Recipient.resolved(bobId)).thenReturn(bobRecipient);
   }

@@ -223,7 +223,7 @@ public class TextSecurePreferences {
   };
 
   public static long getPreferencesToSaveToBackupCount(@NonNull Context context) {
-    SharedPreferences preferences = SecurePreferenceManager.getSecurePreferences(context);
+    SharedPreferences preferences = getSharedPreferences(context);
     long              count       = 0;
 
     for (String booleanPreference : booleanPreferencesToBackup) {
@@ -254,7 +254,7 @@ public class TextSecurePreferences {
   }
 
   public static List<BackupProtos.SharedPreference> getPreferencesToSaveToBackup(@NonNull Context context) {
-    SharedPreferences                   preferences  = SecurePreferenceManager.getSecurePreferences(context);
+    SharedPreferences                   preferences  = getSharedPreferences(context);
     List<BackupProtos.SharedPreference> backupProtos = new ArrayList<>();
     String                              defaultFile  = BuildConfig.SIGNAL_PACKAGE_NAME + "_preferences";
 
@@ -389,10 +389,10 @@ public class TextSecurePreferences {
 
   public static void clearRegistrationLockV1(@NonNull Context context) {
     //noinspection deprecation
-    SecurePreferenceManager.getSecurePreferences(context)
-                           .edit()
-                           .remove(REGISTRATION_LOCK_PIN_PREF_V1)
-                           .apply();
+    getSharedPreferences(context)
+                     .edit()
+                     .remove(REGISTRATION_LOCK_PIN_PREF_V1)
+                     .apply();
   }
 
   /**
@@ -805,7 +805,11 @@ public class TextSecurePreferences {
 
   @Deprecated
   public static boolean isCallNotificationVibrateEnabled(Context context) {
-    boolean defaultValue = (Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1) == 1);
+    boolean defaultValue = true;
+
+    if (Build.VERSION.SDK_INT >= 23) {
+      defaultValue = (Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1) == 1);
+    }
 
     return getBooleanPreference(context, CALL_VIBRATE_PREF, defaultValue);
   }
@@ -1004,47 +1008,47 @@ public class TextSecurePreferences {
   }
 
   public static void setBooleanPreference(Context context, String key, boolean value) {
-    SecurePreferenceManager.getSecurePreferences(context).edit().putBoolean(key, value).apply();
+    getSharedPreferences(context).edit().putBoolean(key, value).apply();
   }
 
   public static boolean getBooleanPreference(Context context, String key, boolean defaultValue) {
-    return SecurePreferenceManager.getSecurePreferences(context).getBoolean(key, defaultValue);
+    return getSharedPreferences(context).getBoolean(key, defaultValue);
   }
 
   public static void setStringPreference(Context context, String key, String value) {
-    SecurePreferenceManager.getSecurePreferences(context).edit().putString(key, value).apply();
+    getSharedPreferences(context).edit().putString(key, value).apply();
   }
 
   public static String getStringPreference(Context context, String key, String defaultValue) {
-    return SecurePreferenceManager.getSecurePreferences(context).getString(key, defaultValue);
+    return getSharedPreferences(context).getString(key, defaultValue);
   }
 
   public static int getIntegerPreference(Context context, String key, int defaultValue) {
-    return SecurePreferenceManager.getSecurePreferences(context).getInt(key, defaultValue);
+    return getSharedPreferences(context).getInt(key, defaultValue);
   }
 
   private static void setIntegerPrefrence(Context context, String key, int value) {
-    SecurePreferenceManager.getSecurePreferences(context).edit().putInt(key, value).apply();
+    getSharedPreferences(context).edit().putInt(key, value).apply();
   }
 
   private static boolean setIntegerPrefrenceBlocking(Context context, String key, int value) {
-    return SecurePreferenceManager.getSecurePreferences(context).edit().putInt(key, value).commit();
+    return getSharedPreferences(context).edit().putInt(key, value).commit();
   }
 
   public static long getLongPreference(Context context, String key, long defaultValue) {
-    return SecurePreferenceManager.getSecurePreferences(context).getLong(key, defaultValue);
+    return getSharedPreferences(context).getLong(key, defaultValue);
   }
 
   private static void setLongPreference(Context context, String key, long value) {
-    SecurePreferenceManager.getSecurePreferences(context).edit().putLong(key, value).apply();
+    getSharedPreferences(context).edit().putLong(key, value).apply();
   }
 
   private static void removePreference(Context context, String key) {
-    SecurePreferenceManager.getSecurePreferences(context).edit().remove(key).apply();
+    getSharedPreferences(context).edit().remove(key).apply();
   }
 
   private static Set<String> getStringSetPreference(Context context, String key, Set<String> defaultValues) {
-    final SharedPreferences prefs = SecurePreferenceManager.getSecurePreferences(context);
+    final SharedPreferences prefs = getSharedPreferences(context);
     if (prefs.contains(key)) {
       return prefs.getStringSet(key, Collections.<String>emptySet());
     } else {
@@ -1059,6 +1063,10 @@ public class TextSecurePreferences {
     SignalDatabase.recipients().setProfileKey(self.getId(), newProfileKey);
 
     ApplicationDependencies.getGroupsV2Authorization().clear();
+  }
+
+  private static SharedPreferences getSharedPreferences(Context context) {
+    return SecurePreferenceManager.getSecurePreferences(context);
   }
 
   // NEVER rename these -- they're persisted by name

@@ -41,5 +41,5 @@
         <ignore path="*/org/thoughtcrime/securesms/jobs/StickerPackDownloadJob.java" />
     </issue>
 
-    <issue id="FragmentLiveDataObserve" severity="warning" />
+    <issue id="OptionalUsedAsFieldOrParameterType" severity="ignore" />
 </lint>

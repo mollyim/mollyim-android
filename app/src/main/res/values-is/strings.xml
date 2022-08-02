@@ -173,17 +173,21 @@
   <string name="ContactsDatabase_message_s">Skilaboð til %s</string>
   <string name="ContactsDatabase_signal_call_s">Hringja með Signal í %s </string>
   <!--ContactNameEditActivity-->
+  <!--Toolbar title for contact name edit activity-->
   <string name="ContactNameEditActivity_given_name">Eiginnafn</string>
   <string name="ContactNameEditActivity_family_name">Fjölskyldunafn</string>
   <string name="ContactNameEditActivity_prefix">Forskeyti</string>
   <string name="ContactNameEditActivity_suffix">Ending</string>
   <string name="ContactNameEditActivity_middle_name">Millinafn</string>
   <!--ContactShareEditActivity-->
+  <!--ContactShareEditActivity toolbar title-->
   <string name="ContactShareEditActivity_type_home">Heima</string>
   <string name="ContactShareEditActivity_type_mobile">Farsími</string>
   <string name="ContactShareEditActivity_type_work">Vinna</string>
   <string name="ContactShareEditActivity_type_missing">Annað</string>
   <string name="ContactShareEditActivity_invalid_contact">Valinn tengiliður var ógildur</string>
+  <!--Content descrption for name edit button on contact share edit activity-->
+  <!--Content description for user avatar in edit activity-->
   <!--ConversationItem-->
   <string name="ConversationItem_error_not_sent_tap_for_details">Ekki sent, ýttu fyrir nánari upplýsingar</string>
   <string name="ConversationItem_error_partially_not_delivered">Sent að hluta, ýttu fyrir nánari upplýsingar</string>
@@ -272,6 +276,7 @@
     <item quantity="other">%d ólesin skilaboð</item>
   </plurals>
   <!--ConversationFragment-->
+  <!--Toast text when contacts activity is not found-->
   <plurals name="ConversationFragment_delete_selected_messages">
     <item quantity="one">Eyða völdum skilaboðum?</item>
     <item quantity="other">Eyða völdum skilaboðum?</item>
@@ -899,6 +904,8 @@
   <string name="Megaphones_use_sms">Nota SMS</string>
   <string name="Megaphones_appearance">Útlit</string>
   <string name="Megaphones_add_photo">Bæta við ljósmynd</string>
+  <!--Title of a bottom sheet to render messages that all quote a specific message-->
+  <string name="MessageQuotesBottomSheet_replies">Svör</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Hringing með Signal í gangi</string>
   <string name="NotificationBarManager__establishing_signal_call">Er að tengja hringingu með Signal</string>
@@ -1120,9 +1127,6 @@
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">Skilaboð frá %s var ekki hægt að afhenda</string>
   <string name="MessageRecord_s_changed_their_phone_number">%1$s skipti um símanúmer.</string>
   <!--Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost.-->
-  <!-- Removed by excludeNonTranslatables <string name="MessageRecord_like_this_new_feature_say_thanks_with_a_boost">Líkar þér við þennan eiginleika? Þakkaðu fyrir þig með hvatningu.</string> -->
-  <!--Update item message shown in the release channel when someone is not a sustainer so we ask them to consider becoming one-->
-  <!-- Removed by excludeNonTranslatables <string name="MessageRecord_signal_is_powered_by_people_like_you_become_a_sustainer_today">Signal er keyrt áfram af fólki eins og þér. Sýndu stuðning þinn í verki!</string> -->
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s hóf hópsímtal · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s er í hópsímtalinu · %2$s</string>
@@ -1554,6 +1558,8 @@
   <string name="ThreadRecord__you_sent_a_gift">Þú sendir gjöf</string>
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">Þú tókst út gjafamerki</string>
+  <!--Displayed in the conversation list when someone reacted to your story-->
+  <!--Displayed in the conversation list when you reacted to someone\'s story-->
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Uppfærsla á Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Það er nýrri útgáfa af Molly tiltæk, ýttu til að uppfæra</string>
@@ -1814,9 +1820,7 @@
   <string name="ConversationUpdateItem_view">Skoða</string>
   <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Niðurtalning sjálfeyðandi skilaboða er tímastillt á %1$s þegar þú sendir viðkomandi aðila skilaboð.</string>
   <!--Update item button text to show to boost a feature-->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationUpdateItem_signal_boost">Signal-hvatning</string> -->
-  <!--Update item button text to show to become a sustainer in the release notes channel-->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationUpdateItem_become_a_sustainer">Gerstu stuðningsaðili</string> -->
+  <string name="ConversationUpdateItem_donate">Styrkja</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Spila … bíða</string>
   <string name="audio_view__download_accessibility_description">Sækja</string>
@@ -2056,16 +2060,6 @@
   <string name="HelpFragment__debug_log">Villumeldingaskrá:</string>
   <string name="HelpFragment__could_not_upload_logs">Gat ekki sent inn atvikaskrár</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Lýstu þessu eins nákvæmlega og þú getur til að auðvelda okkur að skilja vandamálið.</string>
-  <!-- Removed by excludeNonTranslatables <string-array name="HelpFragment__categories_3">
-    <item>\-\- Veldu eitthvað atriði \-\-</item>
-    <item>Eitthvað er ekki að virka</item>
-    <item>Beiðni um endurbætur</item>
-    <item>Spurning</item>
-    <item>Umsögn</item>
-    <item>Annað</item>
-    <item>Greiðslur(MobileCoin)</item>
-    <item>Stuðningsaðilar og Signal-hvatning</item>
-  </string-array> -->
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Þessi skilaboð</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Nýlega notað</string>
@@ -2967,6 +2961,8 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="CallParticipant__you">Þú</string>
   <string name="CallParticipant__you_on_another_device">Þú (á öðru tæki)</string>
   <string name="CallParticipant__s_on_another_device">%1$s (á öðru tæki)</string>
+  <!--WifiToCellularPopupWindow-->
+  <!--Message shown during a call when the WiFi network is unusable, and cellular data starts to be used for the call instead.-->
   <!--DeleteAccountFragment-->
   <string name="DeleteAccountFragment__deleting_your_account_will">Eyðing aðgangsins þíns mun:</string>
   <string name="DeleteAccountFragment__enter_your_phone_number">Settu inn símanúmerið þitt</string>
@@ -3441,6 +3437,8 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="MultiselectForwardFragment__share_with">Deila með</string>
   <string name="MultiselectForwardFragment__add_a_message">Bæta við skilaboðum</string>
   <string name="MultiselectForwardFragment__faster_forwards">Hraðar áframsent</string>
+  <!--Displayed when user selects a video that will be clipped before sharing to a story-->
+  <!--Displayed when user selects a video that cannot be sent as a story-->
   <string name="MultiselectForwardFragment__forwarded_messages_are_now">Áframsend skilaboð eru núna send samstundis.</string>
   <plurals name="MultiselectForwardFragment_send_d_messages">
     <item quantity="one">Senda %1$d skilaboð</item>
@@ -3855,6 +3853,8 @@ hegðun þína.</string>
   <string name="StoriesLandingItem__share">Deila…</string>
   <!--Context menu option to go to story chat-->
   <string name="StoriesLandingItem__go_to_chat">Fara í spjall</string>
+  <!--Context menu option to go to story info-->
+  <string name="StoriesLandingItem__info">Upplýsingar</string>
   <!--Label when a story is pending sending-->
   <string name="StoriesLandingItem__sending">Sendi…</string>
   <!--Label when multiple stories are pending sending-->
@@ -3898,6 +3898,7 @@ hegðun þína.</string>
     <item quantity="one">%1$d svar</item>
     <item quantity="other">%1$d svör</item>
   </plurals>
+  <!--Used when view receipts are disabled-->
   <!--Used to join views and replies when both exist on a story item-->
   <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
   <!--Displayed when viewing a post you sent-->
@@ -3910,6 +3911,8 @@ hegðun þína.</string>
   <string name="StoryViewerPageFragment__reply_to_group">Svara hópi</string>
   <!--Displayed when a story has no views-->
   <string name="StoryViewsFragment__no_views_yet">Ennþá engin innlit</string>
+  <!--Displayed when user has disabled receipts-->
+  <!--Button label displayed when user has disabled receipts-->
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">Ennþá engin svör</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3942,11 +3945,19 @@ hegðun þína.</string>
   <string name="MyStorySettingsFragment__who_can_see_this_story">Hver getur séð þessa sögu</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Fela sögu fyrir</string>
-  <!--Summary of clickable option displaying how many people you have hidden your story from-->
+  <!--Privacy setting title for sending stories to all your signal connections-->
+  <!--Privacy setting description for sending stories to all your signal connections-->
+  <!--Privacy setting title for sending stories to all except the specified connections-->
+  <!--Privacy setting description for sending stories to all except the specified connections-->
+  <!--Summary of clickable option displaying how many people you have excluded from your story-->
+  <!--Privacy setting title for only sharing your story with specified connections-->
+  <!--Privacy setting description for only sharing your story with specified connections-->
+  <!--Summary of clickable option displaying how many people you have included to send to in your story-->
   <plurals name="MyStorySettingsFragment__d_people">
     <item quantity="one">%1$d aðila</item>
     <item quantity="other">%1$d aðilum</item>
   </plurals>
+  <!--My story privacy fine print about what the privacy settings are for-->
   <!--Section header for options related to replies and reactions-->
   <string name="MyStorySettingsFragment__replies_amp_reactions">Svör og viðbrögð</string>
   <!--Switchable option for allowing replies and reactions on your stories-->
@@ -3955,10 +3966,8 @@ hegðun þína.</string>
   <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Leyfa fólki sem getur séð söguna þína að bregðast við og svara</string>
   <!--Note about default sharing-->
   <string name="MyStorySettingsFragment__hide_your_story_from">Feldu söguna þína fyrir tilteknum eintaklingum. Sjálfgefið er sögunni þinni deilt með öllum þínum %1$s</string>
-  <!--Signal connections linked text that opens the Signal Connections sheet-->
-  <!-- Removed by excludeNonTranslatables <string name="MyStorySettingsFragment__signal_connections">Signal-tengingum.</string> -->
+  <!--Signal connections bolded text in the Signal Connections sheet-->
   <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
-  <string name="SignalConnectionsBottomSheet__signal_connections_are_people"><strong>Signal-tengingar</strong> eru fólkið sem þú hefur ákveðið að treysta, með því að:</string>
   <!--Signal connections sheet bullet point 1-->
   <string name="SignalConnectionsBottomSheet__starting_a_conversation">Hefja samtal</string>
   <!--Signal connections sheet bullet point 2-->
@@ -4006,8 +4015,8 @@ hegðun þína.</string>
   <!--Hint text for searching for a story text post recipient.-->
   <string name="TextStoryPostSendFragment__search">Leita</string>
   <!--Toast shown when an unexpected error occurs while sending a text story-->
-  <!--Title for screen allowing user to hide "My Story" entries from specific people-->
-  <!-- Removed by excludeNonTranslatables <string name="HideStoryFromFragment__hide_story_from">Fela sögu fyrir…</string> -->
+  <!--Title for screen allowing user to exclude "My Story" entries from specific people-->
+  <!--Title for screen allowing user to only share "My Story" entries with specific people-->
   <!--Done button label for hide story from screen-->
   <string name="HideStoryFromFragment__done">Lokið</string>
   <!--Dialog title for first time adding something to a story-->
@@ -4099,7 +4108,7 @@ hegðun þína.</string>
   <!--Content description for expand contacts chevron-->
   <string name="ExpandModel__view_more">Sjá meira</string>
   <string name="StoriesLinkPopup__visit_link">Skoða tengil</string>
-  <!--Duration and price information-->
+  <!--Gift price and duration, formatted as: {price} dot {n} day duration-->
   <!--Tagline for gift row items-->
   <string name="GiftRowItem__send_a_gift_badge">Senda gjafamerki</string>
   <!--Headline text on start fragment for gifting a badge-->
@@ -4151,6 +4160,20 @@ hegðun þína.</string>
   <string name="ExpiredGiftSheetConfiguration__not_now">Ekki núna</string>
   <!--Label under name for private stories-->
   <!--Label under name for group stories-->
+  <!--Label under name for My Story when first sending to my story-->
+  <!--Label for context menu item to open story settings-->
+  <string name="ContactSearchItems__story_settings">Stillingar sögu</string>
+  <!--Label for context menu item to remove a group story from contact results-->
+  <!--Label for context menu item to delete a private story-->
+  <!--Dialog title for removing a group story-->
+  <!--Dialog message for removing a group story-->
+  <!--Dialog action item for removing a group story-->
+  <string name="ContactSearchMediator__remove">Fjarlægja</string>
+  <!--Dialog title for deleting a private story-->
+  <string name="ContactSearchMediator__delete_story">Eyða sögu?</string>
+  <!--Dialog message for deleting a private story-->
+  <!--Dialog action item for deleting a private story-->
+  <string name="ContactSearchMediator__delete">Eyða</string>
   <!--Gift expiry days remaining-->
   <plurals name="Gifts__d_days_remaining">
     <item quantity="one">%1$d dagur eftir</item>
@@ -4168,5 +4191,52 @@ hegðun þína.</string>
   </plurals>
   <!--Gift expiry expired-->
   <string name="Gifts__expired">Útrunnið</string>
+  <!--Label indicating that a user can tap to advance to the next post in a story-->
+  <!--Label indicating swipe direction to skip current story-->
+  <!--Label indicating swipe direction to exit story viewer-->
+  <!--Button label to confirm understanding of story navigation-->
+  <string name="StoryFirstTimeNagivationView__got_it">Náði því</string>
+  <!--Content description for vertical context menu button in safety number sheet rows-->
+  <!--Sub-line when a user is verified.-->
+  <!--Sub-line when a user is verified.-->
+  <string name="SafetyNumberRecipientRowItem__verified">Sannreynt</string>
+  <!--Title of safety number changes bottom sheet when showing individual records-->
+  <!--Message of safety number changes bottom sheet when showing individual records-->
+  <!--Title of safety number changes bottom sheet when not showing individual records-->
+  <!--Title of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <!--Message of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <!--Message of safety number changes bottom sheet when not showing individual records-->
+  <!--Menu action to launch safety number verification screen-->
+  <string name="SafetyNumberBottomSheetFragment__verify_safety_number">Sannreyna öryggisnúmer</string>
+  <!--Menu action to remove user from story-->
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to send anyway-->
+  <string name="SafetyNumberBottomSheetFragment__send_anyway">Senda samt</string>
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to review connections-->
+  <!--Empty state copy for SafetyNumberBottomSheetFragment-->
+  <!--Done button on safety number review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__done">Lokið</string>
+  <!--Title of safety number review fragment-->
+  <!--Message of safety number review fragment-->
+  <!--Section header for 1:1 contacts in review fragment-->
+  <string name="SafetyNumberBucketRowItem__contacts">Tengiliðir</string>
+  <!--Context menu label for distribution list headers in review fragment-->
+  <!--Context menu label for 1:1 contacts to remove from send-->
+  <string name="SafetyNumberReviewConnectionsFragment__remove">Fjarlægja</string>
+  <!--Title of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--Subtitle of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--Story info header sent heading-->
+  <string name="StoryInfoHeader__sent">Sent</string>
+  <!--Story info header received heading-->
+  <string name="StoryInfoHeader__received">Móttekið</string>
+  <!--Story info header file size heading-->
+  <!--Story info "Sent to" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_to">Sent til</string>
+  <!--Story info "Sent from" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_from">Sent frá</string>
+  <!--Story Info context menu label-->
+  <string name="StoryInfoBottomSheetDialogFragment__info">Upplýsingar</string>
   <!--EOF-->
 </resources>

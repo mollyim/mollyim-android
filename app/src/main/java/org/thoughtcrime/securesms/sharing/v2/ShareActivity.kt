@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
@@ -31,6 +33,10 @@ import org.thoughtcrime.securesms.util.LifecycleDisposable
 import java.util.Optional
 
 class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.Callback {
+
+  companion object {
+    private val TAG = Log.tag(ShareActivity::class.java)
+  }
 
   private val dynamicTheme = DynamicNoActionBarTheme()
   private val lifecycleDisposable = LifecycleDisposable()
@@ -74,6 +80,7 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
         is ShareState.ShareDataLoadState.Loaded -> {
           val directShareTarget = this.directShareTarget
           if (directShareTarget != null) {
+            Log.d(TAG, "Encountered a direct share target. Opening conversation with resolved share data.")
             openConversation(
               ShareEvent.OpenConversation(
                 shareState.loadState.resolvedShareData,
@@ -120,7 +127,21 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
 
   private fun getUnresolvedShareData(): UnresolvedShareData {
     return when {
-      intent.action == Intent.ACTION_SEND_MULTIPLE -> {
+      intent.action == Intent.ACTION_SEND_MULTIPLE && intent.hasExtra(Intent.EXTRA_TEXT) -> {
+        intent.getCharSequenceArrayListExtra(Intent.EXTRA_TEXT)?.let { list ->
+          val stringBuilder = SpannableStringBuilder()
+          list.forEachIndexed { index, text ->
+            stringBuilder.append(text)
+
+            if (index != list.lastIndex) {
+              stringBuilder.append("\n")
+            }
+          }
+
+          UnresolvedShareData.ExternalPrimitiveShare(stringBuilder)
+        } ?: error("ACTION_SEND_MULTIPLE with EXTRA_TEXT but the EXTRA_TEXT was null")
+      }
+      intent.action == Intent.ACTION_SEND_MULTIPLE && intent.hasExtra(Intent.EXTRA_STREAM) -> {
         intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)?.let {
           UnresolvedShareData.ExternalMultiShare(it)
         } ?: error("ACTION_SEND_MULTIPLE with EXTRA_STREAM but the EXTRA_STREAM was null")
@@ -162,6 +183,8 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
       error("Can't open a conversation for a story!")
     }
 
+    Log.d(TAG, "Opening conversation...")
+
     val multiShareArgs = shareEvent.getMultiShareArgs()
     val conversationIntentBuilder = ConversationIntents.createBuilder(this, shareEvent.contact.recipientId, -1L)
       .withDataUri(multiShareArgs.dataUri)
@@ -176,6 +199,8 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
   }
 
   private fun openMediaInterstitial(shareEvent: ShareEvent.OpenMediaInterstitial) {
+    Log.d(TAG, "Opening media share interstitial...")
+
     val multiShareArgs = shareEvent.getMultiShareArgs()
     val media: MutableList<Media> = ArrayList(multiShareArgs.media)
     if (media.isEmpty() && multiShareArgs.dataUri != null) {
@@ -212,10 +237,14 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
   }
 
   private fun openTextInterstitial(shareEvent: ShareEvent.OpenTextInterstitial) {
+    Log.d(TAG, "Opening text share interstitial...")
+
     finishOnOkResultLauncher.launch(ShareInterstitialActivity.createIntent(this, shareEvent.getMultiShareArgs()))
   }
 
   private fun sendWithoutInterstitial(shareEvent: ShareEvent.SendWithoutInterstitial) {
+    Log.d(TAG, "Sending without an interstitial...")
+
     MultiShareSender.send(shareEvent.getMultiShareArgs()) { results: MultiShareSendResultCollection? ->
       MultiShareDialogs.displayResultDialog(this, results!!) {
         finish()

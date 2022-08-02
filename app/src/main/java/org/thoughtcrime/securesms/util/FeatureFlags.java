@@ -84,7 +84,6 @@ public final class FeatureFlags {
   private static final String GROUP_CALL_RINGING                = "android.calling.groupCallRinging";
   private static final String DONOR_BADGES                      = "android.donorBadges.6";
   private static final String DONOR_BADGES_DISPLAY              = "android.donorBadges.display.4";
-  private static final String CDSH                              = "android.cdsh";
   private static final String STORIES                           = "android.stories.2";
   private static final String STORIES_TEXT_FUNCTIONS            = "android.stories.text.functions";
   private static final String HARDWARE_AEC_BLOCKLIST_MODELS     = "android.calling.hardwareAecBlockList";
@@ -95,8 +94,11 @@ public final class FeatureFlags {
   private static final String PHONE_NUMBER_PRIVACY              = "android.pnp";
   private static final String USE_FCM_FOREGROUND_SERVICE        = "android.useFcmForegroundService.3";
   private static final String STORIES_AUTO_DOWNLOAD_MAXIMUM     = "android.stories.autoDownloadMaximum";
-  private static final String GIFT_BADGES                       = "android.giftBadges.3";
+  private static final String GIFT_BADGE_RECEIVE_SUPPORT        = "android.giftBadges.receiving";
+  private static final String GIFT_BADGE_SEND_SUPPORT           = "android.giftBadges.sending";
   private static final String USE_QR_LEGACY_SCAN                = "android.qr.legacy_scan";
+  private static final String TELECOM_MANUFACTURER_ALLOWLIST    = "android.calling.telecomAllowList";
+  private static final String TELECOM_MODEL_BLOCKLIST           = "android.calling.telecomModelBlockList";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -132,7 +134,6 @@ public final class FeatureFlags {
       SUGGEST_SMS_BLACKLIST,
       MAX_GROUP_CALL_RING_SIZE,
       GROUP_CALL_RINGING,
-      CDSH,
       SENDER_KEY_MAX_AGE,
       DONOR_BADGES,
       DONOR_BADGES_DISPLAY,
@@ -145,8 +146,11 @@ public final class FeatureFlags {
       PAYMENTS_COUNTRY_BLOCKLIST,
       USE_FCM_FOREGROUND_SERVICE,
       STORIES_AUTO_DOWNLOAD_MAXIMUM,
-      GIFT_BADGES,
-      USE_QR_LEGACY_SCAN
+      GIFT_BADGE_RECEIVE_SUPPORT,
+      GIFT_BADGE_SEND_SUPPORT,
+      USE_QR_LEGACY_SCAN,
+      TELECOM_MANUFACTURER_ALLOWLIST,
+      TELECOM_MODEL_BLOCKLIST
   );
 
   @VisibleForTesting
@@ -194,12 +198,11 @@ public final class FeatureFlags {
       MEDIA_QUALITY_LEVELS,
       RETRY_RECEIPT_LIFESPAN,
       RETRY_RESPOND_MAX_AGE,
-      SUGGEST_SMS_BLACKLIST,
+      //SUGGEST_SMS_BLACKLIST,
       RETRY_RECEIPTS,
       SENDER_KEY,
       MAX_GROUP_CALL_RING_SIZE,
       GROUP_CALL_RINGING,
-      CDSH,
       SENDER_KEY_MAX_AGE,
       //DONOR_BADGES_DISPLAY,
       DONATE_MEGAPHONE,
@@ -209,7 +212,9 @@ public final class FeatureFlags {
       USE_AEC3,
       PAYMENTS_COUNTRY_BLOCKLIST,
       USE_FCM_FOREGROUND_SERVICE,
-      USE_QR_LEGACY_SCAN
+      USE_QR_LEGACY_SCAN,
+      TELECOM_MANUFACTURER_ALLOWLIST,
+      TELECOM_MODEL_BLOCKLIST
   );
 
   /**
@@ -235,7 +240,7 @@ public final class FeatureFlags {
     put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> MessageProcessReceiver.startOrUpdateAlarm(ApplicationDependencies.getApplication()));
     put(SENDER_KEY, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
     put(STORIES, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
-    put(GIFT_BADGES, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
+    put(GIFT_BADGE_RECEIVE_SUPPORT, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -414,11 +419,6 @@ public final class FeatureFlags {
     return Math.min(getLong(SENDER_KEY_MAX_AGE, TimeUnit.DAYS.toMillis(14)), TimeUnit.DAYS.toMillis(90));
   }
 
-  /** A comma-delimited list of country codes that should not be told about SMS during onboarding. */
-  public static @NonNull String suggestSmsBlacklist() {
-    return getString(SUGGEST_SMS_BLACKLIST, "");
-  }
-
   /** Max group size that can be use group call ringing. */
   public static long maxGroupCallRingSize() {
     return getLong(MAX_GROUP_CALL_RING_SIZE, 16);
@@ -452,10 +452,6 @@ public final class FeatureFlags {
     return getBoolean(STORIES_TEXT_FUNCTIONS, false);
   }
 
-  public static boolean cdsh() {
-    return Environment.IS_STAGING && getBoolean(CDSH, false);
-  }
-
   /** A comma-separated list of models that should *not* use hardware AEC for calling. */
   public static @NonNull String hardwareAecBlocklistModels() {
     return getString(HARDWARE_AEC_BLOCKLIST_MODELS, "");
@@ -464,6 +460,16 @@ public final class FeatureFlags {
   /** A comma-separated list of models that should *not* use software AEC for calling. */
   public static @NonNull String softwareAecBlocklistModels() {
     return getString(SOFTWARE_AEC_BLOCKLIST_MODELS, "");
+  }
+
+  /** A comma-separated list of manufacturers that *should* use Telecom for calling. */
+  public static @NonNull String telecomManufacturerAllowList() {
+    return getString(TELECOM_MANUFACTURER_ALLOWLIST, "");
+  }
+
+  /** A comma-separated list of manufacturers that *should* use Telecom for calling. */
+  public static @NonNull String telecomModelBlockList() {
+    return getString(TELECOM_MODEL_BLOCKLIST, "");
   }
 
   /** Whether or not hardware AEC should be used for calling on devices older than API 29. */
@@ -485,14 +491,6 @@ public final class FeatureFlags {
    */
   public static int storiesAutoDownloadMaximum() {
     return getInteger(STORIES_AUTO_DOWNLOAD_MAXIMUM, 2);
-  }
-  /**
-   * Whether or not Gifting Badges should be available on this client.
-   *
-   * NOTE: This feature is under development and should not be enabled on prod. Doing so is solely at your own risk.
-   */
-  public static boolean giftBadges() {
-    return getBoolean(GIFT_BADGES, Environment.IS_STAGING);
   }
 
   public static boolean useQrLegacyScan() {

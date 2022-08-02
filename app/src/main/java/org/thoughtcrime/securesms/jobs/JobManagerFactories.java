@@ -182,6 +182,7 @@ public final class JobManagerFactories {
       put(StorageSyncJob.KEY,                        new StorageSyncJob.Factory());
       put(SubscriptionKeepAliveJob.KEY,              new FailingJob.Factory());
       put(SubscriptionReceiptRequestResponseJob.KEY, new FailingJob.Factory());
+      put(StoryOnboardingDownloadJob.KEY,            new StoryOnboardingDownloadJob.Factory());
       put(SubmitRateLimitPushChallengeJob.KEY,       new SubmitRateLimitPushChallengeJob.Factory());
       put(ThreadUpdateJob.KEY,                       new ThreadUpdateJob.Factory());
       put(TrimThreadJob.KEY,                         new TrimThreadJob.Factory());

@@ -1,7 +1,5 @@
 package org.thoughtcrime.securesms.conversation.ui.groupcall;
 
-import android.os.Build;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
@@ -77,7 +75,7 @@ public class GroupCallViewModel extends ViewModel {
   }
 
   private static boolean isGroupCallCapable(@Nullable Recipient recipient) {
-    return recipient != null && recipient.isActiveGroup() && recipient.isPushV2Group() && Build.VERSION.SDK_INT > 19;
+    return recipient != null && recipient.isActiveGroup() && recipient.isPushV2Group();
   }
 
   public static final class Factory implements ViewModelProvider.Factory {

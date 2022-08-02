@@ -175,17 +175,22 @@
   <string name="ContactsDatabase_message_s">Neges %s</string>
   <string name="ContactsDatabase_signal_call_s">Galwad Signal %s</string>
   <!--ContactNameEditActivity-->
+  <!--Toolbar title for contact name edit activity-->
   <string name="ContactNameEditActivity_given_name">Enw</string>
   <string name="ContactNameEditActivity_family_name">Enw teuluol</string>
   <string name="ContactNameEditActivity_prefix">Rhagddodiad</string>
   <string name="ContactNameEditActivity_suffix">Ôl-ddodiad</string>
   <string name="ContactNameEditActivity_middle_name">Enw canol</string>
   <!--ContactShareEditActivity-->
+  <!--ContactShareEditActivity toolbar title-->
   <string name="ContactShareEditActivity_type_home">Cartref</string>
   <string name="ContactShareEditActivity_type_mobile">Symudol</string>
   <string name="ContactShareEditActivity_type_work">Gwaith</string>
   <string name="ContactShareEditActivity_type_missing">Arall</string>
   <string name="ContactShareEditActivity_invalid_contact">Roedd y cyswllt hwn yn annilys</string>
+  <!--Content descrption for name edit button on contact share edit activity-->
+  <!--Content description for user avatar in edit activity-->
+  <string name="ContactShareEditActivity__avatar">Rhithffurf</string>
   <!--ConversationItem-->
   <string name="ConversationItem_error_not_sent_tap_for_details">Heb ei hanfon, tapiwch am fanylion</string>
   <string name="ConversationItem_error_partially_not_delivered">Wedi\'i hanfon yn rhannol, tapiwch am fanylion</string>
@@ -278,6 +283,7 @@ Anfon neges heb ei diogelu?</string>
     <item quantity="other">%d neges heb eu darllen</item>
   </plurals>
   <!--ConversationFragment-->
+  <!--Toast text when contacts activity is not found-->
   <plurals name="ConversationFragment_delete_selected_messages">
     <item quantity="one">Dileu\'r neges hon?</item>
     <item quantity="two">Dileu\'r negeseuon hyn?</item>
@@ -999,6 +1005,8 @@ Anfon neges heb ei diogelu?</string>
   <string name="Megaphones_use_sms">Defnyddio SMS</string>
   <string name="Megaphones_appearance">Golwg</string>
   <string name="Megaphones_add_photo">Ychwanegu llun</string>
+  <!--Title of a bottom sheet to render messages that all quote a specific message-->
+  <string name="MessageQuotesBottomSheet_replies">Atebion</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Ar ganol galwad Signal</string>
   <string name="NotificationBarManager__establishing_signal_call">Yn creu galwad Signal</string>
@@ -1238,9 +1246,6 @@ Anfon neges heb ei diogelu?</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">Nid oedd modd anfon neges gan %s</string>
   <string name="MessageRecord_s_changed_their_phone_number">Mae %1$s wedi newid rhif eu ffôn.</string>
   <!--Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost.-->
-  <!-- Removed by excludeNonTranslatables <string name="MessageRecord_like_this_new_feature_say_thanks_with_a_boost">Yn hoffi\'r nodwedd newydd hon? Dwedwch diolch gyda Boost.</string> -->
-  <!--Update item message shown in the release channel when someone is not a sustainer so we ask them to consider becoming one-->
-  <!-- Removed by excludeNonTranslatables <string name="MessageRecord_signal_is_powered_by_people_like_you_become_a_sustainer_today">Mae Signal yn cael ei rymuso gan bobl fel chi. Dewch yn gefnogwr heddiw.</string> -->
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">Dechreuodd %1$s alwad grŵp · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">Mae %1$s mewn galwad grŵp · %2$s</string>
@@ -1706,6 +1711,8 @@ Anfon neges heb ei diogelu?</string>
   <string name="ThreadRecord__you_sent_a_gift">Rydych wedi anfon anrheg</string>
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">Rydych wedi adbrynu bathodyn anrheg</string>
+  <!--Displayed in the conversation list when someone reacted to your story-->
+  <!--Displayed in the conversation list when you reacted to someone\'s story-->
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Diweddariad Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Mae fersiwn newydd o Molly ar gael. Tapiwch i ddiweddaru</string>
@@ -1976,9 +1983,7 @@ Anfon neges heb ei diogelu?</string>
   <string name="ConversationUpdateItem_view">Golwg</string>
   <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Bydd amser y neges byrhoedlog yn cael ei osod i %1$s pan fyddwch chi\'n eu neges.</string>
   <!--Update item button text to show to boost a feature-->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationUpdateItem_signal_boost">Signal Boost</string> -->
-  <!--Update item button text to show to become a sustainer in the release notes channel-->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationUpdateItem_become_a_sustainer">Dod yn Gefnogwr</string> -->
+  <string name="ConversationUpdateItem_donate">Cyfraniad</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Chwarae … Oedi</string>
   <string name="audio_view__download_accessibility_description">Llwytho i lawr</string>
@@ -2232,16 +2237,6 @@ Anfon neges heb ei diogelu?</string>
   <string name="HelpFragment__debug_log">Cofnod Dadfygio:</string>
   <string name="HelpFragment__could_not_upload_logs">Methu llwytho\'r cofnod</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Byddwch mor ddisgrifiadol â phosibl i\'n helpu i ddeall y mater yma.</string>
-  <!-- Removed by excludeNonTranslatables <string-array name="HelpFragment__categories_3">
-    <item>\-\- Dewiswch opsiwn \-\-</item>
-    <item>Mae Rhywbeth Wedi Torri</item>
-    <item>Cais Nodwedd</item>
-    <item>Cwestiwn</item>
-    <item> Adborth</item>
-    <item>Arall</item>
-    <item>Taliadau (MobileCoin)</item>
-    <item>Rhoddion (Cefnogwyrwyr a Signal Boost)</item>
-  </string-array> -->
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Y Neges hon</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Defnyddiwyd yn ddiweddar</string>
@@ -3162,6 +3157,8 @@ Anfon neges heb ei diogelu?</string>
   <string name="CallParticipant__you">Chi</string>
   <string name="CallParticipant__you_on_another_device">Chi (ar ddyfais arall)</string>
   <string name="CallParticipant__s_on_another_device">%1$s (ar ddyfais arall)</string>
+  <!--WifiToCellularPopupWindow-->
+  <!--Message shown during a call when the WiFi network is unusable, and cellular data starts to be used for the call instead.-->
   <!--DeleteAccountFragment-->
   <string name="DeleteAccountFragment__deleting_your_account_will">Bydd dileu eich cyfrif yn:</string>
   <string name="DeleteAccountFragment__enter_your_phone_number">Rhowch eich rhif ffôn</string>
@@ -3643,6 +3640,8 @@ Anfon neges heb ei diogelu?</string>
   <string name="MultiselectForwardFragment__share_with">Rhannu â</string>
   <string name="MultiselectForwardFragment__add_a_message">Ychwanegu neges</string>
   <string name="MultiselectForwardFragment__faster_forwards">Anfon ymlaen cynt</string>
+  <!--Displayed when user selects a video that will be clipped before sharing to a story-->
+  <!--Displayed when user selects a video that cannot be sent as a story-->
   <string name="MultiselectForwardFragment__forwarded_messages_are_now">Mae negeseuon sy\'n cael eu hanfon ymlaen yn cael eu hanfon yn syth.</string>
   <plurals name="MultiselectForwardFragment_send_d_messages">
     <item quantity="one">Anfon %1$d neges</item>
@@ -4067,6 +4066,8 @@ Anfon neges heb ei diogelu?</string>
   <string name="StoriesLandingItem__share">Rhannu…</string>
   <!--Context menu option to go to story chat-->
   <string name="StoriesLandingItem__go_to_chat">Ewch i\'r sgwrs</string>
+  <!--Context menu option to go to story info-->
+  <string name="StoriesLandingItem__info">Gwyb</string>
   <!--Label when a story is pending sending-->
   <string name="StoriesLandingItem__sending">Yn anfon…</string>
   <!--Label when multiple stories are pending sending-->
@@ -4116,6 +4117,7 @@ Anfon neges heb ei diogelu?</string>
     <item quantity="many">%1$d ateb</item>
     <item quantity="other">%1$d ateb</item>
   </plurals>
+  <!--Used when view receipts are disabled-->
   <!--Used to join views and replies when both exist on a story item-->
   <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
   <!--Displayed when viewing a post you sent-->
@@ -4128,6 +4130,8 @@ Anfon neges heb ei diogelu?</string>
   <string name="StoryViewerPageFragment__reply_to_group">Ateb i\'r grŵp</string>
   <!--Displayed when a story has no views-->
   <string name="StoryViewsFragment__no_views_yet">Neb wedi\'i darllen eto</string>
+  <!--Displayed when user has disabled receipts-->
+  <!--Button label displayed when user has disabled receipts-->
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">Dim atebion eto</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -4160,13 +4164,21 @@ Anfon neges heb ei diogelu?</string>
   <string name="MyStorySettingsFragment__who_can_see_this_story">Pwy all weld y stori hon</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Cuddio\'r stori rhag</string>
-  <!--Summary of clickable option displaying how many people you have hidden your story from-->
+  <!--Privacy setting title for sending stories to all your signal connections-->
+  <!--Privacy setting description for sending stories to all your signal connections-->
+  <!--Privacy setting title for sending stories to all except the specified connections-->
+  <!--Privacy setting description for sending stories to all except the specified connections-->
+  <!--Summary of clickable option displaying how many people you have excluded from your story-->
+  <!--Privacy setting title for only sharing your story with specified connections-->
+  <!--Privacy setting description for only sharing your story with specified connections-->
+  <!--Summary of clickable option displaying how many people you have included to send to in your story-->
   <plurals name="MyStorySettingsFragment__d_people">
     <item quantity="one">%1$d person</item>
     <item quantity="two">%1$d person</item>
     <item quantity="many">%1$d person</item>
     <item quantity="other">%1$d person</item>
   </plurals>
+  <!--My story privacy fine print about what the privacy settings are for-->
   <!--Section header for options related to replies and reactions-->
   <string name="MyStorySettingsFragment__replies_amp_reactions">Atebion ac adweithiau</string>
   <!--Switchable option for allowing replies and reactions on your stories-->
@@ -4175,10 +4187,8 @@ Anfon neges heb ei diogelu?</string>
   <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Gadewch i bobl sy\'n gallu gweld eich stori ymateb ac ateb</string>
   <!--Note about default sharing-->
   <string name="MyStorySettingsFragment__hide_your_story_from">Cuddiwch eich stori rhag pobl benodol. Trwy ragosodiad, mae eich stori yn cael ei rhannu gyda\'ch %1$s</string>
-  <!--Signal connections linked text that opens the Signal Connections sheet-->
-  <!-- Removed by excludeNonTranslatables <string name="MyStorySettingsFragment__signal_connections">Cysylltiadau Signal.</string> -->
+  <!--Signal connections bolded text in the Signal Connections sheet-->
   <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
-  <string name="SignalConnectionsBottomSheet__signal_connections_are_people"><strong>Mae Signal Connections</strong> yn bobl rydych chi wedi dewis ymddiried ynddynt, naill ai trwy:</string>
   <!--Signal connections sheet bullet point 1-->
   <string name="SignalConnectionsBottomSheet__starting_a_conversation">Dechrau sgwrs</string>
   <!--Signal connections sheet bullet point 2-->
@@ -4226,8 +4236,8 @@ Anfon neges heb ei diogelu?</string>
   <!--Hint text for searching for a story text post recipient.-->
   <string name="TextStoryPostSendFragment__search">Chwilio</string>
   <!--Toast shown when an unexpected error occurs while sending a text story-->
-  <!--Title for screen allowing user to hide "My Story" entries from specific people-->
-  <!-- Removed by excludeNonTranslatables <string name="HideStoryFromFragment__hide_story_from">Cuddio stori rhag…</string> -->
+  <!--Title for screen allowing user to exclude "My Story" entries from specific people-->
+  <!--Title for screen allowing user to only share "My Story" entries with specific people-->
   <!--Done button label for hide story from screen-->
   <string name="HideStoryFromFragment__done">Wedi Gorffen</string>
   <!--Dialog title for first time adding something to a story-->
@@ -4321,7 +4331,7 @@ Anfon neges heb ei diogelu?</string>
   <!--Content description for expand contacts chevron-->
   <string name="ExpandModel__view_more">Gweld rhagor</string>
   <string name="StoriesLinkPopup__visit_link">Ymweld â\'r ddolen</string>
-  <!--Duration and price information-->
+  <!--Gift price and duration, formatted as: {price} dot {n} day duration-->
   <!--Tagline for gift row items-->
   <string name="GiftRowItem__send_a_gift_badge">Anfon bathodyn rhodd</string>
   <!--Headline text on start fragment for gifting a badge-->
@@ -4386,6 +4396,20 @@ Anfon neges heb ei diogelu?</string>
     <item quantity="many">Stori Grŵp · %1$d darllenydd</item>
     <item quantity="other">Stori Grŵp · %1$d darllenydd</item>
   </plurals>
+  <!--Label under name for My Story when first sending to my story-->
+  <!--Label for context menu item to open story settings-->
+  <string name="ContactSearchItems__story_settings">Gosodiadau stori</string>
+  <!--Label for context menu item to remove a group story from contact results-->
+  <!--Label for context menu item to delete a private story-->
+  <!--Dialog title for removing a group story-->
+  <!--Dialog message for removing a group story-->
+  <!--Dialog action item for removing a group story-->
+  <string name="ContactSearchMediator__remove">Tynnu</string>
+  <!--Dialog title for deleting a private story-->
+  <string name="ContactSearchMediator__delete_story">Dileu\'r stori?</string>
+  <!--Dialog message for deleting a private story-->
+  <!--Dialog action item for deleting a private story-->
+  <string name="ContactSearchMediator__delete">Dileu</string>
   <!--Gift expiry days remaining-->
   <plurals name="Gifts__d_days_remaining">
     <item quantity="one">%1$d diwrnod yn weddill</item>
@@ -4409,5 +4433,52 @@ Anfon neges heb ei diogelu?</string>
   </plurals>
   <!--Gift expiry expired-->
   <string name="Gifts__expired">Daeth i Ben</string>
+  <!--Label indicating that a user can tap to advance to the next post in a story-->
+  <!--Label indicating swipe direction to skip current story-->
+  <!--Label indicating swipe direction to exit story viewer-->
+  <!--Button label to confirm understanding of story navigation-->
+  <string name="StoryFirstTimeNagivationView__got_it">Iawn, rwy\'n deall</string>
+  <!--Content description for vertical context menu button in safety number sheet rows-->
+  <!--Sub-line when a user is verified.-->
+  <!--Sub-line when a user is verified.-->
+  <string name="SafetyNumberRecipientRowItem__verified">Gwiriwyd</string>
+  <!--Title of safety number changes bottom sheet when showing individual records-->
+  <!--Message of safety number changes bottom sheet when showing individual records-->
+  <!--Title of safety number changes bottom sheet when not showing individual records-->
+  <!--Title of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <!--Message of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <!--Message of safety number changes bottom sheet when not showing individual records-->
+  <!--Menu action to launch safety number verification screen-->
+  <string name="SafetyNumberBottomSheetFragment__verify_safety_number">Gwirio\'r rhif diogelwch</string>
+  <!--Menu action to remove user from story-->
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to send anyway-->
+  <string name="SafetyNumberBottomSheetFragment__send_anyway">Anfon beth bynnag</string>
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to review connections-->
+  <!--Empty state copy for SafetyNumberBottomSheetFragment-->
+  <!--Done button on safety number review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__done">Wedi Gorffen</string>
+  <!--Title of safety number review fragment-->
+  <!--Message of safety number review fragment-->
+  <!--Section header for 1:1 contacts in review fragment-->
+  <string name="SafetyNumberBucketRowItem__contacts">Cysylltiadau</string>
+  <!--Context menu label for distribution list headers in review fragment-->
+  <!--Context menu label for 1:1 contacts to remove from send-->
+  <string name="SafetyNumberReviewConnectionsFragment__remove">Tynnu</string>
+  <!--Title of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--Subtitle of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <!--Story info header sent heading-->
+  <string name="StoryInfoHeader__sent">Anfonwyd</string>
+  <!--Story info header received heading-->
+  <string name="StoryInfoHeader__received">Derbyniwyd</string>
+  <!--Story info header file size heading-->
+  <!--Story info "Sent to" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_to">Anfonwyd at</string>
+  <!--Story info "Sent from" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_from">Anfonwyd gan</string>
+  <!--Story Info context menu label-->
+  <string name="StoryInfoBottomSheetDialogFragment__info">Gwyb</string>
   <!--EOF-->
 </resources>

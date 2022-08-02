@@ -173,17 +173,25 @@
   <string name="ContactsDatabase_message_s">Missatge %s</string>
   <string name="ContactsDatabase_signal_call_s">Trucada del Signal %s</string>
   <!--ContactNameEditActivity-->
+  <!--Toolbar title for contact name edit activity-->
+  <string name="ContactNameEditActivity__edit_name">Editar nom</string>
   <string name="ContactNameEditActivity_given_name">Nom</string>
   <string name="ContactNameEditActivity_family_name">Cognom</string>
   <string name="ContactNameEditActivity_prefix">Prefix</string>
   <string name="ContactNameEditActivity_suffix">Sufix</string>
   <string name="ContactNameEditActivity_middle_name">Segon nom de pila</string>
   <!--ContactShareEditActivity-->
+  <!--ContactShareEditActivity toolbar title-->
+  <string name="ContactShareEditActivity__send_contact">Enviar contacte</string>
   <string name="ContactShareEditActivity_type_home">Casa</string>
   <string name="ContactShareEditActivity_type_mobile">Mòbil</string>
   <string name="ContactShareEditActivity_type_work">Feina</string>
   <string name="ContactShareEditActivity_type_missing">Altres</string>
   <string name="ContactShareEditActivity_invalid_contact">El contacte seleccionat no és vàlid.</string>
+  <!--Content descrption for name edit button on contact share edit activity-->
+  <string name="ContactShareEditActivity__edit_name">Editar nom</string>
+  <!--Content description for user avatar in edit activity-->
+  <string name="ContactShareEditActivity__avatar">Avatar</string>
   <!--ConversationItem-->
   <string name="ConversationItem_error_not_sent_tap_for_details">No enviat. Toqueu per saber-ne més.</string>
   <string name="ConversationItem_error_partially_not_delivered">Parcialment enviat, toca per més informació</string>
@@ -274,6 +282,8 @@
     <item quantity="other">%d missatges sense llegir</item>
   </plurals>
   <!--ConversationFragment-->
+  <!--Toast text when contacts activity is not found-->
+  <string name="ConversationFragment__contacts_app_not_found">No s\'han trobat els contactes de l\'app.</string>
   <plurals name="ConversationFragment_delete_selected_messages">
     <item quantity="one">Voleu suprimir el missatge seleccionat?</item>
     <item quantity="other">Voleu suprimir els missatges seleccionats?</item>
@@ -657,7 +667,7 @@
   <string name="AddGroupDetailsFragment__group_creation_failed">Ha fallat la creació del grup.</string>
   <string name="AddGroupDetailsFragment__try_again_later">Torneu-ho a provar més tard.</string>
   <!--Displayed when adding group details to an MMS Group-->
-  <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Has seleccionat un contacte que no té habilitats els grups a Signal, o sigui que aquest grup serà MMS. Només tu podràs veure els noms personalitzats i les fotos dels grups MMS.</string>
+  <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Has seleccionat un contacte que no té habilitats els grups a Signal, així que aquest grup serà MMS. Només tu podràs veure els noms personalitzats i les fotos dels grups MMS.</string>
   <string name="AddGroupDetailsFragment__remove">Suprimeix</string>
   <string name="AddGroupDetailsFragment__sms_contact">Contacte d\'SMS</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">Voleu suprimir %1$s d\'aquest grup?</string>
@@ -902,6 +912,8 @@
   <string name="Megaphones_use_sms">Usa SMS</string>
   <string name="Megaphones_appearance">Aparença</string>
   <string name="Megaphones_add_photo">Afegiu-hi una fotografia</string>
+  <!--Title of a bottom sheet to render messages that all quote a specific message-->
+  <string name="MessageQuotesBottomSheet_replies">Respostes</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Trucada del Signal en curs</string>
   <string name="NotificationBarManager__establishing_signal_call">S\'estableix la trucada del Signal</string>
@@ -1124,9 +1136,7 @@
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">No s\'ha pogut lliurar un missatge de %s.</string>
   <string name="MessageRecord_s_changed_their_phone_number">%1$s ha canviat el número de telèfon.</string>
   <!--Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost.-->
-  <!-- Removed by excludeNonTranslatables <string name="MessageRecord_like_this_new_feature_say_thanks_with_a_boost">Us agrada aquesta funció nova? Doneu les gràcies amb una Empenta.</string> -->
-  <!--Update item message shown in the release channel when someone is not a sustainer so we ask them to consider becoming one-->
-  <!-- Removed by excludeNonTranslatables <string name="MessageRecord_signal_is_powered_by_people_like_you_become_a_sustainer_today">El Signal és sostingut per persones com vosaltres. Convertiu-vos-en en un sostenidor avui.</string> -->
+  <string name="MessageRecord_like_this_new_feature_help_support_signal_with_a_one_time_donation">T\'agrada aquesta nova funció? Ajuda a Signal amb una donació puntual!</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s ha iniciat una trucada de grup · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s és a la trucada de grup · %2$s</string>
@@ -1296,7 +1306,7 @@
   <!--Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons.-->
   <string name="ValentinesDayMegaphone_happy_heart_day">Feliç dia 💜!</string>
   <!--Body text for the Valentine\'s Day donation megaphone.-->
-  <string name="ValentinesDayMegaphone_show_your_affection">Mostreu afecte convertint-vos en un sostenidor del Molly.</string>
+  <string name="ValentinesDayMegaphone_show_your_affection">Mostra afecte convertint-te en un donant del Molly.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Toqueu aquí per activar el vídeo</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Per trucar a %1$s, el Molly necessita accés a la càmera.</string>
@@ -1556,6 +1566,8 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="ThreadRecord__you_sent_a_gift">Heu enviat un regal.</string>
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">Heu bescanviat una insígnia de regal.</string>
+  <!--Displayed in the conversation list when someone reacted to your story-->
+  <!--Displayed in the conversation list when you reacted to someone\'s story-->
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Actualització del Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Hi ha disponible una versió nova del Molly. Toqueu per actualitzar-lo</string>
@@ -1816,9 +1828,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="ConversationUpdateItem_view">Vista</string>
   <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">El temps de desaparició del missatge s\'establirà a %1$s quan els n\'envieu un.</string>
   <!--Update item button text to show to boost a feature-->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationUpdateItem_signal_boost">Empenta del Signal</string> -->
-  <!--Update item button text to show to become a sustainer in the release notes channel-->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationUpdateItem_become_a_sustainer">Sigueu-ne un sostenidor</string> -->
+  <string name="ConversationUpdateItem_donate">Feu una donació</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Reprodueix… Pausa</string>
   <string name="audio_view__download_accessibility_description">Baixa</string>
@@ -2058,16 +2068,16 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="HelpFragment__debug_log">Informe de depuració:</string>
   <string name="HelpFragment__could_not_upload_logs">No s\'han pogut carregar els registres.</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Si us plau, expliqueu-ho de la manera més descriptiva possible per ajudar-nos a entendre el problema.</string>
-  <!-- Removed by excludeNonTranslatables <string-array name="HelpFragment__categories_3">
-    <item>\-\- Seleccioneu una opció. \-\-</item>
-    <item>Alguna cosa no funciona.</item>
-    <item>Petició de funció</item>
+  <string-array name="HelpFragment__categories_4">
+    <item>\-\- Si us plau, selecciona una opció \-\-</item>
+    <item>Alguna cosa no funciona</item>
+    <item>Sol·licitud de funció</item>
     <item>Pregunta</item>
-    <item>Retroacció</item>
+    <item>Feedback</item>
     <item>Altres</item>
-    <item>Pagaments  (MobileCoin) </item>
-    <item>Donacions (Sostenidors i Signal Boost)</item>
-  </string-array> -->
+    <item>Pagaments (MobileCoin)</item>
+    <item>Donacions; Insígnies</item>
+  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Aquest missatge</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Usat recentment</string>
@@ -2303,6 +2313,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="preferences_enter_proxy_address">Introduïu l\'adreça del servidor intermediari</string>
   <string name="configurable_single_select__customize_option">Opció de personalització</string>
   <!--Internal only preferences-->
+  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">Tota l\'activitat</string>
   <string name="PaymentsAllActivityFragment__all">Tot</string>
@@ -2966,6 +2977,9 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="CallParticipant__you">Vós</string>
   <string name="CallParticipant__you_on_another_device">Vós (en un altre dispositiu)</string>
   <string name="CallParticipant__s_on_another_device">%1$s (en un altre dispositiu)</string>
+  <!--WifiToCellularPopupWindow-->
+  <!--Message shown during a call when the WiFi network is unusable, and cellular data starts to be used for the call instead.-->
+  <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">La connexió Wi-Fi és feble. S\'ha canviat a dades del telèfon.</string>
   <!--DeleteAccountFragment-->
   <string name="DeleteAccountFragment__deleting_your_account_will">Suprimir el compte comportarà el següent:</string>
   <string name="DeleteAccountFragment__enter_your_phone_number">Marqueu el número de telèfon.</string>
@@ -3319,7 +3333,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="AddAProfilePhotoMegaphone__not_now">Ara no</string>
   <string name="AddAProfilePhotoMegaphone__add_photo">Afegiu-hi una fotografia</string>
   <!--BecomeASustainerMegaphone-->
-  <string name="BecomeASustainerMegaphone__become_a_sustainer">Sigueu-ne un sostenidor</string>
+  <string name="BecomeASustainerMegaphone__become_a_sustainer">Converteix-te en donant</string>
   <!--Displayed in the Become a Sustainer megaphone-->
   <string name="BecomeASustainerMegaphone__signal_is_powered_by">El Signal és sostingut per persones com vós. Feu una donació i rebeu un distintiu.</string>
   <string name="BecomeASustainerMegaphone__not_now">Ara no</string>
@@ -3441,6 +3455,10 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="MultiselectForwardFragment__share_with">Comparteix amb</string>
   <string name="MultiselectForwardFragment__add_a_message">Afegiu-hi un missatge</string>
   <string name="MultiselectForwardFragment__faster_forwards">Reenviaments més ràpids</string>
+  <!--Displayed when user selects a video that will be clipped before sharing to a story-->
+  <string name="MultiselectForwardFragment__videos_will_be_trimmed">Els vídeos es retallaran en clips de 30 segons i es pujaran com múltiples Històries.</string>
+  <!--Displayed when user selects a video that cannot be sent as a story-->
+  <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">Els vídeos que pugis a Històries no poden durar més de 30 segons.</string>
   <string name="MultiselectForwardFragment__forwarded_messages_are_now">Ara els missatges reenviats s\'envien immediatament.</string>
   <plurals name="MultiselectForwardFragment_send_d_messages">
     <item quantity="one">Envia %1$d missatge</item>
@@ -3494,7 +3512,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="SelectFeaturedBadgeFragment__select_a_badge">Selecciona una insígnia</string>
   <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">Heu de seleccionar una insígnia</string>
   <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Ha fallat actualitzar el perfil.</string>
-  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Converteix-te\'n en un defensor</string>
+  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Converteix-te en donant</string>
   <string name="ImageView__badge">Insígnia</string>
   <string name="SubscribeFragment__signal_is_powered_by_people_like_you">El Signal és alimentat per persones com vosaltres.</string>
   <string name="SubscribeFragment__support_technology_that_is_built_for_you">Ajudeu la tecnologia creada per a vosaltres —no per a les vostres dades— afegint-vos a la comunitat de persones que la sustenten.</string>
@@ -3525,7 +3543,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_s_badge_display">Hau guanyat %s insígnia! Mostreu aquesta insígnia al perfil per crear consciència de la donació al Signal.</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_boost_badge_display">Heu guanyat una insígnia d\'empenta! Mostreu aquesta insígnia al perfil per crear consciència de la donació al Signal.</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__you_can_also">També podeu</string>
-  <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">esdevenir un sostenidor mensual.</string>
+  <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">converteix-te en donant mensual.</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Mostra-ho al perfil</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Feu una insígnia inclosa</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Fet</string>
@@ -3570,8 +3588,8 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired_and">La vostra insígnia d\'empenta ha vençut i ja no és visible al perfil.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Podeu reactivar la insígnia d\'empenta durant 30 dies més amb una aportació única.</string>
   <!--Displayed when we do not think the user is a subscriber when their boost expires-->
-  <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_keep">Podeu continuar usant el Signal, però per donar suport a la tecnologia creada per a vós, considereu convertir-vos en un sostenidor fent-hi una donació mensual.</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Sigueu-ne un sostenidor</string>
+  <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_keep">Podeu continuar usant el Signal, però per donar suport a la tecnologia creada per a vós, considereu convertir-vos en un donant fent-hi una donació mensual.</string>
+  <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Converteix-te en donant</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Afegiu-hi una empenta</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Ara no</string>
   <!--Copy displayed when badge expires after user inactivity-->
@@ -3585,7 +3603,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--Button label to send user to Google Pay website-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__go_to_google_pay">Ves a Google Pay</string>
   <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">No es pot processar el pagament de la subscripció.</string>
-  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Tenim problemes per cobrar el pagament de sostenidor del Signal. Assegureu-vos que el mètode de pagament estigui actualitzat. Si no és així, actualitzeu-lo a Google Pay. Signal intentarà processar el pagament de nou d\'aquí a uns dies.</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Tenim problemes per cobrar el pagament de donant del Signal. Assegureu-vos que el mètode de pagament estigui actualitzat. Si no és així, actualitzeu-lo a Google Pay. Signal intentarà processar el pagament de nou d\'aquí a uns dies.</string>
   <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">No ho tornis a mostrar</string>
   <string name="Subscription__please_contact_support_for_more_information">Poseu-vos en contacte amb el servei d\'assistència per obtenir-ne més informació.</string>
   <string name="Subscription__contact_support">Contacteu amb l\'Assistència</string>
@@ -3856,6 +3874,8 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="StoriesLandingItem__share">Comparteix…</string>
   <!--Context menu option to go to story chat-->
   <string name="StoriesLandingItem__go_to_chat">Ves a la conversa</string>
+  <!--Context menu option to go to story info-->
+  <string name="StoriesLandingItem__info">Informació</string>
   <!--Label when a story is pending sending-->
   <string name="StoriesLandingItem__sending">S\'envia…</string>
   <!--Label when multiple stories are pending sending-->
@@ -3901,6 +3921,8 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
     <item quantity="one">%1$d resposta</item>
     <item quantity="other">%1$d respostes</item>
   </plurals>
+  <!--Used when view receipts are disabled-->
+  <string name="StoryViewerPageFragment__views_off">Visualitzacions desactivades</string>
   <!--Used to join views and replies when both exist on a story item-->
   <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
   <!--Displayed when viewing a post you sent-->
@@ -3913,6 +3935,10 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="StoryViewerPageFragment__reply_to_group">Respon al grup</string>
   <!--Displayed when a story has no views-->
   <string name="StoryViewsFragment__no_views_yet">Encara no té visualitzacions</string>
+  <!--Displayed when user has disabled receipts-->
+  <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">Activa les confirmacions de lectura per veure qui ha visualitzat les teves històries.</string>
+  <!--Button label displayed when user has disabled receipts-->
+  <string name="StoryViewsFragment__go_to_settings">Anar a ajustos</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">Encara no té respostes</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3945,11 +3971,30 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="MyStorySettingsFragment__who_can_see_this_story">Qui pot veure aquesta història</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Amaga la història de</string>
-  <!--Summary of clickable option displaying how many people you have hidden your story from-->
+  <!--Privacy setting title for sending stories to all your signal connections-->
+  <string name="MyStorySettingsFragment__all_signal_connections">Tots els contactes de Signal</string>
+  <!--Privacy setting description for sending stories to all your signal connections-->
+  <string name="MyStorySettingsFragment__share_with_all_connections">Compartir amb tots els contactes</string>
+  <!--Privacy setting title for sending stories to all except the specified connections-->
+  <string name="MyStorySettingsFragment__all_signal_connections_except">Tots els contactes de Signal menys…</string>
+  <!--Privacy setting description for sending stories to all except the specified connections-->
+  <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Oculta la teva història a persones en concret</string>
+  <!--Summary of clickable option displaying how many people you have excluded from your story-->
+  <plurals name="MyStorySettingsFragment__d_people_excluded">
+    <item quantity="one">%1$d persona exclosa</item>
+    <item quantity="other">%1$d persones excloses</item>
+  </plurals>
+  <!--Privacy setting title for only sharing your story with specified connections-->
+  <string name="MyStorySettingsFragment__only_share_with">Compartir només amb…</string>
+  <!--Privacy setting description for only sharing your story with specified connections-->
+  <string name="MyStorySettingsFragment__only_share_with_selected_people">Compartir només amb les persones seleccionades</string>
+  <!--Summary of clickable option displaying how many people you have included to send to in your story-->
   <plurals name="MyStorySettingsFragment__d_people">
     <item quantity="one">%1$d persona</item>
     <item quantity="other">%1$d persones</item>
   </plurals>
+  <!--My story privacy fine print about what the privacy settings are for-->
+  <string name="MyStorySettingsFragment__choose_who_can_view_your_story">Tria qui pot veure la teva història. Aquests canvis no afectaran les històries que ja hagis pujat.</string>
   <!--Section header for options related to replies and reactions-->
   <string name="MyStorySettingsFragment__replies_amp_reactions">Respostes i reaccions</string>
   <!--Switchable option for allowing replies and reactions on your stories-->
@@ -3958,10 +4003,10 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Permeteu que les persones que puguin veure la història hi reaccionin i hi responguin.</string>
   <!--Note about default sharing-->
   <string name="MyStorySettingsFragment__hide_your_story_from">Amagueu la història a persones específiques. De manera predeterminada, la vostra història es comparteix amb %1$s</string>
-  <!--Signal connections linked text that opens the Signal Connections sheet-->
-  <!-- Removed by excludeNonTranslatables <string name="MyStorySettingsFragment__signal_connections">Connexions del Signal.</string> -->
+  <!--Signal connections bolded text in the Signal Connections sheet-->
+  <string name="SignalConnectionsBottomSheet___signal_connections">Contactes de Signal</string>
   <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
-  <string name="SignalConnectionsBottomSheet__signal_connections_are_people">Les <strong>connexions del Signal</strong> són persones en qui heu triat confiar, ja sigui per</string>
+  <string name="SignalConnectionsBottomSheet__signal_connections_are_people">Els contactes de Signal són aquelles persones en les quals has indicat que confies, ja sigui:</string>
   <!--Signal connections sheet bullet point 1-->
   <string name="SignalConnectionsBottomSheet__starting_a_conversation">començar una conversa</string>
   <!--Signal connections sheet bullet point 2-->
@@ -3969,7 +4014,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--Signal connections sheet bullet point 3-->
   <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">tenir-les als contactes del sistema</string>
   <!--Note at the bottom of the Signal connections sheet-->
-  <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">Les vostres connexions poden veure el vostre nom i la fotografia, i poden veure les publicacions a \"La meva història\" tret que els les amagueu.</string>
+  <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">Els teus contactes poden veure el vostre nom i la fotografia, i poden veure les publicacions a \"La meva història\" tret que decideixis ocultar-les-hi.</string>
   <!--Clickable option to add a viewer to a private story-->
   <string name="PrivateStorySettingsFragment__add_viewer">Afegiu-hi un espectador</string>
   <!--Clickable option to delete a custom story-->
@@ -4010,14 +4055,16 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="TextStoryPostSendFragment__search">Cerca</string>
   <!--Toast shown when an unexpected error occurs while sending a text story-->
   <string name="TextStoryPostSendFragment__an_unexpected_error_occurred_try_again">Alguna cosa ha anat malament</string>
-  <!--Title for screen allowing user to hide "My Story" entries from specific people-->
-  <!-- Removed by excludeNonTranslatables <string name="HideStoryFromFragment__hide_story_from">Amaga la història de…</string> -->
+  <!--Title for screen allowing user to exclude "My Story" entries from specific people-->
+  <string name="ChangeMyStoryMembershipFragment__all_except">Tothom excepte…</string>
+  <!--Title for screen allowing user to only share "My Story" entries with specific people-->
+  <string name="ChangeMyStoryMembershipFragment__only_share_with">Compartir només amb…</string>
   <!--Done button label for hide story from screen-->
   <string name="HideStoryFromFragment__done">Fet</string>
   <!--Dialog title for first time adding something to a story-->
   <string name="StoryDialogs__add_to_story_q">Ho voleu afegir a la història?</string>
   <!--Dialog message for first time adding something to a story-->
-  <string name="StoryDialogs__adding_content">Afegir contingut a la història permet que les vostres connexions del Signal el vegin durant 24 hores. Podeu canviar qui pot veure la història a Configuració.</string>
+  <string name="StoryDialogs__adding_content">Afegir contingut a la història permet que els teus contactes del Signal el vegin durant 24 hores. Pots canviar qui pot veure la història a Configuració.</string>
   <!--First time share to story dialog: Positive action to go ahead and add to story-->
   <string name="StoryDialogs__add_to_story">Afegeix-ho a la història</string>
   <!--First time share to story dialog: Neutral action to edit who can view "My Story"-->
@@ -4103,7 +4150,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--Content description for expand contacts chevron-->
   <string name="ExpandModel__view_more">Mostra\'n més</string>
   <string name="StoriesLinkPopup__visit_link">Obre l\'enllaç</string>
-  <!--Duration and price information-->
+  <!--Gift price and duration, formatted as: {price} dot {n} day duration-->
   <plurals name="GiftRowItem_s_dot_d_day_duration">
     <item quantity="one">%1$s · %2$d dia de duració</item>
     <item quantity="other">%1$s · %2$d dies de duració</item>
@@ -4153,7 +4200,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--Expired gift sheet top description text-->
   <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired_and_is">La insígnia de regal ha vençut i ja no és visible per als altres al perfil.</string>
   <!--Expired gift sheet bottom description text-->
-  <string name="ExpiredGiftSheetConfiguration__to_continue">Per continuar donant suport a la tecnologia creada per a vós, considereu convertir-vos en un sostenidor mensual.</string>
+  <string name="ExpiredGiftSheetConfiguration__to_continue">Per continuar donant suport a la tecnologia creada per a vós, considereu convertir-vos en un donant mensual.</string>
   <!--Expired gift sheet make a monthly donation button-->
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Feu una donació mensual</string>
   <!--Expired gift sheet not now button-->
@@ -4168,6 +4215,26 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
     <item quantity="one">Història de grup · %1$d espectador</item>
     <item quantity="other">Història de grup · %1$d espectadors</item>
   </plurals>
+  <!--Label under name for My Story when first sending to my story-->
+  <string name="ContactSearchItems__tap_to_choose_your_viewers">Toca per triar els teus espectadors</string>
+  <!--Label for context menu item to open story settings-->
+  <string name="ContactSearchItems__story_settings">Configuració de la història</string>
+  <!--Label for context menu item to remove a group story from contact results-->
+  <string name="ContactSearchItems__remove_story">Esborrar història</string>
+  <!--Label for context menu item to delete a private story-->
+  <string name="ContactSearchItems__delete_story">Eliminar història</string>
+  <!--Dialog title for removing a group story-->
+  <string name="ContactSearchMediator__remove_group_story">Vols esborrar aquesta història de grup?</string>
+  <!--Dialog message for removing a group story-->
+  <string name="ContactSearchMediator__this_will_remove">Aquesta acció esborrarà la teva història d\'aquesta llista. Encara podràs veure històries d\'aquest grup.</string>
+  <!--Dialog action item for removing a group story-->
+  <string name="ContactSearchMediator__remove">Suprimeix</string>
+  <!--Dialog title for deleting a private story-->
+  <string name="ContactSearchMediator__delete_story">Voleu suprimir la història?</string>
+  <!--Dialog message for deleting a private story-->
+  <string name="ContactSearchMediator__delete_the_private">Vols eliminar la història privada \"%1$s\"?</string>
+  <!--Dialog action item for deleting a private story-->
+  <string name="ContactSearchMediator__delete">Suprimits</string>
   <!--Gift expiry days remaining-->
   <plurals name="Gifts__d_days_remaining">
     <item quantity="one">%1$d dia restant</item>
@@ -4185,5 +4252,78 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   </plurals>
   <!--Gift expiry expired-->
   <string name="Gifts__expired">Ha vençut</string>
+  <!--Label indicating that a user can tap to advance to the next post in a story-->
+  <string name="StoryFirstTimeNavigationView__tap_to_advance">Toca per avançar</string>
+  <!--Label indicating swipe direction to skip current story-->
+  <string name="StoryFirstTimeNavigationView__swipe_up_to_skip">Llisca cap amunt per saltar</string>
+  <!--Label indicating swipe direction to exit story viewer-->
+  <string name="StoryFirstTimeNavigationView__swipe_right_to_exit">Llisca cap a la dreta per sortir</string>
+  <!--Button label to confirm understanding of story navigation-->
+  <string name="StoryFirstTimeNagivationView__got_it">Entesos</string>
+  <!--Content description for vertical context menu button in safety number sheet rows-->
+  <string name="SafetyNumberRecipientRowItem__open_context_menu">Obrir el menú de context</string>
+  <!--Sub-line when a user is verified.-->
+  <string name="SafetyNumberRecipientRowItem__s_dot_verified">%1$s · Verificat</string>
+  <!--Sub-line when a user is verified.-->
+  <string name="SafetyNumberRecipientRowItem__verified">Verificat</string>
+  <!--Title of safety number changes bottom sheet when showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__safety_number_changes">Canvis al número de seguretat</string>
+  <!--Message of safety number changes bottom sheet when showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__the_following_people">Les següents persones pot ser que hagin reinstal·lat Signal o canviat de dispositiu. Toca sobre un contacte per a confirmar el seu nou número de seguretat. És opcional.</string>
+  <!--Title of safety number changes bottom sheet when not showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__safety_number_checkup">Revisió del número de seguretat</string>
+  <!--Title of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <string name="SafetyNumberBottomSheetFragment__safety_number_checkup_complete">Revisió del número de seguretat completada</string>
+  <!--Message of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">S\'han revisat tots els contactes, toca enviar per a continuar.</string>
+  <!--Message of safety number changes bottom sheet when not showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">Tens %1$d contactes que pot ser que hagin reinstal·lat Signal o canviat de dispositiu. Abans de compartir la teva història amb ells, revisa els seus números de seguretat o pensa si vols eliminar-los de la teva història.</string>
+  <!--Menu action to launch safety number verification screen-->
+  <string name="SafetyNumberBottomSheetFragment__verify_safety_number">Verifica el número de seguretat</string>
+  <!--Menu action to remove user from story-->
+  <string name="SafetyNumberBottomSheetFragment__remove_from_story">Eliminar de la història</string>
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to send anyway-->
+  <string name="SafetyNumberBottomSheetFragment__send_anyway">Envia\'l tanmateix</string>
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to review connections-->
+  <string name="SafetyNumberBottomSheetFragment__review_connections">Revisar contactes</string>
+  <!--Empty state copy for SafetyNumberBottomSheetFragment-->
+  <string name="SafetyNumberBottomSheetFragment__no_more_recipients_to_show">No hi ha més contactes per mostrar</string>
+  <!--Done button on safety number review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__done">Fet</string>
+  <!--Title of safety number review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__safety_number_changes">Canvis al número de seguretat</string>
+  <!--Message of safety number review fragment-->
+  <plurals name="SafetyNumberReviewConnectionsFragment__d_recipients_may_have">
+    <item quantity="one">%1$d destinatari pot haver reinstal·lat Signal o canviat de dispositiu. Toca sobre un destinatari per a confirmar el nou número de seguretat. Aquest pas és opcional.</item>
+    <item quantity="other">%1$ddestinataris poden haver reinstal·lat Signal o canviat de dispositiu. Toca sobre un destinatari per a confirmar el nou número de seguretat. Aquest pas és opcional.</item>
+  </plurals>
+  <!--Section header for 1:1 contacts in review fragment-->
+  <string name="SafetyNumberBucketRowItem__contacts">Contactes</string>
+  <!--Context menu label for distribution list headers in review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__remove_all">Eliminar tot</string>
+  <!--Context menu label for 1:1 contacts to remove from send-->
+  <string name="SafetyNumberReviewConnectionsFragment__remove">Suprimeix</string>
+  <!--Title of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__my_story_privacy">Privacitat de la meva història</string>
+  <!--Subtitle of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings">Tria qui pot veure el que puges a La meva història. Sempre pots canviar les teves preferències a ajustos.</string>
+  <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Totes les connexions de Signal</string>
+  <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Totes les connexions de Signal menys…</string>
+  <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Compartir només amb…</string>
+  <!--Story info header sent heading-->
+  <string name="StoryInfoHeader__sent">Enviat</string>
+  <!--Story info header received heading-->
+  <string name="StoryInfoHeader__received">Rebut</string>
+  <!--Story info header file size heading-->
+  <string name="StoryInfoHeader__file_size">Mida de l\'arxiu</string>
+  <!--Story info "Sent to" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_to">Enviat a</string>
+  <!--Story info "Sent from" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_from">Enviat per</string>
+  <!--Story Info context menu label-->
+  <string name="StoryInfoBottomSheetDialogFragment__info">Informació</string>
   <!--EOF-->
 </resources>

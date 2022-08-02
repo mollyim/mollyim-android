@@ -154,7 +154,7 @@ sealed class ConversationSettingsViewModel(
           canModifyBlockedState = !recipient.isSelf && RecipientUtil.isBlockable(recipient),
           specificSettingsState = state.requireRecipientSettingsState().copy(
             contactLinkState = when {
-              recipient.isSelf || recipient.isReleaseNotes -> ContactLinkState.NONE
+              recipient.isSelf || recipient.isReleaseNotes || recipient.isBlocked -> ContactLinkState.NONE
               recipient.isSystemContact -> ContactLinkState.OPEN
               else -> ContactLinkState.ADD
             }
@@ -388,7 +388,7 @@ sealed class ConversationSettingsViewModel(
     private fun getLegacyGroupState(recipient: Recipient): LegacyGroupPreference.State {
       val showLegacyInfo = recipient.requireGroupId().isV1
 
-      return if (showLegacyInfo && recipient.participants.size > FeatureFlags.groupLimits().hardLimit) {
+      return if (showLegacyInfo && recipient.participantIds.size > FeatureFlags.groupLimits().hardLimit) {
         LegacyGroupPreference.State.TOO_LARGE
       } else if (showLegacyInfo) {
         LegacyGroupPreference.State.UPGRADE

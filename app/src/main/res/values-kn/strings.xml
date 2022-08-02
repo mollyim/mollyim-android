@@ -91,9 +91,13 @@
   <!--Text that is shown when unblocking a Signal contact-->
   <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">ನೀವು ಪರಸ್ಪರ ಸಂದೇಶ ಕಳುಹಿಸಲು ಮತ್ತು ಕರೆ ಮಾಡಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ ಮತ್ತು ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಫೋಟೋವನ್ನು ಅವರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲಾಗುತ್ತದೆ.</string>
   <!--Text that is shown when unblocking an SMS contact-->
+  <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">ಪರಸ್ಪರ ಸಂದೇಶ ಕಳುಹಿಸಲು ನಿಮಗೆ ಸಾಧ್ಯವಾಗುತ್ತದೆ.</string>
   <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">ನಿರ್ಬಂಧಿಸಿದ ಜನರಿಗೆ ನಿಮಗೆ ಕರೆ ಮಾಡಲು ಅಥವಾ ಸಂದೇಶಗಳನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.</string>
+  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">ನಿಮಗೆ ಸಂದೇಶಗಳನ್ನು ಕಳುಹಿಸಲು ನಿರ್ಬಂಧಿತ ಜನರಿಗೆ ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.</string>
   <!--Message shown on block dialog when blocking the Signal release notes recipient-->
+  <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">ನಿರ್ಬಂಧವು Signal ಅಪ್‌ಡೇಟ್‌ಗಳು ಮತ್ತು ಸುದ್ದಿಯನ್ನು ಪಡೆಯುತ್ತದೆ.</string>
   <!--Message shown on unblock dialog when unblocking the Signal release notes recipient-->
+  <string name="BlockUnblockDialog_resume_getting_signal_updates_and_news">ಪುನರಾರಂಭವು Signal ಅಪ್‌ಡೇಟ್‌ಗಳು ಮತ್ತು ಸುದ್ದಿಯನ್ನು ಪಡೆಯುತ್ತದೆ.</string>
   <string name="BlockUnblockDialog_unblock_s">%1$sನಿರ್ಬಂಧ ತೆಗೆಯುವುದೇ?</string>
   <string name="BlockUnblockDialog_block">ನಿರ್ಬಂಧಿಸಿ</string>
   <string name="BlockUnblockDialog_block_and_leave">ನಿರ್ಬಂಧಿಸಿ ಹಾಗು ಹೊರಹೋಗಿ</string>
@@ -124,7 +128,9 @@
   <string name="CameraContacts__menu_search">ಹುಡುಕಿ</string>
   <!--Censorship Circumvention Megaphone-->
   <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off_censorship_circumvention">ಸೆನ್ಸಾರ್‌ಶಿಪ್ ಭಂಗವನ್ನು ಆಫ್ ಮಾಡುವುದೇ?</string>
   <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_you_can_now_connect_to_the_signal_service">ಉತ್ತಮ ಅನುಭವಕ್ಕಾಗಿ ನೀವೀಗ ನೇರವಾಗಿ Signal ಸೇವೆಯನ್ನು ಸಂಪರ್ಕಿಸಬಹುದು.</string>
   <!--Action to prompt the user to disable circumvention since it is no longer needed-->
   <string name="CensorshipCircumventionMegaphone_turn_off">ಆಫ್ ಮಾಡಿ</string>
   <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
@@ -162,21 +168,30 @@
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">ನನ್ನ ಸ್ಟೋರೀಸ್</string>
   <!--Action for creating a new story-->
+  <string name="ContactsCursorLoader_new_story">ಹೊಸ ಸ್ಟೋರಿ</string>
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">ಸಂದೇಶ %s</string>
   <string name="ContactsDatabase_signal_call_s">Signal ಕರೆ %s</string>
   <!--ContactNameEditActivity-->
+  <!--Toolbar title for contact name edit activity-->
+  <string name="ContactNameEditActivity__edit_name">ಹೆಸರು ತಿದ್ದಿ</string>
   <string name="ContactNameEditActivity_given_name">ನೀಡಿರುವ ಹೆಸರು</string>
   <string name="ContactNameEditActivity_family_name">ಕುಟುಂಬದ ಹೆಸರು</string>
   <string name="ContactNameEditActivity_prefix">ಪೂರ್ವಪ್ರತ್ಯಯ</string>
   <string name="ContactNameEditActivity_suffix">ಅಂತ್ಯಪ್ರತ್ಯಯ</string>
   <string name="ContactNameEditActivity_middle_name">ಮಧ್ಯದ ಹೆಸರು</string>
   <!--ContactShareEditActivity-->
+  <!--ContactShareEditActivity toolbar title-->
+  <string name="ContactShareEditActivity__send_contact">ಸಂಪರ್ಕ ಕಳುಹಿಸಿ</string>
   <string name="ContactShareEditActivity_type_home">ಹೋಮ್</string>
   <string name="ContactShareEditActivity_type_mobile">ಮೊಬೈಲ್</string>
   <string name="ContactShareEditActivity_type_work">ಕೆಲಸ</string>
   <string name="ContactShareEditActivity_type_missing">ಇತರ</string>
   <string name="ContactShareEditActivity_invalid_contact">ಆಯ್ಕೆಮಾಡಿದ ಸಂಪರ್ಕವು ಅಮಾನ್ಯವಾಗಿದೆ</string>
+  <!--Content descrption for name edit button on contact share edit activity-->
+  <string name="ContactShareEditActivity__edit_name">ಹೆಸರು ತಿದ್ದಿ</string>
+  <!--Content description for user avatar in edit activity-->
+  <string name="ContactShareEditActivity__avatar">ಅವತಾರ್</string>
   <!--ConversationItem-->
   <string name="ConversationItem_error_not_sent_tap_for_details">ಕಳಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ, ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗೆ ಇಲ್ಲಿ ಕ್ಲಿಕ್ಕಿಸಿ</string>
   <string name="ConversationItem_error_partially_not_delivered">ಭಾಗಶಃ ಕಳಿಸಿದೆ, ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗೆ ಇಲ್ಲಿ ಕ್ಲಿಕ್ಕಿಸಿ</string>
@@ -212,8 +227,10 @@
   <string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">ಈ ಸಾಧನವು ಡಯಲ್ ಕ್ರಮಗಳನ್ನು ಬೆಂಬಲಿಸುವಂತೆ ಕಂಡುಬರುತ್ತಿಲ್ಲ.</string>
   <string name="ConversationActivity_transport_insecure_sms">ಅಸುರಕ್ಷಿತ ಎಸ್ಎಂಎಸ್ </string>
   <!--A title for the option to send an SMS with a placeholder to put the name of their SIM card-->
+  <string name="ConversationActivity_transport_insecure_sms_with_sim">ಅಸುರಕ್ಷಿತ SMS (%1$s)</string>
   <string name="ConversationActivity_transport_insecure_mms">ಅಸುರಕ್ಷಿತ ಎಂಎಂಎಸ್ </string>
   <!--A title for the option to send an SMS with a placeholder to put the name of their SIM card-->
+  <string name="ConversationActivity_transport_insecure_mms_with_sim">ಅಸುರಕ್ಷಿತ MMS (%1$s)</string>
   <string name="ConversationActivity_transport_signal">Signal ಸಂದೇಶ</string>
   <string name="ConversationActivity_lets_switch_to_signal">Molly %1$s ಗೆ ಬದಲಾಯಿಸೋಣ</string>
   <string name="ConversationActivity_specify_recipient">ದಯವಿಟ್ಟು ಒಂದು ಸಂಪರ್ಕವನ್ನು ಆರಿಸಿಕೊಳ್ಳಿ</string>
@@ -265,6 +282,8 @@
     <item quantity="other">%d ಓದದಿರುವ ಸಂದೇಶಗಳು</item>
   </plurals>
   <!--ConversationFragment-->
+  <!--Toast text when contacts activity is not found-->
+  <string name="ConversationFragment__contacts_app_not_found">ಸಂಪರ್ಕಗಳ‌ ಆ್ಯಪ್ ಕಂಡುಬಂದಿಲ್ಲ</string>
   <plurals name="ConversationFragment_delete_selected_messages">
     <item quantity="one">ಆಯ್ಕೆ ಮಾಡಲಾದ ಸಂದೇಶಗಳನ್ನು ಅಳಿಸಬಹುದೇ?</item>
     <item quantity="other">ಆಯ್ಕೆ ಮಾಡಲಾದ ಸಂದೇಶಗಳನ್ನು ಅಳಿಸಬಹುದೇ?</item>
@@ -314,9 +333,13 @@
   <string name="ConversationFragment_your_safety_number_with_s_changed">%s ನೊಂದಿಗೆ ನಿಮ್ಮ ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆ ಬದಲಾಯಿಸಲಾಗಿದೆ.</string>
   <string name="ConversationFragment_your_safety_number_with_s_changed_likey_because_they_reinstalled_signal">%s ರೊಂದಿಗಿನ ನಿಮ್ಮ ಸುರಕ್ಷತೆ ಸಂಖ್ಯೆ ಬದಲಾಗಿದೆ. ಏಕೆಂದರೆ, ಅವರು Signal ಅನ್ನು ಪುನಃ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿದ್ದಾರೆ ಅಥವಾ ಸಾಧನಗಳನ್ನು ಬದಲಿಸಿದ್ದಾರೆ. ಹೊಸ ಸುರಕ್ಷತೆ ಸಂಖ್ಯೆಯನ್ನು ದೃಢೀಕರಿಸಲು ಪರಿಶೀಲಿಸಿ ಎಂಬುದನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ಇದು ಐಚ್ಛಿಕವಾಗಿದೆ.</string>
   <!--Message shown to indicate which notification profile is on/active-->
+  <string name="ConversationFragment__s_on">%1$s ಆನ್</string>
   <!--Dialog title for block group link join requests-->
+  <string name="ConversationFragment__block_request">ನಿರ್ಬಂಧ ವಿನಂತಿ?</string>
   <!--Dialog message for block group link join requests-->
+  <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s ಅವರು ಗ್ರೂಪ್ ಲಿಂಕ್ ಮೂಲಕ ಈ ಗ್ರೂಪ್‌ಗೆ ಸೇರಲು ಸಾಧ್ಯವಿಲ್ಲ ಅಥವಾ ಸೇರಲು ವಿನಂತಿಸಲೂ ಸಾಧ್ಯವಿಲ್ಲ. ಅವರು ಈಗಲೂ ಮ್ಯಾನುವಲ್ ಆಗಿ ಗ್ರೂಪ್‌ಗೆ ಸೇರಬಹುದು.</string>
   <!--Dialog confirm block request button-->
+  <string name="ConversationFragment__block_request_button">ನಿರ್ಬಂಧ ವಿನಂತಿ</string>
   <!--Dialog cancel block request button-->
   <string name="ConversationFragment__cancel">ರದ್ದುಗೊಳಿಸಿ</string>
   <!--Message shown after successfully blocking join requests for a user-->
@@ -342,11 +365,54 @@
     <item quantity="one">ಸಂಭಾಷಣೆಯನ್ನು ಇನ್‌ಬಾಕ್ಸ್‌ಗೆ ಸರಿಸಲಾಗಿದೆ</item>
     <item quantity="other"> %d  ಸಂಭಾಷಣೆಗಳನ್ನು ಇನ್‌ಬಾಕ್ಸ್‌ಗೆ ಸರಿಸಲಾಗಿದೆ</item>
   </plurals>
+  <plurals name="ConversationListFragment_read_plural">
+    <item quantity="one">ಓದಿ</item>
+    <item quantity="other">ಓದಿ</item>
+  </plurals>
+  <plurals name="ConversationListFragment_unread_plural">
+    <item quantity="one">ಓದದಿರುವುದು</item>
+    <item quantity="other">ಓದದಿರುವುದು</item>
+  </plurals>
+  <plurals name="ConversationListFragment_pin_plural">
+    <item quantity="one">ಪಿನ್</item>
+    <item quantity="other">ಪಿನ್</item>
+  </plurals>
+  <plurals name="ConversationListFragment_unpin_plural">
+    <item quantity="one">ಅನ್‌ಪಿನ್ ಮಾಡು</item>
+    <item quantity="other">ಅನ್‌ಪಿನ್ ಮಾಡಿ</item>
+  </plurals>
+  <plurals name="ConversationListFragment_mute_plural">
+    <item quantity="one">ಮ್ಯೂಟ್ ಮಾಡಿ</item>
+    <item quantity="other">ಮ್ಯೂಟ್ ಮಾಡಿ</item>
+  </plurals>
+  <plurals name="ConversationListFragment_unmute_plural">
+    <item quantity="one">ಅನ್‌ಮ್ಯೂಟ್ ಮಾಡಿ</item>
+    <item quantity="other">ಅನ್‌ಮ್ಯೂಟ್ ಮಾಡಿ</item>
+  </plurals>
   <string name="ConversationListFragment_select">ಆಯ್ಕೆ ಮಾಡಿ</string>
+  <plurals name="ConversationListFragment_archive_plural">
+    <item quantity="one">ಆರ್ಕೈವ್ ಮಾಡಿ</item>
+    <item quantity="other">ಆರ್ಕೈವ್ ಮಾಡಿ</item>
+  </plurals>
+  <plurals name="ConversationListFragment_unarchive_plural">
+    <item quantity="one">ಅನ್‌ಆರ್ಕೈವ್</item>
+    <item quantity="other">ಅನ್ಆ‌ರ್ಕೈವ್</item>
+  </plurals>
+  <plurals name="ConversationListFragment_delete_plural">
+    <item quantity="one">ಅಳಿಸಿ</item>
+    <item quantity="other">ಅಳಿಸಿ</item>
+  </plurals>
   <string name="ConversationListFragment_select_all">ಎಲ್ಲಾ ಆಯ್ಕೆಮಾಡಿ</string>
+  <plurals name="ConversationListFragment_s_selected">
+    <item quantity="one">%d ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ</item>
+    <item quantity="other">%d ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ</item>
+  </plurals>
   <!--Show in conversation list overflow menu to open selection bottom sheet-->
+  <string name="ConversationListFragment__notification_profile">ಅಧಿಸೂಚನೆ ಪ್ರೊಫೈಲ್</string>
   <!--Tooltip shown after you have created your first notification profile-->
+  <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">ನಿಮ್ಮ ಅಧಿಸೂಚನೆ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಇಲ್ಲಿ ಆನ್ ಅಥವಾ ಆಫ್ ಮಾಡಿ.</string>
   <!--Message shown in top toast to indicate the named profile is on-->
+  <string name="ConversationListFragment__s_on">%1$s ಆನ್</string>
   <!--ConversationListItem-->
   <string name="ConversationListItem_key_exchange_message">ಕೀ ವಿನಿಮಯ ಸಂದೇಶ</string>
   <!--ConversationListItemAction-->
@@ -378,8 +444,11 @@
   <string name="RestoreBackupFragment__choose_folder">ಫೋಲ್ಡರ್‌ ಆಯ್ಕೆಮಾಡಿ</string>
   <string name="RestoreBackupFragment__not_now">ಈಗಲ್ಲ</string>
   <!--Couldn\'t find the selected backup-->
+  <string name="RestoreBackupFragment__backup_not_found">ಬ್ಯಾಕಪ್ ಕಂಡುಬಂದಿಲ್ಲ.</string>
   <!--Couldn\'t read the selected backup-->
+  <string name="RestoreBackupFragment__backup_could_not_be_read">ಬ್ಯಾಕಪ್ ಅನ್ನು ಓದಲಾಗುವುದಿಲ್ಲ.</string>
   <!--Backup has an unsupported file extension-->
+  <string name="RestoreBackupFragment__backup_has_a_bad_extension">ಬ್ಯಾಕಪ್ ಸೂಕ್ತವಲ್ಲದ ವಿಸ್ತರಣೆ ಹೊಂದಿದೆ.</string>
   <!--BackupsPreferenceFragment-->
   <string name="BackupsPreferenceFragment__chat_backups">ಚಾಟ್ ಬ್ಯಾಕಪ್‌ಗಳು</string>
   <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">ಬ್ಯಾಕ್‌ಅಪ್‌ಗಳನ್ನು ಪಾಸ್‌ಫ್ರೇಸ್‌ನೊಂದಿಗೆ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗುತ್ತದೆ ಮತ್ತು ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಸಂಗ್ರಹಿಸಲಾಗುತ್ತದೆ.</string>
@@ -395,6 +464,7 @@
   <string name="BackupsPreferenceFragment__in_progress">ಪ್ರಗತಿಯಲ್ಲಿದೆ…</string>
   <string name="BackupsPreferenceFragment__d_so_far">ಇಲ್ಲಿಯವರೆಗು %1$d…</string>
   <!--Show percentage of completion of backup-->
+  <string name="BackupsPreferenceFragment__s_so_far">%1$s%% ಈ ತನಕ…</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups"> ಬ್ಯಾಕಪ್ ಗಳನ್ನು ರಚಿಸಲು Molly ಗೆ ಬಾಹ್ಯ ಸ್ಟೋರೇಜ್ ಅನುಮತಿ ಅಗತ್ಯವಿರುತ್ತದೆ, ಆದರೆ ಅದನ್ನು ಶಾಶ್ವತವಾಗಿ ನಿರಾಕರಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು ಆ್ಯಪ್ ಸೆಟ್ಟಿಂಗ್ಸ್ ಗೆ ಮುಂದುವರಿಯಿರಿ, \"ಅನುಮತಿಗಳು\" ಆಯ್ಕೆ ಮಾಡಿ ಮತ್ತು \"ಸ್ಟೋರೇಜ್\" ಸಕ್ರಿಯಗೊಳಿಸಿ.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">ಕಸ್ಟಂ ಬಳಸಲಾಗುತ್ತಿದೆ: %s</string>
@@ -599,6 +669,7 @@
   <string name="AddGroupDetailsFragment__group_creation_failed">ಗುಂಪಿನ ರಚನೆ ವಿಫಲವಾಗಿದೆ.</string>
   <string name="AddGroupDetailsFragment__try_again_later">ಪುನಃ ಪ್ರಯತ್ನಿಸಿ</string>
   <!--Displayed when adding group details to an MMS Group-->
+  <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Signal ಗ್ರೂಪ್ಸ್ ಅನ್ನು ಬೆಂಬಲಿಸದ ಒಂದು ಸಂಪರ್ಕವನ್ನು ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ್ದೀರಿ, ಹಾಗಾಗಿ ಈ ಗ್ರೂಪ್ MMS ಆಗಿರಲಿದೆ. MMS ಗ್ರೂಪ್ ಹೆಸರುಗಳು ಮತ್ತು ಫೊಟೋಗಳು ಮಾತ್ರ ನಿಮಗೆ ಕಾಣಿಸುವಂತೆ ಕಸ್ಟಮ್ ಮಾಡಿ.</string>
   <string name="AddGroupDetailsFragment__remove">ತೆಗೆದುಹಾಕಿ</string>
   <string name="AddGroupDetailsFragment__sms_contact">SMS ಸಂಪರ್ಕ</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">%1$s ರನ್ನು ಗುಂಪಿನಿಂದ ತೆಗೆಯುವುದೇ?</string>
@@ -659,6 +730,8 @@
   <string name="ManageProfileFragment_your_name">ನಿಮ್ಮ ಹೆಸರು</string>
   <string name="ManageProfileFragment_your_username">ನಿಮ್ಮ ಬಳಕೆದಾರರ ಹೆಸರು</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">ಅವತಾರ್ ನಿಗದಿಪಡಿಸಲು ವಿಫಲವಾಗಿದೆ</string>
+  <string name="ManageProfileFragment_badges">ಬ್ಯಾಡ್ಜ್‌ಗಳು</string>
+  <string name="ManageProfileFragment__edit_photo">ಫೋಟೋ ಎಡಿಟ್ ಮಾಡಿ</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">ನೀವಿಬ್ಬರೂ ಒಂದೇ ಗುಂಪುಗಳಲ್ಲಿಲ್ಲ</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -676,6 +749,8 @@
   <string name="CustomNotificationsDialogFragment__notification_sound">ಅಧಿಸೂಚನೆ ಧ್ವನಿ</string>
   <string name="CustomNotificationsDialogFragment__vibrate">ವೈಬ್ರೇಟ್ ಮಾಡು</string>
   <!--Button text for customizing notification options-->
+  <string name="CustomNotificationsDialogFragment__customize">ಕಸ್ಟಮೈಝ್ ಮಾಡಿ</string>
+  <string name="CustomNotificationsDialogFragment__change_sound_and_vibration">ಶಬ್ದ ಮತ್ತು ವೈಬ್ರೇಶನ್ ಬದಲಾಯಿಸಿ</string>
   <string name="CustomNotificationsDialogFragment__call_settings">ಕರೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
   <string name="CustomNotificationsDialogFragment__ringtone">ರಿಂಗ್ಟೋನ್</string>
   <string name="CustomNotificationsDialogFragment__enabled">ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
@@ -710,11 +785,15 @@
   <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">ನೆಟ್‌ವರ್ಕ್ ದೋಷವನ್ನು ಎದುರಿಸಿದೆ.</string>
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">ಗುಂಪಿನ ಲಿಂಕ್ ಸಕ್ರಿಯವಾಗಿಲ್ಲ</string>
   <!--Title shown when there was an known issue getting group information from a group link-->
+  <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">ಗ್ರೂಪ್‌ಗೆ ಸೇರಲು ಸಾಧ್ಯವಿಲ್ಲ</string>
   <!--Message shown when you try to get information for a group via link but an admin has removed you-->
+  <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">ಅಡ್ಮಿನ್ ನಿಮ್ಮನ್ನು ತೆಗೆದುಹಾಕಿರುವ ಕಾರಣದಿಂದ ಗ್ರೂಪ್ ಲಿಂಕ್ ಮೂಲಕ ನೀವು ಈ ಗ್ರೂ್ ಸೇರಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
   <!--Message shown when you try to get information for a group via link but the link is no longer valid-->
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">ಈ ಗುಂಪಿನ ಲಿಂಕ್ ಇನ್ನು ಮುಂದೆ ಮಾನ್ಯವಾಗಿರುವುದಿಲ್ಲ.</string>
   <!--Title shown when there was an unknown issue getting group information from a group link-->
+  <string name="GroupJoinBottomSheetDialogFragment_link_error">ಲಿಂಕ್ ದೋಷ</string>
   <!--Message shown when you try to get information for a group via link but an unknown issue occurred-->
+  <string name="GroupJoinBottomSheetDialogFragment_joining_via_this_link_failed_try_joining_again_later">ಈ ಲಿಂಕ್ ಮೂಲಕ ಸೇರುವಿಕೆಯು ವಿಫಲಗೊಂಡಿದೆ. ನಂತರ ಸೇರಲು ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="GroupJoinBottomSheetDialogFragment_direct_join">ನೀವು ಈ ಗುಂಪನ್ನು ಸೇರಲು ಹಾಗೂ ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಫೋಟೋವನ್ನು ಇದರ ಸದಸ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಬಯಸುತ್ತೀರಾ?</string>
   <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">ಈ ಗ್ರೂಪ್‌ಗೆ ನೀವು ಸೇರುವುದಕ್ಕೂ ಮೊದಲು ನಿಮ್ಮ ವಿನಂತಿಯನ್ನು ಈ ಗ್ರೂಪ್‌ನ ಒಬ್ಬ ಅಡ್ಮಿನ್ ಅನುಮತಿಸಬೇಕು. ನೀವು ಸೇರಲು ವಿನಂತಿಸಿದಾಗ, ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಫೋಟೋವನ್ನು ಅದರ ಸದಸ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲಾಗುತ್ತದೆ.</string>
   <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
@@ -740,6 +819,7 @@
   <string name="RequestConfirmationDialog_add_s_to_the_group">ಗ್ರೂಪ್‌ಗೆ “%1$s” ಅವರನ್ನು ಸೇರಿಸುವುದೇ?</string>
   <string name="RequestConfirmationDialog_deny_request_from_s">“%1$s” ಅವರಿಂದ ವಿನಂತಿಯನ್ನು ನಿರಾಕರಿಸುವುದೇ?</string>
   <!--Confirm dialog message shown when deny a group link join request and group link is enabled.-->
+  <string name="RequestConfirmationDialog_deny_request_from_s_they_will_not_be_able_to_request">“%1$s” ನಿಂದ ವಿನಂತಿ ನಿರಾಕರಿಸಲಾಗಿದೆಯೇ? ಗ್ರೂಪ್ ಲಿಂಕ್ ಮೂಲಕ ಮತ್ತೆ ಸೇರಲು ಅವರಿಗೆ ವಿನಂತಿ ಸಲ್ಲಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
   <string name="RequestConfirmationDialog_add">ಸೇರಿಸಿ</string>
   <string name="RequestConfirmationDialog_deny">ನಿರಾಕರಿಸಿ</string>
   <!--ImageEditorHud-->
@@ -752,10 +832,12 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">ಹಂಚಿಕೊಳ್ಳಿ </string>
   <string name="InviteActivity_share_with_contacts">ಸಂಪರ್ಕಗಳೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ</string>
+  <string name="InviteActivity_share_via">ಇದರ ಮೂಲಕ ಹಂಚಿಕೊಳ್ಳಿ…</string>
   <string name="InviteActivity_cancel">ರದ್ದುಗೊಳಿಸಿ</string>
   <string name="InviteActivity_sending">ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ…</string>
   <string name="InviteActivity_invitations_sent">ಆಮಂತ್ರಣಗಳನ್ನು ಕಳುಹಿಸಲಾಗಿದೆ!</string>
   <string name="InviteActivity_invite_to_signal">Mollyಗೆ ಆಮಂತ್ರಿಸಿ</string>
+  <string name="InviteActivity_send_sms">SMS ಕಳುಹಿಸಿ (%d)</string>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">ಕಳುಹಿಸು %d ಎಸ್‌ಎಂಎಸ್ ಆಹ್ವಾನ?</item>
     <item quantity="other">ಎಸ್‌ಎಂಎಸ್‌ ಆಹ್ವಾನಗಳನ್ನು %dಗೆ ಕಳುಹಿಸುವುದೇ?</item>
@@ -764,6 +846,7 @@
   <string name="InviteActivity_no_app_to_share_to">ಹಂಚಿಕೊಳ್ಳಲು ತಾವು ಯಾವುದೇ ಅಪ್ಲಿಕೇಶನ್ ಗಳನ್ನು ಹೊಂದಿಲ್ಲ ಎಂದು ಕಂಡುಬರುತ್ತಿದೆ.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ</string>
+  <string name="SpanUtil__read_more">ಇನ್ನಷ್ಟು ಓದಿ</string>
   <!--LongMessageActivity-->
   <string name="LongMessageActivity_unable_to_find_message">ಸಂದೇಶವನ್ನು ಹುಡುಕಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
   <string name="LongMessageActivity_message_from_s">%1$sನಿಂದ ಸಂದೇಶ</string>
@@ -799,6 +882,18 @@
   <string name="MediaOverviewActivity_List_view_description">ಲಿಸ್ಟ್ ವ್ಯೂ</string>
   <string name="MediaOverviewActivity_Selected_description">ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ</string>
   <string name="MediaOverviewActivity_select_all">ಎಲ್ಲಾ ಆಯ್ಕೆಮಾಡಿ</string>
+  <plurals name="MediaOverviewActivity_save_plural">
+    <item quantity="one">ಉಳಿಸಿ</item>
+    <item quantity="other">ಉಳಿಸಿ</item>
+  </plurals>
+  <plurals name="MediaOverviewActivity_delete_plural">
+    <item quantity="one">ಅಳಿಸಿ</item>
+    <item quantity="other">ಅಳಿಸಿ</item>
+  </plurals>
+  <plurals name="MediaOverviewActivity_d_selected_s">
+    <item quantity="one">%1$d ಅವರು (%2$s) ಆಯ್ಕೆ ಮಾಡಿದ್ದಾರೆ</item>
+    <item quantity="other">%1$d ಅವರು (%2$s) ಆಯ್ಕೆ ಮಾಡಿದ್ದಾರೆ</item>
+  </plurals>
   <string name="MediaOverviewActivity_file">ಫೈಲ್</string>
   <string name="MediaOverviewActivity_audio">ಆಡಿಯೊ</string>
   <string name="MediaOverviewActivity_video">ವೀಡಿಯೊ</string>
@@ -819,11 +914,15 @@
   <string name="Megaphones_use_sms">ಎಸ್‌ಎಂಎಸ್ ಬಳಸಿ</string>
   <string name="Megaphones_appearance">ಲಕ್ಷಣ</string>
   <string name="Megaphones_add_photo">ಫೋಟೋ ಸೇರಿಸಿ</string>
+  <!--Title of a bottom sheet to render messages that all quote a specific message-->
+  <string name="MessageQuotesBottomSheet_replies">ಪ್ರತಿಕ್ರಿಯೆಗಳು</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal ಕರೆ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
   <string name="NotificationBarManager__establishing_signal_call">Signal ಕರೆ ಸ್ಥಾಪಿಸಲಾಗುತ್ತಿದೆ</string>
   <string name="NotificationBarManager__incoming_signal_call">ಒಳಬರುವ Signal ಕರೆ</string>
+  <string name="NotificationBarManager__incoming_signal_group_call">ಒಳಬರುವ Signal ಗ್ರೂಪ್ ಕರೆ</string>
   <!--Temporary notification shown when starting the calling service-->
+  <string name="NotificationBarManager__starting_signal_call_service">Molly ಕರೆ ಸೇವೆ ಆರಂಭಿಸಲಾಗುತ್ತಿದೆ</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Molly ಕಾಲ್ ಸರ್ವೀಸ್ ಅನ್ನು ನಿಲ್ಲಿಸಲಾಗುತ್ತಿದೆ</string>
   <string name="NotificationBarManager__decline_call">ಕರೆ ನಿರಾಕರಿಸಿ</string>
   <string name="NotificationBarManager__answer_call">ಕರೆಗೆ ಉತ್ತರಿಸಿ</string>
@@ -1033,8 +1132,9 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">ನಿಮ್ಮ ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆಯನ್ನು ನೀವು ದೃಢೀಕರಿಸದೇ ಇರುವ %s ನೊಂದಿಗೆ ಗುರುತಿಸಿದ್ದೀರಿ</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">ನಿಮ್ಮ ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆಯನ್ನು ಮತ್ತೊಂದು ಸಾಧನದಿಂದ ದೃಢೀಕರಿಸದೇ ಇರುವ %s ನೊಂದಿಗೆ ಗುರುತಿಸಿದ್ದೀರಿ</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">%s ಅವರ ಮೆಸೇಜ್ ಅನ್ನು ಡೆಲಿವರಿ ಮಾಡಲಾಗದು</string>
+  <string name="MessageRecord_s_changed_their_phone_number">%1$s ಅವರು ತಮ್ಮ ಫೋನ್ ನಂಬರ್ ಬದಲಾಯಿಸಿದ್ದಾರೆ.</string>
   <!--Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost.-->
-  <!--Update item message shown in the release channel when someone is not a sustainer so we ask them to consider becoming one-->
+  <string name="MessageRecord_like_this_new_feature_help_support_signal_with_a_one_time_donation">ಹೊಸ ಫೀಚರ್ ಇಷ್ಟವಾಯಿತೇ? ಒಂದು ಬಾರಿಯ ದೇಣಿಗೆಯೊಂದಿಗೆ Signal ಬೆಂಬಲಿಸಿ ನೆರವಾಗಿ.</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s ಅವರು ಗ್ರೂಪ್ ಕಾಲ್ ಆರಂಭಿಸಿದ್ದಾರೆ · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s ಗ್ರೂಪ್‌ ಕಾಲ್‌ನಲ್ಲಿದ್ದಾರೆ · %2$s</string>
@@ -1065,11 +1165,14 @@
   <!--Shown in message request flow. Describes what will happen if you unblock a Signal user-->
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">%1$s ಅವರು ನಿಮಗೆ ಮೆಸೇಜ್ ಮಾಡಲು ಮತ್ತು ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಫೋಟೋವನ್ನು ಅವರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಅನುಮತಿಸುತ್ತೀರಾ? ನೀವು ಅವರನ್ನು ಅನ್‌ಬ್ಲಾಕ್ ಮಾಡುವವರೆಗೆ ಯಾವುದೇ ಸಂದೇಶ ನಿಮಗೆ ಬರುವುದಿಲ್ಲ.</string>
   <!--Shown in message request flow. Describes what will happen if you unblock an SMS user-->
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">%1$s ಅವರು ನಿಮಗೆ ಸಂದೇಶ ಕಳುಹಿಸಬಹುದೇ? ನೀವು ಅವರನ್ನು ಅನ್‌ಬ್ಲಾಕ್ ಮಾಡುವ ತನಕ ನೀವು ಯಾವುದೇ ಸಂದೇಶಗಳನ್ನು ಸ್ವೀಕರಿಸುವುದಿಲ್ಲ.</string>
+  <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them"> %1$s ಅವರಿಂದ ಅಪ್‌ಡೇಟ್‌ಗಳು ಮತ್ತು ಸುದ್ದಿ ಪಡೆಯುವುದೇ? ನೀವು ಅವರನ್ನು ಅನ್‌ಬ್ಲಾಕ್ ಮಾಡುವ ತನಕ ನೀವು ಯಾವುದೇ ಸಂದೇಶಗಳನ್ನು ಸ್ವೀಕರಿಸುವುದಿಲ್ಲ.</string>
   <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">ಈ ಗುಂಪಿನೊಂದಿಗೆ ನಿಮ್ಮ ಚಾಟ್ ಅನ್ನು ಮುಂದುವರಿಸುವುದೇ ಹಾಗೂ ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಫೋಟೋವನ್ನು ಇದರ ಸದಸ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳುವುದೇ?</string>
   <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">@ಮೆನ್ಷನ್‌ಗಳು ಮತ್ತು ಅಡ್ಮಿನ್‌ಗಳಂತಹ ಹೊಸ ಫೀಚರ್‌ಗಳನ್ನು ಆಕ್ಟಿವೇಟ್ ಮಾಡಲು ಈ ಗ್ರೂಪ್‌ ಅನ್ನು ಅಪ್‌ಗ್ರೇಡ್ ಮಾಡಿ. ಈ ಗುಂಪಿನಲ್ಲಿ ತಮ್ಮ ಹೆಸರು ಅಥವಾ ಫೋಟೋವನ್ನು ಹಂಚಿಕೊಳ್ಳದ ಸದಸ್ಯರಿಗೆ ಸೇರುವಂತೆ ಆಹ್ವಾನಿಸಲಾಗುತ್ತದೆ.</string>
   <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">ಈ ಲೆಗಸಿ ಗ್ರೂಪ್ ಅನ್ನು ಇನ್ನು ಬಳಸಲಾಗದು. ಯಾಕೆಂದರೆ, ಇದು ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ. ಗರಿಷ್ಠ ಗ್ರೂಪ್ ಗಾತ್ರವು %1$d.</string>
   <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">%1$s ಜೊತೆಗೆ ನಿಮ್ಮ ಸಂಭಾಷಣೆಯನ್ನು ಮುಂದುವರಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಫೋಟೋವನ್ನು ಅವರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳುವುದೇ?</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">ಈ ಗುಂಪನ್ನು ಸೇರುವುದೇ ಹಾಗೂ ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಫೋಟೋವನ್ನು ಇದರ ಸದಸ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳುವುದೇ? ನೀವು ಸ್ವೀಕರಿಸುವವರೆಗೂ ಅವರಿಗೆ ನೀವು ಅವರ ಸಂದೇಶಗಳನ್ನು ನೋಡಿದ್ದೀರಿ ಎನ್ನುವುದು ತಿಳಿಯುವುದಿಲ್ಲ.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">ಈ ಗ್ರೂಪ್‌ಗೆ ಸೇರಿ ಮತ್ತು ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಫೊಟೋವನ್ನು ಇದರ ಸದಸ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳುವುದೇ? ನೀವು ಸ್ವೀಕರಿಸುವವರೆಗೂ ನೀವು ಅವರ ಸಂದೇಶಗಳನ್ನು ನೋಡುವುದಿಲ್ಲ.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">ಈ ಗುಂಪನ್ನು ಸೇರುತ್ತೀರಾ? ನೀವು ಸ್ವೀಕರಿಸುವವರೆಗೂ ಅವರಿಗೆ ನೀವು ಅವರ ಸಂದೇಶಗಳನ್ನು ನೋಡಿದ್ದೀರಿ ಎನ್ನುವುದು ತಿಳಿಯುವುದಿಲ್ಲ.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">ಈ ಗುಂಪನ್ನು ಅನ್‌ಬ್ಲಾಕ್ ಮಾಡುವುದೇ ಹಾಗೂ ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಫೋಟೋವನ್ನು ಇದರ ಸದಸ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳುವುದೇ? ಅವರನ್ನು ಅನ್‌ಬ್ಲಾಕ್ ಮಾಡುವವರೆಗೆ ನೀವು ಯಾವುದೇ ಸಂದೇಶಗಳನ್ನು ಸ್ವೀಕರಿಸುವುದಿಲ್ಲ.</string>
   <string name="MessageRequestProfileView_view">ತೋರಿಸು</string>
@@ -1081,7 +1184,15 @@
     <item quantity="other">%1$d ಸದಸ್ಯರು</item>
   </plurals>
   <!--Describes the number of members in a group. The string MessageRequestProfileView_invited is nested in the parentheses.-->
+  <plurals name="MessageRequestProfileView_members_and_invited">
+    <item quantity="one">%1$d ಸದಸ್ಯರು (%2$s)</item>
+    <item quantity="other">%1$d ಸದಸ್ಯರು (%2$s)</item>
+  </plurals>
   <!--Describes the number of people invited to a group. Nested inside of the string MessageRequestProfileView_members_and_invited-->
+  <plurals name="MessageRequestProfileView_invited">
+    <item quantity="one">+%1$d ಆಹ್ವಾನಿಸಿದ್ದಾರೆ</item>
+    <item quantity="other">+%1$d ಆಹ್ವಾನಿಸಿದ್ದಾರೆ</item>
+  </plurals>
   <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
     <item quantity="one">%d ಹೆಚ್ಚುವರಿ ಗ್ರೂಪ್</item>
     <item quantity="other">%d ಹೆಚ್ಚುವರಿ ಗ್ರೂಪ್‌ಗಳು</item>
@@ -1192,21 +1303,28 @@
   <string name="RedPhone_got_it">ಅರ್ಥವಾಯಿತು</string>
   <!--Valentine\'s Day Megaphone-->
   <!--Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons.-->
+  <string name="ValentinesDayMegaphone_happy_heart_day">ಶುಭ 💜 ದಿನ!</string>
   <!--Body text for the Valentine\'s Day donation megaphone.-->
+  <string name="ValentinesDayMegaphone_show_your_affection">Molly ಸಸ್ಟೈನರ್ ಆಗುವ ಮೂಲಕ ನಿಮ್ಮ ಪ್ರೀತಿ ತೋರಿಸಿ.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">ನಿಮ್ಮ ವೀಡಿಯೊವನ್ನು ಆನ್ ಮಾಡಲು ಇಲ್ಲಿ ಟ್ಯಾಪ್ ಮಾಡಿ</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s ಗೆ ಕರೆ ಮಾಡಲು, Molly ಗೆ ನಿಮ್ಮ ಕ್ಯಾಮರಾ ಪ್ರವೇಶ ಬೇಕಾಗುತ್ತದೆ</string>
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">ಕರೆ ಮಾಡಲಾಗುತ್ತಿದೆ..</string>
+  <string name="WebRtcCallActivity__group_is_too_large_to_ring_the_participants">ಭಾಗಿಗಳಿಗೆ ರಿಂಗ್ ಮಾಡಲು ಗ್ರೂಪ್ ತೀರಾ ದೊಡ್ಡದಾಗಿದೆ.</string>
   <!--Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect-->
   <string name="WebRtcCallActivity__reconnecting">ಮರುಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ…</string>
   <!--Title for dialog warning about lacking bluetooth permissions during a call-->
+  <string name="WebRtcCallActivity__bluetooth_permission_denied">ಬ್ಲೂಟೂತ್ ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
   <!--Message for dialog warning about lacking bluetooth permissions during a call and references the permission needed by name-->
+  <string name="WebRtcCallActivity__please_enable_the_nearby_devices_permission_to_use_bluetooth_during_a_call">ಕರೆಯ ವೇಳೆ ಬ್ಲೂಟೂತ್ ಬಳಸಲು \"ಸಮೀಪದ ಸಾಧನಗಳು\" ಅನುಮತಿಯನ್ನು ದಯವಿಟ್ಟು ಸಕ್ರಿಯಗೊಳಿಸಿ.</string>
   <!--Positive action for bluetooth warning dialog to open settings-->
+  <string name="WebRtcCallActivity__open_settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ತೆರೆಯಿರಿ</string>
   <!--Negative aciton for bluetooth warning dialog to dismiss dialog-->
   <string name="WebRtcCallActivity__not_now">ಈಗಲ್ಲ</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_call">Signal ಕರೆ</string>
+  <string name="WebRtcCallView__signal_video_call">Signal ವೀಡಿಯೊ ಕರೆ</string>
   <string name="WebRtcCallView__start_call">ಕರೆ ಆರಂಭಿಸಿ</string>
   <string name="WebRtcCallView__join_call">ಕರೆಗೆ ಸೇರಿ</string>
   <string name="WebRtcCallView__call_is_full">ಕರೆ ಭರ್ತಿಯಾಗಿದೆ</string>
@@ -1216,18 +1334,30 @@
   <string name="WebRtcCallView__reconnecting">ಮರುಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ…</string>
   <string name="WebRtcCallView__joining">ಸೇರಲಾಗುತ್ತಿದೆ…</string>
   <string name="WebRtcCallView__disconnected">ಸಂಪರ್ಕ ಕಡಿತಗೊಂಡಿದೆ</string>
+  <string name="WebRtcCallView__signal_will_ring_s">Signal %1$s ಅವರಿಗೆ ರಿಂಗ್ ಮಾಡಲಿದೆ</string>
+  <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal  %1$s ಮತ್ತು %2$s ಅವರಿಗೆ ರಿಂಗ್ ಮಾಡಲಿದೆ</string>
+  <string name="WebRtcCallView__s_will_be_notified">%1$s ಅವರಿಗೆ ತಿಳಿಸಲಾಗುತ್ತದೆ</string>
+  <string name="WebRtcCallView__s_and_s_will_be_notified">%1$s ಮತ್ತು %2$s ಅವರಿಗೆ ತಿಳಿಸಲಾಗುತ್ತದೆ</string>
+  <string name="WebRtcCallView__ringing_s">%1$s ಅವರಿಗೆ ರಿಂಗ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
+  <string name="WebRtcCallView__ringing_s_and_s">%1$s ಮತ್ತು %2$s ಅವರಿಗೆ ರಿಂಗ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
+  <string name="WebRtcCallView__s_is_calling_you">%1$s ಅವರು ನಿಮಗೆ ಕರೆ ಮಾಡುತ್ತಿದ್ದಾರೆ</string>
+  <string name="WebRtcCallView__s_is_calling_you_and_s">%1$s ಅವರು ನಿಮಗೆ ಮತ್ತು %2$s ಅವರಿಗೆ ಕರೆ ಮಾಡುತ್ತಿದ್ದಾರೆ</string>
+  <string name="WebRtcCallView__s_is_calling_you_s_and_s">%1$s ಅವರು ನಿಮಗೆ, %2$s, ಮತ್ತು %3$s ಅವರಿಗೆ ಕರೆ ಮಾಡುತ್ತಿದ್ದಾರೆ</string>
   <string name="WebRtcCallView__no_one_else_is_here">ಇಲ್ಲಿ ಯಾರೂ ಇಲ್ಲ</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s ಅವರು ಈ ಕರೆಯಲ್ಲಿದ್ದಾರೆ</string>
+  <string name="WebRtcCallView__s_are_in_this_call">%1$s ಅವರು ಈ ಕರೆಯಲ್ಲಿದ್ದಾರೆ</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s ಮತ್ತು %2$s ಈ ಕರೆಯಲ್ಲಿದ್ದಾರೆ</string>
   <string name="WebRtcCallView__s_is_presenting">%1$s ಪ್ರಸ್ತುತಪಡಿಸುತ್ತಿದ್ದಾರೆ</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
     <item quantity="one">%1$s, %2$s ಮತ್ತು %3$d ಇತರರು ಈ ಕರೆಯಲ್ಲಿದ್ದಾರೆ</item>
     <item quantity="other">%1$s, %2$s ಮತ್ತು %3$d ಇತರರು ಈ ಕರೆಯಲ್ಲಿದ್ದಾರೆ</item>
   </plurals>
+  <string name="WebRtcCallView__flip">ಫ್ಲಿಪ್</string>
   <string name="WebRtcCallView__speaker">ಸ್ಪೀಕರ್</string>
   <string name="WebRtcCallView__camera">ಕ್ಯಾಮರಾ</string>
   <string name="WebRtcCallView__unmute">ಅನ್‌ಮ್ಯೂಟ್ ಮಾಡಿ</string>
   <string name="WebRtcCallView__mute">ಮ್ಯೂಟ್ ಮಾಡಿ</string>
+  <string name="WebRtcCallView__ring">ರಿಂಗ್</string>
   <string name="WebRtcCallView__end_call">ಕರೆ ಅಂತ್ಯಗೊಳಿಸಿ</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
@@ -1271,8 +1401,14 @@
   <string name="RegistrationActivity_play_services_error">ಪ್ಲೇ ಸರ್ವೀಸಸ್ ದೋಷ</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google ಪ್ಲೇ ಸರ್ವೀಸಸ್ ಅಪ್‌ಡೇಟ್ ಆಗುತ್ತಿದೆ ಅಥವಾ ತಾತ್ಕಾಲಿಕವಾಗಿ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="RegistrationActivity_terms_and_privacy">ನಿಯಮಗಳು &amp; ಖಾಸಗಿತನ ನೀತಿ</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">ಸ್ನೇಹಿತರೊಂದಿಗೆ ಕನೆಕ್ಟ್ ಆಗಲು ಮತ್ತು ಸಂದೇಶಗಳನ್ನು ಕಳುಹಿಸಲು ನಿಮಗೆ ನೆರವಾಗಲು Signal ಗೆ ಸಂಪರ್ಕಗಳು ಮತ್ತು ಮಾಧ್ಯಮ ಅನುಮತಿಗಳು ಬೇಕಾಗುತ್ತವೆ. Signal ನ ಗೌಪ್ಯ ಸಂಪರ್ಕ ಅನ್ವೇಷಣೆಯನ್ನು ಬಳಸಿಕೊಂಡು ನಿಮ್ಮ ಸಂಪರ್ಕಗಳು ಅಪ್‌ಲೋಡ್ ಆಗಿವೆ, ಇದರರ್ಥ, ಅವುಗಳು ಎಂಡ್-ಟು-ಎಂಡ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿವೆ ಮತ್ತು Signal ಸೇವೆಗೆ ಯಾವತ್ತೂ ಕಾಣಿಸುವುದಿಲ್ಲ.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">ಸ್ನೇಹಿತರೊಂದಿಗೆ ಕನೆಕ್ಟ್ ಆಗಲು ನಿಮಗೆ ನೆರವಾಗಲು Signal ಗೆ ಸಂಪರ್ಕಗಳು ಮತ್ತು ಮಾಧ್ಯಮ ಅನುಮತಿ ಬೇಕಾಗುತ್ತದೆ. Signal ನ ಗೌಪ್ಯ ಸಂಪರ್ಕ ಅನ್ವೇಷಣೆಯನ್ನು ಬಳಸಿಕೊಂಡು ನಿಮ್ಮ ಸಂಪರ್ಕಗಳು ಅಪ್‌ಲೋಡ್ ಆಗಿವೆ, ಇದರರ್ಥ, ಅವುಗಳು ಎಂಡ್-ಟು-ಎಂಡ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿವೆ ಮತ್ತು Signal ಸೇವೆಗೆ ಯಾವತ್ತೂ ಕಾಣಿಸುವುದಿಲ್ಲ.</string>
   <string name="RegistrationActivity_rate_limited_to_service">ಈ ಸಂಖ್ಯೆಯನ್ನು ರಿಜಿಸ್ಟರ್ ಮಾಡಲು ನೀವು ತುಂಬಾ ಪ್ರಯತ್ನಗಳನ್ನು ಮಾಡಿದ್ದೀರಿ. ದಯವಿಟ್ಟು ಪುನಃ </string>
   <string name="RegistrationActivity_unable_to_connect_to_service">ಸೇವೆಗೆ ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ನೆಟ್‌ವರ್ಕ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+  <string name="RegistrationActivity_non_standard_number_format">ಪ್ರಮಾಣೀಕೃತವಲ್ಲದ ಸಂಖ್ಯಾ ಸ್ವರೂಪ</string>
+  <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">ನೀವು ನಮೂದಿಸಿದ ಸಂಖ್ಯೆ (%1$s) ಪ್ರಮಾಣೀಕೃತವಲ್ಲದ ಸ್ವರೂಪದಲ್ಲಿ ಕಾಣಿಸುತ್ತಿದೆ.\n\nನೀವು ಅಂದುಕೊಂಡಿದ್ದು ಇದೇನಾ %2$s?</string>
+  <string name="RegistrationActivity_signal_android_phone_number_format">Molly ಆಂಡ್ರಾಯ್ಡ್ - ಫೋನ್ ಸಂಖ್ಯೆ ಸ್ವರೂಪ</string>
+  <string name="RegistrationActivity_call_requested">ಕರೆ ವಿನಂತಿಸಲಾಗಿದೆ</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">ನೀವು ಈಗ %d ಎ ಸಲ್ಲಿಸುವುದರಿಂದ ದೂರವಿರಿಡೀಬಗ್ ಲಾಗ್.</item>
     <item quantity="other">ನೀವು ಡಿಬಗ್ ಲಾಗ್  ಅನ್ನು ಸಲ್ಲಿಸುವುದರಿಂದ %d ಹೆಜ್ಜೆಗಳಷ್ಟು ದೂರದಲ್ಲಿದ್ದೀರಿ.</item>
@@ -1318,6 +1454,12 @@
   <!--SignalBottomActionBar-->
   <string name="SignalBottomActionBar_more">ಇನ್ನಷ್ಟು</string>
   <!--SignalPinReminders-->
+  <string name="SignalPinReminders_well_remind_you_again_later">ಯಶಸ್ವಿಯಾಗಿ PIN ದೃಢೀಕರಿಸಲಾಗಿದೆ. ನಂತರ ಮತ್ತೆ ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</string>
+  <string name="SignalPinReminders_well_remind_you_again_tomorrow">ಯಶಸ್ವಿಯಾಗಿ PIN ದೃಢೀಕರಿಸಲಾಗಿದೆ. ನಾಳೆ ಮತ್ತೆ ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">ಯಶಸ್ವಿಯಾಗಿ PIN ದೃಢೀಕರಿಸಲಾಗಿದೆ. ಕೆಲವು ದಿನಗಳಲ್ಲಿ ಮತ್ತೆ ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_week">ಯಶಸ್ವಿಯಾಗಿ PIN ದೃಢೀಕರಿಸಲಾಗಿದೆ. ವಾರದಲ್ಲಿ ಮತ್ತೆ ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">ಯಶಸ್ವಿಯಾಗಿ PIN ದೃಢೀಕರಿಸಲಾಗಿದೆ. ಒಂದೆರಡು ವಾರಗಳಲ್ಲಿ ಮತ್ತೆ ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_month">ಯಶಸ್ವಿಯಾಗಿ PIN ದೃಢೀಕರಿಸಲಾಗಿದೆ. ತಿಂಗಳಲ್ಲಿ ಮತ್ತೆ ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</string>
   <!--Slide-->
   <string name="Slide_image">ಚಿತ್ರ</string>
   <string name="Slide_sticker">ಸ್ಟಿಕ್ಕರ್</string>
@@ -1402,8 +1544,13 @@
   <string name="ThreadRecord_video">ವೀಡಿಯೊ</string>
   <string name="ThreadRecord_chat_session_refreshed">ಚಾಟ್ ಸೆಷನ್ ರಿಫ್ರೆಶ್ ಮಾಡಲಾಗಿದೆ</string>
   <!--Displayed in the notification when the user is sent a gift-->
+  <string name="ThreadRecord__you_received_a_gift">ನೀವು ಒಂದು ಉಡುಗೊರೆಯನ್ನು ಸ್ವೀಕರಿಸಿದ್ದೀರಿ</string>
   <!--Displayed in the notification when the user sends a gift-->
+  <string name="ThreadRecord__you_sent_a_gift">ನೀವು ಒಂದು ಉಡುಗೊರೆಯನ್ನು ಕಳುಹಿಸಿದ್ದೀರಿ</string>
   <!--Displayed in the notification when the user has opened a received gift-->
+  <string name="ThreadRecord__you_redeemed_a_gift_badge">ನೀವು ಒಂದು ಉಡುಗೊರೆ ಬ್ಯಾಡ್ಜ್ ಅನ್ನು ರಿಡೀಮ್ ಮಾಡಿದ್ದೀರಿ</string>
+  <!--Displayed in the conversation list when someone reacted to your story-->
+  <!--Displayed in the conversation list when you reacted to someone\'s story-->
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Molly ನವೀಕರಿಸಿ</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">ಹೊಸ ಆವೃತ್ತಿ Molly ಲಭ್ಯವಿದೆ, ನವೀಕರಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ</string>
@@ -1469,7 +1616,9 @@
   <string name="MediaPreviewActivity_media_delete_confirmation_message">ಇದು ಶಾಶ್ವತವಾಗಿ ಈ ಸಂದೇಶವನ್ನು ಅಳಿಸುವುದು.</string>
   <string name="MediaPreviewActivity_s_to_s">%1$s  ಗೆ %2$s</string>
   <!--All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context)-->
+  <string name="MediaPreviewActivity_you_to_s">ನಿಮ್ಮಿಂದ %1$s ಅವರಿಗೆ</string>
   <!--All media preview title when viewing media sent by another recipient to you (allows changing of \'You\' based on context)-->
+  <string name="MediaPreviewActivity_s_to_you">%1$s ಅವರಿಂದ ನಿಮಗೆ</string>
   <string name="MediaPreviewActivity_media_no_longer_available">ಮೀಡಿಯಾ ಇನ್ನು ಲಭ್ಯವಿಲ್ಲ.</string>
   <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">ಈ ಮೀಡಿಯಾ ಹಂಚಿಕೊಳ್ಳಲು ಒಂದು ಆಪ್ ಕಂಡುಕೊಳ್ಳಲಾಗುತ್ತಿಲ್ಲ.</string>
   <!--MessageNotifier-->
@@ -1496,6 +1645,7 @@
   <string name="MessageNotifier_reacted_s_to_s">%1$s ಗೆ ಪ್ರತಿಕ್ರಿಯಿಸಿದ್ದಾರೆ: \"%2$s\".</string>
   <string name="MessageNotifier_reacted_s_to_your_video">%1$s ನಿಮ್ಮ ವೀಡಿಯೊಗೆ ಪ್ರತಿಕ್ರಿಯಿಸಿದ್ದಾರೆ</string>
   <string name="MessageNotifier_reacted_s_to_your_image">%1$s ನಿಮ್ಮ ಚಿತ್ರಕ್ಕೆ ಪ್ರತಿಕ್ರಿಯಿಸಿದ್ದಾರೆ.</string>
+  <string name="MessageNotifier_reacted_s_to_your_gif">ನಿಮ್ಮ GIF ಗೆ %1$s ಅವರು ಪ್ರತಿಕ್ರಿಯಿಸಿದ್ದಾರೆ.</string>
   <string name="MessageNotifier_reacted_s_to_your_file">%1$s ನಿಮ್ಮ ಫೈಲ್ ಗೆ ಪ್ರತಿಕ್ರಿಯಿಸಿದ್ದಾರೆ.</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">%1$s ನಿಮ್ಮ ಆಡಿಯೊಗೆ ಪ್ರತಿಕ್ರಿಯಿಸಿದ್ದಾರೆ.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">ನಿಮ್ಮ ವ್ಯೂ-ಒನ್ಸ್ ಮೀಡಿಯಾಕ್ಕೆ %1$s ಪ್ರತಿಕ್ರಿಯಿಸಿದ್ದಾರೆ.</string>
@@ -1516,7 +1666,9 @@
   <string name="NotificationChannel_contact_joined_signal">ಸಂಪರ್ಕ Signal ಗೆ ಸೇರಿದ್ದಾರೆ</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">ನೊಟಿಫಿಕೇಶನ್ ಚಾನೆಲ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ತೆರೆಯಲು ಯಾವುದೇ ಚಟುವಟಿಕೆ ಲಭ್ಯವಿಲ್ಲ.</string>
   <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <string name="NotificationChannel_background_connection">ಹಿನ್ನೆಲೆ ಸಂಪರ್ಕ</string>
   <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
+  <string name="NotificationChannel_call_status">ಕರೆ ಸ್ಥಿತಿಗತಿ</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">ಯಾವಾಗ  Molly ಲಾಕ್ ಮಾಡಲಾಗಿದೆಯೋ ಆವಾಗ ತ್ವರಿತ ಪ್ರತಿಕ್ರಿಯೆ ಲಭ್ಯವಿಲ್ಲ!</string>
@@ -1538,6 +1690,7 @@
   <string name="SingleRecipientNotificationBuilder_message_request">ಸಂದೇಶ ವಿನಂತಿ</string>
   <string name="SingleRecipientNotificationBuilder_you">ನೀವು</string>
   <!--Notification subtext for group stories-->
+  <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • ಸ್ಟೋರಿ</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">ವೀಡಿಯೊ ಪ್ಲೇ ಮಾಡಿ</string>
   <string name="ThumbnailView_Has_a_caption_description">ಕ್ಯಾಪ್ಷನ್ ಹೊಂದಿದೆ</string>
@@ -1647,12 +1800,13 @@
   <string name="ConversationUpdateItem_enable_call_notifications">ಕಾಲ್ ನೊಟಿಫಿಕೇಶನ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
   <string name="ConversationUpdateItem_update_contact">ಸಂಪರ್ಕ ನವೀಕರಿಸಿ</string>
   <!--Update item button text to show to block a recipient from requesting to join via group link-->
+  <string name="ConversationUpdateItem_block_request">ನಿರ್ಬಂಧ ವಿನಂತಿ</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">ಯಾವುದೇ ಗ್ರೂಪ್‌ನಲ್ಲಿ ನೀವಿಬ್ಬರೂ ಇಲ್ಲ. ವಿನಂತಿಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಪರಿಶೀಲಿಸಿ.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">ಈ ಗ್ರೂಪ್‌ನಲ್ಲಿ ಯಾವುದೇ ಸಂಪರ್ಕಗಳಿಲ್ಲ. ವಿನಂತಿಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಪರಿಶೀಲಿಸಿ.</string>
   <string name="ConversationUpdateItem_view">ತೋರಿಸು</string>
   <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">ನೀವು ಅವರಿಗೆ ಮೆಸೇಜ್ ಮಾಡಿದಾಗ ಮರೆಯಾಗುವ ಮೆಸೇಜ್‌ ಸಮಯವನ್ನು %1$s ಗೆ ನಿಗದಿಸಲಾಗುತ್ತದೆ.</string>
   <!--Update item button text to show to boost a feature-->
-  <!--Update item button text to show to become a sustainer in the release notes channel-->
+  <string name="ConversationUpdateItem_donate">ದಾನ ಮಾಡಿ</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">ಪ್ಲೇ… ವಿರಾಮ</string>
   <string name="audio_view__download_accessibility_description">ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
@@ -1668,7 +1822,9 @@
   <!--Author formatting for group stories-->
   <!--Label indicating that a quote is for a reply to a story you created-->
   <!--Label indicating that the story being replied to no longer exists-->
+  <string name="QuoteView_no_longer_available">ಲಭ್ಯವಿಲ್ಲ</string>
   <!--Label for quoted gift-->
+  <string name="QuoteView__gift">ಉಡುಗೊರೆ</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">ಕೆಳಗಡೆಗೆ ಸ್ಕ್ರಾಲ್ ಮಾಡಿ</string>
   <!--BubbleOptOutTooltip-->
@@ -1882,6 +2038,16 @@
   <string name="HelpFragment__debug_log">ಡೀಬಗ್ ಲಾಗ್:</string>
   <string name="HelpFragment__could_not_upload_logs">ಲಾಗ್‌ಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗದು</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">ಸಮಸ್ಯೆಯನ್ನು ಅರ್ಥ ಮಾಡಿಕೊಳ್ಳಲು ನಮಗೆ ಸಹಾಯ ಮಾಡುವುದಕ್ಕಾಗಿ ಸಾಧ್ಯವಾದಷ್ಟೂ ವಿವರಣೆ ನೀಡಿ</string>
+  <string-array name="HelpFragment__categories_4">
+    <item>\-\- ಒಂದು ಆಯ್ಕೆಯನ್ನು ಮಾಡಿ \-\-</item>
+    <item>ಏನೋ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲ</item>
+    <item>ಫೀಚರ್ ವಿನಂತಿ</item>
+    <item>ಪ್ರಶ್ನೆ</item>
+    <item>ಫೀಡ್‌ಬ್ಯಾಕ್</item>
+    <item>ಇತರೆ</item>
+    <item>ಪಾವತಿಗಳು (MobileCoin)</item>
+    <item>ದೇಣಿಗೆಗಳು &amp; ಬ್ಯಾಡ್ಜ್‌ಗಳು</item>
+  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">ಈ ಸಂದೇಶ</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">ಇತ್ತೀಚೆಗೆ ಬಳಸಲಾಗಿದೆ</string>
@@ -1953,6 +2119,8 @@
   <string name="preferences__led_color">ಎಲ್. ಇ. ಡಿ ಬಣ್ಣ</string>
   <string name="preferences__led_color_unknown">ತಿಳಿಯದ</string>
   <string name="preferences__pref_led_blink_title">ಎಲ್‌ಇಡಿ ಮಿನುಗುವ ಪ್ಯಾಟರ್ನ್‌</string>
+  <string name="preferences__customize">ಕಸ್ಟಮೈಝ್ ಮಾಡಿ</string>
+  <string name="preferences__change_sound_and_vibration">ಶಬ್ದ ಮತ್ತು ವೈಬ್ರೇಶನ್ ಬದಲಾಯಿಸಿ</string>
   <string name="preferences__sound">ಶಬ್ದ</string>
   <string name="preferences__silent">ಮೌನ</string>
   <string name="preferences__default">ಡೀಫಾಲ್ಟ್</string>
@@ -2112,6 +2280,9 @@
   <string name="preferences_enter_proxy_address">ಪ್ರಾಕ್ಸಿ ವಿಳಾಸ ನಮೂದಿಸಿ</string>
   <string name="configurable_single_select__customize_option">ಆಯ್ಕೆಯನ್ನು ಅಗತ್ಯಾನುಗುಣಗೊಳಿಸಿರಿ</string>
   <!--Internal only preferences-->
+  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">ಆನ್‍ಬೋರ್ಡಿಂಗ್ ಫ್ಲ್ಯಾಗ್ ಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ, ಆನ್‍ಬೋರ್ಡಿಂಗ್ ಸ್ಟೋರೀಗಳ ಡೌನ್‍ಲೋಡ್ ಗೆ ಚಲನೆ ನೀಡುತ್ತದೆ.
+
+</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">ಎಲ್ಲ ಚಟುವಟಿಕೆ</string>
   <string name="PaymentsAllActivityFragment__all">ಎಲ್ಲಾ</string>
@@ -2764,6 +2935,9 @@
   <string name="CallParticipant__you">ನೀವು</string>
   <string name="CallParticipant__you_on_another_device">ನೀವು (ಮತ್ತೊಂದು  ಸಾಧನದಲ್ಲಿ)</string>
   <string name="CallParticipant__s_on_another_device">%1$s (ಮತ್ತೊಂದು  ಸಾಧನದಲ್ಲಿ)</string>
+  <!--WifiToCellularPopupWindow-->
+  <!--Message shown during a call when the WiFi network is unusable, and cellular data starts to be used for the call instead.-->
+  <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">ದುರ್ಬಲ ವೈ-ಫೈ. ಸೆಲ್ಯುಲಾರ್‌ಗೆ ಸ್ವಿಚ್ ಆಗಿದೆ.</string>
   <!--DeleteAccountFragment-->
   <string name="DeleteAccountFragment__deleting_your_account_will">ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಅಳಿಸಿದರೆ:</string>
   <string name="DeleteAccountFragment__enter_your_phone_number">ನಿಮ್ಮ ಫೋನ್‌ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ</string>
@@ -3189,8 +3363,13 @@
   <string name="DSLSettingsToolbar__navigate_up">ಮೇಲಕ್ಕೆ ಹೋಗಿ</string>
   <!--Displayed when sharing content via the fragment-->
   <string name="MultiselectForwardFragment__share_with">ಜೊತೆ ಹಂಚಿಕೊಳ್ಳಿ </string>
+  <!--Displayed when user selects a video that will be clipped before sharing to a story-->
+  <string name="MultiselectForwardFragment__videos_will_be_trimmed">ವಿಡಿಯೋಗಳನ್ನು 30s ಕ್ಲಿಪ್‌ಗಳಿಗೆ ಟ್ರಿಮ್ ಮಾಡಲಾಗುತ್ತದೆ ಮತ್ತು ಅನೇಕ ಸ್ಟೋರೀಸ್ ಆಗಿ ಕಳುಹಿಸಲಾಗುತ್ತದೆ.</string>
+  <!--Displayed when user selects a video that cannot be sent as a story-->
+  <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">ಸ್ಟೋರೀಸ್‌ಗೆ ಕಳುಹಿಸಿದ ವಿಡಿಯೋಗಳು 30s ಗಿಂತ ದೀರ್ಘವಾಗಿರುವಂತಿಲ್ಲ.</string>
   <!--Media V2-->
   <string name="ImageEditorHud__cancel">ರದ್ದುಗೊಳಿಸಿ</string>
+  <string name="ImageEditorHud__draw">ರಚಿಸಿ</string>
   <string name="ImageEditorHud__undo">ರದ್ದುಗೊಳಿಸು</string>
   <string name="ImageEditorHud__delete">ಅಳಿಸು</string>
   <string name="MediaCountIndicatorButton__send">ಕಳುಹಿಸು</string>
@@ -3210,6 +3389,7 @@
   <!--Heading for receipts area of manage subscriptions page-->
   <!--Heading for my subscription area of manage subscriptions page-->
   <!--Label for Donation Receipts button-->
+  <string name="ManageDonationsFragment__badges">ಬ್ಯಾಡ್ಜ್‌ಗಳು</string>
   <!--Preference heading for other ways to donate-->
   <!--Preference label to launch badge gifting-->
   <!--Description text in boost sheet-->
@@ -3244,6 +3424,7 @@
   <string name="GiftMessageView__view">ತೋರಿಸು</string>
   <!--Gift badge redeeming action label-->
   <!--Gift badge redeemed label-->
+  <string name="GiftMessageView__redeemed">ರೀಡೀಮ್ ಮಾಡಲಾಗಿದೆ</string>
   <!--Stripe decline code generic_failure-->
   <!--Stripe decline code verify on Google Pay and try again-->
   <!--Stripe decline code learn more action label-->
@@ -3353,6 +3534,7 @@
   <!--Donation receipts recurring tab label-->
   <!--Donation receipts one-time tab label-->
   <!--Donation receipts gift tab label-->
+  <string name="DonationReceiptListFragment__gift">ಉಡುಗೊರೆ</string>
   <!--Donation receipts boost row label-->
   <!--Donation receipts details title-->
   <string name="DonationReceiptDetailsFragment__details">ವಿವರಗಳು</string>
@@ -3374,13 +3556,17 @@
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">ನನ್ನ ಸ್ಟೋರೀಸ್</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
+  <string name="StoriesLandingFragment__add_a_story">ಸ್ಟೋರಿ ಸೇರಿಸಿ</string>
   <!--Displayed when there are no stories to display-->
   <!--Context menu option to hide a story-->
+  <string name="StoriesLandingItem__hide_story">ಸ್ಟೋರಿಯನ್ನು ಮರೆಮಾಡಿ</string>
   <!--Context menu option to unhide a story-->
   <!--Context menu option to forward a story-->
   <string name="StoriesLandingItem__forward">ಫಾರ್ವರ್ಡ್</string>
   <!--Context menu option to share a story-->
   <!--Context menu option to go to story chat-->
+  <string name="StoriesLandingItem__go_to_chat">ಚಾಟ್‌ಗೆ ಹೋಗಿ</string>
+  <!--Context menu option to go to story info-->
   <!--Label when a story is pending sending-->
   <string name="StoriesLandingItem__sending">ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ…</string>
   <!--Label when multiple stories are pending sending-->
@@ -3394,6 +3580,7 @@
   <string name="StoriesLandingFragment__hide">ಅಡಗಿಸು</string>
   <!--Displayed in Snackbar after story is hidden-->
   <!--Section header for hidden stories-->
+  <string name="StoriesLandingFragment__hidden_stories">ಮರೆಮಾಡಿದ ಸ್ಟೋರಿಗಳು</string>
   <!--Displayed on each sent story under My Stories-->
   <!--Forward story label, displayed in My Stories context menu-->
   <string name="MyStories_forward">ಫಾರ್ವರ್ಡ್</string>
@@ -3403,6 +3590,8 @@
   <!--Toast shown when story media cannot be saved-->
   <!--Displayed at bottom of story viewer when current item has views-->
   <!--Displayed at bottom of story viewer when current item has replies-->
+  <!--Used when view receipts are disabled-->
+  <string name="StoryViewerPageFragment__views_off">ವೀಕ್ಷಣೆಗಳು ಆಫ್</string>
   <!--Used to join views and replies when both exist on a story item-->
   <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
   <!--Displayed when viewing a post you sent-->
@@ -3413,10 +3602,18 @@
   <string name="StoryViewerPageFragment__reply">ಉತ್ತರಿಸಿ</string>
   <!--Label for the reply button in story viewer, which will launch the group story replies bottom sheet.-->
   <!--Displayed when a story has no views-->
+  <!--Displayed when user has disabled receipts-->
+  <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">ನಿಮ್ಮ ಸ್ಟೋರೀಸ್ ಯಾರು ವೀಕ್ಷಿಸಿದ್ದಾರೆಂದು ನೋಡಲು ರೀಡ್ ರೆಸಿಪ್ಟ್ಸ್ ಸಕ್ರಿಯಗೊಳಿಸಿ.</string>
+  <!--Button label displayed when user has disabled receipts-->
+  <string name="StoryViewsFragment__go_to_settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಗೆ ಹೋಗಿ</string>
   <!--Displayed when a story has no replies yet-->
+  <string name="StoryGroupReplyFragment__no_replies_yet">ಇನ್ನೂ ಯಾವುದೇ ಪ್ರತ್ಯುತ್ತರವಿಲ್ಲ</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
+  <string name="StoryGroupReactionReplyItem__reacted_to_the_story">ಸ್ಟೋರಿಗೆ ಪ್ರತಿಕ್ರಿಯಿಸಲಾಗಿದೆ</string>
   <!--Label for story views tab-->
+  <string name="StoryViewsAndRepliesDialogFragment__views">ವೀಕ್ಷಣೆಗಳು</string>
   <!--Label for story replies tab-->
+  <string name="StoryViewsAndRepliesDialogFragment__replies">ಪ್ರತಿಕ್ರಿಯೆಗಳು</string>
   <!--Description of action for reaction button-->
   <!--Displayed when the user is replying privately to someone who replied to one of their stories-->
   <!--Context menu item to privately reply to a story response-->
@@ -3433,13 +3630,34 @@
   <string name="MyStorySettingsFragment__my_story">ನನ್ನ ಸ್ಟೋರಿ</string>
   <!--Section heading for story visibility-->
   <!--Clickable option for selecting people to hide your story from-->
-  <!--Summary of clickable option displaying how many people you have hidden your story from-->
+  <!--Privacy setting title for sending stories to all your signal connections-->
+  <string name="MyStorySettingsFragment__all_signal_connections">ಎಲ್ಲಾ Signal ಸಂಪರ್ಕಗಳು</string>
+  <!--Privacy setting description for sending stories to all your signal connections-->
+  <string name="MyStorySettingsFragment__share_with_all_connections">ಎಲ್ಲಾ ಸಂಪರ್ಕಗಳೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ</string>
+  <!--Privacy setting title for sending stories to all except the specified connections-->
+  <string name="MyStorySettingsFragment__all_signal_connections_except">ಇದರ ಹೊರತಾದ ಎಲ್ಲಾ Signal ಸಂರ್ಕಗಳು…</string>
+  <!--Privacy setting description for sending stories to all except the specified connections-->
+  <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">ನಿರ್ದಿಷ್ಟ ಜನರಿಂದ ನಿಮ್ಮ ಸ್ಟೋರಿಯನ್ನು ಮರೆಯಾಗಿಸಿ</string>
+  <!--Summary of clickable option displaying how many people you have excluded from your story-->
+  <plurals name="MyStorySettingsFragment__d_people_excluded">
+    <item quantity="one">%1$d ಜನರನ್ನು ಹೊರಗಿಡಲಾಗಿದೆ</item>
+    <item quantity="other">%1$d ಜನರನ್ನು ಹೊರಗಿಡಲಾಗಿದೆ</item>
+  </plurals>
+  <!--Privacy setting title for only sharing your story with specified connections-->
+  <string name="MyStorySettingsFragment__only_share_with">ಇವರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ…</string>
+  <!--Privacy setting description for only sharing your story with specified connections-->
+  <string name="MyStorySettingsFragment__only_share_with_selected_people">ಆಯ್ದ ಜನರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ</string>
+  <!--Summary of clickable option displaying how many people you have included to send to in your story-->
+  <!--My story privacy fine print about what the privacy settings are for-->
+  <string name="MyStorySettingsFragment__choose_who_can_view_your_story">ನಿಮ್ಮ ಸ್ಟೋರಿಯನ್ನು ಯಾರು ನೋಡಬಹುದು ಎಂದು ಆಯ್ಕೆ ಮಾಡಿ. ನೀವು ಈಗಾಗಲೇ ಕಳುಹಿಸಿದ ಸ್ಟೋರೀಸ್ ಮೇಲೆ ಬದಲಾವಣೆಗಳು ಪರಿಣಾಮ ಬೀರುವುದಿಲ್ಲ.</string>
   <!--Section header for options related to replies and reactions-->
   <!--Switchable option for allowing replies and reactions on your stories-->
   <!--Summary for switchable option allowing replies and reactions on your story-->
   <!--Note about default sharing-->
-  <!--Signal connections linked text that opens the Signal Connections sheet-->
+  <!--Signal connections bolded text in the Signal Connections sheet-->
+  <string name="SignalConnectionsBottomSheet___signal_connections">Signal ಸಂಪರ್ಕಗಳು</string>
   <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
+  <string name="SignalConnectionsBottomSheet__signal_connections_are_people">Signal ಸಂಪರ್ಕಗಳು ವಿಶ್ವಾಸಾರ್ಹರೆಂದು ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ಜನ. ಅದು ಈ ಮೂಲಕ:</string>
   <!--Signal connections sheet bullet point 1-->
   <!--Signal connections sheet bullet point 2-->
   <!--Signal connections sheet bullet point 3-->
@@ -3459,17 +3677,22 @@
   <!--Displayed in text post creator before user enters text-->
   <!--Button label for changing font when creating a text post-->
   <!--Displayed in text post creator when prompting user to enter text-->
+  <string name="TextStoryPostTextEntryFragment__add_text">ಪಠ್ಯ ಸೇರಿಸಿ</string>
   <!--Content description for \'done\' button when adding text to a story post-->
   <!--Text label for media selection toggle-->
   <string name="MediaSelectionActivity__text">ಪಠ್ಯ</string>
   <!--Camera label for media selection toggle-->
   <string name="MediaSelectionActivity__camera">ಕ್ಯಾಮರಾ</string>
   <!--Hint for entering a URL for a text post-->
+  <string name="TextStoryPostLinkEntryFragment__type_or_paste_a_url">URL ಟೈಪ್ ಮಾಡಿ ಅಥವಾ ಪೇಸ್ಟ್ ಮಾಡಿ</string>
   <!--Displayed prior to the user entering a URL for a text post-->
   <!--Hint text for searching for a story text post recipient.-->
   <string name="TextStoryPostSendFragment__search">ಹುಡುಕಿ</string>
   <!--Toast shown when an unexpected error occurs while sending a text story-->
-  <!--Title for screen allowing user to hide "My Story" entries from specific people-->
+  <!--Title for screen allowing user to exclude "My Story" entries from specific people-->
+  <string name="ChangeMyStoryMembershipFragment__all_except">ಇವರ ಹೊರತಾಗಿ ಎಲ್ಲರೂ…</string>
+  <!--Title for screen allowing user to only share "My Story" entries with specific people-->
+  <string name="ChangeMyStoryMembershipFragment__only_share_with">ಇವರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ…</string>
   <!--Done button label for hide story from screen-->
   <string name="HideStoryFromFragment__done">ಮುಗಿದಿದೆ</string>
   <!--Dialog title for first time adding something to a story-->
@@ -3481,6 +3704,7 @@
   <string name="StoryDialogs__send">ಕಳುಹಿಸು</string>
   <!--Privacy Settings toggle title for stories-->
   <!--Privacy Settings toggle summary for stories-->
+  <string name="PrivacySettingsFragment__you_will_no_longer_be_able">ಈ ಆಯ್ಕೆಯನ್ನು ಆಫ್ ಮಾಡಿದಾಗ ಸ್ಟೋರೀಸ್ ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ಅಥವಾ ವೀಕ್ಷಿಸಲು ನಿಮಗೆ ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.</string>
   <!--New story viewer selection screen title-->
   <!--New story viewer selection action button label-->
   <string name="CreateStoryViewerSelectionFragment__next">ಮುಂದೆ</string>
@@ -3513,7 +3737,9 @@
   <!--Displayed in a dialog to let the user select a given users story-->
   <!--Displayed in a dialog to let the user select a given users profile photo-->
   <!--Title for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
+  <string name="TurnOffCircumventionMegaphone_turn_off_censorship_circumvention">ಸೆನ್ಸಾರ್‌ಶಿಪ್ ಭಂಗವನ್ನು ಆಫ್ ಮಾಡುವುದೇ?</string>
   <!--Body for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
+  <string name="TurnOffCircumventionMegaphone_you_can_now_connect_to_the_signal_service_directly">ಉತ್ತಮ ಅನುಭವಕ್ಕಾಗಿ ನೀವೀಗ ನೇರವಾಗಿ Signal ಸೇವೆಯನ್ನು ಸಂಪರ್ಕಿಸಬಹುದು.</string>
   <!--Label for a button to dismiss a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
   <string name="TurnOffCircumventionMegaphone_no_thanks">ಇಲ್ಲ, ಧನ್ಯವಾದಗಳು</string>
   <!--Label for a button in a notification at the bottom of the chat list to turn off censorship circumvention-->
@@ -3521,9 +3747,11 @@
   <!--Conversation Item label for when you react to someone else\'s story-->
   <!--Conversation Item label for reactions to your story-->
   <!--Conversation Item label for reactions to an unavailable story-->
+  <string name="ConversationItem__reacted_to_a_story">ಸ್ಟೋರಿಗೆ ಪ್ರತಿಕ್ರಿಯಿಸಲಾಗಿದೆ</string>
   <!--endregion-->
   <!--Content description for expand contacts chevron-->
-  <!--Duration and price information-->
+  <string name="StoriesLinkPopup__visit_link">ಲಿಂಕ್‌ಗೆ ಭೇಟಿ ನೀಡಿ</string>
+  <!--Gift price and duration, formatted as: {price} dot {n} day duration-->
   <!--Tagline for gift row items-->
   <!--Headline text on start fragment for gifting a badge-->
   <!--Description text on start fragment for gifting a badge-->
@@ -3538,6 +3766,7 @@
   <!--Displayed in the dialog while verifying the chosen recipient-->
   <!--Title for sheet shown when opening a redeemed gift-->
   <!--Title for sheet shown when opening a sent gift-->
+  <string name="ViewSentGiftBottomSheet__thanks_for_your_support">ನಿಮ್ಮ ಬೆಂಬಲಕ್ಕೆ ಧನ್ಯವಾದಗಳು!</string>
   <!--Description for sheet shown when opening a redeemed gift-->
   <!--Description for sheet shown when opening a sent gift-->
   <!--Primary action for pending gift sheet to redeem badge now-->
@@ -3554,9 +3783,100 @@
   <string name="ExpiredGiftSheetConfiguration__not_now">ಈಗಲ್ಲ</string>
   <!--Label under name for private stories-->
   <!--Label under name for group stories-->
+  <!--Label under name for My Story when first sending to my story-->
+  <string name="ContactSearchItems__tap_to_choose_your_viewers">ನಿಮ್ಮ ವೀಕ್ಷಕರನ್ನು ಆಯ್ಕೆ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ</string>
+  <!--Label for context menu item to open story settings-->
+  <!--Label for context menu item to remove a group story from contact results-->
+  <string name="ContactSearchItems__remove_story">ಸ್ಟೋರಿ ತೆಗೆದುಹಾಕಿ</string>
+  <!--Label for context menu item to delete a private story-->
+  <string name="ContactSearchItems__delete_story">ಸ್ಟೋರಿ ಅಳಿಸಿ</string>
+  <!--Dialog title for removing a group story-->
+  <string name="ContactSearchMediator__remove_group_story">ಗ್ರೂಪ್ ಸ್ಟೋರಿ ತೆಗೆದುಹಾಕೋಣವೇ?</string>
+  <!--Dialog message for removing a group story-->
+  <string name="ContactSearchMediator__this_will_remove">ಇದು ಈ ಪಟ್ಟಿಯಿಂದ ಸ್ಟೋರಿಯನ್ನು ತೆಗೆದುಹಾಕಲಿದೆ. ಈಗಲೂ ನೀವು ಈ ಗ್ರೂಪ್‍ನಿಂದ ಸ್ಟೋರೀಸ್ ಅನ್ನು ನೋಡಬಹುದು.</string>
+  <!--Dialog action item for removing a group story-->
+  <string name="ContactSearchMediator__remove">ತೆಗೆದುಹಾಕಿ</string>
+  <!--Dialog title for deleting a private story-->
+  <!--Dialog message for deleting a private story-->
+  <string name="ContactSearchMediator__delete_the_private">ಖಾಸಗಿ ಸ್ಟೋರಿ \"%1$s\" ಅಳಿಸುವುದೇ?</string>
+  <!--Dialog action item for deleting a private story-->
+  <string name="ContactSearchMediator__delete">ಅಳಿಸು</string>
   <!--Gift expiry days remaining-->
   <!--Gift expiry hours remaining-->
   <!--Gift expiry minutes remaining-->
   <!--Gift expiry expired-->
+  <string name="Gifts__expired">ಅವಧಿ ಮುಗಿದಿದೆ</string>
+  <!--Label indicating that a user can tap to advance to the next post in a story-->
+  <string name="StoryFirstTimeNavigationView__tap_to_advance">ಮುಂದುವರಿಯಲು ಟ್ಯಾಪ್ ಮಾಡಿ</string>
+  <!--Label indicating swipe direction to skip current story-->
+  <string name="StoryFirstTimeNavigationView__swipe_up_to_skip">ಸ್ಕಿಪ್ ಮಾಡಲು ಸ್ವೈಪ್ ಮಾಡಿ</string>
+  <!--Label indicating swipe direction to exit story viewer-->
+  <string name="StoryFirstTimeNavigationView__swipe_right_to_exit">ನಿರ್ಗಮಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ</string>
+  <!--Button label to confirm understanding of story navigation-->
+  <string name="StoryFirstTimeNagivationView__got_it">ಅರ್ಥವಾಯಿತು</string>
+  <!--Content description for vertical context menu button in safety number sheet rows-->
+  <string name="SafetyNumberRecipientRowItem__open_context_menu">ಸಂದರ್ಭ ಮೆನು ತೆರೆಯಿರಿ</string>
+  <!--Sub-line when a user is verified.-->
+  <string name="SafetyNumberRecipientRowItem__s_dot_verified">%1$s · ದೃಢೀಕರಿಸಲಾಗಿದೆ</string>
+  <!--Sub-line when a user is verified.-->
+  <string name="SafetyNumberRecipientRowItem__verified">ದೃಢೀಕರಿಸಲಾಗಿದೆ</string>
+  <!--Title of safety number changes bottom sheet when showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__safety_number_changes">ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆ ಬದಲಾಗುತ್ತದೆ</string>
+  <!--Message of safety number changes bottom sheet when showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__the_following_people">ಈ ಕೆಳಗಿನ ಜನರು Signal ಅನ್ನು ಮರುಸ್ಥಾಪಿಸಿರಬಹುದು ಅಥವಾ ಸಾಧನಗಳನ್ನು ಬದಲಿಸಿರಬಹುದು. ಒಬ್ಬ ಸ್ವೀಕೃತಿದಾರರನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ ಹೊಸ ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆಯನ್ನು ದೃಢೀಕರಿಸಿ. ಇದು ಐಚ್ಛಿಕವಾಗಿದೆ.</string>
+  <!--Title of safety number changes bottom sheet when not showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__safety_number_checkup">ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆಯ ಪರೀಕ್ಷೆ</string>
+  <!--Title of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <string name="SafetyNumberBottomSheetFragment__safety_number_checkup_complete">ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆಯ ಪರೀಕ್ಷೆ ಪೂರ್ಣಗೊಂಡಿದೆ</string>
+  <!--Message of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
+  <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">ಎಲ್ಲಾ ಸಂಪರ್ಕಗಳನ್ನು ಪರಿಶೀಲಿಸಲಾಗಿದೆ, ಮುಂದುವರಿಸಲು send ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+  <!--Message of safety number changes bottom sheet when not showing individual records-->
+  <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">ನೀವು %1$d ಸಂಪರ್ಕಗಳನ್ನು ಹೊಂದಿದ್ದು, ಅವರು Signal ಅನ್ನು ಮರುಸ್ಥಾಪಿಸಿರಬಹುದು ಅಥವಾ ಸಾಧನಗಳನ್ನು ಬದಲಿಸಿರಬಹುದು. ನಿಮ್ಮ ಸ್ಟೋರಿಯನ್ನು ಅವರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳುವ ಮುನ್ನ ಅವರ ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ಅಥವಾ ಅವರನ್ನು ನಿಮ್ಮ ಸ್ಟೋರಿಯಿಂದ ತೆಗೆದುಹಾಕುವುದನ್ನು ಪರಿಗಣಿಸಿ.</string>
+  <!--Menu action to launch safety number verification screen-->
+  <string name="SafetyNumberBottomSheetFragment__verify_safety_number">ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆ ದೃಢೀಕರಿಸಿ</string>
+  <!--Menu action to remove user from story-->
+  <string name="SafetyNumberBottomSheetFragment__remove_from_story">ಸ್ಟೋರಿಯಿಂದ ತೆಗೆದುಹಾಕಿ</string>
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to send anyway-->
+  <string name="SafetyNumberBottomSheetFragment__send_anyway">ಹೇಗಾದರೂ ಕಳುಹಿಸಿ</string>
+  <!--Action button at bottom of SafetyNumberBottomSheetFragment to review connections-->
+  <string name="SafetyNumberBottomSheetFragment__review_connections">ಸಂಪರ್ಕಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</string>
+  <!--Empty state copy for SafetyNumberBottomSheetFragment-->
+  <string name="SafetyNumberBottomSheetFragment__no_more_recipients_to_show">ತೋರಿಸಲು ಇನ್ನು ಯಾವುದೇ ಸ್ವೀಕೃತಿದಾರರಿಲ್ಲ</string>
+  <!--Done button on safety number review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__done">ಮುಗಿದಿದೆ</string>
+  <!--Title of safety number review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__safety_number_changes">ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆ ಬದಲಾಗುತ್ತದೆ</string>
+  <!--Message of safety number review fragment-->
+  <plurals name="SafetyNumberReviewConnectionsFragment__d_recipients_may_have">
+    <item quantity="one">%1$d ಸ್ವೀಕೃತಿದಾರರು Signal ಅನ್ನು ಮರುಸ್ಥಾಪಿಸಿರಬಹುದು ಅಥವಾ ಸಾಧನಗಳನ್ನು ಬದಲಾಯಿಸಿರಬಹುದು. ಹೊಸ ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆಯನ್ನು ದೃಢೀಕರಿಸಲು ಸ್ವೀಕೃತಿದಾರರನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ಇದು ಐಚ್ಛಿಕವಾಗಿದೆ.</item>
+    <item quantity="other">%1$d ಸ್ವೀಕೃತಿದಾರರು Signal ಅನ್ನು ಮರುಸ್ಥಾಪಿಸಿರಬಹುದು ಅಥವಾ ಸಾಧನಗಳನ್ನು ಬದಲಾಯಿಸಿರಬಹುದು. ಹೊಸ ಸುರಕ್ಷತಾ ಸಂಖ್ಯೆಯನ್ನು ದೃಢೀಕರಿಸಲು ಒಬ್ಬ‌ ಸ್ವೀಕೃತಿದಾರರನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ಇದು ಐಚ್ಛಿಕವಾಗಿದೆ.</item>
+  </plurals>
+  <!--Section header for 1:1 contacts in review fragment-->
+  <string name="SafetyNumberBucketRowItem__contacts">ಸಂಪರ್ಕಗಳು</string>
+  <!--Context menu label for distribution list headers in review fragment-->
+  <string name="SafetyNumberReviewConnectionsFragment__remove_all">ಎಲ್ಲವನ್ನೂ ತೆಗೆದುಹಾಕಿ</string>
+  <!--Context menu label for 1:1 contacts to remove from send-->
+  <string name="SafetyNumberReviewConnectionsFragment__remove">ತೆಗೆದುಹಾಕಿ</string>
+  <!--Title of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__my_story_privacy">ನನ್ನ ಸ್ಟೋರಿ ಗೌಪ್ಯತೆ</string>
+  <!--Subtitle of initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings">ಮೈ ಸ್ಟೋರಿ ಪೋಸ್ಟ್‌ಗಳನ್ನು ಯಾರು ನೋಡಬಹುದು ಎಂದು ಆಯ್ಕೆ ಮಾಡಿರಿ. ನೀವು ಸೆಟ್ಟಿಂಗ್‌‍ ಗಳಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ ಬದಲಾವಣೆ ಮಾಡಬಹುದು.</string>
+  <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">ಎಲ್ಲಾ Signal ಸಂಪರ್ಕಗಳು</string>
+  <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">ಇದರ ಹೊರತಾದ ಎಲ್ಲಾ Signal ಸಂರ್ಕಗಳು…</string>
+  <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
+  <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">ಇವರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ…</string>
+  <!--Story info header sent heading-->
+  <string name="StoryInfoHeader__sent">ಕಳುಹಿಸಲಾಗಿದೆ</string>
+  <!--Story info header received heading-->
+  <string name="StoryInfoHeader__received">ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
+  <!--Story info header file size heading-->
+  <string name="StoryInfoHeader__file_size">ಫೈಲ್ ಗಾತ್ರ</string>
+  <!--Story info "Sent to" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_to">ಅವರಿಗೆ ಕಳುಹಿಸಲಾಗಿದೆ</string>
+  <!--Story info "Sent from" header-->
+  <string name="StoryInfoBottomSheetDialogFragment__sent_from">ಇದರಿಂದ ಕಳುಹಿಸಲಾಗಿದೆ</string>
+  <!--Story Info context menu label-->
   <!--EOF-->
 </resources>
