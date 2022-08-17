@@ -78,4 +78,11 @@
     <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">נא לאמת את זהותך כדי להשתמש ב־Molly</string>
     <string name="BiometricDialogFragment__biometric_verification">אימות ביומטרי</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">אין אמצעים ביומטריים זמינים במכשיר הזה</string>
+    <string name="BioTextPreference_no_linked_devices">אין התקנים מקושרים</string>
+    <plurals name="BioTextPreference_n_linked_devices">
+        <item quantity="one">התקן מקושר</item>
+        <item quantity="two">%d התקנים מקושרים</item>
+        <item quantity="many">%d התקנים מקושרים</item>
+        <item quantity="other">%d התקנים מקושרים</item>
+    </plurals>
 </resources>
