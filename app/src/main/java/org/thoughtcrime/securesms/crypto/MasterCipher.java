@@ -28,14 +28,12 @@ import org.signal.libsignal.protocol.ecc.ECPublicKey;
 
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.Mac;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 
 /**
@@ -55,19 +53,9 @@ public class MasterCipher {
   private static final String TAG = Log.tag(MasterCipher.class);
 
   private final MasterSecret masterSecret;
-  private final Cipher encryptingCipher;
-  private final Cipher decryptingCipher;
-  private final Mac hmac;
 
   public MasterCipher(@NonNull MasterSecret masterSecret) {
-    try {
-      this.masterSecret     = masterSecret;
-      this.encryptingCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-      this.decryptingCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-      this.hmac             = Mac.getInstance("HmacSHA256");
-    } catch (NoSuchPaddingException | NoSuchAlgorithmException nspe) {
-      throw new AssertionError(nspe);
-    }
+    this.masterSecret = masterSecret;
   }
 
   public byte[] encryptPrivateKey(ECPrivateKey privateKey) {
@@ -105,10 +93,9 @@ public class MasterCipher {
 
     byte[] encryptedBody = verifyMacBody(mac, body);
 
-    Cipher cipher    = getDecryptingCipher(masterSecret.getEncryptionKey(), encryptedBody);
-    byte[] encrypted = getDecryptedBody(cipher, encryptedBody);
+    Cipher cipher = getDecryptingCipher(masterSecret.getEncryptionKey(), encryptedBody);
 
-    return encrypted;
+    return getDecryptedBody(cipher, encryptedBody);
   }
 
   public byte[] encrypt(byte[] body) {
@@ -122,10 +109,9 @@ public class MasterCipher {
 
       mac.update(ad);
 
-      byte[] encryptedBody       = getEncryptedBody(cipher, body);
-      byte[] encryptedAndMacBody = getMacBody(mac, encryptedBody);
+      byte[] encryptedBody = getEncryptedBody(cipher, body);
 
-      return encryptedAndMacBody;
+      return getMacBody(mac, encryptedBody);
     } catch (GeneralSecurityException ge) {
       throw new AssertionError(ge);
     }
@@ -142,7 +128,7 @@ public class MasterCipher {
     byte[] remoteMac = new byte[hmac.getMacLength()];
     System.arraycopy(encryptedAndMac, encryptedAndMac.length - remoteMac.length, remoteMac, 0, remoteMac.length);
 
-    byte[] localMac  = hmac.doFinal(encrypted);
+    byte[] localMac = hmac.doFinal(encrypted);
 
     if (!MessageDigest.isEqual(remoteMac, localMac)) {
       throw new GeneralSecurityException("MAC doesen't match.");
@@ -169,6 +155,7 @@ public class MasterCipher {
   }
 
   private Mac getMac(SecureSecretKeySpec key) throws GeneralSecurityException {
+    Mac hmac = Mac.getInstance("HmacSHA256");
     hmac.init(key);
 
     return hmac;
@@ -185,16 +172,18 @@ public class MasterCipher {
   }
 
   private Cipher getDecryptingCipher(SecureSecretKeySpec key, byte[] encryptedBody) throws GeneralSecurityException {
-    IvParameterSpec iv = new IvParameterSpec(encryptedBody, 0, decryptingCipher.getBlockSize());
-    decryptingCipher.init(Cipher.DECRYPT_MODE, key, iv);
+    Cipher          cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+    IvParameterSpec iv     = new IvParameterSpec(encryptedBody, 0, cipher.getBlockSize());
+    cipher.init(Cipher.DECRYPT_MODE, key, iv);
 
-    return decryptingCipher;
+    return cipher;
   }
 
   private Cipher getEncryptingCipher(SecureSecretKeySpec key) throws GeneralSecurityException {
-    encryptingCipher.init(Cipher.ENCRYPT_MODE, key);
+    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+    cipher.init(Cipher.ENCRYPT_MODE, key);
 
-    return encryptingCipher;
+    return cipher;
   }
 
 }
