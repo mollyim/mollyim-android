@@ -433,6 +433,9 @@ public class EncryptedPreferences implements SharedPreferences {
   }
 
   private boolean shouldEncrypt(String key) {
+    if (key == null) {
+      throw new IllegalArgumentException("Preference name cannot be null");
+    }
     return encryptionFilter == null || encryptionFilter.test(key);
   }
 
