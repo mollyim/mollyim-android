@@ -192,11 +192,11 @@ object AndroidTelecomUtil {
   }
 
   private fun isTelecomAllowedForDevice(): Boolean {
-//    if (FeatureFlags.internalUser()) {
-//      return !SignalStore.internalValues().callingDisableTelecom()
-//    }
+    if (FeatureFlags.internalUser()) {
+      return !SignalStore.internalValues().callingDisableTelecom()
+    }
 //    return RingRtcDynamicConfiguration.isTelecomAllowedForDevice()
-    return false;
+    return false
   }
 }
 
