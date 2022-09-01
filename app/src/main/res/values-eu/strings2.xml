@@ -4,10 +4,10 @@
     <string name="ApplicationPreferencesActivity_network_summary">%1$s Proxy-a</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Balio duen mendate-zenbaki bat 0 eta 65535 artekoa da</string>
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Ezabatutako kontaktuek dei diezazukete edo mezuak bidal diezazkizukete, blokeatuta egon ezean.</string>
-    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">%1$s duzun txata ezabatu egingo da eta %1$s zure telefono-kontaktuetatik ezabatuko da.</string>
+    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">%1$s duzun txata ezabatu egingo da eta %1$s zure gailu-kontaktuetatik ezabatuko da.</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">%1$s duzun txata ezabatu egingo da.</string>
     <string name="BlockUnblockDialog_delete_this_contact">Kontaktu hau ezabatu\?</string>
-    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Gehitu zure telefonoko kontaktuei</string>
+    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Gehitu zure gailu-kontaktuetara</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Giltzak sortzen. Honek denbora behar du…</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Mesedez, aukeratu zure datuak tokian enkriptatzeko erabiliko den pasahitz-esaldi bat.\n\nEsaldi gogorra izan beharko luke.</string>
     <string name="ChangePassphraseDialogFragment_passphrase">Pasahitzaren esaldia</string>
@@ -47,7 +47,7 @@
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Aldian-aldian egiaztatu bertsio berririk dagoen eta instalatzeko eskatu</string>
     <string name="preferences__autoupdate_molly">Eguneratu Molly automatikoki</string>
     <string name="BlockUnblockDialog_block_and_delete">Blokeatu eta ezabatu</string>
-    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Zure telefonoak ezin badu QR kodea eskaneatu, eskuz sar dezakezu QR kodean kodetutako esteka.</string>
+    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Zure gailuak ezin badu QR kodea eskaneatu, eskuz sar dezakezu QR kodean kodetutako esteka.</string>
     <string name="HelpSettingsFragment__molly_im_website">Molly.im webgunea</string>
     <string name="MessageRetrievalService_ready_to_receive_messages">Mezuak jasotzeko prest</string>
     <string name="BackupsPreferenceFragment__number_of_backups_to_retain">Gorde beharreko segurtasun-kopien kopurua</string>
@@ -68,9 +68,19 @@
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Arazketa-erregistroa ezabatu eta desaktibatu\?</string>
     <string name="preferences__include_beta_updates">Beta eguneratzeak jaso</string>
     <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta bertsioak probetarako dira eta akatsak izan ditzakete</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Mollyk kontaktu eta media baimenak behar ditu zure lagunekin konektatzen eta mezuak bidaltzen laguntzeko. Zure kontaktuak Signal-en kontaktu pribatuen aurkikuntza erabiliz kargatzen dira, eta horrek esan nahi du muturretik muturrera zifratuta daudela eta inoiz ez direla ikusten Signal-en zerbitzurako.</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Mollyk kontaktuen baimena behar du zure lagunekin konektatzen laguntzeko. Zure kontaktuak Signal-en kontaktu pribatuen aurkikuntza erabiliz kargatzen dira, eta horrek esan nahi du muturretik muturrera zifratuta daudela eta inoiz ez direla ikusten Signal-en zerbitzurako.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Mollyk kontaktu eta media baimenak behar ditu zure lagunak aurkitzeko eta mezuak bidaltzen laguntzeko. Zure kontaktuak Signal-en kontaktu pribatuen aurkikuntza erabiliz kargatzen dira, eta horrek esan nahi du muturretik muturrera zifratuta daudela eta inoiz ez direla ikusten Signal-en zerbitzurako.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Mollyk kontaktuen baimena behar du zure lagunak aurkitzeko. Zure kontaktuak Signal-en kontaktu pribatuen aurkikuntza erabiliz kargatzen dira, eta horrek esan nahi du muturretik muturrera zifratuta daudela eta inoiz ez direla ikusten Signal-en zerbitzurako.</string>
     <string name="DeviceAddFragment__link_without_scanning">Lotu eskaneatu gabe</string>
     <string name="DozeReminder_optimize_for_timely_notifications">Jakinarazpenak garaiz optimizatu</string>
     <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Sakatu Mollyk mezuak berreskura ditzan gailua zain dagoen bitartean.</string>
+    <string name="BioTextPreference_no_linked_devices">Ez dago lotutako gailurik</string>
+    <plurals name="BioTextPreference_n_linked_devices">
+        <item quantity="one">%d gailu lotuta</item>
+        <item quantity="other">%d gailu lotutak</item>
+    </plurals>
+    <string name="BiometricDialogFragment__biometric_verification">Egiaztapen biometrikoa</string>
+    <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Mollyren sarbidea blokeatu hatz-markarekin edo aurpegi-azterketarekin</string>
+    <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Mesedez, baieztatu zu zarela Molly erabiltzeko</string>
+    <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Gailu honetan ez dago funtzio biometrikorik</string>
+    <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Mesedez, lehenengo konfiguratu zure datu biometrikoak Androiden ezarpenetan</string>
 </resources>

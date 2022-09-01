@@ -82,4 +82,11 @@
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Заблокувати доступ до Моллі за допомогою відбитка пальця або розпізнавання обличчя</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Біометричні функції недоступні на цьому пристрої</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Будь ласка, спершу налаштуйте біометричні дані в налаштуваннях Android</string>
+    <string name="BioTextPreference_no_linked_devices">Немає зв\'язаних пристроїв</string>
+    <plurals name="BioTextPreference_n_linked_devices">
+        <item quantity="one">%d зв\'язаний пристрій</item>
+        <item quantity="few">%d зв\'язані пристрої</item>
+        <item quantity="many">%d зв\'язаних пристроїв</item>
+        <item quantity="other">%d зв\'язаних пристроїв</item>
+    </plurals>
 </resources>
