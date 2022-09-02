@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import org.thoughtcrime.securesms.R
@@ -12,7 +13,7 @@ import org.thoughtcrime.securesms.components.FragmentWrapperActivity
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragment.Companion.RESULT_SELECTION
 
-class MultiselectForwardActivity : FragmentWrapperActivity(), MultiselectForwardFragment.Callback {
+open class MultiselectForwardActivity : FragmentWrapperActivity(), MultiselectForwardFragment.Callback, SearchConfigurationProvider {
 
   companion object {
     private const val ARGS = "args"
@@ -21,6 +22,14 @@ class MultiselectForwardActivity : FragmentWrapperActivity(), MultiselectForward
   private val args: MultiselectForwardFragmentArgs get() = intent.getParcelableExtra(ARGS)!!
 
   override val contentViewId: Int = R.layout.multiselect_forward_activity
+
+  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+    super.onCreate(savedInstanceState, ready)
+
+    val toolbar: Toolbar = findViewById(R.id.toolbar)
+    toolbar.setTitle(args.title)
+    toolbar.setNavigationOnClickListener { exitFlow() }
+  }
 
   override fun getFragment(): Fragment {
     return MultiselectForwardFragment.create(args)

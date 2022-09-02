@@ -88,10 +88,13 @@ class MediaSelectionRepository(context: Context) {
       throw IllegalStateException("No selected media!")
     }
 
+    val isSendingToStories = singleContact?.isStory == true || contacts.any { it.isStory }
+    val sentMediaQuality = if (isSendingToStories) SentMediaQuality.STANDARD else quality
+
     return Maybe.create<MediaSendActivityResult> { emitter ->
       val trimmedBody: String = if (isViewOnce) "" else getTruncatedBody(message?.toString()?.trim()) ?: ""
       val trimmedMentions: List<Mention> = if (isViewOnce) emptyList() else mentions
-      val modelsToTransform: Map<Media, MediaTransform> = buildModelsToTransform(selectedMedia, stateMap, quality)
+      val modelsToTransform: Map<Media, MediaTransform> = buildModelsToTransform(selectedMedia, stateMap, sentMediaQuality)
       val oldToNewMediaMap: Map<Media, Media> = MediaRepository.transformMediaSync(context, selectedMedia, modelsToTransform)
       val updatedMedia = oldToNewMediaMap.values.toList()
 
@@ -128,7 +131,7 @@ class MediaSelectionRepository(context: Context) {
           )
         }
 
-        val clippedVideosForStories: List<Media> = if (singleContact?.isStory == true || contacts.any { it.isStory }) {
+        val clippedVideosForStories: List<Media> = if (isSendingToStories) {
           updatedMedia.filter {
             Stories.MediaTransform.getSendRequirements(it) == Stories.MediaTransform.SendRequirements.REQUIRES_CLIP
           }.map { media ->
@@ -136,20 +139,12 @@ class MediaSelectionRepository(context: Context) {
           }.flatten()
         } else emptyList()
 
-        val lowResImagesForStories: List<Media> = if (singleContact?.isStory == true || contacts.any { it.isStory }) {
-          updatedMedia.filter {
-            Stories.MediaTransform.hasHighQualityTransform(it)
-          }.map {
-            Media.stripTransform(it)
-          }
-        } else emptyList()
-
         uploadRepository.applyMediaUpdates(oldToNewMediaMap, singleRecipient)
         uploadRepository.updateCaptions(updatedMedia)
         uploadRepository.updateDisplayOrder(updatedMedia)
         uploadRepository.getPreUploadResults { uploadResults ->
           if (contacts.isNotEmpty()) {
-            sendMessages(contacts, splitBody, uploadResults, trimmedMentions, isViewOnce, clippedVideosForStories + lowResImagesForStories)
+            sendMessages(contacts, splitBody, uploadResults, trimmedMentions, isViewOnce, clippedVideosForStories)
             uploadRepository.deleteAbandonedAttachments()
             emitter.onComplete()
           } else if (uploadResults.isNotEmpty()) {
@@ -164,7 +159,7 @@ class MediaSelectionRepository(context: Context) {
   }
 
   private fun getTruncatedBody(body: String?): String? {
-    return if (body.isNullOrEmpty()) {
+    return if (!Stories.isFeatureEnabled() || body.isNullOrEmpty()) {
       body
     } else {
       val iterator = BreakIteratorCompat.getInstance()
@@ -338,23 +333,24 @@ class MediaSelectionRepository(context: Context) {
     }
 
     if (nonStoryMessages.isNotEmpty()) {
-      Log.d(TAG, "Sending ${nonStoryMessages.size} non-story preupload messages")
+      Log.d(TAG, "Sending ${nonStoryMessages.size} preupload messages to chats")
       MessageSender.sendMediaBroadcast(
         context,
         nonStoryMessages,
-        preUploadResults
+        preUploadResults,
+        true
       )
     }
 
     if (storyPreUploadMessages.isNotEmpty()) {
       Log.d(TAG, "Sending ${storyPreUploadMessages.size} preload messages to stories")
       storyPreUploadMessages.forEach { (preUploadResult, messages) ->
-        MessageSender.sendMediaBroadcast(context, messages, Collections.singleton(preUploadResult))
+        MessageSender.sendMediaBroadcast(context, messages, Collections.singleton(preUploadResult), nonStoryMessages.isEmpty())
       }
     }
 
     if (storyClipMessages.isNotEmpty()) {
-      Log.d(TAG, "Sending ${storyClipMessages.size} clip messages to stories")
+      Log.d(TAG, "Sending ${storyClipMessages.size} video clip messages to stories")
       MessageSender.sendStories(context, storyClipMessages, null, null)
     }
   }

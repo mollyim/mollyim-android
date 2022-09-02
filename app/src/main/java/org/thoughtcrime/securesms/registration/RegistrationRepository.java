@@ -73,6 +73,15 @@ public final class RegistrationRepository {
     return registrationId;
   }
 
+  public int getPniRegistrationId() {
+    int pniRegistrationId = SignalStore.account().getPniRegistrationId();
+    if (pniRegistrationId == 0) {
+      pniRegistrationId = KeyHelper.generateRegistrationId(false);
+      SignalStore.account().setPniRegistrationId(pniRegistrationId);
+    }
+    return pniRegistrationId;
+  }
+
   public @NonNull ProfileKey getProfileKey(@NonNull String e164) {
     ProfileKey profileKey = findExistingProfileKey(e164);
 
@@ -181,10 +190,11 @@ public final class RegistrationRepository {
                                           @NonNull PreKeyMetadataStore metadataStore)
       throws IOException
   {
-    SignedPreKeyRecord signedPreKey   = PreKeyUtil.generateAndStoreSignedPreKey(protocolStore, metadataStore, true);
+    SignedPreKeyRecord signedPreKey   = PreKeyUtil.generateAndStoreSignedPreKey(protocolStore, metadataStore);
     List<PreKeyRecord> oneTimePreKeys = PreKeyUtil.generateAndStoreOneTimePreKeys(protocolStore, metadataStore);
 
     accountManager.setPreKeys(serviceIdType, protocolStore.getIdentityKeyPair().getPublicKey(), signedPreKey, oneTimePreKeys);
+    metadataStore.setActiveSignedPreKeyId(signedPreKey.getId());
     metadataStore.setSignedPreKeyRegistered(true);
   }
 

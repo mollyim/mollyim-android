@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:viewBindingIgnore="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,12 +14,12 @@
         app:cardElevation="0dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.camera.view.SignalCameraView
+        <androidx.camera.view.PreviewView
             android:id="@+id/camerax_camera"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
-            app:lensFacing="back" />
+            app:implementationMode="compatible" />
     </androidx.cardview.widget.CardView>
 
     <FrameLayout

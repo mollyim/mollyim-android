@@ -41,6 +41,9 @@
   <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Gardar frase de recuperación de pagamento.</string>
   <string name="ApplicationPreferencesActivity_record_phrase">Gardar frase.</string>
   <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Antes de poder desactivar o PIN, tes que gardar a túa frase de recuperación de pagamentos para asegurarte de que podes recuperar a conta de pagamentos.</string>
+  <!--NumericKeyboardView-->
+  <!--Back button on numeric keyboard-->
+  <string name="NumericKeyboardView__backspace">Retroceder</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minuto</item>
@@ -427,8 +430,20 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">Erro ao establecer a fotografía do perfil</string>
   <string name="CreateProfileActivity_problem_setting_profile">Problemas ao establecer o perfil</string>
   <string name="CreateProfileActivity_set_up_your_profile">Establece o teu perfil</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">O teu perfil está cifrado de extremo a extremo. Os teus contactos poderán ver o teu perfil e os cambios que fagas nel cando inicies ou aceptes unha nova conversa e tamén cando te unas a un grupo.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">O teu perfil e os cambios que realices serán visibles para as persoas coas que falas por mensaxe, os teus contactos e grupos.</string>
   <string name="CreateProfileActivity_set_avatar_description">Establecer avatar</string>
+  <!--ProfileCreateFragment-->
+  <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">Os perfís son visibles para as persoas coas que falas por mensaxe, os teus contactos e grupos.</string>
+  <!--Title of clickable row to select phone number privacy settings-->
+  <string name="ProfileCreateFragment__who_can_find_me">Quen me pode atopar polo meu número?</string>
+  <!--WhoCanSeeMyPhoneNumberFragment-->
+  <!--Toolbar title for this screen-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Quen me pode atopar polo meu número?</string>
+  <!--Description for radio item stating anyone can see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">Calquera que teña o teu número de teléfono na súa lista de contactos verate como contacto en Signal. O resto poderá atoparte buscando o teu número.</string>
+  <!--Description for radio item stating no one will be able to see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">Ninguén en Signal poderá atoparte polo teu número de teléfono.</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">Restaurar desde a copia de seguranza?</string>
   <string name="ChooseBackupFragment__restore_your_messages_and_media">Restaura as túas mensaxes e contido multimedia desde unha copia local. Se non o fas agora, non poderás facelo máis tarde.</string>
@@ -460,6 +475,8 @@
   <string name="BackupsPreferenceFragment__to_restore_a_backup">Para restablecer a copia, instala de novo Molly. Abre a aplicación e toca en «Restablecer copia de seguranza» e despois busca o ficheiro da copia. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Saber máis</string>
   <string name="BackupsPreferenceFragment__in_progress">En progreso…</string>
+  <!--Status text shown in backup preferences when verifying a backup-->
+  <string name="BackupsPreferenceFragment__verifying_backup">Verificando copia de seguranza…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d por agora…</string>
   <!--Show percentage of completion of backup-->
   <string name="BackupsPreferenceFragment__s_so_far">%1$s%% por agora…</string>
@@ -730,6 +747,10 @@
   <string name="ManageProfileFragment_failed_to_set_avatar">Erro ao configurar o avatar</string>
   <string name="ManageProfileFragment_badges">Insignias</string>
   <string name="ManageProfileFragment__edit_photo">Editar foto</string>
+  <!--Snackbar message after creating username-->
+  <string name="ManageProfileFragment__username_created">Nome de usuario creado</string>
+  <!--Snackbar message after copying username-->
+  <string name="ManageProfileFragment__username_copied">Nome de usuario copiado</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">Ningún grupo en común</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -1519,6 +1540,12 @@
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">Editar</string>
   <string name="SubmitDebugLogActivity_done">Feito</string>
+  <!--Menu option to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save">Gardar</string>
+  <!--Error that is show in a toast when we fail to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_failed_to_save">Erro ao gardar</string>
+  <!--Toast that is show to notify that we have saved the debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save_complete">Gardado</string>
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">Toca unha liña para eliminala</string>
   <string name="SubmitDebugLogActivity_submit">Enviar</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">Fallo ao enviar o rexistro</string>
@@ -1573,7 +1600,9 @@
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">Trocaches unha insignia regalo</string>
   <!--Displayed in the conversation list when someone reacted to your story-->
+  <string name="ThreadRecord__reacted_s_to_your_story">Reaccionou con %1$s á túa historia</string>
   <!--Displayed in the conversation list when you reacted to someone\'s story-->
+  <string name="ThreadRecord__reacted_s_to_their_story">Reaccionou con %1$s á súa historia</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Actualizar Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Hai dispoñible unha nova versión de Molly; toca para actualizar</string>
@@ -1584,6 +1613,8 @@
   <string name="UnverifiedSendDialog_send_message">Enviar mensaxe?</string>
   <string name="UnverifiedSendDialog_send">Enviar</string>
   <!--UsernameEditFragment-->
+  <!--Instructional text at the top of the username edit screen-->
+  <string name="UsernameEditFragment__choose_your_username">Elixe un nome de usuario</string>
   <string name="UsernameEditFragment_username">Nome de usuario</string>
   <string name="UsernameEditFragment_delete">Eliminar</string>
   <string name="UsernameEditFragment_successfully_set_username">Nome de usuario establecido satisfactoriamente</string>
@@ -1595,11 +1626,18 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Os nomes de usuario non poden comezar por un número.</string>
   <string name="UsernameEditFragment_username_is_invalid">Nome de usuario non válido.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Os nomes de usuario deben ter entre %1$d e %2$d caracteres.</string>
-  <string name="UsernameEditFragment_usernames_on_signal_are_optional">En Signal os nomes de usuario son opcionais. Se elixes crear un, os restantes usuarios de Signal poderante atopar por ese nome de usuario e contactar contigo sen saberen o teu número de teléfono.</string>
+  <!--Explanation about what usernames provide-->
+  <string name="UsernameEditFragment__usernames_let_others_message">Un nome de usuario permite que outras persoas che manden mensaxes sen necesitar o teu número de teléfono. Combínanse cunha serie de cifras para manter a túa información privada.</string>
+  <!--Dialog title for explanation about numbers at the end of the username-->
+  <string name="UsernameEditFragment__what_is_this_number">Que é este número?</string>
+  <string name="UsernameEditFragment__these_digits_help_keep">Estas cifras manteñen o teu nome de usuario privado para que non recibas mensaxes non desexadas. Comparte o teu usuario só coas persoas e grupos coas que queiras conversar. Se cambias o teu nome de usuario, terás unha nova serie de cifras.</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%dcontacto está en Signal!</item>
     <item quantity="other">%d contactos están en Signal!</item>
   </plurals>
+  <!--UsernameShareBottomSheet-->
+  <!--Explanation of what the sheet enables the user to do-->
+  <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">Copia ou comparte unha ligazón de nome de usuario</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">O teu contacto ten unha versión antiga de Signal. Pídelle que a actualice antes de verificar o número de seguranza.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">O teu contacto ten unha versión recente de Signal cun formato de código QR incompatible. Actualízate para poder comparalo.</string>
@@ -2185,6 +2223,8 @@
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">Donativo puntual</string>
   <string name="preferences__privacy">Privacidade</string>
+  <!--Preference label for stories-->
+  <string name="preferences__stories">Historias</string>
   <string name="preferences__mms_user_agent">Axente de usuario MMS</string>
   <string name="preferences__advanced_mms_access_point_names">Configuración manual de MMS</string>
   <string name="preferences__mmsc_url">URL de MMSC</string>
@@ -2197,6 +2237,8 @@
   <string name="preferences__data_and_storage">Datos e almacenamento</string>
   <string name="preferences__storage">Almacenamento</string>
   <string name="preferences__payments">Pagamentos</string>
+  <!--Privacy settings payments section description-->
+  <string name="preferences__payment_lock">Bloqueo de pagamento</string>
   <string name="preferences__payments_beta">Pagamentos (Beta)</string>
   <string name="preferences__conversation_length_limit">Lonxitude máxima das conversas</string>
   <string name="preferences__keep_messages">Manter as mensaxes</string>
@@ -2262,6 +2304,8 @@
   <string name="preferences_app_protection__who_can">Quen pode…</string>
   <string name="preferences_app_protection__app_access">Acceso á aplicación</string>
   <string name="preferences_app_protection__communication">Comunicacións</string>
+  <!--Privacy settings payments section title-->
+  <string name="preferences_app_protection__payments">Pagamentos</string>
   <string name="preferences_chats__chats">Conversas</string>
   <string name="preferences_data_and_storage__manage_storage">Administrar almacenamento</string>
   <string name="preferences_data_and_storage__calls">Chamadas</string>
@@ -2319,7 +2363,6 @@
   <string name="preferences_enter_proxy_address">Escribe o enderezo do proxy</string>
   <string name="configurable_single_select__customize_option">Personalizar opción</string>
   <!--Internal only preferences-->
-  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">Toda a actividade</string>
   <string name="PaymentsAllActivityFragment__all">Todo</string>
@@ -2364,6 +2407,14 @@
   <string name="PaymentsHomeFragment__activate">Activar</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Ver as condicións de MobileCoin</string>
   <string name="PaymentsHomeFragment__payments_not_available">Os pagamentos en Molly xa non están dispoñibles. Podes seguir transferindo fondos para intercambiar pero non podes enviar e recibir pagamentos nin engadir fondos.</string>
+  <!--Alert dialog title which shows up after a payment to turn on payment lock-->
+  <string name="PaymentsHomeFragment__turn_on">Activar o Bloqueo de pagamento para envíos futuros?</string>
+  <!--Alert dialog description for why payment lock should be enabled before sending payments-->
+  <string name="PaymentsHomeFragment__add_an_additional_layer">Engade seguridade extra e solicita o uso do bloqueo de pantalla de Android ou da impresión dixital para transferir fondos.</string>
+  <!--Alert dialog button to enable payment lock-->
+  <string name="PaymentsHomeFragment__enable">Activar</string>
+  <!--Alert dialog button to not enable payment lock for now-->
+  <string name="PaymentsHomeFragment__not_now">Agora non</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Engadir fondos</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Enderezo da túa carteira</string>
@@ -2444,6 +2495,14 @@
   <string name="ConfirmPayment__payment_failed">Erro no pagamento</string>
   <string name="ConfirmPayment__payment_will_continue_processing">O pagamento continúa en proceso</string>
   <string name="ConfirmPaymentFragment__invalid_recipient">Destinatario incorrecto</string>
+  <!--Biometric/Device authentication prompt title which comes up before sending a payment-->
+  <string name="ConfirmPaymentFragment__unlock_to_send_payment">Desbloquear para enviar pagamento</string>
+  <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Erro ao mostrar o bloqueo de pagamento</string>
+  <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">Activaches o bloqueo de pagamento na Configuración, pero non se pode mostrar.</string>
+  <!--Button in a dialog that will take the user to the privacy settings-->
+  <string name="ConfirmPaymentFragment__go_to_settings">Ir a Configuración</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Esta persoa non ten activados os pagamentos</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">Erro ao solicitar a taxa de rede. Para continuar co pagamento, preme «De acordo» para intentalo de novo.</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2724,10 +2783,16 @@
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Inseriches satisfactoriamente a túa frase de acceso</string>
   <string name="BackupDialog_passphrase_was_not_correct">Frase de acceso incorrecta</string>
   <string name="LocalBackupJob_creating_signal_backup">Creando unha copia de seguranza de Molly</string>
+  <!--Title for progress notification shown in a system notification while verifying a recent backup.-->
+  <string name="LocalBackupJob_verifying_signal_backup">Verificando copia de seguranza de Molly…</string>
   <string name="LocalBackupJobApi29_backup_failed">Erro na copia de seguranza</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">O directorio da túa copia de seguranza foi eliminado ou movido.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">O ficheiro da túa copia de seguranza é demasiado grande para almacenalo neste volume.</string>
   <string name="LocalBackupJobApi29_there_is_not_enough_space">Non hai suficiente espazo para almacenar a túa copia de seguranza.</string>
+  <!--Error message shown if a newly created backup could not be verified as accurate-->
+  <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">Non se puido crear e verificar a última copia de seguranza. Crea unha de novo.</string>
+  <!--Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail-->
+  <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">A túa copia de seguranza contén un arquivo moi grande que non se pode gardar. Elimínao e crea unha nova copia.</string>
   <string name="LocalBackupJobApi29_tap_to_manage_backups">Toca para administrar as copias de seguranza.</string>
   <string name="ProgressPreference_d_messages_so_far">%d mensaxes ata o momento</string>
   <string name="RegistrationActivity_wrong_number">Número incorrecto</string>
@@ -3028,6 +3093,8 @@
   <string name="ShareActivity__send">Enviar</string>
   <string name="ShareActivity__comma_s">, %1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">Compartir con múltiplos chats é algo que só se pode facer coas mensaxes do Signal</string>
+  <!--Toast when the incoming intent is invalid-->
+  <string name="ShareActivity__could_not_get_share_data_from_intent">Erro ao compartir os datos.</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">Fallou o envío a algúns usuarios</string>
   <string name="MultiShareDialogs__you_can_only_share_with_up_to">Soamente pode compartila con %1$d chat</string>
@@ -3253,6 +3320,19 @@
   <string name="PrivacySettingsFragment__signal_message_and_calls">Mensaxes e chamadas Signal, redirección de chamadas e remitente selado</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">Establecer duración das novas conversas</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Establece a duración das mensaxes temporais nas novas conversas que ti inicies.</string>
+  <!--Summary for stories preference to launch into story privacy settings-->
+  <string name="PrivacySettingsFragment__manage_your_stories">Xestiona as túas historias e quen pode velas</string>
+  <string name="PrivacySettingsFragment__payment_lock_require_lock">Necesítase o bloqueo de pantalla de Android ou a impresión dixital para transferir fondos</string>
+  <!--Alert dialog title when payment lock cannot be enabled-->
+  <string name="PrivacySettingsFragment__cant_enable_title">Non se pode activar o bloqueo de pagamento</string>
+  <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
+  <string name="PrivacySettingsFragment__cant_enable_description">Para empregar o Bloqueo de pagamento debes activar primeiro o bloqueo de pantalla ou a identificación coa impresión dixital na configuración do teu teléfono.</string>
+  <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
+  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">Erro ao acceder ao sistema de configuración</string>
+  <!--Alert dialog button to go to phone settings-->
+  <string name="PrivacySettingsFragment__go_to_settings">Ir a Configuración</string>
+  <!--Alert dialog button to cancel the dialog-->
+  <string name="PrivacySettingsFragment__cancel">Cancelar</string>
   <!--AdvancedPrivacySettingsFragment-->
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">Mostrar icona de estado</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">Mostrar unha icona nos detalles das mensaxes cando se entreguen empregando o remitente oculto.</string>
@@ -3362,6 +3442,8 @@
   <string name="EmojiSearchFragment__no_results_found">Sen resultados</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">Ton de chamada descoñecido</string>
   <!--ConversationSettingsFragment-->
+  <!--Error toasted when no activity can handle the add contact intent-->
+  <string name="ConversationSettingsFragment__contacts_app_not_found">Non se atopou unha aplicación de contactos</string>
   <string name="ConversationSettingsFragment__send_message">Enviar mensaxe</string>
   <string name="ConversationSettingsFragment__start_video_call">Iniciar chamada de vídeo</string>
   <string name="ConversationSettingsFragment__start_audio_call">Iniciar chamada de audio</string>
@@ -3482,6 +3564,8 @@
     <item quantity="one">Non se pode reenviar a mensaxe porque xa non está dispoñible.</item>
     <item quantity="other">Non se poden reenviar as mensaxes porque xa non están dispoñibles.</item>
   </plurals>
+  <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
+  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">Só os administradores poden enviar mensaxes neste grupo.</string>
   <string name="MultiselectForwardFragment__limit_reached">Límite alcanzado</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">Engadir mensaxe</string>
@@ -3641,13 +3725,13 @@
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Erro de rede. Comproba a túa conexión e inténtao de novo.</string>
   <string name="NetworkFailure__retry">Tentar de novo</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__recipient_verification_failed">Erro ao verificar o destinatario.</string>
+  <string name="DonationsErrors__cant_send_gift">Non se pode enviar o regalo</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">O destinatario non acepta regalos.</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">O destinatario está a utilizar unha versión de Signal que non pode recibir insignias de regalo. Poderá recibilas cando actualice a última versión da aplicación.</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__could_not_verify_recipient">Non se puido verificar o destinatario.</string>
+  <string name="DonationsErrors__couldnt_send_gift">Erro ao enviar o regalo</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__please_check_your_network_connection">Comproba a túa conexión a Internet e inténtao de novo.</string>
+  <string name="DonationsErrors__please_check_your_network_connection">O teu regalo non se enviou por un erro de rede. Comproba a túa conexión e volve intentalo.</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">Regalar insignia</string>
   <!--Gift message view expiry information-->
@@ -3864,10 +3948,12 @@
   <string name="ConversationListTabs__stories">Historias</string>
   <!--String for counts above 99 in conversation list tabs-->
   <string name="ConversationListTabs__99p">99+</string>
+  <!--Menu item on stories landing page-->
+  <string name="StoriesLandingFragment__story_privacy">Privacidade da historia</string>
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">As miñas historias</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
-  <string name="StoriesLandingFragment__add_a_story">Engadir unha historia</string>
+  <string name="StoriesLandingFragment__tap_to_add_a_story">Premer para engadir unha historia</string>
   <!--Displayed when there are no stories to display-->
   <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">Non hai actualizacións recentes. Preme + para engadir unha historia.</string>
   <!--Context menu option to hide a story-->
@@ -3945,6 +4031,14 @@
   <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">Activar confirmacións de lectura para ver quen viu as túas historias.</string>
   <!--Button label displayed when user has disabled receipts-->
   <string name="StoryViewsFragment__go_to_settings">Ir a Configuración</string>
+  <!--Dialog action to remove viewer from a story-->
+  <string name="StoryViewsFragment__remove">Eliminar</string>
+  <!--Dialog title when removing a viewer from a story-->
+  <string name="StoryViewsFragment__remove_viewer">Eliminar espectador?</string>
+  <!--Dialog message when removing a viewer from a story-->
+  <string name="StoryViewsFragment__s_will_still_be_able">%1$s poderá seguir vendo esta publicación, mais non verá as seguintes publicacións que compartas en %2$s.</string>
+  <!--Story View context menu action to remove them from a story-->
+  <string name="StoryViewItem__remove_viewer">Eliminar espectador</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">Sen respostas</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3963,14 +4057,6 @@
   <string name="StoryGroupReplyItem__copy">Copiar</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">Eliminar</string>
-  <!--Story settings page title-->
-  <string name="StorySettingsFragment__story_settings">Configuración das historias</string>
-  <!--Story settings private stories heading-->
-  <string name="StorySettingsFragment__private_stories">Historias privadas</string>
-  <!--Note at bottom of story settings regarding who can see private stories.-->
-  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">As historias privadas só poden ser vistas polas persoas que agregues. Só ti podes ver o nome da historia.</string>
-  <!--Option label for creating a new private story-->
-  <string name="StorySettingsFragment__new_private_story">Nova historia privada</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">A miña historia</string>
   <!--Section heading for story visibility-->
@@ -4212,14 +4298,11 @@
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Agora non</string>
   <!--Label under name for private stories-->
-  <plurals name="ContactSearchItems__private_story_d_viewers">
-    <item quantity="one">Historia privada · %1$despectador</item>
-    <item quantity="other">Historia privada · %1$d espectadores</item>
-  </plurals>
   <!--Label under name for group stories-->
-  <plurals name="ContactSearchItems__group_story_d_viewers">
-    <item quantity="one">Historia grupal · %1$d espectador</item>
-    <item quantity="other">Historia grupal · %1$d espectadores</item>
+  <!--Label under name for my story-->
+  <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
+    <item quantity="one">%1$s · %2$d espectador</item>
+    <item quantity="other">%1$s · %2$d espectadores</item>
   </plurals>
   <!--Label under name for My Story when first sending to my story-->
   <string name="ContactSearchItems__tap_to_choose_your_viewers">Premer para elixir os teus espectadores</string>
@@ -4331,5 +4414,31 @@
   <string name="StoryInfoBottomSheetDialogFragment__sent_from">Enviada desde</string>
   <!--Story Info context menu label-->
   <string name="StoryInfoBottomSheetDialogFragment__info">Información</string>
+  <!--StoriesPrivacySettingsFragment-->
+  <!--Explanation about how stories are deleted and managed-->
+  <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">As historias desaparecen automaticamente despois de 24 horas. Elixe quen pode ver as túas historias ou crea novas historias para persoas ou grupos específicos.</string>
+  <!--Preference title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories">Desactivar historias</string>
+  <!--Preference summary to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__if_you_opt_out">Se desactivas as historias non poderás velas nin compartilas.</string>
+  <!--Preference title to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_on_stories">Activar historias</string>
+  <!--Preference summary to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__share_and_view">Comparte e goza das historias dos demais. Desaparecen automaticamente despois de 24 horas.</string>
+  <!--Dialog title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Desactivar historias?</string>
+  <!--Dialog message to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">Non poderás ver nin compartir as historias. Calquera historia que enviases recentemente seguirá a ser visible ata que caduque.</string>
+  <!--Page title when launched from stories landing screen-->
+  <string name="StoriesPrivacySettingsFragment__story_privacy">Privacidade da historia</string>
+  <!--GroupStorySettingsFragment-->
+  <!--Section header for who can view a group story-->
+  <string name="GroupStorySettingsFragment__who_can_view_this_story">Quen pode ver esta historia</string>
+  <!--Explanation of who can view a group story-->
+  <string name="GroupStorySettingsFragment__members_of_the_group_s">Os membros do grupo «%1$s» poden ver e responder a esta historia. Podes actualizar a lista de membros desta conversa no grupo.</string>
+  <!--Preference label for removing this group story-->
+  <string name="GroupStorySettingsFragment__remove_group_story">Eliminar historia de grupo</string>
+  <!--Generic title for overflow menus-->
+  <string name="OverflowMenu__overflow_menu">Menú emerxente</string>
   <!--EOF-->
 </resources>

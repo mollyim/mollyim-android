@@ -41,6 +41,9 @@
   <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">תעד משפט השבה של תשלומים</string>
   <string name="ApplicationPreferencesActivity_record_phrase">תעד משפט</string>
   <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">לפני שתוכל להשבית את ה־PIN שלך, אתה חייב לתעד את משפט ההשבה של התשלומים שלך כדי להבטיח שתוכל להשיב את חשבון התשלומים שלך.</string>
+  <!--NumericKeyboardView-->
+  <!--Back button on numeric keyboard-->
+  <string name="NumericKeyboardView__backspace">מקש חזרה</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">דקה %d</item>
@@ -170,7 +173,7 @@
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">הסיפורים שלי</string>
   <!--Action for creating a new story-->
-  <string name="ContactsCursorLoader_new_story">סיפור חדש</string>
+  <string name="ContactsCursorLoader_new_story">סטורי חדש</string>
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">%s של הודעה</string>
   <string name="ContactsDatabase_signal_call_s">שיחת Signal אל %s</string>
@@ -469,8 +472,20 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">שגיאה בהגדרת תמונת פרופיל</string>
   <string name="CreateProfileActivity_problem_setting_profile">בעיה בהגדרת פרופיל</string>
   <string name="CreateProfileActivity_set_up_your_profile">הגדר את הפרופיל שלך</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">הפרופיל שלך מוצפן מקצה־אל־קצה. הפרופיל שלך ושינויים שלו יהיו גלויים אל אנשי הקשר שלך, כאשר תיזום או תאשר שיחות חדשות, וכאשר תצטרף אל קבוצות חדשות.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">הפרופיל שלך והשינויים בו יהיו גלויים לאנשים שיקבלו ממך הודעות, ולאנשי הקשר והקבוצות שלך.</string>
   <string name="CreateProfileActivity_set_avatar_description">הגדר יצגן</string>
+  <!--ProfileCreateFragment-->
+  <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">הפרופילים גלויים לאנשים ששולחים להם הודעות, לאנשי קשר ולקבוצות.</string>
+  <!--Title of clickable row to select phone number privacy settings-->
+  <string name="ProfileCreateFragment__who_can_find_me">מי יכול למצוא אותי לפי המספר שלי?</string>
+  <!--WhoCanSeeMyPhoneNumberFragment-->
+  <!--Toolbar title for this screen-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">מי יכול למצוא אותי לפי המספר שלי?</string>
+  <!--Description for radio item stating anyone can see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">כל אחד שיש לו את המספר שלך ברשימת אנשי הקשר יוכל לראות אותך באנשי הקשר ב-Signal. אחרים יוכלו למצוא אותך באמצעות המספר שלך בחיפוש.</string>
+  <!--Description for radio item stating no one will be able to see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">אף אחד ב-Signal לא יוכל למצוא אותך באמצעות מספר הטלפון שלך.</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">לשחזר מגיבוי?</string>
   <string name="ChooseBackupFragment__restore_your_messages_and_media">שחזר את ההודעות והמדיה שלך מגיבוי מקומי. אם לא תשחזר עכשיו, לא תוכל לשחזר מאוחר יותר.</string>
@@ -502,6 +517,8 @@
   <string name="BackupsPreferenceFragment__to_restore_a_backup">כדי לשחזר גיבוי, התקן עותק חדש של Molly. פתח את היישום והקש על \"שחזר גיבוי\", לאחר מכן אתר קובץ גיבוי. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">למד עוד</string>
   <string name="BackupsPreferenceFragment__in_progress">בתהליך…</string>
+  <!--Status text shown in backup preferences when verifying a backup-->
+  <string name="BackupsPreferenceFragment__verifying_backup">מאמתים גיבוי…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d עד כה…</string>
   <!--Show percentage of completion of backup-->
   <string name="BackupsPreferenceFragment__s_so_far">%1$s%% עד כה…</string>
@@ -808,6 +825,10 @@
   <string name="ManageProfileFragment_failed_to_set_avatar">נכשל בהגדרת יצגן</string>
   <string name="ManageProfileFragment_badges">תגים</string>
   <string name="ManageProfileFragment__edit_photo">ערוך תמונה</string>
+  <!--Snackbar message after creating username-->
+  <string name="ManageProfileFragment__username_created">שם משתמש נוצר</string>
+  <!--Snackbar message after copying username-->
+  <string name="ManageProfileFragment__username_copied">שם משתמש הועתק</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">אין קבוצות במשותף</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -1665,6 +1686,12 @@
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">ערוך</string>
   <string name="SubmitDebugLogActivity_done">סיים</string>
+  <!--Menu option to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save">שמור</string>
+  <!--Error that is show in a toast when we fail to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_failed_to_save">שמירה נכשלה</string>
+  <!--Toast that is show to notify that we have saved the debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save_complete">שמירה הושלמה</string>
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">הקש על שורה כדי למחוק אותה</string>
   <string name="SubmitDebugLogActivity_submit">הגש</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">נכשל בהגשת יומנים</string>
@@ -1719,7 +1746,9 @@
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">מימשת תג שי</string>
   <!--Displayed in the conversation list when someone reacted to your story-->
+  <string name="ThreadRecord__reacted_s_to_your_story">הגיב/ה %1$s לסטורי שלך</string>
   <!--Displayed in the conversation list when you reacted to someone\'s story-->
+  <string name="ThreadRecord__reacted_s_to_their_story">הגבת %1$s לסטורי שלהם</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">עדכון Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">גרסה חדשה של Molly זמינה, הקש כדי לעדכן</string>
@@ -1730,6 +1759,8 @@
   <string name="UnverifiedSendDialog_send_message">לשלוח הודעה?</string>
   <string name="UnverifiedSendDialog_send">שלח</string>
   <!--UsernameEditFragment-->
+  <!--Instructional text at the top of the username edit screen-->
+  <string name="UsernameEditFragment__choose_your_username">בחירת שם המשתמש שלך</string>
   <string name="UsernameEditFragment_username">שם משתמש</string>
   <string name="UsernameEditFragment_delete">מחק</string>
   <string name="UsernameEditFragment_successfully_set_username">שם משתמש נקבע בהצלחה.</string>
@@ -1741,13 +1772,20 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">שמות משתמש אינם יכולים להתחיל במספר.</string>
   <string name="UsernameEditFragment_username_is_invalid">שם משתמש בלתי תקף.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">שמות משתמש חייבים להיות בין %1$d לבין %2$d תווים.</string>
-  <string name="UsernameEditFragment_usernames_on_signal_are_optional">שמות משתמש ב־Signal הם רשותיים. אם אתה בוחר ליצור שם משתמש, משתמשי Signal אחרים יוכלו למצוא אותך לפי שם משתמש זה וליצור איתך קשר בלי לדעת את מספר הטלפון שלך.</string>
+  <!--Explanation about what usernames provide-->
+  <string name="UsernameEditFragment__usernames_let_others_message">שמות משתמש מאפשרים לאחרים לשלוח לך הודעה בלי להזדקק למספר הטלפון שלך. הם מוצמדים לסט של ספרות כדי לעזור לשמור על פרטיות הכתובת שלך.</string>
+  <!--Dialog title for explanation about numbers at the end of the username-->
+  <string name="UsernameEditFragment__what_is_this_number">מה המספר הזה?</string>
+  <string name="UsernameEditFragment__these_digits_help_keep">הספרות האלה עוזרות לשמור על שם המשתמש שלך פרטי, כדי להימנע מהודעות לא רצויות. זה מאפשר לך לשתף את שם המשתמש שלך רק עם אנשים וקבוצות שמתחשק לך לשוחח איתם. אם משנים את שם המשתמש, מקבלים סט חדש של ספרות.</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">איש קשר %d ב־Signal!</item>
     <item quantity="two">%d אנשי קשר ב־Signal!</item>
     <item quantity="many">%d אנשי קשר ב־Signal!</item>
     <item quantity="other">%d אנשי קשר ב־Signal!</item>
   </plurals>
+  <!--UsernameShareBottomSheet-->
+  <!--Explanation of what the sheet enables the user to do-->
+  <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">העתקה או שיתוף של לינק שם משתמש</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">איש הקשר שלך מריץ גרסה ישנה של Signal. אנא בקש ממנו לעדכן לפני וידוא מספר הביטחון שלך.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">איש הקשר שלך מריץ גרסה חדשה יותר של Signal עם תסדיר בלתי־תואם של קוד QR. אנא עדכן כדי להשוות.</string>
@@ -2357,6 +2395,8 @@
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">תרומה חד־פעמית</string>
   <string name="preferences__privacy">פרטיות</string>
+  <!--Preference label for stories-->
+  <string name="preferences__stories">סטוריז</string>
   <string name="preferences__mms_user_agent">סוכן משתמש MMS</string>
   <string name="preferences__advanced_mms_access_point_names">הגדרות MMS ידניות</string>
   <string name="preferences__mmsc_url">כתובת MMSC</string>
@@ -2369,6 +2409,8 @@
   <string name="preferences__data_and_storage">נתונים ואחסון</string>
   <string name="preferences__storage">אחסון</string>
   <string name="preferences__payments">תשלומים</string>
+  <!--Privacy settings payments section description-->
+  <string name="preferences__payment_lock">נעילת אבטחה לתשלום</string>
   <string name="preferences__payments_beta">תשלומים (בטא)</string>
   <string name="preferences__conversation_length_limit">מגבלת אורך שיחה</string>
   <string name="preferences__keep_messages">שמור הודעות</string>
@@ -2434,6 +2476,8 @@
   <string name="preferences_app_protection__who_can">מי יכול…</string>
   <string name="preferences_app_protection__app_access">גישת יישום</string>
   <string name="preferences_app_protection__communication">תקשורת</string>
+  <!--Privacy settings payments section title-->
+  <string name="preferences_app_protection__payments">תשלומים</string>
   <string name="preferences_chats__chats">התכתבויות</string>
   <string name="preferences_data_and_storage__manage_storage">נהל אחסון</string>
   <string name="preferences_data_and_storage__calls">שיחות</string>
@@ -2491,7 +2535,6 @@
   <string name="preferences_enter_proxy_address">הכנס כתובת יפוי כוח</string>
   <string name="configurable_single_select__customize_option">התאם אישית אפשרות</string>
   <!--Internal only preferences-->
-  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">כל הפעילות</string>
   <string name="PaymentsAllActivityFragment__all">הכול</string>
@@ -2536,6 +2579,14 @@
   <string name="PaymentsHomeFragment__activate">הפעל</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">הצג תנאי MobileCoin</string>
   <string name="PaymentsHomeFragment__payments_not_available">תשלומים ב־Molly אינם זמינים יותר. אתה עדיין יכול להעביר כספים אל מסחר אבל אתה לא יכול יותר לשלוח ולקבל תשלומים או להוסיף כספים.</string>
+  <!--Alert dialog title which shows up after a payment to turn on payment lock-->
+  <string name="PaymentsHomeFragment__turn_on">להפעיל נעילת אבטחה לתשלום עבור העברות עתידיות?</string>
+  <!--Alert dialog description for why payment lock should be enabled before sending payments-->
+  <string name="PaymentsHomeFragment__add_an_additional_layer">אפשר להוסיף שכבת אבטחה נוספת ולדרוש נעילת מסך או טביעת אצבע ב-Android לפני שמאפשרים העברת כספים.</string>
+  <!--Alert dialog button to enable payment lock-->
+  <string name="PaymentsHomeFragment__enable">הפעלה</string>
+  <!--Alert dialog button to not enable payment lock for now-->
+  <string name="PaymentsHomeFragment__not_now">לא עכשיו</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">הוסף כספים</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">כתובת הארנק שלך</string>
@@ -2616,6 +2667,14 @@
   <string name="ConfirmPayment__payment_failed">תשלום נכשל</string>
   <string name="ConfirmPayment__payment_will_continue_processing">התשלום ימשיך לעבד</string>
   <string name="ConfirmPaymentFragment__invalid_recipient">מקבל בלתי תקף</string>
+  <!--Biometric/Device authentication prompt title which comes up before sending a payment-->
+  <string name="ConfirmPaymentFragment__unlock_to_send_payment">יש לשחרר את הנעילה כדי להעביר תשלום</string>
+  <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">הצגת נעילת אבטחה לתשלום נכשלה</string>
+  <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">הפעלת נעילת אבטחה לתשלום בהגדרות, אבל לא ניתן להציג אותה.</string>
+  <!--Button in a dialog that will take the user to the privacy settings-->
+  <string name="ConfirmPaymentFragment__go_to_settings">מעבר להגדרות</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">איש זה לא הפעיל תשלומים</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">לא היה ניתן לבקש עמלת רשת. כדי להמשיך תשלום זה, הקש על בסדר ונסה שוב.</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2912,10 +2971,16 @@
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">הכנסת בהצלחה את משפט־סיסמת הגיבוי שלך</string>
   <string name="BackupDialog_passphrase_was_not_correct">משפט־הסיסמה לא היה נכון</string>
   <string name="LocalBackupJob_creating_signal_backup">יוצר גיבוי Molly…</string>
+  <!--Title for progress notification shown in a system notification while verifying a recent backup.-->
+  <string name="LocalBackupJob_verifying_signal_backup">מאמתים גיבוי של Molly…</string>
   <string name="LocalBackupJobApi29_backup_failed">גיבוי נכשל</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">תיקיית הגיבוי שלך נמחקה או הועברה.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">קובץ הגיבוי שלך גדול מדי לאחסון בכרך זה.</string>
   <string name="LocalBackupJobApi29_there_is_not_enough_space">אין מספיק שטח כדי לאחסן את הגיבוי שלך.</string>
+  <!--Error message shown if a newly created backup could not be verified as accurate-->
+  <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">לא הצלחנו להשלים את היצירה והאימות של הגיבוי האחרון שלך. צריך ליצור אחד חדש.</string>
+  <!--Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail-->
+  <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">הגיבוי שלך מכיל קובץ גדול מאוד שלא ניתן לגבות. צריך למחוק אותו וליצור גיבוי חדש.</string>
   <string name="LocalBackupJobApi29_tap_to_manage_backups">הקש כדי לנהל גיבויים.</string>
   <string name="ProgressPreference_d_messages_so_far">%d הודעות עד כה</string>
   <string name="RegistrationActivity_wrong_number">מספר שגוי</string>
@@ -3222,6 +3287,8 @@
   <string name="ShareActivity__send">שלח</string>
   <string name="ShareActivity__comma_s">, %1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">העברה הלאה אל התכתבויות רבות נתמכת רק עבור הודעות Signal</string>
+  <!--Toast when the incoming intent is invalid-->
+  <string name="ShareActivity__could_not_get_share_data_from_intent">שיתוף המידע נכשל.</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">נכשל בשליחה אל כמה משתמשים</string>
   <string name="MultiShareDialogs__you_can_only_share_with_up_to">אתה יכול לשתף רק עם עד %1$d התכתבויות</string>
@@ -3447,6 +3514,19 @@
   <string name="PrivacySettingsFragment__signal_message_and_calls">הודעות ושיחות של Signal, ממסר שיחות תמיד, ושולח אטום</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">קוצב זמן ברירת מחדל עבור התכתבויות חדשות</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">הגדר קוצב זמן ברירת מחדל של הודעות נעלמות עבור כל ההתכתבויות החדשות שהותחלו על ידך.</string>
+  <!--Summary for stories preference to launch into story privacy settings-->
+  <string name="PrivacySettingsFragment__manage_your_stories">ניהול הסטוריז שלך ומי יכול לצפות בהם</string>
+  <string name="PrivacySettingsFragment__payment_lock_require_lock">אפשר לדרוש נעילת מסך או טביעת אצבע ב-Android כדי להעביר כספים</string>
+  <!--Alert dialog title when payment lock cannot be enabled-->
+  <string name="PrivacySettingsFragment__cant_enable_title">לא ניתן לאפשר נעילת אבטחה לתשלום</string>
+  <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
+  <string name="PrivacySettingsFragment__cant_enable_description">כדי להשתמש בנעילת אבטחה לתשלום, צריך קודם לאפשר נעילת מסך או זיהוי באמצעות טביעת אצבע בהגדרות הטלפון שלך.</string>
+  <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
+  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">הניווט להגדרות המערכת נכשל.</string>
+  <!--Alert dialog button to go to phone settings-->
+  <string name="PrivacySettingsFragment__go_to_settings">מעבר להגדרות</string>
+  <!--Alert dialog button to cancel the dialog-->
+  <string name="PrivacySettingsFragment__cancel">בטל</string>
   <!--AdvancedPrivacySettingsFragment-->
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">הראה איקון מעמד</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">הראה איקון בפרטי הודעה כאשר היא נשלחה ע״י שימוש בשולח אטום.</string>
@@ -3560,6 +3640,8 @@
   <string name="EmojiSearchFragment__no_results_found">תוצאות לא נמצאו</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">צלצול בלתי ידוע</string>
   <!--ConversationSettingsFragment-->
+  <!--Error toasted when no activity can handle the add contact intent-->
+  <string name="ConversationSettingsFragment__contacts_app_not_found">אפליקציית אנשי קשר לא נמצאה.</string>
   <string name="ConversationSettingsFragment__send_message">שלח הודעה</string>
   <string name="ConversationSettingsFragment__start_video_call">התחל שיחת וידאו</string>
   <string name="ConversationSettingsFragment__start_audio_call">התחל שיחת שמע</string>
@@ -3688,6 +3770,8 @@
     <item quantity="many">לא היה ניתן להעביר הלאה הודעות מאחר שהן לא זמינות יותר.</item>
     <item quantity="other">לא היה ניתן להעביר הלאה הודעות מאחר שהן לא זמינות יותר.</item>
   </plurals>
+  <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
+  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">רק מנהלים יכולים לשלוח הודעות לקבוצה זו.</string>
   <string name="MultiselectForwardFragment__limit_reached">מגבלה הושגה</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">הוסף הודעה</string>
@@ -3847,13 +3931,13 @@
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">שגיאת רשת. בדוק את החיבור שלך ונסה שוב.</string>
   <string name="NetworkFailure__retry">נסה שוב</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__recipient_verification_failed">וידוא מקבל נכשל.</string>
+  <string name="DonationsErrors__cant_send_gift">לא ניתן לשלוח מתנה</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">המטרה אינה תומכת בקבלת שי.</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">הנמען או הנמענת משתמשים בגרסה של Signal שלא מאפשרת קבלת תגי מתנה. הם יוכלו לקבל מתנות כשהם יעדכנו לגרסה האחרונה.</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__could_not_verify_recipient">לא היה ניתן לוודא מקבל.</string>
+  <string name="DonationsErrors__couldnt_send_gift">שליחה מתנה נכשלה</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__please_check_your_network_connection">אנא בדוק את חיבור הרשת שלך ונסה שוב.</string>
+  <string name="DonationsErrors__please_check_your_network_connection">לא הצלחנו לשלוח את המתנה שלך בגלל שגיאת רשת. כדאי לבדוק את החיבור ולנסות שוב.</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">תג שי</string>
   <!--Gift message view expiry information-->
@@ -4072,10 +4156,12 @@
   <string name="ConversationListTabs__stories">סיפורים</string>
   <!--String for counts above 99 in conversation list tabs-->
   <string name="ConversationListTabs__99p">99+</string>
+  <!--Menu item on stories landing page-->
+  <string name="StoriesLandingFragment__story_privacy">פרטיות של סטורי</string>
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">הסיפורים שלי</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
-  <string name="StoriesLandingFragment__add_a_story">הוסף סיפור</string>
+  <string name="StoriesLandingFragment__tap_to_add_a_story">אפשר ללחוץ כדי להוסיף סטוריז</string>
   <!--Displayed when there are no stories to display-->
   <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">אין עדכונים אחרונים להראות כרגע. הקש על + כדי להוסיף אל הסיפור שלך.</string>
   <!--Context menu option to hide a story-->
@@ -4159,6 +4245,14 @@
   <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">ניתן לאפשר אישורי קריאה כדי לראות מי צפה בסטוריז שלך.</string>
   <!--Button label displayed when user has disabled receipts-->
   <string name="StoryViewsFragment__go_to_settings">מעבר להגדרות</string>
+  <!--Dialog action to remove viewer from a story-->
+  <string name="StoryViewsFragment__remove">הסר</string>
+  <!--Dialog title when removing a viewer from a story-->
+  <string name="StoryViewsFragment__remove_viewer">להסיר צופה?</string>
+  <!--Dialog message when removing a viewer from a story-->
+  <string name="StoryViewsFragment__s_will_still_be_able">ל%1$s עדיין תהיה אפשרות לראות את הפוסט הזה, אבל לא תהיה לו או לה אפשרות לראות פוסטים עתידיים שישותפו ב%2$s.</string>
+  <!--Story View context menu action to remove them from a story-->
+  <string name="StoryViewItem__remove_viewer">הסרת צופה</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">אין תשובות עדין</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -4177,14 +4271,6 @@
   <string name="StoryGroupReplyItem__copy">העתק</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">מחק</string>
-  <!--Story settings page title-->
-  <string name="StorySettingsFragment__story_settings">הגדרות סיפור</string>
-  <!--Story settings private stories heading-->
-  <string name="StorySettingsFragment__private_stories">סיפורים פרטיים</string>
-  <!--Note at bottom of story settings regarding who can see private stories.-->
-  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">סיפורים פרטיים יכולים להיראות רק ע״י האנשים שאתה מוסיף אליהם. רק אתה רואה את שם הסיפור.</string>
-  <!--Option label for creating a new private story-->
-  <string name="StorySettingsFragment__new_private_story">סיפור פרטי חדש</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">הסיפור שלי</string>
   <!--Section heading for story visibility-->
@@ -4380,7 +4466,7 @@
   <plurals name="GiftRowItem_s_dot_d_day_duration">
     <item quantity="one">%1$s · למשך יום %2$d</item>
     <item quantity="two">%1$s · למשך יומיים %2$d</item>
-    <item quantity="many">%1$s ·  למשך %2$d ימים</item>
+    <item quantity="many">%1$s · למשך %2$d ימים</item>
     <item quantity="other">%1$s · למשך %2$d ימים</item>
   </plurals>
   <!--Tagline for gift row items-->
@@ -4434,18 +4520,13 @@
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">לא עכשיו</string>
   <!--Label under name for private stories-->
-  <plurals name="ContactSearchItems__private_story_d_viewers">
-    <item quantity="one">סיפור פרטי · %1$d צופה</item>
-    <item quantity="two">סיפור פרטי · %1$d צופים</item>
-    <item quantity="many">סיפור פרטי · %1$d צופים</item>
-    <item quantity="other">סיפור פרטי · %1$d צופים</item>
-  </plurals>
   <!--Label under name for group stories-->
-  <plurals name="ContactSearchItems__group_story_d_viewers">
-    <item quantity="one">סיפור קבוצתי · %1$d צופה</item>
-    <item quantity="two">סיפור קבוצתי · %1$d צופים</item>
-    <item quantity="many">סיפור קבוצתי · %1$d צופים</item>
-    <item quantity="other">סיפור קבוצתי · %1$d צופים</item>
+  <!--Label under name for my story-->
+  <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
+    <item quantity="one">%1$s· צופה %2$d</item>
+    <item quantity="two">%1$s · %2$d צופים</item>
+    <item quantity="many">%1$s · %2$d צופים</item>
+    <item quantity="other">%1$s · %2$d צופים</item>
   </plurals>
   <!--Label under name for My Story when first sending to my story-->
   <string name="ContactSearchItems__tap_to_choose_your_viewers">יש ללחוץ כדי לבחור את הצופים שלך</string>
@@ -4565,5 +4646,31 @@
   <string name="StoryInfoBottomSheetDialogFragment__sent_from">נשלחה מאת</string>
   <!--Story Info context menu label-->
   <string name="StoryInfoBottomSheetDialogFragment__info">מידע</string>
+  <!--StoriesPrivacySettingsFragment-->
+  <!--Explanation about how stories are deleted and managed-->
+  <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">סטוריז נעלמים אוטומטית אחרי 24 שעות. אפשר לבחור מי יכול לראות את הסטורי שלך או ליצור סטוריז חדשים עם קבוצות או צופים ספציפיים.</string>
+  <!--Preference title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories">כיבוי סטוריז</string>
+  <!--Preference summary to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__if_you_opt_out">לאחר כיבוי סטוריז, לא תהיה לך אפשרות לשתף או לראות סטוריז יותר.</string>
+  <!--Preference title to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_on_stories">הפעלת סטוריז</string>
+  <!--Preference summary to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__share_and_view">משתפים וצופים בסטוריז של אחרים. סטוריז נעלמים אוטומטית אחרי 24 שעות.</string>
+  <!--Dialog title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">לכבות את סטוריז?</string>
+  <!--Dialog message to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">לא תהיה לך אפשרות לשתף או לצפות בסטוריז יותר. סטוריז ששלחת לאחרונה עדיין יהיו זמינים לצפיה לאחרים עד שהתוקף שלהם יפוג.</string>
+  <!--Page title when launched from stories landing screen-->
+  <string name="StoriesPrivacySettingsFragment__story_privacy">פרטיות של סטורי</string>
+  <!--GroupStorySettingsFragment-->
+  <!--Section header for who can view a group story-->
+  <string name="GroupStorySettingsFragment__who_can_view_this_story">מי יכול לצפות בסטורי הזה</string>
+  <!--Explanation of who can view a group story-->
+  <string name="GroupStorySettingsFragment__members_of_the_group_s">חברי הקבוצה ״%1$s״ יכולים לצפות ולהשיב לסטורי הזה. יש לך אפשרות לעדכן את החברות לצ׳אט הזה בתוך הקבוצה.</string>
+  <!--Preference label for removing this group story-->
+  <string name="GroupStorySettingsFragment__remove_group_story">הסרת סטורי קבוצתי</string>
+  <!--Generic title for overflow menus-->
+  <string name="OverflowMenu__overflow_menu">תפריט אפשרויות נוספות</string>
   <!--EOF-->
 </resources>

@@ -41,6 +41,9 @@
   <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">ငွေပေးချေမှု ပြန်လည်ရယူမည့် စာပုဒ်တိုကို မှတ်ထားပါ</string>
   <string name="ApplicationPreferencesActivity_record_phrase">စာပုဒ်တိုကို မှတ်ထားပါ</string>
   <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">ပင်နံပါတ်ကို မပိတ်မီ ငွေပေးချေသည့် အကောင့်ကို ပြန်ရယူနိုင်ရန် ငွေပေးချေမှု ပြန်လည်ရယူသည့် စာပုဒ်တိုကို မှတ်ထားရပါမည်။</string>
+  <!--NumericKeyboardView-->
+  <!--Back button on numeric keyboard-->
+  <string name="NumericKeyboardView__backspace">Backspace</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="other">%d မိနစ်</item>
@@ -406,8 +409,20 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">ဓါတ်ပုံတင်ရာတွင် အခက်အခဲရှိ </string>
   <string name="CreateProfileActivity_problem_setting_profile">ကိုယ်ပိုင်အကောင့်ပြုလုပ်ရာတွင် ပြဿနာရှိ </string>
   <string name="CreateProfileActivity_set_up_your_profile">သင့် ပရိုဖိုင်ကိုပြင်ဆင်ပါ</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">သင်၏ပရိုဖိုင်သည် အဆုံးမှအဆုံးသို့ စာဝှက်ထားသည်။ သင်၏ပရိုဖိုင်နှင့် ၎င်းပြောင်းလဲမှုများကို သင်အဆက်အသွယ် အသစ်များ၊ သင်စတင်စကားပြောခြင်း သို့မဟုတ် စကားပြောဆိုမှု အသစ်များကို လက်ခံခြင်းနှင့် အုပ်စုအသစ်များနှင့် ပူးပေါင်းသောအခါ မြင်တွေ့ရလိမ့်မည်။</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">သင့်ပရိုဖိုင်နှင့် ၎င်းရှိ ပြောင်းလဲမှုများကို သင်မက်ဆေ့ချ်ပို့ထားသူများ၊ အဆက်အသွယ်များနှင့် အဖွဲ့များက မြင်ရပါမည်။</string>
   <string name="CreateProfileActivity_set_avatar_description">ကိုယ်စားပြုရုပ်ပုံ ကိုသတ်မှတ်ပါ</string>
+  <!--ProfileCreateFragment-->
+  <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">ပရိုဖိုင်များကို သင်မက်ဆေ့ချ်ပို့ထားသူများ၊ အဆက်အသွယ်များနှင့် အဖွဲ့များက မြင်ရပါမည်။</string>
+  <!--Title of clickable row to select phone number privacy settings-->
+  <string name="ProfileCreateFragment__who_can_find_me">ကျွန်ုပ်ကို မည်သူတို့က ဖုန်းနံပါတ်ဖြင့် ရှာနိုင်သနည်း။</string>
+  <!--WhoCanSeeMyPhoneNumberFragment-->
+  <!--Toolbar title for this screen-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">ကျွန်ုပ်ကို မည်သူတို့က ဖုန်းနံပါတ်ဖြင့် ရှာနိုင်သနည်း။</string>
+  <!--Description for radio item stating anyone can see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">အဆက်အသွယ်ထဲတွင် သင့်ဖုန်းနံပါတ် ရှိသည့် မည်သူမဆို သင့်အား Signal တွင် အဆက်အသွယ်အဖြစ် မြင်ရပါမည်။ အခြားသူများသည် သင့်ဖုန်းနံပါတ်ဖြင့် သင့်ကို ရှာနိုင်ပါမည်။</string>
+  <!--Description for radio item stating no one will be able to see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">Signal ရှိ မည်သူကမျှ သင့်ဖုန်းနံပါတ်ဖြင့် သင့်ကို ရှာနိုင်မည် မဟုတ်ပါ။</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">အရံသိမ်းထားသည်များကို ပြန်ရယူမည်လား?</string>
   <string name="ChooseBackupFragment__restore_your_messages_and_media">သင်၏ စာတိုများ၊ ဖုန်းထဲတွင် အရံသိမ်းဆည်းထားသော ရုပ်/သံ/ပုံ ဖိုင်များကို ပြန်လည်ရယူထားပါ။ ယခုမရယူထားပါက နောက်ပိုင်းတွင် ပြန်လည်ရယူနိုင်မည်မဟုတ်ပါ။</string>
@@ -439,6 +454,8 @@
   <string name="BackupsPreferenceFragment__to_restore_a_backup">အရန်ကူးခြင်းတစ်ခုကို ပြန်ယူလိုလျှင် Molly မိတ္တူအသစ်ကိုထည့်သွင်းပါ။ အက်ပ်ကိုဖွင့်၍ \"အရန်ကူးထားခြင်းကိုပြန်ယူပါ\" ကို နှိပ်ပြီး အရန်ဖိုင်ကို ရှာဖွေရွေးပေးပါ။ %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">ထပ်မံလေ့လာရန်</string>
   <string name="BackupsPreferenceFragment__in_progress">ဆောင်ရွက်ဆဲ</string>
+  <!--Status text shown in backup preferences when verifying a backup-->
+  <string name="BackupsPreferenceFragment__verifying_backup">ဘက်ခ်အပ် အတည်ပြုနေဆဲ…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d ထိလုပ်ဆောင်ပြီး…</string>
   <!--Show percentage of completion of backup-->
   <string name="BackupsPreferenceFragment__s_so_far">%1$s%% လုပ်ဆောင်ပြီး…</string>
@@ -691,6 +708,10 @@
   <string name="ManageProfileFragment_failed_to_set_avatar">ကိုယ်စားပြုရုပ်ပုံ တင်ရန်မအောင်မြင်ပါ</string>
   <string name="ManageProfileFragment_badges">ဘဲ့ဂျ်များ</string>
   <string name="ManageProfileFragment__edit_photo">ဓာတ်ပုံ ပြင်ရန်</string>
+  <!--Snackbar message after creating username-->
+  <string name="ManageProfileFragment__username_created">သုံးစွဲသူအမည် ဖန်တီးပြီး</string>
+  <!--Snackbar message after copying username-->
+  <string name="ManageProfileFragment__username_copied">သုံးစွဲသူအမည် ကူးပြီး</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">တူညီသော အဖွဲ့များ မရှိပါ</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -1440,6 +1461,12 @@
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">ပြင်မယ်</string>
   <string name="SubmitDebugLogActivity_done">ပြီးပြီ </string>
+  <!--Menu option to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save">သိမ်းရန်</string>
+  <!--Error that is show in a toast when we fail to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_failed_to_save">သိမ်းရန် မအောင်မြင်ခဲ့ပါ</string>
+  <!--Toast that is show to notify that we have saved the debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save_complete">သိမ်းပြီးပါပြီ</string>
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">၎င်းကိုဖျက်ရန် မျဉ်းတစ်ကြောင်းနှိပ်ပါ</string>
   <string name="SubmitDebugLogActivity_submit">တင်မယ်</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">မှတ်တမ်းများတင်သွင်းရန်မအောင်မြင်ပါ</string>
@@ -1494,7 +1521,9 @@
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">လက်ဆောင် ဘဲ့ဂျ်ကို လဲလှယ်ခဲ့ပါသည်</string>
   <!--Displayed in the conversation list when someone reacted to your story-->
+  <string name="ThreadRecord__reacted_s_to_your_story">သင့်စတိုရီကို %1$s ဖြင့် တုံ့ပြန်ခဲ့ပါသည်</string>
   <!--Displayed in the conversation list when you reacted to someone\'s story-->
+  <string name="ThreadRecord__reacted_s_to_their_story">၎င်းတို့၏ စတိုရီကို %1$s ဖြင့် တုံ့ပြန်ခဲ့ပါသည်</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Molly ဗားရှင်းအသစ်</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly ဗားရှင်းအသစ်ရပါပြီ၊ အဆင့်မြှင့်ရန် နှိပ်လိုက်ပါ</string>
@@ -1505,6 +1534,8 @@
   <string name="UnverifiedSendDialog_send_message">စာပို့မလား?</string>
   <string name="UnverifiedSendDialog_send">ပို့ပါ</string>
   <!--UsernameEditFragment-->
+  <!--Instructional text at the top of the username edit screen-->
+  <string name="UsernameEditFragment__choose_your_username">သင်၏ သုံးစွဲသူအမည်ကို ရွေးရန်</string>
   <string name="UsernameEditFragment_username">အသုံးပြုသူအမည်</string>
   <string name="UsernameEditFragment_delete">ဖျက်မည်</string>
   <string name="UsernameEditFragment_successfully_set_username">အသုံးပြုသူအမည်ကို အောင်မြင်စွာသတ်မှတ်ပြီး။</string>
@@ -1516,10 +1547,17 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">အသုံးပြုသူအမည်များသည်ည် နံပါတ်နှင့် စတင်၍ မရပါ။</string>
   <string name="UsernameEditFragment_username_is_invalid">အသုံးပြုသူအမည် မမှန်ကန်ပါ</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">အသုံးပြုသူအမည်များသည် %1$d နှင့် %2$d ကြား အက္ခရာလုံး အရေတွက်ရှိရပါမည် ။</string>
-  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Signal ပေါ်တွင် အသုံးပြုသူအမည်များသည် မဖြစ်မနေ သတ်မှတ်ရမည်မဟုတ်ပါ။ သင်မှ​ အသုံးပြုသူအမည်ကို ဖန်တီးရန်ရွေးချယ်ပါက အခြား Signal အသုံးပြုသူများသည် သင့်ကို သင်၏ဖုန်းနံပါတ်မသိဘဲ သင်၏ အသုံးပြုသူအမည်သုံး၍ သင့်ကို ရှာဖွေနိုင်ပါသည်။</string>
+  <!--Explanation about what usernames provide-->
+  <string name="UsernameEditFragment__usernames_let_others_message">သုံးစွဲသူအမည်များသည် သင့်ဖုန်းနံပါတ် မလိုဘဲ အခြားသူများအား သင့်ထံ မက်ဆေ့ချ်ပို့နိုင်စေပါသည်။ သင့်လိပ်စာကို သီးသန့်လျှို့ဝှက်ထားရာတွင် အကူအညီဖြစ်စေရန် ၎င်းတို့အား ဂဏန်းအစုံလိုက်ဖြင့် တွဲထားပါသည်။</string>
+  <!--Dialog title for explanation about numbers at the end of the username-->
+  <string name="UsernameEditFragment__what_is_this_number">ဤနံပါတ်က ဘာလဲ။</string>
+  <string name="UsernameEditFragment__these_digits_help_keep">ဤဂဏန်းများသည် သင့်သုံးစွဲသူအမည်ကို သီးသန့်လျှို့ဝှက်ပေးထားသောကြောင့် မလိုချင်သည့် မက်ဆေ့ချ်များ ရရှိခြင်းမှ ရှောင်နိုင်ပါသည်။ သင့်သုံးစွဲသူအမည်ကို သင် ချက်(တ်)လိုသည့် လူများ၊ အဖွဲ့များထံသာ ဝေမျှနိုင်ပါသည်။ သုံးစွဲသူအမည်ကို ပြောင်းလိုက်ပါက ဂဏန်းအစုံအသစ် ရရှိပါမည်။</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="other">အဆက်အသွယ် %d ဦးသည် Signal ပေါ်ရှိပါသည်!</item>
   </plurals>
+  <!--UsernameShareBottomSheet-->
+  <!--Explanation of what the sheet enables the user to do-->
+  <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">သုံးစွဲသူအမည်လင့်ခ်ကို ကူးရန် သို့မဟုတ် ဝေမျှရန်</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">သင့်မိတ်ဆွေသည် signal ဗားရှင်းအဟောင်းအသုံးပြုထားပါသည်။ လုံခြုံရေးနံပါတ်များ အတည်မပြုခင် Signal ဗားရှင်းအား မြှင့်တင်ခိုင်းလိုက်ပါ။</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">သင့်မိတ်ဆွေသည်  Signal ဗားရှင်းအသစ်နှင့် သင်နှင့်လိုက်လျောညီထွေမရှိသည့် QR code ပုံစံကိုအသုံးပြုထားပါသည်။ နှိုင်းယှဉ်စစ်ဆေးရန် အဆင့်မြှင့်ပါ။</string>
@@ -2094,6 +2132,8 @@
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">တစ်ကြိမ် လှူဒါန်းမှု</string>
   <string name="preferences__privacy">ကိုယ်ရေးအချက်အလက်များ လုံခြုံမှု</string>
+  <!--Preference label for stories-->
+  <string name="preferences__stories">စတိုရီများ</string>
   <string name="preferences__mms_user_agent">MMS သုံးသူကိုယ်စားလှယ်</string>
   <string name="preferences__advanced_mms_access_point_names">MMS အပြင်အဆင်များကို ကိုယ်တိုင်လုပ်ပါ</string>
   <string name="preferences__mmsc_url">MMSC URL</string>
@@ -2106,6 +2146,8 @@
   <string name="preferences__data_and_storage">ဒေတာ နှင့် သိမ်းဆည်းမှု</string>
   <string name="preferences__storage">သိမ်းဆည်းမှု</string>
   <string name="preferences__payments">ငွေပေးချေမှုများ</string>
+  <!--Privacy settings payments section description-->
+  <string name="preferences__payment_lock">ငွေပေးချေမှုလော့ခ်</string>
   <string name="preferences__payments_beta">ငွေပေးချေမှုများ (စမ်းသပ်သည့် Beta ဗားရှင်း)</string>
   <string name="preferences__conversation_length_limit">စာလုံးရေ အကန့်အသတ်</string>
   <string name="preferences__keep_messages">မက်ဆေ့များကို သိမ်းထားပါ</string>
@@ -2171,6 +2213,8 @@
   <string name="preferences_app_protection__who_can">မည်သူ လုပ်နိုင်ပါလဲ…</string>
   <string name="preferences_app_protection__app_access">App ကို အသုံးပြုခြင်း</string>
   <string name="preferences_app_protection__communication">ဆက်သွယ်ရေး</string>
+  <!--Privacy settings payments section title-->
+  <string name="preferences_app_protection__payments">ငွေပေးချေမှုများ</string>
   <string name="preferences_chats__chats">စကားစမြည်များ</string>
   <string name="preferences_data_and_storage__manage_storage">သိုလှောင်မှုကိုစီမံပါ</string>
   <string name="preferences_data_and_storage__calls">ဖုန်းခေါ်ဆိုမှုများ</string>
@@ -2228,7 +2272,6 @@
   <string name="preferences_enter_proxy_address">ကြားခံလိပ်စာကို ထည့်ပါ</string>
   <string name="configurable_single_select__customize_option">ရွေးချယ်မှုကို စိတ်ကြိုက်ပြင်ဆင်မယ်</string>
   <!--Internal only preferences-->
-  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">လှုပ်ရှားမှုများအားလုံး</string>
   <string name="PaymentsAllActivityFragment__all">အားလုံး</string>
@@ -2273,6 +2316,14 @@
   <string name="PaymentsHomeFragment__activate">ဖွင့်မယ်</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin ၏သတ်မှတ်ချက်များ ကြည့်ရှုမယ်</string>
   <string name="PaymentsHomeFragment__payments_not_available">Molly ထဲတွင် ငွေပေးချေမှုများ မလုပ်ဆောင်နိုင်တော့ပါ။ ငွေလဲလှယ်မှုတစ်ခုသို့ ငွေများလွှဲနိုင်ပါသည်၊ သို့သော် သင်မှ ငွေပေးချေမှုများ ပေးပို့လက်ခံလို့မရတော့ပါ၊​ ငွေလည်း ထည့်ပေါင်းလို့မရတော့ပါ။</string>
+  <!--Alert dialog title which shows up after a payment to turn on payment lock-->
+  <string name="PaymentsHomeFragment__turn_on">နောင်လာမည့် ပေးပို့မှုများအတွက် ငွေပေးချေမှုလော့ခ်ကို ဖွင့်မည်လား။</string>
+  <!--Alert dialog description for why payment lock should be enabled before sending payments-->
+  <string name="PaymentsHomeFragment__add_an_additional_layer">လုံခြုံရေးအတွက် အပိုလွှာတစ်ခုကို ပေါင်းထည့်ပေးထားပြီး ငွေလွှဲပြောင်းရန် Android စခရင်လော့ခ် သို့မဟုတ် လက်ဗွေရာ လိုအပ်ပါသည်။</string>
+  <!--Alert dialog button to enable payment lock-->
+  <string name="PaymentsHomeFragment__enable">ဖွင့်ရန်</string>
+  <!--Alert dialog button to not enable payment lock for now-->
+  <string name="PaymentsHomeFragment__not_now">ယခု မလုပ်ပါ</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">ငွေဖြည့်မယ်</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">သင့် ပိုက်ဆံအိတ် Wallet လိပ်စာ</string>
@@ -2353,6 +2404,14 @@
   <string name="ConfirmPayment__payment_failed">ငွေပေးချေမှု မအောင်မြင်ပါ</string>
   <string name="ConfirmPayment__payment_will_continue_processing">ငွေပေးချေမှုကို ဆက်လက်လုပ်ဆောင်ပါမည်</string>
   <string name="ConfirmPaymentFragment__invalid_recipient">လက်ခံသူ မမှန်ကန်ပါ</string>
+  <!--Biometric/Device authentication prompt title which comes up before sending a payment-->
+  <string name="ConfirmPaymentFragment__unlock_to_send_payment">ငွေပို့ရန် လော့ခ်ဖြေပါ</string>
+  <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">ငွေပေးချေမှုလော့ခ်ကို ပြသရန် မအောင်မြင်ခဲ့ပါ။</string>
+  <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">ဆက်တင်တွင် ငွေပေးချေမှုလော့ခ်ကို ဖွင့်ထားသော်လည်း ၎င်းကို မပြသနိုင်ပါ။</string>
+  <!--Button in a dialog that will take the user to the privacy settings-->
+  <string name="ConfirmPaymentFragment__go_to_settings">ဆက်တင်သို့ သွားရန်</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">၎င်း ပုဂ္ဂိုလ်မှ ငွေပေးချေမှုများ ဖွင့်ထားခြင်းမရှိပါ</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">ကွန်ယက်အခကြေး တောင်းဆိုရန်မရပါ။ ၎င်းငွေပေးချေမှု ဆက်လက်လုပ်ဆောင်ရန် အိုကေနှိပ်၍ ပြန်စမ်းကြည့်ပါ။</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2625,10 +2684,16 @@
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">သင်၏အရန်ကူးထားသောစကားဝှက်ကို အောင်မြင်စွာထည့်ပြီးပါပြီ</string>
   <string name="BackupDialog_passphrase_was_not_correct">စကားဝှက်သည်မမှန်ပါ</string>
   <string name="LocalBackupJob_creating_signal_backup">Molly ဘက်ခ်အပ် ဖန်တီးနေဆဲ…</string>
+  <!--Title for progress notification shown in a system notification while verifying a recent backup.-->
+  <string name="LocalBackupJob_verifying_signal_backup">Molly ဘက်ခ်အပ် အတည်ပြုနေဆဲ…</string>
   <string name="LocalBackupJobApi29_backup_failed">အရန်သိမ်းဆည်းမှုများ မအောင်မြင်ပါ</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">သင်၏ အရန်သိမ်းဆည်းမှုများ၏ လမ်းညွှန်အား ဖျက်ထားသည် သို့မဟုတ် ပြောင်းရွှေ့သွားသည်</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">သင်၏ အရန်သိမ်းဆည်းထားသောဖိုင်ကို သိမ်းဆည်းရန် အလွန်ကြီးမားသည်</string>
   <string name="LocalBackupJobApi29_there_is_not_enough_space">သင်၏ အရန်သိမ်းဆည်းမှုများကို သိမ်းဆည်းရန် နေရာမလုံလောက်ပါ</string>
+  <!--Error message shown if a newly created backup could not be verified as accurate-->
+  <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">သင်၏ မကြာသေးမီက ဘက်ခ်အပ်ကို ဖန်တီး၍ မရနိုင်ခဲ့သည်အပြင် အတည်ပြု၍ မရခဲ့ပါ။ အသစ်တစ်ခု ဖန်တီးပေးပါ။</string>
+  <!--Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail-->
+  <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">သင့်ဘက်ခ်အပ်တွင် ဘက်ခ်အပ်လုပ်၍ မရနိုင်သည့် အလွန်ကြီးသော ဖိုင်တစ်ဖိုင် ပါဝင်နေပါသည်။ ၎င်းကို ဖျက်ပြီး ဘက်ခ်အပ်အသစ် ဖန်တီးပါ။</string>
   <string name="LocalBackupJobApi29_tap_to_manage_backups">အရန်ကူးခြင်းများကိုစီမံရန် နှိပ်ပါ</string>
   <string name="ProgressPreference_d_messages_so_far">လက်ရှိအချိန်အထိ %d စာ ရှိပါသည်</string>
   <string name="RegistrationActivity_wrong_number">နံပါတ်မှားယွင်းနေပါသည်</string>
@@ -2926,6 +2991,8 @@
   <string name="ShareActivity__send">ပေးပို့မည်</string>
   <string name="ShareActivity__comma_s">၊ %1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">စကားပြောဆိုမှုပေါင်းစုံများနှင့် ဝေမျှခြင်းအတွက် Signal မက်ဆေ့ချ်များကိုသာ ပံ့ပိုးပါသည်</string>
+  <!--Toast when the incoming intent is invalid-->
+  <string name="ShareActivity__could_not_get_share_data_from_intent">ဒေတာများကို ရည်ရွယ်ချက်ရှိရှိ ဝေမျှသွားနိုင်မည် မဟုတ်ပါ။</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">အသုံးပြုသူများသို့ပေးပို့ရန်မအောင်မြင်ပါ</string>
   <string name="MultiShareDialogs__you_can_only_share_with_up_to">စကားပြောဆိုမှု %1$d ခုထိသာ မျှဝေနိုင်ပါသည်</string>
@@ -3151,6 +3218,19 @@
   <string name="PrivacySettingsFragment__signal_message_and_calls">Signal မက်ဆေ့ချ်များနှင့် ကောလ်များ၊ အမြဲတမ်း ထပ်ဆင့်ပို့ ကောလ်များနှင့် ချိပ်ပိတ်ပေးပို့သူ</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">ချက်(တ်)အသစ်များအတွက် ပုံသေတိုင်မာ</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">သင် စတင်ခဲ့သည့် ချက်(တ်)အသစ်များ အားလုံးအတွက် ပျောက်သွားမည့် မက်ဆေ့ချ် ပုံသေတိုင်မာကို သတ်မှတ်ပါ။</string>
+  <!--Summary for stories preference to launch into story privacy settings-->
+  <string name="PrivacySettingsFragment__manage_your_stories">သင့်စတိုရီများနှင့် ကြည့်နိုင်မည့်သူများအား စီမံခန့်ခွဲရန်</string>
+  <string name="PrivacySettingsFragment__payment_lock_require_lock">ငွေလွှဲပြောင်းရန် Android စခရင်လော့ခ် သို့မဟုတ် လက်ဗွေ လိုအပ်ပါသည်</string>
+  <!--Alert dialog title when payment lock cannot be enabled-->
+  <string name="PrivacySettingsFragment__cant_enable_title">ငွေပေးချေမှုလော့ခ်ကို ဖွင့်၍ မရနိုင်ပါ</string>
+  <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
+  <string name="PrivacySettingsFragment__cant_enable_description">ငွေပေးချေမှုလော့ခ်ကို သုံးရန် ဦးစွာ သင့်ဖုန်းဆက်တင်တွင် စခရင်လော့ခ် သို့မဟုတ် လက်ဗွေ ID ကို ဖွင့်ရပါမည်။</string>
+  <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
+  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">စနစ်ဆက်တင်သို့ လမ်းညွှန်ရန် မအောင်မြင်ခဲ့ပါ</string>
+  <!--Alert dialog button to go to phone settings-->
+  <string name="PrivacySettingsFragment__go_to_settings">ဆက်တင်သို့ သွားရန်</string>
+  <!--Alert dialog button to cancel the dialog-->
+  <string name="PrivacySettingsFragment__cancel">ပယ်ဖျက်မယ်</string>
   <!--AdvancedPrivacySettingsFragment-->
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">အခြေအနေ အိုင်ကွန်ကို ပြသရန်</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">ချိပ်ပိတ်ပေးပို့သူကို သုံး၍ မက်ဆေ့ချ်များ ပေးပို့သည့်အခါ မက်ဆေ့ချ် အသေးစိတ်တွင် အိုင်ကွန်တစ်ခု ပြသပါ။</string>
@@ -3258,6 +3338,8 @@
   <string name="EmojiSearchFragment__no_results_found">ရလဒ်များ ရှာမတွေ့ပါ</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">မသိသော ဖုန်းမြည်သံ</string>
   <!--ConversationSettingsFragment-->
+  <!--Error toasted when no activity can handle the add contact intent-->
+  <string name="ConversationSettingsFragment__contacts_app_not_found">အဆက်အသွယ် အက်ပ် ရှာမတွေ့ပါ</string>
   <string name="ConversationSettingsFragment__send_message">မက်ဆေ့ချ် ပို့ရန်</string>
   <string name="ConversationSettingsFragment__start_video_call">ဗီဒီယိုကောလ် စတင်ရန်</string>
   <string name="ConversationSettingsFragment__start_audio_call">အော်ဒီယိုကောလ် စတင်ရန်</string>
@@ -3374,6 +3456,8 @@
   <plurals name="MultiselectForwardFragment__couldnt_forward_messages">
     <item quantity="other">မက်ဆေ့ချ်များကို မရရှိနိုင်တော့သောကြောင့် ထပ်ဆင့်ပို့၍ မရနိုင်ပါ။</item>
   </plurals>
+  <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
+  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">အက်ဒ်မင်များသာလျှင် ဤအဖွဲ့သို့ မက်ဆေ့ချ်များ ပို့နိုင်ပါသည်။</string>
   <string name="MultiselectForwardFragment__limit_reached">ကန့်သတ်ချက် ပြည့်သွားပါပြီ</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">မက်ဆေ့ချ် ပေါင်းထည့်ရန်</string>
@@ -3533,13 +3617,13 @@
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">ကွန်ရက် ချို့ယွင်းချက်။ သင့်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်ကြိုးစားပါ။</string>
   <string name="NetworkFailure__retry">ထပ်ကြိုးစားပါ</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__recipient_verification_failed">လက်ခံသူ အတည်ပြုမှု မအောင်မြင်ပါ။</string>
+  <string name="DonationsErrors__cant_send_gift">လက်ဆောင်ပို့၍ မရနိုင်ပါ</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">ဦးတည်ထားသူက လက်ဆောင်ပေးခြင်းကို မပံ့ပိုးပါ။</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">ဤလက်ခံသူသည် လက်ဆောင်ဘဲ့ဂျ်များ လက်ခံမရနိုင်သည့် Signal ဗားရှင်းကို သုံးနေပါသည်။ နောက်ဆုံးထွက် ဗားရှင်းအထိ အပ်ဒိတ်လုပ်ထားမှသာ လက်ဆောင်များကို လက်ခံရရှိနိုင်ပါမည်။</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__could_not_verify_recipient">လက်ခံသူကို အတည်ပြု၍ မရပါ။</string>
+  <string name="DonationsErrors__couldnt_send_gift">လက်ဆောင်ပို့၍ မရနိုင်ပါ</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__please_check_your_network_connection">သင့်ကွန်ရက် ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်ကြိုးစားပါ။</string>
+  <string name="DonationsErrors__please_check_your_network_connection">ကွန်ရက်ချို့ယွင်းချက်ကြောင့် သင့်လက်ဆောင်ကို ပို့၍ မရနိုင်ပါ။ သင့်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်ကြိုးစားကြည့်ပါ။</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">လက်ဆောင်ဘဲ့ဂျ်</string>
   <!--Gift message view expiry information-->
@@ -3755,10 +3839,12 @@
   <string name="ConversationListTabs__stories">စတိုရီများ</string>
   <!--String for counts above 99 in conversation list tabs-->
   <string name="ConversationListTabs__99p">99+</string>
+  <!--Menu item on stories landing page-->
+  <string name="StoriesLandingFragment__story_privacy">စတိုရီ ကိုယ်ပိုင်အချက်အလက်</string>
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">ကျွန်ုပ်၏ စတိုရီများ</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
-  <string name="StoriesLandingFragment__add_a_story">စတိုရီ ပေါင်းထည့်ရန်</string>
+  <string name="StoriesLandingFragment__tap_to_add_a_story">စတိုရီ ပေါင်းထည့်ရန် နှိပ်ပါ</string>
   <!--Displayed when there are no stories to display-->
   <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">ယခု ပြသရန် လတ်တလော အပ်ဒိတ်များ မရှိပါ။ သင့်စတိုရီတွင် ပေါင်းထည့်ရန် + ကို နှိပ်ပါ။</string>
   <!--Context menu option to hide a story-->
@@ -3833,6 +3919,14 @@
   <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">သင့်စတိုရီများအား မည်သူ ကြည့်ပြီးပြီလဲကို မြင်နိုင်ရန် ဖတ်ပြီးကြောင်းညွှန်ပြမှုကို ဖွင့်ပါ။</string>
   <!--Button label displayed when user has disabled receipts-->
   <string name="StoryViewsFragment__go_to_settings">ဆက်တင်သို့ သွားရန်</string>
+  <!--Dialog action to remove viewer from a story-->
+  <string name="StoryViewsFragment__remove">ဖယ်ရှားမယ်</string>
+  <!--Dialog title when removing a viewer from a story-->
+  <string name="StoryViewsFragment__remove_viewer">ကြည့်ရှုသူအား ဖယ်ရှားမည်လား။</string>
+  <!--Dialog message when removing a viewer from a story-->
+  <string name="StoryViewsFragment__s_will_still_be_able">%1$s သည် ဤပို့စ်ကို ဆက်လက်မြင်နိုင်မည် ဖြစ်သော်လည်း %2$s ထံ သင်ဝေမျှသည့် နောင်လာမည့် ပို့စ်များကို မြင်ရတော့မည် မဟုတ်ပါ။</string>
+  <!--Story View context menu action to remove them from a story-->
+  <string name="StoryViewItem__remove_viewer">ကြည့်ရှုသူအား ဖယ်ရှားရန်</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">ပြန်စာများ မရှိသေးပါ</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3851,14 +3945,6 @@
   <string name="StoryGroupReplyItem__copy">ကူးမည်</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">ဖျက်မယ်</string>
-  <!--Story settings page title-->
-  <string name="StorySettingsFragment__story_settings">စတိုရီ ဆက်တင်</string>
-  <!--Story settings private stories heading-->
-  <string name="StorySettingsFragment__private_stories">သီးသန့် စတိုရီများ</string>
-  <!--Note at bottom of story settings regarding who can see private stories.-->
-  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">သီးသန့် စတိုရီများကို သင် ပေါင်းထည့်ထားသူများသာ မြင်ရပါမည်။ စတိုရီအမည်ကို သင်တစ်ဦးတည်းသာ မြင်ရပါမည်။</string>
-  <!--Option label for creating a new private story-->
-  <string name="StorySettingsFragment__new_private_story">သီးသန့် စတိုရီ အသစ်</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">ကျွန်ုပ်၏ စတိုရီ</string>
   <!--Section heading for story visibility-->
@@ -4096,12 +4182,10 @@
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
   <!--Label under name for private stories-->
-  <plurals name="ContactSearchItems__private_story_d_viewers">
-    <item quantity="other">သီးသန့် စတိုရီ · ကြည့်ရှုသူ %1$d ဦး</item>
-  </plurals>
   <!--Label under name for group stories-->
-  <plurals name="ContactSearchItems__group_story_d_viewers">
-    <item quantity="other">အဖွဲ့ စတိုရီ · ကြည့်ရှုသူ %1$d ဦး</item>
+  <!--Label under name for my story-->
+  <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
+    <item quantity="other">%1$s · ကြည့်ရှုသူ %2$d ဦး</item>
   </plurals>
   <!--Label under name for My Story when first sending to my story-->
   <string name="ContactSearchItems__tap_to_choose_your_viewers">သင်၏ ကြည့်ရှုသူများကို ရွေးရန် နှိပ်ပါ</string>
@@ -4209,5 +4293,31 @@
   <string name="StoryInfoBottomSheetDialogFragment__sent_from">မှပေးပို့သည်</string>
   <!--Story Info context menu label-->
   <string name="StoryInfoBottomSheetDialogFragment__info">အချက်အလက် </string>
+  <!--StoriesPrivacySettingsFragment-->
+  <!--Explanation about how stories are deleted and managed-->
+  <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">စတိုရီများသည် 24 နာရီ ကြာပြီးနောက် အော်တိုပျောက်သွားပါမည်။ သင့်စတိုရီကို မြင်နိုင်မည့်သူများအား ရွေးချယ်ပါ သို့မဟုတ် အချို့သော ကြည့်ရှုသူများ သို့မဟုတ် အဖွဲ့များဖြင့်သာ စတိုရီအသစ် ဖန်တီးပါ။</string>
+  <!--Preference title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories">စတိုရီများ ပိတ်ရန်</string>
+  <!--Preference summary to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__if_you_opt_out">သင်သည် စတိုရီများတွင် ပါဝင်ရန် မရွေးထားပါက စတိုရီများ ဝေမျှခြင်း သို့မဟုတ် ကြည့်ခြင်းများ လုပ်နိုင်တော့မည် မဟုတ်ပါ။</string>
+  <!--Preference title to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_on_stories">စတိုရီများ ဖွင့်ရန်</string>
+  <!--Preference summary to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__share_and_view">အခြားသူများထံမှ စတိုရီများကို ဝေမျှခြင်း၊ ကြည့်ခြင်းများ ပြုလုပ်နိုင်ပါသည်။ စတိုရီများသည် 24 နာရီ ကြာပြီးနောက် အော်တို ပျောက်သွားပါမည်။</string>
+  <!--Dialog title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">စတိုရီများကို ပိတ်မည်လား။</string>
+  <!--Dialog message to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">စတိုရီများ ဝေမျှခြင်း သို့မဟုတ် ကြည့်ခြင်းများ လုပ်နိုင်တော့မည် မဟုတ်ပါ။ မကြာသေးမီက ပို့ထားသော စတိုရီများကို သက်တမ်းမကုန်မချင်း အခြားသူများက ဆက်လက်မြင်နိုင်ပါမည်။</string>
+  <!--Page title when launched from stories landing screen-->
+  <string name="StoriesPrivacySettingsFragment__story_privacy">စတိုရီ ကိုယ်ပိုင်အချက်အလက်</string>
+  <!--GroupStorySettingsFragment-->
+  <!--Section header for who can view a group story-->
+  <string name="GroupStorySettingsFragment__who_can_view_this_story">ဤစတိုရီကို ကြည့်နိုင်မည့်သူများ</string>
+  <!--Explanation of who can view a group story-->
+  <string name="GroupStorySettingsFragment__members_of_the_group_s">\"%1$s\" အဖွဲ့ဝင်များသည် ဤစတိုရီကို ကြည့်ခြင်း၊ အကြောင်းပြန်ခြင်းများ လုပ်နိုင်ပါသည်။ အဖွဲ့အတွင်းရှိ ဤချက်(တ်)အတွက် မန်ဘာပလန်ကို အပ်ဒိတ်လုပ်နိုင်ပါသည်။</string>
+  <!--Preference label for removing this group story-->
+  <string name="GroupStorySettingsFragment__remove_group_story">အဖွဲ့စတိုရီကို ဖယ်ရှားရန်</string>
+  <!--Generic title for overflow menus-->
+  <string name="OverflowMenu__overflow_menu">ပိုလျှံမီနူး</string>
   <!--EOF-->
 </resources>

@@ -18,6 +18,8 @@ import org.thoughtcrime.securesms.components.FixedRoundedCornerBottomSheetDialog
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchConfiguration
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchMediator
+import org.thoughtcrime.securesms.contacts.paged.ContactSearchSortOrder
+import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.sharing.ShareContact
 import org.thoughtcrime.securesms.sharing.ShareSelectionAdapter
 import org.thoughtcrime.securesms.sharing.ShareSelectionMappingModel
@@ -62,22 +64,24 @@ class ChooseGroupStoryBottomSheet : FixedRoundedCornerBottomSheetDialogFragment(
 
     val contactRecycler: RecyclerView = view.findViewById(R.id.contact_recycler)
     mediator = ContactSearchMediator(
-      this,
-      contactRecycler,
-      FeatureFlags.shareSelectionLimit(),
-      true,
-      { state ->
+      fragment = this,
+      recyclerView = contactRecycler,
+      selectionLimits = FeatureFlags.shareSelectionLimit(),
+      displayCheckBox = true,
+      mapStateToConfiguration = { state ->
         ContactSearchConfiguration.build {
           query = state.query
 
           addSection(
             ContactSearchConfiguration.Section.Groups(
               includeHeader = false,
-              returnAsGroupStories = true
+              returnAsGroupStories = true,
+              sortOrder = ContactSearchSortOrder.RECENCY
             )
           )
         }
-      }
+      },
+      performSafetyNumberChecks = false
     )
 
     mediator.getSelectionState().observe(viewLifecycleOwner) { state ->
@@ -153,5 +157,11 @@ class ChooseGroupStoryBottomSheet : FixedRoundedCornerBottomSheetDialogFragment(
       }
     )
     dismissAllowingStateLoss()
+  }
+
+  object ResultContract {
+    fun getRecipientIds(bundle: Bundle): List<RecipientId> {
+      return bundle.getParcelableArrayList(RESULT_SET)!!
+    }
   }
 }

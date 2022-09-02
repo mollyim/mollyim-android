@@ -25,10 +25,9 @@ import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.push.IasTrustStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.ProfileUtil;
 import org.signal.core.util.SetUtil;
-import org.thoughtcrime.securesms.util.Stopwatch;
+import org.signal.core.util.Stopwatch;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
@@ -63,7 +62,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  */
 class ContactDiscoveryRefreshV1 {
 
-  private static final String TAG = Log.tag(ContactDiscoveryRefreshV1.class);
+  // Using Log.tag will cut off the version number
+  private static final String TAG = "CdsRefreshV1";
 
   private static final int MAX_NUMBERS = 20_500;
 

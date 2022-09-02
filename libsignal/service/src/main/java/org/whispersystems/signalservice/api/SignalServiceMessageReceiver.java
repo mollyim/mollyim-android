@@ -220,21 +220,21 @@ public class SignalServiceMessageReceiver {
                                              Optional.of(address),
                                              entity.getSourceDevice(),
                                              entity.getTimestamp(),
-                                             entity.getMessage(),
                                              entity.getContent(),
                                              entity.getServerTimestamp(),
                                              messageResult.getServerDeliveredTimestamp(),
                                              entity.getServerUuid(),
-                                             entity.getDestinationUuid());
+                                             entity.getDestinationUuid(),
+                                             entity.isUrgent());
       } else {
         envelope = new SignalServiceEnvelope(entity.getType(),
                                              entity.getTimestamp(),
-                                             entity.getMessage(),
                                              entity.getContent(),
                                              entity.getServerTimestamp(),
                                              messageResult.getServerDeliveredTimestamp(),
                                              entity.getServerUuid(),
-                                             entity.getDestinationUuid());
+                                             entity.getDestinationUuid(),
+                                             entity.isUrgent());
       }
 
       callback.onMessage(envelope);

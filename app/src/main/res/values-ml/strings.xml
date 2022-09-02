@@ -5,7 +5,7 @@
   <string name="delete">ഇല്ലാതാക്കൂ</string>
   <string name="please_wait">കാത്തിരിക്കൂ…</string>
   <string name="save">സംരക്ഷിക്കുക</string>
-  <string name="note_to_self">സ്വയം നോട്ട് ചെയ്യുക</string>
+  <string name="note_to_self">സ്വന്തം ഉപയോഗത്തിനുള്ള കുറിപ്പ്</string>
   <!--AbstractNotificationBuilder-->
   <string name="AbstractNotificationBuilder_new_message">പുതിയ സന്ദേശം</string>
   <!--AlbumThumbnailView-->
@@ -25,7 +25,7 @@
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS പ്രവർത്തനക്ഷമമാക്കി</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">നിങ്ങളുടെ സ്ഥിരം SMS അപ്ലിക്കേഷൻ മാറ്റാൻ തൊടുക</string>
   <string name="ApplicationPreferencesActivity_sms_disabled">SMS പ്രവർത്തനരഹിതമാക്കി</string>
-  <string name="ApplicationPreferencesActivity_touch_to_make_signal_your_default_sms_app">നിങ്ങളുടെ സ്ഥിരം SMS അപ്ലിക്കേഷൻ Signal ആക്കാൻ തൊടുക</string>
+  <string name="ApplicationPreferencesActivity_touch_to_make_signal_your_default_sms_app">നിങ്ങളുടെ ഡിഫോൾട്ട് SMS അപ്ലിക്കേഷൻ Signal ആക്കാൻ തൊടുക</string>
   <string name="ApplicationPreferencesActivity_on">ഓൺ</string>
   <string name="ApplicationPreferencesActivity_On">ഓൺ</string>
   <string name="ApplicationPreferencesActivity_off">ഓഫ്</string>
@@ -33,7 +33,7 @@
   <string name="ApplicationPreferencesActivity_sms_mms_summary">SMS %1$s, MMS %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary">സ്‌ക്രീൻ ലോക്ക് %1$s, രജിസ്‌ട്രേഷൻ ലോക്ക് %2$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">തീം %1$s, ഭാഷ %2$s</string>
-  <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">രജിസ്ട്രേഷൻ ലോക്കിന് PIN ആവശ്യമാണ്. PIN പ്രവർത്തനരഹിതമാക്കുന്നതിന്, ആദ്യം രജിസ്‌ട്രേഷൻ ലോക്ക് പ്രവർത്തനരഹിതമാക്കുക.</string>
+  <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">രജിസ്ട്രേഷൻ ലോക്കിന് PIN ആവശ്യമാണ്. PIN പ്രവർത്തനരഹിതമാക്കുന്നതിന് ആദ്യം രജിസ്‌ട്രേഷൻ ലോക്ക് പ്രവർത്തനരഹിതമാക്കുക.</string>
   <string name="ApplicationPreferencesActivity_pin_created">PIN സൃഷ്ടിച്ചു.</string>
   <string name="ApplicationPreferencesActivity_pin_disabled">PIN പ്രവർത്തനരഹിതമാക്കി.</string>
   <string name="ApplicationPreferencesActivity_hide">മറയ്ക്കുക</string>
@@ -41,6 +41,9 @@
   <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">പേയ്മെന്റുകൾ വീണ്ടെടുക്കൽ വാക്യം രേഖപ്പെടുത്തുക</string>
   <string name="ApplicationPreferencesActivity_record_phrase">വാക്യാംശം രേഖപ്പെടുത്തുക</string>
   <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">നിങ്ങളുടെ പിൻ പ്രവർത്തനരഹിതമാക്കുന്നതിന് മുമ്പ്, നിങ്ങളുടെ പേയ്മെന്റ് അക്കൗണ്ട് വീണ്ടെടുക്കാൻ കഴിയുമെന്ന് ഉറപ്പാക്കുന്നതിന് നിങ്ങളുടെ പേയ്മെന്റുകൾ വീണ്ടെടുക്കൽ വാക്യം നിങ്ങൾ റെക്കോർഡ് ചെയ്യണം.</string>
+  <!--NumericKeyboardView-->
+  <!--Back button on numeric keyboard-->
+  <string name="NumericKeyboardView__backspace">Backspace</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d മിനിറ്റ്</item>
@@ -50,7 +53,7 @@
   <string name="DraftDatabase_Draft_image_snippet">(ചിത്രം)</string>
   <string name="DraftDatabase_Draft_audio_snippet">(ശബ്ദം)</string>
   <string name="DraftDatabase_Draft_video_snippet">(വീഡിയോ)</string>
-  <string name="DraftDatabase_Draft_location_snippet">(സ്ഥാനം)</string>
+  <string name="DraftDatabase_Draft_location_snippet">(ലൊക്കേഷൻ)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(മറുപടി)</string>
   <string name="DraftDatabase_Draft_voice_note">(ശബ്ദ സന്ദേശം)</string>
   <!--AttachmentKeyboard-->
@@ -63,9 +66,9 @@
   <string name="AttachmentKeyboard_payment">പേയ്മെന്റ്</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">മീഡിയ തിരഞ്ഞെടുക്കുന്നതിന് ഒരു ആപ്പ് കണ്ടെത്താനായില്ല.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ചിത്രങ്ങൾ‌, ദൃശ്യങ്ങൾ‌ അല്ലെങ്കിൽ‌ ശബ്ദങ്ങൾ ബന്ധിപ്പിക്കുന്നതിന് Molly-ന് സ്റ്റോറേജ് അനുമതി ആവശ്യമാണ്. പക്ഷേ ഇത് ശാശ്വതമായി നിരസിക്കപ്പെട്ടു. ആപ്പ് ക്രമീകരണ മെനുവിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"സ്റ്റോറേജ്\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">കോൺ‌ടാക്റ്റ് വിവരങ്ങൾ‌ ബന്ധിപ്പിക്കുന്നതിന് Molly-ന് കോൺ‌ടാക്റ്റുകളുടെ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിക്കപ്പെട്ടു. ആപ്പ് ക്രമീകരണ മെനുവിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"കോൺടാക്റ്റുകൾ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">ഒരു സ്ഥാനം ബന്ധിപ്പിക്കുന്നതിന് Molly-ന് ലൊക്കേഷൻ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിക്കപ്പെട്ടു. ആപ്പ് ക്രമീകരണ മെനുവിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"ലൊക്കേഷൻ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ചിത്രങ്ങളോ ദൃശ്യങ്ങളോ ഓഡിയോയോ അറ്റാച്ച് ചെയ്യുന്നതിന് Molly-ന് സ്റ്റോറേജ് അനുമതി ആവശ്യമാണ്. പക്ഷേ ഇത് ശാശ്വതമായി നിരസിച്ചിരിക്കുകയാണ്. ആപ്പ് ക്രമീകരണങ്ങൾ മെനുവിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"സ്റ്റോറേജ്\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">കോൺ‌ടാക്റ്റ് വിവരങ്ങൾ‌ അറ്റാച്ച് ചെയ്യുന്നതിന് Molly-ന് കോൺ‌ടാക്റ്റുകളുടെ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിച്ചിരിക്കുകയാണ്. ആപ്പ് ക്രമീകരണങ്ങൾ മെനുവിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"കോൺടാക്റ്റുകൾ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">ഒരു ലൊക്കേഷൻ അറ്റാച്ച് ചെയ്യുന്നതിന് Molly-ന് ലൊക്കേഷൻ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിച്ചിരിക്കുകയാണ്. ആപ്പ് ക്രമീകരണങ്ങൾ മെനുവിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"ലൊക്കേഷൻ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">മീഡിയ അപ്‌ലോഡുചെയ്യുന്നു…</string>
   <string name="AttachmentUploadJob_compressing_video_start">വീഡിയോ കം‌പ്രസ്സുചെയ്യുന്നു…</string>
@@ -74,17 +77,17 @@
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">തടഞ്ഞ ഉപയോക്താക്കൾ</string>
   <string name="BlockedUsersActivity__add_blocked_user">തടഞ്ഞ ഉപയോക്താവിനെ ചേർക്കുക</string>
-  <string name="BlockedUsersActivity__blocked_users_will">തടഞ്ഞ ഉപയോക്താക്കൾക്ക് നിങ്ങളെ വിളിക്കാനോ സന്ദേശങ്ങള്‍ അയയ്ക്കാനോ കഴിയില്ല.</string>
+  <string name="BlockedUsersActivity__blocked_users_will">തടഞ്ഞ ഉപയോക്താക്കൾക്ക് നിങ്ങളെ വിളിക്കാനോ നിങ്ങൾക്ക് സന്ദേശങ്ങള്‍ അയയ്ക്കാനോ കഴിയില്ല.</string>
   <string name="BlockedUsersActivity__no_blocked_users">തടഞ്ഞ ഉപയോക്താക്കളൊന്നുമില്ല</string>
   <string name="BlockedUsersActivity__block_user">ഉപയോക്താവിനെ തടയണോ?</string>
-  <string name="BlockedUserActivity__s_will_not_be_able_to">\"%1$s\"ന് നിങ്ങളെ വിളിക്കാനോ നിങ്ങൾക്ക് സന്ദേശങ്ങള്‍ അയയ്ക്കാനോ കഴിയില്ല.</string>
+  <string name="BlockedUserActivity__s_will_not_be_able_to">\"%1$s\" എന്നയാൾക്ക് നിങ്ങളെ വിളിക്കാനോ നിങ്ങൾക്ക് സന്ദേശങ്ങള്‍ അയയ്ക്കാനോ കഴിയില്ല.</string>
   <string name="BlockedUsersActivity__block">തടയുക</string>
   <string name="BlockedUsersActivity__unblock_user">ഉപയോക്താവിനെ തടഞ്ഞത് മാറ്റണോ?</string>
   <string name="BlockedUsersActivity__do_you_want_to_unblock_s">\"%1$s\"നെ തടഞ്ഞത് മാറ്റാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?</string>
   <string name="BlockedUsersActivity__unblock">തടഞ്ഞത് മാറ്റുക</string>
   <!--BlockUnblockDialog-->
-  <string name="BlockUnblockDialog_block_and_leave_s">%1$s-നെ തടഞ്ഞ് വിടട്ടെ?</string>
-  <string name="BlockUnblockDialog_block_s">%1$s-നെ തടയട്ടെ?</string>
+  <string name="BlockUnblockDialog_block_and_leave_s">%1$s എന്നത് തടഞ്ഞ ശേഷം പുറത്തുപോകണോ?</string>
+  <string name="BlockUnblockDialog_block_s">%1$s എന്നതിനെ തടയണോ ?</string>
   <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">ഈ ഗ്രൂപ്പിൽ നിന്ന് നിങ്ങൾക്ക് മേലിൽ സന്ദേശങ്ങളോ അപ്‌ഡേറ്റുകളോ ലഭിക്കില്ല, അംഗങ്ങൾക്ക് നിങ്ങളെ ഈ ഗ്രൂപ്പിലേക്ക് വീണ്ടും ചേർക്കാൻ കഴിയില്ല.</string>
   <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">ഗ്രൂപ്പ് അംഗങ്ങൾക്ക് നിങ്ങളെ വീണ്ടും ഈ ഗ്രൂപ്പിലേക്ക് ചേർക്കാൻ കഴിയില്ല.</string>
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">ഗ്രൂപ്പ് അംഗങ്ങൾക്ക് നിങ്ങളെ വീണ്ടും ഈ ഗ്രൂപ്പിലേക്ക് ചേർക്കാൻ കഴിയും.</string>
@@ -92,7 +95,7 @@
   <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">നിങ്ങൾക്ക് പരസ്പരം സന്ദേശമയയ്‌ക്കാനും വിളിക്കാനും കഴിയും, കൂടാതെ  നിങ്ങളുടെ പേരും ഫോട്ടോയും അവരുമായി പങ്കിടും.</string>
   <!--Text that is shown when unblocking an SMS contact-->
   <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">നിങ്ങൾക്ക് പരസ്‌പരം സന്ദേശം അയയ്ക്കാൻ കഴിയും.</string>
-  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">തടഞ്ഞ ആളുകൾക്ക് നിങ്ങളെ വിളിക്കാനോ സന്ദേശങ്ങൾ അയയ്ക്കാനോ കഴിയില്ല.</string>
+  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">തടഞ്ഞ ആളുകൾക്ക് നിങ്ങളെ വിളിക്കാനോ നിങ്ങൾക്ക് സന്ദേശങ്ങൾ അയയ്ക്കാനോ കഴിയില്ല.</string>
   <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">നിങ്ങൾക്ക് സന്ദേശങ്ങൾ അയയ്ക്കാൻ തടയപ്പെട്ടിരിക്കുന്നവർക്ക് സാധിക്കില്ല.</string>
   <!--Message shown on block dialog when blocking the Signal release notes recipient-->
   <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Signal അപ്ഡേറ്റുകളും വാർത്തകളും ലഭിക്കുന്നത് തടയുക.</string>
@@ -100,7 +103,7 @@
   <string name="BlockUnblockDialog_resume_getting_signal_updates_and_news">Signal അപ്‌ഡേറ്റുകളും വാർത്തകളും ലഭിക്കുന്നത് പുനരാരംഭിക്കുക.</string>
   <string name="BlockUnblockDialog_unblock_s">%1$s-നെ തടഞ്ഞത് മാറ്റണോ?</string>
   <string name="BlockUnblockDialog_block">തടയുക</string>
-  <string name="BlockUnblockDialog_block_and_leave">തടഞ്ഞ് വിടുക</string>
+  <string name="BlockUnblockDialog_block_and_leave">തടഞ്ഞ ശേഷം പുറത്തുകടക്കുക</string>
   <string name="BlockUnblockDialog_report_spam_and_block">സ്പാമെന്ന് അടയാളപ്പെടുത്തി തടയുക</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">ഇന്ന്</string>
@@ -122,7 +125,7 @@
   <string name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">നിങ്ങൾക്ക് പരമാവധി %d സംഭാഷണങ്ങളുമായി പങ്കിടാൻ കഴിയും.</string>
   <string name="CameraContacts_select_signal_recipients">Signal സ്വീകർത്താക്കളെ തിരഞ്ഞെടുക്കുക</string>
   <string name="CameraContacts_no_signal_contacts">Signal കോൺടാക്റ്റുകളൊന്നുമില്ല</string>
-  <string name="CameraContacts_you_can_only_use_the_camera_button">Signal കോൺടാക്റ്റുകളിലേക്ക് ഫോട്ടോകൾ അയയ്ക്കാൻ നിങ്ങൾക്ക് ക്യാമറ ബട്ടൺ മാത്രമേ ഉപയോഗിക്കാൻ കഴിയൂ.</string>
+  <string name="CameraContacts_you_can_only_use_the_camera_button">Signal കോൺടാക്റ്റുകളിലേക്ക് ഫോട്ടോകൾ അയയ്ക്കാൻ മാത്രമെ നിങ്ങൾക്ക് ക്യാമറ ബട്ടൺ ഉപയോഗിക്കാൻ കഴിയൂ.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">നിങ്ങൾ തിരയുന്ന ആളെ കണ്ടെത്താൻ കഴിയുന്നില്ലേ?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">ഒരു കോൺടാക്റ്റിനെ Molly-ൽ ചേരാൻ ക്ഷണിക്കുക</string>
   <string name="CameraContacts__menu_search">തിരയൽ</string>
@@ -141,7 +144,7 @@
   <string name="ClearProfileActivity_remove_group_photo">ഗ്രൂപ്പ് ഫോട്ടോ നീക്കം ചെയ്യണോ?</string>
   <!--ClientDeprecatedActivity-->
   <string name="ClientDeprecatedActivity_update_signal">Molly അപ്ഡേറ്റ് ചെയ്യുക</string>
-  <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">ആപ്പിന്റെ ഈ പതിപ്പ് ഇനി മുതല്‍ പിന്തുണയ്ക്കില്ല. സന്ദേശങ്ങൾ അയയ്‌ക്കുന്നതും സ്വീകരിക്കുന്നതും തുടരാൻ, ഏറ്റവും പുതിയ പതിപ്പിലേക്ക് അപ്ഡേറ്റ് ചെയ്യുക..</string>
+  <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">ആപ്പിന്റെ ഈ പതിപ്പിന് ഇനി മുതല്‍ പിന്തുണയില്ല. സന്ദേശങ്ങൾ അയയ്‌ക്കുന്നതും ലഭിക്കുന്നതും തുടരാൻ ഏറ്റവും പുതിയ പതിപ്പിലേക്ക് അപ്ഡേറ്റ് ചെയ്യുക..</string>
   <string name="ClientDeprecatedActivity_update">അപ്‌ഡേറ്റ്</string>
   <string name="ClientDeprecatedActivity_dont_update">അപ്ഡേറ്റ് ചെയ്യരുത്</string>
   <string name="ClientDeprecatedActivity_warning">മുന്നറിയിപ്പ്</string>
@@ -156,8 +159,8 @@
   <string name="CommunicationActions_insecure_call">സുരക്ഷിതമല്ലാത്ത കോൾ</string>
   <string name="CommunicationActions_carrier_charges_may_apply">കാരിയർ നിരക്കുകൾ ബാധകം. നിങ്ങൾ വിളിക്കുന്ന നമ്പർ Signal-ൽ രജിസ്റ്റർ ചെയ്തിട്ടില്ല. ഈ കോൾ ഇൻറർനെറ്റിലൂടെയല്ല, നിങ്ങളുടെ മൊബൈൽ കാരിയർ വഴിയാണ് നടത്തുക.</string>
   <!--ConfirmIdentityDialog-->
-  <string name="ConfirmIdentityDialog_your_safety_number_with_s_has_changed">%1$s-മായുള്ള നിങ്ങളുടെ സുരക്ഷാ നമ്പർ മാറി. നിങ്ങളുടെ ആശയവിനിമയം ആരെങ്കിലും തടസ്സപ്പെടുത്താൻ ശ്രമിക്കുന്നു, അല്ലെങ്കിൽ %2$s Signal വീണ്ടും ഇൻസ്റ്റാൾ ചെയ്തു എന്നാകാം ഇതിനർത്ഥം.</string>
-  <string name="ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact">ഈ കോൺടാക്റ്റുമായി നിങ്ങളുടെ സുരക്ഷാ നമ്പർ ഉറപ്പാക്കേണ്ടതാണ്.</string>
+  <string name="ConfirmIdentityDialog_your_safety_number_with_s_has_changed">%1$s എന്നയാളുമായുള്ള നിങ്ങളുടെ സുരക്ഷാ നമ്പർ മാറി. നിങ്ങളുടെ ആശയവിനിമയം ആരെങ്കിലും തടസ്സപ്പെടുത്താൻ ശ്രമിക്കുന്നു, അല്ലെങ്കിൽ %2$s Signal വീണ്ടും ഇൻസ്റ്റാൾ ചെയ്തു എന്നാകാം ഇതിനർത്ഥം.</string>
+  <string name="ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact">ഈ കോൺടാക്റ്റുമായി നിങ്ങളുടെ സുരക്ഷാ നമ്പർ പരിശോധിച്ചുറപ്പിക്കേണ്ടതാണ്.</string>
   <string name="ConfirmIdentityDialog_accept">സ്വീകരിക്കുക</string>
   <!--ContactsCursorLoader-->
   <string name="ContactsCursorLoader_recent_chats">സമീപകാല ചാറ്റുകൾ</string>
@@ -171,12 +174,12 @@
   <string name="ContactsCursorLoader_new_story">പുതിയ സ്റ്റോറി</string>
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">സന്ദേശ൦ %s</string>
-  <string name="ContactsDatabase_signal_call_s">%s നെ Signal കോള്‍ ചെയ്യുക</string>
+  <string name="ContactsDatabase_signal_call_s">%s എന്നയാളെ Signal കോള്‍ ചെയ്യുക</string>
   <!--ContactNameEditActivity-->
   <!--Toolbar title for contact name edit activity-->
   <string name="ContactNameEditActivity__edit_name">പേര് എഡിറ്റ് ചെയ്യുക</string>
-  <string name="ContactNameEditActivity_given_name">നല്‍കിയ നാമം</string>
-  <string name="ContactNameEditActivity_family_name">കുടുംബ നാമം</string>
+  <string name="ContactNameEditActivity_given_name">നല്‍കിയിരിക്കുന്ന പേര്</string>
+  <string name="ContactNameEditActivity_family_name">കുടുംബപ്പേര്</string>
   <string name="ContactNameEditActivity_prefix">പ്രിഫിക്‌സ്</string>
   <string name="ContactNameEditActivity_suffix">സഫിക്സ്</string>
   <string name="ContactNameEditActivity_middle_name">മധ്യനാമം</string>
@@ -193,13 +196,13 @@
   <!--Content description for user avatar in edit activity-->
   <string name="ContactShareEditActivity__avatar">അവതാർ</string>
   <!--ConversationItem-->
-  <string name="ConversationItem_error_not_sent_tap_for_details">അയച്ചില്ല, വിശദാംശങ്ങൾക്ക് തൊടുക</string>
+  <string name="ConversationItem_error_not_sent_tap_for_details">അയച്ചില്ല, വിശദാംശങ്ങൾക്ക് ടാപ്പ് ചെയ്യുക</string>
   <string name="ConversationItem_error_partially_not_delivered">ഭാഗികമായി അയച്ചു, വിശദാംശങ്ങൾക്ക് തൊടുക</string>
   <string name="ConversationItem_error_network_not_delivered">അയയ്‌ക്കുന്നത് പരാജയപ്പെട്ടു</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">കീ കൈമാറ്റ സന്ദേശം ലഭിച്ചു, പ്രോസസ്സുചെയ്യാൻ തൊടുക</string>
   <string name="ConversationItem_group_action_left">%1$s ഈ ഗ്രൂപ്പില്‍ നിന്നും പോയി.</string>
   <string name="ConversationItem_send_paused">അയയ്‌ക്കുന്നത് താൽക്കാലികമായി നിർത്തി</string>
-  <string name="ConversationItem_click_to_approve_unencrypted">അയയ്ക്കാൻ പറ്റിയില്ല, സുരക്ഷിതമല്ലാത്ത ഇതരരീതിക്കായി തൊടുക</string>
+  <string name="ConversationItem_click_to_approve_unencrypted">അയയ്ക്കാൻ പറ്റിയില്ല, സുരക്ഷിതമല്ലാത്ത ഇതരരീതിക്കായി ടാപ്പ് ചെയ്യുക</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">എൻ‌ക്രിപ്റ്റ് ചെയ്യാത്ത SMS പകരം ഉപയോഗിക്കട്ടെ?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">എൻ‌ക്രിപ്റ്റ് ചെയ്യാത്ത MMS പകരം ഉപയോഗിക്കട്ടെ?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">സ്വീകർത്താവ് ഇപ്പോൾ  ഒരു Signal ഉപയോക്താവല്ലാത്തതിനാൽ ഈ സന്ദേശം എൻ‌ക്രിപ്റ്റ് <b>ചെയ്യില്ല</b>. \n\nസുരക്ഷിതമല്ലാത്ത സന്ദേശം അയയ്‌ക്കണോ?</string>
@@ -213,14 +216,14 @@
   <string name="ConversationItem_this_message_was_deleted">ഈ സന്ദേശം ഇല്ലാതാക്കി.</string>
   <string name="ConversationItem_you_deleted_this_message">നിങ്ങൾ ഈ സന്ദേശം ഇല്ലാതാക്കി.</string>
   <!--ConversationActivity-->
-  <string name="ConversationActivity_add_attachment">അറ്റാച്ചുമെന്റ്  ചേർക്കുക</string>
+  <string name="ConversationActivity_add_attachment">അറ്റാച്ച്മെന്റ്  ചേർക്കുക</string>
   <string name="ConversationActivity_select_contact_info">കോൺ‌ടാക്റ്റ് വിവരം തിരഞ്ഞെടുക്കുക</string>
   <string name="ConversationActivity_compose_message">സന്ദേശം രചിക്കുക</string>
   <string name="ConversationActivity_sorry_there_was_an_error_setting_your_attachment">ക്ഷമിക്കണം, നിങ്ങളുടെ അറ്റാച്ചുമെന്റ് ക്രമീകരിക്കുന്നതിൽ ഒരു പിശക് ഉണ്ടായിരുന്നു.</string>
   <string name="ConversationActivity_recipient_is_not_a_valid_sms_or_email_address_exclamation">സ്വീകർത്താവ് സാധുവായ ഒരു SMS അല്ലെങ്കിൽ ഇമെയിൽ വിലാസമല്ല!</string>
   <string name="ConversationActivity_message_is_empty_exclamation">സന്ദേശം ശൂന്യമാണ്!</string>
   <string name="ConversationActivity_group_members">ഗ്രൂപ്പിലെ അംഗങ്ങൾ</string>
-  <string name="ConversationActivity__tap_here_to_start_a_group_call">ഒരു ഗ്രൂപ്പ് കോൾ ആരംഭിക്കാൻ ഇവിടെ തൊടുക</string>
+  <string name="ConversationActivity__tap_here_to_start_a_group_call">ഒരു ഗ്രൂപ്പ് കോൾ ആരംഭിക്കാൻ ഇവിടെ ടാപ്പ് ചെയ്യുക</string>
   <string name="ConversationActivity_invalid_recipient">അസാധുവായ സ്വീകർത്താവ്!</string>
   <string name="ConversationActivity_added_to_home_screen">ഹോം സ്‌ക്രീനിൽ ചേർത്തു</string>
   <string name="ConversationActivity_calls_not_supported">കോളുകൾ പിന്തുണയ്ക്കുന്നില്ല</string>
@@ -235,9 +238,9 @@
   <string name="ConversationActivity_lets_switch_to_signal">നമുക്ക് Molly-ലേക്ക് മാറാം %1$s</string>
   <string name="ConversationActivity_specify_recipient">ഒരു കോൺ‌ടാക്റ്റ് തിരഞ്ഞെടുക്കുക</string>
   <string name="ConversationActivity_unblock">തടഞ്ഞത് മാറ്റുക</string>
-  <string name="ConversationActivity_attachment_exceeds_size_limits">അറ്റാച്ചുമെന്റ് നിങ്ങൾ അയയ്‌ക്കുന്ന സന്ദേശ ഇനത്തിന്റെ വലുപ്പ പരിധി കവിഞ്ഞിരിക്കുന്നു.</string>
+  <string name="ConversationActivity_attachment_exceeds_size_limits">അറ്റാച്ച്മെന്റ് നിങ്ങൾ അയയ്‌ക്കുന്ന സന്ദേശ ഇനത്തിന്റെ വലുപ്പ പരിധി കവിഞ്ഞിരിക്കുന്നു.</string>
   <string name="ConversationActivity_unable_to_record_audio">ഓഡിയോ റെക്കോർഡുചെയ്യാനായില്ല!</string>
-  <string name="ConversationActivity_you_cant_send_messages_to_this_group">ഇപ്പോള്‍ ഒരു അംഗമല്ലാത്തതിനാൽ നിങ്ങൾക്ക് ഈ ഗ്രൂപ്പിലേക്ക് സന്ദേശങ്ങൾ അയയ്ക്കാനാകില്ല.</string>
+  <string name="ConversationActivity_you_cant_send_messages_to_this_group">നിലവിൽ അംഗമല്ലാത്തതിനാൽ നിങ്ങൾക്ക് ഈ ഗ്രൂപ്പിലേക്ക് സന്ദേശങ്ങൾ അയയ്ക്കാനാകില്ല.</string>
   <string name="ConversationActivity_only_s_can_send_messages">%1$s-ന് മാത്രമേ സന്ദേശങ്ങൾ അയയ്ക്കാൻ കഴിയൂ.</string>
   <string name="ConversationActivity_admins">അഡ്മിൻസ്</string>
   <string name="ConversationActivity_message_an_admin">ഒരു അഡ്മിന് സന്ദേശം അയക്കുക</string>
@@ -247,10 +250,10 @@
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">ഗ്രൂപ്പില്‍ ചേരുന്നതിനുള്ള നിങ്ങളുടെ അഭ്യർത്ഥന അഡ്മിന് അയച്ചു. അവർ നടപടിയെടുക്കുമ്പോൾ നിങ്ങളെ അറിയിക്കും.</string>
   <string name="ConversationActivity_cancel_request">അഭ്യർത്ഥന റദ്ദാക്കുക</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ഓഡിയോ സന്ദേശങ്ങള്‍ അയയ്‌ക്കാൻ, Molly-ന് നിങ്ങളുടെ മൈക്രോഫോണിലേക്ക്  ആക്‌സസ്സ് അനുവദിക്കുക.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ഓഡിയോ സന്ദേശങ്ങൾ അയയ്‌ക്കാൻ Molly-ന് മൈക്രോഫോൺ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിക്കപ്പെട്ടു. ആപ്പ് ക്രമീകരണങ്ങളിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"മൈക്രോഫോൺ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s-നെ വിളിക്കുന്നതിന് Molly-ന് മൈക്രോഫോൺ, ക്യാമറ അനുമതികൾ ആവശ്യമാണ്, പക്ഷേ അവ ശാശ്വതമായി നിരസിക്കപ്പെട്ടു.  ആപ്പ് ക്രമീകരണങ്ങളിൽ ചെന്ന്,  \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"മൈക്രോഫോൺ\", \"ക്യാമറ\" എന്നിവ പ്രവർത്തനക്ഷമമാക്കുക.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ഫോട്ടോകളും വീഡിയോയും പകർത്താൻ, ക്യാമറയിലേക്ക് Molly-ന് ആക്സസ് അനുവദിക്കുക.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ഫോട്ടോകളോ വീഡിയോയോ എടുക്കാൻ Molly-ന് ക്യാമറ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിക്കപ്പെട്ടു.  ആപ്പ് ക്രമീകരണങ്ങളിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"ക്യാമറ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ഓഡിയോ സന്ദേശങ്ങൾ അയയ്‌ക്കാൻ Molly-ന് മൈക്രോഫോൺ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിച്ചിരിക്കുകയാണ്. ആപ്പ് ക്രമീകരണങ്ങളിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"മൈക്രോഫോൺ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s എന്നയാളെ വിളിക്കുന്നതിന് Molly-ന് മൈക്രോഫോൺ, ക്യാമറ അനുമതികൾ ആവശ്യമാണ്, പക്ഷേ അവ ശാശ്വതമായി നിരസിച്ചിരിക്കുകയാണ്.  ആപ്പ് ക്രമീകരണങ്ങളിൽ ചെന്ന്,  \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"മൈക്രോഫോൺ\", \"ക്യാമറ\" എന്നിവ പ്രവർത്തനക്ഷമമാക്കുക.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ഫോട്ടോകളും വീഡിയോയും എടുക്കാൻ ക്യാമറയിലേക്ക് Molly-ന് ആക്സസ് അനുവദിക്കുക.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ഫോട്ടോകളോ വീഡിയോയോ എടുക്കാൻ Molly-ന് ക്യാമറാ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിച്ചിരിക്കുകയാണ്.  ആപ്പ് ക്രമീകരണങ്ങളിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"ക്യാമറ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
   <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ഫോട്ടോകളോ വീഡിയോയോ എടുക്കാൻ Molly-ന് ക്യാമറ അനുമതി ആവശ്യമാണ്</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">ശബ്‌ദം ഉപയോഗിച്ച് വീഡിയോകൾ പകർത്താൻ മൈക്രോഫോൺ അനുമതി പ്രവർത്തനക്ഷമമാക്കുക.</string>
   <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">വീഡിയോകൾ റെക്കോർഡുചെയ്യാൻ Molly-ന് മൈക്രോഫോൺ അനുമതി ആവശ്യമാണ്, പക്ഷേ അവ നിരസിക്കപ്പെട്ടു. അപ്ലിക്കേഷൻ ക്രമീകരണങ്ങളിൽ തുടരുക, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"മൈക്രോഫോൺ\", \"ക്യാമറ\" എന്നിവ പ്രവർത്തനക്ഷമമാക്കുക.</string>
@@ -427,8 +430,20 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">പ്രൊഫൈൽ ഫോട്ടോ ക്രമീകരിക്കുന്നതിൽ പിശക്</string>
   <string name="CreateProfileActivity_problem_setting_profile">പ്രൊഫൈൽ ക്രമീകരിക്കുന്നതിൽ പ്രശ്‌നമുണ്ട്</string>
   <string name="CreateProfileActivity_set_up_your_profile">നിങ്ങളുടെ പ്രൊഫൈൽ സജ്ജമാക്കുക</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">നിങ്ങളുടെ പ്രൊഫൈൽ  ആദ്യാവസാന എൻക്രിപ്റ്റഡാണ്. നിങ്ങൾ പുതിയ സംഭാഷണങ്ങൾ ആരംഭിക്കുമ്പോഴോ സ്വീകരിക്കുമ്പോഴോ പുതിയ ഗ്രൂപ്പുകളിൽ ചേരുമ്പോഴോ നിങ്ങളുടെ പ്രൊഫൈലും അതിലെ മാറ്റങ്ങളും നിങ്ങളുടെ കോൺടാക്റ്റുകൾക്ക് ദൃശ്യമാകും.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">നിങ്ങളുടെ പ്രൊഫൈലും അതിലെ മാറ്റങ്ങളും നിങ്ങൾ സന്ദേശമയയ്ക്കുന്ന ആളുകൾക്കും കോൺടാക്റ്റുകൾക്കും ഗ്രൂപ്പുകൾക്കും ദൃശ്യമാകും.</string>
   <string name="CreateProfileActivity_set_avatar_description">അവതാർ സജ്ജമാക്കുക</string>
+  <!--ProfileCreateFragment-->
+  <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">നിങ്ങൾ സന്ദേശമയയ്‌ക്കുന്ന ആളുകൾക്കും കോൺടാക്റ്റുകൾക്കും ഗ്രൂപ്പുകൾക്കും പ്രൊഫൈലുകൾ ദൃശ്യമാണ്.</string>
+  <!--Title of clickable row to select phone number privacy settings-->
+  <string name="ProfileCreateFragment__who_can_find_me">നമ്പർ ഉപയോഗിച്ച് എന്നെ കണ്ടെത്താൻ കഴിയുന്നത് ആർക്കൊക്കെ?</string>
+  <!--WhoCanSeeMyPhoneNumberFragment-->
+  <!--Toolbar title for this screen-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">നമ്പർ ഉപയോഗിച്ച് എന്നെ കണ്ടെത്താൻ കഴിയുന്നത് ആർക്കൊക്കെ?</string>
+  <!--Description for radio item stating anyone can see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">കോൺടാക്റ്റുകളിൽ നിങ്ങളുടെ ഫോൺ നമ്പർ ഉള്ള ആർക്കും നിങ്ങളെ Signal-ൽ കോൺടാക്റ്റായി കാണാൻ കഴിയും. തിരയലിൽ നിങ്ങളുടെ നമ്പർ ഉപയോഗിച്ച് തിരഞ്ഞും മറ്റുള്ളവർക്ക് നിങ്ങളെ കണ്ടെത്താനാകും.</string>
+  <!--Description for radio item stating no one will be able to see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">Signal-ൽ ആർക്കും ഫോൺ നമ്പർ ഉപയോഗിച്ച് നിങ്ങളെ കണ്ടെത്താൻ കഴിയില്ല.</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">ബാക്കപ്പിൽ വീണ്ടെടുക്കണോ?</string>
   <string name="ChooseBackupFragment__restore_your_messages_and_media">ഒരു ലോക്കൽ ബാക്കപ്പിൽ നിന്ന് നിങ്ങളുടെ സന്ദേശങ്ങളും മീഡിയയും റിസ്റ്റോർ ചെയ്യുക. നിങ്ങൾ ഇപ്പോൾ റിസ്റ്റോർ ചെയ്തില്ലെങ്കിൽ, നിങ്ങൾക്ക് പിന്നീട് റിസ്റ്റോർ ചെയ്യാൻ കഴിയില്ല.</string>
@@ -460,6 +475,8 @@
   <string name="BackupsPreferenceFragment__to_restore_a_backup">ഒരു ബാക്കപ്പ് റീസ്റ്റോര്‍ ചെയ്യാന്‍, Molly-ന്റെ ഒരു പുതിയ പകർപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക. അപ്ലിക്കേഷൻ തുറന്ന്  \"റിസ്റ്റോർ ചെയ്യുക\" ടാപ്പുചെയ്യുക, തുടർന്ന് ഒരു ബാക്കപ്പ് ഫയൽ കണ്ടെത്തുക. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">കൂടുതൽ അറിയുക</string>
   <string name="BackupsPreferenceFragment__in_progress">പുരോഗതിയിൽ…</string>
+  <!--Status text shown in backup preferences when verifying a backup-->
+  <string name="BackupsPreferenceFragment__verifying_backup">ബാക്കപ്പ് പരിശോധിച്ചുറപ്പിക്കുന്നു…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d ഇതുവരെ….</string>
   <!--Show percentage of completion of backup-->
   <string name="BackupsPreferenceFragment__s_so_far">%1$s%% ഇതുവരെ…</string>
@@ -730,6 +747,10 @@
   <string name="ManageProfileFragment_failed_to_set_avatar">അവതാർ സജ്ജമാക്കാന്‍ കഴിഞ്ഞില്ല</string>
   <string name="ManageProfileFragment_badges">ബാഡ്ജുകള്‍</string>
   <string name="ManageProfileFragment__edit_photo">ഫോട്ടോ എഡിറ്റ് ചെയ്യുക</string>
+  <!--Snackbar message after creating username-->
+  <string name="ManageProfileFragment__username_created">ഉപയോക്തൃനാമം സൃഷ്‌ടിച്ചു</string>
+  <!--Snackbar message after copying username-->
+  <string name="ManageProfileFragment__username_copied">ഉപയോക്തൃനാമം പകർത്തി</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">സാമാന്യമായി ഗ്രൂപ്പുകളൊന്നുമില്ല</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -1136,7 +1157,7 @@
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">%s-ൽ നിന്നുള്ള ഒരു സന്ദേശം ഡെലിവർ ചെയ്യാൻ കഴിഞ്ഞില്ല</string>
   <string name="MessageRecord_s_changed_their_phone_number">%1$s അവരുടെ ഫോൺ നമ്പർ മാറ്റി.</string>
   <!--Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost.-->
-  <string name="MessageRecord_like_this_new_feature_help_support_signal_with_a_one_time_donation">ഈ പുതിയ സവിശേഷത ഇഷ്‌ടമായോ? ഒരു ഒറ്റത്തവണ സംഭാവന നൽകി Signal-നെ പിന്തുണയ്ക്കുക.</string>
+  <string name="MessageRecord_like_this_new_feature_help_support_signal_with_a_one_time_donation">ഈ പുതിയ ഫീച്ചർ ഇഷ്‌ടമായോ? ഒരു ഒറ്റത്തവണ സംഭാവന നൽകി Signal-നെ പിന്തുണയ്ക്കൂ.</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s ഒരു ഗ്രൂപ്പ് കോൾ ആരംഭിച്ചു . %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s ഗ്രൂപ്പ് കോളിലാണ് · %2$s</string>
@@ -1511,6 +1532,12 @@
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">തിരുത്തുക</string>
   <string name="SubmitDebugLogActivity_done">ചെയ്‌തു</string>
+  <!--Menu option to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save">സംരക്ഷിക്കുക</string>
+  <!--Error that is show in a toast when we fail to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_failed_to_save">സംരക്ഷിക്കാനായില്ല</string>
+  <!--Toast that is show to notify that we have saved the debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save_complete">സംരക്ഷിക്കുന്നത് പൂർത്തിയായി</string>
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">ഇല്ലാതാക്കാൻ ഒരു വരി തൊടുക</string>
   <string name="SubmitDebugLogActivity_submit">സമർപ്പിക്കുക</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">ലോഗുകൾ സമർപ്പിക്കുന്നതിൽ പരാജയപ്പെട്ടു</string>
@@ -1565,7 +1592,9 @@
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">നിങ്ങളൊരു ഗിഫ്റ്റ് ബാഡ്‍ജ് റിഡീം ചെയ്‌തു</string>
   <!--Displayed in the conversation list when someone reacted to your story-->
+  <string name="ThreadRecord__reacted_s_to_your_story">നിങ്ങളുടെ സ്റ്റോറിയോട് %1$s എന്ന് പ്രതികരിച്ചു</string>
   <!--Displayed in the conversation list when you reacted to someone\'s story-->
+  <string name="ThreadRecord__reacted_s_to_their_story">അവരുടെ സ്റ്റോറിയോട് %1$s എന്ന് പ്രതികരിച്ചു</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Molly അപ്‌ഡേറ്റ്</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly-ന്റെ ഒരു പുതിയ പതിപ്പ് ലഭ്യമാണ്, അപ്‌ഡേറ്റ് ചെയ്യാൻ തൊടുക</string>
@@ -1576,6 +1605,8 @@
   <string name="UnverifiedSendDialog_send_message">സന്ദേശം അയക്കണോ?</string>
   <string name="UnverifiedSendDialog_send">അയയ്‌ക്കുക</string>
   <!--UsernameEditFragment-->
+  <!--Instructional text at the top of the username edit screen-->
+  <string name="UsernameEditFragment__choose_your_username">നിങ്ങളുടെ ഉപയോക്തൃനാമം തിരഞ്ഞെടുക്കുക</string>
   <string name="UsernameEditFragment_username">ഉപയോക്തൃനാമം</string>
   <string name="UsernameEditFragment_delete">ഇല്ലാതാക്കൂ</string>
   <string name="UsernameEditFragment_successfully_set_username">ഉപയോക്തൃനാമം വിജയകരമായി സജ്ജമാക്കി.</string>
@@ -1587,11 +1618,18 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">ഉപയോക്തൃനാമം ഒരു നമ്പറിൽ ആരംഭിക്കാൻ കഴിയില്ല.</string>
   <string name="UsernameEditFragment_username_is_invalid">ഉപയോക്തൃനാമം അസാധുവാണ്.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">ഉപയോക്തൃനാമങ്ങൾ %1$d മുതൽ %2$d വരെ പ്രതീകങ്ങൾ ആയിരിക്കണം.</string>
-  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Signal-ൽ ഉപയോക്തൃനാമങ്ങൾ ഓപ്‌ഷണലാണ്. നിങ്ങൾ ഒരു ഉപയോക്തൃനാമം സൃഷ്ടിക്കാൻ തിരഞ്ഞെടുക്കുകയാണെങ്കിൽ, മറ്റ് Signal ഉപയോക്താക്കൾക്ക് ഈ ഉപയോക്തൃനാമം ഉപയോഗിച്ച് നിങ്ങളെ കണ്ടെത്താനും നിങ്ങളുടെ ഫോൺ നമ്പർ അറിയാതെ നിങ്ങളെ ബന്ധപ്പെടാനും കഴിയും.</string>
+  <!--Explanation about what usernames provide-->
+  <string name="UsernameEditFragment__usernames_let_others_message">നിങ്ങളുടെ ഫോൺ നമ്പറില്ലാതെ നിങ്ങൾക്ക് സന്ദേശം അയയ്ക്കാൻ ഉപയോക്തൃനാമങ്ങൾ മറ്റുള്ളവരെ അനുവദിക്കുന്നു. നിങ്ങളുടെ മേൽവിലാസം സ്വകാര്യമായി സൂക്ഷിക്കുന്നതിന്, അത് ഒരു കൂട്ടം അക്കങ്ങളുമായി ജോടിയാക്കിയിരിക്കുന്നു.</string>
+  <!--Dialog title for explanation about numbers at the end of the username-->
+  <string name="UsernameEditFragment__what_is_this_number">ഈ നമ്പർ എന്താണ്?</string>
+  <string name="UsernameEditFragment__these_digits_help_keep">അനാവശ്യ സന്ദേശങ്ങൾ ഒഴിവാക്കാൻ നിങ്ങളെ സഹായിക്കുന്നതിന്, ഈ അക്കങ്ങൾ നിങ്ങളുടെ ഉപയോക്തൃനാമം സ്വകാര്യമായി സൂക്ഷിക്കുന്നു. നിങ്ങൾ ചാറ്റ് ചെയ്യാൻ ആഗ്രഹിക്കുന്ന ആളുകളുമായും ഗ്രൂപ്പുകളുമായും മാത്രം നിങ്ങളുടെ ഉപയോക്തൃനാമം പങ്കിടുക. നിങ്ങൾ ഉപയോക്തൃനാമം മാറ്റുകയാണെങ്കിൽ, നിങ്ങൾക്ക് പുതിയ ഒരു കൂട്ടം അക്കങ്ങൾ ലഭിക്കുന്നതാണ്.</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">Signal-ൽ‌ %d കോൺ‌ടാക്റ്റ് ഉണ്ട്!</item>
     <item quantity="other">Signal-ൽ‌ %d കോൺ‌ടാക്റ്റുകൾ‌ ഉണ്ട്!</item>
   </plurals>
+  <!--UsernameShareBottomSheet-->
+  <!--Explanation of what the sheet enables the user to do-->
+  <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">ഒരു ഉപയോക്തൃനാമ ലിങ്ക് പകർത്തുകയോ പങ്കിടുകയോ ചെയ്യുക</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">നിങ്ങളുടെ കോൺ‌ടാക്റ്റ് Signal-ന്റെ പഴയ പതിപ്പ് പ്രവർത്തിപ്പിക്കുന്നു. നിങ്ങളുടെ സുരക്ഷാ നമ്പർ പരിശോധിക്കുന്നതിനുമുമ്പ് അപ്‌ഡേറ്റ് ചെയ്യാൻ അവരോട് ആവശ്യപ്പെടുക.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">നിങ്ങളുടെ കോൺ‌ടാക്റ്റ് Signal-ന്റെ ഏറ്റവും പുതിയ പതിപ്പ് പ്രവർത്തിപ്പിക്കുന്നു ഇത് പൊരുത്തപ്പെടാത്ത QR കോഡ് ഫോർ‌മാറ്റാണ്. താരതമ്യം ചെയ്യാൻ അപ്‌ഡേറ്റുചെയ്യുക.</string>
@@ -2177,6 +2215,8 @@
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">ഒറ്റത്തവണ സംഭാവന</string>
   <string name="preferences__privacy">സ്വകാര്യത</string>
+  <!--Preference label for stories-->
+  <string name="preferences__stories">സ്റ്റോറീസ്</string>
   <string name="preferences__mms_user_agent">MMS യൂസർ ഏജൻറ്</string>
   <string name="preferences__advanced_mms_access_point_names">സ്വമേധയാലുള്ള MMS ക്രമീകരണങ്ങൾ</string>
   <string name="preferences__mmsc_url">MMSC URL</string>
@@ -2189,6 +2229,8 @@
   <string name="preferences__data_and_storage">ഡാറ്റയും സ്റ്റോറേജും</string>
   <string name="preferences__storage">സ്റ്റോറേജ്</string>
   <string name="preferences__payments">പേയ്മെന്റുകൾ</string>
+  <!--Privacy settings payments section description-->
+  <string name="preferences__payment_lock">പേയ്‌മെന്റ് ലോക്ക്</string>
   <string name="preferences__payments_beta">പേയ്‌മെന്റുകൾ (ബീറ്റ)</string>
   <string name="preferences__conversation_length_limit">സംഭാഷണ ദൈർഘ്യ പരിധി</string>
   <string name="preferences__keep_messages">സന്ദേശങ്ങൾ സൂക്ഷിക്കുക</string>
@@ -2254,6 +2296,8 @@
   <string name="preferences_app_protection__who_can">ആർക്ക് കഴിയും…</string>
   <string name="preferences_app_protection__app_access">അപ്ലിക്കേഷൻ ആക്‌സസ്സ്</string>
   <string name="preferences_app_protection__communication">ആശയവിനിമയം</string>
+  <!--Privacy settings payments section title-->
+  <string name="preferences_app_protection__payments">പേയ്മെന്റുകൾ</string>
   <string name="preferences_chats__chats">ചാറ്റുകൾ</string>
   <string name="preferences_data_and_storage__manage_storage">സ്റ്റോറേജ് ക്രമീകരിക്കുക</string>
   <string name="preferences_data_and_storage__calls">കോളുകൾ</string>
@@ -2311,7 +2355,6 @@
   <string name="preferences_enter_proxy_address">പ്രോക്സി വിലാസം നൽകുക</string>
   <string name="configurable_single_select__customize_option">ഓപ്ഷൻ ഇച്ഛാനുസൃതമാക്കുക</string>
   <!--Internal only preferences-->
-  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">എല്ലാ പ്രവർത്തനങ്ങളും</string>
   <string name="PaymentsAllActivityFragment__all">എല്ലാം</string>
@@ -2356,6 +2399,14 @@
   <string name="PaymentsHomeFragment__activate">സജീവമാക്കുക</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">മൊബൈൽ കോയിൻ നിബന്ധനകൾ കാണുക</string>
   <string name="PaymentsHomeFragment__payments_not_available">Molly-ലെ പേയ്‌മെന്റുകൾ ഇനി ലഭ്യമല്ല. നിങ്ങൾക്ക് ഇപ്പോഴും ഒരു എക്സ്ചേഞ്ചിലേക്ക് ഫണ്ടുകൾ ട്രാൻസ്ഫർ ചെയ്യാൻ കഴിയും, എന്നാൽ നിങ്ങൾക്ക് ഇനി പേയ്മെന്റുകൾ അയയ്ക്കാനും കൂടാതെ സ്വീകരിക്കാനും അല്ലെങ്കിൽ ഫണ്ടുകൾ ചേർക്കാനോ കഴിയില്ല.</string>
+  <!--Alert dialog title which shows up after a payment to turn on payment lock-->
+  <string name="PaymentsHomeFragment__turn_on">ഭാവി പേയ്‌മെന്റുകൾക്ക് പേയ്‌മെന്റ് ലോക്ക് ഓണാക്കണോ?</string>
+  <!--Alert dialog description for why payment lock should be enabled before sending payments-->
+  <string name="PaymentsHomeFragment__add_an_additional_layer">സുരക്ഷയുടെ ഒരു അധിക തലം ചേർക്കുകയും, പണം കൈമാറുന്നതിന് Android സ്‌ക്രീൻ ലോക്കോ വിരലടയാളമോ നിർബന്ധമാക്കി മാറ്റുകയും ചെയ്യുക.</string>
+  <!--Alert dialog button to enable payment lock-->
+  <string name="PaymentsHomeFragment__enable">ഓണാക്കുക</string>
+  <!--Alert dialog button to not enable payment lock for now-->
+  <string name="PaymentsHomeFragment__not_now">ഇപ്പോൾ വേണ്ട</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">ഫണ്ടുകൾ ചേർക്കുക</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">നിങ്ങളുടെ വാലറ്റ് വിലാസം</string>
@@ -2436,6 +2487,14 @@
   <string name="ConfirmPayment__payment_failed">പേയ്മെന്റ് പരാജയപ്പെട്ടു</string>
   <string name="ConfirmPayment__payment_will_continue_processing">പേയ്മെന്റ് പ്രോസസ്സിംഗ് തുടരും</string>
   <string name="ConfirmPaymentFragment__invalid_recipient">അസാധുവായ സ്വീകർത്താവ്</string>
+  <!--Biometric/Device authentication prompt title which comes up before sending a payment-->
+  <string name="ConfirmPaymentFragment__unlock_to_send_payment">പേയ്‌മെന്റ് അയയ്ക്കാൻ അൺലോക്ക് ചെയ്യുക</string>
+  <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">പേയ്‌മെന്റ് ലോക്ക് കാണിക്കാനായില്ല</string>
+  <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">നിങ്ങൾ ക്രമീകരണങ്ങളിൽ പേയ്‌മെന്റ് ലോക്ക് പ്രവർത്തനക്ഷമമാക്കി, പക്ഷേ അത് കാണിക്കാൻ കഴിയില്ല.</string>
+  <!--Button in a dialog that will take the user to the privacy settings-->
+  <string name="ConfirmPaymentFragment__go_to_settings">ക്രമീകരണത്തിലേക്ക് പോകുക</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">ഈ വ്യക്തി പേയ്‌മെന്റുകൾ സജീവമാക്കിയിട്ടില്ല</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">ഒരു നെറ്റ്‌വർക്ക് ഫീസ് അഭ്യർത്ഥിക്കാൻ കഴിയുന്നില്ല. ഈ പേയ്‌മെന്റ് തുടരുന്നതിന് വീണ്ടും ശ്രമിക്കുന്നതിനായി ശരി തൊടുക.</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2717,10 +2776,16 @@
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">നിങ്ങൾ ബാക്കപ്പിന്റെ രഹസ്യവാചകം വിജയകരമായി നൽകി</string>
   <string name="BackupDialog_passphrase_was_not_correct">രഹസ്യവാചകം ശരിയായിരുന്നില്ല</string>
   <string name="LocalBackupJob_creating_signal_backup"> Molly ബാക്കപ്പ് സൃഷ്‌ടിക്കുന്നു…</string>
+  <!--Title for progress notification shown in a system notification while verifying a recent backup.-->
+  <string name="LocalBackupJob_verifying_signal_backup">Molly ബാക്കപ്പ് പരിശോധിച്ചുറപ്പിക്കുന്നു…</string>
   <string name="LocalBackupJobApi29_backup_failed">ബാക്കപ്പ്  പരാജയപ്പെട്ടു </string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">നിങ്ങളുടെ ബാക്കപ്പ് ഡയറക്ടറി ഇല്ലാതാക്കി അല്ലെങ്കിൽ നീക്കി.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">ഈ വോളിയത്തിൽ സംഭരിക്കാനുംമാത്രം നിങ്ങളുടെ ബാക്കപ്പ് ഫയൽ വളരെ വലുതാണ്.</string>
   <string name="LocalBackupJobApi29_there_is_not_enough_space">നിങ്ങളുടെ ബാക്കപ്പ് സംഭരിക്കാൻ മതിയായ ഇടമില്ല.</string>
+  <!--Error message shown if a newly created backup could not be verified as accurate-->
+  <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">നിങ്ങളുടെ സമീപകാല ബാക്കപ്പ് സൃഷ്‌ടിക്കാനോ പരിശോധിച്ചുറപ്പിക്കാനോ കഴിഞ്ഞില്ല. പുതിയത് ഒരെണ്ണം സൃഷ്‌ടിക്കുക.</string>
+  <!--Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail-->
+  <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">ബാക്കപ്പ് ചെയ്യാൻ കഴിയാത്ത വളരെ വലിയ ഒരു ഫയൽ നിങ്ങളുടെ ബാക്കപ്പിൽ ഉൾപ്പെട്ടിട്ടുണ്ട്. അത് ഇല്ലാതാക്കിയ ശേഷം പുതിയ ഒരു ബാക്കപ്പ് സൃഷ്‌ടിക്കുക.</string>
   <string name="LocalBackupJobApi29_tap_to_manage_backups">ബാക്കപ്പുകൾ നിയന്ത്രിക്കാൻ തൊടുക.</string>
   <string name="ProgressPreference_d_messages_so_far">%d സന്ദേശങ്ങൾ ഇതുവരെ</string>
   <string name="RegistrationActivity_wrong_number">തെറ്റായ നമ്പർ</string>
@@ -3021,6 +3086,8 @@
   <string name="ShareActivity__send">അയയ്‌ക്കുക</string>
   <string name="ShareActivity__comma_s">, %1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">ഒന്നിലധികം ചാറ്റുകളിലേക്ക് പങ്കിടുന്നത് Signal സന്ദേശങ്ങൾക്ക് മാത്രമേ പിന്തുണക്കൂ</string>
+  <!--Toast when the incoming intent is invalid-->
+  <string name="ShareActivity__could_not_get_share_data_from_intent">ഇന്റന്റിൽ നിന്നുള്ള ഡാറ്റ പങ്കിടാനായില്ല.</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">ചില ഉപയോക്താക്കള്‍ക്ക് അയയ്ക്കാന്‍ കഴിഞ്ഞില്ല</string>
   <string name="MultiShareDialogs__you_can_only_share_with_up_to">നിങ്ങൾക്ക് %1$d ചാറ്റുകൾക്ക് മാത്രമേ പങ്കിടാനാകൂ</string>
@@ -3246,6 +3313,19 @@
   <string name="PrivacySettingsFragment__signal_message_and_calls">Signal സന്ദേശങ്ങള്‍ കോളുകളും, എല്ലായ്പ്പോഴും കോളുകള് റിലേ ചെയ്യുക ഒപ്പം സീൽ ചെയ്ത അയച്ചയാൾ</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">പുതിയ ചാറ്റുകൾക്കായുള്ള ഡിഫോൾട്ട് ടൈമർ</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">നിങ്ങൾ ആരംഭിച്ച എല്ലാ പുതിയ ചാറ്റുകൾക്കും ഒരു സ്ഥിരസ്ഥിതി അപ്രത്യക്ഷമാകുന്ന സന്ദേശം ടൈമർ ക്രമീകരിക്കുക.</string>
+  <!--Summary for stories preference to launch into story privacy settings-->
+  <string name="PrivacySettingsFragment__manage_your_stories">നിങ്ങളുടെ സ്റ്റോറികളും അവ ആർക്കൊക്കെ കാണാനാകുമെന്നും മാനേജ് ചെയ്യുക</string>
+  <string name="PrivacySettingsFragment__payment_lock_require_lock">പണം കൈമാറുന്നതിന് Android സ്‌ക്രീൻ ലോക്കോ വിരലടയാളമോ ആവശ്യമാണ്</string>
+  <!--Alert dialog title when payment lock cannot be enabled-->
+  <string name="PrivacySettingsFragment__cant_enable_title">പേയ്‌മെന്റ് ലോക്ക് പ്രവർത്തനക്ഷമമാക്കാൻ കഴിയില്ല</string>
+  <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
+  <string name="PrivacySettingsFragment__cant_enable_description">പേയ്‌മെന്റ് ലോക്ക് ഉപയോഗിക്കുന്നതിന്, ആദ്യം നിങ്ങളുടെ ഫോണിന്റെ ക്രമീകരണങ്ങളിൽ സ്‌ക്രീൻ ലോക്കോ വിരലടയാള ഐഡിയോ പ്രവർത്തനക്ഷമമാക്കണം.</string>
+  <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
+  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">സിസ്റ്റം ക്രമീകരണങ്ങളിലേക്ക് നാവിഗേറ്റ് ചെയ്യാനായില്ല</string>
+  <!--Alert dialog button to go to phone settings-->
+  <string name="PrivacySettingsFragment__go_to_settings">ക്രമീകരണത്തിലേക്ക് പോകുക</string>
+  <!--Alert dialog button to cancel the dialog-->
+  <string name="PrivacySettingsFragment__cancel">റദ്ദാക്കൂ</string>
   <!--AdvancedPrivacySettingsFragment-->
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">സ്റ്റാറ്റസ് ചിഹ്നം കാണിക്കുക</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">സീൽഡ് സെൻഡർ ഉപയോഗിച്ച് ഡെലിവറി ചെയ്യുമ്പോൾ സന്ദേശ വിശദാംശങ്ങളിൽ ഒരു ചിഹ്നം കാണിക്കുക.</string>
@@ -3355,6 +3435,8 @@
   <string name="EmojiSearchFragment__no_results_found">ഫലങ്ങളൊന്നുമില്ല.</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">അജ്ഞാത റിംഗ്ടോൺ</string>
   <!--ConversationSettingsFragment-->
+  <!--Error toasted when no activity can handle the add contact intent-->
+  <string name="ConversationSettingsFragment__contacts_app_not_found">കോൺടാക്റ്റുകൾ ആപ്പ് കണ്ടെത്തിയില്ല</string>
   <string name="ConversationSettingsFragment__send_message">സന്ദേശം അയയ്ക്കുക</string>
   <string name="ConversationSettingsFragment__start_video_call">വീഡിയോ കോൾ ആരംഭിക്കുക</string>
   <string name="ConversationSettingsFragment__start_audio_call">ഓഡിയോ കോൾ ആരംഭിക്കുക</string>
@@ -3455,7 +3537,7 @@
   <string name="MultiselectForwardFragment__add_a_message">ഒരു സന്ദേശം ചേര്‍ക്കുക</string>
   <string name="MultiselectForwardFragment__faster_forwards">അതിവേഗ ഫോര്‍വേഡുകള്‍</string>
   <!--Displayed when user selects a video that will be clipped before sharing to a story-->
-  <string name="MultiselectForwardFragment__videos_will_be_trimmed">വീഡിയോകൾ 30 സെക്കൻഡ് ദൈർഘ്യമുള്ള ക്ലിപ്പുകളായി ട്രിം ചെയ്ത് ഒന്നിലധികം സ്റ്റോറികളായി അയയ്‌ക്കും.</string>
+  <string name="MultiselectForwardFragment__videos_will_be_trimmed">വീഡിയോകൾ 30 സെക്കൻഡ് ദൈർഘ്യമുള്ള ക്ലിപ്പുകളായി ട്രിം ചെയ്ത് ഒന്നിലധികം സ്റ്റോറീസായി അയയ്‌ക്കും.</string>
   <!--Displayed when user selects a video that cannot be sent as a story-->
   <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">സ്‌റ്റോറികളിലേക്ക് അയയ്‌ക്കുന്ന വീഡിയോകളുടെ ദൈർഘ്യം 30 സെക്കൻഡിൽ കൂടരുത്.</string>
   <string name="MultiselectForwardFragment__forwarded_messages_are_now">കൈമാറിയ സന്ദേശങ്ങള്‍ ഇപ്പോൾ ഉടനടി അയയ്‌ക്കുന്നു.</string>
@@ -3475,6 +3557,8 @@
     <item quantity="one">സന്ദേശം ലഭ്യമല്ലാത്തതിനാൽ ഫോർവേഡ് ചെയ്യാനായില്ല.</item>
     <item quantity="other">സന്ദേശങ്ങള്‍ ഇനി ലഭ്യമല്ലാത്തതിനാൽ ഫോർവേഡ് ചെയ്യാനായില്ല.</item>
   </plurals>
+  <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
+  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">അഡ്‌മിൻമാർക്ക് മാത്രമേ ഈ ഗ്രൂപ്പിലേക്ക് സന്ദേശങ്ങള്‍ അയയ്‌ക്കാൻ കഴിയൂ.</string>
   <string name="MultiselectForwardFragment__limit_reached">പരിധി എത്തി</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">ഒരു സന്ദേശം ചേര്‍ക്കുക</string>
@@ -3634,19 +3718,19 @@
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">നെറ്റ്‌വർക്ക് പിശക്. നിങ്ങളുടെ കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.</string>
   <string name="NetworkFailure__retry">വീണ്ടും ശ്രമിക്കൂ</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__recipient_verification_failed">സ്വീകർത്താവിന്‍റെ പരിശോധിച്ചുറപ്പിക്കൽ പരാജയപ്പെട്ടു.</string>
+  <string name="DonationsErrors__cant_send_gift">ഗിഫ്റ്റ് അയയ്ക്കാൻ കഴിയില്ല</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">ടാർഗറ്റ് ഗിഫ്റ്റിംഗിനെ പിന്തുണയ്ക്കുന്നില്ല.</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">ഗിഫ്റ്റ് ബാഡ്‌ജുകൾ സ്വീകരിക്കാൻ കഴിയാത്ത Signal പതിപ്പാണ് ഈ സ്വീകർത്താവ് ഉപയോഗിക്കുന്നത്. ഏറ്റവും പുതിയ പതിപ്പിലേക്ക് അപ്‌ഡേറ്റ് ചെയ്യുമ്പോൾ അവർക്ക് ഗിഫ്റ്റുകൾ സ്വീകരിക്കാൻ കഴിയും.</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__could_not_verify_recipient">സ്വീകർത്താവിനെ പരിശോധിച്ചുറപ്പിക്കാനായില്ല.</string>
+  <string name="DonationsErrors__couldnt_send_gift">ഗിഫ്റ്റ് അയയ്ക്കാൻ കഴിഞ്ഞില്ല</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__please_check_your_network_connection">നിങ്ങളുടെ നെറ്റ്‌വർക്ക് കണക്ഷൻ പരിശോധിച്ചശേഷം വീണ്ടും ശ്രമിക്കുക.</string>
+  <string name="DonationsErrors__please_check_your_network_connection">ഒരു നെറ്റ്‌വർക്ക് പിശക് കാരണം നിങ്ങളുടെ ഗിഫ്റ്റ് അയയ്‌ക്കാൻ കഴിഞ്ഞില്ല. നിങ്ങളുടെ കണക്ഷൻ പരിശോധിച്ച ശേഷം വീണ്ടും ശ്രമിക്കുക.</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">ഗിഫ്റ്റ് ബാഡ്‍ജ്</string>
   <!--Gift message view expiry information-->
   <plurals name="GiftMessageView__lasts_for_d_months">
     <item quantity="one">%1$d മാസ കാലാവധിയുണ്ട്</item>
-    <item quantity="other">%1$d മാസത്തേക്ക് നിലനില്‍ക്കും.</item>
+    <item quantity="other">%1$d മാസത്തേക്ക് നിലനില്‍ക്കും</item>
   </plurals>
   <!--Gift badge redeem action label-->
   <string name="GiftMessageView__redeem">റിഡീം ചെയ്യുക</string>
@@ -3857,10 +3941,12 @@
   <string name="ConversationListTabs__stories">സ്റ്റോറീസ്</string>
   <!--String for counts above 99 in conversation list tabs-->
   <string name="ConversationListTabs__99p">99+</string>
+  <!--Menu item on stories landing page-->
+  <string name="StoriesLandingFragment__story_privacy">സ്റ്റോറി സ്വകാര്യത</string>
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">എന്റെ കഥകള്‍</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
-  <string name="StoriesLandingFragment__add_a_story">ഒരു സ്റ്റോറി ചേർക്കുക</string>
+  <string name="StoriesLandingFragment__tap_to_add_a_story">ഒരു സ്റ്റോറി ചേർക്കാൻ ടാപ്പ് ചെയ്യുക</string>
   <!--Displayed when there are no stories to display-->
   <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">നിലവിൽ കാണിക്കാൻ സമീപകാലത്തുള്ള അപ്ഡേറ്റുകളൊന്നുമില്ല. നിങ്ങളുടെ സ്റ്റോറിയിലേക്ക് ചേർക്കാൻ + ചിഹ്നത്തിൽ ടാപ്പ് ചെയ്യുക.</string>
   <!--Context menu option to hide a story-->
@@ -3938,6 +4024,14 @@
   <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">നിങ്ങളുടെ സ്റ്റോറീസ് ആരൊക്കെ കണ്ടുവെന്ന് അറിയാൻ വായിച്ചതിനുള്ള സ്ഥിരീകരണം പ്രവർത്തനക്ഷമമാക്കുക.</string>
   <!--Button label displayed when user has disabled receipts-->
   <string name="StoryViewsFragment__go_to_settings">ക്രമീകരണത്തിലേക്ക് പോകുക</string>
+  <!--Dialog action to remove viewer from a story-->
+  <string name="StoryViewsFragment__remove">നീക്കം ചെയ്യുക</string>
+  <!--Dialog title when removing a viewer from a story-->
+  <string name="StoryViewsFragment__remove_viewer">കാണുന്നയാളെ നീക്കം ചെയ്യണോ?</string>
+  <!--Dialog message when removing a viewer from a story-->
+  <string name="StoryViewsFragment__s_will_still_be_able">%1$s എന്നയാൾക്ക് ഇപ്പോഴും ഈ പോസ്റ്റ് കാണാൻ കഴിയും, എന്നാൽ നിങ്ങൾ %2$s എന്നതിലേക്ക് പങ്കിടുന്ന ഭാവി പോസ്റ്റുകളൊന്നും കാണാൻ കഴിയില്ല.</string>
+  <!--Story View context menu action to remove them from a story-->
+  <string name="StoryViewItem__remove_viewer">കാണുന്നയാളെ നീക്കം ചെയ്യുക</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">ഇതുവരെ മറുപടികളൊന്നുമില്ല</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3956,14 +4050,6 @@
   <string name="StoryGroupReplyItem__copy">പകർത്തൂ</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">ഇല്ലാതാക്കൂ</string>
-  <!--Story settings page title-->
-  <string name="StorySettingsFragment__story_settings">സ്റ്റോറി ക്രമീകരണങ്ങൾ</string>
-  <!--Story settings private stories heading-->
-  <string name="StorySettingsFragment__private_stories">സ്വകാര്യ സ്റ്റോറികൾ</string>
-  <!--Note at bottom of story settings regarding who can see private stories.-->
-  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">നിങ്ങൾ ചേർക്കുന്ന ആളുകൾക്ക് മാത്രമെ സ്വകാര്യ സ്റ്റോറികൾ കാണാനാകൂ. നിങ്ങൾക്ക് മാത്രമെ സ്റ്റോറിയുടെ പേര് കാണാനാകൂ.</string>
-  <!--Option label for creating a new private story-->
-  <string name="StorySettingsFragment__new_private_story">പുതിയ സ്വകാര്യ സ്റ്റോറി</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">എന്റെ കഥ</string>
   <!--Section heading for story visibility-->
@@ -4005,7 +4091,7 @@
   <!--Signal connections bolded text in the Signal Connections sheet-->
   <string name="SignalConnectionsBottomSheet___signal_connections">Signal കണക്ഷനുകൾ</string>
   <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
-  <string name="SignalConnectionsBottomSheet__signal_connections_are_people">ഇതിലൊന്നിലൂടെ, വിശ്വസനീയരായി നിങ്ങൾ തിരഞ്ഞെടുത്ത ആളുകളാണ് Signal കണക്ഷനുകൾ:</string>
+  <string name="SignalConnectionsBottomSheet__signal_connections_are_people">ഇനിപ്പറയുന്ന മാർഗ്ഗങ്ങളിൽ ഒന്നിലൂടെ വിശ്വസ്‌തരെന്ന് നിങ്ങൾ തിരഞ്ഞെടുത്ത ആളുകളാണ് Signal കണക്ഷനുകൾ:</string>
   <!--Signal connections sheet bullet point 1-->
   <string name="SignalConnectionsBottomSheet__starting_a_conversation">ഒരു സംഭാഷണം ആരംഭിച്ച്</string>
   <!--Signal connections sheet bullet point 2-->
@@ -4152,7 +4238,7 @@
   <!--Gift price and duration, formatted as: {price} dot {n} day duration-->
   <plurals name="GiftRowItem_s_dot_d_day_duration">
     <item quantity="one">%1$s · %2$d ദിവസ ദൈർഘ്യം</item>
-    <item quantity="other">%1$s · %2$d ദിവസം ദൈർഘ്യം</item>
+    <item quantity="other">%1$s · %2$d ദിവസ ദൈർഘ്യം</item>
   </plurals>
   <!--Tagline for gift row items-->
   <string name="GiftRowItem__send_a_gift_badge">ഒരു ഗിഫ്റ്റ് ബാഡ്‍ജ് അയയ്ക്കുക</string>
@@ -4205,14 +4291,11 @@
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">ഇപ്പോൾ വേണ്ട</string>
   <!--Label under name for private stories-->
-  <plurals name="ContactSearchItems__private_story_d_viewers">
-    <item quantity="one">സ്വകാര്യ സ്റ്റോറി · %1$d ആൾ കണ്ടു</item>
-    <item quantity="other">സ്വകാര്യ സ്റ്റോറി · %1$d കാഴ്‌ചക്കാർ</item>
-  </plurals>
   <!--Label under name for group stories-->
-  <plurals name="ContactSearchItems__group_story_d_viewers">
-    <item quantity="one">ഗ്രൂപ്പ് സ്റ്റോറി · %1$d ആൾ കണ്ടു</item>
-    <item quantity="other">ഗ്രൂപ്പ് സ്റ്റോറി · %1$d കാഴ്‌ചക്കാർ</item>
+  <!--Label under name for my story-->
+  <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
+    <item quantity="one">%1$s · %2$d ആൾ കണ്ടു</item>
+    <item quantity="other">%1$s · %2$d കാഴ്‌ചക്കാർ</item>
   </plurals>
   <!--Label under name for My Story when first sending to my story-->
   <string name="ContactSearchItems__tap_to_choose_your_viewers">നിങ്ങളുടെ കാഴ്‌ച്ചക്കാരെ തിരഞ്ഞെടുക്കാൻ ടാപ്പ് ചെയ്യുക</string>
@@ -4294,7 +4377,7 @@
   <!--Message of safety number review fragment-->
   <plurals name="SafetyNumberReviewConnectionsFragment__d_recipients_may_have">
     <item quantity="one">%1$d സ്വീകർത്താവ് Signal വീണ്ടും ഇൻസ്റ്റാൾ ചെയ്യുകയോ ഉപകരണങ്ങൾ മാറുകയോ ചെയ്‌തിട്ടുണ്ടാകാം. പുതിയ സുരക്ഷാ നമ്പർ സ്ഥിരീകരിക്കുന്നതിന്, സ്വീകർത്താവിനെ ടാപ്പ് ചെയ്യുക. ഇത് നിർബന്ധമല്ല.</item>
-    <item quantity="other">%1$d സ്വീകർത്താക്കൾ Signal വീണ്ടും ഇൻസ്റ്റാൾ ചെയ്യുകയോ ഉപകരണങ്ങൾ മാറുകയോ ചെയ്‌തിട്ടുണ്ടാകാം. പുതിയ സുരക്ഷാ നമ്പർ സ്ഥിരീകരിക്കുന്നതിന്, ഒരു സ്വീകർത്താവിനെ ടാപ്പ് ചെയ്യുക. ഇത് ഓപ്ഷണലാണ്.</item>
+    <item quantity="other">%1$d സ്വീകർത്താക്കൾ Signal വീണ്ടും ഇൻസ്റ്റാൾ ചെയ്യുകയോ ഉപകരണങ്ങൾ മാറുകയോ ചെയ്‌തിട്ടുണ്ടാകാം. പുതിയ സുരക്ഷാ നമ്പർ സ്ഥിരീകരിക്കുന്നതിന് സ്വീകർത്താവിന്റെ പേരിൽ ടാപ്പ് ചെയ്യുക. ഇത് ഓപ്ഷണലാണ്.</item>
   </plurals>
   <!--Section header for 1:1 contacts in review fragment-->
   <string name="SafetyNumberBucketRowItem__contacts">കോൺടാക്ടുകൾ</string>
@@ -4324,5 +4407,31 @@
   <string name="StoryInfoBottomSheetDialogFragment__sent_from">അയച്ചത്</string>
   <!--Story Info context menu label-->
   <string name="StoryInfoBottomSheetDialogFragment__info">വിവരം</string>
+  <!--StoriesPrivacySettingsFragment-->
+  <!--Explanation about how stories are deleted and managed-->
+  <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">24 മണിക്കൂറിന് ശേഷം സ്റ്റോറികൾ സ്വയമേവ അപ്രത്യക്ഷമാകും. നിങ്ങളുടെ സ്റ്റോറി ആർക്കൊക്കെ കാണാനാകുമെന്ന് തിരഞ്ഞെടുക്കുകയോ നിർദ്ദിഷ്‌ട കാഴ്‌ചക്കാരെയോ ഗ്രൂപ്പുകളെയോ ഉപയോഗിച്ച് പുതിയ സ്റ്റോറികൾ സൃഷ്‌ടിക്കുകയോ ചെയ്യുക.</string>
+  <!--Preference title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories">സ്റ്റോറികൾ ഓഫാക്കുക</string>
+  <!--Preference summary to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__if_you_opt_out">സ്റ്റോറികൾ വേണ്ടെന്ന് തീരുമാനിക്കുകയാണെങ്കിൽ, നിങ്ങൾക്ക് ഇനി സ്റ്റോറികൾ പങ്കിടാനോ കാണാനോ കഴിയില്ല.</string>
+  <!--Preference title to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_on_stories">സ്റ്റോറികൾ ഓണാക്കുക</string>
+  <!--Preference summary to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__share_and_view">മറ്റുള്ളവരിൽ നിന്നുള്ള സ്റ്റോറികൾ പങ്കിടുകയും കാണുകയും ചെയ്യുക. 24 മണിക്കൂറിന് ശേഷം സ്റ്റോറികൾ സ്വയമേവ അപ്രത്യക്ഷമാകും.</string>
+  <!--Dialog title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">സ്റ്റോറികൾ ഓഫാക്കണോ?</string>
+  <!--Dialog message to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">നിങ്ങൾക്ക് ഇനിമുതൽ സ്റ്റോറികൾ പങ്കിടാനോ കാണാനോ കഴിയില്ല. നിങ്ങൾ അടുത്തിടെ അയച്ച എല്ലാ സ്റ്റോറികളും കാലഹരണപ്പെടുന്നതുവരെ മറ്റുള്ളവർക്ക് തുടർന്നും ദൃശ്യമാകും.</string>
+  <!--Page title when launched from stories landing screen-->
+  <string name="StoriesPrivacySettingsFragment__story_privacy">സ്റ്റോറി സ്വകാര്യത</string>
+  <!--GroupStorySettingsFragment-->
+  <!--Section header for who can view a group story-->
+  <string name="GroupStorySettingsFragment__who_can_view_this_story">ആർക്കൊക്കെ ഈ സ്റ്റോറി കാണാൻ കഴിയും</string>
+  <!--Explanation of who can view a group story-->
+  <string name="GroupStorySettingsFragment__members_of_the_group_s">\"%1$s\" എന്ന ഗ്രൂപ്പിലെ അംഗങ്ങൾക്ക് ഈ സ്റ്റോറി കാണാനും മറുപടി നൽകാനും കഴിയും. ഗ്രൂപ്പിലെ ഈ ചാറ്റിനുള്ള അംഗത്വം നിങ്ങൾക്ക് അപ്ഡേറ്റ് ചെയ്യാം.</string>
+  <!--Preference label for removing this group story-->
+  <string name="GroupStorySettingsFragment__remove_group_story">ഗ്രൂപ്പ് സ്റ്റോറി നീക്കം ചെയ്യുക</string>
+  <!--Generic title for overflow menus-->
+  <string name="OverflowMenu__overflow_menu">ഓവർഫ്ലോ മെനു</string>
   <!--EOF-->
 </resources>

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.UiThread;
 
@@ -277,6 +279,14 @@ public class ThumbnailView extends FrameLayout {
     bounds[MAX_HEIGHT] = maxHeight;
 
     forceLayout();
+  }
+
+  public void setImageDrawable(@NonNull GlideRequests glideRequests, @Nullable Drawable drawable) {
+    glideRequests.clear(image);
+    glideRequests.clear(blurhash);
+
+    image.setImageDrawable(drawable);
+    blurhash.setImageDrawable(null);
   }
 
   @UiThread

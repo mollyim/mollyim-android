@@ -41,7 +41,7 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
 
   companion object {
     const val KEY = "RetrieveReleaseChannelJob"
-    private const val MANIFEST = "${S3.DYNAMIC_PATH}/release-notes/release-notes.json"
+    private const val MANIFEST = "${S3.DYNAMIC_PATH}/release-notes/release-notes-v2.json"
     private const val BASE_RELEASE_NOTE = "${S3.STATIC_PATH}/release-notes"
     private const val KEY_FORCE = "force"
 
@@ -211,7 +211,7 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
         )
 
         if (insertResult != null) {
-          addedNewNotes = true
+          addedNewNotes = addedNewNotes || (note.releaseNote.includeBoostMessage ?: true)
           SignalDatabase.attachments.getAttachmentsForMessage(insertResult.messageId)
             .forEach { ApplicationDependencies.getJobManager().add(AttachmentDownloadJob(insertResult.messageId, it.attachmentId, false)) }
 
@@ -371,7 +371,8 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
     @JsonProperty val countries: String?,
     @JsonProperty val androidMinVersion: String?,
     @JsonProperty val link: String?,
-    @JsonProperty val ctaId: String?
+    @JsonProperty val ctaId: String?,
+    @JsonProperty val includeBoostMessage: Boolean?
   )
 
   class RemoteMegaphone @JsonCreator constructor(

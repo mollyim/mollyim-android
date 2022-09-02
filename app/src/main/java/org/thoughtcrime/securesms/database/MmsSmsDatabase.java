@@ -34,7 +34,7 @@ import org.thoughtcrime.securesms.database.MessageDatabase.SyncMessageId;
 import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.notifications.v2.MessageNotifierV2;
+import org.thoughtcrime.securesms.notifications.v2.DefaultMessageNotifier;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.signal.core.util.CursorUtil;
@@ -45,7 +45,6 @@ import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -252,9 +251,9 @@ public class MmsSmsDatabase extends Database {
     }
   }
 
-  public Cursor getMessagesForNotificationState(Collection<MessageNotifierV2.StickyThread> stickyThreads) {
+  public Cursor getMessagesForNotificationState(Collection<DefaultMessageNotifier.StickyThread> stickyThreads) {
     StringBuilder stickyQuery = new StringBuilder();
-    for (MessageNotifierV2.StickyThread stickyThread : stickyThreads) {
+    for (DefaultMessageNotifier.StickyThread stickyThread : stickyThreads) {
       if (stickyQuery.length() > 0) {
         stickyQuery.append(" OR ");
       }
@@ -394,6 +393,13 @@ public class MmsSmsDatabase extends Database {
   public int getInsecureMessageCountForInsights() {
     int count = SignalDatabase.sms().getInsecureMessageCountForInsights();
     count    += SignalDatabase.mms().getInsecureMessageCountForInsights();
+
+    return count;
+  }
+
+  public int getIncomingMeaningfulMessageCountSince(long threadId, long afterTime) {
+    int count = SignalDatabase.sms().getIncomingMeaningfulMessageCountSince(threadId, afterTime);
+    count    += SignalDatabase.mms().getIncomingMeaningfulMessageCountSince(threadId, afterTime);
 
     return count;
   }
@@ -610,7 +616,7 @@ public class MmsSmsDatabase extends Database {
   /**
    * @return Unhandled ids
    */
-  public Collection<SyncMessageId> setTimestampRead(@NonNull Recipient senderRecipient, @NonNull List<ReadMessage> readMessages, long proposedExpireStarted, @NonNull Map<Long, Long> threadToLatestRead) {
+  public Collection<SyncMessageId> setTimestampReadFromSyncMessage(@NonNull List<ReadMessage> readMessages, long proposedExpireStarted, @NonNull Map<Long, Long> threadToLatestRead) {
     SQLiteDatabase db = getWritableDatabase();
 
     List<Pair<Long, Long>>    expiringText   = new LinkedList<>();
@@ -621,12 +627,13 @@ public class MmsSmsDatabase extends Database {
     db.beginTransaction();
     try {
       for (ReadMessage readMessage : readMessages) {
-        TimestampReadResult textResult  = SignalDatabase.sms().setTimestampRead(new SyncMessageId(senderRecipient.getId(), readMessage.getTimestamp()),
-                                                                                proposedExpireStarted,
-                                                                                threadToLatestRead);
-        TimestampReadResult mediaResult = SignalDatabase.mms().setTimestampRead(new SyncMessageId(senderRecipient.getId(), readMessage.getTimestamp()),
-                                                                                proposedExpireStarted,
-                                                                                threadToLatestRead);
+        RecipientId         authorId    = Recipient.externalPush(readMessage.getSender()).getId();
+        TimestampReadResult textResult  = SignalDatabase.sms().setTimestampReadFromSyncMessage(new SyncMessageId(authorId, readMessage.getTimestamp()),
+                                                                                               proposedExpireStarted,
+                                                                                               threadToLatestRead);
+        TimestampReadResult mediaResult = SignalDatabase.mms().setTimestampReadFromSyncMessage(new SyncMessageId(authorId, readMessage.getTimestamp()),
+                                                                                               proposedExpireStarted,
+                                                                                               threadToLatestRead);
 
         expiringText.addAll(textResult.expiring);
         expiringMedia.addAll(mediaResult.expiring);
@@ -635,7 +642,7 @@ public class MmsSmsDatabase extends Database {
         updatedThreads.addAll(mediaResult.threads);
 
         if (textResult.threads.isEmpty() && mediaResult.threads.isEmpty()) {
-          unhandled.add(new SyncMessageId(senderRecipient.getId(), readMessage.getTimestamp()));
+          unhandled.add(new SyncMessageId(authorId, readMessage.getTimestamp()));
         }
       }
 

@@ -30,7 +30,7 @@ import java.io.IOException
  * Provides a [SignalServiceConfiguration] to be used with our service layer.
  * If you're looking for a place to start, look at [getConfiguration].
  */
-class SignalServiceNetworkAccess(context: Context) {
+open class SignalServiceNetworkAccess(context: Context) {
   companion object {
     private val TAG = Log.tag(SignalServiceNetworkAccess::class.java)
 
@@ -203,11 +203,11 @@ class SignalServiceNetworkAccess(context: Context) {
     zkGroupServerPublicParams
   )
 
-  fun getConfiguration(): SignalServiceConfiguration {
+  open fun getConfiguration(): SignalServiceConfiguration {
     return getConfiguration(SignalStore.account().e164)
   }
 
-  fun getConfiguration(localNumber: String?): SignalServiceConfiguration {
+  open fun getConfiguration(localNumber: String?): SignalServiceConfiguration {
     if (localNumber == null) {
       return uncensoredConfiguration
     }

@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.components.settings.app.privacy
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -23,7 +24,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import mobi.upod.timedurationpicker.TimeDurationPicker
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog
-import org.signal.core.util.DimensionUnit
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
@@ -34,7 +34,6 @@ import org.thoughtcrime.securesms.biometric.BiometricDialogFragment
 import org.thoughtcrime.securesms.components.settings.ClickPreference
 import org.thoughtcrime.securesms.components.settings.ClickPreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
-import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
@@ -42,12 +41,8 @@ import org.thoughtcrime.securesms.components.settings.PreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberListingMode
-import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference
-import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.stories.Stories
-import org.thoughtcrime.securesms.stories.settings.custom.PrivateStorySettingsFragmentArgs
-import org.thoughtcrime.securesms.stories.settings.story.PrivateStoryItem
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.ExpirationUtil
@@ -55,6 +50,7 @@ import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
+import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import java.util.Locale
 import java.util.concurrent.TimeUnit
@@ -83,9 +79,8 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
     viewModel.refreshBlockedCount()
   }
 
-  override fun bindAdapter(adapter: DSLSettingsAdapter) {
+  override fun bindAdapter(adapter: MappingAdapter) {
     adapter.registerFactory(ValueClickPreference::class.java, LayoutFactory(::ValueClickPreferenceViewHolder, R.layout.value_click_preference_item))
-    PrivateStoryItem.register(adapter)
 
     val sharedPreferences = SecurePreferenceManager.getSecurePreferences(requireContext())
     val repository = PrivacySettingsRepository()
@@ -284,50 +279,13 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
       )
 
       if (Stories.isFeatureAvailable()) {
-
         dividerPref()
 
-        sectionHeaderPref(R.string.ConversationListTabs__stories)
-
-        if (!SignalStore.storyValues().isFeatureDisabled) {
-          customPref(
-            PrivateStoryItem.RecipientModel(
-              recipient = Recipient.self(),
-              onClick = { findNavController().safeNavigate(R.id.action_privacySettings_to_myStorySettings) }
-            )
-          )
-
-          space(DimensionUnit.DP.toPixels(24f).toInt())
-
-          customPref(
-            PrivateStoryItem.NewModel(
-              onClick = {
-                findNavController().safeNavigate(R.id.action_privacySettings_to_newPrivateStory)
-              }
-            )
-          )
-
-          state.privateStories.forEach {
-            customPref(
-              PrivateStoryItem.PartialModel(
-                privateStoryItemData = it,
-                onClick = { model ->
-                  findNavController().safeNavigate(
-                    R.id.action_privacySettings_to_privateStorySettings,
-                    PrivateStorySettingsFragmentArgs.Builder(model.privateStoryItemData.id).build().toBundle()
-                  )
-                }
-              )
-            )
-          }
-        }
-
-        switchPref(
-          title = DSLSettingsText.from(R.string.PrivacySettingsFragment__share_and_view_stories),
-          summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__you_will_no_longer_be_able),
-          isChecked = state.isStoriesEnabled,
+        clickPref(
+          title = DSLSettingsText.from(R.string.preferences__stories),
+          summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__manage_your_stories),
           onClick = {
-            viewModel.setStoriesEnabled(!state.isStoriesEnabled)
+            findNavController().safeNavigate(PrivacySettingsFragmentDirections.actionPrivacySettingsFragmentToStoryPrivacySettings(R.string.preferences__stories))
           }
         )
       }
@@ -356,7 +314,12 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
           Toast.makeText(context, R.string.PrivacySettingsFragment__no_biometric_features_available_on_this_device, Toast.LENGTH_LONG).show()
         BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
           if (Build.VERSION.SDK_INT >= 30) {
-            biometricEnrollment.launch(getIntentForBiometricEnrollment())
+            try {
+              biometricEnrollment.launch(getIntentForBiometricEnrollment())
+            } catch (e: ActivityNotFoundException) {
+              Log.w(TAG, "Failed to navigate to system settings.", e)
+              Toast.makeText(requireContext(), R.string.PrivacySettingsFragment__failed_to_navigate_to_system_settings, Toast.LENGTH_SHORT).show()
+            }
           } else {
             Toast.makeText(context, R.string.PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings, Toast.LENGTH_LONG).show()
           }
@@ -398,10 +361,8 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
   private fun getDeviceLockTimeoutSummary(timeoutSeconds: Long): String {
     val hours = TimeUnit.SECONDS.toHours(timeoutSeconds)
-    val minutes =
-      TimeUnit.SECONDS.toMinutes(timeoutSeconds) - TimeUnit.SECONDS.toHours(timeoutSeconds) * 60
-    val seconds =
-      TimeUnit.SECONDS.toSeconds(timeoutSeconds) - TimeUnit.SECONDS.toMinutes(timeoutSeconds) * 60
+    val minutes = TimeUnit.SECONDS.toMinutes(timeoutSeconds) - hours * 60
+    val seconds = TimeUnit.SECONDS.toSeconds(timeoutSeconds) - minutes
 
     return if (timeoutSeconds <= 0) {
       getString(R.string.AppProtectionPreferenceFragment_instant)

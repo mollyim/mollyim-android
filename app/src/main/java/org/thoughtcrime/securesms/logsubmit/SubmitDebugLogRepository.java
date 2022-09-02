@@ -2,7 +2,9 @@ package org.thoughtcrime.securesms.logsubmit;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
+import android.os.ParcelFileDescriptor;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +14,7 @@ import com.annimon.stream.Stream;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.signal.core.util.StreamUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.Scrubber;
@@ -20,17 +23,25 @@ import org.thoughtcrime.securesms.database.LogDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
+import org.thoughtcrime.securesms.providers.BlobProvider;
+import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.FeatureFlags;
-import org.thoughtcrime.securesms.util.Stopwatch;
+import org.signal.core.util.Stopwatch;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -39,6 +50,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okio.BufferedSink;
+import okio.Okio;
+import okio.Source;
 
 /**
  * Handles retrieving, scrubbing, and uploading of all debug logs.
@@ -72,6 +86,7 @@ public class SubmitDebugLogRepository {
     add(new LogSectionNotificationProfiles());
     add(new LogSectionExoPlayerPool());
     add(new LogSectionKeyPreferences());
+    add(new LogSectionStories());
     add(new LogSectionPermissions());
     add(new LogSectionTrace());
     add(new LogSectionThreads());
@@ -116,6 +131,40 @@ public class SubmitDebugLogRepository {
     SignalExecutors.UNBOUNDED.execute(() -> callback.onResult(submitLogInternal(untilTime, prefixLines, trace)));
   }
 
+  public void writeLogToDisk(@NonNull Uri uri, long untilTime, Callback<Boolean> callback) {
+    SignalExecutors.UNBOUNDED.execute(() -> {
+      try (ZipOutputStream outputStream = new ZipOutputStream(context.getContentResolver().openOutputStream(uri))) {
+        StringBuilder prefixLines = linesToStringBuilder(getPrefixLogLinesInternal(), null);
+
+        outputStream.putNextEntry(new ZipEntry("log.txt"));
+        outputStream.write(prefixLines.toString().getBytes(StandardCharsets.UTF_8));
+
+        try (LogDatabase.Reader reader = LogDatabase.getInstance(context).getAllBeforeTime(untilTime)) {
+          while (reader.hasNext()) {
+            outputStream.write(reader.next().getBytes());
+            outputStream.write("\n".getBytes());
+          }
+        } catch (IllegalStateException e) {
+          if (!KeyCachingService.isLocked()) {
+            Log.e(TAG, "Failed to read row!", e);
+            callback.onResult(false);
+            return;
+          }
+        }
+
+        outputStream.closeEntry();
+
+        outputStream.putNextEntry(new ZipEntry("signal.trace"));
+        outputStream.write(Tracer.getInstance().serialize());
+        outputStream.closeEntry();
+
+        callback.onResult(true);
+      } catch (IOException e) {
+        callback.onResult(false);
+      }
+    });
+  }
+
   @WorkerThread
   private @NonNull Optional<String> submitLogInternal(long untilTime, @NonNull List<LogLine> prefixLines, @Nullable byte[] trace) {
     String traceUrl = null;
@@ -128,24 +177,27 @@ public class SubmitDebugLogRepository {
       }
     }
 
-    StringBuilder bodyBuilder = new StringBuilder();
-    for (LogLine line : prefixLines) {
-      switch (line.getPlaceholderType()) {
-        case NONE:
-          bodyBuilder.append(line.getText()).append('\n');
-          break;
-        case TRACE:
-          bodyBuilder.append(traceUrl).append('\n');
-          break;
-      }
-    }
+    StringBuilder prefixStringBuilder = linesToStringBuilder(prefixLines, traceUrl);
 
     try {
       Stopwatch stopwatch = new Stopwatch("log-upload");
 
+      ParcelFileDescriptor[] fds     = ParcelFileDescriptor.createPipe();
+      Uri                    gzipUri = BlobProvider.getInstance()
+                                                   .forData(new ParcelFileDescriptor.AutoCloseInputStream(fds[0]), 0)
+                                                   .withMimeType("application/gzip")
+                                                   .createForSingleSessionOnDiskAsync(context, null, null);
+
+      OutputStream gzipOutput = new GZIPOutputStream(new ParcelFileDescriptor.AutoCloseOutputStream(fds[1]));
+
+      gzipOutput.write(prefixStringBuilder.toString().getBytes());
+
+      stopwatch.split("front-matter");
+
       try (LogDatabase.Reader reader = LogDatabase.getInstance(context).getAllBeforeTime(untilTime)) {
         while (reader.hasNext()) {
-          bodyBuilder.append(reader.next()).append('\n');
+          gzipOutput.write(reader.next().getBytes());
+          gzipOutput.write("\n".getBytes());
         }
       } catch (IllegalStateException e) {
         if (!KeyCachingService.isLocked()) {
@@ -154,12 +206,31 @@ public class SubmitDebugLogRepository {
         }
       }
 
+      StreamUtil.close(gzipOutput);
+
       stopwatch.split("body");
 
-      String logUrl = uploadContent("text/plain", RequestBody.create(MediaType.get("text/plain"), bodyBuilder.toString().getBytes()));
+      String logUrl = uploadContent("application/gzip", new RequestBody() {
+        @Override
+        public @NonNull MediaType contentType() {
+          return MediaType.get("application/gzip");
+        }
+
+        @Override public long contentLength() {
+          return BlobProvider.getInstance().calculateFileSize(context, gzipUri);
+        }
+
+        @Override
+        public void writeTo(@NonNull BufferedSink sink) throws IOException {
+          Source source = Okio.source(BlobProvider.getInstance().getStream(context, gzipUri));
+          sink.writeAll(source);
+        }
+      });
 
       stopwatch.split("upload");
       stopwatch.stop(TAG);
+
+      BlobProvider.getInstance().delete(context, gzipUri);
 
       return Optional.of(logUrl);
     } catch (IOException e) {
@@ -286,6 +357,22 @@ public class SubmitDebugLogRepository {
     }
 
     return out.toString();
+  }
+
+  private static @NonNull StringBuilder linesToStringBuilder(@NonNull List<LogLine> lines, @Nullable String traceUrl) {
+    StringBuilder stringBuilder = new StringBuilder();
+    for (LogLine line : lines) {
+      switch (line.getPlaceholderType()) {
+        case NONE:
+          stringBuilder.append(line.getText()).append('\n');
+          break;
+        case TRACE:
+          stringBuilder.append(traceUrl).append('\n');
+          break;
+      }
+    }
+
+    return stringBuilder;
   }
 
   public interface Callback<E> {

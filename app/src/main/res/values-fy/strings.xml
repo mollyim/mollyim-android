@@ -43,6 +43,9 @@
   <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Werstel-sin foar oerskriuwingen fêstlizze</string>
   <string name="ApplicationPreferencesActivity_record_phrase">Sin fêstlizze</string>
   <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Do moatst in werstel-sin opnimme eardatsto oerskriuwingen útskeakelje kinst, sadat it mooglik wurdt om dyn oerskriuwingen-account te werstellen.</string>
+  <!--NumericKeyboardView-->
+  <!--Back button on numeric keyboard-->
+  <string name="NumericKeyboardView__backspace">Backspace</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minút</item>
@@ -170,7 +173,6 @@
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Myn ferhalen</string>
   <!--Action for creating a new story-->
-  <string name="ContactsCursorLoader_new_story">Nij ferhaal</string>
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">Berjocht stjoere nei %s</string>
   <string name="ContactsDatabase_signal_call_s">Signal-oprop %s</string>
@@ -422,8 +424,14 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">Flater by ynstellen fan profylfoto</string>
   <string name="CreateProfileActivity_problem_setting_profile">Probleem by ynstellen fan profyl</string>
   <string name="CreateProfileActivity_set_up_your_profile">Stel dyn profyl op</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Dyn profylnamme, -foto en -omskriuwing binne allinnich sichtber foar persoanen dy’t  bewarre binne yn dyn kontaktelist, persoanen nei wa’tsto sels in nij petear inisjearrest, persoanen fan wa’tsto in petearfersyk akseptearrest en alle leden fan in groep wêrfan\'tsto lid bist. Signal-profilen wurde krekt as berjochten ein-ta-ein-fersifere útwiksele, dêrom kinne sels Signals-ûntwikkelers dyn profylnamme, -foto en -omskriuwing nea sjen.</string>
   <string name="CreateProfileActivity_set_avatar_description">Profylfoto ynstelle</string>
+  <!--ProfileCreateFragment-->
+  <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
+  <!--Title of clickable row to select phone number privacy settings-->
+  <!--WhoCanSeeMyPhoneNumberFragment-->
+  <!--Toolbar title for this screen-->
+  <!--Description for radio item stating anyone can see your phone number-->
+  <!--Description for radio item stating no one will be able to see your phone number-->
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">Reservekopygegevens weromsette?</string>
   <string name="ChooseBackupFragment__restore_your_messages_and_media">Do hast no de gelegenheid om berjochten en media út in reservekopy werom te setten. Let op: Werstellen fan in reservekopy kin allinnich wylst de ynstallaasje fan de Signal-app. Asto dizze stap oerslachst, kinsto dit net op in letter momint nochris dwaan.</string>
@@ -455,6 +463,7 @@
   <string name="BackupsPreferenceFragment__to_restore_a_backup">Om dyn gegevens út in besteande reservekopy werom te pleatsen moatsto dyn Molly opnij ynstallearje. Iepenje dan de krekt ynstallearre Molly-app en tik op ‘Reservekopygegevens weromsette’. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Mear lêze</string>
   <string name="BackupsPreferenceFragment__in_progress">Wurdt no útfierd…</string>
+  <!--Status text shown in backup preferences when verifying a backup-->
   <string name="BackupsPreferenceFragment__d_so_far">Oant no ta %1$d…</string>
   <!--Show percentage of completion of backup-->
   <string name="BackupsPreferenceFragment__s_so_far">%1$s%% oant no ta…</string>
@@ -724,6 +733,8 @@
   <string name="ManageProfileFragment_failed_to_set_avatar">Ynstellen fan profylfoto is mislearre</string>
   <string name="ManageProfileFragment_badges">Badges</string>
   <string name="ManageProfileFragment__edit_photo">Foto bewurkje</string>
+  <!--Snackbar message after creating username-->
+  <!--Snackbar message after copying username-->
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">Gjin mienskiplike groepen</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -1514,6 +1525,10 @@
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">Oanpasse</string>
   <string name="SubmitDebugLogActivity_done">Klear</string>
+  <!--Menu option to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save">Net fersifere bewarje</string>
+  <!--Error that is show in a toast when we fail to save a debug log file to disk.-->
+  <!--Toast that is show to notify that we have saved the debug log file to disk.-->
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">Tik op in rigel om dy te wiskjen</string>
   <string name="SubmitDebugLogActivity_submit">Oplade</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">Opladen fan flaterlogs is mislearre</string>
@@ -1579,6 +1594,7 @@
   <string name="UnverifiedSendDialog_send_message">Berjocht ferstjoere?</string>
   <string name="UnverifiedSendDialog_send">Ferstjoere</string>
   <!--UsernameEditFragment-->
+  <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment_username">Brûkersnamme</string>
   <string name="UsernameEditFragment_delete">Ferwiderje</string>
   <string name="UsernameEditFragment_successfully_set_username">Brûkersnamme mei sukses ynsteld.</string>
@@ -1590,11 +1606,14 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Brûkersnammen meie net mei in sifer begjinne.</string>
   <string name="UsernameEditFragment_username_is_invalid">Brûkersnamme is ûnjildich.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Brûkersnammen moatte op syn minst út %1$d en maksimaal %2$d karakters bestean.</string>
-  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Brûkersnammen yn Signal binne opsjoneel. Asto in brûkersnamme oanmakkest, sille oare Signal-brûkers dy fine kinne mei dizze namme en kontakt mei dy opnimme kinne sûnder dyn telefoannûmer te witten.</string>
+  <!--Explanation about what usernames provide-->
+  <!--Dialog title for explanation about numbers at the end of the username-->
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d fan dyn kontaktpersoanen is berikber fia Signal.</item>
     <item quantity="other">%d fan dyn kontaktpersoanen binne berikber fia Signal.</item>
   </plurals>
+  <!--UsernameShareBottomSheet-->
+  <!--Explanation of what the sheet enables the user to do-->
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Dizze kontaktpersoan brûkt in âlde ferzje fan Signal. Freegje him om earst Signal by te wurkjen, eardatsto it feilichheidsnûmer ferifiearrest.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">Dyn kontakt brûkt in nijere ferzje fan Signal mei in ynkompatibel QR-koadeformaat. Wurkje Signal by om te fergelykjen.</string>
@@ -2168,6 +2187,8 @@
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">Ienmalige donaasje</string>
   <string name="preferences__privacy">Privacy</string>
+  <!--Preference label for stories-->
+  <string name="preferences__stories">Ferhalen</string>
   <string name="preferences__mms_user_agent">Mms-brûkersagent</string>
   <string name="preferences__advanced_mms_access_point_names">Hânmjittige mms-ynstellingen</string>
   <string name="preferences__mmsc_url">MMSC-URL</string>
@@ -2180,6 +2201,7 @@
   <string name="preferences__data_and_storage">Gegevensoerdracht en -ûnthâld</string>
   <string name="preferences__storage">Unthâld</string>
   <string name="preferences__payments">Oerskriuwingen</string>
+  <!--Privacy settings payments section description-->
   <string name="preferences__payments_beta">Oerskriuwingen (Bèta)</string>
   <string name="preferences__conversation_length_limit">Oantal te bewarjen berjochten</string>
   <string name="preferences__keep_messages">Bewartermyn foar berjochten</string>
@@ -2245,6 +2267,8 @@
   <string name="preferences_app_protection__who_can">Wa mei…</string>
   <string name="preferences_app_protection__app_access">Tagong ta app</string>
   <string name="preferences_app_protection__communication">Kommunikaasje</string>
+  <!--Privacy settings payments section title-->
+  <string name="preferences_app_protection__payments">Oerskriuwingen</string>
   <string name="preferences_chats__chats">Petearen</string>
   <string name="preferences_data_and_storage__manage_storage">Unthâld beheare</string>
   <string name="preferences_data_and_storage__calls">Oproppen</string>
@@ -2346,6 +2370,10 @@
   <string name="PaymentsHomeFragment__activate">Ynskeakelje</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">De brûksbetingsten fan MobileCoin werjaan</string>
   <string name="PaymentsHomeFragment__payments_not_available">Oerskriuwingen fia Molly binne net langer mooglik. Do kinst noch wol dyn kredyt omsette nei in oare faluta, mar do kinst net langer oerskriuwingen ferstjoere of ûntfange of kredyt tafoegje.</string>
+  <!--Alert dialog title which shows up after a payment to turn on payment lock-->
+  <!--Alert dialog description for why payment lock should be enabled before sending payments-->
+  <!--Alert dialog button to enable payment lock-->
+  <!--Alert dialog button to not enable payment lock for now-->
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Kredyt tafoegje</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">It adres fan dyn portemonnee</string>
@@ -2426,6 +2454,10 @@
   <string name="ConfirmPayment__payment_failed">Oerskriuwing is mislearre</string>
   <string name="ConfirmPayment__payment_will_continue_processing">De oerskriuwing wurdt noch ferwurke</string>
   <string name="ConfirmPaymentFragment__invalid_recipient">Untfanger ûnjildich</string>
+  <!--Biometric/Device authentication prompt title which comes up before sending a payment-->
+  <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <!--Button in a dialog that will take the user to the privacy settings-->
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Dizze persoan hat oerskriuwingen net ynskeakele.</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">Kin de netwurkkosten net ophelje Tik op ‘Ok’ om it nochris te probearjen.</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2706,10 +2738,13 @@
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Do hast it krekte reservekopywachtwurd ynfierd</string>
   <string name="BackupDialog_passphrase_was_not_correct">Do hast net it krekte reservekopywachtwurd ynfierd</string>
   <string name="LocalBackupJob_creating_signal_backup">Molly reservekopy oan it meitsjen…</string>
+  <!--Title for progress notification shown in a system notification while verifying a recent backup.-->
   <string name="LocalBackupJobApi29_backup_failed">It meitsjen fan in reservekopy is mislearre</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Dyn reservekopymap is fuortsmiten of ferpleatst.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Dyn reservekopy is te grut om op dit folume te bewarjen.</string>
   <string name="LocalBackupJobApi29_there_is_not_enough_space">Der is net genôch ûnthâld om dyn reservekopy te bewarjen.</string>
+  <!--Error message shown if a newly created backup could not be verified as accurate-->
+  <!--Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail-->
   <string name="LocalBackupJobApi29_tap_to_manage_backups">Tik hjir om it meitsjen fan reservekopyen yn te stellen.</string>
   <string name="ProgressPreference_d_messages_so_far">%d berjochten oant no ta</string>
   <string name="RegistrationActivity_wrong_number">Ferkeard nûmer</string>
@@ -3009,6 +3044,7 @@
   <string name="ShareActivity__send">Ferstjoere</string>
   <string name="ShareActivity__comma_s">, %1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">Trochstjoeren nei meardere petearen kin allinnich foar Signal-berjochten.</string>
+  <!--Toast when the incoming intent is invalid-->
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">It ferstjoeren is nei guon persoanen mislearre</string>
   <string name="MultiShareDialogs__you_can_only_share_with_up_to">Do kinst dit net nei mear as %1$d petearen tagelyk trochstjoere</string>
@@ -3234,6 +3270,13 @@
   <string name="PrivacySettingsFragment__signal_message_and_calls">Signal-berjochten en -oproppen, alle oproppen omliede en fersegele ôfstjoerder</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">Standert tiidrek foar alle nije petearen</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Stel yn dat berjochten yn alle nije petearen dy’tsto sels begjinst in bepaalde tiid neidat se sjoen binne foar sawol do as dyn petearpartner fansels wiske wurde.</string>
+  <!--Summary for stories preference to launch into story privacy settings-->
+  <!--Alert dialog title when payment lock cannot be enabled-->
+  <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
+  <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
+  <!--Alert dialog button to go to phone settings-->
+  <!--Alert dialog button to cancel the dialog-->
+  <string name="PrivacySettingsFragment__cancel">Annulearje</string>
   <!--AdvancedPrivacySettingsFragment-->
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">Piktogram werjaan</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">Lit yn de berjochtdetails in piktogram sjen by berjochten dy’t ôflevere binne mei in fersegele ôfstjoerder</string>
@@ -3343,6 +3386,7 @@
   <string name="EmojiSearchFragment__no_results_found">Gjin emoji fûn</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">Unbekend lûd</string>
   <!--ConversationSettingsFragment-->
+  <!--Error toasted when no activity can handle the add contact intent-->
   <string name="ConversationSettingsFragment__send_message">Berjocht ferstjoere</string>
   <string name="ConversationSettingsFragment__start_video_call">Fideopetear begjinne</string>
   <string name="ConversationSettingsFragment__start_audio_call">Audio-oprop begjinne</string>
@@ -3461,6 +3505,7 @@
     <item quantity="one">Koe in berjocht net trochstjoere, omdat dy net langer beskikber is.</item>
     <item quantity="other">Koe guon berjochten net trochstjoere, omdat dy net langer beskikber binne.</item>
   </plurals>
+  <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
   <string name="MultiselectForwardFragment__limit_reached">Limyt berikt</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">In berjocht tafoegje</string>
@@ -3619,13 +3664,9 @@
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Netwurkflater. Kontrolearje dat dyn apparaat mei it ynternet ferbûn is en probearje it opnij.</string>
   <string name="NetworkFailure__retry">Opnij probearje</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__recipient_verification_failed">Ferifikaasje ûntfanger is mislearre</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">De bedoelde persoan stipet it ûntfangen fan kado-badges net.</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__could_not_verify_recipient">Kin de ûntfanger net ferifiearje.</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__please_check_your_network_connection">Kontrolearje dyn netwurkferbining en probearje opnij.</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">Kado-badge</string>
   <!--Gift message view expiry information-->
@@ -3841,10 +3882,10 @@
   <string name="ConversationListTabs__stories">Ferhalen</string>
   <!--String for counts above 99 in conversation list tabs-->
   <string name="ConversationListTabs__99p">99+</string>
+  <!--Menu item on stories landing page-->
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">Myn ferhalen</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
-  <string name="StoriesLandingFragment__add_a_story">In ferhaal tafoegje</string>
   <!--Displayed when there are no stories to display-->
   <!--Context menu option to hide a story-->
   <string name="StoriesLandingItem__hide_story">Ferhaal ferstopje</string>
@@ -3915,6 +3956,11 @@
   <string name="StoryViewsFragment__no_views_yet">Noch troch net ien sjoen</string>
   <!--Displayed when user has disabled receipts-->
   <!--Button label displayed when user has disabled receipts-->
+  <!--Dialog action to remove viewer from a story-->
+  <string name="StoryViewsFragment__remove">Furt helje</string>
+  <!--Dialog title when removing a viewer from a story-->
+  <!--Dialog message when removing a viewer from a story-->
+  <!--Story View context menu action to remove them from a story-->
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">Noch gjin reaksjes</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3933,13 +3979,6 @@
   <string name="StoryGroupReplyItem__copy">Kopiearje</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">Fuortsmite</string>
-  <!--Story settings page title-->
-  <string name="StorySettingsFragment__story_settings">Ferhaalynstellingen</string>
-  <!--Story settings private stories heading-->
-  <string name="StorySettingsFragment__private_stories">Priveeferhalen</string>
-  <!--Note at bottom of story settings regarding who can see private stories.-->
-  <!--Option label for creating a new private story-->
-  <string name="StorySettingsFragment__new_private_story">Nij priveeferhaal</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Myn ferhaal</string>
   <!--Section heading for story visibility-->
@@ -4097,6 +4136,7 @@
   <string name="ExpiredGiftSheetConfiguration__not_now">No net</string>
   <!--Label under name for private stories-->
   <!--Label under name for group stories-->
+  <!--Label under name for my story-->
   <!--Label under name for My Story when first sending to my story-->
   <!--Label for context menu item to open story settings-->
   <string name="ContactSearchItems__story_settings">Ferhaalynstellingen</string>
@@ -4162,5 +4202,19 @@
   <string name="StoryInfoBottomSheetDialogFragment__sent_from">Ferstjoerd troch</string>
   <!--Story Info context menu label-->
   <string name="StoryInfoBottomSheetDialogFragment__info">Berjochtdetails</string>
+  <!--StoriesPrivacySettingsFragment-->
+  <!--Explanation about how stories are deleted and managed-->
+  <!--Preference title to turn off stories-->
+  <!--Preference summary to turn off stories-->
+  <!--Preference title to turn on stories-->
+  <!--Preference summary to turn on stories-->
+  <!--Dialog title to turn off stories-->
+  <!--Dialog message to turn off stories-->
+  <!--Page title when launched from stories landing screen-->
+  <!--GroupStorySettingsFragment-->
+  <!--Section header for who can view a group story-->
+  <!--Explanation of who can view a group story-->
+  <!--Preference label for removing this group story-->
+  <!--Generic title for overflow menus-->
   <!--EOF-->
 </resources>

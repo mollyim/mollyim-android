@@ -12,7 +12,7 @@ public class SecurePreferenceManager {
 
   private static final String TAG = Log.tag(SecurePreferenceManager.class);
 
-  private static volatile SharedPreferences securePreferences = null;
+  private static SharedPreferences securePreferences;
 
   public static SharedPreferences getSecurePreferences(Context context) {
     if (securePreferences == null) {

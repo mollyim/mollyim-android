@@ -5,12 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
+import io.reactivex.rxjava3.subjects.PublishSubject
 import org.signal.paging.LivePagedData
 import org.signal.paging.PagedData
 import org.signal.paging.PagingConfig
 import org.signal.paging.PagingController
+import org.thoughtcrime.securesms.database.model.DistributionListPrivacyMode
 import org.thoughtcrime.securesms.groups.SelectionLimits
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.livedata.Store
@@ -21,7 +24,9 @@ import org.whispersystems.signalservice.api.util.Preconditions
  */
 class ContactSearchViewModel(
   private val selectionLimits: SelectionLimits,
-  private val contactSearchRepository: ContactSearchRepository
+  private val contactSearchRepository: ContactSearchRepository,
+  private val performSafetyNumberChecks: Boolean,
+  private val safetyNumberRepository: SafetyNumberRepository = SafetyNumberRepository(),
 ) : ViewModel() {
 
   private val disposables = CompositeDisposable()
@@ -35,11 +40,13 @@ class ContactSearchViewModel(
   private val pagedData = MutableLiveData<LivePagedData<ContactSearchKey, ContactSearchData>>()
   private val configurationStore = Store(ContactSearchState())
   private val selectionStore = Store<Set<ContactSearchKey>>(emptySet())
+  private val errorEvents = PublishSubject.create<ContactSearchError>()
 
   val controller: LiveData<PagingController<ContactSearchKey>> = Transformations.map(pagedData) { it.controller }
   val data: LiveData<List<ContactSearchData>> = Transformations.switchMap(pagedData) { it.data }
   val configurationState: LiveData<ContactSearchState> = configurationStore.stateLiveData
   val selectionState: LiveData<Set<ContactSearchKey>> = selectionStore.stateLiveData
+  val errorEventsStream: Observable<ContactSearchError> = errorEvents
 
   override fun onCleared() {
     disposables.clear()
@@ -61,7 +68,7 @@ class ContactSearchViewModel(
   fun setKeysSelected(contactSearchKeys: Set<ContactSearchKey>) {
     disposables += contactSearchRepository.filterOutUnselectableContactSearchKeys(contactSearchKeys).subscribe { results ->
       if (results.any { !it.isSelectable }) {
-        // TODO [alex] -- Pop an error.
+        errorEvents.onNext(ContactSearchError.CONTACT_NOT_SELECTABLE)
         return@subscribe
       }
 
@@ -69,10 +76,14 @@ class ContactSearchViewModel(
       val newSelectionSize = newSelectionEntries.size + getSelectedContacts().size
 
       if (selectionLimits.hasRecommendedLimit() && getSelectedContacts().size < selectionLimits.recommendedLimit && newSelectionSize >= selectionLimits.recommendedLimit) {
-        // Pop a warning
+        errorEvents.onNext(ContactSearchError.RECOMMENDED_LIMIT_REACHED)
       } else if (selectionLimits.hasHardLimit() && newSelectionSize > selectionLimits.hardLimit) {
-        // Pop an error
+        errorEvents.onNext(ContactSearchError.HARD_LIMIT_REACHED)
         return@subscribe
+      }
+
+      if (performSafetyNumberChecks) {
+        safetyNumberRepository.batchSafetyNumberCheck(newSelectionEntries)
       }
 
       selectionStore.update { state -> state + newSelectionEntries }
@@ -92,7 +103,7 @@ class ContactSearchViewModel(
       state.copy(
         groupStories = state.groupStories + groupStories.map {
           val recipient = Recipient.resolved(it.recipientId)
-          ContactSearchData.Story(recipient, recipient.participantIds.size)
+          ContactSearchData.Story(recipient, recipient.participantIds.size, DistributionListPrivacyMode.ALL)
         }
       )
     }
@@ -123,9 +134,13 @@ class ContactSearchViewModel(
     controller.value?.onDataInvalidated()
   }
 
-  class Factory(private val selectionLimits: SelectionLimits, private val repository: ContactSearchRepository) : ViewModelProvider.Factory {
+  class Factory(
+    private val selectionLimits: SelectionLimits,
+    private val repository: ContactSearchRepository,
+    private val performSafetyNumberChecks: Boolean
+  ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return modelClass.cast(ContactSearchViewModel(selectionLimits, repository)) as T
+      return modelClass.cast(ContactSearchViewModel(selectionLimits, repository, performSafetyNumberChecks)) as T
     }
   }
 }

@@ -41,6 +41,9 @@
   <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Shrani obnovitveno frazo za plačila</string>
   <string name="ApplicationPreferencesActivity_record_phrase">Shrani frazo</string>
   <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Preden onemogočite svoj PIN, morate shraniti obnovitveno frazo za plačila, da jih boste lahko kasneje obnovili.</string>
+  <!--NumericKeyboardView-->
+  <!--Back button on numeric keyboard-->
+  <string name="NumericKeyboardView__backspace">Nazaj</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minuta</item>
@@ -170,7 +173,7 @@
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Moje zgodbe</string>
   <!--Action for creating a new story-->
-  <string name="ContactsCursorLoader_new_story">Nova zgodba</string>
+  <string name="ContactsCursorLoader_new_story">Nova Zgodba</string>
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">Sporočilo %s</string>
   <string name="ContactsDatabase_signal_call_s">Klic Signal: %s</string>
@@ -469,8 +472,20 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">Napaka pri pošiljanju predstavitvene fotografije</string>
   <string name="CreateProfileActivity_problem_setting_profile">Napaka pri nastavljanju profila</string>
   <string name="CreateProfileActivity_set_up_your_profile">Nastavite svoj profil</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Vaš profil je šifriran od-konca-do-konca. Skupaj s spremembami na njem bo viden vašim stikom, kadar boste začeli oziroma sprejeli nov pogovor, in ko se boste pridružili skupini.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Vaš profil in spremembe na njem bodo vidne osebam, ki jim pošiljate sporočila, stikom in skupinam.</string>
   <string name="CreateProfileActivity_set_avatar_description">Določi avatar</string>
+  <!--ProfileCreateFragment-->
+  <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">Profili so vidni osebam, ki jim pošiljate sporočila, stikom in skupinam.</string>
+  <!--Title of clickable row to select phone number privacy settings-->
+  <string name="ProfileCreateFragment__who_can_find_me">Kdo me lahko najde preko telefonske številke?</string>
+  <!--WhoCanSeeMyPhoneNumberFragment-->
+  <!--Toolbar title for this screen-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Kdo me lahko najde preko telefonske številke?</string>
+  <!--Description for radio item stating anyone can see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">Kdorkoli ima vašo telefonsko številko med svojimi stiki, vas bo videl_a kot stik na Signalu. Drugi_e vas bodo z vašo telefonsko številko lahko našli_le v Iskanju.</string>
+  <!--Description for radio item stating no one will be able to see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">Nihče v Signalu vas ne bo mogel najti z vašo telefonsko številko.</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">Obnovim iz varnostne kopije?</string>
   <string name="ChooseBackupFragment__restore_your_messages_and_media">Obnovite svoja sporočila in multimedijske datoteke, shranjene na lokalni varnostni kopiji. Če tega ne boste storili zdaj, kasneje ne bo več mogoče.</string>
@@ -502,6 +517,8 @@
   <string name="BackupsPreferenceFragment__to_restore_a_backup">Za obnovo iz varnostne kopije morate najprej namestiti novo kopijo aplikacije Molly. Nato odprite aplikacijo in tapnite \"Obnovi iz varnostne kopije\", ter poiščite svojo varnostno kopijo. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Izvedite več</string>
   <string name="BackupsPreferenceFragment__in_progress">V teku …</string>
+  <!--Status text shown in backup preferences when verifying a backup-->
+  <string name="BackupsPreferenceFragment__verifying_backup">Preverjanje varnostne kopije …</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d do zdaj …</string>
   <!--Show percentage of completion of backup-->
   <string name="BackupsPreferenceFragment__s_so_far">%1$s%% do zdaj …</string>
@@ -808,6 +825,10 @@
   <string name="ManageProfileFragment_failed_to_set_avatar">Nastavitev avatarja ni uspela</string>
   <string name="ManageProfileFragment_badges">Značke</string>
   <string name="ManageProfileFragment__edit_photo">Uredi fotografijo</string>
+  <!--Snackbar message after creating username-->
+  <string name="ManageProfileFragment__username_created">Uporabniško ime je ustvarjeno</string>
+  <!--Snackbar message after copying username-->
+  <string name="ManageProfileFragment__username_copied">Uporabniško ime je kopirano</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">Nobene skupne skupine</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -1656,6 +1677,12 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">Uredi</string>
   <string name="SubmitDebugLogActivity_done">OK</string>
+  <!--Menu option to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save">Shrani</string>
+  <!--Error that is show in a toast when we fail to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_failed_to_save">Shranjevanje ni uspelo</string>
+  <!--Toast that is show to notify that we have saved the debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save_complete">Shranjevanje je zaključeno</string>
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">Za izbris tapnite črto</string>
   <string name="SubmitDebugLogActivity_submit">Oddaj</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">Oddaja sistemske zabeležke ni uspela</string>
@@ -1710,7 +1737,9 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">Vnovčili ste darilni bedž</string>
   <!--Displayed in the conversation list when someone reacted to your story-->
+  <string name="ThreadRecord__reacted_s_to_your_story">Odziv na vašo zgodbo: %1$s</string>
   <!--Displayed in the conversation list when you reacted to someone\'s story-->
+  <string name="ThreadRecord__reacted_s_to_their_story">Vaš odziv na zgodbo: %1$s</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Nadgradnja aplikacije Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Na voljo je nova različica aplikacije Molly. Tapnite za nadgradnjo.</string>
@@ -1721,6 +1750,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="UnverifiedSendDialog_send_message">Pošljem sporočilo?</string>
   <string name="UnverifiedSendDialog_send">Pošlji</string>
   <!--UsernameEditFragment-->
+  <!--Instructional text at the top of the username edit screen-->
+  <string name="UsernameEditFragment__choose_your_username">Izberite uporabniško ime</string>
   <string name="UsernameEditFragment_username">Uporabniško ime</string>
   <string name="UsernameEditFragment_delete">Izbriši</string>
   <string name="UsernameEditFragment_successfully_set_username">Uspešno ste določili uporabniško ime.</string>
@@ -1732,13 +1763,20 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Uporabniška imena se ne smejo začeti s števikami.</string>
   <string name="UsernameEditFragment_username_is_invalid">Uporabniško ime je neveljavno.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Uporabniška imena morajo vsebovati od %1$d in%2$d znakov.</string>
-  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Uporabniška imena v aplikaciji Signal so izbirna. Če si boste ustvarili uporabniško ime, vas bodo lahko drugi_ge uporabniki_ce Signala našli_le po njem in stopili_le v stik z vami tudi brez poznavanja vaše telefonske številke.</string>
+  <!--Explanation about what usernames provide-->
+  <string name="UsernameEditFragment__usernames_let_others_message">S pomočjo uporabniških imen vam lahko drugi pošljejo sporočilo, brez da bi potrebovali vašo telefonsko številko. Seznanjeni so z nizom številk, ki pomagajo ohranjati zasebnost vašega naslova.</string>
+  <!--Dialog title for explanation about numbers at the end of the username-->
+  <string name="UsernameEditFragment__what_is_this_number">Kaj je ta številka?</string>
+  <string name="UsernameEditFragment__these_digits_help_keep">Te številke pomagajo ohranjati zasebnost vašega uporabniškega imena, da se lahko izognete neželenim sporočilom. Svoje uporabniško ime delite samo z osebami in skupinami, s katerimi želite klepetati. Če spremenite uporabniška imena, boste prejeli nov nabor številk.</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d stik je na Signalu!</item>
     <item quantity="two">%d stika sta na Signalu!</item>
     <item quantity="few">%d stiki so na Signalu!</item>
     <item quantity="other">%d stikov je na Signalu!</item>
   </plurals>
+  <!--UsernameShareBottomSheet-->
+  <!--Explanation of what the sheet enables the user to do-->
+  <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">Kopirajte ali delite povezavo uporabniškega imena</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Vaš_a partner_ka uporablja zastarelo različico aplikacije Signal. Za pregled in potrditev varnostnega števila jo bo moral_a nadgraditi.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">Vaš_a partner_ka uporablja novejšo različico aplikacije Signal z nekompatibilnimi kodami QR. Prosimo, nadgradite svojo aplikacijo.</string>
@@ -1852,7 +1890,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="SingleRecipientNotificationBuilder_message_request">Prošnja za pogovor</string>
   <string name="SingleRecipientNotificationBuilder_you">Vi</string>
   <!--Notification subtext for group stories-->
-  <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • Zgodba</string>
+  <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • zgodba</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Predvajaj video</string>
   <string name="ThumbnailView_Has_a_caption_description">Ima besedilo</string>
@@ -1995,7 +2033,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="QuoteView_you">Vi</string>
   <string name="QuoteView_original_missing">Izvorno sporočilo ni bilo najdeno</string>
   <!--Author formatting for group stories-->
-  <string name="QuoteView_s_story">%1$s · Zgodba</string>
+  <string name="QuoteView_s_story">%1$s · zgodba</string>
   <!--Label indicating that a quote is for a reply to a story you created-->
   <string name="QuoteView_your_story">Vi - zgodba</string>
   <!--Label indicating that the story being replied to no longer exists-->
@@ -2348,6 +2386,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">Enkratna donacija</string>
   <string name="preferences__privacy">Zasebnost</string>
+  <!--Preference label for stories-->
+  <string name="preferences__stories">Zgodbe</string>
   <string name="preferences__mms_user_agent">Uporabniški posrednik MMS</string>
   <string name="preferences__advanced_mms_access_point_names">Ročne nastavitve MMS</string>
   <string name="preferences__mmsc_url">URL MMSC</string>
@@ -2360,6 +2400,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="preferences__data_and_storage">Podatki in pomnilnik</string>
   <string name="preferences__storage">Pomnilnik</string>
   <string name="preferences__payments">Plačila</string>
+  <!--Privacy settings payments section description-->
+  <string name="preferences__payment_lock">Potrjevanje plačila</string>
   <string name="preferences__payments_beta">Plačila (Beta)</string>
   <string name="preferences__conversation_length_limit">Omejitev dolžine pogovorov</string>
   <string name="preferences__keep_messages">Hramba sporočil</string>
@@ -2425,6 +2467,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="preferences_app_protection__who_can">Uporabniki_ce, ki lahko …</string>
   <string name="preferences_app_protection__app_access">Dostop</string>
   <string name="preferences_app_protection__communication">Komunikacija</string>
+  <!--Privacy settings payments section title-->
+  <string name="preferences_app_protection__payments">Plačila</string>
   <string name="preferences_chats__chats">Pogovori</string>
   <string name="preferences_data_and_storage__manage_storage">Upravljanje s pomnilnikom</string>
   <string name="preferences_data_and_storage__calls">Klici</string>
@@ -2482,7 +2526,6 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="preferences_enter_proxy_address">Vnesite naslov proksi</string>
   <string name="configurable_single_select__customize_option">Nastavitve po meri</string>
   <!--Internal only preferences-->
-  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">Vse dejavnosti</string>
   <string name="PaymentsAllActivityFragment__all">Vse</string>
@@ -2527,6 +2570,14 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="PaymentsHomeFragment__activate">Aktiviraj</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Pogoji MobileCoin</string>
   <string name="PaymentsHomeFragment__payments_not_available">Plačila v Mollyu niso več na voljo. Še vedno lahko prenesete sredstva v menjalnico, ne morete pa več pošiljati in prejemati plačil ali dodajati sredstev.</string>
+  <!--Alert dialog title which shows up after a payment to turn on payment lock-->
+  <string name="PaymentsHomeFragment__turn_on">Želite vklopiti potrjevanje plačila?</string>
+  <!--Alert dialog description for why payment lock should be enabled before sending payments-->
+  <string name="PaymentsHomeFragment__add_an_additional_layer">Dodajte dodatno raven varnosti in za prenos sredstev zahtevajte zaklepanje zaslona Android ali prstni odtis.</string>
+  <!--Alert dialog button to enable payment lock-->
+  <string name="PaymentsHomeFragment__enable">Vklopi</string>
+  <!--Alert dialog button to not enable payment lock for now-->
+  <string name="PaymentsHomeFragment__not_now">Ne zdaj</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Dodaj sredstva</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Naslov vaše denarnice</string>
@@ -2607,6 +2658,14 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="ConfirmPayment__payment_failed">Plačilo ni uspelo</string>
   <string name="ConfirmPayment__payment_will_continue_processing">Plačilo bo še naprej v obdelavi</string>
   <string name="ConfirmPaymentFragment__invalid_recipient">Neveljaven prejemnik</string>
+  <!--Biometric/Device authentication prompt title which comes up before sending a payment-->
+  <string name="ConfirmPaymentFragment__unlock_to_send_payment">Odkleni za pošiljanje plačila</string>
+  <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Prikaz potrjevanja plačila ni uspel</string>
+  <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">V nastavitvah ste omogočili potrjevanje plačila, vendar ga ni mogoče prikazati.</string>
+  <!--Button in a dialog that will take the user to the privacy settings-->
+  <string name="ConfirmPaymentFragment__go_to_settings">Pojdite v nastavitve</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Uporabnik nima aktiviranih plačil</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">Neuspela zahteva za pridobitev omrežne pristojbine. Za nadaljevanje plačila tapnite okej in poskusite znova.</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2903,10 +2962,16 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Uspešno ste vnesli geslo svoje varnostne kopije</string>
   <string name="BackupDialog_passphrase_was_not_correct">Geslo ni bilo pravilno</string>
   <string name="LocalBackupJob_creating_signal_backup">Ustvarjanje varnostne kopije Molly …</string>
+  <!--Title for progress notification shown in a system notification while verifying a recent backup.-->
+  <string name="LocalBackupJob_verifying_signal_backup">Preverjanje Mollyove varnostne kopije …</string>
   <string name="LocalBackupJobApi29_backup_failed">Izdelava varnostne kopije ni uspela</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Mapa za varnostne kopije je bila izbrisana ali premaknjena.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Vaša varnostna kopija je prevelika za to shrambo.</string>
   <string name="LocalBackupJobApi29_there_is_not_enough_space">Za hrambo varnostne kopije ni dovolj prostora.</string>
+  <!--Error message shown if a newly created backup could not be verified as accurate-->
+  <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">Vaše nedavne varnostne kopije ni bilo mogoče ustvariti in preveriti. Prosimo, ustvarite novo.</string>
+  <!--Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail-->
+  <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Vaša varnostna kopija vsebuje zelo veliko datoteko, ki je ni mogoče varnostno kopirati. Izbrišite jo in ustvarite novo varnostno kopijo.</string>
   <string name="LocalBackupJobApi29_tap_to_manage_backups">Tapnite za urejanje varnostnih kopij.</string>
   <string name="ProgressPreference_d_messages_so_far">%d sporočil zaenkrat</string>
   <string name="RegistrationActivity_wrong_number">Napačna številka</string>
@@ -3213,6 +3278,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="ShareActivity__send">Pošlji</string>
   <string name="ShareActivity__comma_s">, %1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">Deljenje med večimi pogovori je možno samo za sporočila Signal</string>
+  <!--Toast when the incoming intent is invalid-->
+  <string name="ShareActivity__could_not_get_share_data_from_intent">Podatkov o skupni rabi ni bilo mogoče pridobiti iz namena.</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">Pošiljanje nekaterim uporabnikom_cam ni uspelo</string>
   <string name="MultiShareDialogs__you_can_only_share_with_up_to">Pošljete lahko največ %1$d pogovorom</string>
@@ -3438,6 +3505,19 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="PrivacySettingsFragment__signal_message_and_calls">Sporočila in klici Signal, posredovanje klicev in zakriti pošiljatelj</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">Privzet odštevalnik za nove pogovore</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Nastavite privzet čas poteka sporočil za vse nove pogovore, ki jih začnete sami.</string>
+  <!--Summary for stories preference to launch into story privacy settings-->
+  <string name="PrivacySettingsFragment__manage_your_stories">Upravljajte svoje Zgodbe in kdo si jih lahko ogleda</string>
+  <string name="PrivacySettingsFragment__payment_lock_require_lock">Za prenos sredstev zahtevajte zaklepanje zaslona Android ali prstni odtis</string>
+  <!--Alert dialog title when payment lock cannot be enabled-->
+  <string name="PrivacySettingsFragment__cant_enable_title">Omogočanje potrjevanja plačila ni uspelo</string>
+  <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
+  <string name="PrivacySettingsFragment__cant_enable_description">Če želite uporabljati potrjevanje plačila, morate najprej omogočiti zaklepanje zaslona ali ID prstnega odtisa v nastavitvah telefona.</string>
+  <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
+  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">Navigacija do sistemskih nastavitev ni uspela</string>
+  <!--Alert dialog button to go to phone settings-->
+  <string name="PrivacySettingsFragment__go_to_settings">Pojdite v nastavitve</string>
+  <!--Alert dialog button to cancel the dialog-->
+  <string name="PrivacySettingsFragment__cancel">Prekliči</string>
   <!--AdvancedPrivacySettingsFragment-->
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">Prikaži statusno ikono</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">Prikaz ikone v detajlih sporočil, kadar so ta dostavljena s pomočjo zakritega pošiljatelja.</string>
@@ -3551,6 +3631,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="EmojiSearchFragment__no_results_found">Ni rezultatov</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">Neznano zvonenje</string>
   <!--ConversationSettingsFragment-->
+  <!--Error toasted when no activity can handle the add contact intent-->
+  <string name="ConversationSettingsFragment__contacts_app_not_found">Aplikacije za stike ni mogoče najti</string>
   <string name="ConversationSettingsFragment__send_message">Pošlji sporočilo</string>
   <string name="ConversationSettingsFragment__start_video_call">Začni video klic</string>
   <string name="ConversationSettingsFragment__start_audio_call">Začni zvočni klic</string>
@@ -3679,6 +3761,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
     <item quantity="few">Sporočil ni bilo mogoče posredovati, ker niso več na voljo.</item>
     <item quantity="other">Sporočil ni bilo mogoče posredovati, ker niso več na voljo.</item>
   </plurals>
+  <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
+  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">Tej skupini lahko sporočila pošiljajo zgolj skrbniki.</string>
   <string name="MultiselectForwardFragment__limit_reached">Dosežen je bil limit</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">Dodaj sporočilo</string>
@@ -3838,13 +3922,13 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Napaka omrežja. Preverite svojo internetno povezavo in poskusite znova.</string>
   <string name="NetworkFailure__retry">Ponovno</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__recipient_verification_failed">Verifikacija prejemnika neuspešna.</string>
+  <string name="DonationsErrors__cant_send_gift">Pošiljanje darila ni mogoče</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">Prejemnik ne podpira darilnih bedžev.</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">Ta prejemnik_ca uporablja različico Signala, ki ne more prejeti darilnih značk. Ko bo posodobil_a na najnovejšo različico, bo lahko prejel_a darila.</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__could_not_verify_recipient">Ne moremo potrditi prejemnika.</string>
+  <string name="DonationsErrors__couldnt_send_gift">Darila ni bilo mogoče poslati</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__please_check_your_network_connection">Preverite svojo omrežno povezavo in poskusite znova.</string>
+  <string name="DonationsErrors__please_check_your_network_connection">Vašega darila ni bilo mogoče poslati zaradi napake v omrežju. Preverite povezavo in poskusite znova.</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">Darilni bedž</string>
   <!--Gift message view expiry information-->
@@ -4063,10 +4147,12 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="ConversationListTabs__stories">Zgodbe</string>
   <!--String for counts above 99 in conversation list tabs-->
   <string name="ConversationListTabs__99p">99+</string>
+  <!--Menu item on stories landing page-->
+  <string name="StoriesLandingFragment__story_privacy">Zasebnost Zgodb</string>
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">Moje zgodbe</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
-  <string name="StoriesLandingFragment__add_a_story">Dodaj zgodbo</string>
+  <string name="StoriesLandingFragment__tap_to_add_a_story">Tapnite za dodajanje Zgodbe</string>
   <!--Displayed when there are no stories to display-->
   <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">Trenutno ni novih posodobitev. Tapnite + in dodajte svojo zgodbo.</string>
   <!--Context menu option to hide a story-->
@@ -4150,6 +4236,14 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">Omogočite potrdila o branju, da vidite, kdo si je ogledal vaše zgodbe.</string>
   <!--Button label displayed when user has disabled receipts-->
   <string name="StoryViewsFragment__go_to_settings">Pojdite v nastavitve</string>
+  <!--Dialog action to remove viewer from a story-->
+  <string name="StoryViewsFragment__remove">Odstrani</string>
+  <!--Dialog title when removing a viewer from a story-->
+  <string name="StoryViewsFragment__remove_viewer">Želite odstraniti gledalca_ko?</string>
+  <!--Dialog message when removing a viewer from a story-->
+  <string name="StoryViewsFragment__s_will_still_be_able">%1$s bo še zmeraj lahko videl_a to objavo, ne bo pa si mogel_a ogledati prihodnjih objav, ki jih boste delili na %2$s.</string>
+  <!--Story View context menu action to remove them from a story-->
+  <string name="StoryViewItem__remove_viewer">Odstrani gledalca_ko</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">Brez odgovorov</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -4168,14 +4262,6 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="StoryGroupReplyItem__copy">Kopiraj</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">Izbriši</string>
-  <!--Story settings page title-->
-  <string name="StorySettingsFragment__story_settings">Nastavitve zgodbe</string>
-  <!--Story settings private stories heading-->
-  <string name="StorySettingsFragment__private_stories">Zasebne zgodbe</string>
-  <!--Note at bottom of story settings regarding who can see private stories.-->
-  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">Zasebne zgodbe lahko vidijo le ljudje, ki ste jim jih dodali. Samo vi lahko vidite ime zgodbe.</string>
-  <!--Option label for creating a new private story-->
-  <string name="StorySettingsFragment__new_private_story">Nova zasebna zgodba</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Moja zgodba</string>
   <!--Section heading for story visibility-->
@@ -4189,7 +4275,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--Privacy setting title for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__all_signal_connections_except">Vse Signal povezave razen …</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Skrijte svojo Zgodbo pred določenimi ljudmi</string>
+  <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Skrijte svojo zgodbo pred določenimi ljudmi</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
   <plurals name="MyStorySettingsFragment__d_people_excluded">
     <item quantity="one">%1$d oseba izključena</item>
@@ -4209,7 +4295,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
     <item quantity="other">%1$d ljudi</item>
   </plurals>
   <!--My story privacy fine print about what the privacy settings are for-->
-  <string name="MyStorySettingsFragment__choose_who_can_view_your_story">Izberite, kdo lahko vidi vašo Zgodbo. Spremembe ne bodo vplivale na že poslane Zgodbe.</string>
+  <string name="MyStorySettingsFragment__choose_who_can_view_your_story">Izberite, kdo lahko vidi vašo zgodbo. Spremembe ne bodo vplivale na že poslane zgodbe.</string>
   <!--Section header for options related to replies and reactions-->
   <string name="MyStorySettingsFragment__replies_amp_reactions">Odgovori &amp; odzivi</string>
   <!--Switchable option for allowing replies and reactions on your stories-->
@@ -4425,37 +4511,32 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Ne zdaj</string>
   <!--Label under name for private stories-->
-  <plurals name="ContactSearchItems__private_story_d_viewers">
-    <item quantity="one">Zasebna zgodba · %1$d gledalec_ka</item>
-    <item quantity="two">Zasebna zgodba · %1$d gledalca_ki</item>
-    <item quantity="few">Zasebna zgodba · %1$d gledalci_ke</item>
-    <item quantity="other">Zasebna zgodba · %1$d gledalcev_k</item>
-  </plurals>
   <!--Label under name for group stories-->
-  <plurals name="ContactSearchItems__group_story_d_viewers">
-    <item quantity="one">Skupinska zgodba · %1$d gledalec_ka</item>
-    <item quantity="two">Skupinska zgodba · %1$d gledalca_ki</item>
-    <item quantity="few">Skupinska zgodba · %1$d gledalci_ke</item>
-    <item quantity="other">Skupinska zgodba · %1$d gledalcev_k</item>
+  <!--Label under name for my story-->
+  <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
+    <item quantity="one">%1$s · %2$d gledalec</item>
+    <item quantity="two">%1$s · %2$d gledalca</item>
+    <item quantity="few">%1$s · %2$d gledalci</item>
+    <item quantity="other">%1$s · %2$d gledalcev</item>
   </plurals>
   <!--Label under name for My Story when first sending to my story-->
   <string name="ContactSearchItems__tap_to_choose_your_viewers">Tapnite za izbiro gledalcev</string>
   <!--Label for context menu item to open story settings-->
   <string name="ContactSearchItems__story_settings">Nastavitve zgodbe</string>
   <!--Label for context menu item to remove a group story from contact results-->
-  <string name="ContactSearchItems__remove_story">Odstrani Zgodbo</string>
+  <string name="ContactSearchItems__remove_story">Odstrani zgodbo</string>
   <!--Label for context menu item to delete a private story-->
-  <string name="ContactSearchItems__delete_story">Izbriši Zgodbo</string>
+  <string name="ContactSearchItems__delete_story">Izbriši zgodbo</string>
   <!--Dialog title for removing a group story-->
-  <string name="ContactSearchMediator__remove_group_story">Želite odstraniti Zgodbo skupine?</string>
+  <string name="ContactSearchMediator__remove_group_story">Želite odstraniti zgodbo skupine?</string>
   <!--Dialog message for removing a group story-->
-  <string name="ContactSearchMediator__this_will_remove">To bo odstranilo Zgodbo iz tega seznama. Še vedno boste lahko videli Zgodbe iz te skupine.</string>
+  <string name="ContactSearchMediator__this_will_remove">To bo odstranilo zgodbo iz tega seznama. Še vedno boste lahko videli zgodbe iz te skupine.</string>
   <!--Dialog action item for removing a group story-->
   <string name="ContactSearchMediator__remove">Odstrani</string>
   <!--Dialog title for deleting a private story-->
   <string name="ContactSearchMediator__delete_story">Želite izbrisati zgodbo?</string>
   <!--Dialog message for deleting a private story-->
-  <string name="ContactSearchMediator__delete_the_private">Želite izbrisati zasebno Zgodbo \"%1$s\"?</string>
+  <string name="ContactSearchMediator__delete_the_private">Želite izbrisati zasebno zgodbo \"%1$s\"?</string>
   <!--Dialog action item for deleting a private story-->
   <string name="ContactSearchMediator__delete">Izbriši</string>
   <!--Gift expiry days remaining-->
@@ -4506,11 +4587,11 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--Message of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
   <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">Vse povezave so bile pregledane, tapnite pošlji za nadaljevanje.</string>
   <!--Message of safety number changes bottom sheet when not showing individual records-->
-  <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">Imate %1$d povezav, ki so morda znova namestile Signal ali zamenjale napravo. Preden z njimi delite svojo Zgodbo, preglejte njihove varnostne številke ali razmislite o njihovi odstranitvi iz ogleda Zgodbe.</string>
+  <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">Imate %1$d povezav, ki so morda znova namestile Signal ali zamenjale napravo. Preden z njimi delite svojo zgodbo, preglejte njihove varnostne številke ali razmislite o njihovi odstranitvi iz ogleda zgodbe.</string>
   <!--Menu action to launch safety number verification screen-->
   <string name="SafetyNumberBottomSheetFragment__verify_safety_number">Preglej varnostno število</string>
   <!--Menu action to remove user from story-->
-  <string name="SafetyNumberBottomSheetFragment__remove_from_story">Odstrani iz Zgodbe</string>
+  <string name="SafetyNumberBottomSheetFragment__remove_from_story">Odstrani iz zgodbe</string>
   <!--Action button at bottom of SafetyNumberBottomSheetFragment to send anyway-->
   <string name="SafetyNumberBottomSheetFragment__send_anyway">Vseeno pošlji</string>
   <!--Action button at bottom of SafetyNumberBottomSheetFragment to review connections-->
@@ -4556,5 +4637,31 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="StoryInfoBottomSheetDialogFragment__sent_from">Poslal_a uporabnik_ca</string>
   <!--Story Info context menu label-->
   <string name="StoryInfoBottomSheetDialogFragment__info">Info</string>
+  <!--StoriesPrivacySettingsFragment-->
+  <!--Explanation about how stories are deleted and managed-->
+  <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">Zgodbe samodejno izginejo po 24 urah. Izberite, kdo si lahko ogleda vašo Zgodbo, ali ustvarite nove z določenimi gledalci ali skupinami.</string>
+  <!--Preference title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories">Izklopite Zgodbe</string>
+  <!--Preference summary to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__if_you_opt_out">Če se odjavite od Zgodb, jih ne boste mogli več deliti ali gledati.</string>
+  <!--Preference title to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_on_stories">Vklopite Zgodbe</string>
+  <!--Preference summary to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__share_and_view">Delite in si oglejte Zgodbe drugih. Zgodbe samodejno izginejo po 24 urah.</string>
+  <!--Dialog title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Želite izklopiti Zgodbe?</string>
+  <!--Dialog message to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">Zgodb ne boste mogli več deliti ali si jih ogledovati. Vse Zgodbe, ki ste jih nedavno poslali, bodo še vedno vidne drugim, dokler ne potečejo.</string>
+  <!--Page title when launched from stories landing screen-->
+  <string name="StoriesPrivacySettingsFragment__story_privacy">Zasebnost Zgodb</string>
+  <!--GroupStorySettingsFragment-->
+  <!--Section header for who can view a group story-->
+  <string name="GroupStorySettingsFragment__who_can_view_this_story">Kdo lahko vidi to Zgodbo</string>
+  <!--Explanation of who can view a group story-->
+  <string name="GroupStorySettingsFragment__members_of_the_group_s">Člani skupine »%1$s« si lahko ogledajo to Zgodbo in odgovorijo nanjo. Članstvo za ta klepet lahko posodobite v skupini.</string>
+  <!--Preference label for removing this group story-->
+  <string name="GroupStorySettingsFragment__remove_group_story">Odstrani skupinsko Zgodbo</string>
+  <!--Generic title for overflow menus-->
+  <string name="OverflowMenu__overflow_menu">Prelivni meni</string>
   <!--EOF-->
 </resources>

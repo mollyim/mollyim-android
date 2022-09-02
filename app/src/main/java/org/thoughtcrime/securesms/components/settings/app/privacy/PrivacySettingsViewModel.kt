@@ -31,11 +31,6 @@ class PrivacySettingsViewModel(
       store.update { it.copy(blockedCount = count) }
       refresh()
     }
-
-    repository.getPrivateStories { privateStories ->
-      store.update { it.copy(privateStories = privateStories) }
-      refresh()
-    }
   }
 
   fun setBlockUnknownEnabled(enabled: Boolean) {
@@ -100,11 +95,6 @@ class PrivacySettingsViewModel(
     refresh()
   }
 
-  fun setStoriesEnabled(isStoriesEnabled: Boolean) {
-    SignalStore.storyValues().isFeatureDisabled = !isStoriesEnabled
-    refresh()
-  }
-
   fun refresh() {
     store.update(this::updateState)
   }
@@ -123,14 +113,12 @@ class PrivacySettingsViewModel(
       incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(application),
       seeMyPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberSharingMode,
       findMeByPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberListingMode,
-      universalExpireTimer = SignalStore.settings().universalExpireTimer,
-      privateStories = emptyList(),
-      isStoriesEnabled = !SignalStore.storyValues().isFeatureDisabled
+      universalExpireTimer = SignalStore.settings().universalExpireTimer
     )
   }
 
   private fun updateState(state: PrivacySettingsState): PrivacySettingsState {
-    return getState().copy(blockedCount = state.blockedCount, privateStories = state.privateStories)
+    return getState().copy(blockedCount = state.blockedCount)
   }
 
   class Factory(

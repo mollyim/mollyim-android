@@ -11,6 +11,7 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.Hex
 import org.signal.core.util.SqlUtil
+import org.signal.core.util.Stopwatch
 import org.signal.core.util.logging.Log
 import org.signal.core.util.requireString
 import org.thoughtcrime.securesms.color.MaterialColor
@@ -19,6 +20,9 @@ import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.conversation.colors.ChatColorsMapper.entrySet
 import org.thoughtcrime.securesms.database.KeyValueDatabase
+import org.thoughtcrime.securesms.database.helpers.migration.MyStoryMigration
+import org.thoughtcrime.securesms.database.helpers.migration.PniSignaturesMigration
+import org.thoughtcrime.securesms.database.helpers.migration.UrgentMslFlagMigration
 import org.thoughtcrime.securesms.database.model.databaseprotos.ReactionList
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.profiles.ProfileName
@@ -26,7 +30,6 @@ import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.Base64
 import org.thoughtcrime.securesms.util.FileUtils
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
-import org.thoughtcrime.securesms.util.Stopwatch
 import org.thoughtcrime.securesms.util.Triple
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.push.ACI
@@ -154,8 +157,13 @@ object SignalDatabaseMigrations {
   private const val QUOTE_INDEX = 147
   private const val MY_STORY_PRIVACY_MODE = 148
   private const val EXPIRING_PROFILE_CREDENTIALS = 149
+  private const val URGENT_FLAG = 150
+  private const val MY_STORY_MIGRATION = 151
+  private const val STORY_GROUP_TYPES = 152
+  private const val MY_STORY_MIGRATION_2 = 153
+  private const val PNI_SIGNATURES = 154
 
-  const val DATABASE_VERSION = 149
+  const val DATABASE_VERSION = 154
 
   @JvmStatic
   fun migrate(context: Application, db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -2061,6 +2069,32 @@ object SignalDatabaseMigrations {
 
     if (oldVersion < EXPIRING_PROFILE_CREDENTIALS) {
       db.execSQL("UPDATE recipient SET profile_key_credential = NULL")
+    }
+
+    if (oldVersion < URGENT_FLAG) {
+      UrgentMslFlagMigration.migrate(context, db, oldVersion, newVersion)
+    }
+
+    if (oldVersion < MY_STORY_MIGRATION) {
+      MyStoryMigration.migrate(context, db, oldVersion, newVersion)
+    }
+
+    if (oldVersion < STORY_GROUP_TYPES) {
+      db.execSQL(
+        """
+        UPDATE recipient
+        SET group_type = 4
+        WHERE distribution_list_id IS NOT NULL
+        """.trimIndent()
+      )
+    }
+
+    if (oldVersion < MY_STORY_MIGRATION_2) {
+      MyStoryMigration.migrate(context, db, oldVersion, newVersion)
+    }
+
+    if (oldVersion < PNI_SIGNATURES) {
+      PniSignaturesMigration.migrate(context, db, oldVersion, newVersion)
     }
   }
 

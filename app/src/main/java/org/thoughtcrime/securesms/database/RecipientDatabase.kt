@@ -14,7 +14,7 @@ import net.zetetic.database.sqlcipher.SQLiteConstraintException
 import org.signal.core.util.Bitmask
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.SqlUtil
-import org.signal.core.util.delete
+import org.signal.core.util.exists
 import org.signal.core.util.logging.Log
 import org.signal.core.util.optionalBlob
 import org.signal.core.util.optionalBoolean
@@ -53,6 +53,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase.Companion.groups
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.identities
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.messageLog
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.notificationProfiles
+import org.thoughtcrime.securesms.database.SignalDatabase.Companion.pendingPniSignatureMessages
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.reactions
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.runPostSuccessfulTransaction
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.sessions
@@ -104,7 +105,6 @@ import org.whispersystems.signalservice.api.storage.SignalContactRecord
 import org.whispersystems.signalservice.api.storage.SignalGroupV1Record
 import org.whispersystems.signalservice.api.storage.SignalGroupV2Record
 import org.whispersystems.signalservice.api.storage.StorageId
-import org.whispersystems.signalservice.api.util.Preconditions
 import java.io.Closeable
 import java.io.IOException
 import java.util.Arrays
@@ -179,6 +179,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     private const val SORT_NAME = "sort_name"
     private const val IDENTITY_STATUS = "identity_status"
     private const val IDENTITY_KEY = "identity_key"
+    private const val NEEDS_PNI_SIGNATURE = "needs_pni_signature"
     // MOLLY: Add new fields to clearFieldsForDeletion
 
     @JvmField
@@ -237,7 +238,8 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
         $CUSTOM_CHAT_COLORS_ID INTEGER DEFAULT 0,
         $BADGES BLOB DEFAULT NULL,
         $PNI_COLUMN TEXT DEFAULT NULL,
-        $DISTRIBUTION_LIST_ID INTEGER DEFAULT NULL
+        $DISTRIBUTION_LIST_ID INTEGER DEFAULT NULL,
+        $NEEDS_PNI_SIGNATURE INTEGER DEFAULT 0
       )
       """.trimIndent()
 
@@ -297,7 +299,8 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       CHAT_COLORS,
       CUSTOM_CHAT_COLORS_ID,
       BADGES,
-      DISTRIBUTION_LIST_ID
+      DISTRIBUTION_LIST_ID,
+      NEEDS_PNI_SIGNATURE
     )
 
     private val ID_PROJECTION = arrayOf(ID)
@@ -418,9 +421,13 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     return getByColumn(USERNAME, username)
   }
 
+  fun isAssociated(serviceId: ServiceId, pni: PNI): Boolean {
+    return readableDatabase.exists(TABLE_NAME, "$SERVICE_ID = ? AND $PNI_COLUMN = ?", serviceId.toString(), pni.toString())
+  }
+
   @JvmOverloads
   fun getAndPossiblyMerge(serviceId: ServiceId?, e164: String?, changeSelf: Boolean = false): RecipientId {
-    return if (FeatureFlags.phoneNumberPrivacy()) {
+    return if (FeatureFlags.recipientMergeV2() || FeatureFlags.phoneNumberPrivacy()) {
       getAndPossiblyMergePnp(serviceId, e164, changeSelf)
     } else {
       getAndPossiblyMergeLegacy(serviceId, e164, changeSelf)
@@ -523,16 +530,78 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
   @VisibleForTesting
   fun getAndPossiblyMergePnp(serviceId: ServiceId?, e164: String?, changeSelf: Boolean = false): RecipientId {
     require(!(serviceId == null && e164 == null)) { "Must provide an ACI or E164!" }
+    return getAndPossiblyMergePnp(serviceId = serviceId, pni = null, e164 = e164, pniVerified = false, changeSelf = changeSelf)
+  }
 
-    return writableDatabase.withinTransaction {
-      when {
-        serviceId is PNI -> processPnpTuple(e164, serviceId, null, pniVerified = false)
-        serviceId is ACI -> processPnpTuple(e164, null, serviceId, pniVerified = false)
-        serviceId == null -> processPnpTuple(e164, null, null, pniVerified = false)
-        getByPni(PNI.from(serviceId.uuid())).isPresent -> processPnpTuple(e164, PNI.from(serviceId.uuid()), null, pniVerified = false)
-        else -> processPnpTuple(e164, null, ACI.fromNullable(serviceId), pniVerified = false)
+  /**
+   * Gets and merges a (serviceId, pni, e164) tuple, doing merges/updates as needed, and giving you back the final RecipientId.
+   * It is assumed that the tuple is verified. Do not give this method an untrusted association.
+   */
+  fun getAndPossiblyMergePnpVerified(serviceId: ServiceId?, pni: PNI?, e164: String?): RecipientId {
+    if (!FeatureFlags.phoneNumberPrivacy()) {
+      throw AssertionError()
+    }
+
+    return getAndPossiblyMergePnp(serviceId = serviceId, pni = pni, e164 = e164, pniVerified = true, changeSelf = false)
+  }
+
+  private fun getAndPossiblyMergePnp(serviceId: ServiceId?, pni: PNI?, e164: String?, pniVerified: Boolean = false, changeSelf: Boolean = false): RecipientId {
+    require(!(serviceId == null && e164 == null)) { "Must provide an ACI or E164!" }
+
+    if ((serviceId is PNI) && pni != null && serviceId != pni) {
+      throw AssertionError("Provided two non-matching PNIs! serviceId: $serviceId, pni: $pni")
+    }
+
+    val db = writableDatabase
+    var transactionSuccessful = false
+    lateinit var result: ProcessPnpTupleResult
+
+    db.beginTransaction()
+    try {
+      result = when {
+        serviceId is ACI -> processPnpTuple(e164 = e164, pni = pni, aci = serviceId, pniVerified = pniVerified, changeSelf = changeSelf)
+        serviceId is PNI -> processPnpTuple(e164 = e164, pni = serviceId, aci = null, pniVerified = pniVerified, changeSelf = changeSelf)
+        serviceId == null -> processPnpTuple(e164 = e164, pni = pni, aci = null, pniVerified = pniVerified, changeSelf = changeSelf)
+        serviceId == pni -> processPnpTuple(e164 = e164, pni = pni, aci = null, pniVerified = pniVerified, changeSelf = changeSelf)
+        pni != null -> processPnpTuple(e164 = e164, pni = pni, aci = ACI.from(serviceId.uuid()), pniVerified = pniVerified, changeSelf = changeSelf)
+        getByPni(PNI.from(serviceId.uuid())).isPresent -> processPnpTuple(e164 = e164, pni = PNI.from(serviceId.uuid()), aci = null, pniVerified = pniVerified, changeSelf = changeSelf)
+        else -> processPnpTuple(e164 = e164, pni = pni, aci = ACI.fromNullable(serviceId), pniVerified = pniVerified, changeSelf = changeSelf)
+      }
+
+      if (result.operations.isNotEmpty()) {
+        Log.i(TAG, "[getAndPossiblyMergePnp] ($serviceId, $pni, $e164) BreadCrumbs: ${result.breadCrumbs}, Operations: ${result.operations}")
+      }
+
+      db.setTransactionSuccessful()
+      transactionSuccessful = true
+    } finally {
+      db.endTransaction()
+
+      if (transactionSuccessful) {
+        if (result.affectedIds.isNotEmpty()) {
+          result.affectedIds.forEach { ApplicationDependencies.getDatabaseObserver().notifyRecipientChanged(it) }
+          RetrieveProfileJob.enqueue(result.affectedIds)
+        }
+
+        if (result.oldIds.isNotEmpty()) {
+          result.oldIds.forEach { oldId ->
+            Recipient.live(oldId).refresh(result.finalId)
+            ApplicationDependencies.getRecipientCache().remap(oldId, result.finalId)
+          }
+        }
+
+        if (result.affectedIds.isNotEmpty() || result.oldIds.isNotEmpty()) {
+          StorageSyncHelper.scheduleSyncForDataChange()
+          RecipientId.clearCache()
+        }
+
+        if (result.changedNumberId != null) {
+          ApplicationDependencies.getJobManager().add(RecipientChangedNumberJob(result.changedNumberId!!))
+        }
       }
     }
+
+    return result.finalId
   }
 
   fun getAllServiceIdProfileKeyPairs(): Map<ServiceId, ProfileKey> {
@@ -878,16 +947,20 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     val recipientId: RecipientId
     if (id < 0) {
       Log.w(TAG, "[applyStorageSyncContactInsert] Failed to insert. Possibly merging.")
-      recipientId = getAndPossiblyMerge(if (insert.address.hasValidServiceId()) insert.address.serviceId else null, insert.address.number.orElse(null))
+      if (FeatureFlags.phoneNumberPrivacy()) {
+        recipientId = getAndPossiblyMerge(if (insert.serviceId.isValid) insert.serviceId else null, insert.number.orElse(null))
+      } else {
+        recipientId = getAndPossiblyMergePnpVerified(if (insert.serviceId.isValid) insert.serviceId else null, insert.pni.orElse(null), insert.number.orElse(null))
+      }
       db.update(TABLE_NAME, values, ID_WHERE, SqlUtil.buildArgs(recipientId))
     } else {
       recipientId = RecipientId.from(id)
     }
 
-    if (insert.identityKey.isPresent && insert.address.hasValidServiceId()) {
+    if (insert.identityKey.isPresent && insert.serviceId.isValid) {
       try {
         val identityKey = IdentityKey(insert.identityKey.get(), 0)
-        identities.updateIdentityAfterSync(insert.address.identifier, recipientId, identityKey, StorageSyncModels.remoteToLocalIdentityStatus(insert.identityState))
+        identities.updateIdentityAfterSync(insert.serviceId.toString(), recipientId, identityKey, StorageSyncModels.remoteToLocalIdentityStatus(insert.identityState))
       } catch (e: InvalidKeyException) {
         Log.w(TAG, "Failed to process identity key during insert! Skipping.", e)
       }
@@ -915,7 +988,11 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       var recipientId = getByColumn(STORAGE_SERVICE_ID, Base64.encodeBytes(update.old.id.raw)).get()
 
       Log.w(TAG, "[applyStorageSyncContactUpdate] Found user $recipientId. Possibly merging.")
-      recipientId = getAndPossiblyMerge(if (update.new.address.hasValidServiceId()) update.new.address.serviceId else null, update.new.address.number.orElse(null))
+      if (FeatureFlags.phoneNumberPrivacy()) {
+        recipientId = getAndPossiblyMergePnpVerified(if (update.new.serviceId.isValid) update.new.serviceId else null, update.new.pni.orElse(null), update.new.number.orElse(null))
+      } else {
+        recipientId = getAndPossiblyMerge(if (update.new.serviceId.isValid) update.new.serviceId else null, update.new.number.orElse(null))
+      }
 
       Log.w(TAG, "[applyStorageSyncContactUpdate] Merged into $recipientId")
       db.update(TABLE_NAME, values, ID_WHERE, SqlUtil.buildArgs(recipientId))
@@ -931,9 +1008,9 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
 
     try {
       val oldIdentityRecord = identityStore.getIdentityRecord(recipientId)
-      if (update.new.identityKey.isPresent && update.new.address.hasValidServiceId()) {
+      if (update.new.identityKey.isPresent && update.new.serviceId.isValid) {
         val identityKey = IdentityKey(update.new.identityKey.get(), 0)
-        identities.updateIdentityAfterSync(update.new.address.identifier, recipientId, identityKey, StorageSyncModels.remoteToLocalIdentityStatus(update.new.identityState))
+        identities.updateIdentityAfterSync(update.new.serviceId.toString(), recipientId, identityKey, StorageSyncModels.remoteToLocalIdentityStatus(update.new.identityState))
       }
 
       val newIdentityRecord = identityStore.getIdentityRecord(recipientId)
@@ -1024,17 +1101,24 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     val profileName = ProfileName.fromParts(update.new.givenName.orElse(null), update.new.familyName.orElse(null))
     val localKey = ProfileKeyUtil.profileKeyOptional(update.old.profileKey.orElse(null))
     val remoteKey = ProfileKeyUtil.profileKeyOptional(update.new.profileKey.orElse(null))
-    val profileKey = remoteKey.or(localKey).map { obj: ProfileKey -> obj.serialize() }.map { source: ByteArray? -> Base64.encodeBytes(source!!) }.orElse(null)
+    val profileKey: String? = remoteKey.or(localKey).map { obj: ProfileKey -> obj.serialize() }.map { source: ByteArray? -> Base64.encodeBytes(source!!) }.orElse(null)
     if (!remoteKey.isPresent) {
-      Log.w(TAG, "Got an empty profile key while applying an account record update!")
+      Log.w(TAG, "Got an empty profile key while applying an account record update! The parsed local key is ${if (localKey.isPresent) "present" else "not present"}. The raw local key is ${if (update.old.profileKey.isPresent) "present" else "not present"}. The resulting key is ${if (profileKey != null) "present" else "not present"}.")
     }
 
     val values = ContentValues().apply {
       put(PROFILE_GIVEN_NAME, profileName.givenName)
       put(PROFILE_FAMILY_NAME, profileName.familyName)
       put(PROFILE_JOINED_NAME, profileName.toString())
-      put(PROFILE_KEY, profileKey)
+
+      if (profileKey != null) {
+        put(PROFILE_KEY, profileKey)
+      } else {
+        Log.w(TAG, "Avoided attempt to apply null profile key in account record update!")
+      }
+
       put(STORAGE_SERVICE_ID, Base64.encodeBytes(update.new.id.raw))
+
       if (update.new.hasUnknownFields()) {
         put(STORAGE_PROTO, Base64.encodeBytes(Objects.requireNonNull(update.new.serializeUnknownFields())))
       } else {
@@ -1961,6 +2045,9 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     }
   }
 
+  /**
+   * Does *not* handle clearing the recipient cache. It is assumed the caller handles this.
+   */
   fun updateSelfPhone(e164: String) {
     val db = writableDatabase
 
@@ -1974,6 +2061,13 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       } else {
         throw AssertionError("[updateSelfPhone] Self recipient id changed when updating phone. old: $id new: $newId")
       }
+
+      db
+        .update(TABLE_NAME)
+        .values(NEEDS_PNI_SIGNATURE to 0)
+        .run()
+
+      SignalDatabase.pendingPniSignatureMessages.deleteAll()
 
       db.setTransactionSuccessful()
     } finally {
@@ -2217,7 +2311,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     db.beginTransaction()
     try {
       for ((e164, result) in mapping) {
-        ids += processPnpTuple(e164, result.pni, result.aci, false)
+        ids += processPnpTuple(e164, result.pni, result.aci, false).finalId
       }
 
       db.setTransactionSuccessful()
@@ -2235,26 +2329,49 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
    * @return The [RecipientId] of the resulting recipient.
    */
   @VisibleForTesting
-  fun processPnpTuple(e164: String?, pni: PNI?, aci: ACI?, pniVerified: Boolean): RecipientId {
-    val changeSet = processPnpTupleToChangeSet(e164, pni, aci, pniVerified)
-    return writePnpChangeSetToDisk(changeSet)
-  }
+  fun processPnpTuple(e164: String?, pni: PNI?, aci: ACI?, pniVerified: Boolean, changeSelf: Boolean = false, pnpEnabled: Boolean = FeatureFlags.phoneNumberPrivacy()): ProcessPnpTupleResult {
+    val changeSet: PnpChangeSet = processPnpTupleToChangeSet(e164, pni, aci, pniVerified, changeSelf)
 
-  @VisibleForTesting
-  fun writePnpChangeSetToDisk(changeSet: PnpChangeSet): RecipientId {
+    val affectedIds: MutableSet<RecipientId> = mutableSetOf()
+    val oldIds: MutableSet<RecipientId> = mutableSetOf()
+    var changedNumberId: RecipientId? = null
+
     for (operation in changeSet.operations) {
       @Exhaustive
       when (operation) {
-        is PnpOperation.Update -> {
-          writableDatabase.update(TABLE_NAME)
-            .values(
-              PHONE to operation.e164,
-              SERVICE_ID to (operation.aci ?: operation.pni).toString(),
-              PNI_COLUMN to operation.pni.toString()
-            )
-            .where("$ID = ?", operation.recipientId)
-            .run()
+        is PnpOperation.RemoveE164,
+        is PnpOperation.RemovePni,
+        is PnpOperation.SetAci,
+        is PnpOperation.SetE164,
+        is PnpOperation.SetPni -> {
+          affectedIds.add(operation.recipientId)
         }
+        is PnpOperation.Merge -> {
+          oldIds.add(operation.secondaryId)
+          affectedIds.add(operation.primaryId)
+        }
+        is PnpOperation.SessionSwitchoverInsert -> {}
+        is PnpOperation.ChangeNumberInsert -> changedNumberId = operation.recipientId
+      }
+    }
+
+    val finalId: RecipientId = writePnpChangeSetToDisk(changeSet, pnpEnabled, pni)
+
+    return ProcessPnpTupleResult(
+      finalId = finalId,
+      affectedIds = affectedIds,
+      oldIds = oldIds,
+      changedNumberId = changedNumberId,
+      operations = changeSet.operations,
+      breadCrumbs = changeSet.breadCrumbs
+    )
+  }
+
+  @VisibleForTesting
+  fun writePnpChangeSetToDisk(changeSet: PnpChangeSet, pnpEnabled: Boolean, inputPni: PNI?): RecipientId {
+    for (operation in changeSet.operations) {
+      @Exhaustive
+      when (operation) {
         is PnpOperation.RemoveE164 -> {
           writableDatabase
             .update(TABLE_NAME)
@@ -2309,26 +2426,18 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
             .run()
         }
         is PnpOperation.Merge -> {
-          Log.w(TAG, "WARNING: Performing a PNP merge! This operation currently only has a basic implementation only suitable for basic testing!")
-
           val primary = getRecord(operation.primaryId)
           val secondary = getRecord(operation.secondaryId)
 
-          writableDatabase
-            .delete(TABLE_NAME)
-            .where("$ID = ?", operation.secondaryId)
-            .run()
+          if (primary.serviceId != null && !primary.sidIsPni() && secondary.e164 != null) {
+            merge(operation.primaryId, operation.secondaryId, inputPni)
+          } else {
+            if (!pnpEnabled) {
+              throw AssertionError("This type of merge is not supported in production!")
+            }
 
-          writableDatabase
-            .update(TABLE_NAME)
-            .values(
-              PHONE to (primary.e164 ?: secondary.e164),
-              PNI_COLUMN to (primary.pni ?: secondary.pni)?.toString(),
-              SERVICE_ID to (primary.serviceId ?: secondary.serviceId)?.toString(),
-              REGISTERED to RegisteredState.REGISTERED.id
-            )
-            .where("$ID = ?", operation.primaryId)
-            .run()
+            merge(operation.primaryId, operation.secondaryId, inputPni)
+          }
         }
         is PnpOperation.SessionSwitchoverInsert -> {
           // TODO [pnp]
@@ -2360,9 +2469,10 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
    * It is assumed that we are in a transaction.
    */
   @VisibleForTesting
-  fun processPnpTupleToChangeSet(e164: String?, pni: PNI?, aci: ACI?, pniVerified: Boolean): PnpChangeSet {
-    Preconditions.checkArgument(e164 != null || pni != null || aci != null, "Must provide at least one field!")
-    Preconditions.checkArgument(pni == null || e164 != null, "If a PNI is provided, you must also provide an E164!")
+  fun processPnpTupleToChangeSet(e164: String?, pni: PNI?, aci: ACI?, pniVerified: Boolean, changeSelf: Boolean = false): PnpChangeSet {
+    check(e164 != null || pni != null || aci != null) { "Must provide at least one field!" }
+
+    val breadCrumbs: MutableList<String> = mutableListOf()
 
     val partialData = PnpDataSet(
       e164 = e164,
@@ -2374,89 +2484,44 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       byAciSid = aci?.let { getByServiceId(it).orElse(null) }
     )
 
-    val allRequiredDbFields: List<RecipientId?> = if (aci != null) {
-      listOf(partialData.byE164, partialData.byAciSid, partialData.byPniOnly)
-    } else {
-      listOf(partialData.byE164, partialData.byPniSid, partialData.byPniOnly)
+    val allRequiredDbFields: MutableList<RecipientId?> = mutableListOf()
+    if (e164 != null) {
+      allRequiredDbFields += partialData.byE164
+    }
+    if (aci != null) {
+      allRequiredDbFields += partialData.byAciSid
+    }
+    if (pni != null) {
+      allRequiredDbFields += partialData.byPniOnly
+    }
+    if (pni != null && aci == null) {
+      allRequiredDbFields += partialData.byPniSid
     }
 
     val allRequiredDbFieldPopulated: Boolean = allRequiredDbFields.all { it != null }
 
     // All IDs agree and the database is up-to-date
     if (partialData.commonId != null && allRequiredDbFieldPopulated) {
-      return PnpChangeSet(id = PnpIdResolver.PnpNoopId(partialData.commonId))
+      breadCrumbs.add("CommonIdAndUpToDate")
+      return PnpChangeSet(id = PnpIdResolver.PnpNoopId(partialData.commonId), breadCrumbs = breadCrumbs)
     }
 
     // All ID's agree, but we need to update the database
     if (partialData.commonId != null && !allRequiredDbFieldPopulated) {
-      val record: RecipientRecord = getRecord(partialData.commonId)
-
-      val operations: MutableList<PnpOperation> = mutableListOf()
-
-      // This is a special case. The ACI passed in doesn't match the common record. We can't change ACIs, so we need to make a new record.
-      if (aci != null && aci != record.serviceId && record.serviceId != null && !record.sidIsPni()) {
-        if (record.e164 == e164) {
-          operations += PnpOperation.RemoveE164(record.id)
-          operations += PnpOperation.RemovePni(record.id)
-        } else if (record.pni == pni) {
-          operations += PnpOperation.RemovePni(record.id)
-        }
-
-        return PnpChangeSet(
-          id = PnpIdResolver.PnpInsert(e164, pni, aci),
-          operations = operations
-        )
-      }
-
-      if (e164 != null && record.e164 != e164) {
-        operations += PnpOperation.SetE164(
-          recipientId = partialData.commonId,
-          e164 = e164
-        )
-      }
-
-      if (pni != null && record.pni != pni) {
-        operations += PnpOperation.SetPni(
-          recipientId = partialData.commonId,
-          pni = pni
-        )
-      }
-
-      if (aci != null && record.serviceId != aci) {
-        operations += PnpOperation.SetAci(
-          recipientId = partialData.commonId,
-          aci = aci
-        )
-      }
-
-      if (e164 != null && record.e164 != null && record.e164 != e164) {
-        operations += PnpOperation.ChangeNumberInsert(
-          recipientId = partialData.commonId,
-          oldE164 = record.e164,
-          newE164 = e164
-        )
-      }
-
-      val newServiceId: ServiceId? = aci ?: pni ?: record.serviceId
-
-      if (!pniVerified && record.serviceId != null && record.serviceId != newServiceId && sessions.hasAnySessionFor(record.serviceId.toString())) {
-        operations += PnpOperation.SessionSwitchoverInsert(partialData.commonId)
-      }
-
-      return PnpChangeSet(
-        id = PnpIdResolver.PnpNoopId(partialData.commonId),
-        operations = operations
-      )
+      breadCrumbs.add("CommonIdButNeedsUpdate")
+      return processNonMergePnpUpdate(e164, pni, aci, commonId = partialData.commonId, pniVerified = pniVerified, changeSelf = changeSelf, breadCrumbs = breadCrumbs)
     }
 
     // Nothing matches
     if (partialData.byE164 == null && partialData.byPniSid == null && partialData.byAciSid == null) {
+      breadCrumbs += "NothingMatches"
       return PnpChangeSet(
         id = PnpIdResolver.PnpInsert(
           e164 = e164,
           pni = pni,
           aci = aci
-        )
+        ),
+        breadCrumbs = breadCrumbs
       )
     }
 
@@ -2469,32 +2534,36 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     // It may be that some data just gets shuffled around, or it may be that
     // two or more records get merged into one record, with the others being deleted.
 
+    breadCrumbs += "NeedsMerge"
+
     val fullData = partialData.copy(
       e164Record = partialData.byE164?.let { getRecord(it) },
       pniSidRecord = partialData.byPniSid?.let { getRecord(it) },
       aciSidRecord = partialData.byAciSid?.let { getRecord(it) },
     )
 
-    Preconditions.checkState(fullData.commonId == null)
-    Preconditions.checkState(listOfNotNull(fullData.byE164, fullData.byPniSid, fullData.byPniOnly, fullData.byAciSid).size >= 2)
+    check(fullData.commonId == null)
+    check(listOfNotNull(fullData.byE164, fullData.byPniSid, fullData.byPniOnly, fullData.byAciSid).size >= 2)
 
     val operations: MutableList<PnpOperation> = mutableListOf()
 
-    operations += processPossibleE164PniSidMerge(pni, pniVerified, fullData)
-    operations += processPossiblePniSidAciSidMerge(e164, pni, aci, fullData.perform(operations))
-    operations += processPossibleE164AciSidMerge(e164, pni, aci, fullData.perform(operations))
+    operations += processPossibleE164PniSidMerge(pni, pniVerified, fullData, breadCrumbs)
+    operations += processPossiblePniSidAciSidMerge(e164, pni, aci, fullData.perform(operations), changeSelf, breadCrumbs)
+    operations += processPossibleE164AciSidMerge(e164, pni, aci, fullData.perform(operations), changeSelf, breadCrumbs)
 
     val finalData: PnpDataSet = fullData.perform(operations)
     val primaryId: RecipientId = listOfNotNull(finalData.byAciSid, finalData.byE164, finalData.byPniSid).first()
 
     if (finalData.byAciSid == null && aci != null) {
+      breadCrumbs += "FinalUpdateAci"
       operations += PnpOperation.SetAci(
         recipientId = primaryId,
         aci = aci
       )
     }
 
-    if (finalData.byE164 == null && e164 != null) {
+    if (finalData.byE164 == null && e164 != null && (changeSelf || notSelf(e164, pni, aci))) {
+      breadCrumbs += "FinalUpdateE164"
       operations += PnpOperation.SetE164(
         recipientId = primaryId,
         e164 = e164
@@ -2502,6 +2571,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     }
 
     if (finalData.byPniSid == null && finalData.byPniOnly == null && pni != null) {
+      breadCrumbs += "FinalUpdatePni"
       operations += PnpOperation.SetPni(
         recipientId = primaryId,
         pni = pni
@@ -2510,21 +2580,109 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
 
     return PnpChangeSet(
       id = PnpIdResolver.PnpNoopId(primaryId),
-      operations = operations
+      operations = operations,
+      breadCrumbs = breadCrumbs
     )
   }
 
-  private fun processPossibleE164PniSidMerge(pni: PNI?, pniVerified: Boolean, data: PnpDataSet): List<PnpOperation> {
+  private fun notSelf(e164: String?, pni: PNI?, aci: ACI?): Boolean {
+    return (e164 == null || e164 != SignalStore.account().e164) &&
+      (pni == null || pni != SignalStore.account().pni) &&
+      (aci == null || aci != SignalStore.account().aci)
+  }
+
+  private fun isSelf(e164: String?, pni: PNI?, aci: ACI?): Boolean {
+    return (e164 != null && e164 == SignalStore.account().e164) ||
+      (pni != null && pni == SignalStore.account().pni) ||
+      (aci != null && aci == SignalStore.account().aci)
+  }
+
+  private fun processNonMergePnpUpdate(e164: String?, pni: PNI?, aci: ACI?, pniVerified: Boolean, changeSelf: Boolean, commonId: RecipientId, breadCrumbs: MutableList<String>): PnpChangeSet {
+    val record: RecipientRecord = getRecord(commonId)
+
+    val operations: MutableList<PnpOperation> = mutableListOf()
+
+    // This is a special case. The ACI passed in doesn't match the common record. We can't change ACIs, so we need to make a new record.
+    if (aci != null && aci != record.serviceId && record.serviceId != null && !record.sidIsPni()) {
+      breadCrumbs += "AciDoesNotMatchCommonRecord"
+
+      if (record.e164 == e164 && (changeSelf || notSelf(e164, pni, aci))) {
+        breadCrumbs += "StealingE164"
+        operations += PnpOperation.RemoveE164(record.id)
+        operations += PnpOperation.RemovePni(record.id)
+      } else if (record.pni == pni) {
+        breadCrumbs += "StealingPni"
+        operations += PnpOperation.RemovePni(record.id)
+      }
+
+      val insertE164: String? = if (changeSelf || notSelf(e164, pni, aci)) e164 else null
+      val insertPni: PNI? = if (changeSelf || notSelf(e164, pni, aci)) pni else null
+
+      return PnpChangeSet(
+        id = PnpIdResolver.PnpInsert(insertE164, insertPni, aci),
+        operations = operations,
+        breadCrumbs = breadCrumbs
+      )
+    }
+
+    var updatedNumber = false
+    if (e164 != null && record.e164 != e164 && (changeSelf || notSelf(e164, pni, aci))) {
+      operations += PnpOperation.SetE164(
+        recipientId = commonId,
+        e164 = e164
+      )
+      updatedNumber = true
+    }
+
+    if (pni != null && record.pni != pni) {
+      operations += PnpOperation.SetPni(
+        recipientId = commonId,
+        pni = pni
+      )
+    }
+
+    if (aci != null && record.serviceId != aci) {
+      operations += PnpOperation.SetAci(
+        recipientId = commonId,
+        aci = aci
+      )
+    }
+
+    if (record.e164 != null && updatedNumber) {
+      operations += PnpOperation.ChangeNumberInsert(
+        recipientId = commonId,
+        oldE164 = record.e164,
+        newE164 = e164!!
+      )
+    }
+
+    val newServiceId: ServiceId? = aci ?: pni ?: record.serviceId
+
+    if (!pniVerified && record.serviceId != null && record.serviceId != newServiceId && sessions.hasAnySessionFor(record.serviceId.toString())) {
+      operations += PnpOperation.SessionSwitchoverInsert(commonId)
+    }
+
+    return PnpChangeSet(
+      id = PnpIdResolver.PnpNoopId(commonId),
+      operations = operations,
+      breadCrumbs = breadCrumbs
+    )
+  }
+
+  private fun processPossibleE164PniSidMerge(pni: PNI?, pniVerified: Boolean, data: PnpDataSet, breadCrumbs: MutableList<String>): List<PnpOperation> {
     if (pni == null || data.byE164 == null || data.byPniSid == null || data.e164Record == null || data.pniSidRecord == null || data.e164Record.id == data.pniSidRecord.id) {
       return emptyList()
     }
 
     // We have found records for both the E164 and PNI, and they're different
+    breadCrumbs += "E164PniSidMerge"
 
     val operations: MutableList<PnpOperation> = mutableListOf()
 
     // The PNI record only has a single identifier. We know we must merge.
     if (data.pniSidRecord.sidOnly(pni)) {
+      breadCrumbs += "PniOnly"
+
       if (data.e164Record.pni != null) {
         operations += PnpOperation.RemovePni(data.byE164)
       }
@@ -2536,8 +2694,9 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
 
       // TODO: Possible session switchover?
     } else {
-      Preconditions.checkState(!data.pniSidRecord.pniAndAci())
-      Preconditions.checkState(data.pniSidRecord.e164 != null)
+      check(!data.pniSidRecord.pniAndAci() && data.pniSidRecord.e164 != null)
+
+      breadCrumbs += "PniSidRecordHasE164"
 
       operations += PnpOperation.RemovePni(data.byPniSid)
       operations += PnpOperation.SetPni(
@@ -2557,17 +2716,25 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     return operations
   }
 
-  private fun processPossiblePniSidAciSidMerge(e164: String?, pni: PNI?, aci: ACI?, data: PnpDataSet): List<PnpOperation> {
+  private fun processPossiblePniSidAciSidMerge(e164: String?, pni: PNI?, aci: ACI?, data: PnpDataSet, changeSelf: Boolean, breadCrumbs: MutableList<String>): List<PnpOperation> {
     if (pni == null || aci == null || data.byPniSid == null || data.byAciSid == null || data.pniSidRecord == null || data.aciSidRecord == null || data.pniSidRecord.id == data.aciSidRecord.id) {
       return emptyList()
     }
 
+    if (!changeSelf && isSelf(e164, pni, aci)) {
+      breadCrumbs += "ChangeSelfPreventsPniSidAciSidMerge"
+      return emptyList()
+    }
+
     // We have found records for both the PNI and ACI, and they're different
+    breadCrumbs += "PniSidAciSidMerge"
 
     val operations: MutableList<PnpOperation> = mutableListOf()
 
     // The PNI record only has a single identifier. We know we must merge.
     if (data.pniSidRecord.sidOnly(pni)) {
+      breadCrumbs += "PniOnly"
+
       if (data.aciSidRecord.pni != null) {
         operations += PnpOperation.RemovePni(data.byAciSid)
       }
@@ -2579,6 +2746,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     } else if (data.pniSidRecord.e164 == e164) {
       // The PNI record also has the E164 on it. We're going to be stealing both fields,
       // so this is basically a merge with a little bit of extra prep.
+      breadCrumbs += "PniSidRecordHasMatchingE164"
 
       if (data.aciSidRecord.pni != null) {
         operations += PnpOperation.RemovePni(data.byAciSid)
@@ -2601,33 +2769,55 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
         )
       }
     } else {
-      Preconditions.checkState(data.pniSidRecord.e164 != null && data.pniSidRecord.e164 != e164)
+      check(data.pniSidRecord.e164 != null && data.pniSidRecord.e164 != e164)
+      breadCrumbs += "PniSidRecordHasNonMatchingE164"
 
       operations += PnpOperation.RemovePni(data.byPniSid)
 
-      operations += PnpOperation.Update(
-        recipientId = data.byAciSid,
-        e164 = e164,
-        pni = pni,
-        aci = ACI.from(data.aciSidRecord.serviceId)
-      )
+      if (data.aciSidRecord.pni != pni) {
+        operations += PnpOperation.SetPni(
+          recipientId = data.byAciSid,
+          pni = pni
+        )
+      }
+
+      if (e164 != null && data.aciSidRecord.e164 != e164) {
+        operations += PnpOperation.SetE164(
+          recipientId = data.byAciSid,
+          e164 = e164
+        )
+
+        if (data.aciSidRecord.e164 != null) {
+          operations += PnpOperation.ChangeNumberInsert(
+            recipientId = data.byAciSid,
+            oldE164 = data.aciSidRecord.e164,
+            newE164 = e164
+          )
+        }
+      }
     }
 
     return operations
   }
 
-  private fun processPossibleE164AciSidMerge(e164: String?, pni: PNI?, aci: ACI?, data: PnpDataSet): List<PnpOperation> {
+  private fun processPossibleE164AciSidMerge(e164: String?, pni: PNI?, aci: ACI?, data: PnpDataSet, changeSelf: Boolean, breadCrumbs: MutableList<String>): List<PnpOperation> {
     if (e164 == null || aci == null || data.byE164 == null || data.byAciSid == null || data.e164Record == null || data.aciSidRecord == null || data.e164Record.id == data.aciSidRecord.id) {
       return emptyList()
     }
 
+    if (!changeSelf && isSelf(e164, pni, aci)) {
+      breadCrumbs += "ChangeSelfPreventsE164AciSidMerge"
+      return emptyList()
+    }
+
     // We have found records for both the E164 and ACI, and they're different
+    breadCrumbs += "E164AciSidMerge"
 
     val operations: MutableList<PnpOperation> = mutableListOf()
 
-    // The PNI record only has a single identifier. We know we must merge.
+    // The E164 record only has a single identifier. We know we must merge.
     if (data.e164Record.e164Only()) {
-      // TODO high trust
+      breadCrumbs += "E164Only"
 
       if (data.aciSidRecord.e164 != null && data.aciSidRecord.e164 != e164) {
         operations += PnpOperation.RemoveE164(data.byAciSid)
@@ -2648,6 +2838,8 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     } else if (data.e164Record.pni != null && data.e164Record.pni == pni) {
       // The E164 record also has the PNI on it. We're going to be stealing both fields,
       // so this is basically a merge with a little bit of extra prep.
+      breadCrumbs += "E164RecordHasMatchingPni"
+
       if (data.aciSidRecord.pni != null) {
         operations += PnpOperation.RemovePni(data.byAciSid)
       }
@@ -2669,6 +2861,9 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
         )
       }
     } else {
+      check(data.e164Record.pni == null || data.e164Record.pni != pni)
+      breadCrumbs += "E164RecordHasNonMatchingPni"
+
       operations += PnpOperation.RemoveE164(data.byE164)
 
       operations += PnpOperation.SetE164(
@@ -3022,6 +3217,25 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     }
   }
 
+  /**
+   * Indicates that the recipient knows our PNI, and therefore needs to be sent PNI signature messages until we know that they have our PNI-ACI association.
+   */
+  fun markNeedsPniSignature(recipientId: RecipientId) {
+    if (update(recipientId, contentValuesOf(NEEDS_PNI_SIGNATURE to 1))) {
+      Log.i(TAG, "Marked $recipientId as needing a PNI signature message.")
+      Recipient.live(recipientId).refresh()
+    }
+  }
+
+  /**
+   * Indicates that we successfully told all of this recipient's devices our PNI-ACI association, and therefore no longer needs us to send it to them.
+   */
+  fun clearNeedsPniSignature(recipientId: RecipientId) {
+    if (update(recipientId, contentValuesOf(NEEDS_PNI_SIGNATURE to 0))) {
+      Recipient.live(recipientId).refresh()
+    }
+  }
+
   fun setHasGroupsInCommon(recipientIds: List<RecipientId?>) {
     if (recipientIds.isEmpty()) {
       return
@@ -3185,26 +3399,28 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
    * Merges one ACI recipient with an E164 recipient. It is assumed that the E164 recipient does
    * *not* have an ACI.
    */
-  private fun merge(byAci: RecipientId, byE164: RecipientId): RecipientId {
+  private fun merge(primaryId: RecipientId, secondaryId: RecipientId, newPni: PNI? = null): RecipientId {
     ensureInTransaction()
     val db = writableDatabase
-    val aciRecord = getRecord(byAci)
-    val e164Record = getRecord(byE164)
+    val primaryRecord = getRecord(primaryId)
+    val secondaryRecord = getRecord(secondaryId)
 
-    // Identities
-    ApplicationDependencies.getProtocolStore().aci().identities().delete(e164Record.e164!!)
+    // Clean up any E164-based identities (legacy stuff)
+    if (secondaryRecord.e164 != null) {
+      ApplicationDependencies.getProtocolStore().aci().identities().delete(secondaryRecord.e164)
+    }
 
     // Group Receipts
     val groupReceiptValues = ContentValues()
-    groupReceiptValues.put(GroupReceiptDatabase.RECIPIENT_ID, byAci.serialize())
-    db.update(GroupReceiptDatabase.TABLE_NAME, groupReceiptValues, GroupReceiptDatabase.RECIPIENT_ID + " = ?", SqlUtil.buildArgs(byE164))
+    groupReceiptValues.put(GroupReceiptDatabase.RECIPIENT_ID, primaryId.serialize())
+    db.update(GroupReceiptDatabase.TABLE_NAME, groupReceiptValues, GroupReceiptDatabase.RECIPIENT_ID + " = ?", SqlUtil.buildArgs(secondaryId))
 
     // Groups
     val groupDatabase = groups
-    for (group in groupDatabase.getGroupsContainingMember(byE164, false, true)) {
+    for (group in groupDatabase.getGroupsContainingMember(secondaryId, false, true)) {
       val newMembers = LinkedHashSet(group.members).apply {
-        remove(byE164)
-        add(byAci)
+        remove(secondaryId)
+        add(primaryId)
       }
 
       val groupValues = ContentValues().apply {
@@ -3213,18 +3429,18 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       db.update(GroupDatabase.TABLE_NAME, groupValues, GroupDatabase.RECIPIENT_ID + " = ?", SqlUtil.buildArgs(group.recipientId))
 
       if (group.isV2Group) {
-        groupDatabase.removeUnmigratedV1Members(group.id.requireV2(), listOf(byE164))
+        groupDatabase.removeUnmigratedV1Members(group.id.requireV2(), listOf(secondaryId))
       }
     }
 
     // Threads
-    val threadMerge = threads.merge(byAci, byE164)
+    val threadMerge = threads.merge(primaryId, secondaryId)
 
     // SMS Messages
     val smsValues = ContentValues().apply {
-      put(SmsDatabase.RECIPIENT_ID, byAci.serialize())
+      put(SmsDatabase.RECIPIENT_ID, primaryId.serialize())
     }
-    db.update(SmsDatabase.TABLE_NAME, smsValues, SmsDatabase.RECIPIENT_ID + " = ?", SqlUtil.buildArgs(byE164))
+    db.update(SmsDatabase.TABLE_NAME, smsValues, SmsDatabase.RECIPIENT_ID + " = ?", SqlUtil.buildArgs(secondaryId))
 
     if (threadMerge.neededMerge) {
       val values = ContentValues().apply {
@@ -3235,9 +3451,9 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
 
     // MMS Messages
     val mmsValues = ContentValues().apply {
-      put(MmsDatabase.RECIPIENT_ID, byAci.serialize())
+      put(MmsDatabase.RECIPIENT_ID, primaryId.serialize())
     }
-    db.update(MmsDatabase.TABLE_NAME, mmsValues, MmsDatabase.RECIPIENT_ID + " = ?", SqlUtil.buildArgs(byE164))
+    db.update(MmsDatabase.TABLE_NAME, mmsValues, MmsDatabase.RECIPIENT_ID + " = ?", SqlUtil.buildArgs(secondaryId))
 
     if (threadMerge.neededMerge) {
       val values = ContentValues()
@@ -3245,35 +3461,14 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       db.update(MmsDatabase.TABLE_NAME, values, MmsDatabase.THREAD_ID + " = ?", SqlUtil.buildArgs(threadMerge.previousThreadId))
     }
 
-    // Sessions
-    val localAci: ACI = SignalStore.account().requireAci()
-    val sessionDatabase = sessions
-    val hasE164Session = sessionDatabase.getAllFor(localAci, e164Record.e164).isNotEmpty()
-    val hasAciSession = sessionDatabase.getAllFor(localAci, aciRecord.serviceId.toString()).isNotEmpty()
-
-    if (hasE164Session && hasAciSession) {
-      Log.w(TAG, "Had a session for both users. Deleting the E164.", true)
-      sessionDatabase.deleteAllFor(localAci, e164Record.e164)
-    } else if (hasE164Session && !hasAciSession) {
-      Log.w(TAG, "Had a session for E164, but not ACI. Re-assigning to the ACI.", true)
-      val values = ContentValues().apply {
-        put(SessionDatabase.ADDRESS, aciRecord.serviceId.toString())
-      }
-      db.update(SessionDatabase.TABLE_NAME, values, "${SessionDatabase.ACCOUNT_ID} = ? AND ${SessionDatabase.ADDRESS} = ?", SqlUtil.buildArgs(localAci, e164Record.e164))
-    } else if (!hasE164Session && hasAciSession) {
-      Log.w(TAG, "Had a session for ACI, but not E164. No action necessary.", true)
-    } else {
-      Log.w(TAG, "Had no sessions. No action necessary.", true)
-    }
-
     // MSL
-    messageLog.remapRecipient(byE164, byAci)
+    messageLog.remapRecipient(secondaryId, primaryId)
 
     // Mentions
     val mentionRecipientValues = ContentValues().apply {
-      put(MentionDatabase.RECIPIENT_ID, byAci.serialize())
+      put(MentionDatabase.RECIPIENT_ID, primaryId.serialize())
     }
-    db.update(MentionDatabase.TABLE_NAME, mentionRecipientValues, MentionDatabase.RECIPIENT_ID + " = ?", SqlUtil.buildArgs(byE164))
+    db.update(MentionDatabase.TABLE_NAME, mentionRecipientValues, MentionDatabase.RECIPIENT_ID + " = ?", SqlUtil.buildArgs(secondaryId))
 
     if (threadMerge.neededMerge) {
       val mentionThreadValues = ContentValues().apply {
@@ -3285,57 +3480,62 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     threads.update(threadMerge.threadId, false, false)
 
     // Reactions
-    reactions.remapRecipient(byE164, byAci)
+    reactions.remapRecipient(secondaryId, primaryId)
 
     // Notification Profiles
-    notificationProfiles.remapRecipient(byE164, byAci)
+    notificationProfiles.remapRecipient(secondaryId, primaryId)
 
     // DistributionLists
-    distributionLists.remapRecipient(byE164, byAci)
+    distributionLists.remapRecipient(secondaryId, primaryId)
 
     // Story Sends
-    storySends.remapRecipient(byE164, byAci)
+    storySends.remapRecipient(secondaryId, primaryId)
+
+    // PendingPniSignatureMessage
+    pendingPniSignatureMessages.remapRecipient(secondaryId, primaryId)
 
     // Recipient
-    Log.w(TAG, "Deleting recipient $byE164", true)
-    db.delete(TABLE_NAME, ID_WHERE, SqlUtil.buildArgs(byE164))
-    RemappedRecords.getInstance().addRecipient(byE164, byAci)
+    Log.w(TAG, "Deleting recipient $secondaryId", true)
+    db.delete(TABLE_NAME, ID_WHERE, SqlUtil.buildArgs(secondaryId))
+    RemappedRecords.getInstance().addRecipient(secondaryId, primaryId)
 
-    val uuidValues = ContentValues().apply {
-      put(PHONE, e164Record.e164)
-      put(BLOCKED, e164Record.isBlocked || aciRecord.isBlocked)
-      put(MESSAGE_RINGTONE, Optional.ofNullable(aciRecord.messageRingtone).or(Optional.ofNullable(e164Record.messageRingtone)).map { obj: Uri? -> obj.toString() }.orElse(null))
-      put(MESSAGE_VIBRATE, if (aciRecord.messageVibrateState != VibrateState.DEFAULT) aciRecord.messageVibrateState.id else e164Record.messageVibrateState.id)
-      put(CALL_RINGTONE, Optional.ofNullable(aciRecord.callRingtone).or(Optional.ofNullable(e164Record.callRingtone)).map { obj: Uri? -> obj.toString() }.orElse(null))
-      put(CALL_VIBRATE, if (aciRecord.callVibrateState != VibrateState.DEFAULT) aciRecord.callVibrateState.id else e164Record.callVibrateState.id)
-      put(NOTIFICATION_CHANNEL, aciRecord.notificationChannel ?: e164Record.notificationChannel)
-      put(MUTE_UNTIL, if (aciRecord.muteUntil > 0) aciRecord.muteUntil else e164Record.muteUntil)
-      put(CHAT_COLORS, Optional.ofNullable(aciRecord.chatColors).or(Optional.ofNullable(e164Record.chatColors)).map { colors: ChatColors? -> colors!!.serialize().toByteArray() }.orElse(null))
-      put(AVATAR_COLOR, aciRecord.avatarColor.serialize())
-      put(CUSTOM_CHAT_COLORS_ID, Optional.ofNullable(aciRecord.chatColors).or(Optional.ofNullable(e164Record.chatColors)).map { colors: ChatColors? -> colors!!.id.longValue }.orElse(null))
-      put(SEEN_INVITE_REMINDER, e164Record.insightsBannerTier.id)
-      put(DEFAULT_SUBSCRIPTION_ID, e164Record.getDefaultSubscriptionId().orElse(-1))
-      put(MESSAGE_EXPIRATION_TIME, if (aciRecord.expireMessages > 0) aciRecord.expireMessages else e164Record.expireMessages)
-      put(REGISTERED, RegisteredState.REGISTERED.id)
-      put(SYSTEM_GIVEN_NAME, e164Record.systemProfileName.givenName)
-      put(SYSTEM_FAMILY_NAME, e164Record.systemProfileName.familyName)
-      put(SYSTEM_JOINED_NAME, e164Record.systemProfileName.toString())
-      put(SYSTEM_PHOTO_URI, e164Record.systemContactPhotoUri)
-      put(SYSTEM_PHONE_LABEL, e164Record.systemPhoneLabel)
-      put(SYSTEM_CONTACT_URI, e164Record.systemContactUri)
-      put(PROFILE_SHARING, aciRecord.profileSharing || e164Record.profileSharing)
-      put(CAPABILITIES, max(aciRecord.rawCapabilities, e164Record.rawCapabilities))
-      put(MENTION_SETTING, if (aciRecord.mentionSetting != MentionSetting.ALWAYS_NOTIFY) aciRecord.mentionSetting.id else e164Record.mentionSetting.id)
+    val uuidValues = contentValuesOf(
+      PHONE to (secondaryRecord.e164 ?: primaryRecord.e164),
+      SERVICE_ID to (primaryRecord.serviceId ?: secondaryRecord.serviceId)?.toString(),
+      PNI_COLUMN to (newPni ?: secondaryRecord.pni ?: primaryRecord.pni)?.toString(),
+      BLOCKED to (secondaryRecord.isBlocked || primaryRecord.isBlocked),
+      MESSAGE_RINGTONE to Optional.ofNullable(primaryRecord.messageRingtone).or(Optional.ofNullable(secondaryRecord.messageRingtone)).map { obj: Uri? -> obj.toString() }.orElse(null),
+      MESSAGE_VIBRATE to if (primaryRecord.messageVibrateState != VibrateState.DEFAULT) primaryRecord.messageVibrateState.id else secondaryRecord.messageVibrateState.id,
+      CALL_RINGTONE to Optional.ofNullable(primaryRecord.callRingtone).or(Optional.ofNullable(secondaryRecord.callRingtone)).map { obj: Uri? -> obj.toString() }.orElse(null),
+      CALL_VIBRATE to if (primaryRecord.callVibrateState != VibrateState.DEFAULT) primaryRecord.callVibrateState.id else secondaryRecord.callVibrateState.id,
+      NOTIFICATION_CHANNEL to (primaryRecord.notificationChannel ?: secondaryRecord.notificationChannel),
+      MUTE_UNTIL to if (primaryRecord.muteUntil > 0) primaryRecord.muteUntil else secondaryRecord.muteUntil,
+      CHAT_COLORS to Optional.ofNullable(primaryRecord.chatColors).or(Optional.ofNullable(secondaryRecord.chatColors)).map { colors: ChatColors? -> colors!!.serialize().toByteArray() }.orElse(null),
+      AVATAR_COLOR to primaryRecord.avatarColor.serialize(),
+      CUSTOM_CHAT_COLORS_ID to Optional.ofNullable(primaryRecord.chatColors).or(Optional.ofNullable(secondaryRecord.chatColors)).map { colors: ChatColors? -> colors!!.id.longValue }.orElse(null),
+      SEEN_INVITE_REMINDER to secondaryRecord.insightsBannerTier.id,
+      DEFAULT_SUBSCRIPTION_ID to secondaryRecord.getDefaultSubscriptionId().orElse(-1),
+      MESSAGE_EXPIRATION_TIME to if (primaryRecord.expireMessages > 0) primaryRecord.expireMessages else secondaryRecord.expireMessages,
+      REGISTERED to RegisteredState.REGISTERED.id,
+      SYSTEM_GIVEN_NAME to secondaryRecord.systemProfileName.givenName,
+      SYSTEM_FAMILY_NAME to secondaryRecord.systemProfileName.familyName,
+      SYSTEM_JOINED_NAME to secondaryRecord.systemProfileName.toString(),
+      SYSTEM_PHOTO_URI to secondaryRecord.systemContactPhotoUri,
+      SYSTEM_PHONE_LABEL to secondaryRecord.systemPhoneLabel,
+      SYSTEM_CONTACT_URI to secondaryRecord.systemContactUri,
+      PROFILE_SHARING to (primaryRecord.profileSharing || secondaryRecord.profileSharing),
+      CAPABILITIES to max(primaryRecord.rawCapabilities, secondaryRecord.rawCapabilities),
+      MENTION_SETTING to if (primaryRecord.mentionSetting != MentionSetting.ALWAYS_NOTIFY) primaryRecord.mentionSetting.id else secondaryRecord.mentionSetting.id
+    )
+
+    if (primaryRecord.profileKey != null) {
+      updateProfileValuesForMerge(uuidValues, primaryRecord)
+    } else if (secondaryRecord.profileKey != null) {
+      updateProfileValuesForMerge(uuidValues, secondaryRecord)
     }
 
-    if (aciRecord.profileKey != null) {
-      updateProfileValuesForMerge(uuidValues, aciRecord)
-    } else if (e164Record.profileKey != null) {
-      updateProfileValuesForMerge(uuidValues, e164Record)
-    }
-
-    db.update(TABLE_NAME, uuidValues, ID_WHERE, SqlUtil.buildArgs(byAci))
-    return byAci
+    db.update(TABLE_NAME, uuidValues, ID_WHERE, SqlUtil.buildArgs(primaryId))
+    return primaryId
   }
 
   private fun ensureInTransaction() {
@@ -3377,11 +3577,15 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       val profileName = ProfileName.fromParts(contact.givenName.orElse(null), contact.familyName.orElse(null))
       val username = contact.username.orElse(null)
 
-      if (contact.address.hasValidServiceId()) {
-        put(SERVICE_ID, contact.address.serviceId.toString())
+      if (contact.serviceId.isValid) {
+        put(SERVICE_ID, contact.serviceId.toString())
       }
 
-      put(PHONE, contact.address.number.orElse(null))
+      if (FeatureFlags.phoneNumberPrivacy()) {
+        put(PNI_COLUMN, contact.pni.toString())
+      }
+
+      put(PHONE, contact.number.orElse(null))
       put(PROFILE_GIVEN_NAME, profileName.givenName)
       put(PROFILE_FAMILY_NAME, profileName.familyName)
       put(PROFILE_JOINED_NAME, profileName.toString())
@@ -3559,6 +3763,8 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
 
     val recipientId = RecipientId.from(cursor.requireLong(idColumnName))
     val capabilities = cursor.requireLong(CAPABILITIES)
+    val distributionListId: DistributionListId? = DistributionListId.fromNullable(cursor.requireLong(DISTRIBUTION_LIST_ID))
+    val avatarColor: AvatarColor = if (distributionListId != null) AvatarColor.UNKNOWN else AvatarColor.deserialize(cursor.requireString(AVATAR_COLOR))
 
     return RecipientRecord(
       id = recipientId,
@@ -3568,7 +3774,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       e164 = cursor.requireString(PHONE),
       email = cursor.requireString(EMAIL),
       groupId = GroupId.parseNullableOrThrow(cursor.requireString(GROUP_ID)),
-      distributionListId = DistributionListId.fromNullable(cursor.requireLong(DISTRIBUTION_LIST_ID)),
+      distributionListId = distributionListId,
       groupType = GroupType.fromId(cursor.requireInt(GROUP_TYPE)),
       isBlocked = cursor.requireBoolean(BLOCKED),
       muteUntil = cursor.requireLong(MUTE_UNTIL),
@@ -3606,13 +3812,14 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       mentionSetting = MentionSetting.fromId(cursor.requireInt(MENTION_SETTING)),
       wallpaper = chatWallpaper,
       chatColors = chatColors,
-      avatarColor = AvatarColor.deserialize(cursor.requireString(AVATAR_COLOR)),
+      avatarColor = avatarColor,
       about = cursor.requireString(ABOUT),
       aboutEmoji = cursor.requireString(ABOUT_EMOJI),
       syncExtras = getSyncExtras(cursor),
       extras = getExtras(cursor),
       hasGroupsInCommon = cursor.requireBoolean(GROUPS_IN_COMMON),
-      badges = parseBadgeList(cursor.requireBlob(BADGES))
+      badges = parseBadgeList(cursor.requireBlob(BADGES)),
+      needsPniSignature = cursor.requireBoolean(NEEDS_PNI_SIGNATURE)
     )
   }
 
@@ -4067,4 +4274,13 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       }
     }
   }
+
+  data class ProcessPnpTupleResult(
+    val finalId: RecipientId,
+    val affectedIds: Set<RecipientId>,
+    val oldIds: Set<RecipientId>,
+    val changedNumberId: RecipientId?,
+    val operations: List<PnpOperation>,
+    val breadCrumbs: List<String>,
+  )
 }

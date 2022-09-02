@@ -13,12 +13,16 @@ import org.thoughtcrime.securesms.components.reminder.ReminderView
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 import org.thoughtcrime.securesms.util.DynamicTheme
-import org.thoughtcrime.securesms.util.concurrent.ListenableFuture
 import org.thoughtcrime.securesms.util.views.Stub
 
 open class ConversationActivity : PassphraseRequiredActivity(), ConversationParentFragment.Callback {
 
+  companion object {
+    private const val STATE_WATERMARK = "share_data_watermark"
+  }
+
   private lateinit var fragment: ConversationParentFragment
+  private var shareDataTimestamp: Long = -1L
 
   private val dynamicTheme: DynamicTheme = DynamicNoActionBarTheme()
   override fun onPreCreate() {
@@ -26,6 +30,8 @@ open class ConversationActivity : PassphraseRequiredActivity(), ConversationPare
   }
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+    shareDataTimestamp = savedInstanceState?.getLong(STATE_WATERMARK, -1L) ?: -1L
+
     setContentView(R.layout.conversation_parent_fragment_container)
 
     if (savedInstanceState == null) {
@@ -33,6 +39,11 @@ open class ConversationActivity : PassphraseRequiredActivity(), ConversationPare
     } else {
       fragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as ConversationParentFragment
     }
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putLong(STATE_WATERMARK, shareDataTimestamp)
   }
 
   override fun onNewIntent(intent: Intent?) {
@@ -60,13 +71,17 @@ open class ConversationActivity : PassphraseRequiredActivity(), ConversationPare
     dynamicTheme.onResume(this)
   }
 
+  override fun getShareDataTimestamp(): Long {
+    return shareDataTimestamp
+  }
+
+  override fun setShareDataTimestamp(timestamp: Long) {
+    shareDataTimestamp = timestamp
+  }
+
   override fun onInitializeToolbar(toolbar: Toolbar) {
     toolbar.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.ic_arrow_left_24)
     toolbar.setNavigationOnClickListener { finish() }
-  }
-
-  fun saveDraft(): ListenableFuture<Long> {
-    return fragment.saveDraft()
   }
 
   fun getRecipient(): Recipient {

@@ -13,7 +13,6 @@ import org.thoughtcrime.securesms.database.MessageDatabase.SyncMessageId;
 import org.thoughtcrime.securesms.database.MmsSmsDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.groups.BadGroupIdException;
 import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobmanager.Job;
@@ -26,11 +25,11 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.GroupUtil;
 import org.signal.core.util.SetUtil;
-import org.thoughtcrime.securesms.util.Stopwatch;
+import org.signal.core.util.Stopwatch;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.SignalSessionLock;
 import org.whispersystems.signalservice.api.messages.SignalServiceEnvelope;
-import org.whispersystems.signalservice.api.messages.SignalServiceGroupContext;
+import org.whispersystems.signalservice.api.messages.SignalServiceGroupV2;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -82,11 +81,6 @@ public class IncomingMessageProcessor {
      *         one was created. Otherwise null.
      */
     public @Nullable String processEnvelope(@NonNull SignalServiceEnvelope envelope) {
-      if (FeatureFlags.phoneNumberPrivacy() && envelope.hasSourceE164()) {
-        Log.w(TAG, "PNP enabled -- mimicking PNP by dropping the E164 from the envelope.");
-        envelope = envelope.withoutE164();
-      }
-
       if (envelope.hasSourceUuid()) {
         Recipient.externalPush(envelope.getSourceAddress());
       }
@@ -176,24 +170,19 @@ public class IncomingMessageProcessor {
     }
 
     private boolean needsToEnqueueProcessing(@NonNull DecryptionResult result) {
-      SignalServiceGroupContext groupContext = GroupUtil.getGroupContextIfPresent(result.getContent());
+      SignalServiceGroupV2 groupContext = GroupUtil.getGroupContextIfPresent(result.getContent());
 
       if (groupContext != null) {
-        try {
-          GroupId groupId = GroupUtil.idFromGroupContext(groupContext);
+        GroupId groupId = GroupId.v2(groupContext.getMasterKey());
 
-          if (groupId.isV2()) {
-            String        queueName     = PushProcessMessageJob.getQueueName(Recipient.externalPossiblyMigratedGroup(groupId).getId());
-            GroupDatabase groupDatabase = SignalDatabase.groups();
+        if (groupId.isV2()) {
+          String        queueName     = PushProcessMessageJob.getQueueName(Recipient.externalPossiblyMigratedGroup(groupId).getId());
+          GroupDatabase groupDatabase = SignalDatabase.groups();
 
-            return !jobManager.isQueueEmpty(queueName)                                                                   ||
-                   groupContext.getGroupV2().get().getRevision() > groupDatabase.getGroupV2Revision(groupId.requireV2()) ||
-                   groupDatabase.getGroupV1ByExpectedV2(groupId.requireV2()).isPresent();
-          } else {
-            return false;
-          }
-        } catch (BadGroupIdException e) {
-          Log.w(TAG, "Bad group ID!");
+          return !jobManager.isQueueEmpty(queueName)                                                                   ||
+                 groupContext.getRevision() > groupDatabase.getGroupV2Revision(groupId.requireV2()) ||
+                 groupDatabase.getGroupV1ByExpectedV2(groupId.requireV2()).isPresent();
+        } else {
           return false;
         }
       } else if (result.getContent() != null) {

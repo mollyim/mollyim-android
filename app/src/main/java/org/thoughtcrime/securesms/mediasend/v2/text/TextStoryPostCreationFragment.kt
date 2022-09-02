@@ -14,16 +14,20 @@ import androidx.navigation.fragment.findNavController
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
+import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragmentArgs
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewRepository
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewViewModel
 import org.thoughtcrime.securesms.mediasend.v2.HudCommand
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionViewModel
+import org.thoughtcrime.securesms.mediasend.v2.stories.StoriesMultiselectForwardActivity
 import org.thoughtcrime.securesms.mediasend.v2.text.send.TextStoryPostSendRepository
 import org.thoughtcrime.securesms.mediasend.v2.text.send.TextStoryPostSendResult
 import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
+import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.stories.StoryTextPostView
 import org.thoughtcrime.securesms.util.LifecycleDisposable
-import org.thoughtcrime.securesms.util.navigation.safeNavigate
+import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
+import org.thoughtcrime.securesms.util.visible
 
 class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creation_fragment), TextStoryPostTextEntryFragment.Callback, SafetyNumberBottomSheet.Callbacks {
 
@@ -31,6 +35,7 @@ class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creati
   private lateinit var backgroundButton: AppCompatImageView
   private lateinit var send: View
   private lateinit var storyTextPostView: StoryTextPostView
+  private lateinit var sendInProgressCard: View
 
   private val sharedViewModel: MediaSelectionViewModel by viewModels(
     ownerProducer = {
@@ -65,6 +70,7 @@ class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creati
     backgroundButton = view.findViewById(R.id.background_selector)
     send = view.findViewById(R.id.send)
     storyTextPostView = view.findViewById(R.id.story_text_post)
+    sendInProgressCard = view.findViewById(R.id.send_in_progress_indicator)
 
     val backgroundProtection: View = view.findViewById(R.id.background_protection)
     val addLinkProtection: View = view.findViewById(R.id.add_link_protection)
@@ -97,8 +103,10 @@ class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creati
       send.isEnabled = canSend
     }
 
-    linkPreviewViewModel.linkPreviewState.observe(viewLifecycleOwner) { state ->
-      storyTextPostView.bindLinkPreviewState(state, View.GONE)
+    LiveDataUtil.combineLatest(viewModel.state, linkPreviewViewModel.linkPreviewState) { viewState, linkState ->
+      Pair(viewState.body.isBlank(), linkState)
+    }.observe(viewLifecycleOwner) { (useLargeThumb, linkState) ->
+      storyTextPostView.bindLinkPreviewState(linkState, View.GONE, useLargeThumb)
       storyTextPostView.postAdjustLinkPreviewTranslationY()
     }
 
@@ -120,7 +128,19 @@ class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creati
       viewModel.setLinkPreview("")
     }
 
+    val launcher = registerForActivityResult(StoriesMultiselectForwardActivity.SelectionContract()) {
+      if (it.isNotEmpty()) {
+        performSend(it.toSet())
+      } else {
+        send.isClickable = true
+        sendInProgressCard.visible = false
+      }
+    }
+
     send.setOnClickListener {
+      send.isClickable = false
+      sendInProgressCard.visible = true
+
       storyTextPostView.hideCloseButton()
 
       val contacts = (sharedViewModel.destination.getRecipientSearchKeyList() + sharedViewModel.destination.getRecipientSearchKey())
@@ -128,10 +148,21 @@ class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creati
         .toSet()
 
       if (contacts.isEmpty()) {
-        viewModel.setBitmap(storyTextPostView.drawToBitmap())
-        findNavController().safeNavigate(R.id.action_textStoryPostCreationFragment_to_textStoryPostSendFragment)
+        val bitmap = storyTextPostView.drawToBitmap()
+        viewModel.compressToBlob(bitmap).observeOn(AndroidSchedulers.mainThread()).subscribe { uri ->
+          launcher.launch(
+            StoriesMultiselectForwardActivity.Args(
+              MultiselectForwardFragmentArgs(
+                title = R.string.MediaReviewFragment__send_to,
+                canSendToNonPush = false,
+                storySendRequirements = Stories.MediaTransform.SendRequirements.VALID_DURATION,
+                isSearchEnabled = false
+              ),
+              listOf(uri)
+            )
+          )
+        }
       } else {
-        send.isClickable = false
         performSend(contacts)
       }
     }
@@ -166,6 +197,8 @@ class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creati
         }
         is TextStoryPostSendResult.UntrustedRecordsError -> {
           send.isClickable = true
+          sendInProgressCard.visible = false
+
           SafetyNumberBottomSheet
             .forIdentityRecordsAndDestinations(result.untrustedRecords, contacts.toList())
             .show(childFragmentManager)

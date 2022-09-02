@@ -11,6 +11,7 @@
     <string name="sustainer_boost_and_badges" translatable="false">https://support.signal.org/hc/articles/4408365318426</string>
     <string name="google_pay_url" translatable="false">https://pay.google.com</string>
     <string name="donation_decline_code_error_url" translatable="false">https://support.signal.org/hc/articles/4408365318426#errors</string>
+    <string name="signal_me_url" translatable="false">https://signal.me/%1$s</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -58,6 +59,20 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Record payments recovery phrase</string>
     <string name="ApplicationPreferencesActivity_record_phrase">Record phrase</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Before you can disable your PIN, you must record your payments recovery phrase to ensure you can recover your payments account.</string>
+
+    <!-- NumericKeyboardView -->
+    <string name="NumericKeyboardView__1" translatable="false">1</string>
+    <string name="NumericKeyboardView__2" translatable="false">2</string>
+    <string name="NumericKeyboardView__3" translatable="false">3</string>
+    <string name="NumericKeyboardView__4" translatable="false">4</string>
+    <string name="NumericKeyboardView__5" translatable="false">5</string>
+    <string name="NumericKeyboardView__6" translatable="false">6</string>
+    <string name="NumericKeyboardView__7" translatable="false">7</string>
+    <string name="NumericKeyboardView__8" translatable="false">8</string>
+    <string name="NumericKeyboardView__9" translatable="false">9</string>
+    <string name="NumericKeyboardView__0" translatable="false">0</string>
+    <!-- Back button on numeric keyboard -->
+    <string name="NumericKeyboardView__backspace">Backspace</string>
 
     <!-- AppProtectionPreferenceFragment -->
     <plurals name="AppProtectionPreferenceFragment_minutes">
@@ -203,7 +218,7 @@
     <!-- Label for my stories when selecting who to send media to -->
     <string name="ContactsCursorLoader_my_stories">My Stories</string>
     <!-- Action for creating a new story -->
-    <string name="ContactsCursorLoader_new_story">New Story</string>
+    <string name="ContactsCursorLoader_new_story">New story</string>
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Message %s</string>
@@ -486,8 +501,22 @@
     <string name="CreateProfileActivity_error_setting_profile_photo">Error setting profile photo</string>
     <string name="CreateProfileActivity_problem_setting_profile">Problem setting profile</string>
     <string name="CreateProfileActivity_set_up_your_profile">Set up your profile</string>
-    <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Your profile is end-to-end encrypted. Your profile and changes to it will be visible to your contacts, when you initiate or accept new conversations, and when you join new groups.</string>
+    <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Your profile and changes to it will be visible to people you message, contacts, and groups.</string>
     <string name="CreateProfileActivity_set_avatar_description">Set avatar</string>
+
+    <!-- ProfileCreateFragment -->
+    <!-- Displayed at the top of the screen and explains how profiles can be viewed. -->
+    <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">Profiles are visible to people you message, contacts, and groups.</string>
+    <!-- Title of clickable row to select phone number privacy settings -->
+    <string name="ProfileCreateFragment__who_can_find_me">Who can find me by number?</string>
+
+    <!-- WhoCanSeeMyPhoneNumberFragment -->
+    <!-- Toolbar title for this screen -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Who can find me by number?</string>
+    <!-- Description for radio item stating anyone can see your phone number -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">Anyone who has your phone number in their contacts will see you as a contact on Signal. Others will be able to find you with your number in search.</string>
+    <!-- Description for radio item stating no one will be able to see your phone number -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">Nobody on Signal will be able to find you with your phone number.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Restore from backup?</string>
@@ -522,6 +551,8 @@
     <string name="BackupsPreferenceFragment__to_restore_a_backup">To restore a backup, install a new copy of Molly. Open the app and tap "Restore backup", then locate a backup file. %1$s</string>
     <string name="BackupsPreferenceFragment__learn_more">Learn more</string>
     <string name="BackupsPreferenceFragment__in_progress">In progress…</string>
+    <!-- Status text shown in backup preferences when verifying a backup -->
+    <string name="BackupsPreferenceFragment__verifying_backup">Verifying backup…</string>
     <string name="BackupsPreferenceFragment__d_so_far">%1$d so far…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% so far…</string>
@@ -840,6 +871,11 @@
     <string name="ManageProfileFragment_failed_to_set_avatar">Failed to set avatar</string>
     <string name="ManageProfileFragment_badges">Badges</string>
     <string name="ManageProfileFragment__edit_photo">Edit photo</string>
+    <!-- Snackbar message after creating username -->
+    <string name="ManageProfileFragment__username_created">Username created</string>
+    <!-- Snackbar message after copying username -->
+    <string name="ManageProfileFragment__username_copied">Username copied</string>
+
 
     <!-- ManageRecipientActivity -->
     <string name="ManageRecipientActivity_no_groups_in_common">No groups in common</string>
@@ -1755,6 +1791,12 @@
     <!-- SubmitDebugLogActivity -->
     <string name="SubmitDebugLogActivity_edit">Edit</string>
     <string name="SubmitDebugLogActivity_done">Done</string>
+    <!-- Menu option to save a debug log file to disk. -->
+    <string name="SubmitDebugLogActivity_save">Save</string>
+    <!-- Error that is show in a toast when we fail to save a debug log file to disk. -->
+    <string name="SubmitDebugLogActivity_failed_to_save">Failed to save</string>
+    <!-- Toast that is show to notify that we have saved the debug log file to disk. -->
+    <string name="SubmitDebugLogActivity_save_complete">Save complete</string>
     <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">Tap a line to delete it</string>
     <string name="SubmitDebugLogActivity_submit">Submit</string>
     <string name="SubmitDebugLogActivity_failed_to_submit_logs">Failed to submit logs</string>
@@ -1829,6 +1871,8 @@
     <string name="UnverifiedSendDialog_send">Send</string>
 
     <!-- UsernameEditFragment -->
+    <!-- Instructional text at the top of the username edit screen -->
+    <string name="UsernameEditFragment__choose_your_username">Choose your username</string>
     <string name="UsernameEditFragment_username">Username</string>
     <string name="UsernameEditFragment_delete">Delete</string>
     <string name="UsernameEditFragment_successfully_set_username">Successfully set username.</string>
@@ -1840,12 +1884,20 @@
     <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Usernames cannot begin with a number.</string>
     <string name="UsernameEditFragment_username_is_invalid">Username is invalid.</string>
     <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Usernames must be between %1$d and %2$d characters.</string>
-    <string name="UsernameEditFragment_usernames_on_signal_are_optional">Usernames on Signal are optional. If you choose to create a username, other Signal users will be able to find you by this username and contact you without knowing your phone number.</string>
+    <!-- Explanation about what usernames provide -->
+    <string name="UsernameEditFragment__usernames_let_others_message">Usernames let others message you without needing your phone number. They are paired with a set of digits to help keep your address private.</string>
+    <!-- Dialog title for explanation about numbers at the end of the username -->
+    <string name="UsernameEditFragment__what_is_this_number">What is this number?</string>
+    <string name="UsernameEditFragment__these_digits_help_keep">These digits help keep your username private so you can avoid unwanted messages. Share your username with only the people and groups you\'d like to chat with. If you change usernames you\'ll get a new set of digits.</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%d contact is on Signal!</item>
         <item quantity="other">%d contacts are on Signal!</item>
     </plurals>
+
+    <!-- UsernameShareBottomSheet -->
+    <!-- Explanation of what the sheet enables the user to do -->
+    <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">Copy or share a username link</string>
 
     <!-- VerifyIdentityActivity -->
     <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Your contact is running an old version of Signal. Please ask them to update before verifying your safety number.</string>
@@ -2543,6 +2595,8 @@
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__one_time_donation">One-time Donation</string>
     <string name="preferences__privacy">Privacy</string>
+    <!-- Preference label for stories -->
+    <string name="preferences__stories">Stories</string>
     <string name="preferences__mms_user_agent">MMS User Agent</string>
     <string name="preferences__advanced_mms_access_point_names">Manual MMS settings</string>
     <string name="preferences__mmsc_url">MMSC URL</string>
@@ -2555,6 +2609,8 @@
     <string name="preferences__data_and_storage">Data and storage</string>
     <string name="preferences__storage">Storage</string>
     <string name="preferences__payments">Payments</string>
+    <!-- Privacy settings payments section description -->
+    <string name="preferences__payment_lock">Payment lock</string>
     <string name="preferences__payments_beta">Payments (Beta)</string>
     <string name="preferences__conversation_length_limit">Conversation length limit</string>
     <string name="preferences__keep_messages">Keep messages</string>
@@ -2621,6 +2677,8 @@
     <string name="preferences_app_protection__who_can">Who can…</string>
     <string name="preferences_app_protection__app_access">App access</string>
     <string name="preferences_app_protection__communication">Communication</string>
+    <!-- Privacy settings payments section title -->
+    <string name="preferences_app_protection__payments">Payments</string>
     <string name="preferences_chats__chats">Chats</string>
     <string name="preferences_data_and_storage__manage_storage">Manage storage</string>
     <string name="preferences_data_and_storage__calls">Calls</string>
@@ -2682,7 +2740,7 @@
 
     <!-- Internal only preferences -->
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
-    <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
+    <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
     <string name="preferences__internal_preferences_groups_v2" translatable="false">Groups V2</string>
     <string name="preferences__internal_preferences_groups_v1_migration" translatable="false">Groups V1 Migration</string>
@@ -2766,6 +2824,7 @@
     <string name="preferences__internal_release_channel" translatable="false">Release channel</string>
     <string name="preferences__internal_fetch_release_channel" translatable="false">Fetch release channel</string>
     <string name="preferences__internal_release_channel_set_last_version" translatable="false">Set last version seen back 10 versions</string>
+    <string name="preferences__internal_reset_donation_megaphone" translatable="false">Reset donation megaphone</string>
     <string name="preferences__internal_add_sample_note" translatable="false">Add sample note</string>
     <string name="preferences__internal_disable_stories" translatable="false">Disable stories</string>
     <string name="preferences__internal_cds" translatable="false">CDS</string>
@@ -2830,6 +2889,14 @@
     <string name="PaymentsHomeFragment__payments_not_available">Payments in Molly is no longer available. You can still transfer funds to an exchange but you can no longer send and receive payments or add funds.</string>
 
     <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string>
+    <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
+    <string name="PaymentsHomeFragment__turn_on">Turn on Payment Lock for future sends?</string>
+    <!-- Alert dialog description for why payment lock should be enabled before sending payments -->
+    <string name="PaymentsHomeFragment__add_an_additional_layer">Add an additional layer of security and require Android screen lock or fingerprint to transfer funds.</string>
+    <!-- Alert dialog button to enable payment lock -->
+    <string name="PaymentsHomeFragment__enable">Turn On</string>
+    <!-- Alert dialog button to not enable payment lock for now -->
+    <string name="PaymentsHomeFragment__not_now">Not Now</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">Add funds</string>
@@ -2921,6 +2988,14 @@
     <string name="ConfirmPayment__payment_failed">Payment failed</string>
     <string name="ConfirmPayment__payment_will_continue_processing">Payment will continue processing</string>
     <string name="ConfirmPaymentFragment__invalid_recipient">Invalid recipient</string>
+    <!-- Biometric/Device authentication prompt title which comes up before sending a payment -->
+    <string name="ConfirmPaymentFragment__unlock_to_send_payment">Unlock to Send Payment</string>
+    <!-- Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment -->
+    <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Failed to show payment lock</string>
+    <!-- Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment -->
+    <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">You enabled payment lock in the settings, but it cannot be shown.</string>
+    <!-- Button in a dialog that will take the user to the privacy settings -->
+    <string name="ConfirmPaymentFragment__go_to_settings">Go to settings</string>
     <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">This person has not activated payments</string>
     <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">Unable to request a network fee. To continue this payment tap okay to try again.</string>
 
@@ -3254,10 +3329,16 @@
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">You successfully entered your backup passphrase</string>
     <string name="BackupDialog_passphrase_was_not_correct">Passphrase was not correct</string>
     <string name="LocalBackupJob_creating_signal_backup">Creating Molly backup…</string>
+    <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
+    <string name="LocalBackupJob_verifying_signal_backup">Verifying Molly backup…</string>
     <string name="LocalBackupJobApi29_backup_failed">Backup failed</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Your backup directory has been deleted or moved.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Your backup file is too large to store on this volume.</string>
     <string name="LocalBackupJobApi29_there_is_not_enough_space">There is not enough space to store your backup.</string>
+    <!-- Error message shown if a newly created backup could not be verified as accurate -->
+    <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">Your recent backup could not be created and verified. Please create a new one.</string>
+    <!-- Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail -->
+    <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Your backup contains a very large file that cannot be backed up. Please delete it and create a new backup.</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">Tap to manage backups.</string>
     <string name="ProgressPreference_d_messages_so_far">%d messages so far</string>
     <string name="RegistrationActivity_wrong_number">Wrong number</string>
@@ -3590,6 +3671,8 @@
     <string name="ShareActivity__send">Send</string>
     <string name="ShareActivity__comma_s">, %1$s</string>
     <string name="ShareActivity__sharing_to_multiple_chats_is">Sharing to multiple chats is only supported for Signal messages</string>
+    <!-- Toast when the incoming intent is invalid -->
+    <string name="ShareActivity__could_not_get_share_data_from_intent">Could not get share data from intent.</string>
 
     <!-- MultiShareDialogs -->
     <string name="MultiShareDialogs__failed_to_send_to_some_users">Failed to send to some users</string>
@@ -3859,6 +3942,19 @@
     <string name="PrivacySettingsFragment__signal_message_and_calls">Signal messages and calls, always relay calls, and sealed sender</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Default timer for new chats</string>
     <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Set a default disappearing message timer for all new chats started by you.</string>
+    <!-- Summary for stories preference to launch into story privacy settings -->
+    <string name="PrivacySettingsFragment__manage_your_stories">Manage your stories and who can view them</string>
+    <string name="PrivacySettingsFragment__payment_lock_require_lock">Require Android screen lock or fingerprint to transfer funds</string>
+    <!-- Alert dialog title when payment lock cannot be enabled -->
+    <string name="PrivacySettingsFragment__cant_enable_title">Can\’t enable payment lock</string>
+    <!-- Alert dialog description to setup screen lock or fingerprint in phone settings -->
+    <string name="PrivacySettingsFragment__cant_enable_description">To use Payment Lock, you must first enable a screen lock or fingerprint ID in your phone’s settings.</string>
+    <!-- Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings -->
+    <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">Failed to navigate to system settings</string>
+    <!-- Alert dialog button to go to phone settings -->
+    <string name="PrivacySettingsFragment__go_to_settings">Go to settings</string>
+    <!-- Alert dialog button to cancel the dialog -->
+    <string name="PrivacySettingsFragment__cancel">Cancel</string>
 
     <!-- AdvancedPrivacySettingsFragment -->
     <string name="AdvancedPrivacySettingsFragment__sealed_sender_link" translatable="false">https://signal.org/blog/sealed-sender</string>
@@ -3985,6 +4081,8 @@
     <string name="NotificationsSettingsFragment__unknown_ringtone">Unknown ringtone</string>
 
     <!-- ConversationSettingsFragment -->
+    <!-- Error toasted when no activity can handle the add contact intent -->
+    <string name="ConversationSettingsFragment__contacts_app_not_found">Contacts app not found</string>
     <string name="ConversationSettingsFragment__send_message">Send message</string>
     <string name="ConversationSettingsFragment__start_video_call">Start video call</string>
     <string name="ConversationSettingsFragment__start_audio_call">Start audio call</string>
@@ -4121,6 +4219,8 @@
         <item quantity="one">Couldn\'t forward message because it\'s no longer available.</item>
         <item quantity="other">Couldn\'t forward messages because they\'re no longer available.</item>
     </plurals>
+    <!-- Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin -->
+    <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">Only admins can send messages to this group.</string>
     <string name="MultiselectForwardFragment__limit_reached">Limit reached</string>
 
     <!-- Media V2 -->
@@ -4305,13 +4405,13 @@
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Network error. Check your connection and try again.</string>
     <string name="NetworkFailure__retry">Retry</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__recipient_verification_failed">Recipient verification failed.</string>
+    <string name="DonationsErrors__cant_send_gift">Can\'t send gift</string>
     <!-- Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__target_does_not_support_gifting">Target does not support gifting.</string>
+    <string name="DonationsErrors__target_does_not_support_gifting">This recipient is using a version of Signal that can\'t receive gift badges. They\'ll be able to receive gifts when they update to the latest version.</string>
     <!-- Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__could_not_verify_recipient">Could not verify recipient.</string>
+    <string name="DonationsErrors__couldnt_send_gift">Couldn\'t send gift</string>
     <!-- Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__please_check_your_network_connection">Please check your network connection and try again.</string>
+    <string name="DonationsErrors__please_check_your_network_connection">Your gift could not be sent because of a network error. Check your connection and try again.</string>
 
     <!-- Gift message view title -->
     <string name="GiftMessageView__gift_badge">Gift badge</string>
@@ -4545,10 +4645,12 @@
     <string name="ConversationListTabs__stories">Stories</string>
     <!-- String for counts above 99 in conversation list tabs -->
     <string name="ConversationListTabs__99p">99+</string>
+    <!-- Menu item on stories landing page -->
+    <string name="StoriesLandingFragment__story_privacy">Story privacy</string>
     <!-- Title for "My Stories" row item in Stories landing page -->
     <string name="StoriesLandingFragment__my_stories">My Stories</string>
     <!-- Subtitle for "My Stories" row item when user has not added stories -->
-    <string name="StoriesLandingFragment__add_a_story">Add a story</string>
+    <string name="StoriesLandingFragment__tap_to_add_a_story">Tap to add a story</string>
     <!-- Displayed when there are no stories to display -->
     <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">No recent updates to show right now. Tap + to add to your story.</string>
     <!-- Context menu option to hide a story -->
@@ -4626,6 +4728,14 @@
     <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">Enable read receipts to see who\'s viewed your stories.</string>
     <!-- Button label displayed when user has disabled receipts -->
     <string name="StoryViewsFragment__go_to_settings">Go to settings</string>
+    <!-- Dialog action to remove viewer from a story -->
+    <string name="StoryViewsFragment__remove">Remove</string>
+    <!-- Dialog title when removing a viewer from a story -->
+    <string name="StoryViewsFragment__remove_viewer">Remove viewer?</string>
+    <!-- Dialog message when removing a viewer from a story -->
+    <string name="StoryViewsFragment__s_will_still_be_able">%1$s will still be able to view this post, but will not be able to view any future posts you share to %2$s.</string>
+    <!-- Story View context menu action to remove them from a story -->
+    <string name="StoryViewItem__remove_viewer">Remove viewer</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">No replies yet</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
@@ -4644,14 +4754,6 @@
     <string name="StoryGroupReplyItem__copy">Copy</string>
     <!-- Context menu item to delete a story response -->
     <string name="StoryGroupReplyItem__delete">Delete</string>
-    <!-- Story settings page title -->
-    <string name="StorySettingsFragment__story_settings">Story settings</string>
-    <!-- Story settings private stories heading -->
-    <string name="StorySettingsFragment__private_stories">Private stories</string>
-    <!-- Note at bottom of story settings regarding who can see private stories. -->
-    <string name="StorySettingsFragment__private_stories_can_only_be_viewed">Private stories can only be viewed by the people you add to them. Only you can see the story name.</string>
-    <!-- Option label for creating a new private story -->
-    <string name="StorySettingsFragment__new_private_story">New private story</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">My Story</string>
     <!-- Section heading for story visibility -->
@@ -4898,13 +5000,18 @@
     <string name="ExpiredGiftSheetConfiguration__not_now">Not now</string>
     <!-- Label under name for private stories -->
     <plurals name="ContactSearchItems__private_story_d_viewers">
-        <item quantity="one">Private Story · %1$d viewer</item>
-        <item quantity="other">Private Story · %1$d viewers</item>
+        <item quantity="one">Private story · %1$d viewer</item>
+        <item quantity="other">Private story · %1$d viewers</item>
     </plurals>
     <!-- Label under name for group stories -->
     <plurals name="ContactSearchItems__group_story_d_viewers">
-        <item quantity="one">Group Story · %1$d viewer</item>
-        <item quantity="other">Group Story · %1$d viewers</item>
+        <item quantity="one">Group story · %1$d viewer</item>
+        <item quantity="other">Group story · %1$d viewers</item>
+    </plurals>
+    <!-- Label under name for my story -->
+    <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
+        <item quantity="one">%1$s · %2$d viewer</item>
+        <item quantity="other">%1$s · %2$d viewers</item>
     </plurals>
     <!-- Label under name for My Story when first sending to my story -->
     <string name="ContactSearchItems__tap_to_choose_your_viewers">Tap to choose your viewers</string>
@@ -5019,6 +5126,35 @@
     <string name="StoryInfoBottomSheetDialogFragment__sent_from">Sent from</string>
     <!-- Story Info context menu label -->
     <string name="StoryInfoBottomSheetDialogFragment__info">Info</string>
+
+    <!-- StoriesPrivacySettingsFragment -->
+    <!-- Explanation about how stories are deleted and managed -->
+    <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">Stories automatically disappear after 24 hours. Choose who can view your story or create new stories with specific viewers or groups.</string>
+    <!-- Preference title to turn off stories -->
+    <string name="StoriesPrivacySettingsFragment__turn_off_stories">Turn off stories</string>
+    <!-- Preference summary to turn off stories -->
+    <string name="StoriesPrivacySettingsFragment__if_you_opt_out">If you opt out of stories you will no longer be able to share or view stories.</string>
+    <!-- Preference title to turn on stories -->
+    <string name="StoriesPrivacySettingsFragment__turn_on_stories">Turn on stories</string>
+    <!-- Preference summary to turn on stories -->
+    <string name="StoriesPrivacySettingsFragment__share_and_view">Share and view stories from others. Stories automatically disappear after 24 hours.</string>
+    <!-- Dialog title to turn off stories -->
+    <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Turn off stories?</string>
+    <!-- Dialog message to turn off stories -->
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">You will no longer be able to share or view stories. Any stories you have recently sent will still be visible by others until they expire.</string>
+    <!-- Page title when launched from stories landing screen -->
+    <string name="StoriesPrivacySettingsFragment__story_privacy">Story privacy</string>
+
+    <!-- GroupStorySettingsFragment -->
+    <!-- Section header for who can view a group story -->
+    <string name="GroupStorySettingsFragment__who_can_view_this_story">Who can view this story</string>
+    <!-- Explanation of who can view a group story -->
+    <string name="GroupStorySettingsFragment__members_of_the_group_s">Members of the group "%1$s" can view and reply to this story. You can update the membership for this chat in the group.</string>
+    <!-- Preference label for removing this group story -->
+    <string name="GroupStorySettingsFragment__remove_group_story">Remove group story</string>
+
+    <!-- Generic title for overflow menus -->
+    <string name="OverflowMenu__overflow_menu">Overflow menu</string>
 
     <!-- EOF -->
 

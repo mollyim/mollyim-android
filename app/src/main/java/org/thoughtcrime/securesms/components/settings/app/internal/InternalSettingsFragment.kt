@@ -14,12 +14,12 @@ import org.signal.ringrtc.CallManager
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
-import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.database.LocalMetricsDatabase
 import org.thoughtcrime.securesms.database.LogDatabase
+import org.thoughtcrime.securesms.database.MegaphoneDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.jobmanager.JobTracker
@@ -32,9 +32,12 @@ import org.thoughtcrime.securesms.jobs.RetrieveRemoteAnnouncementsJob
 import org.thoughtcrime.securesms.jobs.RotateProfileKeyJob
 import org.thoughtcrime.securesms.jobs.StorageForcePushJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.megaphone.MegaphoneRepository
+import org.thoughtcrime.securesms.megaphone.Megaphones
 import org.thoughtcrime.securesms.payments.DataExportUtil
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.ConversationUtil
+import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import java.util.Optional
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
@@ -43,7 +46,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
   private lateinit var viewModel: InternalSettingsViewModel
 
-  override fun bindAdapter(adapter: DSLSettingsAdapter) {
+  override fun bindAdapter(adapter: MappingAdapter) {
     val repository = InternalSettingsRepository(requireContext())
     val factory = InternalSettingsViewModel.Factory(repository)
     viewModel = ViewModelProvider(this, factory)[InternalSettingsViewModel::class.java]
@@ -387,6 +390,19 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         title = DSLSettingsText.from(R.string.preferences__internal_release_channel_set_last_version),
         onClick = {
           SignalStore.releaseChannelValues().highestVersionNoteReceived = max(SignalStore.releaseChannelValues().highestVersionNoteReceived - 10, 0)
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__internal_reset_donation_megaphone),
+        onClick = {
+          SignalDatabase.remoteMegaphones.debugRemoveAll()
+          MegaphoneDatabase.getInstance(ApplicationDependencies.getApplication()).let {
+            it.delete(Megaphones.Event.REMOTE_MEGAPHONE)
+            it.markFirstVisible(Megaphones.Event.DONATE_MOLLY, System.currentTimeMillis() - TimeUnit.DAYS.toMillis(31))
+          }
+          // Force repository database cache refresh
+          MegaphoneRepository(ApplicationDependencies.getApplication()).onFirstEverAppLaunch()
         }
       )
 

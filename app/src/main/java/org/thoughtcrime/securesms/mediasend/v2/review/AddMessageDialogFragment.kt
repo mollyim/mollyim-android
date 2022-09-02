@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.plusAssign
 import org.signal.core.util.EditTextUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ComposeText
@@ -19,6 +20,11 @@ import org.thoughtcrime.securesms.components.KeyboardEntryDialogFragment
 import org.thoughtcrime.securesms.components.emoji.EmojiToggle
 import org.thoughtcrime.securesms.components.emoji.MediaKeyboard
 import org.thoughtcrime.securesms.components.mention.MentionAnnotation
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQuery
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQuery.NoQuery
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQueryChangedListener
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQueryResultsController
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQueryViewModel
 import org.thoughtcrime.securesms.conversation.ui.mentions.MentionsPickerFragment
 import org.thoughtcrime.securesms.conversation.ui.mentions.MentionsPickerViewModel
 import org.thoughtcrime.securesms.keyboard.KeyboardPage
@@ -48,13 +54,20 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
     factoryProducer = { MentionsPickerViewModel.Factory() }
   )
 
+  private val inlineQueryViewModel: InlineQueryViewModel by viewModels(
+    ownerProducer = { requireActivity() }
+  )
+
   private lateinit var input: ComposeText
   private lateinit var emojiDrawerToggle: EmojiToggle
   private lateinit var emojiDrawerStub: Stub<MediaKeyboard>
   private lateinit var hud: InputAwareLayout
   private lateinit var mentionsContainer: ViewGroup
+  private lateinit var inlineQueryResultsController: InlineQueryResultsController
 
   private var requestedEmojiDrawer: Boolean = false
+
+  private var recipient: Recipient? = null
 
   private val disposables = CompositeDisposable()
 
@@ -68,7 +81,9 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     input = view.findViewById(R.id.add_a_message_input)
 
-    EditTextUtil.addGraphemeClusterLimitFilter(input, Stories.MAX_BODY_SIZE)
+    if (Stories.isFeatureEnabled()) {
+      EditTextUtil.addGraphemeClusterLimitFilter(input, Stories.MAX_BODY_SIZE)
+    }
 
     input.setText(requireArguments().getCharSequence(ARG_INITIAL_TEXT))
 
@@ -125,28 +140,69 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
     }
   }
 
+  override fun onKeyboardShown() {
+    super.onKeyboardShown()
+    if (emojiDrawerStub.resolved() && emojiDrawerStub.get().isShowing && !emojiDrawerStub.get().isEmojiSearchMode) {
+      emojiDrawerStub.get().hide(true)
+    }
+  }
+
   override fun onDestroyView() {
     super.onDestroyView()
     disposables.dispose()
 
-    input.setMentionQueryChangedListener(null)
+    input.setInlineQueryChangedListener(null)
     input.setMentionValidator(null)
   }
 
   private fun initializeMentions() {
-    val recipientId: RecipientId = viewModel.destination.getRecipientSearchKey()?.recipientId ?: return
-
     mentionsContainer = requireView().findViewById(R.id.mentions_picker_container)
 
-    Recipient.live(recipientId).observe(viewLifecycleOwner) { recipient ->
-      mentionsViewModel.onRecipientChange(recipient)
+    inlineQueryResultsController = InlineQueryResultsController(
+      requireContext(),
+      inlineQueryViewModel,
+      requireView().findViewById(R.id.background_holder),
+      (requireView() as ViewGroup),
+      input,
+      viewLifecycleOwner
+    )
 
-      input.setMentionQueryChangedListener { query ->
-        if (recipient.isPushV2Group) {
-          ensureMentionsContainerFilled()
-          mentionsViewModel.onQueryChange(query)
+    input.setInlineQueryChangedListener(object : InlineQueryChangedListener {
+      override fun onQueryChanged(inlineQuery: InlineQuery) {
+        when (inlineQuery) {
+          is InlineQuery.Mention -> {
+            recipient?.takeIf { it.isPushV2Group && it.isActiveGroup }.let {
+              ensureMentionsContainerFilled()
+              mentionsViewModel.onQueryChange(inlineQuery.query)
+            }
+            inlineQueryViewModel.onQueryChange(inlineQuery)
+          }
+          is InlineQuery.Emoji -> {
+            inlineQueryViewModel.onQueryChange(inlineQuery)
+            mentionsViewModel.onQueryChange(null)
+          }
+          is NoQuery -> {
+            mentionsViewModel.onQueryChange(null)
+            inlineQueryViewModel.onQueryChange(inlineQuery)
+          }
         }
       }
+
+      override fun clearQuery() {
+        onQueryChanged(NoQuery)
+      }
+    })
+
+    disposables += inlineQueryViewModel
+      .selection
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe { r -> input.replaceText(r) }
+
+    val recipientId: RecipientId = viewModel.destination.getRecipientSearchKey()?.recipientId ?: return
+
+    Recipient.live(recipientId).observe(viewLifecycleOwner) { recipient ->
+      this.recipient = recipient
+      mentionsViewModel.onRecipientChange(recipient)
 
       input.setMentionValidator { annotations ->
         if (!recipient.isPushV2Group) {

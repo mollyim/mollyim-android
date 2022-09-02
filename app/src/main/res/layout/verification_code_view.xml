@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:viewBindingIgnore="true"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:importantForAccessibility="yes"
             android:textColor="@color/signal_inverse_primary"
             android:textSize="28sp"
             tools:text="0" />
@@ -44,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:importantForAccessibility="yes"
             android:textColor="@color/signal_inverse_primary"
             android:textSize="28sp"
             tools:text="1" />
@@ -66,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:importantForAccessibility="yes"
             android:textColor="@color/signal_inverse_primary"
             android:textSize="28sp"
             tools:text="2" />
@@ -78,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="4dp"
+        android:importantForAccessibility="no"
         android:text="-"
         android:textColor="@color/signal_inverse_primary"
         android:textSize="28sp"
@@ -101,6 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:importantForAccessibility="yes"
             android:textColor="@color/signal_inverse_primary"
             android:textSize="28sp"
             tools:text="3" />
@@ -123,6 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:importantForAccessibility="yes"
             android:textColor="@color/signal_inverse_primary"
             android:textSize="28sp"
             tools:text="4" />

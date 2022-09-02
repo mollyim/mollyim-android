@@ -4,17 +4,21 @@ package org.thoughtcrime.securesms.jobs;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.signal.core.util.Stopwatch;
+import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.backup.BackupEvent;
 import org.thoughtcrime.securesms.backup.BackupFileIOError;
 import org.thoughtcrime.securesms.backup.BackupPassphrase;
-import org.thoughtcrime.securesms.backup.FullBackupBase;
+import org.thoughtcrime.securesms.backup.BackupVerifier;
 import org.thoughtcrime.securesms.backup.FullBackupExporter;
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -26,11 +30,13 @@ import org.thoughtcrime.securesms.service.GenericForegroundService;
 import org.thoughtcrime.securesms.service.NotificationController;
 import org.thoughtcrime.securesms.util.BackupUtil;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Backup Job for installs requiring Scoped Storage.
@@ -45,6 +51,10 @@ public final class LocalBackupJobApi29 extends BaseJob {
 
   public static final String TEMP_BACKUP_FILE_PREFIX = ".backup";
   public static final String TEMP_BACKUP_FILE_SUFFIX = ".tmp";
+
+  private static final int  MAX_VERIFY_ATTEMPTS     = 5;
+  private static final int  MAX_RENAME_ATTEMPTS     = 5;
+  private static final long WAIT_FOR_SCOPED_STORAGE = TimeUnit.SECONDS.toMillis(2);
 
   LocalBackupJobApi29(@NonNull Parameters parameters) {
     super(parameters);
@@ -75,7 +85,7 @@ public final class LocalBackupJobApi29 extends BaseJob {
       throw new IOException("Backup Directory has not been selected!");
     }
 
-    ProgressUpdater updater = new ProgressUpdater();
+    ProgressUpdater updater = new ProgressUpdater(context.getString(R.string.LocalBackupJob_verifying_signal_backup));
     try (NotificationController notification = GenericForegroundService.startForegroundTask(context,
                                                                                             context.getString(R.string.LocalBackupJob_creating_signal_backup),
                                                                                             NotificationChannels.BACKUPS,
@@ -113,23 +123,34 @@ public final class LocalBackupJobApi29 extends BaseJob {
       }
 
       try {
-        FullBackupExporter.export(context,
-                                  AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret(),
-                                  SignalDatabase.getBackupDatabase(),
-                                  temporaryFile,
-                                  backupPassword,
-                                  this::isCanceled);
+        Stopwatch   stopwatch     = new Stopwatch("backup-export");
+        BackupEvent finishedEvent = FullBackupExporter.export(context,
+                                                              AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret(),
+                                                              SignalDatabase.getBackupDatabase(),
+                                                              temporaryFile,
+                                                              backupPassword,
+                                                              this::isCanceled);
+        stopwatch.split("backup-create");
 
-        if (!temporaryFile.renameTo(fileName)) {
-          Log.w(TAG, "Failed to rename temp file");
-          throw new IOException("Renaming temporary backup file failed!");
+        boolean valid = verifyBackup(backupPassword, temporaryFile, finishedEvent);
+
+        stopwatch.split("backup-verify");
+        stopwatch.stop(TAG);
+
+        if (valid) {
+          renameBackup(fileName, temporaryFile);
+        } else {
+          BackupFileIOError.VERIFICATION_FAILED.postNotification(context);
         }
+        EventBus.getDefault().post(finishedEvent);
       } catch (FullBackupExporter.BackupCanceledException e) {
+        EventBus.getDefault().post(new BackupEvent(BackupEvent.Type.FINISHED, 0, 0));
         Log.w(TAG, "Backup cancelled");
         throw e;
       } catch (IOException e) {
         Log.w(TAG, "Error during backup!", e);
-        BackupFileIOError.postNotificationForException(context, e, getRunAttempt());
+        EventBus.getDefault().post(new BackupEvent(BackupEvent.Type.FINISHED, 0, 0));
+        BackupFileIOError.postNotificationForException(context, e);
         throw e;
       } finally {
         DocumentFile fileToCleanUp = backupDirectory.findFile(temporaryName);
@@ -146,6 +167,37 @@ public final class LocalBackupJobApi29 extends BaseJob {
     } finally {
       EventBus.getDefault().unregister(updater);
       updater.setNotification(null);
+    }
+  }
+
+  private boolean verifyBackup(String backupPassword, DocumentFile temporaryFile, BackupEvent finishedEvent) {
+    Boolean valid    = null;
+    int     attempts = 0;
+
+    while (attempts < MAX_VERIFY_ATTEMPTS && valid == null) {
+      try {
+        valid = BackupVerifier.verifyFile(context.getContentResolver().openInputStream(temporaryFile.getUri()), backupPassword, finishedEvent.getCount());
+      } catch (FileNotFoundException e) {
+        Log.w(TAG, "Unable to find backup file, attempt: " + (attempts + 1) + "/" + MAX_VERIFY_ATTEMPTS);
+        ThreadUtil.sleep(WAIT_FOR_SCOPED_STORAGE);
+        attempts++;
+      }
+    }
+    return valid != null ? valid : false;
+  }
+
+  private void renameBackup(String fileName, DocumentFile temporaryFile) throws IOException {
+    int attempts = 0;
+
+    while (attempts < MAX_RENAME_ATTEMPTS && !temporaryFile.renameTo(fileName)) {
+      Log.w(TAG, "Unable to rename backup file, attempt: " + (attempts + 1) + "/" + MAX_RENAME_ATTEMPTS);
+      ThreadUtil.sleep(WAIT_FOR_SCOPED_STORAGE);
+      attempts++;
+    }
+
+    if (attempts >= MAX_RENAME_ATTEMPTS) {
+      Log.w(TAG, "Failed to rename temp file");
+      throw new IOException("Renaming temporary backup file failed!");
     }
   }
 
@@ -174,19 +226,29 @@ public final class LocalBackupJobApi29 extends BaseJob {
   }
 
   private static class ProgressUpdater {
-    private NotificationController notification;
+    private final String                 verifyProgressTitle;
+    private       NotificationController notification;
+    private       boolean                verifying = false;
+
+    public ProgressUpdater(String verifyProgressTitle) {
+      this.verifyProgressTitle = verifyProgressTitle;
+    }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
-    public void onEvent(FullBackupBase.BackupEvent event) {
+    public void onEvent(BackupEvent event) {
       if (notification == null) {
         return;
       }
 
-      if (event.getType() == FullBackupBase.BackupEvent.Type.PROGRESS) {
+      if (event.getType() == BackupEvent.Type.PROGRESS || event.getType() == BackupEvent.Type.PROGRESS_VERIFYING) {
         if (event.getEstimatedTotalCount() == 0) {
           notification.setIndeterminateProgress();
         } else {
           notification.setProgress(100, (int) event.getCompletionPercentage());
+          if (event.getType() == BackupEvent.Type.PROGRESS_VERIFYING && !verifying) {
+            notification.replaceTitle(verifyProgressTitle);
+            verifying = true;
+          }
         }
       }
     }

@@ -41,6 +41,9 @@
   <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">記錄付款回復短語</string>
   <string name="ApplicationPreferencesActivity_record_phrase">紀錄短語</string>
   <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">在停用PIN碼之前，你必須記錄你的付款回復詞語以確保可以回復你的付款帳戶。</string>
+  <!--NumericKeyboardView-->
+  <!--Back button on numeric keyboard-->
+  <string name="NumericKeyboardView__backspace">退格鍵</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="other">%d 分鐘</item>
@@ -167,7 +170,7 @@
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">我的限時動態</string>
   <!--Action for creating a new story-->
-  <string name="ContactsCursorLoader_new_story">新限時動態</string>
+  <string name="ContactsCursorLoader_new_story">新的限動</string>
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">傳送訊息給 %s</string>
   <string name="ContactsDatabase_signal_call_s">與 %s 進行 Signal 通話</string>
@@ -406,8 +409,20 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">頭像照片設定出現錯誤</string>
   <string name="CreateProfileActivity_problem_setting_profile">個人資訊設定出現問題</string>
   <string name="CreateProfileActivity_set_up_your_profile">設定你的資訊</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">你的個人資料已點對點加密。 在你發起或接受新對話以及在加入新群組後，你的聯絡人可以看到你變更個人資料。</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">與你收發訊息的使用者、聯絡人和群組將會看到你的個人檔案及相關的變更內容。</string>
   <string name="CreateProfileActivity_set_avatar_description">設定頭像</string>
+  <!--ProfileCreateFragment-->
+  <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">與你收發訊息的使用者、聯絡人和群組將會看到你的個人檔案。</string>
+  <!--Title of clickable row to select phone number privacy settings-->
+  <string name="ProfileCreateFragment__who_can_find_me">誰能用手機號碼找到我？</string>
+  <!--WhoCanSeeMyPhoneNumberFragment-->
+  <!--Toolbar title for this screen-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">誰能用手機號碼找到我？</string>
+  <!--Description for radio item stating anyone can see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">只要對方通訊錄裡有你的手機號碼，他們就會看到你的 Signal 聯絡人身分。其他使用者則可用你的手機號碼搜尋到你。</string>
+  <!--Description for radio item stating no one will be able to see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">任何 Signal 使用者將無法用你的手機號碼找到你。</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">從備份來還原？</string>
   <string name="ChooseBackupFragment__restore_your_messages_and_media">從本機備份還原你的訊息及媒體，如果現在不還原，你將無法在之後進行還原。</string>
@@ -439,6 +454,8 @@
   <string name="BackupsPreferenceFragment__to_restore_a_backup">要回復備份，請安裝新的Molly。 打開應用程式，然後點擊“還原備份”，然後找到一個備份檔案。%1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">了解更多</string>
   <string name="BackupsPreferenceFragment__in_progress">正在進行中…</string>
+  <!--Status text shown in backup preferences when verifying a backup-->
+  <string name="BackupsPreferenceFragment__verifying_backup">正在驗證備份內容…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d到目前為止…</string>
   <!--Show percentage of completion of backup-->
   <string name="BackupsPreferenceFragment__s_so_far">目前進度%1$s%%…</string>
@@ -691,6 +708,10 @@
   <string name="ManageProfileFragment_failed_to_set_avatar">設定頭像失敗</string>
   <string name="ManageProfileFragment_badges">徽章</string>
   <string name="ManageProfileFragment__edit_photo">編輯照片</string>
+  <!--Snackbar message after creating username-->
+  <string name="ManageProfileFragment__username_created">已建立使用者名稱</string>
+  <!--Snackbar message after copying username-->
+  <string name="ManageProfileFragment__username_copied">已複製使用者名稱</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">沒有共同的群組</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -1442,6 +1463,12 @@
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">編輯</string>
   <string name="SubmitDebugLogActivity_done">完成</string>
+  <!--Menu option to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save">儲存</string>
+  <!--Error that is show in a toast when we fail to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_failed_to_save">無法儲存</string>
+  <!--Toast that is show to notify that we have saved the debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save_complete">已成功儲存</string>
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">點擊一行以將其刪除</string>
   <string name="SubmitDebugLogActivity_submit">上傳</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">傳送紀錄失敗</string>
@@ -1496,7 +1523,9 @@
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">你已加值了一個禮品徽章</string>
   <!--Displayed in the conversation list when someone reacted to your story-->
+  <string name="ThreadRecord__reacted_s_to_your_story">已向你的限動送出 %1$s</string>
   <!--Displayed in the conversation list when you reacted to someone\'s story-->
+  <string name="ThreadRecord__reacted_s_to_their_story">已向對方的限動送出 %1$s</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Molly 更新</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">有新版本的 Molly，輕觸更新</string>
@@ -1507,6 +1536,8 @@
   <string name="UnverifiedSendDialog_send_message">傳送訊息？</string>
   <string name="UnverifiedSendDialog_send">傳送</string>
   <!--UsernameEditFragment-->
+  <!--Instructional text at the top of the username edit screen-->
+  <string name="UsernameEditFragment__choose_your_username">選擇你的使用者名稱</string>
   <string name="UsernameEditFragment_username">使用者名稱</string>
   <string name="UsernameEditFragment_delete">刪除</string>
   <string name="UsernameEditFragment_successfully_set_username">成功設定使用者名稱。</string>
@@ -1518,10 +1549,17 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">使用者名稱不可以以數字開頭。</string>
   <string name="UsernameEditFragment_username_is_invalid">使用者名稱無效。</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">使用者名稱長度必須介乎 %1$d 和 %2$d個字元。</string>
-  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Signal上的使用者名稱是可選的。 如果你選擇建立使用者名稱，則其他Signal使用者可以透過該用使用者名找到你，並在不知道你的電話號碼的情況下與你聯絡。</string>
+  <!--Explanation about what usernames provide-->
+  <string name="UsernameEditFragment__usernames_let_others_message">使用者名稱方便他人無需你的手機號碼，也可傳訊息給你。使用者名稱會與一組數字配對，以妥善保護網路位址的隱私。</string>
+  <!--Dialog title for explanation about numbers at the end of the username-->
+  <string name="UsernameEditFragment__what_is_this_number">這組號碼是什麼？</string>
+  <string name="UsernameEditFragment__these_digits_help_keep">這組號碼能保障使用者名稱的隱私，以避免你收到不必要的訊息。建議你僅將使用者名稱分享給你想聯繫的對象和群組。若變更使用者名稱，則會再收到一組新的數字。</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="other">有%d個聯絡人使用Signal</item>
   </plurals>
+  <!--UsernameShareBottomSheet-->
+  <!--Explanation of what the sheet enables the user to do-->
+  <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">複製或分享使用者名稱連結</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">您的聯絡人使用的是舊版本的 Signal。在驗證您的安全碼前請尋求對方先進行更新。</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">您的聯絡人正使用較新版本的 Signal，QR 碼格式並不相容。請升級以作比對。</string>
@@ -2095,6 +2133,8 @@
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">一次性捐款</string>
   <string name="preferences__privacy">隱私權</string>
+  <!--Preference label for stories-->
+  <string name="preferences__stories">動態</string>
   <string name="preferences__mms_user_agent">MMS User Agent</string>
   <string name="preferences__advanced_mms_access_point_names">手動多媒體設定</string>
   <string name="preferences__mmsc_url">MMSC URL</string>
@@ -2107,6 +2147,8 @@
   <string name="preferences__data_and_storage">數據與儲存空間</string>
   <string name="preferences__storage">儲存空間</string>
   <string name="preferences__payments">付款</string>
+  <!--Privacy settings payments section description-->
+  <string name="preferences__payment_lock">付款鎖定</string>
   <string name="preferences__payments_beta">付款功能（測試版）</string>
   <string name="preferences__conversation_length_limit">對話群組長度上限</string>
   <string name="preferences__keep_messages">保留訊息</string>
@@ -2172,6 +2214,8 @@
   <string name="preferences_app_protection__who_can">誰可以…</string>
   <string name="preferences_app_protection__app_access">應用程式存取</string>
   <string name="preferences_app_protection__communication">溝通</string>
+  <!--Privacy settings payments section title-->
+  <string name="preferences_app_protection__payments">付款</string>
   <string name="preferences_chats__chats">聊天</string>
   <string name="preferences_data_and_storage__manage_storage">管理儲存空間</string>
   <string name="preferences_data_and_storage__calls">通話</string>
@@ -2229,7 +2273,6 @@
   <string name="preferences_enter_proxy_address">輸入代理伺服器位址</string>
   <string name="configurable_single_select__customize_option">自定義選項</string>
   <!--Internal only preferences-->
-  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">所有活動</string>
   <string name="PaymentsAllActivityFragment__all">全部</string>
@@ -2274,6 +2317,14 @@
   <string name="PaymentsHomeFragment__activate">啟動</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">查看MobileCoin條款</string>
   <string name="PaymentsHomeFragment__payments_not_available">Molly中的付款不再可用。 你仍然可以將資金轉帳到交易所，但不能再傳送和接收付款或增加資金。</string>
+  <!--Alert dialog title which shows up after a payment to turn on payment lock-->
+  <string name="PaymentsHomeFragment__turn_on">要為未來的付款開啟「付款鎖定」嗎？</string>
+  <!--Alert dialog description for why payment lock should be enabled before sending payments-->
+  <string name="PaymentsHomeFragment__add_an_additional_layer">增添多一層安全防護，並在付款時需要解開 Android 畫面鎖定或使用指紋解鎖。</string>
+  <!--Alert dialog button to enable payment lock-->
+  <string name="PaymentsHomeFragment__enable">開啟</string>
+  <!--Alert dialog button to not enable payment lock for now-->
+  <string name="PaymentsHomeFragment__not_now">暫時不要</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">增加資金</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">你的錢包位址</string>
@@ -2354,6 +2405,14 @@
   <string name="ConfirmPayment__payment_failed">付款失敗</string>
   <string name="ConfirmPayment__payment_will_continue_processing">付款將繼續處理</string>
   <string name="ConfirmPaymentFragment__invalid_recipient">無效的收件者</string>
+  <!--Biometric/Device authentication prompt title which comes up before sending a payment-->
+  <string name="ConfirmPaymentFragment__unlock_to_send_payment">解鎖以便付款</string>
+  <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">無法顯示付款鎖定</string>
+  <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">你已在設定中啟用付款鎖定，但系統目前無法顯示。</string>
+  <!--Button in a dialog that will take the user to the privacy settings-->
+  <string name="ConfirmPaymentFragment__go_to_settings">前往「設定」</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">此人尚未啟用付款功能</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">無法要求網路費。 要繼續此付款，請點擊確定，然後重試。</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2626,10 +2685,16 @@
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">你已成功的輸入你的備份碼</string>
   <string name="BackupDialog_passphrase_was_not_correct">備份碼錯誤</string>
   <string name="LocalBackupJob_creating_signal_backup">建立 Molly 備份…</string>
+  <!--Title for progress notification shown in a system notification while verifying a recent backup.-->
+  <string name="LocalBackupJob_verifying_signal_backup">正在驗證 Molly 備份內容…</string>
   <string name="LocalBackupJobApi29_backup_failed">備份失敗</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">你的備份目錄已被刪除或移動。</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">你的備份檔案太大，無法儲存在該空間上。</string>
   <string name="LocalBackupJobApi29_there_is_not_enough_space">沒有足夠的空間來儲存備份。</string>
+  <!--Error message shown if a newly created backup could not be verified as accurate-->
+  <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">無法建立並驗證近期的備份內容。請建立新的備份內容。</string>
+  <!--Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail-->
+  <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">你的備份內容包含一個大型檔案，因此無法成功備份。請刪除該檔案，並建立新的備份內容。</string>
   <string name="LocalBackupJobApi29_tap_to_manage_backups">點擊以管理備份。</string>
   <string name="ProgressPreference_d_messages_so_far">目前有 %d 則訊息</string>
   <string name="RegistrationActivity_wrong_number">電話號碼不對</string>
@@ -2927,6 +2992,8 @@
   <string name="ShareActivity__send">傳送</string>
   <string name="ShareActivity__comma_s">、%1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">分享多個聊天僅支援 Signal 訊息</string>
+  <!--Toast when the incoming intent is invalid-->
+  <string name="ShareActivity__could_not_get_share_data_from_intent">無法從意圖中取得共用資料。</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">無法傳送給某些使用者</string>
   <string name="MultiShareDialogs__you_can_only_share_with_up_to">您最多只能共享 %1$d 個聊天</string>
@@ -3152,6 +3219,19 @@
   <string name="PrivacySettingsFragment__signal_message_and_calls">Signal 訊息和電話，永遠轉發通話和密封發件人</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">新聊天的預設計時器</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">為你發起的所有新聊天設定預設的訊息銷毀計時器。</string>
+  <!--Summary for stories preference to launch into story privacy settings-->
+  <string name="PrivacySettingsFragment__manage_your_stories">管理限動及瀏覽對象</string>
+  <string name="PrivacySettingsFragment__payment_lock_require_lock">付款時需要解開 Android 畫面鎖定或使用指紋解鎖</string>
+  <!--Alert dialog title when payment lock cannot be enabled-->
+  <string name="PrivacySettingsFragment__cant_enable_title">無法啟用付款鎖定</string>
+  <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
+  <string name="PrivacySettingsFragment__cant_enable_description">如要使用「付款鎖定」，你必須先在手機的設定中啟用螢幕鎖定或指紋 ID 功能。</string>
+  <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
+  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">無法前往系統設定</string>
+  <!--Alert dialog button to go to phone settings-->
+  <string name="PrivacySettingsFragment__go_to_settings">前往「設定」</string>
+  <!--Alert dialog button to cancel the dialog-->
+  <string name="PrivacySettingsFragment__cancel">取消</string>
   <!--AdvancedPrivacySettingsFragment-->
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">顯示狀態圖示</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">使用密封發件人傳送訊息時，在訊息詳細資訊中顯示一個圖示</string>
@@ -3259,6 +3339,8 @@
   <string name="EmojiSearchFragment__no_results_found">未找到結果</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">未知的鈴聲</string>
   <!--ConversationSettingsFragment-->
+  <!--Error toasted when no activity can handle the add contact intent-->
+  <string name="ConversationSettingsFragment__contacts_app_not_found">找不到聯絡人 App</string>
   <string name="ConversationSettingsFragment__send_message">傳送訊息</string>
   <string name="ConversationSettingsFragment__start_video_call">開始視訊通話</string>
   <string name="ConversationSettingsFragment__start_audio_call">開始語音通話</string>
@@ -3375,6 +3457,8 @@
   <plurals name="MultiselectForwardFragment__couldnt_forward_messages">
     <item quantity="other">無法轉寄訊息，因為它們不可再使用。</item>
   </plurals>
+  <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
+  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">只有管理員可以向此群組傳送訊息。</string>
   <string name="MultiselectForwardFragment__limit_reached">已達上限</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">新增訊息</string>
@@ -3534,13 +3618,13 @@
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">網路錯誤。 檢查你的網路連接並重試。</string>
   <string name="NetworkFailure__retry">重試</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__recipient_verification_failed">收件人驗證失敗。</string>
+  <string name="DonationsErrors__cant_send_gift">無法傳送禮物</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">對象不支援送禮。</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">此接收者目前使用的 Signal 版本無法接收禮物徽章。只有更新到最新版本後，才能收到禮物。</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__could_not_verify_recipient">無法驗證收件人。</string>
+  <string name="DonationsErrors__couldnt_send_gift">無法傳送禮物</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__please_check_your_network_connection">請檢查你的網路連接，然後重試。</string>
+  <string name="DonationsErrors__please_check_your_network_connection">由於網路出現錯誤，因此我們無法傳送你的禮物。請查看網路連線，並再試一次。</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">禮品徽章</string>
   <!--Gift message view expiry information-->
@@ -3756,10 +3840,12 @@
   <string name="ConversationListTabs__stories">動態</string>
   <!--String for counts above 99 in conversation list tabs-->
   <string name="ConversationListTabs__99p">99+</string>
+  <!--Menu item on stories landing page-->
+  <string name="StoriesLandingFragment__story_privacy">限動隱私</string>
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">我的限時動態</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
-  <string name="StoriesLandingFragment__add_a_story">新增一個限時動態</string>
+  <string name="StoriesLandingFragment__tap_to_add_a_story">點選即可新增限動</string>
   <!--Displayed when there are no stories to display-->
   <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">目前沒有可顯示的近況更新。輕觸 + 以新增至你的限時動態。</string>
   <!--Context menu option to hide a story-->
@@ -3834,6 +3920,14 @@
   <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">啟用已讀標記，即可查看誰瀏覽了你的限動。</string>
   <!--Button label displayed when user has disabled receipts-->
   <string name="StoryViewsFragment__go_to_settings">前往「設定」</string>
+  <!--Dialog action to remove viewer from a story-->
+  <string name="StoryViewsFragment__remove">移除</string>
+  <!--Dialog title when removing a viewer from a story-->
+  <string name="StoryViewsFragment__remove_viewer">要移除瀏覽者嗎？</string>
+  <!--Dialog message when removing a viewer from a story-->
+  <string name="StoryViewsFragment__s_will_still_be_able">%1$s 仍可瀏覽這則貼文，但無法瀏覽未來你分享至「%2$s」的任何貼文。</string>
+  <!--Story View context menu action to remove them from a story-->
+  <string name="StoryViewItem__remove_viewer">移除瀏覽者</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">未有回覆</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3852,14 +3946,6 @@
   <string name="StoryGroupReplyItem__copy">複製</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">刪除</string>
-  <!--Story settings page title-->
-  <string name="StorySettingsFragment__story_settings">限時動態設定</string>
-  <!--Story settings private stories heading-->
-  <string name="StorySettingsFragment__private_stories">個人限時動態</string>
-  <!--Note at bottom of story settings regarding who can see private stories.-->
-  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">私人限時動態只能由你加入的人能看。 只有你可以看到限時動態名稱。</string>
-  <!--Option label for creating a new private story-->
-  <string name="StorySettingsFragment__new_private_story">新增個人限時動態</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">我的限時動態</string>
   <!--Section heading for story visibility-->
@@ -4097,12 +4183,10 @@
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">稍後</string>
   <!--Label under name for private stories-->
-  <plurals name="ContactSearchItems__private_story_d_viewers">
-    <item quantity="other">私人限時動態 · %1$d 個觀眾</item>
-  </plurals>
   <!--Label under name for group stories-->
-  <plurals name="ContactSearchItems__group_story_d_viewers">
-    <item quantity="other">群組限時動態 · %1$d 個觀眾</item>
+  <!--Label under name for my story-->
+  <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
+    <item quantity="other">%1$s · %2$d 位瀏覽者</item>
   </plurals>
   <!--Label under name for My Story when first sending to my story-->
   <string name="ContactSearchItems__tap_to_choose_your_viewers">點選以選擇瀏覽的對象</string>
@@ -4210,5 +4294,31 @@
   <string name="StoryInfoBottomSheetDialogFragment__sent_from">傳送自</string>
   <!--Story Info context menu label-->
   <string name="StoryInfoBottomSheetDialogFragment__info">資訊</string>
+  <!--StoriesPrivacySettingsFragment-->
+  <!--Explanation about how stories are deleted and managed-->
+  <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">限動會在 24 小時後自動消失。選擇你限動的瀏覽對象，或者建立新的限動並設定特定的瀏覽者或群組。</string>
+  <!--Preference title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories">關閉限動</string>
+  <!--Preference summary to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__if_you_opt_out">若選擇退出限動，你將無法再分享或瀏覽限動。</string>
+  <!--Preference title to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_on_stories">開啟限動</string>
+  <!--Preference summary to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__share_and_view">分享並瀏覽其他人的限動。限動會在 24 小時後自動消失。</string>
+  <!--Dialog title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">要關閉限動嗎？</string>
+  <!--Dialog message to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">你將無法再分享或瀏覽限動。任何你近期傳送給他人的限動，在到期之前仍可瀏覽。</string>
+  <!--Page title when launched from stories landing screen-->
+  <string name="StoriesPrivacySettingsFragment__story_privacy">限動隱私</string>
+  <!--GroupStorySettingsFragment-->
+  <!--Section header for who can view a group story-->
+  <string name="GroupStorySettingsFragment__who_can_view_this_story">誰能瀏覽此限動</string>
+  <!--Explanation of who can view a group story-->
+  <string name="GroupStorySettingsFragment__members_of_the_group_s">「%1$s」群組成員可以瀏覽並回覆此限動。你可以調整群組中此聊天的成員設定。</string>
+  <!--Preference label for removing this group story-->
+  <string name="GroupStorySettingsFragment__remove_group_story">移除群組限動</string>
+  <!--Generic title for overflow menus-->
+  <string name="OverflowMenu__overflow_menu">溢出選單</string>
   <!--EOF-->
 </resources>

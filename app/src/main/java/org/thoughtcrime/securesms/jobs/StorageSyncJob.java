@@ -33,9 +33,8 @@ import org.thoughtcrime.securesms.storage.StorageSyncHelper.WriteOperationResult
 import org.thoughtcrime.securesms.storage.StorageSyncModels;
 import org.thoughtcrime.securesms.storage.StorageSyncValidations;
 import org.thoughtcrime.securesms.storage.StoryDistributionListRecordProcessor;
-import org.thoughtcrime.securesms.stories.Stories;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
-import org.thoughtcrime.securesms.util.Stopwatch;
+import org.signal.core.util.Stopwatch;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
@@ -392,12 +391,10 @@ public class StorageSyncJob extends BaseJob {
   }
 
   private static void processKnownRecords(@NonNull Context context, @NonNull StorageRecordCollection records) throws IOException {
-    Recipient self = freshSelf();
-    new ContactRecordProcessor(context, self).process(records.contacts, StorageSyncHelper.KEY_GENERATOR);
+    new ContactRecordProcessor().process(records.contacts, StorageSyncHelper.KEY_GENERATOR);
     new GroupV1RecordProcessor(context).process(records.gv1, StorageSyncHelper.KEY_GENERATOR);
     new GroupV2RecordProcessor(context).process(records.gv2, StorageSyncHelper.KEY_GENERATOR);
-    self = freshSelf();
-    new AccountRecordProcessor(context, self).process(records.account, StorageSyncHelper.KEY_GENERATOR);
+    new AccountRecordProcessor(context, freshSelf()).process(records.account, StorageSyncHelper.KEY_GENERATOR);
 
     if (getKnownTypes().contains(ManifestRecord.Identifier.Type.STORY_DISTRIBUTION_LIST_VALUE)) {
       new StoryDistributionListRecordProcessor().process(records.storyDistributionLists, StorageSyncHelper.KEY_GENERATOR);

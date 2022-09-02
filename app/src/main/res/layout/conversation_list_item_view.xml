@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <org.thoughtcrime.securesms.conversationlist.ConversationListItem xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:viewBindingIgnore="true"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -68,6 +69,7 @@
         android:drawablePadding="5dp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textAlignment="viewStart"
         android:textColor="@color/signal_colorOnSurface"
         app:layout_constraintBottom_toTopOf="@id/conversation_list_item_summary"
         app:layout_constraintEnd_toStartOf="@id/conversation_list_item_date"

@@ -333,6 +333,11 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
 
+        <activity android:name=".mediasend.v2.stories.StoriesMultiselectForwardActivity"
+            android:theme="@style/Signal.DayNight.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
+
     <activity android:name=".verify.VerifyIdentityActivity"
               android:theme="@style/Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>

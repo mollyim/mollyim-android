@@ -110,6 +110,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   public static final String END_CALL_ACTION = WebRtcCallActivity.class.getCanonicalName() + ".END_CALL_ACTION";
 
   public static final String EXTRA_ENABLE_VIDEO_IF_AVAILABLE = WebRtcCallActivity.class.getCanonicalName() + ".ENABLE_VIDEO_IF_AVAILABLE";
+  public static final String EXTRA_STARTED_FROM_FULLSCREEN   = WebRtcCallActivity.class.getCanonicalName() + ".STARTED_FROM_FULLSCREEN";
 
   private CallParticipantsListUpdatePopupWindow participantUpdateWindow;
   private WifiToCellularPopupWindow             wifiToCellularPopupWindow;
@@ -136,7 +137,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   @SuppressLint("SourceLockedOrientationActivity")
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    Log.i(TAG, "onCreate()");
+    Log.i(TAG, "onCreate(" + getIntent().getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false) + ")");
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     super.onCreate(savedInstanceState);
@@ -201,7 +202,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   @Override
   public void onNewIntent(Intent intent) {
-    Log.i(TAG, "onNewIntent");
+    Log.i(TAG, "onNewIntent(" + intent.getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false) + ")");
     super.onNewIntent(intent);
     processIntent(intent);
   }
@@ -574,8 +575,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     final Recipient   recipient = event.getRemoteParticipants().get(0).getRecipient();
 
     if (theirKey == null) {
-      Log.w(TAG, "Untrusted identity without an identity key, terminating call.");
-      handleTerminate(recipient, HangupMessage.Type.NORMAL);
+      Log.w(TAG, "Untrusted identity without an identity key.");
     }
 
     SafetyNumberBottomSheet.forCall(recipient.getId()).show(getSupportFragmentManager());

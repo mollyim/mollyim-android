@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
 import com.annimon.stream.Stream;
-import com.google.android.exoplayer2.ControlDispatcher;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.MediaMetadata;
 import com.google.android.exoplayer2.Player;
@@ -40,7 +39,7 @@ import java.util.stream.Collectors;
 /**
  * ExoPlayer Preparer for Voice Notes. This only supports ACTION_PLAY_FROM_URI
  */
-final class VoiceNotePlaybackPreparer implements MediaSessionConnector.PlaybackPreparer {
+final class   VoiceNotePlaybackPreparer implements MediaSessionConnector.PlaybackPreparer {
 
   private static final String   TAG      = Log.tag(VoiceNotePlaybackPreparer.class);
   private static final Executor EXECUTOR = Executors.newSingleThreadExecutor();
@@ -291,7 +290,6 @@ final class VoiceNotePlaybackPreparer implements MediaSessionConnector.PlaybackP
   @SuppressWarnings("deprecation")
   @Override
   public boolean onCommand(@NonNull Player player,
-                           @NonNull ControlDispatcher controlDispatcher,
                            @NonNull String command,
                            @Nullable Bundle extras,
                            @Nullable ResultReceiver cb)

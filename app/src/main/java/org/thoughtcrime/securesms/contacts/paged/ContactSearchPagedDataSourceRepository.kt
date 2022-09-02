@@ -9,6 +9,7 @@ import org.thoughtcrime.securesms.database.DistributionListDatabase
 import org.thoughtcrime.securesms.database.GroupDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.ThreadDatabase
+import org.thoughtcrime.securesms.database.model.DistributionListPrivacyMode
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.StorySend
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -41,8 +42,19 @@ open class ContactSearchPagedDataSourceRepository(
     return contactRepository.queryNonGroupContacts(query ?: "", includeSelf)
   }
 
-  open fun getGroupContacts(section: ContactSearchConfiguration.Section.Groups, query: String?): Cursor? {
-    return SignalDatabase.groups.queryGroupsByTitle(query ?: "", section.includeInactive, !section.includeV1, !section.includeMms).cursor
+  open fun getGroupContacts(
+    section: ContactSearchConfiguration.Section.Groups,
+    query: String?
+  ): Cursor? {
+    return SignalDatabase.groups.queryGroups(
+      GroupDatabase.GroupQuery.Builder()
+        .withSearchQuery(query)
+        .withInactiveGroups(section.includeInactive)
+        .withMmsGroups(section.includeMms)
+        .withV1Groups(section.includeV1)
+        .withSortOrder(section.sortOrder)
+        .build()
+    ).cursor
   }
 
   open fun getRecents(section: ContactSearchConfiguration.Section.Recents): Cursor? {
@@ -65,6 +77,10 @@ open class ContactSearchPagedDataSourceRepository(
     return Recipient.resolved(RecipientId.from(CursorUtil.requireLong(cursor, DistributionListDatabase.RECIPIENT_ID)))
   }
 
+  open fun getPrivacyModeFromDistributionListCursor(cursor: Cursor): DistributionListPrivacyMode {
+    return DistributionListPrivacyMode.deserialize(CursorUtil.requireLong(cursor, DistributionListDatabase.PRIVACY_MODE))
+  }
+
   open fun getRecipientFromThreadCursor(cursor: Cursor): Recipient {
     return Recipient.resolved(RecipientId.from(CursorUtil.requireLong(cursor, ThreadDatabase.RECIPIENT_ID)))
   }
@@ -84,7 +100,7 @@ open class ContactSearchPagedDataSourceRepository(
   open fun getGroupStories(): Set<ContactSearchData.Story> {
     return SignalDatabase.groups.groupsToDisplayAsStories.map {
       val recipient = Recipient.resolved(SignalDatabase.recipients.getOrInsertFromGroupId(it))
-      ContactSearchData.Story(recipient, recipient.participantIds.size)
+      ContactSearchData.Story(recipient, recipient.participantIds.size, DistributionListPrivacyMode.ALL)
     }.toSet()
   }
 

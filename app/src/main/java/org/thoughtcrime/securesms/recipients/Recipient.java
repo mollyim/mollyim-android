@@ -139,6 +139,7 @@ public class Recipient {
   private final boolean                      hasGroupsInCommon;
   private final List<Badge>                  badges;
   private final boolean                      isReleaseNotesRecipient;
+  private final boolean                      needsPniSignature;
 
   /**
    * Returns a {@link LiveRecipient}, which contains a {@link Recipient} that may or may not be
@@ -217,26 +218,45 @@ public class Recipient {
   }
 
   /**
-   * Returns a fully-populated {@link Recipient} based off of a {@link SignalServiceAddress},
-   * creating one in the database if necessary. We special-case GV1 members because we want to
-   * prioritize E164 addresses and not use the UUIDs if possible.
-   */
-  @WorkerThread
-  public static @NonNull Recipient externalGV1Member(@NonNull SignalServiceAddress address) {
-    if (address.getNumber().isPresent()) {
-      return externalPush(null, address.getNumber().get());
-    } else {
-      return externalPush(address.getServiceId());
-    }
-  }
-
-  /**
    * Returns a fully-populated {@link Recipient} based off of a ServiceId, creating one
    * in the database if necessary.
    */
   @WorkerThread
   public static @NonNull Recipient externalPush(@NonNull ServiceId serviceId) {
     return externalPush(serviceId, null);
+  }
+
+  /**
+   * Create a recipient with a full (ACI, PNI, E164) tuple. It is assumed that the association between the PNI and serviceId is trusted.
+   * That means it must be from either storage service or a PNI verification message.
+   */
+  public static @NonNull Recipient trustedPush(@NonNull ServiceId serviceId, @Nullable PNI pni, @Nullable String e164) {
+    if (ServiceId.UNKNOWN.equals(serviceId)) {
+      throw new AssertionError("Unknown serviceId!");
+    }
+
+    RecipientDatabase db = SignalDatabase.recipients();
+
+    RecipientId recipientId;
+
+    if (FeatureFlags.phoneNumberPrivacy()) {
+      recipientId = db.getAndPossiblyMergePnpVerified(serviceId, pni, e164);
+    } else {
+      recipientId = db.getAndPossiblyMerge(serviceId, e164);
+    }
+
+    Recipient resolved = resolved(recipientId);
+
+    if (!resolved.getId().equals(recipientId)) {
+      Log.w(TAG, "Resolved " + recipientId + ", but got back a recipient with " + resolved.getId());
+    }
+
+    if (!resolved.isRegistered()) {
+      Log.w(TAG, "External push was locally marked unregistered. Marking as registered.");
+      db.markRegistered(recipientId, serviceId);
+    }
+
+    return resolved;
   }
 
   /**
@@ -360,6 +380,10 @@ public class Recipient {
     return ApplicationDependencies.getRecipientCache().getSelf();
   }
 
+  public static boolean isSelfSet() {
+    return ApplicationDependencies.getRecipientCache().getSelfId() != null;
+  }
+
   Recipient(@NonNull RecipientId id) {
     this.id                           = id;
     this.resolving                    = true;
@@ -416,6 +440,7 @@ public class Recipient {
     this.hasGroupsInCommon            = false;
     this.badges                       = Collections.emptyList();
     this.isReleaseNotesRecipient      = false;
+    this.needsPniSignature            = false;
   }
 
   public Recipient(@NonNull RecipientId id, @NonNull RecipientDetails details, boolean resolved) {
@@ -474,6 +499,7 @@ public class Recipient {
     this.hasGroupsInCommon            = details.hasGroupsInCommon;
     this.badges                       = Collections.emptyList();
     this.isReleaseNotesRecipient      = details.isReleaseChannel;
+    this.needsPniSignature            = details.needsPniSignature;
   }
 
   public @NonNull RecipientId getId() {
@@ -490,7 +516,7 @@ public class Recipient {
 
   public @Nullable String getGroupName(@NonNull Context context) {
     if (groupId != null && Util.isEmpty(this.groupName)) {
-      RecipientId     selfId = Recipient.self().getId();
+      RecipientId     selfId = ApplicationDependencies.getRecipientCache().getSelfId();
       List<Recipient> others = participantIds.stream()
                                              .filter(id -> !id.equals(selfId))
                                              .limit(MAX_MEMBER_NAMES)
@@ -1051,6 +1077,8 @@ public class Recipient {
   public @Nullable ChatWallpaper getWallpaper() {
     if (wallpaper != null) {
       return wallpaper;
+    } else if (isReleaseNotes()) {
+      return null;
     } else {
       return SignalStore.wallpaper().getWallpaper();
     }
@@ -1185,6 +1213,10 @@ public class Recipient {
 
   public boolean showVerified() {
     return isReleaseNotesRecipient || isSelf;
+  }
+
+  public boolean needsPniSignature() {
+    return FeatureFlags.phoneNumberPrivacy() && needsPniSignature;
   }
 
   @Override
@@ -1356,7 +1388,7 @@ public class Recipient {
     }
 
     public @NonNull FallbackContactPhoto getPhotoForDistributionList() {
-      return new ResourceContactPhoto(R.drawable.ic_group_outline_34, R.drawable.ic_group_outline_20, R.drawable.ic_group_outline_48);
+      return new ResourceContactPhoto(R.drawable.ic_lock_24, R.drawable.ic_lock_24, R.drawable.ic_lock_40);
     }
   }
 

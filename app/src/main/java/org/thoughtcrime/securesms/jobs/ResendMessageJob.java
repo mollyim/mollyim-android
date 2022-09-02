@@ -13,6 +13,7 @@ import org.signal.libsignal.protocol.message.SenderKeyDistributionMessage;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
 import org.thoughtcrime.securesms.database.GroupDatabase.GroupRecord;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.database.model.DistributionListRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobmanager.Data;
@@ -51,6 +52,7 @@ public class ResendMessageJob extends BaseJob {
   private final long           sentTimestamp;
   private final Content        content;
   private final ContentHint    contentHint;
+  private final boolean        urgent;
   private final GroupId.V2     groupId;
   private final DistributionId distributionId;
 
@@ -58,6 +60,7 @@ public class ResendMessageJob extends BaseJob {
   private static final String KEY_SENT_TIMESTAMP  = "sent_timestamp";
   private static final String KEY_CONTENT         = "content";
   private static final String KEY_CONTENT_HINT    = "content_hint";
+  private static final String KEY_URGENT          = "urgent";
   private static final String KEY_GROUP_ID        = "group_id";
   private static final String KEY_DISTRIBUTION_ID = "distribution_id";
 
@@ -65,6 +68,7 @@ public class ResendMessageJob extends BaseJob {
                           long sentTimestamp,
                           @NonNull Content content,
                           @NonNull ContentHint contentHint,
+                          boolean urgent,
                           @Nullable GroupId.V2 groupId,
                           @Nullable DistributionId distributionId)
   {
@@ -72,6 +76,7 @@ public class ResendMessageJob extends BaseJob {
          sentTimestamp,
          content,
          contentHint,
+         urgent,
          groupId,
          distributionId,
          new Parameters.Builder().setQueue(recipientId.toQueueKey())
@@ -85,6 +90,7 @@ public class ResendMessageJob extends BaseJob {
                            long sentTimestamp,
                            @NonNull Content content,
                            @NonNull ContentHint contentHint,
+                           boolean urgent,
                            @Nullable GroupId.V2 groupId,
                            @Nullable DistributionId distributionId,
                            @NonNull Parameters parameters)
@@ -95,6 +101,7 @@ public class ResendMessageJob extends BaseJob {
     this.sentTimestamp  = sentTimestamp;
     this.content        = content;
     this.contentHint    = contentHint;
+    this.urgent         = urgent;
     this.groupId        = groupId;
     this.distributionId = distributionId;
   }
@@ -106,6 +113,7 @@ public class ResendMessageJob extends BaseJob {
                    .putLong(KEY_SENT_TIMESTAMP, sentTimestamp)
                    .putBlobAsString(KEY_CONTENT, content.toByteArray())
                    .putInt(KEY_CONTENT_HINT, contentHint.getType())
+                   .putBoolean(KEY_URGENT, urgent)
                    .putBlobAsString(KEY_GROUP_ID, groupId != null ? groupId.getDecodedId() : null)
                    .putString(KEY_DISTRIBUTION_ID, distributionId != null ? distributionId.toString() : null)
                    .build();
@@ -136,14 +144,28 @@ public class ResendMessageJob extends BaseJob {
     Content                          contentToSend = content;
 
     if (distributionId != null) {
-      Optional<GroupRecord> groupRecord = SignalDatabase.groups().getGroupByDistributionId(distributionId);
+      if (groupId != null) {
+        Log.d(TAG, "GroupId is present. Assuming this is a group message.");
+        Optional<GroupRecord> groupRecord = SignalDatabase.groups().getGroupByDistributionId(distributionId);
 
-      if (!groupRecord.isPresent()) {
-        Log.w(TAG, "Could not find a matching group for the distributionId! Skipping message send.");
-        return;
-      } else if (!groupRecord.get().getMembers().contains(recipientId)) {
-        Log.w(TAG, "The target user is no longer in the group! Skipping message send.");
-        return;
+        if (!groupRecord.isPresent()) {
+          Log.w(TAG, "Could not find a matching group for the distributionId! Skipping message send.");
+          return;
+        } else if (!groupRecord.get().getMembers().contains(recipientId)) {
+          Log.w(TAG, "The target user is no longer in the group! Skipping message send.");
+          return;
+        }
+      } else {
+        Log.d(TAG, "GroupId is not present. Assuming this is a message for a distribution list.");
+        DistributionListRecord listRecord = SignalDatabase.distributionLists().getListByDistributionId(distributionId);
+
+        if (listRecord == null) {
+          Log.w(TAG, "Could not find a matching distribution list for the distributionId! Skipping message send.");
+          return;
+        } else if (!listRecord.getMembers().contains(recipientId)) {
+          Log.w(TAG, "The target user is no longer in the distribution list! Skipping message send.");
+          return;
+        }
       }
 
       SenderKeyDistributionMessage senderKeyDistributionMessage = messageSender.getOrCreateNewGroupSession(distributionId);
@@ -152,7 +174,7 @@ public class ResendMessageJob extends BaseJob {
       contentToSend = contentToSend.toBuilder().setSenderKeyDistributionMessage(distributionBytes).build();
     }
 
-    SendMessageResult result = messageSender.resendContent(address, access, sentTimestamp, contentToSend, contentHint, Optional.ofNullable(groupId).map(GroupId::getDecodedId));
+    SendMessageResult result = messageSender.resendContent(address, access, sentTimestamp, contentToSend, contentHint, Optional.ofNullable(groupId).map(GroupId::getDecodedId), urgent);
 
     if (result.isSuccess() && distributionId != null) {
       List<SignalProtocolAddress> addresses = result.getSuccess()
@@ -195,6 +217,7 @@ public class ResendMessageJob extends BaseJob {
                                   data.getLong(KEY_SENT_TIMESTAMP),
                                   content,
                                   ContentHint.fromType(data.getInt(KEY_CONTENT_HINT)),
+                                  data.getBooleanOrDefault(KEY_URGENT, true),
                                   groupId,
                                   distributionId,
                                   parameters);

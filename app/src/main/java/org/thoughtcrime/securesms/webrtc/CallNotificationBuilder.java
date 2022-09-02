@@ -39,6 +39,7 @@ public class CallNotificationBuilder {
   public static Notification getCallInProgressNotification(Context context, int type, Recipient recipient) {
     Intent contentIntent = new Intent(context, WebRtcCallActivity.class);
     contentIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    contentIntent.putExtra(WebRtcCallActivity.EXTRA_STARTED_FROM_FULLSCREEN, true);
     // MOLLY: Set a non-empty action to clear any pending action held by the screen lock
     contentIntent.setAction(WebRtcCallActivity.NO_ACTION);
 

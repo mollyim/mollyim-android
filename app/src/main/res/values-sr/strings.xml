@@ -41,6 +41,9 @@
   <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Сними фразу опоравка за уплату</string>
   <string name="ApplicationPreferencesActivity_record_phrase">Сними фразу</string>
   <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Пре него што онемогућите свој PIN, морате да снимите фразу за опоравак уплате да бисте осигурали да можете да вратите свој налог за уплате.</string>
+  <!--NumericKeyboardView-->
+  <!--Back button on numeric keyboard-->
+  <string name="NumericKeyboardView__backspace">Backspace</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d минут</item>
@@ -169,7 +172,7 @@
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Моје приче</string>
   <!--Action for creating a new story-->
-  <string name="ContactsCursorLoader_new_story">Нова прича</string>
+  <string name="ContactsCursorLoader_new_story">Nova priča</string>
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">Порука за %s</string>
   <string name="ContactsDatabase_signal_call_s">Позови %s преко Signal-a</string>
@@ -448,8 +451,20 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">Грешка постављања профилне слике</string>
   <string name="CreateProfileActivity_problem_setting_profile">Проблем у поставци профила</string>
   <string name="CreateProfileActivity_set_up_your_profile">Поставите Ваш профил</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Ваш профил је потпуно шифрован. Профил и промене на њему ће бити видљиве Вашим контактима, када започнете или прихватите нове конверзације и када се придружите новим групама.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Vaš profil i promene profila biće vidljivi ljudima kojima šaljete poruke, kontaktima i grupama.</string>
   <string name="CreateProfileActivity_set_avatar_description">Постави аватар</string>
+  <!--ProfileCreateFragment-->
+  <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">Profili su vidljivi ljudima kojima šaljete poruke, kontaktima i grupama.</string>
+  <!--Title of clickable row to select phone number privacy settings-->
+  <string name="ProfileCreateFragment__who_can_find_me">Ko može da me pronađe po broju telefona?</string>
+  <!--WhoCanSeeMyPhoneNumberFragment-->
+  <!--Toolbar title for this screen-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Ko može da me pronađe po broju telefona?</string>
+  <!--Description for radio item stating anyone can see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">Svako ko ima vaš broj telefona u svojim kontaktima će vas videti kao kontakt u Signalu. Ostali će moći da vas pronađu ako potraže vaš broj u pretrazi.</string>
+  <!--Description for radio item stating no one will be able to see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">Niko na Signalu neće moći da vas pronađe i tako sazna vaš broj telefona.</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">Поврати податке из бекапа?</string>
   <string name="ChooseBackupFragment__restore_your_messages_and_media">Вратите своје поруке и медије из локалне резервне копије. Ако не вратите сада, нећете моћи да их вратите касније.</string>
@@ -481,6 +496,8 @@
   <string name="BackupsPreferenceFragment__to_restore_a_backup">Да бисте вратили из резервне копије, инсталирајте нову копију апликације Molly. Отворите апликацију и додирните „Врати рез. копију“, а затим пронађите датотеку резервне копије. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Сазнај више</string>
   <string name="BackupsPreferenceFragment__in_progress">У току…</string>
+  <!--Status text shown in backup preferences when verifying a backup-->
+  <string name="BackupsPreferenceFragment__verifying_backup">Verifikovanje rezervne kopije…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d досад…</string>
   <!--Show percentage of completion of backup-->
   <string name="BackupsPreferenceFragment__s_so_far">%1$s%% за сада…</string>
@@ -769,6 +786,10 @@
   <string name="ManageProfileFragment_failed_to_set_avatar">Неуспех постављења аватара</string>
   <string name="ManageProfileFragment_badges">Значке</string>
   <string name="ManageProfileFragment__edit_photo">Уредите слику</string>
+  <!--Snackbar message after creating username-->
+  <string name="ManageProfileFragment__username_created">Korisničko ime je izbrisano</string>
+  <!--Snackbar message after copying username-->
+  <string name="ManageProfileFragment__username_copied">Korisničko ime je kopirano</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">Нема заједничких група</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -1000,9 +1021,9 @@
   <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Сигналу је потребан приступ вашим контактима како би их приказао.</string>
   <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly захтева приступ вашим контактима да би их показао, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Molly-у дозволите пруиступ контактима.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
-    <item quantity="one">Maksimalan broj stavki koje možete podeliti je %d.</item>
-    <item quantity="few">Maksimalan broj stavki koje možete podeliti je %d.</item>
-    <item quantity="other">Maksimalan broj stavki koje možete podeliti je %d.</item>
+    <item quantity="one">Ne možete podeliti više od %d stavke.</item>
+    <item quantity="few">Ne možete podeliti više od %d stavke.</item>
+    <item quantity="other">Ne možete podeliti više od %d stavki.</item>
   </plurals>
   <string name="MediaSendActivity_select_recipients_description">Изаберите примаоце</string>
   <string name="MediaSendActivity_tap_here_to_make_this_message_disappear_after_it_is_viewed">Кликните овде да порука нестане када буде погледана.</string>
@@ -1169,9 +1190,9 @@
   <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s je zatražio/la da se pridruži grupi preko linka za grupu.</string>
   <!--Update message shown when someone requests to join via group link and cancels the request back to back-->
   <plurals name="MessageRecord_s_requested_and_cancelled_their_request_to_join_via_the_group_link">
-    <item quantity="one">%1$s затражио и отказао захтев за придруживање групи преко везе.</item>
-    <item quantity="few">%1$s затражили и отказали %2$d захтева за придруживање групи преко везе.</item>
-    <item quantity="other">%1$s je zatražio/la da se pridruži grupi preko linka za grupu i zatim otkazao/la zahteve (%2$d) da se pridruži.</item>
+    <item quantity="one">%1$s je zatražio/la da se pridruži grupi preko linka za grupu i zatim otkazao/la zahtev da se pridruži.</item>
+    <item quantity="few">%1$s je zatražio/la da se pridruži grupi preko linka za grupu i zatim otkazao/la %2$d zahteva da se pridruži.</item>
+    <item quantity="other">%1$s je zatražio/la da se pridruži grupi preko linka za grupu i zatim otkazao/la %2$d zahteva da se pridruži.</item>
   </plurals>
   <!--GV2 group link approvals-->
   <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s је прихватио/ла Ваш захтев за придруживање групи.</string>
@@ -1590,6 +1611,12 @@
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">Уреди</string>
   <string name="SubmitDebugLogActivity_done">Готово</string>
+  <!--Menu option to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save">Сачувај</string>
+  <!--Error that is show in a toast when we fail to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_failed_to_save">Čuvanje fajla nije uspelo</string>
+  <!--Toast that is show to notify that we have saved the debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save_complete">Čuvanje je završeno</string>
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">Додирните линију да је обришете</string>
   <string name="SubmitDebugLogActivity_submit">Пошаљи</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">Неуспех слања извештаја</string>
@@ -1644,7 +1671,9 @@
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">Искористили сте поклон значку</string>
   <!--Displayed in the conversation list when someone reacted to your story-->
+  <string name="ThreadRecord__reacted_s_to_your_story">Dobili ste reakciju %1$s na priču.</string>
   <!--Displayed in the conversation list when you reacted to someone\'s story-->
+  <string name="ThreadRecord__reacted_s_to_their_story">Poslali ste reakciju %1$s na priču.</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Надоградња Molly-a</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Ново издање Molly-a је доступно, тапните за надоградњу</string>
@@ -1655,6 +1684,8 @@
   <string name="UnverifiedSendDialog_send_message">Да пошаљем поруку?</string>
   <string name="UnverifiedSendDialog_send">Пошаљи</string>
   <!--UsernameEditFragment-->
+  <!--Instructional text at the top of the username edit screen-->
+  <string name="UsernameEditFragment__choose_your_username">Izaberite korisničko ime</string>
   <string name="UsernameEditFragment_username">Корисничко име</string>
   <string name="UsernameEditFragment_delete">Обриши</string>
   <string name="UsernameEditFragment_successfully_set_username">Корисничко име постављено.</string>
@@ -1666,12 +1697,19 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Корисничко име не може започети бројем.</string>
   <string name="UsernameEditFragment_username_is_invalid">Корисничко име је неважеће.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Корисничко име мора садржати између %1$d и %2$d карактера.</string>
-  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Корисничка имена на Signal-у нису обавезна. Ако додате ваше корисничко име, други корисници Signal-а ће моћи да вас по њему пронађу и контактирају, без да знају ваш број телефона.</string>
+  <!--Explanation about what usernames provide-->
+  <string name="UsernameEditFragment__usernames_let_others_message">Korisnička imena omogućavaju drugima da vam šalju poruke bez vašeg broja telefona. Ona se uparuju sa brojem koji omogućava da vaša adresa ostane privatna.</string>
+  <!--Dialog title for explanation about numbers at the end of the username-->
+  <string name="UsernameEditFragment__what_is_this_number">Šta znači ovaj broj?</string>
+  <string name="UsernameEditFragment__these_digits_help_keep">Ovaj broj omogućava da vaše korisničko ime ostane privatno kako biste izbegli neželjene poruke. Podelite svoje korisničko ime samo sa ljudima i grupama sa kojima biste želeli da ćaskate. Ako promenite korisničko ime, biće vam dodeljen novi broj.</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d особа је на Сигналу!</item>
     <item quantity="few">%d особе су на Сигналу!</item>
     <item quantity="other">%d особа је на Сигналу!</item>
   </plurals>
+  <!--UsernameShareBottomSheet-->
+  <!--Explanation of what the sheet enables the user to do-->
+  <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">Kopiranje ili deljenje linka korisničkog imena</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Ваш контакт има старије издање Signal-a. Замолите их да ажурирају пре потврде ваших безбедносних бројева.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">Ваш контакт има новије издање Signal-a са некомпатибилним форматом  бар-кôда. Ажурирајте Signal да бисте могли да упоређујете.</string>
@@ -1791,9 +1829,9 @@
   <string name="ThumbnailView_Has_a_caption_description">Има натпис</string>
   <!--TransferControlView-->
   <plurals name="TransferControlView_n_items">
-    <item quantity="one">Stavki: %d</item>
-    <item quantity="few">Stavki: %d</item>
-    <item quantity="other">Stavki: %d</item>
+    <item quantity="one">%d stavka</item>
+    <item quantity="few">%d stavke</item>
+    <item quantity="other">%d stavki</item>
   </plurals>
   <!--UnauthorizedReminder-->
   <string name="UnauthorizedReminder_device_no_longer_registered">Уређај више није регистрован</string>
@@ -1862,9 +1900,9 @@
   </plurals>
   <!--Displays number of viewers for a story-->
   <plurals name="contact_selection_list_item__number_of_viewers">
-    <item quantity="one">Gledalaca: %1$d</item>
-    <item quantity="few">Gledalaca: %1$d</item>
-    <item quantity="other">Gledalaca: %1$d </item>
+    <item quantity="one">%1$d gledalac</item>
+    <item quantity="few">%1$d gledaoca</item>
+    <item quantity="other">%1$d gledalaca </item>
   </plurals>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal порука</string>
@@ -2270,6 +2308,8 @@
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">Једнократни допринос</string>
   <string name="preferences__privacy">Приватност</string>
+  <!--Preference label for stories-->
+  <string name="preferences__stories">Приче</string>
   <string name="preferences__mms_user_agent">ММС кориснички агент</string>
   <string name="preferences__advanced_mms_access_point_names">Ручне ММС поставке</string>
   <string name="preferences__mmsc_url">ММСЦ УРЛ</string>
@@ -2282,6 +2322,8 @@
   <string name="preferences__data_and_storage">Подаци и складиште</string>
   <string name="preferences__storage">Складиште</string>
   <string name="preferences__payments">Уплате</string>
+  <!--Privacy settings payments section description-->
+  <string name="preferences__payment_lock">Zaključavanje plaćanja</string>
   <string name="preferences__payments_beta">Уплате (Beta)</string>
   <string name="preferences__conversation_length_limit">Ограничење дужине преписке</string>
   <string name="preferences__keep_messages">Задржити поруке</string>
@@ -2347,6 +2389,8 @@
   <string name="preferences_app_protection__who_can">Ко може…</string>
   <string name="preferences_app_protection__app_access">Приступ апликацији</string>
   <string name="preferences_app_protection__communication">Комуникација</string>
+  <!--Privacy settings payments section title-->
+  <string name="preferences_app_protection__payments">Уплате</string>
   <string name="preferences_chats__chats">Ћаскања</string>
   <string name="preferences_data_and_storage__manage_storage">Управљати складиште</string>
   <string name="preferences_data_and_storage__calls">Позиви</string>
@@ -2404,7 +2448,6 @@
   <string name="preferences_enter_proxy_address">Унети адресу проксија</string>
   <string name="configurable_single_select__customize_option">Прилагодите опцију</string>
   <!--Internal only preferences-->
-  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">Сва активност</string>
   <string name="PaymentsAllActivityFragment__all">Сви</string>
@@ -2449,6 +2492,14 @@
   <string name="PaymentsHomeFragment__activate">Активирај</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Погледајте појмове MobileCoin-а</string>
   <string name="PaymentsHomeFragment__payments_not_available">Плаћања у Molly-у више није доступна. И даље можете преносити средства на размену, али више не можете да шаљете и примате уплате или да додате средства.</string>
+  <!--Alert dialog title which shows up after a payment to turn on payment lock-->
+  <string name="PaymentsHomeFragment__turn_on">Želite li da aktivirate zaključavanje plaćanja kod budućih plaćanja?</string>
+  <!--Alert dialog description for why payment lock should be enabled before sending payments-->
+  <string name="PaymentsHomeFragment__add_an_additional_layer">Dodajte još jedan nivo bezbednosti i za plaćanja zahtevajte zaključavanje ekrana ili otisak prsta na Android uređaju.</string>
+  <!--Alert dialog button to enable payment lock-->
+  <string name="PaymentsHomeFragment__enable">Uključi</string>
+  <!--Alert dialog button to not enable payment lock for now-->
+  <string name="PaymentsHomeFragment__not_now">Ne sada</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Додај средства</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Адреса Вашег новчаника</string>
@@ -2529,6 +2580,14 @@
   <string name="ConfirmPayment__payment_failed">Неуспешна уплата</string>
   <string name="ConfirmPayment__payment_will_continue_processing">Уплата ће наставити прераду</string>
   <string name="ConfirmPaymentFragment__invalid_recipient">Неисправан прималац</string>
+  <!--Biometric/Device authentication prompt title which comes up before sending a payment-->
+  <string name="ConfirmPaymentFragment__unlock_to_send_payment">Otključajte da biste obavili plaćanje</string>
+  <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Nismo uspeli da prikažemo zaključavanje plaćanja</string>
+  <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">Aktivirali ste zaključavanje plaćanja u podešavanjima, ali ono ne može biti prikazano.</string>
+  <!--Button in a dialog that will take the user to the privacy settings-->
+  <string name="ConfirmPaymentFragment__go_to_settings">Idite na podešavanja</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Ова особа није активирала уплате</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">Није могуће затражити мрежну накнаду. Да бисте наставили са овом уплатом додирните „у реду“ да бисте покушали поново.</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2817,10 +2876,16 @@
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Успешно сте унели фразу за резервну копију</string>
   <string name="BackupDialog_passphrase_was_not_correct">Фраза није тачна</string>
   <string name="LocalBackupJob_creating_signal_backup">Креација бекапа Molly-а…</string>
+  <!--Title for progress notification shown in a system notification while verifying a recent backup.-->
+  <string name="LocalBackupJob_verifying_signal_backup">Verifikovanje rezervne kopije Mollya…</string>
   <string name="LocalBackupJobApi29_backup_failed">Резервна копија није успела</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Ваша фасцикла за резервне копије је избрисана или премештена.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Fajl rezervne kopije je preveliki da bi se čuvao na ovoj jedinici.</string>
   <string name="LocalBackupJobApi29_there_is_not_enough_space">Нема довољно простора за чување Ваше резервне копије.</string>
+  <!--Error message shown if a newly created backup could not be verified as accurate-->
+  <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">Nije bilo moguće kreirati i verifikovati vašu nedavnu rezervnu kopiju. Kreirajte novu.</string>
+  <!--Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail-->
+  <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Vaša rezervna kopija sadrži veoma veliki fajl za koji se ne može kreirati rezervna kopija. Izbrišite ga i kreirajte novu rezervnu kopiju.</string>
   <string name="LocalBackupJobApi29_tap_to_manage_backups">Додирните за управљање резервним копијама.</string>
   <string name="ProgressPreference_d_messages_so_far">%d порука до сад</string>
   <string name="RegistrationActivity_wrong_number">Погрешан број</string>
@@ -3125,6 +3190,8 @@
   <string name="ShareActivity__send">Пошаљи</string>
   <string name="ShareActivity__comma_s">, %1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">Дељење у више ћаскања је подржано само за Signal поруке</string>
+  <!--Toast when the incoming intent is invalid-->
+  <string name="ShareActivity__could_not_get_share_data_from_intent">Podaci nisu uspešno podeljeni.</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">Слање неким корисницима није успело</string>
   <string name="MultiShareDialogs__you_can_only_share_with_up_to">Могуће је делити највише %1$d ћаскања</string>
@@ -3350,6 +3417,19 @@
   <string name="PrivacySettingsFragment__signal_message_and_calls">Поруке и позиви преко Signal-а, увек преузмеравај позиве, запечаћени пошиљалац</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">Подразумевани тајмер за нове преписке</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Подесите подразумевани тајмер нестајања поруке за све нове преписке које сте започели.</string>
+  <!--Summary for stories preference to launch into story privacy settings-->
+  <string name="PrivacySettingsFragment__manage_your_stories">Upravljajte pričama i kontrolišite ko može da ih vidi</string>
+  <string name="PrivacySettingsFragment__payment_lock_require_lock">Za plaćanja zahtevajte zaključavanje ekrana ili otisak prsta na Android uređaju</string>
+  <!--Alert dialog title when payment lock cannot be enabled-->
+  <string name="PrivacySettingsFragment__cant_enable_title">Ne možemo da aktiviramo zaključavanje plaćanja</string>
+  <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
+  <string name="PrivacySettingsFragment__cant_enable_description">Da biste koristili zaključavanje plaćanja, morate prvo da aktivirate zaključavanje ekrana ili identifikaciju pomoću otiska prsta u podešavanjima telefona.</string>
+  <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
+  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">Nismo uspeli da dođemo do sistemskih podešavanja</string>
+  <!--Alert dialog button to go to phone settings-->
+  <string name="PrivacySettingsFragment__go_to_settings">Idite na podešavanja</string>
+  <!--Alert dialog button to cancel the dialog-->
+  <string name="PrivacySettingsFragment__cancel">Поништи</string>
   <!--AdvancedPrivacySettingsFragment-->
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">Прикажи статусну икону</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">Унутар „Детаљи поруке” ће бити приказан индикатор да је порука послата са запечаћеним пошиљаоцем.</string>
@@ -3461,6 +3541,8 @@
   <string name="EmojiSearchFragment__no_results_found">Нема резултата</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">Непозната мелодија звона</string>
   <!--ConversationSettingsFragment-->
+  <!--Error toasted when no activity can handle the add contact intent-->
+  <string name="ConversationSettingsFragment__contacts_app_not_found">Aplikacija za kontakte nije pronađena</string>
   <string name="ConversationSettingsFragment__send_message">Пошаљите поруку</string>
   <string name="ConversationSettingsFragment__start_video_call">Започните видео позив</string>
   <string name="ConversationSettingsFragment__start_audio_call">Започните гласовни позив</string>
@@ -3585,6 +3667,8 @@
     <item quantity="few">Није могуће да се проследе поруке јер више нису доступне.</item>
     <item quantity="other">Није могуће да се проследе поруке јер више нису доступне.</item>
   </plurals>
+  <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
+  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">Samo administratori mogu slati poruke u ovoj grupi.</string>
   <string name="MultiselectForwardFragment__limit_reached">Достигнут лимит</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">Додати поруку</string>
@@ -3744,13 +3828,13 @@
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Мрежна грешка. Проверите да ли сте повезани и покушајте поново.</string>
   <string name="NetworkFailure__retry">Покушај поново</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__recipient_verification_failed">Верификација примаоца није успела.</string>
+  <string name="DonationsErrors__cant_send_gift">Ne možemo da pošaljemo poklon</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">Циљ не подржава поклоне.</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">Ovaj primalac koristi verziju Signala u kojoj ne može da primi poklon-značke. Moći će da prima poklone kada ažurira aplikaciju na najnoviju verziju.</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__could_not_verify_recipient">Није могуће верификовати примаоца.</string>
+  <string name="DonationsErrors__couldnt_send_gift">Nismo uspeli da pošaljemo poklon</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__please_check_your_network_connection">Поверите вашу везу и покушајте поново.</string>
+  <string name="DonationsErrors__please_check_your_network_connection">Vaš poklon nije poslat zbog greške u mreži. Proverite vezu i probajte ponovo.</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">Поклон значка</string>
   <!--Gift message view expiry information-->
@@ -3968,10 +4052,12 @@
   <string name="ConversationListTabs__stories">Приче</string>
   <!--String for counts above 99 in conversation list tabs-->
   <string name="ConversationListTabs__99p">99+</string>
+  <!--Menu item on stories landing page-->
+  <string name="StoriesLandingFragment__story_privacy">Privatnost priča</string>
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">Моје приче</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
-  <string name="StoriesLandingFragment__add_a_story">Додај причу</string>
+  <string name="StoriesLandingFragment__tap_to_add_a_story">Dodirnite da dodate priču</string>
   <!--Displayed when there are no stories to display-->
   <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">Тренутно нема недавних ажурирања за приказ. Стисните + да додате својој причи.</string>
   <!--Context menu option to hide a story-->
@@ -4052,6 +4138,14 @@
   <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">Aktivirajte potvrde o čitanju da biste znali ko je video vaše priče.</string>
   <!--Button label displayed when user has disabled receipts-->
   <string name="StoryViewsFragment__go_to_settings">Idite na podešavanja</string>
+  <!--Dialog action to remove viewer from a story-->
+  <string name="StoryViewsFragment__remove">Уклони</string>
+  <!--Dialog title when removing a viewer from a story-->
+  <string name="StoryViewsFragment__remove_viewer">Želite li da uklonite gledaoca?</string>
+  <!--Dialog message when removing a viewer from a story-->
+  <string name="StoryViewsFragment__s_will_still_be_able">%1$s će i dalje moći da vidi ovu objavu, ali neće moći da vidi buduće objave koje podelite u priči %2$s.</string>
+  <!--Story View context menu action to remove them from a story-->
+  <string name="StoryViewItem__remove_viewer">Ukloni gledaoca</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">Без одговора</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -4070,14 +4164,6 @@
   <string name="StoryGroupReplyItem__copy">Копирај</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">Избриши</string>
-  <!--Story settings page title-->
-  <string name="StorySettingsFragment__story_settings">Подешавања приче</string>
-  <!--Story settings private stories heading-->
-  <string name="StorySettingsFragment__private_stories">Привате приче</string>
-  <!--Note at bottom of story settings regarding who can see private stories.-->
-  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">Приватне приче могу да виде само људи које додате. Само ви можете да видите назив приче.</string>
-  <!--Option label for creating a new private story-->
-  <string name="StorySettingsFragment__new_private_story">Нова приватна приче</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Моја прича</string>
   <!--Section heading for story visibility-->
@@ -4094,9 +4180,9 @@
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Sakrijite priču od određenih ljudi</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
   <plurals name="MyStorySettingsFragment__d_people_excluded">
-    <item quantity="one">Izuzetih osoba: %1$d</item>
-    <item quantity="few">Izuzetih osoba: %1$d</item>
-    <item quantity="other">Izuzetih osoba: %1$d</item>
+    <item quantity="one">%1$d izuzeta osoba</item>
+    <item quantity="few">%1$d izuzete osobe</item>
+    <item quantity="other">%1$d izuzetih osoba</item>
   </plurals>
   <!--Privacy setting title for only sharing your story with specified connections-->
   <string name="MyStorySettingsFragment__only_share_with">Samo podelite sa…</string>
@@ -4198,9 +4284,9 @@
   <string name="CreateStoryViewerSelectionFragment__next">Даље</string>
   <!--New story viewer selection screen title as recipients are selected-->
   <plurals name="SelectViewersFragment__d_viewers">
-    <item quantity="one">Gledalaca: %1$d</item>
-    <item quantity="few">Gledalaca: %1$d</item>
-    <item quantity="other">Gledalaca: %1$d</item>
+    <item quantity="one">%1$d gledalac</item>
+    <item quantity="few">%1$d gledaoca</item>
+    <item quantity="other">%1$d gledalaca</item>
   </plurals>
   <!--Name story screen title-->
   <string name="CreateStoryWithViewersFragment__name_story">Име приче</string>
@@ -4269,8 +4355,8 @@
   <!--Gift price and duration, formatted as: {price} dot {n} day duration-->
   <plurals name="GiftRowItem_s_dot_d_day_duration">
     <item quantity="one">%1$s · trajanje: %2$d dan</item>
-    <item quantity="few">%1$s · trajanje: %2$d dan(a)</item>
-    <item quantity="other">%1$s · trajanje: %2$d dan(a)</item>
+    <item quantity="few">%1$s · trajanje: %2$d dana</item>
+    <item quantity="other">%1$s · trajanje: %2$d dana</item>
   </plurals>
   <!--Tagline for gift row items-->
   <string name="GiftRowItem__send_a_gift_badge">Послати поклон значку</string>
@@ -4323,16 +4409,12 @@
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Не сада</string>
   <!--Label under name for private stories-->
-  <plurals name="ContactSearchItems__private_story_d_viewers">
-    <item quantity="one">Privatna priča · Gledalaca: %1$d</item>
-    <item quantity="few">Privatna priča · Gledalaca: %1$d</item>
-    <item quantity="other">Privatna priča · Gledalaca: %1$d</item>
-  </plurals>
   <!--Label under name for group stories-->
-  <plurals name="ContactSearchItems__group_story_d_viewers">
-    <item quantity="one">Grupna priča · Gledalaca: %1$d</item>
-    <item quantity="few">Grupna priča · Gledalaca: %1$d</item>
-    <item quantity="other">Grupna priča · Gledalaca: %1$d</item>
+  <!--Label under name for my story-->
+  <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
+    <item quantity="one">%1$s · %2$d gledalac</item>
+    <item quantity="few">%1$s · %2$d gledaoca</item>
+    <item quantity="other">%1$s · %2$d gledalaca</item>
   </plurals>
   <!--Label under name for My Story when first sending to my story-->
   <string name="ContactSearchItems__tap_to_choose_your_viewers">Dodirnite da izaberete gledaoce</string>
@@ -4399,7 +4481,7 @@
   <!--Message of safety number changes bottom sheet when not showing individual records and user has seen review screen-->
   <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">Sve veze su pregledane, dodirnite „Pošalji“ da nastavite.</string>
   <!--Message of safety number changes bottom sheet when not showing individual records-->
-  <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">Vaše veze (njih %1$d) možda su ponovo instalirale Signal ili promenile uređaj. Pre nego što podelite priču sa njima, pregledajte njihove sigurnosne brojeve ili razmislite o tome da ih uklonite iz priče.</string>
+  <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">Njih %1$d je možda ponovo instaliralo Signal ili promenilo uređaj. Pre nego što podelite priču sa tim vezama, pregledajte njihove sigurnosne brojeve ili razmislite o tome da ih uklonite iz priče.</string>
   <!--Menu action to launch safety number verification screen-->
   <string name="SafetyNumberBottomSheetFragment__verify_safety_number">Овери безбедносни број</string>
   <!--Menu action to remove user from story-->
@@ -4416,9 +4498,9 @@
   <string name="SafetyNumberReviewConnectionsFragment__safety_number_changes">Promene sigurnosnog broja</string>
   <!--Message of safety number review fragment-->
   <plurals name="SafetyNumberReviewConnectionsFragment__d_recipients_may_have">
-    <item quantity="one">%1$d Primalac je možda ponovo instalirao Signal ili promenio uređaj. Dodirnite primaoca da potvrdite novi sigurnosni broj. Ovaj korak nije obavezan.</item>
-    <item quantity="few">Njih %1$d je možda ponovo instaliralo Signal ili promenilo uređaj. Dodirnite primaoca da potvrdite novi sigurnosni broj. Ovaj korak nije obavezan.</item>
-    <item quantity="other">Njih %1$d je možda ponovo instaliralo Signal ili promenilo uređaj. Dodirnite primaoca da potvrdite novi sigurnosni broj. Ovaj korak nije obavezan.</item>
+    <item quantity="one">%1$d primalac je možda ponovo instalirao Signal ili promenio uređaj. Dodirnite primaoca da potvrdite novi sigurnosni broj. Ovaj korak nije obavezan.</item>
+    <item quantity="few">%1$d primaoca su možda ponovo instalirala Signal ili promenila uređaj. Dodirnite primaoca da potvrdite novi sigurnosni broj. Ovaj korak nije obavezan.</item>
+    <item quantity="other">%1$d primalaca je možda ponovo instaliralo Signal ili promenilo uređaj. Dodirnite primaoca da potvrdite novi sigurnosni broj. Ovaj korak nije obavezan.</item>
   </plurals>
   <!--Section header for 1:1 contacts in review fragment-->
   <string name="SafetyNumberBucketRowItem__contacts">Именик</string>
@@ -4448,5 +4530,31 @@
   <string name="StoryInfoBottomSheetDialogFragment__sent_from">Послао</string>
   <!--Story Info context menu label-->
   <string name="StoryInfoBottomSheetDialogFragment__info">Инфо</string>
+  <!--StoriesPrivacySettingsFragment-->
+  <!--Explanation about how stories are deleted and managed-->
+  <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">Priče automatski nestaju nakon 24 sata. Odaberite ko može da vidi vašu priču ili da kreira nove priče sa određenim gledaocima ili grupama.</string>
+  <!--Preference title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories">Isključi priče</string>
+  <!--Preference summary to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__if_you_opt_out">Ako isključite priče, više nećete moći da delite ili vidite priče.</string>
+  <!--Preference title to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_on_stories">Uključi priče</string>
+  <!--Preference summary to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__share_and_view">Delite priče sa drugima i gledajte priče drugih. Priče automatski nestaju nakon 24 sata.</string>
+  <!--Dialog title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Želite li da isključite priče?</string>
+  <!--Dialog message to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">Više nećete moći da delite ili vidite priče. Priče koje ste nedavno poslali će i dalje biti vidljive drugima sve dok ne isteknu.</string>
+  <!--Page title when launched from stories landing screen-->
+  <string name="StoriesPrivacySettingsFragment__story_privacy">Privatnost priča</string>
+  <!--GroupStorySettingsFragment-->
+  <!--Section header for who can view a group story-->
+  <string name="GroupStorySettingsFragment__who_can_view_this_story">Ko može da vidi ovu priču</string>
+  <!--Explanation of who can view a group story-->
+  <string name="GroupStorySettingsFragment__members_of_the_group_s">Članovi grupe „%1$s“ mogu da vide ovu priču i odgovore na nju. Možete da izmenite članove ovog ćaskanja u grupi.</string>
+  <!--Preference label for removing this group story-->
+  <string name="GroupStorySettingsFragment__remove_group_story">Ukloni grupnu priču</string>
+  <!--Generic title for overflow menus-->
+  <string name="OverflowMenu__overflow_menu">Meni „Prekoračenje“</string>
   <!--EOF-->
 </resources>

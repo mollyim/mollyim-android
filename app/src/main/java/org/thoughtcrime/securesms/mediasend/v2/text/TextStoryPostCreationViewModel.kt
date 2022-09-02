@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.mediasend.v2.text
 
 import android.graphics.Bitmap
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.ColorInt
 import androidx.lifecycle.LiveData
@@ -25,15 +26,12 @@ import org.thoughtcrime.securesms.mediasend.v2.text.send.TextStoryPostSendReposi
 import org.thoughtcrime.securesms.mediasend.v2.text.send.TextStoryPostSendResult
 import org.thoughtcrime.securesms.util.livedata.Store
 
-class TextStoryPostCreationViewModel(private val repository: TextStoryPostSendRepository) : ViewModel() {
+class TextStoryPostCreationViewModel(private val repository: TextStoryPostSendRepository, private val identityChangesSince: Long = System.currentTimeMillis()) : ViewModel() {
 
   private val store = Store(TextStoryPostCreationState())
   private val textFontSubject: Subject<TextFont> = BehaviorSubject.create()
   private val temporaryBodySubject: Subject<String> = BehaviorSubject.createDefault("")
   private val disposables = CompositeDisposable()
-
-  private val internalThumbnail = MutableLiveData<Bitmap>()
-  val thumbnail: LiveData<Bitmap> = internalThumbnail
 
   private val internalTypeface = MutableLiveData<Typeface>()
 
@@ -55,14 +53,12 @@ class TextStoryPostCreationViewModel(private val repository: TextStoryPostSendRe
       }
   }
 
-  fun setBitmap(bitmap: Bitmap) {
-    internalThumbnail.value?.recycle()
-    internalThumbnail.value = bitmap
+  fun compressToBlob(bitmap: Bitmap): Single<Uri> {
+    return repository.compressToBlob(bitmap)
   }
 
   override fun onCleared() {
     disposables.clear()
-    thumbnail.value?.recycle()
   }
 
   fun saveToInstanceState(outState: Bundle) {
@@ -127,7 +123,8 @@ class TextStoryPostCreationViewModel(private val repository: TextStoryPostSendRe
     return repository.send(
       contacts,
       store.state,
-      linkPreview
+      linkPreview,
+      identityChangesSince
     )
   }
 

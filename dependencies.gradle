@@ -4,9 +4,9 @@
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
-            version('libsignal-client', '0.18.1')
-            version('exoplayer', '2.15.0')
-            version('androidx-camera', '1.0.0-beta11')
+            version('libsignal-client', '0.20.0')
+            version('exoplayer', '2.18.1')
+            version('androidx-camera', '1.1.0')
             version('androidx-lifecycle', '2.3.1')
             version('mp4parser', '1.9.39')
             version('kotlin', '1.6.21')
@@ -38,12 +38,13 @@ dependencyResolutionManagement {
             alias('androidx-camera-core').to('androidx.camera', 'camera-core').versionRef('androidx-camera')
             alias('androidx-camera-camera2').to('androidx.camera', 'camera-camera2').versionRef('androidx-camera')
             alias('androidx-camera-lifecycle').to('androidx.camera', 'camera-lifecycle').versionRef('androidx-camera')
-            alias('androidx-camera-view').to('androidx.camera:camera-view:1.0.0-alpha18')
+            alias('androidx-camera-view').to('androidx.camera', 'camera-view').versionRef('androidx-camera')
             alias('androidx-concurrent-futures').to('androidx.concurrent:concurrent-futures:1.0.0')
             alias('androidx-autofill').to('androidx.autofill:autofill:1.0.0')
             alias('androidx-biometric').to('androidx.biometric:biometric:1.2.0-alpha04')
             alias('androidx-sharetarget').to('androidx.sharetarget:sharetarget:1.1.0')
             alias('androidx-sqlite').to('androidx.sqlite:sqlite:2.1.0')
+            alias('androidx-core-role').to('androidx.core:core-role:1.0.0')
             alias('androidx-webkit').to('androidx.webkit:webkit:1.4.0')
 
             // Material
@@ -51,7 +52,7 @@ dependencyResolutionManagement {
 
             // Google
             alias('google-protobuf-javalite').to('com.google.protobuf:protobuf-javalite:3.11.4')
-            alias('google-libphonenumber').to('com.googlecode.libphonenumber:libphonenumber:8.12.50')
+            alias('google-libphonenumber').to('com.googlecode.libphonenumber:libphonenumber:8.12.54')
             alias('google-play-services-maps').to('com.google.android.gms:play-services-maps:17.0.0')
             alias('google-play-services-auth').to('com.google.android.gms:play-services-auth:16.0.1')
             alias('google-zxing-android-integration').to('com.google.zxing:android-integration:3.3.0')
@@ -73,7 +74,7 @@ dependencyResolutionManagement {
             alias('libsignal-android').to('org.signal', 'libsignal-android').versionRef('libsignal-client')
             alias('signal-aesgcmprovider').to('org.signal:aesgcmprovider:0.0.3')
             alias('molly-argon2').to('im.molly:argon2:13.1-1')
-            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.20.12-1')
+            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.20.13-1')
             alias('signal-android-database-sqlcipher').to('org.signal:android-database-sqlcipher:4.4.3-S8')
 
             // MOLLY
@@ -92,7 +93,7 @@ dependencyResolutionManagement {
             alias('rxjava3-rxkotlin').to('io.reactivex.rxjava3:rxkotlin:3.0.1')
             alias('rxdogtag').to('com.uber.rxdogtag2:rxdogtag:2.0.1')
             alias('conscrypt-android').to('org.conscrypt:conscrypt-android:2.0.0')
-            alias('mobilecoin').to('com.mobilecoin:android-sdk:1.1.0')
+            alias('mobilecoin').to('com.mobilecoin:android-sdk:1.2.2.2')
             alias('leolin-shortcutbadger').to('me.leolin:ShortcutBadger:1.1.22')
             alias('emilsjolander-stickylistheaders').to('se.emilsjolander:stickylistheaders:2.7.0')
             alias('jpardogo-materialtabstrip').to('com.jpardogo.materialtabstrip:library:1.0.9')
@@ -130,13 +131,15 @@ dependencyResolutionManagement {
             alias('androidx-test-ext-junit').to('androidx.test.ext:junit:1.1.1')
             alias('androidx-test-ext-junit-ktx').to('androidx.test.ext:junit-ktx:1.1.1')
             alias('espresso-core').to('androidx.test.espresso:espresso-core:3.4.0')
-            alias('mockito-core').to('org.mockito:mockito-inline:4.4.0')
+            alias('mockito-core').to('org.mockito:mockito-inline:4.6.1')
             alias('mockito-kotlin').to('org.mockito.kotlin:mockito-kotlin:4.0.0')
+            alias('mockito-android').to('org.mockito:mockito-android:4.6.1')
             alias('robolectric-robolectric').to('org.robolectric', 'robolectric').versionRef('robolectric')
             alias('robolectric-shadows-multidex').to('org.robolectric', 'shadows-multidex').versionRef('robolectric')
             alias('bouncycastle-bcprov-jdk15on').to('org.bouncycastle:bcprov-jdk15on:1.70')
             alias('hamcrest-hamcrest').to('org.hamcrest:hamcrest:2.2')
             alias('assertj-core').to('org.assertj:assertj-core:3.11.1')
+            alias('square-okhttp-mockserver').to('com.squareup.okhttp3:mockwebserver:3.12.13')
 
             alias('conscrypt-openjdk-uber').to('org.conscrypt:conscrypt-openjdk-uber:2.0.0')
         }

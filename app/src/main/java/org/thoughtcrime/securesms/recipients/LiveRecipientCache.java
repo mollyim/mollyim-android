@@ -6,6 +6,7 @@ import android.database.Cursor;
 
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
@@ -18,7 +19,7 @@ import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.signal.core.util.CursorUtil;
 import org.thoughtcrime.securesms.util.LRUCache;
-import org.thoughtcrime.securesms.util.Stopwatch;
+import org.signal.core.util.Stopwatch;
 import org.thoughtcrime.securesms.util.concurrent.FilteredExecutor;
 import org.whispersystems.signalservice.api.push.ACI;
 
@@ -174,6 +175,28 @@ public final class LiveRecipientCache {
     }
 
     return getLive(selfId).resolve();
+  }
+
+  /** Can safely get self id. If used during early registration (backup), will return null as we don't know self yet. */
+  @Nullable RecipientId getSelfId() {
+    RecipientId selfId;
+
+    synchronized (localRecipientId) {
+      selfId = localRecipientId.get();
+    }
+
+    if (selfId != null) {
+      return selfId;
+    }
+
+    ACI    localAci  = SignalStore.account().getAci();
+    String localE164 = SignalStore.account().getE164();
+
+    if (localAci == null && localE164 == null) {
+      return null;
+    } else {
+      return getSelf().getId();
+    }
   }
 
   @AnyThread

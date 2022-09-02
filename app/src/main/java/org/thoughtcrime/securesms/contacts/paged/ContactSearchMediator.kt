@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.groups.SelectionLimits
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -23,10 +25,11 @@ class ContactSearchMediator(
   selectionLimits: SelectionLimits,
   displayCheckBox: Boolean,
   mapStateToConfiguration: (ContactSearchState) -> ContactSearchConfiguration,
-  private val contactSelectionPreFilter: (View?, Set<ContactSearchKey>) -> Set<ContactSearchKey> = { _, s -> s }
+  private val contactSelectionPreFilter: (View?, Set<ContactSearchKey>) -> Set<ContactSearchKey> = { _, s -> s },
+  performSafetyNumberChecks: Boolean = true
 ) {
 
-  private val viewModel: ContactSearchViewModel = ViewModelProvider(fragment, ContactSearchViewModel.Factory(selectionLimits, ContactSearchRepository())).get(ContactSearchViewModel::class.java)
+  private val viewModel: ContactSearchViewModel = ViewModelProvider(fragment, ContactSearchViewModel.Factory(selectionLimits, ContactSearchRepository(), performSafetyNumberChecks)).get(ContactSearchViewModel::class.java)
 
   init {
 
@@ -79,6 +82,10 @@ class ContactSearchMediator(
 
   fun getSelectionState(): LiveData<Set<ContactSearchKey>> {
     return viewModel.selectionState
+  }
+
+  fun getErrorEvents(): Observable<ContactSearchError> {
+    return viewModel.errorEventsStream.observeOn(AndroidSchedulers.mainThread())
   }
 
   fun addToVisibleGroupStories(groupStories: Set<ContactSearchKey.RecipientSearchKey.Story>) {

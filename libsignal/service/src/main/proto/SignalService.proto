@@ -23,29 +23,32 @@ message Envelope {
   }
 
   optional Type   type            = 1;
-  optional string sourceE164      = 2;
+  reserved      /*sourceE164*/      2;
   optional string sourceUuid      = 11;
   optional uint32 sourceDevice    = 7;
   optional string destinationUuid = 13;
-  optional string relay           = 3;
+  reserved      /*relay*/           3;
   optional uint64 timestamp       = 5;
-  optional bytes  legacyMessage   = 6; // Contains an encrypted DataMessage
+  reserved      /*legacyMessage*/   6;
   optional bytes  content         = 8; // Contains an encrypted Content
   optional string serverGuid      = 9;
   optional uint64 serverTimestamp = 10;
-  // NEXT ID: 14
+  optional bool   urgent          = 14 [default = true];
+  reserved      /*updatedPni*/      15; // Not used presently, may be used in the future
+  // NEXT ID: 16
 }
 
 message Content {
-  optional DataMessage    dataMessage                  = 1;
-  optional SyncMessage    syncMessage                  = 2;
-  optional CallMessage    callMessage                  = 3;
-  optional NullMessage    nullMessage                  = 4;
-  optional ReceiptMessage receiptMessage               = 5;
-  optional TypingMessage  typingMessage                = 6;
-  optional bytes          senderKeyDistributionMessage = 7;
-  optional bytes          decryptionErrorMessage       = 8;
-  optional StoryMessage   storyMessage                 = 9;
+  optional DataMessage         dataMessage                  = 1;
+  optional SyncMessage         syncMessage                  = 2;
+  optional CallMessage         callMessage                  = 3;
+  optional NullMessage         nullMessage                  = 4;
+  optional ReceiptMessage      receiptMessage               = 5;
+  optional TypingMessage       typingMessage                = 6;
+  optional bytes               senderKeyDistributionMessage = 7;
+  optional bytes               decryptionErrorMessage       = 8;
+  optional StoryMessage        storyMessage                 = 9;
+  optional PniSignatureMessage pniSignatureMessage          = 10;
 }
 
 message CallMessage {
@@ -313,7 +316,7 @@ message DataMessage {
 
   optional string             body                    = 1;
   repeated AttachmentPointer  attachments             = 2;
-  optional GroupContext       group                   = 3;
+  reserved                  /*groupV1*/                 3;
   optional GroupContextV2     groupV2                 = 15;
   optional uint32             flags                   = 4;
   optional uint32             expireTimer             = 5;
@@ -433,7 +436,7 @@ message SyncMessage {
       optional bool   isAllowedToReply    = 3;
     }
 
-    reserved                          /*destinationE164*/          1;
+    optional string                     destinationE164          = 1;
     optional string                     destinationUuid          = 7;
     optional uint64                     timestamp                = 2;
     optional DataMessage                message                  = 3;
@@ -568,6 +571,12 @@ message SyncMessage {
     }
   }
 
+  message PniChangeNumber {
+    optional bytes  identityKeyPair = 1; // Serialized libsignal-client IdentityKeyPair
+    optional bytes  signedPreKey    = 2; // Serialized libsignal-client SignedPreKeyRecord
+    optional uint32 registrationId  = 3;
+  }
+
   optional Sent                   sent                   = 1;
   optional Contacts               contacts               = 2;
   optional Groups                 groups                 = 3;
@@ -585,6 +594,7 @@ message SyncMessage {
   optional OutgoingPayment        outgoingPayment        = 15;
   repeated Viewed                 viewed                 = 16;
   optional PniIdentity            pniIdentity            = 17;
+  optional PniChangeNumber        pniChangeNumber        = 18;
 }
 
 message AttachmentPointer {
@@ -701,4 +711,9 @@ message DecryptionErrorMessage {
   optional bytes  ratchetKey = 1;
   optional uint64 timestamp  = 2;
   optional uint32 deviceId   = 3;
+}
+
+message PniSignatureMessage {
+  optional bytes pni       = 1;
+  optional bytes signature = 2;
 }

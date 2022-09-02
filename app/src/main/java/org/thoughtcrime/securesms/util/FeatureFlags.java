@@ -95,10 +95,12 @@ public final class FeatureFlags {
   private static final String USE_FCM_FOREGROUND_SERVICE        = "android.useFcmForegroundService.3";
   private static final String STORIES_AUTO_DOWNLOAD_MAXIMUM     = "android.stories.autoDownloadMaximum";
   private static final String GIFT_BADGE_RECEIVE_SUPPORT        = "android.giftBadges.receiving";
-  private static final String GIFT_BADGE_SEND_SUPPORT           = "android.giftBadges.sending";
-  private static final String USE_QR_LEGACY_SCAN                = "android.qr.legacy_scan";
+  private static final String GIFT_BADGE_SEND_SUPPORT           = "android.giftBadges.sending.3";
   private static final String TELECOM_MANUFACTURER_ALLOWLIST    = "android.calling.telecomAllowList";
   private static final String TELECOM_MODEL_BLOCKLIST           = "android.calling.telecomModelBlockList";
+  private static final String CAMERAX_MODEL_BLOCKLIST           = "android.cameraXModelBlockList";
+  private static final String RECIPIENT_MERGE_V2                = "android.recipientMergeV2";
+  private static final String CDS_V2_LOAD_TEST                  = "android.cdsV2LoadTest";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -148,9 +150,11 @@ public final class FeatureFlags {
       STORIES_AUTO_DOWNLOAD_MAXIMUM,
       GIFT_BADGE_RECEIVE_SUPPORT,
       GIFT_BADGE_SEND_SUPPORT,
-      USE_QR_LEGACY_SCAN,
       TELECOM_MANUFACTURER_ALLOWLIST,
-      TELECOM_MODEL_BLOCKLIST
+      TELECOM_MODEL_BLOCKLIST,
+      CAMERAX_MODEL_BLOCKLIST,
+      RECIPIENT_MERGE_V2,
+      CDS_V2_LOAD_TEST
   );
 
   @VisibleForTesting
@@ -212,9 +216,11 @@ public final class FeatureFlags {
       USE_AEC3,
       PAYMENTS_COUNTRY_BLOCKLIST,
       USE_FCM_FOREGROUND_SERVICE,
-      USE_QR_LEGACY_SCAN,
       TELECOM_MANUFACTURER_ALLOWLIST,
-      TELECOM_MODEL_BLOCKLIST
+      TELECOM_MODEL_BLOCKLIST,
+      CAMERAX_MODEL_BLOCKLIST,
+      RECIPIENT_MERGE_V2,
+      CDS_V2_LOAD_TEST
   );
 
   /**
@@ -337,7 +343,7 @@ public final class FeatureFlags {
    * IMPORTANT: This is under active development. Enabling this *will* break your contacts in terrible, irreversible ways.
    */
   public static boolean phoneNumberPrivacy() {
-    return getBoolean(PHONE_NUMBER_PRIVACY, false) && Environment.IS_STAGING;
+    return getBoolean(PHONE_NUMBER_PRIVACY, false);
   }
 
   /** Whether to use the custom streaming muxer or built in android muxer. */
@@ -472,6 +478,11 @@ public final class FeatureFlags {
     return getString(TELECOM_MODEL_BLOCKLIST, "");
   }
 
+  /** A comma-separated list of manufacturers that should *not* use CameraX. */
+  public static @NonNull String cameraXModelBlocklist() {
+    return getString(CAMERAX_MODEL_BLOCKLIST, "");
+  }
+
   /** Whether or not hardware AEC should be used for calling on devices older than API 29. */
   public static boolean useHardwareAecIfOlderThanApi29() {
     return getBoolean(USE_HARDWARE_AEC_IF_OLD, false);
@@ -493,8 +504,18 @@ public final class FeatureFlags {
     return getInteger(STORIES_AUTO_DOWNLOAD_MAXIMUM, 2);
   }
 
-  public static boolean useQrLegacyScan() {
-    return getBoolean(USE_QR_LEGACY_SCAN, false);
+  /**
+   * Whether or not we should use the new recipient merging strategy.
+   */
+  public static boolean recipientMergeV2() {
+    return getBoolean(RECIPIENT_MERGE_V2, false);
+  }
+
+  /**
+   * Whether or not we should also query CDSv2 as a form of load test.
+   */
+  public static boolean cdsV2LoadTesting() {
+    return getBoolean(CDS_V2_LOAD_TEST, false);
   }
 
   /** Only for rendering debug info. */

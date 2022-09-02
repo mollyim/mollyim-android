@@ -41,6 +41,9 @@
   <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">পেমেন্ট রিকভারি ফ্রেজ রেকর্ড করুন</string>
   <string name="ApplicationPreferencesActivity_record_phrase">বাক্যাংশ সংরক্ষণ</string>
   <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">আপনি আপনার পিনটি নিষ্ক্রিয় করার পূর্বে, আপনার পেমেন্ট অ্যাকাউন্টটি পুনরুদ্ধার করতে সক্ষম কিনা  তা নিশ্চিত করতে আপনাকে অবশ্যই আপনার পেমেন্টের তথ্য পুনরুদ্ধারের ফ্রেজ সংরক্ষণ করতে হবে।</string>
+  <!--NumericKeyboardView-->
+  <!--Back button on numeric keyboard-->
+  <string name="NumericKeyboardView__backspace">ব্যাকস্পেস</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d মিনিট</item>
@@ -427,8 +430,20 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">প্রোফাইলের ছবি সেট করতে সমস্যা হয়েছে</string>
   <string name="CreateProfileActivity_problem_setting_profile">প্রোফাইল সেট করতে সমস্যা হয়েছে</string>
   <string name="CreateProfileActivity_set_up_your_profile">আপনার প্রোফাইল সেট করুন</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">আপনার প্রোফাইলটি এক প্রান্ত থেকে অপর প্রান্ত এনক্রিপ্ট করা। আপনার প্রোফাইল এবং এর পরিবর্তনগুলি আপনার পরিচিতিগুলিতে দৃশ্যমান হবে, যখন আপনি নতুন কথোপকথন শুরু করেন বা গ্রহণ করেন এবং যখন আপনি নতুন গ্রুপে যোগদান করেন।</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">আপনার প্রোফাইল এবং এতে করা পরিবর্তনগুলো আপনার ম্যাসেজ, কন্টাক্ট, এবং গ্ৰুপগুলোর কাছে দৃশ্যমান হবে৷</string>
   <string name="CreateProfileActivity_set_avatar_description">প্রোফাইলের ছবি সেট করুন</string>
+  <!--ProfileCreateFragment-->
+  <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">প্রোফাইলগুলো আপনার ম্যাসেজ, কন্টাক্ট এবং গ্ৰুপগুলোর কাছে দৃশ্যমান৷</string>
+  <!--Title of clickable row to select phone number privacy settings-->
+  <string name="ProfileCreateFragment__who_can_find_me">নম্বরের মাধ্যমে কারা আমাকে খুঁজে পাবেন?</string>
+  <!--WhoCanSeeMyPhoneNumberFragment-->
+  <!--Toolbar title for this screen-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">নম্বরের মাধ্যমে কারা আমাকে খুঁজে পাবেন?</string>
+  <!--Description for radio item stating anyone can see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">যাদের কন্টাক্টে আপনার ফোন নম্বর আছে তারা আপনাকে Signal-এ একজন কন্টাক্ট হিসেবে দেখতে পাবেন। অন্যরা সার্চ করার মাধ্যমে আপনার নম্বর দিয়ে অনুসন্ধান করে আপনাকে খুঁজে পেতে সক্ষম হবেন।</string>
+  <!--Description for radio item stating no one will be able to see your phone number-->
+  <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">Signal-এ থাকা কোন ব্যক্তিই আপনার ফোন নম্বরের মাধ্যমে আপনাকে খুঁজে পাবেন না।</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">ব্যাকআপ থেকে পুনঃস্থাপন করবেন?</string>
   <string name="ChooseBackupFragment__restore_your_messages_and_media">স্থানীয় ব্যাকঅাপ থেকে আপনার বার্তা এবং মিডিয়া পুনরুদ্ধার করুন। আপনি যদি এখনই পুনরুদ্ধার না করেন তবে আপনি পরে আর পুনরুদ্ধার করতে পারবেন না।</string>
@@ -460,6 +475,8 @@
   <string name="BackupsPreferenceFragment__to_restore_a_backup">একটি ব্যাকআপ পুনরুদ্ধার করতে, নতুন করে Molly  ইনস্টল করুন। অ্যাপ্লিকেশনটি খুলুন এবং \" ব্যাকআপ পুনরুদ্ধার করুন\" বাটনে আলতো চাপুন, তারপরে ব্যাকআপ ফাইলটি সনাক্ত করুন। %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">আরও জানুন</string>
   <string name="BackupsPreferenceFragment__in_progress">চলমান…</string>
+  <!--Status text shown in backup preferences when verifying a backup-->
+  <string name="BackupsPreferenceFragment__verifying_backup">ব্যাকআপ যাচাই করা হচ্ছে…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d এখন অব্দি…</string>
   <!--Show percentage of completion of backup-->
   <string name="BackupsPreferenceFragment__s_so_far">এখন পর্যন্ত %1$s %%…</string>
@@ -730,6 +747,10 @@
   <string name="ManageProfileFragment_failed_to_set_avatar">অবতার সেট করতে ব্যর্থ</string>
   <string name="ManageProfileFragment_badges">ব্যাজগুলি</string>
   <string name="ManageProfileFragment__edit_photo">ছবি সম্পাদনা করুন</string>
+  <!--Snackbar message after creating username-->
+  <string name="ManageProfileFragment__username_created">ইউজারনেম তৈরি করা হয়েছে</string>
+  <!--Snackbar message after copying username-->
+  <string name="ManageProfileFragment__username_copied">ইউজারনেম কপি করা হয়েছে</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">একই রকমের কোন গ্রুপ নেই</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -1513,6 +1534,12 @@
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">সম্পাদনা</string>
   <string name="SubmitDebugLogActivity_done">শেষ</string>
+  <!--Menu option to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save">সংরক্ষণ করুন</string>
+  <!--Error that is show in a toast when we fail to save a debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_failed_to_save">সেভ করা ব্যর্থ হয়েছে</string>
+  <!--Toast that is show to notify that we have saved the debug log file to disk.-->
+  <string name="SubmitDebugLogActivity_save_complete">সেভ সম্পন্ন হয়েছে</string>
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">লাইনটিকে মুছে ফেলতে লাইনের উপর চাপুন</string>
   <string name="SubmitDebugLogActivity_submit">সাবমিট</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">বিবরণীসমূহ জমাদিতে ব্যার্থ</string>
@@ -1567,7 +1594,9 @@
   <!--Displayed in the notification when the user has opened a received gift-->
   <string name="ThreadRecord__you_redeemed_a_gift_badge">আপনি একটি গিফট ব্যাজ ফিরে পেয়েছেন</string>
   <!--Displayed in the conversation list when someone reacted to your story-->
+  <string name="ThreadRecord__reacted_s_to_your_story">আপনার স্টোরি-তে %1$s রিঅ্যাক্ট করেছেন</string>
   <!--Displayed in the conversation list when you reacted to someone\'s story-->
+  <string name="ThreadRecord__reacted_s_to_their_story">তাদের স্টোরি-তে %1$s রিঅ্যাক্ট করেছেন</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Molly আপডেট</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly এর একটি নতুন ভার্সন পাওয়া যাচ্ছে, অাপডেট করতে ট্যাপ করুন</string>
@@ -1578,6 +1607,8 @@
   <string name="UnverifiedSendDialog_send_message">বার্তা পাঠান?</string>
   <string name="UnverifiedSendDialog_send">পাঠান</string>
   <!--UsernameEditFragment-->
+  <!--Instructional text at the top of the username edit screen-->
+  <string name="UsernameEditFragment__choose_your_username">আপনার ইউজারনেম বেছে নিন</string>
   <string name="UsernameEditFragment_username">ব্যবহারকারীর নাম</string>
   <string name="UsernameEditFragment_delete">মুছে দিন</string>
   <string name="UsernameEditFragment_successfully_set_username">সফলভাবে ব্যবহারকারীর নাম সেট করা হয়েছে।</string>
@@ -1589,11 +1620,18 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">ব্যবহারকারীর নাম সংখ্যা দিয়ে শুরু করতে পারে না।</string>
   <string name="UsernameEditFragment_username_is_invalid">ব্যবহারকারীর নাম অবৈধ|</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">ব্যবহারকারীর নামগুলি অবশ্যই %1$d এবং %2$d অক্ষরের মধ্যে থাকতে হবে।</string>
-  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Signal-এ ইউজারনেম হল অপশনাল। আপনি একটি ইউজারনেম তৈরি করতে চাইলে, Signal-এর অন্য ইউজাররা এই ইউজারনেম দিয়ে আপনাকে খুঁজে বের করতে পারবেন এবং আপনার ফোন নম্বর জানা ছাড়াই আপনার সাথে যোগাযোগ করতে পারবেন।</string>
+  <!--Explanation about what usernames provide-->
+  <string name="UsernameEditFragment__usernames_let_others_message">ইউজারনেম ব্যবহার করলে আপনার ফোন নাম্বার ছাড়াই অন্যরা আপনাকে ম্যাসেজ দিতে পারবেন৷ আপনার ঠিকানা গোপন রাখতে সাহায্য করার জন্য এগুলো একগুচ্ছ সংখ্যার যুক্ত করা হয়৷</string>
+  <!--Dialog title for explanation about numbers at the end of the username-->
+  <string name="UsernameEditFragment__what_is_this_number">এই নম্বরটি কী?</string>
+  <string name="UsernameEditFragment__these_digits_help_keep">এই সংখ্যাগুলো আপনার ইউজারনেমটি গোপন রাখতে সাহায্য করে, যাতে আপনি অবাঞ্ছিত ম্যাসেজ এড়িয়ে যেতে পারেন৷ আপনি যে ব্যক্তি ও গ্রুপের সাথে চ্যাট করতে চান শুধুমাত্র তাদের সাথে আপনার ইউজারনেমটি শেয়ার করুন। ব্যবহারকারীর নামটি পরিবর্তন করলে আপনি একগুচ্ছ নতুন সংখ্যা পাবেন।</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d টি কন্ট্যাক্ট Signal ব্যবহার করছে!</item>
     <item quantity="other">%d জন কন্ট্যাক্ট Signal ব্যবহার করছেন!</item>
   </plurals>
+  <!--UsernameShareBottomSheet-->
+  <!--Explanation of what the sheet enables the user to do-->
+  <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">ব্যবহারকারীর নামের একটি লিংক কপি করুন অথবা শেয়ার করুন</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">আপনার পরিচিতি Signal এর একটি পুরানো সংস্করণ চলাচ্ছেন। আপনার নিরাপত্তা নাম্বার যাচাই করার আগে দয়া করে তাকে আপডেট করতে বলুন।</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">আপনার পরিচিতি একটি অসঙ্গত QR কোড ফর্ম্যাট সহ সিগন্যালের একটি নতুন সংস্করণ চলাচ্ছেন। তুলনা করার জন্য আপডেট করুন।</string>
@@ -2179,6 +2217,8 @@
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">এক-কালীন ডোনেশন</string>
   <string name="preferences__privacy">গোপনীয়তা</string>
+  <!--Preference label for stories-->
+  <string name="preferences__stories">স্টোরি</string>
   <string name="preferences__mms_user_agent">এমএমএস ব্যবহারকারী এজেন্ট</string>
   <string name="preferences__advanced_mms_access_point_names">ম্যানুয়াল এমএমএস সেটিংস</string>
   <string name="preferences__mmsc_url">এমএমএসসি ইউআরএল</string>
@@ -2191,6 +2231,8 @@
   <string name="preferences__data_and_storage">ডাটা এবং স্টোরেজ</string>
   <string name="preferences__storage">স্টোরেজ</string>
   <string name="preferences__payments">পেমেন্ট</string>
+  <!--Privacy settings payments section description-->
+  <string name="preferences__payment_lock">পেমেন্ট লক</string>
   <string name="preferences__payments_beta">পেমেন্ট (বিটা)</string>
   <string name="preferences__conversation_length_limit">কথোপকথন দৈর্ঘ্য সীমা</string>
   <string name="preferences__keep_messages">মেসেজগুলো রাখুন</string>
@@ -2256,6 +2298,8 @@
   <string name="preferences_app_protection__who_can">যে পারে …</string>
   <string name="preferences_app_protection__app_access">অ্যাপ প্রবেশাধীকার</string>
   <string name="preferences_app_protection__communication">যোগাযোগ</string>
+  <!--Privacy settings payments section title-->
+  <string name="preferences_app_protection__payments">পেমেন্ট</string>
   <string name="preferences_chats__chats">আলাপসমূহ</string>
   <string name="preferences_data_and_storage__manage_storage">স্টোরেজ ব্যাবস্থাপনা</string>
   <string name="preferences_data_and_storage__calls">কল সমূহ</string>
@@ -2313,7 +2357,6 @@
   <string name="preferences_enter_proxy_address">প্রক্সি ঠিকানা লিখুন</string>
   <string name="configurable_single_select__customize_option">বিকল্পগুলি কাস্টমাইজ করুন</string>
   <!--Internal only preferences-->
-  <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories">Clears onboarding flag and triggers download of onboarding stories.</string>
   <!--Payments-->
   <string name="PaymentsActivityFragment__all_activity">সমস্ত ক্রিয়াকলাপ</string>
   <string name="PaymentsAllActivityFragment__all">সব</string>
@@ -2358,6 +2401,14 @@
   <string name="PaymentsHomeFragment__activate">সক্রিয় করুন</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin-এর শর্তাবলী দেখুন</string>
   <string name="PaymentsHomeFragment__payments_not_available">Molly-এ পেমেন্ট আর উপলভ্য নেই। আপনি এখনও কোনও এক্সচেঞ্জে আপনার ফান্ডগুলি ট্রান্সফার করতে পারেন তবে আপনি আর পেমেন্টগুলি প্রেরণ এবং গ্রহণ করতে বা ফান্ড যোগ করতে পারবেন না।</string>
+  <!--Alert dialog title which shows up after a payment to turn on payment lock-->
+  <string name="PaymentsHomeFragment__turn_on">ভবিষ্যতে পাঠানোর জন্য পেমেন্ট লক চালু করবেন? </string>
+  <!--Alert dialog description for why payment lock should be enabled before sending payments-->
+  <string name="PaymentsHomeFragment__add_an_additional_layer">অর্থ পাঠাতে নিরাপত্তার একটি অতিরিক্ত ধাপ যোগ করুন এবং Android স্ক্রিন লক বা আঙুলের ছাপ দেওয়ার নিয়ম রাখুন৷</string>
+  <!--Alert dialog button to enable payment lock-->
+  <string name="PaymentsHomeFragment__enable">চালু করুন</string>
+  <!--Alert dialog button to not enable payment lock for now-->
+  <string name="PaymentsHomeFragment__not_now">এখন নয়</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">ফান্ড যোগ করুন</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">আপনার ওয়ালেট ঠিকানা</string>
@@ -2438,6 +2489,14 @@
   <string name="ConfirmPayment__payment_failed">পেমেন্ট ব্যর্থ হয়েছে</string>
   <string name="ConfirmPayment__payment_will_continue_processing">অর্থ প্রদান প্রক্রিয়া চালিয়ে যাবে</string>
   <string name="ConfirmPaymentFragment__invalid_recipient">প্রাপক সঠিক নয়</string>
+  <!--Biometric/Device authentication prompt title which comes up before sending a payment-->
+  <string name="ConfirmPaymentFragment__unlock_to_send_payment">পেমেন্ট পাঠাতে আনলক করুন</string>
+  <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">পেমেন্ট লক দেখাতে ব্যর্থ হয়েছে</string>
+  <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">আপনি সেটিংসে পেমেন্ট লক সচল করেছেন, কিন্তু এটি দেখানো যাচ্ছে না।</string>
+  <!--Button in a dialog that will take the user to the privacy settings-->
+  <string name="ConfirmPaymentFragment__go_to_settings">সেটিংস-এ যান</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">এই ব্যক্তি পেমেন্ট সক্রিয় করেনি</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">একটি নেটওয়ার্ক ফি-এর অনুরোধ করতে পারেনি। পেমেন্টটি চালিয়ে যাওয়ার জন্য পুনরায় চেষ্টা করতে ‘ঠিক আছে’-তে ট্যাপ করুন।</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2718,10 +2777,16 @@
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">আপনি সফলভাবে আপনার ব্যাকআপ পাসফ্রেজটি প্রবেশ করিয়েছেন</string>
   <string name="BackupDialog_passphrase_was_not_correct">পাসফ্রেজ সঠিক ছিলোনা।</string>
   <string name="LocalBackupJob_creating_signal_backup">Molly ব্যাকআপ তৈরি করা হচ্ছে…</string>
+  <!--Title for progress notification shown in a system notification while verifying a recent backup.-->
+  <string name="LocalBackupJob_verifying_signal_backup">Molly ব্যাকআপ যাচাই করা হচ্ছে…</string>
   <string name="LocalBackupJobApi29_backup_failed">ব্যাকআপ ব্যর্থ হয়েছে</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">আপনার ব্যাকআপ ডিরেক্টরি মুছে ফেলা হয়েছে বা সরানো হয়েছে।</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">আপনার ব্যাকআপ ফাইলটি এই স্থানে সংরক্ষণ করার জন্য খুব বড়।</string>
   <string name="LocalBackupJobApi29_there_is_not_enough_space">আপনার ব্যাকআপ সংরক্ষণের জন্য পর্যাপ্ত জায়গা নেই।</string>
+  <!--Error message shown if a newly created backup could not be verified as accurate-->
+  <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">আপনার সাম্প্রতিক ব্যাকআপটি তৈরি এবং যাচাই করা যায়নি। অনুগ্রহ করে নতুন ব্যাকআপ তৈরি করুন।</string>
+  <!--Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail-->
+  <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">আপনার ব্যাকআপে একটি বেশ বড় আকারের ফাইল রয়েছে যার ব্যাকআপ নেওয়া যাচ্ছে না। ফাইলটি মুছে দিন এবং একটি নতুন ব্যাকআপ তৈরি করুন।</string>
   <string name="LocalBackupJobApi29_tap_to_manage_backups">ব্যাকআপগুলি পরিচালনা করতে আলতো চাপুন।</string>
   <string name="ProgressPreference_d_messages_so_far">এযাবৎ %d টি বার্তা</string>
   <string name="RegistrationActivity_wrong_number">ভুল নাম্বার</string>
@@ -3022,6 +3087,8 @@
   <string name="ShareActivity__send">পাঠান</string>
   <string name="ShareActivity__comma_s">, %1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">একাধিক চ্যাটে শেয়ার করা কেবল Signal-এর মেসেজের ক্ষেত্রে সমর্থিত</string>
+  <!--Toast when the incoming intent is invalid-->
+  <string name="ShareActivity__could_not_get_share_data_from_intent">উদ্দেশ্যের কাছ থেকে শেয়ারের তথ্য পাওয়া যায়নি।</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">কিছু ব্যবহারকারীর কাছে প্রেরণে ব্যর্থ হয়েছে</string>
   <string name="MultiShareDialogs__you_can_only_share_with_up_to">আপনি কেবল %1$d জন পর্যন্ত চ্যাট শেয়ার করতে পারেন</string>
@@ -3247,6 +3314,19 @@
   <string name="PrivacySettingsFragment__signal_message_and_calls">Signal মেসেজ ও কল করে, সবসময় কল রিলে করে এবং প্রেরককে সিল করে রাখে</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">নতুন চ্যাটের জন্য ডিফল্ট টাইমার</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">আপনার শুরু করা সব নতুন চ্যাটের জন্য মেসেজ অদৃশ্য হওয়ার ডিফল্ট সময় সেট করুন।</string>
+  <!--Summary for stories preference to launch into story privacy settings-->
+  <string name="PrivacySettingsFragment__manage_your_stories">আপনার স্টোরি এবং কারা আপনার স্টোরি দেখতে পারবেন তা নিয়ন্ত্রণ করুন</string>
+  <string name="PrivacySettingsFragment__payment_lock_require_lock">অর্থ পাঠাতে Android স্ক্রিন লক বা আঙুলের ছাপ দেওয়ার নিয়ম রাখুন</string>
+  <!--Alert dialog title when payment lock cannot be enabled-->
+  <string name="PrivacySettingsFragment__cant_enable_title">পেমেন্ট লক সচল করা যাচ্ছে না</string>
+  <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
+  <string name="PrivacySettingsFragment__cant_enable_description">পেমেন্ট লক ব্যবহার করতে, আপনাকে প্রথমে নিজ ফোনের সেটিংসে একটি স্ক্রিন লক বা ফিঙ্গারপ্রিন্ট আইডি সচল করতে হবে।</string>
+  <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
+  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">সিস্টেম সেটিংস নেভিগেট করতে ব্যর্থ হয়েছে</string>
+  <!--Alert dialog button to go to phone settings-->
+  <string name="PrivacySettingsFragment__go_to_settings">সেটিংস-এ যান</string>
+  <!--Alert dialog button to cancel the dialog-->
+  <string name="PrivacySettingsFragment__cancel">বাতিল করুন</string>
   <!--AdvancedPrivacySettingsFragment-->
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">স্ট্যাটাস আইকন দেখান</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">সিল করা প্রেরকের মাধ্যমে কোন মেসেজ পাঠানো হলে মেসেজের বিস্তারিত বিবরণীতে একটি আইকন দেখান।</string>
@@ -3356,6 +3436,8 @@
   <string name="EmojiSearchFragment__no_results_found">কোনও ফলাফল পাওয়া যায়নি</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">অপরিচিত রিংটোন</string>
   <!--ConversationSettingsFragment-->
+  <!--Error toasted when no activity can handle the add contact intent-->
+  <string name="ConversationSettingsFragment__contacts_app_not_found">কন্ট্যাক্ট অ্যাপ পাওয়া যায়নি</string>
   <string name="ConversationSettingsFragment__send_message">মেসেজ পাঠান</string>
   <string name="ConversationSettingsFragment__start_video_call">ভিডিও কল শুরু করুন</string>
   <string name="ConversationSettingsFragment__start_audio_call">অডিও কল শুরু করুন</string>
@@ -3476,6 +3558,8 @@
     <item quantity="one">বার্তাটি ফরওয়ার্ড করা যায়নি কারণ এটি আর উপলব্ধ নেই।</item>
     <item quantity="other">বার্তাগুলি ফরওয়ার্ড করা যায়নি কারণ সেগুলি আর উপলব্ধ নেই।</item>
   </plurals>
+  <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
+  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">কেবলমাত্র অ্যাডমিনরা এই গ্রুপে মেসেজ পাঠাতে পারবেন।</string>
   <string name="MultiselectForwardFragment__limit_reached">সীমায় পৌঁছেছে</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">একটি বার্তা যোগ করুন</string>
@@ -3636,13 +3720,13 @@
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">নেটওয়ার্ক ত্রুটি। আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।</string>
   <string name="NetworkFailure__retry">পুনরায় চেষ্টা করুন</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__recipient_verification_failed">প্রাপক যাচাইকরণ সফল হয়নি।</string>
+  <string name="DonationsErrors__cant_send_gift">উপহার পাঠানো যায়নি</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">যাকে পাঠাতে চাচ্ছেন তার জন্য উপহার সমর্থিত নয়।</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">এই প্রাপক Signal-এর এমন একটি সংস্করণ ব্যবহার করছেন যা উপহার ব্যাজ গ্রহণ করতে পারে না৷ তারা যখন সর্বশেষ সংস্করণে আপডেট করবেন তখন উপহার পাবেন।</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__could_not_verify_recipient">প্রাপককে যাচাই করা যায়নি।</string>
+  <string name="DonationsErrors__couldnt_send_gift">উপহার পাঠানো যায়নি</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__please_check_your_network_connection">অনুগ্রহ করে আপনার নেটওয়ার্ক সংযোগ ঠিক আছে কিনা দেখুন এবং আবার চেষ্টা করুন।</string>
+  <string name="DonationsErrors__please_check_your_network_connection">নেটওয়ার্কে ত্রুটির কারণে আপনার উপহার পাঠানো যায়নি। আপনার ইন্টারনেট সংযোগ ঠিক আছে কি না দেখুন এবং আবার চেষ্টা করুন।</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">ব্যাজ উপহার দিন</string>
   <!--Gift message view expiry information-->
@@ -3859,10 +3943,12 @@
   <string name="ConversationListTabs__stories">স্টোরি</string>
   <!--String for counts above 99 in conversation list tabs-->
   <string name="ConversationListTabs__99p">99+</string>
+  <!--Menu item on stories landing page-->
+  <string name="StoriesLandingFragment__story_privacy">স্টোরির গোপনীয়তা</string>
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">আমার স্টোরি</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
-  <string name="StoriesLandingFragment__add_a_story">স্টোরি যোগ করুন</string>
+  <string name="StoriesLandingFragment__tap_to_add_a_story">স্টোরি যোগ করতে ট্যাপ করুন</string>
   <!--Displayed when there are no stories to display-->
   <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">এই মুহূর্তে দেখানোর জন্য কোন সাম্প্রতিক আপডেট নেই। আপনার স্টোরি যোগ করতে + ট্যাপ করুন।</string>
   <!--Context menu option to hide a story-->
@@ -3940,6 +4026,14 @@
   <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">কে আপনার স্টোরি দেখেছে তা দেখতে রিড রিসিপ্ট চালু করুন৷</string>
   <!--Button label displayed when user has disabled receipts-->
   <string name="StoryViewsFragment__go_to_settings">সেটিংস-এ যান</string>
+  <!--Dialog action to remove viewer from a story-->
+  <string name="StoryViewsFragment__remove">সরান</string>
+  <!--Dialog title when removing a viewer from a story-->
+  <string name="StoryViewsFragment__remove_viewer">দর্শককে বাদ দেবেন?</string>
+  <!--Dialog message when removing a viewer from a story-->
+  <string name="StoryViewsFragment__s_will_still_be_able">%1$s এখনও এই পোস্টটি দেখতে সক্ষম হবেন, তবে ভবিষ্যতে %2$s-এর সাথে শেয়ার করা আপনার কোনো পোস্ট দেখতে পারবেন না৷</string>
+  <!--Story View context menu action to remove them from a story-->
+  <string name="StoryViewItem__remove_viewer">দর্শককে বাদ দিন</string>
   <!--Displayed when a story has no replies yet-->
   <string name="StoryGroupReplyFragment__no_replies_yet">এখন পর্যন্ত কোন রিপ্লাই নেই</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3958,14 +4052,6 @@
   <string name="StoryGroupReplyItem__copy">কপি করুন</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">মুছুন</string>
-  <!--Story settings page title-->
-  <string name="StorySettingsFragment__story_settings">স্টোরি সেটিংস</string>
-  <!--Story settings private stories heading-->
-  <string name="StorySettingsFragment__private_stories">ব্যক্তিগত স্টোরি</string>
-  <!--Note at bottom of story settings regarding who can see private stories.-->
-  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">ব্যক্তিগত স্টোরি শুধু আপনি যাদের যোগ করেছেন তারা দেখতে পাবে। স্টোরি\'র নাম শুধু আপনি দেখতে পাবেন। </string>
-  <!--Option label for creating a new private story-->
-  <string name="StorySettingsFragment__new_private_story">নতুন ব্যক্তিগত স্টোরি</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">আমার স্টোরি</string>
   <!--Section heading for story visibility-->
@@ -4216,6 +4302,11 @@
     <item quantity="one">গ্ৰুপ স্টোরি · %1$d জন দর্শক</item>
     <item quantity="other">গ্ৰুপ স্টোরি · %1$d জন দর্শক</item>
   </plurals>
+  <!--Label under name for my story-->
+  <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
+    <item quantity="one">%1$s · %2$d দর্শক</item>
+    <item quantity="other">%1$s · %2$d দর্শক</item>
+  </plurals>
   <!--Label under name for My Story when first sending to my story-->
   <string name="ContactSearchItems__tap_to_choose_your_viewers">আপনার ভিউয়ারদের বেছে নিতে ট্যাপ করুন</string>
   <!--Label for context menu item to open story settings-->
@@ -4326,5 +4417,31 @@
   <string name="StoryInfoBottomSheetDialogFragment__sent_from">এর থেকে পাঠানো হয়েছে</string>
   <!--Story Info context menu label-->
   <string name="StoryInfoBottomSheetDialogFragment__info">তথ্য</string>
+  <!--StoriesPrivacySettingsFragment-->
+  <!--Explanation about how stories are deleted and managed-->
+  <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">24 ঘন্টা পর স্টোরি স্বয়ংক্রিয়ভাবে অদৃশ্য হয়ে যায়। আপনার স্টোরি কে দেখতে পারবেন তা নির্বাচন করুন অথবা নির্দিষ্ট দর্শক বা গ্ৰুপের সাথে নতুন স্টোরি তৈরি করুন৷</string>
+  <!--Preference title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories">স্টোরি বন্ধ করুন</string>
+  <!--Preference summary to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__if_you_opt_out">স্টোরি বন্ধ করলে আপনি আর স্টোরি শেয়ার করতে কিংবা দেখতে পারবেন না৷</string>
+  <!--Preference title to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_on_stories">স্টোরি চালু করুন</string>
+  <!--Preference summary to turn on stories-->
+  <string name="StoriesPrivacySettingsFragment__share_and_view">স্টোরি শেয়ার করুন এবং অন্যদের স্টোরি দেখুন। স্টোরি 24 ঘন্টা পর স্বয়ংক্রিয়ভাবে অদৃশ্য হয়ে যায়।</string>
+  <!--Dialog title to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">স্টোরি বন্ধ করবেন?</string>
+  <!--Dialog message to turn off stories-->
+  <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">আপনি আর স্টোরি শেয়ার করতে কিংবা দেখতে পারবেন না। আপনার সম্প্রতি পাঠানো যেকোনো স্টোরি-র সময়কাল শেষ না হওয়া পর্যন্ত অন্যরা দেখতে পাবেন।</string>
+  <!--Page title when launched from stories landing screen-->
+  <string name="StoriesPrivacySettingsFragment__story_privacy">স্টোরির গোপনীয়তা</string>
+  <!--GroupStorySettingsFragment-->
+  <!--Section header for who can view a group story-->
+  <string name="GroupStorySettingsFragment__who_can_view_this_story">যারা এই স্টোরি দেখতে পাবেন</string>
+  <!--Explanation of who can view a group story-->
+  <string name="GroupStorySettingsFragment__members_of_the_group_s">\"%1$s\" গ্রুপের সদস্যরা এই স্টোরি দেখতে এবং উত্তর দিতে পারবেন। আপনি গ্রুপে এই চ্যাটের সদস্যতা আপডেট করতে পারেন।</string>
+  <!--Preference label for removing this group story-->
+  <string name="GroupStorySettingsFragment__remove_group_story">গ্ৰুপ স্টোরি সরিয়ে ফেলুন</string>
+  <!--Generic title for overflow menus-->
+  <string name="OverflowMenu__overflow_menu">ওভারফ্লো মেন্যু</string>
   <!--EOF-->
 </resources>
