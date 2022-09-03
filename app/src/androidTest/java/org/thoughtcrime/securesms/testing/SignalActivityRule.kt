@@ -63,7 +63,7 @@ class SignalActivityRule(private val othersCount: Int = 4) : ExternalResource() 
   private fun setupSelf(): Recipient {
     DeviceTransferBlockingInterceptor.getInstance().blockNetwork()
 
-    ApplicationDependencies.getNetworkManager().isNetworkEnabled = true;
+    ApplicationDependencies.getNetworkManager().isNetworkEnabled = true
 
     SecurePreferenceManager.getSecurePreferences(application).edit().putBoolean("pref_prompted_push_registration", true).commit()
     // MOLLY: Test runner SignalTestRunner initializes MasterSecret
