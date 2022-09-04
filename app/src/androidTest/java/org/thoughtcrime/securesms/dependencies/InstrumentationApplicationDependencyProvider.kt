@@ -28,7 +28,6 @@ import org.whispersystems.signalservice.internal.configuration.SignalServiceConf
 import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl
 import org.whispersystems.signalservice.internal.configuration.SignalStorageUrl
 import java.security.KeyStore
-import java.util.Optional
 
 /**
  * Dependency provider used for instrumentation tests (aka androidTests).
