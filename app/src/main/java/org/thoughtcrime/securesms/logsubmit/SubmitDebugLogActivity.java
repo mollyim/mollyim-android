@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.thoughtcrime.securesms.BaseActivity;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.LongClickCopySpan;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
@@ -142,15 +143,19 @@ public class SubmitDebugLogActivity extends BaseActivity implements SubmitDebugL
     } else if (item.getItemId() == R.id.menu_done_editing_log) {
       viewModel.onDoneEditingButtonPressed();
     } else if (item.getItemId() == R.id.menu_save) {
-      Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-      intent.addCategory(Intent.CATEGORY_OPENABLE);
-      intent.setType("application/zip");
-      intent.putExtra(Intent.EXTRA_TITLE, BuildConfig.BACKUP_FILENAME + "-log-" + System.currentTimeMillis() + ".zip");
-
-      startActivityForResult(intent, CODE_SAVE);
+      onSaveClicked();
     }
 
     return false;
+  }
+
+  private void onSaveClicked() {
+    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+    intent.addCategory(Intent.CATEGORY_OPENABLE);
+    intent.setType("application/zip");
+    intent.putExtra(Intent.EXTRA_TITLE, BuildConfig.BACKUP_FILENAME + "-log-" + System.currentTimeMillis() + ".zip");
+
+    startActivityForResult(intent, CODE_SAVE);
   }
 
   @Override
@@ -195,7 +200,12 @@ public class SubmitDebugLogActivity extends BaseActivity implements SubmitDebugL
     this.lineList.setAdapter(adapter);
     this.lineList.setItemAnimator(null);
 
-    submitButton.setOnClickListener(v -> onSubmitClicked());
+    if (KeyCachingService.isLocked()) {
+      submitButton.setText(R.string.SubmitDebugLogActivity_save);
+      submitButton.setOnClickListener(v -> onSaveClicked());
+    } else {
+      submitButton.setOnClickListener(v -> onSubmitClicked());
+    }
 
     scrollToBottomButton.setOnClickListener(v -> lineList.scrollToPosition(adapter.getItemCount() - 1));
     scrollToTopButton.setOnClickListener(v -> lineList.scrollToPosition(0));

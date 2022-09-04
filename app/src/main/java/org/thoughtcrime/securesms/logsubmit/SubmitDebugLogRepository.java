@@ -200,10 +200,8 @@ public class SubmitDebugLogRepository {
           gzipOutput.write("\n".getBytes());
         }
       } catch (IllegalStateException e) {
-        if (!KeyCachingService.isLocked()) {
-          Log.e(TAG, "Failed to read row!", e);
-          return Optional.empty();
-        }
+        Log.e(TAG, "Failed to read row!", e);
+        return Optional.empty();
       }
 
       StreamUtil.close(gzipOutput);
