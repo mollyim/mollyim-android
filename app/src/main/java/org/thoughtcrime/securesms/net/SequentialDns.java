@@ -32,6 +32,12 @@ public class SequentialDns implements Dns {
     for (Dns dns : dnsList) {
       try {
         List<InetAddress> addresses = dns.lookup(hostname);
+        if (addresses.removeIf(InetAddress::isAnyLocalAddress)) {
+          Log.w(TAG, "Ignore invalid address 0.0.0.0 while resolving " + hostname);
+        }
+        if (addresses.removeIf(InetAddress::isLoopbackAddress)) {
+          Log.w(TAG, "Ignore loopback address while resolving " + hostname);
+        }
         if (addresses.size() > 0) {
           return addresses;
         } else {
