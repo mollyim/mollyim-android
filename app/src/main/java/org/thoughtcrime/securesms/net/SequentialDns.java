@@ -9,6 +9,7 @@ import org.thoughtcrime.securesms.util.NetworkUtil;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,7 +32,7 @@ public class SequentialDns implements Dns {
   public @NonNull List<InetAddress> lookup(@NonNull String hostname) throws UnknownHostException {
     for (Dns dns : dnsList) {
       try {
-        List<InetAddress> addresses = dns.lookup(hostname);
+        LinkedList<InetAddress> addresses = new LinkedList<>(dns.lookup(hostname));
         if (addresses.removeIf(InetAddress::isAnyLocalAddress)) {
           Log.w(TAG, "Ignore invalid address 0.0.0.0 while resolving " + hostname);
         }
