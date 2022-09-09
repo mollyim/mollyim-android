@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.components.settings.app.help
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.thoughtcrime.securesms.BuildConfig
