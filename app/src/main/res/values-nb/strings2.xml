@@ -78,4 +78,9 @@
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Lås Molly-tilgang med fingeravtrykk og ansiktsgjenkjennelse</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Ingen biometriske funksjoner tilgjengelig på denne enheten</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Sett opp biometriske metoder i Android-innstillingene først</string>
+    <string name="BioTextPreference_no_linked_devices">Ingen sammenkoblede enheter</string>
+    <plurals name="BioTextPreference_n_linked_devices">
+        <item quantity="one">%d sammenkoblet enhet</item>
+        <item quantity="other">%d sammenkoblede enheter</item>
+    </plurals>
 </resources>
