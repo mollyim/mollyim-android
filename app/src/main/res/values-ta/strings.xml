@@ -167,7 +167,8 @@
   <string name="ContactsCursorLoader_contacts">தொடர்புகள்</string>
   <string name="ContactsCursorLoader_groups">குழுக்கள்</string>
   <string name="ContactsCursorLoader_phone_number_search">தொலைபேசி எண் தேடல்</string>
-  <string name="ContactsCursorLoader_username_search">பயனர்பெயர் தேடல்</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">பயனர் பெயர் மூலம் கண்டறியவும்</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">எனது ஸ்டோரீஸ்</string>
   <!--Action for creating a new story-->
@@ -1610,6 +1611,8 @@
   <string name="UnverifiedSendDialog_send_message">செய்தி அனுப்ப?</string>
   <string name="UnverifiedSendDialog_send">அனுப்புக</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">பயனர் பெயரைச் சேர்க்கவும்</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">உங்கள் பயனர்பெயரைத் தேர்வு செய்யவும்</string>
   <string name="UsernameEditFragment_username">பயனர்பெயர்</string>
@@ -1628,6 +1631,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">இந்த எண் என்ன?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">இந்த இலக்கங்கள் உங்கள் பயனர்பெயரை தனிப்பட்டதாக வைத்திருக்க உதவுவதால் நீங்கள் தேவையற்ற செய்திகளைத் தவிர்க்கலாம். நீங்கள் சாட் செய்ய விரும்பும் நபர்கள் மற்றும் குழுக்களுடன் மட்டும் உங்கள் பயனர்பெயரைப் பகிரவும். நீங்கள் பயனர்பெயர்களை மாற்றினால், புதிய இலக்கங்களின் ஒரு தொகுப்பைப் பெறுவீர்கள்.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">தவிர்க்கவும்</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">முடிந்தது</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d தொடர்பு Signal-இல் உள்ளார்!</item>
     <item quantity="other">%d தொடர்புகள் Signal-இல் உள்ளார்கள்!</item>
@@ -3286,6 +3293,12 @@
   <string name="ChatsSettingsFragment__enter_key_sends">பதிவு விசை அனுப்பும்</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">இயல்புநிலை SMS பயன்பாடாக பயன்படுத்தவும்</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">எஸ்.எம்.எஸ் செய்திகளை ஏற்றுமதி செய்</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">எஸ்.எம்.எஸ் செய்திகளை அகற்று </string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">எஸ்.எம்.எஸ் செய்திகள் அகற்றப்பட்டது </string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">செய்திகள்</string>
   <string name="NotificationsSettingsFragment__calls">அழைப்புகள்</string>
@@ -4054,7 +4067,7 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">எனது ஸ்டோரி</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">இந்த ஸ்டோரியை யார் பார்க்கலாம்</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">இந்த ஸ்டோரியை யார் பார்க்க முடியும்</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">-இடமிருந்து ஸ்டோரியை மறைக்கவும்</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4062,7 +4075,7 @@
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">அனைத்து இணைப்புகளுடனும் பகிரவும்</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">அனைத்து சிக்னல் இணைப்புகளும், இதை தவிர…</string>
+  <string name="MyStorySettingsFragment__all_except">அனைத்தும், இது தவிர…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">குறிப்பிட்ட நபர்களிடமிருந்து உங்கள் ஸ்டோரியை மறைக்கவும்</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4291,8 +4304,18 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">மாதாந்திர நன்கொடையை வழங்கவும்</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">இப்போது இல்லை</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">- உடன் மட்டும் பகிரவும்</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">தனிப்பட்ட ஸ்டோரி · %1$d பார்வையாளர்</item>
+    <item quantity="other">தனிப்பட்ட ஸ்டோரி · %1$d பார்வையாளர்கள்</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">குழு ஸ்டோரி · %1$d பார்வையாளர் </item>
+    <item quantity="other">குழு ஸ்டோரி · %1$d பார்வையாளர்கள் </item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">%1$s · %2$d பார்வையாளர்</item>
@@ -4393,7 +4416,7 @@
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">அனைத்து சிக்னல் இணைப்புகள்</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">அனைத்து சிக்னல் இணைப்புகளும், இதை தவிர…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">அனைத்தும், இது தவிர…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">இவர்களுடன் மட்டும் பகிரவும்…</string>
   <!--Story info header sent heading-->
@@ -4434,5 +4457,38 @@
   <string name="GroupStorySettingsFragment__remove_group_story">குழு ஸ்டோரியை அகற்று</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">ஓவர்ஃப்ளோ மெனு</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">செய்திகளை ஏற்றுமதி செய்கிறது…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">உங்கள் எஸ்.எம்.எஸ் செய்திகளை ஏற்றுமதி செய்யுங்கள்</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">தொடரவும்</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">எஸ்.எம்.எஸ் செய்திகளை ஏற்றுமதி செய்கிறது</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">%2$d இல் %1$d- ஐ ஏற்றுமதி செய்கிறது…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">புதிய இயல்புநிலை எஸ்.எம்.எஸ் ஆப்பை தேர்வுசெய்யவும்</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">தொடரவும்
+</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">செய்திகளை வைத்திருங்கள்</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">செய்திகளை அகற்று </string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">சிக்னலில் இருந்து எஸ்.எம்.எஸ் செய்திகளை அகற்றுவதா?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">இயல்புநிலை எஸ்.எம்.எஸ் ஆப்பை மாற்றிவிட்டீர்கள், சிக்னலில் இருந்து எஸ்.எம்.எஸ் செய்திகளை அகற்ற விரும்புகிறீர்களா?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">முதலில், சிக்னலை இயல்புநிலை எஸ்.எம்.எஸ் ஆப்பாக அமைக்கவும்</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">அடுத்தது</string>
   <!--EOF-->
 </resources>

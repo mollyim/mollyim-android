@@ -167,7 +167,8 @@
   <string name="ContactsCursorLoader_contacts">संपर्क</string>
   <string name="ContactsCursorLoader_groups">समूह </string>
   <string name="ContactsCursorLoader_phone_number_search">फ़ोन नंबर खोजें</string>
-  <string name="ContactsCursorLoader_username_search">उपयोगकर्ता का नाम खोजें</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">यूज़रनेम द्वारा खोजें</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">मेरी स्टोरीज़</string>
   <!--Action for creating a new story-->
@@ -1605,6 +1606,8 @@
   <string name="UnverifiedSendDialog_send_message">मेसेज भेजें?</string>
   <string name="UnverifiedSendDialog_send">भेजें</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">कोई यूज़रनेम जोड़ें</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">अपना यूज़रनेम चुनें</string>
   <string name="UsernameEditFragment_username">उपयोगकर्ता नाम</string>
@@ -1623,6 +1626,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">यह नंबर क्या है?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">यह अंक आपको अपना यूज़रनेम निजी रखने में मदद करते हैं ताकि आप अवांछित संदेशों से बच सकें। अपना यूज़रनेम केवल उन लोगों और ग्रुप्स के साथ शेयर करें जिनके साथ आप चैट करना चाहते हैं। यदि आप अपना यूज़रनेम बदलते हैं तो आपको अंकों का एक नया सेट मिलेगा।</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">छोड़ दे </string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">पूर्ण</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d संपर्क सिग्नल पर है!</item>
     <item quantity="other">%d संपर्क Signal पर उपलब्ध हैं!</item>
@@ -3287,6 +3294,12 @@ href=\"https://signal.org/redirect/safety-numbers\">ज़्यादा जा
   <string name="ChatsSettingsFragment__enter_key_sends">दर्ज की भेजता है</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">डिफ़ॉल्ट SMS ऐप के रूप में उपयोग करें</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">एसएमएस मेसेज एक्सपोर्ट करें</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">एसएमएस मेसेज हटाएँ</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">एसएमएस मेसेज हटाए गए</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">मेसेज</string>
   <string name="NotificationsSettingsFragment__calls">कॉल</string>
@@ -4053,7 +4066,7 @@ href=\"https://signal.org/redirect/safety-numbers\">ज़्यादा जा
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">मेरी स्टोरी</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">इस स्टोरी को कौन देख सकता है</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">यह स्टोरी कौन देख सकता है</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">इनसे स्टोरी छिपाएँ</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4061,7 +4074,7 @@ href=\"https://signal.org/redirect/safety-numbers\">ज़्यादा जा
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">सभी कनेक्शन के साथ शेयर करें</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">निम्न को छोड़कर सभी Signal कनेकशन…</string>
+  <string name="MyStorySettingsFragment__all_except">निम्न को छोड़कर सभी…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">अपनी स्टोरी को कुछ निश्चित लोगों से छिपाएँ</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4290,6 +4303,8 @@ href=\"https://signal.org/redirect/safety-numbers\">ज़्यादा जा
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">एक मासिक दान दें</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">अभी नहीं</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">केवल इनके साथ साझा करें</string>
   <!--Label under name for private stories-->
   <plurals name="ContactSearchItems__private_story_d_viewers">
     <item quantity="one">निजी स्टोरी · %1$d व्यूअर </item>
@@ -4400,7 +4415,7 @@ href=\"https://signal.org/redirect/safety-numbers\">ज़्यादा जा
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">सभी Signal कनेक्शन</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">निम्न को छोड़कर सभी Signal कनेकशन…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">निम्न को छोड़कर सभी…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">केवल इनके साथ शेयर करें…</string>
   <!--Story info header sent heading-->
@@ -4441,5 +4456,37 @@ href=\"https://signal.org/redirect/safety-numbers\">ज़्यादा जा
   <string name="GroupStorySettingsFragment__remove_group_story">ग्रुप स्टोरी हटाएँ</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">ओवरफ़्लो मेनू</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">मेसेज एक्सपोर्ट किए जा रहे हैं…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">अपने एसएमएस मेसेज एक्सपोर्ट कर दें</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">जारी रखें</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">एसएमएस मेसेज एक्सपोर्ट किए जा रहे हैं</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">%2$d में से %1$d एक्सपोर्ट कर रहा है…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">एक नया डीफॉल्ट एसएमएस ऐप चुनें</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">जारी रखें</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">मेसेज रखें</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">मेसेज हटाएँ</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Signal से मेसेज हटाने हैं?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">आपने डीफॉल्ट एसएमएस ऐप बदल दिया है, क्या आप Signal से एसएमएस मेसेज हटाना चाहते हैं?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">सबसे पहले, Signal को डीफॉल्ट एसएमएस ऐप के तौर पर सेट करें</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">अगला</string>
   <!--EOF-->
 </resources>

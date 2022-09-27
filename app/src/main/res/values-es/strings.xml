@@ -3,7 +3,7 @@
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="delete">Eliminar</string>
-  <string name="please_wait">Espera, por favor …</string>
+  <string name="please_wait">Espera, por favor…</string>
   <string name="save">Guardar</string>
   <string name="note_to_self">Notas privadas</string>
   <!--AbstractNotificationBuilder-->
@@ -168,7 +168,8 @@
   <string name="ContactsCursorLoader_contacts">Personas</string>
   <string name="ContactsCursorLoader_groups">Grupos</string>
   <string name="ContactsCursorLoader_phone_number_search">Buscar número de teléfono</string>
-  <string name="ContactsCursorLoader_username_search">Buscar por alias (nombre de usuari@)</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Buscar por alias</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Mis historias</string>
   <!--Action for creating a new story-->
@@ -451,11 +452,11 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">Fallo al establecer la foto de perfil</string>
   <string name="CreateProfileActivity_problem_setting_profile">Problema al crear el perfil</string>
   <string name="CreateProfileActivity_set_up_your_profile">Completa tu perfil</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Tu perfil y los cambios que hagas en él seran visibles para la gente a la que mandes mensajes, tus contactos y tus grupos.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Tu perfil y los cambios que hagas en él serán visibles para la gente a la que mandes mensajes, tus contactos y tus grupos.</string>
   <string name="CreateProfileActivity_set_avatar_description">Configurar avatar de perfil</string>
   <!--ProfileCreateFragment-->
   <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
-  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">Los perfiles seran visibles para la gente a la que mandes mensajes, tus contactos y tus grupos.</string>
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">Los perfiles serán visibles para la gente a la que mandes mensajes, tus contactos y tus grupos.</string>
   <!--Title of clickable row to select phone number privacy settings-->
   <string name="ProfileCreateFragment__who_can_find_me">¿Quién puede encontrarme a través de mi número?</string>
   <!--WhoCanSeeMyPhoneNumberFragment-->
@@ -1686,6 +1687,8 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="UnverifiedSendDialog_send_message">¿Enviar mensaje?</string>
   <string name="UnverifiedSendDialog_send">Enviar</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Añadir alias</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Elige tu nombre de usuario</string>
   <string name="UsernameEditFragment_username">Alias (nombre de usuari@)</string>
@@ -1704,6 +1707,10 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">¿Qué es este número?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Estos dígitos te ayudarán a mantener tu nombre de usuario en privado para así evitar que recibas mensajes no deseados. Comparte tu nombre de usuario solo con aquellas personas y grupos con los que quieras charlar. Si cambias tu nombre de usuario, recibirás una nueva serie de dígitos.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Omitir</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Hecho</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">¡%d de tus amistades usan Signal!</item>
     <item quantity="many">¡%d de tus amistades usan Signal!</item>
@@ -2494,7 +2501,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Términos de uso MobileCoin</string>
   <string name="PaymentsHomeFragment__payments_not_available">Los pagos en Molly no están disponibles. Todavía puedes transferir tus fondos a un «exchange» pero no podrás recibir o enviar más pagos a través de Molly.</string>
   <!--Alert dialog title which shows up after a payment to turn on payment lock-->
-  <string name="PaymentsHomeFragment__turn_on">Quieres activar el bloqueo de pago para futuros envíos?</string>
+  <string name="PaymentsHomeFragment__turn_on">¿Quieres activar el bloqueo de pago para futuros envíos?</string>
   <!--Alert dialog description for why payment lock should be enabled before sending payments-->
   <string name="PaymentsHomeFragment__add_an_additional_layer">Añade una capa extra de seguridad y pide el bloqueo de pantalla de Android o la huella dactilar para transferir fondos.</string>
   <!--Alert dialog button to enable payment lock-->
@@ -3391,6 +3398,12 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="ChatsSettingsFragment__enter_key_sends">Enviar al tocar «Intro»</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Usar como aplicación de SMS predeterminada</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">Exportar mensajes SMS</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">Eliminar mensajes SMS</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">Se han eliminado los mensajes SMS</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Mensajes</string>
   <string name="NotificationsSettingsFragment__calls">Llamadas</string>
@@ -4167,7 +4180,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Mi historia</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Quién puede ver esta historia</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Quién puede ver esta historia</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Ocultar historia para</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4175,7 +4188,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Compartir con todos los contactos</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">Todos los contactos de Signal menos…</string>
+  <string name="MyStorySettingsFragment__all_except">Todos excepto…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Oculta tu historia a ciertas personas</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4408,8 +4421,20 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Haz una donación mensual</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Ahora no</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Compartir solo con</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">Historia privada · %1$d espectador</item>
+    <item quantity="many">Historia privada · %1$d espectadores</item>
+    <item quantity="other">Historia privada · %1$d espectadores</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">Historia de grupo · %1$d espectador</item>
+    <item quantity="many">Historia de grupo · %1$d espectadores</item>
+    <item quantity="other">Historia de grupo · %1$d espectadores</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">%1$s · %2$d espectador</item>
@@ -4515,7 +4540,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Todos los contactos de Signal</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Todos los contactos de Signal menos…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">Todos excepto…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Compartir solo con…</string>
   <!--Story info header sent heading-->
@@ -4556,5 +4581,37 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="GroupStorySettingsFragment__remove_group_story">Eliminar historia de grupo</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">Menú desplegable</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">Exportando mensajes…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Exportar tus mensajes SMS</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Continuar</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Exportando mensajes SMS</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Exportar %1$d de %2$d…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Elegir una nueva app de SMS por defecto</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Continuar</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Preservar mensajes</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Eliminar mensajes</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">¿Eliminar mensajes SMS de Signal?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Has cambiado la app de SMS por defecto. ¿Quieres eliminar los mensajes SMS de Signal?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">En primer lugar, convierte a Signal en tu app de SMS por defecto</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Siguiente</string>
   <!--EOF-->
 </resources>

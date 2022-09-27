@@ -37,7 +37,6 @@ import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.api.util.UuidUtil
 import java.io.IOException
-import java.lang.Exception
 import java.util.Calendar
 import java.util.concurrent.Callable
 import java.util.concurrent.ExecutionException
@@ -80,7 +79,9 @@ object ContactDiscovery {
       descriptor = "refresh-all",
       refresh = {
         if (FeatureFlags.phoneNumberPrivacy()) {
-          ContactDiscoveryRefreshV2.refreshAll(context)
+          ContactDiscoveryRefreshV2.refreshAll(context, useCompat = false, ignoreResults = false)
+        } else if (FeatureFlags.cdsV2Compat()) {
+          ContactDiscoveryRefreshV2.refreshAll(context, useCompat = true, ignoreResults = false)
         } else if (FeatureFlags.cdsV2LoadTesting()) {
           loadTestRefreshAll(context)
         } else {
@@ -103,7 +104,9 @@ object ContactDiscovery {
       descriptor = "refresh-multiple",
       refresh = {
         if (FeatureFlags.phoneNumberPrivacy()) {
-          ContactDiscoveryRefreshV2.refresh(context, recipients)
+          ContactDiscoveryRefreshV2.refresh(context, recipients, useCompat = false, ignoreResults = false)
+        } else if (FeatureFlags.cdsV2Compat()) {
+          ContactDiscoveryRefreshV2.refresh(context, recipients, useCompat = true, ignoreResults = false)
         } else if (FeatureFlags.cdsV2LoadTesting()) {
           loadTestRefresh(context, recipients)
         } else {
@@ -124,7 +127,9 @@ object ContactDiscovery {
       descriptor = "refresh-single",
       refresh = {
         if (FeatureFlags.phoneNumberPrivacy()) {
-          ContactDiscoveryRefreshV2.refresh(context, listOf(recipient))
+          ContactDiscoveryRefreshV2.refresh(context, listOf(recipient), useCompat = false, ignoreResults = false)
+        } else if (FeatureFlags.cdsV2Compat()) {
+          ContactDiscoveryRefreshV2.refresh(context, listOf(recipient), useCompat = true, ignoreResults = false)
         } else if (FeatureFlags.cdsV2LoadTesting()) {
           loadTestRefresh(context, listOf(recipient))
         } else {
@@ -381,14 +386,14 @@ object ContactDiscovery {
   private fun loadTestRefreshAll(context: Context): RefreshResult {
     return loadTestOperation(
       { ContactDiscoveryRefreshV1.refreshAll(context) },
-      { ContactDiscoveryRefreshV2.refreshAll(context, ignoreResults = true) }
+      { ContactDiscoveryRefreshV2.refreshAll(context, useCompat = false, ignoreResults = true) }
     )
   }
 
   private fun loadTestRefresh(context: Context, recipients: List<Recipient>): RefreshResult {
     return loadTestOperation(
       { ContactDiscoveryRefreshV1.refresh(context, recipients) },
-      { ContactDiscoveryRefreshV2.refresh(context, recipients, ignoreResults = true) }
+      { ContactDiscoveryRefreshV2.refresh(context, recipients, useCompat = false, ignoreResults = true) }
     )
   }
 
@@ -398,7 +403,7 @@ object ContactDiscovery {
 
     try {
       v2Future.get()
-    } catch (e: Exception) {
+    } catch (e: Throwable) {
       Log.w(TAG, "Failed to complete the V2 fetch!", e)
     }
 

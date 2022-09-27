@@ -33,6 +33,7 @@ import javax.net.ssl.X509TrustManager;
 
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ConnectionSpec;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -58,14 +59,19 @@ final class CdsiSocket {
 
     Pair<SSLSocketFactory, X509TrustManager> socketFactory = createTlsSocketFactory(configuration.getSignalCdsiUrls()[0].getTrustStore());
 
-    this.okhttp = new OkHttpClient.Builder().socketFactory(configuration.getSocketFactory())
-                                            .sslSocketFactory(new Tls12SocketFactory(socketFactory.first()),
-                                                              socketFactory.second())
-                                            .connectionSpecs(Util.immutableList(ConnectionSpec.RESTRICTED_TLS))
-                                            .readTimeout(30, TimeUnit.SECONDS)
-                                            .connectTimeout(30, TimeUnit.SECONDS)
-                                            .dns(configuration.getDns())
-                                            .build();
+    OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                                                   .socketFactory(configuration.getSocketFactory())
+                                                   .sslSocketFactory(new Tls12SocketFactory(socketFactory.first()), socketFactory.second())
+                                                   .connectionSpecs(Util.immutableList(ConnectionSpec.RESTRICTED_TLS))
+                                                   .readTimeout(30, TimeUnit.SECONDS)
+                                                   .connectTimeout(30, TimeUnit.SECONDS)
+                                                   .dns(configuration.getDns());
+
+    for (Interceptor interceptor : configuration.getNetworkInterceptors()) {
+      builder.addInterceptor(interceptor);
+    }
+
+    this.okhttp = builder.build();
   }
 
   Observable<ClientResponse> connect(String username, String password, ClientRequest clientRequest, Consumer<byte[]> tokenSaver) {

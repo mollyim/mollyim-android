@@ -166,7 +166,8 @@
   <string name="ContactsCursorLoader_contacts">အဆက်အသွယ်များ</string>
   <string name="ContactsCursorLoader_groups">အဖွဲ့များ</string>
   <string name="ContactsCursorLoader_phone_number_search">ဖုန်းနံပါတ်ရှာဖွေခြင်း</string>
-  <string name="ContactsCursorLoader_username_search">အသုံးပြုသူအမည်ရှာဖွေခြင်း</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">သုံးစွဲသူအမည်ဖြင့် ရှာရန်</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">ကျွန်ုပ်၏ စတိုရီများ</string>
   <!--Action for creating a new story-->
@@ -1534,6 +1535,8 @@
   <string name="UnverifiedSendDialog_send_message">စာပို့မလား?</string>
   <string name="UnverifiedSendDialog_send">ပို့ပါ</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">သုံးစွဲသူအမည် ပေါင်းထည့်ရန်</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">သင်၏ သုံးစွဲသူအမည်ကို ရွေးရန်</string>
   <string name="UsernameEditFragment_username">အသုံးပြုသူအမည်</string>
@@ -1552,6 +1555,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">ဤနံပါတ်က ဘာလဲ။</string>
   <string name="UsernameEditFragment__these_digits_help_keep">ဤဂဏန်းများသည် သင့်သုံးစွဲသူအမည်ကို သီးသန့်လျှို့ဝှက်ပေးထားသောကြောင့် မလိုချင်သည့် မက်ဆေ့ချ်များ ရရှိခြင်းမှ ရှောင်နိုင်ပါသည်။ သင့်သုံးစွဲသူအမည်ကို သင် ချက်(တ်)လိုသည့် လူများ၊ အဖွဲ့များထံသာ ဝေမျှနိုင်ပါသည်။ သုံးစွဲသူအမည်ကို ပြောင်းလိုက်ပါက ဂဏန်းအစုံအသစ် ရရှိပါမည်။</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">ကျော်ရန်</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">ပြီးပါပြီ</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="other">အဆက်အသွယ် %d ဦးသည် Signal ပေါ်ရှိပါသည်!</item>
   </plurals>
@@ -3192,6 +3199,12 @@
   <string name="ChatsSettingsFragment__enter_key_sends">ထည့်ထားတဲ့ ကီးပို့ပါ</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">ပုံသေ SMS app အဖြစ် သုံးပါ။</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">SMS မက်ဆေ့ချ်များကို ထုတ်ရန်</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">SMS မက်ဆေ့ချ်များကို ဖယ်ရှားရန်</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">SMS မက်ဆေ့ချ်များကို ဖယ်ရှားပြီး</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">မက်ဆေ့ချ်များ</string>
   <string name="NotificationsSettingsFragment__calls">ဖုန်းခေါ်ဆိုမှုများ</string>
@@ -3948,7 +3961,7 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">ကျွန်ုပ်၏ စတိုရီ</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">ဤစတိုရီကို ကြည့်နိုင်မည့်သူများ</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">ဤစတိုရီကို ကြည့်နိုင်မည့်သူများ</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">ဖော်ပြပါသူများမှ စတိုရီကို ဝှက်ရန်</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -3956,7 +3969,7 @@
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">အဆက်အသွယ်များ အားလုံးထံ ဝေမျှရန်</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">ဖော်ပြထားသူများမှလွဲ၍ Signal အဆက်အသွယ်များအားလုံး…</string>
+  <string name="MyStorySettingsFragment__all_except">ဖော်ပြပါမှလွဲ၍…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">သင့်စတိုရီကို အချို့သူများ မမြင်အောင် ဝှက်ရန်</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4181,8 +4194,16 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">လစဉ် လှူဒါန်းမှု ပြုလုပ်ရန်</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">ဖော်ပြထားသူများထံသာ ဝေမျှရန်</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="other">သီးသန့် စတိုရီ · ကြည့်ရှုသူ ·  %1$d ဦး</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="other">အဖွဲ့ စတိုရီ · ကြည့်ရှုသူ ·  %1$d ဦး</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="other">%1$s · ကြည့်ရှုသူ %2$d ဦး</item>
@@ -4278,7 +4299,7 @@
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Signal အဆက်အသွယ်များ အားလုံး</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">ဖော်ပြထားသူများမှလွဲ၍ Signal အဆက်အသွယ်များအားလုံး…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">ဖော်ပြပါမှလွဲ၍…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">ဖော်ပြထားသူများထံသာ ဝေမျှရန်…</string>
   <!--Story info header sent heading-->
@@ -4319,5 +4340,37 @@
   <string name="GroupStorySettingsFragment__remove_group_story">အဖွဲ့စတိုရီကို ဖယ်ရှားရန်</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">ပိုလျှံမီနူး</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">မက်ဆေ့ချ်များ ထုတ်နေဆဲ…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">သင့် SMS မက်ဆေ့ချ်များကို ထုတ်ရန်</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">ဆက်လုပ်ရန်</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">SMS မက်ဆေ့ချ်များ ထုတ်ခြင်း</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">%1$d/%2$d ထုတ်နေဆဲ…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">ပုံသေ SMS အက်ပ်အသစ် ရွေးရန်</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">ဆက်လုပ်ရန်</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">မက်ဆေ့ချ်များကို သိမ်းရန်</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">မက်ဆေ့ချ်များ ဖယ်ရှားရန်</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">SMS မက်ဆေ့ချ်များကို Signal မှ ဖယ်ရှားမည်လား။</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">ပုံသေ SMS အက်ပ်ကို ပြောင်းပြီးပါပြီ၊ SMS မက်ဆေ့ချ်များကို Signal မှ ဖယ်ရှားလိုပါသလား။</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">ပထမဦးစွာ Signal ကို သင်၏ ပုံသေ SMS အက်ပ်အဖြစ် သတ်မှတ်ပါ</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">နောက်ထက်</string>
   <!--EOF-->
 </resources>

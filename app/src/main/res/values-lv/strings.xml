@@ -168,7 +168,8 @@
   <string name="ContactsCursorLoader_contacts">Kontakti</string>
   <string name="ContactsCursorLoader_groups">Grupas</string>
   <string name="ContactsCursorLoader_phone_number_search">Tālruņa numura meklēšana</string>
-  <string name="ContactsCursorLoader_username_search">Lietotājvārda meklēšana</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Meklēt pēc lietotājvārda</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Mani stāsti</string>
   <!--Action for creating a new story-->
@@ -1680,6 +1681,8 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="UnverifiedSendDialog_send_message">Sūtīt ziņu?</string>
   <string name="UnverifiedSendDialog_send">Sūtīt</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Pievienojiet lietotājvārdu</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Izvēlieties lietotājvārdu</string>
   <string name="UsernameEditFragment_username">Lietotājvārds</string>
@@ -1698,6 +1701,10 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">Ko nozīmē šis numurs?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Šie cipari palīdz saglabāt jūsu lietotājvārdu slepenībā un izvairīties no nevēlamām ziņām. Izpaudiet savu lietotājvārdu tikai lietotājiem un grupām, ar kurām vēlaties čatot. Ja mainīsiet lietotājvārdu, saņemsiet jaunu ciparu virkni.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Izlaist</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Gatavs</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="zero">%d kontaktpersona lieto Signal!</item>
     <item quantity="one">%d kontaktpersona lieto Signal!</item>
@@ -3385,6 +3392,12 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="ChatsSettingsFragment__enter_key_sends">Enter poga nosūta ziņu</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Izmantot kā noklusējuma SMS lietotni</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">Eksportēt SMS ziņas</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">Dzēst SMS ziņas</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">SMS ziņas izdzēstas</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Ziņas</string>
   <string name="NotificationsSettingsFragment__calls">Zvani</string>
@@ -4161,7 +4174,7 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Mans stāsts</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Kurš var redzēt šo stāstu</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Kas var skatīt šo stāstu</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Paslēpt stāstu no</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4169,7 +4182,7 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Kopīgot ar visiem Signal draugiem</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">Visi Signal draugi, izņemot…</string>
+  <string name="MyStorySettingsFragment__all_except">Visi, izņemot…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Nerādīt stāstu noteiktām personām</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4402,8 +4415,20 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Veiciet ikmnēneša ziedojumu</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Ne tagad</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Kopīgot tikai ar</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="zero">Privāts stāsts · %1$d skatītājs</item>
+    <item quantity="one">Privāts stāsts · %1$d skatītājs</item>
+    <item quantity="other">Privāts stāsts · %1$d skatītāji</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="zero">Grupas stāsts · %1$d skatītājs</item>
+    <item quantity="one">Grupas stāsts · %1$d skatītājs</item>
+    <item quantity="other">Grupas stāsts · %1$d skatītāji</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="zero">%1$s · %2$d skatītāji</item>
@@ -4509,7 +4534,7 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Visi Signal draugi</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Visi Signal draugi, izņemot…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">Visi, izņemot…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Kopīgot tikai ar…</string>
   <!--Story info header sent heading-->
@@ -4550,5 +4575,37 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="GroupStorySettingsFragment__remove_group_story">Noņemt grupas stāstu</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">Pārpildes izvēlne</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">Eksportē ziņas…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Eksportējiet SMS ziņas</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Turpināt</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Eksportē SMS ziņas</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Eksportē %1$d. no %2$d…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Izvēlieties jaunu noklusējuma SMS lietotni</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Turpināt</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Saglabāt ziņas</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Dzēst ziņas</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Vai dzēst SMS ziņas no Signal?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Jūs izmainījāt noklusējuma SMS lietotni, vai vēlaties dzēst SMS ziņas no Signal?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">Vispirms iestati Signal kā noklusējuma SMS lietotni</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Tālāk</string>
   <!--EOF-->
 </resources>

@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.mms.VideoSlide;
 import org.thoughtcrime.securesms.util.MediaUtil;
@@ -88,6 +87,12 @@ public final class VideoMediaPreviewFragment extends MediaPreviewFragment {
     videoView.setOnClickListener(v -> events.singleTapOnMedia());
 
     return itemView;
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    cleanUp();
   }
 
   @Override

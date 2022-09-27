@@ -166,7 +166,8 @@
   <string name="ContactsCursorLoader_contacts">연락처</string>
   <string name="ContactsCursorLoader_groups">그룹</string>
   <string name="ContactsCursorLoader_phone_number_search">전화번호 검색</string>
-  <string name="ContactsCursorLoader_username_search">사용자 이름 검색</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">사용자 이름으로 검색</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">내 스토리</string>
   <!--Action for creating a new story-->
@@ -1540,6 +1541,8 @@
   <string name="UnverifiedSendDialog_send_message">메시지를 보내시겠습니까?</string>
   <string name="UnverifiedSendDialog_send">보내기</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">사용자 이름 추가</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">사용자 이름을 선택하세요.</string>
   <string name="UsernameEditFragment_username">사용자 이름</string>
@@ -1558,6 +1561,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">이 번호는 무엇인가요?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">이 일련번호는 사용자 이름을 비공개로 유지하여 원치 않는 메시지를 피할 수 있도록 도와줍니다. 채팅을 원하는 사용자 및 그룹과만 사용자 이름을 공유하세요. 사용자 이름을 변경하면 새로운 일련번호가 부여됩니다.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">건너뛰기</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">확인</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="other">Signal에 연락처가 %d개 있습니다!</item>
   </plurals>
@@ -2322,9 +2329,9 @@
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin 용어 보기</string>
   <string name="PaymentsHomeFragment__payments_not_available">Signal 결제는 더 이상 사용할 수 없습니다. 여전히 거래소로 자금을 이체할 수 있지만 더 이상 지불을 주고받거나 자금을 추가할 수 없습니다.</string>
   <!--Alert dialog title which shows up after a payment to turn on payment lock-->
-  <string name="PaymentsHomeFragment__turn_on">앞으로 결제를 보낼 때 결제 잠금을 켤까요?</string>
+  <string name="PaymentsHomeFragment__turn_on">지금부터 결제 잠금을 켤까요?</string>
   <!--Alert dialog description for why payment lock should be enabled before sending payments-->
-  <string name="PaymentsHomeFragment__add_an_additional_layer">자금 이체 시 Android 화면 잠금 또는 지문을 요구하여 보안을 한층 강화하세요.</string>
+  <string name="PaymentsHomeFragment__add_an_additional_layer">자금 이체 시 Android 화면 잠금 또는 지문 인증을 통해 보안을 한층 강화하세요.</string>
   <!--Alert dialog button to enable payment lock-->
   <string name="PaymentsHomeFragment__enable">켜기</string>
   <!--Alert dialog button to not enable payment lock for now-->
@@ -2414,7 +2421,7 @@
   <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
   <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">결제 잠금을 표시하지 못함</string>
   <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
-  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">설정에서 결제 잠금을 활성화했으나 표시할 수 없습니다.</string>
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">설정에서 결제 잠금 기능을 활성화했으나 표시할 수 없습니다.</string>
   <!--Button in a dialog that will take the user to the privacy settings-->
   <string name="ConfirmPaymentFragment__go_to_settings">설정으로 이동</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">해당 사용자는 결제를 활성화하지 않았습니다.</string>
@@ -3197,6 +3204,12 @@
   <string name="ChatsSettingsFragment__enter_key_sends">엔터 키로 메시지 보내기</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">기본 SMS 앱으로 사용</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">SMS 메시지 내보내기</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">SMS 메시지 제거</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">SMS 메시지를 제거함</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">메시지</string>
   <string name="NotificationsSettingsFragment__calls">전화</string>
@@ -3225,9 +3238,9 @@
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">내가 새로 시작한 모든 채팅에 기본적으로 사라지는 메시지 타이머를 적용합니다.</string>
   <!--Summary for stories preference to launch into story privacy settings-->
   <string name="PrivacySettingsFragment__manage_your_stories">스토리와 스토리를 볼 수 있는 사람을 관리하세요.</string>
-  <string name="PrivacySettingsFragment__payment_lock_require_lock">자금 이체 시 Android 화면 잠금 또는 지문 요구</string>
+  <string name="PrivacySettingsFragment__payment_lock_require_lock">자금 이체 시 Android 화면을 잠그거나 지문 인증하기</string>
   <!--Alert dialog title when payment lock cannot be enabled-->
-  <string name="PrivacySettingsFragment__cant_enable_title">결제 잠금을 활성화할 수 없습니다.</string>
+  <string name="PrivacySettingsFragment__cant_enable_title">결제 잠금 기능을 활성화할 수 없습니다.</string>
   <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
   <string name="PrivacySettingsFragment__cant_enable_description">결제 잠금을 사용하려면 휴대폰 설정에서 화면 잠금 또는 지문 ID를 활성화해야 합니다.</string>
   <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
@@ -3462,7 +3475,7 @@
     <item quantity="other">메시지를 더는 사용할 수 없어 전달하지 못했습니다.</item>
   </plurals>
   <!--Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin-->
-  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">관리자만 그룹에 메시지를 전송할 수 있습니다.</string>
+  <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">관리자만 이 그룹에 메시지를 전송할 수 있습니다.</string>
   <string name="MultiselectForwardFragment__limit_reached">한계에 도달함</string>
   <!--Media V2-->
   <string name="MediaReviewFragment__add_a_message">메시지 추가</string>
@@ -3624,9 +3637,9 @@
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
   <string name="DonationsErrors__cant_send_gift">선물을 보낼 수 없습니다.</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">이 받는 사람은 선물 배지를 받을 수 없는 Signal 버전을 사용합니다. 최신 버전으로 업데이트하면 선물이 전송됩니다.</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">선물 배지를 받을 수 없는 Signal 버전 사용자입니다. 최신 버전으로 업데이트하면 선물이 전송됩니다.</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
-  <string name="DonationsErrors__couldnt_send_gift">선물을 받지 못했습니다.</string>
+  <string name="DonationsErrors__couldnt_send_gift">선물을 보내지 못했습니다.</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
   <string name="DonationsErrors__please_check_your_network_connection">네트워크 오류로 인해 선물을 보내지 못했습니다. 인터넷 연결을 확인하고 다시 시도하세요.</string>
   <!--Gift message view title-->
@@ -3953,7 +3966,7 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">내 스토리</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">이 스토리를 볼 수 있는 사람</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">이 스토리를 볼 수 있는 사람</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">스토리 숨길 대상</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -3961,7 +3974,7 @@
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">모든 커넥션과 공유</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">다음을 제외한 모든 Signal 커넥션…</string>
+  <string name="MyStorySettingsFragment__all_except">다음을 제외한 모든 사용자…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">특정 사용자에게서 스토리 숨기기</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4186,8 +4199,16 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">매달 정기후원하기</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">나중에</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">다음 사용자와만 공유</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="other">비공개 스토리 · 볼 수 있는 사람 %1$d명</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="other">그룹 스토리 · 볼 수 있는 사람 %1$d명</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="other">%1$s · 볼 수 있는 사람 %2$d명 </item>
@@ -4283,7 +4304,7 @@
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">모든 Signal 커넥션</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">다음을 제외한 모든 Signal 커넥션…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">다음을 제외한 모든 사용자…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">다음 사용자와만 공유…</string>
   <!--Story info header sent heading-->
@@ -4324,5 +4345,37 @@
   <string name="GroupStorySettingsFragment__remove_group_story">그룹 스토리 제거</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">확장 메뉴</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">메시지를 내보내는 중…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">SMS 메시지 내보내기</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">계속</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">SMS 메시지 내보내기</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">%1$d/%2$d개 내보내는 중…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">새 기본 SMS 앱 선택</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">계속</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">메시지 보관</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">메시지 제거</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Signal에서 SMS 메시지를 제거할까요?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">기본 SMS 앱을 변경했습니다. Signal에서 SMS 메시지를 제거할까요?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">첫째, Signal을 기본 SMS 앱으로 설정</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">다음</string>
   <!--EOF-->
 </resources>

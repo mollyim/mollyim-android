@@ -167,7 +167,8 @@
   <string name="ContactsCursorLoader_contacts">Байланыстағы тұлғалар</string>
   <string name="ContactsCursorLoader_groups">Топтар</string>
   <string name="ContactsCursorLoader_phone_number_search">Телефон нөмірі бойынша іздеу</string>
-  <string name="ContactsCursorLoader_username_search">Пайдаланушы аты бойынша іздеу</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Пайдаланушы аты бойынша іздеу</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Менің сторилерім</string>
   <!--Action for creating a new story-->
@@ -1613,6 +1614,8 @@
   <string name="UnverifiedSendDialog_send_message">Хатты жіберу керек пе?</string>
   <string name="UnverifiedSendDialog_send">Жіберу</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Пайдаланушы атын қосу</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Пайдаланушы атын таңдау</string>
   <string name="UsernameEditFragment_username">Пайдаланушы аты</string>
@@ -1631,6 +1634,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">Бұл қандай нөмір?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Бұл цифрлар пайдаланушы атыңызды құпия сақтайды, соның арқасында қажетсіз хаттар алмайсыз. Пайдаланушы атыңызды тек сөйлескіңіз келетін адамдармен және топтармен бөлісіңіз. Пайдаланушы атыңызды өзгертсеңіз, сізге жаңа цифрлар жинағы беріледі.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Өткізіп жіберу</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Дайын</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">Signal-да %d контакт бар!</item>
     <item quantity="other">Signal-да %d контакт бар!</item>
@@ -3294,6 +3301,12 @@
   <string name="ChatsSettingsFragment__enter_key_sends">Enter пернесін басып, жіберіңіз</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Әдепкі SMS қолданбасы ретінде қолдану</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">SMS-хаттарды экспорттау</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">SMS-хаттарды өшіру</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">SMS-хаттар өшірілді</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Хабарламалар</string>
   <string name="NotificationsSettingsFragment__calls">Қоңыраулар</string>
@@ -4060,7 +4073,7 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Менің сториім</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Бұл стористі кім көре алады</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Бұл стористі кім көре алады</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Стористі мына адамдардан жасыру</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4068,7 +4081,7 @@
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Барлық байланыспен бөлісу</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">Мынадан басқа Signal байланыстарының барлығы…</string>
+  <string name="MyStorySettingsFragment__all_except">Мыналардан басқалары…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Белгілі бір адамдардан стористеріңізді жасыру</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4297,8 +4310,18 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Ай сайын демеушілік жасау</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Кейін</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Тек мына көрермендермен бөлісу</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">Жеке стористе · %1$d көрермен</item>
+    <item quantity="other">Жеке стористе · %1$d көрермен</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">Топтық стористе · %1$d көрермен</item>
+    <item quantity="other">Топтық стористе · %1$d көрермен</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">%1$s · %2$d көрермен</item>
@@ -4399,7 +4422,7 @@
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Барлық Signal байланысы</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Мынадан басқа Signal байланыстарының барлығы…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">Мыналардан басқалары…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Тек мына адамдармен бөлісу…</string>
   <!--Story info header sent heading-->
@@ -4440,5 +4463,37 @@
   <string name="GroupStorySettingsFragment__remove_group_story">Топтық стористі өшіріп тастау</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">Асып толу мәзірі</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">Хаттар экспортталуда…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">SMS-хаттарды экспорттау</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Жалғастыру</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">SMS-хаттарды экспорттау</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">%1$d/%2$d экспортталуда…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Жаңа әдепкі SMS қолданбаны таңдау</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Жалғастыру</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Хаттарды сақтау</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Хаттарды өшіру</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Signal-дан SMS-хаттарды өшіру керек пе?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Әдепкі SMS қолданбаны өзгерттіңіз, Signal-дан SMS-хаттарды өшіргіңіз келе ме?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">Алдымен Signal-ды әдепкі SMS қолданбасы ретінде орнатыңыз.</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Келесі</string>
   <!--EOF-->
 </resources>

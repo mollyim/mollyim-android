@@ -6,12 +6,12 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKeyPair
+import org.signal.libsignal.protocol.SignalProtocolAddress
 import org.signal.libsignal.protocol.state.SignalProtocolStore
 import org.signal.libsignal.protocol.util.KeyHelper
 import org.signal.libsignal.protocol.util.Medium
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
 import org.thoughtcrime.securesms.crypto.PreKeyUtil
-import org.thoughtcrime.securesms.crypto.storage.PreKeyMetadataStore
 import org.thoughtcrime.securesms.database.IdentityDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.databaseprotos.PendingChangeNumberMetadata
@@ -30,7 +30,6 @@ import org.whispersystems.signalservice.api.KeyBackupSystemNoDataException
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
 import org.whispersystems.signalservice.api.SignalServiceMessageSender
 import org.whispersystems.signalservice.api.account.ChangePhoneNumberRequest
-import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo
 import org.whispersystems.signalservice.api.push.PNI
 import org.whispersystems.signalservice.api.push.ServiceId
 import org.whispersystems.signalservice.api.push.ServiceIdType
@@ -41,13 +40,47 @@ import org.whispersystems.signalservice.internal.push.OutgoingPushMessage
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage
 import org.whispersystems.signalservice.internal.push.VerifyAccountResponse
 import org.whispersystems.signalservice.internal.push.WhoAmIResponse
+import org.whispersystems.signalservice.internal.push.exceptions.MismatchedDevicesException
 import java.io.IOException
 import java.security.MessageDigest
 import java.security.SecureRandom
+import java.util.concurrent.locks.ReentrantLock
 
 private val TAG: String = Log.tag(ChangeNumberRepository::class.java)
 
-class ChangeNumberRepository(private val accountManager: SignalServiceAccountManager = ApplicationDependencies.getSignalServiceAccountManager()) {
+/**
+ * Provides various change number operations. All operations must run on [Schedulers.single] to support
+ * the global "I am changing the number" lock exclusivity.
+ */
+class ChangeNumberRepository(
+  private val accountManager: SignalServiceAccountManager = ApplicationDependencies.getSignalServiceAccountManager(),
+  private val messageSender: SignalServiceMessageSender = ApplicationDependencies.getSignalServiceMessageSender()
+) {
+
+  companion object {
+    /**
+     * This lock should be held by anyone who is performing a change number operation, so that two different parties cannot change the user's number
+     * at the same time.
+     */
+    val CHANGE_NUMBER_LOCK = ReentrantLock()
+
+    /**
+     * Adds Rx operators to chain to acquire and release the [CHANGE_NUMBER_LOCK] on subscribe and on finish.
+     */
+    fun <T : Any> acquireReleaseChangeNumberLock(upstream: Single<T>): Single<T> {
+      return upstream.doOnSubscribe {
+        CHANGE_NUMBER_LOCK.lock()
+        SignalStore.misc().lockChangeNumber()
+      }
+        .subscribeOn(Schedulers.single())
+        .observeOn(Schedulers.single())
+        .doFinally {
+          if (CHANGE_NUMBER_LOCK.isHeldByCurrentThread) {
+            CHANGE_NUMBER_LOCK.unlock()
+          }
+        }
+    }
+  }
 
   fun ensureDecryptionsDrained(): Completable {
     return Completable.create { emitter ->
@@ -56,15 +89,38 @@ class ChangeNumberRepository(private val accountManager: SignalServiceAccountMan
         .addDecryptionDrainedListener {
           emitter.onComplete()
         }
-    }.subscribeOn(Schedulers.io())
+    }.subscribeOn(Schedulers.single())
   }
 
-  fun changeNumber(code: String, newE164: String): Single<ServiceResponse<VerifyAccountResponse>> {
+  fun changeNumber(code: String, newE164: String, pniUpdateMode: Boolean = false): Single<ServiceResponse<VerifyAccountResponse>> {
     return Single.fromCallable {
-      val (request: ChangePhoneNumberRequest, metadata: PendingChangeNumberMetadata) = createChangeNumberRequest(code, newE164, null)
-      SignalStore.misc().setPendingChangeNumberMetadata(metadata)
-      accountManager.changeNumber(request)
-    }.subscribeOn(Schedulers.io())
+      var completed = false
+      var attempts = 0
+      lateinit var changeNumberResponse: ServiceResponse<VerifyAccountResponse>
+
+      while (!completed && attempts < 5) {
+        val (request: ChangePhoneNumberRequest, metadata: PendingChangeNumberMetadata) = createChangeNumberRequest(
+          code = code,
+          newE164 = newE164,
+          registrationLock = null,
+          pniUpdateMode = pniUpdateMode
+        )
+
+        SignalStore.misc().setPendingChangeNumberMetadata(metadata)
+
+        changeNumberResponse = accountManager.changeNumber(request)
+
+        val possibleError: Throwable? = changeNumberResponse.applicationError.orElse(null)
+        if (possibleError is MismatchedDevicesException) {
+          messageSender.handleChangeNumberMismatchDevices(possibleError.mismatchedDevices)
+          attempts++
+        } else {
+          completed = true
+        }
+      }
+
+      changeNumberResponse
+    }.subscribeOn(Schedulers.single())
       .onErrorReturn { t -> ServiceResponse.forExecutionError(t) }
   }
 
@@ -75,39 +131,63 @@ class ChangeNumberRepository(private val accountManager: SignalServiceAccountMan
     tokenData: TokenData
   ): Single<ServiceResponse<VerifyAccountRepository.VerifyAccountWithRegistrationLockResponse>> {
     return Single.fromCallable {
+      val kbsData: KbsPinData
+      val registrationLock: String
+
       try {
-        val kbsData: KbsPinData = KbsRepository.restoreMasterKey(pin, tokenData.enclave, tokenData.basicAuth, tokenData.tokenResponse)!!
-        val registrationLock: String = kbsData.masterKey.deriveRegistrationLock()
-        val (request: ChangePhoneNumberRequest, metadata: PendingChangeNumberMetadata) = createChangeNumberRequest(code, newE164, registrationLock)
+        kbsData = KbsRepository.restoreMasterKey(pin, tokenData.enclave, tokenData.basicAuth, tokenData.tokenResponse)!!
+        registrationLock = kbsData.masterKey.deriveRegistrationLock()
+      } catch (e: KeyBackupSystemWrongPinException) {
+        return@fromCallable ServiceResponse.forExecutionError(e)
+      } catch (e: KeyBackupSystemNoDataException) {
+        return@fromCallable ServiceResponse.forExecutionError(e)
+      } catch (e: IOException) {
+        return@fromCallable ServiceResponse.forExecutionError(e)
+      }
+
+      var completed = false
+      var attempts = 0
+      lateinit var changeNumberResponse: ServiceResponse<VerifyAccountResponse>
+
+      while (!completed && attempts < 5) {
+        val (request: ChangePhoneNumberRequest, metadata: PendingChangeNumberMetadata) = createChangeNumberRequest(
+          code = code,
+          newE164 = newE164,
+          registrationLock = registrationLock,
+          pniUpdateMode = false
+        )
 
         SignalStore.misc().setPendingChangeNumberMetadata(metadata)
 
-        val response: ServiceResponse<VerifyAccountResponse> = accountManager.changeNumber(request)
-        VerifyAccountRepository.VerifyAccountWithRegistrationLockResponse.from(response, kbsData)
-      } catch (e: KeyBackupSystemWrongPinException) {
-        ServiceResponse.forExecutionError(e)
-      } catch (e: KeyBackupSystemNoDataException) {
-        ServiceResponse.forExecutionError(e)
-      } catch (e: IOException) {
-        ServiceResponse.forExecutionError(e)
+        changeNumberResponse = accountManager.changeNumber(request)
+
+        val possibleError: Throwable? = changeNumberResponse.applicationError.orElse(null)
+        if (possibleError is MismatchedDevicesException) {
+          messageSender.handleChangeNumberMismatchDevices(possibleError.mismatchedDevices)
+          attempts++
+        } else {
+          completed = true
+        }
       }
-    }.subscribeOn(Schedulers.io())
+
+      VerifyAccountRepository.VerifyAccountWithRegistrationLockResponse.from(changeNumberResponse, kbsData)
+    }.subscribeOn(Schedulers.single())
       .onErrorReturn { t -> ServiceResponse.forExecutionError(t) }
   }
 
   @Suppress("UsePropertyAccessSyntax")
   fun whoAmI(): Single<WhoAmIResponse> {
     return Single.fromCallable { ApplicationDependencies.getSignalServiceAccountManager().getWhoAmI() }
-      .subscribeOn(Schedulers.io())
+      .subscribeOn(Schedulers.single())
   }
 
   @WorkerThread
   fun changeLocalNumber(e164: String, pni: PNI): Single<Unit> {
     val oldStorageId: ByteArray? = Recipient.self().storageServiceId
-    SignalDatabase.recipients.updateSelfPhone(e164)
+    SignalDatabase.recipients.updateSelfPhone(e164, pni)
     val newStorageId: ByteArray? = Recipient.self().storageServiceId
 
-    if (MessageDigest.isEqual(oldStorageId, newStorageId)) {
+    if (e164 != SignalStore.account().requireE164() && MessageDigest.isEqual(oldStorageId, newStorageId)) {
       Log.w(TAG, "Self storage id was not rotated, attempting to rotate again")
       SignalDatabase.recipients.rotateStorageId(Recipient.self().id)
       StorageSyncHelper.scheduleSyncForDataChange()
@@ -117,7 +197,6 @@ class ChangeNumberRepository(private val accountManager: SignalServiceAccountMan
       }
     }
 
-    SignalDatabase.recipients.setPni(Recipient.self().id, pni)
     ApplicationDependencies.getRecipientCache().clear()
 
     SignalStore.account().setE164(e164)
@@ -161,6 +240,9 @@ class ChangeNumberRepository(private val accountManager: SignalServiceAccountMan
         System.currentTimeMillis(),
         true
       )
+
+      SignalStore.misc().setPniInitializedDevices(true)
+      ApplicationDependencies.getGroupsV2Authorization().clear()
     }
 
     Recipient.self().live().refresh()
@@ -190,7 +272,7 @@ class ChangeNumberRepository(private val accountManager: SignalServiceAccountMan
 
         SignalStore.certificateValues().setUnidentifiedAccessCertificate(certificateType, certificate)
       }
-    }.subscribeOn(Schedulers.io())
+    }.subscribeOn(Schedulers.single())
   }
 
   @Suppress("UsePropertyAccessSyntax")
@@ -198,51 +280,69 @@ class ChangeNumberRepository(private val accountManager: SignalServiceAccountMan
   private fun createChangeNumberRequest(
     code: String,
     newE164: String,
-    registrationLock: String?
+    registrationLock: String?,
+    pniUpdateMode: Boolean
   ): ChangeNumberRequestData {
-    val messageSender: SignalServiceMessageSender = ApplicationDependencies.getSignalServiceMessageSender()
-    val pniProtocolStore: SignalProtocolStore = ApplicationDependencies.getProtocolStore().pni()
-    val pniMetadataStore: PreKeyMetadataStore = SignalStore.account().pniPreKeys
+    val selfIdentifier: String = SignalStore.account().requireAci().toString()
+    val aciProtocolStore: SignalProtocolStore = ApplicationDependencies.getProtocolStore().aci()
 
-    val devices: List<DeviceInfo> = accountManager.getDevices()
-
-    val pniIdentity: IdentityKeyPair = IdentityKeyUtil.generateIdentityKeyPair()
+    val pniIdentity: IdentityKeyPair = if (pniUpdateMode) SignalStore.account().pniIdentityKey else IdentityKeyUtil.generateIdentityKeyPair()
     val deviceMessages = mutableListOf<OutgoingPushMessage>()
-    val devicePniSignedPreKeys = mutableMapOf<String, SignedPreKeyEntity>()
-    val pniRegistrationIds = mutableMapOf<String, Int>()
-    val primaryDeviceId = SignalServiceAddress.DEFAULT_DEVICE_ID.toString()
+    val devicePniSignedPreKeys = mutableMapOf<Int, SignedPreKeyEntity>()
+    val pniRegistrationIds = mutableMapOf<Int, Int>()
+    val primaryDeviceId: Int = SignalServiceAddress.DEFAULT_DEVICE_ID
 
-    for (device in devices) {
-      val deviceId = device.id.toString()
+    val devices: List<Int> = listOf(primaryDeviceId) + aciProtocolStore.getSubDeviceSessions(selfIdentifier)
 
-      // Signed Prekeys
-      val signedPreKeyRecord = if (deviceId == primaryDeviceId) {
-        PreKeyUtil.generateAndStoreSignedPreKey(pniProtocolStore, pniMetadataStore, pniIdentity.privateKey)
-      } else {
-        PreKeyUtil.generateSignedPreKey(SecureRandom().nextInt(Medium.MAX_VALUE), pniIdentity.privateKey)
+    devices
+      .filter { it == primaryDeviceId || aciProtocolStore.containsSession(SignalProtocolAddress(selfIdentifier, it)) }
+      .forEach { deviceId ->
+        // Signed Prekeys
+        val signedPreKeyRecord = if (deviceId == primaryDeviceId) {
+          if (pniUpdateMode) {
+            ApplicationDependencies.getProtocolStore().pni().loadSignedPreKey(SignalStore.account().pniPreKeys.activeSignedPreKeyId)
+          } else {
+            PreKeyUtil.generateAndStoreSignedPreKey(ApplicationDependencies.getProtocolStore().pni(), SignalStore.account().pniPreKeys, pniIdentity.privateKey)
+          }
+        } else {
+          PreKeyUtil.generateSignedPreKey(SecureRandom().nextInt(Medium.MAX_VALUE), pniIdentity.privateKey)
+        }
+        devicePniSignedPreKeys[deviceId] = SignedPreKeyEntity(signedPreKeyRecord.id, signedPreKeyRecord.keyPair.publicKey, signedPreKeyRecord.signature)
+
+        // Registration Ids
+        var pniRegistrationId = if (deviceId == primaryDeviceId && pniUpdateMode) {
+          SignalStore.account().pniRegistrationId
+        } else {
+          -1
+        }
+
+        while (pniRegistrationId < 0 || pniRegistrationIds.values.contains(pniRegistrationId)) {
+          pniRegistrationId = KeyHelper.generateRegistrationId(false)
+        }
+        pniRegistrationIds[deviceId] = pniRegistrationId
+
+        // Device Messages
+        if (deviceId != primaryDeviceId) {
+          val pniChangeNumber = SyncMessage.PniChangeNumber.newBuilder()
+            .setIdentityKeyPair(pniIdentity.serialize().toProtoByteString())
+            .setSignedPreKey(signedPreKeyRecord.serialize().toProtoByteString())
+            .setRegistrationId(pniRegistrationId)
+            .build()
+
+          deviceMessages += messageSender.getEncryptedSyncPniChangeNumberMessage(deviceId, pniChangeNumber)
+        }
       }
-      devicePniSignedPreKeys[deviceId] = SignedPreKeyEntity(signedPreKeyRecord.id, signedPreKeyRecord.keyPair.publicKey, signedPreKeyRecord.signature)
 
-      // Registration Ids
-      var pniRegistrationId = -1
-      while (pniRegistrationId < 0 || pniRegistrationIds.values.contains(pniRegistrationId)) {
-        pniRegistrationId = KeyHelper.generateRegistrationId(false)
-      }
-      pniRegistrationIds[deviceId] = pniRegistrationId
+    val request = ChangePhoneNumberRequest(
+      newE164,
+      code,
+      registrationLock,
+      pniIdentity.publicKey,
+      deviceMessages,
+      devicePniSignedPreKeys.mapKeys { it.key.toString() },
+      pniRegistrationIds.mapKeys { it.key.toString() }
+    )
 
-      // Device Messages
-      if (deviceId != primaryDeviceId) {
-        val pniChangeNumber = SyncMessage.PniChangeNumber.newBuilder()
-          .setIdentityKeyPair(pniIdentity.serialize().toProtoByteString())
-          .setSignedPreKey(signedPreKeyRecord.serialize().toProtoByteString())
-          .setRegistrationId(pniRegistrationId)
-          .build()
-
-        deviceMessages += messageSender.getEncryptedSyncPniChangeNumberMessage(device.id, pniChangeNumber)
-      }
-    }
-
-    val request = ChangePhoneNumberRequest(newE164, code, registrationLock, pniIdentity.publicKey, deviceMessages, devicePniSignedPreKeys, pniRegistrationIds)
     val metadata = PendingChangeNumberMetadata.newBuilder()
       .setPreviousPni(SignalStore.account().pni!!.toByteString())
       .setPniIdentityKeyPair(pniIdentity.serialize().toProtoByteString())

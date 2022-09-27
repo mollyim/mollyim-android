@@ -62,6 +62,7 @@ import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.FontDownloaderJob;
 import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
+import org.thoughtcrime.securesms.jobs.PnpInitializeDevicesJob;
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob;
 import org.thoughtcrime.securesms.jobs.ProfileUploadJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
@@ -69,6 +70,7 @@ import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.jobs.RetrieveRemoteAnnouncementsJob;
 import org.thoughtcrime.securesms.jobs.StoryOnboardingDownloadJob;
+import org.thoughtcrime.securesms.keyvalue.KeepMessagesDuration;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.PersistentLogger;
@@ -207,6 +209,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addNonBlocking(() -> ApplicationDependencies.getExpireStoriesManager().scheduleIfNecessary())
                             .addPostRender(() -> RateLimitUtil.retryAllRateLimitedMessages(this))
                             .addPostRender(this::initializeExpiringMessageManager)
+                            .addPostRender(this::initializeTrimThreadsByDateManager)
                             .addPostRender(() -> DownloadLatestEmojiDataJob.scheduleIfNecessary(this))
                             .addPostRender(EmojiSearchIndexDownloadJob::scheduleIfNecessary)
                             .addPostRender(() -> SignalDatabase.messageLog().trimOldMessages(System.currentTimeMillis(), FeatureFlags.retryRespondMaxAge()))
@@ -217,6 +220,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addPostRender(CheckServiceReachabilityJob::enqueueIfNecessary)
                             .addPostRender(GroupV2UpdateSelfProfileKeyJob::enqueueForGroupsIfNecessary)
                             .addPostRender(StoryOnboardingDownloadJob.Companion::enqueueIfNeeded)
+                            .addPostRender(PnpInitializeDevicesJob::enqueueIfNecessary)
                             .execute();
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -489,6 +493,13 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void initializePendingRetryReceiptManager() {
     ApplicationDependencies.getPendingRetryReceiptManager().scheduleIfNecessary();
+  }
+
+  private void initializeTrimThreadsByDateManager() {
+    KeepMessagesDuration keepMessagesDuration = SignalStore.settings().getKeepMessagesDuration();
+    if (keepMessagesDuration != KeepMessagesDuration.FOREVER) {
+      ApplicationDependencies.getTrimThreadsByDateManager().scheduleIfNecessary();
+    }
   }
 
   private void initializePeriodicTasks() {

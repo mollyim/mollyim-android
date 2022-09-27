@@ -167,7 +167,8 @@
   <string name="ContactsCursorLoader_contacts">Mawasiliano</string>
   <string name="ContactsCursorLoader_groups">Makundi</string>
   <string name="ContactsCursorLoader_phone_number_search">Utafutaji wa nambari ya simu</string>
-  <string name="ContactsCursorLoader_username_search">Utafutaji wa jina la mtumizi</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Tafuta kwa jina la mtumiaji </string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Stori Zangu</string>
   <!--Action for creating a new story-->
@@ -1606,6 +1607,8 @@ nambari yako ya simu</string>
   <string name="UnverifiedSendDialog_send_message">Tuma ujumbe?</string>
   <string name="UnverifiedSendDialog_send">Tuma</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Ongeza jina la mtumiaji</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Chagua jina lako la mtumiaji</string>
   <string name="UsernameEditFragment_username">Jina la mtumiaji</string>
@@ -1624,6 +1627,10 @@ nambari yako ya simu</string>
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">Hii ni nambari gani?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Tarakimu hizi ni usaidizi wa kuliweka jina lako la mtumiaji siri ili uweze kuepuka jumbe usizozihitaji. Shiriki jina lako la mtumiaji na watu na makundi unayopenda kuzungumza nayo tu. Ukibadili jina lako la mtumiaji, utapata seti mpya ya tarakimu.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Ruka</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Imekamilika</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">Anwani %diko katika Signal!</item>
     <item quantity="other">Anwani %dziko katika Signal!</item>
@@ -3289,6 +3296,12 @@ Funga ufikiaji wa Signal na ufungaji wa Android au alama za vidole</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Ingiza za kutuma zilizo muhimu</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Tumia kama chaguo msingi programu ya meseji</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">Hamisha jumbe za SMS</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">Ondoa jumbe za SMS</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">Jumbe za SMS zimeondolewa</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Jumbe</string>
   <string name="NotificationsSettingsFragment__calls">Simu</string>
@@ -4055,7 +4068,7 @@ Funga ufikiaji wa Signal na ufungaji wa Android au alama za vidole</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Stori Yangu</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Nani anaweza kuona stori hii</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Nani anaweza tazama stori hii</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Ficha stori kutoka kwa </string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4063,7 +4076,7 @@ Funga ufikiaji wa Signal na ufungaji wa Android au alama za vidole</string>
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Shirikisha na watu wote</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">Signal connections wote isipokuwa…</string>
+  <string name="MyStorySettingsFragment__all_except">Wote isipokuwa….</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Ficha stori yako kwa watu maalum</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4292,8 +4305,18 @@ Funga ufikiaji wa Signal na ufungaji wa Android au alama za vidole</string>
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Toa mchango wa kila mwezi</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Sio sasa</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Shiriki peke yake na </string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">Stori binafsi · mtazamaji %1$d </item>
+    <item quantity="other">Stori binafsi · watazamaji %1$d </item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">Stori ya kikundi · mtazamaji %1$d </item>
+    <item quantity="other">Stori ya kikundi · watazamaji %1$d </item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">Mtazamaji %1$s . %2$d</item>
@@ -4394,7 +4417,7 @@ Funga ufikiaji wa Signal na ufungaji wa Android au alama za vidole</string>
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Signal connections wote </string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Signal connections wote isipokuwa…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">Wote isipokuwa….</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Shirikisha pekee na…</string>
   <!--Story info header sent heading-->
@@ -4435,5 +4458,37 @@ Funga ufikiaji wa Signal na ufungaji wa Android au alama za vidole</string>
   <string name="GroupStorySettingsFragment__remove_group_story">Ondoa stori ya kikundi</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">Overflow menu</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">Kuhamisha jumbe…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Hamisha jumbe zako za SMS</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Endelea</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Kuhamisha jumbe za SMS</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Kuhamisha %1$d ya %2$d…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Chagua programu mpya ya msingi ya SMS</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Endelea</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Hifadhi ujumbe</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Ondoa jumbe</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Ondoa jumbe za SMS kutoka Signal?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Umebadili programu ya msingi ya SMS, je ungetaka kuondoa jumbe za SMS kutoka kwenye Signal?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">Kwanza, ifanye Signal kuwa programu yako ya msingi ya SMS</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Inayofuata</string>
   <!--EOF-->
 </resources>

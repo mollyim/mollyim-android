@@ -11,7 +11,8 @@
     <string name="sustainer_boost_and_badges" translatable="false">https://support.signal.org/hc/articles/4408365318426</string>
     <string name="google_pay_url" translatable="false">https://pay.google.com</string>
     <string name="donation_decline_code_error_url" translatable="false">https://support.signal.org/hc/articles/4408365318426#errors</string>
-    <string name="signal_me_url" translatable="false">https://signal.me/%1$s</string>
+    <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string>
+    <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -214,7 +215,8 @@
     <string name="ContactsCursorLoader_contacts">Contacts</string>
     <string name="ContactsCursorLoader_groups">Groups</string>
     <string name="ContactsCursorLoader_phone_number_search">Phone number search</string>
-    <string name="ContactsCursorLoader_username_search">Username search</string>
+    <!-- Header for username search -->
+    <string name="ContactsCursorLoader_find_by_username">Find by username</string>
     <!-- Label for my stories when selecting who to send media to -->
     <string name="ContactsCursorLoader_my_stories">My Stories</string>
     <!-- Action for creating a new story -->
@@ -1871,6 +1873,8 @@
     <string name="UnverifiedSendDialog_send">Send</string>
 
     <!-- UsernameEditFragment -->
+    <!-- Toolbar title when entering from registration -->
+    <string name="UsernameEditFragment__add_a_username">Add a username</string>
     <!-- Instructional text at the top of the username edit screen -->
     <string name="UsernameEditFragment__choose_your_username">Choose your username</string>
     <string name="UsernameEditFragment_username">Username</string>
@@ -1889,6 +1893,10 @@
     <!-- Dialog title for explanation about numbers at the end of the username -->
     <string name="UsernameEditFragment__what_is_this_number">What is this number?</string>
     <string name="UsernameEditFragment__these_digits_help_keep">These digits help keep your username private so you can avoid unwanted messages. Share your username with only the people and groups you\'d like to chat with. If you change usernames you\'ll get a new set of digits.</string>
+    <!-- Button to allow user to skip -->
+    <string name="UsernameEditFragment__skip">Skip</string>
+    <!-- Content description for done button -->
+    <string name="UsernameEditFragment__done">Done</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%d contact is on Signal!</item>
@@ -2743,19 +2751,12 @@
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
     <string name="preferences__internal_preferences_groups_v2" translatable="false">Groups V2</string>
-    <string name="preferences__internal_preferences_groups_v1_migration" translatable="false">Groups V1 Migration</string>
-    <string name="preferences__internal_do_not_create_gv2" translatable="false">Do not create GV2 groups</string>
-    <string name="preferences__internal_do_not_create_gv2_description" translatable="false">Do not attempt to create GV2 groups, i.e. will force creation of GV1 or MMS groups.</string>
     <string name="preferences__internal_force_gv2_invites" translatable="false">Force Invites</string>
     <string name="preferences__internal_force_gv2_invites_description" translatable="false">Members will not be added directly to a GV2 even if they could be.</string>
     <string name="preferences__internal_ignore_gv2_server_changes" translatable="false">Ignore server changes</string>
     <string name="preferences__internal_ignore_gv2_server_changes_description" translatable="false">Changes in server\'s response will be ignored, causing passive voice update messages if P2P is also ignored.</string>
     <string name="preferences__internal_ignore_gv2_p2p_changes" translatable="false">Ignore P2P changes</string>
     <string name="preferences__internal_ignore_gv2_p2p_changes_description" translatable="false">Changes sent P2P will be ignored. In conjunction with ignoring server changes, will cause passive voice.</string>
-    <string name="preferences__internal_do_not_initiate_automigrate" translatable="false">Disable Auto-Migration Initiation</string>
-    <string name="preferences__internal_do_not_initiate_automigrate_description" translatable="false">Do not attempt to initiate an auto-migration. You will still recognize migrated groups.</string>
-    <string name="preferences__internal_do_not_notify_automigrate" translatable="false">Disable Auto-Migration Notification</string>
-    <string name="preferences__internal_do_not_notify_automigrate_description" translatable="false">Do not attempt to notify other users of an auto-migration. They will have to discover it on their own.</string>
     <string name="preferences__internal_payments" translatable="false">Payments</string>
     <string name="preferences__internal_payment_copy_data" translatable="false">Copy payments data</string>
     <string name="preferences__internal_payment_copy_data_description" translatable="false">Copy all payment records to clipboard.</string>
@@ -2831,7 +2832,7 @@
     <string name="preferences__internal_clear_history" translatable="false">Clear history</string>
     <string name="preferences__internal_clear_history_description" translatable="false">Clears all CDS history, meaning the next sync will consider all numbers to be new.</string>
     <string name="preferences__internal_clear_all_service_ids" translatable="false">Clear all service IDs</string>
-    <string name="preferences__internal_clear_all_service_ids_description" translatable="false">Clears all known service IDs (except your own). Do not use on your personal device!</string>
+    <string name="preferences__internal_clear_all_service_ids_description" translatable="false">Clears all known service IDs (except your own) for people that have phone numbers. Do not use on your personal device!</string>
     <string name="preferences__internal_clear_all_profile_keys" translatable="false">Clear all profile keys</string>
     <string name="preferences__internal_clear_all_profile_keys_description" translatable="false">Clears all known profile keys (except your own). Do not use on your personal device!</string>
     <string name="preferences__internal_donor_error_expired_badge" translatable="false">Expired Badge</string>
@@ -3913,6 +3914,12 @@
 
     <!--SmsSettingsFragment -->
     <string name="SmsSettingsFragment__use_as_default_sms_app">Use as default SMS app</string>
+    <!-- Preference title to export sms -->
+    <string name="SmsSettingsFragment__export_sms_messages">Export SMS messages</string>
+    <!-- Preference title to delete sms -->
+    <string name="SmsSettingsFragment__remove_sms_messages">Remove SMS messages</string>
+    <!-- Snackbar text to confirm deletion -->
+    <string name="SmsSettingsFragment__sms_messages_removed">SMS messages removed</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">Messages</string>
@@ -4757,7 +4764,7 @@
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">My Story</string>
     <!-- Section heading for story visibility -->
-    <string name="MyStorySettingsFragment__who_can_see_this_story">Who can see this story</string>
+    <string name="MyStorySettingsFragment__who_can_view_this_story">Who can view this story</string>
     <!-- Clickable option for selecting people to hide your story from -->
     <string name="MyStorySettingsFragment__hide_story_from">Hide story from</string>
     <!-- Privacy setting title for sending stories to all your signal connections -->
@@ -4765,7 +4772,7 @@
     <!-- Privacy setting description for sending stories to all your signal connections -->
     <string name="MyStorySettingsFragment__share_with_all_connections">Share with all connections</string>
     <!-- Privacy setting title for sending stories to all except the specified connections -->
-    <string name="MyStorySettingsFragment__all_signal_connections_except">All Signal connections except…</string>
+    <string name="MyStorySettingsFragment__all_except">All except…</string>
     <!-- Privacy setting description for sending stories to all except the specified connections -->
     <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Hide your story from specific people</string>
     <!-- Summary of clickable option displaying how many people you have excluded from your story -->
@@ -4998,6 +5005,8 @@
     <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Make a monthly donation</string>
     <!-- Expired gift sheet not now button -->
     <string name="ExpiredGiftSheetConfiguration__not_now">Not now</string>
+    <!-- My Story label designating that we will only share with the selected viewers. -->
+    <string name="ContactSearchItems__only_share_with">Only share with</string>
     <!-- Label under name for private stories -->
     <plurals name="ContactSearchItems__private_story_d_viewers">
         <item quantity="one">Private story · %1$d viewer</item>
@@ -5110,7 +5119,7 @@
     <!-- All connections option for initial My Story settings configuration shown when sending to My Story for the first time -->
     <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">All Signal connections</string>
     <!-- All connections except option for initial My Story settings configuration shown when sending to My Story for the first time -->
-    <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">All Signal connections except…</string>
+    <string name="ChooseInitialMyStoryMembershipFragment__all_except">All except…</string>
     <!-- Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time -->
     <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Only share with…</string>
 
@@ -5155,6 +5164,44 @@
 
     <!-- Generic title for overflow menus -->
     <string name="OverflowMenu__overflow_menu">Overflow menu</string>
+
+    <!-- SMS Export Service -->
+    <!-- Displayed in the notification while export is running -->
+    <string name="SignalSmsExportService__exporting_messages">Exporting messages…</string>
+
+    <!-- ExportYourSmsMessagesFragment -->
+    <!-- Title of the screen -->
+    <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Export your SMS messages</string>
+    <!-- Button label to begin export -->
+    <string name="ExportYourSmsMessagesFragment__continue">Continue</string>
+
+    <!-- ExportingSmsMessagesFragment -->
+    <!-- Title of the screen -->
+    <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Exporting SMS messages</string>
+    <!-- Progress indicator for export -->
+    <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Exporting %1$d of %2$d…</string>
+
+    <!-- ChooseANewDefaultSmsAppFragment -->
+    <!-- Title of the screen -->
+    <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Choose a new default SMS app</string>
+    <!-- Button label to launch picker -->
+    <string name="ChooseANewDefaultSmsAppFragment__continue">Continue</string>
+
+    <!-- RemoveSmsMessagesDialogFragment -->
+    <!-- Action button to keep messages -->
+    <string name="RemoveSmsMessagesDialogFragment__keep_messages">Keep messages</string>
+    <!-- Action button to remove messages -->
+    <string name="RemoveSmsMessagesDialogFragment__remove_messages">Remove messages</string>
+    <!-- Title of dialog -->
+    <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Remove SMS messages from Signal?</string>
+    <!-- Message of dialog -->
+    <string name="RemoveSmsMessagesDialogFragment__you_have_changed">You have changed the default SMS app, do you want to remove SMS messages from Signal?</string>
+
+    <!-- SetSignalAsDefaultSmsAppFragment -->
+    <!-- Title of the screen -->
+    <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">First, set Signal as the default SMS app</string>
+    <!-- Button label to start export -->
+    <string name="SetSignalAsDefaultSmsAppFragment__next">Next</string>
 
     <!-- EOF -->
 

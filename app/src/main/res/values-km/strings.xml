@@ -166,7 +166,8 @@
   <string name="ContactsCursorLoader_contacts">បញ្ជីទំនាក់ទំនង</string>
   <string name="ContactsCursorLoader_groups">ក្រុម</string>
   <string name="ContactsCursorLoader_phone_number_search">ស្វែងរកលេខទូរស័ព្ទ</string>
-  <string name="ContactsCursorLoader_username_search">ស្វែងរកឈ្មោះអ្នកប្រើប្រាស់</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">ស្វែងរកតាមឈ្មោះអ្នកប្រើ</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">រឿងរ៉ាវរបស់ខ្ញុំ</string>
   <!--Action for creating a new story-->
@@ -1534,6 +1535,8 @@
   <string name="UnverifiedSendDialog_send_message">ផ្ញើសារ?</string>
   <string name="UnverifiedSendDialog_send">ផ្ញើ</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">បញ្ចូលឈ្មោះអ្នកប្រើ</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">ជ្រើសរើសឈ្មោះអ្នកប្រើរបស់អ្នក</string>
   <string name="UsernameEditFragment_username">ឈ្មោះអ្នកប្រើប្រាស់</string>
@@ -1552,6 +1555,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">តើលេខនេះគឺជាអ្វីទៅ?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">លេខទាំងនេះជួយរក្សាឈ្មោះអ្នកប្រើរបស់អ្នកជាឯកជន ដើម្បីឲ្យអ្នកអាចជៀសវាងសារ​ដែលមិនចង់បាន។ សូមចែករំលែកឈ្មោះអ្នកប្រើរបស់អ្នកតែជាមួយមនុស្ស និងក្រុមដែល​អ្នកចង់ជជែកជាមួយប៉ុណ្ណោះ។ ប្រសិនបើអ្នកប្តូរឈ្មោះអ្នកប្រើ អ្នកនឹងទទួលបានសំណុំលេខថ្មី។</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">រំលង</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">រួចរាល់</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="other">លេខទំនាក់ទំនង%dនៅលើ  Signal!</item>
   </plurals>
@@ -3191,6 +3198,12 @@
   <string name="ChatsSettingsFragment__enter_key_sends">ចុច Enter ដើម្បីផ្ញើ</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">ប្រើជាកម្មវិធីផ្ញើសារ</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">នាំចេញសារជាអក្សរ</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">ដកសារជាអក្សរចេញ</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">បានដកសារជាអក្សរចេញ</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">សារ</string>
   <string name="NotificationsSettingsFragment__calls">ការហៅ</string>
@@ -3947,7 +3960,7 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">រឿងរ៉ាវរបស់ខ្ញុំ</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">អ្នកដែលអាចមើលឃើញរឿងរ៉ាវនេះ</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">អ្នកដែលអាចមើលរឿងរ៉ាវនេះបាន</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">លាក់រឿងរ៉ាវពី</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -3955,7 +3968,7 @@
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">ចែករំលែកជាមួយអ្នកភ្ជាប់ទំនាក់ទំនងទាំងអស់</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">អ្នកភ្ជាប់ទំនាក់ទំនងក្នុង Signal ទាំងអស់លើកលែងតែ…</string>
+  <string name="MyStorySettingsFragment__all_except">ទាំងអស់លើកលែងតែ…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">លាក់រឿងរ៉ាវរបស់អ្នកពីមនុស្សជាក់លាក់</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4180,6 +4193,8 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">ធ្វើ​ការ​បរិច្ចាគ​ប្រចាំ​ខែ</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">ពេលក្រោយ</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">ចែករំលកតែជាមួយ</string>
   <!--Label under name for private stories-->
   <plurals name="ContactSearchItems__private_story_d_viewers">
     <item quantity="other">រឿងរ៉ាវឯកជន · អ្នកមើល %1$d នាក់</item>
@@ -4283,7 +4298,7 @@
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">ទំនាក់ទំនង Signal ទាំងអស់</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">ទំនាក់ទំនង Signal ទាំងអស់លើកលែងតែ…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">ទាំងអស់លើកលែងតែ…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">គ្រាន់តែចែករំលែកជាមួយ…</string>
   <!--Story info header sent heading-->
@@ -4324,5 +4339,37 @@
   <string name="GroupStorySettingsFragment__remove_group_story">ដករឿងរ៉ាវក្រុម</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">ម៉ឺនុយជម្រើស</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">កំពុង​នាំចេញ​សារ…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">នាំចេញសារជាអក្សររបស់អ្នក</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">បន្ត</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">ការនាំចេញសារជាអក្សរ</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">កំពុងនាំចេញ %1$d នៃ %2$d …</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">ជ្រើសរើសកម្មវិធីសារជាអក្សរលំនាំដើមថ្មី</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">បន្ត</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">រក្សាសារ</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">ដកសារចេញ</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">ដកសារជាអក្សរចេញពី Signal ឬ?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">អ្នកបានផ្លាស់ប្តូរកម្មវិធីសារជាអក្សរលំនាំដើម។ តើអ្នកចង់លុបសារជាអក្សរចេញពី Signal ទេ?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">ជាដំបូង កំណត់ Signal ជាកម្មវិធីសារជាអក្សរលំនាំដើម</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">បន្ទាប់</string>
   <!--EOF-->
 </resources>

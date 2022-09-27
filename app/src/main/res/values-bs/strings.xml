@@ -168,7 +168,8 @@
   <string name="ContactsCursorLoader_contacts">Kontakti</string>
   <string name="ContactsCursorLoader_groups">Grupe</string>
   <string name="ContactsCursorLoader_phone_number_search">Pretraživanje po broju</string>
-  <string name="ContactsCursorLoader_username_search">Pretraživanje po korisničkom imenu</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Pronađi po korisničkom imenu</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Moje priče</string>
   <!--Action for creating a new story-->
@@ -1686,6 +1687,8 @@
   <string name="UnverifiedSendDialog_send_message">Poslati poruku?</string>
   <string name="UnverifiedSendDialog_send">Šalji</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Dodaj korisničko ime</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Odaberite korisničko ime</string>
   <string name="UsernameEditFragment_username">Korisničko ime</string>
@@ -1704,6 +1707,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">Kakav je ovo broj?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Ti brojevi pomažu održati vaše korisničko ime privatnim da možete izbjeći neželjene poruke. Dijelite korisničko ime samo s osobama i grupama s kojim se želite dopisivati. Ako promijenite korisničko ime, dobit ćete novi komplet brojeva.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Preskoči</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Završeno</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d kontakt je na Signalu!</item>
     <item quantity="few">%d kontakta su na Signalu!</item>
@@ -3396,6 +3403,12 @@ prenijeli račun na svoj novi Android uređaj.</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Tipka Enter šalje</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Koristi kao glavnu aplikaciju za SMS</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">Izvezite SMS poruke</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">Uklonite SMS poruke</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">SMS poruke su uklonjene</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Poruke</string>
   <string name="NotificationsSettingsFragment__calls">Pozivi</string>
@@ -4172,7 +4185,7 @@ prenijeli račun na svoj novi Android uređaj.</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Moja priča</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Ko može vidjeti ovu priču</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Ko može vidjeti ovu priču</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Sakrij priču od</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4180,7 +4193,7 @@ prenijeli račun na svoj novi Android uređaj.</string>
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Dijelite sa svim vezama</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">Sve Signal veze osim…</string>
+  <string name="MyStorySettingsFragment__all_except">Svi osim…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Sakrijte priču od određenih osoba</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4413,8 +4426,20 @@ prenijeli račun na svoj novi Android uređaj.</string>
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Dajte mjesečnu donaciju</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Ne sada</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Dijelite samo sa</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">Privatna priča · %1$d gledalac</item>
+    <item quantity="few">Privatna priča · %1$d gledaoca</item>
+    <item quantity="other">Privatna priča · Broj gledalaca: %1$d </item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">Priča grupe · %1$d gledalac</item>
+    <item quantity="few">Priča grupe · %1$d gledaoca</item>
+    <item quantity="other">Priča grupe · Broj gledalaca: %1$d </item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">%1$s · %2$d gledalac</item>
@@ -4520,7 +4545,7 @@ prenijeli račun na svoj novi Android uređaj.</string>
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Sve Signal veze</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Sve Signal veze izuzev…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">Svi osim…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Dijeli samo sa…</string>
   <!--Story info header sent heading-->
@@ -4561,5 +4586,37 @@ prenijeli račun na svoj novi Android uređaj.</string>
   <string name="GroupStorySettingsFragment__remove_group_story">Ukloni priču grupe</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">Preklopni meni</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">Poruke koje se izvoze…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Izvezite svoje SMS poruke</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Nastavi</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Izvezene SMS poruke</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Izvozi se %1$d od %2$d…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Odaberite novu zadanu aplikaciju za SMS</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Nastavi</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Zadrži poruke</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Uklonite poruke</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Uklonite SMS poruke iz Signala?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Promijenili ste zadanu aplikaciju za SMS, želite li ukloniti SMS poruke sa SIgnala?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">Najprije postavite Signal kao zadanu aplikaciju za SMS</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Dalje</string>
   <!--EOF-->
 </resources>

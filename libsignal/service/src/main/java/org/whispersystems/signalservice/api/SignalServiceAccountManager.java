@@ -70,6 +70,7 @@ import org.whispersystems.signalservice.internal.push.PushServiceSocket;
 import org.whispersystems.signalservice.internal.push.RemoteAttestationUtil;
 import org.whispersystems.signalservice.internal.push.RemoteConfigResponse;
 import org.whispersystems.signalservice.internal.push.RequestVerificationCodeResponse;
+import org.whispersystems.signalservice.internal.push.ReserveUsernameResponse;
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos;
 import org.whispersystems.signalservice.internal.push.VerifyAccountResponse;
 import org.whispersystems.signalservice.internal.push.WhoAmIResponse;
@@ -521,6 +522,7 @@ public class SignalServiceAccountManager {
   public CdsiV2Service.Response getRegisteredUsersWithCdsi(Set<String> previousE164s,
                                                            Set<String> newE164s,
                                                            Map<ServiceId, ProfileKey> serviceIds,
+                                                           boolean requireAcis,
                                                            Optional<byte[]> token,
                                                            String mrEnclave,
                                                            Consumer<byte[]> tokenSaver)
@@ -528,7 +530,7 @@ public class SignalServiceAccountManager {
   {
     CdsiAuthResponse                                auth    = pushServiceSocket.getCdsiAuth();
     CdsiV2Service                                   service = new CdsiV2Service(configuration, mrEnclave);
-    CdsiV2Service.Request                           request = new CdsiV2Service.Request(previousE164s, newE164s, serviceIds, token);
+    CdsiV2Service.Request                           request = new CdsiV2Service.Request(previousE164s, newE164s, serviceIds, requireAcis, token);
     Single<ServiceResponse<CdsiV2Service.Response>> single  = service.getRegisteredUsers(auth.getUsername(), auth.getPassword(), request, tokenSaver);
 
     ServiceResponse<CdsiV2Service.Response> serviceResponse;
@@ -548,7 +550,11 @@ public class SignalServiceAccountManager {
     if (serviceResponse.getResult().isPresent()) {
       return serviceResponse.getResult().get();
     } else if (serviceResponse.getApplicationError().isPresent()) {
-      throw new IOException(serviceResponse.getApplicationError().get());
+      if (serviceResponse.getApplicationError().get() instanceof IOException) {
+        throw (IOException) serviceResponse.getApplicationError().get();
+      } else {
+        throw new IOException(serviceResponse.getApplicationError().get());
+      }
     } else if (serviceResponse.getExecutionError().isPresent()) {
       throw new IOException(serviceResponse.getExecutionError().get());
     } else {
@@ -861,8 +867,20 @@ public class SignalServiceAccountManager {
     }
   }
 
-  public void setUsername(String username) throws IOException {
-    this.pushServiceSocket.setUsername(username);
+  public ACI getAciByUsername(String username) throws IOException {
+    return this.pushServiceSocket.getAciByUsername(username);
+  }
+
+  public void setUsername(String nickname, String existingUsername) throws IOException {
+    this.pushServiceSocket.setUsername(nickname, existingUsername);
+  }
+
+  public ReserveUsernameResponse reserveUsername(String nickname) throws IOException {
+    return this.pushServiceSocket.reserveUsername(nickname);
+  }
+
+  public void confirmUsername(ReserveUsernameResponse reserveUsernameResponse) throws IOException {
+    this.pushServiceSocket.confirmUsername(reserveUsernameResponse);
   }
 
   public void deleteUsername() throws IOException {

@@ -64,6 +64,7 @@ import org.whispersystems.signalservice.internal.util.Util;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
+import java.util.function.Supplier;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -273,8 +274,10 @@ public class ApplicationDependencies {
   public static void restartNetworkConnectionsAfterProxyChange() {
     synchronized (LOCK) {
       closeConnections();
+      if (signalWebSocket != null) {
+        signalWebSocket.forceNewWebSockets();
+      }
     }
-    getIncomingMessageObserver();
   }
 
   public static @NonNull SignalServiceNetworkAccess getSignalServiceNetworkAccess() {
@@ -585,7 +588,7 @@ public class ApplicationDependencies {
     if (signalWebSocket == null) {
       synchronized (LOCK) {
         if (signalWebSocket == null) {
-          signalWebSocket = getProvider().provideSignalWebSocket(getSignalServiceNetworkAccess().getConfiguration());
+          signalWebSocket = getProvider().provideSignalWebSocket(() -> getSignalServiceNetworkAccess().getConfiguration());
         }
       }
     }
@@ -711,7 +714,7 @@ public class ApplicationDependencies {
     @NonNull SignalCallManager provideSignalCallManager();
     @NonNull PendingRetryReceiptManager providePendingRetryReceiptManager();
     @NonNull PendingRetryReceiptCache providePendingRetryReceiptCache();
-    @NonNull SignalWebSocket provideSignalWebSocket(@NonNull SignalServiceConfiguration signalServiceConfiguration);
+    @NonNull SignalWebSocket provideSignalWebSocket(@NonNull Supplier<SignalServiceConfiguration> signalServiceConfigurationSupplier);
     @NonNull SignalServiceDataStoreImpl provideProtocolStore();
     @NonNull GiphyMp4Cache provideGiphyMp4Cache();
     @NonNull SimpleExoPlayerPool provideExoPlayerPool();

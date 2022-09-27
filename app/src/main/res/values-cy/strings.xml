@@ -169,7 +169,8 @@
   <string name="ContactsCursorLoader_contacts">Cysylltiadau</string>
   <string name="ContactsCursorLoader_groups">Grwpiau</string>
   <string name="ContactsCursorLoader_phone_number_search">Chwiliad rhif ffôn</string>
-  <string name="ContactsCursorLoader_username_search">Chwiliad enw defnyddiwr</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Canfod yn ôl Enw Defnyddiwr</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Fy straeon</string>
   <!--Action for creating a new story-->
@@ -1738,6 +1739,7 @@ Anfon neges heb ei diogelu?</string>
   <string name="UnverifiedSendDialog_send_message">Anfon neges?</string>
   <string name="UnverifiedSendDialog_send">Anfon</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment_username">Enw defnyddiwr</string>
   <string name="UsernameEditFragment_delete">Dileu</string>
@@ -1752,6 +1754,10 @@ Anfon neges heb ei diogelu?</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Rhaid i enwau defnyddwyr fod rhwng %1$d a %2$d nod.</string>
   <!--Explanation about what usernames provide-->
   <!--Dialog title for explanation about numbers at the end of the username-->
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Hepgor</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Wedi Gorffen</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">Mae %d cysylltiad ar Signal!</item>
     <item quantity="two">Mae %d cysylltiad ar Signal!</item>
@@ -3440,6 +3446,9 @@ Anfon neges heb ei diogelu?</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Pwyso Enter i anfon</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Defnyddio fel yr ap SMS rhagosodedig</string>
+  <!--Preference title to export sms-->
+  <!--Preference title to delete sms-->
+  <!--Snackbar text to confirm deletion-->
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Negeseuon</string>
   <string name="NotificationsSettingsFragment__calls">Galwadau</string>
@@ -4202,7 +4211,6 @@ Anfon neges heb ei diogelu?</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Fy Stori</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Pwy all weld y stori hon</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Cuddio\'r stori rhag</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4423,6 +4431,7 @@ Anfon neges heb ei diogelu?</string>
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Rhowch rodd yn fisol</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Nid nawr</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
   <!--Label under name for private stories-->
   <!--Label under name for group stories-->
   <!--Label under name for my story-->
@@ -4524,5 +4533,28 @@ Anfon neges heb ei diogelu?</string>
   <!--Explanation of who can view a group story-->
   <!--Preference label for removing this group story-->
   <!--Generic title for overflow menus-->
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Parhau</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <!--Progress indicator for export-->
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Parhau</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Cadw negeseuon</string>
+  <!--Action button to remove messages-->
+  <!--Title of dialog-->
+  <!--Message of dialog-->
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Nesaf</string>
   <!--EOF-->
 </resources>

@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.profiles.manage;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,20 +16,21 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.progressindicator.CircularProgressIndicatorSpec;
+import com.google.android.material.progressindicator.IndeterminateDrawable;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.signal.core.util.DimensionUnit;
 import org.thoughtcrime.securesms.LoggingFragment;
+import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contactshare.SimpleTextWatcher;
 import org.thoughtcrime.securesms.databinding.UsernameEditFragmentBinding;
@@ -38,10 +40,8 @@ import org.thoughtcrime.securesms.util.LifecycleDisposable;
 import org.thoughtcrime.securesms.util.UsernameUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton;
-import org.thoughtcrime.securesms.util.views.LearnMoreTextView;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class UsernameEditFragment extends LoggingFragment {
 
@@ -51,6 +51,7 @@ public class UsernameEditFragment extends LoggingFragment {
   private UsernameEditFragmentBinding binding;
   private ImageView                   suffixProgress;
   private LifecycleDisposable         lifecycleDisposable;
+  private UsernameEditFragmentArgs    args;
 
   public static UsernameEditFragment newInstance() {
     return new UsernameEditFragment();
@@ -64,31 +65,49 @@ public class UsernameEditFragment extends LoggingFragment {
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    binding.toolbar.setNavigationOnClickListener(v -> Navigation.findNavController(view).popBackStack());
+    Bundle bundle = getArguments();
+    if (bundle != null) {
+      args = UsernameEditFragmentArgs.fromBundle(bundle);
+    } else {
+      args = new UsernameEditFragmentArgs.Builder().build();
+    }
+
+    if (args.getIsInRegistration()) {
+      binding.toolbar.setNavigationIcon(null);
+      binding.toolbar.setTitle(R.string.UsernameEditFragment__add_a_username);
+      binding.usernameSkipButton.setVisibility(View.VISIBLE);
+      binding.usernameDoneButton.setVisibility(View.VISIBLE);
+    } else {
+      binding.toolbar.setNavigationOnClickListener(v -> Navigation.findNavController(view).popBackStack());
+      binding.usernameSubmitButton.setVisibility(View.VISIBLE);
+    }
 
     binding.usernameTextWrapper.setErrorIconDrawable(null);
 
     lifecycleDisposable = new LifecycleDisposable();
     lifecycleDisposable.bindTo(getViewLifecycleOwner());
 
-    viewModel = new ViewModelProvider(this, new UsernameEditViewModel.Factory()).get(UsernameEditViewModel.class);
+    viewModel = new ViewModelProvider(this, new UsernameEditViewModel.Factory(args.getIsInRegistration())).get(UsernameEditViewModel.class);
 
     lifecycleDisposable.add(viewModel.getUiState().subscribe(this::onUiStateChanged));
-    viewModel.getEvents().observe(getViewLifecycleOwner(), this::onEvent);
+    lifecycleDisposable.add(viewModel.getEvents().subscribe(this::onEvent));
 
-    binding.usernameSubmitButton.setOnClickListener(v -> viewModel.onUsernameSubmitted(binding.usernameText.getText().toString()));
+    binding.usernameSubmitButton.setOnClickListener(v -> viewModel.onUsernameSubmitted());
     binding.usernameDeleteButton.setOnClickListener(v -> viewModel.onUsernameDeleted());
+    binding.usernameDoneButton.setOnClickListener(v -> viewModel.onUsernameSubmitted());
+    binding.usernameSkipButton.setOnClickListener(v -> viewModel.onUsernameSkipped());
 
-    binding.usernameText.setText(Recipient.self().getUsername().orElse(null));
+    UsernameState usernameState = Recipient.self().getUsername().<UsernameState>map(UsernameState.Set::new).orElse(UsernameState.NoUsername.INSTANCE);
+    binding.usernameText.setText(usernameState.getNickname());
     binding.usernameText.addTextChangedListener(new SimpleTextWatcher() {
       @Override
-      public void onTextChanged(String text) {
-        viewModel.onUsernameUpdated(text);
+      public void onTextChanged(@NonNull String text) {
+        viewModel.onNicknameUpdated(text);
       }
     });
     binding.usernameText.setOnEditorActionListener((v, actionId, event) -> {
       if (actionId == EditorInfo.IME_ACTION_DONE) {
-        viewModel.onUsernameSubmitted(binding.usernameText.getText().toString());
+        viewModel.onUsernameSubmitted();
         return true;
       }
       return false;
@@ -118,9 +137,12 @@ public class UsernameEditFragment extends LoggingFragment {
 
     layoutParams.topMargin    = suffixTextView.getPaddingTop();
     layoutParams.bottomMargin = suffixTextView.getPaddingBottom();
+    layoutParams.setMarginEnd(suffixTextView.getPaddingEnd());
 
     suffixProgress = new ImageView(requireContext());
-    suffixProgress.setImageDrawable(UsernameSuffix.getInProgressDrawable(requireContext()));
+    suffixProgress.setImageDrawable(getInProgressDrawable());
+    suffixProgress.setContentDescription(getString(R.string.load_more_header__loading));
+    suffixProgress.setVisibility(View.GONE);
     suffixParent.addView(suffixProgress, 0, layoutParams);
 
     suffixTextView.setOnClickListener(this::onLearnMore);
@@ -142,15 +164,82 @@ public class UsernameEditFragment extends LoggingFragment {
   }
 
   private void onUiStateChanged(@NonNull UsernameEditViewModel.State state) {
-    EditText                       usernameInput        = binding.usernameText;
+    TextInputLayout usernameInputWrapper = binding.usernameTextWrapper;
+
+    presentSuffix(state.getUsername());
+    presentButtonState(state.getButtonState());
+
+    switch (state.getUsernameStatus()) {
+      case NONE:
+        usernameInputWrapper.setError(null);
+        break;
+      case TOO_SHORT:
+      case TOO_LONG:
+        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_usernames_must_be_between_a_and_b_characters, UsernameUtil.MIN_LENGTH, UsernameUtil.MAX_LENGTH));
+        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
+
+        break;
+      case INVALID_CHARACTERS:
+        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_usernames_can_only_include));
+        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
+
+        break;
+      case CANNOT_START_WITH_NUMBER:
+        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_usernames_cannot_begin_with_a_number));
+        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
+
+        break;
+      case INVALID_GENERIC:
+        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_username_is_invalid));
+        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
+
+        break;
+      case TAKEN:
+        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_this_username_is_taken));
+        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
+
+        break;
+    }
+  }
+
+  private void presentButtonState(@NonNull UsernameEditViewModel.ButtonState buttonState) {
+    if (args.getIsInRegistration()) {
+      presentRegistrationButtonState(buttonState);
+    } else {
+      presentProfileUpdateButtonState(buttonState);
+    }
+  }
+
+  private void presentRegistrationButtonState(@NonNull UsernameEditViewModel.ButtonState buttonState) {
+    binding.usernameText.setEnabled(true);
+    binding.usernameProgressCard.setVisibility(View.GONE);
+
+    switch (buttonState) {
+      case SUBMIT:
+        binding.usernameDoneButton.setEnabled(true);
+        binding.usernameDoneButton.setAlpha(1f);
+        break;
+      case SUBMIT_DISABLED:
+        binding.usernameDoneButton.setEnabled(false);
+        binding.usernameDoneButton.setAlpha(DISABLED_ALPHA);
+        break;
+      case SUBMIT_LOADING:
+        binding.usernameDoneButton.setEnabled(false);
+        binding.usernameDoneButton.setAlpha(DISABLED_ALPHA);
+        binding.usernameProgressCard.setVisibility(View.VISIBLE);
+        break;
+      default:
+        throw new IllegalStateException("Delete functionality is not available during registration.");
+    }
+  }
+
+  private void presentProfileUpdateButtonState(@NonNull UsernameEditViewModel.ButtonState buttonState) {
     CircularProgressMaterialButton submitButton         = binding.usernameSubmitButton;
     CircularProgressMaterialButton deleteButton         = binding.usernameDeleteButton;
-    TextInputLayout                usernameInputWrapper = binding.usernameTextWrapper;
+    EditText                       usernameInput        = binding.usernameText;
 
     usernameInput.setEnabled(true);
-    presentSuffix(state.getUsernameSuffix());
-
-    switch (state.getButtonState()) {
+    switch (buttonState) {
       case SUBMIT:
         submitButton.cancelSpinning();
         submitButton.setVisibility(View.VISIBLE);
@@ -194,48 +283,12 @@ public class UsernameEditFragment extends LoggingFragment {
         usernameInput.setEnabled(false);
         break;
     }
-
-    switch (state.getUsernameStatus()) {
-      case NONE:
-        usernameInputWrapper.setError(null);
-        break;
-      case TOO_SHORT:
-      case TOO_LONG:
-        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_usernames_must_be_between_a_and_b_characters, UsernameUtil.MIN_LENGTH, UsernameUtil.MAX_LENGTH));
-        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
-
-        break;
-      case INVALID_CHARACTERS:
-        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_usernames_can_only_include));
-        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
-
-        break;
-      case CANNOT_START_WITH_NUMBER:
-        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_usernames_cannot_begin_with_a_number));
-        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
-
-        break;
-      case INVALID_GENERIC:
-        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_username_is_invalid));
-        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
-
-        break;
-      case TAKEN:
-        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_this_username_is_taken));
-        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_colorError)));
-
-        break;
-      case AVAILABLE:
-        usernameInputWrapper.setError(getResources().getString(R.string.UsernameEditFragment_this_username_is_available));
-        usernameInputWrapper.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.signal_accent_green)));
-        break;
-    }
   }
 
-  private void presentSuffix(@NonNull UsernameSuffix usernameSuffix) {
-    binding.usernameTextWrapper.setSuffixText(usernameSuffix.getCharSequence());
+  private void presentSuffix(@NonNull UsernameState usernameState) {
+    binding.usernameTextWrapper.setSuffixText(usernameState.getDiscriminator());
 
-    boolean isInProgress = usernameSuffix.isInProgress();
+    boolean isInProgress = usernameState.isInProgress();
 
     if (isInProgress) {
       suffixProgress.setVisibility(View.VISIBLE);
@@ -244,12 +297,24 @@ public class UsernameEditFragment extends LoggingFragment {
     }
   }
 
+  private IndeterminateDrawable<CircularProgressIndicatorSpec> getInProgressDrawable() {
+    CircularProgressIndicatorSpec spec = new CircularProgressIndicatorSpec(requireContext(), null);
+    spec.indicatorInset = 0;
+    spec.indicatorSize = (int) DimensionUnit.DP.toPixels(16f);
+    spec.trackColor = ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant);
+    spec.trackThickness = (int) DimensionUnit.DP.toPixels(1f);
+
+    IndeterminateDrawable<CircularProgressIndicatorSpec> drawable = IndeterminateDrawable.createCircularDrawable(requireContext(), spec);
+    drawable.setBounds(0, 0, spec.indicatorSize, spec.indicatorSize);
+
+    return drawable;
+  }
+
   private void onEvent(@NonNull UsernameEditViewModel.Event event) {
     switch (event) {
       case SUBMIT_SUCCESS:
         ResultContract.setUsernameCreated(getParentFragmentManager());
-        Toast.makeText(requireContext(), R.string.UsernameEditFragment_successfully_set_username, Toast.LENGTH_SHORT).show();
-        NavHostFragment.findNavController(this).popBackStack();
+        closeScreen();
         break;
       case SUBMIT_FAIL_TAKEN:
         Toast.makeText(requireContext(), R.string.UsernameEditFragment_this_username_is_taken, Toast.LENGTH_SHORT).show();
@@ -264,6 +329,36 @@ public class UsernameEditFragment extends LoggingFragment {
       case NETWORK_FAILURE:
         Toast.makeText(requireContext(), R.string.UsernameEditFragment_encountered_a_network_error, Toast.LENGTH_SHORT).show();
         break;
+      case SKIPPED:
+        closeScreen();
+        break;
+    }
+  }
+
+  private void closeScreen() {
+    if (args.getIsInRegistration()) {
+      finishAndStartNextIntent();
+    } else {
+      NavHostFragment.findNavController(this).popBackStack();
+    }
+  }
+
+  private void finishAndStartNextIntent() {
+    FragmentActivity activity       = requireActivity();
+    boolean          didLaunch      = false;
+    Intent           activityIntent = activity.getIntent();
+
+    if (activityIntent != null) {
+      Intent nextIntent = activityIntent.getParcelableExtra(PassphraseRequiredActivity.NEXT_INTENT_EXTRA);
+      if (nextIntent != null) {
+        activity.startActivity(nextIntent);
+        activity.finish();
+        didLaunch = true;
+      }
+    }
+
+    if (!didLaunch) {
+      activity.finish();
     }
   }
 

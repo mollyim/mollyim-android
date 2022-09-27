@@ -167,7 +167,7 @@
   <string name="ContactsCursorLoader_contacts">Kontaktar</string>
   <string name="ContactsCursorLoader_groups">Grupper</string>
   <string name="ContactsCursorLoader_phone_number_search">Søk etter telefonnummer</string>
-  <string name="ContactsCursorLoader_username_search">Søk etter brukarnamn</string>
+  <!--Header for username search-->
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Mine historier</string>
   <!--Action for creating a new story-->
@@ -1596,6 +1596,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="UnverifiedSendDialog_send_message">Send melding?</string>
   <string name="UnverifiedSendDialog_send">Send</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment_username">Brukarnamn</string>
   <string name="UsernameEditFragment_delete">Slett</string>
@@ -1610,6 +1611,10 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Brukarnamn må vera mellom %1$d og %2$d teikn lange.</string>
   <!--Explanation about what usernames provide-->
   <!--Dialog title for explanation about numbers at the end of the username-->
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Hopp over</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Ferdig</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d kontakt er på Signal!</item>
     <item quantity="other">%d kontaktar er på Signal!</item>
@@ -3259,6 +3264,9 @@ Sjekkar igjen no …</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Send med linjeskift</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Bruk som standard SMS-program</string>
+  <!--Preference title to export sms-->
+  <!--Preference title to delete sms-->
+  <!--Snackbar text to confirm deletion-->
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Meldingar</string>
   <string name="NotificationsSettingsFragment__calls">Samtalar</string>
@@ -4000,7 +4008,6 @@ Sjekkar igjen no …</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Mi historie</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Kven kan sjå denne historia</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Gøym historia frå</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4217,6 +4224,7 @@ Sjekkar igjen no …</string>
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Gi ein månadleg donasjon</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Ikkje no</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
   <!--Label under name for private stories-->
   <!--Label under name for group stories-->
   <!--Label under name for my story-->
@@ -4312,5 +4320,28 @@ Sjekkar igjen no …</string>
   <!--Explanation of who can view a group story-->
   <!--Preference label for removing this group story-->
   <!--Generic title for overflow menus-->
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Hald fram</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <!--Progress indicator for export-->
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Hald fram</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Spar på meldingar</string>
+  <!--Action button to remove messages-->
+  <!--Title of dialog-->
+  <!--Message of dialog-->
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Neste</string>
   <!--EOF-->
 </resources>

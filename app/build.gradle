@@ -78,9 +78,9 @@ ktlint {
     version = "0.43.2"
 }
 
-def canonicalVersionCode = 1119
-def canonicalVersionName = "5.48.3"
-def mollyRevision = 1
+def canonicalVersionCode = 1128
+def canonicalVersionName = "5.50.4"
+def mollyRevision = 0
 
 def postFixSize = 100
 
@@ -396,10 +396,11 @@ dependencies {
 
     implementation (libs.androidx.appcompat) {
         version {
-            strictly '1.2.0'
+            strictly '1.5.1'
         }
     }
-    implementation libs.androidx.window
+    implementation libs.androidx.window.window
+    implementation libs.androidx.window.java
     implementation libs.androidx.recyclerview
     implementation libs.material.material
     implementation libs.androidx.legacy.support
@@ -412,7 +413,9 @@ dependencies {
     implementation libs.androidx.multidex
     implementation libs.androidx.navigation.fragment.ktx
     implementation libs.androidx.navigation.ui.ktx
-    implementation libs.androidx.lifecycle.extensions
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.androidx.lifecycle.livedata.ktx
+    implementation libs.androidx.lifecycle.process
     implementation libs.androidx.lifecycle.viewmodel.savedstate
     implementation libs.androidx.lifecycle.common.java8
     implementation libs.androidx.lifecycle.reactivestreams.ktx
@@ -540,13 +543,17 @@ dependencies {
     androidTestImplementation testLibs.mockito.kotlin
     androidTestImplementation testLibs.square.okhttp.mockserver
 
+    instrumentationImplementation (libs.androidx.fragment.testing) {
+        exclude group: 'androidx.test', module: 'core'
+    }
+
     testImplementation testLibs.espresso.core
 
     implementation libs.rxjava3.rxandroid
     implementation libs.rxjava3.rxkotlin
     implementation libs.rxdogtag
 
-    androidTestUtil 'androidx.test:orchestrator:1.4.1'
+    androidTestUtil testLibs.androidx.test.orchestrator
 }
 
 static def getCommitTag() {

@@ -166,7 +166,8 @@
   <string name="ContactsCursorLoader_contacts">Kenalan</string>
   <string name="ContactsCursorLoader_groups">Kumpulan</string>
   <string name="ContactsCursorLoader_phone_number_search">Pencarian nombor telefon</string>
-  <string name="ContactsCursorLoader_username_search">Pencarian nama pengguna</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Cari dengan nama pengguna</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Cerita Saya</string>
   <!--Action for creating a new story-->
@@ -413,7 +414,7 @@
   <string name="CreateProfileActivity_set_avatar_description">Tetapkan avatar</string>
   <!--ProfileCreateFragment-->
   <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
-  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">Profil anda kepadanya akan boleh dilihat kepada orang yang anda mesej, kenalan dan kumpulan.</string>
+  <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">Profil boleh dilihat oleh orang yang anda mesej, kenalan dan kumpulan.</string>
   <!--Title of clickable row to select phone number privacy settings-->
   <string name="ProfileCreateFragment__who_can_find_me">Siapa yang boleh cari saya melalui nombor?</string>
   <!--WhoCanSeeMyPhoneNumberFragment-->
@@ -1531,6 +1532,8 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="UnverifiedSendDialog_send_message">Hantar mesej?</string>
   <string name="UnverifiedSendDialog_send">Hantar</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Tambah nama pengguna</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Pilih nama pengguna anda</string>
   <string name="UsernameEditFragment_username">Nama Pengguna</string>
@@ -1549,6 +1552,10 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">Apakah nombor ini?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Digit ini membantu mengekalkan privasi nama pengguna anda supaya anda boleh mengelakkan mesej yang tidak diingini. Kongsi nama pengguna anda hanya dengan orang dan kumpulan yang anda mahu bersembang. Jika anda menukar nama pengguna, anda akan menerima set digit baru.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Langkau</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Selesai</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="other">%d kenalan menggunakan Signal!</item>
   </plurals>
@@ -2405,7 +2412,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
   <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Gagal untuk menunjukkan kunci pembayaran</string>
   <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
-  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">Anda mendayakan kunci pembayaran dalam tetapan, tapi ia tidak boleh ditunjukkan.</string>
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">Anda mendayakan kunci pembayaran dalam tetapan, tetapi ia tidak boleh ditunjukkan.</string>
   <!--Button in a dialog that will take the user to the privacy settings-->
   <string name="ConfirmPaymentFragment__go_to_settings">Pergi ke tetapan</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Orang ini belum mengaktifkan pembayaran</string>
@@ -3188,6 +3195,12 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Kekunci enter menghantar</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Guna sebagai aplikasi SMS lalai</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">Eksport mesej SMS</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">Alih keluar mesej SMS</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">Mesej SMS dialih keluar</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Mesej</string>
   <string name="NotificationsSettingsFragment__calls">Panggilan</string>
@@ -3615,7 +3628,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
   <string name="DonationsErrors__cant_send_gift">Tidak boleh menghantar hadiah</string>
   <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
-  <string name="DonationsErrors__target_does_not_support_gifting">Penerima ini menggunakan Signal versi yang tidak boleh menerima lencana hadiah. Mereka boleh menerima hadiah apabila mereka mengemas kini kepada versi terbaru.</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">Penerima ini menggunakan versi Signal yang tidak boleh menerima lencana hadiah. Mereka boleh menerima hadiah setelah mengemas kini kepada versi terbaru.</string>
   <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
   <string name="DonationsErrors__couldnt_send_gift">Tidak boleh menghantar hadiah</string>
   <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
@@ -3944,7 +3957,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Cerita Saya</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Siapa boleh melihat cerita ini</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Siapa yang boleh tonton cerita ini</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Sembunyikan cerita daripada</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -3952,7 +3965,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Kongsi dengan semua hubungan</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">Semua hubungan Signal kecuali…</string>
+  <string name="MyStorySettingsFragment__all_except">Semua kecuali…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Sembunyikan cerita anda daripada orang tertentu</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4177,6 +4190,8 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Buat derma bulanan</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Bukan sekarang</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Hanya kongsi dengan</string>
   <!--Label under name for private stories-->
   <plurals name="ContactSearchItems__private_story_d_viewers">
     <item quantity="other">Cerita peribadi . %1$d tontonan</item>
@@ -4280,7 +4295,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Semua hubungan Signal</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Semua hubungan Signal kecuali…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">Semua kecuali…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Hanya berkongsi dengan…</string>
   <!--Story info header sent heading-->
@@ -4321,5 +4336,37 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="GroupStorySettingsFragment__remove_group_story">Alih keluar cerita kumpulan</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">Menu melimpah</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">Mengeksport mesej…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Eksport mesej SMS anda</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Teruskan</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Mengeksport mesej SMS</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Mengeksport %1$d daripada %2$d…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Pilih aplikasi SMS lalai baru</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Teruskan</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Simpan mesej</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Alih keluar mesej</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Alih keluar mesej daripada Signal?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Anda telah mengubah aplikasi SMS lalai, adakah anda mahu mengalih keluar mesej SMS daripada Signal?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">Pertama, tetapkan Signal sebagai app SMS lalai</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Seterusnya</string>
   <!--EOF-->
 </resources>

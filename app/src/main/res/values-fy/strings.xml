@@ -169,7 +169,7 @@
   <string name="ContactsCursorLoader_contacts">Kontakten</string>
   <string name="ContactsCursorLoader_groups">Groepen</string>
   <string name="ContactsCursorLoader_phone_number_search">Sykje op telefoannûmer</string>
-  <string name="ContactsCursorLoader_username_search">Sykje op brûkersnamme</string>
+  <!--Header for username search-->
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Myn ferhalen</string>
   <!--Action for creating a new story-->
@@ -1594,6 +1594,7 @@
   <string name="UnverifiedSendDialog_send_message">Berjocht ferstjoere?</string>
   <string name="UnverifiedSendDialog_send">Ferstjoere</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment_username">Brûkersnamme</string>
   <string name="UsernameEditFragment_delete">Ferwiderje</string>
@@ -1608,6 +1609,10 @@
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Brûkersnammen moatte op syn minst út %1$d en maksimaal %2$d karakters bestean.</string>
   <!--Explanation about what usernames provide-->
   <!--Dialog title for explanation about numbers at the end of the username-->
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Oerslaan</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Klear</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d fan dyn kontaktpersoanen is berikber fia Signal.</item>
     <item quantity="other">%d fan dyn kontaktpersoanen binne berikber fia Signal.</item>
@@ -3244,6 +3249,9 @@
   <string name="ChatsSettingsFragment__enter_key_sends">Enter-toets ferstjoert</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">As standert sms-app brûke</string>
+  <!--Preference title to export sms-->
+  <!--Preference title to delete sms-->
+  <!--Snackbar text to confirm deletion-->
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Berjochten</string>
   <string name="NotificationsSettingsFragment__calls">Oproppen</string>
@@ -3982,7 +3990,6 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Myn ferhaal</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Wa meie dit ferhaal sjen</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Ferstopje dit ferhaal fan</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4134,6 +4141,7 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Moanliks donearje</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">No net</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
   <!--Label under name for private stories-->
   <!--Label under name for group stories-->
   <!--Label under name for my story-->
@@ -4216,5 +4224,28 @@
   <!--Explanation of who can view a group story-->
   <!--Preference label for removing this group story-->
   <!--Generic title for overflow menus-->
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Trochgean</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <!--Progress indicator for export-->
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Trochgean</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Bewartermyn foar berjochten</string>
+  <!--Action button to remove messages-->
+  <!--Title of dialog-->
+  <!--Message of dialog-->
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Folgjende</string>
   <!--EOF-->
 </resources>

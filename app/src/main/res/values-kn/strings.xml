@@ -167,7 +167,8 @@
   <string name="ContactsCursorLoader_contacts">ಸಂಪರ್ಕಗಳು</string>
   <string name="ContactsCursorLoader_groups">ಗುಂಪುಗಳು</string>
   <string name="ContactsCursorLoader_phone_number_search">ದೂರವಾಣಿ ಸಂಖ್ಯೆ ಹುಡುಕಾಟ</string>
-  <string name="ContactsCursorLoader_username_search">ಬಳಕೆದಾರಹೆಸರು ಹುಡುಕಾಟ</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">username ನಿಂದ ಹುಡುಕಿ</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">ನನ್ನ ಸ್ಟೋರೀಸ್</string>
   <!--Action for creating a new story-->
@@ -1610,6 +1611,8 @@
   <string name="UnverifiedSendDialog_send_message">ಸಂದೇಶ ಕಳುಹಿಸುವುದೇ?</string>
   <string name="UnverifiedSendDialog_send">ಕಳುಹಿಸು</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">ಒಂದು username ಸೇರಿಸಿ</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">ನಿಮ್ಮ Username ಅನ್ನು ಆಯ್ಕೆ ಮಾಡಿಕೊಳ್ಳಿ</string>
   <string name="UsernameEditFragment_username">ಬಳಕೆದಾರ ಹೆಸರು</string>
@@ -1628,6 +1631,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">ಈ ಸಂಖ್ಯೆ ಏನು?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">ಈ ಅಂಕಿಗಳು ನಿಮ್ಮ username ಅನ್ನು ಗೌಪ್ಯವಾಗಿ ಇರಿಸಲು ಸಹಕರಿಸುತ್ತವೆ. ಇದರಿಂದಾಗಿ ನೀವು ಬೇಡದ‌ ಮೆಸೇಜ್‌ಗಳನ್ನು ತಪ್ಪಿಸಬಹುದು. ನಿಮ್ಮ username ಅನ್ನು ನೀವು ಚಾಟ್ ಮಾಡಲು ಬಯಸುವ ಜನರು ಮತ್ತು ಗ್ರೂಪ್‌ಗಳೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ. ನೀವು username ಬದಲಾಯಿಸಿದರೆ, ನೀವು ಹೊಸ ಅಂಕಿಗಳ ಸೆಟ್ ಅನ್ನು ಪಡೆಯುತ್ತೀರಿ.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">ಬಿಟ್ಟು ಮುಂದುವರಿಯಿರಿ</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">ಆಗಿದೆ</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d ಸಂಪರ್ಕಗಳು Signal ನಲ್ಲಿವೆ!</item>
     <item quantity="other">%d ಸಂಪರ್ಕಗಳು Signal ನಲ್ಲಿವೆ!</item>
@@ -2407,7 +2414,7 @@
   <!--Alert dialog title which shows up after a payment to turn on payment lock-->
   <string name="PaymentsHomeFragment__turn_on">ಭವಿಷ್ಯದ ರವಾನೆಗಳಿಗಾಗಿ ಪಾವತಿ ಲಾಕ್ ಆನ್ ಮಾಡುವುದೇ?</string>
   <!--Alert dialog description for why payment lock should be enabled before sending payments-->
-  <string name="PaymentsHomeFragment__add_an_additional_layer">ಭದ್ರತೆಯ ಹೆಚ್ಚುವರಿ ಪದರವನ್ನು ಸೇರಿಸಿ ಮತ್ತು ಹಣ ವರ್ಗಾಯಿಸಲು ಆಂಡ್ರಾಯ್ಡ್ ಸ್ಕ್ರೀನ್ ಲಾಕ್ ಅಥವಾ ಬೆರಳಚ್ಚು ಬೇಕಾಗುತ್ತದೆ.</string>
+  <string name="PaymentsHomeFragment__add_an_additional_layer">ಭದ್ರತೆಯ ಹೆಚ್ಚುವರಿ ಪದರವನ್ನು ಸೇರಿಸಿರಿ. ಹಣ ವರ್ಗಾಯಿಸಲು ಆಂಡ್ರಾಯ್ಡ್ ಸ್ಕ್ರೀನ್ ಲಾಕ್ ಅಥವಾ ಬೆರಳಚ್ಚು ಬೇಕಾಗುತ್ತದೆ.</string>
   <!--Alert dialog button to enable payment lock-->
   <string name="PaymentsHomeFragment__enable">ಆನ್‌ ಮಾಡಿ</string>
   <!--Alert dialog button to not enable payment lock for now-->
@@ -2497,7 +2504,7 @@
   <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
   <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">ಪಾವತಿ ಲಾಕ್ ತೋರಿಸಲು ವಿಫಲವಾಗಿದೆ</string>
   <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
-  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳು ನಲ್ಲಿ ಪಾವತಿ ಲಾಕ್ ಅನ್ನು ನೀವು ಸಕ್ರಿಯಗೊಳಿಸಿದ್ದೀರಿ, ಆದರೆ ಇದನ್ನು ತೋರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">ಸೆಟ್ಟಿಂಗ್ಸ್ ನ‌ಲ್ಲಿ ನೀವು ಪಾವತಿ ಲಾಕ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿದ್ದೀರಿ, ಆದರೆ ಇದನ್ನು ತೋರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
   <!--Button in a dialog that will take the user to the privacy settings-->
   <string name="ConfirmPaymentFragment__go_to_settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಗೆ ಹೋಗಿ</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">ಈ ವ್ಯಕ್ತಿ ಪೇಮೆಂಟ್ಸ್ ಸಕ್ರಿಯಗೊಳಿಸಿಲ್ಲ</string>
@@ -3291,6 +3298,12 @@
   <string name="ChatsSettingsFragment__enter_key_sends">ಎಂಟರ್ ಕೀ ಕಳುಹಿಸುತ್ತದೆ </string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">ಡೀಫಾಲ್ಟ್ ಎಸ್‌ಎಂಎಸ್ ಆ್ಯಪ್ ಆಗಿ ಬಳಸಿ </string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">ಎಸ್ಎಂಎಸ್ ಸಂದೇಶಗಳನ್ನು ಎಕ್ಸ್‌ಪೋರ್ಟ್ ಮಾಡಿ</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">ಎಸ್ಎಂಎಸ್ ಸಂದೇಶಗಳನ್ನು ತೆಗೆದುಹಾಕಿ</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">ಎಸ್ಎಂಎಸ್ ಸಂದೇಶಗಳನ್ನು ತೆಗೆದುಹಾಕಲಾಗಿದೆ</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">ಸಂದೇಶಗಳು</string>
   <string name="NotificationsSettingsFragment__calls">ಕರೆಗಳು</string>
@@ -3323,9 +3336,9 @@
   <!--Alert dialog title when payment lock cannot be enabled-->
   <string name="PrivacySettingsFragment__cant_enable_title">ಪಾವತಿ ಲಾಕ್ ಸಕ್ರಿಯಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ</string>
   <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
-  <string name="PrivacySettingsFragment__cant_enable_description">ಪಾವತಿ ಲಾಕ್ ಉಪಯೋಗಿಸಲು, ನೀವು ಮೊದಲು ನಿಮ್ಮ ಫೋನ್‌ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ನಲ್ಲಿ ಸ್ಕ್ರೀನ್ ಲಾಕ್ ಅಥವಾ ಬೆರಳಚ್ಚು ಐಡಿಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಬೇಕು.</string>
+  <string name="PrivacySettingsFragment__cant_enable_description">ಪಾವತಿ ಲಾಕ್ ಉಪಯೋಗಿಸಲು, ಮೊದಲು ನೀವು ನಿಮ್ಮ ಫೋನ್‌ನ ಸೆಟ್ಟಿಂಗ್ಸ್ ನಲ್ಲಿ ಸ್ಕ್ರೀನ್ ಲಾಕ್ ಅಥವಾ ಬೆರಳಚ್ಚು ಐಡಿಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಬೇಕು.</string>
   <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
-  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">ಸಿಸ್ಟಮ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಗೆ ನ್ಯಾವಿಗೇಟ್ ಮಾಡಲು ವಿಫಲಗೊಂಡಿದೆ</string>
+  <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">ಸಿಸ್ಟಮ್ ಸೆಟ್ಟಿಂಗ್ಸ್ ಗೆ ನ್ಯಾವಿಗೇಟ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ</string>
   <!--Alert dialog button to go to phone settings-->
   <string name="PrivacySettingsFragment__go_to_settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಗೆ ಹೋಗಿ</string>
   <!--Alert dialog button to cancel the dialog-->
@@ -4057,7 +4070,7 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">ನನ್ನ ಸ್ಟೋರಿ</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">ಈ ಸ್ಟೋರಿಯನ್ನು ಯಾರು ನೋಡಬಹುದು</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">ಈ ಸ್ಟೋರಿಯನ್ನು ಯಾರು ವೀಕ್ಷಿಸಬಹುದು</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">ಇವರಿಂದ ಸ್ಟೋರಿಯನ್ನು ಮರೆಮಾಡಿ</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4065,7 +4078,7 @@
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">ಎಲ್ಲಾ ಸಂಪರ್ಕಗಳೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">ಇದರ ಹೊರತಾದ ಎಲ್ಲಾ Signal ಸಂರ್ಕಗಳು…</string>
+  <string name="MyStorySettingsFragment__all_except">ಇವರ ಹೊರತಾಗಿ ಎಲ್ಲರೂ…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">ನಿರ್ದಿಷ್ಟ ಜನರಿಂದ ನಿಮ್ಮ ಸ್ಟೋರಿಯನ್ನು ಮರೆಯಾಗಿಸಿ</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4294,8 +4307,18 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">ಮಾಸಿಕ ದೇಣಿಗೆ ನೀಡಿ</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">ಈಗಲ್ಲ</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">ಇವರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">Private story · %1$d viewer</item>
+    <item quantity="other">ಖಾಸಗಿ ಸ್ಟೋರಿ · %1$d ವೀಕ್ಷಕರು</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">Group story · %1$d viewer</item>
+    <item quantity="other">ಗ್ರೂಪ್ ಸ್ಟೋರಿ · %1$d ವೀಕ್ಷಕರು</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">%1$s · %2$d viewer</item>
@@ -4396,7 +4419,7 @@
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">ಎಲ್ಲಾ Signal ಸಂಪರ್ಕಗಳು</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">ಇದರ ಹೊರತಾದ ಎಲ್ಲಾ Signal ಸಂರ್ಕಗಳು…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">ಇವರ ಹೊರತಾಗಿ ಎಲ್ಲರೂ…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">ಇವರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ…</string>
   <!--Story info header sent heading-->
@@ -4437,5 +4460,37 @@
   <string name="GroupStorySettingsFragment__remove_group_story">ಗ್ರೂಪ್ ಸ್ಟೋರಿ ತೆಗೆದುಹಾಕಿ</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">ಓವರ್‌ಫ್ಲೋ ಮೆನು</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">ಸಂದೇಶಗಳನ್ನು ಎಕ್ಸ್‌ಪೋರ್ಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">ನಿಮ್ಮ ಎಸ್ಎಂಎಸ್ ಸಂದೇಶಗಳನ್ನು ಎಕ್ಸ್‌ಪೋರ್ಟ್ ಮಾಡಿ</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">ಮುಂದುವರಿಸಿ</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">ಎಸ್ಎಂಎಸ್ ಸಂದೇಶಗಳನ್ನು ಎಕ್ಸ್‌ಪೋರ್ಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">%2$d ರಲ್ಲಿ %1$d ಎಕ್ಸ್‌ಪೋರ್ಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">ಹೊಸ ಡೀಫಾಲ್ಟ್ ಎಸ್‌ಎಂಎಸ್ ಆ್ಯಪ್ ಆರಿಸಿ </string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">ಮುಂದುವರಿಸಿ</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">ಸಂದೇಶಗಳನ್ನು ಉಳಿಸಿ</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">ಸಂದೇಶಗಳನ್ನು ತೆಗೆದುಹಾಕಿ</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Signal ನಿಂದ ಎಸ್ಎಂಎಸ್ ಸಂದೇಶಗಳನ್ನು ತೆಗೆದುಹಾಕಬೇಕೇ?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">ಡೀಫಾಲ್ಟ್ ಎಸ್ಎಂಎಸ್ ಆ್ಯಪ್ ಅನ್ನು ನೀವು ಬದಲಾಯಿಸಿದ್ದೀರಿ, Signal ನಿಂದ ಎಸ್ಎಂಎಸ್ ಸಂದೇಶಗಳನ್ನು ತೆಗೆದುಹಾಕಲು ನೀವು ಬಯಸುತ್ತೀರಾ?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">ಮೊದಲು, Signal ಅನ್ನು ಡೀಫಾಲ್ಟ್ ಎಸ್ಎಂಎಎಸ್ ಆ್ಯಪ್ ಆಗಿ ಸೆಟ್ ಮಾಡಿ</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">ಮುಂದೆ</string>
   <!--EOF-->
 </resources>

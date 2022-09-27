@@ -166,7 +166,8 @@
   <string name="ContactsCursorLoader_contacts">聯絡人</string>
   <string name="ContactsCursorLoader_groups">谷</string>
   <string name="ContactsCursorLoader_phone_number_search">查電話冧把</string>
-  <string name="ContactsCursorLoader_username_search">查使用者名稱</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">以用戶名稱嚟搜尋</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">我嘅是日花生</string>
   <!--Action for creating a new story-->
@@ -1540,6 +1541,8 @@
   <string name="UnverifiedSendDialog_send_message">係咪要傳送訊息？</string>
   <string name="UnverifiedSendDialog_send">傳送</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">新增用戶名稱</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">選擇你嘅用戶名稱</string>
   <string name="UsernameEditFragment_username">使用者名稱</string>
@@ -1558,6 +1561,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">呢個號碼係咩嚟？</string>
   <string name="UsernameEditFragment__these_digits_help_keep">呢組數字可以將你嘅用戶名稱保密，以免你受到無謂嘅訊息滋擾。請你淨係同你想同佢通訊嘅聯絡人同埋群組分享你嘅用戶名稱。如果你改咗個用戶名稱，就會收到一組新嘅數字。</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">略過</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">完成</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="other">%d 位聯絡人開咗 Signal 喇！</item>
   </plurals>
@@ -2414,7 +2421,7 @@
   <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
   <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">顯示唔到付款鎖定</string>
   <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
-  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">你已經喺設定到啟用咗付款鎖定，不過系統顯示唔到。</string>
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">你已經喺設定度啟用咗付款鎖定，不過系統顯示唔到。</string>
   <!--Button in a dialog that will take the user to the privacy settings-->
   <string name="ConfirmPaymentFragment__go_to_settings">前往設定</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">呢個人未有啟用付款</string>
@@ -3197,6 +3204,12 @@
   <string name="ChatsSettingsFragment__enter_key_sends">Enter 掣唔換行當係傳送</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">用嚟做預設嘅短訊 app</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">匯出短訊</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">移除短訊</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">短訊已經剷咗</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">訊息</string>
   <string name="NotificationsSettingsFragment__calls">通話</string>
@@ -3229,7 +3242,7 @@
   <!--Alert dialog title when payment lock cannot be enabled-->
   <string name="PrivacySettingsFragment__cant_enable_title">啟用唔到付款鎖定</string>
   <!--Alert dialog description to setup screen lock or fingerprint in phone settings-->
-  <string name="PrivacySettingsFragment__cant_enable_description">如果要用付款鎖定，就一定要先喺手機設定到啟用螢幕鎖定或者指紋 ID。</string>
+  <string name="PrivacySettingsFragment__cant_enable_description">如果要用付款鎖定，就一定要先喺手機設定啟用螢幕鎖定或者指紋 ID。</string>
   <!--Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings-->
   <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">瀏覽唔到系統設定</string>
   <!--Alert dialog button to go to phone settings-->
@@ -3953,7 +3966,7 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">我嘅是日花生</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">邊個可以見到呢味是日花生</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">邊個可以睇到呢個限時動態</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">隱藏是日花生唔俾佢睇</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -3961,7 +3974,7 @@
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">同所有人脈分享</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">所有 Signal 人脈，除咗…</string>
+  <string name="MyStorySettingsFragment__all_except">所有人，除咗…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">向指定用戶隱藏限時動態</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4186,8 +4199,16 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">每月捐款</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">遲啲先啦</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">只係分享俾</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="other">個人限時動態 · %1$d 個瀏覽者</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="other">群組限時動態 · %1$d 個瀏覽者</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="other">%1$s · %2$d 個瀏覽者</item>
@@ -4283,7 +4304,7 @@
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">所有 Signal 嘅人脈</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">所有 Signal 嘅人脈，除咗…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">所有人，除咗…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">只係分享俾…</string>
   <!--Story info header sent heading-->
@@ -4324,5 +4345,37 @@
   <string name="GroupStorySettingsFragment__remove_group_story">移除群組限時動態</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">溢位選單</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">匯出緊訊息…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">匯出你嘅短訊</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">繼續</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">匯出緊短訊</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">匯出緊 %1$d / %2$d…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">請選擇新嘅預設短訊應用程式</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">繼續</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">保留訊息</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">移除訊息</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">係咪要剷走嚟自 Signal 嘅短訊？</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">你已經改咗預設嘅短訊應用程式，係咪要剷走嚟自 Signal 嘅短訊呀？</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">請先將 Signal 設定做預設嘅短訊應用程式</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">下一步</string>
   <!--EOF-->
 </resources>

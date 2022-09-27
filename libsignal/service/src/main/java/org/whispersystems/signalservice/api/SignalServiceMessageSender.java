@@ -2116,9 +2116,15 @@ public class SignalServiceMessageSender {
     if (attachment.getBackgroundGradient().isPresent()) {
       SignalServiceTextAttachment.Gradient gradient = attachment.getBackgroundGradient().get();
 
-      if (gradient.getStartColor().isPresent()) gradientBuilder.setStartColor(gradient.getStartColor().get());
-      if (gradient.getEndColor().isPresent())   gradientBuilder.setEndColor(gradient.getEndColor().get());
-      if (gradient.getAngle().isPresent())      gradientBuilder.setAngle(gradient.getAngle().get());
+      if (gradient.getAngle().isPresent()) gradientBuilder.setAngle(gradient.getAngle().get());
+
+      if (!gradient.getColors().isEmpty()) {
+        gradientBuilder.setStartColor(gradient.getColors().get(0));
+        gradientBuilder.setEndColor(gradient.getColors().get(gradient.getColors().size() - 1));
+      }
+
+      gradientBuilder.addAllColors(gradient.getColors());
+      gradientBuilder.addAllPositions(gradient.getPositions());
 
       builder.setGradient(gradientBuilder.build());
     }
@@ -2231,6 +2237,12 @@ public class SignalServiceMessageSender {
   private void handleStaleDevices(SignalServiceAddress recipient, StaleDevices staleDevices) {
     Log.w(TAG, "[handleStaleDevices] Address: " + recipient.getIdentifier() + ", StaleDevices: " + staleDevices.getStaleDevices());
     archiveSessions(recipient, staleDevices.getStaleDevices());
+  }
+
+  public void handleChangeNumberMismatchDevices(@Nonnull MismatchedDevices mismatchedDevices)
+      throws IOException, UntrustedIdentityException
+  {
+    handleMismatchedDevices(socket, localAddress, mismatchedDevices);
   }
 
   private void archiveSessions(SignalServiceAddress recipient, List<Integer> devices) {

@@ -161,7 +161,7 @@
   <string name="ContactsCursorLoader_contacts">مخاطبین</string>
   <string name="ContactsCursorLoader_groups">ګروپونه </string>
   <string name="ContactsCursorLoader_phone_number_search">د موبایل شمېرې پلټنه</string>
-  <string name="ContactsCursorLoader_username_search">د کارن د نوم پلټنه</string>
+  <!--Header for username search-->
   <!--Label for my stories when selecting who to send media to-->
   <!--Action for creating a new story-->
   <!--ContactsDatabase-->
@@ -1473,6 +1473,7 @@
   <string name="UnverifiedSendDialog_send_message">غواړئ پیغام ولیږئ؟</string>
   <string name="UnverifiedSendDialog_send">لیږل</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment_username">کارن نوم</string>
   <string name="UsernameEditFragment_delete">پاک کول</string>
@@ -1487,6 +1488,10 @@
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">کارن نومونه باید له %1$d تر %2$d تورو پورې وی.</string>
   <!--Explanation about what usernames provide-->
   <!--Dialog title for explanation about numbers at the end of the username-->
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">ترې تیر شئ</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">تر سره شو</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d مخاطب په Signal کې ده!</item>
     <item quantity="other">%d مخاطبین په Signal کې دي!</item>
@@ -3083,6 +3088,9 @@
   <string name="ChatsSettingsFragment__enter_key_sends">د لیږلو لپاره د Enter د دکمې کارول</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">د عادي SMS اپلیکیشن په توګه یې وکاروئ</string>
+  <!--Preference title to export sms-->
+  <!--Preference title to delete sms-->
+  <!--Snackbar text to confirm deletion-->
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">پیغامونه</string>
   <string name="NotificationsSettingsFragment__calls">ټلیفوني اړیکې</string>
@@ -3767,6 +3775,7 @@
   <!--Expired gift sheet make a monthly donation button-->
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">اوس نه</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
   <!--Label under name for private stories-->
   <!--Label under name for group stories-->
   <!--Label under name for my story-->
@@ -3847,5 +3856,28 @@
   <!--Explanation of who can view a group story-->
   <!--Preference label for removing this group story-->
   <!--Generic title for overflow menus-->
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">ادامه</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <!--Progress indicator for export-->
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">ادامه</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">د پیغامونو ساتل</string>
+  <!--Action button to remove messages-->
+  <!--Title of dialog-->
+  <!--Message of dialog-->
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">بل</string>
   <!--EOF-->
 </resources>

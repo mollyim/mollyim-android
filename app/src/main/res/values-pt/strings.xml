@@ -168,7 +168,8 @@
   <string name="ContactsCursorLoader_contacts">Contactos</string>
   <string name="ContactsCursorLoader_groups">Grupos</string>
   <string name="ContactsCursorLoader_phone_number_search">Procurar número de telefone</string>
-  <string name="ContactsCursorLoader_username_search">Procurar nome de utilizador</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Procurar por nome de utilizador</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">As minhas histórias</string>
   <!--Action for creating a new story-->
@@ -1685,6 +1686,8 @@
   <string name="UnverifiedSendDialog_send_message">Enviar mensagem?</string>
   <string name="UnverifiedSendDialog_send">Enviar</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Adicionar um nome de utilizador</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Escolha o seu nome de utilizador</string>
   <string name="UsernameEditFragment_username">Nome de utilizador</string>
@@ -1703,6 +1706,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">Que número é este?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Estes dígitos ajudam a manter o seu nome de utilizador privado, para que possa evitar mensagens indesejadas. Partilhe o seu nome de utilizador apenas com as pessoas e grupos com quem gostaria de conversar. Se mudar de nome de utilizador, receberá um novo conjunto de dígitos.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Saltar</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Concluir</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d contacto está no Signal!</item>
     <item quantity="many">%d contactos estão no Signal!</item>
@@ -3390,6 +3397,12 @@
   <string name="ChatsSettingsFragment__enter_key_sends">Tecla de Enter envia</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Definir como aplicação de SMS pré-definida</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">Exportar mensagens SMS</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">Eliminar mensagens SMS</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">Mensagens SMS eliminadas</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Mensagens</string>
   <string name="NotificationsSettingsFragment__calls">Chamadas</string>
@@ -4166,7 +4179,7 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">A minha história</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Quem pode ver esta história</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Quem pode ver esta história</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Ocultar história de</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4174,7 +4187,7 @@
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Partilhar com todos os contactos</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">Todos os contactos do Signal exceto…</string>
+  <string name="MyStorySettingsFragment__all_except">Todos exceto…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Esconda a sua história de pessoas específicas</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4407,8 +4420,20 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Fazer uma doação mensal</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Agora não</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Partilhar apenas com</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">História privada · %1$d visualizador</item>
+    <item quantity="many">História privada · %1$d visualizadores</item>
+    <item quantity="other">História privada · %1$d visualizadores</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">História de grupo · %1$d visualizador</item>
+    <item quantity="many">História de grupo · %1$d visualizadores</item>
+    <item quantity="other">História de grupo · %1$d visualizadores</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">%1$s · visualizador %2$d </item>
@@ -4514,7 +4539,7 @@
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Todos os contactos do Signal</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Todos os contactos do Signal exceto…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">Todos exceto…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Partilhas apenas com…</string>
   <!--Story info header sent heading-->
@@ -4555,5 +4580,37 @@
   <string name="GroupStorySettingsFragment__remove_group_story">Remover história de grupo</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">Menu flutuante</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">A exportar mensagens…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Exportar as tuas mensagens SMS</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Continuar</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">A exportar mensagens SMS</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">A exportar %1$d de %2$d…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Definir uma nova app de SMS pré-definida</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Continuar</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Manter mensagens</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Eliminar mensagens</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Eliminar mensagens SMS do Signal?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Alterou a app de SMS pré-definida, quer remover as mensagens SMS do Signal?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">Primeiro, coloque o Signal como a app de SMS pré-definida</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Seguinte</string>
   <!--EOF-->
 </resources>

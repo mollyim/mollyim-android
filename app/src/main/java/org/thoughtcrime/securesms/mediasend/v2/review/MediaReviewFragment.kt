@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import app.cash.exhaustive.Exhaustive
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.conversation.MessageSendType
@@ -42,6 +43,7 @@ import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.LifecycleDisposable
 import org.thoughtcrime.securesms.util.MediaUtil
+import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.views.TouchInterceptingFrameLayout
@@ -89,6 +91,13 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment) {
     disposables.bindTo(viewLifecycleOwner)
 
     callback = requireListener()
+
+    view.setPadding(
+      0,
+      ViewUtil.getStatusBarHeight(view),
+      0,
+      ViewUtil.getNavigationBarHeight(view)
+    )
 
     drawToolButton = view.findViewById(R.id.draw_tool)
     cropAndRotateButton = view.findViewById(R.id.crop_and_rotate_tool)
@@ -230,7 +239,10 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment) {
       computeViewStateAndAnimate(state)
     }
 
-    sharedViewModel.mediaErrors.observe(viewLifecycleOwner, this::handleMediaValidatorFilterError)
+    disposables.bindTo(viewLifecycleOwner)
+    disposables += sharedViewModel.mediaErrors
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe(this::handleMediaValidatorFilterError)
 
     requireActivity().onBackPressedDispatcher.addCallback(
       viewLifecycleOwner,

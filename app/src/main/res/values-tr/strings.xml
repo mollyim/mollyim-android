@@ -167,7 +167,8 @@
   <string name="ContactsCursorLoader_contacts">Kişiler</string>
   <string name="ContactsCursorLoader_groups">Gruplar</string>
   <string name="ContactsCursorLoader_phone_number_search">Telefon numarasıyla arama</string>
-  <string name="ContactsCursorLoader_username_search">Kullanıcı adıyla arama</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Kullanıcı adına göre bul</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Hikayelerim</string>
   <!--Action for creating a new story-->
@@ -430,7 +431,7 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">Profil fotoğrafı kaydedilirken hata</string>
   <string name="CreateProfileActivity_problem_setting_profile">Profil ayarlanırken hata</string>
   <string name="CreateProfileActivity_set_up_your_profile">Profilinizi ayarlayın</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Profilin ve profilinde yaptığınız değişiklikler, mesaj gönderdiğin kişiler, kişi listendekiler ve grupların tarafından görüntülenebilir.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Profilin ve profiline yaptığın değişiklikler, mesaj gönderdiğin kişiler, kişi listendekiler ve grupların tarafından görüntülenebilir.</string>
   <string name="CreateProfileActivity_set_avatar_description">Avatar seçin</string>
   <!--ProfileCreateFragment-->
   <!--Displayed at the top of the screen and explains how profiles can be viewed.-->
@@ -1611,6 +1612,8 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="UnverifiedSendDialog_send_message">İleti gönderilsin mi?</string>
   <string name="UnverifiedSendDialog_send">Gönder</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Kullanıcı adı ekle</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Kullanıcı adını seç</string>
   <string name="UsernameEditFragment_username">Kullanıcı adı</string>
@@ -1629,6 +1632,10 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">Bu numara kimin?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Bu rakamlar, istenmeyen mesajlar almaman için kullanıcı adının gizli kalmasına yardımcı olur. Kullanıcı adını yalnızca sohbet etmek istediğin kişi ve gruplarla paylaş. Kullanıcı adını değiştirdiğinde, yeni bir rakam setiyle eşleştirilirsin.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Atla</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Tamam</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d kişi Signal\'e katıldı!</item>
     <item quantity="other">%d kişi Signal\'e katıldı!</item>
@@ -2498,7 +2505,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
   <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Ödeme kilidi gösterilemedi</string>
   <!--Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment-->
-  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">Ayarlarda ödeme kilidini etkinleştirdin, fakat ödeme kilidi görüntülenemiyor.</string>
+  <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">Ayarlarda ödeme kilidini etkinleştirdin fakat ödeme kilidi görüntülenemiyor.</string>
   <!--Button in a dialog that will take the user to the privacy settings-->
   <string name="ConfirmPaymentFragment__go_to_settings">Ayarlara git</string>
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Bu kişi ödemeleri etkinleştirmedi</string>
@@ -3292,6 +3299,12 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Enter tuşu ile gönder</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Varsayılan SMS uygulaması olarak ayarla</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">SMS mesajlarını dışa aktar</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">SMS mesajlarını kaldır</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">SMS mesajların kaldırıldı</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">İletiler</string>
   <string name="NotificationsSettingsFragment__calls">Aramalar</string>
@@ -4058,7 +4071,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Hikayem</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Bu hikayeyi kim görebilir</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Bu hikayeyi kimler görüntüleyebilir?</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Hikayeyi gizle</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4066,7 +4079,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Tüm bağlantılarla paylaş</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">dışındaki tüm Signal bağlantıları</string>
+  <string name="MyStorySettingsFragment__all_except">dışında hepsi</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Hikayeni belirli kişilerden gizle</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4295,8 +4308,18 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Aylık bağış yap</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Şimdi değil</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Yalnızca şu kişilerle paylaş</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">Gizli hikaye · %1$d görüntüleyen</item>
+    <item quantity="other">Gizli hikaye · %1$d görüntüleyen</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">Grup hikayesi · %1$d görüntüleyen</item>
+    <item quantity="other">Grup hikayesi · %1$d görüntüleyen</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">%1$s · %2$d görüntüleyen</item>
@@ -4397,7 +4420,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Tüm Signal bağlantıları</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">dışındaki tüm Signal bağlantıları</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">dışında hepsi</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Sadece ….. ile paylaş</string>
   <!--Story info header sent heading-->
@@ -4438,5 +4461,37 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="GroupStorySettingsFragment__remove_group_story">Grup hikayesini kaldır</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">İlave menü</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">Mesajlar dışa aktarılıyor…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Mesajları dışa aktar</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Devam Et</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">SMS mesajları dışa aktarılıyor</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">%2$d mesajdan %1$d mesaj dışa aktarılıyor…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Yeni bir varsayılan SMS uygulaması seç</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Devam Et</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Mesajları sakla</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Mesajları kaldır</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">SMS mesajları Signal\'dan kaldırılsın mı?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Varsayılan SMS uygulamasını değiştirdin. SMS mesajlarını Signal\'dan kaldırmak istiyor musun?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">Önce, Signal\'ı varsayılan SMS uygulaması olarak ayarla</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">İleri</string>
   <!--EOF-->
 </resources>

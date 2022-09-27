@@ -169,7 +169,8 @@
   <string name="ContactsCursorLoader_contacts">אנשי קשר</string>
   <string name="ContactsCursorLoader_groups">קבוצות</string>
   <string name="ContactsCursorLoader_phone_number_search">חיפוש מספר טלפון</string>
-  <string name="ContactsCursorLoader_username_search">חיפוש שם משתמש</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">חיפוש לפי שם משתמש</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">הסיפורים שלי</string>
   <!--Action for creating a new story-->
@@ -1759,6 +1760,8 @@
   <string name="UnverifiedSendDialog_send_message">לשלוח הודעה?</string>
   <string name="UnverifiedSendDialog_send">שלח</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">הוספת שם משתמש</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">בחירת שם המשתמש שלך</string>
   <string name="UsernameEditFragment_username">שם משתמש</string>
@@ -1777,6 +1780,10 @@
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">מה המספר הזה?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">הספרות האלה עוזרות לשמור על שם המשתמש שלך פרטי, כדי להימנע מהודעות לא רצויות. זה מאפשר לך לשתף את שם המשתמש שלך רק עם אנשים וקבוצות שמתחשק לך לשוחח איתם. אם משנים את שם המשתמש, מקבלים סט חדש של ספרות.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">דילוג</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">סיום</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">איש קשר %d ב־Signal!</item>
     <item quantity="two">%d אנשי קשר ב־Signal!</item>
@@ -3488,6 +3495,12 @@
   <string name="ChatsSettingsFragment__enter_key_sends">מקש Enter שולח</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">השתמש כיישום המסרונים ברירת המחדל</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">ייצוא הודעות SMS</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">הסרת הודעות SMS</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">הודעות SMS הוסרו</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">הודעות</string>
   <string name="NotificationsSettingsFragment__calls">שיחות</string>
@@ -4274,7 +4287,7 @@
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">הסיפור שלי</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">מי יכול לראות את הסיפור הזה</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">מי יכול לצפות בסטורי הזה</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">הסתר סיפור מפני</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4282,7 +4295,7 @@
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">שיתוף עם כל חברי ה-Signal</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">כל חברי ה-Signal שלך חוץ מ…</string>
+  <string name="MyStorySettingsFragment__all_except">כולם חוץ מ…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">הסתרת הסטורי שלך מאנשים ספציפיים</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4519,8 +4532,22 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">בצע תרומה חודשית</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">לא עכשיו</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">שיתוף רק עם</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">סטורי פרטי · צופה %1$d</item>
+    <item quantity="two">סטורי פרטי · %1$d צופים</item>
+    <item quantity="many">סטורי פרטי · %1$d צופים</item>
+    <item quantity="other">סטורי פרטי · %1$d צופים</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">סטורי קבוצתי · צופה %1$d</item>
+    <item quantity="two">סטורי קבוצתי · %1$d צופים</item>
+    <item quantity="many">סטורי קבוצתי · %1$d צופים</item>
+    <item quantity="other">סטורי קבוצתי · %1$d צופים</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">%1$s· צופה %2$d</item>
@@ -4631,7 +4658,7 @@
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">כל חברי ה-Signal</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">כל חברי ה-Signal שלך חוץ מ…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">כולם חוץ מ…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">שיתוף רק עם…</string>
   <!--Story info header sent heading-->
@@ -4672,5 +4699,37 @@
   <string name="GroupStorySettingsFragment__remove_group_story">הסרת סטורי קבוצתי</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">תפריט אפשרויות נוספות</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">מייצאים הודעות…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">ייצוא הודעות ה-SMS שלך</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">המשך</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">מייצאים הודעות SMS</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">מייצאים %1$d מתוך %2$d…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">בחירת אפליקציית ברירת מחדל חדשה ל-SMS</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">המשך</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">שמירת הודעות</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">הסרת הודעות</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">להסיר הודעות SMS מ-Signal?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">שינית את אפליקציית ברירת המחדל ל-SMS. להסיר הודעות SMS מ-Signal?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">קודם כל, צריך להגדיר את Signal כאפליקציית ברירת המחדל להודעות SMS</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">הבא</string>
   <!--EOF-->
 </resources>

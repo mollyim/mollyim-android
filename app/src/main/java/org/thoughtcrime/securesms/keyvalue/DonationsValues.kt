@@ -16,14 +16,16 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     private const val KEY_CURRENCY_CODE_ONE_TIME = "donation.currency.code.boost"
     private const val KEY_SUBSCRIBER_ID_PREFIX = "donation.subscriber.id."
     private const val KEY_LAST_KEEP_ALIVE_LAUNCH = "donation.last.successful.ping"
+
+    /**
+     * Our last known "end of period" for a subscription. This value is used to determine
+     * when a user should try to redeem a badge for their subscription, and as a hint that
+     * a user has an active subscription.
+     */
     private const val KEY_LAST_END_OF_PERIOD_SECONDS = "donation.last.end.of.period"
+
     private const val USER_MANUALLY_CANCELLED = "donation.user.manually.cancelled"
     private const val DISPLAY_BADGES_ON_PROFILE = "donation.display.badges.on.profile"
-    private const val SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT = "donation.should.cancel.subscription.before.next.subscribe.attempt"
-    private const val SUBSCRIPTION_CANCELATION_REASON = "donation.subscription.cancelation.reason"
-    private const val SUBSCRIPTION_CANCELATION_TIMESTAMP = "donation.subscription.cancelation.timestamp"
-    private const val SUBSCRIPTION_CANCELATION_WATERMARK = "donation.subscription.cancelation.watermark"
-    private const val SHOW_CANT_PROCESS_DIALOG = "show.cant.process.dialog"
   }
 
   override fun onFirstEverAppLaunch() = Unit
@@ -32,11 +34,6 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     KEY_CURRENCY_CODE_ONE_TIME,
     KEY_LAST_KEEP_ALIVE_LAUNCH,
     KEY_LAST_END_OF_PERIOD_SECONDS,
-    SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT,
-    SUBSCRIPTION_CANCELATION_REASON,
-    SUBSCRIPTION_CANCELATION_TIMESTAMP,
-    SUBSCRIPTION_CANCELATION_WATERMARK,
-    SHOW_CANT_PROCESS_DIALOG
   )
 
   private fun getSubscriptionCurrency(): Currency {
@@ -100,16 +97,10 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     return getBoolean(DISPLAY_BADGES_ON_PROFILE, false)
   }
 
-  var unexpectedSubscriptionCancelationReason: String? by stringValue(SUBSCRIPTION_CANCELATION_REASON, null)
-  var unexpectedSubscriptionCancelationTimestamp: Long by longValue(SUBSCRIPTION_CANCELATION_TIMESTAMP, 0L)
-  var unexpectedSubscriptionCancelationWatermark: Long by longValue(SUBSCRIPTION_CANCELATION_WATERMARK, 0L)
-
   @WorkerThread
   fun updateLocalStateForManualCancellation() {
     Log.d(TAG, "[updateLocalStateForManualCancellation] Clearing donation values.")
 
     markUserManuallyCancelled()
-    unexpectedSubscriptionCancelationReason = null
-    unexpectedSubscriptionCancelationTimestamp = 0L
   }
 }

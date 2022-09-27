@@ -167,7 +167,8 @@
   <string name="ContactsCursorLoader_contacts">Kontakter</string>
   <string name="ContactsCursorLoader_groups">Grupper</string>
   <string name="ContactsCursorLoader_phone_number_search">Telefonnummer søk</string>
-  <string name="ContactsCursorLoader_username_search">Brukernavn søk</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Finn etter brukernavn</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Mine stories</string>
   <!--Action for creating a new story-->
@@ -1607,6 +1608,8 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversion.</string>
   <string name="UnverifiedSendDialog_send_message">Send melding?</string>
   <string name="UnverifiedSendDialog_send">Send</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Legg til et brukernavn</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Velg et brukernavn</string>
   <string name="UsernameEditFragment_username">Brukernavn</string>
@@ -1625,6 +1628,10 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversion.</string>
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">Hva er dette nummeret?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Disse tallene holder brukernavnet ditt skjult slik at du unngår uønskede meldinger. Det kan være lurt å bare dele brukernavnet ditt med personer og grupper du vil chatte med. Du får en ny tallrekke hvis du bytter brukernavnet ditt.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Hopp over</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Ferdig</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">%d kontakt er på Signal!</item>
     <item quantity="other">%d kontakter er på Signal! </item>
@@ -3290,6 +3297,12 @@ Dobbeltsjekk at det nye nummeret ditt kan motta både SMS og anrop før du forts
   <string name="ChatsSettingsFragment__enter_key_sends">Send med enter-tast</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Bruk som forvalgt SMS-program</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">Overfør SMS-meldingene</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">Fjern SMS-meldingene</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">SMS-meldingene er fjernet</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Meldinger</string>
   <string name="NotificationsSettingsFragment__calls">Samtaler</string>
@@ -4056,7 +4069,7 @@ Dobbeltsjekk at det nye nummeret ditt kan motta både SMS og anrop før du forts
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Min story</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Disse kan se denne storyen</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Disse kan se denne storyen</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Skjul story for</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4064,7 +4077,7 @@ Dobbeltsjekk at det nye nummeret ditt kan motta både SMS og anrop før du forts
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Del med alle på kontaktlisten</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">Alle kontakter på Signal unntatt …</string>
+  <string name="MyStorySettingsFragment__all_except">Alle unntatt …</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Skjul storyen din for utvalgte personer</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4293,6 +4306,8 @@ Dobbeltsjekk at det nye nummeret ditt kan motta både SMS og anrop før du forts
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Gi et månedlig pengebeløp</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Ikke nå</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Del storyen kun med</string>
   <!--Label under name for private stories-->
   <plurals name="ContactSearchItems__private_story_d_viewers">
     <item quantity="one">Privat story · Sett av %1$d</item>
@@ -4403,7 +4418,7 @@ Dobbeltsjekk at det nye nummeret ditt kan motta både SMS og anrop før du forts
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Alle kontakter på Signal</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Alle kontakter på Signal unntatt…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">Alle unntatt …</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Del kun med…</string>
   <!--Story info header sent heading-->
@@ -4444,5 +4459,37 @@ Dobbeltsjekk at det nye nummeret ditt kan motta både SMS og anrop før du forts
   <string name="GroupStorySettingsFragment__remove_group_story">Fjern gruppestoryen</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">Overflow-meny</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">Overfører meldingene …</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Overfør SMS-meldingene dine</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Fortsett</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Overfører SMS-meldingene</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Overfører %1$d av %2$d …</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Velg en ny standardapp for SMS</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Fortsett</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Behold meldingene</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Fjern meldingene</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Vil du fjerne disse SMS-meldingene fra Signal?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Du har endret standardappen for SMS. Vil du fjerne SMS-meldingene dine fra Signal?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">Du må først velge Signal som standardapp for SMS</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Neste</string>
   <!--EOF-->
 </resources>

@@ -167,7 +167,8 @@
   <string name="ContactsCursorLoader_contacts">Yhteystiedot</string>
   <string name="ContactsCursorLoader_groups">Ryhmät</string>
   <string name="ContactsCursorLoader_phone_number_search">Puhelinnumerohaku</string>
-  <string name="ContactsCursorLoader_username_search">Käyttäjätunnushaku</string>
+  <!--Header for username search-->
+  <string name="ContactsCursorLoader_find_by_username">Etsi käyttäjänimellä</string>
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Omat tarinat</string>
   <!--Action for creating a new story-->
@@ -1607,6 +1608,8 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="UnverifiedSendDialog_send_message">Lähetetäänkö viesti?</string>
   <string name="UnverifiedSendDialog_send">Lähetä</string>
   <!--UsernameEditFragment-->
+  <!--Toolbar title when entering from registration-->
+  <string name="UsernameEditFragment__add_a_username">Lisää käyttäjänimi</string>
   <!--Instructional text at the top of the username edit screen-->
   <string name="UsernameEditFragment__choose_your_username">Valitse käyttäjänimi</string>
   <string name="UsernameEditFragment_username">Käyttäjätunnus</string>
@@ -1625,6 +1628,10 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <!--Dialog title for explanation about numbers at the end of the username-->
   <string name="UsernameEditFragment__what_is_this_number">Mikä tämä numero on?</string>
   <string name="UsernameEditFragment__these_digits_help_keep">Nämä numerot auttavat suojaamaan käyttäjänimesi yksityisyyttä, jotta voit välttää ei-toivottuja viestejä. Jaa käyttäjänimesi vain niille henkilöille ja ryhmille, joiden kanssa haluat keskustella. Jos vaihdat käyttäjänimeä, saat uuden numerosarjan.</string>
+  <!--Button to allow user to skip-->
+  <string name="UsernameEditFragment__skip">Ohita</string>
+  <!--Content description for done button-->
+  <string name="UsernameEditFragment__done">Valmis</string>
   <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
     <item quantity="one">Signalissa on %d kontakti!</item>
     <item quantity="other">Signalissa on %d yhteystietoasi!</item>
@@ -3288,6 +3295,12 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="ChatsSettingsFragment__enter_key_sends">Lähetä viesti rivinvaihtonäppäimellä</string>
   <!--SmsSettingsFragment-->
   <string name="SmsSettingsFragment__use_as_default_sms_app">Käytä oletussovelluksena tekstiviesteille</string>
+  <!--Preference title to export sms-->
+  <string name="SmsSettingsFragment__export_sms_messages">Vie tekstiviestejä</string>
+  <!--Preference title to delete sms-->
+  <string name="SmsSettingsFragment__remove_sms_messages">Poista tekstiviestit</string>
+  <!--Snackbar text to confirm deletion-->
+  <string name="SmsSettingsFragment__sms_messages_removed">Tekstiviestit poistettu</string>
   <!--NotificationsSettingsFragment-->
   <string name="NotificationsSettingsFragment__messages">Viestit</string>
   <string name="NotificationsSettingsFragment__calls">Puhelut</string>
@@ -4054,7 +4067,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Minun tarinani</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Kuka voi nähdä tämän tarinan</string>
+  <string name="MyStorySettingsFragment__who_can_view_this_story">Kuka voi nähdä tämän tarinan</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Piilota tarina näiltä</string>
   <!--Privacy setting title for sending stories to all your signal connections-->
@@ -4062,7 +4075,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <!--Privacy setting description for sending stories to all your signal connections-->
   <string name="MyStorySettingsFragment__share_with_all_connections">Jaa kaikille kontakteille</string>
   <!--Privacy setting title for sending stories to all except the specified connections-->
-  <string name="MyStorySettingsFragment__all_signal_connections_except">Kaikki Signal-kontaktit paitsi…</string>
+  <string name="MyStorySettingsFragment__all_except">Kaikki paitsi…</string>
   <!--Privacy setting description for sending stories to all except the specified connections-->
   <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">Piilota tarina tietyiltä henkilöiltä</string>
   <!--Summary of clickable option displaying how many people you have excluded from your story-->
@@ -4291,8 +4304,18 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Tee kuukausittainen lahjoitus</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Ei nyt</string>
+  <!--My Story label designating that we will only share with the selected viewers.-->
+  <string name="ContactSearchItems__only_share_with">Jaa vain seuraaville</string>
   <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">Yksityinen tarina · %1$d katsoja</item>
+    <item quantity="other">Yksityinen tarina · %1$d katsojaa</item>
+  </plurals>
   <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">Ryhmätarina · %1$d katsoja</item>
+    <item quantity="other">Ryhmätarina · %1$d katsojaa</item>
+  </plurals>
   <!--Label under name for my story-->
   <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
     <item quantity="one">%1$s · %2$d katsoja</item>
@@ -4393,7 +4416,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <!--All connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Kaikki Signal-kontaktit</string>
   <!--All connections except option for initial My Story settings configuration shown when sending to My Story for the first time-->
-  <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections_except">Kaikki Signal-kontaktit paitsi…</string>
+  <string name="ChooseInitialMyStoryMembershipFragment__all_except">Kaikki paitsi…</string>
   <!--Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time-->
   <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Jaa vain seuraaville…</string>
   <!--Story info header sent heading-->
@@ -4434,5 +4457,37 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="GroupStorySettingsFragment__remove_group_story">Poista ryhmätarina</string>
   <!--Generic title for overflow menus-->
   <string name="OverflowMenu__overflow_menu">Ylivuotovalikko</string>
+  <!--SMS Export Service-->
+  <!--Displayed in the notification while export is running-->
+  <string name="SignalSmsExportService__exporting_messages">Viedään viestejä…</string>
+  <!--ExportYourSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Vie tekstiviestisi</string>
+  <!--Button label to begin export-->
+  <string name="ExportYourSmsMessagesFragment__continue">Jatka</string>
+  <!--ExportingSmsMessagesFragment-->
+  <!--Title of the screen-->
+  <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Viedään tekstiviestejä</string>
+  <!--Progress indicator for export-->
+  <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Viedään %1$d/%2$d…</string>
+  <!--ChooseANewDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Valitse uusi oletusarvoinen tekstiviestisovellus</string>
+  <!--Button label to launch picker-->
+  <string name="ChooseANewDefaultSmsAppFragment__continue">Jatka</string>
+  <!--RemoveSmsMessagesDialogFragment-->
+  <!--Action button to keep messages-->
+  <string name="RemoveSmsMessagesDialogFragment__keep_messages">Säilytä viestit</string>
+  <!--Action button to remove messages-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_messages">Poista viestit</string>
+  <!--Title of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Haluatko poistaa tekstiviestit Signalista?</string>
+  <!--Message of dialog-->
+  <string name="RemoveSmsMessagesDialogFragment__you_have_changed">Olet muuttanut oletusarvoista tekstiviestisovellusta. Haluatko poistaa tekstiviestit Signalista?</string>
+  <!--SetSignalAsDefaultSmsAppFragment-->
+  <!--Title of the screen-->
+  <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">Määritä Signal ensin oletusarvoiseksi tekstiviestisovellukseksi.</string>
+  <!--Button label to start export-->
+  <string name="SetSignalAsDefaultSmsAppFragment__next">Seuraava</string>
   <!--EOF-->
 </resources>

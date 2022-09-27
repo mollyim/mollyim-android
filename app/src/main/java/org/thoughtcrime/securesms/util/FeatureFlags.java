@@ -15,6 +15,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
+import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.messageprocessingalarm.MessageProcessReceiver;
@@ -101,6 +102,8 @@ public final class FeatureFlags {
   private static final String CAMERAX_MODEL_BLOCKLIST           = "android.cameraXModelBlockList";
   private static final String RECIPIENT_MERGE_V2                = "android.recipientMergeV2";
   private static final String CDS_V2_LOAD_TEST                  = "android.cdsV2LoadTest";
+  private static final String SMS_EXPORTER                      = "android.sms.exporter";
+  private static final String CDS_V2_COMPAT                     = "android.cdsV2Compat.3";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -154,7 +157,9 @@ public final class FeatureFlags {
       TELECOM_MODEL_BLOCKLIST,
       CAMERAX_MODEL_BLOCKLIST,
       RECIPIENT_MERGE_V2,
-      CDS_V2_LOAD_TEST
+      CDS_V2_LOAD_TEST,
+      SMS_EXPORTER,
+      CDS_V2_COMPAT
   );
 
   @VisibleForTesting
@@ -220,7 +225,9 @@ public final class FeatureFlags {
       TELECOM_MODEL_BLOCKLIST,
       CAMERAX_MODEL_BLOCKLIST,
       RECIPIENT_MERGE_V2,
-      CDS_V2_LOAD_TEST
+      CDS_V2_LOAD_TEST,
+      CDS_V2_COMPAT,
+      STORIES
   );
 
   /**
@@ -244,9 +251,9 @@ public final class FeatureFlags {
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
     put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> MessageProcessReceiver.startOrUpdateAlarm(ApplicationDependencies.getApplication()));
-    put(SENDER_KEY, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
-    put(STORIES, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
-    put(GIFT_BADGE_RECEIVE_SUPPORT, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
+    put(SENDER_KEY, change -> ApplicationDependencies.getJobManager().startChain(new RefreshAttributesJob()).then(new RefreshOwnProfileJob()).enqueue());
+    put(STORIES, change -> ApplicationDependencies.getJobManager().startChain(new RefreshAttributesJob()).then(new RefreshOwnProfileJob()).enqueue());
+    put(GIFT_BADGE_RECEIVE_SUPPORT, change -> ApplicationDependencies.getJobManager().startChain(new RefreshAttributesJob()).then(new RefreshOwnProfileJob()).enqueue());
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -516,6 +523,13 @@ public final class FeatureFlags {
    */
   public static boolean cdsV2LoadTesting() {
     return getBoolean(CDS_V2_LOAD_TEST, false);
+  }
+
+  /**
+   * Whether or not we should use CDSv2 with the compat flag on as our primary CDS.
+   */
+  public static boolean cdsV2Compat() {
+    return getBoolean(CDS_V2_COMPAT, false);
   }
 
   /** Only for rendering debug info. */
