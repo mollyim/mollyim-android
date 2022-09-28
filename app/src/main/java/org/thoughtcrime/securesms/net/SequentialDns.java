@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.util.NetworkUtil;
 
 import java.net.InetAddress;
@@ -33,11 +34,13 @@ public class SequentialDns implements Dns {
     for (Dns dns : dnsList) {
       try {
         LinkedList<InetAddress> addresses = new LinkedList<>(dns.lookup(hostname));
-        if (addresses.removeIf(InetAddress::isAnyLocalAddress)) {
-          Log.w(TAG, "Ignore invalid address 0.0.0.0 while resolving " + hostname);
-        }
-        if (addresses.removeIf(InetAddress::isLoopbackAddress)) {
-          Log.w(TAG, "Ignore loopback address while resolving " + hostname);
+        if (!Environment.IS_DEV) {
+          if (addresses.removeIf(InetAddress::isAnyLocalAddress)) {
+            Log.w(TAG, "Ignore invalid address 0.0.0.0 while resolving " + hostname);
+          }
+          if (addresses.removeIf(InetAddress::isLoopbackAddress)) {
+            Log.w(TAG, "Ignore loopback address while resolving " + hostname);
+          }
         }
         if (addresses.size() > 0) {
           return addresses;
