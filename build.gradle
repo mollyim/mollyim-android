@@ -67,6 +67,17 @@ subprojects {
     }
 }
 
+task qa {
+    group 'Verification'
+    description 'Quality Assurance. Run before pushing.'
+    dependsOn 'clean',
+            ':app:testProdNonFreeReleaseUnitTest',
+            ':app:lintProdNonFreeRelease',
+            ':app:ktlintCheck',
+            ':libsignal-service:test',
+            ':app:assembleProdFreeRelease'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
