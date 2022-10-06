@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.util.AppUtil
 import org.signal.core.util.concurrent.SignalExecutors
@@ -38,6 +39,7 @@ import org.thoughtcrime.securesms.payments.DataExportUtil
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
+import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import java.util.Optional
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
@@ -422,20 +424,19 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
       sectionHeaderPref(R.string.ConversationListTabs__stories)
 
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences__internal_disable_stories),
-        isChecked = state.disableStories,
-        onClick = {
-          viewModel.toggleStories()
-        }
-      )
-
       clickPref(
         title = DSLSettingsText.from(R.string.preferences__internal_clear_onboarding_state),
         summary = DSLSettingsText.from(R.string.preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories),
         isEnabled = state.canClearOnboardingState,
         onClick = {
           viewModel.onClearOnboardingState()
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__internal_stories_dialog_launcher),
+        onClick = {
+          findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToStoryDialogsLauncherFragment())
         }
       )
     }

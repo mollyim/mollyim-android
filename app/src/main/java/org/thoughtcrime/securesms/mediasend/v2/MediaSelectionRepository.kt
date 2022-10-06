@@ -164,7 +164,7 @@ class MediaSelectionRepository(context: Context) {
     } else {
       val iterator = BreakIteratorCompat.getInstance()
       iterator.setText(body)
-      iterator.take(Stories.MAX_BODY_SIZE).toString()
+      iterator.take(Stories.MAX_CAPTION_SIZE).toString()
     }
   }
 
@@ -238,10 +238,6 @@ class MediaSelectionRepository(context: Context) {
     for (contact in contacts) {
       val recipient = Recipient.resolved(contact.recipientId)
       val isStory = contact.isStory || recipient.isDistributionList
-
-      if (isStory && recipient.isActiveGroup && recipient.isGroup) {
-        SignalDatabase.groups.markDisplayAsStory(recipient.requireGroupId())
-      }
 
       if (isStory && !recipient.isMyStory) {
         SignalStore.storyValues().setLatestStorySend(StorySend.newSend(recipient))

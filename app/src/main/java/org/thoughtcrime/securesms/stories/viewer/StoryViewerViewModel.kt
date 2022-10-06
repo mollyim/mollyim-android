@@ -39,6 +39,8 @@ class StoryViewerViewModel(
   val stateSnapshot: StoryViewerState get() = store.state
   val state: Flowable<StoryViewerState> = store.stateFlowable
 
+  private val hidden = mutableSetOf<RecipientId>()
+
   private val scrollStatePublisher: MutableLiveData<Boolean> = MutableLiveData(false)
   val isScrolling: LiveData<Boolean> = scrollStatePublisher
 
@@ -53,9 +55,12 @@ class StoryViewerViewModel(
 
   val isChildScrolling: Observable<Boolean> = childScrollStatePublisher.distinctUntilChanged()
 
-  init {
+  fun addHiddenAndRefresh(hidden: Set<RecipientId>) {
+    this.hidden.addAll(hidden)
     refresh()
   }
+
+  fun getHidden(): Set<RecipientId> = hidden
 
   fun setCrossfadeTarget(messageRecord: MmsMessageRecord) {
     store.update {
@@ -85,19 +90,18 @@ class StoryViewerViewModel(
 
   private fun getStories(): Single<List<RecipientId>> {
     return if (storyViewerArgs.recipientIds.isNotEmpty()) {
-      Single.just(storyViewerArgs.recipientIds)
+      Single.just(storyViewerArgs.recipientIds - hidden)
     } else {
       repository.getStories(
         hiddenStories = storyViewerArgs.isInHiddenStoryMode,
-        unviewedOnly = storyViewerArgs.isUnviewedOnly,
         isOutgoingOnly = storyViewerArgs.isFromMyStories
       )
     }
   }
 
-  private fun refresh() {
+  fun refresh() {
     disposables.clear()
-    disposables += repository.getFirstStory(storyViewerArgs.recipientId, storyViewerArgs.isUnviewedOnly, storyViewerArgs.storyId).subscribe { record ->
+    disposables += repository.getFirstStory(storyViewerArgs.recipientId, storyViewerArgs.storyId).subscribe { record ->
       store.update {
         it.copy(
           crossfadeTarget = StoryViewerState.CrossfadeTarget.Record(record)
@@ -119,7 +123,7 @@ class StoryViewerViewModel(
         } else {
           it.page
         }
-        updatePages(it.copy(pages = recipientIds), page)
+        updatePages(it.copy(pages = recipientIds), page).copy(noPosts = recipientIds.isEmpty())
       }
     }
     disposables += state
@@ -165,10 +169,6 @@ class StoryViewerViewModel(
         it
       }
     }
-  }
-
-  fun onRecipientHidden() {
-    refresh()
   }
 
   private fun updatePages(state: StoryViewerState, page: Int): StoryViewerState {

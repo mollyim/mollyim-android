@@ -1345,6 +1345,10 @@
     <string name="MessageRecord_s_changed_their_phone_number">%1$s changed their phone number.</string>
     <!-- Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost. -->
     <string name="MessageRecord_like_this_new_feature_help_support_signal_with_a_one_time_donation">Like this new feature? Help support Signal with a one-time donation.</string>
+    <!-- Update item message shown when we merge two threads together -->
+    <string name="MessageRecord_your_message_history_with_s_and_their_number_s_has_been_merged">Your message history with %1$s and their number %2$s has been merged.</string>
+    <!-- Update item message shown when we merge two threads together and we don't know the phone number of the other thread -->
+    <string name="MessageRecord_your_message_history_with_s_and_another_chat_has_been_merged">Your message history with %1$s and another chat that belonged to them has been merged.</string>
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s started a group call · %2$s</string>
@@ -2747,6 +2751,10 @@
     <string name="configurable_single_select__customize_option">Customize option</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
+    <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
+    <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
+    <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2989,8 +2997,6 @@
     <string name="ConfirmPayment__payment_failed">Payment failed</string>
     <string name="ConfirmPayment__payment_will_continue_processing">Payment will continue processing</string>
     <string name="ConfirmPaymentFragment__invalid_recipient">Invalid recipient</string>
-    <!-- Biometric/Device authentication prompt title which comes up before sending a payment -->
-    <string name="ConfirmPaymentFragment__unlock_to_send_payment">Unlock to Send Payment</string>
     <!-- Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment -->
     <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Failed to show payment lock</string>
     <!-- Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment -->
@@ -2999,6 +3005,11 @@
     <string name="ConfirmPaymentFragment__go_to_settings">Go to settings</string>
     <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">This person has not activated payments</string>
     <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">Unable to request a network fee. To continue this payment tap okay to try again.</string>
+
+    <!-- BiometricDeviceAuthentication -->
+    <!-- Biometric/Device authentication prompt title -->
+    <string name="BiometricDeviceAuthentication__signal">Signal</string>
+
 
     <!-- CurrencyAmountFormatter_s_at_s -->
     <string name="CurrencyAmountFormatter_s_at_s">%1$s at %2$s</string>
@@ -3734,9 +3745,11 @@
     <string name="payment_info_card_you_can_cash_out_mobilecoin">You can cash out MobileCoin anytime on an exchange that supports MobileCoin. Just make a transfer to your account at that exchange.</string>
     <string name="payment_info_card_hide_this_card">Hide this card?</string>
     <string name="payment_info_card_hide">Hide</string>
-    <string name="payment_info_card_record_recovery_phrase">Record recovery phrase</string>
+    <!-- Title of save recovery phrase card -->
+    <string name="payment_info_card_save_recovery_phrase">Save recovery phrase</string>
     <string name="payment_info_card_your_recovery_phrase_gives_you">Your recovery phrase gives you another way to restore your payments account.</string>
-    <string name="payment_info_card_record_your_phrase">Record your phrase</string>
+    <!-- Button in save recovery phrase card -->
+    <string name="payment_info_card_save_your_phrase">Save your phrase</string>
     <string name="payment_info_card_update_your_pin">Update your PIN</string>
     <string name="payment_info_card_with_a_high_balance">With a high balance, you may want to update to an alphanumeric PIN to add more protection to your account.</string>
     <string name="payment_info_card_update_pin">Update PIN</string>
@@ -3760,12 +3773,26 @@
     <!-- PaymentsRecoveryStartFragment -->
     <string name="PaymentsRecoveryStartFragment__recovery_phrase">Recovery phrase</string>
     <string name="PaymentsRecoveryStartFragment__view_recovery_phrase">View recovery phrase</string>
+    <!-- Title in save recovery phrase screen -->
+    <string name="PaymentsRecoveryStartFragment__save_recovery_phrase">Save recovery phrase</string>
     <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Enter recovery phrase</string>
     <string name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</string>
+    <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
+    <string name="PaymentsRecoveryStartFragment__got_balance">You’ve got a balance! Time to save your recovery phrase—a 24-word key you can use to restore your balance.</string>
+    <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
+    <string name="PaymentsRecoveryStartFragment__time_to_save">Time to save your recovery phrase—a 24-word key you can use to restore your balance. Learn more</string>
     <string name="PaymentsRecoveryStartFragment__your_recovery_phrase_is_a">Your recovery phrase is a %1$d-word phrase unique to you. Use this phrase to restore your balance.</string>
     <string name="PaymentsRecoveryStartFragment__start">Start</string>
     <string name="PaymentsRecoveryStartFragment__enter_manually">Enter manually</string>
     <string name="PaymentsRecoveryStartFragment__paste_from_clipboard">Paste from clipboard</string>
+    <!-- Alert dialog title which asks before going back if user wants to save recovery phrase -->
+    <string name="PaymentsRecoveryStartFragment__continue_without_saving">Continue Without Saving?</string>
+    <!-- Alert dialog description to let user know why recovery phrase needs to be saved -->
+    <string name="PaymentsRecoveryStartFragment__your_recovery_phrase">Your recovery phrase lets you restore your balance in a worst-case scenario. We strongly recommend you save it.</string>
+    <!-- Alert dialog option to skip recovery phrase -->
+    <string name="PaymentsRecoveryStartFragment__skip_recovery_phrase">Skip Recovery Phrase</string>
+    <!-- Alert dialog option to cancel dialog-->
+    <string name="PaymentsRecoveryStartFragment__cancel">Cancel</string>
 
     <!-- PaymentsRecoveryPasteFragment -->
     <string name="PaymentsRecoveryPasteFragment__paste_recovery_phrase">Paste recovery phrase</string>
@@ -3919,7 +3946,9 @@
     <!-- Preference title to delete sms -->
     <string name="SmsSettingsFragment__remove_sms_messages">Remove SMS messages</string>
     <!-- Snackbar text to confirm deletion -->
-    <string name="SmsSettingsFragment__sms_messages_removed">SMS messages removed</string>
+    <string name="SmsSettingsFragment__removing_sms_messages_from_signal">Removing SMS messages from Signal…</string>
+    <!-- Snackbar text to indicate can delete later -->
+    <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">You can remove SMS messages from Signal in Settings at any time.</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">Messages</string>
@@ -4156,6 +4185,30 @@
 
     <!-- NewConversationActivity -->
     <string name="NewConversationActivity__new_message">New message</string>
+    <!-- Context menu item message -->
+    <string name="NewConversationActivity__message">Message</string>
+    <!-- Context menu item audio call -->
+    <string name="NewConversationActivity__audio_call">Audio call</string>
+    <!-- Context menu item video call -->
+    <string name="NewConversationActivity__video_call">Video call</string>
+    <!-- Context menu item remove -->
+    <string name="NewConversationActivity__remove">Remove</string>
+    <!-- Context menu item block -->
+    <string name="NewConversationActivity__block">Block</string>
+    <!-- Dialog title when removing a contact -->
+    <string name="NewConversationActivity__remove_s">Remove %1$s?</string>
+    <!-- Dialog message when removing a contact -->
+    <string name="NewConversationActivity__you_wont_see_this_person">You won\'t see this person when searching. You\'ll get a message request if they message you in the future.</string>
+    <!-- Snackbar message after removing a contact -->
+    <string name="NewConversationActivity__s_has_been_removed">%1$s has been removed</string>
+    <!-- Snackbar message after blocking a contact -->
+    <string name="NewConversationActivity__s_has_been_blocked">%1$s has been blocked</string>
+    <!-- Dialog title when remove target contact is in system contacts -->
+    <string name="NewConversationActivity__unable_to_remove_s">Unable to remove %1$s</string>
+    <!-- Dialog message when remove target contact is in system contacts -->
+    <string name="NewConversationActivity__this_person_is_saved_to_your">This person is saved to your device\'s Contacts. Delete them from your Contacts and try again.</string>
+    <!-- Dialog action to view contact when they can't be removed otherwise -->
+    <string name="NewConversationActivity__view_contact">View contact</string>
 
     <!-- ContactFilterView -->
     <string name="ContactFilterView__search_name_or_number">Search name or number</string>
@@ -4659,7 +4712,7 @@
     <!-- Subtitle for "My Stories" row item when user has not added stories -->
     <string name="StoriesLandingFragment__tap_to_add_a_story">Tap to add a story</string>
     <!-- Displayed when there are no stories to display -->
-    <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">No recent updates to show right now. Tap + to add to your story.</string>
+    <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now">No recent updates to show right now.</string>
     <!-- Context menu option to hide a story -->
     <string name="StoriesLandingItem__hide_story">Hide story</string>
     <!-- Context menu option to unhide a story -->
@@ -4727,6 +4780,10 @@
     <string name="StoryViewerPageFragment__s_to_s">%1$s to %2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">Reply</string>
+    <!-- Displayed when viewing a post that has failed to send to some users -->
+    <string name="StoryViewerPageFragment__partially_sent">Partially sent. Tap for details</string>
+    <!-- Displayed when viewing a post that has failed to send -->
+    <string name="StoryViewerPageFragment__send_failed">Send failed. Tap to retry</string>
     <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
     <string name="StoryViewerPageFragment__reply_to_group">Reply to group</string>
     <!-- Displayed when a story has no views -->
@@ -5133,6 +5190,8 @@
     <string name="StoryInfoBottomSheetDialogFragment__sent_to">Sent to</string>
     <!-- Story info "Sent from" header -->
     <string name="StoryInfoBottomSheetDialogFragment__sent_from">Sent from</string>
+    <!-- Story info "Failed" header -->
+    <string name="StoryInfoBottomSheetDialogFragment__failed">Failed</string>
     <!-- Story Info context menu label -->
     <string name="StoryInfoBottomSheetDialogFragment__info">Info</string>
 
@@ -5172,6 +5231,8 @@
     <!-- ExportYourSmsMessagesFragment -->
     <!-- Title of the screen -->
     <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Export your SMS messages</string>
+    <!-- Message of the screen -->
+    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">You can export your SMS messages to your phone\'s SMS database. This allows other SMS apps on your phone to access and import them. This does not create a shareable file of your SMS message history.</string>
     <!-- Button label to begin export -->
     <string name="ExportYourSmsMessagesFragment__continue">Continue</string>
 
@@ -5186,6 +5247,28 @@
     <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Choose a new default SMS app</string>
     <!-- Button label to launch picker -->
     <string name="ChooseANewDefaultSmsAppFragment__continue">Continue</string>
+    <!-- Button label for when done with changing default SMS app -->
+    <string name="ChooseANewDefaultSmsAppFragment__done">Done</string>
+    <!-- First step number/bullet for choose new default sms app instructions -->
+    <string name="ChooseANewDefaultSmsAppFragment__bullet_1">1</string>
+    <!-- Second step number/bullet for choose new default sms app instructions -->
+    <string name="ChooseANewDefaultSmsAppFragment__bullet_2">2</string>
+    <!-- Third step number/bullet for choose new default sms app instructions -->
+    <string name="ChooseANewDefaultSmsAppFragment__bullet_3">3</string>
+    <!-- Fourth step number/bullet for choose new default sms app instructions -->
+    <string name="ChooseANewDefaultSmsAppFragment__bullet_4">4</string>
+    <!-- Instruction step for choosing a new default sms app -->
+    <string name="ChooseANewDefaultSmsAppFragment__tap_continue_to_open_the_defaults_apps_screen_in_settings">Tap \"Continue\" to open the \"Default apps\" screen in Settings</string>
+    <!-- Instruction step for choosing a new default sms app -->
+    <string name="ChooseANewDefaultSmsAppFragment__select_sms_app_from_the_list">Select \"SMS app\" from the list</string>
+    <!-- Instruction step for choosing a new default sms app -->
+    <string name="ChooseANewDefaultSmsAppFragment__choose_another_app_to_use_for_sms_messaging">Choose another app to use for SMS messaging</string>
+    <!-- Instruction step for choosing a new default sms app -->
+    <string name="ChooseANewDefaultSmsAppFragment__return_to_signal">Return to Signal</string>
+    <!-- Instruction step for choosing a new default sms app -->
+    <string name="ChooseANewDefaultSmsAppFragment__open_your_phones_settings_app">Open your phone\'s Settings app</string>
+    <!-- Instruction step for choosing a new default sms app -->
+    <string name="ChooseANewDefaultSmsAppFragment__navigate_to_apps_default_apps_sms_app">Navigate to \"Apps\" > \"Default apps\" > \"SMS app\"</string>
 
     <!-- RemoveSmsMessagesDialogFragment -->
     <!-- Action button to keep messages -->
@@ -5195,11 +5278,13 @@
     <!-- Title of dialog -->
     <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Remove SMS messages from Signal?</string>
     <!-- Message of dialog -->
-    <string name="RemoveSmsMessagesDialogFragment__you_have_changed">You have changed the default SMS app, do you want to remove SMS messages from Signal?</string>
+    <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">You can now remove SMS messages from Signal to clear up storage space. They will still be available to other SMS apps on your phone even if you remove them.</string>
 
     <!-- SetSignalAsDefaultSmsAppFragment -->
     <!-- Title of the screen -->
-    <string name="SetSignalAsDefaultSmsAppFragment__first_set_signal_as_the_default_sms_app">First, set Signal as the default SMS app</string>
+    <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Set Signal as the default SMS app</string>
+    <!-- Message of the screen -->
+    <string name="SetSignalAsDefaultSmsAppFragment__to_export_your_sms_messages">To export your SMS messages, you need to set Signal as the default SMS app.</string>
     <!-- Button label to start export -->
     <string name="SetSignalAsDefaultSmsAppFragment__next">Next</string>
 

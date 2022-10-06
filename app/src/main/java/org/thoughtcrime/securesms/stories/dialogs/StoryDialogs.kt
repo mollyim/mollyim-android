@@ -10,13 +10,14 @@ import org.thoughtcrime.securesms.R
 
 object StoryDialogs {
 
-  fun resendStory(context: Context, resend: () -> Unit) {
-    MaterialAlertDialogBuilder(context)
-      .setMessage(R.string.StoryDialogs__story_could_not_be_sent)
-      .setNegativeButton(android.R.string.cancel, null)
-      .setPositiveButton(R.string.StoryDialogs__send) { _, _ -> resend() }
-      .show()
-  }
+  fun resendStory(context: Context, onDismiss: () -> Unit = {}, resend: () -> Unit) {
+  MaterialAlertDialogBuilder(context)
+    .setMessage(R.string.StoryDialogs__story_could_not_be_sent)
+    .setNegativeButton(android.R.string.cancel, null)
+    .setPositiveButton(R.string.StoryDialogs__send) { _, _ -> resend() }
+    .setOnDismissListener { onDismiss() }
+    .show()
+}
 
   fun displayStoryOrProfileImage(
     context: Context,
@@ -39,6 +40,23 @@ object StoryDialogs {
           }
         }
       }
+      .show()
+  }
+
+  fun hideStory(
+    context: Context,
+    recipientName: String,
+    onCancelled: () -> Unit = {},
+    onHideStoryConfirmed: () -> Unit,
+  ) {
+    MaterialAlertDialogBuilder(context, R.style.ThemeOverlay_Signal_MaterialAlertDialog)
+      .setTitle(R.string.StoriesLandingFragment__hide_story)
+      .setMessage(context.getString(R.string.StoriesLandingFragment__new_story_updates, recipientName))
+      .setPositiveButton(R.string.StoriesLandingFragment__hide) { _, _ ->
+        onHideStoryConfirmed()
+      }
+      .setNegativeButton(android.R.string.cancel) { _, _ -> onCancelled() }
+      .setOnCancelListener { onCancelled() }
       .show()
   }
 }

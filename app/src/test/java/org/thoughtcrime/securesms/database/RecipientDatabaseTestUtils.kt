@@ -77,7 +77,8 @@ object RecipientDatabaseTestUtils {
       null,
       IdentityDatabase.VerifiedStatus.DEFAULT,
       false,
-      false
+      false,
+      0
     ),
     extras: Recipient.Extras? = null,
     hasGroupsInCommon: Boolean = false,
@@ -146,7 +147,8 @@ object RecipientDatabaseTestUtils {
         extras,
         hasGroupsInCommon,
         badges,
-        false
+        needsPniSignature = false,
+        isHidden = false
       ),
       participants,
       isReleaseChannel

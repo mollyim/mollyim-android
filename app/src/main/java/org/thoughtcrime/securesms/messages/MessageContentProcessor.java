@@ -50,6 +50,7 @@ import org.thoughtcrime.securesms.database.SentStorySyncManifest;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.StickerDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
+import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.Mention;
 import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.database.model.MessageLogEntry;
@@ -1317,14 +1318,27 @@ public final class MessageContentProcessor {
   private void handleSynchronizeViewedMessage(@NonNull List<ViewedMessage> viewedMessages, long envelopeTimestamp) {
     log(envelopeTimestamp, "Synchronize view message. Count: " + viewedMessages.size() + ", Timestamps: " + Stream.of(viewedMessages).map(ViewedMessage::getTimestamp).toList());
 
-    List<Long> toMarkViewed = Stream.of(viewedMessages)
-                                    .map(message -> {
-                                      RecipientId author = Recipient.externalPush(message.getSender()).getId();
-                                      return SignalDatabase.mmsSms().getMessageFor(message.getTimestamp(), author);
-                                    })
-                                    .filter(message -> message != null && message.isMms())
+    List<MessageRecord> records = Stream.of(viewedMessages)
+                                        .map(message -> {
+                                          RecipientId author = Recipient.externalPush(message.getSender()).getId();
+                                          return SignalDatabase.mmsSms().getMessageFor(message.getTimestamp(), author);
+                                        })
+                                        .filter(message -> message != null && message.isMms())
+                                        .toList();
+
+    List<Long> toMarkViewed = Stream.of(records)
                                     .map(MessageRecord::getId)
                                     .toList();
+
+    List<MediaMmsMessageRecord> toEnqueueDownload = Stream.of(records)
+                                                          .filter(MessageRecord::isMms)
+                                                          .map(it -> (MediaMmsMessageRecord) it)
+                                                          .filter(it -> it.getStoryType().isStory() && !it.getStoryType().isTextStory())
+                                                          .toList();
+
+    for (final MediaMmsMessageRecord mediaMmsMessageRecord : toEnqueueDownload) {
+      Stories.enqueueAttachmentsFromStoryForDownloadSync(mediaMmsMessageRecord, false);
+    }
 
     SignalDatabase.mms().setIncomingMessagesViewed(toMarkViewed);
     SignalDatabase.mms().setOutgoingGiftsRevealed(toMarkViewed);
@@ -1860,7 +1874,7 @@ public final class MessageContentProcessor {
 
       if (message.getDataMessage().get().getGroupContext().isPresent()) {
         parentStoryId = new ParentStoryId.GroupReply(storyMessageId.getId());
-      } else if (groupStory || SignalDatabase.storySends().canReply(storyAuthorRecipient, storyContext.getSentTimestamp())) {
+      } else if (groupStory || story.getStoryType().isStoryWithReplies()) {
         parentStoryId   = new ParentStoryId.DirectReply(storyMessageId.getId());
 
         String quoteBody = "";
@@ -2466,7 +2480,7 @@ public final class MessageContentProcessor {
                                    @NonNull SignalServiceReceiptMessage message,
                                    @NonNull Recipient senderRecipient)
   {
-    boolean shouldOnlyProcessStories = FeatureFlags.stories() && !SignalStore.storyValues().isFeatureDisabled() && !TextSecurePreferences.isReadReceiptsEnabled(context);
+    boolean shouldOnlyProcessStories = Stories.isFeatureFlagEnabled() && !SignalStore.storyValues().isFeatureDisabled() && !TextSecurePreferences.isReadReceiptsEnabled(context);
 
     if (!TextSecurePreferences.isReadReceiptsEnabled(context) && !shouldOnlyProcessStories) {
       log("Ignoring viewed receipts for IDs: " + Util.join(message.getTimestamps(), ", "));

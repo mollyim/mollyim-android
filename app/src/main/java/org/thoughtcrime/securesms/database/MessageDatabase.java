@@ -12,6 +12,8 @@ import com.google.android.mms.pdu.NotificationInd;
 
 import net.zetetic.database.sqlcipher.SQLiteStatement;
 
+import org.signal.core.util.CursorUtil;
+import org.signal.core.util.SqlUtil;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.util.Pair;
@@ -26,6 +28,7 @@ import org.thoughtcrime.securesms.database.model.SmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.StoryResult;
 import org.thoughtcrime.securesms.database.model.StoryViewState;
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExportState;
+import org.thoughtcrime.securesms.database.model.databaseprotos.ThreadMergeEvent;
 import org.thoughtcrime.securesms.groups.GroupMigrationMembershipChange;
 import org.thoughtcrime.securesms.insights.InsightsConstants;
 import org.thoughtcrime.securesms.mms.IncomingMediaMessage;
@@ -36,9 +39,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.revealable.ViewOnceExpirationInfo;
 import org.thoughtcrime.securesms.sms.IncomingTextMessage;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
-import org.signal.core.util.CursorUtil;
 import org.thoughtcrime.securesms.util.JsonUtils;
-import org.signal.core.util.SqlUtil;
 import org.thoughtcrime.securesms.util.Util;
 
 import java.io.Closeable;
@@ -55,7 +56,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-public abstract class MessageDatabase extends Database implements MmsSmsColumns {
+public abstract class MessageDatabase extends Database implements MmsSmsColumns, RecipientIdDatabaseReference, ThreadIdDatabaseReference  {
 
   private static final String TAG = Log.tag(MessageDatabase.class);
 
@@ -95,7 +96,7 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
   public abstract boolean isSent(long messageId);
   public abstract List<MessageRecord> getProfileChangeDetailsRecords(long threadId, long afterTimestamp);
   public abstract Set<Long> getAllRateLimitedMessageIds();
-  public abstract Cursor getUnexportedInsecureMessages();
+  public abstract Cursor getUnexportedInsecureMessages(int limit);
   public abstract int getInsecureMessageCount();
   public abstract void deleteExportedMessages();
 
@@ -175,6 +176,7 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
   public abstract void insertGroupV1MigrationEvents(@NonNull RecipientId recipientId, long threadId, @NonNull GroupMigrationMembershipChange membershipChange);
   public abstract void insertNumberChangeMessages(@NonNull Recipient recipient);
   public abstract void insertBoostRequestMessage(@NonNull RecipientId recipientId, long threadId);
+  public abstract void insertThreadMergeEvent(@NonNull RecipientId recipientId, long threadId, @NonNull ThreadMergeEvent event);
 
   public abstract boolean deleteMessage(long messageId);
   public abstract boolean deleteExpiringMessage(long messageId);
@@ -205,7 +207,7 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
   public abstract @NonNull List<RecipientId>  getUnreadStoryThreadRecipientIds();
   public abstract boolean containsStories(long threadId);
   public abstract boolean hasSelfReplyInStory(long parentStoryId);
-  public abstract boolean hasSelfReplyInGroupStory(long parentStoryId);
+  public abstract boolean hasGroupReplyOrReactionInStory(long parentStoryId);
   public abstract @NonNull Cursor getStoryReplies(long parentStoryId);
   public abstract @Nullable Long getOldestStorySendTimestamp(boolean hasSeenReleaseChannelStories);
   public abstract int deleteStoriesOlderThan(long timestamp, boolean hasSeenReleaseChannelStories);
@@ -359,11 +361,22 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
   }
 
   protected String getInsecureMessageClause() {
-    String isSent     = "(" + getTypeField() + " & " + Types.BASE_TYPE_MASK + ") = " + Types.BASE_SENT_TYPE;
-    String isReceived = "(" + getTypeField() + " & " + Types.BASE_TYPE_MASK + ") = " + Types.BASE_INBOX_TYPE;
-    String isSecure   = "(" + getTypeField() + " & " + (Types.SECURE_MESSAGE_BIT | Types.PUSH_MESSAGE_BIT) + ")";
+    String isSent      = "(" + getTypeField() + " & " + Types.BASE_TYPE_MASK + ") = " + Types.BASE_SENT_TYPE;
+    String isReceived  = "(" + getTypeField() + " & " + Types.BASE_TYPE_MASK + ") = " + Types.BASE_INBOX_TYPE;
+    String isSecure    = "(" + getTypeField() + " & " + (Types.SECURE_MESSAGE_BIT | Types.PUSH_MESSAGE_BIT) + ")";
+    String isNotSecure = "(" + getTypeField() + " <= " + (Types.BASE_TYPE_MASK | Types.MESSAGE_ATTRIBUTE_MASK) + ")";
 
-    return String.format(Locale.ENGLISH, "(%s OR %s) AND NOT %s", isSent, isReceived, isSecure);
+    return String.format(Locale.ENGLISH, "(%s OR %s) AND NOT %s AND %s", isSent, isReceived, isSecure, isNotSecure);
+  }
+
+  public int getUnexportedInsecureMessagesCount() {
+    try (Cursor cursor = getWritableDatabase().query(getTableName(), SqlUtil.COUNT, getInsecureMessageClause() + " AND NOT " + EXPORTED, null, null, null, null)) {
+      if (cursor.moveToFirst()) {
+        return cursor.getInt(0);
+      }
+    }
+
+    return 0;
   }
 
   public void setReactionsSeen(long threadId, long sinceTimestamp) {
@@ -453,6 +466,20 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
       }
     }
     return data;
+  }
+
+  @Override
+  public void remapRecipient(@NonNull RecipientId fromId, @NonNull RecipientId toId) {
+    ContentValues values = new ContentValues();
+    values.put(RECIPIENT_ID, toId.serialize());
+    getWritableDatabase().update(getTableName(), values, RECIPIENT_ID + " = ?", SqlUtil.buildArgs(toId));
+  }
+
+  @Override
+  public void remapThread(long fromId, long toId) {
+    ContentValues values = new ContentValues();
+    values.put(SmsDatabase.THREAD_ID, toId);
+    getWritableDatabase().update(getTableName(), values, THREAD_ID + " = ?", SqlUtil.buildArgs(fromId));
   }
 
   void updateReactionsUnread(SQLiteDatabase db, long messageId, boolean hasReactions, boolean isRemoval) {

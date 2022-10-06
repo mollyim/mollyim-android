@@ -7,8 +7,10 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stories.StoryViewerArgs
+import org.thoughtcrime.securesms.stories.viewer.page.StoryViewerPageArgs
 import org.thoughtcrime.securesms.stories.viewer.page.StoryViewerPageFragment
 import org.thoughtcrime.securesms.stories.viewer.reply.StoriesSharedElementCrossFaderView
 import org.thoughtcrime.securesms.util.LifecycleDisposable
@@ -47,12 +49,18 @@ class StoryViewerFragment :
 
     val adapter = StoryViewerPagerAdapter(
       this,
-      storyViewerArgs.storyId,
-      storyViewerArgs.isFromNotification,
-      storyViewerArgs.groupReplyStartPosition,
-      storyViewerArgs.isUnviewedOnly,
-      storyViewerArgs.isFromMyStories,
-      storyViewerArgs.isFromInfoContextMenuAction
+      StoryViewerPageArgs(
+        recipientId = Recipient.UNKNOWN.id,
+        initialStoryId = storyViewerArgs.storyId,
+        isJumpForwardToUnviewed = storyViewerArgs.isJumpToUnviewed,
+        isOutgoingOnly = storyViewerArgs.isFromMyStories,
+        source = when {
+          storyViewerArgs.isFromInfoContextMenuAction -> StoryViewerPageArgs.Source.INFO_CONTEXT
+          storyViewerArgs.isFromNotification -> StoryViewerPageArgs.Source.NOTIFICATION
+          else -> StoryViewerPageArgs.Source.UNKNOWN
+        },
+        groupReplyStartPosition = storyViewerArgs.groupReplyStartPosition
+      )
     )
 
     storyPager.adapter = adapter
@@ -66,6 +74,10 @@ class StoryViewerFragment :
 
     lifecycleDisposable.bindTo(viewLifecycleOwner)
     lifecycleDisposable += viewModel.state.observeOn(AndroidSchedulers.mainThread()).subscribe { state ->
+      if (state.noPosts) {
+        requireActivity().finish()
+      }
+
       adapter.setPages(state.pages)
       if (state.pages.isNotEmpty() && storyPager.currentItem != state.page) {
         pagerOnPageSelectedLock = true
@@ -96,6 +108,17 @@ class StoryViewerFragment :
         storyCrossfader.alpha = 0f
       }
     }
+
+    if (savedInstanceState != null && savedInstanceState.containsKey(HIDDEN)) {
+      val ids: List<RecipientId> = savedInstanceState.getParcelableArrayList(HIDDEN)!!
+      viewModel.addHiddenAndRefresh(ids.toSet())
+    } else {
+      viewModel.refresh()
+    }
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    outState.putParcelableArrayList(HIDDEN, ArrayList(viewModel.getHidden()))
   }
 
   override fun onResume() {
@@ -119,7 +142,12 @@ class StoryViewerFragment :
   }
 
   override fun onStoryHidden(recipientId: RecipientId) {
-    viewModel.onRecipientHidden()
+    viewModel.addHiddenAndRefresh(setOf(recipientId))
+  }
+
+  override fun onContentTranslation(x: Float, y: Float) {
+    storyCrossfader.translationX = x
+    storyCrossfader.translationY = y
   }
 
   override fun onReadyToAnimate() {
@@ -150,6 +178,7 @@ class StoryViewerFragment :
 
   companion object {
     private const val ARGS = "args"
+    private const val HIDDEN = "hidden"
 
     fun create(storyViewerArgs: StoryViewerArgs): Fragment {
       return StoryViewerFragment().apply {

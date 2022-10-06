@@ -85,7 +85,8 @@ data class RecipientRecord(
   val hasGroupsInCommon: Boolean,
   val badges: List<Badge>,
   @get:JvmName("needsPniSignature")
-  val needsPniSignature: Boolean
+  val needsPniSignature: Boolean,
+  val isHidden: Boolean
 ) {
 
   fun getDefaultSubscriptionId(): Optional<Int> {
@@ -118,6 +119,7 @@ data class RecipientRecord(
     val identityKey: ByteArray?,
     val identityStatus: VerifiedStatus,
     val isArchived: Boolean,
-    val isForcedUnread: Boolean
+    val isForcedUnread: Boolean,
+    val unregisteredTimestamp: Long
   )
 }

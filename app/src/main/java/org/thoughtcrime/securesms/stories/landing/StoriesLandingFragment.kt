@@ -16,14 +16,13 @@ import androidx.core.app.SharedElementCallback
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.Material3SearchToolbar
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
@@ -35,6 +34,7 @@ import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.StoryViewState
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
+import org.thoughtcrime.securesms.main.SearchBinder
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
@@ -90,6 +90,30 @@ class StoriesLandingFragment : DSLSettingsFragment(layoutId = R.layout.stories_l
   override fun onResume() {
     super.onResume()
     viewModel.isTransitioningToAnotherScreen = false
+    initializeSearchAction()
+  }
+
+  override fun onPause() {
+    super.onPause()
+    requireListener<SearchBinder>().getSearchAction().setOnClickListener(null)
+  }
+
+  private fun initializeSearchAction() {
+    val searchBinder = requireListener<SearchBinder>()
+    searchBinder.getSearchAction().setOnClickListener {
+      searchBinder.onSearchOpened()
+
+      searchBinder.getSearchToolbar().get().listener = object : Material3SearchToolbar.Listener {
+        override fun onSearchTextChange(text: String) {
+          viewModel.setSearchQuery(text.trim())
+        }
+
+        override fun onSearchClosed() {
+          viewModel.setSearchQuery("")
+          searchBinder.onSearchClosed()
+        }
+      }
+    }
   }
 
   override fun bindAdapter(adapter: MappingAdapter) {
@@ -162,7 +186,16 @@ class StoriesLandingFragment : DSLSettingsFragment(layoutId = R.layout.stories_l
 
   private fun getConfiguration(state: StoriesLandingState): DSLConfiguration {
     return configure {
-      val (stories, hidden) = state.storiesLandingItems.map {
+      val (stories, hidden) = state.storiesLandingItems.filter {
+        if (state.searchQuery.isNotEmpty()) {
+          val storyRecipientName = it.storyRecipient.getDisplayName(requireContext())
+          val individualRecipientName = it.individualRecipient.getDisplayName(requireContext())
+
+          storyRecipientName.contains(state.searchQuery, ignoreCase = true) || individualRecipientName.contains(state.searchQuery, ignoreCase = true)
+        } else {
+          true
+        }
+      }.map {
         createStoryLandingItem(it)
       }.partition {
         !it.data.isHidden
@@ -274,8 +307,8 @@ class StoriesLandingFragment : DSLSettingsFragment(layoutId = R.layout.stories_l
             storyThumbUri = image,
             storyThumbBlur = blur,
             recipientIds = viewModel.getRecipientIds(model.data.isHidden, model.data.storyViewState == StoryViewState.UNVIEWED),
-            isUnviewedOnly = model.data.storyViewState == StoryViewState.UNVIEWED,
-            isFromInfoContextMenuAction = isFromInfoContextMenuAction
+            isFromInfoContextMenuAction = isFromInfoContextMenuAction,
+            isJumpToUnviewed = model.data.storyViewState == StoryViewState.UNVIEWED
           )
         ),
         options.toBundle()
@@ -288,19 +321,12 @@ class StoriesLandingFragment : DSLSettingsFragment(layoutId = R.layout.stories_l
   }
 
   private fun handleHideStory(model: StoriesLandingItem.Model) {
-    MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_Signal_MaterialAlertDialog)
-      .setTitle(R.string.StoriesLandingFragment__hide_story)
-      .setMessage(getString(R.string.StoriesLandingFragment__new_story_updates, model.data.storyRecipient.getShortDisplayName(requireContext())))
-      .setPositiveButton(R.string.StoriesLandingFragment__hide) { _, _ ->
-        viewModel.setHideStory(model.data.storyRecipient, true).subscribe {
-          Snackbar.make(cameraFab, R.string.StoriesLandingFragment__story_hidden, Snackbar.LENGTH_SHORT)
-            .setAnchorView(cameraFab)
-            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-            .show()
-        }
+    StoryDialogs.hideStory(requireContext(), model.data.storyRecipient.getShortDisplayName(requireContext())) {
+      viewModel.setHideStory(model.data.storyRecipient, true).subscribe {
+        Snackbar.make(cameraFab, R.string.StoriesLandingFragment__story_hidden, Snackbar.LENGTH_SHORT)
+          .show()
       }
-      .setNegativeButton(android.R.string.cancel) { _, _ -> }
-      .show()
+    }
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

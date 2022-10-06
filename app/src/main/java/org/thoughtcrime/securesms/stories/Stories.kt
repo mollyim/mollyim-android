@@ -35,6 +35,7 @@ import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.FeatureFlags
+import org.thoughtcrime.securesms.util.LocaleFeatureFlags
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.hasLinkPreview
 import java.util.Optional
@@ -42,21 +43,50 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
+/**
+ * Collection of helper methods and constants for dealing with the stories feature.
+ */
 object Stories {
 
   private val TAG = Log.tag(Stories::class.java)
 
-  const val MAX_BODY_SIZE = 700
+  const val MAX_TEXT_STORY_SIZE = 700
+  const val MAX_CAPTION_SIZE = 1500
 
   @JvmField
-  val MAX_VIDEO_DURATION_MILLIS = TimeUnit.SECONDS.toMillis(30)
+  val MAX_VIDEO_DURATION_MILLIS: Long = (31.seconds - 1.milliseconds).inWholeMilliseconds
 
+  /**
+   * Whether the feature is enabled at the flag level.
+   *
+   * `stories` will override `isInStoriesCountry` so as to not disable stories for those with
+   * that flag already enabled.
+   *
+   * Note: In general, you should prefer `isFeatureAvailable`.
+   */
   @JvmStatic
-  fun isFeatureAvailable(): Boolean {
-    return SignalStore.account().isRegistered && FeatureFlags.stories() && Recipient.self().storiesCapability == Recipient.Capability.SUPPORTED
+  fun isFeatureFlagEnabled(): Boolean {
+    return SignalStore.account().isRegistered && (FeatureFlags.stories() || LocaleFeatureFlags.isInStoriesCountry())
   }
 
+  /**
+   * Whether or not the user has access to stories. This checks:
+   *
+   * - Registration status
+   * - Flag status
+   * - Capabilities
+   */
+  @JvmStatic
+  fun isFeatureAvailable(): Boolean {
+    return isFeatureFlagEnabled() && Recipient.self().storiesCapability == Recipient.Capability.SUPPORTED
+  }
+
+  /**
+   * Whether or not the user has the Stories feature enabled.
+   */
   @JvmStatic
   fun isFeatureEnabled(): Boolean {
     return isFeatureAvailable() && !SignalStore.storyValues().isFeatureDisabled
@@ -65,7 +95,7 @@ object Stories {
   fun getHeaderAction(onClick: () -> Unit): HeaderAction {
     return HeaderAction(
       R.string.ContactsCursorLoader_new_story,
-      R.drawable.ic_plus_20,
+      R.drawable.ic_plus_12,
       onClick
     )
   }
@@ -124,8 +154,9 @@ object Stories {
     }.subscribeOn(Schedulers.io())
   }
 
+  @JvmStatic
   @WorkerThread
-  private fun enqueueAttachmentsFromStoryForDownloadSync(record: MmsMessageRecord, ignoreAutoDownloadConstraints: Boolean) {
+  fun enqueueAttachmentsFromStoryForDownloadSync(record: MmsMessageRecord, ignoreAutoDownloadConstraints: Boolean) {
     SignalDatabase.attachments.getAttachmentsForMessage(record.id).filterNot { it.isSticker }.forEach {
       val job = AttachmentDownloadJob(record.id, it.attachmentId, ignoreAutoDownloadConstraints)
       ApplicationDependencies.getJobManager().add(job)

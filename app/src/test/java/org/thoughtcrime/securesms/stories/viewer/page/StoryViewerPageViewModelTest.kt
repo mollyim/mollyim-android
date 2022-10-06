@@ -14,6 +14,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.thoughtcrime.securesms.database.FakeMessageRecords
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 
@@ -42,7 +43,7 @@ class StoryViewerPageViewModelTest {
   fun `Given first page and first post, when I goToPreviousPost, then I expect storyIndex to be 0`() {
     // GIVEN
     val storyPosts = createStoryPosts(3) { true }
-    whenever(repository.getStoryPostsFor(any(), any(), any())).thenReturn(Observable.just(storyPosts))
+    whenever(repository.getStoryPostsFor(any(), any())).thenReturn(Observable.just(storyPosts))
     val testSubject = createTestSubject()
     testSubject.setIsFirstPage(true)
     testScheduler.triggerActions()
@@ -61,7 +62,7 @@ class StoryViewerPageViewModelTest {
   fun `Given first page and second post, when I goToPreviousPost, then I expect storyIndex to be 0`() {
     // GIVEN
     val storyPosts = createStoryPosts(3) { true }
-    whenever(repository.getStoryPostsFor(any(), any(), any())).thenReturn(Observable.just(storyPosts))
+    whenever(repository.getStoryPostsFor(any(), any())).thenReturn(Observable.just(storyPosts))
     val testSubject = createTestSubject()
     testSubject.setIsFirstPage(true)
     testScheduler.triggerActions()
@@ -82,7 +83,7 @@ class StoryViewerPageViewModelTest {
   fun `Given no initial story and 3 records all viewed, when I initialize, then I expect storyIndex to be 0`() {
     // GIVEN
     val storyPosts = createStoryPosts(3) { true }
-    whenever(repository.getStoryPostsFor(any(), any(), any())).thenReturn(Observable.just(storyPosts))
+    whenever(repository.getStoryPostsFor(any(), any())).thenReturn(Observable.just(storyPosts))
 
     // WHEN
     val testSubject = createTestSubject()
@@ -98,7 +99,7 @@ class StoryViewerPageViewModelTest {
   fun `Given no initial story and 3 records all not viewed, when I initialize, then I expect storyIndex to be 0`() {
     // GIVEN
     val storyPosts = createStoryPosts(3) { false }
-    whenever(repository.getStoryPostsFor(any(), any(), any())).thenReturn(Observable.just(storyPosts))
+    whenever(repository.getStoryPostsFor(any(), any())).thenReturn(Observable.just(storyPosts))
 
     // WHEN
     val testSubject = createTestSubject()
@@ -114,7 +115,7 @@ class StoryViewerPageViewModelTest {
   fun `Given no initial story and 3 records with 2nd is not viewed, when I initialize, then I expect storyIndex to be 1`() {
     // GIVEN
     val storyPosts = createStoryPosts(3) { it % 2 != 0 }
-    whenever(repository.getStoryPostsFor(any(), any(), any())).thenReturn(Observable.just(storyPosts))
+    whenever(repository.getStoryPostsFor(any(), any())).thenReturn(Observable.just(storyPosts))
 
     // WHEN
     val testSubject = createTestSubject()
@@ -130,7 +131,7 @@ class StoryViewerPageViewModelTest {
   fun `Given no initial story and 3 records with 1st and 3rd not viewed, when I goToNext, then I expect storyIndex to be 2`() {
     // GIVEN
     val storyPosts = createStoryPosts(3) { it % 2 == 0 }
-    whenever(repository.getStoryPostsFor(any(), any(), any())).thenReturn(Observable.just(storyPosts))
+    whenever(repository.getStoryPostsFor(any(), any())).thenReturn(Observable.just(storyPosts))
 
     // WHEN
     val testSubject = createTestSubject()
@@ -145,10 +146,28 @@ class StoryViewerPageViewModelTest {
   }
 
   @Test
+  fun `Given no unread and jump to next unread enabled, when I goToNext, then I expect storyIndex to be size`() {
+    // GIVEN
+    val storyPosts = createStoryPosts(3) { true }
+    whenever(repository.getStoryPostsFor(any(), any())).thenReturn(Observable.just(storyPosts))
+
+    // WHEN
+    val testSubject = createTestSubject(isJumpForwardToUnviewed = true)
+    testScheduler.triggerActions()
+    testSubject.goToNextPost()
+    testScheduler.triggerActions()
+
+    // THEN
+    val testSubscriber = testSubject.state.test()
+
+    testSubscriber.assertValueAt(0) { it.selectedPostIndex == 3 }
+  }
+
+  @Test
   fun `Given a single story, when I goToPrevious, then I expect storyIndex to be -1`() {
     // GIVEN
     val storyPosts = createStoryPosts(1)
-    whenever(repository.getStoryPostsFor(any(), any(), any())).thenReturn(Observable.just(storyPosts))
+    whenever(repository.getStoryPostsFor(any(), any())).thenReturn(Observable.just(storyPosts))
 
     // WHEN
     val testSubject = createTestSubject()
@@ -162,12 +181,16 @@ class StoryViewerPageViewModelTest {
     testSubscriber.assertValueAt(0) { it.selectedPostIndex == -1 }
   }
 
-  private fun createTestSubject(): StoryViewerPageViewModel {
+  private fun createTestSubject(isJumpForwardToUnviewed: Boolean = false): StoryViewerPageViewModel {
     return StoryViewerPageViewModel(
-      RecipientId.from(1),
-      -1L,
-      false,
-      false,
+      StoryViewerPageArgs(
+        recipientId = RecipientId.from(1),
+        initialStoryId = -1L,
+        isOutgoingOnly = false,
+        isJumpForwardToUnviewed = isJumpForwardToUnviewed,
+        source = StoryViewerPageArgs.Source.UNKNOWN,
+        groupReplyStartPosition = -1
+      ),
       repository,
       mock()
     )
@@ -187,7 +210,10 @@ class StoryViewerPageViewModelTest {
         conversationMessage = mock(),
         allowsReplies = true,
         hasSelfViewed = isViewed(it)
-      )
+      ).apply {
+        val messageRecord = FakeMessageRecords.buildMediaMmsMessageRecord()
+        whenever(conversationMessage.messageRecord).thenReturn(messageRecord)
+      }
     }
   }
 }

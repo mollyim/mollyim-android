@@ -50,6 +50,7 @@ import org.thoughtcrime.securesms.database.model.StoryViewState;
 import org.thoughtcrime.securesms.database.model.databaseprotos.GroupCallUpdateDetails;
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExportState;
 import org.thoughtcrime.securesms.database.model.databaseprotos.ProfileChangeDetails;
+import org.thoughtcrime.securesms.database.model.databaseprotos.ThreadMergeEvent;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupMigrationMembershipChange;
 import org.thoughtcrime.securesms.jobs.TrimThreadJob;
@@ -919,13 +920,13 @@ public class SmsDatabase extends MessageDatabase {
   }
 
   @Override
-  public Cursor getUnexportedInsecureMessages() {
+  public Cursor getUnexportedInsecureMessages(int limit) {
     return queryMessages(
         SqlUtil.appendArg(MESSAGE_PROJECTION, EXPORT_STATE),
         getInsecureMessageClause() + " AND NOT " + EXPORTED,
         null,
         false,
-        -1
+        limit
     );
   }
 
@@ -1131,6 +1132,23 @@ public class SmsDatabase extends MessageDatabase {
     values.putNull(BODY);
 
     getWritableDatabase().insert(TABLE_NAME, null, values);
+  }
+
+  @Override
+  public void insertThreadMergeEvent(@NonNull RecipientId recipientId, long threadId, @NonNull ThreadMergeEvent event) {
+    ContentValues values = new ContentValues();
+    values.put(RECIPIENT_ID, recipientId.serialize());
+    values.put(ADDRESS_DEVICE_ID, 1);
+    values.put(DATE_RECEIVED, System.currentTimeMillis());
+    values.put(DATE_SENT, System.currentTimeMillis());
+    values.put(READ, 1);
+    values.put(TYPE, Types.THREAD_MERGE_TYPE);
+    values.put(THREAD_ID, threadId);
+    values.put(BODY, Base64.encodeBytes(event.toByteArray()));
+
+    getWritableDatabase().insert(TABLE_NAME, null, values);
+
+    ApplicationDependencies.getDatabaseObserver().notifyConversationListeners(threadId);
   }
 
   @Override
@@ -1501,7 +1519,7 @@ public class SmsDatabase extends MessageDatabase {
   }
 
   @Override
-  public boolean hasSelfReplyInGroupStory(long parentStoryId) {
+  public boolean hasGroupReplyOrReactionInStory(long parentStoryId) {
     throw new UnsupportedOperationException();
   }
 
@@ -1803,6 +1821,7 @@ public class SmsDatabase extends MessageDatabase {
   public MessageDatabase.Reader getMessages(Collection<Long> messageIds) {
     throw new UnsupportedOperationException();
   }
+
 
   public static class Status {
     public static final int STATUS_NONE     = -1;

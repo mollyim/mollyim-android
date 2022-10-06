@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.os.Build;
@@ -291,13 +290,6 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     onBackPressed();
   }
 
-  @Override
-  public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
-    super.onPictureInPictureModeChanged(isInPictureInPictureMode);
-    viewModel.setIsInPipMode(isInPictureInPictureMode);
-    participantUpdateWindow.setEnabled(!isInPictureInPictureMode);
-  }
-
   private boolean enterPipModeIfPossible() {
     if (viewModel.canEnterPipMode() && isSystemPipEnabledAndAvailable() && isEnterPipAllowed()) {
       PictureInPictureParams params = new PictureInPictureParams.Builder()
@@ -370,6 +362,11 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
     viewModel.getOrientationAndLandscapeEnabled().observe(this, pair -> ApplicationDependencies.getSignalCallManager().orientationChanged(pair.second, pair.first.getDegrees()));
     viewModel.getControlsRotation().observe(this, callScreen::rotateControls);
+
+    addOnPictureInPictureModeChangedListener(info -> {
+      viewModel.setIsInPipMode(info.isInPictureInPictureMode());
+      participantUpdateWindow.setEnabled(!info.isInPictureInPictureMode());
+    });
   }
 
   private void handleViewModelEvent(@NonNull WebRtcCallViewModel.Event event) {

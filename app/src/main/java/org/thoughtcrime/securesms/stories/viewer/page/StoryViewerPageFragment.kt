@@ -5,6 +5,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.graphics.drawable.Drawable
@@ -12,8 +13,10 @@ import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.animation.Interpolator
 import android.widget.FrameLayout
@@ -21,6 +24,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.GestureDetectorCompat
 import androidx.core.view.animation.PathInterpolatorCompat
@@ -29,17 +33,22 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.CircularProgressIndicatorSpec
+import com.google.android.material.progressindicator.IndeterminateDrawable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import org.signal.core.util.DimensionUnit
+import org.signal.core.util.dp
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.animation.AnimationCompleteListener
 import org.thoughtcrime.securesms.components.AvatarImageView
 import org.thoughtcrime.securesms.components.segmentedprogressbar.SegmentedProgressBar
 import org.thoughtcrime.securesms.components.segmentedprogressbar.SegmentedProgressBarListener
 import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto
 import org.thoughtcrime.securesms.contacts.avatars.FallbackPhoto20dp
 import org.thoughtcrime.securesms.contacts.avatars.GeneratedContactPhoto
+import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardBottomSheet
@@ -53,10 +62,12 @@ import org.thoughtcrime.securesms.mediapreview.VideoControlsDelegate
 import org.thoughtcrime.securesms.mms.GlideApp
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
 import org.thoughtcrime.securesms.stories.StoryFirstTimeNavigationView
 import org.thoughtcrime.securesms.stories.StorySlateView
 import org.thoughtcrime.securesms.stories.StoryVolumeOverlayView
 import org.thoughtcrime.securesms.stories.dialogs.StoryContextMenu
+import org.thoughtcrime.securesms.stories.dialogs.StoryDialogs
 import org.thoughtcrime.securesms.stories.viewer.StoryViewerViewModel
 import org.thoughtcrime.securesms.stories.viewer.StoryVolumeViewModel
 import org.thoughtcrime.securesms.stories.viewer.info.StoryInfoBottomSheetDialogFragment
@@ -89,7 +100,8 @@ class StoryViewerPageFragment :
   StorySlateView.Callback,
   StoryTextPostPreviewFragment.Callback,
   StoryFirstTimeNavigationView.Callback,
-  StoryInfoBottomSheetDialogFragment.OnInfoSheetDismissedListener {
+  StoryInfoBottomSheetDialogFragment.OnInfoSheetDismissedListener,
+  SafetyNumberBottomSheet.Callbacks {
 
   private val storyVolumeViewModel: StoryVolumeViewModel by viewModels(ownerProducer = { requireActivity() })
 
@@ -112,10 +124,7 @@ class StoryViewerPageFragment :
   private val viewModel: StoryViewerPageViewModel by viewModels(
     factoryProducer = {
       StoryViewerPageViewModel.Factory(
-        storyRecipientId,
-        initialStoryId,
-        isUnviewedOnly,
-        isOutgoingOnly,
+        storyViewerPageArgs,
         StoryViewerPageRepository(
           requireContext()
         ),
@@ -136,26 +145,9 @@ class StoryViewerPageFragment :
   private val lifecycleDisposable = LifecycleDisposable()
   private val timeoutDisposable = LifecycleDisposable()
 
-  private val storyRecipientId: RecipientId
-    get() = requireArguments().getParcelable(ARG_STORY_RECIPIENT_ID)!!
+  private var sendingProgressDrawable: IndeterminateDrawable<CircularProgressIndicatorSpec>? = null
 
-  private val initialStoryId: Long
-    get() = requireArguments().getLong(ARG_STORY_ID, -1L)
-
-  private val isFromNotification: Boolean
-    get() = requireArguments().getBoolean(ARG_IS_FROM_NOTIFICATION, false)
-
-  private val groupReplyStartPosition: Int
-    get() = requireArguments().getInt(ARG_GROUP_REPLY_START_POSITION, -1)
-
-  private val isUnviewedOnly: Boolean
-    get() = requireArguments().getBoolean(ARG_IS_UNVIEWED_ONLY, false)
-
-  private val isOutgoingOnly: Boolean
-    get() = requireArguments().getBoolean(ARG_IS_OUTGOING_ONLY, false)
-
-  private val isFromInfoContextMenuAction: Boolean
-    get() = requireArguments().getBoolean(ARG_IS_FROM_INFO_CONTEXT_MENU_ACTION, false)
+  private val storyViewerPageArgs: StoryViewerPageArgs by lazy(LazyThreadSafetyMode.NONE) { requireArguments().getParcelable(ARGS)!! }
 
   @SuppressLint("ClickableViewAccessibility")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -222,13 +214,29 @@ class StoryViewerPageFragment :
         viewModel::goToNextPost,
         viewModel::goToPreviousPost,
         this::startReply,
+        requireListener<Callback>()::onContentTranslation,
         sharedViewModel = sharedViewModel
       )
     )
 
+    val scaleListener = StoryScaleListener(
+      viewModel, sharedViewModel, card
+    )
+
+    val scaleDetector = ScaleGestureDetector(
+      requireContext(),
+      scaleListener
+    )
+
     cardWrapper.setOnInterceptTouchEventListener { !storySlate.state.hasClickableContent && childFragmentManager.findFragmentById(R.id.story_content_container) !is StoryTextPostPreviewFragment }
     cardWrapper.setOnTouchListener { _, event ->
-      val result = gestureDetector.onTouchEvent(event)
+      scaleDetector.onTouchEvent(event)
+      val result = if (scaleDetector.isInProgress || scaleListener.isPerformingEndAnimation) {
+        true
+      } else {
+        gestureDetector.onTouchEvent(event)
+      }
+
       if (event.actionMasked == MotionEvent.ACTION_DOWN) {
         viewModel.setIsUserTouching(true)
       } else if (event.actionMasked == MotionEvent.ACTION_UP || event.actionMasked == MotionEvent.ACTION_CANCEL) {
@@ -245,6 +253,8 @@ class StoryViewerPageFragment :
             .setDuration(100)
             .translationX(0f)
             .translationY(0f)
+
+          requireListener<Callback>().onContentTranslation(0f, 0f)
         }
       }
 
@@ -332,7 +342,7 @@ class StoryViewerPageFragment :
 
       if (parentState.pages.size <= parentState.page) {
         viewModel.setIsSelectedPage(false)
-      } else if (storyRecipientId == parentState.pages[parentState.page]) {
+      } else if (storyViewerPageArgs.recipientId == parentState.pages[parentState.page]) {
         if (progressBar.segmentCount != 0) {
           progressBar.reset()
           progressBar.setPosition(viewModel.getRestartIndex())
@@ -358,7 +368,7 @@ class StoryViewerPageFragment :
       if (state.posts.isNotEmpty() && state.selectedPostIndex in state.posts.indices) {
         val post = state.posts[state.selectedPostIndex]
 
-        presentViewsAndReplies(post, state.replyState, state.isReceiptsEnabled)
+        presentBottomBar(post, state.replyState, state.isReceiptsEnabled)
         presentSenderAvatar(senderAvatar, post)
         presentGroupAvatar(groupAvatar, post)
         presentFrom(from, post)
@@ -387,16 +397,16 @@ class StoryViewerPageFragment :
 
         viewModel.setAreSegmentsInitialized(true)
       } else if (state.selectedPostIndex >= state.posts.size) {
-        callback.onFinishedPosts(storyRecipientId)
+        callback.onFinishedPosts(storyViewerPageArgs.recipientId)
       } else if (state.selectedPostIndex < 0) {
-        callback.onGoToPreviousStory(storyRecipientId)
+        callback.onGoToPreviousStory(storyViewerPageArgs.recipientId)
       }
 
       if (state.isDisplayingInitialState && !sharedViewModel.hasConsumedInitialState) {
         sharedViewModel.consumeInitialState()
-        if (isFromNotification) {
-          startReply(isFromNotification = true, groupReplyStartPosition = groupReplyStartPosition)
-        } else if (isFromInfoContextMenuAction && state.selectedPostIndex in state.posts.indices) {
+        if (storyViewerPageArgs.source == StoryViewerPageArgs.Source.NOTIFICATION) {
+          startReply(isFromNotification = true, groupReplyStartPosition = storyViewerPageArgs.groupReplyStartPosition)
+        } else if (storyViewerPageArgs.source == StoryViewerPageArgs.Source.INFO_CONTEXT && state.selectedPostIndex in state.posts.indices) {
           showInfo(state.posts[state.selectedPostIndex])
         }
       }
@@ -633,6 +643,15 @@ class StoryViewerPageFragment :
         isFromNotification,
         groupReplyStartPosition
       )
+      StoryViewerPageState.ReplyState.PARTIAL_SEND -> {
+        handleResend(storyPost)
+        return
+      }
+      StoryViewerPageState.ReplyState.SEND_FAILURE -> {
+        handleResend(storyPost)
+        return
+      }
+      StoryViewerPageState.ReplyState.SENDING -> return
     }
 
     if (viewModel.getSwipeToReplyState() == StoryViewerPageState.ReplyState.PRIVATE) {
@@ -642,6 +661,19 @@ class StoryViewerPageFragment :
     }
 
     replyFragment.showNow(childFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+  }
+
+  private fun handleResend(storyPost: StoryPost) {
+    viewModel.setIsDisplayingPartialSendDialog(true)
+    if (storyPost.conversationMessage.messageRecord.isIdentityMismatchFailure) {
+      SafetyNumberBottomSheet
+        .forMessageRecord(requireContext(), storyPost.conversationMessage.messageRecord)
+        .show(childFragmentManager)
+    } else {
+      StoryDialogs.resendStory(requireContext(), { viewModel.setIsDisplayingPartialSendDialog(false) }) {
+        lifecycleDisposable += viewModel.resend(storyPost).subscribe()
+      }
+    }
   }
 
   private fun showInfo(storyPost: StoryPost) {
@@ -812,9 +844,16 @@ class StoryViewerPageFragment :
   }
 
   private fun onShowCaptionOverlay(caption: TextView, largeCaption: TextView, largeCaptionOverlay: View) {
+    sharedViewModel.setIsChildScrolling(true)
+
     caption.visible = false
     largeCaption.visible = true
     largeCaptionOverlay.visible = true
+    largeCaption.movementMethod = ScrollingMovementMethod()
+    largeCaption.scrollY = 0
+    largeCaption.setOnClickListener {
+      onHideCaptionOverlay(caption, largeCaption, largeCaptionOverlay)
+    }
     largeCaptionOverlay.setOnClickListener {
       onHideCaptionOverlay(caption, largeCaption, largeCaptionOverlay)
     }
@@ -825,8 +864,10 @@ class StoryViewerPageFragment :
     caption.visible = true
     largeCaption.visible = false
     largeCaptionOverlay.visible = false
+    largeCaption.setOnClickListener(null)
     largeCaptionOverlay.setOnClickListener(null)
     viewModel.setIsDisplayingCaptionOverlay(false)
+    sharedViewModel.setIsChildScrolling(false)
   }
 
   private fun presentFrom(from: TextView, storyPost: StoryPost) {
@@ -864,7 +905,7 @@ class StoryViewerPageFragment :
     }
   }
 
-  private fun presentViewsAndReplies(post: StoryPost, replyState: StoryViewerPageState.ReplyState, isReceiptsEnabled: Boolean) {
+  private fun presentBottomBar(post: StoryPost, replyState: StoryViewerPageState.ReplyState, isReceiptsEnabled: Boolean) {
     if (replyState == StoryViewerPageState.ReplyState.NONE) {
       viewsAndReplies.visible = false
       return
@@ -872,6 +913,51 @@ class StoryViewerPageFragment :
       viewsAndReplies.visible = true
     }
 
+    viewsAndReplies.iconTint = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurface))
+
+    when (replyState) {
+      StoryViewerPageState.ReplyState.SENDING -> presentSendingBottomBar()
+      StoryViewerPageState.ReplyState.PARTIAL_SEND -> presentPartialSendBottomBar()
+      StoryViewerPageState.ReplyState.SEND_FAILURE -> presentSendFailureBottomBar()
+      else -> presentViewsAndRepliesBottomBar(post, isReceiptsEnabled)
+    }
+  }
+
+  private fun presentSendingBottomBar() {
+    if (sendingProgressDrawable == null) {
+      sendingProgressDrawable = IndeterminateDrawable.createCircularDrawable(
+        requireContext(),
+        CircularProgressIndicatorSpec(requireContext(), null).apply {
+          indicatorSize = 18.dp
+          indicatorInset = 2.dp
+          trackColor = ContextCompat.getColor(requireContext(), R.color.transparent_white_40)
+          indicatorColors = intArrayOf(ContextCompat.getColor(requireContext(), R.color.signal_dark_colorNeutralInverse))
+          trackThickness = 2.dp
+        }
+      )
+    }
+
+    viewsAndReplies.icon = sendingProgressDrawable
+    viewsAndReplies.iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
+    viewsAndReplies.iconSize = 20.dp
+    viewsAndReplies.setText(R.string.StoriesLandingItem__sending)
+  }
+
+  private fun presentPartialSendBottomBar() {
+    viewsAndReplies.setIconResource(R.drawable.ic_error_outline_24)
+    viewsAndReplies.iconTint = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_light_colorError))
+    viewsAndReplies.iconSize = 20.dp
+    viewsAndReplies.setText(R.string.StoryViewerPageFragment__partially_sent)
+  }
+
+  private fun presentSendFailureBottomBar() {
+    viewsAndReplies.setIconResource(R.drawable.ic_error_outline_24)
+    viewsAndReplies.iconTint = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_light_colorError))
+    viewsAndReplies.iconSize = 20.dp
+    viewsAndReplies.setText(R.string.StoryViewerPageFragment__send_failed)
+  }
+
+  private fun presentViewsAndRepliesBottomBar(post: StoryPost, isReceiptsEnabled: Boolean) {
     val views = resources.getQuantityString(R.plurals.StoryViewerFragment__d_views, post.viewCount, post.viewCount)
     val replies = resources.getQuantityString(R.plurals.StoryViewerFragment__d_replies, post.replyCount, post.replyCount)
 
@@ -959,11 +1045,14 @@ class StoryViewerPageFragment :
         }
       },
       onGoToChat = {
-        startActivity(ConversationIntents.createBuilder(requireContext(), storyRecipientId, -1L).build())
+        startActivity(ConversationIntents.createBuilder(requireContext(), storyViewerPageArgs.recipientId, -1L).build())
       },
       onHide = {
-        lifecycleDisposable += viewModel.hideStory().subscribe {
-          callback.onStoryHidden(storyRecipientId)
+        viewModel.setIsDisplayingHideDialog(true)
+        StoryDialogs.hideStory(requireContext(), Recipient.resolved(storyViewerPageArgs.recipientId).getDisplayName(requireContext()), { viewModel.setIsDisplayingHideDialog(false) }) {
+          lifecycleDisposable += viewModel.hideStory().subscribe {
+            callback.onStoryHidden(storyViewerPageArgs.recipientId)
+          }
         }
       },
       onShare = {
@@ -995,34 +1084,61 @@ class StoryViewerPageFragment :
     private val CHARACTERS_PER_SECOND = 15L
     private val DEFAULT_DURATION = TimeUnit.SECONDS.toMillis(5)
 
-    private const val ARG_STORY_RECIPIENT_ID = "arg.story.recipient.id"
-    private const val ARG_STORY_ID = "arg.story.id"
-    private const val ARG_IS_FROM_NOTIFICATION = "is_from_notification"
-    private const val ARG_GROUP_REPLY_START_POSITION = "group_reply_start_position"
-    private const val ARG_IS_UNVIEWED_ONLY = "is_unviewed_only"
-    private const val ARG_IS_OUTGOING_ONLY = "is_outgoing_only"
-    private const val ARG_IS_FROM_INFO_CONTEXT_MENU_ACTION = "is_from_info_context_menu_action"
+    private const val ARGS = "args"
 
-    fun create(
-      recipientId: RecipientId,
-      initialStoryId: Long,
-      isFromNotification: Boolean,
-      groupReplyStartPosition: Int,
-      isUnviewedOnly: Boolean,
-      isOutgoingOnly: Boolean,
-      isFromInfoContextMenuAction: Boolean
-    ): Fragment {
+    fun create(args: StoryViewerPageArgs): Fragment {
       return StoryViewerPageFragment().apply {
         arguments = bundleOf(
-          ARG_STORY_RECIPIENT_ID to recipientId,
-          ARG_STORY_ID to initialStoryId,
-          ARG_IS_FROM_NOTIFICATION to isFromNotification,
-          ARG_GROUP_REPLY_START_POSITION to groupReplyStartPosition,
-          ARG_IS_UNVIEWED_ONLY to isUnviewedOnly,
-          ARG_IS_OUTGOING_ONLY to isOutgoingOnly,
-          ARG_IS_FROM_INFO_CONTEXT_MENU_ACTION to isFromInfoContextMenuAction,
+          ARGS to args
         )
       }
+    }
+  }
+
+  private class StoryScaleListener(
+    val viewModel: StoryViewerPageViewModel,
+    val sharedViewModel: StoryViewerViewModel,
+    val card: View
+  ) : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+
+    private var scaleFactor = 1f
+
+    var isPerformingEndAnimation: Boolean = false
+      private set
+
+    override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+      viewModel.setIsUserScaling(true)
+      sharedViewModel.setIsChildScrolling(true)
+      card.animate().cancel()
+      card.apply {
+        pivotX = detector.focusX
+        pivotY = detector.focusY
+      }
+
+      return true
+    }
+
+    override fun onScale(detector: ScaleGestureDetector): Boolean {
+      scaleFactor *= detector.scaleFactor
+
+      card.apply {
+        scaleX = max(scaleFactor, 1f)
+        scaleY = max(scaleFactor, 1f)
+      }
+
+      return true
+    }
+
+    override fun onScaleEnd(detector: ScaleGestureDetector) {
+      scaleFactor = 1f
+      isPerformingEndAnimation = true
+      card.animate().scaleX(1f).scaleY(1f).setListener(object : AnimationCompleteListener() {
+        override fun onAnimationEnd(animation: Animator?) {
+          isPerformingEndAnimation = false
+          viewModel.setIsUserScaling(false)
+          sharedViewModel.setIsChildScrolling(false)
+        }
+      })
     }
   }
 
@@ -1031,6 +1147,7 @@ class StoryViewerPageFragment :
     private val onGoToNext: () -> Unit,
     private val onGoToPrevious: () -> Unit,
     private val onReplyToPost: () -> Unit,
+    private val onContentTranslation: (Float, Float) -> Unit,
     private val viewToTranslate: View = container.parent as View,
     private val sharedViewModel: StoryViewerViewModel
   ) : GestureDetector.SimpleOnGestureListener() {
@@ -1044,7 +1161,7 @@ class StoryViewerPageFragment :
 
     private val maxSlide = DimensionUnit.DP.toPixels(56f * 2)
 
-    override fun onDown(e: MotionEvent?): Boolean {
+    override fun onDown(e: MotionEvent): Boolean {
       return true
     }
 
@@ -1080,6 +1197,8 @@ class StoryViewerPageFragment :
 
       viewToTranslate.animate().cancel()
       viewToTranslate.translationX = distance
+
+      onContentTranslation(viewToTranslate.translationX, viewToTranslate.translationY)
 
       return true
     }
@@ -1190,12 +1309,6 @@ class StoryViewerPageFragment :
     sharedViewModel.setContentIsReady()
   }
 
-  interface Callback {
-    fun onGoToPreviousStory(recipientId: RecipientId)
-    fun onFinishedPosts(recipientId: RecipientId)
-    fun onStoryHidden(recipientId: RecipientId)
-  }
-
   override fun userHasSeenFirstNavigationView(): Boolean {
     return SignalStore.storyValues().userHasSeenFirstNavView
   }
@@ -1207,5 +1320,24 @@ class StoryViewerPageFragment :
 
   override fun onInfoSheetDismissed() {
     viewModel.setIsDisplayingInfoDialog(false)
+  }
+
+  override fun sendAnywayAfterSafetyNumberChangedInBottomSheet(destinations: List<ContactSearchKey.RecipientSearchKey>) {
+    error("Not supported, we handed a message record to the bottom sheet.")
+  }
+
+  override fun onMessageResentAfterSafetyNumberChangeInBottomSheet() {
+    viewModel.setIsDisplayingPartialSendDialog(false)
+  }
+
+  override fun onCanceled() {
+    viewModel.setIsDisplayingPartialSendDialog(false)
+  }
+
+  interface Callback {
+    fun onGoToPreviousStory(recipientId: RecipientId)
+    fun onFinishedPosts(recipientId: RecipientId)
+    fun onStoryHidden(recipientId: RecipientId)
+    fun onContentTranslation(x: Float, y: Float)
   }
 }

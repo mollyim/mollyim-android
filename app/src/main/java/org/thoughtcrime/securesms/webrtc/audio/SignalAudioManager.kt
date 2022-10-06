@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.media.AudioManager
 import android.media.SoundPool
 import android.net.Uri
+import android.os.Build
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
@@ -41,6 +42,8 @@ sealed class SignalAudioManager(protected val context: Context, protected val ev
     fun create(context: Context, eventListener: EventListener?, isGroup: Boolean): SignalAudioManager {
       return if (AndroidTelecomUtil.telecomSupported && !isGroup) {
         TelecomAwareSignalAudioManager(context, eventListener)
+      } else if (Build.VERSION.SDK_INT >= 31) {
+        FullSignalAudioManagerApi31(context, eventListener)
       } else {
         FullSignalAudioManager(context, eventListener)
       }
@@ -155,7 +158,7 @@ class FullSignalAudioManager(context: Context, eventListener: EventListener?) : 
       updateAudioDeviceState()
 
       wiredHeadsetReceiver = WiredHeadsetReceiver()
-      context.registerReceiver(wiredHeadsetReceiver, IntentFilter(AudioManager.ACTION_HEADSET_PLUG))
+      context.registerReceiver(wiredHeadsetReceiver, IntentFilter(if (Build.VERSION.SDK_INT >= 21) AudioManager.ACTION_HEADSET_PLUG else Intent.ACTION_HEADSET_PLUG))
 
       state = State.PREINITIALIZED
 

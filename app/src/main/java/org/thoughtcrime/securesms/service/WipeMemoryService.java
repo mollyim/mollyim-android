@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import org.signal.core.util.PendingIntentFlags;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
@@ -205,7 +206,7 @@ public class WipeMemoryService extends IntentService {
 
   private void showForegroundNotification() {
     Intent intent = new Intent(this, MainActivity.class);
-    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntentFlags.immutable());
     notification = new NotificationCompat.Builder(this, NotificationChannels.LOCKED_STATUS)
         .setOngoing(true)
         .setContentTitle(getString(R.string.WipeMemoryService_secure_wipe_in_progress))

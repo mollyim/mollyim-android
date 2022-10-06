@@ -1,18 +1,13 @@
 package org.thoughtcrime.securesms.jobs;
 
-import android.app.PendingIntent;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.SignalProtocolAddress;
 import org.signal.libsignal.protocol.message.SenderKeyDistributionMessage;
-import org.thoughtcrime.securesms.MainActivity;
-import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.crypto.storage.SignalIdentityKeyStore;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -21,10 +16,8 @@ import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.messages.MessageContentProcessor.MessageState;
 import org.thoughtcrime.securesms.messages.MessageDecryptionUtil;
 import org.thoughtcrime.securesms.messages.MessageDecryptionUtil.DecryptionResult;
-import org.thoughtcrime.securesms.notifications.NotificationChannels;
-import org.thoughtcrime.securesms.notifications.NotificationIds;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.messages.SignalServiceEnvelope;
 import org.whispersystems.signalservice.api.messages.SignalServicePniSignatureMessage;
@@ -99,7 +92,7 @@ public final class PushDecryptMessageJob extends BaseJob {
         handleSenderKeyDistributionMessage(result.getContent().getSender(), result.getContent().getSenderDevice(), result.getContent().getSenderKeyDistributionMessage().get());
       }
 
-      if (result.getContent().getPniSignatureMessage().isPresent()) {
+      if (FeatureFlags.phoneNumberPrivacy() && result.getContent().getPniSignatureMessage().isPresent()) {
         handlePniSignatureMessage(result.getContent().getSender(), result.getContent().getSenderDevice(), result.getContent().getPniSignatureMessage().get());
       }
 

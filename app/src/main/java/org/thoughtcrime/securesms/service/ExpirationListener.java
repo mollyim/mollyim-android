@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import org.signal.core.util.PendingIntentFlags;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 
@@ -30,6 +31,6 @@ public class ExpirationListener extends ExportedBroadcastReceiver {
 
   private static PendingIntent buildExpirationPendingIntent(Context context) {
     Intent intent = new Intent(context, ExpirationListener.class);
-    return PendingIntent.getBroadcast(context, 0, intent, 0);
+    return PendingIntent.getBroadcast(context, 0, intent, PendingIntentFlags.mutable());
   }
 }

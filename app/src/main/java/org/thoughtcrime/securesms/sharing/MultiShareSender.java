@@ -21,6 +21,7 @@ import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey;
 import org.thoughtcrime.securesms.conversation.MessageSendType;
 import org.thoughtcrime.securesms.conversation.colors.ChatColors;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
+import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.Mention;
@@ -214,10 +215,6 @@ public final class MultiShareSender {
         storyType = SignalDatabase.distributionLists().getStoryType(recipient.requireDistributionListId());
       } else {
         storyType = StoryType.STORY_WITH_REPLIES;
-      }
-
-      if (recipient.isActiveGroup() && recipient.isGroup()) {
-        SignalDatabase.groups().markDisplayAsStory(recipient.requireGroupId());
       }
 
       if (!recipient.isMyStory()) {
@@ -416,7 +413,7 @@ public final class MultiShareSender {
     BreakIteratorCompat breakIteratorCompat = BreakIteratorCompat.getInstance();
     breakIteratorCompat.setText(draftText);
 
-    String trimmed = breakIteratorCompat.take(Stories.MAX_BODY_SIZE).toString();
+    String trimmed = breakIteratorCompat.take(Stories.MAX_TEXT_STORY_SIZE).toString();
     if (linkPreview == null) {
       return trimmed;
     }

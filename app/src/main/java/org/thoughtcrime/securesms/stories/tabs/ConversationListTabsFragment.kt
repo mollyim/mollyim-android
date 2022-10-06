@@ -33,6 +33,7 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
   private lateinit var chatsPill: ImageView
   private lateinit var storiesPill: ImageView
 
+  private var shouldBeImmediate = true
   private var pillAnimator: Animator? = null
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,27 +64,26 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
       viewModel.onStoriesSelected()
     }
 
-    update(viewModel.stateSnapshot, true)
-
-    viewModel.state.observe(viewLifecycleOwner) { update(it, false) }
+    viewModel.state.observe(viewLifecycleOwner) {
+      update(it, shouldBeImmediate)
+      shouldBeImmediate = false
+    }
   }
 
   private fun update(state: ConversationListTabsState, immediate: Boolean) {
-    val wasChatSelected = chatsIcon.isSelected
-
     chatsIcon.isSelected = state.tab == ConversationListTab.CHATS
+    chatsPill.isSelected = state.tab == ConversationListTab.CHATS
+
     storiesIcon.isSelected = state.tab == ConversationListTab.STORIES
+    storiesPill.isSelected = state.tab == ConversationListTab.STORIES
 
-    chatsPill.isSelected = chatsIcon.isSelected
-    storiesPill.isSelected = storiesIcon.isSelected
-
-    val hasStateChange = chatsIcon.isSelected xor wasChatSelected
+    val hasStateChange = state.tab != state.prevTab
     if (immediate) {
       chatsIcon.pauseAnimation()
       storiesIcon.pauseAnimation()
 
-      chatsIcon.progress = if (chatsIcon.isSelected) 1f else 0f
-      storiesIcon.progress = if (storiesIcon.isSelected) 1f else 0f
+      chatsIcon.progress = if (state.tab == ConversationListTab.CHATS) 1f else 0f
+      storiesIcon.progress = if (state.tab == ConversationListTab.STORIES) 1f else 0f
 
       runPillAnimation(0, chatsPill, storiesPill)
     } else if (hasStateChange) {

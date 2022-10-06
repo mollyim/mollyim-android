@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.stories.viewer.page
 
 import android.content.Context
 import android.net.Uri
+import androidx.annotation.CheckResult
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -22,6 +23,7 @@ import org.thoughtcrime.securesms.jobs.SendViewedReceiptJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.Base64
 import org.thoughtcrime.securesms.util.TextSecurePreferences
@@ -39,15 +41,13 @@ open class StoryViewerPageRepository(context: Context) {
 
   fun isReadReceiptsEnabled(): Boolean = TextSecurePreferences.isReadReceiptsEnabled(context)
 
-  private fun getStoryRecords(recipientId: RecipientId, isUnviewedOnly: Boolean, isOutgoingOnly: Boolean): Observable<List<MessageRecord>> {
+  private fun getStoryRecords(recipientId: RecipientId, isOutgoingOnly: Boolean): Observable<List<MessageRecord>> {
     return Observable.create { emitter ->
       val recipient = Recipient.resolved(recipientId)
 
       fun refresh() {
         val stories = if (recipient.isMyStory) {
           SignalDatabase.mms.getAllOutgoingStories(false, 100)
-        } else if (isUnviewedOnly) {
-          SignalDatabase.mms.getUnreadStories(recipientId, 100)
         } else if (isOutgoingOnly) {
           SignalDatabase.mms.getOutgoingStoriesTo(recipientId)
         } else {
@@ -148,8 +148,8 @@ open class StoryViewerPageRepository(context: Context) {
     return Stories.enqueueAttachmentsFromStoryForDownload(post.conversationMessage.messageRecord as MmsMessageRecord, true)
   }
 
-  fun getStoryPostsFor(recipientId: RecipientId, isUnviewedOnly: Boolean, isOutgoingOnly: Boolean): Observable<List<StoryPost>> {
-    return getStoryRecords(recipientId, isUnviewedOnly, isOutgoingOnly)
+  fun getStoryPostsFor(recipientId: RecipientId, isOutgoingOnly: Boolean): Observable<List<StoryPost>> {
+    return getStoryRecords(recipientId, isOutgoingOnly)
       .switchMap { records ->
         val posts = records.map { getStoryPostFromRecord(recipientId, it) }
         if (posts.isEmpty()) {
@@ -194,6 +194,13 @@ open class StoryViewerPageRepository(context: Context) {
         }
       }
     }
+  }
+
+  @CheckResult
+  fun resend(messageRecord: MessageRecord): Completable {
+    return Completable.fromAction {
+      MessageSender.resend(ApplicationDependencies.getApplication(), messageRecord)
+    }.subscribeOn(Schedulers.io())
   }
 
   private fun getContent(record: MmsMessageRecord): StoryPost.Content {

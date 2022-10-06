@@ -64,6 +64,7 @@ import org.thoughtcrime.securesms.database.model.StoryViewState;
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList;
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge;
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExportState;
+import org.thoughtcrime.securesms.database.model.databaseprotos.ThreadMergeEvent;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupMigrationMembershipChange;
 import org.thoughtcrime.securesms.jobs.TrimThreadJob;
@@ -572,6 +573,11 @@ public class MmsDatabase extends MessageDatabase {
   }
 
   @Override
+  public void insertThreadMergeEvent(@NonNull RecipientId recipientId, long threadId, @NonNull ThreadMergeEvent event) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
   public void endTransaction(SQLiteDatabase database) {
     database.endTransaction();
   }
@@ -888,17 +894,8 @@ public class MmsDatabase extends MessageDatabase {
   }
 
   @Override
-  public boolean hasSelfReplyInGroupStory(long parentStoryId) {
-    SQLiteDatabase db        = databaseHelper.getSignalReadableDatabase();
-    String[]       columns   = new String[]{"COUNT(*)"};
-    String         where     = PARENT_STORY_ID + " = ? AND (" +
-                               getOutgoingTypeClause() + ") AND ("
-                               + MESSAGE_BOX + " & " + Types.SPECIAL_TYPES_MASK + " != " + Types.SPECIAL_TYPE_STORY_REACTION + ")";
-    String[]       whereArgs = SqlUtil.buildArgs(parentStoryId);
-
-    try (Cursor cursor = db.query(TABLE_NAME, columns, where, whereArgs, null, null, null, null)) {
-      return cursor != null && cursor.moveToNext() && cursor.getInt(0) > 0;
-    }
+  public boolean hasGroupReplyOrReactionInStory(long parentStoryId) {
+    return hasSelfReplyInStory(-parentStoryId);
   }
 
   @Override
@@ -2428,13 +2425,13 @@ public class MmsDatabase extends MessageDatabase {
   }
 
   @Override
-  public Cursor getUnexportedInsecureMessages() {
+  public Cursor getUnexportedInsecureMessages(int limit) {
     return rawQuery(
         SqlUtil.appendArg(MMS_PROJECTION, EXPORT_STATE),
         getInsecureMessageClause() + " AND NOT " + EXPORTED,
         null,
         false,
-        0
+        limit
     );
   }
 
@@ -2602,6 +2599,18 @@ public class MmsDatabase extends MessageDatabase {
 
   public static OutgoingMessageReader readerFor(OutgoingMediaMessage message, long threadId) {
     return new OutgoingMessageReader(message, threadId);
+  }
+
+  @Override
+  public void remapRecipient(@NonNull RecipientId fromId, @NonNull RecipientId toId) {
+
+  }
+
+  @Override
+  public void remapThread(long fromId, long toId) {
+    ContentValues values = new ContentValues();
+    values.put(SmsDatabase.THREAD_ID, toId);
+    getWritableDatabase().update(TABLE_NAME, values, THREAD_ID + " = ?", SqlUtil.buildArgs(fromId));
   }
 
   public static class Status {
