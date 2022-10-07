@@ -34,7 +34,11 @@ open class SignalServiceNetworkAccess(context: Context) {
   companion object {
     private val TAG = Log.tag(SignalServiceNetworkAccess::class.java)
 
-    // MOLLY: DNS moved to Network.dns
+    // MOLLY: DNS moved to Network object. Add new hostnames to HOSTNAMES below.
+
+    private fun String.stripProtocol(): String {
+      return this.removePrefix("https://")
+    }
 
     private const val COUNTRY_CODE_EGYPT = 20
     private const val COUNTRY_CODE_UAE = 971
@@ -52,6 +56,58 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val F_CDN2_HOST = "cdn2.signal.org.global.prod.fastly.net"
     private const val F_DIRECTORY_HOST = "api.directory.signal.org.global.prod.fastly.net"
     private const val F_KBS_HOST = "api.backup.signal.org.global.prod.fastly.net"
+
+    private const val HTTPS_WWW_GOOGLE_COM = "https://www.google.com"
+    private const val HTTPS_ANDROID_CLIENTS_GOOGLE_COM = "https://android.clients.google.com"
+    private const val HTTPS_CLIENTS_3_GOOGLE_COM = "https://clients3.google.com"
+    private const val HTTPS_CLIENTS_4_GOOGLE_COM = "https://clients4.google.com"
+    private const val HTTPS_INBOX_GOOGLE_COM = "https://inbox.google.com"
+    private const val HTTPS_CDN_SSTATIC_NET = "https://cdn.sstatic.net"
+    private const val HTTPS_GITHUB_GITHUBASSETS_COM = "https://github.githubassets.com"
+    private const val HTTPS_PINTEREST_COM = "https://pinterest.com"
+    private const val HTTPS_OPEN_SCDN_CO = "https://open.scdn.co"
+    private const val HTTPS_WWW_REDDITSTATIC_COM = "https://www.redditstatic.com"
+    private const val HTTPS_WWW_GOOGLE_COM_EG = "https://www.google.com.eg"
+    private const val HTTPS_WWW_GOOGLE_AE = "https://www.google.ae"
+    private const val HTTPS_WWW_GOOGLE_COM_OM = "https://www.google.com.om"
+    private const val HTTPS_WWW_GOOGLE_COM_QA = "https://www.google.com.qa"
+    private const val HTTPS_WWW_GOOGLE_CO_UZ = "https://www.google.co.uz"
+    private const val HTTPS_WWW_GOOGLE_COM_UA = "https://www.google.com.ua"
+
+    @JvmField
+    val HOSTNAMES = setOf(
+      BuildConfig.SIGNAL_URL.stripProtocol(),
+      BuildConfig.STORAGE_URL.stripProtocol(),
+      BuildConfig.SIGNAL_CDN_URL.stripProtocol(),
+      BuildConfig.SIGNAL_CDN2_URL.stripProtocol(),
+      BuildConfig.SIGNAL_CONTACT_DISCOVERY_URL.stripProtocol(),
+      BuildConfig.SIGNAL_KEY_BACKUP_URL.stripProtocol(),
+      BuildConfig.SIGNAL_SFU_URL.stripProtocol(),
+      BuildConfig.CONTENT_PROXY_HOST.stripProtocol(),
+      G_HOST,
+      F_SERVICE_HOST,
+      F_STORAGE_HOST,
+      F_CDN_HOST,
+      F_CDN2_HOST,
+      F_DIRECTORY_HOST,
+      F_KBS_HOST,
+      HTTPS_WWW_GOOGLE_COM.stripProtocol(),
+      HTTPS_ANDROID_CLIENTS_GOOGLE_COM.stripProtocol(),
+      HTTPS_CLIENTS_3_GOOGLE_COM.stripProtocol(),
+      HTTPS_CLIENTS_4_GOOGLE_COM.stripProtocol(),
+      HTTPS_INBOX_GOOGLE_COM.stripProtocol(),
+      HTTPS_CDN_SSTATIC_NET.stripProtocol(),
+      HTTPS_GITHUB_GITHUBASSETS_COM.stripProtocol(),
+      HTTPS_PINTEREST_COM.stripProtocol(),
+      HTTPS_OPEN_SCDN_CO.stripProtocol(),
+      HTTPS_WWW_REDDITSTATIC_COM.stripProtocol(),
+      HTTPS_WWW_GOOGLE_COM_EG.stripProtocol(),
+      HTTPS_WWW_GOOGLE_AE.stripProtocol(),
+      HTTPS_WWW_GOOGLE_COM_OM.stripProtocol(),
+      HTTPS_WWW_GOOGLE_COM_QA.stripProtocol(),
+      HTTPS_WWW_GOOGLE_CO_UZ.stripProtocol(),
+      HTTPS_WWW_GOOGLE_COM_UA.stripProtocol(),
+    )
 
     private val GMAPS_CONNECTION_SPEC = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
       .tlsVersions(TlsVersion.TLS_1_2)
@@ -127,14 +183,14 @@ open class SignalServiceNetworkAccess(context: Context) {
   }
 
   private val baseGHostConfigs: List<HostConfig> = listOf(
-    HostConfig("https://www.google.com", G_HOST, GMAIL_CONNECTION_SPEC),
-    HostConfig("https://android.clients.google.com", G_HOST, PLAY_CONNECTION_SPEC),
-    HostConfig("https://clients3.google.com", G_HOST, GMAPS_CONNECTION_SPEC),
-    HostConfig("https://clients4.google.com", G_HOST, GMAPS_CONNECTION_SPEC),
-    HostConfig("https://inbox.google.com", G_HOST, GMAIL_CONNECTION_SPEC),
+    HostConfig(HTTPS_WWW_GOOGLE_COM, G_HOST, GMAIL_CONNECTION_SPEC),
+    HostConfig(HTTPS_ANDROID_CLIENTS_GOOGLE_COM, G_HOST, PLAY_CONNECTION_SPEC),
+    HostConfig(HTTPS_CLIENTS_3_GOOGLE_COM, G_HOST, GMAPS_CONNECTION_SPEC),
+    HostConfig(HTTPS_CLIENTS_4_GOOGLE_COM, G_HOST, GMAPS_CONNECTION_SPEC),
+    HostConfig(HTTPS_INBOX_GOOGLE_COM, G_HOST, GMAIL_CONNECTION_SPEC),
   )
 
-  private val fUrls = arrayOf("https://cdn.sstatic.net", "https://github.githubassets.com", "https://pinterest.com", "https://open.scdn.co", "https://www.redditstatic.com")
+  private val fUrls = arrayOf(HTTPS_CDN_SSTATIC_NET, HTTPS_GITHUB_GITHUBASSETS_COM, HTTPS_PINTEREST_COM, HTTPS_OPEN_SCDN_CO, HTTPS_WWW_REDDITSTATIC_COM)
 
   private val fConfig: SignalServiceConfiguration = SignalServiceConfiguration(
     fUrls.map { SignalServiceUrl(it, F_SERVICE_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
@@ -154,22 +210,22 @@ open class SignalServiceNetworkAccess(context: Context) {
 
   private val censorshipConfiguration: Map<Int, SignalServiceConfiguration> = mapOf(
     COUNTRY_CODE_EGYPT to buildGConfiguration(
-      listOf(HostConfig("https://www.google.com.eg", G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_EG, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
     ),
     COUNTRY_CODE_UAE to buildGConfiguration(
-      listOf(HostConfig("https://www.google.ae", G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_AE, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
     ),
     COUNTRY_CODE_OMAN to buildGConfiguration(
-      listOf(HostConfig("https://www.google.com.om", G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_OM, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
     ),
     COUNTRY_CODE_QATAR to buildGConfiguration(
-      listOf(HostConfig("https://www.google.com.qa", G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_QA, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
     ),
     COUNTRY_CODE_UZBEKISTAN to buildGConfiguration(
-      listOf(HostConfig("https://www.google.co.uz", G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_CO_UZ, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
     ),
     COUNTRY_CODE_UKRAINE to buildGConfiguration(
-      listOf(HostConfig("https://www.google.com.ua", G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_UA, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
     ),
     COUNTRY_CODE_IRAN to fConfig,
     COUNTRY_CODE_CUBA to fConfig,

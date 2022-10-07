@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.util.NetworkUtil;
 
@@ -31,15 +32,18 @@ public class SequentialDns implements Dns {
 
   @Override
   public @NonNull List<InetAddress> lookup(@NonNull String hostname) throws UnknownHostException {
+    boolean isServiceHost = SignalServiceNetworkAccess.HOSTNAMES.contains(hostname);
+
     for (Dns dns : dnsList) {
       try {
         LinkedList<InetAddress> addresses = new LinkedList<>(dns.lookup(hostname));
-        if (!Environment.IS_DEV) {
+        // MOLLY: Filter out invalid addresses for Signal service hosts, except in the Dev environment
+        if (isServiceHost && !Environment.IS_DEV) {
           if (addresses.removeIf(InetAddress::isAnyLocalAddress)) {
-            Log.w(TAG, "Ignore invalid address 0.0.0.0 while resolving " + hostname);
+            Log.w(TAG, "Ignore invalid address 0.0.0.0 while resolving hostname " + hostname);
           }
           if (addresses.removeIf(InetAddress::isLoopbackAddress)) {
-            Log.w(TAG, "Ignore loopback address while resolving " + hostname);
+            Log.w(TAG, "Ignore loopback address while resolving hostname " + hostname);
           }
         }
         if (addresses.size() > 0) {

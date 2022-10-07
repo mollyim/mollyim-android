@@ -7,7 +7,6 @@ apply from: 'translations.gradle'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'app.cash.exhaustive'
 apply plugin: 'kotlin-parcelize'
-apply from: 'static-ips.gradle'
 
 repositories {
     maven {
@@ -214,14 +213,6 @@ android {
         buildConfigField "String[]", "SIGNAL_SFU_INTERNAL_URLS", "new String[]{\"https://sfu.test.voip.signal.org\", \"https://sfu.staging.voip.signal.org\"}"
         buildConfigField "String", "CONTENT_PROXY_HOST", "\"contentproxy.signal.org\""
         buildConfigField "int", "CONTENT_PROXY_PORT", "443"
-        buildConfigField "String[]", "SIGNAL_SERVICE_IPS", service_ips
-        buildConfigField "String[]", "SIGNAL_STORAGE_IPS", storage_ips
-        buildConfigField "String[]", "SIGNAL_CDN_IPS", cdn_ips
-        buildConfigField "String[]", "SIGNAL_CDN2_IPS", cdn2_ips
-        buildConfigField "String[]", "SIGNAL_CDS_IPS", cds_ips
-        buildConfigField "String[]", "SIGNAL_KBS_IPS", kbs_ips
-        buildConfigField "String[]", "SIGNAL_SFU_IPS", sfu_ips
-        buildConfigField "String[]", "SIGNAL_CONTENT_PROXY_IPS", content_proxy_ips
         buildConfigField "String", "SIGNAL_AGENT", "\"OWA\""
         buildConfigField "String", "CDS_MRENCLAVE", "\"74778bb0f93ae1f78c26e67152bab0bbeb693cd56d1bb9b4e9244157acc58081\""
         buildConfigField "String", "CDSI_MRENCLAVE", "\"ef4787a56a154ac6d009138cac17155acd23cfe4329281252365dd7c252e7fbf\""
