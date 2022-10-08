@@ -362,7 +362,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
   private fun getDeviceLockTimeoutSummary(timeoutSeconds: Long): String {
     val hours = TimeUnit.SECONDS.toHours(timeoutSeconds)
     val minutes = TimeUnit.SECONDS.toMinutes(timeoutSeconds) - hours * 60
-    val seconds = TimeUnit.SECONDS.toSeconds(timeoutSeconds) - minutes
+    val seconds = TimeUnit.SECONDS.toSeconds(timeoutSeconds) - minutes * 60 - hours * 3600
 
     return if (timeoutSeconds <= 0) {
       getString(R.string.AppProtectionPreferenceFragment_instant)
