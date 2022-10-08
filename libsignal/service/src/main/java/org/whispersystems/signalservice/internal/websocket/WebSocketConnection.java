@@ -15,6 +15,7 @@ import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager;
 import org.whispersystems.signalservice.internal.util.Util;
 
 import java.io.IOException;
+import java.net.ProxySelector;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -72,6 +73,7 @@ public class WebSocketConnection extends WebSocketListener {
   private final List<Interceptor>                         interceptors;
   private final Dns                                       dns;
   private final SocketFactory                             socketFactory;
+  private final ProxySelector                             proxySelector;
   private final BehaviorSubject<WebSocketConnectionState> webSocketState;
 
   private WebSocket client;
@@ -98,6 +100,7 @@ public class WebSocketConnection extends WebSocketListener {
     this.interceptors        = serviceConfiguration.getNetworkInterceptors();
     this.dns                 = serviceConfiguration.getDns();
     this.socketFactory       = serviceConfiguration.getSocketFactory();
+    this.proxySelector       = serviceConfiguration.getProxySelector();
     this.healthMonitor       = healthMonitor;
     this.webSocketState      = BehaviorSubject.createDefault(WebSocketConnectionState.DISCONNECTED);
 
@@ -133,11 +136,12 @@ public class WebSocketConnection extends WebSocketListener {
       Pair<SSLSocketFactory, X509TrustManager> sslSocketFactory = createTlsSocketFactory(trustStore);
 
       OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder().socketFactory(socketFactory)
+                                                                     .proxySelector(proxySelector)
+                                                                     .dns(dns)
                                                                      .sslSocketFactory(new Tls12SocketFactory(sslSocketFactory.first()),
                                                                                        sslSocketFactory.second())
                                                                      .connectionSpecs(Util.immutableList(ConnectionSpec.RESTRICTED_TLS))
                                                                      .readTimeout(KEEPALIVE_TIMEOUT_SECONDS + 10, TimeUnit.SECONDS)
-                                                                     .dns(dns)
                                                                      .connectTimeout(KEEPALIVE_TIMEOUT_SECONDS + 10, TimeUnit.SECONDS);
 
       for (Interceptor interceptor : interceptors) {

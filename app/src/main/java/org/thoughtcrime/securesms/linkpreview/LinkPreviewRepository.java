@@ -83,9 +83,10 @@ public class LinkPreviewRepository {
   public LinkPreviewRepository() {
     this.client = new OkHttpClient.Builder()
                                   .socketFactory(Network.getSocketFactory())
+                                  .proxySelector(Network.getProxySelectorForSocks())
+                                  .dns(Network.getDns())
                                   .cache(null)
                                   .addInterceptor(new UserAgentInterceptor("WhatsApp/2"))
-                                  .dns(Network.getDns())
                                   .build();
   }
 

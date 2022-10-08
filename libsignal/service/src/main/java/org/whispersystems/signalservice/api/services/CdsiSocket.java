@@ -61,11 +61,12 @@ final class CdsiSocket {
 
     OkHttpClient.Builder builder = new OkHttpClient.Builder()
                                                    .socketFactory(configuration.getSocketFactory())
+                                                   .proxySelector(configuration.getProxySelector())
+                                                   .dns(configuration.getDns())
                                                    .sslSocketFactory(new Tls12SocketFactory(socketFactory.first()), socketFactory.second())
                                                    .connectionSpecs(Util.immutableList(ConnectionSpec.RESTRICTED_TLS))
                                                    .readTimeout(30, TimeUnit.SECONDS)
-                                                   .connectTimeout(30, TimeUnit.SECONDS)
-                                                   .dns(configuration.getDns());
+                                                   .connectTimeout(30, TimeUnit.SECONDS);
 
     for (Interceptor interceptor : configuration.getNetworkInterceptors()) {
       builder.addInterceptor(interceptor);

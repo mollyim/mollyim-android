@@ -76,6 +76,7 @@ public class UpdateApkJob extends BaseJob {
 
     OkHttpClient client = new OkHttpClient.Builder()
                                           .socketFactory(Network.getSocketFactory())
+                                          .proxySelector(Network.getProxySelectorForSocks())
                                           .dns(Network.getDns())
                                           .build();
     Request request = new Request.Builder().url(String.format("%s/index-v1.json", BuildConfig.FDROID_UPDATE_URL)).build();

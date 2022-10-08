@@ -2,9 +2,9 @@ package org.whispersystems.signalservice.internal.configuration;
 
 
 
+import java.net.ProxySelector;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.net.SocketFactory;
 
@@ -21,6 +21,7 @@ public final class SignalServiceConfiguration {
   private final SignalStorageUrl[]           signalStorageUrls;
   private final List<Interceptor>            networkInterceptors;
   private final SocketFactory                socketFactory;
+  private final ProxySelector                proxySelector;
   private final Dns                          dns;
   private final byte[]                       zkGroupServerPublicParams;
 
@@ -32,6 +33,7 @@ public final class SignalServiceConfiguration {
                                     SignalCdsiUrl[] signalCdsiUrls,
                                     List<Interceptor> networkInterceptors,
                                     SocketFactory socketFactory,
+                                    ProxySelector proxySelector,
                                     Dns dns,
                                     byte[] zkGroupServerPublicParams)
   {
@@ -43,6 +45,7 @@ public final class SignalServiceConfiguration {
     this.signalStorageUrls          = signalStorageUrls;
     this.networkInterceptors        = networkInterceptors;
     this.socketFactory              = socketFactory;
+    this.proxySelector              = proxySelector;
     this.dns                        = dns;
     this.zkGroupServerPublicParams  = zkGroupServerPublicParams;
   }
@@ -77,6 +80,10 @@ public final class SignalServiceConfiguration {
 
   public SocketFactory getSocketFactory() {
     return socketFactory;
+  }
+
+  public ProxySelector getProxySelector() {
+    return proxySelector;
   }
 
   public Dns getDns() {

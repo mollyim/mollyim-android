@@ -532,8 +532,9 @@ public class ApplicationDependencies {
         if (okHttpClient == null) {
           okHttpClient = new OkHttpClient.Builder()
               .socketFactory(Network.getSocketFactory())
-              .addInterceptor(new StandardUserAgentInterceptor())
+              .proxySelector(Network.getProxySelectorForSocks())
               .dns(Network.getDns())
+              .addInterceptor(new StandardUserAgentInterceptor())
               .build();
         }
       }

@@ -44,11 +44,11 @@ public class ChunkedImageUrlLoader implements ModelLoader<ChunkedImageUrl, Input
       this.client  = new OkHttpClient.Builder()
                                      .socketFactory(Network.getSocketFactory())
                                      .proxySelector(new ContentProxySelector())
+                                     .dns(Network.getDns())
                                      .cache(null)
                                      .addInterceptor(new StandardUserAgentInterceptor())
                                      .addNetworkInterceptor(new ContentProxySafetyInterceptor())
                                      .addNetworkInterceptor(new PaddedHeadersInterceptor())
-                                     .dns(Network.getDns())
                                      .build();
     }
 

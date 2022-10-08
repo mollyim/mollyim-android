@@ -24,14 +24,12 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.providers.BlobProvider;
-import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.signal.core.util.Stopwatch;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -242,8 +240,9 @@ public class SubmitDebugLogRepository {
     try {
       OkHttpClient client   = new OkHttpClient.Builder()
                                               .socketFactory(Network.getSocketFactory())
-                                              .addInterceptor(new StandardUserAgentInterceptor())
+                                              .proxySelector(Network.getProxySelectorForSocks())
                                               .dns(Network.getDns())
+                                              .addInterceptor(new StandardUserAgentInterceptor())
                                               .build();
       Response     response = client.newCall(new Request.Builder().url(API_ENDPOINT).get().build()).execute();
       ResponseBody body     = response.body();

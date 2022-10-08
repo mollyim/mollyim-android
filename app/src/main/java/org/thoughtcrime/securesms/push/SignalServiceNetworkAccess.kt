@@ -204,6 +204,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     arrayOf(SignalCdsiUrl(BuildConfig.SIGNAL_CDSI_URL, serviceTrustStore)),
     interceptors,
     Network.socketFactory,
+    Network.proxySelectorForSocks,
     Network.dns,
     zkGroupServerPublicParams
   )
@@ -255,6 +256,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     arrayOf(SignalCdsiUrl(BuildConfig.SIGNAL_CDSI_URL, serviceTrustStore)),
     interceptors,
     Network.socketFactory,
+    Network.proxySelectorForSocks,
     Network.dns,
     zkGroupServerPublicParams
   )
@@ -322,6 +324,7 @@ open class SignalServiceNetworkAccess(context: Context) {
       cdsiUrls,
       interceptors,
       Network.socketFactory,
+      Network.proxySelectorForSocks,
       Network.dns,
       zkGroupServerPublicParams
     )
