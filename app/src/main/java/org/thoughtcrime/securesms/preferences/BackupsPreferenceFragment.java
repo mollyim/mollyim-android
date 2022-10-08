@@ -276,7 +276,7 @@ public class BackupsPreferenceFragment extends Fragment {
   }
 
   private void onScheduleClicked() {
-    new AlertDialog.Builder(requireContext())
+    new MaterialAlertDialogBuilder(requireContext())
         .setTitle(R.string.BackupsPreferenceFragment__change_schedule)
         .setItems(R.array.backup_intervals, (dialog, which) -> {
           Context context = requireContext();

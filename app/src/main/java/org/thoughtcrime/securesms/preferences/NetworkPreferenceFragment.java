@@ -17,6 +17,8 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import org.signal.core.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -216,13 +218,13 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
 
   private void promptToInstallOrbot(@NonNull Context context) {
     final Intent installIntent = OrbotHelper.getOrbotInstallIntent(context);
-    new AlertDialog.Builder(context)
-                   .setTitle(R.string.NetworkPreferenceFragment_missing_orbot_app)
-                   .setMessage(R.string.NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device)
-                   .setPositiveButton(R.string.NetworkPreferenceFragment_get_orbot, (dialog, which) -> {
-                     startActivity(installIntent);
-                   })
-                   .setNegativeButton(android.R.string.cancel, null)
-                   .show();
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(R.string.NetworkPreferenceFragment_missing_orbot_app)
+        .setMessage(R.string.NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device)
+        .setPositiveButton(R.string.NetworkPreferenceFragment_get_orbot, (dialog, which) -> {
+          startActivity(installIntent);
+        })
+        .setNegativeButton(android.R.string.cancel, null)
+        .show();
   }
 }
