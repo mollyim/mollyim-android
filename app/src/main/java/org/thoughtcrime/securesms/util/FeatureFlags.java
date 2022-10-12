@@ -551,7 +551,7 @@ public final class FeatureFlags {
    * Here be dragons.
    */
   public static boolean hideContacts() {
-    return getBoolean(HIDE_CONTACTS, false);
+    return false;
   }
 
   /**
