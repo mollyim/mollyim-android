@@ -278,6 +278,7 @@ public class ApplicationDependencies {
         signalWebSocket.forceNewWebSockets();
       }
     }
+    getIncomingMessageObserver();
   }
 
   public static @NonNull SignalServiceNetworkAccess getSignalServiceNetworkAccess() {
