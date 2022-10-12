@@ -1960,6 +1960,7 @@
     <string name="MediaPreviewActivity_s_to_you">%1$s naar jou</string>
     <string name="MediaPreviewActivity_media_no_longer_available">Media niet langer beschikbaar.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Geen app gevonden waarmee dit bestand met anderen gedeeld kan worden.</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">Sluiten</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d nieuwe berichten in %2$d gesprekken</string>
@@ -2666,11 +2667,11 @@
     <string name="preferences_storage__review_storage">Alle bestanden weergeven</string>
     <string name="preferences_storage__delete_older_messages">Oude berichten wissen?</string>
     <string name="preferences_storage__clear_message_history">Berichtengeschiedenis wissen?</string>
-    <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">Dit zal pertinent alle gespreksgeschiedenis en media ouder dan %1$s van dit apparaat wissen.</string>
+    <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">Dit zal alle gespreksgeschiedenis en media ouder dan %1$s permanent van dit apparaat wissen.</string>
     <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">Dit zal direct alle gesprekken inkorten tot de %1$s meest recente berichten.</string>
-    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Dit zal pertinent al je gespreksgeschiedenis en media van dit apparaat wissen.</string>
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Dit zal al je gespreksgeschiedenis en media van dit apparaat permanent wissen.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Weet je zeker dat je alle gespreksgeschiedenis wilt wissen?</string>
-    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Alle gespreksgeschiedenis zal pertinent worden gewist. Dit kan niet ongedaan worden gemaakt.</string>
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Alle gespreksgeschiedenis zal permanent worden gewist. Dit kan niet ongedaan worden gemaakt.</string>
     <string name="preferences_storage__delete_all_now">Nu alles wissen</string>
     <string name="preferences_storage__forever">Voor altijd</string>
     <string name="preferences_storage__one_year">1 jaar</string>
@@ -2748,10 +2749,14 @@
     <string name="configurable_single_select__customize_option">Instelling personaliseren</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2903,6 +2908,26 @@
     <string name="PaymentsHomeFragment__enable">Aanzetten</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Niet nu</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">Veiligheidsinstellingen</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">Bescherm je geld</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">Voorkom met een extra beveiligingslaag dat iemand anders dan jij via jouw telefoon toegang heeft tot je geld. In instellingen kun je deze optie uitschakelen.</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">Betalingsvergrendeling inschakelen</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">Niet nu</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">Deze stap overslaan?</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">Als je deze stap overslaat, kan iemand met fysieke toegang tot je telefoon geld overmaken of je herstelzin bekijken.</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">Annuleren</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">Overslaan</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">Krediet toevoegen</string>
@@ -4799,6 +4824,8 @@
     <string name="StoryViewItem__remove_viewer">Gebruiker verwijderen</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">Nog geen reacties</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">Je kunt niet reageren op dit verhaal, omdat je geen lid van deze groep meer bent.</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Reageerde op dit verhaal</string>
     <!-- Label for story views tab -->
@@ -4817,6 +4844,13 @@
     <string name="StoryGroupReplyItem__delete">Wissen</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">Mijn verhaal</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="one">%1$d viewer</item>
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Wie kan dit verhaal bekijken</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4851,8 +4885,6 @@
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Reacties toelaten</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Sta personen die je verhaal mogen zien ook toe om te reageren</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">Met deze optie kun je je verhaal voor specifieke personen verbergen. Je verhaal is standaard zichtbaar voor al je %1$s</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Signal-contacten</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -4864,7 +4896,7 @@
     <!-- Signal connections sheet bullet point 3 -->
     <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Hem of haar in je systeemcontactenlijst te hebben staan</string>
     <!-- Note at the bottom of the Signal connections sheet -->
-    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Je Signal-kennissen kunnen jouw profielnaam en -foto zien en kunnen je “Mijn verhaal”-plaatsingen zien tenzij je die specifiek voor hem of haar verbergt."</string>
+    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Je Signal-contacten kunnen jouw profielnaam en -foto zien en kunnen je “Mijn verhaal”-plaatsingen zien tenzij je die specifiek voor hem of haar verbergt."</string>
     <!-- Clickable option to add a viewer to a private story -->
     <string name="PrivateStorySettingsFragment__add_viewer">Persoon toevoegen</string>
     <!-- Clickable option to delete a custom story -->
@@ -4911,10 +4943,26 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">Deel alleen met…</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">Klaar</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">Verhaal verwijderen?</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">\"%1$s\" wordt verwijderd.</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">Overschrijvingsdetails wissen</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">Privéverhaal verwijderen?</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">\"%1$s\" en updates die op dit verhaal zijn gedeeld, worden verwijderd.</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">Wissen</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">Verhalen is alleen beschikbaar voor Signal-beta-gebruikers.</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">Als je een verhaal deelt, is dit alleen beschikbaar voor mensen die op Signal-beta zitten.</string>
     <!-- Dialog title for first time adding something to a story -->
     <string name="StoryDialogs__add_to_story_q">Toevoegen aan verhaal?</string>
     <!-- Dialog message for first time adding something to a story -->
-    <string name="StoryDialogs__adding_content">Wanneer je een nieuw deel aan je verhaal toevoegt dan kunnen je Signal-kennissen dat deel van je verhaal voor de komende 24 uur bekijken. Je kunt in de instellingen aanpassen welke personen je verhaal kunnen bekijken.</string>
+    <string name="StoryDialogs__adding_content">Wanneer je een nieuw deel aan je verhaal toevoegt dan kunnen je Signal-contacten dat deel van je verhaal voor de komende 24 uur bekijken. Je kunt in de instellingen aanpassen welke personen je verhaal kunnen bekijken.</string>
     <!-- First time share to story dialog: Positive action to go ahead and add to story -->
     <string name="StoryDialogs__add_to_story">Een verhaal toevoegen</string>
     <!-- First time share to story dialog: Neutral action to edit who can view "My Story" -->
@@ -4923,6 +4971,8 @@
     <string name="StoryDialogs__story_could_not_be_sent">Je verhaal kan niet worden geüpload. Ga na dat je apparaat met het internet is verbonden en probeer het opnieuw.</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">Uploaden</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">Uitschakelen en verwijderen</string>
     <!-- Privacy Settings toggle title for stories -->
     <string name="PrivacySettingsFragment__share_and_view_stories">Verhaal weergeven &amp; doorsturen</string>
     <!-- Privacy Settings toggle summary for stories -->
@@ -5071,6 +5121,11 @@
         <item quantity="one">Groepsverhaal · door %1$d persoon gezien</item>
         <item quantity="other">Groepsverhaal · door %1$d personen gezien</item>
     </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="one">%1$d persoon</item>
+        <item quantity="other">%1$d personen</item>
+    </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
         <item quantity="one">%1$s · %2$d keer bekeken.</item>
@@ -5206,7 +5261,7 @@
     <!-- Dialog title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Verhalen uitzetten?</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">Je zult niet langer verhalen kunnen delen of bekijken. Verhalen die je recent verzonden hebt zullen nog steeds zichtbaar zijn tot deze verlopen.</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">Je kunt geen verhalen meer delen of bekijken. Updates die je recent op je verhaal hebt gedeeld, worden ook gewist.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">Verhaalprivacy</string>
 

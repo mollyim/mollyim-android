@@ -673,7 +673,7 @@
     <!-- GroupsV1MigrationLearnMoreBottomSheetDialogFragment -->
     <string name="GroupsV1MigrationLearnMore_what_are_new_groups">O que são os \'Novos grupos\'?</string>
     <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">Os \'Novos grupos\' têm recursos como @menções e administradores de grupos e oferecerão futuramente suporte para mais recursos.</string>
-    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Todo o histórico de mensagens e média foi mantido para antes do upgrade.</string>
+    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Todo o histórico de mensagens e multimédia foi mantido para antes do upgrade.</string>
     <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">Você necessitará de aceitar um convite para se juntar novamente a este grupo e não receberá mensagens de grupo até que aceite.</string>
     <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
         <item quantity="one">Este membro necessitará de aceitar um convite para se juntar novamente a este grupo e não receberá mensagens do grupo até aceitar:</item>
@@ -688,7 +688,7 @@
     <string name="GroupsV1MigrationInitiation_upgrade_to_new_group">Upgrade para \'Novo grupo\'</string>
     <string name="GroupsV1MigrationInitiation_upgrade_this_group">Fazer o upgrade deste grupo</string>
     <string name="GroupsV1MigrationInitiation_new_groups_have_features_like_mentions">Os \'Novos grupos\' têm recursos como @menções e administradores de grupos e oferecerão futuramente suporte para mais recursos.</string>
-    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">Todo o histórico de mensagens e média será mantido para antes do upgrade.</string>
+    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">Todo o histórico de mensagens e multimédia será mantido para antes do upgrade.</string>
     <string name="GroupsV1MigrationInitiation_encountered_a_network_error">Foi encontrado um erro de rede. Por favor, tete novamente mais tarde.</string>
     <string name="GroupsV1MigrationInitiation_failed_to_upgrade">Ocorreu um erro ao tentar fazer o upgrade.</string>
     <plurals name="GroupsV1MigrationInitiation_these_members_will_need_to_accept_an_invite">
@@ -1524,7 +1524,7 @@
     <!-- Recipient -->
     <string name="Recipient_you">Você</string>
     <!-- Name of recipient representing user\'s \'My Story\' -->
-    <string name="Recipient_my_story">A minha história</string>
+    <string name="Recipient_my_story">A Minha História</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Bloquear</string>
@@ -1855,9 +1855,9 @@
     <!-- Displayed in the notification when the user has opened a received gift -->
     <string name="ThreadRecord__you_redeemed_a_gift_badge">Resgatou um crachá de oferta</string>
     <!-- Displayed in the conversation list when someone reacted to your story -->
-    <string name="ThreadRecord__reacted_s_to_your_story">Reagiu %1$s à sua história</string>
+    <string name="ThreadRecord__reacted_s_to_your_story">Reagiu com %1$s à sua história</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
-    <string name="ThreadRecord__reacted_s_to_their_story">Reagiu %1$s à sua história</string>
+    <string name="ThreadRecord__reacted_s_to_their_story">Reagiu com %1$s à sua história</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Atualização do Molly</string>
@@ -1960,6 +1960,7 @@
     <string name="MediaPreviewActivity_s_to_you">De %1$s para si</string>
     <string name="MediaPreviewActivity_media_no_longer_available">Multimédia atualmente indisponível.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Não foi possível encontrar uma aplicação capaz de partilhar este média.</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">Fechar</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d novas mensagens em %2$d conversas</string>
@@ -2200,7 +2201,7 @@
     <!-- Author formatting for group stories -->
     <string name="QuoteView_s_story">%1$s · História</string>
     <!-- Label indicating that a quote is for a reply to a story you created -->
-    <string name="QuoteView_your_story">A sua história</string>
+    <string name="QuoteView_your_story">Você · História</string>
     <!-- Label indicating that the story being replied to no longer exists -->
     <string name="QuoteView_no_longer_available">Já não se encontra disponível</string>
     <!-- Label for quoted gift -->
@@ -2666,11 +2667,11 @@
     <string name="preferences_storage__review_storage">Rever armazenamento</string>
     <string name="preferences_storage__delete_older_messages">Eliminar mensagens antigas?</string>
     <string name="preferences_storage__clear_message_history">Eliminar histórico de mensagens?</string>
-    <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">Isto irá eliminar permanentemente do seu dispositivo todo o histórico de mensagens e multimédia que sejam mais velhos que %1$s.</string>
+    <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">Isto irá eliminar permanentemente do seu dispositivo todo o histórico de mensagens e multimédia que sejam mais antigos que %1$s.</string>
     <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">Isto irá reduzir automaticamente todas as conversas para as %1$s mensagens mais recentes.</string>
-    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Isto irá eliminar permanentemente do seu dispositivo todo o histórico de mensagens e multimédia,</string>
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Isto irá eliminar permanentemente do seu dispositivo todo o histórico de mensagens e multimédia.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Tem a certeza que deseja eliminar todo o histórico de mensagens?</string>
-    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Todo o histórico de mensagens será eliminado permanentemente. Esta ação não poderá ser desfeita.</string>
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Todo o histórico de mensagens será eliminado permanentemente. Esta ação não poderá ser revertida.</string>
     <string name="preferences_storage__delete_all_now">Eliminar tudo agora</string>
     <string name="preferences_storage__forever">Para sempre</string>
     <string name="preferences_storage__one_year">1 ano</string>
@@ -2748,10 +2749,14 @@
     <string name="configurable_single_select__customize_option">Personalizar opção</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2903,6 +2908,26 @@
     <string name="PaymentsHomeFragment__enable">Ativar</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Agora não</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">Configuração de segurança</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">Proteja os seus fundos</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">Adicione outra camada de segurança para ajudar a impedir que uma pessoa com o seu telemóvel aceda aos seus fundos. Pode desativar esta opção nas Definições.</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">Ativar bloqueio de pagamento</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">Agora não</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">Saltar este passo?</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">Saltar este passo pode eventualmente permitir a qualquer pessoa que tenha acesso físico ao seu telefone transferir fundos ou ver a sua frase de recuperação.</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">Cancelar</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">Saltar</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">Adicionar fundos</string>
@@ -4256,9 +4281,9 @@
     <string name="MultiselectForwardFragment__add_a_message">Adicionar uma mensagem</string>
     <string name="MultiselectForwardFragment__faster_forwards">Reencaminhar mais rapidamente</string>
     <!-- Displayed when user selects a video that will be clipped before sharing to a story -->
-    <string name="MultiselectForwardFragment__videos_will_be_trimmed">Os vídeos serão reduzidos para clipes de 30 segundos e enviados em várias Histórias.</string>
+    <string name="MultiselectForwardFragment__videos_will_be_trimmed">Os vídeos serão reduzidos para clipes de 30 segundos e enviados em várias histórias.</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
-    <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">Os vídeos enviados para as Histórias não podem ter mais do que 30 segundos.</string>
+    <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">Os vídeos enviados para as histórias não podem ter mais do que 30 segundos.</string>
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">As mensagens reencaminhadas agora são enviadas imediatamente.</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">Enviar %1$d mensagem</item>
@@ -4799,6 +4824,8 @@
     <string name="StoryViewItem__remove_viewer">Remover visualizador</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">Ainda não existem respostas</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">Não pode responder a esta história porque já não é membro deste grupo.</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Reagiu à história</string>
     <!-- Label for story views tab -->
@@ -4817,6 +4844,13 @@
     <string name="StoryGroupReplyItem__delete">Eliminar</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">A minha história</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="one">%1$d viewer</item>
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Quem pode ver esta história</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4851,8 +4885,6 @@
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Permitir respostas e reações</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Permitir que as pessoas que podem ver a sua história possam reagir e responder</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">Oculte a sua história a pessoas específicas. Por padrão, a sua história é partilhada com os seus %1$s</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Contactos do Signal</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -4911,6 +4943,22 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">Partilhar apenas com…</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">Concluir</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">Remover história de grupo?</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">\"%1$s\" será removida</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">Remover</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">Eliminar história privada?</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">\"%1$s\" e atualizações partilhadas com esta história serão removidos.</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">Eliminar</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">As histórias estão disponíveis apenas para os utilizadores do Signal versão beta.</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">Se partilhar uma história, ela só estará disponível para pessoas que estejam na versão beta do Signal.</string>
     <!-- Dialog title for first time adding something to a story -->
     <string name="StoryDialogs__add_to_story_q">Adicionar à história?</string>
     <!-- Dialog message for first time adding something to a story -->
@@ -4923,10 +4971,12 @@
     <string name="StoryDialogs__story_could_not_be_sent">A história não pode ser enviada. Verifique a sua ligação e tente novamente.</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">Enviar</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">Desativar e eliminar</string>
     <!-- Privacy Settings toggle title for stories -->
     <string name="PrivacySettingsFragment__share_and_view_stories">Partilhar e ver histórias</string>
     <!-- Privacy Settings toggle summary for stories -->
-    <string name="PrivacySettingsFragment__you_will_no_longer_be_able">Deixará de ser capaz de partilhar ou ver \'Histórias\' quando esta opção se encontrar desativada.</string>
+    <string name="PrivacySettingsFragment__you_will_no_longer_be_able">Deixará de ser capaz de partilhar ou ver histórias quando esta opção se encontrar desativada.</string>
     <!-- New story viewer selection screen title -->
     <string name="CreateStoryViewerSelectionFragment__choose_viewers">Escolher visualizadores</string>
     <!-- New story viewer selection action button label -->
@@ -5071,6 +5121,11 @@
         <item quantity="one">História de grupo · %1$d visualizador</item>
         <item quantity="other">História de grupo · %1$d visualizadores</item>
     </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="one">%1$d membro</item>
+        <item quantity="other">%1$d membros</item>
+    </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
         <item quantity="one">%1$s · %2$d visualizador</item>
@@ -5206,7 +5261,7 @@
     <!-- Dialog title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Desativar histórias?</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">Já não poderá partilhar ou ver histórias. Quaisquer histórias que tenha recentemente enviado ainda estarão visíveis até expirarem.</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">Já não poderá partilhar ou ver histórias. As atualizações de histórias que tenha partilhado recentemente também serão apagadas.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">Privacidade da história</string>
 
@@ -5214,7 +5269,7 @@
     <!-- Section header for who can view a group story -->
     <string name="GroupStorySettingsFragment__who_can_view_this_story">Quem pode ver esta história</string>
     <!-- Explanation of who can view a group story -->
-    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Os membros do grupo \"%1$s\" podem ver e responder a esta história. Pode atualizar os membros desta conversa no grupo."</string>
+    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Os membros do grupo %1$s podem ver e responder a esta história. Pode atualizar os membros desta conversa no grupo."</string>
     <!-- Preference label for removing this group story -->
     <string name="GroupStorySettingsFragment__remove_group_story">Remover história de grupo</string>
 

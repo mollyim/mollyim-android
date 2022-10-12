@@ -195,7 +195,7 @@
     <string name="ClientDeprecatedActivity_update">Ažuriraj</string>
     <string name="ClientDeprecatedActivity_dont_update">Ne ažuriraj</string>
     <string name="ClientDeprecatedActivity_warning">Upozorenje</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Vaša verzija Signala je istekla. Možete pregledati svoju povijest poruka, ali nećete moći slati ili primati poruke dok ne ažurirate.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Vaša verzija Signala je istekla. Možete pregledati svoju povijest poruka, ali nećete moći slati ili primati poruke dok ne ažurirate aplikaciju.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Nije pronađen nijedan web preglednik.</string>
@@ -719,7 +719,7 @@
     <!-- GroupsV1MigrationLearnMoreBottomSheetDialogFragment -->
     <string name="GroupsV1MigrationLearnMore_what_are_new_groups">Što su Nove grupe?</string>
     <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">Nove grupe imaju značajke poput @spominjanja i administratora grupa, a ubuduće će podržavati više značajki.</string>
-    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Sva povijest poruka i medijskih zapisa sačuvani su od prije nadogradnje.</string>
+    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Sva povijest poruka i medijski zapisi sačuvani su nakon nadogradnje.</string>
     <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">Morati će te prihvatiti pozivnicu da se ponovno pridruži ovoj grupi i nećete primati poruke grupe dok ne prihvatite:</string>
     <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
         <item quantity="one">Ovaj će član morati prihvatiti pozivnicu da bi se ponovno pridružio grupi i neće primati poruke grupe dok ne prihvati:</item>
@@ -738,7 +738,7 @@
     <string name="GroupsV1MigrationInitiation_upgrade_to_new_group">Nadogradi u Novu grupu.</string>
     <string name="GroupsV1MigrationInitiation_upgrade_this_group">Nadogradi ovu grupu</string>
     <string name="GroupsV1MigrationInitiation_new_groups_have_features_like_mentions">Nove grupe imaju značajke poput @spominjanja i administratora grupa, a ubuduće će podržavati više značajki.</string>
-    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">Sva povijest poruka i medijskih zapisa će biti sačuvana od prije nadogradnje.</string>
+    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">Sva povijest poruka i medijskih zapisa bit će sačuvana nakon nadogradnje.</string>
     <string name="GroupsV1MigrationInitiation_encountered_a_network_error">Došlo je do mrežne pogreške. Pokušajte ponovno kasnije.</string>
     <string name="GroupsV1MigrationInitiation_failed_to_upgrade">Ažuriranje nije uspjelo.</string>
     <plurals name="GroupsV1MigrationInitiation_these_members_will_need_to_accept_an_invite">
@@ -2108,6 +2108,7 @@
     <string name="MediaPreviewActivity_s_to_you">Poslao korisnik %1$s</string>
     <string name="MediaPreviewActivity_media_no_longer_available">Medijski zapis više nije dostupan.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Nije moguće pronaći aplikaciju za dijeljenje ovog medijskog zapisa.</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">Zatvori</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d novih poruka u %2$d razgovora</string>
@@ -2842,7 +2843,7 @@
     <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">Ovo će trenutno skratiti sve razgovore na %1$s najnovijih poruka.</string>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Ovo će trajno izbrisati svu povijest razgovora i medijske zapise s vašeg uređaja.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Jeste li sigurni da želite izbrisati svu povijest razgovora?</string>
-    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Sva povijest razgovora će biti trajno izbrisana. Ova se radnja ne može poništiti.</string>
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Sva povijest razgovora bit će trajno izbrisana. Ova se radnja ne može poništiti.</string>
     <string name="preferences_storage__delete_all_now">Izbriši sve sada</string>
     <string name="preferences_storage__forever">Zauvijek</string>
     <string name="preferences_storage__one_year">1 godina</string>
@@ -2920,10 +2921,14 @@
     <string name="configurable_single_select__customize_option">Opcija prilagođavanja</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -3075,6 +3080,26 @@
     <string name="PaymentsHomeFragment__enable">Uključi</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Ne sada</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">Sigurnosne postavke</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">Zaštitite svoja sredstva</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">Onemogućite pristup vašim sredstvima osobama koje imaju pristup vašem mobilnom uređaju postavljanjem dodane razine sigurnosti. Ovu opciju možete onemogućiti u Postavkama.</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">Omogući zaključavanje plaćanja</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">Ne sada</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">Preskočiti ovaj korak?</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">Preskakanje ovog koraka moglo bi omogućiti prijenos vaših sredstava ili pregled vaše fraze za oporavak svakome tko ima fizički pristup vašem telefonu.</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">Poništi</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">Preskoči</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">Dodaj sredstva</string>
@@ -4911,7 +4936,7 @@
     <!-- String for counts above 99 in conversation list tabs -->
     <string name="ConversationListTabs__99p">99+</string>
     <!-- Menu item on stories landing page -->
-    <string name="StoriesLandingFragment__story_privacy">Privatnost priče</string>
+    <string name="StoriesLandingFragment__story_privacy">Privatnost priča</string>
     <!-- Title for "My Stories" row item in Stories landing page -->
     <string name="StoriesLandingFragment__my_stories">Moje priče</string>
     <!-- Subtitle for "My Stories" row item when user has not added stories -->
@@ -5013,6 +5038,8 @@
     <string name="StoryViewItem__remove_viewer">Ukloni gledatelja</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">Još nema odgovora</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">Ne možete odgovoriti na ovu priču jer više niste član grupe.</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Reakcija na priču</string>
     <!-- Label for story views tab -->
@@ -5031,6 +5058,15 @@
     <string name="StoryGroupReplyItem__delete">Izbriši</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">Moja priča</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="one">%1$d viewer</item>
+        <item quantity="few">%1$d viewers</item>
+        <item quantity="many">%1$d viewers</item>
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Tko može pogledati ovu priču</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -5069,8 +5105,6 @@
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Dopustite odgovore i reakcije</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Dopustite osobama koje mogu vidjeti vašu priču da reagiraju i odgovaraju</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">Sakrij svoju priču od određenih osoba. Prema zadanim postavkama vaša se priča dijeli s vašim %1$s</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Signal kontakti</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -5082,7 +5116,7 @@
     <!-- Signal connections sheet bullet point 3 -->
     <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Spremili ih u kontakte</string>
     <!-- Note at the bottom of the Signal connections sheet -->
-    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Vaši kontakti mogu vidjeti vaše ime i fotografiju te vaše priče osim ako ih od njih ne sakrijete."</string>
+    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Vaši kontakti mogu vidjeti vaše ime i fotografiju te vaše priče, osim ako ih od njih ne sakrijete."</string>
     <!-- Clickable option to add a viewer to a private story -->
     <string name="PrivateStorySettingsFragment__add_viewer">Dodaj gledatelja</string>
     <!-- Clickable option to delete a custom story -->
@@ -5098,7 +5132,7 @@
     <!-- Dialog message when deleting a private story -->
     <string name="PrivateStorySettingsFragment__this_action_cannot">Ova se radnja ne može poništiti.</string>
     <!-- Page title for editing a private story name -->
-    <string name="EditPrivateStoryNameFragment__edit_story_name">Uređivanje naziva priče</string>
+    <string name="EditPrivateStoryNameFragment__edit_story_name">Uredi naziv priče</string>
     <!-- Input field hint when editing a private story name -->
     <string name="EditPrivateStoryNameFragment__story_name">Naziv priče</string>
     <!-- Save button label when editing a private story name -->
@@ -5129,6 +5163,22 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">Podijeli samo s…</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">Gotovo</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">Ukloniti grupnu priču?</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">\"%1$s\" bit će uklonjena.</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">Ukloni</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">Izbrisati privatnu priču?</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">\"%1$s\" i ažuriranja podijeljena u ovoj priči bit će izbrisana.</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">Izbriši</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">Priče su dostupne samo korisnicima beta verzije Signala.</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">Ako podijelite priču, ona će biti dostupna samo osobama koje koriste beta verziju Signala.</string>
     <!-- Dialog title for first time adding something to a story -->
     <string name="StoryDialogs__add_to_story_q">Dodati u priču?</string>
     <!-- Dialog message for first time adding something to a story -->
@@ -5141,6 +5191,8 @@
     <string name="StoryDialogs__story_could_not_be_sent">Nije moguće poslati priču. Provjerite internetsku vezu i pokušajte ponovo.</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">Pošalji</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">Isključi i izbriši</string>
     <!-- Privacy Settings toggle title for stories -->
     <string name="PrivacySettingsFragment__share_and_view_stories">Dijelite i gledajte priče</string>
     <!-- Privacy Settings toggle summary for stories -->
@@ -5215,9 +5267,9 @@
     <!-- Conversation Item label for when you react to someone else\'s story -->
     <string name="ConversationItem__you_reacted_to_s_story">Reagirali ste na priču korisnika %1$s</string>
     <!-- Conversation Item label for reactions to your story -->
-    <string name="ConversationItem__reacted_to_your_story">Reagirala je na vašu priču</string>
+    <string name="ConversationItem__reacted_to_your_story">Reagira na vašu priču</string>
     <!-- Conversation Item label for reactions to an unavailable story -->
-    <string name="ConversationItem__reacted_to_a_story">Reakcija na priču</string>
+    <string name="ConversationItem__reacted_to_a_story">Reagira na priču</string>
 
     <!-- endregion -->
     <!-- Content description for expand contacts chevron -->
@@ -5297,6 +5349,13 @@
         <item quantity="many">Grupna priča · %1$d gledatelja</item>
         <item quantity="other">Grupna priča · %1$d gledatelja</item>
     </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="one">%1$d član</item>
+        <item quantity="few">%1$d člana</item>
+        <item quantity="many">%1$d članova</item>
+        <item quantity="other">%1$d članova</item>
+    </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
         <item quantity="one">%1$s · %2$d gledatelj</item>
@@ -5313,7 +5372,7 @@
     <!-- Label for context menu item to delete a private story -->
     <string name="ContactSearchItems__delete_story">Izbriši priču</string>
     <!-- Dialog title for removing a group story -->
-    <string name="ContactSearchMediator__remove_group_story">Ukloni grupnu priču?</string>
+    <string name="ContactSearchMediator__remove_group_story">Ukloniti grupnu priču?</string>
     <!-- Dialog message for removing a group story -->
     <string name="ContactSearchMediator__this_will_remove">Time će se priča ukloniti s ovog popisa. I dalje ćete moći vidjeti priče iz ove grupe.</string>
     <!-- Dialog action item for removing a group story -->
@@ -5430,7 +5489,7 @@
 
     <!-- StoriesPrivacySettingsFragment -->
     <!-- Explanation about how stories are deleted and managed -->
-    <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">Priče automatski nestaju nakon 24 sata. Odaberite tko može vidjeti vašu priču ili kreirajte nove priče s određenim gledateljima ili grupama.</string>
+    <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">Priče automatski nestaju nakon 24 sata. Odaberite tko može vidjeti vašu priču ili stvorite nove priče s određenim gledateljima ili grupama.</string>
     <!-- Preference title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories">Isključi priče</string>
     <!-- Preference summary to turn off stories -->
@@ -5442,15 +5501,15 @@
     <!-- Dialog title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Isključiti priče?</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">Više nećete moći dijeliti niti pregledavati priče. Sve priče koje ste nedavno poslali bit će vidljive drugima dok ne isteknu.</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">Više nećete moći dijeliti niti pregledavati priče. Ažuriranja priča koja ste nedavno podijelili također će se izbrisati.</string>
     <!-- Page title when launched from stories landing screen -->
-    <string name="StoriesPrivacySettingsFragment__story_privacy">Privatnost priče</string>
+    <string name="StoriesPrivacySettingsFragment__story_privacy">Privatnost priča</string>
 
     <!-- GroupStorySettingsFragment -->
     <!-- Section header for who can view a group story -->
     <string name="GroupStorySettingsFragment__who_can_view_this_story">Tko može pogledati ovu priču</string>
     <!-- Explanation of who can view a group story -->
-    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Članovi grupe \"%1$s\" mogu pogledati i odgovoriti na ovu priču. Možete ažurirati članstvo za ovaj razgovor u grupi."</string>
+    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Članovi grupe \"%1$s\" mogu pogledati ovu priču i odgovoriti na nju. Možete ažurirati članstvo za ovaj razgovor u grupi."</string>
     <!-- Preference label for removing this group story -->
     <string name="GroupStorySettingsFragment__remove_group_story">Ukloni grupnu priču</string>
 

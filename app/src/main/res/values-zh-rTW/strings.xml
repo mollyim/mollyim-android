@@ -1886,6 +1886,7 @@
     <string name="MediaPreviewActivity_s_to_you">%1$s 給你</string>
     <string name="MediaPreviewActivity_media_no_longer_available">媒體已不存在。</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">找不到能夠分享此媒體檔案的應用程式。</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">關閉</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d 則新訊息在 %2$d 的對話中</string>
@@ -2662,10 +2663,14 @@
     <string name="configurable_single_select__customize_option">自定義選項</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2817,6 +2822,26 @@
     <string name="PaymentsHomeFragment__enable">開啟</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">暫時不要</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">安全設定</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">保護你的資金</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">多加一重安全保障，防止有人使用你的手機存取你的資金。你可以在「設定」中停用此選項。</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">啟用付款鎖定</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">稍後</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">要跳過此步驟嗎？</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">跳過此步驟會讓實際使用你手機的任何人轉移資金或查看你的恢復片語。</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">取消</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">略過</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">增加資金</string>
@@ -4692,6 +4717,8 @@
     <string name="StoryViewItem__remove_viewer">移除瀏覽者</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">未有回覆</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">由於你不再是這群組的成員，因此你無法回覆此限時動態。</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__reacted_to_the_story">以對此限時動態做出回應</string>
     <!-- Label for story views tab -->
@@ -4710,6 +4737,12 @@
     <string name="StoryGroupReplyItem__delete">刪除</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">我的限時動態</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">誰能瀏覽此限動</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4742,8 +4775,6 @@
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">允許回覆&amp; 回應</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">誰可檢視你的限時動態也可表達心情和回覆</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">對特定人士隱藏您的限時動態。你的限時動態預設與你的 %1$s分享。</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Signal 聯絡人</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -4802,6 +4833,22 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">僅分享給…</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">完成</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">要移除群組限動嗎？</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">「%1$s」將會被移除。</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">移除</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">要刪除私人限動？</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">「%1$s」和分享到此限時動態的更新將會被刪除。</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">刪除</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">限時動態僅適用於 Signal 測試版用戶。</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">只有使用 Signal 測試版的用戶能看到你分享的限時動態。</string>
     <!-- Dialog title for first time adding something to a story -->
     <string name="StoryDialogs__add_to_story_q">要新增至限時動態嗎？</string>
     <!-- Dialog message for first time adding something to a story -->
@@ -4814,6 +4861,8 @@
     <string name="StoryDialogs__story_could_not_be_sent">限時動態無法傳送。 檢查你的連接，然後重試。</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">傳送</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">關閉並刪除</string>
     <!-- Privacy Settings toggle title for stories -->
     <string name="PrivacySettingsFragment__share_and_view_stories">分享與觀看限時動態</string>
     <!-- Privacy Settings toggle summary for stories -->
@@ -4958,6 +5007,10 @@
     <plurals name="ContactSearchItems__group_story_d_viewers">
         <item quantity="other">群組限動 · %1$d 位瀏覽者</item>
     </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="other">%1$d 個成員</item>
+    </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
         <item quantity="other">%1$s · %2$d 位瀏覽者</item>
@@ -5088,7 +5141,7 @@
     <!-- Dialog title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">要關閉限動嗎？</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">你將無法再分享或瀏覽限動。任何你近期傳送給他人的限動，在到期之前仍可瀏覽。</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">你將無法再分享或瀏覽限時動態。你最近分享的限時動態更新也將會被刪除。</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">限動隱私</string>
 

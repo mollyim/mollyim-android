@@ -1590,7 +1590,7 @@
     <!-- Recipient -->
     <string name="Recipient_you">Tu</string>
     <!-- Name of recipient representing user\'s \'My Story\' -->
-    <string name="Recipient_my_story">Povestea mea</string>
+    <string name="Recipient_my_story">Povestea Mea</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Blochează</string>
@@ -2034,6 +2034,7 @@
     <string name="MediaPreviewActivity_s_to_you">%1$s către tine</string>
     <string name="MediaPreviewActivity_media_no_longer_available">Media nu mai este disponibilă.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Nu pot găsi o aplicație pentru a distribui acest tip media.</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">Închide</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d mesaje noi în %2$d conversații</string>
@@ -2743,7 +2744,7 @@
     <string name="preferences_chats__when_using_wifi">Când se utilizează Wi-Fi</string>
     <string name="preferences_chats__when_roaming">Când se utilizează roaming-ul</string>
     <string name="preferences_chats__media_auto_download">Descărcare automată Media</string>
-    <string name="preferences_chats__message_history">Istoric mesaje</string>
+    <string name="preferences_chats__message_history">Istoricul mesajelor</string>
     <string name="preferences_storage__storage_usage">Utilizare spațiu stocare</string>
     <string name="preferences_storage__photos">Poze</string>
     <string name="preferences_storage__videos">Video</string>
@@ -2834,10 +2835,14 @@
     <string name="configurable_single_select__customize_option">Personalizează opțiunea</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2989,6 +2994,26 @@
     <string name="PaymentsHomeFragment__enable">Activează</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Nu Acum</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">Configurarea securității</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">Protejează-ți fondurile</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">Ajută-ne să împiedicăm o persoană care are telefonul tău să-ți acceseze fondurile adăugând un alt nivel de securitate. Poți să dezactivezi această opțiune din Setări.</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">Activează protecția plăților</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">Nu acum</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">Sari peste acest pas?</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">Dacă sari peste acest pas, oricine care are acces fizic la telefonul tău poate să-și transfere fonduri sau să vadă fraza de recuperare.</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">Anulează</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">Omite</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">Adaugă fonduri</string>
@@ -4357,7 +4382,7 @@
     <!-- Displayed when user selects a video that will be clipped before sharing to a story -->
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">Videoclipurile vor fi scurtate la clipuri de 30 de secunde și trimise ca Povești multiple.</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
-    <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">Videoclipurile trimise către Povești nu pot fi mai lungi de 30 de secunde.</string>
+    <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">Videoclipurile trimise către povești nu pot fi mai lungi de 30 de secunde.</string>
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">Mesajele redirecționate sunt acum trimise imediat.</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">Trimite %1$d mesaj</item>
@@ -4839,7 +4864,7 @@
     <!-- Title of dialog confirming decision to hide a story -->
     <string name="StoriesLandingFragment__hide_story">Ascunzi povestea?</string>
     <!-- Message of dialog confirming decision to hide a story -->
-    <string name="StoriesLandingFragment__new_story_updates">Actualizări despre povești noi de la %1$s nu vor mai fi afișate la începutul listei.</string>
+    <string name="StoriesLandingFragment__new_story_updates">Actualizările despre povești noi de la %1$s nu vor mai fi afișate la începutul listei.</string>
     <!-- Positive action of dialog confirming decision to hide a story -->
     <string name="StoriesLandingFragment__hide">Ascunde</string>
     <!-- Displayed in Snackbar after story is hidden -->
@@ -4906,6 +4931,8 @@
     <string name="StoryViewItem__remove_viewer">Elimină vizualizatorul</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">Niciun răspuns încă</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">Nu poți răspunde la această poveste pentru că nu mai ești membru al acestui grup.</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Ai reacționat la poveste</string>
     <!-- Label for story views tab -->
@@ -4924,6 +4951,14 @@
     <string name="StoryGroupReplyItem__delete">Șterge</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">Povestea Mea</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="one">%1$d viewer</item>
+        <item quantity="few">%1$d viewers</item>
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Cine poate vedea această poveste</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4960,8 +4995,6 @@
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Permite răspunsuri &amp; reacții</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Permite oamenilor care îți pot vedea povestea să reacționeze și să răspundă</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">Ascunde-ți povestea de anumite persoane. În mod implicit povestea ta este distribuită %1$s</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Conexiunile Signal</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -4973,7 +5006,7 @@
     <!-- Signal connections sheet bullet point 3 -->
     <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Să îi ai în contactele tale de sistem</string>
     <!-- Note at the bottom of the Signal connections sheet -->
-    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Conexiunile tale îți pot vedea numele, fotografia și pot vedea postările în \"Povestea Mea\" dacă nu le ascundeți."</string>
+    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Conexiunile tale îți pot vedea numele, fotografia și pot vedea postările în \"Povestea Mea\" dacă nu le ascunzi."</string>
     <!-- Clickable option to add a viewer to a private story -->
     <string name="PrivateStorySettingsFragment__add_viewer">Adaugă spectator</string>
     <!-- Clickable option to delete a custom story -->
@@ -5020,6 +5053,22 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">Distribuie doar către…</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">Gata</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">Elimini povestea de grup?</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">Se va elimina „%1$s“.</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">Elimină</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">Ștergi povestea privată?</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">„%1$s“ și actualizările trimise către această poveste vor fi șterse.</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">Șterge</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">Poveștile sunt disponibile doar pentru utilizatorii Signal beta.</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">Dacă distribui o poveste, va fi disponibilă doar pentru persoanele care se află în Signal beta.</string>
     <!-- Dialog title for first time adding something to a story -->
     <string name="StoryDialogs__add_to_story_q">Adaugi la poveste?</string>
     <!-- Dialog message for first time adding something to a story -->
@@ -5032,10 +5081,12 @@
     <string name="StoryDialogs__story_could_not_be_sent">Povestea nu a putut fi trimisă. Verifică-ți conexiunea și încearcă din nou.</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">Trimite</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">Dezactivează și șterge</string>
     <!-- Privacy Settings toggle title for stories -->
-    <string name="PrivacySettingsFragment__share_and_view_stories">Distribuie &amp; vezi povești</string>
+    <string name="PrivacySettingsFragment__share_and_view_stories">Distribuie &amp; Vezi Povești</string>
     <!-- Privacy Settings toggle summary for stories -->
-    <string name="PrivacySettingsFragment__you_will_no_longer_be_able">Nu vei mai putea să distribui sau să vezi Povești atunci când această opțiune este dezactivată.</string>
+    <string name="PrivacySettingsFragment__you_will_no_longer_be_able">Nu vei mai putea să distribui sau să vezi povești atunci când această opțiune este dezactivată.</string>
     <!-- New story viewer selection screen title -->
     <string name="CreateStoryViewerSelectionFragment__choose_viewers">Alege spectatorii</string>
     <!-- New story viewer selection action button label -->
@@ -5087,7 +5138,7 @@
     <!-- Toasted when the user externally shares to a text story successfully -->
     <string name="TextStoryPostCreationFragment__sent_story">Poveste trimisă</string>
     <!-- Toasted when the user external share to a text story fails -->
-    <string name="TextStoryPostCreationFragment__failed_to_send_story">Trimiterea poveștii a eșuat.</string>
+    <string name="TextStoryPostCreationFragment__failed_to_send_story">Trimiterea poveștii a eșuat</string>
     <!-- Displayed in a dialog to let the user select a given users story -->
     <string name="StoryDialogs__view_story">Arată povestea</string>
     <!-- Displayed in a dialog to let the user select a given users profile photo -->
@@ -5171,7 +5222,7 @@
     <!-- Expired gift sheet not now button -->
     <string name="ExpiredGiftSheetConfiguration__not_now">Nu acum</string>
     <!-- My Story label designating that we will only share with the selected viewers. -->
-    <string name="ContactSearchItems__only_share_with">Distribuie doar către</string>
+    <string name="ContactSearchItems__only_share_with">Distribuie doar cu</string>
     <!-- Label under name for private stories -->
     <plurals name="ContactSearchItems__private_story_d_viewers">
         <item quantity="one">Poveste privată · %1$d vizualizator</item>
@@ -5183,6 +5234,12 @@
         <item quantity="one">Poveste de grup · %1$d vizualizator</item>
         <item quantity="few">Poveste de grup · %1$d vizualizatori</item>
         <item quantity="other">Poveste de grup · %1$d de vizualizatori</item>
+    </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="one">%1$d membru</item>
+        <item quantity="few">%1$d membri</item>
+        <item quantity="other">%1$d de membri</item>
     </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
@@ -5287,7 +5344,7 @@
     <!-- Title of initial My Story settings configuration shown when sending to My Story for the first time -->
     <string name="ChooseInitialMyStoryMembershipFragment__my_story_privacy">Confidențialitatea Poveștii Mele</string>
     <!-- Subtitle of initial My Story settings configuration shown when sending to My Story for the first time -->
-    <string name="ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings">Alege cine poate vedea postările la Povestea Mea. Poți oricând să faci schimbări în setări.</string>
+    <string name="ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings">Alege cine poate vedea postările la povestea mea. Poți oricând să faci schimbări în setări.</string>
     <!-- All connections option for initial My Story settings configuration shown when sending to My Story for the first time -->
     <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Toate conexiunile Signal</string>
     <!-- All connections except option for initial My Story settings configuration shown when sending to My Story for the first time -->
@@ -5324,7 +5381,7 @@
     <!-- Dialog title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Dezactivezi poveștile?</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">Nu vei mai putea să distribui sau să vezi povești. Orice povești ai trimis recent vor fi încă vizibile pentru alte persoane până ce expiră.</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">Nu vei mai putea să distribui sau să vezi povești. Actualizările poveștilor pe care le-ai distribuit recent vor fi și ele șterse.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">Confidențialitatea poveștilor</string>
 

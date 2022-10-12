@@ -27,6 +27,7 @@ import org.thoughtcrime.securesms.messages.IncomingMessageProcessor.Processor;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.SignalWebSocket;
@@ -76,6 +77,8 @@ public class IncomingMessageObserver {
     this.keepAliveTokens            = new HashMap<>();
 
     new MessageRetrievalThread().start();
+
+    // MOLLY: Foreground service startup is handled to the connection loop
 
     ApplicationDependencies.getAppForegroundObserver().addListener(new AppForegroundObserver.Listener() {
       @Override
@@ -158,13 +161,14 @@ public class IncomingMessageObserver {
       return false;
     }
 
-    boolean registered = SignalStore.account().isRegistered();
-    boolean fcmEnabled = SignalStore.account().isFcmEnabled();
-    boolean hasNetwork = NetworkConstraint.isMet(context);
-    boolean hasProxy   = ApplicationDependencies.getNetworkManager().isProxyEnabled();
-    long    oldRequest = System.currentTimeMillis() - OLD_REQUEST_WINDOW_MS;
+    boolean registered     = SignalStore.account().isRegistered();
+    boolean fcmEnabled     = SignalStore.account().isFcmEnabled();
+    boolean hasNetwork     = NetworkConstraint.isMet(context);
+    boolean hasProxy       = ApplicationDependencies.getNetworkManager().isProxyEnabled();
+    boolean forceWebsocket = SignalStore.internalValues().isWebsocketModeForced();
+    long    oldRequest     = System.currentTimeMillis() - OLD_REQUEST_WINDOW_MS;
 
-    if (!fcmEnabled && registered && !isForegroundService) {
+    if ((!fcmEnabled || forceWebsocket) && registered && !isForegroundService) {
       ContextCompat.startForegroundService(context, new Intent(context, ForegroundService.class));
       isForegroundService = true;
     }
@@ -174,11 +178,11 @@ public class IncomingMessageObserver {
       Log.d(TAG, "Removed old keep web socket open requests.");
     }
 
-    Log.d(TAG, String.format("Network: %s, Foreground: %s, FCM: %s, Stay open requests: [%s], Censored: %s, Registered: %s, Proxy: %s",
-                             hasNetwork, appVisible, fcmEnabled, Util.join(keepAliveTokens.entrySet(), ","), networkAccess.isCensored(), registered, hasProxy));
+    Log.d(TAG, String.format("Network: %s, Foreground: %s, FCM: %s, Stay open requests: [%s], Censored: %s, Registered: %s, Proxy: %s, Force websocket: %s",
+                             hasNetwork, appVisible, fcmEnabled, Util.join(keepAliveTokens.entrySet(), ","), networkAccess.isCensored(), registered, hasProxy, forceWebsocket));
 
     return registered &&
-           (appVisible || !fcmEnabled || Util.hasItems(keepAliveTokens)) &&
+           (appVisible || !fcmEnabled || forceWebsocket || Util.hasItems(keepAliveTokens)) &&
            hasNetwork &&
            !networkAccess.isCensored();
   }

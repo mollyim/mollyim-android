@@ -81,7 +81,7 @@ public final class FeatureFlags {
   private static final String RETRY_RECEIPTS                    = "android.retryReceipts";
   private static final String MAX_GROUP_CALL_RING_SIZE          = "global.calling.maxGroupCallRingSize";
   private static final String GROUP_CALL_RINGING                = "android.calling.groupCallRinging";
-  private static final String STORIES                           = "android.stories.2";
+  private static final String STORIES                           = "android.stories.3";
   private static final String STORIES_TEXT_FUNCTIONS            = "android.stories.text.functions";
   private static final String HARDWARE_AEC_BLOCKLIST_MODELS     = "android.calling.hardwareAecBlockList";
   private static final String SOFTWARE_AEC_BLOCKLIST_MODELS     = "android.calling.softwareAecBlockList";
@@ -96,12 +96,14 @@ public final class FeatureFlags {
   private static final String TELECOM_MANUFACTURER_ALLOWLIST    = "android.calling.telecomAllowList";
   private static final String TELECOM_MODEL_BLOCKLIST           = "android.calling.telecomModelBlockList";
   private static final String CAMERAX_MODEL_BLOCKLIST           = "android.cameraXModelBlockList";
+  private static final String CAMERAX_MIXED_MODEL_BLOCKLIST     = "android.cameraXMixedModelBlockList";
   private static final String RECIPIENT_MERGE_V2                = "android.recipientMergeV2";
   private static final String CDS_V2_LOAD_TEST                  = "android.cdsV2LoadTest";
-  private static final String SMS_EXPORTER                      = "android.sms.exporter";
+  private static final String SMS_EXPORTER                      = "android.sms.exporter.2";
   private static final String CDS_V2_COMPAT                     = "android.cdsV2Compat.4";
   public  static final String STORIES_LOCALE                    = "android.stories.locale";
   private static final String HIDE_CONTACTS                     = "android.hide.contacts";
+  public  static final String MEDIA_PREVIEW_V2                  = "android.mediaPreviewV2";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -150,12 +152,14 @@ public final class FeatureFlags {
       TELECOM_MANUFACTURER_ALLOWLIST,
       TELECOM_MODEL_BLOCKLIST,
       CAMERAX_MODEL_BLOCKLIST,
+      CAMERAX_MIXED_MODEL_BLOCKLIST,
       RECIPIENT_MERGE_V2,
       CDS_V2_LOAD_TEST,
       SMS_EXPORTER,
       CDS_V2_COMPAT,
       STORIES_LOCALE,
-      HIDE_CONTACTS
+      HIDE_CONTACTS,
+      MEDIA_PREVIEW_V2
   );
 
   @VisibleForTesting
@@ -220,7 +224,8 @@ public final class FeatureFlags {
       RECIPIENT_MERGE_V2,
       CDS_V2_LOAD_TEST,
       CDS_V2_COMPAT,
-      STORIES
+      STORIES,
+      MEDIA_PREVIEW_V2
   );
 
   /**
@@ -244,7 +249,10 @@ public final class FeatureFlags {
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
     put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> MessageProcessReceiver.startOrUpdateAlarm(ApplicationDependencies.getApplication()));
-    put(STORIES, change -> ApplicationDependencies.getJobManager().startChain(new RefreshAttributesJob()).then(new RefreshOwnProfileJob()).enqueue());
+    put(STORIES, change -> {
+      ApplicationDependencies.getJobManager().startChain(new RefreshAttributesJob()).then(new RefreshOwnProfileJob()).enqueue();
+      ApplicationDependencies.restartAllNetworkConnections();
+    });
     put(GIFT_BADGE_RECEIVE_SUPPORT, change -> ApplicationDependencies.getJobManager().startChain(new RefreshAttributesJob()).then(new RefreshOwnProfileJob()).enqueue());
   }};
 
@@ -489,6 +497,11 @@ public final class FeatureFlags {
     return getString(CAMERAX_MODEL_BLOCKLIST, "");
   }
 
+  /** A comma-separated list of manufacturers that should *not* use CameraX mixed mode. */
+  public static @NonNull String cameraXMixedModelBlocklist() {
+    return getString(CAMERAX_MIXED_MODEL_BLOCKLIST, "");
+  }
+
   /** Whether or not hardware AEC should be used for calling on devices older than API 29. */
   public static boolean useHardwareAecIfOlderThanApi29() {
     return getBoolean(USE_HARDWARE_AEC_IF_OLD, false);
@@ -539,6 +552,13 @@ public final class FeatureFlags {
    */
   public static boolean hideContacts() {
     return getBoolean(HIDE_CONTACTS, false);
+  }
+
+  /**
+   * Whether or not we should use the new media preview fragment implementation.
+   */
+  public static boolean mediaPreviewV2() {
+    return getBoolean(MEDIA_PREVIEW_V2, false);
   }
 
   /** Only for rendering debug info. */

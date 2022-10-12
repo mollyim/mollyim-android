@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.FragmentWrapperActivity
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
@@ -16,6 +17,7 @@ import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectFor
 open class MultiselectForwardActivity : FragmentWrapperActivity(), MultiselectForwardFragment.Callback, SearchConfigurationProvider {
 
   companion object {
+    private val TAG = Log.tag(MultiselectForwardActivity::class.java)
     private const val ARGS = "args"
   }
 
@@ -32,20 +34,15 @@ open class MultiselectForwardActivity : FragmentWrapperActivity(), MultiselectFo
   }
 
   override fun getFragment(): Fragment {
-    return MultiselectForwardFragment.create(
-      args.let {
-        if (it.sendButtonTint == -1) {
-          args.withSendButtonTint(ContextCompat.getColor(this, R.color.signal_colorPrimary))
-        } else {
-          args
-        }
-      }
-    )
+    return MultiselectForwardFragment.create(args)
   }
 
-  override fun onFinishForwardAction() = Unit
+  override fun onFinishForwardAction() {
+    Log.d(TAG, "Completed forward action...")
+  }
 
   override fun exitFlow() {
+    Log.d(TAG, "Exiting flow...")
     onBackPressedDispatcher.onBackPressed()
   }
 

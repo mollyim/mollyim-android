@@ -16,7 +16,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehaviorHack
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
@@ -146,6 +145,7 @@ class StoryGroupReplyFragment :
   private lateinit var adapter: PagingMappingAdapter<MessageId>
   private lateinit var dataObserver: RecyclerView.AdapterDataObserver
   private lateinit var composer: StoryReplyComposer
+  private lateinit var notInGroup: View
 
   private var markReadHelper: MarkReadHelper? = null
 
@@ -164,6 +164,7 @@ class StoryGroupReplyFragment :
 
     recyclerView = view.findViewById(R.id.recycler)
     composer = view.findViewById(R.id.composer)
+    notInGroup = view.findViewById(R.id.not_in_group)
 
     lifecycleDisposable.bindTo(viewLifecycleOwner)
 
@@ -215,10 +216,7 @@ class StoryGroupReplyFragment :
     adapter.registerAdapterDataObserver(dataObserver)
 
     initializeMentions()
-
-    if (savedInstanceState == null) {
-      ViewUtil.focusAndShowKeyboard(composer)
-    }
+    initializeComposer(savedInstanceState)
 
     recyclerView.addOnScrollListener(GroupReplyScrollObserver())
   }
@@ -360,7 +358,6 @@ class StoryGroupReplyFragment :
 
           override fun onReactionSelected(emoji: String) {
             dialog.dismiss()
-            findListener<Callback>()?.onReactionEmojiSelected(emoji)
             sendReaction(emoji)
           }
 
@@ -379,6 +376,8 @@ class StoryGroupReplyFragment :
   }
 
   private fun sendReaction(emoji: String) {
+    findListener<Callback>()?.onReactionEmojiSelected(emoji)
+
     lifecycleDisposable += StoryGroupReplySender.sendReaction(requireContext(), storyId, emoji)
       .observeOn(AndroidSchedulers.mainThread())
       .subscribeBy(
@@ -431,6 +430,22 @@ class StoryGroupReplyFragment :
 
   override fun onReactWithAnyEmojiSelected(emoji: String) {
     sendReaction(emoji)
+  }
+
+  private fun initializeComposer(savedInstanceState: Bundle?) {
+    val isActiveGroup = Recipient.observable(groupRecipientId).map { it.isActiveGroup }
+    if (savedInstanceState == null) {
+      lifecycleDisposable += isActiveGroup.firstOrError().observeOn(AndroidSchedulers.mainThread()).subscribe { active ->
+        if (active) {
+          ViewUtil.focusAndShowKeyboard(composer)
+        }
+      }
+    }
+
+    lifecycleDisposable += isActiveGroup.distinctUntilChanged().observeOn(AndroidSchedulers.mainThread()).forEach { active ->
+      composer.visible = active
+      notInGroup.visible = !active
+    }
   }
 
   private fun initializeMentions() {

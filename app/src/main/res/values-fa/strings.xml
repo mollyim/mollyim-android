@@ -218,7 +218,7 @@
     <!-- Header for username search -->
     <string name="ContactsCursorLoader_find_by_username">جستجو با نام کاربری</string>
     <!-- Label for my stories when selecting who to send media to -->
-    <string name="ContactsCursorLoader_my_stories">داستان‌های من</string>
+    <string name="ContactsCursorLoader_my_stories">استوری‌های من</string>
     <!-- Action for creating a new story -->
     <string name="ContactsCursorLoader_new_story">استوری جدید</string>
 
@@ -673,7 +673,7 @@
     <!-- GroupsV1MigrationLearnMoreBottomSheetDialogFragment -->
     <string name="GroupsV1MigrationLearnMore_what_are_new_groups">گروه‌های جدید چیستند؟</string>
     <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">گروه‌های جدید دارای قابلیت‌هایی مانند @اشاره‌ها و مدیران گروه هستند و از قابلیت‌های بیشتری در آینده پشتیبانی خواهند کرد.</string>
-    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">تمام تاریخچهٔ گروه و رسانه‌های پیش از ارتقا حفظ شده‌اند.</string>
+    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">تمام تاریخچه پیام و رسانه‌های پیش از ارتقا، حفظ شده‌اند.</string>
     <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">شما به پذیرفتن یک دعوت برای پیوستن دوباره به این گروه نیاز خواهید داشت و پیام‌های گروه را تا زمانی که نپذیرید دریافت نخواهید کرد.</string>
     <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
         <item quantity="one">این عضو نیاز به پذیرفتن دعوت برای</item>
@@ -688,7 +688,7 @@
     <string name="GroupsV1MigrationInitiation_upgrade_to_new_group">ارتقا به گروه جدید</string>
     <string name="GroupsV1MigrationInitiation_upgrade_this_group">ارتقا این گروه</string>
     <string name="GroupsV1MigrationInitiation_new_groups_have_features_like_mentions">گروه‌های جدید دارای قابلیت‌هایی مانند @اشاره‌ها و مدیران گروه هستند و از قابلیت‌های بیشتری در آینده پشتیبانی خواهند کرد.</string>
-    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">تمام تاریخچهٔ پیام و رسانه از قبل از ارتقا حفظ خواهند شد.</string>
+    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">تمام تاریخچهٔ پیام و رسانه‌های پیش از ارتقاء حفظ خواهند شد.</string>
     <string name="GroupsV1MigrationInitiation_encountered_a_network_error">خطای شبکه رخ داد. بعداً دوباره امتحان کنید.</string>
     <string name="GroupsV1MigrationInitiation_failed_to_upgrade">ارتقا ناموفق بود.</string>
     <plurals name="GroupsV1MigrationInitiation_these_members_will_need_to_accept_an_invite">
@@ -1855,9 +1855,9 @@
     <!-- Displayed in the notification when the user has opened a received gift -->
     <string name="ThreadRecord__you_redeemed_a_gift_badge">یک نشان هدیه آزادسازی کردید</string>
     <!-- Displayed in the conversation list when someone reacted to your story -->
-    <string name="ThreadRecord__reacted_s_to_your_story">با %1$s به استوری شما واکنش نشان داده شد</string>
+    <string name="ThreadRecord__reacted_s_to_your_story">با %1$s به استوری شما واکنش نشان داد</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
-    <string name="ThreadRecord__reacted_s_to_their_story">با %1$s به استوری او واکنش نشان داده شد</string>
+    <string name="ThreadRecord__reacted_s_to_their_story">با %1$s به استوری او واکنش نشان داد</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">به‌روزرسانی سیگنال</string>
@@ -1960,6 +1960,7 @@
     <string name="MediaPreviewActivity_s_to_you">%1$s به شما</string>
     <string name="MediaPreviewActivity_media_no_longer_available">رسانه دیگر در دسترس نیست.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">برنامه‌ای برای اشتراک‌گذاری این رسانه پیدا نشد.</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">بستن</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d پیام جدید در %2$d مکالمه</string>
@@ -2665,12 +2666,12 @@
     <string name="preferences_storage__audio">صوت</string>
     <string name="preferences_storage__review_storage">بازنگری حافظه</string>
     <string name="preferences_storage__delete_older_messages">حذف پیام‌های قدیمی‌تر؟</string>
-    <string name="preferences_storage__clear_message_history">پاک کردن تاریخچهٔ پیام‌؟</string>
-    <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">این گزینه تمامی تاریخچهٔ پیام و رسانه را که از %1$s قدیمی‌تراند از روی دستگاه شما پاک می‌کند.</string>
+    <string name="preferences_storage__clear_message_history">تاریخچهٔ پیام پاک شود؟</string>
+    <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">این گزینه تمامی تاریخچهٔ پیام و رسانه را که از %1$s قدیمی‌ترند از روی دستگاه شما پاک می‌کند.</string>
     <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">این گزینه تمامی مکالمه‌ها به جز %1$s پیام آخر را به طور دائم حذف خواهد.</string>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">این گزینه تمامی تاریخچهٔ پیام و رسانه را از روی دستگاه شما پاک می‌کند.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">آیا از حذف کل تاریخچهٔ پیام‌ مطمئن هستید؟</string>
-    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">کل تاریخچهٔ پیام‌ به طور دائم پاک خواهد شد. این کار قابل بازگشت نیست.</string>
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">کل تاریخچهٔ پیام‌ به طور دائم پاک خواهد شد. این کار بازگشت‌پذیر نیست.</string>
     <string name="preferences_storage__delete_all_now">حذف همه حالا</string>
     <string name="preferences_storage__forever">برای همیشه</string>
     <string name="preferences_storage__one_year">۱ سال</string>
@@ -2748,10 +2749,14 @@
     <string name="configurable_single_select__customize_option">گزینهٔ سفارشی‌سازی</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2903,6 +2908,26 @@
     <string name="PaymentsHomeFragment__enable">فعال کردن</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">حالا نه</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">راه‌اندازی امنیتی</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">از سرمایه خود محافظت کنید</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">با افزودن یک لایه امنیتی دیگر از دسترسی شخصی که تلفن شما را در دست دارد به سرمایه خود جلوگیری کنید. می‌توانید این حالت را در تنظیمات سیگنال غیرفعال کنید.</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">فعال کردن قفل پرداخت</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">حالا نه</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">گذر از این مرحله؟</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">گذر از این مرحله می‌تواند به هر کسی که به تلفن شما دسترسی فیزیکی دارد اجازه دهد سرمایه را منتقل کند یا عبارت بازیابی شما را مشاهده کند.</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">لغو</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">رد کردن</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">افزودن اعتبار</string>
@@ -4705,7 +4730,7 @@
     <!-- Menu item on stories landing page -->
     <string name="StoriesLandingFragment__story_privacy">حریم شخصی استوری</string>
     <!-- Title for "My Stories" row item in Stories landing page -->
-    <string name="StoriesLandingFragment__my_stories">داستان‌های من</string>
+    <string name="StoriesLandingFragment__my_stories">استوری‌های من</string>
     <!-- Subtitle for "My Stories" row item when user has not added stories -->
     <string name="StoriesLandingFragment__tap_to_add_a_story">برای افزودن استوری ضربه بزنید</string>
     <!-- Displayed when there are no stories to display -->
@@ -4754,7 +4779,7 @@
     <!-- Title of dialog to confirm deletion of story -->
     <string name="MyStories__delete_story">حذف استوری؟</string>
     <!-- Message of dialog to confirm deletion of story -->
-    <string name="MyStories__this_story_will_be_deleted">این استوری برای شما و همۀ کسانی که آن را دریافت کرده‌اند حذف می‌گردد.</string>
+    <string name="MyStories__this_story_will_be_deleted">این استوری برای شما و همۀ کسانی که آن را دریافت کرده‌اند حذف می‌شود.</string>
     <!-- Toast shown when story media cannot be saved -->
     <string name="MyStories__unable_to_save">ذخیره نمی‌شود</string>
     <!-- Displayed at bottom of story viewer when current item has views -->
@@ -4799,8 +4824,10 @@
     <string name="StoryViewItem__remove_viewer">حذف بازدیدکننده</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">هنوز پاسخی داده نشده است</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">شما نمی‌توانید به این استوری پاسخ دهید زیرا دیگر عضو این گروه نیستید.</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">به استوری واکنش نشان داده شد</string>
+    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">به استوری واکنش نشان داد</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">بازدیدها</string>
     <!-- Label for story replies tab -->
@@ -4817,6 +4844,13 @@
     <string name="StoryGroupReplyItem__delete">حذف</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">استوری من</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="one">%1$d viewer</item>
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">کسانی که می‌توانند این استوری را مشاهده کنند</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4850,9 +4884,7 @@
     <!-- Switchable option for allowing replies and reactions on your stories -->
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">اجازه پاسخ و واکنش</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
-    <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">اجازه واکنش و پاسخ به افرادی که می‌توانند استوری شما را ببینند</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">استوری خود را از افراد خاصی پنهان کنید. استوری شما به طور پیش‌فرض با %1$s شما اشتراک‌گذاری می‌شود.</string>
+    <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">به کسانی که می‌توانند استوری شما را ببینند اجازه واکنش و پاسخ بدهید</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">آشنایان در سیگنال.</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -4900,7 +4932,7 @@
     <!-- Hint for entering a URL for a text post -->
     <string name="TextStoryPostLinkEntryFragment__type_or_paste_a_url">یک URL را تایپ یا جایگذاری کنید</string>
     <!-- Displayed prior to the user entering a URL for a text post -->
-    <string name="TextStoryPostLinkEntryFragment__share_a_link_with_viewers_of_your_story">اشتراک‌گذاری یک پیوند با بازدیدکنندگان استوری خود</string>
+    <string name="TextStoryPostLinkEntryFragment__share_a_link_with_viewers_of_your_story">همرسانی یک پیوند با بازدیدکنندگان استوری خود</string>
     <!-- Hint text for searching for a story text post recipient. -->
     <string name="TextStoryPostSendFragment__search">جستجو</string>
     <!-- Toast shown when an unexpected error occurs while sending a text story -->
@@ -4911,6 +4943,22 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">تنها اشتراک‌گذاری شود با…</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">تمام</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">استوری گروهی حذف شود؟</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">«%1$s» حذف خواهد شد.</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">حذف</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">استوری خصوصی حذف شود؟</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">\" %1$s \" و به‌روزرسانی‌های همرسانی شده در این استوری حذف خواهند شد.</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">حذف</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">استوری‌ها فقط برای کاربران سیگنال بتا قابل دسترسی است.</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">اگر یک استوری به اشتراک بگذارید، فقط برای افرادی که در سیگنال بتا هستند در دسترس خواهد بود.</string>
     <!-- Dialog title for first time adding something to a story -->
     <string name="StoryDialogs__add_to_story_q">افزودن به استوری؟</string>
     <!-- Dialog message for first time adding something to a story -->
@@ -4923,10 +4971,12 @@
     <string name="StoryDialogs__story_could_not_be_sent">استوری فرستاده نمی‌شود. اتصال خود را بررسی نموده و دوباره سعی کنید.</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">ارسال</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">خاموش و حذف کردن</string>
     <!-- Privacy Settings toggle title for stories -->
-    <string name="PrivacySettingsFragment__share_and_view_stories">اشتراک‌گذاری و نمایش استوری‌ها</string>
+    <string name="PrivacySettingsFragment__share_and_view_stories">همرسانی و نمایش استوری‌ها</string>
     <!-- Privacy Settings toggle summary for stories -->
-    <string name="PrivacySettingsFragment__you_will_no_longer_be_able">هنگامی که این گزینه خاموش باشد، شما دیگر نمی‌توانید استوری‌ها را اشتراک‌گذاری یا مشاهده کنید.</string>
+    <string name="PrivacySettingsFragment__you_will_no_longer_be_able">هنگامی که این گزینه خاموش باشد، شما دیگر نمی‌توانید استوری‌ها را همرسانی یا مشاهده کنید.</string>
     <!-- New story viewer selection screen title -->
     <string name="CreateStoryViewerSelectionFragment__choose_viewers">انتخاب بازدیدکنندگان</string>
     <!-- New story viewer selection action button label -->
@@ -4977,7 +5027,7 @@
     <!-- Toasted when the user externally shares to a text story successfully -->
     <string name="TextStoryPostCreationFragment__sent_story">استوری ارسال شده</string>
     <!-- Toasted when the user external share to a text story fails -->
-    <string name="TextStoryPostCreationFragment__failed_to_send_story">ارسال استوری ناموفق بود</string>
+    <string name="TextStoryPostCreationFragment__failed_to_send_story">استوری ارسال نشد</string>
     <!-- Displayed in a dialog to let the user select a given users story -->
     <string name="StoryDialogs__view_story">نمایش استوری</string>
     <!-- Displayed in a dialog to let the user select a given users profile photo -->
@@ -4995,9 +5045,9 @@
     <!-- Conversation Item label for when you react to someone else\'s story -->
     <string name="ConversationItem__you_reacted_to_s_story">شما به استوری %1$s واکنش نشان دادید</string>
     <!-- Conversation Item label for reactions to your story -->
-    <string name="ConversationItem__reacted_to_your_story">به استوری شما واکنش نشان داده شد</string>
+    <string name="ConversationItem__reacted_to_your_story">به استوری شما واکنش نشان داد</string>
     <!-- Conversation Item label for reactions to an unavailable story -->
-    <string name="ConversationItem__reacted_to_a_story">به یک استوری واکنش نشان داده شد</string>
+    <string name="ConversationItem__reacted_to_a_story">به یک استوری واکنش نشان داد</string>
 
     <!-- endregion -->
     <!-- Content description for expand contacts chevron -->
@@ -5071,6 +5121,11 @@
         <item quantity="one">استوری گروهی · %1$d بازدید کننده</item>
         <item quantity="other">استوری گروهی · %1$d بازدید کننده</item>
     </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="one">%1$d عضو</item>
+        <item quantity="other">%1$d عضو</item>
+    </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
         <item quantity="one">%1$s · %2$d بازدیدکننده</item>
@@ -5085,7 +5140,7 @@
     <!-- Label for context menu item to delete a private story -->
     <string name="ContactSearchItems__delete_story">حذف استوری</string>
     <!-- Dialog title for removing a group story -->
-    <string name="ContactSearchMediator__remove_group_story">استوری گروه حذف شود؟</string>
+    <string name="ContactSearchMediator__remove_group_story">استوری گروهی حذف شود؟</string>
     <!-- Dialog message for removing a group story -->
     <string name="ContactSearchMediator__this_will_remove">با این کار این استوری از این لیست حذف می‌شود. همچنان می‌توانید استوری‌های این گروه را مشاهده کنید.</string>
     <!-- Dialog action item for removing a group story -->
@@ -5093,7 +5148,7 @@
     <!-- Dialog title for deleting a private story -->
     <string name="ContactSearchMediator__delete_story">حذف استوری؟</string>
     <!-- Dialog message for deleting a private story -->
-    <string name="ContactSearchMediator__delete_the_private">استوری خصوصی «%1$s» حذف شود؟</string>
+    <string name="ContactSearchMediator__delete_the_private">حذف استوری خصوصی «%1$s»؟</string>
     <!-- Dialog action item for deleting a private story -->
     <string name="ContactSearchMediator__delete">حذف</string>
     <!-- Gift expiry days remaining -->
@@ -5139,7 +5194,7 @@
     <!-- Message of safety number changes bottom sheet when not showing individual records and user has seen review screen -->
     <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">تمام آشنایان بررسی شده‌اند، برای ادامه روی ارسال ضربه بزنید.</string>
     <!-- Message of safety number changes bottom sheet when not showing individual records -->
-    <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">شما %1$d آشنا دارید که ممکن است سیگنال را دوباره نصب کرده باشند یا دستگاه خود را تغییر داده باشند. قبل از به اشتراک گذاشتن استوری خود با آنها، شماره ایمنی آنها را بررسی کنید یا آنها را از استوری خود حذف کنید.</string>
+    <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">شما %1$d آشنا دارید که ممکن است سیگنال را دوباره نصب کرده باشند یا دستگاه خود را تغییر داده باشند. قبل از همرسانی استوری خود با آنها، شماره ایمنی آنها را بررسی کنید یا آنها را از استوری خود حذف کنید.</string>
     <!-- Menu action to launch safety number verification screen -->
     <string name="SafetyNumberBottomSheetFragment__verify_safety_number">وارسی شمارهٔ ایمنی</string>
     <!-- Menu action to remove user from story -->
@@ -5198,15 +5253,15 @@
     <!-- Preference title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories">خاموش کردن استوری‌ها</string>
     <!-- Preference summary to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__if_you_opt_out">اگر از استوری‌ها انصراف دهید، دیگر نمی‌توانید استوری‌ها را به اشتراک بگذارید یا مشاهده کنید.</string>
+    <string name="StoriesPrivacySettingsFragment__if_you_opt_out">اگر از استوری‌ها انصراف دهید، دیگر نمی‌توانید استوری‌ها را همرسانی یا مشاهده کنید.</string>
     <!-- Preference title to turn on stories -->
     <string name="StoriesPrivacySettingsFragment__turn_on_stories">روشن کردن استوری‌ها</string>
     <!-- Preference summary to turn on stories -->
-    <string name="StoriesPrivacySettingsFragment__share_and_view">استوری‌های دیگران را به اشتراک بگذارید و مشاهده کنید. استوری‌ها بعد از 24 ساعت به طور خودکار ناپدید می‌شوند.</string>
+    <string name="StoriesPrivacySettingsFragment__share_and_view">استوری‌های دیگران را همرسانی و مشاهده کنید. استوری‌ها بعد از 24 ساعت به طور خودکار ناپدید می‌شوند.</string>
     <!-- Dialog title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">استوری‌ها خاموش شود؟</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">دیگر نخواهید توانست استوری‌ها را به اشتراک بگذارید یا مشاهده کنید. استوری‌هایی که اخیراً ارسال کرده‌اید، تا زمانی که منقضی شوند همچنان توسط دیگران قابل مشاهده خواهند بود.</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">دیگر نمی‌توانید استوری‌ها را هم‌رسانی یا مشاهده کنید. به‌روزرسانی‌های استوری‌هایی که اخیراً همرسانی کرده‌اید نیز حذف خواهند شد.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">حریم شخصی استوری</string>
 

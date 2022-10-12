@@ -358,8 +358,8 @@
     </plurals>
     <string name="ConversationFragment_save_to_sd_card">संचयनमध्ये जतन करायचे?</string>
     <plurals name="ConversationFragment_saving_n_media_to_storage_warning">
-        <item quantity="one">हा मिडिया संचयनामध्ये जतन केल्याने आपल्या डिव्हाईस वरील इतर ॲप्सना त्यात प्रवेश करण्याची अनुमती मिळेल.\n\nसुरू ठेवायचे?</item>
-        <item quantity="other">सर्व %1$d मिडिया संचयन मध्ये जतन केल्याने आपल्या डिव्हाईस वरील इतर ॲप्सना त्यात प्रवेश करण्याची अनुमती मिळेल.\n\nसुरू ठेवायचे?</item>
+        <item quantity="one">हा मिडिया संग्रहणामध्ये जतन केल्याने आपल्या डिव्हाईस वरील इतर ॲप्सना त्यात प्रवेश करण्याची अनुमती मिळेल.\n\nसुरू ठेवायचे?</item>
+        <item quantity="other">सर्व %1$d मिडिया संग्रहणामध्ये जतन केल्याने आपल्या डिव्हाईस वरील इतर ॲप्सना त्यात प्रवेश करण्याची अनुमती मिळेल.\n\nसुरू ठेवायचे?</item>
     </plurals>
     <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
         <item quantity="one">संचयनमध्ये संलग्न जतन करण्यात त्रुटी!</item>
@@ -367,12 +367,12 @@
     </plurals>
     <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">संचयनमध्ये लिहिण्यात अक्षम!</string>
     <plurals name="ConversationFragment_saving_n_attachments">
-        <item quantity="one">संलग्न जतन करत आहे</item>
+        <item quantity="one">संलग्नक जतन करत आहे</item>
         <item quantity="other">%1$d संलग्नके जतन करत आहे</item>
     </plurals>
     <plurals name="ConversationFragment_saving_n_attachments_to_sd_card">
-        <item quantity="one">संलग्न संचयनमध्ये जतन करत आहे…</item>
-        <item quantity="other">%1$d संलग्नके संचयनामध्ये जतन करत आहे…</item>
+        <item quantity="one">संलग्नक संग्रहणामध्ये जतन करत आहे…</item>
+        <item quantity="other">%1$d संलग्नके संग्रहणामध्ये जतन करत आहे…</item>
     </plurals>
     <string name="ConversationFragment_pending">प्रलंबित…</string>
     <string name="ConversationFragment_push">डेटा (Signal)</string>
@@ -418,14 +418,14 @@
         <item quantity="other">निवडलेले संभाषणे हटवायचे?</item>
     </plurals>
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
-        <item quantity="one">हे निवडलेले संभाषणे कायमचे हटवेल.</item>
-        <item quantity="other">हे निवडलेले %1$d संभाषणे कायमचे हटवेल.</item>
+        <item quantity="one">हे निवडलेले संभाषण कायमचे हटवेल.</item>
+        <item quantity="other">हे निवडलेली %1$d संभाषणे कायमची हटवेल.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">हटवत आहे</string>
     <string name="ConversationListFragment_deleting_selected_conversations">निवडलेले संभाषण हटवत आहे…</string>
     <plurals name="ConversationListFragment_conversations_archived">
-        <item quantity="one">संभाषण आर्काईव्ह केले</item>
-        <item quantity="other">%1$d संभाषणे आर्काईव्ह केली</item>
+        <item quantity="one">संभाषण संग्रहित केले</item>
+        <item quantity="other">%1$d संभाषणे संग्रहित केली</item>
     </plurals>
     <string name="ConversationListFragment_undo">अनडू करा</string>
     <plurals name="ConversationListFragment_moved_conversations_to_inbox">
@@ -673,7 +673,7 @@
     <!-- GroupsV1MigrationLearnMoreBottomSheetDialogFragment -->
     <string name="GroupsV1MigrationLearnMore_what_are_new_groups">नवीन गट काय आहेत?</string>
     <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">नवीन गटांमध्ये @उल्लेख आणि गट अॅडमिन सारखे वैशिष्ट्ये आहेत, आणि भविष्यात आम्ही अधिक वैशिष्ट्यांना समर्थन देऊ.</string>
-    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">सर्व संदेश इतिहास आणि मिडिया श्रेणीसुधारणेपूर्वी ठेवले जातात.</string>
+    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">सर्व संदेश इतिहास आणि मिडिया श्रेणीसुधारणेपूर्वी ठेवण्यात आले आहेत.</string>
     <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">या गटात पुन्हा सामील होण्यासाठी आपल्याला आमंत्रण स्वीकार करावे लागेल, आणि आपण स्वीकार करेपर्यंत आपल्याला गट संदेश प्राप्त होणार नाहीत.</string>
     <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
         <item quantity="one">या गटात पुन्हा सामील होण्यासाठी या सदस्याला आमंत्रण स्वीकार करावे लागेल, आणि स्वीकार करेपर्यंत त्याला गट संदेश प्राप्त होणार नाहीत:</item>
@@ -887,7 +887,7 @@
     </plurals>
 
     <plurals name="GroupMemberList_invited">
-        <item quantity="one">%1$s ने व्यक्ती आमंत्रित केली</item>
+        <item quantity="one">%1$s ने 1 व्यक्तीला आमंत्रित केले</item>
         <item quantity="other">%1$s ने %2$d व्यक्तींना आमंत्रित केले</item>
     </plurals>
 
@@ -926,8 +926,8 @@
     <!-- GV2 Invite Revoke confirmation dialog -->
     <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">आपण %1$s ला पाठवलेले आमंत्रण रद्द करू इच्छिता?</string>
     <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
-        <item quantity="one">%1$s द्वारा पाठवलेले आमंत्रण आपण मागे घेऊ इच्छिता?</item>
-        <item quantity="other">%1$s द्वारा पाठवलेली %2$d आमंत्रणे मागे घेऊ इच्छिता?</item>
+        <item quantity="one">आपण %1$s द्वारे पाठवलेले आमंत्रण मागे घेऊ इच्छिता?</item>
+        <item quantity="other">%1$s द्वारे पाठवलेली %2$d आमंत्रणे मागे घेऊ इच्छिता?</item>
     </plurals>
 
     <!-- GroupJoinBottomSheetDialogFragment -->
@@ -1035,8 +1035,8 @@
         <item quantity="other">निवडलेले आयटम हटवायचे?</item>
     </plurals>
     <plurals name="MediaOverviewActivity_Media_delete_confirm_message">
-        <item quantity="one">हे निवडलेली फाईल कायमची हटवेल. या आयटम सोबत संबंधित कुठलाही संदेश मजकूर देखील हटविला जाईल.</item>
-        <item quantity="other">हे निवडलेल्या सर्व %1$d फायली कायमच्या हटवेल. या आयटम सोबत संबंधित कुठलाही संदेश मजकूर देखील हटविला जाईल.</item>
+        <item quantity="one">हे निवडलेली फाईल कायमची हटवेल. या घटकाशी संबंधित कुठलाही संदेश मजकूर देखील हटविला जाईल.</item>
+        <item quantity="other">हे निवडलेल्या सर्व %1$d फायली कायमच्या हटवेल. या घटकांशी संबंधित कुठलाही संदेश मजकूर देखील हटविला जाईल.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">हटवत आहे</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">संदेश हटवत आहे…</string>
@@ -1168,13 +1168,13 @@
     <string name="MessageRecord_you_couldnt_be_added_to_the_new_group_and_have_been_invited_to_join">आपण नवीन गटात जोडले जाऊ शकले नाही आणि त्यात सामील होण्यासाठी आपणास आमंत्रित केले गेले आहे.</string>
     <string name="MessageRecord_chat_session_refreshed">चॅट सत्र ताजेतवाने झाले</string>
     <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_invited">
-        <item quantity="one">सदस्य नवीन गटात जोडला जाऊ शकत नाही आणि त्यात सामील होण्यासाठी आमंत्रित केले गेले आहे.</item>
-        <item quantity="other">%1$s सदस्य नवीन गटात जोडले जाऊ शकले नाही आणि त्यात सामील होण्यासाठी आमंत्रित केले गेले आहे.</item>
+        <item quantity="one">नवीन गटात सदस्य जोडला जाऊ शकत नाही आणि त्याला सामील होण्यासाठी आमंत्रित केले गेले आहे.</item>
+        <item quantity="other">%1$s सदस्य नवीन गटात जोडले जाऊ शकत नाहीत आणि त्यांना सामील होण्यासाठी आमंत्रित केले गेले आहे.</item>
     </plurals>
 
     <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_removed">
-        <item quantity="one">सदस्य नवीन गटात जोडला जाऊ शकत नाही आणि त्यातून तो काढला गेला आहे.</item>
-        <item quantity="other">%1$s सदस्य नवीन गटात जोडले जाऊ शकले नाही आणि त्यातून ते काढले गेले आहेत.</item>
+        <item quantity="one">सदस्य नवीन गटात जोडला जाऊ शकत नाही आणि त्यातून त्याला काढून टाकले आहे.</item>
+        <item quantity="other">%1$s सदस्य नवीन गटात जोडले जाऊ शकत नाहीत आणि त्यातून त्यांना काढून टाकले आहे.</item>
     </plurals>
 
     <!-- Profile change updates -->
@@ -1219,23 +1219,23 @@
     <string name="MessageRecord_you_invited_s_to_the_group">आपण %1$s ला गटात आमंत्रित केले.</string>
     <string name="MessageRecord_s_invited_you_to_the_group">%1$s ने आपल्याला गटात आमंत्रित केले.</string>
     <plurals name="MessageRecord_s_invited_members">
-        <item quantity="one">%1$s ने 1 व्यक्तींला गटात आमंत्रित केले.</item>
-        <item quantity="other">%1$s ने %2$d व्यक्तींना गटात आमंत्रित केले.</item>
+        <item quantity="one">%1$s ने 1 व्यक्तीला ग्रुपमध्ये आमंत्रित केले.</item>
+        <item quantity="other">%1$s ने %2$d व्यक्तींना ग्रुपमध्ये आमंत्रित केले.</item>
     </plurals>
     <string name="MessageRecord_you_were_invited_to_the_group">आपल्याला गटात निमंत्रित केले गेले होते.</string>
     <plurals name="MessageRecord_d_people_were_invited_to_the_group">
-        <item quantity="one">1 व्यक्ती गटात आमंत्रित केली गेली होती.</item>
-        <item quantity="other">%1$d व्यक्तीना गटात आमंत्रित केले गेले होते.</item>
+        <item quantity="one">1 व्यक्तीला ग्रुपमध्ये आमंत्रित केले गेले होते.</item>
+        <item quantity="other">%1$d व्यक्तींना गटात आमंत्रित केले गेले होते.</item>
     </plurals>
 
     <!-- GV2 invitation revokes -->
     <plurals name="MessageRecord_you_revoked_invites">
-        <item quantity="one">आपण गटाचे आमंत्रण मागे घेतले.</item>
-        <item quantity="other">आपण गटाची %1$d आमंत्रणे मागे घेतली.</item>
+        <item quantity="one">आपण ग्रुपचे आमंत्रण मागे घेतले.</item>
+        <item quantity="other">आपण ग्रुपची %1$d आमंत्रणे मागे घेतली.</item>
     </plurals>
     <plurals name="MessageRecord_s_revoked_invites">
-        <item quantity="one">%1$s ने गटाचे आमंत्रण मागे घेतले.</item>
-        <item quantity="other">%1$s ने गटाची %2$d आमंत्रणे मागे घेतली.</item>
+        <item quantity="one">%1$s ने ग्रुपचे आमंत्रण मागे घेतले.</item>
+        <item quantity="other">%1$s ने ग्रुपची %2$d आमंत्रणे मागे घेतली.</item>
     </plurals>
     <string name="MessageRecord_someone_declined_an_invitation_to_the_group">कुणीतरी गटाचे आमंत्रण रद्द केले.</string>
     <string name="MessageRecord_you_declined_the_invitation_to_the_group">आपण गटाचे आमंत्रण रद्द केले.</string>
@@ -1316,8 +1316,8 @@
     <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s ने गट लिंक द्वारे सामिल होण्यासाठी विनंती केली.</string>
     <!-- Update message shown when someone requests to join via group link and cancels the request back to back -->
     <plurals name="MessageRecord_s_requested_and_cancelled_their_request_to_join_via_the_group_link">
-        <item quantity="one">%1$s ने गट लिंकद्वारे सामील होण्यासाठी विनंती केली आणि त्यांची विनंती रद्द केली.</item>
-        <item quantity="other">%1$s ने गट लिंकद्वारे सामील होण्यासाठी विनंती केली आणि त्यांच्या %2$d विनंत्या रद्द केल्या.</item>
+        <item quantity="one">%1$s ने विनंती केली आणि ग्रुप लिंकद्वारे सामील होण्यासाठी त्यांची विनंती रद्द केली.</item>
+        <item quantity="other">%1$s ने विनंती केली आणि ग्रुप लिंकद्वारे सामील होण्याच्या %2$d विनंत्या रद्द केल्या.</item>
     </plurals>
 
     <!-- GV2 group link approvals -->
@@ -1524,7 +1524,7 @@
     <!-- Recipient -->
     <string name="Recipient_you">आपण</string>
     <!-- Name of recipient representing user\'s \'My Story\' -->
-    <string name="Recipient_my_story">माझ्या स्टोरी</string>
+    <string name="Recipient_my_story">माझी स्टोरी</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">अवरोधित करा</string>
@@ -1960,6 +1960,7 @@
     <string name="MediaPreviewActivity_s_to_you">%1$s कडून आपणाला</string>
     <string name="MediaPreviewActivity_media_no_longer_available">मिडिया आता उपलब्ध नाही.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">हे मिडिया शेअर करण्यासाठी सक्षम असे अॅप सापडू शकले नाही.</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">बंद करा</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%2$d संभाषणांमध्ये %1$d नवीन संदेश</string>
@@ -2198,9 +2199,9 @@
     <string name="QuoteView_you">आपण</string>
     <string name="QuoteView_original_missing">मूळ संदेश आढळला नाही</string>
     <!-- Author formatting for group stories -->
-    <string name="QuoteView_s_story">%1$s . स्टोरी</string>
+    <string name="QuoteView_s_story">%1$s स्टोरी</string>
     <!-- Label indicating that a quote is for a reply to a story you created -->
-    <string name="QuoteView_your_story">आपण . स्टोरी</string>
+    <string name="QuoteView_your_story">तुमची · स्टोरी</string>
     <!-- Label indicating that the story being replied to no longer exists -->
     <string name="QuoteView_no_longer_available">आता उपलब्ध नाही</string>
     <!-- Label for quoted gift -->
@@ -2343,7 +2344,7 @@
     <!-- Displayed in a toast when user long presses an item in MyStories -->
     <string name="MyStoriesFragment__copied_sent_timestamp_to_clipboard">क्लिपबोर्डवर पाठवलेला टाइमस्टॅम्प कॉपी केला.</string>
     <!-- Displayed when there are no outgoing stories -->
-    <string name="MyStoriesFragment__updates_to_your_story_will_show_up_here">आपल्या स्टोरीचे अपडेट्स येथे दाखवले जातील.</string>
+    <string name="MyStoriesFragment__updates_to_your_story_will_show_up_here">आपल्या स्टोरीची अद्यतने येथे दाखवली जातील.</string>
 
     <!-- GroupUtil -->
     <plurals name="GroupUtil_joined_the_group">
@@ -2669,7 +2670,7 @@
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">हे आपल्या डिव्हाईसवरून %1$s पेक्षा जुने सर्व संदेश इतिहास आणि मिडिया कायमचे हटवेल.</string>
     <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">हे सर्व संभाषणे %1$s सर्वात अलीकडील संदेश वर कायमचे ट्रिम करेल.</string>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">हे आपल्या डिव्हाईसवरून सर्व संदेश इतिहास आणि मिडिया कायमचे हटवेल.</string>
-    <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">सर्व संदेश इतिहास हटवायची आपणास खात्री आहे का?</string>
+    <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">आपण खात्रीने सर्व संदेश इतिहास हटवू इच्छिता?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">सर्व संदेश इतिहास कायमचा हटवला जाईल. ही क्रिया मागे घेतली जाऊ शकत नाही.</string>
     <string name="preferences_storage__delete_all_now">सर्व आता हटवा</string>
     <string name="preferences_storage__forever">नेहमीसाठी</string>
@@ -2748,10 +2749,14 @@
     <string name="configurable_single_select__customize_option">पर्याय सानुकूलित करा</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2903,6 +2908,26 @@
     <string name="PaymentsHomeFragment__enable">चालू करा</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">आता नाही</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">सुरक्षितता सेटअप</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">आपल्या निधीचे संरक्षण करा</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">सुरक्षिततेचा आणखी एक स्तर जोडून आपल्या फोनसह आपल्या निधीमध्ये प्रवेश करण्यापासून रोखण्यास मदत करा. आपण सेटिंग्ज मध्ये हा पर्याय अक्षम करू शकता.</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">पेमेंट लॉक सक्षम करा</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">आता नाही</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">ही पायरी वगळायची?</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">ही पायरी वगळल्यास आपल्या फोनचा भौतिक अ‍ॅक्सेस असलेल्या कोणालाही निधी हस्तांतरित करण्यास किंवा आपला पुर्नप्राप्ती वाक्यांश पाहू शकण्याची अनुमती मिळू शकते.</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">रद्द करा</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">वगळा</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">फंड जोडा</string>
@@ -4735,7 +4760,7 @@
     <!-- Title of dialog confirming decision to hide a story -->
     <string name="StoriesLandingFragment__hide_story">स्टोरी लपवायची?</string>
     <!-- Message of dialog confirming decision to hide a story -->
-    <string name="StoriesLandingFragment__new_story_updates">%1$s कडील नवीन स्टोरी अपडेट्स यापुढे सूचीच्या शीर्षस्थानी दिसणार नाहीत.</string>
+    <string name="StoriesLandingFragment__new_story_updates">%1$s कडील नवीन स्टोरी अपडेट्स यापुढे स्टोरीज सूचीच्या शीर्षस्थानी दिसणार नाहीत.</string>
     <!-- Positive action of dialog confirming decision to hide a story -->
     <string name="StoriesLandingFragment__hide">लपवा</string>
     <!-- Displayed in Snackbar after story is hidden -->
@@ -4750,9 +4775,9 @@
     <!-- Forward story label, displayed in My Stories context menu -->
     <string name="MyStories_forward">फॉर्वर्ड करा</string>
     <!-- Label for stories for a single user. Format is {given name}\'s Story -->
-    <string name="MyStories__ss_story">%1$s\'च्या स्टोरीज</string>
+    <string name="MyStories__ss_story">%1$s\'च्या स्टोरी</string>
     <!-- Title of dialog to confirm deletion of story -->
-    <string name="MyStories__delete_story">स्टोरी हटवायची ?</string>
+    <string name="MyStories__delete_story">स्टोरी हटवायची?</string>
     <!-- Message of dialog to confirm deletion of story -->
     <string name="MyStories__this_story_will_be_deleted">ही स्टोरी तुमच्यासाठी आणि ती प्राप्त झालेल्या प्रत्येकासाठी हटवली जाईल.</string>
     <!-- Toast shown when story media cannot be saved -->
@@ -4786,7 +4811,7 @@
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">अद्याप कोणतीही दृश्ये नाहीत</string>
     <!-- Displayed when user has disabled receipts -->
-    <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">आपल्या स्टोरीज कोणी पाहिल्या आहेत ते पाहण्यासाठी पोच वाचा ला सक्षम करा.</string>
+    <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">आपल्या स्टोरीज कोणी पाहिल्या आहेत ते पाहण्यासाठी वाचल्याची पोच सक्षम करा.</string>
     <!-- Button label displayed when user has disabled receipts -->
     <string name="StoryViewsFragment__go_to_settings">सेटिंग्ज वर जा</string>
     <!-- Dialog action to remove viewer from a story -->
@@ -4799,6 +4824,8 @@
     <string name="StoryViewItem__remove_viewer">दर्शकाला हटवा</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">अद्याप कोणतीही प्रत्युत्तरे नाहीत</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">आपण या स्टोरीज ला उत्तर देऊ शकणार नाही कारण आपण यापुढे या ग्रुपचे सदस्य नाही.</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__reacted_to_the_story">स्टोरीला प्रतिक्रिया दिली</string>
     <!-- Label for story views tab -->
@@ -4817,6 +4844,13 @@
     <string name="StoryGroupReplyItem__delete">हटवा</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">माझी स्टोरी</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="one">%1$d viewer</item>
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">ही स्टोरी कोण पाहू शकतात</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4850,9 +4884,7 @@
     <!-- Switchable option for allowing replies and reactions on your stories -->
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">प्रत्त्युत्तरे &amp; प्रतिक्रिया अनुमती द्या</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
-    <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">जे लोक तुमची कथा पाहू शकतात त्यांना प्रतिक्रिया द्या आणि उत्तर द्या</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">विशिष्ट लोकांपासून आपली स्टोरी लपवा. पूर्वनिर्धारितपणे, आपली स्टोरी आपल्या %1$sसह शेअर करा</string>
+    <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">जे लोक तुमची स्टोरी पाहू शकतात त्यांना प्रतिक्रिया द्या आणि उत्तर द्या</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Signal कनेक्शन्स</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -4864,7 +4896,7 @@
     <!-- Signal connections sheet bullet point 3 -->
     <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">ते आपल्या सिस्टम संपर्कांमध्ये असणे</string>
     <!-- Note at the bottom of the Signal connections sheet -->
-    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"आपले कनेक्शन आपले नाव आणि फोटो पाहू शकतात आणि \"माझी स्टोरी\" वरील पोस्ट पाहू शकतात जोपर्यंत आपण ते त्यांच्यापासून लपवत नाही."</string>
+    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"आपले कनेक्शन्स आपले नाव आणि फोटो पाहू शकतात, आणि जोपर्यंत आपण ते त्यांच्यापासून लपवत नाही तोपर्यंत \"माझी स्टोरी\" वरील पोस्ट पाहू शकतात."</string>
     <!-- Clickable option to add a viewer to a private story -->
     <string name="PrivateStorySettingsFragment__add_viewer">दर्शक जोडा</string>
     <!-- Clickable option to delete a custom story -->
@@ -4900,7 +4932,7 @@
     <!-- Hint for entering a URL for a text post -->
     <string name="TextStoryPostLinkEntryFragment__type_or_paste_a_url">URL टाइप करा किंवा पेस्ट करा</string>
     <!-- Displayed prior to the user entering a URL for a text post -->
-    <string name="TextStoryPostLinkEntryFragment__share_a_link_with_viewers_of_your_story">आपल्या स्टोरी दर्शकांसह लिंक शेअर करा</string>
+    <string name="TextStoryPostLinkEntryFragment__share_a_link_with_viewers_of_your_story">आपल्या स्टोरीच्या दर्शकांसह लिंक शेअर करा</string>
     <!-- Hint text for searching for a story text post recipient. -->
     <string name="TextStoryPostSendFragment__search">शोध</string>
     <!-- Toast shown when an unexpected error occurs while sending a text story -->
@@ -4911,10 +4943,26 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">फक्त …सोबत शेअर करा</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">ठीक</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">ग्रुप स्टोरी काढायची?</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">\"%1$s\" ला हटवण्यात येईल.</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">काढा</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">खाजगी स्टोरी हटवायची?</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">\"%1$s\" आणि या स्टोरीजला शेअर केलेली अद्यतने हटवली जातील.</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">काढून टाका</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">स्टोरीज या फक्त Signal बिटा वापरकर्त्यांना उपलब्ध असतील.</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">आपण स्टोरीज शेअर केल्यास, ती केवळ Signal बिटा वरील लोकांना उपलब्ध असेल.</string>
     <!-- Dialog title for first time adding something to a story -->
-    <string name="StoryDialogs__add_to_story_q">स्टोरीत जोडायचे?</string>
+    <string name="StoryDialogs__add_to_story_q">स्टोरी मध्ये जोडायचे?</string>
     <!-- Dialog message for first time adding something to a story -->
-    <string name="StoryDialogs__adding_content">आपल्या स्टोरी मध्‍ये काही जोडल्‍याने आपल्या Signal कनेक्‍शन्सला २४ तास ते पाहण्‍याची अनुमती मिळते. आपली स्टोरी कोण पाहू शकते हे आपण सेटिंग्जमध्ये बदलू शकता.</string>
+    <string name="StoryDialogs__adding_content">आपल्या स्टोरी मध्‍ये अतिरिक्त मजकूर जोडल्‍याने आपल्या Signal कनेक्‍शन्सला 24 तास ते पाहण्‍याची अनुमती मिळते. आपली स्टोरी कोण पाहू शकते हे आपण सेटिंग्जमध्ये बदलू शकता.</string>
     <!-- First time share to story dialog: Positive action to go ahead and add to story -->
     <string name="StoryDialogs__add_to_story">स्टोरीत जोडा</string>
     <!-- First time share to story dialog: Neutral action to edit who can view "My Story" -->
@@ -4923,8 +4971,10 @@
     <string name="StoryDialogs__story_could_not_be_sent">स्टोरी पाठवता आली नाही. आपले कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">पाठवा</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">बंद करा आणि हटवा</string>
     <!-- Privacy Settings toggle title for stories -->
-    <string name="PrivacySettingsFragment__share_and_view_stories">स्टोरीज पहा &amp; शेअर करा</string>
+    <string name="PrivacySettingsFragment__share_and_view_stories">स्टोरीज शेअर करा व पहा</string>
     <!-- Privacy Settings toggle summary for stories -->
     <string name="PrivacySettingsFragment__you_will_no_longer_be_able">हा पर्याय बंद असताना आपण यापुढे स्टोरीज शेअर करू किंवा पाहू शकणार नाही.</string>
     <!-- New story viewer selection screen title -->
@@ -4937,7 +4987,7 @@
         <item quantity="other">%1$d दर्शक</item>
     </plurals>
     <!-- Name story screen title -->
-    <string name="CreateStoryWithViewersFragment__name_story">स्टोरी नाव</string>
+    <string name="CreateStoryWithViewersFragment__name_story">स्टोरीला नाव द्या</string>
     <!-- Name story screen label hint -->
     <string name="CreateStoryWithViewersFragment__story_name_required">स्टोरी नाव (आवश्यक)</string>
     <!-- Name story screen viewers subheading -->
@@ -4953,11 +5003,11 @@
     <!-- Choose story type bottom sheet title -->
     <string name="ChooseStoryTypeBottomSheet__choose_your_story_type">आपल्या स्टोरीचा प्रकार निवडा</string>
     <!-- Choose story type bottom sheet new story row title -->
-    <string name="ChooseStoryTypeBottomSheet__new_private_story">नविन खाजगी स्टोरी</string>
+    <string name="ChooseStoryTypeBottomSheet__new_private_story">नवीन खाजगी स्टोरी</string>
     <!-- Choose story type bottom sheet new story row summary -->
     <string name="ChooseStoryTypeBottomSheet__visible_only_to">केवळ विशिष्ट लोकांसाठी दृश्यमान</string>
     <!-- Choose story type bottom sheet group story title -->
-    <string name="ChooseStoryTypeBottomSheet__group_story">गट स्टोरी</string>
+    <string name="ChooseStoryTypeBottomSheet__group_story">ग्रुप स्टोरी</string>
     <!-- Choose story type bottom sheet group story summary -->
     <string name="ChooseStoryTypeBottomSheet__share_to_an_existing_group">विद्यमान गटामध्ये शेअर करा</string>
     <!-- Choose groups bottom sheet title -->
@@ -4969,7 +5019,7 @@
     <!-- Displayed in toast after sending a direct reply -->
     <string name="StoryDirectReplyDialogFragment__sending_reply">उत्तर पाठवत आहे…</string>
     <!-- Displayed in the viewer when a story is no longer available -->
-    <string name="StorySlateView__this_story_is_no_longer_available">ही स्टोरी आता उपलब्ध नाही.</string>
+    <string name="StorySlateView__this_story_is_no_longer_available">ही स्टोरी यापुढे उपलब्ध नाही.</string>
     <!-- Displayed in the viewer when the network is not available -->
     <string name="StorySlateView__no_internet_connection">इंटरनेट कनेक्शन नाही</string>
     <!-- Displayed in the viewer when network is available but content could not be downloaded -->
@@ -4993,7 +5043,7 @@
     <string name="TurnOffCircumventionMegaphone_turn_off">बंद करा</string>
 
     <!-- Conversation Item label for when you react to someone else\'s story -->
-    <string name="ConversationItem__you_reacted_to_s_story">आपण %1$sच्या स्टोरीवर प्रतिक्रिया दिली आहे</string>
+    <string name="ConversationItem__you_reacted_to_s_story">आपण %1$s च्या स्टोरीवर प्रतिक्रिया दिली</string>
     <!-- Conversation Item label for reactions to your story -->
     <string name="ConversationItem__reacted_to_your_story">आपल्या स्टोरीवर प्रतिक्रिया दिली</string>
     <!-- Conversation Item label for reactions to an unavailable story -->
@@ -5071,6 +5121,11 @@
         <item quantity="one">ग्रुप स्टोरी · %1$d दर्शक</item>
         <item quantity="other">ग्रुप स्टोरी · %1$d दर्शक</item>
     </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="one">%1$d सदस्य</item>
+        <item quantity="other">%1$d सदस्य</item>
+    </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
         <item quantity="one">%1$s · %2$d दर्शक</item>
@@ -5085,13 +5140,13 @@
     <!-- Label for context menu item to delete a private story -->
     <string name="ContactSearchItems__delete_story">स्टोरी हटवा</string>
     <!-- Dialog title for removing a group story -->
-    <string name="ContactSearchMediator__remove_group_story">गट स्टोरी काढायची?</string>
+    <string name="ContactSearchMediator__remove_group_story">ग्रुप स्टोरी काढायची?</string>
     <!-- Dialog message for removing a group story -->
-    <string name="ContactSearchMediator__this_will_remove">हे स्टोरीला या यादीतून काढून टाकेल. आपण अद्याप या गटातून स्टोरीज पाहू शकाल.</string>
+    <string name="ContactSearchMediator__this_will_remove">हे या यादीतून ही स्टोरी काढून टाकेल. आपण अद्याप या ग्रुपमधून स्टोरीज पाहू शकाल.</string>
     <!-- Dialog action item for removing a group story -->
     <string name="ContactSearchMediator__remove">काढा</string>
     <!-- Dialog title for deleting a private story -->
-    <string name="ContactSearchMediator__delete_story">स्टोरी हटवायची ?</string>
+    <string name="ContactSearchMediator__delete_story">स्टोरी हटवायची?</string>
     <!-- Dialog message for deleting a private story -->
     <string name="ContactSearchMediator__delete_the_private">\"%1$s\" खाजगी स्टोरी हटवायची?</string>
     <!-- Dialog action item for deleting a private story -->
@@ -5139,7 +5194,7 @@
     <!-- Message of safety number changes bottom sheet when not showing individual records and user has seen review screen -->
     <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">सर्व कनेक्शन्सचे पुनरावलोकन करण्यात आले आहे, पुढे सुरू ठेवण्यासाठी टॅप करा.</string>
     <!-- Message of safety number changes bottom sheet when not showing individual records -->
-    <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">ज्यांनी कदाचित Signal पुन्हा इन्स्टॉल केले आहे किंवा उपकरणे बदलली आहेत अशी आपणाकडे %1$d कनेक्शन्स आहेत. आपली स्टोरी त्याच्या सोबत शेअर करण्यापूर्वी त्यांच्या सुरक्षितता क्रमांकांचे पुनरावलोकन करा किंवा त्यांना आपल्या स्टोरीमधून हटवण्याचा विचार करा.</string>
+    <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">ज्यांनी कदाचित Signal पुन्हा इन्स्टॉल केले आहे किंवा उपकरणे बदलली आहेत अशी आपणाकडे %1$d कनेक्शन्स आहेत. आपली स्टोरी त्यांच्या सोबत शेअर करण्यापूर्वी त्यांच्या सुरक्षितता क्रमांकांचे पुनरावलोकन करा किंवा त्यांना आपल्या स्टोरीमधून हटवण्याचा विचार करा.</string>
     <!-- Menu action to launch safety number verification screen -->
     <string name="SafetyNumberBottomSheetFragment__verify_safety_number">सुरक्षितता नंबर सत्यापित करा</string>
     <!-- Menu action to remove user from story -->
@@ -5169,7 +5224,7 @@
     <!-- Title of initial My Story settings configuration shown when sending to My Story for the first time -->
     <string name="ChooseInitialMyStoryMembershipFragment__my_story_privacy">माझ्या स्टोरीची गोपनीयता</string>
     <!-- Subtitle of initial My Story settings configuration shown when sending to My Story for the first time -->
-    <string name="ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings">माझ्या स्टोरीवरील पोस्ट्स कोण पाहू शकतात ते निवडा. आपण सेटिंग्जमध्ये बदल करू शकता.</string>
+    <string name="ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings">माझ्या स्टोरीवरील पोस्ट्स कोण पाहू शकतात ते निवडा. आपण नेहमी सेटिंग्जमध्ये बदल करू शकता.</string>
     <!-- All connections option for initial My Story settings configuration shown when sending to My Story for the first time -->
     <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">सर्व Signal कनेक्शन्स</string>
     <!-- All connections except option for initial My Story settings configuration shown when sending to My Story for the first time -->
@@ -5202,11 +5257,11 @@
     <!-- Preference title to turn on stories -->
     <string name="StoriesPrivacySettingsFragment__turn_on_stories">स्टोरीज सुरु करा</string>
     <!-- Preference summary to turn on stories -->
-    <string name="StoriesPrivacySettingsFragment__share_and_view">इतरांकडील स्टोरीज पहा आणि शेअर करा, 24 तासांनंतर स्टोरीज आपोआप अदृश्य होतील.</string>
+    <string name="StoriesPrivacySettingsFragment__share_and_view">इतरांकडील स्टोरीज पहा आणि शेअर करा, 24 तासांनंतर स्टोरीज आपोआप अदृश्य होतात.</string>
     <!-- Dialog title to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">स्टोरीज बंद करा?</string>
+    <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">स्टोरीज बंद करायच्या?</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">आपण यापुढे स्टोरीज पाहू किंवा शेअर करु शकणार नाही. आपण अलिकडेच पाठविलेल्या स्टोरीज कालबाह्य होत नाहीत तोपर्यंत इतरांना अद्याप दृश्यमान असतील.</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">आपण यापुढे स्टोरीज शेअर किंवा पाहू शकणार नाही. आपण अलिकडेच शेअर केलेले स्टोरीज अद्यतने देखील हटवली जातील.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">स्टोरी गोपनीयता</string>
 
@@ -5214,7 +5269,7 @@
     <!-- Section header for who can view a group story -->
     <string name="GroupStorySettingsFragment__who_can_view_this_story">ही स्टोरी कोण पाहू शकतात</string>
     <!-- Explanation of who can view a group story -->
-    <string name="GroupStorySettingsFragment__members_of_the_group_s">"\"%1$s\" ग्रुपचे सदस्य ही स्टोरी पाहू आणि उत्तर देऊ शकतात. या चॅटसाठी आपण ग्रुपमध्ये सदस्यत्व अद्ययावत करु शकता."</string>
+    <string name="GroupStorySettingsFragment__members_of_the_group_s">"%1$s गटाचे सदस्य ही स्टोरी पाहू आणि उत्तर देऊ शकतात. या चॅटसाठी आपण गटामध्ये सदस्यत्व अद्ययावत करु शकता."</string>
     <!-- Preference label for removing this group story -->
     <string name="GroupStorySettingsFragment__remove_group_story">ग्रुप स्टोरी हटवा</string>
 

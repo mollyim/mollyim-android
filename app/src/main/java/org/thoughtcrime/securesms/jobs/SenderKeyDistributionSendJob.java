@@ -79,11 +79,6 @@ public final class SenderKeyDistributionSendJob extends BaseJob {
     Recipient targetRecipient = Recipient.resolved(targetRecipientId);
     Recipient threadRecipient = Recipient.resolved(threadRecipientId);
 
-    if (targetRecipient.getSenderKeyCapability() != Recipient.Capability.SUPPORTED) {
-      Log.w(TAG, targetRecipientId + " does not support sender key! Not sending.");
-      return;
-    }
-
     if (targetRecipient.isUnregistered()) {
       Log.w(TAG, threadRecipient.getId() + " not registered!");
       return;
@@ -125,7 +120,7 @@ public final class SenderKeyDistributionSendJob extends BaseJob {
     SenderKeyDistributionMessage           message        = messageSender.getOrCreateNewGroupSession(distributionId);
     List<Optional<UnidentifiedAccessPair>> access         = UnidentifiedAccessUtil.getAccessFor(context, Collections.singletonList(targetRecipient));
 
-    SendMessageResult result = messageSender.sendSenderKeyDistributionMessage(distributionId, address, access, message, Optional.ofNullable(groupId).map(GroupId::getDecodedId), false).get(0);
+    SendMessageResult result = messageSender.sendSenderKeyDistributionMessage(distributionId, address, access, message, Optional.ofNullable(groupId).map(GroupId::getDecodedId), false, false).get(0);
 
     if (result.isSuccess()) {
       List<SignalProtocolAddress> addresses = result.getSuccess()

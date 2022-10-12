@@ -620,6 +620,10 @@
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
+    <activity android:name=".mediapreview.MediaPreviewV2Activity"
+              android:exported="false"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+
     <service android:enabled="true" android:name=".service.webrtc.WebRtcCallService" android:foregroundServiceType="camera|microphone"/>
     <service android:enabled="true" android:exported="false" android:name=".service.KeyCachingService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.WipeMemoryService"/>

@@ -988,6 +988,17 @@ public class MmsDatabase extends MessageDatabase {
     }
   }
 
+  private void disassociateStoryQuotes(long storyId) {
+    ContentValues contentValues = new ContentValues(2);
+    contentValues.put(QUOTE_MISSING, 1);
+    contentValues.putNull(QUOTE_BODY);
+
+    getWritableDatabase().update(TABLE_NAME,
+                                 contentValues,
+                                 PARENT_STORY_ID + " = ?",
+                                 SqlUtil.buildArgs(new ParentStoryId.DirectReply(storyId).serialize()));
+  }
+
   @Override
   public boolean isGroupQuitMessage(long messageId) {
     SQLiteDatabase db = databaseHelper.getSignalReadableDatabase();
@@ -1379,6 +1390,7 @@ public class MmsDatabase extends MessageDatabase {
       SignalDatabase.messageLog().deleteAllRelatedToMessage(messageId, true);
       SignalDatabase.reactions().deleteReactions(new MessageId(messageId, true));
       deleteGroupStoryReplies(messageId);
+      disassociateStoryQuotes(messageId);
 
       threadId = getThreadIdForMessage(messageId);
       SignalDatabase.threads().update(threadId, false);
@@ -1874,7 +1886,18 @@ public class MmsDatabase extends MessageDatabase {
       return Optional.empty();
     }
 
-    long messageId = insertMediaMessage(threadId, retrieved.getBody(), retrieved.getAttachments(), quoteAttachments, retrieved.getSharedContacts(), retrieved.getLinkPreviews(), retrieved.getMentions(), retrieved.getMessageRanges(), contentValues, null, true);
+    boolean updateThread = retrieved.getStoryType() == StoryType.NONE;
+    long    messageId    = insertMediaMessage(threadId,
+                                              retrieved.getBody(),
+                                              retrieved.getAttachments(),
+                                              quoteAttachments,
+                                              retrieved.getSharedContacts(),
+                                              retrieved.getLinkPreviews(),
+                                              retrieved.getMentions(),
+                                              retrieved.getMessageRanges(),
+                                              contentValues,
+                                              null,
+                                              updateThread);
 
     boolean isNotStoryGroupReply = retrieved.getParentStoryId() == null || !retrieved.getParentStoryId().isGroupReply();
     if (!Types.isExpirationTimerUpdate(mailbox) && !retrieved.getStoryType().isStory() && isNotStoryGroupReply) {

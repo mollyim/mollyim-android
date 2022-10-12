@@ -39,6 +39,7 @@ class StoriesPrivacySettingsViewModel : ViewModel() {
   private val headerActionRequestSubject = PublishSubject.create<Unit>()
 
   val state: Flowable<StoriesPrivacySettingsState> = store.stateFlowable.observeOn(AndroidSchedulers.mainThread())
+  val userHasActiveStories: Boolean get() = store.state.userHasStories
   val pagingController = ProxyPagingController<ContactSearchKey>()
   val headerActionRequests: Observable<Unit> = headerActionRequestSubject.debounce(100, TimeUnit.MILLISECONDS)
 
@@ -59,13 +60,16 @@ class StoriesPrivacySettingsViewModel : ViewModel() {
 
     pagingController.set(observablePagedData.controller)
 
-    store.update(observablePagedData.data.toFlowable(BackpressureStrategy.LATEST)) { data, state ->
+    updateUserHasStories()
+
+    disposables += store.update(observablePagedData.data.toFlowable(BackpressureStrategy.LATEST)) { data, state ->
       state.copy(storyContactItems = data)
     }
   }
 
   override fun onCleared() {
     disposables.clear()
+    store.dispose()
   }
 
   fun setStoriesEnabled(isEnabled: Boolean) {
@@ -77,12 +81,19 @@ class StoriesPrivacySettingsViewModel : ViewModel() {
           areStoriesEnabled = Stories.isFeatureEnabled()
         )
       }
+      updateUserHasStories()
     }
   }
 
   fun displayGroupsAsStories(recipientIds: List<RecipientId>) {
     disposables += repository.markGroupsAsStories(recipientIds).subscribe {
       pagingController.onDataInvalidated()
+    }
+  }
+
+  private fun updateUserHasStories() {
+    disposables += repository.userHasOutgoingStories().subscribe { userHasActiveStories ->
+      store.update { it.copy(userHasStories = userHasActiveStories) }
     }
   }
 }

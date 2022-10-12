@@ -673,7 +673,7 @@
     <!-- GroupsV1MigrationLearnMoreBottomSheetDialogFragment -->
     <string name="GroupsV1MigrationLearnMore_what_are_new_groups">Какво представляват Нови групи?</string>
     <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">Новите групи имат функции като споменавания и администратори и ще поддържат още функции в бъдеще.</string>
-    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Хронологията на разговорите и медиите бяха запазени.</string>
+    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Хронологията на разговорите и медията бяха запазени преди обновяването.</string>
     <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">Трябва да приемете покана за влизане в групата и няма да получите съобщения от групата преди приемането на поканата.</string>
     <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
         <item quantity="one">Този член трябва да приеме покана за присъединяване в тази група и няма да получава съобщения от групата, докато не се съгласи:</item>
@@ -688,7 +688,7 @@
     <string name="GroupsV1MigrationInitiation_upgrade_to_new_group">Обнови групата</string>
     <string name="GroupsV1MigrationInitiation_upgrade_this_group">Обнови тази група</string>
     <string name="GroupsV1MigrationInitiation_new_groups_have_features_like_mentions">Новите групи имат функции като споменавания и администратори и ще поддържат още функции в бъдеще.</string>
-    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">Хронологията на разговорите и медиите ще бъдат запазени.</string>
+    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">Хронологията на разговорите и медията ще бъдат запазени преди обновяването.</string>
     <string name="GroupsV1MigrationInitiation_encountered_a_network_error">Проблем по мрежата. Опитайте отново по-късно.</string>
     <string name="GroupsV1MigrationInitiation_failed_to_upgrade">Неуспешен ъпгрейд.</string>
     <plurals name="GroupsV1MigrationInitiation_these_members_will_need_to_accept_an_invite">
@@ -1960,6 +1960,7 @@
     <string name="MediaPreviewActivity_s_to_you">От %1$s към вас</string>
     <string name="MediaPreviewActivity_media_no_longer_available">Тази мултимедия вече не е налична.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Не може да бъде намерено приложение, което да може да споделя тази мултимедия.</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">Затвори</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d нови съобщения в %2$d чата</string>
@@ -2748,10 +2749,14 @@
     <string name="configurable_single_select__customize_option">Опция за персонализиране</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2903,6 +2908,26 @@
     <string name="PaymentsHomeFragment__enable">Включване</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Не сега</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">Настройка на сигурността</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">Защитете средствата си</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">Предотвратете достъпа на човек с вашия телефон до средствата ви, като добавите още едно ниво на сигурност. Можете да деактивирате тази опция в Настройки.</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">Активирайте заключване на плащания</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">Не сега</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">Пропуснете тази стъпка?</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">Пропускането на тази стъпка може да позволи на всеки, който има физически достъп до телефона ви, да прехвърли средства или да види вашата фраза за възстановяване.</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">Отказ</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">Пропусни</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">Добавяне на средства</string>
@@ -4799,6 +4824,8 @@
     <string name="StoryViewItem__remove_viewer">Премахване на зрител</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">Все още няма отговори</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">Не може да отговорите на тази история, защото вече не сте член на тази група.</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Реагира на историята</string>
     <!-- Label for story views tab -->
@@ -4817,6 +4844,13 @@
     <string name="StoryGroupReplyItem__delete">Изтриване</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">Моята история</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="one">%1$d viewer</item>
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Кой може да вижда тази история</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4851,8 +4885,6 @@
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Позволяване на отговори и реакции</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Позволете на хората, които могат да видят историята ви, да реагират и отговарят</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">Скриване на историята ви от конкретни хора. По подразбиране историята ви се споделя с вашите %1$s</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Signal Връзки</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -4911,6 +4943,22 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">Споделяне само с…</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">Готово</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">Премахване на груповата история?</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">„ %1$s “ ще бъде премахнатa.</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">Премахни</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">Изтриване на частна история?</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">„ %1$s “ и актуализациите, споделени за тази история, ще бъдат изтрити.</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">Изтрий</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">Историите са достъпни само за бета потребители на Signal.</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">Ако споделите история, тя ще бъде достъпна само за хора, които използват бета версия на Signal.</string>
     <!-- Dialog title for first time adding something to a story -->
     <string name="StoryDialogs__add_to_story_q">Добавяне към историята?</string>
     <!-- Dialog message for first time adding something to a story -->
@@ -4923,6 +4971,8 @@
     <string name="StoryDialogs__story_could_not_be_sent">Историята не можа да бъде изпратена. Проверете връзката си и опитайте отново.</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">Изпращане</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">Изключете и изтрийте</string>
     <!-- Privacy Settings toggle title for stories -->
     <string name="PrivacySettingsFragment__share_and_view_stories">Споделяне и преглед на истории</string>
     <!-- Privacy Settings toggle summary for stories -->
@@ -5071,6 +5121,11 @@
         <item quantity="one">Групова история · %1$d зрител</item>
         <item quantity="other">Групова история · %1$d зрители</item>
     </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="one">%1$d член</item>
+        <item quantity="other">%1$d членове</item>
+    </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
         <item quantity="one">%1$s · %2$d зрител</item>
@@ -5206,7 +5261,7 @@
     <!-- Dialog title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Изключване на истории?</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">Повече няма да можете да споделяте или виждате истории. Историите, които сте изпратили наскоро, все още ще бъдат видими за другите, докато не изтекат.</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">Повече няма да можете да споделяте или гледате истории. Актуализациите на истории, които сте споделили наскоро, също ще бъдат изтрити.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">Поверителност на история</string>
 
@@ -5229,7 +5284,7 @@
     <!-- Title of the screen -->
     <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Направете експорт на вашите SMS съобщения</string>
     <!-- Message of the screen -->
-    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Можете да експортирате вашите SMS съобщения в базата данни с SMS-и на телефона ви. Това позволява на други приложения за SMS на телефона ви да имат достъп до тях и да ги импортират. Това не създава споделим файл с хронологията на вашите SMS съобщения.</string>
+    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Можете да експортирате вашите SMS съобщения към SMS базата данни на телефона ви. Това позволява на други приложения за SMS на телефона ви да имат достъп до тях и да ги импортират. Това не създава споделим файл с хронологията на вашите SMS съобщения.</string>
     <!-- Button label to begin export -->
     <string name="ExportYourSmsMessagesFragment__continue">Продължи</string>
 

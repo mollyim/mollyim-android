@@ -2108,6 +2108,7 @@
     <string name="MediaPreviewActivity_s_to_you">%1$s vám</string>
     <string name="MediaPreviewActivity_media_no_longer_available">Médiá už nie sú dostupné.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Nepodarilo sa nájsť aplikáciu schopnú zdieľať tento typ súboru.</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">Zatvoriť</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d nové správy v %2$d konverzáciách</string>
@@ -2920,10 +2921,14 @@
     <string name="configurable_single_select__customize_option">Prispôsobiť nastavenie</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -3075,6 +3080,26 @@
     <string name="PaymentsHomeFragment__enable">Zapnúť</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Teraz nie</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">Nastavenie zabezpečenia</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">Chráňte svoje prostriedky</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">Zvýšte úroveň zabezpečenia a zabráňte tak osobe, ktorá používa váš telefón, pristupovať k vašim finančným prostriedkom. Túto možnosť môžete vypnúť v Nastaveniach.</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">Aktivovať platobný zámok</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">Teraz nie</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">Preskočiť tento krok?</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">Preskočením tohto kroku umožníte komukoľvek, kto má fyzický prístup k vášmu telefónu, previesť prostriedky alebo pozrieť si vašu frázu na obnovenie.</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">Zrušiť</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">Preskočiť</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">Pridať prostriedky</string>
@@ -5013,6 +5038,8 @@
     <string name="StoryViewItem__remove_viewer">Odstrániť sledovateľa</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">Zatiaľ žiadne odpovede</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">Na tento príbeh nemôžete odpovedať, pretože už nie ste členom tejto skupiny.</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Reagoval na príbeh</string>
     <!-- Label for story views tab -->
@@ -5031,6 +5058,15 @@
     <string name="StoryGroupReplyItem__delete">Odstrániť</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">Môj príbeh</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="one">%1$d viewer</item>
+        <item quantity="few">%1$d viewers</item>
+        <item quantity="many">%1$d viewers</item>
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Kto môže vidieť tento príbeh</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -5069,8 +5105,6 @@
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Povoliť odpovede a reakcie</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Umožnite ľuďom, ktorí si môžu zobraziť váš príbeh, reagovať a odpovedať</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">Skryte svoj príbeh pred konkrétnymi ľuďmi. V predvolenom nastavení sa váš príbeh zdieľa s vaším %1$s</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Signal spojenia</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -5129,6 +5163,22 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">Zdieľať iba s…</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">Hotovo</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">Chcete odstrániť skupinový príbeh?</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">„%1$s“ bude odstránený.</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">Odstrániť</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">Vymazať súkromný príbeh?</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">„%1$s“ a aktualizácie zdieľané s týmto príbehom budú odstránené.</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">Vymazať</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">Príbehy sú k dispozícii iba pre používateľov beta verzie Signal.</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">Ak zdieľate príbeh, zobrazí sa iba ľuďom, ktorí používajú beta verziu Signal.</string>
     <!-- Dialog title for first time adding something to a story -->
     <string name="StoryDialogs__add_to_story_q">Pridať do príbehu?</string>
     <!-- Dialog message for first time adding something to a story -->
@@ -5141,6 +5191,8 @@
     <string name="StoryDialogs__story_could_not_be_sent">Príbeh sa nepodarilo odoslať. Skontrolujte pripojenie a skúste to znova.</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">Poslať</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">Vypnúť a odstrániť</string>
     <!-- Privacy Settings toggle title for stories -->
     <string name="PrivacySettingsFragment__share_and_view_stories">Zdieľajte a zobrazujte príbehy</string>
     <!-- Privacy Settings toggle summary for stories -->
@@ -5297,6 +5349,13 @@
         <item quantity="many">Skupinový príbeh · %1$d sledovateľov</item>
         <item quantity="other">Skupinový príbeh · %1$d sledovateľov</item>
     </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="one">%1$d člen</item>
+        <item quantity="few">%1$d členovia</item>
+        <item quantity="many">%1$d člena</item>
+        <item quantity="other">%1$d členov</item>
+    </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
         <item quantity="one">%1$s · %2$d sledovateľ</item>
@@ -5442,7 +5501,7 @@
     <!-- Dialog title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">Vypnúť príbehy?</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">Už nebudete môcť zdieľať ani prezerať príbehy. Všetky príbehy, ktoré ste nedávno uverejnili, sa budú naďalej zobrazovať ostatným, až kým nevyprší ich platnosť.</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">Už nebudete môcť zdieľať ani prezerať príbehy. Budú tiež odstránené aktualizácie príbehov, ktoré ste nedávno zdieľali.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">Súkromie príbehu</string>
 

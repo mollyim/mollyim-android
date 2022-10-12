@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
+import org.signal.core.util.dp
 import org.thoughtcrime.securesms.ContactSelectionListFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.contacts.ContactsCursorLoader
@@ -147,8 +148,10 @@ abstract class BaseStoryRecipientSelectionFragment : Fragment(R.layout.stories_b
       canSelectSelf = false,
       currentSelection = emptyList(),
       displaySelectionCount = false,
-      displayChips = false,
-      checkboxResource = checkboxResource
+      displayChips = true,
+      checkboxResource = checkboxResource,
+      recyclerPadBottom = 76.dp,
+      recyclerChildClipping = false
     )
 
     contactSelectionListFragment.arguments = arguments.toArgumentBundle()

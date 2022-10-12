@@ -1476,7 +1476,7 @@
     <string name="RedPhone_network_failed">ネットワークエラー！</string>
     <string name="RedPhone_number_not_registered">未登録番号です！</string>
     <string name="RedPhone_the_number_you_dialed_does_not_support_secure_voice">ダイヤル先は安全な音声通話をサポートしていません！</string>
-    <string name="RedPhone_got_it">分かりました</string>
+    <string name="RedPhone_got_it">わかりました</string>
 
     <!-- Valentine\'s Day Megaphone -->
     <!-- Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons. -->
@@ -1886,6 +1886,7 @@
     <string name="MediaPreviewActivity_s_to_you">%1$s からあなた</string>
     <string name="MediaPreviewActivity_media_no_longer_available">メディアが存在しません。</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">このメディアを共有できるアプリが見つかりません。</string>
+    <string name="MediaPreviewActivity_dismiss_due_to_error">閉じる</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%2$d個のチャットに%1$d件の新着メッセージ</string>
@@ -2662,10 +2663,14 @@
     <string name="configurable_single_select__customize_option">オプションのカスタマイズ</string>
 
     <!-- Internal only preferences -->
+    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
+    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
+    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
     <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
+    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
     <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
     <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2817,6 +2822,26 @@
     <string name="PaymentsHomeFragment__enable">有効にする</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">今はしない</string>
+
+    <!-- PaymentsSecuritySetupFragment -->
+    <!-- Toolbar title -->
+    <string name="PaymentsSecuritySetupFragment__security_setup">セキュリティ設定</string>
+    <!-- Title to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__protect_your_funds">資金の保護</string>
+    <!-- Description as to why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__help_prevent">セキュリティを強化することで、第三者があなたの携帯電話を使用して資金にアクセスすることを防ぎます。このオプションは設定で無効にできます。</string>
+    <!-- Option to enable payment lock -->
+    <string name="PaymentsSecuritySetupFragment__enable_payment_lock">決済機能のロックを有効にする</string>
+    <!-- Option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__not_now">今はしない</string>
+    <!-- Dialog title to confirm skipping the step -->
+    <string name="PaymentsSecuritySetupFragment__skip_this_step">この手順をスキップしますか?</string>
+    <!-- Dialog description to let users know why payment lock is required -->
+    <string name="PaymentsSecuritySetupFragment__skipping_this_step">この手順をスキップすると、第三者があなたの携帯電話を使用して資金の送金やリカバリーフレーズを閲覧できる可能性があります。</string>
+    <!-- Dialog option to cancel -->
+    <string name="PaymentsSecuritySetupFragment__cancel">キャンセル</string>
+    <!-- Dialog option to skip -->
+    <string name="PaymentsSecuritySetupFragment__skip">スキップ</string>
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">入金</string>
@@ -4679,7 +4704,7 @@
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">閲覧 なし</string>
     <!-- Displayed when user has disabled receipts -->
-    <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">既読を有効にすると、誰があなたのストーリーズを見たのかがわかります。</string>
+    <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">既読を有効にすると、誰があなたのストーリーを見たのかがわかります。</string>
     <!-- Button label displayed when user has disabled receipts -->
     <string name="StoryViewsFragment__go_to_settings">設定へ</string>
     <!-- Dialog action to remove viewer from a story -->
@@ -4692,6 +4717,8 @@
     <string name="StoryViewItem__remove_viewer">閲覧者を削除</string>
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">返信 なし</string>
+    <!-- Displayed when no longer a group member -->
+    <string name="StoryGroupReplyFragment__you_cant_reply">このグループのメンバーではなくなったので、このストーリーに返信することはできません。</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__reacted_to_the_story">ストーリーにリアクションがありました</string>
     <!-- Label for story views tab -->
@@ -4710,6 +4737,12 @@
     <string name="StoryGroupReplyItem__delete">削除</string>
     <!-- Page title for My Story options -->
     <string name="MyStorySettingsFragment__my_story">マイストーリー</string>
+    <!-- Number of total signal connections displayed in "All connections" row item -->
+    <plurals name="MyStorySettingsFragment__viewers">
+        <item quantity="other">%1$d viewers</item>
+    </plurals>
+    <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
+    <string name="MyStorySettingsFragment__view">View</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">ストーリーを閲覧できる人</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4735,15 +4768,13 @@
         <item quantity="other">%1$d人</item>
     </plurals>
     <!-- My story privacy fine print about what the privacy settings are for -->
-    <string name="MyStorySettingsFragment__choose_who_can_view_your_story">ストーリーを閲覧できるユーザーを選択してください。 変更は、すでに送信したストーリーには影響しません。</string>
+    <string name="MyStorySettingsFragment__choose_who_can_view_your_story">ストーリーを閲覧できるユーザーを選択してください。変更は、すでに送信したストーリーには影響しません。</string>
     <!-- Section header for options related to replies and reactions -->
     <string name="MyStorySettingsFragment__replies_amp_reactions">返信とリアクション</string>
     <!-- Switchable option for allowing replies and reactions on your stories -->
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">返信とリアクションを許可する</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">あなたのストーリーを閲覧可能なユーザーに返信とリアクションを許可します</string>
-    <!-- Note about default sharing -->
-    <string name="MyStorySettingsFragment__hide_your_story_from">特定の人にあなたのストーリーを非表示にします。 デフォルトでは、ストーリーはあなたの%1$sと共有されます。</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Signalコネクション</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -4802,6 +4833,22 @@
     <string name="ChangeMyStoryMembershipFragment__only_share_with">共有するのは…</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">完了</string>
+    <!-- Dialog title for removing a group story -->
+    <string name="StoryDialogs__remove_group_story">グループストーリーを削除しますか？</string>
+    <!-- Dialog message for removing a group story -->
+    <string name="StoryDialogs__s_will_be_removed">「%1$s」は削除されます。</string>
+    <!-- Dialog positive action for removing a group story -->
+    <string name="StoryDialogs__remove">削除</string>
+    <!-- Dialog title for deleting a private story -->
+    <string name="StoryDialogs__delete_private_story">プライベートストーリーを削除しますか？</string>
+    <!-- Dialog message for deleting a private story -->
+    <string name="StoryDialogs__s_and_updates_shared">ストーリーで共有された「 %1$s」と更新情報は削除されます。</string>
+    <!-- Dialog positive action for deleting a private story -->
+    <string name="StoryDialogs__delete">削除</string>
+    <!-- Dialog title for first time sending something to a beta story -->
+    <string name="StoryDialogs__stories_is_available_to">ストーリーはSignalのベータ版ユーザーのみ利用可能です。</string>
+    <!-- Dialog message for first time sending something to a beta story -->
+    <string name="StoryDialogs__if_you_share_a_story">ストーリーを共有した場合Signalのベータ版ユーザーのみに公開されます。</string>
     <!-- Dialog title for first time adding something to a story -->
     <string name="StoryDialogs__add_to_story_q">ストーリーに追加しますか？</string>
     <!-- Dialog message for first time adding something to a story -->
@@ -4814,6 +4861,8 @@
     <string name="StoryDialogs__story_could_not_be_sent">ストーリーを送信できませんでした。接続を確認し、再度試してください。</string>
     <!-- Error message dialog button to resend a previously failed story send -->
     <string name="StoryDialogs__send">送信する</string>
+    <!-- Action button for turning off stories when stories are present on the device -->
+    <string name="StoryDialogs__turn_off_and_delete">非表示にして削除する</string>
     <!-- Privacy Settings toggle title for stories -->
     <string name="PrivacySettingsFragment__share_and_view_stories">ストーリーの共有と閲覧</string>
     <!-- Privacy Settings toggle summary for stories -->
@@ -4958,6 +5007,10 @@
     <plurals name="ContactSearchItems__group_story_d_viewers">
         <item quantity="other">グループストーリー · 閲覧 %1$d人</item>
     </plurals>
+    <!-- Label under name for groups -->
+    <plurals name="ContactSearchItems__group_d_members">
+        <item quantity="other">メンバー %1$d人</item>
+    </plurals>
     <!-- Label under name for my story -->
     <plurals name="ContactSearchItems__my_story_s_dot_d_viewers">
         <item quantity="other">%1$s• %2$d 人の閲覧者</item>
@@ -5022,7 +5075,7 @@
     <!-- Message of safety number changes bottom sheet when not showing individual records and user has seen review screen -->
     <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">すべてのコネクションが確認されました。続行するには送信をタップしてください。</string>
     <!-- Message of safety number changes bottom sheet when not showing individual records -->
-    <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">%1$d人のコネクションがSignalを再インストールしたか、端末を変更した可能性があります。 ストーリーを彼らと共有する前に、彼らの安全番号を確認するか、あなたのストーリーから彼らを削除することを検討してください。</string>
+    <string name="SafetyNumberBottomSheetFragment__you_have_d_connections">%1$d人のコネクションがSignalを再インストールしたか、端末を変更した可能性があります。ストーリーを彼らと共有する前に、彼らの安全番号を確認するか、あなたのストーリーから彼らを削除することを検討してください。</string>
     <!-- Menu action to launch safety number verification screen -->
     <string name="SafetyNumberBottomSheetFragment__verify_safety_number">安全番号を確認</string>
     <!-- Menu action to remove user from story -->
@@ -5088,7 +5141,7 @@
     <!-- Dialog title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories_question">ストーリーを非表示にしますか？</string>
     <!-- Dialog message to turn off stories -->
-    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to">ストーリーの共有や閲覧ができなくなります。最近送信したストーリーは、有効期限が切れるまでは他のユーザーに表示されます。</string>
+    <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">ストーリーを共有したり閲覧したりできなくなります。最近共有したストーリーの更新情報も削除されます。</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">ストーリープライバシー</string>
 

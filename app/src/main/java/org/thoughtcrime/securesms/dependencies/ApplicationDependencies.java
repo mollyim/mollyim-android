@@ -271,7 +271,7 @@ public class ApplicationDependencies {
     }
   }
 
-  public static void restartNetworkConnectionsAfterProxyChange() {
+  public static void restartAllNetworkConnections() {
     synchronized (LOCK) {
       closeConnections();
       if (signalWebSocket != null) {

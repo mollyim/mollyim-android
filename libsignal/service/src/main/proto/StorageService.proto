@@ -87,6 +87,8 @@ message ContactRecord {
   uint64        mutedUntilTimestamp     = 13;
   bool          hideStory               = 14;
   uint64        unregisteredAtTimestamp = 16;
+  string        systemGivenName         = 17;
+  string        systemFamilyName        = 18;
   bool          hidden                  = 19;
   // NEXT ID: 20
 }
@@ -172,7 +174,8 @@ message AccountRecord {
            bool                   keepMutedChatsArchived        = 25;
            bool                   hasSetMyStoriesPrivacy        = 26;
            bool                   hasViewedOnboardingStory      = 27;
-           bool                   storiesDisabled               = 28;
+           reserved            /* storiesDisabled */              28;
+           bool                   storiesDisabled               = 29;
 }
 
 message StoryDistributionListRecord {
