@@ -119,6 +119,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
+import im.molly.unifiedpush.helper.UnifiedPushHelper;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.security.Security;
@@ -202,6 +203,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
                             .addBlocking("network-settings", this::initializeNetworkSettings)
                             .addBlocking("first-launch", this::initializeFirstEverAppLaunch)
                             .addBlocking("gcm-check", this::initializeFcmCheck)
+                            .addBlocking("unifiedpush", UnifiedPushHelper::initializeUnifiedPush)
                             .addBlocking("app-migrations", this::initializeApplicationMigrations)
                             .addBlocking("lifecycle-observer", () -> AppForegroundObserver.addListener(this))
                             .addBlocking("message-retriever", this::initializeMessageRetrieval)

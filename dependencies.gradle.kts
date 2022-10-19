@@ -167,6 +167,9 @@ dependencyResolutionManagement {
       library("nanohttpd-websocket", "org.nanohttpd", "nanohttpd-websocket").versionRef("nanohttpd")
       library("kotlinx-collections-immutable", "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5")
 
+      // UnifiedPush
+      library("android-connector", "com.github.UnifiedPush:android-connector:2.4.0")
+
       // Can"t use the newest version because it hits some weird NoClassDefFoundException
       library("jknack-handlebars", "com.github.jknack:handlebars:4.0.7")
 
