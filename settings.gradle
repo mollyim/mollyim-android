@@ -45,6 +45,12 @@ dependencyResolutionManagement {
         maven {
             url "https://dl.cloudsmith.io/qxAgwaeEE1vN8aLU/mobilecoin/mobilecoin/maven/"
         }
+        maven {
+            url "https://www.jitpack.io"
+            content {
+                includeModule 'com.github.UnifiedPush', 'android-connector'
+            }
+        }
     }
 }
 

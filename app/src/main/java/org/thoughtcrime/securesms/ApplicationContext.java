@@ -111,6 +111,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
+import im.molly.unifiedpush.helper.UnifiedPushHelper;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.security.Security;
@@ -191,6 +192,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addBlocking("network-settings", this::initializeNetworkSettings)
                             .addBlocking("first-launch", this::initializeFirstEverAppLaunch)
                             .addBlocking("gcm-check", this::initializeFcmCheck)
+                            .addBlocking("unifiedpush", UnifiedPushHelper::initializeUnifiedPush)
                             .addBlocking("app-migrations", this::initializeApplicationMigrations)
                             .addBlocking("mark-registration", () -> RegistrationUtil.maybeMarkRegistrationComplete())
                             .addBlocking("lifecycle-observer", () -> ApplicationDependencies.getAppForegroundObserver().addListener(this))
