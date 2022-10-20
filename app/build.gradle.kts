@@ -534,6 +534,7 @@ dependencies {
   implementation(libs.molly.glide.webp.decoder)
   implementation(libs.gosimple.nbvcxz)
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
+  implementation(libs.unifiedpush.connector)
 
   "gmsImplementation"(project(":billing"))
 

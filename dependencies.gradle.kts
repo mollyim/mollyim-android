@@ -136,6 +136,9 @@ dependencyResolutionManagement {
       library("molly-argon2", "im.molly:argon2:13.1-1")
       library("molly-glide-webp-decoder", "im.molly:glide-webp-decoder:1.3.2-2")
 
+      // UnifiedPush
+      library("unifiedpush-connector", "com.github.UnifiedPush:android-connector:2.4.0")
+
       // Third Party
       library("greenrobot-eventbus", "org.greenrobot:eventbus:3.0.0")
       library("jackson-core", "com.fasterxml.jackson.core:jackson-databind:2.17.2")
@@ -166,9 +169,6 @@ dependencyResolutionManagement {
       library("nanohttpd-webserver", "org.nanohttpd", "nanohttpd-webserver").versionRef("nanohttpd")
       library("nanohttpd-websocket", "org.nanohttpd", "nanohttpd-websocket").versionRef("nanohttpd")
       library("kotlinx-collections-immutable", "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5")
-
-      // UnifiedPush
-      library("android-connector", "com.github.UnifiedPush:android-connector:2.4.0")
 
       // Can"t use the newest version because it hits some weird NoClassDefFoundException
       library("jknack-handlebars", "com.github.jknack:handlebars:4.0.7")
