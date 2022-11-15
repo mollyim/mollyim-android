@@ -134,13 +134,12 @@
                 android:text="@string/ConversationActivity_unblock"
                 android:visibility="gone" />
 
-            <Button
-                android:id="@+id/invite_button"
-                android:layout_width="fill_parent"
+            <ViewStub
+                android:id="@+id/sms_export_stub"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="@string/InviteActivity_invite_to_signal"
-                android:visibility="gone" />
+                android:inflatedId="@+id/sms_export_view"
+                android:layout="@layout/conversation_activity_sms_export_stub" />
 
             <TextView
                 android:id="@+id/space_left"

@@ -134,7 +134,11 @@ class SendButton(context: Context, attributeSet: AttributeSet?) : AppCompatImage
   }
 
   override fun onLongClick(v: View): Boolean {
-    if (!isEnabled || availableSendTypes.size == 1) {
+    if (!isEnabled) {
+      return false
+    }
+
+    if (availableSendTypes.size == 1) {
       return false
     }
 

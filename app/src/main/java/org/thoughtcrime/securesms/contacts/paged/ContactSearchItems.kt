@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
+import org.signal.core.util.dp
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
 import org.thoughtcrime.securesms.components.AvatarImageView
@@ -12,9 +13,12 @@ import org.thoughtcrime.securesms.components.FromTextView
 import org.thoughtcrime.securesms.components.menu.ActionItem
 import org.thoughtcrime.securesms.components.menu.SignalContextMenu
 import org.thoughtcrime.securesms.contacts.LetterHeaderDecoration
+import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto
+import org.thoughtcrime.securesms.contacts.avatars.GeneratedContactPhoto
 import org.thoughtcrime.securesms.database.model.DistributionListPrivacyMode
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.recipients.Recipient.FallbackPhotoProvider
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel
@@ -29,7 +33,6 @@ private typealias RecipientClickListener = (View, ContactSearchData.KnownRecipie
  * Mapping Models and View Holders for ContactSearchData
  */
 object ContactSearchItems {
-
   fun registerStoryItems(
     mappingAdapter: MappingAdapter,
     displayCheckBox: Boolean = false,
@@ -52,6 +55,7 @@ object ContactSearchItems {
   fun register(
     mappingAdapter: MappingAdapter,
     displayCheckBox: Boolean,
+    displaySmsTag: DisplaySmsTag,
     recipientListener: RecipientClickListener,
     storyListener: StoryClickListener,
     storyContextMenuCallbacks: StoryContextMenuCallbacks,
@@ -60,7 +64,7 @@ object ContactSearchItems {
     registerStoryItems(mappingAdapter, displayCheckBox, storyListener, storyContextMenuCallbacks)
     mappingAdapter.registerFactory(
       RecipientModel::class.java,
-      LayoutFactory({ KnownRecipientViewHolder(it, displayCheckBox, recipientListener) }, R.layout.contact_search_item)
+      LayoutFactory({ KnownRecipientViewHolder(it, displayCheckBox, displaySmsTag, recipientListener) }, R.layout.contact_search_item)
     )
     registerHeaders(mappingAdapter)
     mappingAdapter.registerFactory(
@@ -115,7 +119,7 @@ object ContactSearchItems {
     displayCheckBox: Boolean,
     onClick: StoryClickListener,
     private val storyContextMenuCallbacks: StoryContextMenuCallbacks?
-  ) : BaseRecipientViewHolder<StoryModel, ContactSearchData.Story>(itemView, displayCheckBox, onClick) {
+  ) : BaseRecipientViewHolder<StoryModel, ContactSearchData.Story>(itemView, displayCheckBox, DisplaySmsTag.NEVER, onClick) {
     override fun isSelected(model: StoryModel): Boolean = model.isSelected
     override fun getData(model: StoryModel): ContactSearchData.Story = model.story
     override fun getRecipient(model: StoryModel): Recipient = model.story.recipient
@@ -135,15 +139,17 @@ object ContactSearchItems {
         number.text = when {
           model.story.recipient.isGroup -> context.resources.getQuantityString(R.plurals.ContactSearchItems__group_story_d_viewers, count, count)
           model.story.recipient.isMyStory -> context.resources.getQuantityString(R.plurals.ContactSearchItems__my_story_s_dot_d_viewers, count, presentPrivacyMode(model.story.privacyMode), count)
-          else -> context.resources.getQuantityString(R.plurals.ContactSearchItems__private_story_d_viewers, count, count)
+          else -> context.resources.getQuantityString(R.plurals.ContactSearchItems__custom_story_d_viewers, count, count)
         }
       }
     }
 
     override fun bindAvatar(model: StoryModel) {
       if (model.story.recipient.isMyStory) {
+        avatar.setFallbackPhotoProvider(MyStoryFallbackPhotoProvider(Recipient.self().getDisplayName(context), 40.dp))
         avatar.setAvatarUsingProfile(Recipient.self())
       } else {
+        avatar.setFallbackPhotoProvider(Recipient.DEFAULT_FALLBACK_PHOTO_PROVIDER)
         super.bindAvatar(model)
       }
     }
@@ -203,6 +209,12 @@ object ContactSearchItems {
         DistributionListPrivacyMode.ALL -> context.getString(R.string.ChooseInitialMyStoryMembershipFragment__all_signal_connections)
       }
     }
+
+    private class MyStoryFallbackPhotoProvider(private val name: String, private val targetSize: Int) : FallbackPhotoProvider() {
+      override fun getPhotoForLocalNumber(): FallbackContactPhoto {
+        return GeneratedContactPhoto(name, R.drawable.ic_profile_outline_40, targetSize)
+      }
+    }
   }
 
   /**
@@ -227,7 +239,12 @@ object ContactSearchItems {
     }
   }
 
-  private class KnownRecipientViewHolder(itemView: View, displayCheckBox: Boolean, onClick: RecipientClickListener) : BaseRecipientViewHolder<RecipientModel, ContactSearchData.KnownRecipient>(itemView, displayCheckBox, onClick), LetterHeaderDecoration.LetterHeaderItem {
+  private class KnownRecipientViewHolder(
+    itemView: View,
+    displayCheckBox: Boolean,
+    displaySmsTag: DisplaySmsTag,
+    onClick: RecipientClickListener
+  ) : BaseRecipientViewHolder<RecipientModel, ContactSearchData.KnownRecipient>(itemView, displayCheckBox, displaySmsTag, onClick), LetterHeaderDecoration.LetterHeaderItem {
 
     private var headerLetter: String? = null
 
@@ -255,7 +272,12 @@ object ContactSearchItems {
   /**
    * Base Recipient View Holder
    */
-  private abstract class BaseRecipientViewHolder<T : MappingModel<T>, D : ContactSearchData>(itemView: View, private val displayCheckBox: Boolean, val onClick: (View, D, Boolean) -> Unit) : MappingViewHolder<T>(itemView) {
+  private abstract class BaseRecipientViewHolder<T : MappingModel<T>, D : ContactSearchData>(
+    itemView: View,
+    private val displayCheckBox: Boolean,
+    private val displaySmsTag: DisplaySmsTag,
+    val onClick: (View, D, Boolean) -> Unit
+  ) : MappingViewHolder<T>(itemView) {
 
     protected val avatar: AvatarImageView = itemView.findViewById(R.id.contact_photo_image)
     protected val badge: BadgeImageView = itemView.findViewById(R.id.contact_badge)
@@ -268,7 +290,7 @@ object ContactSearchItems {
     override fun bind(model: T) {
       checkbox.visible = displayCheckBox
       checkbox.isChecked = isSelected(model)
-      itemView.setOnClickListener { onClick(itemView, getData(model), isSelected(model)) }
+      itemView.setOnClickListener { onClick(avatar, getData(model), isSelected(model)) }
       bindLongPress(model)
 
       if (payload.isNotEmpty()) {
@@ -309,6 +331,11 @@ object ContactSearchItems {
     }
 
     protected open fun bindSmsTagField(model: T) {
+      smsTag.visible = when (displaySmsTag) {
+        DisplaySmsTag.DEFAULT -> isSmsContact(model)
+        DisplaySmsTag.IF_NOT_REGISTERED -> isNotRegistered(model)
+        DisplaySmsTag.NEVER -> false
+      }
       smsTag.visible = isSmsContact(model)
     }
 
@@ -316,6 +343,10 @@ object ContactSearchItems {
 
     private fun isSmsContact(model: T): Boolean {
       return (getRecipient(model).isForceSmsSelection || getRecipient(model).isUnregistered) && !getRecipient(model).isDistributionList
+    }
+
+    private fun isNotRegistered(model: T): Boolean {
+      return getRecipient(model).isUnregistered && !getRecipient(model).isDistributionList
     }
 
     abstract fun isSelected(model: T): Boolean
@@ -402,5 +433,11 @@ object ContactSearchItems {
     fun onOpenStorySettings(story: ContactSearchData.Story)
     fun onRemoveGroupStory(story: ContactSearchData.Story, isSelected: Boolean)
     fun onDeletePrivateStory(story: ContactSearchData.Story, isSelected: Boolean)
+  }
+
+  enum class DisplaySmsTag {
+    DEFAULT,
+    IF_NOT_REGISTERED,
+    NEVER
   }
 }

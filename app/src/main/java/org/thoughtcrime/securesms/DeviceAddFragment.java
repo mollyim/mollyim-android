@@ -2,8 +2,11 @@ package org.thoughtcrime.securesms;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 
 import org.signal.qr.QrScannerView;
@@ -44,23 +48,26 @@ public class DeviceAddFragment extends LoggingFragment {
       }
     });
 
-    scannerView = container.findViewById(R.id.scanner);
+    this.scannerView = container.findViewById(R.id.scanner);
     this.devicesImage = container.findViewById(R.id.devices);
     ViewCompat.setTransitionName(devicesImage, "devices");
 
-    container.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-      @Override
-      public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                 int oldLeft, int oldTop, int oldRight, int oldBottom)
-      {
-        v.removeOnLayoutChangeListener(this);
+    if (Build.VERSION.SDK_INT >= 21) {
+      container.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        @TargetApi(21)
+        @Override
+        public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                   int oldLeft, int oldTop, int oldRight, int oldBottom)
+        {
+          v.removeOnLayoutChangeListener(this);
 
-        Animator reveal = ViewAnimationUtils.createCircularReveal(v, right, bottom, 0, (int) Math.hypot(right, bottom));
-        reveal.setInterpolator(new DecelerateInterpolator(2f));
-        reveal.setDuration(800);
-        reveal.start();
-      }
-    });
+          Animator reveal = ViewAnimationUtils.createCircularReveal(v, right, bottom, 0, (int) Math.hypot(right, bottom));
+          reveal.setInterpolator(new DecelerateInterpolator(2f));
+          reveal.setDuration(800);
+          reveal.start();
+        }
+      });
+    }
 
     return container;
   }
@@ -98,6 +105,19 @@ public class DeviceAddFragment extends LoggingFragment {
                .onAllGranted(this::startScanner)
                .onAnyDenied(() -> Toast.makeText(requireContext(), R.string.DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission, Toast.LENGTH_LONG).show())
                .execute();
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    MenuItem switchCamera = ((DeviceActivity) requireActivity()).getCameraSwitchItem();
+
+    if (switchCamera != null) {
+      switchCamera.setVisible(true);
+      switchCamera.setOnMenuItemClickListener(v -> {
+        scannerView.toggleCamera();
+        return true;
+      });
+    }
   }
 
   public ImageView getDevicesImage() {

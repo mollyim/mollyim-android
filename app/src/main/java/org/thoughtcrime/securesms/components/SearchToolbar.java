@@ -19,6 +19,8 @@ import androidx.core.content.ContextCompat;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
+import org.thoughtcrime.securesms.util.EditTextExtensionsKt;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 public class SearchToolbar extends LinearLayout {
 
@@ -55,6 +57,8 @@ public class SearchToolbar extends LinearLayout {
     this.searchItem = toolbar.getMenu().findItem(R.id.action_filter_search);
     SearchView searchView = (SearchView) searchItem.getActionView();
     EditText   searchText = searchView.findViewById(R.id.search_src_text);
+
+    EditTextExtensionsKt.setIncognitoKeyboardEnabled(searchText, TextSecurePreferences.isIncognitoKeyboardEnabled(getContext()));
 
     searchView.setSubmitButtonEnabled(false);
     searchView.setMaxWidth(Integer.MAX_VALUE);

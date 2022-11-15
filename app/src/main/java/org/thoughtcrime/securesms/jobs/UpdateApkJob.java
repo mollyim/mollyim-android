@@ -81,50 +81,48 @@ public class UpdateApkJob extends BaseJob {
                                           .build();
     Request request = new Request.Builder().url(String.format("%s/index-v1.json", BuildConfig.FDROID_UPDATE_URL)).build();
 
-    Response response = client.newCall(request).execute();
+    try (Response response = client.newCall(request).execute()) {
 
-    if (!response.isSuccessful()) {
-      throw new IOException("Bad response: " + response.message());
-    }
-    if (response.body() == null) {
-      throw new IOException("Missing body!");
-    }
+      if (!response.isSuccessful() || response.body() == null) {
+        throw new IOException("Bad response: " + response.message());
+      }
 
-    RepoIndex repoIndex = JsonUtils.fromJson(response.body().bytes(), RepoIndex.class);
-    if (repoIndex.packages == null || repoIndex.packages.appReleases == null) {
-      return;
-    }
+      RepoIndex repoIndex = JsonUtils.fromJson(response.body().bytes(), RepoIndex.class);
+      if (repoIndex.packages == null || repoIndex.packages.appReleases == null) {
+        return;
+      }
 
-    List<UpdateDescriptor> releases = repoIndex.packages.appReleases;
+      List<UpdateDescriptor> releases = repoIndex.packages.appReleases;
 
-    UpdateDescriptor updateDescriptor = releases.stream()
-                                                .filter(r -> r.versionName != null)
-                                                .filter(r -> includeBeta || !r.versionName.contains("beta"))
-                                                .sorted()
-                                                .findFirst()
-                                                .orElse(null);
-    if (updateDescriptor == null) {
-      return;
-    }
+      UpdateDescriptor updateDescriptor = releases.stream()
+                                                  .filter(r -> r.versionName != null)
+                                                  .filter(r -> includeBeta || !r.versionName.contains("beta"))
+                                                  .sorted()
+                                                  .findFirst()
+                                                  .orElse(null);
+      if (updateDescriptor == null) {
+        return;
+      }
 
-    byte[] digest = Hex.fromStringCondensed(updateDescriptor.getDigest());
+      byte[] digest = Hex.fromStringCondensed(updateDescriptor.getDigest());
 
-    Log.i(TAG, "Got descriptor: " + updateDescriptor);
+      Log.i(TAG, "Got descriptor: " + updateDescriptor);
 
-    if (updateDescriptor.getVersionCode() > getVersionCode()) {
-      Uri uri = Uri.parse(BuildConfig.FDROID_UPDATE_URL).buildUpon()
-                                                        .appendPath(updateDescriptor.getApkName())
-                                                        .build();
-      DownloadStatus downloadStatus = getDownloadStatus(uri, digest);
+      if (updateDescriptor.getVersionCode() > getVersionCode()) {
+        Uri uri = Uri.parse(BuildConfig.FDROID_UPDATE_URL).buildUpon()
+                     .appendPath(updateDescriptor.getApkName())
+                     .build();
+        DownloadStatus downloadStatus = getDownloadStatus(uri, digest);
 
-      Log.i(TAG, "Download status: "  + downloadStatus.getStatus());
+        Log.i(TAG, "Download status: " + downloadStatus.getStatus());
 
-      if (downloadStatus.getStatus() == DownloadStatus.Status.COMPLETE) {
-        Log.i(TAG, "Download status complete, notifying...");
-        handleDownloadNotify(downloadStatus.getDownloadId());
-      } else if (downloadStatus.getStatus() == DownloadStatus.Status.MISSING) {
-        Log.i(TAG, "Download status missing, starting download...");
-        handleDownloadStart(uri, updateDescriptor.getVersionName(), digest);
+        if (downloadStatus.getStatus() == DownloadStatus.Status.COMPLETE) {
+          Log.i(TAG, "Download status complete, notifying...");
+          handleDownloadNotify(downloadStatus.getDownloadId());
+        } else if (downloadStatus.getStatus() == DownloadStatus.Status.MISSING) {
+          Log.i(TAG, "Download status missing, starting download...");
+          handleDownloadStart(uri, updateDescriptor.getVersionName(), digest);
+        }
       }
     }
   }

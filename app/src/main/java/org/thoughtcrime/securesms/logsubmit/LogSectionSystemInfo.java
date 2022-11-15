@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
+import org.signal.core.util.FontUtil;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.emoji.EmojiFiles;
@@ -71,15 +72,17 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Device ID     : ").append(locked ? "Unknown" : SignalStore.account().getDeviceId()).append("\n");
     builder.append("Censored      : ").append(locked ? "Unknown" : ApplicationDependencies.getSignalServiceNetworkAccess().isCensored()).append("\n");
     builder.append("Network Status: ").append(NetworkUtil.getNetworkStatus(context)).append("\n");
+    builder.append("Data Saver    : ").append(DeviceProperties.getDataSaverState(context)).append("\n");
     builder.append("Play Services : ").append(getPlayServicesString(context)).append("\n");
     builder.append("FCM           : ").append(locked ? "Unknown" : SignalStore.account().isFcmEnabled()).append("\n");
     builder.append("BkgRestricted : ").append(Build.VERSION.SDK_INT >= 28 ? DeviceProperties.isBackgroundRestricted(context) : "N/A").append("\n");
-    builder.append("Locale        : ").append(Locale.getDefault().toString()).append("\n");
+    builder.append("Locale        : ").append(Locale.getDefault()).append("\n");
     builder.append("Linked Devices: ").append(locked ? "Unknown" : TextSecurePreferences.isMultiDevice(context)).append("\n");
     builder.append("First Version : ").append(TextSecurePreferences.getFirstInstallVersion(context)).append("\n");
     builder.append("Days Installed: ").append(VersionTracker.getDaysSinceFirstInstalled(context)).append("\n");
     builder.append("Build Variant : ").append(BuildConfig.FLAVOR_distribution).append(BuildConfig.BUILD_ENVIRONMENT_TYPE).append(BuildConfig.BUILD_VARIANT_TYPE).append("\n");
     builder.append("Emoji Version : ").append(locked ? "Unknown" : getEmojiVersionString(context)).append("\n");
+    builder.append("RenderBigEmoji: ").append(FontUtil.canRenderEmojiAtFontSize(1024)).append("\n");
     builder.append("Telecom       : ").append(locked ? "Unknown" : AndroidTelecomUtil.getTelecomSupported()).append("\n");
     builder.append("User-Agent    : ").append(StandardUserAgentInterceptor.USER_AGENT).append("\n");
     builder.append("App           : ");

@@ -17,8 +17,8 @@
 package org.thoughtcrime.securesms.video;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -26,14 +26,15 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Tracks;
 import com.google.android.exoplayer2.source.ClippingMediaSource;
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
@@ -41,8 +42,8 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.mediapreview.MediaPreviewPlayerControlView;
 import org.thoughtcrime.securesms.mms.VideoSlide;
-import org.thoughtcrime.securesms.util.MediaUtil;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -53,10 +54,10 @@ public class VideoPlayer extends FrameLayout {
   private static final String TAG = Log.tag(VideoPlayer.class);
 
   private final PlayerView                exoView;
-  private final PlayerControlView         exoControls;
   private final DefaultMediaSourceFactory mediaSourceFactory;
 
-  private SimpleExoPlayer                     exoPlayer;
+  private ExoPlayer                           exoPlayer;
+  private PlayerControlView                   exoControls;
   private Window                              window;
   private PlayerStateCallback                 playerStateCallback;
   private PlayerPositionDiscontinuityCallback playerPositionDiscontinuityCallback;
@@ -65,6 +66,7 @@ public class VideoPlayer extends FrameLayout {
   private long                                clippedStartUs;
   private ExoPlayerListener                   exoPlayerListener;
   private Player.Listener                     playerListener;
+  private boolean                             muted;
 
   public VideoPlayer(Context context) {
     this(context, null);
@@ -77,13 +79,16 @@ public class VideoPlayer extends FrameLayout {
   public VideoPlayer(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
 
-    inflate(context, R.layout.video_player, this);
+    TypedArray typedArray       = context.obtainStyledAttributes(attrs, R.styleable.VideoPlayer);
+    int        videPlayerLayout = typedArray.getResourceId(R.styleable.VideoPlayer_playerLayoutId, R.layout.video_player);
+
+    typedArray.recycle();
+    inflate(context, videPlayerLayout, this);
 
     this.mediaSourceFactory = new DefaultMediaSourceFactory(context);
 
     this.exoView     = findViewById(R.id.video_view);
-    this.exoControls = new PlayerControlView(getContext());
-    this.exoControls.setShowTimeoutMs(-1);
+    this.exoControls = createPlayerControls(getContext());
 
     this.exoPlayerListener = new ExoPlayerListener();
     this.playerListener    = new Player.Listener() {
@@ -102,7 +107,11 @@ public class VideoPlayer extends FrameLayout {
           switch (playbackState) {
             case Player.STATE_READY:
               playerCallback.onReady();
-              if (playWhenReady) playerCallback.onPlaying();
+              if (playWhenReady) {
+                playerCallback.onPlaying();
+              } else {
+                playerCallback.onStopped();
+              }
               break;
             case Player.STATE_ENDED:
               playerCallback.onStopped();
@@ -121,48 +130,59 @@ public class VideoPlayer extends FrameLayout {
     };
   }
 
+  private PlayerControlView createPlayerControls(Context context) {
+    final PlayerControlView playerControlView = new PlayerControlView(context);
+    playerControlView.setShowTimeoutMs(-1);
+    playerControlView.setShowNextButton(false);
+    playerControlView.setShowPreviousButton(false);
+    return playerControlView;
+  }
+
   private MediaItem mediaItem;
 
   public void setVideoSource(@NonNull VideoSlide videoSource, boolean autoplay, String poolTag) {
+    setVideoSource(videoSource, autoplay, poolTag, 0, 0);
+  }
+
+  public void setVideoSource(@NonNull VideoSlide videoSource, boolean autoplay, String poolTag, long clipStartMs, long clipEndMs) {
     if (exoPlayer == null) {
       exoPlayer = ApplicationDependencies.getExoPlayerPool().require(poolTag);
       exoPlayer.addListener(exoPlayerListener);
       exoPlayer.addListener(playerListener);
       exoView.setPlayer(exoPlayer);
       exoControls.setPlayer(exoPlayer);
+      if (muted) {
+        mute();
+      }
     }
 
-    mediaItem = MediaItem.fromUri(Objects.requireNonNull(videoSource.getUri()));
+    mediaItem = MediaItem.fromUri(Objects.requireNonNull(videoSource.getUri())).buildUpon()
+                         .setClippingConfiguration(getClippingConfiguration(clipStartMs, clipEndMs))
+                         .build();
+
     exoPlayer.setMediaItem(mediaItem);
     exoPlayer.prepare();
     exoPlayer.setPlayWhenReady(autoplay);
   }
 
   public void mute() {
-    if (exoPlayer != null && exoPlayer.getAudioComponent() != null) {
-      exoPlayer.getAudioComponent().setVolume(0f);
+    this.muted = true;
+    if (exoPlayer != null) {
+      exoPlayer.setVolume(0f);
     }
   }
 
   public void unmute() {
-    if (exoPlayer != null && exoPlayer.getAudioComponent() != null) {
-      exoPlayer.getAudioComponent().setVolume(1f);
+    this.muted = false;
+    if (exoPlayer != null) {
+      exoPlayer.setVolume(1f);
     }
   }
 
   public boolean hasAudioTrack() {
     if (exoPlayer != null) {
-      TrackGroupArray trackGroupArray = exoPlayer.getCurrentTrackGroups();
-      if (trackGroupArray != null) {
-        for (int i = 0; i < trackGroupArray.length; i++) {
-          for (int j = 0; j < trackGroupArray.get(i).length; j++) {
-            String sampleMimeType = trackGroupArray.get(i).getFormat(j).sampleMimeType;
-            if (MediaUtil.isAudioType(sampleMimeType)) {
-              return true;
-            }
-          }
-        }
-      }
+      Tracks tracks = exoPlayer.getCurrentTracks();
+      return tracks.containsType(C.TRACK_TYPE_AUDIO);
     }
 
     return false;
@@ -196,6 +216,12 @@ public class VideoPlayer extends FrameLayout {
     }
   }
 
+  public void setKeepContentOnPlayerReset(boolean keepContentOnPlayerReset) {
+    if (this.exoView != null) {
+      this.exoView.setKeepContentOnPlayerReset(keepContentOnPlayerReset);
+    }
+  }
+
   @Override
   public void setOnClickListener(@Nullable OnClickListener l) {
     if (this.exoView != null) {
@@ -205,15 +231,26 @@ public class VideoPlayer extends FrameLayout {
     super.setOnClickListener(l);
   }
 
-  public @Nullable View getControlView() {
+  public @Nullable PlayerControlView getControlView() {
     return this.exoControls;
   }
 
-  public void cleanup() {
+  public void setControlView(MediaPreviewPlayerControlView controller) {
+    exoControls = controller;
+    exoControls.setPlayer(exoPlayer);
+  }
+
+  public void stop() {
     if (this.exoPlayer != null) {
       exoPlayer.stop();
       exoPlayer.clearMediaItems();
+    }
+  }
 
+  public void cleanup() {
+    stop();
+
+    if (this.exoPlayer != null) {
       exoView.setPlayer(null);
       exoControls.setPlayer(null);
 
@@ -309,6 +346,14 @@ public class VideoPlayer extends FrameLayout {
         exoPlayer.seekTo(0);
       }
     }
+  }
+
+  private @NonNull MediaItem.ClippingConfiguration getClippingConfiguration(long startMs, long endMs) {
+    return startMs != endMs ? new MediaItem.ClippingConfiguration.Builder()
+        .setStartPositionMs(startMs)
+        .setEndPositionMs(endMs)
+        .build()
+                            : MediaItem.ClippingConfiguration.UNSET;
   }
 
   private class ExoPlayerListener implements Player.Listener {

@@ -22,9 +22,13 @@ import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.whispersystems.signalservice.api.push.DistributionId;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -86,10 +90,24 @@ public final class MessageDetailsRepository {
     } else {
       List<GroupReceiptDatabase.GroupReceiptInfo> receiptInfoList = SignalDatabase.groupReceipts().getGroupReceiptInfo(messageRecord.getId());
 
-      if (receiptInfoList.isEmpty()) {
+      if (receiptInfoList.isEmpty() && messageRecord.getRecipient().isGroup()) {
         List<Recipient> group = SignalDatabase.groups().getGroupMembers(messageRecord.getRecipient().requireGroupId(), GroupDatabase.MemberSet.FULL_MEMBERS_EXCLUDING_SELF);
 
         for (Recipient recipient : group) {
+          recipients.add(new RecipientDeliveryStatus(messageRecord,
+                                                     recipient,
+                                                     RecipientDeliveryStatus.Status.UNKNOWN,
+                                                     false,
+                                                     messageRecord.getReceiptTimestamp(),
+                                                     getNetworkFailure(messageRecord, recipient),
+                                                     getKeyMismatchFailure(messageRecord, recipient)));
+        }
+      } else if (receiptInfoList.isEmpty() && messageRecord.getRecipient().isDistributionList()) {
+        DistributionId   distributionId = SignalDatabase.distributionLists().getDistributionId(messageRecord.getRecipient().requireDistributionListId());
+        Set<RecipientId> recipientIds   = SignalDatabase.storySends().getRecipientsForDistributionId(messageRecord.getId(), Objects.requireNonNull(distributionId));
+        List<Recipient>  resolved       = Recipient.resolvedList(recipientIds);
+
+        for (Recipient recipient : resolved) {
           recipients.add(new RecipientDeliveryStatus(messageRecord,
                                                      recipient,
                                                      RecipientDeliveryStatus.Status.UNKNOWN,

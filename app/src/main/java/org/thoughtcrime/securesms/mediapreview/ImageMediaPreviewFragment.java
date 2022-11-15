@@ -15,6 +15,7 @@ import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.util.MediaUtil;
 
 public final class ImageMediaPreviewFragment extends MediaPreviewFragment {
+  private MediaPreviewPlayerControlView bottomBarControlView;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,5 +41,18 @@ public final class ImageMediaPreviewFragment extends MediaPreviewFragment {
     zoomingImageView.setOnClickListener(v -> events.singleTapOnMedia());
 
     return zoomingImageView;
+  }
+
+  @Override
+  public void cleanUp() {
+    bottomBarControlView = null;
+  }
+
+  @Override
+  public void pause() {}
+
+  @Override
+  public void setBottomButtonControls(MediaPreviewPlayerControlView playerControlView) {
+    bottomBarControlView = playerControlView;
   }
 }

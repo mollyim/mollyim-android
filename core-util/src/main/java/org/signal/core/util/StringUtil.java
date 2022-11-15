@@ -339,4 +339,8 @@ public final class StringUtil {
     iterator.setText(text);
     return iterator.countBreaks();
   }
+
+  public static String forceLtr(@NonNull CharSequence text) {
+    return "\u202a" + text + "\u202c";
+  }
 }

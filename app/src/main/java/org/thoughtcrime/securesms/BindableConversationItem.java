@@ -13,6 +13,7 @@ import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.conversation.ConversationMessage;
 import org.thoughtcrime.securesms.conversation.colors.Colorizable;
 import org.thoughtcrime.securesms.conversation.colors.Colorizer;
+import org.thoughtcrime.securesms.conversation.ConversationItemDisplayMode;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
 import org.thoughtcrime.securesms.conversation.mutiselect.Multiselectable;
 import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord;
@@ -47,7 +48,7 @@ public interface BindableConversationItem extends Unbindable, GiphyMp4Playable, 
             boolean isMessageRequestAccepted,
             boolean canPlayInline,
             @NonNull Colorizer colorizer,
-            boolean isCondensedMode);
+            @NonNull ConversationItemDisplayMode displayMode);
 
   @NonNull ConversationMessage getConversationMessage();
 
@@ -102,6 +103,9 @@ public interface BindableConversationItem extends Unbindable, GiphyMp4Playable, 
     void onDonateClicked();
     void onBlockJoinRequest(@NonNull Recipient recipient);
     void onRecipientNameClicked(@NonNull RecipientId target);
+    void onInviteToSignalClicked();
+    void onActivatePaymentsClicked();
+    void onSendPaymentClicked(@NonNull RecipientId recipientId);
 
     /** @return true if handled, false if you want to let the normal url handling continue */
     boolean onUrlClicked(@NonNull String url);

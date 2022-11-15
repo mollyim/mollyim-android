@@ -3,7 +3,7 @@ package org.thoughtcrime.securesms.mediapreview;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,15 +79,9 @@ public abstract class MediaPreviewFragment extends Fragment {
     checkMediaStillAvailable();
   }
 
-  public void cleanUp() {
-  }
-
-  public void pause() {
-  }
-
-  public @Nullable View getPlaybackControls() {
-    return null;
-  }
+  public abstract void cleanUp();
+  public abstract void pause();
+  public abstract void setBottomButtonControls(MediaPreviewPlayerControlView playerControlView);
 
   private void checkMediaStillAvailable() {
     if (attachmentId == null) {
@@ -96,13 +90,15 @@ public abstract class MediaPreviewFragment extends Fragment {
 
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(),
                    () -> SignalDatabase.attachments().hasAttachment(attachmentId),
-                   hasAttachment -> { if (!hasAttachment) events.mediaNotAvailable(); });
+                   hasAttachment -> { if (!hasAttachment) events.onMediaNotAvailable(); });
   }
 
   public interface Events {
     boolean singleTapOnMedia();
-    void mediaNotAvailable();
+    void onMediaNotAvailable();
     void onMediaReady();
+    void onPlaying();
+    void onStopped();
     default @Nullable VideoControlsDelegate getVideoControlsDelegate() {
       return null;
     }

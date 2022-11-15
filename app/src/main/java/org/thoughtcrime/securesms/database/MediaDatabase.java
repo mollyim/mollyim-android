@@ -93,10 +93,6 @@ public class MediaDatabase extends Database {
   }
 
   public @NonNull Cursor getGalleryMediaForThread(long threadId, @NonNull Sorting sorting) {
-    return getGalleryMediaForThread(threadId, sorting, false);
-  }
-
-  public @NonNull Cursor getGalleryMediaForThread(long threadId, @NonNull Sorting sorting, boolean listenToAllThreads) {
     SQLiteDatabase database = databaseHelper.getSignalReadableDatabase();
     String         query    = sorting.applyToQuery(applyEqualityOperator(threadId, GALLERY_MEDIA_QUERY));
     String[]       args     = {threadId + ""};
@@ -264,6 +260,19 @@ public class MediaDatabase extends Database {
 
     public boolean isRelatedToFileSize() {
       return this == Largest;
+    }
+
+    public static @NonNull Sorting deserialize(int code) {
+      switch (code) {
+        case 0:
+          return Newest;
+        case 1:
+          return Oldest;
+        case 2:
+          return Largest;
+        default:
+          throw new IllegalArgumentException("Unknown code: " + code);
+      }
     }
   }
 

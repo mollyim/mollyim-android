@@ -42,6 +42,9 @@ class StoryViewerPageViewModel(
   val groupDirectReplyObservable: Observable<Optional<StoryViewerDialog>> = storyViewerDialogSubject
 
   val state: Flowable<StoryViewerPageState> = store.stateFlowable
+  val postContent: Flowable<Optional<StoryPost.Content>> = store.stateFlowable.map {
+    Optional.ofNullable(it.posts.getOrNull(it.selectedPostIndex)?.content)
+  }
 
   fun getStateSnapshot(): StoryViewerPageState = store.state
 
@@ -131,6 +134,7 @@ class StoryViewerPageViewModel(
     }
 
     val postIndex = store.state.selectedPostIndex
+
     val nextUnreadPost: StoryPost? = getNextUnreadPost(store.state.posts.drop(postIndex + 1))
     when {
       nextUnreadPost == null && args.isJumpForwardToUnviewed -> setSelectedPostIndex(store.state.posts.size)

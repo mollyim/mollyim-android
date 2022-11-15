@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.jobs;
 
 
 import android.Manifest;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 
@@ -56,7 +57,7 @@ public final class LocalBackupJob extends BaseJob {
                                                   .setQueue(QUEUE)
                                                   .setMaxInstancesForFactory(1)
                                                   .setMaxAttempts(3);
-    if (force) {
+    if (force || Build.VERSION.SDK_INT >= 31) {
       jobManager.cancelAllInQueue(QUEUE);
     } else {
       parameters.addConstraint(ChargingConstraint.KEY);
@@ -165,6 +166,9 @@ public final class LocalBackupJob extends BaseJob {
       }
 
       BackupUtil.deleteOldBackups();
+    } catch (GenericForegroundService.UnableToStartException e) {
+      Log.w(TAG, "This should not happen on API < 31");
+      throw new AssertionError(e);
     } finally {
       EventBus.getDefault().unregister(updater);
       updater.setNotification(null);

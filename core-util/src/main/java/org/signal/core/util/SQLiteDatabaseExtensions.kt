@@ -51,6 +51,13 @@ fun SupportSQLiteDatabase.select(vararg columns: String): SelectBuilderPart1 {
 }
 
 /**
+ * Begins a COUNT statement with a helpful builder pattern.
+ */
+fun SupportSQLiteDatabase.count(): SelectBuilderPart1 {
+  return SelectBuilderPart1(this, SqlUtil.COUNT)
+}
+
+/**
  * Begins an UPDATE statement with a helpful builder pattern.
  */
 fun SupportSQLiteDatabase.update(tableName: String): UpdateBuilderPart1 {
@@ -222,6 +229,7 @@ class UpdateBuilderPart3(
   private val where: String,
   private val whereArgs: Array<String>
 ) {
+  @JvmOverloads
   fun run(conflictStrategy: Int = SQLiteDatabase.CONFLICT_NONE): Int {
     return db.update(tableName, conflictStrategy, values, where, whereArgs)
   }

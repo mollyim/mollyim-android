@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.megaphone;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -33,6 +34,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LocaleFeatureFlags;
+import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.VersionTracker;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
@@ -103,10 +105,11 @@ public final class Megaphones {
       put(Event.PINS_FOR_ALL, new PinsForAllSchedule());
       put(Event.CLIENT_DEPRECATED, SignalStore.misc().isClientDeprecated() ? ALWAYS : NEVER);
       put(Event.NOTIFICATIONS, shouldShowNotificationsMegaphone(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(30)) : NEVER);
+      put(Event.BACKUP_SCHEDULE_PERMISSION, shouldShowBackupSchedulePermissionMegaphone(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(3)) : NEVER);
       put(Event.ONBOARDING, shouldShowOnboardingMegaphone(context) ? ALWAYS : NEVER);
       put(Event.TURN_OFF_CENSORSHIP_CIRCUMVENTION, shouldShowTurnOffCircumventionMegaphone() ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(7)) : NEVER);
       put(Event.DONATE_MOLLY, shouldShowDonateMegaphone(context, Event.DONATE_MOLLY, records) ? ShowForDurationSchedule.showForDays(7) : NEVER);
-      put(Event.REMOTE_MEGAPHONE, shouldShowRemoteMegaphone(records) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(3)) : NEVER);
+      put(Event.REMOTE_MEGAPHONE, shouldShowRemoteMegaphone(records) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(1)) : NEVER);
       put(Event.PIN_REMINDER, new SignalPinReminderSchedule());
 
       // Feature-introduction megaphones should *probably* be added below this divider
@@ -134,6 +137,8 @@ public final class Megaphones {
         return buildTurnOffCircumventionMegaphone(context);
       case REMOTE_MEGAPHONE:
         return buildRemoteMegaphone(context);
+      case BACKUP_SCHEDULE_PERMISSION:
+        return buildBackupPermissionMegaphone(context);
       default:
         throw new IllegalArgumentException("Event not handled!");
     }
@@ -277,7 +282,7 @@ public final class Megaphones {
   }
 
   private static @NonNull Megaphone buildRemoteMegaphone(@NonNull Context context) {
-    RemoteMegaphoneRecord record = RemoteMegaphoneRepository.getRemoteMegaphoneToShow();
+    RemoteMegaphoneRecord record = RemoteMegaphoneRepository.getRemoteMegaphoneToShow(System.currentTimeMillis());
 
     if (record != null) {
       Megaphone.Builder builder = new Megaphone.Builder(Event.REMOTE_MEGAPHONE, Megaphone.Style.BASIC)
@@ -312,6 +317,21 @@ public final class Megaphones {
     } else {
       throw new IllegalStateException("No record to show");
     }
+  }
+
+  @SuppressLint("InlinedApi")
+  private static Megaphone buildBackupPermissionMegaphone(@NonNull Context context) {
+    return new Megaphone.Builder(Event.BACKUP_SCHEDULE_PERMISSION, Megaphone.Style.BASIC)
+        .setTitle(R.string.BackupSchedulePermissionMegaphone__cant_back_up_chats)
+        .setImage(R.drawable.ic_cant_backup_megaphone)
+        .setBody(R.string.BackupSchedulePermissionMegaphone__your_chats_are_no_longer_being_automatically_backed_up)
+        .setActionButton(R.string.BackupSchedulePermissionMegaphone__back_up_chats, (megaphone, controller) -> {
+          controller.onMegaphoneDialogFragmentRequested(new ReenableBackupsDialogFragment());
+        })
+        .setSecondaryButton(R.string.BackupSchedulePermissionMegaphone__not_now, (megaphone, controller) -> {
+          controller.onMegaphoneSnooze(Event.BACKUP_SCHEDULE_PERMISSION);
+        })
+        .build();
   }
 
   private static boolean shouldShowDonateMegaphone(@NonNull Context context, @NonNull Event event, @NonNull Map<Event, MegaphoneRecord> records) {
@@ -371,6 +391,10 @@ public final class Megaphones {
     return RemoteMegaphoneRepository.hasRemoteMegaphoneToShow(canShowLocalDonate);
   }
 
+  private static boolean shouldShowBackupSchedulePermissionMegaphone(@NonNull Context context) {
+    return Build.VERSION.SDK_INT >= 31 && SignalStore.settings().isBackupEnabled() && !ServiceUtil.getAlarmManager(context).canScheduleExactAlarms();
+  }
+
   /**
    * Unfortunately lastSeen is only set today upon snoozing, which never happens to donate prompts.
    * So we use firstVisible as a proxy.
@@ -398,7 +422,8 @@ public final class Megaphones {
     ADD_A_PROFILE_PHOTO("add_a_profile_photo"),
     DONATE_MOLLY("donate_molly"),
     TURN_OFF_CENSORSHIP_CIRCUMVENTION("turn_off_censorship_circumvention"),
-    REMOTE_MEGAPHONE("remote_megaphone");
+    REMOTE_MEGAPHONE("remote_megaphone"),
+    BACKUP_SCHEDULE_PERMISSION("backup_schedule_permission");
 
     private final String key;
 

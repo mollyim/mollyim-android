@@ -236,6 +236,15 @@ public abstract class MessageRecord extends DisplayRecord {
       } catch (InvalidProtocolBufferException e) {
         throw new AssertionError(e);
       }
+    } else if (isSmsExportType()) {
+      int messageResource = R.string.MessageRecord__you_can_no_longer_send_sms_messages_in_signal;
+      return fromRecipient(getIndividualRecipient(), r -> context.getString(messageResource, r.getDisplayName(context)), R.drawable.ic_update_info_16);
+    } else if (isRequestToActivatePayments()) {
+      return isOutgoing() ? fromRecipient(getIndividualRecipient(), r -> context.getString(R.string.MessageRecord_you_sent_request, r.getShortDisplayName(context)), R.drawable.ic_card_activate_payments)
+                          : fromRecipient(getIndividualRecipient(), r -> context.getString(R.string.MessageRecord_wants_you_to_activate_payments, r.getShortDisplayName(context)), R.drawable.ic_card_activate_payments);
+   } else if (isPaymentsActivated()) {
+      return isOutgoing() ? staticUpdateDescription(context.getString(R.string.MessageRecord_you_activated_payments), R.drawable.ic_card_activate_payments)
+                          : fromRecipient(getIndividualRecipient(), r -> context.getString(R.string.MessageRecord_can_accept_payments, r.getShortDisplayName(context)), R.drawable.ic_card_activate_payments);
     }
 
     return null;
@@ -542,6 +551,10 @@ public abstract class MessageRecord extends DisplayRecord {
     return MmsSmsColumns.Types.isThreadMergeType(type);
   }
 
+  public boolean isSmsExportType() {
+    return MmsSmsColumns.Types.isSmsExport(type);
+  }
+
   public boolean isInvalidVersionKeyExchange() {
     return SmsDatabase.Types.isInvalidVersionKeyExchange(type);
   }
@@ -562,7 +575,8 @@ public abstract class MessageRecord extends DisplayRecord {
     return isGroupAction() || isJoined() || isExpirationTimerUpdate() || isCallLog() ||
            isEndSession() || isIdentityUpdate() || isIdentityVerified() || isIdentityDefault() ||
            isProfileChange() || isGroupV1MigrationEvent() || isChatSessionRefresh() || isBadDecryptType() ||
-           isChangeNumber() || isBoostRequest() || isThreadMergeEventType();
+           isChangeNumber() || isBoostRequest() || isThreadMergeEventType() || isSmsExportType() ||
+           isRequestToActivatePayments() || isPaymentsActivated();
   }
 
   public boolean isMediaPending() {

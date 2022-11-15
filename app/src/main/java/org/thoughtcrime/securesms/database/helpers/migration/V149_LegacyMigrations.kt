@@ -43,7 +43,7 @@ import java.util.UUID
  */
 object V149_LegacyMigrations : SignalDatabaseMigration {
 
-  private val TAG: String = Log.tag(SignalDatabaseMigrations.javaClass)
+  private val TAG: String = SignalDatabaseMigrations.TAG
 
   private const val REACTIONS_UNREAD_INDEX = 39
   private const val RESUMABLE_DOWNLOADS = 40

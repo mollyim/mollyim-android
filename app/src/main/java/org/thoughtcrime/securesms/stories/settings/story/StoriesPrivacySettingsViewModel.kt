@@ -4,20 +4,18 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
-import io.reactivex.rxjava3.subjects.PublishSubject
 import org.signal.paging.PagedData
 import org.signal.paging.PagingConfig
 import org.signal.paging.ProxyPagingController
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchConfiguration
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchPagedDataSource
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.rx.RxStore
-import java.util.concurrent.TimeUnit
 
 class StoriesPrivacySettingsViewModel : ViewModel() {
 
@@ -25,7 +23,8 @@ class StoriesPrivacySettingsViewModel : ViewModel() {
 
   private val store = RxStore(
     StoriesPrivacySettingsState(
-      areStoriesEnabled = Stories.isFeatureEnabled()
+      areStoriesEnabled = Stories.isFeatureEnabled(),
+      areViewReceiptsEnabled = SignalStore.storyValues().viewedReceiptsEnabled
     )
   )
 
@@ -36,21 +35,16 @@ class StoriesPrivacySettingsViewModel : ViewModel() {
     .build()
 
   private val disposables = CompositeDisposable()
-  private val headerActionRequestSubject = PublishSubject.create<Unit>()
 
   val state: Flowable<StoriesPrivacySettingsState> = store.stateFlowable.observeOn(AndroidSchedulers.mainThread())
   val userHasActiveStories: Boolean get() = store.state.userHasStories
   val pagingController = ProxyPagingController<ContactSearchKey>()
-  val headerActionRequests: Observable<Unit> = headerActionRequestSubject.debounce(100, TimeUnit.MILLISECONDS)
 
   init {
     val configuration = ContactSearchConfiguration.build {
       addSection(
         ContactSearchConfiguration.Section.Stories(
-          includeHeader = true,
-          headerAction = Stories.getHeaderAction {
-            headerActionRequestSubject.onNext(Unit)
-          }
+          includeHeader = false,
         )
       )
     }
@@ -83,6 +77,12 @@ class StoriesPrivacySettingsViewModel : ViewModel() {
       }
       updateUserHasStories()
     }
+  }
+
+  fun toggleViewReceipts() {
+    SignalStore.storyValues().viewedReceiptsEnabled = !SignalStore.storyValues().viewedReceiptsEnabled
+    store.update { it.copy(areViewReceiptsEnabled = SignalStore.storyValues().viewedReceiptsEnabled) }
+    repository.onSettingsChanged()
   }
 
   fun displayGroupsAsStories(recipientIds: List<RecipientId>) {

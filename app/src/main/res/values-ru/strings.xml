@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- smartling.instruction_comments_enabled = on -->
 <resources>
     <!-- <string name="app_name" translatable="false">Signal</string> -->
 
@@ -11,6 +12,7 @@
     <string name="sustainer_boost_and_badges" translatable="false">https://support.signal.org/hc/articles/4408365318426</string>
     <string name="google_pay_url" translatable="false">https://pay.google.com</string>
     <string name="donation_decline_code_error_url" translatable="false">https://support.signal.org/hc/articles/4408365318426#errors</string>
+    <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string>
     <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string>
     <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string>
 
@@ -105,6 +107,14 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly требуется разрешение на доступ к хранилищу для прикрепления фото, видео или аудио, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly требуется разрешение на доступ к контактам для прикрепления контактной информации, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly требуется разрешение на доступ к местоположению для прикрепления местоположения, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Местоположение».</string>
+    <!-- Alert dialog title to show the recipient has not activated payments -->
+    <string name="AttachmentManager__not_activated_payments">%1$s hasn\'t activated Payments </string>
+    <!-- Alert dialog description to send the recipient a request to activate payments -->
+    <string name="AttachmentManager__request_to_activate_payments">Do you want to send them a request to activate Payments?</string>
+    <!-- Alert dialog button to send request -->
+    <string name="AttachmentManager__send_request">Send request</string>
+    <!-- Alert dialog button to cancel dialog -->
+    <string name="AttachmentManager__cancel">Отменить</string>
 
     <!-- AttachmentUploadJob -->
     <string name="AttachmentUploadJob_uploading_media">Загружаем медиафайл…</string>
@@ -125,6 +135,35 @@
     <string name="BlockedUsersActivity__do_you_want_to_unblock_s">Хотите разблокировать «%1$s»?</string>
     <string name="BlockedUsersActivity__unblock">Разблокировать</string>
 
+    <!-- CreditCardFragment -->
+    <!-- Title of fragment detailing the donation amount, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__donation_amount_s">Сумма пожертвования: %1$s</string>
+    <!-- Explanation of how to fill in the form, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__enter_your_card_information_below">Введите информацию о вашей карте ниже</string>
+    <!-- Displayed as a hint in the card number text field -->
+    <string name="CreditCardFragment__card_number">Номер карты</string>
+    <!-- Displayed as a hint in the card expiry text field -->
+    <string name="CreditCardFragment__mm_yy">ММ/ГГ</string>
+    <!-- Displayed as a hint in the card cvv text field -->
+    <string name="CreditCardFragment__cvv">CVV</string>
+    <!-- Error displayed under the card number text field when there is an invalid card number entered -->
+    <string name="CreditCardFragment__invalid_card_number">Неверный номер карты</string>
+    <!-- Error displayed under the card expiry text field when the card is expired -->
+    <string name="CreditCardFragment__card_has_expired">Срок действия карты истек</string>
+    <!-- Error displayed under the card cvv text field when the cvv is too short -->
+    <string name="CreditCardFragment__code_is_too_short">Код слишком короткий</string>
+    <!-- Error displayed under the card cvv text field when the cvv is too long -->
+    <string name="CreditCardFragment__code_is_too_long">Код слишком длинный</string>
+    <!-- Error displayed under the card cvv text field when the cvv is invalid -->
+    <string name="CreditCardFragment__invalid_code">Неверный код</string>
+    <!-- Error displayed under the card expiry text field when the expiry month is invalid -->
+    <string name="CreditCardFragment__invalid_month">Неверный месяц</string>
+    <!-- Error displayed under the card expiry text field when the expiry is missing the year -->
+    <string name="CreditCardFragment__year_required">Требуется год</string>
+    <!-- Error displayed under the card expiry text field when the expiry year is invalid -->
+    <string name="CreditCardFragment__invalid_year">Неверный год</string>
+    <!-- Button label to confirm credit card input and proceed with payment -->
+    <string name="CreditCardFragment__continue">Продолжить</string>
 
     <!-- BlockUnblockDialog -->
     <string name="BlockUnblockDialog_block_and_leave_s">Заблокировать и покинуть %1$s?</string>
@@ -221,8 +260,8 @@
     <string name="ContactsCursorLoader_find_by_username">Поиск по имени пользователя</string>
     <!-- Label for my stories when selecting who to send media to -->
     <string name="ContactsCursorLoader_my_stories">Мои истории</string>
-    <!-- Action for creating a new story -->
-    <string name="ContactsCursorLoader_new_story">Новая история</string>
+    <!-- Text for a button that brings up a bottom sheet to create a new story. -->
+    <string name="ContactsCursorLoader_new">Новая</string>
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Сообщение %1$s</string>
@@ -270,6 +309,18 @@
     <string name="ConversationItem_pending">  Ожидание</string>
     <string name="ConversationItem_this_message_was_deleted">Это сообщение было удалено.</string>
     <string name="ConversationItem_you_deleted_this_message">Вы удалили это сообщение.</string>
+    <!-- Dialog error message shown when user can't download a message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_message_s_will_need_to_send_it_again">Невозможно загрузить сообщение. Пользователю %1$s нужно отправить его снова.</string>
+    <!-- Dialog error message shown when user can't download an image message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_image_s_will_need_to_send_it_again">Невозможно загрузить изображение. Пользователю %1$s нужно отправить его снова.</string>
+    <!-- Dialog error message shown when user can't download a video message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_video_s_will_need_to_send_it_again">Невозможно загрузить видео. Пользователю %1$s нужно отправить его снова.</string>
+    <!-- Dialog error message shown when user can't download a their own message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_message_you_will_need_to_send_it_again">Невозможно загрузить сообщение. Вам нужно отправить его снова.</string>
+    <!-- Dialog error message shown when user can't download a their own image message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">Невозможно загрузить изображение. Вам нужно отправить его снова.</string>
+    <!-- Dialog error message shown when user can't download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">Невозможно загрузить видео. Вам нужно отправить его снова.</string>
 
     <!-- ConversationActivity -->
     <string name="ConversationActivity_add_attachment">Добавить вложение</string>
@@ -344,6 +395,21 @@
     <string name="ConversationActivity_error_sending_media">Ошибка при отправке медиафайла</string>
 
     <string name="ConversationActivity__reported_as_spam_and_blocked">Было сообщено о спаме и пользователь был заблокирован.</string>
+
+    <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
+    <string name="ConversationActivity__sms_messaging_is_currently_disabled_you_can_export_your_messages_to_another_app_on_your_phone">Обмен SMS-сообщениями в настоящее время отключён. Вы можете экспортировать сообщения в другое приложение на вашем телефоне.</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
+    <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_you_can_export_your_messages_to_another_app_on_your_phone">Обмен SMS-сообщениями больше не поддерживается в Signal. Вы можете экспортировать сообщения в другое приложение на вашем телефоне.</string>
+    <!-- Action button shown when in sms conversation, sms is disabled, and unexported sms messages are present -->
+    <string name="ConversationActivity__export_sms_messages">Экспортировать SMS-сообщения</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__sms_messaging_is_currently_disabled_invite_s_to_to_signal_to_keep_the_conversation_here">Обмен SMS-сообщениями в настоящее время отключён. Пригласите %1$s в Signal, чтобы продолжить разговор здесь.</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Обмен SMS-сообщениями больше не поддерживается в Signal. Пригласите %1$s в Signal, чтобы продолжить разговор здесь.</string>
+    <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__invite_to_signal">Пригласить в Signal</string>
+    <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we'll do it again soon -->
+    <string name="ConversationActivity__you_will_be_reminded_again_soon">Скоро вы снова получите напоминание об этом.</string>
 
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
@@ -878,11 +944,13 @@
     <string name="AddGroupDetailsFragment__this_field_is_required">Это поле обязательно.</string>
     <string name="AddGroupDetailsFragment__group_creation_failed">Не удалось создать группу.</string>
     <string name="AddGroupDetailsFragment__try_again_later">Попробуйте ещё раз позже.</string>
-    <!-- Displayed when adding group details to an MMS Group -->
-    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Вы выбрали контакт, который не поддерживает группы Signal, поэтому это будет группа MMS. Имена и фото пользователей группы MMS будут видны только вам.</string>
     <string name="AddGroupDetailsFragment__remove">Удалить</string>
     <string name="AddGroupDetailsFragment__sms_contact">SMS-контакт</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Удалить %1$s из этой группы?</string>
+    <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
+    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Вы выбрали контакт, который не поддерживает группы Signal, поэтому это будет группа MMS. Имена и фото пользователей группы MMS будут видны только вам.</string>
+    <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
+    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support_signal_groups_mms_removal">You\'ve selected a contact that doesn\'t support Signal groups, this group will be MMS. Custom MMS group names and photos will only be visible to you. Support for MMS groups will be removed soon to focus on encrypted messaging.</string>
 
     <!-- ManageGroupActivity -->
     <string name="ManageGroupActivity_member_requests_and_invites">Запросы на участие и приглашения</string>
@@ -1076,6 +1144,8 @@
 
     <!-- InputPanel -->
     <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Удерживайте, чтобы записать голосовое сообщение; отпустите, чтобы отправить</string>
+    <!-- Message shown if the user tries to switch a conversation from Signal to SMS -->
+    <string name="InputPanel__sms_messaging_is_no_longer_supported_in_signal">Обмен SMS-сообщениями больше не поддерживается в Signal.</string>
 
     <!-- InviteActivity -->
     <string name="InviteActivity_share">Поделиться</string>
@@ -1465,6 +1535,14 @@
     <string name="MessageRecord_your_message_history_with_s_and_their_number_s_has_been_merged">Ваши истории сообщений с %1$s и его/её номером %2$s были объединены.</string>
     <!-- Update item message shown when we merge two threads together and we don't know the phone number of the other thread -->
     <string name="MessageRecord_your_message_history_with_s_and_another_chat_has_been_merged">Ваши истории сообщений с %1$s и другим чатом, который принадлежал ему/ей, были объединены.</string>
+    <!-- Message to notify sender that activate payments request has been sent to the recipient -->
+    <string name="MessageRecord_you_sent_request">You sent %1$s a request to activate Payments</string>
+    <!-- Request message from recipient to activate payments -->
+    <string name="MessageRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments. Only send payments to people you trust.</string>
+    <!-- Message to inform user that payments was activated-->
+    <string name="MessageRecord_you_activated_payments">You activated Payments</string>
+    <!-- Message to inform sender that recipient can now accept payments -->
+    <string name="MessageRecord_can_accept_payments">%1$s can now accept Payments</string>
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s начал(-а) групповой звонок · %2$s</string>
@@ -1494,6 +1572,11 @@
         <item quantity="many">%1$s, %2$s и ещё %3$d человек в групповом звонке</item>
         <item quantity="other">%1$s, %2$s и ещё %3$d человек в групповом звонке</item>
     </plurals>
+
+    <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+    <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Скоро вы больше не сможете отправлять SMS-сообщения из Signal. Пригласите %1$s в Signal, чтобы продолжить разговор здесь.</string>
+    <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Вы больше не можете отправлять SMS-сообщения в Molly. Пригласите %1$s в Molly, чтобы продолжить разговор здесь.</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Принять</string>
@@ -1978,6 +2061,14 @@
     <string name="ThreadRecord_view_once_media">Одноразовое медиа</string>
     <string name="ThreadRecord_this_message_was_deleted">Это сообщение было удалено.</string>
     <string name="ThreadRecord_you_deleted_this_message">Вы удалили это сообщение.</string>
+    <!-- Displayed in the notification when the user sends a request to activate payments -->
+    <string name="ThreadRecord_you_sent_request">You sent a request to activate Payments</string>
+    <!-- Displayed in the notification when the recipient wants to activate payments -->
+    <string name="ThreadRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments</string>
+    <!-- Displayed in the notification when the user activates payments -->
+    <string name="ThreadRecord_you_activated_payments">You activated Payments</string>
+    <!-- Displayed in the notification when the recipient can accept payments -->
+    <string name="ThreadRecord_can_accept_payments">%1$s can now accept Payments</string>
     <string name="ThreadRecord_s_is_on_signal">%1$s теперь в Signal!</string>
     <string name="ThreadRecord_disappearing_messages_disabled">Исчезающие сообщения отключены</string>
     <string name="ThreadRecord_disappearing_message_time_updated_to_s">Время исчезновения сообщений – %1$s</string>
@@ -2109,6 +2200,7 @@
     <string name="MediaPreviewActivity_media_no_longer_available">Медиафайл больше не доступен.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Не найдено приложение, в котором можно поделиться этим медиафайлом.</string>
     <string name="MediaPreviewActivity_dismiss_due_to_error">Закрыть</string>
+    <string name="MediaPreviewFragment_edit_media_error">Ошибка медиафайла</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d новых сообщений в %2$d разговорах</string>
@@ -2160,6 +2252,9 @@
     <string name="NotificationChannel_background_connection">Фоновое соединение</string>
     <!-- Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing. -->
     <string name="NotificationChannel_call_status">Статус звонка</string>
+    <!-- Notification channel name for occasional alerts to the user. Will appear in the system notification settings as the title of this notification channel. -->
+    <string name="NotificationChannel_critical_app_alerts">Критически важные оповещения от приложения</string>
+
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
@@ -2204,6 +2299,12 @@
     <!-- UnauthorizedReminder -->
     <string name="UnauthorizedReminder_device_no_longer_registered">Устройство больше не зарегистрировано</string>
     <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Это может быть вызвано тем, что вы зарегистрировали свой номер телефона в Signal на другом устройстве. Нажмите для повторной регистрации.</string>
+
+    <!-- EnclaveFailureReminder -->
+    <!-- Banner message to update app to use payments -->
+    <string name="EnclaveFailureReminder_update_signal">Обновите Signal, чтобы и дальше использовать платежи. Ваш баланс может быть неактуальным.</string>
+    <!-- Banner button to update now -->
+    <string name="EnclaveFailureReminder_update_now">Обновиться</string>
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Для ответа на звонок предоставьте Molly доступ к микрофону.</string>
@@ -2340,6 +2441,11 @@
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Время исчезновения сообщений будет установлено на %1$s, когда вы отправите сообщение этому человеку.</string>
     <!-- Update item button text to show to boost a feature -->
     <string name="ConversationUpdateItem_donate">Пожертвовать</string>
+    <!-- Update item button text to send payment -->
+    <string name="ConversationUpdateItem_send_payment">Отправить платёж</string>
+    <!-- Update item button text to activate payments -->
+    <string name="ConversationUpdateItem_activate_payments">Активировать платежи</string>
+
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Воспроизведение … Пауза</string>
@@ -2654,15 +2760,16 @@
     <string name="HelpFragment__debug_log">Журнал отладки:</string>
     <string name="HelpFragment__could_not_upload_logs">Не удалось отправить журналы</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Пожалуйста, пишите как можно подробнее, чтобы помочь нам понять проблему.</string>
-    <string-array name="HelpFragment__categories_4">
+    <string-array name="HelpFragment__categories_5">
         <item>\\-\\- Пожалуйста, выберите вариант \\-\\-</item>
         <item>Что-то не работает</item>
         <item>Запросить новые функции</item>
         <item>Вопрос</item>
         <item>Обратная связь</item>
-        <item>Другое</item>
+        <item>Другие</item>
         <item>Платежи (MobileCoin)</item>
         <item>Пожертвования; Значки</item>
+        <item>Экспорт SMS</item>
     </string-array>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
@@ -2730,6 +2837,10 @@
     <string name="preferences__pressing_the_enter_key_will_send_text_messages">Нажатие клавиши ввода будет отправлять текстовые сообщения</string>
     <string name="preferences__pref_use_address_book_photos">Фотографии из адресной книги</string>
     <string name="preferences__display_contact_photos_from_your_address_book_if_available">Отображать фотографии контактов из вашей адресной книги, если они доступны</string>
+    <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__pref_keep_muted_chats_archived">Оставлять чаты без звука архивированными</string>
+    <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Архивированные чаты с отключённым звуком будут оставаться архивированными, даже если будет получено новое сообщение.</string>
     <string name="preferences__generate_link_previews">Создавать предпросмотры ссылок</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Получать предпросмотры ссылок напрямую от сайтов для сообщений, которые вы отправляете.</string>
     <string name="preferences__choose_identity">Выберите личность</string>
@@ -2923,7 +3034,7 @@
     <!-- Internal only preferences -->
     <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
     <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
-    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
+    <string name="preferences__internal_delete_custom_story" translatable="false">Delete custom story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
@@ -3080,6 +3191,14 @@
     <string name="PaymentsHomeFragment__enable">Включить</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Не сейчас</string>
+    <!-- Alert dialog title which shows up to update app to send payments -->
+    <string name="PaymentsHomeFragment__update_required">Требуется обновление</string>
+    <!-- Alert dialog description that app update is required to send payments-->
+    <string name="PaymentsHomeFragment__an_update_is_required">Обновление необходимо для продолжения отправки и получения платежей, а также для просмотра актуального платёжного баланса.</string>
+    <!-- Alert dialog button to cancel -->
+    <string name="PaymentsHomeFragment__cancel">Отменить</string>
+    <!-- Alert dialog button to update now -->
+    <string name="PaymentsHomeFragment__update_now">Обновиться</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -3349,6 +3468,8 @@
     <string name="media_preview__forward_title">Переслать</string>
     <string name="media_preview__share_title">Поделиться</string>
     <string name="media_preview__all_media_title">Все медиафайлы</string>
+    <string name="media_preview__edit_title">Изменить</string>
+
 
     <!-- media_preview_activity -->
     <string name="media_preview_activity__media_content_description">Предпросмотр медиа</string>
@@ -3992,7 +4113,12 @@
     <!-- Title in save recovery phrase screen -->
     <string name="PaymentsRecoveryStartFragment__save_recovery_phrase">Сохранить фразу для восстановления</string>
     <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Введите фразу восстановления</string>
-    <string name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">Ваши средства будут автоматически восстановлены, когда вы переустановите Signal, если вы введёте верный PIN-код. Вы также можете восстановить свои средства с помощью своей уникальной фразы восстановления, которая состоит из %1$d слов. Запишите её и храните в безопасном месте.</string>
+    <plurals name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">
+        <item quantity="one">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+        <item quantity="few">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+        <item quantity="many">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+        <item quantity="other">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+    </plurals>
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">Всё получилось! Теперь сохраните свою фразу для восстановления — ключ из 24 слов, который вы сможете использовать для восстановления информации.</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
@@ -4004,7 +4130,7 @@
     <!-- Alert dialog title which asks before going back if user wants to save recovery phrase -->
     <string name="PaymentsRecoveryStartFragment__continue_without_saving">Продолжить без сохранения?</string>
     <!-- Alert dialog description to let user know why recovery phrase needs to be saved -->
-    <string name="PaymentsRecoveryStartFragment__your_recovery_phrase">Фраза для восстановления позволит вам восстановить всю информацию, если что-нибудь случится. Мы настоятельно рекомендуем вам сохранить её.</string>
+    <string name="PaymentsRecoveryStartFragment__your_recovery_phrase">Фраза для восстановления позволит вам восстановить ваши средства, если что-нибудь случится. Мы настоятельно рекомендуем вам сохранить её.</string>
     <!-- Alert dialog option to skip recovery phrase -->
     <string name="PaymentsRecoveryStartFragment__skip_recovery_phrase">Пропустить фразу для восстановления</string>
     <!-- Alert dialog option to cancel dialog-->
@@ -4165,6 +4291,12 @@
     <string name="SmsSettingsFragment__removing_sms_messages_from_signal">Удаляем SMS-сообщения из Signal…</string>
     <!-- Snackbar text to indicate can delete later -->
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Вы можете в любое время удалить SMS-сообщения из Signal в настройках.</string>
+    <!-- Description for export sms preference -->
+    <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Вы можете экспортировать свои SMS-сообщения в базу данных SMS вашего телефона.</string>
+    <!-- Description for remove sms preference -->
+    <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Удалите SMS-сообщения из Signal, чтобы освободить место для хранения.</string>
+    <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
+    <string name="SmsSettingsFragment__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">Поддержка SMS будет скоро удалена в пользу обмена зашифрованными сообщениями.</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">Сообщения</string>
@@ -4410,7 +4542,7 @@
     <!-- Context menu item audio call -->
     <string name="NewConversationActivity__audio_call">Аудиозвонок</string>
     <!-- Context menu item video call -->
-    <string name="NewConversationActivity__video_call">Начать видеозвонок</string>
+    <string name="NewConversationActivity__video_call">Видеозвонок</string>
     <!-- Context menu item remove -->
     <string name="NewConversationActivity__remove">Удалить</string>
     <!-- Context menu item block -->
@@ -4418,7 +4550,7 @@
     <!-- Dialog title when removing a contact -->
     <string name="NewConversationActivity__remove_s">Удалить %1$s?</string>
     <!-- Dialog message when removing a contact -->
-    <string name="NewConversationActivity__you_wont_see_this_person">Это человек не будет обнаруживаться при поиске. Если он напишет вам, вы получите запрос на переписку.</string>
+    <string name="NewConversationActivity__you_wont_see_this_person">Этот человек не будет показываться при поиске. Если он напишет вам, вы получите запрос на переписку.</string>
     <!-- Snackbar message after removing a contact -->
     <string name="NewConversationActivity__s_has_been_removed">%1$s был(-а) удален(-а)</string>
     <!-- Snackbar message after blocking a contact -->
@@ -4426,9 +4558,11 @@
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">Не удалось удалить %1$s</string>
     <!-- Dialog message when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__this_person_is_saved_to_your">Этот человек сохранен в списке контактов вашего устройства. Удалите его из списка контактов и попробуйте ещё раз.</string>
+    <string name="NewConversationActivity__this_person_is_saved_to_your">Этот человек сохранён в списке контактов вашего устройства. Удалите его из списка контактов и попробуйте ещё раз.</string>
     <!-- Dialog action to view contact when they can't be removed otherwise -->
     <string name="NewConversationActivity__view_contact">Посмотреть контакт</string>
+    <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
+    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s не является пользователем Signal</string>
 
     <!-- ContactFilterView -->
     <string name="ContactFilterView__search_name_or_number">Поиск по имени или номеру</string>
@@ -4560,10 +4694,8 @@
 
     <string name="ImageView__badge">Значок</string>
 
-    <string name="SubscribeFragment__signal_is_powered_by_people_like_you">Signal существует благодаря таким людям, как вы.</string>
     <string name="SubscribeFragment__support_technology_that_is_built_for_you">Поддержите технологию, которая создана для вас, а не ради ваших данных, присоединившись к сообществу людей, которые её поддерживают.</string>
     <string name="SubscribeFragment__support_technology_that_is_built_for_you_not">Поддержите технологию, сделанную для вас, а не для ваших данных, присоединившись к сообществу, которое поддерживает Signal.</string>
-    <string name="SubscribeFragment__make_a_recurring_monthly_donation">Сделайте пожертвование в Signal, повторяющееся ежемесячно, чтобы поддерживать технологию, созданную для вас, а не ради ваших данных.</string>
     <string name="SubscribeFragment__currency">Валюта</string>
     <string name="SubscribeFragment__more_payment_options">Больше способов оплаты</string>
     <string name="SubscribeFragment__cancel_subscription">Отменить подписку</string>
@@ -4578,8 +4710,10 @@
     <string name="SubscribeFragment__you_will_be_charged_the_full_amount_s_of">Полная сумма новой подписки (%1$s) будет взята с вас сегодня. Ваша подписка будет продлеваться ежемесячно.</string>
 
     <string name="Subscription__s_per_month">%1$s/месяц</string>
-    <string name="Subscription__s_per_month_dot_renews_s">%1$s/месяц · Продлится %2$s</string>
-    <string name="Subscription__s_per_month_dot_expires_s">%1$s/месяц · Истекает %2$s</string>
+    <!-- Shown when a subscription is active and isn't going to expire at the end of the term -->
+    <string name="Subscription__renews_s">Продлится %1$s</string>
+    <!-- Shown when a subscription is active and is going to expire at the end of the term -->
+    <string name="Subscription__expires_s">Истекает %1$s</string>
 
     <!-- First small text blurb on learn more sheet -->
     <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_nonprofit_with_no">Signal — некоммерческая организация без рекламодателей и инвесторов, поддерживаемая только людьми, которые используют и ценят приложение Signal. Сделайте пожертвование, повторяющееся ежемесячно, и вы получите значок для профиля, чтобы продемонстрировать свою поддержку.</string>
@@ -4595,20 +4729,20 @@
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">стать ежемесячным Поддерживающим.</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Показывать в профиле</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Сделать главным значком</string>
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Готово</string>
+    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__continue">Продолжить</string>
     <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Когда у вас больше одного значка, вы можете выбрать главный значок, который другие люди будут видеть в вашем профиле.</string>
 
     <string name="BecomeASustainerFragment__get_badges">Получайте значки для своего профиля, поддерживая Signal.</string>
     <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal — это некоммерческая организация без рекламодателей и инвесторов, поддерживаемая только такими людьми, как вы.</string>
 
-    <!-- Button label for creating a monthly donation -->
-    <string name="ManageDonationsFragment__make_a_monthly_donation">Сделать ежемесячное пожертвование</string>
+    <!-- Button label for creating a donation -->
+    <string name="ManageDonationsFragment__donate_to_signal">Поддержать Signal</string>
     <!-- Heading for more area of manage subscriptions page -->
     <string name="ManageDonationsFragment__more">Больше</string>
     <!-- Heading for receipts area of manage subscriptions page -->
     <string name="ManageDonationsFragment__receipts">Квитанции</string>
     <!-- Heading for my subscription area of manage subscriptions page -->
-    <string name="ManageDonationsFragment__my_subscription">Моя подписка</string>
+    <string name="ManageDonationsFragment__my_support">Моя поддержка</string>
     <string name="ManageDonationsFragment__manage_subscription">Управлять подпиской</string>
     <!-- Label for Donation Receipts button -->
     <string name="ManageDonationsFragment__donation_receipts">Квитанции о пожертвованиях</string>
@@ -4619,10 +4753,6 @@
     <string name="ManageDonationsFragment__other_ways_to_give">Другие способы пожертвовать</string>
     <!-- Preference label to launch badge gifting -->
     <string name="ManageDonationsFragment__gift_a_badge">Подарить значок</string>
-
-    <string name="BoostFragment__give_signal_a_boost">Дайте «Ускорение» приложению Signal</string>
-    <!-- Description text in boost sheet -->
-    <string name="BoostFragment__make_a_one_time">Сделайте одноразовое пожертвование и получите значок «Ускорение» на %1$d дней.</string>
 
     <string name="Boost__enter_custom_amount">Ввести сумму</string>
     <string name="Boost__one_time_contribution">Одноразовая поддержка</string>
@@ -4664,7 +4794,7 @@
 
     <string name="Subscription__please_contact_support_for_more_information">Пожалуйста, свяжитесь с поддержкой, чтобы получить больше информации.</string>
     <string name="Subscription__contact_support">Связаться с поддержкой</string>
-    <string name="Subscription__earn_a_s_badge">Получить значок «%1$s»</string>
+    <string name="Subscription__get_a_s_badge">Получите значок «%1$s»</string>
 
     <string name="SubscribeFragment__processing_payment">Обрабатываем платёж…</string>
     <!-- Displayed in notification when user payment fails to process on Stripe -->
@@ -4940,7 +5070,7 @@
     <!-- Title for "My Stories" row item in Stories landing page -->
     <string name="StoriesLandingFragment__my_stories">Мои истории</string>
     <!-- Subtitle for "My Stories" row item when user has not added stories -->
-    <string name="StoriesLandingFragment__tap_to_add_a_story">Нажмите, чтобы добавить историю</string>
+    <string name="StoriesLandingFragment__tap_to_add">Нажмите, чтобы добавить</string>
     <!-- Displayed when there are no stories to display -->
     <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now">Нет недавних историй.</string>
     <!-- Context menu option to hide a story -->
@@ -5060,13 +5190,13 @@
     <string name="MyStorySettingsFragment__my_story">Моя история</string>
     <!-- Number of total signal connections displayed in "All connections" row item -->
     <plurals name="MyStorySettingsFragment__viewers">
-        <item quantity="one">%1$d viewer</item>
-        <item quantity="few">%1$d viewers</item>
-        <item quantity="many">%1$d viewers</item>
-        <item quantity="other">%1$d viewers</item>
+        <item quantity="one">%1$d зритель</item>
+        <item quantity="few">%1$d зрителя</item>
+        <item quantity="many">%1$d зрителей</item>
+        <item quantity="other">%1$d зрителей</item>
     </plurals>
     <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
-    <string name="MyStorySettingsFragment__view">View</string>
+    <string name="MyStorySettingsFragment__view">Просмотреть</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Кто может просматривать эту историю</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -5117,25 +5247,25 @@
     <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Имея их в своих системных контактах</string>
     <!-- Note at the bottom of the Signal connections sheet -->
     <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Ваши контакты могут видеть ваше имя и фото, а также обновления истории «Моя история», если вы не скроете её от них."</string>
-    <!-- Clickable option to add a viewer to a private story -->
+    <!-- Clickable option to add a viewer to a custom story -->
     <string name="PrivateStorySettingsFragment__add_viewer">Добавить зрителя</string>
     <!-- Clickable option to delete a custom story -->
-    <string name="PrivateStorySettingsFragment__delete_private_story">Удалить частную историю</string>
-    <!-- Dialog title when attempting to remove someone from a private story -->
+    <string name="PrivateStorySettingsFragment__delete_custom_story">Удалить пользовательскую историю</string>
+    <!-- Dialog title when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__remove_s">Удалить %1$s?</string>
-    <!-- Dialog message when attempting to remove someone from a private story -->
+    <!-- Dialog message when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__this_person_will_no_longer">Этот человек больше не будет видеть вашу историю.</string>
-    <!-- Positive action label when attempting to remove someone from a private story -->
+    <!-- Positive action label when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__remove">Удалить</string>
-    <!-- Dialog title when deleting a private story -->
+    <!-- Dialog title when deleting a custom story -->
     <string name="PrivateStorySettingsFragment__are_you_sure">Вы уверены?</string>
-    <!-- Dialog message when deleting a private story -->
+    <!-- Dialog message when deleting a custom story -->
     <string name="PrivateStorySettingsFragment__this_action_cannot">Это действие не может быть отменено.</string>
-    <!-- Page title for editing a private story name -->
+    <!-- Page title for editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__edit_story_name">Редактировать название истории</string>
-    <!-- Input field hint when editing a private story name -->
+    <!-- Input field hint when editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__story_name">Название истории</string>
-    <!-- Save button label when editing a private story name -->
+    <!-- Save button label when editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__save">Сохранить</string>
     <!-- Displayed in text post creator before user enters text -->
     <string name="TextStoryPostCreationFragment__tap_to_add_text">Нажмите, чтобы добавить текст</string>
@@ -5157,6 +5287,8 @@
     <string name="TextStoryPostSendFragment__search">Поиск</string>
     <!-- Toast shown when an unexpected error occurs while sending a text story -->
     <string name="TextStoryPostSendFragment__an_unexpected_error_occurred_try_again">Произошла непредвиденная ошибка</string>
+    <!-- Toast shown when a trying to add a link preview to a text story post and the link/url is not valid (e.g., missing .com at the end) -->
+    <string name="TextStoryPostSendFragment__please_enter_a_valid_link">Пожалуйста, введите корректную ссылку.</string>
     <!-- Title for screen allowing user to exclude "My Story" entries from specific people -->
     <string name="ChangeMyStoryMembershipFragment__all_except">Все, кроме…</string>
     <!-- Title for screen allowing user to only share "My Story" entries with specific people -->
@@ -5164,16 +5296,16 @@
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">Готово</string>
     <!-- Dialog title for removing a group story -->
-    <string name="StoryDialogs__remove_group_story">Удалить историю группы?</string>
+    <string name="StoryDialogs__remove_group_story">Удалить историю в группе?</string>
     <!-- Dialog message for removing a group story -->
     <string name="StoryDialogs__s_will_be_removed">«%1$s» будет удалена.</string>
     <!-- Dialog positive action for removing a group story -->
     <string name="StoryDialogs__remove">Удалить</string>
-    <!-- Dialog title for deleting a private story -->
-    <string name="StoryDialogs__delete_private_story">Удалить частную историю?</string>
-    <!-- Dialog message for deleting a private story -->
-    <string name="StoryDialogs__s_and_updates_shared">«%1$s» и её обновления будут удалены.</string>
-    <!-- Dialog positive action for deleting a private story -->
+    <!-- Dialog title for deleting a custom story -->
+    <string name="StoryDialogs__delete_custom_story">Удалить пользовательскую историю?</string>
+    <!-- Dialog message for deleting a custom story -->
+    <string name="StoryDialogs__s_and_updates_shared">«%1$s» и обновления, которыми вы поделились в этой истории, будут удалены.</string>
+    <!-- Dialog positive action for deleting a custom story -->
     <string name="StoryDialogs__delete">Удалить</string>
     <!-- Dialog title for first time sending something to a beta story -->
     <string name="StoryDialogs__stories_is_available_to">Истории доступны только для пользователей бета-версии Signal.</string>
@@ -5210,6 +5342,8 @@
     </plurals>
     <!-- Name story screen title -->
     <string name="CreateStoryWithViewersFragment__name_story">Назовите историю</string>
+    <!-- Name story screen note under text field -->
+    <string name="CreateStoryWithViewersFragment__only_you_can">Только вы можете видеть название этой истории.</string>
     <!-- Name story screen label hint -->
     <string name="CreateStoryWithViewersFragment__story_name_required">Название истории (обязательно)</string>
     <!-- Name story screen viewers subheading -->
@@ -5225,11 +5359,11 @@
     <!-- Choose story type bottom sheet title -->
     <string name="ChooseStoryTypeBottomSheet__choose_your_story_type">Выберите тип вашей истории</string>
     <!-- Choose story type bottom sheet new story row title -->
-    <string name="ChooseStoryTypeBottomSheet__new_private_story">Новая частная история</string>
+    <string name="ChooseStoryTypeBottomSheet__new_custom_story">Новая пользовательская история</string>
     <!-- Choose story type bottom sheet new story row summary -->
     <string name="ChooseStoryTypeBottomSheet__visible_only_to">Видна только определённым людям</string>
     <!-- Choose story type bottom sheet group story title -->
-    <string name="ChooseStoryTypeBottomSheet__group_story">История группы</string>
+    <string name="ChooseStoryTypeBottomSheet__group_story">История в группе</string>
     <!-- Choose story type bottom sheet group story summary -->
     <string name="ChooseStoryTypeBottomSheet__share_to_an_existing_group">Поделитесь с существующей группой</string>
     <!-- Choose groups bottom sheet title -->
@@ -5242,6 +5376,8 @@
     <string name="StoryDirectReplyDialogFragment__sending_reply">Отправляем ответ…</string>
     <!-- Displayed in the viewer when a story is no longer available -->
     <string name="StorySlateView__this_story_is_no_longer_available">Эта история больше не доступна.</string>
+    <!-- Displayed in the viewer when a story has permanently failed to download. -->
+    <string name="StorySlateView__cant_download_story_s_will_need_to_share_it_again">Невозможно загрузить историю. Пользователю %1$s нужно поделиться ею снова.</string>
     <!-- Displayed in the viewer when the network is not available -->
     <string name="StorySlateView__no_internet_connection">Нет подключения к интернету</string>
     <!-- Displayed in the viewer when network is available but content could not be downloaded -->
@@ -5335,19 +5471,19 @@
     <string name="ExpiredGiftSheetConfiguration__not_now">Не сейчас</string>
     <!-- My Story label designating that we will only share with the selected viewers. -->
     <string name="ContactSearchItems__only_share_with">Поделиться только с</string>
-    <!-- Label under name for private stories -->
-    <plurals name="ContactSearchItems__private_story_d_viewers">
-        <item quantity="one">Частная история · %1$d зритель</item>
-        <item quantity="few">Частная история · %1$d зрителя</item>
-        <item quantity="many">Частная история · %1$d зрителей</item>
-        <item quantity="other">Частная история · %1$d зрителя</item>
+    <!-- Label under name for custom stories -->
+    <plurals name="ContactSearchItems__custom_story_d_viewers">
+        <item quantity="one">Пользовательская история · %1$d зритель</item>
+        <item quantity="few">Пользовательская история · %1$d зрителя</item>
+        <item quantity="many">Пользовательская история · %1$d зрителей</item>
+        <item quantity="other">Пользовательская история · %1$d зрителя</item>
     </plurals>
     <!-- Label under name for group stories -->
     <plurals name="ContactSearchItems__group_story_d_viewers">
-        <item quantity="one">История группы · %1$d зритель</item>
-        <item quantity="few">История группы · %1$d зрителя</item>
-        <item quantity="many">История группы · %1$d зрителей</item>
-        <item quantity="other">История группы · %1$d зрителя</item>
+        <item quantity="one">История в группе · %1$d зритель</item>
+        <item quantity="few">История в группе · %1$d зрителя</item>
+        <item quantity="many">История в группе · %1$d зрителей</item>
+        <item quantity="other">История в группе · %1$d зрителя</item>
     </plurals>
     <!-- Label under name for groups -->
     <plurals name="ContactSearchItems__group_d_members">
@@ -5369,19 +5505,19 @@
     <string name="ContactSearchItems__story_settings">Настройки историй</string>
     <!-- Label for context menu item to remove a group story from contact results -->
     <string name="ContactSearchItems__remove_story">Удалить историю</string>
-    <!-- Label for context menu item to delete a private story -->
+    <!-- Label for context menu item to delete a custom story -->
     <string name="ContactSearchItems__delete_story">Удалить историю</string>
     <!-- Dialog title for removing a group story -->
-    <string name="ContactSearchMediator__remove_group_story">Удалить историю группы?</string>
+    <string name="ContactSearchMediator__remove_group_story">Удалить историю в группе?</string>
     <!-- Dialog message for removing a group story -->
     <string name="ContactSearchMediator__this_will_remove">Это приведет к удалению истории из этого списка. Вы по-прежнему сможете просматривать истории этой группы.</string>
     <!-- Dialog action item for removing a group story -->
     <string name="ContactSearchMediator__remove">Удалить</string>
-    <!-- Dialog title for deleting a private story -->
+    <!-- Dialog title for deleting a custom story -->
     <string name="ContactSearchMediator__delete_story">Удалить историю?</string>
-    <!-- Dialog message for deleting a private story -->
-    <string name="ContactSearchMediator__delete_the_private">Удалить частную историю \"%1$s\"?</string>
-    <!-- Dialog action item for deleting a private story -->
+    <!-- Dialog message for deleting a custom story -->
+    <string name="ContactSearchMediator__delete_the_custom">Удалить пользовательскую историю «%1$s»?</string>
+    <!-- Dialog action item for deleting a custom story -->
     <string name="ContactSearchMediator__delete">Удалить</string>
     <!-- Gift expiry days remaining -->
     <plurals name="Gifts__d_days_remaining">
@@ -5483,13 +5619,13 @@
     <!-- Story info "Sent from" header -->
     <string name="StoryInfoBottomSheetDialogFragment__sent_from">Отправитель</string>
     <!-- Story info "Failed" header -->
-    <string name="StoryInfoBottomSheetDialogFragment__failed">Не удался</string>
+    <string name="StoryInfoBottomSheetDialogFragment__failed">Не удалось</string>
     <!-- Story Info context menu label -->
     <string name="StoryInfoBottomSheetDialogFragment__info">Информация</string>
 
     <!-- StoriesPrivacySettingsFragment -->
     <!-- Explanation about how stories are deleted and managed -->
-    <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">Истории автоматически исчезают через 24 часа. Выберите, кто может просматривать вашу историю или создавать новые истории с заданными зрителями или группами.</string>
+    <string name="StoriesPrivacySettingsFragment__story_updates_automatically_disappear">Обновления историй автоматически исчезают через 24 часа. Выберите, кто может просматривать вашу историю, или создавайте новые истории с заданными зрителями или группами.</string>
     <!-- Preference title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories">Отключить истории</string>
     <!-- Preference summary to turn off stories -->
@@ -5504,14 +5640,25 @@
     <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">Вы больше не сможете делиться историями или просматривать их. Все истории, которыми вы недавно поделились, будут также удалены.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">Настройки приватности историй</string>
+    <!-- Header for section that lists out stories -->
+    <string name="StoriesPrivacySettingsFragment__stories">Истории</string>
+    <!-- Story views header -->
+    <string name="StoriesPrivacySettingsFragment__story_views">Просмотры историй</string>
+    <!-- Story view receipts toggle title -->
+    <string name="StoriesPrivacySettingsFragment__view_receipts">Уведомления о просмотре</string>
+    <!-- Story view receipts toggle message -->
+    <string name="StoriesPrivacySettingsFragment__see_and_share">Узнавайте и делитесь информацией о просмотре историй. Если эта функция отключена, вы не будете видеть, когда другие просматривают вашу историю.</string>
+
+    <!-- NewStoryItem -->
+    <string name="NewStoryItem__new_story">Новая история</string>
 
     <!-- GroupStorySettingsFragment -->
     <!-- Section header for who can view a group story -->
     <string name="GroupStorySettingsFragment__who_can_view_this_story">Кто может просматривать эту историю</string>
     <!-- Explanation of who can view a group story -->
-    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Члены группы «%1$s» могут просматривать эту историю и отвечать на неё. Вы можете обновить членство в этом чате в группе."</string>
+    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Участники группы «%1$s» могут просматривать эту историю и отвечать на неё. Вы можете обновить членство в этом чате в группе."</string>
     <!-- Preference label for removing this group story -->
-    <string name="GroupStorySettingsFragment__remove_group_story">Удалить историю группы</string>
+    <string name="GroupStorySettingsFragment__remove_group_story">Удалить историю в группе</string>
 
     <!-- Generic title for overflow menus -->
     <string name="OverflowMenu__overflow_menu">Меню переполнения</string>
@@ -5519,20 +5666,39 @@
     <!-- SMS Export Service -->
     <!-- Displayed in the notification while export is running -->
     <string name="SignalSmsExportService__exporting_messages">Экспортируем сообщения…</string>
+    <!-- Displayed in the notification title when export completes -->
+    <string name="SignalSmsExportService__signal_sms_export_complete">Экспорт SMS из Signal завершен</string>
+    <!-- Displayed in the notification message when export completes -->
+    <string name="SignalSmsExportService__tap_to_return_to_signal">Нажмите, чтобы вернуться в Signal</string>
 
     <!-- ExportYourSmsMessagesFragment -->
     <!-- Title of the screen -->
     <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Экспортировать ваши SMS-сообщения</string>
     <!-- Message of the screen -->
-    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Вы можете экспортировать свои SMS-сообщения в базу данных SMS вашего телефона. Это позволит другим приложениям для SMS на вашем телефоне получить к ним доступ и импортировать их. При этом файл с историей ваших SMS-сообщений, доступный для совместного использования, создан не будет.</string>
+    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database_and_youll_have_the_option_to_keep_or_remove_them_from_signal">Вы можете экспортировать свои SMS-сообщения в базу данных SMS вашего телефона, и у вас будет возможность сохранить или удалить их из Signal. Это позволит другим приложениям для SMS на вашем телефоне импортировать их. При этом файл с историей ваших SMS, доступный для совместного использования, создан не будет.</string>
     <!-- Button label to begin export -->
     <string name="ExportYourSmsMessagesFragment__continue">Продолжить</string>
 
     <!-- ExportingSmsMessagesFragment -->
     <!-- Title of the screen -->
     <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Экспортируем SMS-сообщения</string>
+    <!-- Message of the screen when exporting sms messages -->
+    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">Это может занять некоторое время</string>
     <!-- Progress indicator for export -->
-    <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Экспортируем %1$d из %2$d…</string>
+    <plurals name="ExportingSmsMessagesFragment__exporting_d_of_d">
+        <item quantity="one">Экспортируем %1$d из %2$d…</item>
+        <item quantity="few">Экспортируем %1$d из %2$d…</item>
+        <item quantity="many">Экспортируем %1$d из %2$d…</item>
+        <item quantity="other">Экспортируем %1$d из %2$d…</item>
+    </plurals>
+    <!-- Alert dialog title shown when we think a user may not have enough local storage available to export sms messages -->
+    <string name="ExportingSmsMessagesFragment__you_may_not_have_enough_disk_space">Возможно, у вас недостаточно места на диске</string>
+    <!-- Alert dialog message shown when we think a user may not have enough local storage available to export sms messages, placeholder is the file size, e.g., 128kB -->
+    <string name="ExportingSmsMessagesFragment__you_need_approximately_s_to_export_your_messages_ensure_you_have_enough_space_before_continuing">Вам требуется примерно %1$s для экспорта сообщений. Убедитесь, что у вас достаточно места в хранилище, прежде чем продолжить.</string>
+    <!-- Alert dialog button to continue with exporting sms after seeing the lack of storage warning -->
+    <string name="ExportingSmsMessagesFragment__continue_anyway">Всё равно продолжить</string>
+    <!-- Dialog text shown when Signal isn't granted the sms permission needed to export messages, different than being selected as the sms app -->
+    <string name="ExportingSmsMessagesFragment__signal_needs_the_sms_permission_to_be_able_to_export_your_sms_messages">Для экспорта SMS-сообщений предоставьте Signal разрешение на доступ к SMS.</string>
 
     <!-- ChooseANewDefaultSmsAppFragment -->
     <!-- Title of the screen -->
@@ -5570,7 +5736,7 @@
     <!-- Title of dialog -->
     <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Удалить SMS-сообщения из Signal?</string>
     <!-- Message of dialog -->
-    <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Теперь вы можете удалить SMS-сообщения из Signal, чтобы освободить место для хранения. Они по-прежнему будут доступны другим приложениям для SMS на вашем телефоне, даже если вы их удалите.</string>
+    <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Теперь вы можете удалить SMS-сообщения из Signal, чтобы освободить место в хранилище. Они по-прежнему будут доступны другим приложениям для SMS на вашем телефоне, даже если вы их удалите.</string>
 
     <!-- SetSignalAsDefaultSmsAppFragment -->
     <!-- Title of the screen -->
@@ -5579,6 +5745,110 @@
     <string name="SetSignalAsDefaultSmsAppFragment__to_export_your_sms_messages">Чтобы экспортировать SMS-сообщения, необходимо сделать Signal приложением для SMS по умолчанию.</string>
     <!-- Button label to start export -->
     <string name="SetSignalAsDefaultSmsAppFragment__next">Далее</string>
+
+    <!-- BackupSchedulePermission Megaphone -->
+    <!-- The title on an alert window that explains to the user that we are unable to backup their messages -->
+    <string name="BackupSchedulePermissionMegaphone__cant_back_up_chats">Невозможно создать резервную копию чатов</string>
+    <!-- The body text of an alert window that tells the user that we are unable to backup their messages -->
+    <string name="BackupSchedulePermissionMegaphone__your_chats_are_no_longer_being_automatically_backed_up">Резервные копии ваших чатов больше не создаются автоматически.</string>
+    <!-- The text on a button in an alert window that, when clicked, will take the user to a screen to re-enable backups -->
+    <string name="BackupSchedulePermissionMegaphone__back_up_chats">Резервное копирование чатов</string>
+    <!-- The text on a button in an alert window that, when clicked, will take the user to a screen to re-enable backups -->
+    <string name="BackupSchedulePermissionMegaphone__not_now">Не сейчас</string>
+    <!-- Re-enable backup permission bottom sheet title -->
+    <string name="BackupSchedulePermissionMegaphone__to_reenable_backups">Чтобы снова включить резервное копирование:</string>
+    <!-- Re-enable backups permission bottom sheet instruction 1 text -->
+    <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Нажмите кнопку «Перейти к настройкам».</string>
+    <!-- Re-enable backups permission bottom sheet instruction 2 text -->
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Включите в настройках «Разрешить будильники и напоминания».</string>
+    <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
+    <string name="BackupSchedulePermissionMegaphone__go_to_settings">Перейти в настройки</string>
+
+    <!-- SmsExportMegaphoneActivity -->
+    <!-- Phase 2 title of full screen megaphone indicating sms will no longer be supported in the near future -->
+    <string name="SmsExportMegaphoneActivity__signal_will_no_longer_support_sms">Signal больше не будет поддерживать SMS</string>
+    <!-- Phase 3 title of full screen megaphone indicating sms is longer supported  -->
+    <string name="SmsExportMegaphoneActivity__signal_no_longer_supports_sms">Сигнал больше не поддерживает SMS</string>
+    <!-- Phase 2 message describing that sms is going away soon -->
+    <string name="SmsExportMegaphoneActivity__signal_will_soon_remove_support_for_sending_sms_messages">Signal скоро прекратит поддержку отправки SMS-сообщений, поскольку сообщения Signal защищены сквозным шифрованием и обеспечивают высокую степень конфиденциальности, чего не позволяют SMS-сообщения. Это также позволит нам улучшить работу Signal с сообщениями.</string>
+    <!-- Phase 3 message describing that sms has gone away -->
+    <string name="SmsExportMegaphoneActivity__signal_has_removed_support_for_sending_sms_messages">Signal прекратил поддержку отправки SMS-сообщений, поскольку сообщения Signal защищены сквозным шифрованием и обеспечивают высокую степень конфиденциальности, чего не позволяют SMS-сообщения. Это также позволит нам улучшить работу Signal с сообщениями.</string>
+    <!-- The text on a button in a popup that, when clicked, will take the user to a screen to export their SMS messages -->
+    <string name="SmsExportMegaphoneActivity__export_sms">Экспорт SMS</string>
+    <!-- The text on a button in a popup that, when clicked, will dismiss the popup and schedule the prompt to occur at a later time. -->
+    <string name="SmsExportMegaphoneActivity__remind_me_later">Напомните мне позже</string>
+    <!-- The text on a button in a popup that, when clicked, will navigate the user to a web article on SMS removal -->
+    <string name="SmsExportMegaphoneActivity__learn_more">Узнать больше</string>
+
+    <!-- Phase 1 Small megaphone title indicating sms is going away -->
+    <string name="SmsExportMegaphone__sms_support_going_away">Поддержка SMS прекращается</string>
+    <!-- Phase 1 small megaphone description indicating sms is going away -->
+    <string name="SmsExportMegaphone__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">Поддержка SMS будет скоро удалена в пользу обмена зашифрованными сообщениями.</string>
+    <!-- Phase 1 small megaphone button that takes the user to the sms export flow -->
+    <string name="SmsExportMegaphone__export_sms">Экспорт SMS</string>
+    <!-- Title for screen shown after sms export has completed -->
+    <string name="ExportSmsCompleteFragment__export_complete">Экспорт завершён</string>
+    <!-- Button to continue to next screen -->
+    <string name="ExportSmsCompleteFragment__next">Далее</string>
+    <!-- Message showing summary of sms export counts -->
+    <plurals name="ExportSmsCompleteFragment__d_of_d_messages_exported">
+        <item quantity="one">%1$d из %2$d сообщения экспортировано</item>
+        <item quantity="few">%1$d из %2$d сообщений экспортировано</item>
+        <item quantity="many">%1$d из %2$d сообщений экспортировано</item>
+        <item quantity="other">%1$d из %2$d сообщения экспортировано</item>
+    </plurals>
+
+    <!-- Title of screen shown when some sms messages did not export -->
+    <string name="ExportSmsPartiallyComplete__export_partially_complete">Экспорт выполнен частично</string>
+    <!-- Debug step 1 on screen shown when some sms messages did not export -->
+    <string name="ExportSmsPartiallyComplete__ensure_you_have_an_additional_s_free_on_your_phone_to_export_your_messages">Убедитесь, что на вашем телефоне есть ещё %1$s свободного места для экспорта сообщений</string>
+    <!-- Debug step 2 on screen shown when some sms messages dit not export -->
+    <string name="ExportSmsPartiallyComplete__retry_export_which_will_only_retry_messages_that_have_not_yet_been_exported">Запустите повторный экспорт, которой коснётся только тех сообщений, которые ещё не экспортированы</string>
+    <!-- Partial sentence for Debug step 3 on screen shown when some sms messages did not export, is combined with 'contact us' -->
+    <string name="ExportSmsPartiallyComplete__if_the_problem_persists">Если проблема сохраняется, </string>
+    <!-- Partial sentence for deubg step 3 on screen shown when some sms messages did not export, combined with 'If the problem persists', link text to open contact support view -->
+    <string name="ExportSmsPartiallyComplete__contact_us">Связаться с нами</string>
+    <!-- Button text to retry sms export -->
+    <string name="ExportSmsPartiallyComplete__retry">Повторить попытку</string>
+    <!-- Button text to continue sms export flow and not retry failed message exports -->
+    <string name="ExportSmsPartiallyComplete__continue_anyway">Всё равно продолжить</string>
+    <!-- Title of screen shown when all sms messages failed to export -->
+    <string name="ExportSmsFullError__error_exporting_sms_messages">Ошибка экспортирования SMS-сообщений</string>
+    <!-- Helper text shown when all sms messages failed to export -->
+    <string name="ExportSmsFullError__please_try_again_if_the_problem_persists">Пожалуйста, попробуйте ещё раз. Если проблема сохраняется, </string>
+
+
+    <!-- DonateToSignalFragment -->
+    <!-- Title below avatar -->
+    <string name="DonateToSignalFragment__powered_by">Существует благодаря таким людям, как вы.</string>
+    <!-- Continue button label -->
+    <string name="DonateToSignalFragment__continue">Продолжить</string>
+    <!-- Description below title -->
+    <string name="DonateToSignalFragment__support_technology">Поддержите технологию, сделанную для вас, а не для ваших данных, присоединившись к сообществу, которое поддерживает Signal.</string>
+    <!-- Donation pill toggle monthly text -->
+    <string name="DonationPillToggle__monthly">Ежемесячно</string>
+    <!-- Donation pill toggle one-time text -->
+    <string name="DonationPillToggle__one_time">Одноразовые</string>
+
+    <!-- GatewaySelectorBottomSheet -->
+    <!-- Sheet title when subscribing -->
+    <string name="GatewaySelectorBottomSheet__donate_s_month_to_signal">Жертвовать Signal %1$s/месяц</string>
+    <!-- Sheet summary when subscribing -->
+    <string name="GatewaySelectorBottomSheet__get_a_s_badge">Получите значок «%1$s»</string>
+    <!-- Sheet title when giving a one-time donation -->
+    <string name="GatewaySelectorBottomSheet__donate_s_to_signal">Пожертвовать Signal %1$s</string>
+    <!-- Sheet summary when giving a one-time donation -->
+    <plurals name="GatewaySelectorBottomSheet__get_a_s_badge_for_d_days">
+        <item quantity="one">Get a %1$s badge for %2$d day</item>
+        <item quantity="few">Get a %1$s badge for %2$d days</item>
+        <item quantity="many">Get a %1$s badge for %2$d days</item>
+        <item quantity="other">Get a %1$s badge for %2$d days</item>
+    </plurals>
+    <!-- Button label for paying with a credit card -->
+    <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Кредитная или дебетовая карта</string>
+
+    <!-- StripePaymentInProgressFragment -->
+    <string name="StripePaymentInProgressFragment__cancelling">Отменяем…</string>
 
     <!-- EOF -->
 

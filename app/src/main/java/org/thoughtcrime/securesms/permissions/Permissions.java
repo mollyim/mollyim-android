@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.permissions;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,12 +14,14 @@ import android.view.WindowManager;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.annimon.stream.Stream;
 import com.annimon.stream.function.Consumer;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
@@ -103,7 +104,11 @@ public class Permissions {
     }
 
     public PermissionsBuilder withPermanentDenialDialog(@NonNull String message) {
-      return onAnyPermanentlyDenied(new SettingsDialogListener(permissionObject.getContext(), message));
+      return withPermanentDenialDialog(message, null);
+    }
+
+    public PermissionsBuilder withPermanentDenialDialog(@NonNull String message, @Nullable Runnable onDialogDismissed) {
+      return onAnyPermanentlyDenied(new SettingsDialogListener(permissionObject.getContext(), message, onDialogDismissed));
     }
 
     public PermissionsBuilder onAllGranted(Runnable allGrantedListener) {
@@ -357,11 +362,13 @@ public class Permissions {
   private static class SettingsDialogListener implements Runnable {
 
     private final WeakReference<Context> context;
+    private final Runnable onDialogDismissed;
     private final String                 message;
 
-    SettingsDialogListener(Context context, String message) {
-      this.message = message;
-      this.context = new WeakReference<>(context);
+    SettingsDialogListener(Context context, String message, @Nullable Runnable onDialogDismissed) {
+      this.message           = message;
+      this.context           = new WeakReference<>(context);
+      this.onDialogDismissed = onDialogDismissed;
     }
 
     @Override
@@ -369,11 +376,17 @@ public class Permissions {
       Context context = this.context.get();
 
       if (context != null) {
-        new AlertDialog.Builder(context)
+        new MaterialAlertDialogBuilder(context)
             .setTitle(R.string.Permissions_permission_required)
             .setMessage(message)
+            .setCancelable(false)
             .setPositiveButton(R.string.Permissions_continue, (dialog, which) -> context.startActivity(getApplicationSettingsIntent(context)))
             .setNegativeButton(android.R.string.cancel, null)
+            .setOnDismissListener(d -> {
+              if (onDialogDismissed != null) {
+                onDialogDismissed.run();
+              }
+            })
             .show();
       }
     }

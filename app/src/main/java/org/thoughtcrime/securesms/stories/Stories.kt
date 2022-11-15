@@ -4,10 +4,10 @@ import android.content.Context
 import android.net.Uri
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.FragmentManager
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackException
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.util.ThreadUtil
@@ -43,6 +43,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.time.Duration.Companion.microseconds
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -54,6 +55,7 @@ object Stories {
   private val TAG = Log.tag(Stories::class.java)
 
   const val MAX_TEXT_STORY_SIZE = 700
+  const val MAX_TEXT_STORY_LINE_COUNT = 13
   const val MAX_CAPTION_SIZE = 1500
 
   @JvmField
@@ -73,28 +75,16 @@ object Stories {
   }
 
   /**
-   * Whether or not the user has access to stories. This checks:
-   *
-   * - Registration status
-   * - Flag status
-   * - Capabilities
-   */
-  @JvmStatic
-  fun isFeatureAvailable(): Boolean {
-    return isFeatureFlagEnabled() && Recipient.self().storiesCapability == Recipient.Capability.SUPPORTED
-  }
-
-  /**
    * Whether or not the user has the Stories feature enabled.
    */
   @JvmStatic
   fun isFeatureEnabled(): Boolean {
-    return isFeatureAvailable() && !SignalStore.storyValues().isFeatureDisabled
+    return isFeatureFlagEnabled() && !SignalStore.storyValues().isFeatureDisabled
   }
 
   fun getHeaderAction(onClick: () -> Unit): HeaderAction {
     return HeaderAction(
-      R.string.ContactsCursorLoader_new_story,
+      R.string.ContactsCursorLoader_new,
       R.drawable.ic_plus_12,
       onClick
     )
@@ -297,7 +287,7 @@ object Stories {
     @WorkerThread
     fun getVideoDuration(uri: Uri): Long {
       var duration = 0L
-      var player: SimpleExoPlayer? = null
+      var player: ExoPlayer? = null
       val countDownLatch = CountDownLatch(1)
       ThreadUtil.runOnMainSync {
         val mainThreadPlayer = ApplicationDependencies.getExoPlayerPool().get("stories_duration_check")
@@ -367,6 +357,7 @@ object Stories {
     }
 
     private fun transformMedia(media: Media, transformProperties: AttachmentDatabase.TransformProperties): Media {
+      Log.d(TAG, "Transforming media clip: ${transformProperties.videoTrimStartTimeUs.microseconds.inWholeSeconds}s to ${transformProperties.videoTrimEndTimeUs.microseconds.inWholeSeconds}s")
       return Media(
         media.uri,
         media.mimeType,

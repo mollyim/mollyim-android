@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- smartling.instruction_comments_enabled = on -->
 <resources>
     <!-- <string name="app_name" translatable="false">Signal</string> -->
 
@@ -11,6 +12,7 @@
     <string name="sustainer_boost_and_badges" translatable="false">https://support.signal.org/hc/articles/4408365318426</string>
     <string name="google_pay_url" translatable="false">https://pay.google.com</string>
     <string name="donation_decline_code_error_url" translatable="false">https://support.signal.org/hc/articles/4408365318426#errors</string>
+    <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string>
     <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string>
     <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string>
 
@@ -103,6 +105,14 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ફોટા, વિડિયો અથવા ઓડિયો ને જોડવા માટે Molly ને સ્ટોરેજ પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સ્ટોરેજ\" સક્ષમ કરો.</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">સંપર્ક માહિતીને જોડવા માટે Molly ને સંપર્કોની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સંપર્કો\" સક્ષમ કરો.</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">કોઈ સ્થળ જોડવા માટે Molly ને સ્થાનની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સ્થાન\" સક્ષમ કરો.</string>
+    <!-- Alert dialog title to show the recipient has not activated payments -->
+    <string name="AttachmentManager__not_activated_payments">%1$s hasn\'t activated Payments </string>
+    <!-- Alert dialog description to send the recipient a request to activate payments -->
+    <string name="AttachmentManager__request_to_activate_payments">Do you want to send them a request to activate Payments?</string>
+    <!-- Alert dialog button to send request -->
+    <string name="AttachmentManager__send_request">Send request</string>
+    <!-- Alert dialog button to cancel dialog -->
+    <string name="AttachmentManager__cancel">રદ કરો</string>
 
     <!-- AttachmentUploadJob -->
     <string name="AttachmentUploadJob_uploading_media">મીડિયા અપલોડ કરી રહ્યું છે…</string>
@@ -123,6 +133,35 @@
     <string name="BlockedUsersActivity__do_you_want_to_unblock_s">તમે અનલૉક કરવા માંગો છો \"%1$s\"?</string>
     <string name="BlockedUsersActivity__unblock">અનબ્લૉક કરો</string>
 
+    <!-- CreditCardFragment -->
+    <!-- Title of fragment detailing the donation amount, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__donation_amount_s">દાનની રકમ: %1$s</string>
+    <!-- Explanation of how to fill in the form, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__enter_your_card_information_below">નીચે તમારા કાર્ડની માહિતી દાખલ કરો</string>
+    <!-- Displayed as a hint in the card number text field -->
+    <string name="CreditCardFragment__card_number">કાર્ડ નંબર</string>
+    <!-- Displayed as a hint in the card expiry text field -->
+    <string name="CreditCardFragment__mm_yy">MM/YY</string>
+    <!-- Displayed as a hint in the card cvv text field -->
+    <string name="CreditCardFragment__cvv">CVV</string>
+    <!-- Error displayed under the card number text field when there is an invalid card number entered -->
+    <string name="CreditCardFragment__invalid_card_number">અમાન્ય કાર્ડ નંબર</string>
+    <!-- Error displayed under the card expiry text field when the card is expired -->
+    <string name="CreditCardFragment__card_has_expired">કાર્ડની સમયસીમા સમાપ્ત થઈ ગઈ છે</string>
+    <!-- Error displayed under the card cvv text field when the cvv is too short -->
+    <string name="CreditCardFragment__code_is_too_short">કોડ બહુ નાનો છે</string>
+    <!-- Error displayed under the card cvv text field when the cvv is too long -->
+    <string name="CreditCardFragment__code_is_too_long">કોડ બહુ લાંબો છે</string>
+    <!-- Error displayed under the card cvv text field when the cvv is invalid -->
+    <string name="CreditCardFragment__invalid_code">અમાન્ય કોડ</string>
+    <!-- Error displayed under the card expiry text field when the expiry month is invalid -->
+    <string name="CreditCardFragment__invalid_month">અમાન્ય મહિનો</string>
+    <!-- Error displayed under the card expiry text field when the expiry is missing the year -->
+    <string name="CreditCardFragment__year_required">વર્ષ જરૂરી છે</string>
+    <!-- Error displayed under the card expiry text field when the expiry year is invalid -->
+    <string name="CreditCardFragment__invalid_year">અમાન્ય વર્ષ</string>
+    <!-- Button label to confirm credit card input and proceed with payment -->
+    <string name="CreditCardFragment__continue">ચાલુ રાખો</string>
 
     <!-- BlockUnblockDialog -->
     <string name="BlockUnblockDialog_block_and_leave_s">અનબ્લૉક કરવુ છે અને છોડી દેવુ છે %1$s?</string>
@@ -219,8 +258,8 @@
     <string name="ContactsCursorLoader_find_by_username">ઉપયોગકર્તા નામ દ્વારા શોધો</string>
     <!-- Label for my stories when selecting who to send media to -->
     <string name="ContactsCursorLoader_my_stories">મારી સ્ટોરીઝ</string>
-    <!-- Action for creating a new story -->
-    <string name="ContactsCursorLoader_new_story">નવી સ્ટોરી</string>
+    <!-- Text for a button that brings up a bottom sheet to create a new story. -->
+    <string name="ContactsCursorLoader_new">નવું</string>
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">મેસેજ %1$s</string>
@@ -268,6 +307,18 @@
     <string name="ConversationItem_pending"> બાકી</string>
     <string name="ConversationItem_this_message_was_deleted">આ મેસેજ કાઢી નાખ્યો હતો.</string>
     <string name="ConversationItem_you_deleted_this_message">તમે આ મેસેજ કાઢી નાખ્યો.</string>
+    <!-- Dialog error message shown when user can't download a message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_message_s_will_need_to_send_it_again">મેસેજ ડાઉનલોડ કરી શકતા નથી. %1$sએ તેને ફરીથી મોકલવાની જરૂર છે.</string>
+    <!-- Dialog error message shown when user can't download an image message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_image_s_will_need_to_send_it_again">ઇમેજ ડાઉનલોડ કરી શકતા નથી. %1$sએ તેને ફરીથી મોકલવાની જરૂર છે.</string>
+    <!-- Dialog error message shown when user can't download a video message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_video_s_will_need_to_send_it_again">વીડિયો ડાઉનલોડ કરી શકતા નથી. %1$sએ તેને ફરીથી મોકલવાની જરૂર છે.</string>
+    <!-- Dialog error message shown when user can't download a their own message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_message_you_will_need_to_send_it_again">મેસેજ ડાઉનલોડ કરી શકતા નથી. તમારે તેને ફરીથી મોકલવાની જરૂર છે.</string>
+    <!-- Dialog error message shown when user can't download a their own image message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">ઇમેજ ડાઉનલોડ કરી શકતા નથી. તમારે તેને ફરીથી મોકલવાની જરૂર છે.</string>
+    <!-- Dialog error message shown when user can't download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">વીડિયો ડાઉનલોડ કરી શકતા નથી. તમારે તેને ફરીથી મોકલવાની જરૂર છે.</string>
 
     <!-- ConversationActivity -->
     <string name="ConversationActivity_add_attachment">જોડાણ ઉમેરો</string>
@@ -342,6 +393,21 @@
     <string name="ConversationActivity_error_sending_media">મીડિયા મોકલવામાં ભૂલ</string>
 
     <string name="ConversationActivity__reported_as_spam_and_blocked">સ્પામ તરીકે નોંધાયેલ છે અને બ્લૉક કરેલ છે.</string>
+
+    <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
+    <string name="ConversationActivity__sms_messaging_is_currently_disabled_you_can_export_your_messages_to_another_app_on_your_phone">SMS મેસેજિંગ હાલમાં બંધ છે. તમે તમારા મેસેજને તમારા ફોન પરની અન્ય ઍપમાં એક્સપોર્ટ કરી શકો છો.</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
+    <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_you_can_export_your_messages_to_another_app_on_your_phone">Signalમાં હવે SMS મેસેજિંગ સમર્થિત નથી. તમે તમારા મેસેજને તમારા ફોન પરની અન્ય ઍપમાં એક્સપોર્ટ કરી શકો છો.</string>
+    <!-- Action button shown when in sms conversation, sms is disabled, and unexported sms messages are present -->
+    <string name="ConversationActivity__export_sms_messages">SMS મેસેજ એક્સપોર્ટ કરો</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__sms_messaging_is_currently_disabled_invite_s_to_to_signal_to_keep_the_conversation_here">SMS મેસેજિંગ હાલમાં બંધ છે. વાતચીત અહીં રાખવા માટે %1$s ને Signal પર આમંત્રિત કરો.</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Signalમાં હવે SMS મેસેજિંગ સમર્થિત નથી. વાતચીત અહીં રાખવા માટે %1$s ને Signal પર આમંત્રિત કરો.</string>
+    <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__invite_to_signal">Signal માટે આમંત્રણ આપો</string>
+    <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we'll do it again soon -->
+    <string name="ConversationActivity__you_will_be_reminded_again_soon">તમને ટૂંક સમયમાં ફરીથી યાદ અપાવવામાં આવશે.</string>
 
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
@@ -802,11 +868,13 @@
     <string name="AddGroupDetailsFragment__this_field_is_required">આ ક્ષેત્ર આવશ્યક છે.</string>
     <string name="AddGroupDetailsFragment__group_creation_failed">ગ્રુપ બનાવવું નિષ્ફળ થયું.</string>
     <string name="AddGroupDetailsFragment__try_again_later">પછી ફરી પ્રયાસ કરો.</string>
-    <!-- Displayed when adding group details to an MMS Group -->
-    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">તમે એવો સંપર્ક પસંદ કર્યો છે જે Signal ગ્રુપને સપોર્ટ કરતો નથી, તેથી આ ગ્રુપ MMS હશે. કસ્ટમ MMS ગ્રુપ નામ અને ફોટા ફક્ત તમને જ દેખાશે.</string>
     <string name="AddGroupDetailsFragment__remove">દૂર કરો</string>
     <string name="AddGroupDetailsFragment__sms_contact">SMS સંપર્ક</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">આ ગ્રુપમાંથી %1$s દૂર કરવું છે?</string>
+    <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
+    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">તમે એવો સંપર્ક પસંદ કર્યો છે જે Signal ગ્રુપને સપોર્ટ કરતો નથી, તેથી આ ગ્રુપ MMS હશે. કસ્ટમ MMS ગ્રુપ નામ અને ફોટા ફક્ત તમને જ દેખાશે.</string>
+    <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
+    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support_signal_groups_mms_removal">You\'ve selected a contact that doesn\'t support Signal groups, this group will be MMS. Custom MMS group names and photos will only be visible to you. Support for MMS groups will be removed soon to focus on encrypted messaging.</string>
 
     <!-- ManageGroupActivity -->
     <string name="ManageGroupActivity_member_requests_and_invites">મેમ્બર વિનંતીઓ &amp; આમંત્રણ આપે છે</string>
@@ -990,6 +1058,8 @@
 
     <!-- InputPanel -->
     <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">વૉઈસ મેસેજ રેકોર્ડ કરવા માટે ટેપ કરો અને હોલ્ડ કરો, મોકલવા માટે છોડો</string>
+    <!-- Message shown if the user tries to switch a conversation from Signal to SMS -->
+    <string name="InputPanel__sms_messaging_is_no_longer_supported_in_signal">Signalમાં હવે SMS મેસેજિંગ સમર્થિત નથી.</string>
 
     <!-- InviteActivity -->
     <string name="InviteActivity_share">શેર કરો</string>
@@ -1349,6 +1419,14 @@
     <string name="MessageRecord_your_message_history_with_s_and_their_number_s_has_been_merged">%1$s સાથેની તમારી મેસેજ હિસ્ટ્રી અને તેમનો નંબર %2$s ભેગા કરી દેવામાં આવ્યા છે.</string>
     <!-- Update item message shown when we merge two threads together and we don't know the phone number of the other thread -->
     <string name="MessageRecord_your_message_history_with_s_and_another_chat_has_been_merged">%1$s સાથેની તમારી મેસેજ હિસ્ટ્રી અને તેમની સાથેની બીજી ચેટને ભેગી કરી દેવામાં આવી છે.</string>
+    <!-- Message to notify sender that activate payments request has been sent to the recipient -->
+    <string name="MessageRecord_you_sent_request">You sent %1$s a request to activate Payments</string>
+    <!-- Request message from recipient to activate payments -->
+    <string name="MessageRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments. Only send payments to people you trust.</string>
+    <!-- Message to inform user that payments was activated-->
+    <string name="MessageRecord_you_activated_payments">You activated Payments</string>
+    <!-- Message to inform sender that recipient can now accept payments -->
+    <string name="MessageRecord_can_accept_payments">%1$s can now accept Payments</string>
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s એ ગ્રુપ કૉલ શરૂ કર્યો · %2$s</string>
@@ -1374,6 +1452,11 @@
         <item quantity="one">%1$s, %2$s, અને %3$d અન્યો આ કૉલમાં છે</item>
         <item quantity="other">%1$s, %2$s, અને %3$d અન્યો આ ગ્રુપ કૉલમાં છે</item>
     </plurals>
+
+    <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+    <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">તમે Signalમાંથી હવે SMS મેસેજ મોકલી શકશો નહીં. વાતચીત અહીં રાખવા માટે %1$s ને Signal પર આમંત્રિત કરો.</string>
+    <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">તમે Mollyમાં હવે SMS મેસેજ મોકલી શકતા નથી. વાતચીત અહીં રાખવા માટે %1$s ને Molly પર આમંત્રિત કરો.</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">સ્વીકાર</string>
@@ -1832,6 +1915,14 @@
     <string name="ThreadRecord_view_once_media">એકવાર મીડિયા જુઓ</string>
     <string name="ThreadRecord_this_message_was_deleted">આ મેસેજ કાઢી નાખ્યો હતો.</string>
     <string name="ThreadRecord_you_deleted_this_message">તમે આ મેસેજ કાઢી નાખ્યો.</string>
+    <!-- Displayed in the notification when the user sends a request to activate payments -->
+    <string name="ThreadRecord_you_sent_request">You sent a request to activate Payments</string>
+    <!-- Displayed in the notification when the recipient wants to activate payments -->
+    <string name="ThreadRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments</string>
+    <!-- Displayed in the notification when the user activates payments -->
+    <string name="ThreadRecord_you_activated_payments">You activated Payments</string>
+    <!-- Displayed in the notification when the recipient can accept payments -->
+    <string name="ThreadRecord_can_accept_payments">%1$s can now accept Payments</string>
     <string name="ThreadRecord_s_is_on_signal">%1$s Signal પર છે|</string>
     <string name="ThreadRecord_disappearing_messages_disabled">અદૃશ્ય થઈ રહેલા સંદેશાઓ અક્ષમ છે</string>
     <string name="ThreadRecord_disappearing_message_time_updated_to_s">અદૃશ્ય થઈ રહેલા મેસેજ નો સમય %1$s પર સેટ કર્યો છે</string>
@@ -1961,6 +2052,7 @@
     <string name="MediaPreviewActivity_media_no_longer_available">મીડિયા હવે ઉપલબ્ધ નથી.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">આ મીડિયાને શેર કરવા માટે સક્ષમ એપ્લિકેશન શોધી શકાતી નથી.</string>
     <string name="MediaPreviewActivity_dismiss_due_to_error">બંધ</string>
+    <string name="MediaPreviewFragment_edit_media_error">મીડિયા એરર</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d%2$d સંવાદ માં નવા મેસેજ</string>
@@ -2012,6 +2104,9 @@
     <string name="NotificationChannel_background_connection">બેકગ્રાઉંડ કનેક્શન</string>
     <!-- Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing. -->
     <string name="NotificationChannel_call_status">કૉલ સ્ટેટસ</string>
+    <!-- Notification channel name for occasional alerts to the user. Will appear in the system notification settings as the title of this notification channel. -->
+    <string name="NotificationChannel_critical_app_alerts">ઍપની જટિલ ચેતવણીઓ</string>
+
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
@@ -2054,6 +2149,12 @@
     <!-- UnauthorizedReminder -->
     <string name="UnauthorizedReminder_device_no_longer_registered">ડિવાઇસ હવે રજીસ્ટર નથી</string>
     <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">આ સંભવ છે કારણ કે તમે તમારા ફોન નંબરને Signal સાથે કોઈ બીજા ડિવાઇસ પર રજિસ્ટર કરાવ્યો છે. ફરીથી રજીસ્ટર કરવા માટે ટેપ કરો.</string>
+
+    <!-- EnclaveFailureReminder -->
+    <!-- Banner message to update app to use payments -->
+    <string name="EnclaveFailureReminder_update_signal">ચુકવણીઓનો ઉપયોગ કરતાં રહેવા માટે Signalને અપડેટ કરો. તમારું બેલેન્સ અપ-ટૂ-ડેટ ન પણ હોઈ શકે.</string>
+    <!-- Banner button to update now -->
+    <string name="EnclaveFailureReminder_update_now">અત્યારે અપડેટ કરો</string>
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">કૉલનો જવાબ આપવા માટે, Mollyને તમારા માઇક્રોફોન પર ઍક્સેસ આપો.</string>
@@ -2184,6 +2285,11 @@
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">જ્યારે તમે મેસેજ મોકલો ત્યારે અદૃશ્ય થઈ રહેલો મેસેજ સમય %1$s પર સેટ કરવામાં આવશે.</string>
     <!-- Update item button text to show to boost a feature -->
     <string name="ConversationUpdateItem_donate">દાન કરો</string>
+    <!-- Update item button text to send payment -->
+    <string name="ConversationUpdateItem_send_payment">પેમેન્ટ મોકલો</string>
+    <!-- Update item button text to activate payments -->
+    <string name="ConversationUpdateItem_activate_payments">પેમેન્ટ સક્રિય કરો</string>
+
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">ચાલુ કરો … અટકાવો</string>
@@ -2484,7 +2590,7 @@
     <string name="HelpFragment__debug_log">ડીબગ લૉગ:</string>
     <string name="HelpFragment__could_not_upload_logs">લૉગ્સ અપલોડ કરી શક્યાં નથી.</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">કૃપા કરીને સમસ્યાને સમજવામાં અમારી સહાય માટે શક્ય તેટલું વર્ણનાત્મક બનો.</string>
-    <string-array name="HelpFragment__categories_4">
+    <string-array name="HelpFragment__categories_5">
         <item>\\-\\- કૃપા કરીને એક વિકલ્પ પસંદ કરો \\-\\-</item>
         <item>કશું કામ નથી આપી રહ્યું</item>
         <item>સુવિધા વિનંતી</item>
@@ -2493,6 +2599,7 @@
         <item>અન્ય</item>
         <item>ચુકવણી (MobileCoin)</item>
         <item>યોગદાન અને બૅજ</item>
+        <item>SMS એક્સપોર્ટ</item>
     </string-array>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
@@ -2558,6 +2665,10 @@
     <string name="preferences__pressing_the_enter_key_will_send_text_messages">એન્ટર કી દબાવવાથી ટેક્સ્ટ મેસેજ મોકલાશે</string>
     <string name="preferences__pref_use_address_book_photos">એડ્રેસ બુકના ફોટા વાપરો</string>
     <string name="preferences__display_contact_photos_from_your_address_book_if_available">જો ઉપલબ્ધ હોય તો તમારી એડ્રેસ બુકમાંથી સંપર્ક ફોટા ડિસ્પ્લે કરો</string>
+    <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__pref_keep_muted_chats_archived">મ્યૂટ કરેલ ચેટને આર્કાઇવ રાખો</string>
+    <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">મ્યૂટ કરેલ ચેટ જેને આર્કાઇવ કરેલ છે તે નવો મેસેજ આવે ત્યારે પણ આર્કાઇવ રહેશે.</string>
     <string name="preferences__generate_link_previews">લિંક પ્રિવ્યૂ જનરેટ કરો</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">તમે મોકલેલા મેસેજ માટે વેબસાઇટમાંથી સીધા લિંક પ્રિવ્યૂ પ્રાપ્ત કરો.</string>
     <string name="preferences__choose_identity">ઓળખ પસંદ કરો</string>
@@ -2751,7 +2862,7 @@
     <!-- Internal only preferences -->
     <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
     <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
-    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
+    <string name="preferences__internal_delete_custom_story" translatable="false">Delete custom story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
@@ -2908,6 +3019,14 @@
     <string name="PaymentsHomeFragment__enable">ચાલુ કરો</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">અત્યારે નહીં</string>
+    <!-- Alert dialog title which shows up to update app to send payments -->
+    <string name="PaymentsHomeFragment__update_required">અપડેટ જરૂરી છે</string>
+    <!-- Alert dialog description that app update is required to send payments-->
+    <string name="PaymentsHomeFragment__an_update_is_required">ચુકવણીઓ મોકલવાનું અને પ્રાપ્ત કરવાનું ચાલુ રાખવા અને તમારું અપ-ટુ-ડેટ ચુકવણી બેલેન્સ જોવા માટે અપડેટ જરૂરી છે.</string>
+    <!-- Alert dialog button to cancel -->
+    <string name="PaymentsHomeFragment__cancel">રદ કરો</string>
+    <!-- Alert dialog button to update now -->
+    <string name="PaymentsHomeFragment__update_now">અત્યારે અપડેટ કરો</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -3175,6 +3294,8 @@
     <string name="media_preview__forward_title">ફોરવર્ડ</string>
     <string name="media_preview__share_title">શેર કરો</string>
     <string name="media_preview__all_media_title">બધા મીડિયા</string>
+    <string name="media_preview__edit_title">ફેરફાર કરો</string>
+
 
     <!-- media_preview_activity -->
     <string name="media_preview_activity__media_content_description">મીડિયા પ્રિવ્યુ</string>
@@ -3798,7 +3919,10 @@
     <!-- Title in save recovery phrase screen -->
     <string name="PaymentsRecoveryStartFragment__save_recovery_phrase">રિકવરી ફ્રેઝ સેવ કરો</string>
     <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">રિકવરી ફ્રેઝ દાખલ કરો</string>
-    <string name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">જો તમે તમારા Signal પિનની પુષ્ટિ કરો છો તો તમે Signal ને ફરીથી ઇન્સ્ટોલ કરો ત્યારે તમારું બેલેન્સ આપોઆપ રિસ્ટોર થશે. તમે રિકવરી ફ્રેઝનો ઉપયોગ કરીને તમારું બેલેન્સ પણ રિસ્ટોર કરી શકો છો, જે તમારા માટે અનન્ય %1$d શબ્દોનો ફ્રેઝ છે. તેને લખીને સલામત સ્થળે સંગ્રહ કરો.</string>
+    <plurals name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">
+        <item quantity="one">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+        <item quantity="other">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+    </plurals>
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">તમને બેલેન્સ મળ્યું છે! સમય છે તમારા રિકવરી ફ્રેઝને સેવ કરવાનો — જે એક 24-શબ્દની કી છે અને તેનો ઉપયોગ તમે તમારું બેલેન્સ પુનઃસ્થાપિત કરવા માટે કરી શકો છો.</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
@@ -3971,6 +4095,12 @@
     <string name="SmsSettingsFragment__removing_sms_messages_from_signal">Signalમાંથી SMS મેસેજ દૂર કરીએ છીએ...</string>
     <!-- Snackbar text to indicate can delete later -->
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">તમે કોઈપણ સમયે સેટિંગ્સમાં Signalમાંથી SMS મેસેજ દૂર કરી શકો છો.</string>
+    <!-- Description for export sms preference -->
+    <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">તમે તમારા SMS મેસેજને તમારા ફોનના SMS ડેટાબેઝમાં એક્સપોર્ટ કરી શકો છો</string>
+    <!-- Description for remove sms preference -->
+    <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">સ્ટોરેજ સ્પેસ ખાલી કરવા Signalમાંથી SMS મેસેજ દૂર કરો.</string>
+    <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
+    <string name="SmsSettingsFragment__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">એન્ક્રિપ્ટ કરેલ મેસેજિંગ પર ધ્યાન આપવા માટે SMS માટેનું સમર્થન ટૂંક સમયમાં જ દૂર કરવામાં આવશે.</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">મેસેજ</string>
@@ -4231,6 +4361,8 @@
     <string name="NewConversationActivity__this_person_is_saved_to_your">આ વ્યક્તિ તમારા ડિવાઇસના સંપર્કોમાં સેવ કરેલ છે. તેમને તમારા સંપર્કોમાંથી ડિલીટ કરો અને ફરી પ્રયાસ કરો.</string>
     <!-- Dialog action to view contact when they can't be removed otherwise -->
     <string name="NewConversationActivity__view_contact">સંપર્ક જુઓ</string>
+    <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
+    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s હવે Signal વપરાશકર્તા નથી</string>
 
     <!-- ContactFilterView -->
     <string name="ContactFilterView__search_name_or_number">નામ અથવા નંબર સર્ચ કરો</string>
@@ -4354,10 +4486,8 @@
 
     <string name="ImageView__badge">બૅજ</string>
 
-    <string name="SubscribeFragment__signal_is_powered_by_people_like_you">Signal તમારા જેવા લોકો દ્વારા સંચાલિત છે.</string>
     <string name="SubscribeFragment__support_technology_that_is_built_for_you">સપોર્ટ ટેક્નોલોજી જે તમારા માટે નિર્મિત છે - નહીં કે તમારા ડેટા માટે - એવા સમુદાય સાથે જોડાઈને જે તેને બનાવી રાખે છે.</string>
     <string name="SubscribeFragment__support_technology_that_is_built_for_you_not">સપોર્ટ ટેક્નોલોજી જે તમારા માટે નિર્મિત છે, નહીં કે તમારા ડેટા માટે, એવા સમુદાય સાથે જોડાઈને જે Signalને બનાવી રાખે છે.</string>
-    <string name="SubscribeFragment__make_a_recurring_monthly_donation">Signalને પુનરાવર્તિત માસિક દાન આપો જેથી એવી ટેક્નોલોજીને સમર્થન મળે જે તમારા માટે નિર્મિત છે, નહીં કે તમારા ડેટા માટે.</string>
     <string name="SubscribeFragment__currency">ચલણ</string>
     <string name="SubscribeFragment__more_payment_options">વધુ ચુકવણી વિકલ્પો</string>
     <string name="SubscribeFragment__cancel_subscription">સબ્સ્ક્રિપ્શન રદ કરો</string>
@@ -4372,8 +4502,10 @@
     <string name="SubscribeFragment__you_will_be_charged_the_full_amount_s_of">આજે તમારી પાસેથી નવા સબ્સ્ક્રિપ્શનની કિંમતની પૂરી રકમ (%1$s) વસૂલવામાં આવશે. તમારું નવું સબ્સ્ક્રિપ્શન માસિક ધોરણે રિન્યૂ થશે.</string>
 
     <string name="Subscription__s_per_month">%1$s/માસ</string>
-    <string name="Subscription__s_per_month_dot_renews_s">%1$s/માસ · %2$sના રોજ રિન્યૂ થશે</string>
-    <string name="Subscription__s_per_month_dot_expires_s">%1$s/માસ · %2$sના રોજ સમાપ્ત થશે</string>
+    <!-- Shown when a subscription is active and isn't going to expire at the end of the term -->
+    <string name="Subscription__renews_s">%1$sના રોજ રિન્યૂ થશે</string>
+    <!-- Shown when a subscription is active and is going to expire at the end of the term -->
+    <string name="Subscription__expires_s">%1$sના રોજ સમાપ્ત થશે</string>
 
     <!-- First small text blurb on learn more sheet -->
     <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_nonprofit_with_no">Signal એ કોઈ જાહેરાતકર્તા કે રોકાણકારો વગરનું બિન-લાભકારી છે, ફક્ત એવા લોકો દ્વારા ચાલે છે જે તેનો ઉપયોગ કરે છે અને તેનું મહત્વ સમજે છે. એક પુનરાવર્તિત માસિક દાન કરો અને તમારો સપોર્ટ શેર કરવા એક પ્રોફાઇલ બૅજ મેળવો.</string>
@@ -4389,20 +4521,20 @@
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">માસિક સસ્ટેનર બની શકો છો.</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">પ્રોફાઇલ પર દર્શાવો</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">ફીચર્ડ બૅજ બનાવો</string>
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">થઈ ગયું</string>
+    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__continue">ચાલુ રાખો</string>
     <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">જ્યારે તમારી પાસે એકથી વધુ બૅજ હોય, તમે અન્યોને તમારી પ્રોફાઇલ પર દર્શાવવા એક પસંદ કરી શકો છો.</string>
 
     <string name="BecomeASustainerFragment__get_badges">Signalને સમર્થન આપીને તમારી પ્રોફાઇલ માટે બૅજ મેળવો.</string>
     <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal એક બિનલાભકારી છે જેમાં કોઈ જાહેરાતકારો કે રોકાણકારો નથી, અને તે ફક્ત તમારા જેવા લોકો દ્વારા જ સમર્થિત છે.</string>
 
-    <!-- Button label for creating a monthly donation -->
-    <string name="ManageDonationsFragment__make_a_monthly_donation">માસિક યોગદાન આપો</string>
+    <!-- Button label for creating a donation -->
+    <string name="ManageDonationsFragment__donate_to_signal">Signal માટે ફાળો આપો</string>
     <!-- Heading for more area of manage subscriptions page -->
     <string name="ManageDonationsFragment__more">વધુ</string>
     <!-- Heading for receipts area of manage subscriptions page -->
     <string name="ManageDonationsFragment__receipts">રસીદો</string>
     <!-- Heading for my subscription area of manage subscriptions page -->
-    <string name="ManageDonationsFragment__my_subscription">મારું સબ્સ્ક્રિપ્શન</string>
+    <string name="ManageDonationsFragment__my_support">મારું સમર્થન</string>
     <string name="ManageDonationsFragment__manage_subscription">સબ્સ્ક્રિપ્શન મેનેજ કરો</string>
     <!-- Label for Donation Receipts button -->
     <string name="ManageDonationsFragment__donation_receipts">દાનની રસીદો</string>
@@ -4413,10 +4545,6 @@
     <string name="ManageDonationsFragment__other_ways_to_give">ફાળો આપવાની અન્ય રીતો</string>
     <!-- Preference label to launch badge gifting -->
     <string name="ManageDonationsFragment__gift_a_badge">બૅજ ગિફ્ટ કરો</string>
-
-    <string name="BoostFragment__give_signal_a_boost">Signalને થોડું બૂસ્ટ કરો</string>
-    <!-- Description text in boost sheet -->
-    <string name="BoostFragment__make_a_one_time">%1$d દિવસ માટે બૂસ્ટ બૅજ અર્જિત કરવા માટે એક-વખતનું યોગદાન આપો.</string>
 
     <string name="Boost__enter_custom_amount">કસ્ટમ રકમ દાખલ કરો</string>
     <string name="Boost__one_time_contribution">એક-વખતનું યોગદાન</string>
@@ -4458,7 +4586,7 @@
 
     <string name="Subscription__please_contact_support_for_more_information">વધુ માહિતી માટે કૃપા કરીને સપોર્ટનો સંપર્ક કરો.</string>
     <string name="Subscription__contact_support">સપોર્ટનો સંપર્ક કરો</string>
-    <string name="Subscription__earn_a_s_badge">%1$s બૅજ અર્જિત કરો</string>
+    <string name="Subscription__get_a_s_badge">%1$s બૅજ મેળવો</string>
 
     <string name="SubscribeFragment__processing_payment">પેમેન્ટ પ્રક્રિયા થઈ રહી છે…</string>
     <!-- Displayed in notification when user payment fails to process on Stripe -->
@@ -4732,7 +4860,7 @@
     <!-- Title for "My Stories" row item in Stories landing page -->
     <string name="StoriesLandingFragment__my_stories">મારી સ્ટોરી</string>
     <!-- Subtitle for "My Stories" row item when user has not added stories -->
-    <string name="StoriesLandingFragment__tap_to_add_a_story">સ્ટોરી ઉમેરવા ટૅપ કરો</string>
+    <string name="StoriesLandingFragment__tap_to_add">ઉમેરવા માટે ટૅપ કરો</string>
     <!-- Displayed when there are no stories to display -->
     <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now">અત્યારે બતાવવા માટે કોઈ તાજેતરના અપડેટ નથી.</string>
     <!-- Context menu option to hide a story -->
@@ -4846,11 +4974,11 @@
     <string name="MyStorySettingsFragment__my_story">મારી સ્ટોરી</string>
     <!-- Number of total signal connections displayed in "All connections" row item -->
     <plurals name="MyStorySettingsFragment__viewers">
-        <item quantity="one">%1$d viewer</item>
-        <item quantity="other">%1$d viewers</item>
+        <item quantity="one">%1$d દર્શક</item>
+        <item quantity="other">%1$d દર્શકો</item>
     </plurals>
     <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
-    <string name="MyStorySettingsFragment__view">View</string>
+    <string name="MyStorySettingsFragment__view">જુઓ</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">આ સ્ટોરી કોણ જોઈ શકે</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4897,25 +5025,25 @@
     <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">તેઓને તમારા સિસ્ટમ સંપર્કોમાં રાખવા</string>
     <!-- Note at the bottom of the Signal connections sheet -->
     <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"તમારા કનેક્શન તમારું નામ અને ફોટો જોઈ શકે છે, અને તમે તેમનાથી છુપાવો નહીં ત્યાં સુધી \"મારી સ્ટોરી\" પરની પોસ્ટ જોઈ શકે છે."</string>
-    <!-- Clickable option to add a viewer to a private story -->
+    <!-- Clickable option to add a viewer to a custom story -->
     <string name="PrivateStorySettingsFragment__add_viewer">દર્શક ઉમેરો</string>
     <!-- Clickable option to delete a custom story -->
-    <string name="PrivateStorySettingsFragment__delete_private_story">ખાનગી સ્ટોરી ડિલીટ કરો</string>
-    <!-- Dialog title when attempting to remove someone from a private story -->
+    <string name="PrivateStorySettingsFragment__delete_custom_story">કસ્ટમ સ્ટોરી ડિલીટ કરો</string>
+    <!-- Dialog title when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__remove_s">%1$sને દૂર કરવા છે?</string>
-    <!-- Dialog message when attempting to remove someone from a private story -->
+    <!-- Dialog message when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__this_person_will_no_longer">આ વ્યક્તિ હવે તમારી સ્ટોરી જોઈ નહીં શકે.</string>
-    <!-- Positive action label when attempting to remove someone from a private story -->
+    <!-- Positive action label when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__remove">દૂર કરો</string>
-    <!-- Dialog title when deleting a private story -->
+    <!-- Dialog title when deleting a custom story -->
     <string name="PrivateStorySettingsFragment__are_you_sure">તમને ખાતરી છે?</string>
-    <!-- Dialog message when deleting a private story -->
+    <!-- Dialog message when deleting a custom story -->
     <string name="PrivateStorySettingsFragment__this_action_cannot">આ ક્રિયાને પૂર્વવત કરી શકાશે નહીં.</string>
-    <!-- Page title for editing a private story name -->
+    <!-- Page title for editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__edit_story_name">સ્ટોરીનું નામ સંપાદિત કરો</string>
-    <!-- Input field hint when editing a private story name -->
+    <!-- Input field hint when editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__story_name">સ્ટોરીનું નામ</string>
-    <!-- Save button label when editing a private story name -->
+    <!-- Save button label when editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__save">સેવ કરો</string>
     <!-- Displayed in text post creator before user enters text -->
     <string name="TextStoryPostCreationFragment__tap_to_add_text">લખાણ ઉમેરવા ટૅપ કરો</string>
@@ -4937,6 +5065,8 @@
     <string name="TextStoryPostSendFragment__search">શોધો</string>
     <!-- Toast shown when an unexpected error occurs while sending a text story -->
     <string name="TextStoryPostSendFragment__an_unexpected_error_occurred_try_again">એક અનપેક્ષિત ત્રુટિ આવી</string>
+    <!-- Toast shown when a trying to add a link preview to a text story post and the link/url is not valid (e.g., missing .com at the end) -->
+    <string name="TextStoryPostSendFragment__please_enter_a_valid_link">કૃપા કરીને માન્ય લિંક દાખલ કરો.</string>
     <!-- Title for screen allowing user to exclude "My Story" entries from specific people -->
     <string name="ChangeMyStoryMembershipFragment__all_except">બધા, સિવાય કે…</string>
     <!-- Title for screen allowing user to only share "My Story" entries with specific people -->
@@ -4949,11 +5079,11 @@
     <string name="StoryDialogs__s_will_be_removed">\"%1$s\" ને દૂર કરવામાં આવશે.</string>
     <!-- Dialog positive action for removing a group story -->
     <string name="StoryDialogs__remove">દૂર કરો</string>
-    <!-- Dialog title for deleting a private story -->
-    <string name="StoryDialogs__delete_private_story">ખાનગી સ્ટોરી ડિલીટ કરવી છે?</string>
-    <!-- Dialog message for deleting a private story -->
+    <!-- Dialog title for deleting a custom story -->
+    <string name="StoryDialogs__delete_custom_story">કસ્ટમ સ્ટોરી ડિલીટ કરવી છે?</string>
+    <!-- Dialog message for deleting a custom story -->
     <string name="StoryDialogs__s_and_updates_shared">\" %1$s \" અને આ સ્ટોરી પર શેર કરેલ અપડેટ ડિલીટ કરવામાં આવશે.</string>
-    <!-- Dialog positive action for deleting a private story -->
+    <!-- Dialog positive action for deleting a custom story -->
     <string name="StoryDialogs__delete">ડિલીટ કરો</string>
     <!-- Dialog title for first time sending something to a beta story -->
     <string name="StoryDialogs__stories_is_available_to">સ્ટોરી Signal બીટા ઉપયોગકર્તાઓ માટે જ ઉપલબ્ધ છે.</string>
@@ -4988,6 +5118,8 @@
     </plurals>
     <!-- Name story screen title -->
     <string name="CreateStoryWithViewersFragment__name_story">સ્ટોરીને નામ આપો</string>
+    <!-- Name story screen note under text field -->
+    <string name="CreateStoryWithViewersFragment__only_you_can">આ સ્ટોરીનું નામ ફક્ત તમે જ જોઈ શકો છો.</string>
     <!-- Name story screen label hint -->
     <string name="CreateStoryWithViewersFragment__story_name_required">સ્ટોરીનું નામ (આવશ્યક)</string>
     <!-- Name story screen viewers subheading -->
@@ -5003,7 +5135,7 @@
     <!-- Choose story type bottom sheet title -->
     <string name="ChooseStoryTypeBottomSheet__choose_your_story_type">તમારી સ્ટોરીનો પ્રકાર પસંદ કરો</string>
     <!-- Choose story type bottom sheet new story row title -->
-    <string name="ChooseStoryTypeBottomSheet__new_private_story">નવી ખાનગી સ્ટોરી</string>
+    <string name="ChooseStoryTypeBottomSheet__new_custom_story">નવી કસ્ટમ સ્ટોરી</string>
     <!-- Choose story type bottom sheet new story row summary -->
     <string name="ChooseStoryTypeBottomSheet__visible_only_to">ફક્ત ચોક્કસ લોકોને જ દેખાઈ શકે છે</string>
     <!-- Choose story type bottom sheet group story title -->
@@ -5020,6 +5152,8 @@
     <string name="StoryDirectReplyDialogFragment__sending_reply">જવાબ મોકલી રહ્યાં છીએ…</string>
     <!-- Displayed in the viewer when a story is no longer available -->
     <string name="StorySlateView__this_story_is_no_longer_available">આ સ્ટોરી હવે ઉપલબ્ધ નથી.</string>
+    <!-- Displayed in the viewer when a story has permanently failed to download. -->
+    <string name="StorySlateView__cant_download_story_s_will_need_to_share_it_again">સ્ટોરી ડાઉનલોડ કરી શકતા નથી. %1$sએ તેને ફરીથી શેર કરવાની જરૂર પડશે.</string>
     <!-- Displayed in the viewer when the network is not available -->
     <string name="StorySlateView__no_internet_connection">ઇન્ટરનેટ કનેક્શન નથી</string>
     <!-- Displayed in the viewer when network is available but content could not be downloaded -->
@@ -5111,10 +5245,10 @@
     <string name="ExpiredGiftSheetConfiguration__not_now">અત્યારે નહીં</string>
     <!-- My Story label designating that we will only share with the selected viewers. -->
     <string name="ContactSearchItems__only_share_with">આમની સાથે જ શેર કરો</string>
-    <!-- Label under name for private stories -->
-    <plurals name="ContactSearchItems__private_story_d_viewers">
-        <item quantity="one">ખાનગી સ્ટોરી · %1$d દર્શક</item>
-        <item quantity="other">ખાનગી સ્ટોરી · %1$d દર્શકો</item>
+    <!-- Label under name for custom stories -->
+    <plurals name="ContactSearchItems__custom_story_d_viewers">
+        <item quantity="one">કસ્ટમ સ્ટોરી · %1$d દર્શક</item>
+        <item quantity="other">કસ્ટમ સ્ટોરી · %1$d દર્શકો</item>
     </plurals>
     <!-- Label under name for group stories -->
     <plurals name="ContactSearchItems__group_story_d_viewers">
@@ -5137,7 +5271,7 @@
     <string name="ContactSearchItems__story_settings">સ્ટોરી સેટિંગ્સ</string>
     <!-- Label for context menu item to remove a group story from contact results -->
     <string name="ContactSearchItems__remove_story">સ્ટોરી દૂર કરો</string>
-    <!-- Label for context menu item to delete a private story -->
+    <!-- Label for context menu item to delete a custom story -->
     <string name="ContactSearchItems__delete_story">સ્ટોરી ડિલીટ કરો</string>
     <!-- Dialog title for removing a group story -->
     <string name="ContactSearchMediator__remove_group_story">ગ્રુપ સ્ટોરી દૂર કરવી છે?</string>
@@ -5145,11 +5279,11 @@
     <string name="ContactSearchMediator__this_will_remove">આનાથી આ લિસ્ટમાંથી સ્ટોરી દૂર થઈ જશે. તમે હજી પણ આ ગ્રુપની સ્ટોરી જોઈ શકશો.</string>
     <!-- Dialog action item for removing a group story -->
     <string name="ContactSearchMediator__remove">દૂર કરો</string>
-    <!-- Dialog title for deleting a private story -->
+    <!-- Dialog title for deleting a custom story -->
     <string name="ContactSearchMediator__delete_story">સ્ટોરી ડિલીટ કરવી છે?</string>
-    <!-- Dialog message for deleting a private story -->
-    <string name="ContactSearchMediator__delete_the_private">ખાનગી સ્ટોરી \"%1$s\" ડિલીટ કરવી છે?</string>
-    <!-- Dialog action item for deleting a private story -->
+    <!-- Dialog message for deleting a custom story -->
+    <string name="ContactSearchMediator__delete_the_custom">કસ્ટમ સ્ટોરી \"%1$s\" ડિલીટ કરવી છે?</string>
+    <!-- Dialog action item for deleting a custom story -->
     <string name="ContactSearchMediator__delete">ડિલીટ કરો</string>
     <!-- Gift expiry days remaining -->
     <plurals name="Gifts__d_days_remaining">
@@ -5249,7 +5383,7 @@
 
     <!-- StoriesPrivacySettingsFragment -->
     <!-- Explanation about how stories are deleted and managed -->
-    <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">સ્ટોરી 24 કલાક પછી આપમેળે ગાયબ થઈ જાય છે. તમારી સ્ટોરી કોણ જોઈ શકે તે પસંદ કરો અથવા ચોક્કસ દર્શકો અથવા ગ્રુપ સાથે જ સ્ટોરી બનાવો.</string>
+    <string name="StoriesPrivacySettingsFragment__story_updates_automatically_disappear">સ્ટોરી અપડેટ 24 કલાક પછી આપમેળે ગાયબ થઈ જાય છે. તમારી સ્ટોરી કોણ જોઈ શકે તે પસંદ કરો અથવા ચોક્કસ દર્શકો અથવા ગ્રુપ સાથે નવી સ્ટોરી બનાવો.</string>
     <!-- Preference title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories">સ્ટોરી બંધ કરો</string>
     <!-- Preference summary to turn off stories -->
@@ -5264,6 +5398,17 @@
     <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">તમે હવેથી સ્ટોરી જોઈ કે શેર કરી શકશો નહીં. તમે તાજેતરમાં શેર કરેલા સ્ટોરી અપડેટ પણ ડિલીટ થઈ જશે.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">સ્ટોરીની ગોપનીયતા</string>
+    <!-- Header for section that lists out stories -->
+    <string name="StoriesPrivacySettingsFragment__stories">સ્ટોરી</string>
+    <!-- Story views header -->
+    <string name="StoriesPrivacySettingsFragment__story_views">સ્ટોરી વ્યૂઝ</string>
+    <!-- Story view receipts toggle title -->
+    <string name="StoriesPrivacySettingsFragment__view_receipts">પ્રાપ્તકર્તા જુઓ</string>
+    <!-- Story view receipts toggle message -->
+    <string name="StoriesPrivacySettingsFragment__see_and_share">સ્ટોરી ક્યારે જોવામાં આવે છે તે જુઓ અને શેર કરો. જો બંધ હોય, તો અન્ય લોકો તમારી સ્ટોરી જુએ તે તમે જોઈ નહીં શકો.</string>
+
+    <!-- NewStoryItem -->
+    <string name="NewStoryItem__new_story">નવી સ્ટોરી</string>
 
     <!-- GroupStorySettingsFragment -->
     <!-- Section header for who can view a group story -->
@@ -5279,20 +5424,37 @@
     <!-- SMS Export Service -->
     <!-- Displayed in the notification while export is running -->
     <string name="SignalSmsExportService__exporting_messages">મેસેજ એક્સપોર્ટ થાય છે…</string>
+    <!-- Displayed in the notification title when export completes -->
+    <string name="SignalSmsExportService__signal_sms_export_complete">Signal SMS એક્સપોર્ટ પૂર્ણ</string>
+    <!-- Displayed in the notification message when export completes -->
+    <string name="SignalSmsExportService__tap_to_return_to_signal">Signal પર પાછા ફરવા ટૅપ કરો</string>
 
     <!-- ExportYourSmsMessagesFragment -->
     <!-- Title of the screen -->
     <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">તમારા SMS મેસેજ એક્સપોર્ટ કરો</string>
     <!-- Message of the screen -->
-    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">તમે તમારા SMS મેસેજને તમારા ફોનના SMS ડેટાબેઝમાં એક્સપોર્ટ કરી શકો છો. આનાથી તમારા ફોન પરની અન્ય SMS ઍપને તેમને ઍક્સેસ કરવા અને ઇમ્પોર્ટ કરવાની મંજૂરી મળે છે. આ તમારા SMS મેસેજ ઇતિહાસની શેર કરી શકાય તેવી ફાઇલ બનાવતું નથી.</string>
+    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database_and_youll_have_the_option_to_keep_or_remove_them_from_signal">તમે તમારા SMS મેસેજને તમારા ફોનના SMS ડેટાબેઝમાં એક્સપોર્ટ કરી શકો છો અને તમને તેને Signal પર રાખવા અથવા તેમાંથી દૂર કરવાનો વિકલ્પ મળશે. આનાથી તમારા ફોન પરની અન્ય SMS ઍપને તેને ઇમ્પોર્ટ કરવાની મંજૂરી મળે છે. આ તમારા SMS ઇતિહાસની શેર કરી શકાય તેવી ફાઇલ બનાવતું નથી.</string>
     <!-- Button label to begin export -->
     <string name="ExportYourSmsMessagesFragment__continue">ચાલુ રાખો</string>
 
     <!-- ExportingSmsMessagesFragment -->
     <!-- Title of the screen -->
     <string name="ExportingSmsMessagesFragment__exporting_sms_messages">SMS મેસેજ એક્સપોર્ટ કરવા</string>
+    <!-- Message of the screen when exporting sms messages -->
+    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">આમાં થોડો સમય લાગી શકે છે</string>
     <!-- Progress indicator for export -->
-    <string name="ExportingSmsMessagesFragment__exporting_d_of_d">%2$dમાંથી %1$d એક્સપોર્ટ થાય છે…</string>
+    <plurals name="ExportingSmsMessagesFragment__exporting_d_of_d">
+        <item quantity="one">%2$dમાંથી %1$d એક્સપોર્ટ થાય છે…</item>
+        <item quantity="other">%2$dમાંથી %1$d એક્સપોર્ટ થાય છે…</item>
+    </plurals>
+    <!-- Alert dialog title shown when we think a user may not have enough local storage available to export sms messages -->
+    <string name="ExportingSmsMessagesFragment__you_may_not_have_enough_disk_space">તમારી પાસે પૂરતી ડિસ્ક સ્પેસ ન હોય તેમ લાગે છે</string>
+    <!-- Alert dialog message shown when we think a user may not have enough local storage available to export sms messages, placeholder is the file size, e.g., 128kB -->
+    <string name="ExportingSmsMessagesFragment__you_need_approximately_s_to_export_your_messages_ensure_you_have_enough_space_before_continuing">તમારા મેસેજને એક્સપોર્ટ માટે તમારે આશરે %1$s ની જરૂર છે, ચાલુ રાખતા પહેલા તમારી પાસે પૂરતી સ્પેસ છે તેની ખાતરી કરો.</string>
+    <!-- Alert dialog button to continue with exporting sms after seeing the lack of storage warning -->
+    <string name="ExportingSmsMessagesFragment__continue_anyway">કોઈપણ રીતે ચાલુ રાખો</string>
+    <!-- Dialog text shown when Signal isn't granted the sms permission needed to export messages, different than being selected as the sms app -->
+    <string name="ExportingSmsMessagesFragment__signal_needs_the_sms_permission_to_be_able_to_export_your_sms_messages">તમારા SMS મેસેજને એક્સપોર્ટ કરવામાં સક્ષમ થવા માટે Signalને SMS પરવાનગીની જરૂર છે.</string>
 
     <!-- ChooseANewDefaultSmsAppFragment -->
     <!-- Title of the screen -->
@@ -5339,6 +5501,106 @@
     <string name="SetSignalAsDefaultSmsAppFragment__to_export_your_sms_messages">તમારા SMS મેસેજને એક્સપોર્ટ કરવા માટે, તમારે Signalને ડિફોલ્ટ SMS ઍપ તરીકે સેટ કરવાની જરૂર છે.</string>
     <!-- Button label to start export -->
     <string name="SetSignalAsDefaultSmsAppFragment__next">આગળ</string>
+
+    <!-- BackupSchedulePermission Megaphone -->
+    <!-- The title on an alert window that explains to the user that we are unable to backup their messages -->
+    <string name="BackupSchedulePermissionMegaphone__cant_back_up_chats">ચેટનું બેકઅપ લઈ શકાતું નથી</string>
+    <!-- The body text of an alert window that tells the user that we are unable to backup their messages -->
+    <string name="BackupSchedulePermissionMegaphone__your_chats_are_no_longer_being_automatically_backed_up">તમારી ચેટ હવે આપમેળે બેકઅપ લેવામાં આવતી નથી.</string>
+    <!-- The text on a button in an alert window that, when clicked, will take the user to a screen to re-enable backups -->
+    <string name="BackupSchedulePermissionMegaphone__back_up_chats">ચેટનું બેકઅપ લો</string>
+    <!-- The text on a button in an alert window that, when clicked, will take the user to a screen to re-enable backups -->
+    <string name="BackupSchedulePermissionMegaphone__not_now">અત્યારે નહીં</string>
+    <!-- Re-enable backup permission bottom sheet title -->
+    <string name="BackupSchedulePermissionMegaphone__to_reenable_backups">બેકઅપ ફરીથી સક્ષમ કરવા:</string>
+    <!-- Re-enable backups permission bottom sheet instruction 1 text -->
+    <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">નીચેના \"સેટિંગ્સ પર જાઓ\" બટનને ટૅપ કરો</string>
+    <!-- Re-enable backups permission bottom sheet instruction 2 text -->
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">\"એલાર્મ અને રીમાઇન્ડર સેટિંગ્સને મંજૂરી આપો\" ચાલુ કરો.</string>
+    <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
+    <string name="BackupSchedulePermissionMegaphone__go_to_settings">સેટિંગ્સ પર જાઓ</string>
+
+    <!-- SmsExportMegaphoneActivity -->
+    <!-- Phase 2 title of full screen megaphone indicating sms will no longer be supported in the near future -->
+    <string name="SmsExportMegaphoneActivity__signal_will_no_longer_support_sms">Signal હવે SMSને સપોર્ટ કરશે નહીં</string>
+    <!-- Phase 3 title of full screen megaphone indicating sms is longer supported  -->
+    <string name="SmsExportMegaphoneActivity__signal_no_longer_supports_sms">Signal હવે SMSને સપોર્ટ કરતું નથી</string>
+    <!-- Phase 2 message describing that sms is going away soon -->
+    <string name="SmsExportMegaphoneActivity__signal_will_soon_remove_support_for_sending_sms_messages">Signal ટૂંક સમયમાં SMS મેસેજ મોકલવા માટેના સમર્થનને દૂર કરશે કારણ કે Signal મેસેજ એન્ડ-ટુ-એન્ડ એન્ક્રિપ્શન અને મજબૂત ગોપનીયતા પ્રદાન કરે છે જે SMS મેસેજ પ્રદાન કરતા નથી. આ અમને Signal મેસેજિંગ અનુભવને સુધારવા માટે પણ અનુકૂળતા આપશે.</string>
+    <!-- Phase 3 message describing that sms has gone away -->
+    <string name="SmsExportMegaphoneActivity__signal_has_removed_support_for_sending_sms_messages">Signalએ SMS મેસેજ મોકલવા માટેના સમર્થનને દૂર કર્યું છે કારણ કે Signal મેસેજ એન્ડ-ટુ-એન્ડ એન્ક્રિપ્શન અને મજબૂત ગોપનીયતા પ્રદાન કરે છે જે SMS મેસેજ પ્રદાન કરતા નથી. આ અમને Signal મેસેજિંગ અનુભવને સુધારવા માટે પણ અનુકૂળતા આપશે.</string>
+    <!-- The text on a button in a popup that, when clicked, will take the user to a screen to export their SMS messages -->
+    <string name="SmsExportMegaphoneActivity__export_sms">SMS એક્સપોર્ટ કરો</string>
+    <!-- The text on a button in a popup that, when clicked, will dismiss the popup and schedule the prompt to occur at a later time. -->
+    <string name="SmsExportMegaphoneActivity__remind_me_later">મને પછી યાદ કરાવો</string>
+    <!-- The text on a button in a popup that, when clicked, will navigate the user to a web article on SMS removal -->
+    <string name="SmsExportMegaphoneActivity__learn_more">વધુ જાણો</string>
+
+    <!-- Phase 1 Small megaphone title indicating sms is going away -->
+    <string name="SmsExportMegaphone__sms_support_going_away">SMS સપોર્ટ બંધ થઈ રહ્યો છે</string>
+    <!-- Phase 1 small megaphone description indicating sms is going away -->
+    <string name="SmsExportMegaphone__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">એન્ક્રિપ્ટ કરેલ મેસેજિંગ પર ધ્યાન આપવા માટે SMS માટેનું સમર્થન ટૂંક સમયમાં જ દૂર કરવામાં આવશે.</string>
+    <!-- Phase 1 small megaphone button that takes the user to the sms export flow -->
+    <string name="SmsExportMegaphone__export_sms">SMS એક્સપોર્ટ કરો</string>
+    <!-- Title for screen shown after sms export has completed -->
+    <string name="ExportSmsCompleteFragment__export_complete">એક્સપોર્ટ પૂર્ણ</string>
+    <!-- Button to continue to next screen -->
+    <string name="ExportSmsCompleteFragment__next">આગળ</string>
+    <!-- Message showing summary of sms export counts -->
+    <plurals name="ExportSmsCompleteFragment__d_of_d_messages_exported">
+        <item quantity="one">%2$d માંથી %1$d મેસેજ એક્સપોર્ટ થયો</item>
+        <item quantity="other">%1$d માંથી %2$d મેસેજ એક્સપોર્ટ થયા</item>
+    </plurals>
+
+    <!-- Title of screen shown when some sms messages did not export -->
+    <string name="ExportSmsPartiallyComplete__export_partially_complete">એક્સપોર્ટ આંશિક રીતે પૂર્ણ</string>
+    <!-- Debug step 1 on screen shown when some sms messages did not export -->
+    <string name="ExportSmsPartiallyComplete__ensure_you_have_an_additional_s_free_on_your_phone_to_export_your_messages">તમારા મેસેજને એક્સપોર્ટ કરવા માટે તમારી પાસે તમારા ફોન પર વધારાની %1$s ખાલી છે તેની ખાતરી કરો</string>
+    <!-- Debug step 2 on screen shown when some sms messages dit not export -->
+    <string name="ExportSmsPartiallyComplete__retry_export_which_will_only_retry_messages_that_have_not_yet_been_exported">એક્સપોર્ટ કરવાનો ફરીથી પ્રયાસ કરો, જે ફક્ત એવા મેસેજને જ ફરી પ્રયાસ કરશે જે હજી સુધી એક્સપોર્ટ કરવામાં આવ્યા નથી</string>
+    <!-- Partial sentence for Debug step 3 on screen shown when some sms messages did not export, is combined with 'contact us' -->
+    <string name="ExportSmsPartiallyComplete__if_the_problem_persists">જો સમસ્યા ચાલુ રહે, </string>
+    <!-- Partial sentence for deubg step 3 on screen shown when some sms messages did not export, combined with 'If the problem persists', link text to open contact support view -->
+    <string name="ExportSmsPartiallyComplete__contact_us">અમારો સંપર્ક કરો</string>
+    <!-- Button text to retry sms export -->
+    <string name="ExportSmsPartiallyComplete__retry">ફરી પ્રયાસ કરો</string>
+    <!-- Button text to continue sms export flow and not retry failed message exports -->
+    <string name="ExportSmsPartiallyComplete__continue_anyway">કોઈપણ રીતે ચાલુ રાખો</string>
+    <!-- Title of screen shown when all sms messages failed to export -->
+    <string name="ExportSmsFullError__error_exporting_sms_messages">SMS મેસેજ એક્સપોર્ટ કરવામાં ભૂલ આવી</string>
+    <!-- Helper text shown when all sms messages failed to export -->
+    <string name="ExportSmsFullError__please_try_again_if_the_problem_persists">કૃપા કરીને ફરીથી પ્રયાસ કરો. જો સમસ્યા ચાલુ રહે, </string>
+
+
+    <!-- DonateToSignalFragment -->
+    <!-- Title below avatar -->
+    <string name="DonateToSignalFragment__powered_by">તમારા જેવા લોકો દ્વારા સંચાલિત.</string>
+    <!-- Continue button label -->
+    <string name="DonateToSignalFragment__continue">ચાલુ રાખો</string>
+    <!-- Description below title -->
+    <string name="DonateToSignalFragment__support_technology">તમારા માટે નિર્મિત ટેક્નોલોજીને સમર્થન કરો, નહીં કે તમારા ડેટા માટે બનેલી, એવા સમુદાય સાથે જોડાઈને જે Signalને બનાવી રાખે છે.</string>
+    <!-- Donation pill toggle monthly text -->
+    <string name="DonationPillToggle__monthly">માસિક</string>
+    <!-- Donation pill toggle one-time text -->
+    <string name="DonationPillToggle__one_time">એક-વખત</string>
+
+    <!-- GatewaySelectorBottomSheet -->
+    <!-- Sheet title when subscribing -->
+    <string name="GatewaySelectorBottomSheet__donate_s_month_to_signal">Signal માટે %1$s /મહિને દાન કરો</string>
+    <!-- Sheet summary when subscribing -->
+    <string name="GatewaySelectorBottomSheet__get_a_s_badge">%1$s બૅજ મેળવો</string>
+    <!-- Sheet title when giving a one-time donation -->
+    <string name="GatewaySelectorBottomSheet__donate_s_to_signal">Signal માટે %1$s નું દાન કરો</string>
+    <!-- Sheet summary when giving a one-time donation -->
+    <plurals name="GatewaySelectorBottomSheet__get_a_s_badge_for_d_days">
+        <item quantity="one">Get a %1$s badge for %2$d day</item>
+        <item quantity="other">Get a %1$s badge for %2$d days</item>
+    </plurals>
+    <!-- Button label for paying with a credit card -->
+    <string name="GatewaySelectorBottomSheet__credit_or_debit_card">ક્રેડિટ અથવા ડેબિટ કાર્ડ</string>
+
+    <!-- StripePaymentInProgressFragment -->
+    <string name="StripePaymentInProgressFragment__cancelling">રદ કરી રહ્યાં છીએ...</string>
 
     <!-- EOF -->
 

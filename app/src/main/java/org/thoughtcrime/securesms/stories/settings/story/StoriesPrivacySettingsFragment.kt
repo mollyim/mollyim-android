@@ -69,7 +69,8 @@ class StoriesPrivacySettingsFragment :
         }
       }
     )
-    ContactSearchItems.registerHeaders(middle)
+
+    NewStoryItem.register(top as MappingAdapter)
 
     middle.setPagingController(viewModel.pagingController)
 
@@ -82,10 +83,6 @@ class StoriesPrivacySettingsFragment :
       viewModel.pagingController.onDataInvalidated()
     }
 
-    lifecycleDisposable += viewModel.headerActionRequests.subscribe {
-      ChooseStoryTypeBottomSheet().show(childFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
-    }
-
     lifecycleDisposable += viewModel.state.subscribe { state ->
       if (state.isUpdatingEnabledState) {
         progressDisplayManager.show(viewLifecycleOwner, childFragmentManager)
@@ -93,7 +90,7 @@ class StoriesPrivacySettingsFragment :
         progressDisplayManager.hide()
       }
 
-      (top as MappingAdapter).submitList(getTopConfiguration(state).toMappingModelList())
+      top.submitList(getTopConfiguration(state).toMappingModelList())
       middle.submitList(getMiddleConfiguration(state).toMappingModelList())
       (bottom as MappingAdapter).submitList(getBottomConfiguration(state).toMappingModelList())
     }
@@ -106,13 +103,21 @@ class StoriesPrivacySettingsFragment :
 
         noPadTextPref(
           title = DSLSettingsText.from(
-            R.string.StoriesPrivacySettingsFragment__stories_automatically_disappear,
+            R.string.StoriesPrivacySettingsFragment__story_updates_automatically_disappear,
             DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
             DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant))
           )
         )
 
         space(20.dp)
+
+        sectionHeaderPref(R.string.StoriesPrivacySettingsFragment__stories)
+
+        customPref(
+          NewStoryItem.Model {
+            ChooseStoryTypeBottomSheet().show(childFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+          }
+        )
       } else {
         clickPref(
           title = DSLSettingsText.from(R.string.StoriesPrivacySettingsFragment__turn_on_stories),
@@ -143,6 +148,17 @@ class StoriesPrivacySettingsFragment :
   private fun getBottomConfiguration(state: StoriesPrivacySettingsState): DSLConfiguration {
     return if (state.areStoriesEnabled) {
       configure {
+        dividerPref()
+
+        switchPref(
+          title = DSLSettingsText.from(R.string.StoriesPrivacySettingsFragment__view_receipts),
+          summary = DSLSettingsText.from(R.string.StoriesPrivacySettingsFragment__see_and_share),
+          isChecked = state.areViewReceiptsEnabled,
+          onClick = {
+            viewModel.toggleViewReceipts()
+          }
+        )
+
         dividerPref()
 
         clickPref(

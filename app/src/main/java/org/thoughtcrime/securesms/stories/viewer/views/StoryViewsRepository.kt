@@ -8,9 +8,12 @@ import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.database.DatabaseObserver
 import org.thoughtcrime.securesms.database.GroupReceiptDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.TextSecurePreferences
+import org.thoughtcrime.securesms.recipients.RecipientId
+import org.whispersystems.signalservice.api.push.DistributionId
 
 class StoryViewsRepository {
 
@@ -18,7 +21,7 @@ class StoryViewsRepository {
     private val TAG = Log.tag(StoryViewsRepository::class.java)
   }
 
-  fun isReadReceiptsEnabled(): Boolean = TextSecurePreferences.isReadReceiptsEnabled(ApplicationDependencies.getApplication())
+  fun isReadReceiptsEnabled(): Boolean = SignalStore.storyValues().viewedReceiptsEnabled
 
   fun getStoryRecipient(storyId: Long): Single<Recipient> {
     return Single.fromCallable {
@@ -30,10 +33,20 @@ class StoryViewsRepository {
 
   fun getViews(storyId: Long): Observable<List<StoryViewItemData>> {
     return Observable.create<List<StoryViewItemData>> { emitter ->
+      val record: MessageRecord = SignalDatabase.mms.getMessageRecord(storyId)
+      val filterIds: Set<RecipientId> = if (record.recipient.isDistributionList) {
+        val distributionId: DistributionId = SignalDatabase.distributionLists.getDistributionId(record.recipient.requireDistributionListId())!!
+        SignalDatabase.storySends.getRecipientsForDistributionId(storyId, distributionId)
+      } else {
+        emptySet()
+      }
+
       fun refresh() {
         emitter.onNext(
           SignalDatabase.groupReceipts.getGroupReceiptInfo(storyId).filter {
             it.status == GroupReceiptDatabase.STATUS_VIEWED
+          }.filter {
+            filterIds.isEmpty() || it.recipientId in filterIds
           }.map {
             StoryViewItemData(
               recipient = Recipient.resolved(it.recipientId),

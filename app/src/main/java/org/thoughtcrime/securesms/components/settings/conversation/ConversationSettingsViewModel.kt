@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.database.model.StoryViewState
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.LiveGroup
 import org.thoughtcrime.securesms.groups.v2.GroupAddMembersResult
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.RecipientUtil
@@ -140,11 +141,17 @@ sealed class ConversationSettingsViewModel(
       }
 
       store.update(liveRecipient.liveData) { recipient, state ->
+        val isAudioAvailable = recipient.isRegistered &&
+          !recipient.isGroup &&
+          !recipient.isBlocked &&
+          !recipient.isSelf &&
+          !recipient.isReleaseNotes
+
         state.copy(
           recipient = recipient,
           buttonStripState = ButtonStripPreference.State(
             isVideoAvailable = recipient.registered == RecipientDatabase.RegisteredState.REGISTERED && !recipient.isSelf && !recipient.isBlocked && !recipient.isReleaseNotes,
-            isAudioAvailable = !recipient.isGroup && !recipient.isSelf && !recipient.isBlocked && !recipient.isReleaseNotes,
+            isAudioAvailable = isAudioAvailable,
             isAudioSecure = recipient.registered == RecipientDatabase.RegisteredState.REGISTERED,
             isMuted = recipient.isMuted,
             isMuteAvailable = !recipient.isSelf,

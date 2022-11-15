@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/story_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
@@ -32,6 +33,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/story_content_container"
+                android:name="org.thoughtcrime.securesms.stories.viewer.post.StoryPostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:background="@drawable/test_gradient" />
@@ -39,13 +41,13 @@
             <View
                 android:id="@+id/story_gradient_top"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:background="@drawable/story_gradient_top" />
 
             <View
                 android:id="@+id/story_gradient_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="200dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/story_gradient_bottom" />
 
@@ -251,7 +253,7 @@
         android:maxLines="1"
         android:textAppearance="@style/Signal.Text.MaterialCaption"
         android:visibility="gone"
-        app:drawableStartCompat="@drawable/ic_lock_16"
+        app:drawableStartCompat="@drawable/ic_stories_16"
         app:drawableTint="@color/transparent_white_80"
         app:layout_constraintBottom_toTopOf="@id/progress"
         app:layout_constraintEnd_toStartOf="@id/more"
@@ -293,14 +295,5 @@
         android:id="@+id/on_reaction_sent_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <ViewStub
-        android:id="@+id/story_first_time_nav_stub"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:inflatedId="@+id/story_first_time_navigation_view"
-        android:layout="@layout/story_viewer_first_time_navigation_stub"
-        app:layout_constraintBottom_toBottomOf="@id/story_content_card_touch_interceptor"
-        app:layout_constraintTop_toTopOf="@id/story_content_card_touch_interceptor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

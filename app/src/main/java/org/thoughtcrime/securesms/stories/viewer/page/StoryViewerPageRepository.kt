@@ -26,12 +26,11 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.Base64
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 
 /**
  * Open for testing.
  */
-open class StoryViewerPageRepository(context: Context) {
+open class StoryViewerPageRepository(context: Context, private val storyViewStateCache: StoryViewStateCache) {
 
   companion object {
     private val TAG = Log.tag(StoryViewerPageRepository::class.java)
@@ -39,7 +38,7 @@ open class StoryViewerPageRepository(context: Context) {
 
   private val context = context.applicationContext
 
-  fun isReadReceiptsEnabled(): Boolean = TextSecurePreferences.isReadReceiptsEnabled(context)
+  fun isReadReceiptsEnabled(): Boolean = SignalStore.storyValues().viewedReceiptsEnabled
 
   private fun getStoryRecords(recipientId: RecipientId, isOutgoingOnly: Boolean): Observable<List<MessageRecord>> {
     return Observable.create { emitter ->
@@ -89,7 +88,7 @@ open class StoryViewerPageRepository(context: Context) {
           content = getContent(record as MmsMessageRecord),
           conversationMessage = ConversationMessage.ConversationMessageFactory.createWithUnresolvedData(context, record),
           allowsReplies = record.storyType.isStoryWithReplies,
-          hasSelfViewed = if (record.isOutgoing) true else record.viewedReceiptCount > 0
+          hasSelfViewed = storyViewStateCache.getOrPut(record.id, if (record.isOutgoing) true else record.viewedReceiptCount > 0)
         )
 
         emitter.onNext(story)
@@ -174,7 +173,7 @@ open class StoryViewerPageRepository(context: Context) {
           ApplicationDependencies.getDatabaseObserver().notifyConversationListListeners()
 
           if (storyPost.sender.isReleaseNotes) {
-            SignalStore.storyValues().userHasSeenOnboardingStory = true
+            SignalStore.storyValues().userHasViewedOnboardingStory = true
             Stories.onStorySettingsChanged(Recipient.self().id)
           } else {
             ApplicationDependencies.getJobManager().add(

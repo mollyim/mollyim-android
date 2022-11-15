@@ -29,7 +29,7 @@ object StoryDialogs {
     onDelete: () -> Unit
   ) {
     MaterialAlertDialogBuilder(context)
-      .setTitle(R.string.StoryDialogs__delete_private_story)
+      .setTitle(R.string.StoryDialogs__delete_custom_story)
       .setMessage(context.getString(R.string.StoryDialogs__s_and_updates_shared, distributionListName))
       .setPositiveButton(R.string.StoryDialogs__delete) { _, _ -> onDelete() }
       .setNegativeButton(android.R.string.cancel) { _, _ -> }
@@ -51,15 +51,6 @@ object StoryDialogs {
       .setTitle(R.string.StoriesPrivacySettingsFragment__turn_off_stories_question)
       .setMessage(R.string.StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share)
       .setPositiveButton(positiveButtonMessage) { _, _ -> onDisable() }
-      .setNegativeButton(android.R.string.cancel) { _, _ -> }
-      .show()
-  }
-
-  fun displayBetaDialog(context: Context, onConfirmed: () -> Unit) {
-    MaterialAlertDialogBuilder(context)
-      .setTitle(R.string.StoryDialogs__stories_is_available_to)
-      .setMessage(R.string.StoryDialogs__if_you_share_a_story)
-      .setPositiveButton(R.string.Permissions_continue) { _, _ -> onConfirmed() }
       .setNegativeButton(android.R.string.cancel) { _, _ -> }
       .show()
   }

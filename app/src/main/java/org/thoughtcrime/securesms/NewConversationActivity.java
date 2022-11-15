@@ -29,6 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
@@ -52,6 +53,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LifecycleDisposable;
+import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
 
 import java.io.IOException;
@@ -109,7 +111,7 @@ public class NewConversationActivity extends ContactSelectionActivity
     } else {
       Log.i(TAG, "[onContactSelected] Maybe creating a new recipient.");
 
-      if (SignalStore.account().isRegistered() && NetworkConstraint.isMet(getApplication())) {
+      if (SignalStore.account().isRegistered()) {
         Log.i(TAG, "[onContactSelected] Doing contact refresh.");
 
         AlertDialog progress = SimpleProgressDialog.show(this);
@@ -124,16 +126,30 @@ public class NewConversationActivity extends ContactSelectionActivity
               resolved = Recipient.resolved(resolved.getId());
             } catch (IOException e) {
               Log.w(TAG, "[onContactSelected] Failed to refresh directory for new contact.");
+              return null;
             }
           }
 
           return resolved;
         }, resolved -> {
           progress.dismiss();
-          launch(resolved);
+
+          if (resolved != null) {
+            if (resolved.isRegistered() && resolved.hasServiceId()) {
+              launch(resolved);
+            } else {
+              new MaterialAlertDialogBuilder(this)
+                  .setMessage(getString(R.string.NewConversationActivity__s_is_not_a_signal_user, resolved.getDisplayName(this)))
+                  .setPositiveButton(android.R.string.ok, null)
+                  .show();
+            }
+          } else {
+            new MaterialAlertDialogBuilder(this)
+                .setMessage(R.string.NetworkFailure__network_error_check_your_connection_and_try_again)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+          }
         });
-      } else {
-        launch(Recipient.external(this, number));
       }
     }
 
@@ -213,7 +229,7 @@ public class NewConversationActivity extends ContactSelectionActivity
   }
 
   @Override
-  public boolean onLongClick(ContactSelectionListItem contactSelectionListItem) {
+  public boolean onLongClick(ContactSelectionListItem contactSelectionListItem, RecyclerView recyclerView) {
     RecipientId recipientId = contactSelectionListItem.getRecipientId().orElse(null);
     if (recipientId == null) {
       return false;
@@ -229,7 +245,10 @@ public class NewConversationActivity extends ContactSelectionActivity
         .preferredHorizontalPosition(SignalContextMenu.HorizontalPosition.START)
         .offsetX((int) DimensionUnit.DP.toPixels(12))
         .offsetY((int) DimensionUnit.DP.toPixels(12))
+        .onDismiss(() -> recyclerView.suppressLayout(false))
         .show(actions);
+
+    recyclerView.suppressLayout(true);
 
     return true;
   }
@@ -260,16 +279,20 @@ public class NewConversationActivity extends ContactSelectionActivity
       return null;
     }
 
-    return new ActionItem(
-        R.drawable.ic_phone_right_24,
-        getString(R.string.NewConversationActivity__audio_call),
-        R.color.signal_colorOnSurface,
-        () -> CommunicationActions.startVoiceCall(this, recipient)
-    );
+    if (recipient.isRegistered()) {
+      return new ActionItem(
+          R.drawable.ic_phone_right_24,
+          getString(R.string.NewConversationActivity__audio_call),
+          R.color.signal_colorOnSurface,
+          () -> CommunicationActions.startVoiceCall(this, recipient)
+      );
+    } else {
+      return null;
+    }
   }
 
   private @Nullable ActionItem createVideoCallActionItem(@NonNull Recipient recipient) {
-    if (recipient.isSelf() || recipient.isMmsGroup()) {
+    if (recipient.isSelf() || recipient.isMmsGroup() || !recipient.isRegistered()) {
       return null;
     }
 
@@ -315,7 +338,8 @@ public class NewConversationActivity extends ContactSelectionActivity
                                               recipient,
                                               () -> {
                                                 disposables.add(viewModel.blockContact(recipient).subscribe(() -> {
-                                                  displaySnackbar(R.string.NewConversationActivity__s_has_been_removed);
+                                                  displaySnackbar(R.string.NewConversationActivity__s_has_been_blocked, recipient.getDisplayName(this));
+                                                  contactsFragment.reset();
                                                 }));
                                               })
     );
@@ -339,7 +363,7 @@ public class NewConversationActivity extends ContactSelectionActivity
         .setPositiveButton(R.string.NewConversationActivity__remove,
                            (dialog, which) -> {
                              disposables.add(viewModel.hideContact(recipient).subscribe(() -> {
-                               displaySnackbar(R.string.NewConversationActivity__s_has_been_removed);
+                               displaySnackbar(R.string.NewConversationActivity__s_has_been_removed, recipient.getDisplayName(this));
                              }));
                            }
         )
@@ -347,7 +371,7 @@ public class NewConversationActivity extends ContactSelectionActivity
         .show();
   }
 
-  private void displaySnackbar(@StringRes int message) {
-    Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
+  private void displaySnackbar(@StringRes int message, Object ... formatArgs) {
+    Snackbar.make(findViewById(android.R.id.content), getString(message, formatArgs), Snackbar.LENGTH_SHORT).show();
   }
 }

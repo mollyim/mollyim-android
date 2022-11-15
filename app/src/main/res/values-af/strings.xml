@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- smartling.instruction_comments_enabled = on -->
 <resources>
     <!-- <string name="app_name" translatable="false">Signal</string> -->
 
@@ -11,6 +12,7 @@
     <string name="sustainer_boost_and_badges" translatable="false">https://support.signal.org/hc/articles/4408365318426</string>
     <string name="google_pay_url" translatable="false">https://pay.google.com</string>
     <string name="donation_decline_code_error_url" translatable="false">https://support.signal.org/hc/articles/4408365318426#errors</string>
+    <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string>
     <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string>
     <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string>
 
@@ -103,6 +105,14 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly benodig die Berging-toestemming om foto\'s, videos of klank aan te heg, maar dit is permanent geweier. Gaan asseblief na die programinstellingsmenu, kies \"Toestemmings\" en aktiveer \"Berging\".</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly benodig toestemming vir Kontakte om kontakinligting aan te heg, maar dit is permanent geweier. Gaan asseblief na die programinstellingsmenu, kies \"Toestemmings\" en aktiveer \"Kontakte\".</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly benodig toestemming vir Plek om \'n plek aan te heg, maar dit is permanent geweier. Gaan asseblief na die programinstellingsmenu, kies \"Toestemmings\" en aktiveer \"Plek\".</string>
+    <!-- Alert dialog title to show the recipient has not activated payments -->
+    <string name="AttachmentManager__not_activated_payments">%1$s hasn\'t activated Payments </string>
+    <!-- Alert dialog description to send the recipient a request to activate payments -->
+    <string name="AttachmentManager__request_to_activate_payments">Do you want to send them a request to activate Payments?</string>
+    <!-- Alert dialog button to send request -->
+    <string name="AttachmentManager__send_request">Send request</string>
+    <!-- Alert dialog button to cancel dialog -->
+    <string name="AttachmentManager__cancel">Kanselleer</string>
 
     <!-- AttachmentUploadJob -->
     <string name="AttachmentUploadJob_uploading_media">Laai tans media op…</string>
@@ -123,6 +133,35 @@
     <string name="BlockedUsersActivity__do_you_want_to_unblock_s">Wil jy \"%1$s\" ontsper?</string>
     <string name="BlockedUsersActivity__unblock">Ontsper</string>
 
+    <!-- CreditCardFragment -->
+    <!-- Title of fragment detailing the donation amount, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__donation_amount_s">Skenkingsbedrag: %1$s</string>
+    <!-- Explanation of how to fill in the form, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__enter_your_card_information_below">Voer jou kaartinligting hier onder in</string>
+    <!-- Displayed as a hint in the card number text field -->
+    <string name="CreditCardFragment__card_number">Kaartnommer</string>
+    <!-- Displayed as a hint in the card expiry text field -->
+    <string name="CreditCardFragment__mm_yy">MM/JJ</string>
+    <!-- Displayed as a hint in the card cvv text field -->
+    <string name="CreditCardFragment__cvv">CVV</string>
+    <!-- Error displayed under the card number text field when there is an invalid card number entered -->
+    <string name="CreditCardFragment__invalid_card_number">Ongeldige kaartnommer</string>
+    <!-- Error displayed under the card expiry text field when the card is expired -->
+    <string name="CreditCardFragment__card_has_expired">Kaart het verval</string>
+    <!-- Error displayed under the card cvv text field when the cvv is too short -->
+    <string name="CreditCardFragment__code_is_too_short">Kode is te kort</string>
+    <!-- Error displayed under the card cvv text field when the cvv is too long -->
+    <string name="CreditCardFragment__code_is_too_long">Kode is te lank</string>
+    <!-- Error displayed under the card cvv text field when the cvv is invalid -->
+    <string name="CreditCardFragment__invalid_code">Ongeldige kode</string>
+    <!-- Error displayed under the card expiry text field when the expiry month is invalid -->
+    <string name="CreditCardFragment__invalid_month">Ongeldige maand</string>
+    <!-- Error displayed under the card expiry text field when the expiry is missing the year -->
+    <string name="CreditCardFragment__year_required">Jaar vereis</string>
+    <!-- Error displayed under the card expiry text field when the expiry year is invalid -->
+    <string name="CreditCardFragment__invalid_year">Ongeldige jaar</string>
+    <!-- Button label to confirm credit card input and proceed with payment -->
+    <string name="CreditCardFragment__continue">Gaan voort</string>
 
     <!-- BlockUnblockDialog -->
     <string name="BlockUnblockDialog_block_and_leave_s">Versper en verlaat %1$s?</string>
@@ -219,8 +258,8 @@
     <string name="ContactsCursorLoader_find_by_username">Vind volgens gebruikersnaam</string>
     <!-- Label for my stories when selecting who to send media to -->
     <string name="ContactsCursorLoader_my_stories">My Stories</string>
-    <!-- Action for creating a new story -->
-    <string name="ContactsCursorLoader_new_story">Nuwe storie</string>
+    <!-- Text for a button that brings up a bottom sheet to create a new story. -->
+    <string name="ContactsCursorLoader_new">Nuut</string>
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Boodskap %1$s</string>
@@ -268,6 +307,18 @@
     <string name="ConversationItem_pending">  Hangend</string>
     <string name="ConversationItem_this_message_was_deleted">Hierdie boodskap is geskrap.</string>
     <string name="ConversationItem_you_deleted_this_message">Jy het hierdie boodskap geskrap.</string>
+    <!-- Dialog error message shown when user can't download a message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_message_s_will_need_to_send_it_again">Kan nie boodskap aflaai nie. %1$s sal dit weer moet stuur.</string>
+    <!-- Dialog error message shown when user can't download an image message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_image_s_will_need_to_send_it_again">Kan nie beeld aflaai nie. %1$s sal dit weer moet stuur.</string>
+    <!-- Dialog error message shown when user can't download a video message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_video_s_will_need_to_send_it_again">Kan nie video aflaai nie. %1$s sal dit weer moet stuur.</string>
+    <!-- Dialog error message shown when user can't download a their own message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_message_you_will_need_to_send_it_again">Kan nie boodskap aflaai nie. Jy sal dit weer moet stuur.</string>
+    <!-- Dialog error message shown when user can't download a their own image message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">Kan nie beeld aflaai nie. Jy sal dit weer moet stuur.</string>
+    <!-- Dialog error message shown when user can't download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">Kan nie video aflaai nie. Jy sal dit weer moet stuur.</string>
 
     <!-- ConversationActivity -->
     <string name="ConversationActivity_add_attachment">Voeg aanhangsel toe</string>
@@ -342,6 +393,21 @@
     <string name="ConversationActivity_error_sending_media">Kon nie media stuur nie</string>
 
     <string name="ConversationActivity__reported_as_spam_and_blocked">As gemorspos gerapporteer en versper.</string>
+
+    <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
+    <string name="ConversationActivity__sms_messaging_is_currently_disabled_you_can_export_your_messages_to_another_app_on_your_phone">SMS-boodskappe is tans gedeaktiveer. Jy kan jou boodskappe na \'n ander toepassing op jou foon uitvoer.</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
+    <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_you_can_export_your_messages_to_another_app_on_your_phone">SMS-boodskappe word nie meer in Signal ondersteun nie. Jy kan jou boodskappe na \'n ander toepassing op jou foon uitvoer.</string>
+    <!-- Action button shown when in sms conversation, sms is disabled, and unexported sms messages are present -->
+    <string name="ConversationActivity__export_sms_messages">Voer SMS-boodskappe uit</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__sms_messaging_is_currently_disabled_invite_s_to_to_signal_to_keep_the_conversation_here">SMS-boodskappe is tans gedeaktiveer. Nooi %1$s na Signal om die gesprek hier te hou.</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">SMS-boodskappe word nie meer in Signal ondersteun nie. Nooi %1$s na Signal om die gesprek hier te hou.</string>
+    <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__invite_to_signal">Nooi na Signal</string>
+    <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we'll do it again soon -->
+    <string name="ConversationActivity__you_will_be_reminded_again_soon">Jy sal binnekort weer hieraan herinner word.</string>
 
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
@@ -802,11 +868,13 @@
     <string name="AddGroupDetailsFragment__this_field_is_required">Hierdie veld word vereis.</string>
     <string name="AddGroupDetailsFragment__group_creation_failed">Groepskepping misluk.</string>
     <string name="AddGroupDetailsFragment__try_again_later">Probeer later weer.</string>
-    <!-- Displayed when adding group details to an MMS Group -->
-    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Jy het \'n kontak gekies wat nie Signal-groepe ondersteun nie, dus sal hierdie groep \'n MMS-groep wees. Pasgemaakte MMS-groepname en foto\'s sal slegs vir jou sigbaar wees.</string>
     <string name="AddGroupDetailsFragment__remove">Verwyder</string>
     <string name="AddGroupDetailsFragment__sms_contact">SMS-kontak</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Verwyder %1$s uit die groep?</string>
+    <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
+    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Jy het \'n kontak gekies wat nie Signal-groepe ondersteun nie, dus sal hierdie groep \'n MMS-groep wees. Pasgemaakte MMS-groepname en foto\'s sal slegs vir jou sigbaar wees.</string>
+    <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
+    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support_signal_groups_mms_removal">You\'ve selected a contact that doesn\'t support Signal groups, this group will be MMS. Custom MMS group names and photos will only be visible to you. Support for MMS groups will be removed soon to focus on encrypted messaging.</string>
 
     <!-- ManageGroupActivity -->
     <string name="ManageGroupActivity_member_requests_and_invites">Ledeversoeke &amp; uitnodigings</string>
@@ -990,6 +1058,8 @@
 
     <!-- InputPanel -->
     <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Tik en hou om \'n stemboodskap op te neem, los om te stuur</string>
+    <!-- Message shown if the user tries to switch a conversation from Signal to SMS -->
+    <string name="InputPanel__sms_messaging_is_no_longer_supported_in_signal">SMS-boodskappe word nie meer in Signal ondersteun nie.</string>
 
     <!-- InviteActivity -->
     <string name="InviteActivity_share">Deel</string>
@@ -1349,6 +1419,14 @@
     <string name="MessageRecord_your_message_history_with_s_and_their_number_s_has_been_merged">Jou boodskapgeskiedenis met %1$s en hul nommer %2$s is saamgevoeg.</string>
     <!-- Update item message shown when we merge two threads together and we don't know the phone number of the other thread -->
     <string name="MessageRecord_your_message_history_with_s_and_another_chat_has_been_merged">Jou boodskapgeskiedenis met %1$s en \'n ander klets wat aan hulle behoort het, is saamgevoeg.</string>
+    <!-- Message to notify sender that activate payments request has been sent to the recipient -->
+    <string name="MessageRecord_you_sent_request">You sent %1$s a request to activate Payments</string>
+    <!-- Request message from recipient to activate payments -->
+    <string name="MessageRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments. Only send payments to people you trust.</string>
+    <!-- Message to inform user that payments was activated-->
+    <string name="MessageRecord_you_activated_payments">You activated Payments</string>
+    <!-- Message to inform sender that recipient can now accept payments -->
+    <string name="MessageRecord_can_accept_payments">%1$s can now accept Payments</string>
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s het ’n groepoproep begin · %2$s</string>
@@ -1374,6 +1452,11 @@
         <item quantity="one">%1$s, %2$s en %3$d ander is in die groepoproep</item>
         <item quantity="other">%1$s, %2$s en %3$d ander is in die groepoproep</item>
     </plurals>
+
+    <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+    <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Jy sal binnekort nie meer SMS-boodskappe vanaf Signal kan stuur nie. Nooi %1$s na Signal om die gesprek hier te hou.</string>
+    <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Jy kan nie meer SMS-boodskappe in Molly stuur nie. Nooi %1$s na Molly om die gesprek hier te hou.</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Aanvaar</string>
@@ -1832,6 +1915,14 @@
     <string name="ThreadRecord_view_once_media">Eenkeerkyk-media</string>
     <string name="ThreadRecord_this_message_was_deleted">Hierdie boodskap is geskrap</string>
     <string name="ThreadRecord_you_deleted_this_message">Jy het hierdie boodskap geskrap</string>
+    <!-- Displayed in the notification when the user sends a request to activate payments -->
+    <string name="ThreadRecord_you_sent_request">You sent a request to activate Payments</string>
+    <!-- Displayed in the notification when the recipient wants to activate payments -->
+    <string name="ThreadRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments</string>
+    <!-- Displayed in the notification when the user activates payments -->
+    <string name="ThreadRecord_you_activated_payments">You activated Payments</string>
+    <!-- Displayed in the notification when the recipient can accept payments -->
+    <string name="ThreadRecord_can_accept_payments">%1$s can now accept Payments</string>
     <string name="ThreadRecord_s_is_on_signal">%1$s is op Signal!</string>
     <string name="ThreadRecord_disappearing_messages_disabled">Verdwynboodskappe gedeaktiveer</string>
     <string name="ThreadRecord_disappearing_message_time_updated_to_s">Verdwynboodskaptyd is ingestel op %1$s</string>
@@ -1961,6 +2052,7 @@
     <string name="MediaPreviewActivity_media_no_longer_available">Media nie meer beskikbaar nie.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Kan nie \'n toepassing vind wat hierdie media kan deel nie.</string>
     <string name="MediaPreviewActivity_dismiss_due_to_error">Maak toe</string>
+    <string name="MediaPreviewFragment_edit_media_error">Mediafout</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d nuwe boodskappe in %2$d gesprekke</string>
@@ -2012,6 +2104,9 @@
     <string name="NotificationChannel_background_connection">Agtergrondverbinding</string>
     <!-- Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing. -->
     <string name="NotificationChannel_call_status">Oproepstatus</string>
+    <!-- Notification channel name for occasional alerts to the user. Will appear in the system notification settings as the title of this notification channel. -->
+    <string name="NotificationChannel_critical_app_alerts">Kritieke toepassingswaarskuwings</string>
+
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
@@ -2054,6 +2149,12 @@
     <!-- UnauthorizedReminder -->
     <string name="UnauthorizedReminder_device_no_longer_registered">Toestel nie meer geregistreer nie</string>
     <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Jy het waarskynlik jou foonnommer op ’n ander toestel by Signal geregistreer. Tik om te herregistreer.</string>
+
+    <!-- EnclaveFailureReminder -->
+    <!-- Banner message to update app to use payments -->
+    <string name="EnclaveFailureReminder_update_signal">Update Signal to continue using payments. Your balance may not be up-to-date.</string>
+    <!-- Banner button to update now -->
+    <string name="EnclaveFailureReminder_update_now">Werk nou by</string>
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Om die oproep te beantwoord, gee Molly toegang tot jou mikrofoon.</string>
@@ -2184,6 +2285,11 @@
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Die verdwynboodskaptyd sal op %1$s gestel word wanneer jy ’n boodskap aan hulle stuur.</string>
     <!-- Update item button text to show to boost a feature -->
     <string name="ConversationUpdateItem_donate">Skenk</string>
+    <!-- Update item button text to send payment -->
+    <string name="ConversationUpdateItem_send_payment">Stuur betaling</string>
+    <!-- Update item button text to activate payments -->
+    <string name="ConversationUpdateItem_activate_payments">Aktiveer betalings</string>
+
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Speel … pouseer</string>
@@ -2484,7 +2590,7 @@
     <string name="HelpFragment__debug_log">Ontfouting-log:</string>
     <string name="HelpFragment__could_not_upload_logs">Kon nie logge oplaai nie</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Wees so beskrywend as moontlik om ons te help verstaan wat die probleem is.</string>
-    <string-array name="HelpFragment__categories_4">
+    <string-array name="HelpFragment__categories_5">
         <item>\\-\\- Kies asb. \'n opsie \\-\\-</item>
         <item>Iets Werk Nie</item>
         <item>Funksieversoek</item>
@@ -2493,6 +2599,7 @@
         <item>Ander</item>
         <item>Betalings (MobileCoin)</item>
         <item>Skenkings &amp; Wapens</item>
+        <item>SMS-uitvoer</item>
     </string-array>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
@@ -2558,6 +2665,10 @@
     <string name="preferences__pressing_the_enter_key_will_send_text_messages">Druk die Invoersleutel om teksboodskappe te stuur</string>
     <string name="preferences__pref_use_address_book_photos">Gebruik adresboekfoto\'s</string>
     <string name="preferences__display_contact_photos_from_your_address_book_if_available">Vertoon foto\'s van jou adresboek indien beskikbaar</string>
+    <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__pref_keep_muted_chats_archived">Keep Muted Chats Archived</string>
+    <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Muted chats that are archived will remain archived when a new message arrives.</string>
     <string name="preferences__generate_link_previews">Genereer skakelvoorskoue</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Haal skakelvoorskoue direk van die webwerwe af vir boodskappe wat jy stuur.</string>
     <string name="preferences__choose_identity">Kies identiteit</string>
@@ -2751,7 +2862,7 @@
     <!-- Internal only preferences -->
     <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
     <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
-    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
+    <string name="preferences__internal_delete_custom_story" translatable="false">Delete custom story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
@@ -2908,6 +3019,14 @@
     <string name="PaymentsHomeFragment__enable">Aktiveer</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Nie nou nie</string>
+    <!-- Alert dialog title which shows up to update app to send payments -->
+    <string name="PaymentsHomeFragment__update_required">Update required</string>
+    <!-- Alert dialog description that app update is required to send payments-->
+    <string name="PaymentsHomeFragment__an_update_is_required">An update is required to continue sending and receiving payments, and to view your up-to-date payment balance.</string>
+    <!-- Alert dialog button to cancel -->
+    <string name="PaymentsHomeFragment__cancel">Kanselleer</string>
+    <!-- Alert dialog button to update now -->
+    <string name="PaymentsHomeFragment__update_now">Werk nou by</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -3175,6 +3294,8 @@
     <string name="media_preview__forward_title">Stuur aan</string>
     <string name="media_preview__share_title">Deel</string>
     <string name="media_preview__all_media_title">Alle media</string>
+    <string name="media_preview__edit_title">Wysig</string>
+
 
     <!-- media_preview_activity -->
     <string name="media_preview_activity__media_content_description">Media-voorskou</string>
@@ -3326,7 +3447,7 @@
     <string name="PushDecryptJob_new_locked_message">Nuwe gesluite boodskap</string>
     <string name="PushDecryptJob_unlock_to_view_pending_messages">Ontsluit om na hangende boodskappe te kyk</string>
     <string name="enter_backup_passphrase_dialog__backup_passphrase">Rugsteun-wagwoordfrase</string>
-    <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Rugsteunkopiëe sal in eksterne stoorruimte gestoor word en met die wagwoordfrase hieronder geënkripteer word. Jy moet hierdie wagwoordfrase hê om \'n rugsteun te herwin.</string>
+    <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Rugsteunkopiëe sal in eksterne stoorruimte gestoor word en met die wagwoordfrase hier onder geënkripteer word. Jy moet hierdie wagwoordfrase hê om \'n rugsteun te herwin.</string>
     <string name="backup_enable_dialog__you_must_have_this_passphrase">Jy moet hierdie wagwoordfrase hê om \'n rugsteun te herwin.</string>
     <string name="backup_enable_dialog__folder">Vouer</string>
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Ek het hierdie wagwoordfrase neergeskryf. Daarsonder sal ek nie \'n rugsteun kan herwin nie.</string>
@@ -3468,7 +3589,7 @@
     <string name="DeviceTransferSetup__retry">Probeer weer</string>
     <string name="DeviceTransferSetup__submit_debug_logs">Dien ontfouting-logs in</string>
     <string name="DeviceTransferSetup__verify_code">Verifieer kode</string>
-    <string name="DeviceTransferSetup__verify_that_the_code_below_matches_on_both_of_your_devices">Verifieer dat die kode hieronder op albei jou toestelle ooreenstem. Tik dan Gaan voort.</string>
+    <string name="DeviceTransferSetup__verify_that_the_code_below_matches_on_both_of_your_devices">Verifieer dat die kode hier onder op albei jou toestelle ooreenstem. Tik dan Gaan voort.</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Die nommers stem nie ooreen nie</string>
     <string name="DeviceTransferSetup__continue">Gaan voort</string>
     <string name="DeviceTransferSetup__number_is_not_the_same">Nommer is nie dieselfde nie</string>
@@ -3617,7 +3738,7 @@
     <string name="ReviewCardDialogFragment__review_members">Hersien lede</string>
     <string name="ReviewCardDialogFragment__review_request">Hersien versoek</string>
     <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d groeplede het dieselfde naam, hersien die lede hier onder en kies ’n aksie om te neem.</string>
-    <string name="ReviewCardDialogFragment__if_youre_not_sure">Indien jy onseker is oor die sender van die versoek, kan jy die kontakte hieronder nagaan en aksie neem.</string>
+    <string name="ReviewCardDialogFragment__if_youre_not_sure">Indien jy onseker is oor die sender van die versoek, kan jy die kontakte hier onder nagaan en aksie neem.</string>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Geen ander groepe in gemeen.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Geen groepe in gemeen nie.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
@@ -3798,7 +3919,10 @@
     <!-- Title in save recovery phrase screen -->
     <string name="PaymentsRecoveryStartFragment__save_recovery_phrase">Stoor herwinfrase</string>
     <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Voer herwinfrase in</string>
-    <string name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">Jou balans sal outomaties teruggestel word wanneer jy Signal herinstalleer as jy jou Signal-PIN bevestig. Jy kan ook jou balans terugstel deur ’n herwinfrase, ’n %1$d-woord frase wat uniek is vir jou, te gebruik. Skryf dit neer en bewaar dit veilig.</string>
+    <plurals name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">
+        <item quantity="one">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+        <item quantity="other">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+    </plurals>
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">Jy het \'n beskikbare saldo! Dis tyd om jou herwinfrase te stoor—\'n sleutel van 24 woorde wat jy kan gebruik om jou saldo te herwin.</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
@@ -3971,6 +4095,12 @@
     <string name="SmsSettingsFragment__removing_sms_messages_from_signal">Besig om SMS-boodskappe uit Signal te verwyder…</string>
     <!-- Snackbar text to indicate can delete later -->
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Jy kan in Instellings te eniger tyd SMS-boodskappe uit Signal verwyder.</string>
+    <!-- Description for export sms preference -->
+    <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Jy kan jou SMS\'e na jou foon se SMS-databasis uitvoer</string>
+    <!-- Description for remove sms preference -->
+    <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Verwyder SMS-boodskappe uit Signal om stoorruimte beskikbaar te stel.</string>
+    <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
+    <string name="SmsSettingsFragment__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">SMS-ondersteuning sal binnekort verwyder word om op geënkripteerde boodskappe te fokus.</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">Boodskappe</string>
@@ -4231,6 +4361,8 @@
     <string name="NewConversationActivity__this_person_is_saved_to_your">Hierdie persoon is in jou toestel se kontakte gestoor. Skrap hulle uit jou kontakte en probeer weer.</string>
     <!-- Dialog action to view contact when they can't be removed otherwise -->
     <string name="NewConversationActivity__view_contact">Bekyk kontak</string>
+    <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
+    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s is nie \'n Signal-gebruiker nie</string>
 
     <!-- ContactFilterView -->
     <string name="ContactFilterView__search_name_or_number">Soek vir naam of nommer</string>
@@ -4354,10 +4486,8 @@
 
     <string name="ImageView__badge">Wapen</string>
 
-    <string name="SubscribeFragment__signal_is_powered_by_people_like_you">Signal word aangedryf deur mense soos jy.</string>
     <string name="SubscribeFragment__support_technology_that_is_built_for_you">Steun die tegnologie wat vir jou—nie vir jou data nie—gebou is deur aan te sluit by die mense wat dit onderhou.</string>
     <string name="SubscribeFragment__support_technology_that_is_built_for_you_not">Steun die tegnologie wat vir jou, nie vir jou data nie, gebou is deur aan te sluit by die gemeenskap wat Signal onderhou.</string>
-    <string name="SubscribeFragment__make_a_recurring_monthly_donation">Maak \'n herhalende maandelikse skenking aan Signal om tegnologie te ondersteun wat vir jou gebou is, nie vir jou data nie.</string>
     <string name="SubscribeFragment__currency">Geldeenheid</string>
     <string name="SubscribeFragment__more_payment_options">Nog betaalopsies</string>
     <string name="SubscribeFragment__cancel_subscription">Kanselleer intekening</string>
@@ -4372,8 +4502,10 @@
     <string name="SubscribeFragment__you_will_be_charged_the_full_amount_s_of">Die volle bedrag (%1$s) van die nuwe intekeningprys sal vandag gehef word. Jou intekening sal maandeliks hernieu.</string>
 
     <string name="Subscription__s_per_month">%1$s/maand</string>
-    <string name="Subscription__s_per_month_dot_renews_s">%1$s/maand · Hernieu %2$s</string>
-    <string name="Subscription__s_per_month_dot_expires_s">%1$s/maand · Verstryk %2$s</string>
+    <!-- Shown when a subscription is active and isn't going to expire at the end of the term -->
+    <string name="Subscription__renews_s">Hernieu %1$s</string>
+    <!-- Shown when a subscription is active and is going to expire at the end of the term -->
+    <string name="Subscription__expires_s">Verstryk %1$s</string>
 
     <!-- First small text blurb on learn more sheet -->
     <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_nonprofit_with_no">Signal is \'n niewinsgewende organisasie met geen adverteerders of beleggers nie en word onderhou slegs deur die mense wat dit gebruik en waardeer. Maak \'n herhalende maandelikse skenking en ontvang \'n profielwapen om jou ondersteuning te deel.</string>
@@ -4389,20 +4521,20 @@
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">’n maandelikse onderhouer word.</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Vertoon op profiel</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Maak vertoonwapen</string>
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Klaar</string>
+    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__continue">Gaan voort</string>
     <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Wanneer jy meer as een wapen het, kan jy een kies om te vertoon sodat ander dit op jou profielprent kan sien.</string>
 
     <string name="BecomeASustainerFragment__get_badges">Kry wapens vir jou profiel deur Signal te ondersteun.</string>
     <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal is ’n niewinsgewende organisasie sonder adverteerders of beleggers en word slegs deur mense soos jy ondersteun.</string>
 
-    <!-- Button label for creating a monthly donation -->
-    <string name="ManageDonationsFragment__make_a_monthly_donation">Maak \'n maandelikse skenking</string>
+    <!-- Button label for creating a donation -->
+    <string name="ManageDonationsFragment__donate_to_signal">Skenk aan Signal</string>
     <!-- Heading for more area of manage subscriptions page -->
     <string name="ManageDonationsFragment__more">Meer</string>
     <!-- Heading for receipts area of manage subscriptions page -->
     <string name="ManageDonationsFragment__receipts">Kwitansies</string>
     <!-- Heading for my subscription area of manage subscriptions page -->
-    <string name="ManageDonationsFragment__my_subscription">My intekening</string>
+    <string name="ManageDonationsFragment__my_support">My steun</string>
     <string name="ManageDonationsFragment__manage_subscription">Bestuur intekening</string>
     <!-- Label for Donation Receipts button -->
     <string name="ManageDonationsFragment__donation_receipts">Skenkingskwitansies</string>
@@ -4414,16 +4546,12 @@
     <!-- Preference label to launch badge gifting -->
     <string name="ManageDonationsFragment__gift_a_badge">Gee ’n wapen as geskenk</string>
 
-    <string name="BoostFragment__give_signal_a_boost">Gee Signal ’n Hupstoot</string>
-    <!-- Description text in boost sheet -->
-    <string name="BoostFragment__make_a_one_time">Maak \'n eenmalige skenking en verdien \'n Hupstoot-wapen vir %1$d dae.</string>
-
     <string name="Boost__enter_custom_amount">Voer eie bedrag in</string>
     <string name="Boost__one_time_contribution">Eenmalige bydrae</string>
 
     <string name="MySupportPreference__add_a_signal_boost">Voeg ’n Signal-hupstoot by</string>
     <string name="MySupportPreference__s_per_month">%1$s/maand</string>
-    <string name="MySupportPreference__renews_s">Hernieu%1$s</string>
+    <string name="MySupportPreference__renews_s">Hernieu %1$s</string>
     <string name="MySupportPreference__processing_transaction">Transaksie word verwerk…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">Kon nie wapen byvoeg nie. %1$s</string>
@@ -4458,7 +4586,7 @@
 
     <string name="Subscription__please_contact_support_for_more_information">Kontak die steundiens vir meer inligting.</string>
     <string name="Subscription__contact_support">Kontak steundiens</string>
-    <string name="Subscription__earn_a_s_badge">Verdien ’n %1$s-wapen</string>
+    <string name="Subscription__get_a_s_badge">Kry ’n %1$s-wapen</string>
 
     <string name="SubscribeFragment__processing_payment">Betaling word verwerk…</string>
     <!-- Displayed in notification when user payment fails to process on Stripe -->
@@ -4732,7 +4860,7 @@
     <!-- Title for "My Stories" row item in Stories landing page -->
     <string name="StoriesLandingFragment__my_stories">My Stories</string>
     <!-- Subtitle for "My Stories" row item when user has not added stories -->
-    <string name="StoriesLandingFragment__tap_to_add_a_story">Tik om \'n storie by te voeg</string>
+    <string name="StoriesLandingFragment__tap_to_add">Tik om by te voeg</string>
     <!-- Displayed when there are no stories to display -->
     <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now">Geen onlangse bywerking om te wys nie.</string>
     <!-- Context menu option to hide a story -->
@@ -4846,11 +4974,11 @@
     <string name="MyStorySettingsFragment__my_story">My Storie</string>
     <!-- Number of total signal connections displayed in "All connections" row item -->
     <plurals name="MyStorySettingsFragment__viewers">
-        <item quantity="one">%1$d viewer</item>
-        <item quantity="other">%1$d viewers</item>
+        <item quantity="one">%1$d kyker</item>
+        <item quantity="other">%1$d kykers</item>
     </plurals>
     <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
-    <string name="MyStorySettingsFragment__view">View</string>
+    <string name="MyStorySettingsFragment__view">Bekyk</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Wie hierdie storie kan sien</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -4897,25 +5025,25 @@
     <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Hulle in jou stelselkontakte te hê</string>
     <!-- Note at the bottom of the Signal connections sheet -->
     <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Jou verbindings kan jou naam en foto sien, en kan plasings in \"My Storie\" sien, tensy jy dit vir hulle versteek."</string>
-    <!-- Clickable option to add a viewer to a private story -->
+    <!-- Clickable option to add a viewer to a custom story -->
     <string name="PrivateStorySettingsFragment__add_viewer">Voeg kyker by</string>
     <!-- Clickable option to delete a custom story -->
-    <string name="PrivateStorySettingsFragment__delete_private_story">Skrap privaatstorie</string>
-    <!-- Dialog title when attempting to remove someone from a private story -->
+    <string name="PrivateStorySettingsFragment__delete_custom_story">Skrap pasgemaakte storie</string>
+    <!-- Dialog title when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__remove_s">Verwyder %1$s?</string>
-    <!-- Dialog message when attempting to remove someone from a private story -->
+    <!-- Dialog message when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__this_person_will_no_longer">Hierdie persoon sal nie meer jou storie sien nie.</string>
-    <!-- Positive action label when attempting to remove someone from a private story -->
+    <!-- Positive action label when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__remove">Verwyder</string>
-    <!-- Dialog title when deleting a private story -->
+    <!-- Dialog title when deleting a custom story -->
     <string name="PrivateStorySettingsFragment__are_you_sure">Is jy seker?</string>
-    <!-- Dialog message when deleting a private story -->
+    <!-- Dialog message when deleting a custom story -->
     <string name="PrivateStorySettingsFragment__this_action_cannot">Hierdie aksie kan nie ongedaan gemaak word nie.</string>
-    <!-- Page title for editing a private story name -->
+    <!-- Page title for editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__edit_story_name">Wysig naam van storie</string>
-    <!-- Input field hint when editing a private story name -->
+    <!-- Input field hint when editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__story_name">Naam van storie</string>
-    <!-- Save button label when editing a private story name -->
+    <!-- Save button label when editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__save">Stoor</string>
     <!-- Displayed in text post creator before user enters text -->
     <string name="TextStoryPostCreationFragment__tap_to_add_text">Tik om teks by te voeg</string>
@@ -4937,6 +5065,8 @@
     <string name="TextStoryPostSendFragment__search">Soek</string>
     <!-- Toast shown when an unexpected error occurs while sending a text story -->
     <string name="TextStoryPostSendFragment__an_unexpected_error_occurred_try_again">’n Onverwagse fout het voorgekom.</string>
+    <!-- Toast shown when a trying to add a link preview to a text story post and the link/url is not valid (e.g., missing .com at the end) -->
+    <string name="TextStoryPostSendFragment__please_enter_a_valid_link">Voer asseblief \'n geldige skakel in.</string>
     <!-- Title for screen allowing user to exclude "My Story" entries from specific people -->
     <string name="ChangeMyStoryMembershipFragment__all_except">Almal behalwe…</string>
     <!-- Title for screen allowing user to only share "My Story" entries with specific people -->
@@ -4949,11 +5079,11 @@
     <string name="StoryDialogs__s_will_be_removed">“%1$s” sal verwyder word.</string>
     <!-- Dialog positive action for removing a group story -->
     <string name="StoryDialogs__remove">Verwyder</string>
-    <!-- Dialog title for deleting a private story -->
-    <string name="StoryDialogs__delete_private_story">Skrap privaatstorie?</string>
-    <!-- Dialog message for deleting a private story -->
+    <!-- Dialog title for deleting a custom story -->
+    <string name="StoryDialogs__delete_custom_story">Skrap pasgemaakte storie?</string>
+    <!-- Dialog message for deleting a custom story -->
     <string name="StoryDialogs__s_and_updates_shared">\"%1$s\" en opdaterings wat in hierdie storie gedeel word, sal uitgevee word.</string>
-    <!-- Dialog positive action for deleting a private story -->
+    <!-- Dialog positive action for deleting a custom story -->
     <string name="StoryDialogs__delete">Skrap</string>
     <!-- Dialog title for first time sending something to a beta story -->
     <string name="StoryDialogs__stories_is_available_to">Stories is slegs vir Signal-beta-gebruikers beskikbaar.</string>
@@ -4988,6 +5118,8 @@
     </plurals>
     <!-- Name story screen title -->
     <string name="CreateStoryWithViewersFragment__name_story">Benoem storie</string>
+    <!-- Name story screen note under text field -->
+    <string name="CreateStoryWithViewersFragment__only_you_can">Slegs jy kan die naam van hierdie storie sien.</string>
     <!-- Name story screen label hint -->
     <string name="CreateStoryWithViewersFragment__story_name_required">Storie se naam (word vereis)</string>
     <!-- Name story screen viewers subheading -->
@@ -5003,7 +5135,7 @@
     <!-- Choose story type bottom sheet title -->
     <string name="ChooseStoryTypeBottomSheet__choose_your_story_type">Kies jou storietipe</string>
     <!-- Choose story type bottom sheet new story row title -->
-    <string name="ChooseStoryTypeBottomSheet__new_private_story">Nuwe privaatstorie</string>
+    <string name="ChooseStoryTypeBottomSheet__new_custom_story">Nuwe persoonlike storie</string>
     <!-- Choose story type bottom sheet new story row summary -->
     <string name="ChooseStoryTypeBottomSheet__visible_only_to">Slegs sigbaar vir spesifieke mense</string>
     <!-- Choose story type bottom sheet group story title -->
@@ -5020,6 +5152,8 @@
     <string name="StoryDirectReplyDialogFragment__sending_reply">Besig om antwoord te stuur…</string>
     <!-- Displayed in the viewer when a story is no longer available -->
     <string name="StorySlateView__this_story_is_no_longer_available">Hierdie storie is nie meer beskikbaar nie.</string>
+    <!-- Displayed in the viewer when a story has permanently failed to download. -->
+    <string name="StorySlateView__cant_download_story_s_will_need_to_share_it_again">Kan nie storie aflaai nie. %1$s sal dit weer moet deel.</string>
     <!-- Displayed in the viewer when the network is not available -->
     <string name="StorySlateView__no_internet_connection">Geen Internetverbinding nie</string>
     <!-- Displayed in the viewer when network is available but content could not be downloaded -->
@@ -5111,10 +5245,10 @@
     <string name="ExpiredGiftSheetConfiguration__not_now">Nie nou nie</string>
     <!-- My Story label designating that we will only share with the selected viewers. -->
     <string name="ContactSearchItems__only_share_with">Deel slegs met</string>
-    <!-- Label under name for private stories -->
-    <plurals name="ContactSearchItems__private_story_d_viewers">
-        <item quantity="one">Privaatstorie · %1$d kyker</item>
-        <item quantity="other">Private storie · %1$d kykers</item>
+    <!-- Label under name for custom stories -->
+    <plurals name="ContactSearchItems__custom_story_d_viewers">
+        <item quantity="one">Groepstorie · %1$d kyker</item>
+        <item quantity="other">Groepstorie · %1$d kykers</item>
     </plurals>
     <!-- Label under name for group stories -->
     <plurals name="ContactSearchItems__group_story_d_viewers">
@@ -5137,7 +5271,7 @@
     <string name="ContactSearchItems__story_settings">Storie-instellings</string>
     <!-- Label for context menu item to remove a group story from contact results -->
     <string name="ContactSearchItems__remove_story">Verwyder storie</string>
-    <!-- Label for context menu item to delete a private story -->
+    <!-- Label for context menu item to delete a custom story -->
     <string name="ContactSearchItems__delete_story">Skrap storie</string>
     <!-- Dialog title for removing a group story -->
     <string name="ContactSearchMediator__remove_group_story">Verwyder groepstorie?</string>
@@ -5145,11 +5279,11 @@
     <string name="ContactSearchMediator__this_will_remove">Dit sal die storie van hierdie lys af verwyder. Jy sal steeds na stories van hierdie groep kan kyk.</string>
     <!-- Dialog action item for removing a group story -->
     <string name="ContactSearchMediator__remove">Verwyder</string>
-    <!-- Dialog title for deleting a private story -->
+    <!-- Dialog title for deleting a custom story -->
     <string name="ContactSearchMediator__delete_story">Skrap storie?</string>
-    <!-- Dialog message for deleting a private story -->
-    <string name="ContactSearchMediator__delete_the_private">Skrap die privaatstorie \"%1$s\"?</string>
-    <!-- Dialog action item for deleting a private story -->
+    <!-- Dialog message for deleting a custom story -->
+    <string name="ContactSearchMediator__delete_the_custom">Skrap die pasgemaakte storie \"%1$s\"?</string>
+    <!-- Dialog action item for deleting a custom story -->
     <string name="ContactSearchMediator__delete">Skrap</string>
     <!-- Gift expiry days remaining -->
     <plurals name="Gifts__d_days_remaining">
@@ -5249,7 +5383,7 @@
 
     <!-- StoriesPrivacySettingsFragment -->
     <!-- Explanation about how stories are deleted and managed -->
-    <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">Stories verdwyn outomaties ná 24 uur. Kies wie na jou storie kan kyk of nuwe stories met spesifieke kykers of groepe kan skep.</string>
+    <string name="StoriesPrivacySettingsFragment__story_updates_automatically_disappear">Storieopdaterings verdwyn outomaties na 24 uur. Kies wie jou storie kan sien of nuwe stories met spesifieke kykers of groepe kan skep.</string>
     <!-- Preference title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories">Skakel stories af</string>
     <!-- Preference summary to turn off stories -->
@@ -5264,6 +5398,17 @@
     <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">Jy sal nie meer stories kan deel of sien nie. Storiebywerkings wat jy onlangs gedeel het, sal ook uitgevee word.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">Storieprivaatheid</string>
+    <!-- Header for section that lists out stories -->
+    <string name="StoriesPrivacySettingsFragment__stories">Stories</string>
+    <!-- Story views header -->
+    <string name="StoriesPrivacySettingsFragment__story_views">Storiekykslae</string>
+    <!-- Story view receipts toggle title -->
+    <string name="StoriesPrivacySettingsFragment__view_receipts">Kykbewyse</string>
+    <!-- Story view receipts toggle message -->
+    <string name="StoriesPrivacySettingsFragment__see_and_share">Sien en deel wanneer na stories gekyk word. As dit gedeaktiveer is, sal jy nie sien wanneer ander na jou storie kyk nie.</string>
+
+    <!-- NewStoryItem -->
+    <string name="NewStoryItem__new_story">Nuwe storie</string>
 
     <!-- GroupStorySettingsFragment -->
     <!-- Section header for who can view a group story -->
@@ -5279,20 +5424,37 @@
     <!-- SMS Export Service -->
     <!-- Displayed in the notification while export is running -->
     <string name="SignalSmsExportService__exporting_messages">Besig om boodskappe uit te voer…</string>
+    <!-- Displayed in the notification title when export completes -->
+    <string name="SignalSmsExportService__signal_sms_export_complete">SMS-uitvoer uit Signal voltooi</string>
+    <!-- Displayed in the notification message when export completes -->
+    <string name="SignalSmsExportService__tap_to_return_to_signal">Tik hier om na Signal terug te keer</string>
 
     <!-- ExportYourSmsMessagesFragment -->
     <!-- Title of the screen -->
     <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Voer jou SMS-boodskappe uit</string>
     <!-- Message of the screen -->
-    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Jy kan jou SMS\'e na jou foon se SMS-databasis uitvoer. Dit laat ander SMS-toepassings op jou foon toe om toegang tot hulle te verkry en hulle in te voer. Dit skep nie \'n deelbare lêer van jou SMS-boodskapgeskiedenis nie.</string>
+    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database_and_youll_have_the_option_to_keep_or_remove_them_from_signal">Jy kan jou SMS-boodskappe na jou foon se SMS-databasis uitvoer en jy sal die opsie hê om dit op Signal te hou of te verwyder. Dit laat ander SMS-toepassings op jou foon toe om dit in te voer. Dit skep nie \'n deelbare lêer van jou SMS-geskiedenis nie.</string>
     <!-- Button label to begin export -->
     <string name="ExportYourSmsMessagesFragment__continue">Gaan voort</string>
 
     <!-- ExportingSmsMessagesFragment -->
     <!-- Title of the screen -->
     <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Besig om SMS-boodskappe uit te voer</string>
+    <!-- Message of the screen when exporting sms messages -->
+    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">Dit kan \'n rukkie neem</string>
     <!-- Progress indicator for export -->
-    <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Besig om %1$d van %2$d uit te voer…</string>
+    <plurals name="ExportingSmsMessagesFragment__exporting_d_of_d">
+        <item quantity="one">Besig om %1$d van %2$d uit te voer…</item>
+        <item quantity="other">Besig om %1$d van %2$d uit te voer…</item>
+    </plurals>
+    <!-- Alert dialog title shown when we think a user may not have enough local storage available to export sms messages -->
+    <string name="ExportingSmsMessagesFragment__you_may_not_have_enough_disk_space">Jy het moontlik nie genoeg skyfspasie nie</string>
+    <!-- Alert dialog message shown when we think a user may not have enough local storage available to export sms messages, placeholder is the file size, e.g., 128kB -->
+    <string name="ExportingSmsMessagesFragment__you_need_approximately_s_to_export_your_messages_ensure_you_have_enough_space_before_continuing">Jy het ongeveer %1$s nodig om jou boodskappe uit te voer, maak seker dat jy genoeg spasie het voordat jy voortgaan.</string>
+    <!-- Alert dialog button to continue with exporting sms after seeing the lack of storage warning -->
+    <string name="ExportingSmsMessagesFragment__continue_anyway">Gaan in elk geval voort</string>
+    <!-- Dialog text shown when Signal isn't granted the sms permission needed to export messages, different than being selected as the sms app -->
+    <string name="ExportingSmsMessagesFragment__signal_needs_the_sms_permission_to_be_able_to_export_your_sms_messages">Sein benodig SMS-toestemming om jou SMS-boodskappe te kan uitvoer.</string>
 
     <!-- ChooseANewDefaultSmsAppFragment -->
     <!-- Title of the screen -->
@@ -5339,6 +5501,106 @@
     <string name="SetSignalAsDefaultSmsAppFragment__to_export_your_sms_messages">Om jou SMS-boodskappe uit te voer, moet jy Signal as die verstek-SMS-toepassing stel.</string>
     <!-- Button label to start export -->
     <string name="SetSignalAsDefaultSmsAppFragment__next">Volgende</string>
+
+    <!-- BackupSchedulePermission Megaphone -->
+    <!-- The title on an alert window that explains to the user that we are unable to backup their messages -->
+    <string name="BackupSchedulePermissionMegaphone__cant_back_up_chats">Kan nie kletse rugsteun nie</string>
+    <!-- The body text of an alert window that tells the user that we are unable to backup their messages -->
+    <string name="BackupSchedulePermissionMegaphone__your_chats_are_no_longer_being_automatically_backed_up">Jou kletse word nie meer outomaties gerugsteun nie.</string>
+    <!-- The text on a button in an alert window that, when clicked, will take the user to a screen to re-enable backups -->
+    <string name="BackupSchedulePermissionMegaphone__back_up_chats">Rugsteun kletse</string>
+    <!-- The text on a button in an alert window that, when clicked, will take the user to a screen to re-enable backups -->
+    <string name="BackupSchedulePermissionMegaphone__not_now">Nie nou nie</string>
+    <!-- Re-enable backup permission bottom sheet title -->
+    <string name="BackupSchedulePermissionMegaphone__to_reenable_backups">Om rugsteune te heraktiveer:</string>
+    <!-- Re-enable backups permission bottom sheet instruction 1 text -->
+    <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Tik op die \"Gaan na instellings\"-knoppie hier onder</string>
+    <!-- Re-enable backups permission bottom sheet instruction 2 text -->
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Skakel \"Laat instellingsalarms en -herinneringe toe\" aan.</string>
+    <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
+    <string name="BackupSchedulePermissionMegaphone__go_to_settings">Gaan na instellings</string>
+
+    <!-- SmsExportMegaphoneActivity -->
+    <!-- Phase 2 title of full screen megaphone indicating sms will no longer be supported in the near future -->
+    <string name="SmsExportMegaphoneActivity__signal_will_no_longer_support_sms">Signal sal nie meer SMS ondersteun nie</string>
+    <!-- Phase 3 title of full screen megaphone indicating sms is longer supported  -->
+    <string name="SmsExportMegaphoneActivity__signal_no_longer_supports_sms">Signal ondersteun nie meer SMS\'e nie</string>
+    <!-- Phase 2 message describing that sms is going away soon -->
+    <string name="SmsExportMegaphoneActivity__signal_will_soon_remove_support_for_sending_sms_messages">Signal sal binnekort ondersteuning vir die stuur van SMS-boodskappe verwyder, want Signal-boodskappe bied end-tot-end-enkriptering en sterk privaatheid wat SMS-boodskappe nie doen nie. Dit sal ons ook in staat stel om die Signal-boodskapervaring te verbeter.</string>
+    <!-- Phase 3 message describing that sms has gone away -->
+    <string name="SmsExportMegaphoneActivity__signal_has_removed_support_for_sending_sms_messages">Signal het ondersteuning vir die stuur van SMS-boodskappe verwyder, want Signal-boodskappe bied end-tot-end-enkriptering en sterk privaatheid wat SMS-boodskappe nie doen nie. Dit sal ons ook in staat stel om die Signal-boodskapervaring te verbeter.</string>
+    <!-- The text on a button in a popup that, when clicked, will take the user to a screen to export their SMS messages -->
+    <string name="SmsExportMegaphoneActivity__export_sms">Voer SMS uit</string>
+    <!-- The text on a button in a popup that, when clicked, will dismiss the popup and schedule the prompt to occur at a later time. -->
+    <string name="SmsExportMegaphoneActivity__remind_me_later">Herinner my later</string>
+    <!-- The text on a button in a popup that, when clicked, will navigate the user to a web article on SMS removal -->
+    <string name="SmsExportMegaphoneActivity__learn_more">Vind meer uit</string>
+
+    <!-- Phase 1 Small megaphone title indicating sms is going away -->
+    <string name="SmsExportMegaphone__sms_support_going_away">SMS-ondersteuning gaan beëindig word</string>
+    <!-- Phase 1 small megaphone description indicating sms is going away -->
+    <string name="SmsExportMegaphone__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">SMS-ondersteuning sal binnekort verwyder word om op geënkripteerde boodskappe te fokus.</string>
+    <!-- Phase 1 small megaphone button that takes the user to the sms export flow -->
+    <string name="SmsExportMegaphone__export_sms">Voer SMS uit</string>
+    <!-- Title for screen shown after sms export has completed -->
+    <string name="ExportSmsCompleteFragment__export_complete">Uitvoer voltooi</string>
+    <!-- Button to continue to next screen -->
+    <string name="ExportSmsCompleteFragment__next">Volgende</string>
+    <!-- Message showing summary of sms export counts -->
+    <plurals name="ExportSmsCompleteFragment__d_of_d_messages_exported">
+        <item quantity="one">%1$d van %2$d boodskap is uitgevoer</item>
+        <item quantity="other">%1$d van %2$d boodskappe is uitgevoer</item>
+    </plurals>
+
+    <!-- Title of screen shown when some sms messages did not export -->
+    <string name="ExportSmsPartiallyComplete__export_partially_complete">Uitvoer gedeeltelik voltooi</string>
+    <!-- Debug step 1 on screen shown when some sms messages did not export -->
+    <string name="ExportSmsPartiallyComplete__ensure_you_have_an_additional_s_free_on_your_phone_to_export_your_messages">Maak seker jy het \'n bykomende %1$s op jou foon beskikbaar om jou boodskappe uit te voer</string>
+    <!-- Debug step 2 on screen shown when some sms messages dit not export -->
+    <string name="ExportSmsPartiallyComplete__retry_export_which_will_only_retry_messages_that_have_not_yet_been_exported">Probeer weer uitvoer; dit sal slegs boodskappe probeer uitvoer wat nog nie uitgevoer is nie</string>
+    <!-- Partial sentence for Debug step 3 on screen shown when some sms messages did not export, is combined with 'contact us' -->
+    <string name="ExportSmsPartiallyComplete__if_the_problem_persists">As die probleem voortduur, </string>
+    <!-- Partial sentence for deubg step 3 on screen shown when some sms messages did not export, combined with 'If the problem persists', link text to open contact support view -->
+    <string name="ExportSmsPartiallyComplete__contact_us">Kontak ons</string>
+    <!-- Button text to retry sms export -->
+    <string name="ExportSmsPartiallyComplete__retry">Probeer weer</string>
+    <!-- Button text to continue sms export flow and not retry failed message exports -->
+    <string name="ExportSmsPartiallyComplete__continue_anyway">Gaan in elk geval voort</string>
+    <!-- Title of screen shown when all sms messages failed to export -->
+    <string name="ExportSmsFullError__error_exporting_sms_messages">Fout met uitvoer van SMS-boodskappe</string>
+    <!-- Helper text shown when all sms messages failed to export -->
+    <string name="ExportSmsFullError__please_try_again_if_the_problem_persists">Probeer asseblief weer. As die probleem voortduur, </string>
+
+
+    <!-- DonateToSignalFragment -->
+    <!-- Title below avatar -->
+    <string name="DonateToSignalFragment__powered_by">Aangedryf deur mense soos jy.</string>
+    <!-- Continue button label -->
+    <string name="DonateToSignalFragment__continue">Gaan voort</string>
+    <!-- Description below title -->
+    <string name="DonateToSignalFragment__support_technology">Steun tegnologie wat gebou is vir jou, nie vir jou data nie, deur aan te sluit by die gemeenskap wat Signal onderhou.</string>
+    <!-- Donation pill toggle monthly text -->
+    <string name="DonationPillToggle__monthly">Maandeliks</string>
+    <!-- Donation pill toggle one-time text -->
+    <string name="DonationPillToggle__one_time">Eenmalig</string>
+
+    <!-- GatewaySelectorBottomSheet -->
+    <!-- Sheet title when subscribing -->
+    <string name="GatewaySelectorBottomSheet__donate_s_month_to_signal">Skenk %1$s/maand aan Signal</string>
+    <!-- Sheet summary when subscribing -->
+    <string name="GatewaySelectorBottomSheet__get_a_s_badge">Kry ’n %1$s-wapen</string>
+    <!-- Sheet title when giving a one-time donation -->
+    <string name="GatewaySelectorBottomSheet__donate_s_to_signal">Skenk %1$s aan Signal</string>
+    <!-- Sheet summary when giving a one-time donation -->
+    <plurals name="GatewaySelectorBottomSheet__get_a_s_badge_for_d_days">
+        <item quantity="one">Get a %1$s badge for %2$d day</item>
+        <item quantity="other">Get a %1$s badge for %2$d days</item>
+    </plurals>
+    <!-- Button label for paying with a credit card -->
+    <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Krediet- of debietkaart</string>
+
+    <!-- StripePaymentInProgressFragment -->
+    <string name="StripePaymentInProgressFragment__cancelling">Besig om te kanselleer…</string>
 
     <!-- EOF -->
 

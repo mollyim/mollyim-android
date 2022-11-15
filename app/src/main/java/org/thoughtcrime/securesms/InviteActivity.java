@@ -33,7 +33,6 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarInviteTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
-import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture.Listener;
 import org.thoughtcrime.securesms.util.task.ProgressDialogAsyncTask;
@@ -118,14 +117,9 @@ public class InviteActivity extends PassphraseRequiredActivity implements Contac
     smsSendButton.setOnClickListener(new SmsSendClickListener());
     contactFilter.setOnFilterChangedListener(new ContactFilterChangedListener());
 
-    if (Util.isDefaultSmsProvider(this)) {
-      shareButton.setOnClickListener(new ShareClickListener());
-      smsButton.setOnClickListener(new SmsClickListener());
-    } else {
-      smsButton.setVisibility(View.GONE);
-      shareText.setText(R.string.InviteActivity_share);
-      shareButton.setOnClickListener(new ShareClickListener());
-    }
+    smsButton.setVisibility(View.GONE);
+    shareText.setText(R.string.InviteActivity_share);
+    shareButton.setOnClickListener(new ShareClickListener());
   }
 
   private Animation loadAnimation(@AnimRes int animResId) {

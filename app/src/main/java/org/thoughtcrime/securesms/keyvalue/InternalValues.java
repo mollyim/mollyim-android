@@ -26,6 +26,7 @@ public final class InternalValues extends SignalStoreValues {
   public static final String CALLING_DISABLE_TELECOM              = "internal.calling_disable_telecom";
   public static final String DISABLE_STORAGE_SERVICE              = "internal.disable_storage_service";
   public static final String FORCE_WEBSOCKET_MODE                 = "internal.force_websocket_mode";
+  public static final String LAST_SCROLL_POSITION                 = "internal.last_scroll_position";
 
   InternalValues(KeyValueStore store) {
     super(store);
@@ -167,5 +168,13 @@ public final class InternalValues extends SignalStoreValues {
     } else {
       return false;
     }
+  }
+
+  public void setLastScrollPosition(int position) {
+    putInteger(LAST_SCROLL_POSITION, position);
+  }
+
+  public int getLastScrollPosition() {
+    return getInteger(LAST_SCROLL_POSITION, 0);
   }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- smartling.instruction_comments_enabled = on -->
 <resources>
     <!-- <string name="app_name" translatable="false">Signal</string> -->
 
@@ -11,6 +12,7 @@
     <string name="sustainer_boost_and_badges" translatable="false">https://support.signal.org/hc/articles/4408365318426</string>
     <string name="google_pay_url" translatable="false">https://pay.google.com</string>
     <string name="donation_decline_code_error_url" translatable="false">https://support.signal.org/hc/articles/4408365318426#errors</string>
+    <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string>
     <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string>
     <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string>
 
@@ -105,6 +107,14 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly potřebuje oprávnění pro přístup k úložišti, aby mohl připojovat fotky, videa nebo audio, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly potřebuje oprávnění pro přístup ke kontaktům, aby mohl připojit informace o kontaktu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly potřebuje oprávnění pro přístup k poloze, aby mohl připojit informace o poloze, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Poloha\".</string>
+    <!-- Alert dialog title to show the recipient has not activated payments -->
+    <string name="AttachmentManager__not_activated_payments">%1$s hasn\'t activated Payments </string>
+    <!-- Alert dialog description to send the recipient a request to activate payments -->
+    <string name="AttachmentManager__request_to_activate_payments">Do you want to send them a request to activate Payments?</string>
+    <!-- Alert dialog button to send request -->
+    <string name="AttachmentManager__send_request">Send request</string>
+    <!-- Alert dialog button to cancel dialog -->
+    <string name="AttachmentManager__cancel">Storno</string>
 
     <!-- AttachmentUploadJob -->
     <string name="AttachmentUploadJob_uploading_media">Nahrávám médium…</string>
@@ -125,6 +135,35 @@
     <string name="BlockedUsersActivity__do_you_want_to_unblock_s">Chcete odblokovat \"%1$s\"?</string>
     <string name="BlockedUsersActivity__unblock">Odblokovat</string>
 
+    <!-- CreditCardFragment -->
+    <!-- Title of fragment detailing the donation amount, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__donation_amount_s">Výše příspěvku: %1$s</string>
+    <!-- Explanation of how to fill in the form, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__enter_your_card_information_below">Níže zadejte údaje o své platební kartě</string>
+    <!-- Displayed as a hint in the card number text field -->
+    <string name="CreditCardFragment__card_number">Číslo karty</string>
+    <!-- Displayed as a hint in the card expiry text field -->
+    <string name="CreditCardFragment__mm_yy">MM/RR</string>
+    <!-- Displayed as a hint in the card cvv text field -->
+    <string name="CreditCardFragment__cvv">CVV</string>
+    <!-- Error displayed under the card number text field when there is an invalid card number entered -->
+    <string name="CreditCardFragment__invalid_card_number">Neplatné číslo platební karty</string>
+    <!-- Error displayed under the card expiry text field when the card is expired -->
+    <string name="CreditCardFragment__card_has_expired">Platnost platební karty vypršela</string>
+    <!-- Error displayed under the card cvv text field when the cvv is too short -->
+    <string name="CreditCardFragment__code_is_too_short">Kód je příliš krátký</string>
+    <!-- Error displayed under the card cvv text field when the cvv is too long -->
+    <string name="CreditCardFragment__code_is_too_long">Kód je příliš dlouhý</string>
+    <!-- Error displayed under the card cvv text field when the cvv is invalid -->
+    <string name="CreditCardFragment__invalid_code">Neplatný kód</string>
+    <!-- Error displayed under the card expiry text field when the expiry month is invalid -->
+    <string name="CreditCardFragment__invalid_month">Neplatný měsíc</string>
+    <!-- Error displayed under the card expiry text field when the expiry is missing the year -->
+    <string name="CreditCardFragment__year_required">Je nutné zadat rok</string>
+    <!-- Error displayed under the card expiry text field when the expiry year is invalid -->
+    <string name="CreditCardFragment__invalid_year">Neplatný rok</string>
+    <!-- Button label to confirm credit card input and proceed with payment -->
+    <string name="CreditCardFragment__continue">Pokračovat</string>
 
     <!-- BlockUnblockDialog -->
     <string name="BlockUnblockDialog_block_and_leave_s">Zablokovat a opustit %1$s?</string>
@@ -221,8 +260,8 @@
     <string name="ContactsCursorLoader_find_by_username">Najít podle uživatelského jména</string>
     <!-- Label for my stories when selecting who to send media to -->
     <string name="ContactsCursorLoader_my_stories">Moje příběhy</string>
-    <!-- Action for creating a new story -->
-    <string name="ContactsCursorLoader_new_story">Nový příběh</string>
+    <!-- Text for a button that brings up a bottom sheet to create a new story. -->
+    <string name="ContactsCursorLoader_new">Novinka</string>
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Zpráva %1$s</string>
@@ -270,6 +309,18 @@
     <string name="ConversationItem_pending">Probíhá</string>
     <string name="ConversationItem_this_message_was_deleted">Tato zpráva byla smazána.</string>
     <string name="ConversationItem_you_deleted_this_message">Smazali jste tuto zprávu.</string>
+    <!-- Dialog error message shown when user can't download a message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_message_s_will_need_to_send_it_again">Zprávu nelze stáhnout. %1$s ji bude muset poslat znovu.</string>
+    <!-- Dialog error message shown when user can't download an image message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_image_s_will_need_to_send_it_again">Obrázek nelze stáhnout. %1$s ho bude muset poslat znovu.</string>
+    <!-- Dialog error message shown when user can't download a video message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other's name -->
+    <string name="ConversationItem_cant_download_video_s_will_need_to_send_it_again">Video nelze stáhnout. %1$s ho bude muset poslat znovu.</string>
+    <!-- Dialog error message shown when user can't download a their own message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_message_you_will_need_to_send_it_again">Zprávu nelze stáhnout. Budete ji muset poslat znovu.</string>
+    <!-- Dialog error message shown when user can't download a their own image message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">Obrázek nelze stáhnout. Budete ho muset poslat znovu.</string>
+    <!-- Dialog error message shown when user can't download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
+    <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">Video nelze stáhnout. Budete ho muset poslat znovu.</string>
 
     <!-- ConversationActivity -->
     <string name="ConversationActivity_add_attachment">Přidat přílohu</string>
@@ -344,6 +395,21 @@
     <string name="ConversationActivity_error_sending_media">Chyba při odesílání médií</string>
 
     <string name="ConversationActivity__reported_as_spam_and_blocked">Nahlášeno jako spam a zablokováno</string>
+
+    <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
+    <string name="ConversationActivity__sms_messaging_is_currently_disabled_you_can_export_your_messages_to_another_app_on_your_phone">Odesílání SMS zpráv není v současné době dostupné. Zprávy můžete exportovat do jiné aplikace v telefonu.</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
+    <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_you_can_export_your_messages_to_another_app_on_your_phone">Zasílání SMS zpráv již není aplikací Signal podporováno. Zprávy můžete exportovat do jiné aplikace v telefonu.</string>
+    <!-- Action button shown when in sms conversation, sms is disabled, and unexported sms messages are present -->
+    <string name="ConversationActivity__export_sms_messages">Exportovat SMS zprávy</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__sms_messaging_is_currently_disabled_invite_s_to_to_signal_to_keep_the_conversation_here">Odesílání SMS zpráv není v současné době dostupné. Pozvěte kontakt %1$s do aplikace Signal a pokračujte v konverzaci zde.</string>
+    <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Zasílání SMS zpráv již není aplikací Signal podporováno. Pozvěte kontakt %1$s do aplikace Signal a pokračujte v konverzaci zde.</string>
+    <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+    <string name="ConversationActivity__invite_to_signal">Pozvat do Signal</string>
+    <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we'll do it again soon -->
+    <string name="ConversationActivity__you_will_be_reminded_again_soon">Brzy vám to znovu připomeneme.</string>
 
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
@@ -878,11 +944,13 @@
     <string name="AddGroupDetailsFragment__this_field_is_required">Toto pole je povinné.</string>
     <string name="AddGroupDetailsFragment__group_creation_failed">Vytvoření skupiny selhalo.</string>
     <string name="AddGroupDetailsFragment__try_again_later">Zkuste to později znovu.</string>
-    <!-- Displayed when adding group details to an MMS Group -->
-    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Vybrali jste kontakt, který nepodporuje skupiny Signal, takže tato skupina bude mít formu MMS. Vlastní názvy a fotky MMS skupin uvidíte jen vy.</string>
     <string name="AddGroupDetailsFragment__remove">Odebrat</string>
     <string name="AddGroupDetailsFragment__sms_contact">SMS kontakt</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Odebrat %1$s z této skupiny?</string>
+    <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
+    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Vybrali jste kontakt, který nepodporuje skupiny Signal, takže tato skupina bude mít formu MMS. Vlastní názvy a fotky MMS skupin uvidíte jen vy.</string>
+    <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
+    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support_signal_groups_mms_removal">You\'ve selected a contact that doesn\'t support Signal groups, this group will be MMS. Custom MMS group names and photos will only be visible to you. Support for MMS groups will be removed soon to focus on encrypted messaging.</string>
 
     <!-- ManageGroupActivity -->
     <string name="ManageGroupActivity_member_requests_and_invites">Požadavky na členství a pozvánky</string>
@@ -1076,6 +1144,8 @@
 
     <!-- InputPanel -->
     <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Klepněte a držte pro nahrání hlasové zprávy, pusťte pro odeslání.</string>
+    <!-- Message shown if the user tries to switch a conversation from Signal to SMS -->
+    <string name="InputPanel__sms_messaging_is_no_longer_supported_in_signal">Zasílání SMS zpráv již není aplikací Signal podporováno.</string>
 
     <!-- InviteActivity -->
     <string name="InviteActivity_share">Sdílet</string>
@@ -1465,6 +1535,14 @@
     <string name="MessageRecord_your_message_history_with_s_and_their_number_s_has_been_merged">Historie vašich zpráv s uživatelem %1$s a jeho číslem %2$s byla sloučena.</string>
     <!-- Update item message shown when we merge two threads together and we don't know the phone number of the other thread -->
     <string name="MessageRecord_your_message_history_with_s_and_another_chat_has_been_merged">Historie vašich zpráv s uživatelem %1$s a další konverzace s ním byly sloučeny.</string>
+    <!-- Message to notify sender that activate payments request has been sent to the recipient -->
+    <string name="MessageRecord_you_sent_request">You sent %1$s a request to activate Payments</string>
+    <!-- Request message from recipient to activate payments -->
+    <string name="MessageRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments. Only send payments to people you trust.</string>
+    <!-- Message to inform user that payments was activated-->
+    <string name="MessageRecord_you_activated_payments">You activated Payments</string>
+    <!-- Message to inform sender that recipient can now accept payments -->
+    <string name="MessageRecord_can_accept_payments">%1$s can now accept Payments</string>
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s zahájil skupinový hovor · %2$s</string>
@@ -1494,6 +1572,11 @@
         <item quantity="many">%1$s, %2$s a %3$d dalších se účastní skupinového hovoru</item>
         <item quantity="other">%1$s, %2$s a %3$d dalších se účastní skupinového hovoru</item>
     </plurals>
+
+    <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+    <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Zprávy SMS již brzy nebude možné z aplikace Signal posílat. Pozvěte kontakt %1$s do aplikace Signal a pokračujte v konverzaci zde.</string>
+    <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">V aplikaci Molly již nelze odesílat zprávy SMS. Pozvěte kontakt %1$s do aplikace Molly a pokračujte v konverzaci zde.</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Přijmout</string>
@@ -1978,6 +2061,14 @@
     <string name="ThreadRecord_view_once_media">Média pro jednorázové zobrazení</string>
     <string name="ThreadRecord_this_message_was_deleted">Tato zpráva byla smazána.</string>
     <string name="ThreadRecord_you_deleted_this_message">Smazali jste tuto zprávu.</string>
+    <!-- Displayed in the notification when the user sends a request to activate payments -->
+    <string name="ThreadRecord_you_sent_request">You sent a request to activate Payments</string>
+    <!-- Displayed in the notification when the recipient wants to activate payments -->
+    <string name="ThreadRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments</string>
+    <!-- Displayed in the notification when the user activates payments -->
+    <string name="ThreadRecord_you_activated_payments">You activated Payments</string>
+    <!-- Displayed in the notification when the recipient can accept payments -->
+    <string name="ThreadRecord_can_accept_payments">%1$s can now accept Payments</string>
     <string name="ThreadRecord_s_is_on_signal">%1$s má Signal!</string>
     <string name="ThreadRecord_disappearing_messages_disabled">Mizející zprávy jsou zakázané</string>
     <string name="ThreadRecord_disappearing_message_time_updated_to_s">Čas zmizení zprávy nastaven na %1$s</string>
@@ -2109,6 +2200,7 @@
     <string name="MediaPreviewActivity_media_no_longer_available">Média již nejsou k dispozici.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Nebyla nalezena žádná aplikace pro sdílení tohoto média.</string>
     <string name="MediaPreviewActivity_dismiss_due_to_error">Zavřít</string>
+    <string name="MediaPreviewFragment_edit_media_error">Chyba médií</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d nových zpráv v %2$d konverzacích</string>
@@ -2160,6 +2252,9 @@
     <string name="NotificationChannel_background_connection">Spojení na pozadí</string>
     <!-- Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing. -->
     <string name="NotificationChannel_call_status">Stav hovoru</string>
+    <!-- Notification channel name for occasional alerts to the user. Will appear in the system notification settings as the title of this notification channel. -->
+    <string name="NotificationChannel_critical_app_alerts">Upozornění na kritické aplikace</string>
+
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
@@ -2204,6 +2299,12 @@
     <!-- UnauthorizedReminder -->
     <string name="UnauthorizedReminder_device_no_longer_registered">Zařízení už není registrováno</string>
     <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">To je proto, že jste registrovali vaše telefonní číslo u Signal z jiného zařízení. Klepněte pro přeregistraci.</string>
+
+    <!-- EnclaveFailureReminder -->
+    <!-- Banner message to update app to use payments -->
+    <string name="EnclaveFailureReminder_update_signal">Aktualizací aplikace Signal můžete pokračovat v používání plateb. Váš zůstatek nemusí být aktuální.</string>
+    <!-- Banner button to update now -->
+    <string name="EnclaveFailureReminder_update_now">Aktualizovat nyní</string>
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Chcete-li přijmout hovor, umožněte aplikaci Molly přístup k mikrofonu.</string>
@@ -2340,6 +2441,11 @@
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Čas zmizení zprávy bude nastaven na %1$s, když jim pošlete zprávu.</string>
     <!-- Update item button text to show to boost a feature -->
     <string name="ConversationUpdateItem_donate">Sponzorujte</string>
+    <!-- Update item button text to send payment -->
+    <string name="ConversationUpdateItem_send_payment">Odeslat platbu</string>
+    <!-- Update item button text to activate payments -->
+    <string name="ConversationUpdateItem_activate_payments">Aktivovat platby</string>
+
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Spustit … Pozastavit</string>
@@ -2654,15 +2760,16 @@
     <string name="HelpFragment__debug_log">Ladicí log</string>
     <string name="HelpFragment__could_not_upload_logs">Nepodařilo se nahrát logy</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Popište detailně váš problém, aby to bylo pro nás srozumitelné.</string>
-    <string-array name="HelpFragment__categories_4">
+    <string-array name="HelpFragment__categories_5">
         <item>\\-\\- Vyberte jednu z možností \\-\\-</item>
         <item>Něco nefunguje</item>
         <item>Žádost o novou funkci</item>
         <item>Dotaz</item>
         <item>Zpětná vazba</item>
-        <item>Jiné</item>
+        <item>Ostatní</item>
         <item>Platby (MobileCoin)</item>
         <item>Příspěvky a odznaky</item>
+        <item>Export SMS zpráv</item>
     </string-array>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
@@ -2730,6 +2837,10 @@
     <string name="preferences__pressing_the_enter_key_will_send_text_messages">Stisk tlačítka Enter na klávesnici odešle zprávu</string>
     <string name="preferences__pref_use_address_book_photos">Použít fotografii z adresáře</string>
     <string name="preferences__display_contact_photos_from_your_address_book_if_available">Pokud je k dispozici, zobrazit fotografii kontaktu z adresáře</string>
+    <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__pref_keep_muted_chats_archived">Zachování ztlumených konverzací v archivu</string>
+    <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Ztlumené chaty, které jsou archivovány, zůstanou archivovány i po příchodu nové zprávy.</string>
     <string name="preferences__generate_link_previews">Vygenerovat náhledy odkazů</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Pro zprávy, které odesíláte, získat náhledy odkazů přímo z webů.</string>
     <string name="preferences__choose_identity">Zvolit identitu</string>
@@ -2923,7 +3034,7 @@
     <!-- Internal only preferences -->
     <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
     <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
-    <string name="preferences__internal_delete_private_story" translatable="false">Delete private story</string>
+    <string name="preferences__internal_delete_custom_story" translatable="false">Delete custom story</string>
     <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
     <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
     <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
@@ -3080,6 +3191,14 @@
     <string name="PaymentsHomeFragment__enable">Zapnout</string>
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Nyní ne</string>
+    <!-- Alert dialog title which shows up to update app to send payments -->
+    <string name="PaymentsHomeFragment__update_required">Je nutná aktualizace</string>
+    <!-- Alert dialog description that app update is required to send payments-->
+    <string name="PaymentsHomeFragment__an_update_is_required">Aktualizace je nutná pro další odesílání a přijímání plateb a pro zobrazení aktuálního zůstatku.</string>
+    <!-- Alert dialog button to cancel -->
+    <string name="PaymentsHomeFragment__cancel">Storno</string>
+    <!-- Alert dialog button to update now -->
+    <string name="PaymentsHomeFragment__update_now">Aktualizovat nyní</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -3349,6 +3468,8 @@
     <string name="media_preview__forward_title">Přeposlat</string>
     <string name="media_preview__share_title">Sdílet</string>
     <string name="media_preview__all_media_title">Všechna média</string>
+    <string name="media_preview__edit_title">Upravit</string>
+
 
     <!-- media_preview_activity -->
     <string name="media_preview_activity__media_content_description">Náhled multimedií</string>
@@ -3992,7 +4113,12 @@
     <!-- Title in save recovery phrase screen -->
     <string name="PaymentsRecoveryStartFragment__save_recovery_phrase">Uložte si frázi pro obnovení</string>
     <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Zadat obnovovací frázi</string>
-    <string name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">Když znovu potvrdíte svůj Signální PIN, váš zůstatek se automaticky obnoví, když znovu nainstalujete Signal. Zůstatek můžete obnovit také pomocí obnovovací fráze, což je jedinečná fráze s %1$d slovy. Zapište si to a uložte na bezpečném místě.</string>
+    <plurals name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">
+        <item quantity="one">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+        <item quantity="few">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+        <item quantity="many">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+        <item quantity="other">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+    </plurals>
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">Máte zůstatek! Je ideální čas nastavit si frázi pro obnovení – klíč o 24 slovech, který vám pomůže obnovit zůstatek.</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
@@ -4165,6 +4291,12 @@
     <string name="SmsSettingsFragment__removing_sms_messages_from_signal">Odstranění SMS zpráv z aplikace Signal…</string>
     <!-- Snackbar text to indicate can delete later -->
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">SMS zprávy můžete z aplikace Signal kdykoli odstranit v nastavení.</string>
+    <!-- Description for export sms preference -->
+    <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">SMS zprávy můžete exportovat do databáze SMS zpráv svého telefonu</string>
+    <!-- Description for remove sms preference -->
+    <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Odstraněním SMS zpráv z aplikace Signal uvolníte místo v úložišti.</string>
+    <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
+    <string name="SmsSettingsFragment__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">Podpora SMS zpráv bude brzy ukončena, abychom se mohli zaměřit na šifrované zprávy.</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">Zprávy</string>
@@ -4429,6 +4561,8 @@
     <string name="NewConversationActivity__this_person_is_saved_to_your">Tuto osobu máte uloženou v kontaktech ve svém zařízení. Odeberte ji z kontaktů a zkuste to znovu.</string>
     <!-- Dialog action to view contact when they can't be removed otherwise -->
     <string name="NewConversationActivity__view_contact">Zobrazit kontakt</string>
+    <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
+    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s není uživatelem služby Signal</string>
 
     <!-- ContactFilterView -->
     <string name="ContactFilterView__search_name_or_number">Vyhledat jméno nebo číslo</string>
@@ -4560,10 +4694,8 @@
 
     <string name="ImageView__badge">Odznak</string>
 
-    <string name="SubscribeFragment__signal_is_powered_by_people_like_you">Signal pohání lidé, jako jste vy.</string>
     <string name="SubscribeFragment__support_technology_that_is_built_for_you">Podpořte technologii, která je vytvořena pro vás - ne pro vaše data - a připojte se ke komunitě lidí, kteří ji podporují.</string>
     <string name="SubscribeFragment__support_technology_that_is_built_for_you_not">Podpořte technologii, která je vytvořena pro vás, ne kvůli vašim datům, a připojte se ke komunitě lidí, kteří ji podporují.</string>
-    <string name="SubscribeFragment__make_a_recurring_monthly_donation">Pravidelným měsíčním příspěvkem společnosti Signal podpoříte technologii vytvořenou pro vás, ne pro vaše data.</string>
     <string name="SubscribeFragment__currency">Měna</string>
     <string name="SubscribeFragment__more_payment_options">Více možností plateb</string>
     <string name="SubscribeFragment__cancel_subscription">Zrušit předplatné</string>
@@ -4578,8 +4710,10 @@
     <string name="SubscribeFragment__you_will_be_charged_the_full_amount_s_of">Dnes vám bude účtována plná částka (%1$s) nového předplatného. Vaše předplatné bude obnoveno každý měsíc.</string>
 
     <string name="Subscription__s_per_month">%1$s/měsíc</string>
-    <string name="Subscription__s_per_month_dot_renews_s">%1$s/měsíc · Obnovení %2$s</string>
-    <string name="Subscription__s_per_month_dot_expires_s">%1$s/měsíčně · Exspiruje %2$s</string>
+    <!-- Shown when a subscription is active and isn't going to expire at the end of the term -->
+    <string name="Subscription__renews_s">Obnova %1$s</string>
+    <!-- Shown when a subscription is active and is going to expire at the end of the term -->
+    <string name="Subscription__expires_s">Vyprší %1$s</string>
 
     <!-- First small text blurb on learn more sheet -->
     <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_nonprofit_with_no">Signal je nezisková organizace bez inzerentů a investorů, kterou živí pouze lidé, kteří ji používají a oceňují. Přispívejte pravidelně každý měsíc a získejte profilový odznak, abyste se podělili o svou podporu.</string>
@@ -4595,20 +4729,20 @@
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">stát se měsíčním podporovatelem.</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Zobrazit v profilu</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Vytvořit doporučený odznak</string>
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Hotovo</string>
+    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__continue">Pokračovat</string>
     <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Pokud máte více odznaků, můžete si jeden z nich vybrat, aby ho ostatní viděli na vašem profilu.</string>
 
     <string name="BecomeASustainerFragment__get_badges">Získejte odznaky pro svůj profil za podporu Signalu.</string>
     <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal je nezisková organizace fungující bez reklam a investorů, kterou podporují pouze lidé jako vy.</string>
 
-    <!-- Button label for creating a monthly donation -->
-    <string name="ManageDonationsFragment__make_a_monthly_donation">Poskytnout měsíční příspěvek</string>
+    <!-- Button label for creating a donation -->
+    <string name="ManageDonationsFragment__donate_to_signal">Podpořte Signal finančně</string>
     <!-- Heading for more area of manage subscriptions page -->
     <string name="ManageDonationsFragment__more">Víc</string>
     <!-- Heading for receipts area of manage subscriptions page -->
     <string name="ManageDonationsFragment__receipts">Doklady</string>
     <!-- Heading for my subscription area of manage subscriptions page -->
-    <string name="ManageDonationsFragment__my_subscription">Mé předplatné</string>
+    <string name="ManageDonationsFragment__my_support">Má podpora</string>
     <string name="ManageDonationsFragment__manage_subscription">Spravovat předplatné</string>
     <!-- Label for Donation Receipts button -->
     <string name="ManageDonationsFragment__donation_receipts">Doklady o příspěvku</string>
@@ -4619,10 +4753,6 @@
     <string name="ManageDonationsFragment__other_ways_to_give">Jiné možnosti podpory</string>
     <!-- Preference label to launch badge gifting -->
     <string name="ManageDonationsFragment__gift_a_badge">Darujte odznak</string>
-
-    <string name="BoostFragment__give_signal_a_boost">Dejte Signalu Boost</string>
-    <!-- Description text in boost sheet -->
-    <string name="BoostFragment__make_a_one_time">Přispějte jednorázově a získejte odznak Boost na %1$d dní.</string>
 
     <string name="Boost__enter_custom_amount">Zadat vlastní výši</string>
     <string name="Boost__one_time_contribution">Jednorázový příspěvek</string>
@@ -4664,7 +4794,7 @@
 
     <string name="Subscription__please_contact_support_for_more_information">Pro více informací prosím kontaktujte podporu.</string>
     <string name="Subscription__contact_support">Kontaktovat podporu</string>
-    <string name="Subscription__earn_a_s_badge">Získat odznak %1$s</string>
+    <string name="Subscription__get_a_s_badge">Získat %1$s odznak</string>
 
     <string name="SubscribeFragment__processing_payment">Zpracovávání platby…</string>
     <!-- Displayed in notification when user payment fails to process on Stripe -->
@@ -4940,7 +5070,7 @@
     <!-- Title for "My Stories" row item in Stories landing page -->
     <string name="StoriesLandingFragment__my_stories">Moje příběhy</string>
     <!-- Subtitle for "My Stories" row item when user has not added stories -->
-    <string name="StoriesLandingFragment__tap_to_add_a_story">Klepnutím přidáte příběh</string>
+    <string name="StoriesLandingFragment__tap_to_add">Klepnutím přidáte</string>
     <!-- Displayed when there are no stories to display -->
     <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now">Žádné nové aktualizace k zobrazení.</string>
     <!-- Context menu option to hide a story -->
@@ -5060,13 +5190,13 @@
     <string name="MyStorySettingsFragment__my_story">Můj příběh</string>
     <!-- Number of total signal connections displayed in "All connections" row item -->
     <plurals name="MyStorySettingsFragment__viewers">
-        <item quantity="one">%1$d viewer</item>
-        <item quantity="few">%1$d viewers</item>
-        <item quantity="many">%1$d viewers</item>
-        <item quantity="other">%1$d viewers</item>
+        <item quantity="one">%1$d zobrazení</item>
+        <item quantity="few">%1$d zobrazení</item>
+        <item quantity="many">%1$d zobrazení</item>
+        <item quantity="other">%1$d zobrazení</item>
     </plurals>
     <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
-    <string name="MyStorySettingsFragment__view">View</string>
+    <string name="MyStorySettingsFragment__view">Zobrazit</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Kdo může tento příběh zobrazit</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -5117,25 +5247,25 @@
     <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Uložením do vašeho seznamu kontaktů</string>
     <!-- Note at the bottom of the Signal connections sheet -->
     <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Vaše spojení vidí vaše jméno a fotografii a mohou vidět příspěvky v Mém příběhu, pokud je před nimi neskryjete."</string>
-    <!-- Clickable option to add a viewer to a private story -->
+    <!-- Clickable option to add a viewer to a custom story -->
     <string name="PrivateStorySettingsFragment__add_viewer">Přidat sledovače</string>
     <!-- Clickable option to delete a custom story -->
-    <string name="PrivateStorySettingsFragment__delete_private_story">Smazat soukromý příběh</string>
-    <!-- Dialog title when attempting to remove someone from a private story -->
+    <string name="PrivateStorySettingsFragment__delete_custom_story">Smazat vlastní příběh</string>
+    <!-- Dialog title when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__remove_s">Odstranit %1$s?</string>
-    <!-- Dialog message when attempting to remove someone from a private story -->
+    <!-- Dialog message when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__this_person_will_no_longer">Tato osoba již váš příběh neuvidí.</string>
-    <!-- Positive action label when attempting to remove someone from a private story -->
+    <!-- Positive action label when attempting to remove someone from a custom story -->
     <string name="PrivateStorySettingsFragment__remove">Odebrat</string>
-    <!-- Dialog title when deleting a private story -->
+    <!-- Dialog title when deleting a custom story -->
     <string name="PrivateStorySettingsFragment__are_you_sure">Jste si jisti?</string>
-    <!-- Dialog message when deleting a private story -->
+    <!-- Dialog message when deleting a custom story -->
     <string name="PrivateStorySettingsFragment__this_action_cannot">Tuto operaci nelze vzít zpět.</string>
-    <!-- Page title for editing a private story name -->
+    <!-- Page title for editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__edit_story_name">Upravit název příběhu</string>
-    <!-- Input field hint when editing a private story name -->
+    <!-- Input field hint when editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__story_name">Název příběhu</string>
-    <!-- Save button label when editing a private story name -->
+    <!-- Save button label when editing a custom story name -->
     <string name="EditPrivateStoryNameFragment__save">Uložit</string>
     <!-- Displayed in text post creator before user enters text -->
     <string name="TextStoryPostCreationFragment__tap_to_add_text">Klepněte pro přidání textu</string>
@@ -5157,6 +5287,8 @@
     <string name="TextStoryPostSendFragment__search">Vyhledat</string>
     <!-- Toast shown when an unexpected error occurs while sending a text story -->
     <string name="TextStoryPostSendFragment__an_unexpected_error_occurred_try_again">Došlo k neočekávané chybě</string>
+    <!-- Toast shown when a trying to add a link preview to a text story post and the link/url is not valid (e.g., missing .com at the end) -->
+    <string name="TextStoryPostSendFragment__please_enter_a_valid_link">Zadejte prosím platný odkaz.</string>
     <!-- Title for screen allowing user to exclude "My Story" entries from specific people -->
     <string name="ChangeMyStoryMembershipFragment__all_except">Všichni kromě…</string>
     <!-- Title for screen allowing user to only share "My Story" entries with specific people -->
@@ -5169,11 +5301,11 @@
     <string name="StoryDialogs__s_will_be_removed">„%1$s“ – bude odebrán.</string>
     <!-- Dialog positive action for removing a group story -->
     <string name="StoryDialogs__remove">Odebrat</string>
-    <!-- Dialog title for deleting a private story -->
-    <string name="StoryDialogs__delete_private_story">Smazat soukromý příběh?</string>
-    <!-- Dialog message for deleting a private story -->
+    <!-- Dialog title for deleting a custom story -->
+    <string name="StoryDialogs__delete_custom_story">Smazat vlastní příběh?</string>
+    <!-- Dialog message for deleting a custom story -->
     <string name="StoryDialogs__s_and_updates_shared">„%1$s“ a aktualizace sdílené k tomuto příběhu budou smazány.</string>
-    <!-- Dialog positive action for deleting a private story -->
+    <!-- Dialog positive action for deleting a custom story -->
     <string name="StoryDialogs__delete">Smazat</string>
     <!-- Dialog title for first time sending something to a beta story -->
     <string name="StoryDialogs__stories_is_available_to">Příběhy jsou dostupné jen uživatelům verze Signal beta.</string>
@@ -5210,6 +5342,8 @@
     </plurals>
     <!-- Name story screen title -->
     <string name="CreateStoryWithViewersFragment__name_story">Pojmenovat příběh</string>
+    <!-- Name story screen note under text field -->
+    <string name="CreateStoryWithViewersFragment__only_you_can">Název tohoto příběhu vidíte pouze vy.</string>
     <!-- Name story screen label hint -->
     <string name="CreateStoryWithViewersFragment__story_name_required">Název příběhu (povinné)</string>
     <!-- Name story screen viewers subheading -->
@@ -5225,7 +5359,7 @@
     <!-- Choose story type bottom sheet title -->
     <string name="ChooseStoryTypeBottomSheet__choose_your_story_type">Vybrat typ příběhu</string>
     <!-- Choose story type bottom sheet new story row title -->
-    <string name="ChooseStoryTypeBottomSheet__new_private_story">Nový soukromý příběh</string>
+    <string name="ChooseStoryTypeBottomSheet__new_custom_story">Nový vlastní příběh</string>
     <!-- Choose story type bottom sheet new story row summary -->
     <string name="ChooseStoryTypeBottomSheet__visible_only_to">Viditelný pouze vybraným lidem</string>
     <!-- Choose story type bottom sheet group story title -->
@@ -5242,6 +5376,8 @@
     <string name="StoryDirectReplyDialogFragment__sending_reply">Odesílám odpověď…</string>
     <!-- Displayed in the viewer when a story is no longer available -->
     <string name="StorySlateView__this_story_is_no_longer_available">Tento příběh již není dostupný.</string>
+    <!-- Displayed in the viewer when a story has permanently failed to download. -->
+    <string name="StorySlateView__cant_download_story_s_will_need_to_share_it_again">Příběh se nepodařilo stáhnout. %1$s ho bude muset sdílet znovu.</string>
     <!-- Displayed in the viewer when the network is not available -->
     <string name="StorySlateView__no_internet_connection">Žádné připojení k internetu</string>
     <!-- Displayed in the viewer when network is available but content could not be downloaded -->
@@ -5335,12 +5471,12 @@
     <string name="ExpiredGiftSheetConfiguration__not_now">Teď ne</string>
     <!-- My Story label designating that we will only share with the selected viewers. -->
     <string name="ContactSearchItems__only_share_with">Sdílet pouze s</string>
-    <!-- Label under name for private stories -->
-    <plurals name="ContactSearchItems__private_story_d_viewers">
-        <item quantity="one">Soukromý příběh · %1$d sledující</item>
-        <item quantity="few">Soukromý příběh · %1$d sledující</item>
-        <item quantity="many">Soukromý příběh · %1$d sledujících</item>
-        <item quantity="other">Soukromý příběh · %1$d sledujících</item>
+    <!-- Label under name for custom stories -->
+    <plurals name="ContactSearchItems__custom_story_d_viewers">
+        <item quantity="one">Vlastní příběh · %1$d sledující</item>
+        <item quantity="few">Vlastní příběh · %1$d sledující</item>
+        <item quantity="many">Vlastní příběh · %1$d sledujících</item>
+        <item quantity="other">Vlastní příběh · %1$d sledujících</item>
     </plurals>
     <!-- Label under name for group stories -->
     <plurals name="ContactSearchItems__group_story_d_viewers">
@@ -5369,7 +5505,7 @@
     <string name="ContactSearchItems__story_settings">Nastavení příběhu</string>
     <!-- Label for context menu item to remove a group story from contact results -->
     <string name="ContactSearchItems__remove_story">Odebrat příběh</string>
-    <!-- Label for context menu item to delete a private story -->
+    <!-- Label for context menu item to delete a custom story -->
     <string name="ContactSearchItems__delete_story">Smazat příběh</string>
     <!-- Dialog title for removing a group story -->
     <string name="ContactSearchMediator__remove_group_story">Odebrat skupinový příběh?</string>
@@ -5377,11 +5513,11 @@
     <string name="ContactSearchMediator__this_will_remove">Tím se příběh odstraní z tohoto seznamu. Příběhy z této skupiny si budete moci prohlížet i nadále.</string>
     <!-- Dialog action item for removing a group story -->
     <string name="ContactSearchMediator__remove">Odebrat</string>
-    <!-- Dialog title for deleting a private story -->
+    <!-- Dialog title for deleting a custom story -->
     <string name="ContactSearchMediator__delete_story">Smazat příběh?</string>
-    <!-- Dialog message for deleting a private story -->
-    <string name="ContactSearchMediator__delete_the_private">Smazat soukromý příběh „%1$s“?</string>
-    <!-- Dialog action item for deleting a private story -->
+    <!-- Dialog message for deleting a custom story -->
+    <string name="ContactSearchMediator__delete_the_custom">Smazat vlastní příběh „%1$s“?</string>
+    <!-- Dialog action item for deleting a custom story -->
     <string name="ContactSearchMediator__delete">Smazat</string>
     <!-- Gift expiry days remaining -->
     <plurals name="Gifts__d_days_remaining">
@@ -5489,7 +5625,7 @@
 
     <!-- StoriesPrivacySettingsFragment -->
     <!-- Explanation about how stories are deleted and managed -->
-    <string name="StoriesPrivacySettingsFragment__stories_automatically_disappear">Příběhy automaticky zmizí po 24 hodinách. Vyberte, kdo může váš příběh zobrazit, nebo vytvořte nové příběhy pro konkrétní diváky nebo skupiny.</string>
+    <string name="StoriesPrivacySettingsFragment__story_updates_automatically_disappear">Aktualizace příběhu automaticky po 24 hodinách zmizí. Vyberte, kdo si může vás příběh zobrazit, nebo vytvořte nový příběh pro konkrétní sledující nebo skupiny.</string>
     <!-- Preference title to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__turn_off_stories">Vypnout příběhy</string>
     <!-- Preference summary to turn off stories -->
@@ -5504,6 +5640,17 @@
     <string name="StoriesPrivacySettingsFragment__you_will_no_longer_be_able_to_share">Příběhy již nebudete moci sdílet ani zobrazovat. Aktualizace příběhů, které jste nedávno sdíleli, budou také odstraněny.</string>
     <!-- Page title when launched from stories landing screen -->
     <string name="StoriesPrivacySettingsFragment__story_privacy">Soukromí příběhů</string>
+    <!-- Header for section that lists out stories -->
+    <string name="StoriesPrivacySettingsFragment__stories">Příběhy</string>
+    <!-- Story views header -->
+    <string name="StoriesPrivacySettingsFragment__story_views">Zobrazení příběhu</string>
+    <!-- Story view receipts toggle title -->
+    <string name="StoriesPrivacySettingsFragment__view_receipts">Potvrzení o zobrazení</string>
+    <!-- Story view receipts toggle message -->
+    <string name="StoriesPrivacySettingsFragment__see_and_share">Když si někdo váš příběh zobrazí, budete o tom vědět. Pokud tuto funkci vypnete, nedozvíte se, kdy si ostatní zobrazí váš příběh.</string>
+
+    <!-- NewStoryItem -->
+    <string name="NewStoryItem__new_story">Nový příběh</string>
 
     <!-- GroupStorySettingsFragment -->
     <!-- Section header for who can view a group story -->
@@ -5519,20 +5666,39 @@
     <!-- SMS Export Service -->
     <!-- Displayed in the notification while export is running -->
     <string name="SignalSmsExportService__exporting_messages">Exportování zpráv…</string>
+    <!-- Displayed in the notification title when export completes -->
+    <string name="SignalSmsExportService__signal_sms_export_complete">Export SMS zpráv z aplikace Signal dokončen</string>
+    <!-- Displayed in the notification message when export completes -->
+    <string name="SignalSmsExportService__tap_to_return_to_signal">Klenutím se vrátíte do aplikace Signal</string>
 
     <!-- ExportYourSmsMessagesFragment -->
     <!-- Title of the screen -->
     <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Exportujte své SMS zprávy</string>
     <!-- Message of the screen -->
-    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">SMS zprávy můžete exportovat do databáze SMS zpráv svého telefonu. Tím povolíte ostatním SMS aplikacím v telefonu přístup k nim a jejich import. Nevytvoří se tím však sdílený soubor historie SMS zpráv.</string>
+    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database_and_youll_have_the_option_to_keep_or_remove_them_from_signal">Zprávy SMS můžete exportovat do databáze SMS svého telefonu s tím, že budete mít možnost je v aplikaci Signál ponechat nebo odstranit. Můžete je tak importovat do jiných aplikací SMS ve svém telefonu. Nevytvoří se tím ale soubor s historií SMS, který by bylo možné sdílet.</string>
     <!-- Button label to begin export -->
     <string name="ExportYourSmsMessagesFragment__continue">Pokračovat</string>
 
     <!-- ExportingSmsMessagesFragment -->
     <!-- Title of the screen -->
     <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Exportování SMS zpráv</string>
+    <!-- Message of the screen when exporting sms messages -->
+    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">Může to chvíli trvat</string>
     <!-- Progress indicator for export -->
-    <string name="ExportingSmsMessagesFragment__exporting_d_of_d">Exportování %1$d z %2$d…</string>
+    <plurals name="ExportingSmsMessagesFragment__exporting_d_of_d">
+        <item quantity="one">Exportování %1$d z %2$d…</item>
+        <item quantity="few">Exportování %1$d z %2$d…</item>
+        <item quantity="many">Exportování %1$d z %2$d…</item>
+        <item quantity="other">Exportování %1$d z %2$d…</item>
+    </plurals>
+    <!-- Alert dialog title shown when we think a user may not have enough local storage available to export sms messages -->
+    <string name="ExportingSmsMessagesFragment__you_may_not_have_enough_disk_space">Je možné, že nemáte dostatek místa na disku</string>
+    <!-- Alert dialog message shown when we think a user may not have enough local storage available to export sms messages, placeholder is the file size, e.g., 128kB -->
+    <string name="ExportingSmsMessagesFragment__you_need_approximately_s_to_export_your_messages_ensure_you_have_enough_space_before_continuing">K exportu zpráv potřebujete přibližně %1$s. Před pokračováním se ujistěte, že máte dostatek místa.</string>
+    <!-- Alert dialog button to continue with exporting sms after seeing the lack of storage warning -->
+    <string name="ExportingSmsMessagesFragment__continue_anyway">Přesto pokračovat</string>
+    <!-- Dialog text shown when Signal isn't granted the sms permission needed to export messages, different than being selected as the sms app -->
+    <string name="ExportingSmsMessagesFragment__signal_needs_the_sms_permission_to_be_able_to_export_your_sms_messages">Signal potřebuje oprávnění SMS, aby mohl exportovat vaše SMS zprávy.</string>
 
     <!-- ChooseANewDefaultSmsAppFragment -->
     <!-- Title of the screen -->
@@ -5579,6 +5745,110 @@
     <string name="SetSignalAsDefaultSmsAppFragment__to_export_your_sms_messages">Chcete-li exportovat své SMS zprávy, musíte nastavit aplikaci Signal jako výchozí aplikaci SMS</string>
     <!-- Button label to start export -->
     <string name="SetSignalAsDefaultSmsAppFragment__next">Další</string>
+
+    <!-- BackupSchedulePermission Megaphone -->
+    <!-- The title on an alert window that explains to the user that we are unable to backup their messages -->
+    <string name="BackupSchedulePermissionMegaphone__cant_back_up_chats">Konverzace nelze zálohovat</string>
+    <!-- The body text of an alert window that tells the user that we are unable to backup their messages -->
+    <string name="BackupSchedulePermissionMegaphone__your_chats_are_no_longer_being_automatically_backed_up">Vaše konverzace již nejsou automaticky zálohovány.</string>
+    <!-- The text on a button in an alert window that, when clicked, will take the user to a screen to re-enable backups -->
+    <string name="BackupSchedulePermissionMegaphone__back_up_chats">Zálohovat konverzace</string>
+    <!-- The text on a button in an alert window that, when clicked, will take the user to a screen to re-enable backups -->
+    <string name="BackupSchedulePermissionMegaphone__not_now">Teď ne</string>
+    <!-- Re-enable backup permission bottom sheet title -->
+    <string name="BackupSchedulePermissionMegaphone__to_reenable_backups">Opětovné zapnutí zálohování:</string>
+    <!-- Re-enable backups permission bottom sheet instruction 1 text -->
+    <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Klepněte na tlačítko „Přejít do nastavení“ níže</string>
+    <!-- Re-enable backups permission bottom sheet instruction 2 text -->
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Zapněte možnost „Povolit varování a připomenutí“.</string>
+    <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
+    <string name="BackupSchedulePermissionMegaphone__go_to_settings">Přejít do nastavení</string>
+
+    <!-- SmsExportMegaphoneActivity -->
+    <!-- Phase 2 title of full screen megaphone indicating sms will no longer be supported in the near future -->
+    <string name="SmsExportMegaphoneActivity__signal_will_no_longer_support_sms">Signal již nebude podporovat zprávy SMS</string>
+    <!-- Phase 3 title of full screen megaphone indicating sms is longer supported  -->
+    <string name="SmsExportMegaphoneActivity__signal_no_longer_supports_sms">Signal již nepodporuje zprávy SMS</string>
+    <!-- Phase 2 message describing that sms is going away soon -->
+    <string name="SmsExportMegaphoneActivity__signal_will_soon_remove_support_for_sending_sms_messages">Signal brzy ukončí podporu posílání SMS zpráv, protože zprávy Signal poskytují koncové šifrování a silnou ochranu soukromí, což zprávy SMS nemají. Díky tomu budeme moci dál vylepšovat prostředí pro zasílání zpráv Signal.</string>
+    <!-- Phase 3 message describing that sms has gone away -->
+    <string name="SmsExportMegaphoneActivity__signal_has_removed_support_for_sending_sms_messages">Signal ukončil podporu posílání SMS zpráv, protože zprávy Signal poskytují koncové šifrování a silnou ochranu soukromí, což zprávy SMS nemají. Díky tomu budeme moci dál vylepšovat prostředí pro zasílání zpráv Signal.</string>
+    <!-- The text on a button in a popup that, when clicked, will take the user to a screen to export their SMS messages -->
+    <string name="SmsExportMegaphoneActivity__export_sms">Exportovat SMS</string>
+    <!-- The text on a button in a popup that, when clicked, will dismiss the popup and schedule the prompt to occur at a later time. -->
+    <string name="SmsExportMegaphoneActivity__remind_me_later">Připomenout později</string>
+    <!-- The text on a button in a popup that, when clicked, will navigate the user to a web article on SMS removal -->
+    <string name="SmsExportMegaphoneActivity__learn_more">Více informací</string>
+
+    <!-- Phase 1 Small megaphone title indicating sms is going away -->
+    <string name="SmsExportMegaphone__sms_support_going_away">Podpora SMS končí.</string>
+    <!-- Phase 1 small megaphone description indicating sms is going away -->
+    <string name="SmsExportMegaphone__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">Podpora SMS zpráv bude brzy ukončena, abychom se mohli zaměřit na šifrované zprávy.</string>
+    <!-- Phase 1 small megaphone button that takes the user to the sms export flow -->
+    <string name="SmsExportMegaphone__export_sms">Exportovat SMS</string>
+    <!-- Title for screen shown after sms export has completed -->
+    <string name="ExportSmsCompleteFragment__export_complete">Export dokončen</string>
+    <!-- Button to continue to next screen -->
+    <string name="ExportSmsCompleteFragment__next">Další</string>
+    <!-- Message showing summary of sms export counts -->
+    <plurals name="ExportSmsCompleteFragment__d_of_d_messages_exported">
+        <item quantity="one">Dokončen export %1$d z %2$d zprávy</item>
+        <item quantity="few">Dokončen export %1$d ze %2$d zpráv</item>
+        <item quantity="many">Dokončen export %1$d ze %2$d zpráv</item>
+        <item quantity="other">Dokončen export %1$d ze %2$d zpráv</item>
+    </plurals>
+
+    <!-- Title of screen shown when some sms messages did not export -->
+    <string name="ExportSmsPartiallyComplete__export_partially_complete">Export částečně dokončen</string>
+    <!-- Debug step 1 on screen shown when some sms messages did not export -->
+    <string name="ExportSmsPartiallyComplete__ensure_you_have_an_additional_s_free_on_your_phone_to_export_your_messages">Ujistěte se, že máte v telefonu dalších (%1$s) volného místa pro export zpráv</string>
+    <!-- Debug step 2 on screen shown when some sms messages dit not export -->
+    <string name="ExportSmsPartiallyComplete__retry_export_which_will_only_retry_messages_that_have_not_yet_been_exported">Zkuste export zopakovat. Znovu se budou exportovat pouze zprávy, které exportovány nebyly</string>
+    <!-- Partial sentence for Debug step 3 on screen shown when some sms messages did not export, is combined with 'contact us' -->
+    <string name="ExportSmsPartiallyComplete__if_the_problem_persists">Pokud problém přetrvává, </string>
+    <!-- Partial sentence for deubg step 3 on screen shown when some sms messages did not export, combined with 'If the problem persists', link text to open contact support view -->
+    <string name="ExportSmsPartiallyComplete__contact_us">Kontaktujte nás</string>
+    <!-- Button text to retry sms export -->
+    <string name="ExportSmsPartiallyComplete__retry">Zkusit znovu</string>
+    <!-- Button text to continue sms export flow and not retry failed message exports -->
+    <string name="ExportSmsPartiallyComplete__continue_anyway">Přesto pokračovat</string>
+    <!-- Title of screen shown when all sms messages failed to export -->
+    <string name="ExportSmsFullError__error_exporting_sms_messages">Při exportování SMS zpráv došlo k chybě</string>
+    <!-- Helper text shown when all sms messages failed to export -->
+    <string name="ExportSmsFullError__please_try_again_if_the_problem_persists">Zkuste to prosím znovu. Pokud problém přetrvává, </string>
+
+
+    <!-- DonateToSignalFragment -->
+    <!-- Title below avatar -->
+    <string name="DonateToSignalFragment__powered_by">Podporováno lidmi, jako jste vy.</string>
+    <!-- Continue button label -->
+    <string name="DonateToSignalFragment__continue">Pokračovat</string>
+    <!-- Description below title -->
+    <string name="DonateToSignalFragment__support_technology">Podpořte technologii, která je vytvořena pro vás, ne kvůli vašim datům, a připojte se ke komunitě lidí, která podporuje Signal.</string>
+    <!-- Donation pill toggle monthly text -->
+    <string name="DonationPillToggle__monthly">Měsíčně</string>
+    <!-- Donation pill toggle one-time text -->
+    <string name="DonationPillToggle__one_time">Jednorázově</string>
+
+    <!-- GatewaySelectorBottomSheet -->
+    <!-- Sheet title when subscribing -->
+    <string name="GatewaySelectorBottomSheet__donate_s_month_to_signal">Přispějte aplikaci Signalu měsíčně částkou %1$s</string>
+    <!-- Sheet summary when subscribing -->
+    <string name="GatewaySelectorBottomSheet__get_a_s_badge">Získat %1$s odznak</string>
+    <!-- Sheet title when giving a one-time donation -->
+    <string name="GatewaySelectorBottomSheet__donate_s_to_signal">Přispějte %1$s aplikaci Signal</string>
+    <!-- Sheet summary when giving a one-time donation -->
+    <plurals name="GatewaySelectorBottomSheet__get_a_s_badge_for_d_days">
+        <item quantity="one">Get a %1$s badge for %2$d day</item>
+        <item quantity="few">Get a %1$s badge for %2$d days</item>
+        <item quantity="many">Get a %1$s badge for %2$d days</item>
+        <item quantity="other">Get a %1$s badge for %2$d days</item>
+    </plurals>
+    <!-- Button label for paying with a credit card -->
+    <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Kreditní nebo debetní karta</string>
+
+    <!-- StripePaymentInProgressFragment -->
+    <string name="StripePaymentInProgressFragment__cancelling">Probíhá rušení…</string>
 
     <!-- EOF -->
 

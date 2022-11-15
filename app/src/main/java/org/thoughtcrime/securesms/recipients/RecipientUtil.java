@@ -201,7 +201,7 @@ public class RecipientUtil {
   }
 
   @WorkerThread
-  public static void unblock(@NonNull Context context, @NonNull Recipient recipient) {
+  public static void unblock(@NonNull Recipient recipient) {
     if (!isBlockable(recipient)) {
       throw new AssertionError("Recipient is not blockable!");
     }
@@ -266,7 +266,7 @@ public class RecipientUtil {
       return true;
     }
 
-    return isMessageRequestAccepted(context, threadId, threadRecipient);
+    return isMessageRequestAccepted(threadId, threadRecipient);
   }
 
   /**
@@ -279,7 +279,7 @@ public class RecipientUtil {
     }
 
     Long threadId = SignalDatabase.threads().getThreadIdFor(threadRecipient.getId());
-    return isMessageRequestAccepted(context, threadId, threadRecipient);
+    return isMessageRequestAccepted(threadId, threadRecipient);
   }
 
   /**
@@ -287,33 +287,33 @@ public class RecipientUtil {
    * is more likely to return false.
    */
   @WorkerThread
-  public static boolean isCallRequestAccepted(@NonNull Context context, @Nullable Recipient threadRecipient) {
+  public static boolean isCallRequestAccepted(@Nullable Recipient threadRecipient) {
     if (threadRecipient == null) {
       return true;
     }
 
     Long threadId = SignalDatabase.threads().getThreadIdFor(threadRecipient.getId());
-    return isCallRequestAccepted(context, threadId, threadRecipient);
+    return isCallRequestAccepted(threadId, threadRecipient);
   }
 
   /**
    * @return True if a conversation existed before we enabled message requests, otherwise false.
    */
   @WorkerThread
-  public static boolean isPreMessageRequestThread(@NonNull Context context, @Nullable Long threadId) {
+  public static boolean isPreMessageRequestThread(@Nullable Long threadId) {
     long beforeTime = SignalStore.misc().getMessageRequestEnableTime();
     return threadId != null && SignalDatabase.mmsSms().getConversationCount(threadId, beforeTime) > 0;
   }
 
   @WorkerThread
-  public static void shareProfileIfFirstSecureMessage(@NonNull Context context, @NonNull Recipient recipient) {
+  public static void shareProfileIfFirstSecureMessage(@NonNull Recipient recipient) {
     if (recipient.isProfileSharing()) {
       return;
     }
 
     long threadId = SignalDatabase.threads().getThreadIdIfExistsFor(recipient.getId());
 
-    if (isPreMessageRequestThread(context, threadId)) {
+    if (isPreMessageRequestThread(threadId)) {
       return;
     }
 
@@ -335,7 +335,7 @@ public class RecipientUtil {
   /**
    * @return True if this recipient should already have your profile key, otherwise false.
    */
-  public static boolean shouldHaveProfileKey(@NonNull Context context, @NonNull Recipient recipient) {
+  public static boolean shouldHaveProfileKey(@NonNull Recipient recipient) {
     if (recipient.isBlocked()) {
       return false;
     }
@@ -358,7 +358,7 @@ public class RecipientUtil {
   @WorkerThread
   public static boolean setAndSendUniversalExpireTimerIfNecessary(@NonNull Context context, @NonNull Recipient recipient, long threadId) {
     int defaultTimer = SignalStore.settings().getUniversalExpireTimer();
-    if (defaultTimer == 0 || recipient.isGroup() || recipient.getExpiresInSeconds() != 0 || !recipient.isRegistered()) {
+    if (defaultTimer == 0 || recipient.isGroup() || recipient.isDistributionList() || recipient.getExpiresInSeconds() != 0 || !recipient.isRegistered()) {
       return false;
     }
 
@@ -372,33 +372,38 @@ public class RecipientUtil {
   }
 
   @WorkerThread
-  public static boolean isMessageRequestAccepted(@NonNull Context context, @Nullable Long threadId, @Nullable Recipient threadRecipient) {
-    return threadRecipient == null                               ||
-           threadRecipient.isSelf()                              ||
-           threadRecipient.isProfileSharing()                    ||
-           threadRecipient.isSystemContact()                     ||
-           threadRecipient.isForceSmsSelection()                 ||
-           !threadRecipient.isRegistered()                       ||
-           hasSentMessageInThread(context, threadId)             ||
-           noSecureMessagesAndNoCallsInThread(context, threadId) ||
-           isPreMessageRequestThread(context, threadId);
+  public static boolean isMessageRequestAccepted(@Nullable Long threadId, @Nullable Recipient threadRecipient) {
+    return threadRecipient == null ||
+           threadRecipient.isSelf() ||
+           threadRecipient.isProfileSharing() ||
+           threadRecipient.isSystemContact() ||
+           threadRecipient.isForceSmsSelection() ||
+           !threadRecipient.isRegistered() ||
+           hasSentMessageInThread(threadId) ||
+           noSecureMessagesAndNoCallsInThread(threadId) ||
+           isPreMessageRequestThread(threadId);
   }
 
   @WorkerThread
-  private static boolean isCallRequestAccepted(@NonNull Context context, @Nullable Long threadId, @NonNull Recipient threadRecipient) {
-    return threadRecipient.isProfileSharing()            ||
-           threadRecipient.isSystemContact()             ||
-           hasSentMessageInThread(context, threadId)     ||
-           isPreMessageRequestThread(context, threadId);
+  private static boolean isCallRequestAccepted(@Nullable Long threadId, @NonNull Recipient threadRecipient) {
+    return threadRecipient.isProfileSharing() ||
+           threadRecipient.isSystemContact() ||
+           hasSentMessageInThread(threadId) ||
+           isPreMessageRequestThread(threadId);
   }
 
   @WorkerThread
-  public static boolean hasSentMessageInThread(@NonNull Context context, @Nullable Long threadId) {
+  public static boolean hasSentMessageInThread(@Nullable Long threadId) {
     return threadId != null && SignalDatabase.mmsSms().getOutgoingSecureConversationCount(threadId) != 0;
   }
 
+  public static boolean isSmsOnly(long threadId, @NonNull Recipient threadRecipient) {
+    return !threadRecipient.isRegistered() ||
+           noSecureMessagesAndNoCallsInThread(threadId);
+  }
+
   @WorkerThread
-  private static boolean noSecureMessagesAndNoCallsInThread(@NonNull Context context, @Nullable Long threadId) {
+  private static boolean noSecureMessagesAndNoCallsInThread(@Nullable Long threadId) {
     if (threadId == null) {
       return true;
     }

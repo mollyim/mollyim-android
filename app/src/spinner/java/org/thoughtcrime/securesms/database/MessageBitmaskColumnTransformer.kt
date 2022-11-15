@@ -50,9 +50,13 @@ import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.OUTGOING_VIDEO_CA
 import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.PROFILE_CHANGE_TYPE
 import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.PUSH_MESSAGE_BIT
 import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.SECURE_MESSAGE_BIT
+import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.SMS_EXPORT_TYPE
 import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.SPECIAL_TYPES_MASK
+import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.SPECIAL_TYPE_ACTIVATE_PAYMENTS_REQUEST
 import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.SPECIAL_TYPE_GIFT_BADGE
+import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.SPECIAL_TYPE_PAYMENTS_ACTIVATED
 import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.SPECIAL_TYPE_STORY_REACTION
+import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.THREAD_MERGE_TYPE
 import org.thoughtcrime.securesms.database.MmsSmsColumns.Types.UNSUPPORTED_MESSAGE_TYPE
 
 object MessageBitmaskColumnTransformer : ColumnTransformer {
@@ -111,10 +115,14 @@ object MessageBitmaskColumnTransformer : ColumnTransformer {
       isGroupV1MigrationEvent:${type == GV1_MIGRATION_TYPE}
       isChangeNumber:${type == CHANGE_NUMBER_TYPE}
       isBoostRequest:${type == BOOST_REQUEST_TYPE}
+      isThreadMerge:${type == THREAD_MERGE_TYPE}
+      isSmsExport:${type == SMS_EXPORT_TYPE}
       isGroupV2LeaveOnly:${type and GROUP_V2_LEAVE_BITS == GROUP_V2_LEAVE_BITS}
       isSpecialType:${type and SPECIAL_TYPES_MASK != 0L}
       isStoryReaction:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_STORY_REACTION}
       isGiftBadge:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_GIFT_BADGE}
+      isRequestToActivatePayments:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_ACTIVATE_PAYMENTS_REQUEST}
+      isPaymentsActivated:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_PAYMENTS_ACTIVATED}
     """.trimIndent()
 
     return "$type<br><br>" + describe.replace(Regex("is[A-Z][A-Za-z0-9]*:false\n?"), "").replace("\n", "<br>")

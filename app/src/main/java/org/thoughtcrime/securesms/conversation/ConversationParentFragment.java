@@ -239,7 +239,6 @@ import org.thoughtcrime.securesms.mms.StickerSlide;
 import org.thoughtcrime.securesms.mms.VideoSlide;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.notifications.v2.ConversationId;
-import org.thoughtcrime.securesms.payments.CanNotSendPaymentDialog;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewBannerView;
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewCardDialogFragment;
@@ -301,7 +300,6 @@ import org.thoughtcrime.securesms.verify.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperDimLevelUtil;
 import org.whispersystems.signalservice.api.SignalSessionLock;
-import org.whispersystems.signalservice.api.util.ExpiringProfileCredentialUtil;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -393,7 +391,7 @@ public class ConversationParentFragment extends Fragment
   private   TextView                     charactersLeft;
   private   ConversationFragment         fragment;
   private   Button                       unblockButton;
-  private   Button                       inviteButton;
+  private   Stub<View>                   inviteButton;
   private   Button                       registerButton;
   private   InputAwareLayout             container;
   protected Stub<ReminderView>           reminderView;
@@ -443,6 +441,7 @@ public class ConversationParentFragment extends Fragment
   private VoiceNotePlayerView          voiceNotePlayerView;
   private Material3OnScrollHelper      material3OnScrollHelper;
   private InlineQueryResultsController inlineQueryResultsController;
+  private OnBackPressedCallback        backPressedCallback;
 
   private LiveRecipient recipient;
   private long          threadId;
@@ -541,12 +540,13 @@ public class ConversationParentFragment extends Fragment
 
     disposables.add(viewModel.getStoryViewState().subscribe(titleView::setStoryRingFromState));
 
-    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+    backPressedCallback = new OnBackPressedCallback(true) {
       @Override
       public void handleOnBackPressed() {
         onBackPressed();
       }
-    });
+    };
+    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backPressedCallback);
 
     if (isSearchRequested && savedInstanceState == null) {
       onCreateOptionsMenu(toolbar.getMenu(), requireActivity().getMenuInflater());
@@ -564,6 +564,7 @@ public class ConversationParentFragment extends Fragment
     WindowUtil.setLightStatusBarFromTheme(requireActivity());
 
     EventBus.getDefault().register(this);
+    backPressedCallback.setEnabled(true);
     initializeIdentityRecords();
     composeText.setMessageSendType(sendButton.getSelectedSendType());
 
@@ -910,10 +911,11 @@ public class ConversationParentFragment extends Fragment
     }
 
     if (isSingleConversation()) {
-      if (viewModel.isPushAvailable())            inflater.inflate(R.menu.conversation_callable_secure, menu);
-      else if (!recipient.get().isReleaseNotes()) inflater.inflate(R.menu.conversation_callable_insecure, menu);
+      if (viewModel.isPushAvailable())   {
+        inflater.inflate(R.menu.conversation_callable_secure, menu);
+      }
     } else if (isGroupConversation()) {
-      if (isActiveV2Group) {
+      if (isActiveV2Group && Build.VERSION.SDK_INT > 19) {
         inflater.inflate(R.menu.conversation_callable_groupv2, menu);
         if (groupCallViewModel != null && Boolean.TRUE.equals(groupCallViewModel.hasActiveGroupCall().getValue())) {
           hideMenuItem(menu, R.id.menu_video_secure);
@@ -1140,6 +1142,9 @@ public class ConversationParentFragment extends Fragment
       if (searchViewItem != null) {
         searchViewItem.collapseActionView();
       }
+    } else if (isInBubble()) {
+      backPressedCallback.setEnabled(false);
+      requireActivity().onBackPressed();
     } else {
       requireActivity().finish();
     }
@@ -1191,11 +1196,7 @@ public class ConversationParentFragment extends Fragment
         AttachmentManager.selectLocation(this, PICK_LOCATION, getSendButtonColor(sendButton.getSelectedSendType()));
         break;
       case PAYMENT:
-        if (ExpiringProfileCredentialUtil.isValid(recipient.get().getExpiringProfileKeyCredential())) {
-          AttachmentManager.selectPayment(this, recipient.getId());
-        } else {
-          CanNotSendPaymentDialog.show(requireActivity());
-        }
+        AttachmentManager.selectPayment(this, recipient.get());
         break;
 
     }
@@ -1271,7 +1272,7 @@ public class ConversationParentFragment extends Fragment
     final Context context = requireContext().getApplicationContext();
     BlockUnblockDialog.showUnblockFor(requireContext(), getLifecycle(), recipient.get(), () -> {
       SignalExecutors.BOUNDED.execute(() -> {
-        RecipientUtil.unblock(context, recipient.get());
+        RecipientUtil.unblock(recipient.get());
       });
     });
   }
@@ -1283,11 +1284,23 @@ public class ConversationParentFragment extends Fragment
   private void handleInviteLink() {
     String inviteText = getString(R.string.ConversationActivity_lets_switch_to_signal, getString(R.string.install_url));
 
-    Intent intent = new Intent(Intent.ACTION_SENDTO);
-    intent.setData(Uri.parse("smsto:" + recipient.get().requireSmsAddress()));
-    intent.putExtra("sms_body", inviteText);
-    intent.putExtra(Intent.EXTRA_TEXT, inviteText);
-    startActivity(intent);
+    if (recipient.get().hasSmsAddress()) {
+      Intent intent = new Intent(Intent.ACTION_SENDTO);
+      intent.setData(Uri.parse("smsto:" + recipient.get().requireSmsAddress()));
+      intent.putExtra("sms_body", inviteText);
+      intent.putExtra(Intent.EXTRA_TEXT, inviteText);
+      startActivity(intent);
+    } else {
+      Intent sendIntent = new Intent();
+      sendIntent.setAction(Intent.ACTION_SEND);
+      sendIntent.putExtra(Intent.EXTRA_TEXT, inviteText);
+      sendIntent.setType("text/plain");
+      if (sendIntent.resolveActivity(requireContext().getPackageManager()) != null) {
+        startActivity(Intent.createChooser(sendIntent, getString(R.string.InviteActivity_invite_to_signal)));
+      } else {
+        Toast.makeText(requireContext(), R.string.InviteActivity_no_app_to_share_to, Toast.LENGTH_LONG).show();
+      }
+    }
   }
 
   private void handleViewMedia() {
@@ -1809,7 +1822,7 @@ public class ConversationParentFragment extends Fragment
         if (actionId == R.id.reminder_action_gv1_suggestion_add_members) {
           GroupsV1MigrationSuggestionsDialog.show(requireActivity(), recipient.get().requireGroupId().requireV2(), gv1MigrationSuggestions);
         } else if (actionId == R.id.reminder_action_gv1_suggestion_no_thanks) {
-          groupViewModel.onSuggestedMembersBannerDismissed(recipient.get().requireGroupId(), gv1MigrationSuggestions);
+          groupViewModel.onSuggestedMembersBannerDismissed(recipient.get().requireGroupId());
         }
       });
       reminderView.get().setOnDismissListener(() -> {
@@ -1912,7 +1925,7 @@ public class ConversationParentFragment extends Fragment
     emojiDrawerStub          = ViewUtil.findStubById(view, R.id.emoji_drawer_stub);
     attachmentKeyboardStub   = ViewUtil.findStubById(view, R.id.attachment_keyboard_stub);
     unblockButton            = view.findViewById(R.id.unblock_button);
-    inviteButton             = view.findViewById(R.id.invite_button);
+    inviteButton             = ViewUtil.findStubById(view, R.id.sms_export_stub);
     registerButton           = view.findViewById(R.id.register_button);
     container                = view.findViewById(R.id.layout_container);
     reminderView             = ViewUtil.findStubById(view, R.id.reminder_stub);
@@ -1949,7 +1962,7 @@ public class ConversationParentFragment extends Fragment
     inputPanel.setListener(this);
     inputPanel.setMediaListener(this);
 
-    attachmentManager = new AttachmentManager(requireActivity(), this);
+    attachmentManager = new AttachmentManager(requireContext(), view, this);
     audioRecorder     = new AudioRecorder(requireContext());
     typingTextWatcher = new ComposeTextWatcher();
 
@@ -1982,7 +1995,6 @@ public class ConversationParentFragment extends Fragment
     titleView.setOnClickListener(v -> handleConversationSettings());
     titleView.setOnLongClickListener(v -> handleDisplayQuickContact());
     unblockButton.setOnClickListener(v -> handleUnblock());
-    inviteButton.setOnClickListener(v -> handleInviteLink());
     registerButton.setOnClickListener(v -> handleRegisterForSignal());
 
     composeText.setOnKeyListener(composeKeyPressedListener);
@@ -2068,7 +2080,9 @@ public class ConversationParentFragment extends Fragment
       int toolbarTextAndIconColor = getResources().getColor(R.color.signal_colorNeutralInverse);
       toolbar.setTitleTextColor(toolbarTextAndIconColor);
       setToolbarActionItemTint(toolbar, toolbarTextAndIconColor);
-      WindowUtil.setNavigationBarColor(requireActivity(), getResources().getColor(R.color.conversation_navigation_wallpaper));
+      if (!inviteButton.resolved()) {
+        WindowUtil.setNavigationBarColor(requireActivity(), getResources().getColor(R.color.conversation_navigation_wallpaper));
+      }
     } else {
       wallpaper.setImageDrawable(null);
       wallpaperDim.setVisibility(View.GONE);
@@ -2081,7 +2095,7 @@ public class ConversationParentFragment extends Fragment
       int toolbarTextAndIconColor = getResources().getColor(R.color.signal_colorOnSurface);
       toolbar.setTitleTextColor(toolbarTextAndIconColor);
       setToolbarActionItemTint(toolbar, toolbarTextAndIconColor);
-      if (!releaseChannelUnmute.resolved()) {
+      if (!releaseChannelUnmute.resolved() && !inviteButton.resolved()) {
         WindowUtil.setNavigationBarColor(requireActivity(), getResources().getColor(R.color.signal_colorBackground));
       }
     }
@@ -2147,7 +2161,7 @@ public class ConversationParentFragment extends Fragment
   }
 
   private void initializeLinkPreviewObserver() {
-    linkPreviewViewModel = new ViewModelProvider(this, new LinkPreviewViewModel.Factory(new LinkPreviewRepository())).get(LinkPreviewViewModel.class);
+    linkPreviewViewModel = new ViewModelProvider(this, (ViewModelProvider.Factory) new LinkPreviewViewModel.Factory(new LinkPreviewRepository())).get(LinkPreviewViewModel.class);
 
     linkPreviewViewModel.getLinkPreviewState().observe(getViewLifecycleOwner(), previewState -> {
       if (previewState == null) return;
@@ -2167,7 +2181,7 @@ public class ConversationParentFragment extends Fragment
   private void initializeSearchObserver() {
     ConversationSearchViewModel.Factory viewModelFactory = new ConversationSearchViewModel.Factory(getString(R.string.note_to_self));
 
-    searchViewModel = new ViewModelProvider(this, viewModelFactory).get(ConversationSearchViewModel.class);
+    searchViewModel = new ViewModelProvider(this, (ViewModelProvider.Factory) viewModelFactory).get(ConversationSearchViewModel.class);
 
     searchViewModel.getSearchResults().observe(getViewLifecycleOwner(), result -> {
       if (result == null) return;
@@ -2184,7 +2198,7 @@ public class ConversationParentFragment extends Fragment
   private void initializeStickerObserver() {
     StickerSearchRepository repository = new StickerSearchRepository(requireContext());
 
-    stickerViewModel = new ViewModelProvider(this, new ConversationStickerViewModel.Factory(requireActivity().getApplication(), repository))
+    stickerViewModel = new ViewModelProvider(this, (ViewModelProvider.Factory) new ConversationStickerViewModel.Factory(requireActivity().getApplication(), repository))
                                          .get(ConversationStickerViewModel.class);
 
     stickerViewModel.getStickerResults().observe(getViewLifecycleOwner(), stickers -> {
@@ -2221,7 +2235,7 @@ public class ConversationParentFragment extends Fragment
   }
 
   private void initializeViewModel(@NonNull ConversationIntents.Args args) {
-    this.viewModel = new ViewModelProvider(this, new ConversationViewModel.Factory()).get(ConversationViewModel.class);
+    this.viewModel = new ViewModelProvider(this, (ViewModelProvider.Factory) new ConversationViewModel.Factory()).get(ConversationViewModel.class);
 
     this.viewModel.setArgs(args);
     this.viewModel.getEvents().observe(getViewLifecycleOwner(), this::onViewModelEvent);
@@ -2229,7 +2243,7 @@ public class ConversationParentFragment extends Fragment
   }
 
   private void initializeGroupViewModel() {
-    groupViewModel = new ViewModelProvider(this, new ConversationGroupViewModel.Factory()).get(ConversationGroupViewModel.class);
+    groupViewModel = new ViewModelProvider(this, (ViewModelProvider.Factory) new ConversationGroupViewModel.Factory()).get(ConversationGroupViewModel.class);
     recipient.observe(this, groupViewModel::onRecipientChange);
     groupViewModel.getGroupActiveState().observe(getViewLifecycleOwner(), unused -> invalidateOptionsMenu());
     groupViewModel.getReviewState().observe(getViewLifecycleOwner(), this::presentGroupReviewBanner);
@@ -2605,11 +2619,23 @@ public class ConversationParentFragment extends Fragment
       inputPanel.setHideForBlockedState(true);
       inviteButton.setVisibility(View.GONE);
       registerButton.setVisibility(View.VISIBLE);
-    } else if (!conversationSecurityInfo.isPushAvailable() && recipient.hasSmsAddress()) {
+    } else if (!conversationSecurityInfo.isPushAvailable() && (recipient.hasSmsAddress() || recipient.isMmsGroup())) {
       unblockButton.setVisibility(View.GONE);
       inputPanel.setHideForBlockedState(true);
       inviteButton.setVisibility(SignalStore.account().isRegistered() ? View.VISIBLE : View.GONE);
       registerButton.setVisibility(View.GONE);
+
+      int color = ContextCompat.getColor(requireContext(), recipient.hasWallpaper() ? R.color.wallpaper_bubble_color : R.color.signal_colorBackground);
+      inviteButton.get().setBackgroundColor(color);
+      WindowUtil.setNavigationBarColor(requireActivity(), color);
+
+      TextView       message      = inviteButton.get().findViewById(R.id.export_sms_message);
+      MaterialButton actionButton = inviteButton.get().findViewById(R.id.export_sms_button);
+
+      message.setText(requireContext().getString(R.string.ConversationActivity__sms_messaging_is_currently_disabled_invite_s_to_to_signal_to_keep_the_conversation_here,
+                                                 recipient.getDisplayName(requireContext())));
+      actionButton.setText(R.string.ConversationActivity__invite_to_signal);
+      actionButton.setOnClickListener(v -> handleInviteLink());
     } else if (recipient.isReleaseNotes() && !recipient.isBlocked()) {
       unblockButton.setVisibility(View.GONE);
       inputPanel.setHideForBlockedState(true);
@@ -3669,6 +3695,11 @@ public class ConversationParentFragment extends Fragment
   @Override
   public void onUnregisterVoiceNoteCallbacks(@NonNull Observer<VoiceNotePlaybackState> onPlaybackStartObserver) {
     voiceNoteMediaController.getVoiceNotePlaybackState().removeObserver(onPlaybackStartObserver);
+  }
+
+  @Override
+  public void onInviteToSignal() {
+    handleInviteLink();
   }
 
   @Override

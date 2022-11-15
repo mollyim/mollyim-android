@@ -102,7 +102,6 @@ public class BackupsPreferenceFragment extends Fragment {
     EventBus.getDefault().register(this);
   }
 
-  @SuppressWarnings("ConstantConditions")
   @Override
   public void onResume() {
     super.onResume();
@@ -316,7 +315,7 @@ public class BackupsPreferenceFragment extends Fragment {
 
   @RequiresApi(29)
   private void onCreateClickedApi29() {
-    Log.i(TAG, "Queing backup...");
+    Log.i(TAG, "Queueing backup...");
     LocalBackupJob.enqueue(true);
   }
 
