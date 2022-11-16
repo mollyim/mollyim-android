@@ -106,11 +106,11 @@
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly се нуждае от достъп до контактите Ви, за да може да прикачва информация за тях, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Контакти\".</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly се нуждае от достъп до местоположението Ви, за да може да го прикачва, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Местоположение\".</string>
     <!-- Alert dialog title to show the recipient has not activated payments -->
-    <string name="AttachmentManager__not_activated_payments">%1$s hasn\'t activated Payments </string>
+    <string name="AttachmentManager__not_activated_payments">%1$s няма активирани Плащания </string>
     <!-- Alert dialog description to send the recipient a request to activate payments -->
-    <string name="AttachmentManager__request_to_activate_payments">Do you want to send them a request to activate Payments?</string>
+    <string name="AttachmentManager__request_to_activate_payments">Искате ли да изпратите заявка на потребителя да активира Плащанията?</string>
     <!-- Alert dialog button to send request -->
-    <string name="AttachmentManager__send_request">Send request</string>
+    <string name="AttachmentManager__send_request">Изпращане на заявка</string>
     <!-- Alert dialog button to cancel dialog -->
     <string name="AttachmentManager__cancel">Отказ</string>
 
@@ -134,10 +134,14 @@
     <string name="BlockedUsersActivity__unblock">Отблокиране</string>
 
     <!-- CreditCardFragment -->
-    <!-- Title of fragment detailing the donation amount, displayed above the credit card text fields -->
+    <!-- Title of fragment detailing the donation amount for one-time donation, displayed above the credit card text fields -->
     <string name="CreditCardFragment__donation_amount_s">Размер на дарението: %1$s</string>
+    <!-- Title of fragment detailing the donation amount for monthly donation, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__donation_amount_s_per_month">Размер на дарението: %1$s/месец</string>
     <!-- Explanation of how to fill in the form, displayed above the credit card text fields -->
     <string name="CreditCardFragment__enter_your_card_information_below">Въведете информацията за вашата карта по-долу</string>
+    <!-- Explanation of how to fill in the form and a note about pii, displayed above the credit card text fields -->
+    <string name="CreditCardFragment__enter_your_card_details">Въведете информацията за вашата карта. Signal не събира и не съхранява личната ви информация.</string>
     <!-- Displayed as a hint in the card number text field -->
     <string name="CreditCardFragment__card_number">Номер на карта</string>
     <!-- Displayed as a hint in the card expiry text field -->
@@ -448,6 +452,10 @@
     <string name="ConversationFragment_deleting_messages">Изтриване на съобщения…</string>
     <string name="ConversationFragment_delete_for_me">Изтрий за мен</string>
     <string name="ConversationFragment_delete_for_everyone">Изтрий за всички</string>
+    <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
+    <string name="ConversationFragment_delete_on_this_device">Изтриване от това устройство</string>
+    <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
+    <string name="ConversationFragment_delete_everywhere">Изтриване навсякъде</string>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Това съобщение ще бъде изтрито за всички участващи в този разговор, ползващи скорошна версия на Signal. Те ще могат да видят, че сте изтрили съобщение.</string>
     <string name="ConversationFragment_quoted_message_not_found">Оригиналното съобщение не е открито</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Оригиналното съобщение вече не е налично</string>
@@ -874,7 +882,7 @@
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Избрали сте контакт, който не поддържа групи в Signal, така че тази група ще бъде MMS. Персонализираните имена и снимки в MMS групата ще се виждат само от вас.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
-    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support_signal_groups_mms_removal">You\'ve selected a contact that doesn\'t support Signal groups, this group will be MMS. Custom MMS group names and photos will only be visible to you. Support for MMS groups will be removed soon to focus on encrypted messaging.</string>
+    <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support_signal_groups_mms_removal">Избрали сте контакт, който не поддържа групи в Signal, така че тази група ще бъде MMS. Персонализираните имена и снимки на MMS групи ще бъдат видими само за вас. Поддръжката на MMS групи скоро ще бъде прекратена, за да се фокусираме върху криптираните съобщения.</string>
 
     <!-- ManageGroupActivity -->
     <string name="ManageGroupActivity_member_requests_and_invites">Заявки &amp; покани за членове</string>
@@ -1420,13 +1428,13 @@
     <!-- Update item message shown when we merge two threads together and we don't know the phone number of the other thread -->
     <string name="MessageRecord_your_message_history_with_s_and_another_chat_has_been_merged">Хронологията на съобщенията между вас и %1$s и друг чат със същия контакт беше слята.</string>
     <!-- Message to notify sender that activate payments request has been sent to the recipient -->
-    <string name="MessageRecord_you_sent_request">You sent %1$s a request to activate Payments</string>
+    <string name="MessageRecord_you_sent_request">Изпратихте на %1$s заявка за активиране на Плащания</string>
     <!-- Request message from recipient to activate payments -->
-    <string name="MessageRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments. Only send payments to people you trust.</string>
+    <string name="MessageRecord_wants_you_to_activate_payments">%1$s иска да активирате Плащанията. Пращайте плащания само на доверени хора.</string>
     <!-- Message to inform user that payments was activated-->
-    <string name="MessageRecord_you_activated_payments">You activated Payments</string>
+    <string name="MessageRecord_you_activated_payments">Вие активирахте Плащания</string>
     <!-- Message to inform sender that recipient can now accept payments -->
-    <string name="MessageRecord_can_accept_payments">%1$s can now accept Payments</string>
+    <string name="MessageRecord_can_accept_payments">%1$s вече може да приема Плащания</string>
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s започна групов разговор · %2$s</string>
@@ -1457,6 +1465,8 @@
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Скоро вече няма да може да изпращате SMS съобщения от Signal. Поканете %1$s в Signal, за да продължите разговора тук.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Вече не можете да изпращате SMS съобщения в Molly. Поканете %1$s в Molly, за да продължите разговора тук.</string>
+    <!-- Body for quote when message being quoted is an in-app payment message -->
+    <string name="MessageRecord__payment_s">Плащане: %1$s</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Приемам</string>
@@ -1916,13 +1926,13 @@
     <string name="ThreadRecord_this_message_was_deleted">Това съобщение беше изтрито.</string>
     <string name="ThreadRecord_you_deleted_this_message">Изтрихте това съобщение.</string>
     <!-- Displayed in the notification when the user sends a request to activate payments -->
-    <string name="ThreadRecord_you_sent_request">You sent a request to activate Payments</string>
+    <string name="ThreadRecord_you_sent_request">Изпратихте заявка за активиране на Плащания</string>
     <!-- Displayed in the notification when the recipient wants to activate payments -->
-    <string name="ThreadRecord_wants_you_to_activate_payments">%1$s wants you to activate Payments</string>
+    <string name="ThreadRecord_wants_you_to_activate_payments">%1$s иска да активирате Плащания</string>
     <!-- Displayed in the notification when the user activates payments -->
-    <string name="ThreadRecord_you_activated_payments">You activated Payments</string>
+    <string name="ThreadRecord_you_activated_payments">Вие активирахте Плащания</string>
     <!-- Displayed in the notification when the recipient can accept payments -->
-    <string name="ThreadRecord_can_accept_payments">%1$s can now accept Payments</string>
+    <string name="ThreadRecord_can_accept_payments">%1$s вече може да приема Плащания</string>
     <string name="ThreadRecord_s_is_on_signal">%1$s е в Signal!</string>
     <string name="ThreadRecord_disappearing_messages_disabled">Изчезващите съобщения са деактивирани</string>
     <string name="ThreadRecord_disappearing_message_time_updated_to_s">Времето за изчезване на съобщенията е %1$s</string>
@@ -1949,6 +1959,8 @@
     <string name="ThreadRecord__reacted_s_to_your_story">Реагира с %1$s на историята ви</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
     <string name="ThreadRecord__reacted_s_to_their_story">Реагира с %1$s на историята</string>
+    <!-- Displayed in the conversation list when your most recent message is a payment to or from the person the conversation is with -->
+    <string name="ThreadRecord_payment">Плащане</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Обновление на Molly</string>
@@ -2152,7 +2164,7 @@
 
     <!-- EnclaveFailureReminder -->
     <!-- Banner message to update app to use payments -->
-    <string name="EnclaveFailureReminder_update_signal">Update Signal to continue using payments. Your balance may not be up-to-date.</string>
+    <string name="EnclaveFailureReminder_update_signal">Актуализирайте Signal, за да продължите да използвате плащания. Възможно е балансът ви да не е актуален.</string>
     <!-- Banner button to update now -->
     <string name="EnclaveFailureReminder_update_now">Обнови сега</string>
 
@@ -2284,7 +2296,7 @@
     <string name="ConversationUpdateItem_view">Преглед</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Съобщенията ще изчезват след %1$s когато им пишете.</string>
     <!-- Update item button text to show to boost a feature -->
-    <string name="ConversationUpdateItem_donate">Дари</string>
+    <string name="ConversationUpdateItem_donate">Дарете</string>
     <!-- Update item button text to send payment -->
     <string name="ConversationUpdateItem_send_payment">Send Payment</string>
     <!-- Update item button text to activate payments -->
@@ -2712,7 +2724,7 @@
     <string name="preferences__slow">Бавно</string>
     <string name="preferences__help">Помощ</string>
     <string name="preferences__advanced">Допълнителни</string>
-    <string name="preferences__donate_to_signal">Дари на Molly</string>
+    <string name="preferences__donate_to_signal">Дарете на Molly</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__one_time_donation">Еднократно дарение</string>
     <string name="preferences__privacy">Поверителност</string>
@@ -2860,107 +2872,9 @@
     <string name="configurable_single_select__customize_option">Опция за персонализиране</string>
 
     <!-- Internal only preferences -->
-    <string name="preferences__internal_turn_off_stories_with_stories_on_disk" translatable="false">Turn off stories (with stories on disk)</string>
-    <string name="preferences__internal_turn_off_stories" translatable="false">Turn off stories</string>
-    <string name="preferences__internal_delete_custom_story" translatable="false">Delete custom story</string>
-    <string name="preferences__internal_hide_story" translatable="false">Hide story</string>
-    <string name="preferences__internal_story_or_profile_selector" translatable="false">Story or profile selector</string>
-    <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
-    <string name="preferences__internal_retry_send" translatable="false">Retry send</string>
-    <string name="preferences__internal_remove_group_story" translatable="false">Remove group story</string>
-    <string name="preferences__internal_clear_onboarding_state" translatable="false">Clear onboarding state</string>
-    <string name="preferences__internal_clears_onboarding_flag_and_triggers_download_of_onboarding_stories" translatable="false">Clears onboarding flag and triggers download of onboarding stories.</string>
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
-    <string name="preferences__internal_preferences_groups_v2" translatable="false">Groups V2</string>
-    <string name="preferences__internal_force_gv2_invites" translatable="false">Force Invites</string>
-    <string name="preferences__internal_force_gv2_invites_description" translatable="false">Members will not be added directly to a GV2 even if they could be.</string>
-    <string name="preferences__internal_ignore_gv2_server_changes" translatable="false">Ignore server changes</string>
-    <string name="preferences__internal_ignore_gv2_server_changes_description" translatable="false">Changes in server\&apos;s response will be ignored, causing passive voice update messages if P2P is also ignored.</string>
-    <string name="preferences__internal_ignore_gv2_p2p_changes" translatable="false">Ignore P2P changes</string>
-    <string name="preferences__internal_ignore_gv2_p2p_changes_description" translatable="false">Changes sent P2P will be ignored. In conjunction with ignoring server changes, will cause passive voice.</string>
-    <string name="preferences__internal_payments" translatable="false">Payments</string>
-    <string name="preferences__internal_payment_copy_data" translatable="false">Copy payments data</string>
-    <string name="preferences__internal_payment_copy_data_description" translatable="false">Copy all payment records to clipboard.</string>
-    <string name="preferences__internal_account" translatable="false">Account</string>
-    <string name="preferences__internal_refresh_attributes" translatable="false">Refresh attributes</string>
-    <string name="preferences__internal_refresh_attributes_description" translatable="false">Forces a write of capabilities on to the server followed by a read.</string>
-    <string name="preferences__internal_refresh_profile" translatable="false">Refresh profile</string>
-    <string name="preferences__internal_refresh_profile_description" translatable="false">Forces a refresh of your own profile.</string>
-    <string name="preferences__internal_rotate_profile_key" translatable="false">Rotate profile key</string>
-    <string name="preferences__internal_rotate_profile_key_description" translatable="false">Creates a new versioned profile, and triggers an update of any GV2 group you belong to.</string>
-    <string name="preferences__internal_refresh_remote_config" translatable="false">Refresh remote config</string>
-    <string name="preferences__internal_refresh_remote_config_description" translatable="false">Forces a refresh of the remote config locally instead of waiting for the elapsed time.</string>
-    <string name="preferences__internal_misc" translatable="false">Miscellaneous</string>
-    <string name="preferences__internal_user_details" translatable="false">\&apos;Internal Details\&apos; button</string>
-    <string name="preferences__internal_user_details_description" translatable="false">Show a button in conversation settings that lets you see more information about a user.</string>
-    <string name="preferences__internal_shake_to_report" translatable="false">Shake to Report</string>
-    <string name="preferences__internal_shake_to_report_description" translatable="false">Shake your phone to easily submit and share a debug log.</string>
-    <string name="preferences__internal_clear_keep_longer_logs" translatable="false">Clear keep longer logs</string>
-    <string name="preferences__internal_storage_service" translatable="false">Storage service</string>
-    <string name="preferences__internal_disable_storage_service" translatable="false">Disable syncing</string>
-    <string name="preferences__internal_disable_storage_service_description" translatable="false">Prevent syncing any data to/from storage service.</string>
-    <string name="preferences__internal_force_storage_service_sync" translatable="false">Overwrite remote data</string>
-    <string name="preferences__internal_sync_now" translatable="false">Sync now</string>
-    <string name="preferences__internal_sync_now_description" translatable="false">Enqueue a normal storage service sync.</string>
-    <string name="preferences__internal_force_storage_service_sync_description" translatable="false">Forces remote storage to match the local device state.</string>
-    <string name="preferences__internal_network" translatable="false">Network</string>
-    <string name="preferences__internal_allow_censorship_toggle" translatable="false">Allow censorship circumvention toggle</string>
-    <string name="preferences__internal_allow_censorship_toggle_description" translatable="false">Allow changing the censorship circumvention toggle regardless of network connectivity.</string>
-    <string name="preferences__internal_conversations_and_shortcuts" translatable="false">Conversations and Shortcuts</string>
-    <string name="preferences__internal_emoji" translatable="false">Emoji</string>
-    <string name="preferences__internal_use_built_in_emoji_set" translatable="false">Use built-in emoji set</string>
-    <string name="preferences__internal_force_emoji_download" translatable="false">Force emoji download</string>
-    <string name="preferences__internal_force_emoji_download_description" translatable="false">Download the latest emoji set if it\&apos;s newer than what we have.</string>
-    <string name="preferences__internal_force_search_index_download" translatable="false">Force search index download</string>
-    <string name="preferences__internal_force_search_index_download_description" translatable="false">Download the latest emoji search index if it\&apos;s newer than what we have.</string>
-    <string name="preferences__internal_current_version_builtin" translatable="false">Current version: Built-In</string>
-    <string name="preferences__internal_current_version_d_at_density_s" translatable="false">Current version: %1$d at density %2$s</string>
-    <string name="preferences__internal_delete_all_dynamic_shortcuts" translatable="false">Delete all dynamic shortcuts</string>
-    <string name="preferences__internal_click_to_delete_all_dynamic_shortcuts" translatable="false">Click to delete all dynamic shortcuts</string>
     <string name="preferences__internal_details" translatable="false">Internal Details</string>
-    <string name="preferences__internal_disable_profile_sharing" translatable="false">Disable Profile Sharing</string>
-    <string name="preferences__internal_delete_session" translatable="false">Delete Session</string>
-    <string name="preferences__internal_sender_key" translatable="false">Sender Key</string>
-    <string name="preferences__internal_clear_all_state" translatable="false">Clear all state</string>
-    <string name="preferences__internal_click_to_delete_all_sender_key_state" translatable="false">Click to delete all sender key state</string>
-    <string name="preferences__internal_clear_shared_state" translatable="false">Clear shared state</string>
-    <string name="preferences__internal_click_to_delete_all_sharing_state" translatable="false">Click to delete all sharing state</string>
-    <string name="preferences__internal_remove_two_person_minimum" translatable="false">Remove 2 person minimum</string>
-    <string name="preferences__internal_remove_the_requirement_that_you_need" translatable="false">Remove the requirement that you  need at least 2 recipients to use sender key.</string>
-    <string name="preferences__internal_delay_resends" translatable="false">Delay resends</string>
-    <string name="preferences__internal_delay_resending_messages_in_response_to_retry_receipts" translatable="false">Delay resending messages in response to retry receipts by 10 seconds.</string>
-    <string name="preferences__internal_local_metrics" translatable="false">Local Metrics</string>
-    <string name="preferences__internal_clear_local_metrics" translatable="false">Clear local metrics</string>
-    <string name="preferences__internal_click_to_clear_all_local_metrics_state" translatable="false">Click to clear all local metrics state.</string>
-    <string name="preferences__internal_calling_server" translatable="false">Group call server</string>
-    <string name="preferences__internal_calling_server_default" translatable="false">Default</string>
-    <string name="preferences__internal_calling_server_s" translatable="false">%1$s server</string>
-    <string name="preferences__internal_calling" translatable="false">Calling options</string>
-    <string name="preferences__internal_calling_audio_processing_method" translatable="false">Audio processing method</string>
-    <string name="preferences__internal_calling_bandwidth_mode" translatable="false">Bandwidth mode</string>
-    <string name="preferences__internal_calling_disable_telecom" translatable="false">Disable Telecom integration</string>
-    <string name="preferences__internal_badges" translatable="false">Badges</string>
-    <string name="preferences__internal_badges_enqueue_redemption" translatable="false">Enqueue redemption.</string>
-    <string name="preferences__internal_badges_enqueue_keep_alive" translatable="false">Enqueue keep-alive.</string>
-    <string name="preferences__internal_badges_set_error_state" translatable="false">Set error state.</string>
-    <string name="preferences__internal_release_channel" translatable="false">Release channel</string>
-    <string name="preferences__internal_fetch_release_channel" translatable="false">Fetch release channel</string>
-    <string name="preferences__internal_release_channel_set_last_version" translatable="false">Set last version seen back 10 versions</string>
-    <string name="preferences__internal_reset_donation_megaphone" translatable="false">Reset donation megaphone</string>
-    <string name="preferences__internal_add_sample_note" translatable="false">Add sample note</string>
-    <string name="preferences__internal_disable_stories" translatable="false">Disable stories</string>
-    <string name="preferences__internal_cds" translatable="false">CDS</string>
-    <string name="preferences__internal_clear_history" translatable="false">Clear history</string>
-    <string name="preferences__internal_clear_history_description" translatable="false">Clears all CDS history, meaning the next sync will consider all numbers to be new.</string>
-    <string name="preferences__internal_clear_all_service_ids" translatable="false">Clear all service IDs</string>
-    <string name="preferences__internal_clear_all_service_ids_description" translatable="false">Clears all known service IDs (except your own) for people that have phone numbers. Do not use on your personal device!</string>
-    <string name="preferences__internal_clear_all_profile_keys" translatable="false">Clear all profile keys</string>
-    <string name="preferences__internal_clear_all_profile_keys_description" translatable="false">Clears all known profile keys (except your own). Do not use on your personal device!</string>
-    <string name="preferences__internal_donor_error_expired_badge" translatable="false">Expired Badge</string>
-    <string name="preferences__internal_donor_error_charge_failure" translatable="false">Charge Failure</string>
-    <string name="preferences__internal_donor_error_cancelation_reason" translatable="false">Cancelation Reason</string>
-    <string name="preferences__internal_donor_error_save_and_finish" translatable="false">Save and Finish</string>
-    <string name="preferences__internal_donor_error_clear" translatable="false">Clear</string>
+    <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
 
 
     <!-- Payments -->
@@ -3020,9 +2934,9 @@
     <!-- Alert dialog button to not enable payment lock for now -->
     <string name="PaymentsHomeFragment__not_now">Не сега</string>
     <!-- Alert dialog title which shows up to update app to send payments -->
-    <string name="PaymentsHomeFragment__update_required">Update required</string>
+    <string name="PaymentsHomeFragment__update_required">Необходима е актуализация</string>
     <!-- Alert dialog description that app update is required to send payments-->
-    <string name="PaymentsHomeFragment__an_update_is_required">An update is required to continue sending and receiving payments, and to view your up-to-date payment balance.</string>
+    <string name="PaymentsHomeFragment__an_update_is_required">Необходима е актуализация, за да продължите да изпращате и получавате плащания и да виждате актуалния си платежен баланс.</string>
     <!-- Alert dialog button to cancel -->
     <string name="PaymentsHomeFragment__cancel">Отказ</string>
     <!-- Alert dialog button to update now -->
@@ -3207,6 +3121,8 @@
     <string name="conversation_selection__menu_resend_message">Изпрати отново</string>
     <!-- Button to select a message and enter selection mode -->
     <string name="conversation_selection__menu_multi_select">Изберете</string>
+    <!-- Button to view a in-chat payment message's full payment details -->
+    <string name="conversation_selection__menu_payment_details">Подробности за плащане</string>
 
     <!-- conversation_expiring_on -->
 
@@ -3288,6 +3204,14 @@
     <string name="reminder_header_push_text">Обнови комуникацията си.</string>
     <string name="reminder_header_service_outage_text">Signal изпитва технически проблеми. Работим здраво, за да възстановим нормална операция възможно най-бързо.</string>
     <string name="reminder_header_progress">%1$d%%</string>
+    <!-- Body text of a banner that will show at the top of the chat list when we temporarily cannot process the user's contacts -->
+    <string name="reminder_cds_warning_body">Откриването на лични контакти в Signal временно няма възможност да обработи контактите на телефона ви.</string>
+    <!-- Label for a button in a banner to learn more about why we temporarily can't process the user's contacts -->
+    <string name="reminder_cds_warning_learn_more">Научете повече</string>
+    <!-- Body text of a banner that will show at the top of the chat list when the user has so many contacts that we cannot ever process them -->
+    <string name="reminder_cds_permanent_error_body">Откриването на лични контакти в Signal не може да обработи контактите на телефона ви.</string>
+    <!-- Label for a button in a banner to learn more about why we cannot process the user's contacts -->
+    <string name="reminder_cds_permanent_error_learn_more">Научете повече</string>
 
     <!-- media_preview -->
     <string name="media_preview__save_title">Запази</string>
@@ -3920,8 +3844,8 @@
     <string name="PaymentsRecoveryStartFragment__save_recovery_phrase">Запазване на фраза за възстановяване</string>
     <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Въвеждане на фразата за възстановяване</string>
     <plurals name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">
-        <item quantity="one">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
-        <item quantity="other">Your balance will automatically restore when you reinstall Signal if you confirm your Signal PIN. You can also restore your balance using a recovery phrase, which is a %1$d-word phrase unique to you. Write it down and store it in a safe place.</item>
+        <item quantity="one">Балансът ви ще се възстанови автоматично при преинсталиране на Signal, ако потвърдите PIN кода на Signal. Също така можете да възстановите баланса си с помощта на фраза за възстановяване, която представлява уникална за вас фраза от %1$d дума. Запишете я и я съхранявайте на сигурно място.</item>
+        <item quantity="other">Балансът ви ще се възстанови автоматично при преинсталиране на Signal, ако потвърдите PIN кода на Signal. Също така можете да възстановите баланса си с помощта на фраза за възстановяване, която представлява уникална за вас фраза от %1$d думи. Запишете я и я съхранявайте на сигурно място.</item>
     </plurals>
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">Имате баланс! Време е да запазите своята фраза за възстановяване. Тя представлява ключ от 24 думи, който можете да използвате, за да възстановите баланса си.</string>
@@ -4092,7 +4016,7 @@
     <!-- Preference title to delete sms -->
     <string name="SmsSettingsFragment__remove_sms_messages">Премахнете SMS съобщенията</string>
     <!-- Snackbar text to confirm deletion -->
-    <string name="SmsSettingsFragment__removing_sms_messages_from_signal">Премахване на SMS съобщения от Signal...</string>
+    <string name="SmsSettingsFragment__removing_sms_messages_from_signal">Премахване на SMS съобщения от Signal…</string>
     <!-- Snackbar text to indicate can delete later -->
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Можете да премахнете SMS съобщения от Signal в „Настройки“ по всяко време.</string>
     <!-- Description for export sms preference -->
@@ -4220,11 +4144,11 @@
     <string name="ChatColorGradientTool_bottom_edge_selector">Селектор за долен ръб</string>
 
     <!-- Title text for prompt to donate. Shown in a popup at the bottom of the chat list. -->
-    <string name="Donate2022Q2Megaphone_donate_to_signal">Дари на Signal</string>
+    <string name="Donate2022Q2Megaphone_donate_to_signal">Дарете на Signal</string>
     <!-- Body text for prompt to donate. Shown in a popup at the bottom of the chat list. -->
     <string name="Donate2022Q2Megaphone_signal_is_powered_by_people_like_you">Signal се движи от хора като вас. Дарявайте всеки месец, за да получите значка.</string>
     <!-- Button label that brings a user to the donate screen. Shown in a popup at the bottom of the chat list. -->
-    <string name="Donate2022Q2Megaphone_donate">Дари</string>
+    <string name="Donate2022Q2Megaphone_donate">Дарете</string>
     <!-- Button label that dismissed a prompt to donate. Shown in a popup at the bottom of the chat list. -->
     <string name="Donate2022Q2Megaphone_not_now">Не сега</string>
 
@@ -4247,7 +4171,7 @@
     <!-- Displayed in the Become a Sustainer megaphone -->
     <string name="BecomeASustainerMegaphone__signal_is_powered_by">Signal съществува благодарение на хора като вас. Дарете и получете значка.</string>
     <string name="BecomeASustainerMegaphone__not_now">Не сега</string>
-    <string name="BecomeASustainerMegaphone__donate">Дари</string>
+    <string name="BecomeASustainerMegaphone__donate">Дарете</string>
 
     <!-- KeyboardPagerFragment -->
     <string name="KeyboardPagerFragment_emoji">Емоджи</string>
@@ -4483,6 +4407,12 @@
     <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Неуспешно актуализиране на профила</string>
 
     <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Станете поддръжник</string>
+    <!-- Title of a page in the bottom sheet. Placeholder is a user's short-name -->
+    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal">%1$s подкрепя Signal</string>
+    <!-- Description of a page in the bottom sheet of a monthly badge. Placeholder is a user's short-name -->
+    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_monthly">%1$s подкрепя Signal с месечно дарение. Signal е организация с нестопанска цел, без рекламодатели или инвеститори, подкрепяна само от хора като вас.</string>
+    <!-- Description of a page in the bottom sheet of a one-time badge. Placeholder is a user's short-name -->
+    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_donation">%1$s подкрепя Signal с дарение. Signal е организация с нестопанска цел, без рекламодатели или инвеститори, подкрепяна само от хора като вас.</string>
 
     <string name="ImageView__badge">Значка</string>
 
@@ -4507,16 +4437,18 @@
     <!-- Shown when a subscription is active and is going to expire at the end of the term -->
     <string name="Subscription__expires_s">Изтича на %1$s</string>
 
+    <!-- Title of learn more sheet -->
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_different">Signal е нещо различно.</string>
     <!-- First small text blurb on learn more sheet -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_nonprofit_with_no">Signal е организация с нестопанска цел, без рекламодатели или инвеститори и се поддържа само от хората, които я използват и ценят. Направете регулярно месечно дарение и получете значка на профила, за да споделите подкрепата си.</string>
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__why_donate">Защо да дарите?</string>
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_committed_to_developing">Signal се ангажира да разработва технология за поверителност с отворен код, която защитава свободата на изразяване и позволява сигурна глобална комуникация.</string>
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__your_donation">Вашето дарение подпомага тази кауза и плаща за разработването и функционирането на едно приложение, което се използва от милиони хора за частна комуникация. Без реклами. Без следене. Без майтап.</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__private_messaging">Частни съобщения. Без реклами, без тракери, без следене.</string>
+    <!-- Second small text blurb on learn more sheet -->
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_supported_by">Signal се издържа от дарения, което означава, че вашата поверителност е във фокуса на всичко, което правим. Signal е създаден за вас, а не за вашите данни и не за печалба.</string>
+    <!-- Third small text blurb on learn more sheet -->
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__if_you_can">Ако можете, моля, дарете днес, за да запазите Signal забавен, надежден и достъпен за всички.</string>
 
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">Благодарим ви за подкрепата!</string>
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_the_boost">Благодарим за подсилването!</string>
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_s_badge_display">Спечелихте значката %1$s! Покажете тази значка на профила си, за да привлечете внимание към даряването на средства за Signal.</string>
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_boost_badge_display">Спечелихте значка „Подсилване“! Покажете тази значка на профила си, за да привлечете внимание към даряването на средства за Signal.</string>
+    <!-- Subtext underneath the dialog title on the thanks sheet -->
+    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge">Спечелихте значка за дарител от Signal! Покажете в профила си, за да демонстрирате своята подкрепа.</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__you_can_also">Можете също така да</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">станете ежемесечен поддръжник.</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Показване на профила</string>
@@ -4528,7 +4460,7 @@
     <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal е организация с нестопанска цел, без рекламодатели или инвеститори, подкрепяна само от хора като вас.</string>
 
     <!-- Button label for creating a donation -->
-    <string name="ManageDonationsFragment__donate_to_signal">Дари на Signal</string>
+    <string name="ManageDonationsFragment__donate_to_signal">Дарете на Signal</string>
     <!-- Heading for more area of manage subscriptions page -->
     <string name="ManageDonationsFragment__more">Още</string>
     <!-- Heading for receipts area of manage subscriptions page -->
@@ -4586,7 +4518,7 @@
 
     <string name="Subscription__please_contact_support_for_more_information">Моля, свържете се с отдела за поддръжка за повече информация.</string>
     <string name="Subscription__contact_support">Връзка с отдела за поддръжка</string>
-    <string name="Subscription__get_a_s_badge">Get a %1$s badge</string>
+    <string name="Subscription__get_a_s_badge">Вземете значка %1$s</string>
 
     <string name="SubscribeFragment__processing_payment">Обработка на плащането…</string>
     <!-- Displayed in notification when user payment fails to process on Stripe -->
@@ -4939,7 +4871,7 @@
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">Все още няма гледания</string>
     <!-- Displayed when user has disabled receipts -->
-    <string name="StoryViewsFragment__enable_read_receipts_to_see_whos_viewed_your_story">Включете разписките за прочитане, за да разберете кой е видял историите ви.</string>
+    <string name="StoryViewsFragment__enable_view_receipts_to_see_whos_viewed_your_story">Включете разписки за гледане, за да видите кой е гледал вашите истории.</string>
     <!-- Button label displayed when user has disabled receipts -->
     <string name="StoryViewsFragment__go_to_settings">Отидете на настройки</string>
     <!-- Dialog action to remove viewer from a story -->
@@ -5222,7 +5154,7 @@
     <!-- Description for sheet shown when opening a redeemed gift -->
     <string name="ViewReceivedGiftBottomSheet__youve_received_a_gift_badge">Получихте значка за подарък от %1$s! Помогнете на Signal да повиши осведомеността, като покажете тази значка на профила си.</string>
     <!-- Description for sheet shown when opening a sent gift -->
-    <string name="ViewSentGiftBottomSheet__youve_gifted_a_badge">Подарихте значка на %1$s. Когато потребителят я приеме, ще получи даден избор дали да покаже или да скрие значката си.</string>
+    <string name="ViewSentGiftBottomSheet__youve_gifted_a_badge">Подарихте значка на %1$s. Когато потребителят я приеме, ще има избор дали да покаже или да скрие значката си.</string>
     <!-- Primary action for pending gift sheet to redeem badge now -->
     <string name="ViewReceivedGiftSheet__redeem">Осребряване</string>
     <!-- Primary action for pending gift sheet to redeem badge later -->
@@ -5232,7 +5164,7 @@
     <!-- Snackbar text when user presses "not now" on redemption sheet -->
     <string name="ConversationFragment__you_can_redeem_your_badge_later">Можете да осребрите значката си по-късно.</string>
     <!-- Description text in gift thanks sheet -->
-    <string name="GiftThanksSheet__youve_gifted_a_badge_to_s">Подарихте значка на %1$s. Когато потребителят я приеме, ще получи избор дали да я покаже, или скрие.</string>
+    <string name="GiftThanksSheet__youve_gifted_a_badge_to_s">Подарихте значка на %1$s. Когато потребителят я приеме, ще има избор дали да покаже или да скрие значката си.</string>
     <!-- Expired gift sheet title -->
     <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired">Вашата значка за подарък е изтекла</string>
     <!-- Expired gift sheet top description text -->
@@ -5574,11 +5506,11 @@
 
     <!-- DonateToSignalFragment -->
     <!-- Title below avatar -->
-    <string name="DonateToSignalFragment__powered_by">Благодарение на хора като вас.</string>
+    <string name="DonateToSignalFragment__privacy_over_profit">Поверителността е по-важна от печалбата</string>
     <!-- Continue button label -->
     <string name="DonateToSignalFragment__continue">Продължи</string>
     <!-- Description below title -->
-    <string name="DonateToSignalFragment__support_technology">Подкрепете технологията, създадена за вас, а не за вашите данни, като се присъедините към общността, която поддържа Signal.</string>
+    <string name="DonateToSignalFragment__private_messaging">Частни съобщения, финансирани от вас. Без реклами, без следене, без компромис. Дарете сега, за да подкрепите Signal.</string>
     <!-- Donation pill toggle monthly text -->
     <string name="DonationPillToggle__monthly">Ежемесечно</string>
     <!-- Donation pill toggle one-time text -->
@@ -5588,19 +5520,57 @@
     <!-- Sheet title when subscribing -->
     <string name="GatewaySelectorBottomSheet__donate_s_month_to_signal">Дарявайте %1$s/месец на Signal</string>
     <!-- Sheet summary when subscribing -->
-    <string name="GatewaySelectorBottomSheet__get_a_s_badge">Get a %1$s badge</string>
+    <string name="GatewaySelectorBottomSheet__get_a_s_badge">Вземете значка %1$s</string>
     <!-- Sheet title when giving a one-time donation -->
     <string name="GatewaySelectorBottomSheet__donate_s_to_signal">Дарете %1$s на Signal</string>
     <!-- Sheet summary when giving a one-time donation -->
     <plurals name="GatewaySelectorBottomSheet__get_a_s_badge_for_d_days">
-        <item quantity="one">Get a %1$s badge for %2$d day</item>
-        <item quantity="other">Get a %1$s badge for %2$d days</item>
+        <item quantity="one">Получете значка „%1$s“ за %2$d ден</item>
+        <item quantity="other">Получете значка „%1$s“ за %2$d дни</item>
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Кредитна или дебитна карта</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">Анулиране…</string>
+
+    <!-- The title of a bottom sheet dialog that tells the user we temporarily can't process their contacts. -->
+    <string name="CdsTemporaryErrorBottomSheet_title">Обработени са твърде много контакти</string>
+    <!-- The first part of the body text in a bottom sheet dialog that tells the user we temporarily can't process their contacts. The placeholder represents the number of days the user will have to wait until they can again. -->
+    <plurals name="CdsTemporaryErrorBottomSheet_body1">
+        <item quantity="one">Ще бъде направен нов опит за обработка на контактите ви в рамките на %1$d ден.</item>
+        <item quantity="other">Ще бъде направен нов опит за обработка на контактите ви в рамките на %1$d дни.</item>
+    </plurals>
+    <!-- The second part of the body text in a bottom sheet dialog that advises the user to remove contacts from their phone to fix the issue. -->
+    <string name="CdsTemporaryErrorBottomSheet_body2">За да разрешите този проблем по-бързо, можете да премахнете контактите или акаунтите на телефона ви, които синхронизират голям брой контакти.</string>
+    <!-- A button label in a bottom sheet that will navigate the user to their contacts settings. -->
+    <string name="CdsTemporaryErrorBottomSheet_contacts_button">Отваряне на контактите</string>
+    <!-- A toast that will be shown if we are unable to open the user's default contacts app. -->
+    <string name="CdsTemporaryErrorBottomSheet_no_contacts_toast">Не е намерено приложение за контакти</string>
+
+    <!-- The title of a bottom sheet dialog that tells the user we can't process their contacts. -->
+    <string name="CdsPermanentErrorBottomSheet_title">Контактите ви не могат да бъдат обработени</string>
+    <!-- The first part of the body text in a bottom sheet dialog that tells the user we can't process their contacts. -->
+    <string name="CdsPermanentErrorBottomSheet_body">Броят контакти на телефона ви надхвърля ограничението, което Signal може да обработи. За да намерите контакти в Signal, можете да премахнете контактите или акаунтите на телефона ви, които синхронизират голям брой контакти.</string>
+    <!-- The first part of the body text in a bottom sheet dialog that tells the user we can't process their contacts. -->
+    <string name="CdsPermanentErrorBottomSheet_learn_more">Научете повече</string>
+    <!-- A button label in a bottom sheet that will navigate the user to their contacts settings. -->
+    <string name="CdsPermanentErrorBottomSheet_contacts_button">Отваряне на контактите</string>
+    <!-- A toast that will be shown if we are unable to open the user's default contacts app. -->
+    <string name="CdsPermanentErrorBottomSheet_no_contacts_toast">Не е намерено приложение за контакти</string>
+
+    <!-- PaymentMessageView -->
+    <!-- In-chat conversation message shown when you sent a payment to another person, placeholder is the other person name -->
+    <string name="PaymentMessageView_you_sent_s">Изпратихте на %1$s</string>
+    <!-- In-chat conversation message shown when another person sent a payment to you, placeholder is the other person name -->
+    <string name="PaymentMessageView_s_sent_you">%1$s изпрати до вас</string>
+
+    <!-- YourInformationIsPrivateBottomSheet -->
+    <string name="YourInformationIsPrivateBottomSheet__your_information_is_private">Вашата информация е частна</string>
+    <string name="YourInformationIsPrivateBottomSheet__signal_does_not_collect">Signal не събира и не съхранява никаква ваша лична информация, когато направите дарение.</string>
+    <string name="YourInformationIsPrivateBottomSheet__we_use_stripe">Ние използваме Stripe за обработване на плащанията и за да получим вашите дарения. Ние не упражняваме достъп до, не съхраняваме и не запазваме никаква информация, която им предоставите.</string>
+    <string name="YourInformationIsPrivateBottomSheet__signal_does_not_and_cannot">Signal не свързва и не може да свърже вашето дарение с акаунта ви в Signal.</string>
+    <string name="YourInformationIsPrivateBottomSheet__thank_you">Благодарим ви за подкрепата!</string>
 
     <!-- EOF -->
 

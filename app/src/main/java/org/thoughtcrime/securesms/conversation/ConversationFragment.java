@@ -169,7 +169,6 @@ import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.HtmlUtil;
 import org.thoughtcrime.securesms.util.LifecycleDisposable;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
-import org.thoughtcrime.securesms.util.ProfileUtil;
 import org.thoughtcrime.securesms.util.Projection;
 import org.thoughtcrime.securesms.util.RemoteDeleteUtil;
 import org.thoughtcrime.securesms.util.SaveAttachmentTask;
@@ -1027,14 +1026,14 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   }
 
   private AlertDialog.Builder buildRemoteDeleteConfirmationDialog(Set<MessageRecord> messageRecords) {
-    Context             context       = requireActivity();
     int                 messagesCount = messageRecords.size();
     AlertDialog.Builder builder       = new MaterialAlertDialogBuilder(getActivity());
 
     builder.setTitle(getActivity().getResources().getQuantityString(R.plurals.ConversationFragment_delete_selected_messages, messagesCount, messagesCount));
     builder.setCancelable(true);
 
-    builder.setPositiveButton(R.string.ConversationFragment_delete_for_me, (dialog, which) -> {
+    int deleteForMeResId = isNoteToSelfDelete(messageRecords) ? R.string.ConversationFragment_delete_on_this_device : R.string.ConversationFragment_delete_for_me;
+    builder.setPositiveButton(deleteForMeResId, (dialog, which) -> {
       new ProgressDialogAsyncTask<Void, Void, Void>(getActivity(),
                                                     R.string.ConversationFragment_deleting,
                                                     R.string.ConversationFragment_deleting_messages)
@@ -1063,12 +1062,18 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
       }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     });
 
+    int deleteForEveryoneResId = isNoteToSelfDelete(messageRecords) ? R.string.ConversationFragment_delete_everywhere : R.string.ConversationFragment_delete_for_everyone;
+
     if (RemoteDeleteUtil.isValidSend(messageRecords, System.currentTimeMillis())) {
-      builder.setNeutralButton(R.string.ConversationFragment_delete_for_everyone, (dialog, which) -> handleDeleteForEveryone(messageRecords));
+      builder.setNeutralButton(deleteForEveryoneResId, (dialog, which) -> handleDeleteForEveryone(messageRecords));
     }
 
     builder.setNegativeButton(android.R.string.cancel, null);
     return builder;
+  }
+
+  private static boolean isNoteToSelfDelete(Set<MessageRecord> messageRecords) {
+    return messageRecords.stream().allMatch(messageRecord -> messageRecord.isOutgoing() && messageRecord.getRecipient().isSelf());
   }
 
   private void handleDeleteForEveryone(Set<MessageRecord> messageRecords) {
@@ -1080,7 +1085,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
       });
     };
 
-    if (SignalStore.uiHints().hasConfirmedDeleteForEveryoneOnce()) {
+    if (SignalStore.uiHints().hasConfirmedDeleteForEveryoneOnce() || isNoteToSelfDelete(messageRecords)) {
       deleteForEveryone.run();
     } else {
       new MaterialAlertDialogBuilder(requireActivity())
@@ -1141,6 +1146,15 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
                  .onAllGranted(() -> performSave(message))
                  .execute();
     });
+  }
+
+  private void handleViewPaymentDetails(MessageRecord message) {
+    if (message instanceof MediaMmsMessageRecord) {
+      MediaMmsMessageRecord mediaMessage = (MediaMmsMessageRecord) message;
+      if (mediaMessage.isPaymentNotification() && mediaMessage.getPayment() != null) {
+        startActivity(PaymentsActivity.navigateToPaymentDetails(requireContext(), mediaMessage.getPayment().getUuid()));
+      }
+    }
   }
 
   private void performSave(final MediaMmsMessageRecord message) {
@@ -2218,6 +2232,9 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
           break;
         case COPY:
           handleCopyMessage(conversationMessage.getMultiselectCollection().toSet());
+          break;
+        case PAYMENT_DETAILS:
+          handleViewPaymentDetails(conversationMessage.getMessageRecord());
           break;
         case MULTISELECT:
           handleEnterMultiSelect(conversationMessage);

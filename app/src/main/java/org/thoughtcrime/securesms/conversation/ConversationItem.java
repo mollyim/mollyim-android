@@ -94,6 +94,7 @@ import org.thoughtcrime.securesms.conversation.colors.ChatColors;
 import org.thoughtcrime.securesms.conversation.colors.Colorizer;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectCollection;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
+import org.thoughtcrime.securesms.conversation.ui.payment.PaymentMessageView;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
 import org.thoughtcrime.securesms.database.MediaDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -178,14 +179,14 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   private static final long  MAX_CLUSTERING_TIME_DIFF   = TimeUnit.MINUTES.toMillis(3);
   private static final int   CONDENSED_MODE_MAX_LINES   = 3;
 
-  private ConversationMessage     conversationMessage;
-  private MessageRecord           messageRecord;
-  private Optional<MessageRecord> nextMessageRecord;
-  private Locale                  locale;
-  private boolean                 groupThread;
-  private LiveRecipient           recipient;
-  private GlideRequests           glideRequests;
-  private ValueAnimator           pulseOutlinerAlphaAnimator;
+  private ConversationMessage         conversationMessage;
+  private MessageRecord               messageRecord;
+  private Optional<MessageRecord>     nextMessageRecord;
+  private Locale                      locale;
+  private boolean                     groupThread;
+  private LiveRecipient               recipient;
+  private GlideRequests               glideRequests;
+  private ValueAnimator               pulseOutlinerAlphaAnimator;
   private Optional<MessageRecord>     previousMessage;
   private ConversationItemDisplayMode displayMode;
 
@@ -220,6 +221,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   private           Stub<BorderlessImageView>               stickerStub;
   private           Stub<ViewOnceMessageView>               revealableStub;
   private           Stub<Button>                            callToActionStub;
+  private           Stub<PaymentMessageView>                paymentViewStub;
   private @Nullable EventListener                           eventListener;
 
   private int     defaultBubbleColor;
@@ -319,6 +321,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     this.storyReactionLabelWrapper =                    findViewById(R.id.story_reacted_label_holder);
     this.storyReactionLabel        =                    findViewById(R.id.story_reacted_label);
     this.quotedIndicator           =                    findViewById(R.id.quoted_indicator);
+    this.paymentViewStub           =         new Stub<>(findViewById(R.id.payment_view_stub));
 
     setOnClickListener(new ClickListener(null));
 
@@ -994,7 +997,9 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       bodyText.setText(italics);
       bodyText.setVisibility(View.VISIBLE);
       bodyText.setOverflowText(null);
-    } else if (isCaptionlessMms(messageRecord) || isStoryReaction(messageRecord) || isGiftMessage(messageRecord)) {
+    } else if (isCaptionlessMms(messageRecord) || isStoryReaction(messageRecord) || isGiftMessage(messageRecord) || messageRecord.isPaymentNotification()) {
+      bodyText.setText(null);
+      bodyText.setOverflowText(null);
       bodyText.setVisibility(View.GONE);
     } else {
       Spannable styledText = conversationMessage.getDisplayBody(getContext());
@@ -1069,6 +1074,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (sharedContactStub.resolved())  sharedContactStub.get().setVisibility(GONE);
       if (linkPreviewStub.resolved())    linkPreviewStub.get().setVisibility(GONE);
       if (stickerStub.resolved())        stickerStub.get().setVisibility(View.GONE);
+      paymentViewStub.setVisibility(View.GONE);
 
       revealableStub.get().setMessage((MmsMessageRecord) messageRecord, hasWallpaper);
       revealableStub.get().setOnClickListener(revealableClickListener);
@@ -1085,6 +1091,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (linkPreviewStub.resolved())    linkPreviewStub.get().setVisibility(GONE);
       if (stickerStub.resolved())        stickerStub.get().setVisibility(View.GONE);
       if (revealableStub.resolved())     revealableStub.get().setVisibility(View.GONE);
+      paymentViewStub.setVisibility(View.GONE);
 
       sharedContactStub.get().setContact(((MediaMmsMessageRecord) messageRecord).getSharedContacts().get(0), glideRequests, locale);
       sharedContactStub.get().setEventListener(sharedContactEventListener);
@@ -1104,6 +1111,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (sharedContactStub.resolved())  sharedContactStub.get().setVisibility(GONE);
       if (stickerStub.resolved())        stickerStub.get().setVisibility(View.GONE);
       if (revealableStub.resolved())     revealableStub.get().setVisibility(View.GONE);
+      paymentViewStub.setVisibility(View.GONE);
 
       //noinspection ConstantConditions
       LinkPreview linkPreview = ((MmsMessageRecord) messageRecord).getLinkPreviews().get(0);
@@ -1150,6 +1158,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (linkPreviewStub.resolved())    linkPreviewStub.get().setVisibility(GONE);
       if (stickerStub.resolved())        stickerStub.get().setVisibility(View.GONE);
       if (revealableStub.resolved())     revealableStub.get().setVisibility(View.GONE);
+      paymentViewStub.setVisibility(View.GONE);
 
       audioViewStub.get().setAudio(Objects.requireNonNull(((MediaMmsMessageRecord) messageRecord).getSlideDeck().getAudioSlide()), new AudioViewCallbacks(), showControls, true);
       audioViewStub.get().setDownloadClickListener(singleDownloadClickListener);
@@ -1175,6 +1184,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (linkPreviewStub.resolved())    linkPreviewStub.get().setVisibility(GONE);
       if (stickerStub.resolved())        stickerStub.get().setVisibility(View.GONE);
       if (revealableStub.resolved())     revealableStub.get().setVisibility(View.GONE);
+      paymentViewStub.setVisibility(View.GONE);
 
       //noinspection ConstantConditions
       documentViewStub.get().setDocument(
@@ -1201,6 +1211,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (sharedContactStub.resolved())  sharedContactStub.get().setVisibility(GONE);
       if (linkPreviewStub.resolved())    linkPreviewStub.get().setVisibility(GONE);
       if (revealableStub.resolved())     revealableStub.get().setVisibility(View.GONE);
+      paymentViewStub.setVisibility(View.GONE);
 
       if (hasSticker(messageRecord)) {
         //noinspection ConstantConditions
@@ -1230,6 +1241,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (linkPreviewStub.resolved())   linkPreviewStub.get().setVisibility(GONE);
       if (stickerStub.resolved())       stickerStub.get().setVisibility(View.GONE);
       if (revealableStub.resolved())    revealableStub.get().setVisibility(View.GONE);
+      paymentViewStub.setVisibility(View.GONE);
 
       List<Slide> thumbnailSlides = ((MmsMessageRecord) messageRecord).getSlideDeck().getThumbnailSlides();
       mediaThumbnailStub.require().setMinimumThumbnailWidth(readDimen(isCaptionlessMms(messageRecord) ? R.dimen.media_bubble_min_width_solo
@@ -1283,6 +1295,22 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (linkPreviewStub.resolved())    linkPreviewStub.get().setVisibility(GONE);
       if (stickerStub.resolved())        stickerStub.get().setVisibility(GONE);
       if (revealableStub.resolved())     revealableStub.get().setVisibility(GONE);
+      paymentViewStub.setVisibility(View.GONE);
+
+      footer.setVisibility(VISIBLE);
+    } else if (messageRecord.isPaymentNotification()) {
+      if (mediaThumbnailStub.resolved()) mediaThumbnailStub.require().setVisibility(GONE);
+      if (audioViewStub.resolved())      audioViewStub.get().setVisibility(GONE);
+      if (documentViewStub.resolved())   documentViewStub.get().setVisibility(GONE);
+      if (sharedContactStub.resolved())  sharedContactStub.get().setVisibility(GONE);
+      if (linkPreviewStub.resolved())    linkPreviewStub.get().setVisibility(GONE);
+      if (stickerStub.resolved())        stickerStub.get().setVisibility(GONE);
+      if (revealableStub.resolved())     revealableStub.get().setVisibility(GONE);
+
+      MediaMmsMessageRecord mediaMmsMessageRecord = (MediaMmsMessageRecord) messageRecord;
+
+      paymentViewStub.setVisibility(View.VISIBLE);
+      paymentViewStub.get().bindPayment(messageRecord.getIndividualRecipient(), Objects.requireNonNull(mediaMmsMessageRecord.getPayment()), colorizer);
 
       footer.setVisibility(VISIBLE);
     } else {
@@ -1293,6 +1321,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (linkPreviewStub.resolved())    linkPreviewStub.get().setVisibility(GONE);
       if (stickerStub.resolved())        stickerStub.get().setVisibility(View.GONE);
       if (revealableStub.resolved())     revealableStub.get().setVisibility(View.GONE);
+      paymentViewStub.setVisibility(View.GONE);
 
       ViewUtil.updateLayoutParams(bodyText, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
       ViewUtil.updateLayoutParamsIfNonNull(groupSenderHolder, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

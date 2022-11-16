@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.messages.IncomingMessageObserver
 import org.thoughtcrime.securesms.notifications.MessageNotifier
 import org.thoughtcrime.securesms.notifications.MessageNotifier.ReminderReceiver
 import org.thoughtcrime.securesms.notifications.NotificationCancellationHelper
+import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfiles
@@ -123,6 +124,9 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     defaultBubbleState: BubbleState
   ) {
     val currentLockStatus: Boolean = KeyCachingService.isLocked()
+    if (!currentLockStatus) {
+      NotificationChannels.ensureCustomChannelConsistency(context)
+    }
     val currentScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
     val currentPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings().messageNotificationsPrivacy
     val notificationConfigurationChanged: Boolean = currentLockStatus != previousLockedStatus ||

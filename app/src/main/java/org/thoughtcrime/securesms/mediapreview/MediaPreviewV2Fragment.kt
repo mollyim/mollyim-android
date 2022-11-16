@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.mediapreview
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
@@ -16,6 +17,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewGroup.VISIBLE
 import android.view.animation.PathInterpolator
 import android.widget.Toast
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.app.ShareCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -108,6 +110,7 @@ class MediaPreviewV2Fragment : Fragment(R.layout.fragment_media_preview_v2), Med
     viewModel.fetchAttachments(PartAuthority.requireAttachmentId(args.initialMediaUri), args.threadId, sorting)
   }
 
+  @SuppressLint("RestrictedApi")
   private fun initializeToolbar(toolbar: MaterialToolbar) {
     toolbar.setNavigationOnClickListener {
       requireActivity().onBackPressed()
@@ -115,6 +118,7 @@ class MediaPreviewV2Fragment : Fragment(R.layout.fragment_media_preview_v2), Med
 
     toolbar.setTitleTextAppearance(requireContext(), R.style.Signal_Text_TitleMedium)
     toolbar.setSubtitleTextAppearance(requireContext(), R.style.Signal_Text_BodyMedium)
+    (binding.toolbar.menu as? MenuBuilder)?.setOptionalIconsVisible(true)
     binding.toolbar.inflateMenu(R.menu.media_preview)
   }
 
@@ -178,7 +182,6 @@ class MediaPreviewV2Fragment : Fragment(R.layout.fragment_media_preview_v2), Med
     val currentPosition = currentState.position
     val fragmentAdapter = binding.mediaPager.adapter as MediaPreviewV2Adapter
 
-    fragmentAdapter.setAutoPlayItemPosition(currentPosition)
     val backingItems = currentState.mediaRecords.mapNotNull { it.attachment }
     if (backingItems.isEmpty()) {
       onMediaNotAvailable()
@@ -259,8 +262,15 @@ class MediaPreviewV2Fragment : Fragment(R.layout.fragment_media_preview_v2), Med
       MediaPreviewPlayerControlView.MediaMode.fromString(currentItem.contentType)
     }
     binding.mediaPreviewPlaybackControls.setMediaMode(mediaType)
-    binding.mediaPreviewPlaybackControls.setShareButtonListener { share(currentItem) }
-    binding.mediaPreviewPlaybackControls.setForwardButtonListener { forward(currentItem) }
+    val videoMediaPreviewFragment: VideoMediaPreviewFragment? = currentFragment as? VideoMediaPreviewFragment
+    binding.mediaPreviewPlaybackControls.setShareButtonListener {
+      videoMediaPreviewFragment?.pause()
+      share(currentItem)
+    }
+    binding.mediaPreviewPlaybackControls.setForwardButtonListener {
+      videoMediaPreviewFragment?.pause()
+      forward(currentItem)
+    }
     currentFragment?.setBottomButtonControls(binding.mediaPreviewPlaybackControls)
   }
 

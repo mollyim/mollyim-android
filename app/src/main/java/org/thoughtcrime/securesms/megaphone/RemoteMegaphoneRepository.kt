@@ -9,7 +9,6 @@ import org.json.JSONException
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.database.RemoteMegaphoneDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.RemoteMegaphoneRecord
@@ -17,13 +16,10 @@ import org.thoughtcrime.securesms.database.model.RemoteMegaphoneRecord.ActionId
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.megaphone.RemoteMegaphoneRepository.Action
 import org.thoughtcrime.securesms.providers.BlobProvider
-import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.LocaleFeatureFlags
-import org.thoughtcrime.securesms.util.PlayServicesUtil
 import org.thoughtcrime.securesms.util.VersionTracker
-import java.util.Objects
 import kotlin.math.min
 import kotlin.time.Duration.Companion.days
 
@@ -121,13 +117,7 @@ object RemoteMegaphoneRepository {
   }
 
   private fun shouldShowDonateMegaphone(): Boolean {
-    return VersionTracker.getDaysSinceFirstInstalled(context) >= 7 &&
-      PlayServicesUtil.getPlayServicesStatus(context) == PlayServicesUtil.PlayServicesStatus.SUCCESS &&
-      Recipient.self()
-        .badges
-        .stream()
-        .filter { obj: Badge? -> Objects.nonNull(obj) }
-        .noneMatch { (_, category): Badge -> category === Badge.Category.Donor }
+    return VersionTracker.getDaysSinceFirstInstalled(context) >= 7
   }
 
   fun interface Action {

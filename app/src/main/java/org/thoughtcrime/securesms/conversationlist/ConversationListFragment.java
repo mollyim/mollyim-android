@@ -90,6 +90,8 @@ import org.thoughtcrime.securesms.components.menu.ActionItem;
 import org.thoughtcrime.securesms.components.menu.SignalBottomActionBar;
 import org.thoughtcrime.securesms.components.menu.SignalContextMenu;
 import org.thoughtcrime.securesms.components.registration.PulsingFloatingActionButton;
+import org.thoughtcrime.securesms.components.reminder.CdsPermanentErrorReminder;
+import org.thoughtcrime.securesms.components.reminder.CdsTemporyErrorReminder;
 import org.thoughtcrime.securesms.components.reminder.DozeReminder;
 import org.thoughtcrime.securesms.components.reminder.ExpiredBuildReminder;
 import org.thoughtcrime.securesms.components.reminder.OutdatedBuildReminder;
@@ -101,6 +103,8 @@ import org.thoughtcrime.securesms.components.reminder.UnauthorizedReminder;
 import org.thoughtcrime.securesms.components.settings.app.notifications.manual.NotificationProfileSelectionFragment;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlayerView;
+import org.thoughtcrime.securesms.contacts.sync.CdsPermanentErrorBottomSheet;
+import org.thoughtcrime.securesms.contacts.sync.CdsTemporaryErrorBottomSheet;
 import org.thoughtcrime.securesms.conversation.ConversationFragment;
 import org.thoughtcrime.securesms.conversationlist.model.Conversation;
 import org.thoughtcrime.securesms.conversationlist.model.UnreadPayments;
@@ -546,6 +550,10 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   private void onReminderAction(@IdRes int reminderActionId) {
     if (reminderActionId == R.id.reminder_action_update_now) {
       PlayStoreUtil.openPlayStoreOrOurApkDownloadPage(requireContext());
+    } else if (reminderActionId == R.id.reminder_action_cds_temporary_error_learn_more) {
+      CdsTemporaryErrorBottomSheet.show(getChildFragmentManager());
+    } else if (reminderActionId == R.id.reminder_action_cds_permanent_error_learn_more) {
+      CdsPermanentErrorBottomSheet.show(getChildFragmentManager());
     }
   }
 
@@ -805,6 +813,10 @@ public class ConversationListFragment extends MainFragment implements ActionMode
         return Optional.of((new PushRegistrationReminder(context)));
       } else if (DozeReminder.isEligible(context)) {
         return Optional.of(new DozeReminder(context));
+      } else if (CdsTemporyErrorReminder.isEligible()) {
+        return Optional.of(new CdsTemporyErrorReminder(context));
+      } else if (CdsPermanentErrorReminder.isEligible()) {
+        return Optional.of(new CdsPermanentErrorReminder(context));
       } else {
         return Optional.<Reminder>empty();
       }
@@ -1396,12 +1408,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     }
 
     private void goToSinglePayment(@NonNull UUID paymentId) {
-      Intent intent = new Intent(requireContext(), PaymentsActivity.class);
-
-      intent.putExtra(PaymentsActivity.EXTRA_PAYMENTS_STARTING_ACTION, R.id.action_directly_to_paymentDetails);
-      intent.putExtra(PaymentsActivity.EXTRA_STARTING_ARGUMENTS, new PaymentDetailsFragmentArgs.Builder(PaymentDetailsParcelable.forUuid(paymentId)).build().toBundle());
-
-      startActivity(intent);
+      startActivity(PaymentsActivity.navigateToPaymentDetails(requireContext(), paymentId));
     }
   }
 
