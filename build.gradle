@@ -70,12 +70,13 @@ subprojects {
 task qa {
     group 'Verification'
     description 'Quality Assurance. Run before pushing.'
-    dependsOn 'clean',
+    dependsOn = [
+            ':libsignal-service:test',
             ':app:testProdNonFreeReleaseUnitTest',
             ':app:lintProdNonFreeRelease',
             ':app:ktlintCheck',
-            ':libsignal-service:test',
-            ':app:assembleProdFreeRelease'
+            ':app:assembleProdFreeRelease',
+    ]
 }
 
 task clean(type: Delete) {
