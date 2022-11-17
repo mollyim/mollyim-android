@@ -21,12 +21,9 @@ import org.thoughtcrime.securesms.InviteActivity;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileActivity;
-import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.stories.settings.story.StoriesPrivacySettingsRepository;
 import org.thoughtcrime.securesms.util.LifecycleDisposable;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity;
 
 import java.util.ArrayList;
@@ -68,8 +65,7 @@ public class OnboardingMegaphoneView extends FrameLayout {
     // MOLLY: New group card is replaced by Stories, that is opt-in
     private static final int TYPE_STORIES    = 0;
     private static final int TYPE_INVITE     = 1;
-    // MOLLY: SMS onboarding card is replaced by check-for-updates card
-    private static final int TYPE_UPDATE     = 2;
+    //private static final int TYPE_SMS      = 2;
     private static final int TYPE_APPEARANCE = 3;
     private static final int TYPE_ADD_PHOTO  = 4;
 
@@ -106,7 +102,6 @@ public class OnboardingMegaphoneView extends FrameLayout {
       switch (viewType) {
         case TYPE_STORIES:    return new StoriesViewHolder(view);
         case TYPE_INVITE:     return new InviteCardViewHolder(view);
-        case TYPE_UPDATE:     return new UpdateCardViewHolder(view);
         case TYPE_APPEARANCE: return new AppearanceCardViewHolder(view);
         case TYPE_ADD_PHOTO:  return new AddPhotoCardViewHolder(view);
         default:              throw new IllegalStateException("Invalid viewType! " + viewType);
@@ -143,10 +138,6 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
       if (SignalStore.onboarding().shouldShowInviteFriends()) {
         data.add(TYPE_INVITE);
-      }
-
-      if (SignalStore.onboarding().shouldShowEnableApkUpdate(context)) {
-        data.add(TYPE_UPDATE);
       }
 
       if (SignalStore.onboarding().shouldShowAddPhoto() && !SignalStore.misc().hasEverHadAnAvatar()) {
@@ -191,11 +182,8 @@ public class OnboardingMegaphoneView extends FrameLayout {
     }
 
     abstract @StringRes int getButtonStringRes();
-
     abstract @DrawableRes int getImageRes();
-
     abstract void onActionClicked(@NonNull MegaphoneActionController controller);
-
     abstract void onCloseClicked();
   }
 
@@ -258,37 +246,6 @@ public class OnboardingMegaphoneView extends FrameLayout {
     @Override
     void onCloseClicked() {
       SignalStore.onboarding().setShowInviteFriends(false);
-    }
-  }
-
-  private static class UpdateCardViewHolder extends CardViewHolder {
-
-    public UpdateCardViewHolder(@NonNull View itemView) {
-      super(itemView);
-    }
-
-    @Override
-    int getButtonStringRes() {
-      return R.string.Megaphones_automatic_check_for_updates;
-    }
-
-    @Override
-    int getImageRes() {
-      return R.drawable.ic_megaphone_use_sms;
-    }
-
-    @Override
-    void onActionClicked(@NonNull MegaphoneActionController controller) {
-      Context context = controller.getMegaphoneActivity();
-      TextSecurePreferences.setUpdateApkEnabled(context, true);
-      NotificationChannels.create(context);
-      UpdateApkRefreshListener.schedule(context);
-      SignalStore.onboarding().setShowEnableApkUpdate(false);
-    }
-
-    @Override
-    void onCloseClicked() {
-      SignalStore.onboarding().setShowEnableApkUpdate(false);
     }
   }
 

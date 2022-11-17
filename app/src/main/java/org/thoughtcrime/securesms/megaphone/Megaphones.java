@@ -31,10 +31,12 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LocaleFeatureFlags;
 import org.thoughtcrime.securesms.util.ServiceUtil;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.VersionTracker;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
@@ -108,6 +110,7 @@ public final class Megaphones {
       put(Event.BACKUP_SCHEDULE_PERMISSION, shouldShowBackupSchedulePermissionMegaphone(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(3)) : NEVER);
       put(Event.ONBOARDING, shouldShowOnboardingMegaphone(context) ? ALWAYS : NEVER);
       put(Event.TURN_OFF_CENSORSHIP_CIRCUMVENTION, shouldShowTurnOffCircumventionMegaphone() ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(7)) : NEVER);
+      put(Event.ENABLE_APP_UPDATES, shouldShowEnableAppUpdatesMegaphone(context) ? ALWAYS : NEVER);
       put(Event.DONATE_MOLLY, shouldShowDonateMegaphone(context, Event.DONATE_MOLLY, records) ? ShowForDurationSchedule.showForDays(7) : NEVER);
       put(Event.REMOTE_MEGAPHONE, shouldShowRemoteMegaphone(records) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(1)) : NEVER);
       put(Event.PIN_REMINDER, new SignalPinReminderSchedule());
@@ -131,6 +134,8 @@ public final class Megaphones {
         return buildNotificationsMegaphone(context);
       case ADD_A_PROFILE_PHOTO:
         return buildAddAProfilePhotoMegaphone(context);
+      case ENABLE_APP_UPDATES:
+        return buildEnableAppUpdatesMegaphone(context);
       case DONATE_MOLLY:
         return buildDonateQ2Megaphone(context);
       case TURN_OFF_CENSORSHIP_CIRCUMVENTION:
@@ -253,6 +258,24 @@ public final class Megaphones {
                         .build();
   }
 
+  private static @NonNull Megaphone buildEnableAppUpdatesMegaphone(@NonNull Context context) {
+    return new Megaphone.Builder(Event.ENABLE_APP_UPDATES, Megaphone.Style.BASIC)
+        .setTitle(R.string.EnableAppUpdatesMegaphone_check_for_updates_automatically)
+        .setImage(R.drawable.ic_avatar_celebration)
+        .setBody(R.string.EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them)
+        .setActionButton(R.string.EnableAppUpdatesMegaphone_check_for_updates, (megaphone, listener) -> {
+          TextSecurePreferences.setUpdateApkEnabled(context, true);
+          NotificationChannels.create(context);
+          UpdateApkRefreshListener.schedule(context);
+          listener.onMegaphoneCompleted(Event.ENABLE_APP_UPDATES);
+          listener.onMegaphoneToastRequested(context.getString(R.string.EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available));
+        })
+        .setSecondaryButton(R.string.CensorshipCircumventionMegaphone_no_thanks, (megaphone, listener) -> {
+          listener.onMegaphoneCompleted(Event.ENABLE_APP_UPDATES);
+        })
+        .build();
+  }
+
   private static @NonNull Megaphone buildDonateQ2Megaphone(@NonNull Context context) {
     return new Megaphone.Builder(Event.DONATE_MOLLY, Megaphone.Style.BASIC)
         .setTitle(R.string.DonateMegaphone_molly_is_free_software)
@@ -332,6 +355,10 @@ public final class Megaphones {
           controller.onMegaphoneSnooze(Event.BACKUP_SCHEDULE_PERMISSION);
         })
         .build();
+  }
+
+  private static boolean shouldShowEnableAppUpdatesMegaphone(@NonNull Context context) {
+    return !TextSecurePreferences.isUpdateApkEnabled(context) && VersionTracker.getDaysSinceFirstInstalled(context) > 0;
   }
 
   private static boolean shouldShowDonateMegaphone(@NonNull Context context, @NonNull Event event, @NonNull Map<Event, MegaphoneRecord> records) {
@@ -420,6 +447,7 @@ public final class Megaphones {
     ONBOARDING("onboarding"),
     NOTIFICATIONS("notifications"),
     ADD_A_PROFILE_PHOTO("add_a_profile_photo"),
+    ENABLE_APP_UPDATES("enable_app_updates_molly"),
     DONATE_MOLLY("donate_molly"),
     TURN_OFF_CENSORSHIP_CIRCUMVENTION("turn_off_censorship_circumvention"),
     REMOTE_MEGAPHONE("remote_megaphone"),

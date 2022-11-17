@@ -4,9 +4,6 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -37,7 +34,6 @@ public final class OnboardingValues extends SignalStoreValues {
   public void clearAll() {
     setShowStories(false);
     setShowInviteFriends(false);
-    setShowEnableApkUpdate(false);
     setShowAppearance(false);
     setShowAddPhoto(false);
   }
@@ -45,7 +41,6 @@ public final class OnboardingValues extends SignalStoreValues {
   public boolean hasOnboarding(@NonNull Context context) {
     return shouldShowStories()       ||
            shouldShowInviteFriends() ||
-           shouldShowEnableApkUpdate(context) ||
            shouldShowAppearance()    ||
            shouldShowAddPhoto();
   }
@@ -64,14 +59,6 @@ public final class OnboardingValues extends SignalStoreValues {
 
   public boolean shouldShowInviteFriends() {
     return getBoolean(SHOW_INVITE_FRIENDS, false);
-  }
-
-  public void setShowEnableApkUpdate(boolean value) {
-    TextSecurePreferences.setUpdateApkShowOnboardingEnabled(ApplicationDependencies.getApplication(), value);
-  }
-
-  public boolean shouldShowEnableApkUpdate(@NonNull Context context) {
-    return !TextSecurePreferences.isUpdateApkEnabled(context) && TextSecurePreferences.isUpdateApkShowOnboardingEnabled(context);
   }
 
   public void setShowAppearance(boolean value) {
