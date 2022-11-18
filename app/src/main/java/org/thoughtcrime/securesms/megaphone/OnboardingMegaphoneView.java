@@ -18,12 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.InviteActivity;
+import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileActivity;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
+import org.thoughtcrime.securesms.stories.settings.story.StoriesPrivacySettingsRepository;
+import org.thoughtcrime.securesms.util.LifecycleDisposable;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity;
 
@@ -63,7 +65,8 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
   private static class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements ActionClickListener {
 
-    private static final int TYPE_GROUP      = 0;
+    // MOLLY: New group card is replaced by Stories, that is opt-in
+    private static final int TYPE_STORIES    = 0;
     private static final int TYPE_INVITE     = 1;
     // MOLLY: SMS onboarding card is replaced by check-for-updates card
     private static final int TYPE_UPDATE     = 2;
@@ -101,7 +104,7 @@ public class OnboardingMegaphoneView extends FrameLayout {
     public @NonNull CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.onboarding_megaphone_list_item, parent, false);
       switch (viewType) {
-        case TYPE_GROUP:      return new GroupCardViewHolder(view);
+        case TYPE_STORIES:    return new StoriesViewHolder(view);
         case TYPE_INVITE:     return new InviteCardViewHolder(view);
         case TYPE_UPDATE:     return new UpdateCardViewHolder(view);
         case TYPE_APPEARANCE: return new AppearanceCardViewHolder(view);
@@ -134,8 +137,8 @@ public class OnboardingMegaphoneView extends FrameLayout {
     private static List<Integer> buildData(@NonNull Context context) {
       List<Integer> data = new ArrayList<>();
 
-      if (SignalStore.onboarding().shouldShowNewGroup()) {
-        data.add(TYPE_GROUP);
+      if (SignalStore.onboarding().shouldShowStories() && SignalStore.storyValues().isFeatureDisabled()) {
+        data.add(TYPE_STORIES);
       }
 
       if (SignalStore.onboarding().shouldShowInviteFriends()) {
@@ -188,20 +191,28 @@ public class OnboardingMegaphoneView extends FrameLayout {
     }
 
     abstract @StringRes int getButtonStringRes();
+
     abstract @DrawableRes int getImageRes();
+
     abstract void onActionClicked(@NonNull MegaphoneActionController controller);
+
     abstract void onCloseClicked();
   }
 
-  private static class GroupCardViewHolder extends CardViewHolder {
+  private static class StoriesViewHolder extends CardViewHolder {
 
-    public GroupCardViewHolder(@NonNull View itemView) {
+    final StoriesPrivacySettingsRepository storiesRepository;
+    final LifecycleDisposable              disposable;
+
+    public StoriesViewHolder(@NonNull View itemView) {
       super(itemView);
+      storiesRepository = new StoriesPrivacySettingsRepository();
+      disposable        = new LifecycleDisposable();
     }
 
     @Override
     int getButtonStringRes() {
-      return R.string.Megaphones_new_group;
+      return R.string.Megaphones_turn_on_stories;
     }
 
     @Override
@@ -211,12 +222,15 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
     @Override
     void onActionClicked(@NonNull MegaphoneActionController controller) {
-      controller.onMegaphoneNavigationRequested(CreateGroupActivity.newIntent(controller.getMegaphoneActivity()));
+      disposable.bindTo(controller.getMegaphoneActivity().getLifecycle());
+      disposable.add(storiesRepository.setStoriesEnabled(true).subscribe(() -> {
+        controller.onMegaphoneNavigationRequested(new Intent(controller.getMegaphoneActivity(), MainActivity.class));
+      }));
     }
 
     @Override
     void onCloseClicked() {
-      SignalStore.onboarding().setShowNewGroup(false);
+      SignalStore.onboarding().setShowStories(false);
     }
   }
 

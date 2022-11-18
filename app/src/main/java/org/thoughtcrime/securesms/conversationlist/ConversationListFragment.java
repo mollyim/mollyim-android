@@ -18,7 +18,6 @@ package org.thoughtcrime.securesms.conversationlist;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -59,6 +58,7 @@ import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -523,7 +523,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   @Override
-  public @NonNull Activity getMegaphoneActivity() {
+  public @NonNull FragmentActivity getMegaphoneActivity() {
     return requireActivity();
   }
 
@@ -1115,10 +1115,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   protected void onPostSubmitList(int conversationCount) {
-    if (conversationCount >= 6 && (SignalStore.onboarding().shouldShowInviteFriends() || SignalStore.onboarding().shouldShowNewGroup())) {
-      SignalStore.onboarding().clearAll();
-      ApplicationDependencies.getMegaphoneRepository().markFinished(Megaphones.Event.ONBOARDING);
-    }
   }
 
   @Override

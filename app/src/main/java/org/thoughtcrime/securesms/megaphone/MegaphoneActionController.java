@@ -1,10 +1,10 @@
 package org.thoughtcrime.securesms.megaphone;
 
-import android.app.Activity;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
 public interface MegaphoneActionController {
   /**
@@ -25,7 +25,7 @@ public interface MegaphoneActionController {
   /**
    * When a megaphone needs a raw activity reference. Favor more specific methods when possible.
    */
-  @NonNull Activity getMegaphoneActivity();
+  @NonNull FragmentActivity getMegaphoneActivity();
 
   /**
    * When a megaphone has been snoozed via "remind me later" or a similar option.
