@@ -51,9 +51,7 @@ internal class StoryValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val STORY_VIEWED_RECEIPTS = "stories.viewed.receipts"
   }
 
-  override fun onFirstEverAppLaunch() {
-    viewedReceiptsEnabled = true
-  }
+  override fun onFirstEverAppLaunch() = Unit
 
   override fun getKeysToIncludeInBackup(): MutableList<String> = mutableListOf(
     MANUAL_FEATURE_DISABLE,
@@ -65,7 +63,7 @@ internal class StoryValues(store: KeyValueStore) : SignalStoreValues(store) {
     STORY_VIEWED_RECEIPTS
   )
 
-  var isFeatureDisabled: Boolean by booleanValue(MANUAL_FEATURE_DISABLE, false)
+  var isFeatureDisabled: Boolean by booleanValue(MANUAL_FEATURE_DISABLE, true)
 
   var lastFontVersionCheck: Long by longValue(LAST_FONT_VERSION_CHECK, 0)
 
@@ -79,7 +77,7 @@ internal class StoryValues(store: KeyValueStore) : SignalStoreValues(store) {
 
   var userHasReadOnboardingStory: Boolean by booleanValue(USER_HAS_READ_ONBOARDING_STORY, false)
 
-  var viewedReceiptsEnabled: Boolean by booleanValue(STORY_VIEWED_RECEIPTS, false)
+  var viewedReceiptsEnabled: Boolean by booleanValue(STORY_VIEWED_RECEIPTS, true)
 
   fun isViewedReceiptsStateSet(): Boolean {
     return store.containsKey(STORY_VIEWED_RECEIPTS)

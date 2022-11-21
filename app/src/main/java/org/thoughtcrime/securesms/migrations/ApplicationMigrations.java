@@ -98,7 +98,7 @@ public class ApplicationMigrations {
     static final int KBS_MIGRATION_2               = 65;
     static final int PNI_2                         = 66;
     static final int SYSTEM_NAME_SYNC              = 67;
-    static final int STORY_VIEWED_STATE            = 68;
+    static final int STORY_VIEWED_STATE            = 68; // MOLLY: Stories enabled here
     static final int STORY_READ_STATE              = 69;
   }
 
