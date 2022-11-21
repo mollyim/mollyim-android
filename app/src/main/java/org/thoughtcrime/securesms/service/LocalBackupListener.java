@@ -11,7 +11,9 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.util.JavaTimeExtensionsKt;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 public class LocalBackupListener extends PersistentAlarmManagerListener {
 
@@ -41,19 +43,19 @@ public class LocalBackupListener extends PersistentAlarmManagerListener {
   }
 
   public static long setNextBackupTimeToIntervalFromNow(@NonNull Context context) {
-    long nextTime;
+    long nextTime = System.currentTimeMillis() + TextSecurePreferences.getBackupInternal(context);
 
-    if (Build.VERSION.SDK_INT < 31) {
-      nextTime = System.currentTimeMillis() + TextSecurePreferences.getBackupInternal(context);
-    } else {
-      LocalDateTime now  = LocalDateTime.now();
-      LocalDateTime next = now.withHour(2).withMinute(0).withSecond(0);
-      if (now.getHour() >= 2) {
+    if (Build.VERSION.SDK_INT >= 31) {
+      LocalDateTime nextInstant = LocalDateTime.ofInstant(Instant.ofEpochMilli(nextTime),
+                                                          TimeZone.getDefault().toZoneId());
+      LocalDateTime next = nextInstant.withHour(2).withMinute(0).withSecond(0);
+      if (nextInstant.getHour() >= 2) {
         next = next.plusDays(1);
       }
 
       nextTime = JavaTimeExtensionsKt.toMillis(next);
     }
+
     TextSecurePreferences.setNextBackupTime(context, nextTime);
 
     return nextTime;
