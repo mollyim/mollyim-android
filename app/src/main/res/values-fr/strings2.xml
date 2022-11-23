@@ -16,7 +16,7 @@
     <string name="preferences__automatic_lockdown">Verrouillage automatique</string>
     <string name="preferences__protect_molly_database_with_a_passphrase">Protéger la base de données de Molly avec une phrase secrète</string>
     <string name="preferences__passphrase_lock">Chiffrement de la base de données</string>
-    <string name="arrays__on_inactivity_timeout">Si un certain passe sans que vous déverrouilliez votre appareil</string>
+    <string name="arrays__on_inactivity_timeout">Si un certain temps passe sans que vous déverrouilliez votre appareil</string>
     <string name="RegistrationActivity_network_settings">Paramètres réseau</string>
     <string name="ApplicationPreferencesActivity_network_summary">Proxy %1$s</string>
     <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly ne se connectera pas sans Orbot, qui n\'est pas installé sur cet appareil.</string>
@@ -84,4 +84,9 @@
         <item quantity="many">%d appareils liés</item>
         <item quantity="other">%d appareils liés</item>
     </plurals>
+    <string name="Megaphones_turn_on_stories">Activer les histoires</string>
+    <string name="EnableAppUpdatesMegaphone_check_for_updates_automatically">Vérifier les mises à jour automatiquement \?</string>
+    <string name="EnableAppUpdatesMegaphone_check_for_updates">Rechercher des mises à jour</string>
+    <string name="EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them">Molly peut vérifier périodiquement la présence de nouvelles versions et vous demander de les installer.</string>
+    <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">Vous serez informé·e quand des mises à jour seront disponibles</string>
 </resources>
