@@ -15,6 +15,7 @@ class UnifiedPushReceiver: MessagingReceiver() {
 
   override fun onNewEndpoint(context: Context, endpoint: String, instance: String) {
     Log.d(TAG, "New endpoint !")
+    SignalStore.unifiedpush.endpoint = endpoint
   }
 
   override fun onRegistrationFailed(context: Context, instance: String) {
@@ -23,19 +24,13 @@ class UnifiedPushReceiver: MessagingReceiver() {
 
   override fun onUnregistered(context: Context, instance: String) {
     // called when this application is unregistered from receiving push messages
-    // TODO : start inapp webSocket ? isUnifiedPushEnabled becomes false => The websocket starts
+    // isPushAvailable becomes false => The websocket starts
+    SignalStore.unifiedpush.endpoint = null
   }
 
   override fun onMessage(context: Context, message: ByteArray, instance: String) {
     if (SignalStore.account.isRegistered && UnifiedPushHelper.isUnifiedPushEnabled()) {
       Log.d(TAG, "New message")
-      /*Thread {
-        if (Build.VERSION.SDK_INT >= 31) {
-          UnifiedPushFetchManager.enqueue(context, true)
-        } else {
-          UnifiedPushFetchManager.enqueue(context, false)
-        }
-      }.start()*/
       AppDependencies.incomingMessageObserver.registerKeepAliveToken(UnifiedPushReceiver::class.java.name)
       Timer().schedule(TIMEOUT) {
         AppDependencies.incomingMessageObserver.removeKeepAliveToken(UnifiedPushReceiver::class.java.name)

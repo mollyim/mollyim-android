@@ -1,11 +1,10 @@
 package im.molly.unifiedpush.helper
 
-import im.molly.unifiedpush.device.MollySocketDevice
+import im.molly.unifiedpush.device.MollySocketLinkedDevice
 import org.signal.core.util.logging.Log
 import org.unifiedpush.android.connector.UnifiedPush.registerAppWithDialog
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.unifiedpush.android.connector.UnifiedPush.getDistributor
 
 object UnifiedPushHelper{
   private val TAG = Log.tag(UnifiedPushHelper::class.java)
@@ -13,16 +12,16 @@ object UnifiedPushHelper{
 
   @JvmStatic
   fun initializeUnifiedPush() {
-    if (SignalStore.account.isRegistered) {
+    if (isUnifiedPushEnabled()) {
       Log.d(TAG, "Initializing UnifiedPush")
-      val socketUri = MollySocketDevice().socketUri ?: return
-      Log.d(TAG, socketUri)
+      MollySocketLinkedDevice().device ?: return
+      Log.d(TAG, "MollyDevice found")
       registerAppWithDialog(AppDependencies.application)
     }
   }
 
   @JvmStatic
   fun isUnifiedPushEnabled(): Boolean {
-    return getDistributor(context).isNotEmpty()
+    return SignalStore.unifiedpush.enabled
   }
 }
