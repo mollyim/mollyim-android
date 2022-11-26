@@ -26,8 +26,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
-import im.molly.unifiedpush.helper.UnifiedPushHelper;
-
 public class RefreshAttributesJob extends BaseJob {
 
   public static final String KEY = "RefreshAttributesJob";
@@ -87,7 +85,7 @@ public class RefreshAttributesJob extends BaseJob {
     }
 
     int       registrationId              = SignalStore.account().getRegistrationId();
-    boolean   fetchesMessages             = !UnifiedPushHelper.isPushEnabled() || SignalStore.internalValues().isWebsocketModeForced();
+    boolean   fetchesMessages             = !SignalStore.account().isFcmEnabled() || SignalStore.internalValues().isWebsocketModeForced();
     byte[]    unidentifiedAccessKey       = UnidentifiedAccess.deriveAccessKeyFrom(ProfileKeyUtil.getSelfProfileKey());
     boolean   universalUnidentifiedAccess = TextSecurePreferences.isUniversalUnidentifiedAccess(context);
     String    registrationLockV2          = null;

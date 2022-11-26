@@ -1,10 +1,10 @@
 package im.molly.unifiedpush.helper
 
-import im.molly.unifiedpush.device.MollySocketDevice
+import im.molly.unifiedpush.device.MollySocketLinkedDevice
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.unifiedpush.android.connector.UnifiedPush.getDistributor
+import org.unifiedpush.android.connector.UnifiedPush
 import org.unifiedpush.android.connector.UnifiedPush.registerAppWithDialog
 
 object UnifiedPushHelper{
@@ -13,21 +13,25 @@ object UnifiedPushHelper{
 
   @JvmStatic
   fun initializeUnifiedPush() {
-    if (SignalStore.account().isRegistered) {
+    if (isUnifiedPushEnabled()) {
       Log.d(TAG, "Initializing UnifiedPush")
-      val socketUri = MollySocketDevice().socketUri ?: return
-      Log.d(TAG, socketUri)
+      MollySocketLinkedDevice().device ?: return
+      Log.d(TAG, "MollyDevice found")
       registerAppWithDialog(ApplicationDependencies.getApplication())
     }
   }
 
   @JvmStatic
   fun isUnifiedPushEnabled(): Boolean {
-    return SignalStore.account().isRegistered && getDistributor(context).isNotEmpty()
+    return SignalStore.account().isRegistered && SignalStore.unifiedpush().enabled
   }
 
   @JvmStatic
-  fun isPushEnabled(): Boolean {
-    return isUnifiedPushEnabled() || SignalStore.account().fcmEnabled
+  fun isPushAvailable(): Boolean {
+    return SignalStore.account().fcmEnabled || (
+      isUnifiedPushEnabled() &&
+        (SignalStore.unifiedpush().airGaped || SignalStore.unifiedpush().mollySocketOk) &&
+        UnifiedPush.getDistributor(context).isNotEmpty()
+      )
   }
 }

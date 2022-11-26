@@ -283,6 +283,18 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
           viewModel.setNotifyWhenContactJoinsSignal(!state.notifyWhenContactJoinsSignal)
         }
       )
+
+      dividerPref()
+
+      sectionHeaderPref(R.string.NotificationsSettingsFragment__unifiedpush)
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__pushStrategy),
+        summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__pushStrategyDescription),
+        onClick = {
+          findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_unifiedPushFragment)
+        }
+      )
     }
   }
 

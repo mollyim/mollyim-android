@@ -1,5 +1,6 @@
 package im.molly.unifiedpush.device
 
+import im.molly.unifiedpush.model.MollyDevice
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.util.KeyHelper
 import org.thoughtcrime.securesms.AppCapabilities
@@ -16,44 +17,48 @@ import org.whispersystems.signalservice.api.account.PreKeyUpload
 import org.whispersystems.signalservice.api.messages.multidevice.VerifyDeviceResponse
 import org.whispersystems.signalservice.api.push.ServiceIdType
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
-import im.molly.unifiedpush.store.MollySocketStore
 import java.io.IOException
 import java.nio.charset.Charset
 
-class MollySocketDevice {
-  private val TAG = MollySocketDevice::class.java.simpleName
+class MollySocketLinkedDevice {
+  private val TAG = MollySocketLinkedDevice::class.java.simpleName
   private val DEVICE_NAME = "MollySocket"
   private val context = ApplicationDependencies.getApplication()
-  private val store = MollySocketStore()
 
-  var socketUri: String? = null
+  var device: MollyDevice? = null
 
   init {
-    if(!isMollySocketDevicePresent()) {
+    if (isDeviceLinked() == false) {
+      // If we previously had a linked device, it is no longer registered:
+      // we remove information about this potential previous device
       Log.d(TAG, "MollySocketDevice is not present")
-      store.removeUri()
+      SignalStore.unifiedpush().device = null
     }
-    socketUri = store.getUri()
+    device = SignalStore.unifiedpush().device
       ?: run {
         newDevice()
-        store.getUri()
+        SignalStore.unifiedpush().device
       }
   }
 
-  private fun isMollySocketDevicePresent(): Boolean {
+  private fun isDeviceLinked(): Boolean? {
+    val device = SignalStore.unifiedpush().device ?: return false
+    var error = false
     var devices : List<Device>? = emptyList()
     Thread {
       try {
         devices = DeviceListLoader(context, ApplicationDependencies.getSignalServiceAccountManager()).loadInBackground()
       } catch (e: IOException) {
         Log.e(TAG, "Encountered an IOException", e)
+        error = true
       }
     }.apply {
       start()
       join()
     }
-    devices?.forEach { device ->
-      if (device.id.toInt() == store.getDeviceId() && device.name == DEVICE_NAME) {
+    if (error) return null
+    devices?.forEach { it_device ->
+      if (it_device.id.toInt() == device.deviceId && it_device.name == DEVICE_NAME) {
         return true
       }
     }
@@ -72,8 +77,11 @@ class MollySocketDevice {
         TextSecurePreferences.setMultiDevice(context, true)
 
         generateAndRegisterPreKeys(number, verifyDeviceResponse.deviceId, password)
-        store.saveDeviceId(verifyDeviceResponse.deviceId)
-        store.saveUri(verifyDeviceResponse.uuid, verifyDeviceResponse.deviceId, password)
+        SignalStore.unifiedpush().device = MollyDevice(
+          uuid = verifyDeviceResponse.uuid.toString(),
+          deviceId = verifyDeviceResponse.deviceId,
+          password = password
+        )
       } catch (e: IOException) {
         Log.e(TAG, "Encountered an IOException", e)
       }

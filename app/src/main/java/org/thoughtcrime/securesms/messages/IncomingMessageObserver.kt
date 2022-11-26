@@ -185,13 +185,13 @@ class IncomingMessageObserver(private val context: Application) {
 
     val registered = SignalStore.account().isRegistered
     val fcmEnabled = SignalStore.account().fcmEnabled
-    val pushEnabled = UnifiedPushHelper.isPushEnabled()
+    val pushAvailable = UnifiedPushHelper.isPushAvailable()
     val hasNetwork = NetworkConstraint.isMet(context)
     val hasProxy = ApplicationDependencies.getNetworkManager().isProxyEnabled
     val forceWebsocket = SignalStore.internalValues().isWebsocketModeForced
 
-    // MOLLY: Change fcmEnabled to pushEnabled
-    if (!pushEnabled || forceWebsocket) {
+    // MOLLY: Change fcmEnabled to pushAvailable
+    if (!pushAvailable || forceWebsocket) {
       // MOLLY: Try to start the foreground service only once
       if (foregroundServiceStartPending.getAndSet(false)) {
         try {
@@ -210,14 +210,15 @@ class IncomingMessageObserver(private val context: Application) {
     }
 
     val lastInteractionString = if (appVisibleSnapshot) "N/A" else timeIdle.toString() + " ms (" + (if (timeIdle < maxBackgroundTime) "within limit" else "over limit") + ")"
+    // MOLLY: Change fcmEnabled to pushAvailable
     val conclusion = registered &&
-      (appVisibleSnapshot || timeIdle < maxBackgroundTime || !fcmEnabled || keepAliveEntries.isNotEmpty()) &&
+      (appVisibleSnapshot || timeIdle < maxBackgroundTime || !pushAvailable || keepAliveEntries.isNotEmpty()) &&
       hasNetwork
 
     val needsConnectionString = if (conclusion) "Needs Connection" else "Does Not Need Connection"
 
     // MOLLY: logging in a different message to avoid annoying conflicts
-    Log.d(TAG, "PushEnabled: $pushEnabled")
+    Log.d(TAG, "PushAvailable: $pushAvailable")
     Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, FCM: $fcmEnabled, Stay open requests: $keepAliveEntries, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket")
     return conclusion
   }
