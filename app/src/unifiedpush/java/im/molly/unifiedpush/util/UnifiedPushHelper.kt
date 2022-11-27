@@ -1,4 +1,4 @@
-package im.molly.unifiedpush.helper
+package im.molly.unifiedpush.util
 
 import im.molly.unifiedpush.device.MollySocketLinkedDevice
 import org.signal.core.util.logging.Log
@@ -27,11 +27,14 @@ object UnifiedPushHelper{
   }
 
   @JvmStatic
+  fun isUnifiedPushAvailable(): Boolean {
+    return isUnifiedPushEnabled() &&
+      (SignalStore.unifiedpush().airGaped || SignalStore.unifiedpush().mollySocketOk) &&
+      UnifiedPush.getDistributor(context).isNotEmpty()
+  }
+
+  @JvmStatic
   fun isPushAvailable(): Boolean {
-    return SignalStore.account().fcmEnabled || (
-      isUnifiedPushEnabled() &&
-        (SignalStore.unifiedpush().airGaped || SignalStore.unifiedpush().mollySocketOk) &&
-        UnifiedPush.getDistributor(context).isNotEmpty()
-      )
+    return SignalStore.account().fcmEnabled || isUnifiedPushAvailable()
   }
 }

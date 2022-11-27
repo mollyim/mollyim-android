@@ -149,19 +149,16 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationsSe
   }
 
   private fun getStatusSummary(state: UnifiedPushSettingsState): String {
-    if (!state.enabled) {
-      return getString(R.string.UnifiedPushSettingsFragment__status_summary_disabled)
-    }
-    if (state.airGaped) {
-      return getString(R.string.UnifiedPushSettingsFragment__status_summary_air_gaped)
-    }
-    if (state.mollySocketUrl.isNullOrBlank()) {
-      return getString(R.string.UnifiedPushSettingsFragment__status_summary_mollysocket_url_missing)
-    }
-    return when (state.mollySocketOk) {
-      null -> getString(R.string.UnifiedPushSettingsFragment__status_summary_pending)
-      true -> getString(R.string.UnifiedPushSettingsFragment__ok)
-      false -> getString(R.string.UnifiedPushSettingsFragment__status_summary_mollysocket_server_not_found)
+    return when (state.status) {
+      UnifiedPushStatus.DISABLED -> getString(R.string.UnifiedPushSettingsFragment__status_summary_disabled)
+      UnifiedPushStatus.AIR_GAPED -> getString(R.string.UnifiedPushSettingsFragment__status_summary_air_gaped)
+      UnifiedPushStatus.SERVER_NOT_FOUND_AT_URL -> getString(R.string.UnifiedPushSettingsFragment__status_summary_mollysocket_server_not_found)
+      UnifiedPushStatus.MISSING_ENDPOINT -> getString(R.string.UnifiedPushSettingsFragment__status_summary_missing_endpoint)
+      UnifiedPushStatus.NO_DISTRIBUTOR -> getString(R.string.UnifiedPushSettingsFragment__status_summary_no_distributor)
+      UnifiedPushStatus.PENDING -> getString(R.string.UnifiedPushSettingsFragment__status_summary_pending)
+      UnifiedPushStatus.OK -> getString(R.string.UnifiedPushSettingsFragment__ok)
+      UnifiedPushStatus.INTERNAL_ERROR -> getString(R.string.UnifiedPushSettingsFragment__status_summary_internal_error)
+      UnifiedPushStatus.UNKNOWN -> getString(R.string.UnifiedPushSettingsFragment__status_summary_unknown_error)
     }
   }
 

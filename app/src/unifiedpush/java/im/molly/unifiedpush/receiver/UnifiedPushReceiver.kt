@@ -1,7 +1,7 @@
 package im.molly.unifiedpush.receiver
 
 import android.content.Context
-import im.molly.unifiedpush.helper.UnifiedPushHelper
+import im.molly.unifiedpush.util.UnifiedPushHelper
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -15,6 +15,7 @@ class UnifiedPushReceiver: MessagingReceiver() {
 
   override fun onNewEndpoint(context: Context, endpoint: String, instance: String) {
     Log.d(TAG, "New endpoint: $endpoint")
+    //TODO: alert if air gaped and endpoint changes
     SignalStore.unifiedpush().endpoint = endpoint
   }
 
