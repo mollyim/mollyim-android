@@ -21,7 +21,7 @@ import java.io.IOException
 import java.nio.charset.Charset
 
 class MollySocketLinkedDevice {
-  private val TAG = MollySocketLinkedDevice::class.java.simpleName
+  private val TAG = Log.tag(MollySocketLinkedDevice::class.java)
   private val DEVICE_NAME = "MollySocket"
   private val context = ApplicationDependencies.getApplication()
 
@@ -43,20 +43,13 @@ class MollySocketLinkedDevice {
 
   private fun isDeviceLinked(): Boolean? {
     val device = SignalStore.unifiedpush().device ?: return false
-    var error = false
     var devices : List<Device>? = emptyList()
-    Thread {
-      try {
-        devices = DeviceListLoader(context, ApplicationDependencies.getSignalServiceAccountManager()).loadInBackground()
-      } catch (e: IOException) {
-        Log.e(TAG, "Encountered an IOException", e)
-        error = true
-      }
-    }.apply {
-      start()
-      join()
+    try {
+      devices = DeviceListLoader(context, ApplicationDependencies.getSignalServiceAccountManager()).loadInBackground()
+    } catch (e: IOException) {
+      Log.e(TAG, "Encountered an IOException", e)
+      return null
     }
-    if (error) return null
     devices?.forEach { it_device ->
       if (it_device.id.toInt() == device.deviceId && it_device.name == DEVICE_NAME) {
         return true
@@ -67,27 +60,21 @@ class MollySocketLinkedDevice {
 
   private fun newDevice() {
     Log.d(TAG, "Creating a device for MollySocket")
+    try {
+      val number = SignalStore.account().e164 ?: return
+      val password = Util.getSecret(18)
 
-    Thread {
-      try {
-        val number = SignalStore.account().e164 ?: return@Thread
-        val password = Util.getSecret(18)
+      val verifyDeviceResponse = verifyNewDevice(number, password)
+      TextSecurePreferences.setMultiDevice(context, true)
 
-        val verifyDeviceResponse = verifyNewDevice(number, password)
-        TextSecurePreferences.setMultiDevice(context, true)
-
-        generateAndRegisterPreKeys(number, verifyDeviceResponse.deviceId, password)
-        SignalStore.unifiedpush().device = MollyDevice(
-          uuid = verifyDeviceResponse.uuid.toString(),
-          deviceId = verifyDeviceResponse.deviceId,
-          password = password
-        )
-      } catch (e: IOException) {
-        Log.e(TAG, "Encountered an IOException", e)
-      }
-    }.apply {
-      start()
-      join()
+      generateAndRegisterPreKeys(number, verifyDeviceResponse.deviceId, password)
+      SignalStore.unifiedpush().device = MollyDevice(
+        uuid = verifyDeviceResponse.uuid.toString(),
+        deviceId = verifyDeviceResponse.deviceId,
+        password = password
+      )
+    } catch (e: IOException) {
+      Log.e(TAG, "Encountered an IOException", e)
     }
   }
 
