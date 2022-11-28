@@ -5,6 +5,7 @@ import im.molly.unifiedpush.model.UnifiedPushStatus
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.unifiedpush.android.connector.UnifiedPush
 
 object UnifiedPushHelper {
   private val TAG = Log.tag(UnifiedPushHelper::class.java)
@@ -28,5 +29,9 @@ object UnifiedPushHelper {
   @JvmStatic
   fun isUnifiedPushAvailable(): Boolean {
     return SignalStore.unifiedpush.status in listOf(UnifiedPushStatus.OK, UnifiedPushStatus.AIR_GAPED)
+  }
+
+  fun checkDistributorPresence() {
+    UnifiedPush.getAckDistributor(context) ?: run { SignalStore.unifiedpush.endpoint = null }
   }
 }

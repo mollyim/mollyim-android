@@ -1,7 +1,11 @@
 package im.molly.unifiedpush.jobs
 
+import im.molly.unifiedpush.model.RegistrationStatus
+import im.molly.unifiedpush.model.saveStatus
+import im.molly.unifiedpush.util.MollySocketRequest
 import im.molly.unifiedpush.util.UnifiedPushHelper
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobs.BaseJob
@@ -27,9 +31,23 @@ class UnifiedPushRefreshJob private constructor(parameters: Parameters) : BaseJo
   @Throws(Exception::class)
   public override fun onRun() {
     Log.d(TAG, "Running the refresh job")
-    if (!UnifiedPushHelper.isUnifiedPushAvailable() || SignalStore.unifiedpush.airGaped) return
-    Log.i(TAG, "Reregistering to MollySocket...")
-    //TODO: register to mollysocket
+    UnifiedPushHelper.checkDistributorPresence()
+    if (UnifiedPushHelper.isUnifiedPushAvailable() && !SignalStore.unifiedpush.airGaped) {
+      Log.i(TAG, "Reregistering to MollySocket...")
+      when (val status = MollySocketRequest.registerToMollySocketServer()) {
+        RegistrationStatus.INTERNAL_ERROR -> Log.d(TAG, "An error occurred while trying to re-register with MollySocket. It may be a bad connection: ignore it.")
+        RegistrationStatus.OK -> Log.d(TAG, "Successfully re-registered to MollySocket")
+        else -> {
+          Log.w(TAG, "The registration status has changed!")
+          status.saveStatus()
+          ApplicationContext.getInstance().initializeFcmCheck()
+          //TODO: alert user
+        }
+      }
+    } else {
+      ApplicationContext.getInstance().initializeFcmCheck()
+      //TODO: alert user
+    }
   }
 
   override fun onFailure() {

@@ -127,6 +127,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import im.molly.unifiedpush.jobs.UnifiedPushRefreshJob;
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
@@ -203,7 +204,6 @@ public class ApplicationContext extends Application implements AppForegroundObse
                             .addBlocking("network-settings", this::initializeNetworkSettings)
                             .addBlocking("first-launch", this::initializeFirstEverAppLaunch)
                             .addBlocking("gcm-check", this::initializeFcmCheck)
-                            .addBlocking("unifiedpush", UnifiedPushHelper::initializeUnifiedPush)
                             .addBlocking("app-migrations", this::initializeApplicationMigrations)
                             .addBlocking("lifecycle-observer", () -> AppForegroundObserver.addListener(this))
                             .addBlocking("message-retriever", this::initializeMessageRetrieval)
@@ -497,7 +497,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
     }
   }
 
-  private void initializeFcmCheck() {
+  public void initializeFcmCheck() {
     if (!SignalStore.account().isRegistered()) {
       return;
     }
@@ -506,6 +506,10 @@ public class ApplicationContext extends Application implements AppForegroundObse
 
     if (UnifiedPushHelper.isUnifiedPushAvailable()
         || fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
+      if (!SignalStore.unifiedpush().getAirGaped()) {
+        AppDependencies.getJobManager().add(new UnifiedPushRefreshJob());
+      }
+      AppDependencies.getJobManager().cancel(new FcmRefreshJob().getId());
       if (SignalStore.account().isFcmEnabled()) {
         Log.i(TAG, "Play Services are disabled. Disabling FCM.");
         SignalStore.account().setFcmEnabled(false);
@@ -520,10 +524,12 @@ public class ApplicationContext extends Application implements AppForegroundObse
                SignalStore.account().getFcmTokenLastSetTime() < 0) {
       Log.i(TAG, "Play Services are newly-available. Updating to use FCM.");
       SignalStore.account().setFcmEnabled(true);
+      AppDependencies.getJobManager().cancel(new UnifiedPushRefreshJob().getId());
       AppDependencies.getJobManager().startChain(new FcmRefreshJob())
                                              .then(new RefreshAttributesJob())
                                              .enqueue();
     } else {
+      AppDependencies.getJobManager().cancel(new UnifiedPushRefreshJob().getId());
       long lastSetTime = SignalStore.account().getFcmTokenLastSetTime();
       long nextSetTime = lastSetTime + TimeUnit.HOURS.toMillis(6);
       long now         = System.currentTimeMillis();
