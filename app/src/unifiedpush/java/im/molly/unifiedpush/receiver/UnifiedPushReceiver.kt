@@ -1,6 +1,9 @@
 package im.molly.unifiedpush.receiver
 
 import android.content.Context
+import android.content.Intent
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import im.molly.unifiedpush.components.settings.app.notifications.BROADCAST_NEW_ENDPOINT
 import im.molly.unifiedpush.model.UnifiedPushStatus
 import im.molly.unifiedpush.model.saveStatus
 import im.molly.unifiedpush.util.MollySocketRequest
@@ -23,6 +26,7 @@ class UnifiedPushReceiver: MessagingReceiver() {
       when (SignalStore.unifiedpush().status) {
         UnifiedPushStatus.AIR_GAPED -> {
           //TODO: alert if air gaped and endpoint changes
+          LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().apply { action = BROADCAST_NEW_ENDPOINT })
         }
         in listOf(
           UnifiedPushStatus.INTERNAL_ERROR,
@@ -31,10 +35,13 @@ class UnifiedPushReceiver: MessagingReceiver() {
         ) -> {
           Thread {
             MollySocketRequest.registerToMollySocketServer().saveStatus()
+            LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().apply { action = BROADCAST_NEW_ENDPOINT })
             //TODO: alert if status changes from Ok to something else
           }.start()
         }
-        else -> {}
+        else -> {
+          LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().apply { action = BROADCAST_NEW_ENDPOINT })
+        }
       }
     }
   }

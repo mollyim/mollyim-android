@@ -1,6 +1,10 @@
 package im.molly.unifiedpush.components.settings.app.notifications
 
 import android.app.Application
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +19,8 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.livedata.Store
 import org.unifiedpush.android.connector.UnifiedPush
 
+val BROADCAST_NEW_ENDPOINT = "UnifiedPushSettingsViewModel.new_endpoint"
+
 class UnifiedPushSettingsViewModel(private val application: Application) : ViewModel() {
 
   private val TAG = Log.tag(UnifiedPushSettingsViewModel::class.java)
@@ -22,6 +28,15 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
   private var status : UnifiedPushStatus? = null
 
   val state: LiveData<UnifiedPushSettingsState> = store.stateLiveData
+  val intentFilter = IntentFilter(BROADCAST_NEW_ENDPOINT)
+
+  val broadcastReceiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+      when (intent?.action) {
+        BROADCAST_NEW_ENDPOINT -> processNewStatus()
+      }
+    }
+  }
 
   private fun getState(): UnifiedPushSettingsState {
     status ?: run { status = SignalStore.unifiedpush().status}
