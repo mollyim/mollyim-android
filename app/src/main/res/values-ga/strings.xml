@@ -507,7 +507,10 @@
     <string name="ConversationFragment__cancel">Cealaigh</string>
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Bactha</string>
-
+    <!-- Label for a button displayed in conversation list to clear the chat filter -->
+    <string name="ConversationListFragment__clear_filter">Glan an scagaire</string>
+    <!-- Notice on chat list when no unread chats are available, centered on display -->
+    <string name="ConversationListFragment__no_unread_chats">Níl aon chomhráite gan léamh</string>
     <plurals name="ConversationListFragment_delete_selected_conversations">
         <item quantity="one">Scrios an comhrá roghnaithe?</item>
         <item quantity="two">Scrios na comhráite roghnaithe?</item>
@@ -634,6 +637,12 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Baill a Roghnú</string>
+
+    <!-- ConversationListFilterPullView -->
+    <!-- Note in revealable view before fully revealed -->
+    <string name="ConversationListFilterPullView__pull_down_to_filter">Pull down to filter</string>
+    <!-- Note in revealable view after fully revealed -->
+    <string name="ConversationListFilterPullView__release_to_filter">Release to filter</string>
 
     <!-- CreateProfileActivity -->
     <string name="CreateProfileActivity__profile">Próifíl</string>
@@ -3453,6 +3462,8 @@
     <string name="text_secure_normal__menu_clear_passphrase">Glasáil</string>
     <string name="text_secure_normal__mark_all_as_read">Rianaigh uile mar léite</string>
     <string name="text_secure_normal__invite_friends">Tabhair cuirí do chairde</string>
+    <!-- Overflow menu entry to filter unread chats -->
+    <string name="text_secure_normal__filter_unread_chats">Scag comhráite neamhléite</string>
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment_context_menu__copy_to_clipboard">Macasamhlaigh chuig an ghearrthaisce</string>
@@ -4307,6 +4318,8 @@
     <string name="SmsSettingsFragment__use_as_default_sms_app">Úsáid mar aip SMS réamhshocrú</string>
     <!-- Preference title to export sms -->
     <string name="SmsSettingsFragment__export_sms_messages">Easpórtáil teachtaireachtaí SMS</string>
+    <!-- Preference title to re-export sms -->
+    <string name="SmsSettingsFragment__export_sms_messages_again">Easpórtáil teachtaireachtaí SMS arís</string>
     <!-- Preference title to delete sms -->
     <string name="SmsSettingsFragment__remove_sms_messages">Bain teachtaireachtaí SMS</string>
     <!-- Snackbar text to confirm deletion -->
@@ -4315,6 +4328,8 @@
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Is féidir leat teachtaireachtaí SMS a bhaint ó Signal sna Socruithe am ar bith.</string>
     <!-- Description for export sms preference -->
     <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Is féidir leat do theachtaireachtaí SMS a easpórtáil chuig bunachar sonraí SMS do ghutháin.</string>
+    <!-- Description for re-export sms preference -->
+    <string name="SmsSettingsFragment__exporting_again_can_result_in_duplicate_messages">Is féidir teachtaireachtaí dúblacha a bheith ann mar thoradh ar easpórtáil arís.</string>
     <!-- Description for remove sms preference -->
     <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Bain teachtaireachtaí SMS ó Signal chun spás stórála a ghlanadh.</string>
     <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
@@ -5792,6 +5807,16 @@
     <!-- Message of dialog -->
     <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Is féidir leat teachtaireachtaí SMS a bhaint ó Signal anois chun spás stórála a ghlanadh. Beidh siad fós ar fáil ag aipeanna eile SMS ar do ghuthán fiú má bhaineann tú iad.</string>
 
+    <!-- ReExportSmsMessagesDialogFragment -->
+    <!-- Action button to re-export messages -->
+    <string name="ReExportSmsMessagesDialogFragment__continue">Ar Aghaidh</string>
+    <!-- Action button to cancel re-export process -->
+    <string name="ReExportSmsMessagesDialogFragment__cancel">Cuir ar ceal</string>
+    <!-- Title of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__export_sms_again">Easpórtáil SMS arís?</string>
+    <!-- Message of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__you_already_exported_your_sms_messages">D\'easpórtáil tú do theachtaireachtaí SMS cheana féin.\nRABHADH: Má leanann tú ar aghaidh, seans go mbeidh teachtaireachtaí dúblacha agat.</string>
+
     <!-- SetSignalAsDefaultSmsAppFragment -->
     <!-- Title of the screen -->
     <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Socraigh Signal mar an aip réamhshocraithe SMS</string>
@@ -5902,6 +5927,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Cárta creidmheasa nó dochair</string>
+    <!-- Sheet summary when giving a gift -->
+    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">Seol suaitheantas bronntanais</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">Cur ar ceal…</string>
@@ -5946,6 +5973,18 @@
     <string name="YourInformationIsPrivateBottomSheet__we_use_stripe">Úsáidimid Stripe mar ár bpróiseálaí íocaíochtaí chun do thabhartais a fháil. Ní dhéanaimid aon fhaisnéis a thugann tú dóibh a rochtain, a stóráil ná a shábháil.</string>
     <string name="YourInformationIsPrivateBottomSheet__signal_does_not_and_cannot">Ní dhéanann Signal agus ní féidir leis do thabhartas a nascadh le do chuntas Signal.</string>
     <string name="YourInformationIsPrivateBottomSheet__thank_you">Go raibh maith agat as do thacaíocht!</string>
+
+    <!-- GroupStoryEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="GroupStoryEducationSheet__introducing_group_stories">Tús Eolais: Grúpscéalta</string>
+    <!-- Line item on the sheet explaining group stories -->
+    <string name="GroupStoryEducationSheet__share_story_updates_to">Comhroinn nuashonruithe ar scéalta le grúpchomhrá a bhfuil tú ann cheana.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can share to group stories -->
+    <string name="GroupStoryEducationSheet__anyone_in_the_group">Is féidir le duine ar bith sa ghrúpchomhrá cur leis an scéal.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can view replies -->
+    <string name="GroupStoryEducationSheet__all_group_chat_members">Is féidir le gach ball den ghrúpchomhrá féachaint ar fhreagraí ar an scéal.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="GroupStoryEducationSheet__next">Ar aghaidh</string>
 
     <!-- EOF -->
 

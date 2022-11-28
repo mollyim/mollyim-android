@@ -500,7 +500,10 @@
     <string name="ConversationFragment__cancel">Atsisakyti</string>
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Užblokuotas</string>
-
+    <!-- Label for a button displayed in conversation list to clear the chat filter -->
+    <string name="ConversationListFragment__clear_filter">Išvalyti filtrą</string>
+    <!-- Notice on chat list when no unread chats are available, centered on display -->
+    <string name="ConversationListFragment__no_unread_chats">Nėra neskaitytų pokalbių</string>
     <plurals name="ConversationListFragment_delete_selected_conversations">
         <item quantity="one">Ištrinti pasirinktą pokalbį?</item>
         <item quantity="few">Ištrinti pasirinktus pokalbius?</item>
@@ -613,6 +616,12 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Pasirinkti narius</string>
+
+    <!-- ConversationListFilterPullView -->
+    <!-- Note in revealable view before fully revealed -->
+    <string name="ConversationListFilterPullView__pull_down_to_filter">Pull down to filter</string>
+    <!-- Note in revealable view after fully revealed -->
+    <string name="ConversationListFilterPullView__release_to_filter">Release to filter</string>
 
     <!-- CreateProfileActivity -->
     <string name="CreateProfileActivity__profile">Profilis</string>
@@ -3366,6 +3375,8 @@
     <string name="text_secure_normal__menu_clear_passphrase">Užrakinti</string>
     <string name="text_secure_normal__mark_all_as_read">Žymėti visus skaitytais</string>
     <string name="text_secure_normal__invite_friends">Pakviesti draugus</string>
+    <!-- Overflow menu entry to filter unread chats -->
+    <string name="text_secure_normal__filter_unread_chats">Filtruoti neskaitytus pokalbius</string>
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment_context_menu__copy_to_clipboard">Kopijuoti į iškarpinę</string>
@@ -4209,6 +4220,8 @@
     <string name="SmsSettingsFragment__use_as_default_sms_app">Naudoti kaip numatytąją SMS programėlę</string>
     <!-- Preference title to export sms -->
     <string name="SmsSettingsFragment__export_sms_messages">Eksportuoti SMS žinutes</string>
+    <!-- Preference title to re-export sms -->
+    <string name="SmsSettingsFragment__export_sms_messages_again">Eksportuoti SMS žinutes dar kartą</string>
     <!-- Preference title to delete sms -->
     <string name="SmsSettingsFragment__remove_sms_messages">Pašalinti SMS žinutes</string>
     <!-- Snackbar text to confirm deletion -->
@@ -4217,6 +4230,8 @@
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Gali bet kada pašalinti SMS žinutes iš „Signal“ per nustatymus.</string>
     <!-- Description for export sms preference -->
     <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Gali eksportuoti savo SMS žinutes į savo telefono SMS duomenų bazę.</string>
+    <!-- Description for re-export sms preference -->
+    <string name="SmsSettingsFragment__exporting_again_can_result_in_duplicate_messages">Dar kartą eksportavus žinutės gali dubliuotis</string>
     <!-- Description for remove sms preference -->
     <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Pašalink SMS žinutes iš „Signal“ ir atlaisvink vietos atmintyje.</string>
     <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
@@ -5670,6 +5685,16 @@
     <!-- Message of dialog -->
     <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Dabar gali pašalinti SMS žinutes iš „Signal“ ir atlaisvinti atminties vietos. Net ir pašalinus, jos tebebus pasiekiamos kitoms SMS programėlėms tavo telefone.</string>
 
+    <!-- ReExportSmsMessagesDialogFragment -->
+    <!-- Action button to re-export messages -->
+    <string name="ReExportSmsMessagesDialogFragment__continue">Tęsti</string>
+    <!-- Action button to cancel re-export process -->
+    <string name="ReExportSmsMessagesDialogFragment__cancel">Atsisakyti</string>
+    <!-- Title of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__export_sms_again">Dar kartą eksportuoti SMS?</string>
+    <!-- Message of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__you_already_exported_your_sms_messages">Tu jau eksportavai savo SMS žinutes.\nĮSPĖJIMAS: jei tęsi, gali būti, kad žinutės dubliuosis</string>
+
     <!-- SetSignalAsDefaultSmsAppFragment -->
     <!-- Title of the screen -->
     <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Padaryti „Signal“ numatytąja SMS programėle</string>
@@ -5778,6 +5803,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Kredito arba debeto kortelė</string>
+    <!-- Sheet summary when giving a gift -->
+    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">Siųsti dovanų ženklelį</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">Atšaukiama…</string>
@@ -5821,6 +5848,18 @@
     <string name="YourInformationIsPrivateBottomSheet__we_use_stripe">Naudojame „Stripe“ mokėjimams apdoroti, kad parama mus pasiektų. Nesiekiame rinkti, nekaupiame ir nesaugome jokios informacijos, kurią tu jiems pateiki.</string>
     <string name="YourInformationIsPrivateBottomSheet__signal_does_not_and_cannot">„Signal“ nebando ir negali susieti tavo paramos su tavo „Signal“ paskyra.</string>
     <string name="YourInformationIsPrivateBottomSheet__thank_you">Dėkojame tau už paramą!</string>
+
+    <!-- GroupStoryEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="GroupStoryEducationSheet__introducing_group_stories">Pristatome: grupės istorijos</string>
+    <!-- Line item on the sheet explaining group stories -->
+    <string name="GroupStoryEducationSheet__share_story_updates_to">Bendrink istorijos naujinimus grupės pokalbyje, kuriame dalyvauji.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can share to group stories -->
+    <string name="GroupStoryEducationSheet__anyone_in_the_group">Bet kuris grupės pokalbio dalyvis gali pridėti istoriją.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can view replies -->
+    <string name="GroupStoryEducationSheet__all_group_chat_members">Visi grupės pokalbio nariai gali žiūrėti istorijos komentarus.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="GroupStoryEducationSheet__next">Kitas</string>
 
     <!-- EOF -->
 

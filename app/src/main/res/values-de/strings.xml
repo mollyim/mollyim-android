@@ -486,7 +486,10 @@
     <string name="ConversationFragment__cancel">Abbrechen</string>
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Blockiert</string>
-
+    <!-- Label for a button displayed in conversation list to clear the chat filter -->
+    <string name="ConversationListFragment__clear_filter">Filter entfernen</string>
+    <!-- Notice on chat list when no unread chats are available, centered on display -->
+    <string name="ConversationListFragment__no_unread_chats">Keine ungelesenen Unterhaltungen</string>
     <plurals name="ConversationListFragment_delete_selected_conversations">
         <item quantity="one">Ausgewählte Unterhaltung löschen?</item>
         <item quantity="other">Ausgewählte Unterhaltungen löschen?</item>
@@ -571,6 +574,12 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Mitglieder auswählen</string>
+
+    <!-- ConversationListFilterPullView -->
+    <!-- Note in revealable view before fully revealed -->
+    <string name="ConversationListFilterPullView__pull_down_to_filter">Pull down to filter</string>
+    <!-- Note in revealable view after fully revealed -->
+    <string name="ConversationListFilterPullView__release_to_filter">Release to filter</string>
 
     <!-- CreateProfileActivity -->
     <string name="CreateProfileActivity__profile">Profil</string>
@@ -3192,6 +3201,8 @@
     <string name="text_secure_normal__menu_clear_passphrase">Molly sperren</string>
     <string name="text_secure_normal__mark_all_as_read">Alle gelesen</string>
     <string name="text_secure_normal__invite_friends">Freunde einladen</string>
+    <!-- Overflow menu entry to filter unread chats -->
+    <string name="text_secure_normal__filter_unread_chats">Ungelesene Unterhaltungen filtern</string>
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment_context_menu__copy_to_clipboard">In Zwischenablage kopieren</string>
@@ -4013,6 +4024,8 @@
     <string name="SmsSettingsFragment__use_as_default_sms_app">Als Standard-SMS-App verwenden</string>
     <!-- Preference title to export sms -->
     <string name="SmsSettingsFragment__export_sms_messages">SMS-Nachrichten exportieren</string>
+    <!-- Preference title to re-export sms -->
+    <string name="SmsSettingsFragment__export_sms_messages_again">SMS-Nachrichten erneut exportieren</string>
     <!-- Preference title to delete sms -->
     <string name="SmsSettingsFragment__remove_sms_messages">SMS-Nachrichten entfernen</string>
     <!-- Snackbar text to confirm deletion -->
@@ -4021,6 +4034,8 @@
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Du kannst SMS-Nachrichten jederzeit in den Einstellungen von Signal entfernen.</string>
     <!-- Description for export sms preference -->
     <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Du kannst deine SMS-Nachrichten in die SMS-Datenbank deines Smartphones exportieren.</string>
+    <!-- Description for re-export sms preference -->
+    <string name="SmsSettingsFragment__exporting_again_can_result_in_duplicate_messages">Ein erneuter Export kann zu doppelten Nachrichten führen.</string>
     <!-- Description for remove sms preference -->
     <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Entferne SMS-Nachrichten aus Signal, um Speicherplatz freizugeben.</string>
     <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
@@ -4202,7 +4217,7 @@
     <string name="ConversationSettingsFragment__video">Video</string>
     <string name="ConversationSettingsFragment__audio">Audio</string>
     <string name="ConversationSettingsFragment__call">Anrufen</string>
-    <string name="ConversationSettingsFragment__mute">Stummschalten</string>
+    <string name="ConversationSettingsFragment__mute">Stumm­schalten</string>
     <string name="ConversationSettingsFragment__muted">Stumm</string>
     <string name="ConversationSettingsFragment__search">Suchen</string>
     <string name="ConversationSettingsFragment__disappearing_messages">Verschwindende Nachrichten</string>
@@ -5426,6 +5441,16 @@
     <!-- Message of dialog -->
     <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Du kannst SMS-Nachrichten jetzt aus Signal entfernen, um Speicherplatz freizugeben. Sie sind auch dann noch für andere SMS-Apps auf deinem Smartphone verfügbar, wenn du sie entfernst.</string>
 
+    <!-- ReExportSmsMessagesDialogFragment -->
+    <!-- Action button to re-export messages -->
+    <string name="ReExportSmsMessagesDialogFragment__continue">Fortfahren</string>
+    <!-- Action button to cancel re-export process -->
+    <string name="ReExportSmsMessagesDialogFragment__cancel">Abbrechen</string>
+    <!-- Title of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__export_sms_again">SMS erneut exportieren?</string>
+    <!-- Message of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__you_already_exported_your_sms_messages">Du hast deine SMS-Nachrichten bereits exportiert.\nACHTUNG: Wenn du fortfährst, kann es sein, dass du doppelte Nachrichten erhältst.</string>
+
     <!-- SetSignalAsDefaultSmsAppFragment -->
     <!-- Title of the screen -->
     <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Signal als Standard-SMS-App festlegen</string>
@@ -5530,6 +5555,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Kredit- oder Debitkarte</string>
+    <!-- Sheet summary when giving a gift -->
+    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">Geschenkabzeichen versenden</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">Stornieren …</string>
@@ -5571,6 +5598,18 @@
     <string name="YourInformationIsPrivateBottomSheet__we_use_stripe">Wir nutzen den Zahlungsdienstleister Stripe, um deine Spenden zu erhalten. Wir haben keinen Zugriff auf die Informationen, die du ihnen zur Verfügung stellst, und speichern diese auch nicht.</string>
     <string name="YourInformationIsPrivateBottomSheet__signal_does_not_and_cannot">Signal kann und wird deine Spende nicht mit deinem Signal-Konto in Verbindung bringen.</string>
     <string name="YourInformationIsPrivateBottomSheet__thank_you">Danke für deine Unterstützung!</string>
+
+    <!-- GroupStoryEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="GroupStoryEducationSheet__introducing_group_stories">Wir präsentieren: Gruppen-Storys</string>
+    <!-- Line item on the sheet explaining group stories -->
+    <string name="GroupStoryEducationSheet__share_story_updates_to">Teile Story-Updates in einer Gruppenunterhaltung, in der du bereits Mitglied bist.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can share to group stories -->
+    <string name="GroupStoryEducationSheet__anyone_in_the_group">Jeder und jede in der Gruppenunterhaltung kann etwas zur Story hinzufügen.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can view replies -->
+    <string name="GroupStoryEducationSheet__all_group_chat_members">Alle Mitglieder in der Gruppenunterhaltung können Antworten auf die Story sehen.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="GroupStoryEducationSheet__next">Weiter</string>
 
     <!-- EOF -->
 

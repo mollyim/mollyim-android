@@ -500,7 +500,10 @@
     <string name="ConversationFragment__cancel">Prekini</string>
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Blokirani</string>
-
+    <!-- Label for a button displayed in conversation list to clear the chat filter -->
+    <string name="ConversationListFragment__clear_filter">Obriši filter</string>
+    <!-- Notice on chat list when no unread chats are available, centered on display -->
+    <string name="ConversationListFragment__no_unread_chats">Nema nepročitanih razgovora</string>
     <plurals name="ConversationListFragment_delete_selected_conversations">
         <item quantity="one">Izbrisati označeni razgovor?</item>
         <item quantity="few">Izbrisati označene razgovore?</item>
@@ -613,6 +616,12 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Izaberite članove</string>
+
+    <!-- ConversationListFilterPullView -->
+    <!-- Note in revealable view before fully revealed -->
+    <string name="ConversationListFilterPullView__pull_down_to_filter">Pull down to filter</string>
+    <!-- Note in revealable view after fully revealed -->
+    <string name="ConversationListFilterPullView__release_to_filter">Release to filter</string>
 
     <!-- CreateProfileActivity -->
     <string name="CreateProfileActivity__profile">Profil</string>
@@ -3366,6 +3375,8 @@
     <string name="text_secure_normal__menu_clear_passphrase">Zaključaj</string>
     <string name="text_secure_normal__mark_all_as_read">Sve označi kao pročitano</string>
     <string name="text_secure_normal__invite_friends">Pozovi prijatelje</string>
+    <!-- Overflow menu entry to filter unread chats -->
+    <string name="text_secure_normal__filter_unread_chats">Filtriraj nepročitane chatove</string>
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment_context_menu__copy_to_clipboard">Kopiraj u međuspremnik</string>
@@ -4209,6 +4220,8 @@
     <string name="SmsSettingsFragment__use_as_default_sms_app">Koristi kao glavnu aplikaciju za SMS</string>
     <!-- Preference title to export sms -->
     <string name="SmsSettingsFragment__export_sms_messages">Izvezite SMS poruke</string>
+    <!-- Preference title to re-export sms -->
+    <string name="SmsSettingsFragment__export_sms_messages_again">Ponovo izvezi SMS poruke</string>
     <!-- Preference title to delete sms -->
     <string name="SmsSettingsFragment__remove_sms_messages">Uklonite SMS poruke</string>
     <!-- Snackbar text to confirm deletion -->
@@ -4217,6 +4230,8 @@
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Bilo kada možete ukloniti SMS poruke sa Signala u Postavkama.</string>
     <!-- Description for export sms preference -->
     <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Možete izvesti SMS poruke u SMS bazu podataka telefona.</string>
+    <!-- Description for re-export sms preference -->
+    <string name="SmsSettingsFragment__exporting_again_can_result_in_duplicate_messages">Ponovnim izvozom mogu nastati duple poruke.</string>
     <!-- Description for remove sms preference -->
     <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Uklonite SMS poruke iz Signala da oslobodite prostor za pohranu.</string>
     <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
@@ -5670,6 +5685,16 @@
     <!-- Message of dialog -->
     <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Sada možete ukloniti SMS poruke iz Signala da oslobodite prostor za pohranu. I daljle će biti dostupne drugim aplikacijama za SMS na telefonu čak ako ih uklonite.</string>
 
+    <!-- ReExportSmsMessagesDialogFragment -->
+    <!-- Action button to re-export messages -->
+    <string name="ReExportSmsMessagesDialogFragment__continue">Nastavi</string>
+    <!-- Action button to cancel re-export process -->
+    <string name="ReExportSmsMessagesDialogFragment__cancel">Otkaži</string>
+    <!-- Title of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__export_sms_again">Ponovo izvesti SMS?</string>
+    <!-- Message of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__you_already_exported_your_sms_messages">Već ste izvezli SMS poruke.\nUPOZORENJE: Ako nastavite, mogu nastati duple poruke.</string>
+
     <!-- SetSignalAsDefaultSmsAppFragment -->
     <!-- Title of the screen -->
     <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Postavite Signal kao zadanu aplikaciju za SMS</string>
@@ -5778,6 +5803,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Kreditna ili debitna kartica</string>
+    <!-- Sheet summary when giving a gift -->
+    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">Pošalji značku kao poklon</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">Otkazivanje…</string>
@@ -5821,6 +5848,18 @@
     <string name="YourInformationIsPrivateBottomSheet__we_use_stripe">Koristimo Stripe za obradu plaćanja kako bismo primili vaše donacije. Ne pristupamo, pohranjujemo niti zadržavamo informacije koje pružite.</string>
     <string name="YourInformationIsPrivateBottomSheet__signal_does_not_and_cannot">Signal ne povezuje niti može povezati vašu donaciju s vašim Signal računom.</string>
     <string name="YourInformationIsPrivateBottomSheet__thank_you">Hvala na podršci!</string>
+
+    <!-- GroupStoryEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="GroupStoryEducationSheet__introducing_group_stories">Predstavljamo: Grupne priče</string>
+    <!-- Line item on the sheet explaining group stories -->
+    <string name="GroupStoryEducationSheet__share_story_updates_to">Dijelite ažuriranja priče u grupnom chatu u kojem već učestvujete.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can share to group stories -->
+    <string name="GroupStoryEducationSheet__anyone_in_the_group">Sve osobe u grupnom chatu mogu dodati sadržaj priči.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can view replies -->
+    <string name="GroupStoryEducationSheet__all_group_chat_members">Svi članovi grupnog chata mogu vidjeti odgovore na priče.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="GroupStoryEducationSheet__next">Dalje</string>
 
     <!-- EOF -->
 

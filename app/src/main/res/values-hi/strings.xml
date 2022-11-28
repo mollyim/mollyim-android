@@ -486,7 +486,10 @@
     <string name="ConversationFragment__cancel">रद्द करें</string>
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">ब्लॉक</string>
-
+    <!-- Label for a button displayed in conversation list to clear the chat filter -->
+    <string name="ConversationListFragment__clear_filter">फ़िल्टर हटाएँ</string>
+    <!-- Notice on chat list when no unread chats are available, centered on display -->
+    <string name="ConversationListFragment__no_unread_chats">कोई भी अपठित चैट नहीं</string>
     <plurals name="ConversationListFragment_delete_selected_conversations">
         <item quantity="one">चयनित मेसेज हटाएं?</item>
         <item quantity="other">चयनित मेसेज हटाएं?</item>
@@ -571,6 +574,12 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">सदस्य चुनें</string>
+
+    <!-- ConversationListFilterPullView -->
+    <!-- Note in revealable view before fully revealed -->
+    <string name="ConversationListFilterPullView__pull_down_to_filter">Pull down to filter</string>
+    <!-- Note in revealable view after fully revealed -->
+    <string name="ConversationListFilterPullView__release_to_filter">Release to filter</string>
 
     <!-- CreateProfileActivity -->
     <string name="CreateProfileActivity__profile">प्रोफ़ाइल</string>
@@ -3192,6 +3201,8 @@
     <string name="text_secure_normal__menu_clear_passphrase">लॉक</string>
     <string name="text_secure_normal__mark_all_as_read">सभी को पढ़ा दिखाएं</string>
     <string name="text_secure_normal__invite_friends">मित्रों को आमंत्रित करें</string>
+    <!-- Overflow menu entry to filter unread chats -->
+    <string name="text_secure_normal__filter_unread_chats">अपठित चैट फ़िल्टर करें</string>
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment_context_menu__copy_to_clipboard">क्लिपबोर्ड पर कॉपी करें</string>
@@ -4013,6 +4024,8 @@
     <string name="SmsSettingsFragment__use_as_default_sms_app">डिफ़ॉल्ट SMS ऐप के रूप में उपयोग करें</string>
     <!-- Preference title to export sms -->
     <string name="SmsSettingsFragment__export_sms_messages">एसएमएस मेसेज एक्सपोर्ट करें</string>
+    <!-- Preference title to re-export sms -->
+    <string name="SmsSettingsFragment__export_sms_messages_again">SMS मेसेज फिर से निर्यात करें</string>
     <!-- Preference title to delete sms -->
     <string name="SmsSettingsFragment__remove_sms_messages">एसएमएस मेसेज हटाएँ</string>
     <!-- Snackbar text to confirm deletion -->
@@ -4021,6 +4034,8 @@
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">आप सेटिंग्स में जा कर किसी भी समय Signal से SMS मेसेज हटा सकते हैं।</string>
     <!-- Description for export sms preference -->
     <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">आप अपने SMS संदेश अपने फ़ोन के SMS डेटाबेस को निर्यात कर सकते हैं।</string>
+    <!-- Description for re-export sms preference -->
+    <string name="SmsSettingsFragment__exporting_again_can_result_in_duplicate_messages">फिर से निर्यात करने से मेसेज डुप्लीकेट हो सकते हैं।</string>
     <!-- Description for remove sms preference -->
     <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">स्टोरेज स्थान खाली करने के लिए Signal से SMS संदेश हटाएँ।</string>
     <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
@@ -5426,6 +5441,16 @@
     <!-- Message of dialog -->
     <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">अब आप Signal से SMS मेसेज हटाकर स्टोरेज की जगह खाली कर सकते हैं। आप उन्हें हटा भी दें फिर भी वे आपके फ़ोन के अन्य SMS ऐप पर उपलब्ध रहेंगे।</string>
 
+    <!-- ReExportSmsMessagesDialogFragment -->
+    <!-- Action button to re-export messages -->
+    <string name="ReExportSmsMessagesDialogFragment__continue">जारी रखें</string>
+    <!-- Action button to cancel re-export process -->
+    <string name="ReExportSmsMessagesDialogFragment__cancel">रद्द करें</string>
+    <!-- Title of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__export_sms_again">SMS फिर से निर्यात करने हैं?</string>
+    <!-- Message of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__you_already_exported_your_sms_messages">आप पहले ही अपने SMS मेसेज निर्यात कर चुके हैं।\nचेतावनी : जारी रखने पर हो सकता है कि मेसेज डुप्लीकेट हो जाएँ।</string>
+
     <!-- SetSignalAsDefaultSmsAppFragment -->
     <!-- Title of the screen -->
     <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Signal को डीफॉल्ट SMS ऐप के तौर पर सेट करें</string>
@@ -5530,6 +5555,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">डेबिट कार्ड के लिए क्रेडिट</string>
+    <!-- Sheet summary when giving a gift -->
+    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">एक गिफ़्ट बैज भेजें</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">रद्द कर रहा है…</string>
@@ -5571,6 +5598,18 @@
     <string name="YourInformationIsPrivateBottomSheet__we_use_stripe">हम आपसे दान पाने के लिए Stripe को अपने भुगतान प्रोसेसर के तौर पर इस्तेमाल करते हैं। आपके द्वारा उन्हें दी जानेवाली किसी भी जानकारी को हम ऐक्सेस, स्टोर, या सेव नहीं करेंगे।</string>
     <string name="YourInformationIsPrivateBottomSheet__signal_does_not_and_cannot">Signal आपके दान को आपके Signal अकाउंट से कनेक्ट न तो करता है, न ही कर सकता है।</string>
     <string name="YourInformationIsPrivateBottomSheet__thank_you">आपके सहयोग के लिए धन्यवाद!</string>
+
+    <!-- GroupStoryEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="GroupStoryEducationSheet__introducing_group_stories">प्रस्तुत है : ग्रुप स्टोरीज़</string>
+    <!-- Line item on the sheet explaining group stories -->
+    <string name="GroupStoryEducationSheet__share_story_updates_to">किसी ऐसे ग्रुप चैट की स्टोरी अपडेट शेयर करें जिसमें आप पहले से हों।</string>
+    <!-- Line item on the sheet explaining that anyone in the group can share to group stories -->
+    <string name="GroupStoryEducationSheet__anyone_in_the_group">ग्रुप चैट में मौजूद कोई भी स्टोरी जोड़ सकता है।</string>
+    <!-- Line item on the sheet explaining that anyone in the group can view replies -->
+    <string name="GroupStoryEducationSheet__all_group_chat_members">ग्रुप चैट के सभी सदस्य स्टोरी पर मिलनेवाले जवाब देख सकते हैं।</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="GroupStoryEducationSheet__next">अगला</string>
 
     <!-- EOF -->
 

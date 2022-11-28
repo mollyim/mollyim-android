@@ -500,7 +500,10 @@
     <string name="ConversationFragment__cancel">Скасувати</string>
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Заблоковано</string>
-
+    <!-- Label for a button displayed in conversation list to clear the chat filter -->
+    <string name="ConversationListFragment__clear_filter">Очистити фільтр</string>
+    <!-- Notice on chat list when no unread chats are available, centered on display -->
+    <string name="ConversationListFragment__no_unread_chats">Немає непрочитаних чатів</string>
     <plurals name="ConversationListFragment_delete_selected_conversations">
         <item quantity="one">Видалити обрану бесіду?</item>
         <item quantity="few">Видалити обрані бесіди?</item>
@@ -613,6 +616,12 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Виберіть учасників</string>
+
+    <!-- ConversationListFilterPullView -->
+    <!-- Note in revealable view before fully revealed -->
+    <string name="ConversationListFilterPullView__pull_down_to_filter">Pull down to filter</string>
+    <!-- Note in revealable view after fully revealed -->
+    <string name="ConversationListFilterPullView__release_to_filter">Release to filter</string>
 
     <!-- CreateProfileActivity -->
     <string name="CreateProfileActivity__profile">Профіль</string>
@@ -3366,6 +3375,8 @@
     <string name="text_secure_normal__menu_clear_passphrase">Заблокувати</string>
     <string name="text_secure_normal__mark_all_as_read">Позначити усі як прочитані</string>
     <string name="text_secure_normal__invite_friends">Запросити друзів</string>
+    <!-- Overflow menu entry to filter unread chats -->
+    <string name="text_secure_normal__filter_unread_chats">Фільтрувати непрочитані чати</string>
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment_context_menu__copy_to_clipboard">Скопіювати до буфера обміну</string>
@@ -4209,6 +4220,8 @@
     <string name="SmsSettingsFragment__use_as_default_sms_app">Використовувати як типову програму для SMS</string>
     <!-- Preference title to export sms -->
     <string name="SmsSettingsFragment__export_sms_messages">Експортувати SMS-повідомлення</string>
+    <!-- Preference title to re-export sms -->
+    <string name="SmsSettingsFragment__export_sms_messages_again">Експортувати SMS-повідомлення ще раз</string>
     <!-- Preference title to delete sms -->
     <string name="SmsSettingsFragment__remove_sms_messages">Вилучити SMS-повідомлення</string>
     <!-- Snackbar text to confirm deletion -->
@@ -4217,6 +4230,8 @@
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Ви можете видалити SMS-повідомлення з Signal у налаштуваннях у будь-який момент.</string>
     <!-- Description for export sms preference -->
     <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Ви можете експортувати свої SMS-повідомлення до бази даних з SMS телефону</string>
+    <!-- Description for re-export sms preference -->
+    <string name="SmsSettingsFragment__exporting_again_can_result_in_duplicate_messages">Через повторний експорт можуть створитися копії повідомлень.</string>
     <!-- Description for remove sms preference -->
     <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Видаліть SMS-повідомлення з Signal, щоб звільнити простір зберігання.</string>
     <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
@@ -5670,6 +5685,16 @@
     <!-- Message of dialog -->
     <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Тепер ви можете видалити SMS-повідомлення з Signal, щоб звільнити простір зберігання. Повідомлення все одно будуть доступні іншим програмам для SMS на вашому телефоні, навіть якщо ви їх вилучите.</string>
 
+    <!-- ReExportSmsMessagesDialogFragment -->
+    <!-- Action button to re-export messages -->
+    <string name="ReExportSmsMessagesDialogFragment__continue">Продовжити</string>
+    <!-- Action button to cancel re-export process -->
+    <string name="ReExportSmsMessagesDialogFragment__cancel">Скасувати</string>
+    <!-- Title of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__export_sms_again">Експортувати SMS ще раз?</string>
+    <!-- Message of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__you_already_exported_your_sms_messages">Ви вже експортували SMS-повідомлення.\nУВАГА: якщо продовжити, можуть створитися копії повідомлень.</string>
+
     <!-- SetSignalAsDefaultSmsAppFragment -->
     <!-- Title of the screen -->
     <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Установити Signal як програму для SMS за замовчуванням</string>
@@ -5778,6 +5803,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Кредитна або дебетова картка</string>
+    <!-- Sheet summary when giving a gift -->
+    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">Надішліть подарунковий значок</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">Скасування…</string>
@@ -5821,6 +5848,18 @@
     <string name="YourInformationIsPrivateBottomSheet__we_use_stripe">Ми користуємося послугами компанії Stripe для обробки ваших платежів. Ми не зберігаємо інформацію, яку ви надаєте Stripe, і не маємо до неї доступу.</string>
     <string name="YourInformationIsPrivateBottomSheet__signal_does_not_and_cannot">Signal не може і не намагається встановити зв\'язок між вашим донатом і вашим акаунтом Signal.</string>
     <string name="YourInformationIsPrivateBottomSheet__thank_you">Дякуємо за вашу підтримку!</string>
+
+    <!-- GroupStoryEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="GroupStoryEducationSheet__introducing_group_stories">Зустрічайте Групові сторіз</string>
+    <!-- Line item on the sheet explaining group stories -->
+    <string name="GroupStoryEducationSheet__share_story_updates_to">Діліться оновленнями сторіз у своєму груповому чаті.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can share to group stories -->
+    <string name="GroupStoryEducationSheet__anyone_in_the_group">Усі учасники групового чату можуть додавати до сторіз власний контент.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can view replies -->
+    <string name="GroupStoryEducationSheet__all_group_chat_members">Усі учасники групового чату можуть переглядати відповіді на сторіз.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="GroupStoryEducationSheet__next">Далі</string>
 
     <!-- EOF -->
 

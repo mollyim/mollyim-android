@@ -486,7 +486,10 @@
     <string name="ConversationFragment__cancel">Loobu</string>
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Blokeeritud</string>
-
+    <!-- Label for a button displayed in conversation list to clear the chat filter -->
+    <string name="ConversationListFragment__clear_filter">Eemalda filter</string>
+    <!-- Notice on chat list when no unread chats are available, centered on display -->
+    <string name="ConversationListFragment__no_unread_chats">Lugemata vestlusi ei ole</string>
     <plurals name="ConversationListFragment_delete_selected_conversations">
         <item quantity="one">Kustutad valitud vestluse?</item>
         <item quantity="other">Kustutad valitud vestlused?</item>
@@ -571,6 +574,12 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Vali liikmed</string>
+
+    <!-- ConversationListFilterPullView -->
+    <!-- Note in revealable view before fully revealed -->
+    <string name="ConversationListFilterPullView__pull_down_to_filter">Pull down to filter</string>
+    <!-- Note in revealable view after fully revealed -->
+    <string name="ConversationListFilterPullView__release_to_filter">Release to filter</string>
 
     <!-- CreateProfileActivity -->
     <string name="CreateProfileActivity__profile">Profiil</string>
@@ -3192,6 +3201,8 @@
     <string name="text_secure_normal__menu_clear_passphrase">Lukusta</string>
     <string name="text_secure_normal__mark_all_as_read">Märgi kõik loetuks</string>
     <string name="text_secure_normal__invite_friends">Kutsu sõpru</string>
+    <!-- Overflow menu entry to filter unread chats -->
+    <string name="text_secure_normal__filter_unread_chats">Filtreeri lugemata vestlused</string>
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment_context_menu__copy_to_clipboard">Kopeeri lõikelauale</string>
@@ -4013,6 +4024,8 @@
     <string name="SmsSettingsFragment__use_as_default_sms_app">Kasuta vaikimisi SMS-rakendusena</string>
     <!-- Preference title to export sms -->
     <string name="SmsSettingsFragment__export_sms_messages">Ekspordi SMS-sõnumid</string>
+    <!-- Preference title to re-export sms -->
+    <string name="SmsSettingsFragment__export_sms_messages_again">Ekspordi SMS-sõnumid uuesti</string>
     <!-- Preference title to delete sms -->
     <string name="SmsSettingsFragment__remove_sms_messages">Eemalda SMS-sõnumid</string>
     <!-- Snackbar text to confirm deletion -->
@@ -4021,6 +4034,8 @@
     <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Sätete kaudu saad SMS-sõnumid Signalist igal ajal eemaldada.</string>
     <!-- Description for export sms preference -->
     <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Saad enda SMS-sõnumid oma telefoni SMS-sõnumite andmebaasi eksportida</string>
+    <!-- Description for re-export sms preference -->
+    <string name="SmsSettingsFragment__exporting_again_can_result_in_duplicate_messages">Uuesti eksportimine võib põhjustada sõnumite dubleerimist.</string>
     <!-- Description for remove sms preference -->
     <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Nüüd saad SMS-sõnumid Signalist eemaldada, et salvestusruumi vabastada.</string>
     <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
@@ -5426,6 +5441,16 @@
     <!-- Message of dialog -->
     <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Nüüd saad SMS-sõnumid Signalist eemaldada, et salvestusruumi vabastada. Isegi kui need eemaldatakse, jäävad need teistele sinu telefoni SMS-rakendustele kättesaadavaks.</string>
 
+    <!-- ReExportSmsMessagesDialogFragment -->
+    <!-- Action button to re-export messages -->
+    <string name="ReExportSmsMessagesDialogFragment__continue">Jätka</string>
+    <!-- Action button to cancel re-export process -->
+    <string name="ReExportSmsMessagesDialogFragment__cancel">Loobu</string>
+    <!-- Title of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__export_sms_again">Kas eksportida SMS-sõnumid uuesti?</string>
+    <!-- Message of dialog -->
+    <string name="ReExportSmsMessagesDialogFragment__you_already_exported_your_sms_messages">Oled oma SMS-sõnumid juba eksportinud.\nHOIATUS: Kui jätkad, võidakse sinu sõnumid dubleerida.</string>
+
     <!-- SetSignalAsDefaultSmsAppFragment -->
     <!-- Title of the screen -->
     <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Kõigepealt muuda Signal vaikimisi SMS-rakenduseks</string>
@@ -5530,6 +5555,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Krediit- või deebetkaart</string>
+    <!-- Sheet summary when giving a gift -->
+    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">Saada kinkemärk</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">Tühistamine…</string>
@@ -5571,6 +5598,18 @@
     <string name="YourInformationIsPrivateBottomSheet__we_use_stripe">Kasutame sinu annetuse vastuvõtmisel makse töötlemiseks Stripe\'i. Meil ei ole ligipääsu andmetele, mida sa nendega jagad; me ei kogu ega salvesta neid andmeid.</string>
     <string name="YourInformationIsPrivateBottomSheet__signal_does_not_and_cannot">Signal ei saa ega soovi seostada sinu annetust sinu Signali kontoga.</string>
     <string name="YourInformationIsPrivateBottomSheet__thank_you">Täname sind toetuse eest!</string>
+
+    <!-- GroupStoryEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="GroupStoryEducationSheet__introducing_group_stories">Tutvustame grupilugusid</string>
+    <!-- Line item on the sheet explaining group stories -->
+    <string name="GroupStoryEducationSheet__share_story_updates_to">Jaga loo uuendusi grupiga, kuhu kuulud.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can share to group stories -->
+    <string name="GroupStoryEducationSheet__anyone_in_the_group">Iga grupiliige võib loosse uuendusi lisada.</string>
+    <!-- Line item on the sheet explaining that anyone in the group can view replies -->
+    <string name="GroupStoryEducationSheet__all_group_chat_members">Kõik grupiliikmed näevad loole saadetud vastuseid.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="GroupStoryEducationSheet__next">Edasi</string>
 
     <!-- EOF -->
 
