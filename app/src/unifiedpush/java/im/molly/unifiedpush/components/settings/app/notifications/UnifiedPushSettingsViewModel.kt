@@ -5,7 +5,11 @@ import android.content.pm.PackageManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import im.molly.unifiedpush.model.UnifiedPushStatus
+import im.molly.unifiedpush.model.saveStatus
 import im.molly.unifiedpush.util.MollySocketRequest
+import im.molly.unifiedpush.util.UnifiedPushHelper
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.livedata.Store
@@ -13,12 +17,14 @@ import org.unifiedpush.android.connector.UnifiedPush
 
 class UnifiedPushSettingsViewModel(private val application: Application) : ViewModel() {
 
+  private val TAG = Log.tag(UnifiedPushSettingsViewModel::class.java)
   private val store = Store(getState())
+  private var status : UnifiedPushStatus? = null
 
   val state: LiveData<UnifiedPushSettingsState> = store.stateLiveData
-  var checkingServer = false
 
   private fun getState(): UnifiedPushSettingsState {
+    status ?: run { status = SignalStore.unifiedpush().status}
     val distributor = UnifiedPush.getDistributor(application)
     var count = -1
     var selected = -1
@@ -53,6 +59,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
         name = application.getString(R.string.UnifiedPushSettingsViewModel__no_distributor),
         applicationId = "",
       ))
+      status = UnifiedPushStatus.NO_DISTRIBUTOR
     }
 
     return UnifiedPushSettingsState(
@@ -63,11 +70,9 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
       selected = selected,
       endpoint = SignalStore.unifiedpush().endpoint,
       mollySocketUrl = SignalStore.unifiedpush().mollySocketUrl,
-      mollySocketOk = if (checkingServer) { null } else { SignalStore.unifiedpush().mollySocketOk },
-      status = UnifiedPushStatus.UNKNOWN,
-    ).apply {
-      setStatus()
-    }
+      mollySocketOk = SignalStore.unifiedpush().mollySocketFound,
+      status = status ?: SignalStore.unifiedpush().status,
+    )
   }
 
   fun setUnifiedPushEnabled(enabled: Boolean) {
@@ -76,6 +81,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
       UnifiedPush.getDistributors(application).getOrNull(0)?.let {
         UnifiedPush.saveDistributor(application, it)
         UnifiedPush.registerApp(application)
+        UnifiedPushHelper.initializeMollySocketLinkedDevice()
         // Do not enable if there is no distributor
       } ?: return
     } else {
@@ -109,22 +115,35 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
   }
 
   private fun processNewStatus() {
-    if (with(SignalStore.unifiedpush()) {
-        this.enabled && !this.airGaped && !this.endpoint.isNullOrBlank()
-      }) {
-      checkingServer = true
-      store.update { getState() }
+    status = SignalStore.unifiedpush().status
+    if (SignalStore.unifiedpush().status in listOf(
+        UnifiedPushStatus.OK,
+        UnifiedPushStatus.FORBIDDEN_UUID,
+        UnifiedPushStatus.INTERNAL_ERROR,
+        UnifiedPushStatus.SERVER_NOT_FOUND_AT_URL,
+      )) {
+      Log.d(TAG, "Trying to register to MollySocket")
+      status = UnifiedPushStatus.PENDING
       Thread {
         try {
-          SignalStore.unifiedpush().mollySocketOk = MollySocketRequest.discoverMollySocketServer()
-          checkingServer = false
-          store.update { getState() }
+          if (MollySocketRequest.discoverMollySocketServer()) {
+            SignalStore.unifiedpush().mollySocketFound = true
+            MollySocketRequest.registerToMollySocketServer().saveStatus()
+            status = SignalStore.unifiedpush().status
+          } else {
+            SignalStore.unifiedpush().mollySocketFound = false
+            status = SignalStore.unifiedpush().status
+          }
         } catch (e: Exception) {
-          SignalStore.unifiedpush().mollySocketOk = false
-          store.update { getState().apply { status = UnifiedPushStatus.INTERNAL_ERROR } }
+          SignalStore.unifiedpush().mollySocketFound = false
+          status = UnifiedPushStatus.INTERNAL_ERROR
         }
+        store.update { getState() }
       }.start()
+    } else {
+      status = SignalStore.unifiedpush().status
     }
+    store.update { getState() }
   }
 
   class Factory(private val application: Application) : ViewModelProvider.Factory {

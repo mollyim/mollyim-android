@@ -1,6 +1,9 @@
 package im.molly.unifiedpush.receiver
 
 import android.content.Context
+import im.molly.unifiedpush.model.UnifiedPushStatus
+import im.molly.unifiedpush.model.saveStatus
+import im.molly.unifiedpush.util.MollySocketRequest
 import im.molly.unifiedpush.util.UnifiedPushHelper
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
@@ -15,12 +18,30 @@ class UnifiedPushReceiver: MessagingReceiver() {
 
   override fun onNewEndpoint(context: Context, endpoint: String, instance: String) {
     Log.d(TAG, "New endpoint: $endpoint")
-    //TODO: alert if air gaped and endpoint changes
-    SignalStore.unifiedpush().endpoint = endpoint
+    if (SignalStore.unifiedpush().endpoint != endpoint) {
+      SignalStore.unifiedpush().endpoint = endpoint
+      when (SignalStore.unifiedpush().status) {
+        UnifiedPushStatus.AIR_GAPED -> {
+          //TODO: alert if air gaped and endpoint changes
+        }
+        in listOf(
+          UnifiedPushStatus.INTERNAL_ERROR,
+          UnifiedPushStatus.MISSING_ENDPOINT,
+          UnifiedPushStatus.OK,
+        ) -> {
+          Thread {
+            MollySocketRequest.registerToMollySocketServer().saveStatus()
+            //TODO: alert if status changes from Ok to something else
+          }.start()
+        }
+        else -> {}
+      }
+    }
   }
 
   override fun onRegistrationFailed(context: Context, instance: String) {
     // called when the registration is not possible, eg. no network
+    //TODO: alert user the registration has failed
   }
 
   override fun onUnregistered(context: Context, instance: String) {
@@ -30,7 +51,7 @@ class UnifiedPushReceiver: MessagingReceiver() {
   }
 
   override fun onMessage(context: Context, message: ByteArray, instance: String) {
-    if (UnifiedPushHelper.isUnifiedPushEnabled()) {
+    if (UnifiedPushHelper.isUnifiedPushAvailable()) {
       Log.d(TAG, "New message")
       ApplicationDependencies.getIncomingMessageObserver().registerKeepAliveToken(UnifiedPushReceiver::class.java.name)
       Timer().schedule(TIMEOUT) {

@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import im.molly.unifiedpush.model.UnifiedPushStatus
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
@@ -151,9 +152,12 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationsSe
   private fun getStatusSummary(state: UnifiedPushSettingsState): String {
     return when (state.status) {
       UnifiedPushStatus.DISABLED -> getString(R.string.UnifiedPushSettingsFragment__status_summary_disabled)
+      UnifiedPushStatus.LINK_DEVICE_ERROR -> getString(R.string.UnifiedPushSettingsFragment__status_summary_linked_device_error)
       UnifiedPushStatus.AIR_GAPED -> getString(R.string.UnifiedPushSettingsFragment__status_summary_air_gaped)
       UnifiedPushStatus.SERVER_NOT_FOUND_AT_URL -> getString(R.string.UnifiedPushSettingsFragment__status_summary_mollysocket_server_not_found)
       UnifiedPushStatus.MISSING_ENDPOINT -> getString(R.string.UnifiedPushSettingsFragment__status_summary_missing_endpoint)
+      UnifiedPushStatus.FORBIDDEN_UUID -> getString(R.string.UnifiedPushSettingsFragment__status_summary_forbidden_uuid)
+      UnifiedPushStatus.FORBIDDEN_ENDPOINT -> getString(R.string.UnifiedPushSettingsFragment__status_summary_forbidden_endpoint)
       UnifiedPushStatus.NO_DISTRIBUTOR -> getString(R.string.UnifiedPushSettingsFragment__status_summary_no_distributor)
       UnifiedPushStatus.PENDING -> getString(R.string.UnifiedPushSettingsFragment__status_summary_pending)
       UnifiedPushStatus.OK -> getString(R.string.UnifiedPushSettingsFragment__ok)
@@ -163,7 +167,7 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationsSe
   }
 
   private fun getMollySocketUrlIcon(state: UnifiedPushSettingsState): DSLSettingsIcon? {
-    if (state.mollySocketUrl == null || state.mollySocketOk == null ) return null
+    if (state.mollySocketUrl.isNullOrBlank() || state.status == UnifiedPushStatus.PENDING ) return null
     return if (state.mollySocketOk) {
       DSLSettingsIcon.from(R.drawable.ic_check_20)
     } else {
