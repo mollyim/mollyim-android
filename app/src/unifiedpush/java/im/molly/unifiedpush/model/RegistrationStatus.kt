@@ -6,6 +6,7 @@ enum class RegistrationStatus(private val formatted: String) {
   OK("ok"),
   FORBIDDEN("forbidden"),
   INVALID_UUID("invalid_uuid"),
+  INVALID_ENDPOINT("invalid_endpoint"),
   INTERNAL_ERROR("internal_error"),
   NO_DEVICE("_1"),
   NO_ENDPOINT("_2");
@@ -27,6 +28,11 @@ fun RegistrationStatus.saveStatus() {
       SignalStore.unifiedpush().mollySocketInternalError = false
       SignalStore.unifiedpush().forbiddenEndpoint = false
     }
+    RegistrationStatus.INVALID_ENDPOINT -> {
+      SignalStore.unifiedpush().forbiddenUuid = false
+      SignalStore.unifiedpush().mollySocketInternalError = false
+      SignalStore.unifiedpush().forbiddenEndpoint = true
+    }
     // We tried to register without device
     RegistrationStatus.NO_DEVICE,
       // Should never be called: that means the linked device is deleted
@@ -35,6 +41,5 @@ fun RegistrationStatus.saveStatus() {
     RegistrationStatus.INTERNAL_ERROR -> {
       SignalStore.unifiedpush().mollySocketInternalError = true
     }
-    //TODO: RegistrationStatus.FORBIDDEN_ENDPOINT
   }
 }
