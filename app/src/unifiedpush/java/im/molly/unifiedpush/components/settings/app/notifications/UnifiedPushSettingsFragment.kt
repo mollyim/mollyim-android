@@ -71,28 +71,27 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationsSe
 
       if (state.enabled) {
 
+        radioListPref(
+          title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__method),
+          listItems = state.distributors.map { it.name }.toTypedArray(),
+          selected = state.selected,
+          onSelected = {
+            viewModel.setUnifiedPushDistributor(state.distributors[it].applicationId)
+          },
+        )
+
+        dividerPref()
+
         switchPref(
           title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__air_gaped)),
+          summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__air_gaped_summary)),
           isChecked = state.airGaped,
           onClick = {
             viewModel.setUnifiedPushAirGaped(!state.airGaped)
           }
         )
 
-        val distributors = {
-          radioListPref(
-            title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__method),
-            listItems = state.distributors.map { it.name }.toTypedArray(),
-            selected = state.selected,
-            onSelected = {
-              viewModel.setUnifiedPushDistributor(state.distributors[it].applicationId)
-            },
-          )
-        }
-
         if (state.airGaped) {
-
-          distributors()
 
           clickPref(
             title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_parameters)),
@@ -118,8 +117,6 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationsSe
             iconEnd = getMollySocketUrlIcon(state),
             onClick = { urlDialog(state) },
           )
-
-          distributors()
         }
       }
     }
