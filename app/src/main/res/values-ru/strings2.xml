@@ -78,4 +78,16 @@
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Блокировка доступа к Molly с помощью отпечатка пальца или распознавания лица</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">На этом устройстве нет доступных биометрических функций</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Сначала настройте вашу биометрию в настройках Android</string>
+    <string name="BioTextPreference_no_linked_devices">Нет связанных устройств</string>
+    <plurals name="BioTextPreference_n_linked_devices">
+        <item quantity="one">%d связанное устройство</item>
+        <item quantity="few">%d связанных устройства</item>
+        <item quantity="many">%d связанных устройств</item>
+        <item quantity="other">%d связанных устройств</item>
+    </plurals>
+    <string name="Megaphones_turn_on_stories">Включить истории</string>
+    <string name="EnableAppUpdatesMegaphone_check_for_updates_automatically">Проверять наличие обновлений автоматически\?</string>
+    <string name="EnableAppUpdatesMegaphone_check_for_updates">Проверить наличие обновлений</string>
+    <string name="EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them">Molly может периодически проверять наличие новых версий и предлагать их установку.</string>
+    <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">Вы будете уведомлены о появлении обновлений</string>
 </resources>
