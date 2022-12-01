@@ -3074,6 +3074,7 @@ public final class MessageContentProcessor {
     }
   }
 
+  // MOLLY: Use shouldBlockSender(from) instead of sender.isBlocked()
   private boolean shouldIgnore(@NonNull SignalServiceContent content, @NonNull Recipient from, @NonNull Recipient conversation)
       throws BadGroupIdException
   {
@@ -3123,7 +3124,7 @@ public final class MessageContentProcessor {
       if (conversation.isGroup() && conversation.isBlocked()) {
         return true;
       } else {
-        return sender.isBlocked();
+        return shouldBlockSender(from);
       }
     }
 
