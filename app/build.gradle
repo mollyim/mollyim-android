@@ -358,7 +358,8 @@ android {
     }
 
     android.variantFilter { variant ->
-        if (!selectableVariants.contains(variant.name)) {
+        def matches = project.buildVariants.split(',').any { variant.name.contains(it) }
+        if (!(selectableVariants.contains(variant.name) && matches)) {
             setIgnore(true)
         }
     }
