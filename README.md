@@ -87,30 +87,27 @@ phone number), follow these steps.
 Note, the migration should be done when the available Molly version is equal to
 or later than the currently installed Signal app version.
 
-1. Install the [F-Droid](https://f-droid.org/) app, if it isn't already. Add
-   one or both of the [Molly app
-   repositories](https://molly.im/download/fdroid/) to F-Droid.
-2. Verify your Signal backup passphrase. In the Signal app: **Settings** >
+1. Verify your Signal backup passphrase. In the Signal app: **Settings** >
    **Chats** > **Chat backups** > **Verify backup passphrase**.
-3. Optionally, put your phone offline (enable airplane mode or disable data
+2. Optionally, put your phone offline (enable airplane mode or disable data
    services) until after Signal is uninstalled in step 5. This will prevent the
    possibility of losing any Signal messages that are received during or after
    the backup is created.
-4. Create a Signal backup. In the Signal app, go to **Settings** > **Chats** >
+3. Create a Signal backup. In the Signal app, go to **Settings** > **Chats** >
    **Chat backups** > **Create backup**.
-5. Uninstall the Signal app. Now you can put your phone back online (disable
+4. Uninstall the Signal app. Now you can put your phone back online (disable
    airplane mode or re-enable data services).
-6. Install the Molly or Molly-FOSS app using F-Droid.
-7. Open the Molly app. Enable database encryption if desired. As soon as the
+5. Install the Molly or Molly-FOSS app.
+6. Open the Molly app. Enable database encryption if desired. As soon as the
    option is given, tap **Transfer or restore account**. Answer any permissions
    questions.
-8. Choose to **Restore from backup** and tap **Choose backup**. Navigate to
+7. Choose to **Restore from backup** and tap **Choose backup**. Navigate to
    your Signal backup location (`Signal/Backups/`, by default) and choose the
    backup that was created in step 3.
-9. Check the backup details and then tap **Restore backup** to confirm. Enter
+8. Check the backup details and then tap **Restore backup** to confirm. Enter
    the backup passphrase when requested.
-10. If asked, choose a new folder for backup storage. Or choose **Not Now** and
-    do it later.
+9. If asked, choose a new folder for backup storage. Or choose **Not Now** and
+   do it later.
 
 Consider also:
 
