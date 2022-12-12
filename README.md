@@ -71,6 +71,11 @@ Molly and Signal apps can be installed on the same device. If you need a 2nd num
 
 However, you cannot use the same phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. Remember that you are not limited to use only your main phone number, but also any number on which you can receive SMS or phone calls at registration.
 
+If you are correctly a Signal user and want to use Molly instead of Signal
+(with the same phone number), see [Migrating From
+Signal](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
+on the wiki.
+
 ## Backups
 
 Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around, simply by choosing the backup folder and file. To import from Signal use a matching or newer version of Molly.
