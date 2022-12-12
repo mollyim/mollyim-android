@@ -183,6 +183,7 @@ android {
         buildConfigField "int", "SIGNAL_CANONICAL_VERSION_CODE", "$canonicalVersionCode"
         buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
         buildConfigField "String", "BACKUP_FILENAME", "\"" + baseApkFileName.toLowerCase() + "\""
+        buildConfigField "boolean", "FORCE_INTERNAL_USER_FLAG", "$forceInternalUserFlag"
 
         vectorDrawables.useSupportLibrary = true
 
