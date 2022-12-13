@@ -1,4 +1,4 @@
-FROM openjdk:11.0.13-bulleye@sha256:f6ded9543abec9fd65e26cc4b3b683fe6f593c04b17ddfd327fcdffe0ca9fda3
+FROM openjdk:11.0.13-bulleye@sha256:f6ded9543abec9fd65e26cc4b3b683fe6f593c04b17ddfd327fcdffe0ca9fda3 AS builder
 
 ARG ANDROID_SDK_DIST=commandlinetools-linux-7583922_latest.zip
 ARG ANDROID_SDK_SHA256=124f2d5115eee365df6cf3228ffbca6fc3911d16f8025bebd5b1c6e2fcfa7faf
@@ -33,3 +33,7 @@ RUN /molly/gradlew --version
 COPY . /molly/
 WORKDIR /molly
 RUN git clean -df
+
+ENV ORG_GRADLE_PROJECT_CI=true
+
+ENTRYPOINT ["./gradlew"]

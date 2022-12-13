@@ -5,59 +5,67 @@ on:
     tags:
       - 'v*'
 
+env:
+  HAVE_RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE != '' }}
+
 jobs:
   build:
     name: Build
+    if: "github.event.base_ref == 'refs/heads/main'"
     runs-on: ubuntu-latest
+    env:
+      CI_MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Increase swap space
-      run: |
-        sudo fallocate -l 8G /swapB
-        sudo chmod 600 /swapB
-        sudo mkswap /swapB
-        sudo swapon /swapB
-        swapon --show
+      - name: Increase swap space
+        run: |
+          sudo fallocate -l 8G /swapB
+          sudo chmod 600 /swapB
+          sudo mkswap /swapB
+          sudo swapon /swapB
+          swapon --show
 
-    - name: Build Docker image
-      run: docker-compose build
-      working-directory: reproducible-builds
+      - name: Set up builder image
+        run: docker-compose build
+        working-directory: reproducible-builds
 
-    - name: Build release APKs
-      if: "!contains(github.ref_name, 'alpha')"
-      run: docker-compose run assemble
-      working-directory: reproducible-builds
+      - name: Extract release keys
+        if: "env.HAVE_RELEASE_KEYSTORE == 'true'"
+        run: printenv RELEASE_KEYSTORE | base64 -d > certs/release.jks
+        working-directory: reproducible-builds
+        env:
+          RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
 
-    - name: Extract alpha keystore
-      if: "contains(github.ref_name, 'alpha')"
-      run: echo "$ALPHA_KEYSTORE" | base64 -d > reproducible-builds/certs/alpha.jks
-      env:
-        ALPHA_KEYSTORE: ${{ secrets.ALPHA_KEYSTORE }}
+      - name: Build APKs
+        if: "env.HAVE_RELEASE_KEYSTORE == 'false'"
+        run: docker-compose --env-file ci/release.env run assemble
+        working-directory: reproducible-builds
 
-    - name: Build alpha release APKs
-      if: "contains(github.ref_name, 'alpha')"
-      run: docker-compose run assemble-alpha
-      working-directory: reproducible-builds
-      env:
-        CI_KEYSTORE_PATH: certs/alpha.jks
-        CI_KEYSTORE_ALIAS: alpha
-        CI_KEYSTORE_PASSWORD: ${{ secrets.ALPHA_KEYSTORE_PASSWORD }}
+      - name: Build and sign APKs
+        if: "env.HAVE_RELEASE_KEYSTORE == 'true'"
+        run: docker-compose --env-file ci/release.env run assemble
+        working-directory: reproducible-builds
+        env:
+          CI_KEYSTORE_PATH: certs/release.jks
+          CI_KEYSTORE_ALIAS: release
+          CI_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
 
-    - name: Clean up keystores
-      if: "always()"
-      run: rm -f reproducible-builds/certs/alpha.jks
+      - name: Clean up
+        if: "always()"
+        run: rm -f certs/release.jks
+        working-directory: reproducible-builds
 
-    - name: Log checksums
-      run: find reproducible-builds/apks -name "*.apk" -exec sha256sum '{}' \;
+      - name: Log checksums
+        run: find reproducible-builds/apks -name "*.apk" -exec sha256sum '{}' +
 
-    - name: Upload APKs
-      uses: actions/upload-artifact@v3
-      with:
-        name: build
-        path: reproducible-builds/apks/*/release/*.apk
-        if-no-files-found: error
+      - name: Upload APKs
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: reproducible-builds/apks/*/release/*.apk
+          if-no-files-found: error
 
   publish:
     name: Publish
@@ -69,18 +77,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: "1.17"
-
       - name: Download artifacts
         uses: actions/download-artifact@v3
 
       - name: Check version for upgrade compatibility
-        if: "github.repository_owner == 'mollyim'"
         run: |
-          gh release download --pattern '*.apk' --dir latest
+          gh release list --exclude-drafts
+          gh release download --pattern '*.apk' --dir latest || exit 0
           latest_apks=(latest/*.apk)
           build_apks=(build/*/release/*.apk)
           version_code() {
@@ -91,26 +94,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create stable release draft
-        if: "!contains(github.ref_name, 'alpha') && !contains(github.ref_name, 'beta')"
-        run: gh release create -d -t "Molly $GITHUB_REF_NAME" "$GITHUB_REF_NAME"
+      - name: Create release draft
+        run: gh release create -d -t "$GITHUB_REF_NAME" "$GITHUB_REF_NAME" ./build/*/release/*.apk
         env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
-
-      - name: Create beta release draft
-        if: "contains(github.ref_name, 'beta')"
-        run: gh release create -d -p -t "Molly $GITHUB_REF_NAME" "$GITHUB_REF_NAME"
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
-
-      - name: Generate alpha release notes
-        if: "contains(github.ref_name, 'alpha')"
-        run: |
-          go install github.com/git-chglog/git-chglog/cmd/git-chglog@latest
-          git-chglog -o release-notes.md "$GITHUB_REF_NAME"
-
-      - name: Create alpha release
-        if: "contains(github.ref_name, 'alpha')"
-        run: gh release create -p -t "Molly Insider $GITHUB_REF_NAME" -F release-notes.md "$GITHUB_REF_NAME" ./build/*/release/*.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}

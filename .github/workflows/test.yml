@@ -3,6 +3,8 @@ name: Test
 on:
   pull_request:
   push:
+    branches:
+      - '**'
     paths-ignore:
       - '**/README*.md'
       - '.github/FUNDING.yml'
@@ -10,7 +12,7 @@ on:
 
 jobs:
   wrapper_validation:
-    name: Validate Gradle Wrapper
+    name: Validate Gradle wrapper
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +28,7 @@ jobs:
         uses: gradle/wrapper-validation-action@master
 
   test:
-    name: Assemble and run tests
+    name: Run tests
     runs-on: ubuntu-latest
 
     steps:
