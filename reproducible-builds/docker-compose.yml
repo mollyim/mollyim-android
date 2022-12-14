@@ -4,7 +4,6 @@ services:
     image: reproducible-molly
     build:
       context: ..
-      dockerfile: reproducible-builds/Dockerfile
     command: :app:assembleRelease
     volumes:
       - ./certs:/molly/app/certs:ro
@@ -23,7 +22,6 @@ services:
     image: reproducible-molly
     build:
       context: ..
-      dockerfile: reproducible-builds/Dockerfile
     command: build
     volumes:
       - ./test-reports:/molly/app/build/reports
