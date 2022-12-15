@@ -21,7 +21,7 @@ env:
 jobs:
   build:
     name: Build new
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       CI_MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
@@ -63,7 +63,7 @@ jobs:
 
   download:
     name: Download original
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       apks: "${{ steps.set.outputs.apks }}"
 
@@ -92,7 +92,7 @@ jobs:
 
   compare:
     name: Compare
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - build
       - download

@@ -9,7 +9,7 @@ jobs:
   sync:
     name: Sync
     if: "github.repository_owner == 'mollyim'"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v3
