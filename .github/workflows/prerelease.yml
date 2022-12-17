@@ -80,21 +80,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
 
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: "1.17"
-
-      - name: Configure chglog
-        run: sed -i "s|mollyim/mollyim-android|$GITHUB_REPOSITORY|g" .chglog/config.yml
-
-      - name: Generate release notes
-        run: |
-          go install github.com/git-chglog/git-chglog/cmd/git-chglog@latest
-          export PATH="$PATH:$(git --exec-path)"
-          git-chglog -o relnotes.md "$GITHUB_REF_NAME"
-
-      - name: Publish pre-release
-        run: gh release create -p -t "$GITHUB_REF_NAME Insider" -F relnotes.md "$GITHUB_REF_NAME" ./build/*/release/*.apk
+      - name: Create pre-release draft
+        run: gh release create -d -p -t "$GITHUB_REF_NAME Insider" "$GITHUB_REF_NAME" ./build/*/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
