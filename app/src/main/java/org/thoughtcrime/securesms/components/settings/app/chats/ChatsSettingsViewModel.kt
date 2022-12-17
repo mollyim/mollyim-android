@@ -35,6 +35,9 @@ class ChatsSettingsViewModel @JvmOverloads constructor(
   }
 
   fun setGenerateLinkPreviewsEnabled(enabled: Boolean) {
+    if (SignalStore.account().isLinkedDevice) {
+      return
+    }
     store.update { it.copy(generateLinkPreviews = enabled) }
     SignalStore.settings().isLinkPreviewsEnabled = enabled
     repository.syncLinkPreviewsState()

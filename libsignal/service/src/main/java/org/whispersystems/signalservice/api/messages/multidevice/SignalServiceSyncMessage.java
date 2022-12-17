@@ -11,6 +11,7 @@ import org.whispersystems.signalservice.internal.push.SignalServiceProtos;
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage.CallEvent;
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage.CallLinkUpdate;
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage.CallLogEvent;
+import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage.PniChangeNumber;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class SignalServiceSyncMessage {
   private final Optional<MessageRequestResponseMessage>     messageRequestResponse;
   private final Optional<OutgoingPaymentMessage>            outgoingPaymentMessage;
   private final Optional<List<ViewedMessage>>               views;
+  private final Optional<PniChangeNumber>                   pniChangeNumber;
   private final Optional<CallEvent>                         callEvent;
   private final Optional<CallLinkUpdate>                    callLinkUpdate;
   private final Optional<CallLogEvent>                      callLogEvent;
@@ -52,6 +54,7 @@ public class SignalServiceSyncMessage {
                                    Optional<MessageRequestResponseMessage> messageRequestResponse,
                                    Optional<OutgoingPaymentMessage> outgoingPaymentMessage,
                                    Optional<List<ViewedMessage>> views,
+                                   Optional<PniChangeNumber> pniChangeNumber,
                                    Optional<CallEvent> callEvent,
                                    Optional<CallLinkUpdate> callLinkUpdate,
                                    Optional<CallLogEvent> callLogEvent)
@@ -70,6 +73,7 @@ public class SignalServiceSyncMessage {
     this.messageRequestResponse = messageRequestResponse;
     this.outgoingPaymentMessage = outgoingPaymentMessage;
     this.views                  = views;
+    this.pniChangeNumber        = pniChangeNumber;
     this.callEvent              = callEvent;
     this.callLinkUpdate         = callLinkUpdate;
     this.callLogEvent           = callLogEvent;
@@ -77,6 +81,7 @@ public class SignalServiceSyncMessage {
 
   public static SignalServiceSyncMessage forSentTranscript(SentTranscriptMessage sent) {
     return new SignalServiceSyncMessage(Optional.of(sent),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
@@ -112,6 +117,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
@@ -120,6 +126,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.of(request),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
@@ -152,6 +159,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
@@ -172,6 +180,7 @@ public class SignalServiceSyncMessage {
                                         Optional.of(views),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
@@ -182,6 +191,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.of(timerRead),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
@@ -215,6 +225,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
@@ -235,6 +246,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
@@ -242,6 +254,7 @@ public class SignalServiceSyncMessage {
     return new SignalServiceSyncMessage(Optional.empty(),
                                         Optional.empty(),
                                         Optional.of(blocked),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
@@ -275,6 +288,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
@@ -288,6 +302,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.of(stickerPackOperations),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
@@ -315,6 +330,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
@@ -330,6 +346,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.of(keys),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
@@ -355,6 +372,7 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
@@ -375,11 +393,34 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty());
+  }
+
+  public static SignalServiceSyncMessage forPniChangeNumber(PniChangeNumber pniChangeNumber) {
+    return new SignalServiceSyncMessage(Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.of(pniChangeNumber),
+                                        Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
   public static SignalServiceSyncMessage forCallEvent(@Nonnull CallEvent callEvent) {
     return new SignalServiceSyncMessage(Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
@@ -400,6 +441,7 @@ public class SignalServiceSyncMessage {
 
   public static SignalServiceSyncMessage forCallLinkUpdate(@Nonnull CallLinkUpdate callLinkUpdate) {
     return new SignalServiceSyncMessage(Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
@@ -435,11 +477,13 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.empty(),
                                         Optional.of(callLogEvent));
   }
 
   public static SignalServiceSyncMessage empty() {
     return new SignalServiceSyncMessage(Optional.empty(),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
@@ -512,6 +556,10 @@ public class SignalServiceSyncMessage {
 
   public Optional<List<ViewedMessage>> getViewed() {
     return views;
+  }
+
+  public Optional<PniChangeNumber> getPniChangeNumber() {
+    return pniChangeNumber;
   }
 
   public Optional<CallEvent> getCallEvent() {

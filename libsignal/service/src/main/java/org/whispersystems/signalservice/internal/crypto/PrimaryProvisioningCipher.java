@@ -6,6 +6,7 @@
 
 package org.whispersystems.signalservice.internal.crypto;
 
+import org.signal.libsignal.protocol.IdentityKeyPair;
 import org.signal.libsignal.protocol.InvalidKeyException;
 import org.signal.libsignal.protocol.ecc.Curve;
 import org.signal.libsignal.protocol.ecc.ECKeyPair;
@@ -15,13 +16,17 @@ import org.whispersystems.signalservice.internal.push.ProvisionEnvelope;
 import org.whispersystems.signalservice.internal.push.ProvisionMessage;
 import org.whispersystems.signalservice.internal.util.Util;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import okio.ByteString;
@@ -72,6 +77,43 @@ public class PrimaryProvisioningCipher {
 
       return mac.doFinal(message);
     } catch (NoSuchAlgorithmException | java.security.InvalidKeyException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  public ProvisionMessage decrypt(IdentityKeyPair tempIdentity, byte[] bytes) throws InvalidKeyException, IOException {
+    ProvisionEnvelope envelope      = ProvisionEnvelope.ADAPTER.decode(bytes);
+    ECPublicKey       publicKey     = Curve.decodePoint(envelope.publicKey.toByteArray(), 0);
+    byte[]            sharedSecret  = Curve.calculateAgreement(publicKey, tempIdentity.getPrivateKey());
+    byte[]            derivedSecret = HKDF.deriveSecrets(sharedSecret, PROVISIONING_MESSAGE.getBytes(), 64);
+    byte[][]          parts         = Util.split(derivedSecret, 32, 32);
+    ByteString        joined        = envelope.body;
+    if (joined.getByte(0) != 0x01) {
+      throw new RuntimeException("Bad version number on provision message!");
+    }
+    byte[] iv              = joined.substring(1, 16 + 1).toByteArray();
+    byte[] ciphertext      = joined.substring(16 + 1, joined.size() - 32).toByteArray();
+    byte[] ivAndCiphertext = joined.substring(0, joined.size() - 32).toByteArray();
+    byte[] mac             = joined.substring(joined.size() - 32).toByteArray();
+
+    verifyMac(parts[1], ivAndCiphertext, mac);
+
+    return ProvisionMessage.ADAPTER.decode(decrypt(parts[0], iv, ciphertext));
+  }
+
+  private void verifyMac(byte[] key, byte[] message, byte[] theirMac) {
+    byte[] ourMac = getMac(key, message);
+    if (!Arrays.equals(ourMac, theirMac)) {
+      throw new RuntimeException("Invalid MAC on provision message!");
+    }
+  }
+
+  private byte[] decrypt(byte[] key, byte[] iv, byte[] ciphertext) {
+    try {
+      Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+      cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
+      return cipher.doFinal(ciphertext);
+    } catch (java.security.InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
       throw new AssertionError(e);
     }
   }

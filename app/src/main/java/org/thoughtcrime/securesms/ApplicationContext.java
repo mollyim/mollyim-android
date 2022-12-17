@@ -68,6 +68,7 @@ import org.thoughtcrime.securesms.jobs.PreKeysSyncJob;
 import org.thoughtcrime.securesms.jobs.ProfileUploadJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RefreshSvrCredentialsJob;
+import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.jobs.RetrieveRemoteAnnouncementsJob;
 import org.thoughtcrime.securesms.jobs.StoryOnboardingDownloadJob;
@@ -565,9 +566,14 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void ensureProfileUploaded() {
-    if (SignalStore.account().isRegistered() && !SignalStore.registrationValues().hasUploadedProfile() && !Recipient.self().getProfileName().isEmpty()) {
-      Log.w(TAG, "User has a profile, but has not uploaded one. Uploading now.");
-      ApplicationDependencies.getJobManager().add(new ProfileUploadJob());
+    if (SignalStore.account().isRegistered()) {
+      if (SignalStore.registrationValues().needDownloadProfileOrAvatar()) {
+        Log.w(TAG, "User has linked a device, but has not yet downloaded the profile. Downloading now.");
+        ApplicationDependencies.getJobManager().add(new RefreshOwnProfileJob());
+      } else if (!SignalStore.registrationValues().hasUploadedProfile() && !Recipient.self().getProfileName().isEmpty()) {
+        Log.w(TAG, "User has a profile, but has not uploaded one. Uploading now.");
+        ApplicationDependencies.getJobManager().add(new ProfileUploadJob());
+      }
     }
   }
 
