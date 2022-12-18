@@ -1,0 +1,86 @@
+name: Pre-release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  HAVE_TEST_KEYSTORE: ${{ secrets.TEST_KEYSTORE != '' }}
+
+jobs:
+  build:
+    name: Build
+    if: "github.event.base_ref != 'refs/heads/main'"
+    runs-on: ubuntu-22.04
+    env:
+      CI_MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Increase swap space
+        run: |
+          sudo fallocate -l 8G /swapB
+          sudo chmod 600 /swapB
+          sudo mkswap /swapB
+          sudo swapon /swapB
+          swapon --show
+
+      - name: Set up builder image
+        run: docker-compose build
+        working-directory: reproducible-builds
+
+      - name: Extract test keys
+        if: "env.HAVE_TEST_KEYSTORE == 'true'"
+        run: printenv TEST_KEYSTORE | base64 -d > certs/test.jks
+        working-directory: reproducible-builds
+        env:
+          TEST_KEYSTORE: ${{ secrets.TEST_KEYSTORE }}
+
+      - name: Build APKs
+        if: "env.HAVE_TEST_KEYSTORE == 'false'"
+        run: docker-compose --env-file ci/prerelease.env run assemble
+        working-directory: reproducible-builds
+
+      - name: Build and sign APKs
+        if: "env.HAVE_TEST_KEYSTORE == 'true'"
+        run: docker-compose --env-file ci/prerelease.env run assemble
+        working-directory: reproducible-builds
+        env:
+          CI_KEYSTORE_PATH: certs/test.jks
+          CI_KEYSTORE_ALIAS: test
+          CI_KEYSTORE_PASSWORD: ${{ secrets.TEST_KEYSTORE_PASSWORD }}
+
+      - name: Clean up
+        if: "always()"
+        run: rm -f certs/test.jks
+        working-directory: reproducible-builds
+
+      - name: Log checksums
+        run: find reproducible-builds/apks -name "*.apk" -exec sha256sum '{}' +
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: reproducible-builds/apks/*/release/*.apk
+          if-no-files-found: error
+
+  publish:
+    name: Publish
+    needs: build
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Create pre-release draft
+        run: gh release create -d -p -t "$GITHUB_REF_NAME Insider" "$GITHUB_REF_NAME" ./build/*/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}

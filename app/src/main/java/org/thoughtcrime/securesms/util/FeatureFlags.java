@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.signal.core.util.SetUtil;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
@@ -332,7 +333,7 @@ public final class FeatureFlags {
 
   /** Internal testing extensions. */
   public static boolean internalUser() {
-    return getBoolean(INTERNAL_USER, false) || Release.IS_INSIDER || Release.IS_DEBUGGABLE;
+    return getBoolean(INTERNAL_USER, false) || Release.IS_DEBUGGABLE || BuildConfig.FORCE_INTERNAL_USER_FLAG;
   }
 
   /** Whether or not to use the UUID in verification codes. */

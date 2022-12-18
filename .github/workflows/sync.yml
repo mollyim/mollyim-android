@@ -3,13 +3,13 @@ name: Sync upstream
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '0 0 * * *'
 
 jobs:
   sync:
     name: Sync
     if: "github.repository_owner == 'mollyim'"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v3
@@ -27,4 +27,4 @@ jobs:
       - name: Push changes
         run: |
           git push origin upstream
-          git tag | grep -xP 'v\d+(?:\.\d+){2}' | xargs -r git push origin
+          git tag | grep -xP 'v\d+(?:\.\d+){2,3}' | xargs -r git push origin

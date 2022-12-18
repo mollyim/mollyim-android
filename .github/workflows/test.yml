@@ -3,47 +3,56 @@ name: Test
 on:
   pull_request:
   push:
+    branches:
+      - '**'
     paths-ignore:
       - '**/README*.md'
       - '.github/FUNDING.yml'
       - '.github/ISSUE_TEMPLATE/**'
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
+  wrapper_validation:
+    name: Validate Gradle wrapper
+    runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        distribution: temurin
-        java-version: 11
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
 
-    - name: Validate Gradle Wrapper
-      uses: gradle/wrapper-validation-action@master
+      - name: Run wrapper validation
+        uses: gradle/wrapper-validation-action@master
 
-    - name: Increase swap space
-      run: |
-        sudo fallocate -l 8G /swapB
-        sudo chmod 600 /swapB
-        sudo mkswap /swapB
-        sudo swapon /swapB
-        swapon --show
+  test:
+    name: Run tests
+    runs-on: ubuntu-22.04
 
-    - name: Build Docker image
-      run: docker-compose build
-      working-directory: reproducible-builds
+    steps:
+      - uses: actions/checkout@v3
 
-    - name: Run tests
-      run: docker-compose run test
-      working-directory: reproducible-builds
+      - name: Increase swap space
+        run: |
+          sudo fallocate -l 8G /swapB
+          sudo chmod 600 /swapB
+          sudo mkswap /swapB
+          sudo swapon /swapB
+          swapon --show
 
-    - name: Archive reports for failed build
-      if: "failure()"
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-reports
-        path: "reproducible-builds/test-reports"
+      - name: Set up builder image
+        run: docker-compose build
+        working-directory: reproducible-builds
+
+      - name: Run tests
+        run: docker-compose run test
+        working-directory: reproducible-builds
+
+      - name: Archive reports for failed tests
+        if: "failure()"
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: "reproducible-builds/test-reports"

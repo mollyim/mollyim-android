@@ -4,19 +4,26 @@ on:
   workflow_dispatch:
     inputs:
       tag_name:
-        description: "Enter the release tag"
+        description: "Enter the version to check"
         required: true
+      prerelease:
+        description: 'Pre-release build'
+        required: true
+        type: boolean
   release:
     types:
       - published
 
 env:
   TAG_NAME: "${{ github.event.inputs.tag_name || github.event.release.tag_name }}"
+  PRE_RELEASE: "${{ github.event.inputs.prerelease || github.event.release.prerelease }}"
 
 jobs:
   build:
     name: Build new
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    env:
+      CI_MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
     steps:
       - uses: actions/checkout@v3
@@ -31,18 +38,18 @@ jobs:
           sudo swapon /swapB
           swapon --show
 
-      - name: Build Docker image
+      - name: Set up builder image
         run: docker-compose build
         working-directory: reproducible-builds
 
       - name: Build release APKs
-        if: "!contains(env.TAG_NAME, 'alpha')"
-        run: docker-compose run assemble
+        if: "env.PRE_RELEASE == 'false'"
+        run: docker-compose --env-file ci/release.env run assemble
         working-directory: reproducible-builds
 
-      - name: Build alpha release APKs
-        if: "contains(env.TAG_NAME, 'alpha')"
-        run: docker-compose run assemble-alpha
+      - name: Build pre-release APKs
+        if: "env.PRE_RELEASE == 'true'"
+        run: docker-compose --env-file ci/prerelease.env run assemble
         working-directory: reproducible-builds
 
       - uses: actions/upload-artifact@v3
@@ -56,10 +63,9 @@ jobs:
 
   download:
     name: Download original
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
-      app: "${{ steps.set.outputs.app }}"
-      tag: "${{ steps.set.outputs.tag }}"
+      apks: "${{ steps.set.outputs.apks }}"
 
     steps:
       - uses: actions/checkout@v3
@@ -78,35 +84,22 @@ jobs:
           if-no-files-found: error
           retention-days: 5
 
-      - id: set
+      - name: Output filenames to compare
+        id: set
         run: |
-          if [[ "$TAG_NAME" != *alpha* ]]; then
-            echo ::set-output name=app::Molly
-          else
-            echo ::set-output name=app::Molly-Insider
-          fi
-          echo ::set-output name=tag::"$TAG_NAME"
+          apks=$(jq -c -n '[$ARGS.positional[] | sub("-unsigned-";"-")]' --args *.apk)
+          echo "apks=$apks" >> $GITHUB_OUTPUT
 
   compare:
     name: Compare
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - build
       - download
     strategy:
       fail-fast: false
       matrix:
-        app:
-          - "${{ needs.download.outputs.app }}"
-        version:
-          - "${{ needs.download.outputs.tag }}"
-          - "${{ needs.download.outputs.tag }}-FOSS"
-        environment:
-          - prod
-          - staging
-        exclude:
-          - app: Molly
-            environment: staging
+        apk-file: ${{ fromJSON(needs.download.outputs.apks) }}
 
     steps:
       - uses: actions/download-artifact@v3
@@ -120,17 +113,17 @@ jobs:
 
       - name: Normalize APK filenames
         run: |
-          mv -v original/"${APP}-${VERSION}.apk" original.apk ||
-          mv -v original/"${APP}-${ENVIRONMENT}-${VERSION}.apk" original.apk
-          mv -v new/apks/*/release/"${APP}-${ENVIRONMENT}-unsigned-${VERSION}.apk" new.apk
-        env:
-          APP: "${{ matrix.app }}"
-          VERSION: "${{ matrix.version }}"
-          ENVIRONMENT: "${{ matrix.environment }}"
-
-      - name: Check for reproducibility
-        run: python new/apkdiff/apkdiff.py original.apk new.apk
+          mv -v new/apks/*/release/*.apk new/
+          for fn in */*-unsigned-*.apk; do
+            mv -v "$fn" "$(sed 's/-unsigned-/-/' <<< $fn)"
+          done
 
       - name: Log diffuse full output
-        if: always()
-        run: java -jar diffuse.jar diff original.apk new.apk
+        run: java -jar diffuse.jar diff "original/$APK_FILE" "new/$APK_FILE"
+        env:
+          APK_FILE: "${{ matrix.apk-file }}"
+
+      - name: Check for reproducibility
+        run: python new/apkdiff/apkdiff.py "original/$APK_FILE" "new/$APK_FILE"
+        env:
+          APK_FILE: "${{ matrix.apk-file }}"

@@ -62,6 +62,20 @@ protobuf {
     }
 }
 
+def getEnv(String name) {
+    return project.hasProperty('CI') ? System.getenv(name) : null
+}
+
+// Override build config via env vars when project property 'CI' is set
+ext {
+    BASE_APP_TITLE = getEnv('CI_APP_TITLE') ?: baseAppTitle
+    BASE_APP_FILENAME = getEnv('CI_APP_FILENAME') ?: baseAppFileName
+    BASE_PACKAGE_ID = getEnv('CI_PACKAGE_ID') ?: basePackageId
+    BUILD_VARIANTS = getEnv('CI_BUILD_VARIANTS') ?: buildVariants
+    FORCE_INTERNAL_USER_FLAG = getEnv('CI_FORCE_INTERNAL_USER_FLAG') ?: forceInternalUserFlag
+    MAPS_API_KEY = getEnv('CI_MAPS_API_KEY') ?: mapsApiKey
+}
+
 ktlint {
     // Use a newer version to resolve https://github.com/JLLeitschuh/ktlint-gradle/issues/507
     version = "0.43.2"
@@ -102,11 +116,13 @@ android {
 
     signingConfigs {
         ci {
-            if (System.getenv('CI_KEYSTORE_PATH')) {
-                storeFile file("${System.env.CI_KEYSTORE_PATH}")
-                storePassword "${System.env.CI_KEYSTORE_PASSWORD}"
-                keyAlias "${System.env.CI_KEYSTORE_ALIAS}"
-                keyPassword "${System.env.CI_KEYSTORE_PASSWORD}"
+            def storeFilePath = getEnv('KEYSTORE_PATH')
+            if (storeFilePath) {
+                println("Signing release build with keystore: '$storeFilePath'")
+                storeFile file(storeFilePath)
+                storePassword "${System.env.KEYSTORE_PASSWORD}"
+                keyAlias "${System.env.KEYSTORE_ALIAS}"
+                keyPassword "${System.env.KEYSTORE_PASSWORD}"
                 enableV4Signing false
             }
         }
@@ -169,27 +185,28 @@ android {
 
     defaultConfig {
         versionCode canonicalVersionCode * postFixSize + mollyRevision
-        versionName project.hasProperty('ci') ? getCommitTag() : canonicalVersionName
+        versionName project.hasProperty('CI') ? getCommitTag() : canonicalVersionName
 
         minSdkVersion MINIMUM_SDK
         targetSdkVersion TARGET_SDK
 
         multiDexEnabled true
 
-        applicationId basePackageId
+        applicationId BASE_PACKAGE_ID
 
         buildConfigField "String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\""
         buildConfigField "String", "SIGNAL_CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
         buildConfigField "int", "SIGNAL_CANONICAL_VERSION_CODE", "$canonicalVersionCode"
         buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
-        buildConfigField "String", "BACKUP_FILENAME", "\"" + baseApkFileName.toLowerCase() + "\""
+        buildConfigField "String", "BACKUP_FILENAME", "\"" + BASE_APP_FILENAME.toLowerCase() + "\""
+        buildConfigField "boolean", "FORCE_INTERNAL_USER_FLAG", "$FORCE_INTERNAL_USER_FLAG"
 
         vectorDrawables.useSupportLibrary = true
 
-        manifestPlaceholders = [mapsApiKey:mapsApiKey]
+        manifestPlaceholders = [mapsApiKey:MAPS_API_KEY]
 
-        buildConfigField "long", "BUILD_TIMESTAMP", getBuildTimestamp() + "L"
-        buildConfigField "String", "GIT_HASH", "\"${getCommitHash()}\""
+        buildConfigField "long", "BUILD_TIMESTAMP", "${getBuildTimestamp()}L"
+        buildConfigField "String", "GIT_HASH", "\"${getCommitHashOrNull()}\""
         buildConfigField "String", "SIGNAL_URL", "\"https://chat.signal.org\""
         buildConfigField "String", "STORAGE_URL", "\"https://storage.signal.org\""
         buildConfigField "String", "SIGNAL_CDN_URL", "\"https://cdn.signal.org\""
@@ -348,17 +365,19 @@ android {
         def isStaging = variant.productFlavors*.name.contains("staging")
         def hasSigningConfig = buildType.signingConfig || variant.signingConfig
 
-        variant.resValue 'string', 'app_name', baseAppTitle + (isStaging ? " Staging" : "")
+        variant.resValue 'string', 'app_name', BASE_APP_TITLE + (isStaging ? " Staging" : "")
         variant.resValue "string", 'package_name', variant.applicationId
 
         variant.outputs.all {
-            def flavors = variant.baseName - ~/-(free|nonFree)/ - ~/-release/ + (hasSigningConfig ? "" : "-unsigned")
-            outputFileName = "${baseApkFileName}-${flavors}-${versionName}.apk"
+            def flavors = "-${variant.baseName}" - ~/-prod/ - ~/-(free|nonFree)/ - ~/-release/
+            def unsigned = hasSigningConfig ? "" : "-unsigned"
+            outputFileName = "${BASE_APP_FILENAME}${flavors}${unsigned}-${versionName}.apk"
         }
     }
 
     android.variantFilter { variant ->
-        if (!selectableVariants.contains(variant.name)) {
+        def matches = BUILD_VARIANTS.split(',').any { variant.name.contains(it) }
+        if (!(selectableVariants.contains(variant.name) && matches)) {
             setIgnore(true)
         }
     }
@@ -532,18 +551,18 @@ dependencies {
 }
 
 static def getCommitTag() {
-    return "git describe --tags --exact-match".execute().text.trim() ?: "untagged"
+    return 'git describe --tags --exact-match'.execute().text.trim() ?: 'untagged'
 }
 
 static def getCommitTimestamp() {
-    return "git log -1 --pretty=format:%ct000".execute().text.trim()
+    return 'git log -1 --pretty=format:%ct000'.execute().text.trim()
 }
 
-static def getCommitHash() {
+static def getCommitHashOrNull() {
     try {
-        return "git rev-parse HEAD".execute().text.trim()
+        return 'git rev-parse --short=12 HEAD'.execute().text.trim()
     } catch (ignored) {
-        return "abcd1234"
+        return null
     }
 }
 
