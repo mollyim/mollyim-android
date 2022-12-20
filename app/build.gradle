@@ -116,13 +116,13 @@ android {
 
     signingConfigs {
         ci {
-            def storeFilePath = getEnv('KEYSTORE_PATH')
+            def storeFilePath = getEnv('CI_KEYSTORE_PATH')
             if (storeFilePath) {
                 println("Signing release build with keystore: '$storeFilePath'")
                 storeFile file(storeFilePath)
-                storePassword "${System.env.KEYSTORE_PASSWORD}"
-                keyAlias "${System.env.KEYSTORE_ALIAS}"
-                keyPassword "${System.env.KEYSTORE_PASSWORD}"
+                storePassword "${System.env.CI_KEYSTORE_PASSWORD}"
+                keyAlias "${System.env.CI_KEYSTORE_ALIAS}"
+                keyPassword "${System.env.CI_KEYSTORE_PASSWORD}"
                 enableV4Signing false
             }
         }
