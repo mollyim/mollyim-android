@@ -31,21 +31,21 @@ class UnifiedPushValues {
         password = prefs.getString(MOLLYSOCKET_PASSWORD, null) ?: return null,
       )
     }
-  set(device) {
-    if (device == null) {
-      prefs.edit().remove(MOLLYSOCKET_UUID).apply()
-      prefs.edit().remove(MOLLYSOCKET_DEVICE_ID).apply()
-      prefs.edit().remove(MOLLYSOCKET_PASSWORD).apply()
-    } else {
-      prefs.edit().putString(MOLLYSOCKET_UUID, device.uuid).apply()
-      prefs.edit().putInt(MOLLYSOCKET_DEVICE_ID, device.deviceId).apply()
-      prefs.edit().putString(MOLLYSOCKET_PASSWORD, device.password).apply()
+    set(device) {
+      if (device == null) {
+        prefs.edit().remove(MOLLYSOCKET_UUID).apply()
+        prefs.edit().remove(MOLLYSOCKET_DEVICE_ID).apply()
+        prefs.edit().remove(MOLLYSOCKET_PASSWORD).apply()
+      } else {
+        prefs.edit().putString(MOLLYSOCKET_UUID, device.uuid).apply()
+        prefs.edit().putInt(MOLLYSOCKET_DEVICE_ID, device.deviceId).apply()
+        prefs.edit().putString(MOLLYSOCKET_PASSWORD, device.password).apply()
+      }
     }
-  }
 
   var endpoint: String?
-  get() = prefs.getString(UNIFIEDPUSH_ENDPOINT, null)
-  set(value) = if (value == null) {
+    get() = prefs.getString(UNIFIEDPUSH_ENDPOINT, null)
+    set(value) = if (value == null) {
       prefs.edit().remove(UNIFIEDPUSH_ENDPOINT).apply()
     } else {
       prefs.edit().putString(UNIFIEDPUSH_ENDPOINT, value).apply()
@@ -62,10 +62,10 @@ class UnifiedPushValues {
   var mollySocketUrl: String?
     get() = prefs.getString(MOLLYSOCKET_URL, null)
     set(value) = if (value == null) {
-        prefs.edit().remove(MOLLYSOCKET_URL).apply()
-      } else {
-        prefs.edit().putString(MOLLYSOCKET_URL, value).apply()
-      }
+      prefs.edit().remove(MOLLYSOCKET_URL).apply()
+    } else {
+      prefs.edit().putString(MOLLYSOCKET_URL, value).apply()
+    }
 
   var mollySocketFound: Boolean
     get() = prefs.getBoolean(MOLLYSOCKET_OK, false)
@@ -85,14 +85,14 @@ class UnifiedPushValues {
 
   val status: UnifiedPushStatus
     get() = when {
-        !SignalStore.unifiedpush().enabled -> UnifiedPushStatus.DISABLED
-        SignalStore.unifiedpush().device == null -> UnifiedPushStatus.LINK_DEVICE_ERROR
-        SignalStore.unifiedpush().endpoint == null -> UnifiedPushStatus.MISSING_ENDPOINT
-        SignalStore.unifiedpush().airGaped -> UnifiedPushStatus.AIR_GAPED
-        SignalStore.unifiedpush().mollySocketUrl.isNullOrBlank() ||
-          !SignalStore.unifiedpush().mollySocketFound -> UnifiedPushStatus.SERVER_NOT_FOUND_AT_URL
-        SignalStore.unifiedpush().forbiddenUuid -> UnifiedPushStatus.FORBIDDEN_UUID
-        SignalStore.unifiedpush().forbiddenEndpoint -> UnifiedPushStatus.FORBIDDEN_ENDPOINT
-        else -> UnifiedPushStatus.OK
-      }
+      !SignalStore.unifiedpush().enabled -> UnifiedPushStatus.DISABLED
+      SignalStore.unifiedpush().device == null -> UnifiedPushStatus.LINK_DEVICE_ERROR
+      SignalStore.unifiedpush().endpoint == null -> UnifiedPushStatus.MISSING_ENDPOINT
+      SignalStore.unifiedpush().airGaped -> UnifiedPushStatus.AIR_GAPED
+      SignalStore.unifiedpush().mollySocketUrl.isNullOrBlank() ||
+        !SignalStore.unifiedpush().mollySocketFound -> UnifiedPushStatus.SERVER_NOT_FOUND_AT_URL
+      SignalStore.unifiedpush().forbiddenUuid -> UnifiedPushStatus.FORBIDDEN_UUID
+      SignalStore.unifiedpush().forbiddenEndpoint -> UnifiedPushStatus.FORBIDDEN_ENDPOINT
+      else -> UnifiedPushStatus.OK
+    }
 }

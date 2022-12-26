@@ -14,13 +14,15 @@ import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulRespons
 import java.util.concurrent.TimeUnit
 
 class UnifiedPushRefreshJob private constructor(parameters: Parameters) : BaseJob(parameters) {
-  constructor() : this(Parameters.Builder()
-    .setQueue("UnifiedPushRefreshJob")
-    .addConstraint(NetworkConstraint.KEY)
-    .setMaxAttempts(3)
-    .setLifespan(TimeUnit.HOURS.toMillis(6))
-    .setMaxInstancesForFactory(1)
-    .build())
+  constructor() : this(
+    Parameters.Builder()
+      .setQueue("UnifiedPushRefreshJob")
+      .addConstraint(NetworkConstraint.KEY)
+      .setMaxAttempts(3)
+      .setLifespan(TimeUnit.HOURS.toMillis(6))
+      .setMaxInstancesForFactory(1)
+      .build()
+  )
 
   override fun serialize(): ByteArray? { return null }
 
@@ -41,12 +43,12 @@ class UnifiedPushRefreshJob private constructor(parameters: Parameters) : BaseJo
           Log.w(TAG, "The registration status has changed!")
           status.saveStatus()
           ApplicationContext.getInstance().initializeFcmCheck()
-          //TODO: alert user
+          // TODO: alert user
         }
       }
     } else {
       ApplicationContext.getInstance().initializeFcmCheck()
-      //TODO: alert user
+      // TODO: alert user
     }
   }
 

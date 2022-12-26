@@ -35,7 +35,7 @@ fun RegistrationStatus.saveStatus() {
     }
     // We tried to register without device
     RegistrationStatus.NO_DEVICE,
-      // Should never be called: that means the linked device is deleted
+    // Should never be called: that means the linked device is deleted
     RegistrationStatus.FORBIDDEN,
     RegistrationStatus.NO_ENDPOINT,
     RegistrationStatus.INTERNAL_ERROR -> {

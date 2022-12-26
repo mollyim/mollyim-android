@@ -16,16 +16,16 @@ import java.io.IOException
 import java.net.MalformedURLException
 import java.net.URL
 
-data class Response (
+data class Response(
   @JsonProperty("mollysocket") val mollySocket: ResponseMollySocket,
 )
 
-data class ResponseMollySocket (
+data class ResponseMollySocket(
   @JsonProperty("version") val version: String,
   @JsonProperty("status") val status: RegistrationStatus?,
 )
 
-data class ConnectionData (
+data class ConnectionData(
   @JsonProperty("uuid") val uuid: String,
   @JsonProperty("device_id") val device_id: Int,
   @JsonProperty("password") val password: String,

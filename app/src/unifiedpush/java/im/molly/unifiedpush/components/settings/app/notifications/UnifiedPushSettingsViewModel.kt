@@ -25,7 +25,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
 
   private val TAG = Log.tag(UnifiedPushSettingsViewModel::class.java)
   private val store = Store(getState())
-  private var status : UnifiedPushStatus? = null
+  private var status: UnifiedPushStatus? = null
 
   val state: LiveData<UnifiedPushSettingsState> = store.stateLiveData
   val intentFilter = IntentFilter(BROADCAST_NEW_ENDPOINT)
@@ -39,7 +39,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
   }
 
   private fun getState(): UnifiedPushSettingsState {
-    status ?: run { status = SignalStore.unifiedpush().status}
+    status ?: run { status = SignalStore.unifiedpush().status }
     val distributor = UnifiedPush.getDistributor(application)
     var count = -1
     var selected = -1
@@ -66,14 +66,17 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
           application.packageManager.getApplicationLabel(ai)
         } catch (e: PackageManager.NameNotFoundException) {
           it
-        } as String)
+        } as String
+      )
     }
 
     if (distributors.isEmpty()) {
-      distributors = listOf(Distributor(
-        name = application.getString(R.string.UnifiedPushSettingsViewModel__no_distributor),
-        applicationId = "",
-      ))
+      distributors = listOf(
+        Distributor(
+          name = application.getString(R.string.UnifiedPushSettingsViewModel__no_distributor),
+          applicationId = "",
+        )
+      )
       status = UnifiedPushStatus.NO_DISTRIBUTOR
     }
 
@@ -139,7 +142,8 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
         UnifiedPushStatus.FORBIDDEN_UUID,
         UnifiedPushStatus.INTERNAL_ERROR,
         UnifiedPushStatus.SERVER_NOT_FOUND_AT_URL,
-      )) {
+      )
+    ) {
       Log.d(TAG, "Trying to register to MollySocket")
       status = UnifiedPushStatus.PENDING
       Thread {

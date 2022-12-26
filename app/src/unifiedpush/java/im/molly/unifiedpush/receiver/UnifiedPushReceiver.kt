@@ -15,7 +15,7 @@ import org.unifiedpush.android.connector.MessagingReceiver
 import java.util.Timer
 import kotlin.concurrent.schedule
 
-class UnifiedPushReceiver: MessagingReceiver() {
+class UnifiedPushReceiver : MessagingReceiver() {
   private val TAG = Log.tag(UnifiedPushReceiver::class.java)
   private val TIMEOUT = 20_000L //20secs
 
@@ -25,7 +25,7 @@ class UnifiedPushReceiver: MessagingReceiver() {
       SignalStore.unifiedpush().endpoint = endpoint
       when (SignalStore.unifiedpush().status) {
         UnifiedPushStatus.AIR_GAPED -> {
-          //TODO: alert if air gaped and endpoint changes
+          // TODO: alert if air gaped and endpoint changes
           LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().apply { action = BROADCAST_NEW_ENDPOINT })
         }
         in listOf(
@@ -36,7 +36,7 @@ class UnifiedPushReceiver: MessagingReceiver() {
           Thread {
             MollySocketRequest.registerToMollySocketServer().saveStatus()
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().apply { action = BROADCAST_NEW_ENDPOINT })
-            //TODO: alert if status changes from Ok to something else
+            // TODO: alert if status changes from Ok to something else
           }.start()
         }
         else -> {
@@ -48,7 +48,7 @@ class UnifiedPushReceiver: MessagingReceiver() {
 
   override fun onRegistrationFailed(context: Context, instance: String) {
     // called when the registration is not possible, eg. no network
-    //TODO: alert user the registration has failed
+    // TODO: alert user the registration has failed
   }
 
   override fun onUnregistered(context: Context, instance: String) {

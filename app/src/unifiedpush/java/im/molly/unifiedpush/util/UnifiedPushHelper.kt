@@ -7,7 +7,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.unifiedpush.android.connector.UnifiedPush
 
-object UnifiedPushHelper{
+object UnifiedPushHelper {
   private val TAG = Log.tag(UnifiedPushHelper::class.java)
   private val context = ApplicationDependencies.getApplication()
 
