@@ -37,7 +37,7 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
   val storyValues = StoryValues(store)
   val apkUpdateValues = ApkUpdateValues(store)
   val backupValues = BackupValues(store)
-  val unifiedPushValues = UnifiedPushValues()
+  val unifiedPushValues = UnifiedPushValues(store)
 
   val plainTextValues = PlainTextSharedPrefsDataStore(context)
 
