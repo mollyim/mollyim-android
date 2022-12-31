@@ -159,7 +159,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
       dividerPref()
 
-      sectionHeaderPref(R.string.preferences_app_protection__blocked_users)
+      sectionHeaderPref(R.string.BlockedUsersActivity__blocked_users)
 
       clickPref(
         title = DSLSettingsText.from(R.string.PrivacySettingsFragment__blocked),

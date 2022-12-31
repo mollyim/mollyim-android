@@ -15,8 +15,8 @@ public final class AppCapabilities {
   private static final boolean ANNOUNCEMENT_GROUPS = true;
   private static final boolean SENDER_KEY          = true;
   private static final boolean CHANGE_NUMBER       = true;
-  private static final boolean GIFT_BADGES         = false;
   private static final boolean STORIES             = true;
+  private static final boolean GIFT_BADGES         = false;
 
   /**
    * @param storageCapable Whether or not the user can use storage service. This is another way of

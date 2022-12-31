@@ -80,7 +80,6 @@ public final class FeatureFlags {
   private static final String SENDER_KEY_MAX_AGE                = "android.senderKeyMaxAge";
   private static final String RETRY_RECEIPTS                    = "android.retryReceipts";
   private static final String MAX_GROUP_CALL_RING_SIZE          = "global.calling.maxGroupCallRingSize";
-  private static final String GROUP_CALL_RINGING                = "android.calling.groupCallRinging.2";
   private static final String STORIES_TEXT_FUNCTIONS            = "android.stories.text.functions";
   private static final String HARDWARE_AEC_BLOCKLIST_MODELS     = "android.calling.hardwareAecBlockList";
   private static final String SOFTWARE_AEC_BLOCKLIST_MODELS     = "android.calling.softwareAecBlockList";
@@ -90,7 +89,6 @@ public final class FeatureFlags {
   private static final String PHONE_NUMBER_PRIVACY              = "android.pnp";
   private static final String USE_FCM_FOREGROUND_SERVICE        = "android.useFcmForegroundService.3";
   private static final String STORIES_AUTO_DOWNLOAD_MAXIMUM     = "android.stories.autoDownloadMaximum";
-  private static final String GIFT_BADGE_RECEIVE_SUPPORT        = "android.giftBadges.receiving";
   private static final String GIFT_BADGE_SEND_SUPPORT           = "android.giftBadges.sending.3";
   private static final String TELECOM_MANUFACTURER_ALLOWLIST    = "android.calling.telecomAllowList";
   private static final String TELECOM_MODEL_BLOCKLIST           = "android.calling.telecomModelBlockList";
@@ -106,8 +104,9 @@ public final class FeatureFlags {
   public  static final String CREDIT_CARD_DISABLED_REGIONS      = "global.donations.ccDisabledRegions";
   public  static final String PAYPAL_DISABLED_REGIONS           = "global.donations.paypalDisabledRegions";
   private static final String CDS_HARD_LIMIT                    = "android.cds.hardLimit";
-  private static final String PAYMENTS_IN_CHAT_MESSAGES         = "android.payments.inChatMessages";
   private static final String CHAT_FILTERS                      = "android.chat.filters";
+  private static final String PAYPAL_ONE_TIME_DONATIONS         = "android.oneTimePayPalDonations.2";
+  private static final String PAYPAL_RECURRING_DONATIONS        = "android.recurringPayPalDonations";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -139,7 +138,6 @@ public final class FeatureFlags {
       RETRY_RESPOND_MAX_AGE,
       RETRY_RECEIPTS,
       MAX_GROUP_CALL_RING_SIZE,
-      GROUP_CALL_RINGING,
       SENDER_KEY_MAX_AGE,
       STORIES_TEXT_FUNCTIONS,
       HARDWARE_AEC_BLOCKLIST_MODELS,
@@ -149,7 +147,6 @@ public final class FeatureFlags {
       PAYMENTS_COUNTRY_BLOCKLIST,
       USE_FCM_FOREGROUND_SERVICE,
       STORIES_AUTO_DOWNLOAD_MAXIMUM,
-      GIFT_BADGE_RECEIVE_SUPPORT,
       GIFT_BADGE_SEND_SUPPORT,
       TELECOM_MANUFACTURER_ALLOWLIST,
       TELECOM_MODEL_BLOCKLIST,
@@ -166,8 +163,9 @@ public final class FeatureFlags {
       PAYPAL_DISABLED_REGIONS,
       KEEP_MUTED_CHATS_ARCHIVED,
       CDS_HARD_LIMIT,
-      PAYMENTS_IN_CHAT_MESSAGES,
-      CHAT_FILTERS
+      CHAT_FILTERS,
+      PAYPAL_ONE_TIME_DONATIONS,
+      PAYPAL_RECURRING_DONATIONS
   );
 
   @VisibleForTesting
@@ -217,7 +215,6 @@ public final class FeatureFlags {
       RETRY_RESPOND_MAX_AGE,
       RETRY_RECEIPTS,
       MAX_GROUP_CALL_RING_SIZE,
-      GROUP_CALL_RINGING,
       SENDER_KEY_MAX_AGE,
       DONATE_MEGAPHONE,
       HARDWARE_AEC_BLOCKLIST_MODELS,
@@ -233,8 +230,7 @@ public final class FeatureFlags {
       CREDIT_CARD_PAYMENTS,
       PAYMENTS_REQUEST_ACTIVATE_FLOW,
       KEEP_MUTED_CHATS_ARCHIVED,
-      CDS_HARD_LIMIT,
-      PAYMENTS_IN_CHAT_MESSAGES
+      CDS_HARD_LIMIT
   );
 
   /**
@@ -258,7 +254,6 @@ public final class FeatureFlags {
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
     put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> MessageProcessReceiver.startOrUpdateAlarm(ApplicationDependencies.getApplication()));
-    put(GIFT_BADGE_RECEIVE_SUPPORT, change -> ApplicationDependencies.getJobManager().startChain(new RefreshAttributesJob()).then(new RefreshOwnProfileJob()).enqueue());
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -443,11 +438,6 @@ public final class FeatureFlags {
     return getLong(MAX_GROUP_CALL_RING_SIZE, 16);
   }
 
-  /** Whether or not to show the group call ring toggle in the UI. */
-  public static boolean groupCallRinging() {
-    return getBoolean(GROUP_CALL_RINGING, false);
-  }
-
   /** A comma-separated list of country codes where payments should be disabled. */
   public static String paymentsCountryBlocklist() {
     return getString(PAYMENTS_COUNTRY_BLOCKLIST, "98,963,53,850,7");
@@ -526,11 +516,6 @@ public final class FeatureFlags {
   /** Whether client supports sending a request to another to activate payments */
   public static boolean paymentsRequestActivateFlow() {
     return getBoolean(PAYMENTS_REQUEST_ACTIVATE_FLOW, false);
-  }
-
-  /** Whether client supports processing a payment notification as a in-chat message */
-  public static boolean paymentsInChatMessages() {
-    return getBoolean(PAYMENTS_IN_CHAT_MESSAGES, false);
   }
 
   /**

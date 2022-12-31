@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.keyvalue
 
-import android.content.Context
 import androidx.annotation.VisibleForTesting
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKey
@@ -304,7 +303,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
     }
 
     if (previous && !registered) {
-      clearLocalCredentials(ApplicationDependencies.getApplication())
+      clearLocalCredentials()
     }
   }
 
@@ -323,7 +322,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   val isLinkedDevice: Boolean
     get() = !isPrimaryDevice
 
-  private fun clearLocalCredentials(context: Context) {
+  private fun clearLocalCredentials() {
     putString(KEY_SERVICE_PASSWORD, Util.getSecret(18))
 
     val newProfileKey = ProfileKeyUtil.createNew()

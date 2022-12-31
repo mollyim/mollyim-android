@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.jobs.UpdateApkJob
-import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.service.UpdateApkReadyListener
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener
 import org.thoughtcrime.securesms.util.TextSecurePreferences
@@ -22,7 +21,6 @@ class HelpSettingsViewModel : ViewModel() {
 
   fun setUpdateApkEnabled(enabled: Boolean) {
     TextSecurePreferences.setUpdateApkEnabled(application, enabled)
-    NotificationChannels.create(application)
     if (enabled) {
       checkForUpdates()
     }

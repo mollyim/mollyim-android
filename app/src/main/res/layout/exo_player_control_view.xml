@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:background="@color/transparent"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    android:animateLayoutChanges="true"
     tools:targetApi="28">
 
     <LinearLayout
         android:id="@+id/exo_duration_viewgroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginStart="@dimen/media_preview_video_timestamp_inset"
         android:layout_marginEnd="@dimen/media_preview_video_timestamp_inset"
         android:gravity="center_vertical"
@@ -123,11 +124,15 @@
             <ImageButton
                 android:id="@id/exo_play"
                 style="@style/MediaPreviewButton"
+                android:background="@drawable/circle_touch_highlight_background_material3"
+                android:backgroundTint="@color/signal_colorOnSurface"
                 android:src="@drawable/exo_controls_play" />
 
             <ImageButton
                 android:id="@id/exo_pause"
                 style="@style/MediaPreviewButton"
+                android:background="@drawable/circle_touch_highlight_background_material3"
+                android:backgroundTint="@color/signal_colorOnSurface"
                 android:src="@drawable/exo_controls_pause" />
 
             <org.thoughtcrime.securesms.mediapreview.LottieAnimatedButton

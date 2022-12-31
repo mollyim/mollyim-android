@@ -180,7 +180,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addBlocking("crash-handling", this::initializeCrashHandling)
                             .addBlocking("rx-init", this::initializeRx)
                             .addBlocking("app-dependencies", this::initializeAppDependencies)
-                            .addBlocking("notification-channels", () -> NotificationChannels.create(this))
                             .addBlocking("network-settings", this::initializeNetworkSettings)
                             .addBlocking("first-launch", this::initializeFirstEverAppLaunch)
                             .addBlocking("gcm-check", this::initializeFcmCheck)

@@ -50,7 +50,7 @@ import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardBottomSheet
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragment
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragmentArgs
-import org.thoughtcrime.securesms.database.AttachmentDatabase
+import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord
 import org.thoughtcrime.securesms.mediapreview.MediaPreviewFragment
 import org.thoughtcrime.securesms.mediapreview.VideoControlsDelegate
@@ -63,6 +63,7 @@ import org.thoughtcrime.securesms.stories.StorySlateView
 import org.thoughtcrime.securesms.stories.StoryVolumeOverlayView
 import org.thoughtcrime.securesms.stories.dialogs.StoryContextMenu
 import org.thoughtcrime.securesms.stories.dialogs.StoryDialogs
+import org.thoughtcrime.securesms.stories.viewer.AddToGroupStoryDelegate
 import org.thoughtcrime.securesms.stories.viewer.StoryViewerViewModel
 import org.thoughtcrime.securesms.stories.viewer.StoryVolumeViewModel
 import org.thoughtcrime.securesms.stories.viewer.info.StoryInfoBottomSheetDialogFragment
@@ -109,6 +110,7 @@ class StoryViewerPageFragment :
   private lateinit var sendingBar: View
   private lateinit var storyNormalBottomGradient: View
   private lateinit var storyCaptionBottomGradient: View
+  private lateinit var addToGroupStoryButton: MaterialButton
 
   private lateinit var callback: Callback
 
@@ -176,6 +178,7 @@ class StoryViewerPageFragment :
     val storyGradientTop: View = view.findViewById(R.id.story_gradient_top)
     val storyGradientBottom: View = view.findViewById(R.id.story_bottom_gradient_container)
     val storyVolumeOverlayView: StoryVolumeOverlayView = view.findViewById(R.id.story_volume_overlay)
+    val addToGroupStoryButtonWrapper: View = view.findViewById(R.id.add_wrapper)
 
     storyNormalBottomGradient = view.findViewById(R.id.story_gradient_bottom)
     storyCaptionBottomGradient = view.findViewById(R.id.story_caption_gradient)
@@ -187,6 +190,7 @@ class StoryViewerPageFragment :
     viewsAndReplies = view.findViewById(R.id.views_and_replies_bar)
     sendingBarTextView = view.findViewById(R.id.sending_text_view)
     sendingBar = view.findViewById(R.id.sending_bar)
+    addToGroupStoryButton = view.findViewById(R.id.add)
 
     storySlate.callback = this
 
@@ -202,7 +206,8 @@ class StoryViewerPageFragment :
       progressBar,
       storyGradientTop,
       storyGradientBottom,
-      storyCaptionContainer
+      storyCaptionContainer,
+      addToGroupStoryButtonWrapper
     )
 
     senderAvatar.setFallbackPhotoProvider(FallbackPhotoProvider())
@@ -210,6 +215,11 @@ class StoryViewerPageFragment :
 
     closeView.setOnClickListener {
       requireActivity().onBackPressed()
+    }
+
+    val addToGroupStoryDelegate = AddToGroupStoryDelegate(this)
+    addToGroupStoryButton.setOnClickListener {
+      addToGroupStoryDelegate.addToStory(storyViewerPageArgs.recipientId)
     }
 
     val singleTapHandler = SingleTapHandler(
@@ -384,6 +394,8 @@ class StoryViewerPageFragment :
       if (state.posts.isNotEmpty() && state.selectedPostIndex in state.posts.indices) {
         val post = state.posts[state.selectedPostIndex]
 
+        addToGroupStoryButton.visible = post.group != null
+
         presentBottomBar(post, state.replyState, state.isReceiptsEnabled)
         presentSenderAvatar(senderAvatar, post)
         presentGroupAvatar(groupAvatar, post)
@@ -457,6 +469,8 @@ class StoryViewerPageFragment :
           is StoryViewerDialog.GroupDirectReply -> {
             onStartDirectReply(sheet.storyId, sheet.recipientId)
           }
+          StoryViewerDialog.Delete,
+          StoryViewerDialog.Forward -> Unit
         }
       }
     }
@@ -693,7 +707,7 @@ class StoryViewerPageFragment :
 
   private fun markViewedIfAble() {
     val post = viewModel.getPost() ?: return
-    if (post.content.transferState == AttachmentDatabase.TRANSFER_PROGRESS_DONE) {
+    if (post.content.transferState == AttachmentTable.TRANSFER_PROGRESS_DONE) {
       if (isResumed) {
         viewModel.markViewed(post)
       }
@@ -737,27 +751,27 @@ class StoryViewerPageFragment :
     }
 
     when (post.content.transferState) {
-      AttachmentDatabase.TRANSFER_PROGRESS_DONE -> {
+      AttachmentTable.TRANSFER_PROGRESS_DONE -> {
         storySlate.moveToState(StorySlateView.State.HIDDEN, post.id)
         viewModel.setIsDisplayingSlate(false)
         markViewedIfAble()
       }
-      AttachmentDatabase.TRANSFER_PROGRESS_PENDING -> {
+      AttachmentTable.TRANSFER_PROGRESS_PENDING -> {
         storySlate.moveToState(StorySlateView.State.LOADING, post.id)
         sharedViewModel.setContentIsReady()
         viewModel.setIsDisplayingSlate(true)
       }
-      AttachmentDatabase.TRANSFER_PROGRESS_STARTED -> {
+      AttachmentTable.TRANSFER_PROGRESS_STARTED -> {
         storySlate.moveToState(StorySlateView.State.LOADING, post.id)
         sharedViewModel.setContentIsReady()
         viewModel.setIsDisplayingSlate(true)
       }
-      AttachmentDatabase.TRANSFER_PROGRESS_FAILED -> {
+      AttachmentTable.TRANSFER_PROGRESS_FAILED -> {
         storySlate.moveToState(StorySlateView.State.ERROR, post.id)
         sharedViewModel.setContentIsReady()
         viewModel.setIsDisplayingSlate(true)
       }
-      AttachmentDatabase.TRANSFER_PROGRESS_PERMANENT_FAILURE -> {
+      AttachmentTable.TRANSFER_PROGRESS_PERMANENT_FAILURE -> {
         storySlate.moveToState(StorySlateView.State.FAILED, post.id, post.sender)
         sharedViewModel.setContentIsReady()
         viewModel.setIsDisplayingSlate(true)

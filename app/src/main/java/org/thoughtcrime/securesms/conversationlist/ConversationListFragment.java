@@ -18,7 +18,6 @@ package org.thoughtcrime.securesms.conversationlist;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -86,6 +85,7 @@ import org.thoughtcrime.securesms.MuteDialog;
 import org.thoughtcrime.securesms.NewConversationActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.Material3SearchToolbar;
+import org.thoughtcrime.securesms.components.SignalProgressDialog;
 import org.thoughtcrime.securesms.components.UnreadPaymentsView;
 import org.thoughtcrime.securesms.components.menu.ActionItem;
 import org.thoughtcrime.securesms.components.menu.SignalBottomActionBar;
@@ -109,9 +109,9 @@ import org.thoughtcrime.securesms.contacts.sync.CdsTemporaryErrorBottomSheet;
 import org.thoughtcrime.securesms.conversation.ConversationFragment;
 import org.thoughtcrime.securesms.conversationlist.model.Conversation;
 import org.thoughtcrime.securesms.conversationlist.model.UnreadPayments;
-import org.thoughtcrime.securesms.database.MessageDatabase.MarkedMessageInfo;
+import org.thoughtcrime.securesms.database.MessageTable.MarkedMessageInfo;
 import org.thoughtcrime.securesms.database.SignalDatabase;
-import org.thoughtcrime.securesms.database.ThreadDatabase;
+import org.thoughtcrime.securesms.database.ThreadTable;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
@@ -505,7 +505,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       hideKeyboard();
       getNavigator().goToConversation(contact.getId(),
                                       threadId,
-                                      ThreadDatabase.DistributionTypes.DEFAULT,
+                                      ThreadTable.DistributionTypes.DEFAULT,
                                       -1);
     });
   }
@@ -519,7 +519,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       hideKeyboard();
       getNavigator().goToConversation(message.getConversationRecipient().getId(),
                                       message.getThreadId(),
-                                      ThreadDatabase.DistributionTypes.DEFAULT,
+                                      ThreadTable.DistributionTypes.DEFAULT,
                                       startingPosition);
     });
   }
@@ -962,14 +962,15 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
       if (!selectedConversations.isEmpty()) {
         new AsyncTask<Void, Void, Void>() {
-          private ProgressDialog dialog;
+          private SignalProgressDialog dialog;
 
           @Override
           protected void onPreExecute() {
-            dialog = ProgressDialog.show(requireActivity(),
-                                         context.getString(R.string.ConversationListFragment_deleting),
-                                         context.getString(R.string.ConversationListFragment_deleting_selected_conversations),
-                                         true, false);
+            dialog = SignalProgressDialog.show(requireActivity(),
+                                               context.getString(R.string.ConversationListFragment_deleting),
+                                               context.getString(R.string.ConversationListFragment_deleting_selected_conversations),
+                                               true,
+                                               false);
           }
 
           @Override
@@ -1008,7 +1009,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     }
 
     SimpleTask.run(SignalExecutors.BOUNDED, () -> {
-      ThreadDatabase db = SignalDatabase.threads();
+      ThreadTable db = SignalDatabase.threads();
 
       db.pinConversations(toPin);
       ConversationUtil.refreshRecipientShortcuts();
@@ -1021,7 +1022,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   private void handleUnpin(@NonNull Collection<Long> ids) {
     SimpleTask.run(SignalExecutors.BOUNDED, () -> {
-      ThreadDatabase db = SignalDatabase.threads();
+      ThreadTable db = SignalDatabase.threads();
 
       db.unpinConversations(ids);
       ConversationUtil.refreshRecipientShortcuts();
@@ -1072,16 +1073,24 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   private void fadeOutButtonsAndMegaphone(int fadeDuration) {
-    ViewUtil.fadeOut(fab, fadeDuration);
-    ViewUtil.fadeOut(cameraFab, fadeDuration);
+    if (fab != null) {
+      ViewUtil.fadeOut(fab, fadeDuration);
+    }
+    if (cameraFab != null) {
+      ViewUtil.fadeOut(cameraFab, fadeDuration);
+    }
     if (megaphoneContainer.resolved()) {
       ViewUtil.fadeOut(megaphoneContainer.get(), fadeDuration);
     }
   }
 
   private void fadeInButtonsAndMegaphone(int fadeDuration) {
-    ViewUtil.fadeIn(fab, fadeDuration);
-    ViewUtil.fadeIn(cameraFab, fadeDuration);
+    if (fab != null) {
+      ViewUtil.fadeIn(fab, fadeDuration);
+    }
+    if (cameraFab != null) {
+      ViewUtil.fadeIn(cameraFab, fadeDuration);
+    }
     if (megaphoneContainer.resolved()) {
       ViewUtil.fadeIn(megaphoneContainer.get(), fadeDuration);
     }
@@ -1351,7 +1360,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
                                 Snackbar.LENGTH_LONG,
                                 false)
     {
-      private final ThreadDatabase threadDatabase = SignalDatabase.threads();
+      private final ThreadTable threadTable = SignalDatabase.threads();
 
       private List<Long> pinnedThreadIds;
 
@@ -1359,11 +1368,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       protected void executeAction(@Nullable Long parameter) {
         Context context = requireActivity();
 
-        pinnedThreadIds = threadDatabase.getPinnedThreadIds();
-        threadDatabase.archiveConversation(threadId);
+        pinnedThreadIds = threadTable.getPinnedThreadIds();
+        threadTable.archiveConversation(threadId);
 
         if (unreadCount > 0) {
-          List<MarkedMessageInfo> messageIds = threadDatabase.setRead(threadId, false);
+          List<MarkedMessageInfo> messageIds = threadTable.setRead(threadId, false);
           ApplicationDependencies.getMessageNotifier().updateNotification(context);
           MarkReadReceiver.process(context, messageIds);
         }
@@ -1375,11 +1384,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       protected void reverseAction(@Nullable Long parameter) {
         Context context = requireActivity();
 
-        threadDatabase.unarchiveConversation(threadId);
-        threadDatabase.restorePins(pinnedThreadIds);
+        threadTable.unarchiveConversation(threadId);
+        threadTable.restorePins(pinnedThreadIds);
 
         if (unreadCount > 0) {
-          threadDatabase.incrementUnread(threadId, unreadCount, unreadSelfMentionsCount);
+          threadTable.incrementUnread(threadId, unreadCount, unreadSelfMentionsCount);
           ApplicationDependencies.getMessageNotifier().updateNotification(context);
         }
 
@@ -1618,7 +1627,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
     @Override
     public void onNavigateToMessage(long threadId, @NonNull RecipientId threadRecipientId, @NonNull RecipientId senderId, long messageSentAt, long messagePositionInThread) {
-      MainNavigator.get(requireActivity()).goToConversation(threadRecipientId, threadId, ThreadDatabase.DistributionTypes.DEFAULT, (int) messagePositionInThread);
+      MainNavigator.get(requireActivity()).goToConversation(threadRecipientId, threadId, ThreadTable.DistributionTypes.DEFAULT, (int) messagePositionInThread);
     }
   }
 

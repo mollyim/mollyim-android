@@ -303,7 +303,7 @@ public class TextSecurePreferences {
 
   public static void onPostBackupRestore(@NonNull Context context) {
     if (NotificationChannels.supported()) {
-      NotificationChannels.updateMessageVibrate(context, SignalStore.settings().isMessageVibrateEnabled());
+      NotificationChannels.getInstance().updateMessageVibrate(SignalStore.settings().isMessageVibrateEnabled());
     }
 
     if (!isLogEnabled(context)) {
@@ -312,7 +312,6 @@ public class TextSecurePreferences {
     }
 
     if (isUpdateApkEnabled(context)) {
-      NotificationChannels.create(context);
       UpdateApkRefreshListener.schedule(context);
     }
   }

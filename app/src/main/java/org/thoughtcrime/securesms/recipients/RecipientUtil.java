@@ -11,10 +11,10 @@ import com.annimon.stream.Stream;
 import org.signal.contacts.SystemContactsRepository;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
-import org.thoughtcrime.securesms.database.GroupDatabase;
-import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
+import org.thoughtcrime.securesms.database.GroupTable;
+import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
-import org.thoughtcrime.securesms.database.ThreadDatabase;
+import org.thoughtcrime.securesms.database.ThreadTable;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
 import org.thoughtcrime.securesms.groups.GroupChangeException;
@@ -25,7 +25,7 @@ import org.thoughtcrime.securesms.jobs.MultiDeviceMessageRequestResponseJob;
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.RotateProfileKeyJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.mms.OutgoingExpirationUpdateMessage;
+import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
@@ -221,10 +221,10 @@ public class RecipientUtil {
   public static void delete(@NonNull Context context, @NonNull Recipient recipient) {
     Recipient resolved = recipient.resolve();
 
-    ThreadDatabase threadDatabase = SignalDatabase.threads();
-    long existingThread = threadDatabase.getThreadIdIfExistsFor(resolved.getId());
+    ThreadTable threadTable = SignalDatabase.threads();
+    long existingThread = threadTable.getThreadIdIfExistsFor(resolved.getId());
     if (existingThread > -1) {
-      threadDatabase.deleteConversation(existingThread);
+      threadTable.deleteConversation(existingThread);
       ApplicationDependencies.getMessageNotifier().updateNotification(context);
     }
 
@@ -233,7 +233,7 @@ public class RecipientUtil {
     }
 
     SignalDatabase.recipients().clearFieldsForDeletion(resolved.getId());
-    NotificationChannels.deleteChannelFor(context, resolved);
+    NotificationChannels.getInstance().deleteChannelFor(resolved);
 
     if (!resolved.isBlocked()) {
       ApplicationDependencies.getJobManager().startChain(new RefreshOwnProfileJob())
@@ -259,8 +259,8 @@ public class RecipientUtil {
       return true;
     }
 
-    ThreadDatabase threadDatabase  = SignalDatabase.threads();
-    Recipient      threadRecipient = threadDatabase.getRecipientForThreadId(threadId);
+    ThreadTable threadTable     = SignalDatabase.threads();
+    Recipient   threadRecipient = threadTable.getRecipientForThreadId(threadId);
 
     if (threadRecipient == null) {
       return true;
@@ -343,10 +343,10 @@ public class RecipientUtil {
     if (recipient.isProfileSharing()) {
       return true;
     } else {
-      GroupDatabase groupDatabase = SignalDatabase.groups();
+      GroupTable groupDatabase = SignalDatabase.groups();
       return groupDatabase.getPushGroupsContainingMember(recipient.getId())
                           .stream()
-                          .anyMatch(GroupDatabase.GroupRecord::isV2Group);
+                          .anyMatch(GroupTable.GroupRecord::isV2Group);
 
     }
   }
@@ -364,7 +364,7 @@ public class RecipientUtil {
 
     if (threadId == -1 || !SignalDatabase.mmsSms().hasMeaningfulMessage(threadId)) {
       SignalDatabase.recipients().setExpireMessages(recipient.getId(), defaultTimer);
-      OutgoingExpirationUpdateMessage outgoingMessage = new OutgoingExpirationUpdateMessage(recipient, System.currentTimeMillis(), defaultTimer * 1000L);
+      OutgoingMediaMessage outgoingMessage = OutgoingMediaMessage.expirationUpdateMessage(recipient, System.currentTimeMillis(), defaultTimer * 1000L);
       MessageSender.send(context, outgoingMessage, SignalDatabase.threads().getOrCreateThreadIdFor(recipient), false, null, null);
       return true;
     }

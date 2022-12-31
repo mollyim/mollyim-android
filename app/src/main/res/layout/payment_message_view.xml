@@ -36,15 +36,22 @@
             app:autoSizeTextType="uniform"
             app:money="MOB:275000000000000" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/payment_inprogress"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center" />
+
     </FrameLayout>
 
     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
         android:id="@+id/payment_note"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
         android:textAppearance="@style/TextAppearance.Signal.Body1"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/payment_amount_layout"
+        app:layout_constraintStart_toStartOf="@+id/payment_amount_layout"
         app:layout_constraintTop_toBottomOf="@+id/payment_amount_layout"
         tools:text="It was my treat" />
 

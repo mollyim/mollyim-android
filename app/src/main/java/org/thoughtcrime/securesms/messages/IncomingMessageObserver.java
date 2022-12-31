@@ -12,7 +12,6 @@ import android.os.IBinder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
@@ -21,12 +20,13 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
+import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil;
 import org.thoughtcrime.securesms.jobs.PushDecryptDrainedJob;
+import org.thoughtcrime.securesms.jobs.UnableToStartException;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor.Processor;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
-import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.Util;
@@ -78,7 +78,7 @@ public class IncomingMessageObserver {
 
     new MessageRetrievalThread().start();
 
-    // MOLLY: Foreground service startup is handled to the connection loop
+    // MOLLY: Foreground service startup is handled inside the connection loop
 
     ApplicationDependencies.getAppForegroundObserver().addListener(new AppForegroundObserver.Listener() {
       @Override
@@ -169,8 +169,12 @@ public class IncomingMessageObserver {
     long    oldRequest     = System.currentTimeMillis() - OLD_REQUEST_WINDOW_MS;
 
     if ((!fcmEnabled || forceWebsocket) && registered && !isForegroundService) {
-      ContextCompat.startForegroundService(context, new Intent(context, ForegroundService.class));
-      isForegroundService = true;
+      try {
+        ForegroundServiceUtil.startWhenCapable(context, new Intent(context, ForegroundService.class));
+        isForegroundService = true;
+      } catch (UnableToStartException e) {
+        Log.w(TAG, "Unable to start foreground service for websocket!", e);
+      }
     }
 
     boolean removedRequests = keepAliveTokens.entrySet().removeIf(e -> e.getValue() < oldRequest);
@@ -306,7 +310,7 @@ public class IncomingMessageObserver {
         return Service.START_STICKY;
       }
 
-      NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NotificationChannels.BACKGROUND);
+      NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NotificationChannels.getInstance().BACKGROUND);
       builder.setContentTitle(getApplicationContext().getString(R.string.app_name));
       builder.setContentText(getApplicationContext().getString(R.string.MessageRetrievalService_ready_to_receive_messages));
       builder.setPriority(NotificationCompat.PRIORITY_MIN);

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.thoughtcrime.securesms.database.helpers.migration
 
 import android.app.Application
@@ -41,6 +43,7 @@ import java.util.UUID
  * Adding an urgent flag to message envelopes to help with notifications. Need to track flag in
  * MSL table so can be resent with the correct urgency.
  */
+@Suppress("ClassName")
 object V149_LegacyMigrations : SignalDatabaseMigration {
 
   private val TAG: String = SignalDatabaseMigrations.TAG
@@ -258,7 +261,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
     if (oldVersion < TRANSFER_FILE_CLEANUP) {
       val partsDirectory: File = context.getDir("parts", Context.MODE_PRIVATE)
       if (partsDirectory.exists()) {
-        val transferFiles = partsDirectory.listFiles { dir: File?, name: String -> name.startsWith("transfer") }
+        val transferFiles: Array<File> = partsDirectory.listFiles { _: File?, name: String -> name.startsWith("transfer") } ?: emptyArray()
         var deleteCount = 0
         Log.i(TAG, "Found " + transferFiles.size + " dangling transfer files.")
         for (file: File in transferFiles) {
@@ -283,7 +286,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
     }
 
     if (oldVersion < AVATAR_LOCATION_MIGRATION) {
-      val oldAvatarDirectory = File(context.getFilesDir(), "avatars")
+      val oldAvatarDirectory = File(context.filesDir, "avatars")
       if (!FileUtils.deleteDirectory(oldAvatarDirectory)) {
         Log.w(TAG, "Failed to delete avatar directory.")
       }
@@ -327,7 +330,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
         while (cursor != null && cursor.moveToNext()) {
           val id: Long = cursor.getLong(cursor.getColumnIndexOrThrow("_id"))
           val name: String = cursor.getString(cursor.getColumnIndexOrThrow("system_display_name"))
-          val values: ContentValues = ContentValues()
+          val values = ContentValues()
           values.put("color", ContactColorsLegacy.generateForV2(name).serialize())
           db.update("recipient", values, "_id = ?", arrayOf(id.toString()))
         }
@@ -375,7 +378,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
             db.update("part", values, "_data = ?", arrayOf(data))
             count++
           } else {
-            Log.w(TAG, "[QuoteCleanup] Failed to delete " + data)
+            Log.w(TAG, "[QuoteCleanup] Failed to delete $data")
           }
         }
       }
@@ -461,15 +464,15 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
       var deleted = 0
       db.rawQuery("SELECT thumbnail FROM part WHERE thumbnail NOT NULL", null).use { cursor ->
         if (cursor != null) {
-          total = cursor.getCount()
-          Log.w(TAG, "Found " + total + " thumbnails to delete.")
+          total = cursor.count
+          Log.w(TAG, "Found $total thumbnails to delete.")
         }
         while (cursor != null && cursor.moveToNext()) {
-          val file: File = File(CursorUtil.requireString(cursor, "thumbnail"))
+          val file = File(CursorUtil.requireString(cursor, "thumbnail"))
           if (file.delete()) {
             deleted++
           } else {
-            Log.w(TAG, "Failed to delete file! " + file.getAbsolutePath())
+            Log.w(TAG, "Failed to delete file! " + file.absolutePath)
           }
         }
       }
@@ -523,7 +526,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
           val rangeLength: Int = CursorUtil.requireInt(cursor, "range_length")
           val body: String? = CursorUtil.requireString(cursor, "body")
 
-          if ((body != null) && (rangeStart < body.length) && (body.get(rangeStart) != '\uFFFC')) {
+          if ((body != null) && (rangeStart < body.length) && (body[rangeStart] != '\uFFFC')) {
             idsToDelete.add(mentionId)
           } else {
             val tuple: Triple<Long, Int, Int> = Triple(messageId, rangeStart, rangeLength)
@@ -537,7 +540,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
 
         if (Util.hasItems(idsToDelete)) {
           val ids: String = TextUtils.join(",", idsToDelete)
-          db.delete("mention", "_id in (" + ids + ")", null)
+          db.delete("mention", "_id in ($ids)", null)
         }
       }
     }
@@ -769,9 +772,9 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
           }
           try {
             val hasReceiveLaterThanNotified: Boolean = ReactionList.parseFrom(reactions)
-              .getReactionsList()
+              .reactionsList
               .stream()
-              .anyMatch { r: ReactionList.Reaction -> r.getReceivedTime() > notifiedTimestamp }
+              .anyMatch { r: ReactionList.Reaction -> r.receivedTime > notifiedTimestamp }
             if (!hasReceiveLaterThanNotified) {
               smsIds.add(cursor.getLong(cursor.getColumnIndexOrThrow("_id")))
             }
@@ -796,9 +799,9 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
           }
           try {
             val hasReceiveLaterThanNotified: Boolean = ReactionList.parseFrom(reactions)
-              .getReactionsList()
+              .reactionsList
               .stream()
-              .anyMatch { r: ReactionList.Reaction -> r.getReceivedTime() > notifiedTimestamp }
+              .anyMatch { r: ReactionList.Reaction -> r.receivedTime > notifiedTimestamp }
             if (!hasReceiveLaterThanNotified) {
               mmsIds.add(cursor.getLong(cursor.getColumnIndexOrThrow("_id")))
             }
@@ -824,7 +827,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
       deleteCount = db.update("recipient", deleteValues, "storage_service_key NOT NULL AND (dirty = 3 OR group_type = 1 OR (group_type = 0 AND registered = 2))", null)
 
       db.query("recipient", arrayOf("_id"), "storage_service_key IS NULL AND (dirty = 2 OR registered = 1)", null, null, null, null).use { cursor ->
-        insertCount = cursor.getCount()
+        insertCount = cursor.count
         while (cursor.moveToNext()) {
           val insertValues = ContentValues().apply {
             put("storage_service_key", Base64.encodeBytes(StorageSyncHelper.generateKey()))
@@ -835,7 +838,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
       }
 
       db.query("recipient", arrayOf("_id"), "storage_service_key NOT NULL AND dirty = 1", null, null, null, null).use { cursor ->
-        updateCount = cursor.getCount()
+        updateCount = cursor.count
         while (cursor.moveToNext()) {
           val updateValues = ContentValues().apply {
             put("storage_service_key", Base64.encodeBytes(StorageSyncHelper.generateKey()))
@@ -893,7 +896,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
       db.query("recipient", arrayOf("_id"), "color IS NULL", null, null, null, null).use { cursor ->
         while (cursor.moveToNext()) {
           val id: Long = cursor.getInt(cursor.getColumnIndexOrThrow("_id")).toLong()
-          val values: ContentValues = ContentValues(1)
+          val values = ContentValues(1)
           values.put("color", AvatarColor.random().serialize())
           db.update("recipient", values, "_id = ?", arrayOf(id.toString()))
         }

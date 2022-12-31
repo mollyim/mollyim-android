@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.6.21'
+    ext.kotlin_version = '1.7.20'
     repositories {
         google()
         mavenCentral()
@@ -72,6 +72,7 @@ task qa {
     description 'Quality Assurance. Run before pushing.'
     dependsOn = [
             ':libsignal-service:test',
+            ':libsignal-service:ktlintCheck',
             ':app:testProdNonFreeReleaseUnitTest',
             ':app:lintProdNonFreeRelease',
             ':app:ktlintCheck',

@@ -86,7 +86,7 @@ dependencyResolutionManagement {
             alias('libsignal-android').to('org.signal', 'libsignal-android').versionRef('libsignal-client')
             alias('signal-aesgcmprovider').to('org.signal:aesgcmprovider:0.0.3')
             alias('molly-argon2').to('im.molly:argon2:13.1-1')
-            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.21.2-1')
+            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.22.0-1')
             alias('signal-android-database-sqlcipher').to('org.signal:android-database-sqlcipher:4.4.3-S8')
 
             // MOLLY

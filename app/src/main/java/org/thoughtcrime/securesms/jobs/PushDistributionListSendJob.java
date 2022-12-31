@@ -10,8 +10,8 @@ import com.annimon.stream.Stream;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
-import org.thoughtcrime.securesms.database.GroupReceiptDatabase;
-import org.thoughtcrime.securesms.database.MessageDatabase;
+import org.thoughtcrime.securesms.database.GroupReceiptTable;
+import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
 import org.thoughtcrime.securesms.database.SentStorySyncManifest;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -138,10 +138,10 @@ public final class PushDistributionListSendJob extends PushSendJob {
   public void onPushSend()
       throws IOException, MmsException, NoSuchMessageException, RetryLaterException
   {
-    MessageDatabase          database                   = SignalDatabase.mms();
+    MessageTable             database                   = SignalDatabase.mms();
     OutgoingMediaMessage     message                    = database.getOutgoingMessage(messageId);
-    Set<NetworkFailure>      existingNetworkFailures    = message.getNetworkFailures();
-    Set<IdentityKeyMismatch> existingIdentityMismatches = message.getIdentityKeyMismatches();
+    Set<NetworkFailure>      existingNetworkFailures    = new HashSet<>(message.getNetworkFailures());
+    Set<IdentityKeyMismatch> existingIdentityMismatches = new HashSet<>(message.getIdentityKeyMismatches());
 
     if (!message.getStoryType().isStory()) {
       throw new MmsException("Only story sends are currently supported!");
@@ -199,7 +199,7 @@ public final class PushDistributionListSendJob extends PushSendJob {
       List<Attachment>              attachments        = Stream.of(message.getAttachments()).filterNot(Attachment::isSticker).toList();
       List<SignalServiceAttachment> attachmentPointers = getAttachmentPointersFor(attachments);
       boolean isRecipientUpdate = Stream.of(SignalDatabase.groupReceipts().getGroupReceiptInfo(messageId))
-                                        .anyMatch(info -> info.getStatus() > GroupReceiptDatabase.STATUS_UNDELIVERED);
+                                        .anyMatch(info -> info.getStatus() > GroupReceiptTable.STATUS_UNDELIVERED);
 
       final SignalServiceStoryMessage storyMessage;
       if (message.getStoryType().isTextStory()) {
@@ -212,6 +212,8 @@ public final class PushDistributionListSendJob extends PushSendJob {
 
       SentStorySyncManifest                   manifest           = SignalDatabase.storySends().getFullSentStorySyncManifest(messageId, message.getSentTimeMillis());
       Set<SignalServiceStoryMessageRecipient> manifestCollection = manifest != null ? manifest.toRecipientsSet() : Collections.emptySet();
+
+      Log.d(TAG, "[" + messageId + "] Sending a story message with a manifest of size " + manifestCollection.size());
 
       return GroupSendUtil.sendStoryMessage(context, message.getRecipient().requireDistributionListId(), destinations, isRecipientUpdate, new MessageId(messageId, true), message.getSentTimeMillis(), storyMessage, manifestCollection);
     } catch (ServerRejectedException e) {

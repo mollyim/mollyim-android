@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
-import org.thoughtcrime.securesms.database.PaymentDatabase;
+import org.thoughtcrime.securesms.database.PaymentTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
@@ -42,24 +42,7 @@ public final class PaymentNotificationSendJob extends BaseJob {
   private final UUID        uuid;
 
   public static Job create(@NonNull RecipientId recipientId, @NonNull UUID uuid, @NonNull String queue) {
-    if (FeatureFlags.paymentsInChatMessages()) {
-      return new PaymentNotificationSendJobV2(recipientId, uuid);
-    } else {
-      return new PaymentNotificationSendJob(recipientId, uuid, queue);
-    }
-  }
-
-  private PaymentNotificationSendJob(@NonNull RecipientId recipientId,
-                             @NonNull UUID uuid,
-                             @NonNull String queue)
-  {
-    this(new Parameters.Builder()
-                       .setQueue(queue)
-                       .setLifespan(TimeUnit.DAYS.toMillis(1))
-                       .setMaxAttempts(Parameters.UNLIMITED)
-                       .build(),
-         recipientId,
-         uuid);
+    return new PaymentNotificationSendJobV2(recipientId, uuid);
   }
 
   private PaymentNotificationSendJob(@NonNull Parameters parameters,
@@ -91,8 +74,8 @@ public final class PaymentNotificationSendJob extends BaseJob {
       throw new NotPushRegisteredException();
     }
 
-    PaymentDatabase paymentDatabase = SignalDatabase.payments();
-    Recipient       recipient       = Recipient.resolved(recipientId);
+    PaymentTable paymentDatabase = SignalDatabase.payments();
+    Recipient    recipient       = Recipient.resolved(recipientId);
 
     if (recipient.isUnregistered()) {
       Log.w(TAG, recipientId + " not registered!");
@@ -103,7 +86,7 @@ public final class PaymentNotificationSendJob extends BaseJob {
     SignalServiceAddress             address            = RecipientUtil.toSignalServiceAddress(context, recipient);
     Optional<UnidentifiedAccessPair> unidentifiedAccess = UnidentifiedAccessUtil.getAccessFor(context, recipient);
 
-    PaymentDatabase.PaymentTransaction payment = paymentDatabase.getPayment(uuid);
+    PaymentTable.PaymentTransaction payment = paymentDatabase.getPayment(uuid);
 
     if (payment == null) {
       Log.w(TAG, "Could not find payment, cannot send notification " + uuid);

@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.google.protobuf'
@@ -10,25 +12,25 @@ apply plugin: 'kotlin-parcelize'
 
 repositories {
     maven {
-        url "https://raw.github.com/signalapp/maven/master/sqlcipher/release/"
+        url "https://raw.githubusercontent.com/signalapp/maven/master/sqlcipher/release/"
         content {
             includeModule 'org.signal', 'android-database-sqlcipher'
         }
     }
     maven {
-        url "https://raw.github.com/mollyim/maven/master/argon2/releases/"
+        url "https://raw.githubusercontent.com/mollyim/maven/master/argon2/releases/"
         content {
             includeModule 'im.molly', 'argon2'
         }
     }
     maven {
-        url "https://raw.github.com/mollyim/maven/master/ringrtc/releases/"
+        url "https://raw.githubusercontent.com/mollyim/maven/master/ringrtc/releases/"
         content {
             includeModule 'im.molly', 'ringrtc-android'
         }
     }
     maven {
-        url "https://raw.github.com/mollyim/maven/master/native-utils/releases/"
+        url "https://raw.githubusercontent.com/mollyim/maven/master/native-utils/releases/"
         content {
             includeModule 'im.molly', 'native-utils'
         }
@@ -81,8 +83,8 @@ ktlint {
     version = "0.43.2"
 }
 
-def canonicalVersionCode = 1171
-def canonicalVersionName = "6.3.6"
+def canonicalVersionCode = 1185
+def canonicalVersionName = "6.6.3"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -133,6 +135,17 @@ android {
 
         unitTests {
             includeAndroidResources = true
+        }
+
+        managedDevices {
+            devices {
+                pixel3api30 (ManagedVirtualDevice) {
+                    device = "Pixel 3"
+                    apiLevel = 30
+                    systemImageSource = "google-atd"
+                    require64Bit = false
+                }
+            }
         }
     }
 
@@ -216,6 +229,7 @@ android {
         buildConfigField "String", "SIGNAL_SERVICE_STATUS_URL", "\"uptime.signal.org\""
         buildConfigField "String", "SIGNAL_KEY_BACKUP_URL", "\"https://api.backup.signal.org\""
         buildConfigField "String", "SIGNAL_SFU_URL", "\"https://sfu.voip.signal.org\""
+        buildConfigField "String", "SIGNAL_STAGING_SFU_URL", "\"https://sfu.staging.voip.signal.org\""
         buildConfigField "String[]", "SIGNAL_SFU_INTERNAL_NAMES", "new String[]{\"Test\", \"Staging\", \"Development\"}"
         buildConfigField "String[]", "SIGNAL_SFU_INTERNAL_URLS", "new String[]{\"https://sfu.test.voip.signal.org\", \"https://sfu.staging.voip.signal.org\", \"https://sfu.staging.test.voip.signal.org\"}"
         buildConfigField "String", "CONTENT_PROXY_HOST", "\"contentproxy.signal.org\""

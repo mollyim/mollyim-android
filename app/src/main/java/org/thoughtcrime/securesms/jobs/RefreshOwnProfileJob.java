@@ -9,7 +9,7 @@ import org.signal.core.util.logging.Log;
 import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
-import org.thoughtcrime.securesms.database.RecipientDatabase;
+import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
@@ -126,8 +126,8 @@ public class RefreshOwnProfileJob extends BaseJob {
                                                @NonNull ProfileKey recipientProfileKey,
                                                @NonNull ExpiringProfileKeyCredential credential)
   {
-    RecipientDatabase recipientDatabase = SignalDatabase.recipients();
-    recipientDatabase.setProfileKeyCredential(recipient.getId(), recipientProfileKey, credential);
+    RecipientTable recipientTable = SignalDatabase.recipients();
+    recipientTable.setProfileKeyCredential(recipient.getId(), recipientProfileKey, credential);
   }
 
   private static SignalServiceProfile.RequestType getRequestType(@NonNull Recipient recipient) {

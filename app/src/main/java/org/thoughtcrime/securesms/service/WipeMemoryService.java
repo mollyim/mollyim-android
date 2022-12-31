@@ -16,6 +16,8 @@ import org.signal.core.util.PendingIntentFlags;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil;
+import org.thoughtcrime.securesms.jobs.UnableToStartException;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.WakeLockUtil;
@@ -68,7 +70,11 @@ public class WipeMemoryService extends IntentService {
   private static void startForegroundService(Context context) {
     Intent intent = new Intent(context, WipeMemoryService.class);
     if (Build.VERSION.SDK_INT >= 26) {
-      context.startForegroundService(intent);
+      try {
+        ForegroundServiceUtil.startWhenCapable(context, intent);
+      } catch (UnableToStartException e) {
+        Log.e(TAG, "Unable to start foreground service", e);
+      }
     } else {
       context.startService(intent);
     }

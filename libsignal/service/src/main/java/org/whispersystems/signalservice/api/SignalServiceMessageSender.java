@@ -278,6 +278,11 @@ public class SignalServiceMessageSender {
                                    Set<SignalServiceStoryMessageRecipient> manifest)
       throws IOException, UntrustedIdentityException
   {
+    if (manifest.isEmpty()) {
+      Log.w(TAG, "Refusing to send sync message for empty manifest.");
+      return;
+    }
+
     SignalServiceSyncMessage syncMessage = createSelfSendSyncMessageForStory(message, timestamp, isRecipientUpdate, manifest);
     sendSyncMessage(syncMessage, Optional.empty());
   }
@@ -300,8 +305,7 @@ public class SignalServiceMessageSender {
     List<SendMessageResult>  sendMessageResults = sendGroupMessage(distributionId, recipients, unidentifiedAccess, timestamp, content, ContentHint.IMPLICIT, groupId, false, SenderKeyGroupEvents.EMPTY, false, true);
 
     if (aciStore.isMultiDevice()) {
-      SignalServiceSyncMessage syncMessage = createSelfSendSyncMessageForStory(message, timestamp, isRecipientUpdate, manifest);
-      sendSyncMessage(syncMessage, Optional.empty());
+      sendStorySyncMessage(message, timestamp, isRecipientUpdate, manifest);
     }
 
     return sendMessageResults;
@@ -920,8 +924,9 @@ public class SignalServiceMessageSender {
                                                                 .setAuthorUuid(message.getQuote().get().getAuthor().toString())
                                                                 .setType(message.getQuote().get().getType().getProtoType());
 
-      if (!message.getQuote().get().getMentions().isEmpty()) {
-        for (SignalServiceDataMessage.Mention mention : message.getQuote().get().getMentions()) {
+      List<SignalServiceDataMessage.Mention> mentions = message.getQuote().get().getMentions();
+      if (mentions != null && !mentions.isEmpty()) {
+        for (SignalServiceDataMessage.Mention mention : mentions) {
           quoteBuilder.addBodyRanges(DataMessage.BodyRange.newBuilder()
                                                           .setStart(mention.getStart())
                                                           .setLength(mention.getLength())
@@ -931,20 +936,23 @@ public class SignalServiceMessageSender {
         builder.setRequiredProtocolVersion(Math.max(DataMessage.ProtocolVersion.MENTIONS_VALUE, builder.getRequiredProtocolVersion()));
       }
 
-      for (SignalServiceDataMessage.Quote.QuotedAttachment attachment : message.getQuote().get().getAttachments()) {
-        DataMessage.Quote.QuotedAttachment.Builder quotedAttachment = DataMessage.Quote.QuotedAttachment.newBuilder();
+      List<SignalServiceDataMessage.Quote.QuotedAttachment> attachments = message.getQuote().get().getAttachments();
+      if (attachments != null) {
+        for (SignalServiceDataMessage.Quote.QuotedAttachment attachment : attachments) {
+          DataMessage.Quote.QuotedAttachment.Builder quotedAttachment = DataMessage.Quote.QuotedAttachment.newBuilder();
 
-        quotedAttachment.setContentType(attachment.getContentType());
+          quotedAttachment.setContentType(attachment.getContentType());
 
-        if (attachment.getFileName() != null) {
-          quotedAttachment.setFileName(attachment.getFileName());
+          if (attachment.getFileName() != null) {
+            quotedAttachment.setFileName(attachment.getFileName());
+          }
+
+          if (attachment.getThumbnail() != null) {
+            quotedAttachment.setThumbnail(createAttachmentPointer(attachment.getThumbnail().asStream()));
+          }
+
+          quoteBuilder.addAttachments(quotedAttachment);
         }
-
-        if (attachment.getThumbnail() != null) {
-          quotedAttachment.setThumbnail(createAttachmentPointer(attachment.getThumbnail().asStream()));
-        }
-
-        quoteBuilder.addAttachments(quotedAttachment);
       }
 
       builder.setQuote(quoteBuilder);

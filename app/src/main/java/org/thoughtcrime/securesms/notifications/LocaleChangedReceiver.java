@@ -10,7 +10,7 @@ public class LocaleChangedReceiver extends ExportedBroadcastReceiver {
 
   @Override
   public void onReceiveUnlock(Context context, Intent intent) {
-    NotificationChannels.create(context);
+    NotificationChannels.getInstance().onLocaleChanged();
     EmojiSearchIndexDownloadJob.scheduleImmediately();
   }
 }

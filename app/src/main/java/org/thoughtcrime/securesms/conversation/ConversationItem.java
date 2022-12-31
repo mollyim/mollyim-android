@@ -95,8 +95,9 @@ import org.thoughtcrime.securesms.conversation.colors.Colorizer;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectCollection;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
 import org.thoughtcrime.securesms.conversation.ui.payment.PaymentMessageView;
-import org.thoughtcrime.securesms.database.AttachmentDatabase;
-import org.thoughtcrime.securesms.database.MediaDatabase;
+import org.thoughtcrime.securesms.database.AttachmentTable;
+import org.thoughtcrime.securesms.database.MediaTable;
+import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
@@ -1943,10 +1944,10 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     if (messageRecord.isMms()) {
       TextSlide slide = ((MmsMessageRecord) messageRecord).getSlideDeck().getTextSlide();
 
-      if (slide != null && slide.asAttachment().getTransferState() == AttachmentDatabase.TRANSFER_PROGRESS_DONE) {
+      if (slide != null && slide.asAttachment().getTransferState() == AttachmentTable.TRANSFER_PROGRESS_DONE) {
         message = getResources().getString(R.string.ConversationItem_read_more);
         action  = () -> eventListener.onMoreTextClicked(conversationRecipient.getId(), messageRecord.getId(), messageRecord.isMms());
-      } else if (slide != null && slide.asAttachment().getTransferState() == AttachmentDatabase.TRANSFER_PROGRESS_STARTED) {
+      } else if (slide != null && slide.asAttachment().getTransferState() == AttachmentTable.TRANSFER_PROGRESS_STARTED) {
         message = getResources().getString(R.string.ConversationItem_pending);
         action  = () -> {};
       } else if (slide != null) {
@@ -2304,7 +2305,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
             false,
             false,
             false,
-            MediaDatabase.Sorting.Newest,
+            MediaTable.Sorting.Newest,
             slide.isVideoGif());
         context.startActivity(MediaIntentFactory.create(context, args));
       } else if (slide.getUri() != null) {

@@ -26,7 +26,7 @@ import android.os.Bundle;
 import androidx.core.app.RemoteInput;
 
 import org.signal.core.util.concurrent.SignalExecutors;
-import org.thoughtcrime.securesms.database.MessageDatabase.MarkedMessageInfo;
+import org.thoughtcrime.securesms.database.MessageTable.MarkedMessageInfo;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.ParentStoryId;
 import org.thoughtcrime.securesms.database.model.StoryType;
@@ -101,7 +101,8 @@ public class RemoteReplyReceiver extends BroadcastReceiver {
                                                                   Collections.emptyList(),
                                                                   Collections.emptySet(),
                                                                   Collections.emptySet(),
-                                                                  null);
+                                                                  null,
+                                                                  recipient.isPushGroup());
             threadId = MessageSender.send(context, reply, -1, false, null, null);
             break;
           }

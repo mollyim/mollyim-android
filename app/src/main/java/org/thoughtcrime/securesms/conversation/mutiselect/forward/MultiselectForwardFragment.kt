@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.color.ViewColorSet
 import org.thoughtcrime.securesms.components.ContactFilterView
 import org.thoughtcrime.securesms.components.TooltipPopup
 import org.thoughtcrime.securesms.components.WrapperDialogFragment
@@ -146,11 +147,9 @@ class MultiselectForwardFragment :
     val sendButton: AppCompatImageView = bottomBar.findViewById(R.id.share_confirm)
     val backgroundHelper: View = bottomBar.findViewById(R.id.background_helper)
 
-    val sendButtonColors = args.sendButtonColors
-    if (sendButtonColors != null) {
-      sendButton.setColorFilter(sendButtonColors.foreground.resolve(requireContext()))
-      ViewCompat.setBackgroundTintList(sendButton, ColorStateList.valueOf(sendButtonColors.background.resolve(requireContext())))
-    }
+    val sendButtonColors: ViewColorSet = args.sendButtonColors
+    sendButton.setColorFilter(sendButtonColors.foreground.resolve(requireContext()))
+    ViewCompat.setBackgroundTintList(sendButton, ColorStateList.valueOf(sendButtonColors.background.resolve(requireContext())))
 
     FullscreenHelper.configureBottomBarLayout(requireActivity(), bottomBarSpacer, bottomBar)
 
@@ -381,7 +380,6 @@ class MultiselectForwardFragment :
     }
 
     if (view != null && contactSet.any { it is ContactSearchKey.RecipientSearchKey && it.isStory }) {
-      @Suppress("NON_EXHAUSTIVE_WHEN_STATEMENT")
       when (storySendRequirements) {
         Stories.MediaTransform.SendRequirements.REQUIRES_CLIP -> {
           displayTooltip(view, R.string.MultiselectForwardFragment__videos_will_be_trimmed)
@@ -389,6 +387,7 @@ class MultiselectForwardFragment :
         Stories.MediaTransform.SendRequirements.CAN_NOT_SEND -> {
           displayTooltip(view, R.string.MultiselectForwardFragment__videos_sent_to_stories_cant)
         }
+        Stories.MediaTransform.SendRequirements.VALID_DURATION -> Unit
       }
     }
 

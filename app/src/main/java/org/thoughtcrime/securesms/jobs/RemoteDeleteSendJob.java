@@ -8,7 +8,7 @@ import com.annimon.stream.Stream;
 
 import org.signal.core.util.SetUtil;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.database.MessageDatabase;
+import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.DistributionListId;
@@ -135,8 +135,8 @@ public class RemoteDeleteSendJob extends BaseJob {
       throw new NotPushRegisteredException();
     }
 
-    MessageDatabase db;
-    MessageRecord   message;
+    MessageTable  db;
+    MessageRecord message;
 
     if (isMms) {
       db      = SignalDatabase.mms();
@@ -189,10 +189,6 @@ public class RemoteDeleteSendJob extends BaseJob {
 
     if (recipients.isEmpty()) {
       db.markAsSent(messageId, true);
-
-      if (MessageRecordUtil.isStory(message)) {
-        db.deleteRemotelyDeletedStory(messageId);
-      }
     } else {
       Log.w(TAG, "Still need to send to " + recipients.size() + " recipients. Retrying.");
       throw new RetryLaterException();

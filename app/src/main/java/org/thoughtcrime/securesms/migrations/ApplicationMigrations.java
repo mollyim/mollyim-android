@@ -100,9 +100,10 @@ public class ApplicationMigrations {
     static final int SYSTEM_NAME_SYNC              = 67;
     static final int STORY_VIEWED_STATE            = 68; // MOLLY: Stories enabled here
     static final int STORY_READ_STATE              = 69;
+    static final int THREAD_MESSAGE_SCHEMA_CHANGE  = 70;
   }
 
-  public static final int CURRENT_VERSION = 69;
+  public static final int CURRENT_VERSION = 70;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -434,6 +435,10 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.STORY_READ_STATE) {
       jobs.put(Version.STORY_READ_STATE, new StoryReadStateMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.THREAD_MESSAGE_SCHEMA_CHANGE) {
+      jobs.put(Version.THREAD_MESSAGE_SCHEMA_CHANGE, new DatabaseMigrationJob());
     }
 
     return jobs;

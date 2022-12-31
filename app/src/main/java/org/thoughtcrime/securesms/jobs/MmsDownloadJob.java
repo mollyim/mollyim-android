@@ -3,8 +3,8 @@ package org.thoughtcrime.securesms.jobs;
 import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.database.MessageDatabase;
-import org.thoughtcrime.securesms.database.MmsDatabase;
+import org.thoughtcrime.securesms.database.MessageTable;
+import org.thoughtcrime.securesms.database.MmsTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
@@ -76,8 +76,8 @@ public class MmsDownloadJob extends BaseJob {
       throw new NotReadyException();
     }
 
-    MessageDatabase                           database     = SignalDatabase.mms();
-    Optional<MmsDatabase.MmsNotificationInfo> notification = database.getNotification(messageId);
+    MessageTable                           database     = SignalDatabase.mms();
+    Optional<MmsTable.MmsNotificationInfo> notification = database.getNotification(messageId);
 
     if (!notification.isPresent()) {
       Log.w(TAG, "No notification for ID: " + messageId);
@@ -93,22 +93,22 @@ public class MmsDownloadJob extends BaseJob {
         throw new MmsException("Not registered");
       }
 
-      database.markDownloadState(messageId, MmsDatabase.Status.DOWNLOAD_CONNECTING);
+      database.markDownloadState(messageId, MmsTable.Status.DOWNLOAD_CONNECTING);
 
       throw new MmsException("Download disabled");
 
     } catch (MmsException e) {
       Log.w(TAG, e);
       handleDownloadError(messageId, threadId,
-                          MmsDatabase.Status.DOWNLOAD_HARD_FAILURE,
+                          MmsTable.Status.DOWNLOAD_HARD_FAILURE,
                           automatic);
     }
   }
 
   @Override
   public void onFailure() {
-    MessageDatabase database = SignalDatabase.mms();
-    database.markDownloadState(messageId, MmsDatabase.Status.DOWNLOAD_SOFT_FAILURE);
+    MessageTable database = SignalDatabase.mms();
+    database.markDownloadState(messageId, MmsTable.Status.DOWNLOAD_SOFT_FAILURE);
 
     if (automatic) {
       database.markIncomingNotificationReceived(threadId);
@@ -123,7 +123,7 @@ public class MmsDownloadJob extends BaseJob {
 
   private void handleDownloadError(long messageId, long threadId, int downloadStatus, boolean automatic)
   {
-    MessageDatabase db = SignalDatabase.mms();
+    MessageTable db = SignalDatabase.mms();
 
     db.markDownloadState(messageId, downloadStatus);
 

@@ -15,7 +15,7 @@ import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.ScreenLockController
-import org.thoughtcrime.securesms.database.MessageDatabase
+import org.thoughtcrime.securesms.database.MessageTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -53,8 +53,8 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
   @Volatile private var lastAudibleNotification: Long = -1
   @Volatile private var lastScheduledReminder: Long = 0
   @Volatile private var previousLockedStatus: Boolean = KeyCachingService.isLocked()
-  @Volatile private var previousScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
   @Volatile private var previousPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings().messageNotificationsPrivacy
+  @Volatile private var previousScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
   @Volatile private var previousState: NotificationState = NotificationState.EMPTY
 
   private val threadReminders: MutableMap<ConversationId, Reminder> = ConcurrentHashMap()
@@ -123,18 +123,19 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     reminderCount: Int,
     defaultBubbleState: BubbleState
   ) {
+    NotificationChannels.getInstance().ensureCustomChannelConsistency()
+
     val currentLockStatus: Boolean = KeyCachingService.isLocked()
-    if (!currentLockStatus) {
-      NotificationChannels.ensureCustomChannelConsistency(context)
-    }
-    val currentScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
     val currentPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings().messageNotificationsPrivacy
-    val notificationConfigurationChanged: Boolean = currentLockStatus != previousLockedStatus ||
-      currentPrivacyPreference != previousPrivacyPreference ||
-      currentScreenLockState != previousScreenLockState
+    val currentScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
+    val notificationConfigurationChanged: Boolean = (
+      currentLockStatus != previousLockedStatus ||
+        currentPrivacyPreference != previousPrivacyPreference ||
+        currentScreenLockState != previousScreenLockState
+      )
     previousLockedStatus = currentLockStatus
-    previousScreenLockState = currentScreenLockState
     previousPrivacyPreference = currentPrivacyPreference
+    previousScreenLockState = currentScreenLockState
 
     if (notificationConfigurationChanged) {
       stickyThreads.clear()
@@ -149,16 +150,16 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     if (state.muteFilteredMessages.isNotEmpty()) {
       Log.i(TAG, "Marking ${state.muteFilteredMessages.size} muted messages as notified to skip notification")
       state.muteFilteredMessages.forEach { item ->
-        val messageDatabase: MessageDatabase = if (item.isMms) SignalDatabase.mms else SignalDatabase.sms
-        messageDatabase.markAsNotified(item.id)
+        val messageTable: MessageTable = if (item.isMms) SignalDatabase.mms else SignalDatabase.sms
+        messageTable.markAsNotified(item.id)
       }
     }
 
     if (state.profileFilteredMessages.isNotEmpty()) {
       Log.i(TAG, "Marking ${state.profileFilteredMessages.size} profile filtered messages as notified to skip notification")
       state.profileFilteredMessages.forEach { item ->
-        val messageDatabase: MessageDatabase = if (item.isMms) SignalDatabase.mms else SignalDatabase.sms
-        messageDatabase.markAsNotified(item.id)
+        val messageTable: MessageTable = if (item.isMms) SignalDatabase.mms else SignalDatabase.sms
+        messageTable.markAsNotified(item.id)
       }
     }
 
@@ -166,8 +167,8 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
       Log.i(TAG, "Marking ${state.conversations.size} conversations as notified to skip notification")
       state.conversations.forEach { conversation ->
         conversation.notificationItems.forEach { item ->
-          val messageDatabase: MessageDatabase = if (item.isMms) SignalDatabase.mms else SignalDatabase.sms
-          messageDatabase.markAsNotified(item.id)
+          val messageTable: MessageTable = if (item.isMms) SignalDatabase.mms else SignalDatabase.sms
+          messageTable.markAsNotified(item.id)
         }
       }
       return
@@ -180,8 +181,8 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
         .forEach { conversation ->
           cleanedUpThreads += conversation.thread
           conversation.notificationItems.forEach { item ->
-            val messageDatabase: MessageDatabase = if (item.isMms) SignalDatabase.mms else SignalDatabase.sms
-            messageDatabase.markAsNotified(item.id)
+            val messageTable: MessageTable = if (item.isMms) SignalDatabase.mms else SignalDatabase.sms
+            messageTable.markAsNotified(item.id)
           }
         }
       if (cleanedUpThreads.isNotEmpty()) {
@@ -194,6 +195,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     stickyThreads.keys.retainAll { retainStickyThreadIds.contains(it) }
 
     if (state.isEmpty) {
+      // MOLLY: Extracted to a separate function
       clearNotifications(context)
       return
     }

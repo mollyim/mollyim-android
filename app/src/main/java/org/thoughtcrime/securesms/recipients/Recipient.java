@@ -28,11 +28,11 @@ import org.thoughtcrime.securesms.contacts.avatars.TransparentContactPhoto;
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor;
 import org.thoughtcrime.securesms.conversation.colors.ChatColors;
 import org.thoughtcrime.securesms.conversation.colors.ChatColorsPalette;
-import org.thoughtcrime.securesms.database.RecipientDatabase;
-import org.thoughtcrime.securesms.database.RecipientDatabase.MentionSetting;
-import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
-import org.thoughtcrime.securesms.database.RecipientDatabase.UnidentifiedAccessMode;
-import org.thoughtcrime.securesms.database.RecipientDatabase.VibrateState;
+import org.thoughtcrime.securesms.database.RecipientTable;
+import org.thoughtcrime.securesms.database.RecipientTable.MentionSetting;
+import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState;
+import org.thoughtcrime.securesms.database.RecipientTable.UnidentifiedAccessMode;
+import org.thoughtcrime.securesms.database.RecipientTable.VibrateState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.DistributionListId;
 import org.thoughtcrime.securesms.database.model.ProfileAvatarFileDetails;
@@ -72,7 +72,7 @@ import java.util.stream.Collectors;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-import static org.thoughtcrime.securesms.database.RecipientDatabase.InsightsBannerTier;
+import static org.thoughtcrime.securesms.database.RecipientTable.InsightsBannerTier;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class Recipient {
@@ -231,7 +231,7 @@ public class Recipient {
       throw new AssertionError("Unknown serviceId!");
     }
 
-    RecipientDatabase db = SignalDatabase.recipients();
+    RecipientTable db = SignalDatabase.recipients();
 
     RecipientId recipientId;
 
@@ -270,8 +270,8 @@ public class Recipient {
       throw new AssertionError();
     }
 
-    RecipientDatabase db          = SignalDatabase.recipients();
-    RecipientId       recipientId = db.getAndPossiblyMerge(serviceId, e164);
+    RecipientTable db          = SignalDatabase.recipients();
+    RecipientId    recipientId = db.getAndPossiblyMerge(serviceId, e164);
 
     Recipient resolved = resolved(recipientId);
 
@@ -298,8 +298,8 @@ public class Recipient {
    */
   @WorkerThread
   public static @NonNull Recipient externalContact(@NonNull String identifier) {
-    RecipientDatabase db = SignalDatabase.recipients();
-    RecipientId       id = null;
+    RecipientTable db = SignalDatabase.recipients();
+    RecipientId    id = null;
 
     if (UuidUtil.isUuid(identifier)) {
       throw new AssertionError("UUIDs are not valid system contact identifiers!");
@@ -354,8 +354,8 @@ public class Recipient {
   public static @NonNull Recipient external(@NonNull Context context, @NonNull String identifier) {
     Preconditions.checkNotNull(identifier, "Identifier cannot be null!");
 
-    RecipientDatabase db = SignalDatabase.recipients();
-    RecipientId       id = null;
+    RecipientTable db = SignalDatabase.recipients();
+    RecipientId    id = null;
 
     if (UuidUtil.isUuid(identifier)) {
       ServiceId serviceId = ServiceId.parseOrThrow(identifier);
@@ -876,6 +876,10 @@ public class Recipient {
   public boolean isActiveGroup() {
     RecipientId selfId = Recipient.self().getId();
     return Stream.of(getParticipantIds()).anyMatch(p -> p.equals(selfId));
+  }
+
+  public boolean isInactiveGroup() {
+    return isGroup() && !isActiveGroup();
   }
 
   public @NonNull List<RecipientId> getParticipantIds() {

@@ -5,7 +5,6 @@ import org.thoughtcrime.securesms.database.model.StoryType
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge
 import org.thoughtcrime.securesms.mms.IncomingMediaMessage
 import org.thoughtcrime.securesms.mms.OutgoingMediaMessage
-import org.thoughtcrime.securesms.mms.OutgoingSecureMediaMessage
 import org.thoughtcrime.securesms.recipients.Recipient
 import java.util.Optional
 
@@ -21,8 +20,8 @@ object MmsHelper {
     subscriptionId: Int = -1,
     expiresIn: Long = 0,
     viewOnce: Boolean = false,
-    distributionType: Int = ThreadDatabase.DistributionTypes.DEFAULT,
-    threadId: Long = 1,
+    distributionType: Int = ThreadTable.DistributionTypes.DEFAULT,
+    threadId: Long = SignalDatabase.threads.getOrCreateThreadIdFor(recipient, distributionType),
     storyType: StoryType = StoryType.NONE,
     parentStoryId: ParentStoryId? = null,
     isStoryReaction: Boolean = false,
@@ -30,27 +29,19 @@ object MmsHelper {
     secure: Boolean = true
   ): Long {
     val message = OutgoingMediaMessage(
-      recipient,
-      body,
-      emptyList(),
-      sentTimeMillis,
-      subscriptionId,
-      expiresIn,
-      viewOnce,
-      distributionType,
-      storyType,
-      parentStoryId,
-      isStoryReaction,
-      null,
-      emptyList(),
-      emptyList(),
-      emptyList(),
-      emptySet(),
-      emptySet(),
-      giftBadge
-    ).let {
-      if (secure) OutgoingSecureMediaMessage(it) else it
-    }
+      recipient = recipient,
+      body = body,
+      timestamp = sentTimeMillis,
+      subscriptionId = subscriptionId,
+      expiresIn = expiresIn,
+      viewOnce = viewOnce,
+      distributionType = distributionType,
+      storyType = storyType,
+      parentStoryId = parentStoryId,
+      isStoryReaction = isStoryReaction,
+      giftBadge = giftBadge,
+      isSecure = secure
+    )
 
     return insert(
       message = message,
@@ -62,13 +53,13 @@ object MmsHelper {
     message: OutgoingMediaMessage,
     threadId: Long
   ): Long {
-    return SignalDatabase.mms.insertMessageOutbox(message, threadId, false, GroupReceiptDatabase.STATUS_UNKNOWN, null)
+    return SignalDatabase.mms.insertMessageOutbox(message, threadId, false, GroupReceiptTable.STATUS_UNKNOWN, null)
   }
 
   fun insert(
     message: IncomingMediaMessage,
     threadId: Long
-  ): Optional<MessageDatabase.InsertResult> {
+  ): Optional<MessageTable.InsertResult> {
     return SignalDatabase.mms.insertSecureDecryptedMessageInbox(message, threadId)
   }
 }

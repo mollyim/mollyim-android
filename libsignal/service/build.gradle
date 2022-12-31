@@ -1,7 +1,9 @@
 apply plugin: 'java-library'
+apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'java-test-fixtures'
 apply plugin: 'com.google.protobuf'
 apply plugin: 'idea'
+apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 sourceCompatibility = 1.8
 archivesBaseName    = "signal-service-java"

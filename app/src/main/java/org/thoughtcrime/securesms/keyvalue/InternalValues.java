@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 
 import java.util.Arrays;
@@ -119,7 +120,7 @@ public final class InternalValues extends SignalStoreValues {
    * internal users cannot be left on old servers.
    */
   public synchronized @NonNull String groupCallingServer() {
-    String internalServer = FeatureFlags.internalUser() ? getString(CALLING_SERVER, null) : null;
+    String internalServer = FeatureFlags.internalUser() ? getString(CALLING_SERVER, Environment.Calling.defaultSfuUrl()) : null;
     if (internalServer != null && !Arrays.asList(BuildConfig.SIGNAL_SFU_INTERNAL_URLS).contains(internalServer)) {
       internalServer = null;
     }
@@ -142,7 +143,10 @@ public final class InternalValues extends SignalStoreValues {
    */
   public synchronized CallManager.BandwidthMode callingBandwidthMode() {
     if (FeatureFlags.internalUser()) {
-      return CallManager.BandwidthMode.values()[getInteger(CALLING_BANDWIDTH_MODE, CallManager.BandwidthMode.NORMAL.ordinal())];
+      int                         index = getInteger(CALLING_BANDWIDTH_MODE, CallManager.BandwidthMode.NORMAL.ordinal());
+      CallManager.BandwidthMode[] modes = CallManager.BandwidthMode.values();
+
+      return index < modes.length ? modes[index] : CallManager.BandwidthMode.NORMAL;
     } else {
       return CallManager.BandwidthMode.NORMAL;
     }
