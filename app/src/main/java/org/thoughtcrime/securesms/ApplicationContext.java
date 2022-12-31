@@ -509,7 +509,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     MessageProcessReceiver.startOrUpdateAlarm(this);
 
     if (TextSecurePreferences.isUpdateApkEnabled(this)) {
-      UpdateApkRefreshListener.schedule(this);
+      UpdateApkRefreshListener.scheduleIfAllowed(this);
     }
   }
 

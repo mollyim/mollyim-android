@@ -73,10 +73,10 @@ task qa {
     dependsOn = [
             ':libsignal-service:test',
             ':libsignal-service:ktlintCheck',
-            ':app:testProdNonFreeReleaseUnitTest',
-            ':app:lintProdNonFreeRelease',
+            ':app:testProdGmsWebsiteReleaseUnitTest',
+            ':app:lintProdGmsWebsiteRelease',
             ':app:ktlintCheck',
-            ':app:assembleProdFreeRelease',
+            ':app:assembleProdFossWebsiteRelease',
     ]
 }
 

@@ -2,12 +2,12 @@ package org.thoughtcrime.securesms.service;
 
 
 import android.content.Context;
-import android.content.Intent;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.UpdateApkJob;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.concurrent.TimeUnit;
@@ -38,8 +38,10 @@ public class UpdateApkRefreshListener extends PersistentAlarmManagerListener {
     return newTime;
   }
 
-  public static void schedule(Context context) {
-    new UpdateApkRefreshListener().onReceive(context, getScheduleIntent());
+  public static void scheduleIfAllowed(Context context) {
+    if (FeatureFlags.selfUpdater()) {
+      new UpdateApkRefreshListener().onReceive(context, getScheduleIntent());
+    }
   }
 
 }

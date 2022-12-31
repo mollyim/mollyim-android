@@ -328,7 +328,11 @@ public final class FeatureFlags {
 
   /** Internal testing extensions. */
   public static boolean internalUser() {
-    return getBoolean(INTERNAL_USER, false) || Release.IS_DEBUGGABLE || BuildConfig.FORCE_INTERNAL_USER_FLAG;
+    return getBoolean(INTERNAL_USER, false) || BuildConfig.DEBUG || BuildConfig.FORCE_INTERNAL_USER_FLAG;
+  }
+
+  public static boolean selfUpdater() {
+    return BuildConfig.ALLOW_INSTALL_SELF_UPDATES;
   }
 
   /** Whether or not to use the UUID in verification codes. */

@@ -265,7 +265,7 @@ public final class Megaphones {
         .setBody(R.string.EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them)
         .setActionButton(R.string.EnableAppUpdatesMegaphone_check_for_updates, (megaphone, listener) -> {
           TextSecurePreferences.setUpdateApkEnabled(context, true);
-          UpdateApkRefreshListener.schedule(context);
+          UpdateApkRefreshListener.scheduleIfAllowed(context);
           listener.onMegaphoneCompleted(Event.ENABLE_APP_UPDATES);
           listener.onMegaphoneToastRequested(context.getString(R.string.EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available));
         })
@@ -357,7 +357,9 @@ public final class Megaphones {
   }
 
   private static boolean shouldShowEnableAppUpdatesMegaphone(@NonNull Context context) {
-    return !TextSecurePreferences.isUpdateApkEnabled(context) && VersionTracker.getDaysSinceFirstInstalled(context) > 0;
+    return FeatureFlags.selfUpdater() &&
+           !TextSecurePreferences.isUpdateApkEnabled(context) &&
+           VersionTracker.getDaysSinceFirstInstalled(context) > 0;
   }
 
   private static boolean shouldShowDonateMegaphone(@NonNull Context context, @NonNull Event event, @NonNull Map<Event, MegaphoneRecord> records) {

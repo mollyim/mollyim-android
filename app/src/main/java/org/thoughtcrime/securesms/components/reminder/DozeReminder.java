@@ -11,9 +11,9 @@ import android.provider.Settings;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.util.Release;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 @SuppressLint("BatteryLife")
@@ -41,18 +41,18 @@ public class DozeReminder extends Reminder {
   }
 
   private static String getDozeTitle(Context context) {
-    if (Release.IS_FOSS) {
-      return context.getString(R.string.DozeReminder_optimize_for_timely_notifications);
-    } else {
+    if (BuildConfig.USE_PLAY_SERVICES) {
       return context.getString(R.string.DozeReminder_optimize_for_missing_play_services);
+    } else {
+      return context.getString(R.string.DozeReminder_optimize_for_timely_notifications);
     }
   }
 
   private static String getDozeText(Context context) {
-    if (Release.IS_FOSS) {
-      return context.getString(R.string.DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby);
-    } else {
+    if (BuildConfig.USE_PLAY_SERVICES) {
       return context.getString(R.string.DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery);
+    } else {
+      return context.getString(R.string.DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby);
     }
   }
 }

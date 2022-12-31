@@ -20,7 +20,6 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.InputAwareLayout;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.mms.GlideApp;
-import org.thoughtcrime.securesms.util.Release;
 import org.thoughtcrime.securesms.util.StorageUtil;
 
 import java.util.Arrays;
@@ -28,7 +27,7 @@ import java.util.List;
 
 public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.InputView {
 
-  private static final List<AttachmentKeyboardButton> DEFAULT_BUTTONS_NON_FREE = Arrays.asList(
+  private static final List<AttachmentKeyboardButton> DEFAULT_BUTTONS_PLAY_SERVICES = Arrays.asList(
       AttachmentKeyboardButton.GALLERY,
       AttachmentKeyboardButton.FILE,
       AttachmentKeyboardButton.PAYMENT,
@@ -36,7 +35,7 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
       AttachmentKeyboardButton.LOCATION
   );
 
-  private static final List<AttachmentKeyboardButton> DEFAULT_BUTTONS_FREE = Arrays.asList(
+  private static final List<AttachmentKeyboardButton> DEFAULT_BUTTONS = Arrays.asList(
       AttachmentKeyboardButton.GALLERY,
       AttachmentKeyboardButton.FILE,
       AttachmentKeyboardButton.PAYMENT,
@@ -63,11 +62,10 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
   }
 
   private List<AttachmentKeyboardButton> getDefaultButtons() {
-    //noinspection ConstantConditions
-    if (Release.IS_FOSS) {
-      return DEFAULT_BUTTONS_FREE;
+    if (BuildConfig.USE_PLAY_SERVICES) {
+      return DEFAULT_BUTTONS_PLAY_SERVICES;
     }
-    return DEFAULT_BUTTONS_NON_FREE;
+    return DEFAULT_BUTTONS;
   }
 
   private void init(@NonNull Context context) {

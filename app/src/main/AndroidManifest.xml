@@ -70,10 +70,6 @@
     <!-- Set image as wallpaper -->
     <uses-permission android:name="android.permission.SET_WALLPAPER"/>
 
-    <!-- For the APK auto-updater -->
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
 
@@ -96,7 +92,7 @@
                  android:theme="@style/TextSecure.LightTheme"
                  android:largeHeap="true">
 
-    <!-- MOLLY: GMS and Google Maps stuff moved to nonFree/AndroidManifest.xml -->
+    <!-- MOLLY: GMS and Google Maps stuff moved to gms/AndroidManifest.xml -->
 
     <meta-data android:name="android.supports_size_changes"
                android:value="true" />
@@ -669,7 +665,7 @@
 
     <service android:name=".gcm.FcmFetchForegroundService" />
 
-    <!-- MOLLY: FcmReceiveService moved to nonFree/AndroidManifest.xml -->
+    <!-- MOLLY: FcmReceiveService moved to gms/AndroidManifest.xml -->
 
     <receiver android:name=".notifications.MarkReadReceiver"
               android:enabled="true"
@@ -766,20 +762,6 @@
     <receiver android:name=".service.PersistentConnectionBootListener" android:exported="false">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED"/>
-        </intent-filter>
-    </receiver>
-
-    <!-- MOLLY: Updater-related services imported from Signal website/AndroidManifest.xml -->
-
-    <receiver android:name=".service.UpdateApkRefreshListener" android:exported="false">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
-        </intent-filter>
-    </receiver>
-
-    <receiver android:name=".service.UpdateApkReadyListener" android:exported="false">
-        <intent-filter>
-            <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
         </intent-filter>
     </receiver>
 

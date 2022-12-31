@@ -21,6 +21,7 @@ import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.service.UpdateApkReadyListener;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FileUtils;
 import org.signal.core.util.Hex;
 import org.thoughtcrime.securesms.util.JsonUtils;
@@ -66,7 +67,7 @@ public class UpdateApkJob extends BaseJob {
 
   @Override
   public void onRun() throws IOException, PackageManager.NameNotFoundException {
-    if (!TextSecurePreferences.isUpdateApkEnabled(context)) {
+    if (!FeatureFlags.selfUpdater() || !TextSecurePreferences.isUpdateApkEnabled(context)) {
       return;
     }
 

@@ -312,7 +312,7 @@ public class TextSecurePreferences {
     }
 
     if (isUpdateApkEnabled(context)) {
-      UpdateApkRefreshListener.schedule(context);
+      UpdateApkRefreshListener.scheduleIfAllowed(context);
     }
   }
 

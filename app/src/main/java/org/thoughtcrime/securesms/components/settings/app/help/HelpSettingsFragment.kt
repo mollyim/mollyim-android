@@ -9,6 +9,7 @@ import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -48,24 +49,26 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
         summary = DSLSettingsText.from(BuildConfig.VERSION_NAME)
       )
 
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences__autoupdate_molly),
-        summary = DSLSettingsText.from(R.string.preferences__periodically_check_for_new_releases_and_ask_to_install_them),
-        isChecked = state.updateApkEnabled,
-        onClick = {
-          viewModel.setUpdateApkEnabled(!state.updateApkEnabled)
-        }
-      )
+      if (FeatureFlags.selfUpdater()) {
+        switchPref(
+          title = DSLSettingsText.from(R.string.preferences__autoupdate_molly),
+          summary = DSLSettingsText.from(R.string.preferences__periodically_check_for_new_releases_and_ask_to_install_them),
+          isChecked = state.updateApkEnabled,
+          onClick = {
+            viewModel.setUpdateApkEnabled(!state.updateApkEnabled)
+          }
+        )
 
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences__include_beta_updates),
-        summary = DSLSettingsText.from(R.string.preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs),
-        isChecked = state.includeBetaEnabled,
-        isEnabled = state.updateApkEnabled,
-        onClick = {
-          viewModel.setIncludeBetaEnabled(!state.includeBetaEnabled)
-        }
-      )
+        switchPref(
+          title = DSLSettingsText.from(R.string.preferences__include_beta_updates),
+          summary = DSLSettingsText.from(R.string.preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs),
+          isChecked = state.includeBetaEnabled,
+          isEnabled = state.updateApkEnabled,
+          onClick = {
+            viewModel.setIncludeBetaEnabled(!state.includeBetaEnabled)
+          }
+        )
+      }
 
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__enable_debug_log),

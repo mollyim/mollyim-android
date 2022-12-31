@@ -90,24 +90,26 @@ def mollyRevision = 0
 def postFixSize = 100
 
 def selectableVariants = [
-        'prodFreeDebug',
-        'prodFreeRelease',
-        'prodNonFreeDebug',
-        'prodNonFreeRelease',
-        'prodNonFreeInstrumentation',
-        'prodNonFreeSpinner',
-        'stagingFreeDebug',
-        'stagingFreeRelease',
-        'stagingNonFreeDebug',
-        'stagingNonFreeInstrumentation',
-        'stagingNonFreeRelease',
+        'prodFossWebsiteDebug',
+        'prodFossWebsiteRelease',
+        'prodFossStoreDebug',
+        'prodFossStoreRelease',
+        'prodGmsWebsiteDebug',
+        'prodGmsWebsiteRelease',
+        'prodGmsWebsiteInstrumentation',
+        'prodGmsWebsiteSpinner',
+        'stagingFossWebsiteDebug',
+        'stagingFossWebsiteRelease',
+        'stagingGmsWebsiteDebug',
+        'stagingGmsWebsiteInstrumentation',
+        'stagingGmsWebsiteRelease',
 ]
 
 android {
     buildToolsVersion BUILD_TOOL_VERSION
     compileSdkVersion COMPILE_SDK
 
-    flavorDimensions 'environment', 'distribution'
+    flavorDimensions 'environment', 'license', 'distribution'
     useLibrary 'org.apache.http.legacy'
     testBuildType 'instrumentation'
 
@@ -210,7 +212,6 @@ android {
         buildConfigField "String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\""
         buildConfigField "String", "SIGNAL_CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
         buildConfigField "int", "SIGNAL_CANONICAL_VERSION_CODE", "$canonicalVersionCode"
-        buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
         buildConfigField "String", "BACKUP_FILENAME", "\"" + BASE_APP_FILENAME.toLowerCase() + "\""
         buildConfigField "boolean", "FORCE_INTERNAL_USER_FLAG", "$FORCE_INTERNAL_USER_FLAG"
 
@@ -251,10 +252,10 @@ android {
         buildConfigField "String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/registration/generate.html\""
         buildConfigField "String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/challenge/generate.html\""
 
-        // MOLLY: Use FLAVOR_distribution instead
+        // MOLLY: Rely on the built-in variables FLAVOR and BUILD_TYPE instead
         // buildConfigField "String", "BUILD_DISTRIBUTION_TYPE", "\"unset\""
-        buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"unset\""
-        buildConfigField "String", "BUILD_VARIANT_TYPE", "\"unset\""
+        // buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"unset\""
+        // buildConfigField "String", "BUILD_VARIANT_TYPE", "\"unset\""
         buildConfigField "String", "BADGE_STATIC_ROOT", "\"https://updates2.signal.org/static/badges/\""
 
         ndk {
@@ -291,8 +292,6 @@ android {
                     'proguard/proguard.cfg'
             testProguardFiles 'proguard/proguard-automation.pro',
                     'proguard/proguard.cfg'
-
-            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Debug\""
         }
 
         instrumentation {
@@ -301,8 +300,6 @@ android {
             minifyEnabled false
             matchingFallbacks = ['debug']
             applicationIdSuffix ".instrumentation"
-
-            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Instrumentation\""
         }
 
         spinner {
@@ -310,8 +307,6 @@ android {
             isDefault false
             minifyEnabled false
             matchingFallbacks = ['debug']
-
-            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Spinner\""
         }
 
         release {
@@ -319,21 +314,33 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles = buildTypes.debug.proguardFiles
-
-            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Release\""
         }
     }
 
     productFlavors {
-        free {
-            dimension 'distribution'
-            versionNameSuffix '-FOSS'
-            buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\""
-        }
-
-        nonFree {
+        website {
             dimension 'distribution'
             isDefault true
+            buildConfigField "boolean", "ALLOW_INSTALL_SELF_UPDATES", "true"
+        }
+
+        store {
+            dimension 'distribution'
+            buildConfigField "boolean", "ALLOW_INSTALL_SELF_UPDATES", "false"
+        }
+
+        gms {
+            dimension 'license'
+            isDefault true
+            buildConfigField "boolean", "USE_PLAY_SERVICES", "true"
+            buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
+        }
+
+        foss {
+            dimension 'license'
+            versionNameSuffix '-FOSS'
+            buildConfigField "boolean", "USE_PLAY_SERVICES", "false"
+            buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\""
         }
 
         prod {
@@ -342,7 +349,6 @@ android {
             isDefault true
 
             buildConfigField "String", "MOBILE_COIN_ENVIRONMENT", "\"mainnet\""
-            buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"Prod\""
         }
 
         staging {
@@ -370,8 +376,6 @@ android {
             buildConfigField "String", "MOBILE_COIN_ENVIRONMENT", "\"testnet\""
             buildConfigField "String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/staging/registration/generate.html\""
             buildConfigField "String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/staging/challenge/generate.html\""
-
-            buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"Staging\""
         }
     }
 
@@ -383,14 +387,14 @@ android {
         variant.resValue "string", 'package_name', variant.applicationId
 
         variant.outputs.all {
-            def flavors = "-${variant.baseName}" - ~/-prod/ - ~/-(free|nonFree)/ - ~/-release/
+            def flavors = "-${variant.baseName}" - ~/-prod/ - ~/-(foss|gms)/ - ~/-website/ - ~/-release/
             def unsigned = hasSigningConfig ? "" : "-unsigned"
             outputFileName = "${BASE_APP_FILENAME}${flavors}${unsigned}-${versionName}.apk"
         }
     }
 
     android.variantFilter { variant ->
-        def matches = BUILD_VARIANTS.split(',').any { variant.name.contains(it) }
+        def matches = variant.name =~ BUILD_VARIANTS
         if (!(selectableVariants.contains(variant.name) && matches)) {
             setIgnore(true)
         }
@@ -443,14 +447,14 @@ dependencies {
     implementation libs.androidx.sharetarget
     implementation libs.androidx.webkit
 
-    nonFreeImplementation (libs.firebase.messaging) {
+    gmsImplementation (libs.firebase.messaging) {
         exclude group: 'com.google.firebase', module: 'firebase-core'
         exclude group: 'com.google.firebase', module: 'firebase-analytics'
         exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
     }
 
-    nonFreeImplementation libs.google.play.services.maps
-    nonFreeImplementation libs.google.play.services.auth
+    gmsImplementation libs.google.play.services.maps
+    gmsImplementation libs.google.play.services.auth
 
     implementation libs.bundles.exoplayer
 
@@ -464,7 +468,7 @@ dependencies {
     implementation project(':video')
     implementation project(':device-transfer')
     implementation project(':image-editor')
-    freeImplementation project(':libfakegms')
+    fossImplementation project(':libfakegms')
     implementation project(":libnetcipher")
     implementation project(':contacts')
     implementation project(':qr')
