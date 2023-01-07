@@ -42,12 +42,12 @@ jobs:
         run: docker-compose build
         working-directory: reproducible-builds
 
-      - name: Build release APKs
+      - name: Build release
         if: "env.PRE_RELEASE == 'false'"
         run: docker-compose --env-file ci/release.env run assemble
         working-directory: reproducible-builds
 
-      - name: Build pre-release APKs
+      - name: Build pre-release
         if: "env.PRE_RELEASE == 'true'"
         run: docker-compose --env-file ci/prerelease.env run assemble
         working-directory: reproducible-builds
@@ -55,11 +55,14 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: new
-          path: |
-            reproducible-builds/apks/*/release/*.apk
-            reproducible-builds/apkdiff/apkdiff.py
+          path: reproducible-builds/outputs/apk/*/release/*.apk
           if-no-files-found: error
-          retention-days: 5
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: apkdiff
+          path: reproducible-builds/apkdiff/apkdiff.py
+          if-no-files-found: error
 
   download:
     name: Download original
@@ -82,7 +85,6 @@ jobs:
           name: original
           path: "*.apk"
           if-no-files-found: error
-          retention-days: 5
 
       - name: Output filenames to compare
         id: set
@@ -113,7 +115,7 @@ jobs:
 
       - name: Normalize APK filenames
         run: |
-          mv -v new/apks/*/release/*.apk new/
+          mv -v new/apk/*/release/*.apk new/
           for fn in */*-unsigned-*.apk; do
             mv -v "$fn" "$(sed 's/-unsigned-/-/' <<< $fn)"
           done
@@ -124,6 +126,6 @@ jobs:
           APK_FILE: "${{ matrix.apk-file }}"
 
       - name: Check for reproducibility
-        run: python new/apkdiff/apkdiff.py "original/$APK_FILE" "new/$APK_FILE"
+        run: python apkdiff/apkdiff.py "original/$APK_FILE" "new/$APK_FILE"
         env:
           APK_FILE: "${{ matrix.apk-file }}"
