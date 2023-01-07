@@ -4,10 +4,10 @@ services:
     image: reproducible-molly
     build:
       context: ..
-    command: :app:assembleRelease
+    command: :app:assembleRelease :app:bundleRelease
     volumes:
       - ./certs:/molly/app/certs:ro
-      - ./apks:/molly/app/build/outputs/apk
+      - ./outputs:/molly/app/build/outputs
     environment:
       - CI_APP_TITLE
       - CI_APP_FILENAME

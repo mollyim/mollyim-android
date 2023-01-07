@@ -38,12 +38,12 @@ jobs:
         env:
           RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
 
-      - name: Build APKs
+      - name: Build release
         if: "env.HAVE_RELEASE_KEYSTORE == 'false'"
         run: docker-compose --env-file ci/release.env run assemble
         working-directory: reproducible-builds
 
-      - name: Build and sign APKs
+      - name: Build and sign release
         if: "env.HAVE_RELEASE_KEYSTORE == 'true'"
         run: docker-compose --env-file ci/release.env run assemble
         working-directory: reproducible-builds
@@ -58,13 +58,21 @@ jobs:
         working-directory: reproducible-builds
 
       - name: Log checksums
-        run: find reproducible-builds/apks -name "*.apk" -exec sha256sum '{}' +
+        run: find outputs \( -name "*.aab" -o -name "*.apk" \) -exec sha256sum '{}' +
+        working-directory: reproducible-builds
 
       - name: Upload APKs
         uses: actions/upload-artifact@v3
         with:
-          name: build
-          path: reproducible-builds/apks/*/release/*.apk
+          name: apk
+          path: reproducible-builds/outputs/apk/*/release/*.apk
+          if-no-files-found: error
+
+      - name: Upload Bundles
+        uses: actions/upload-artifact@v3
+        with:
+          name: bundle
+          path: reproducible-builds/outputs/bundle/*Release/*.aab
           if-no-files-found: error
 
   publish:
@@ -85,7 +93,7 @@ jobs:
           gh release list --exclude-drafts
           gh release download --pattern '*.apk' --dir latest || exit 0
           latest_apks=(latest/*.apk)
-          build_apks=(build/*/release/*.apk)
+          build_apks=(apk/*/release/*.apk)
           version_code() {
             local aapt=($ANDROID_HOME/build-tools/30.*/aapt)
             $aapt d badging "$1" | gawk 'match($0, /^package:.*versionCode=.([0-9]+)/, v) {print v[1]}'
@@ -95,6 +103,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release draft
-        run: gh release create -d -t "$GITHUB_REF_NAME" "$GITHUB_REF_NAME" ./build/*/release/*.apk
+        run: gh release create -d -t "$GITHUB_REF_NAME" "$GITHUB_REF_NAME" ./apk/*/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
