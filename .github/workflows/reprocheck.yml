@@ -115,7 +115,7 @@ jobs:
 
       - name: Normalize APK filenames
         run: |
-          mv -v new/apk/*/release/*.apk new/
+          mv -v new/*/release/*.apk new/
           for fn in */*-unsigned-*.apk; do
             mv -v "$fn" "$(sed 's/-unsigned-/-/' <<< $fn)"
           done
