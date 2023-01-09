@@ -221,6 +221,10 @@ public class TextSecurePreferences {
       BIOMETRIC_SCREEN_LOCK,
   };
 
+  private static final String[] stringSetPreferencesToBackupMolly = {PASSPHRASE_LOCK_TRIGGER};
+
+  private static final String[] integerPreferencesToBackupMolly = {PASSPHRASE_LOCK_TIMEOUT};
+
   public static long getPreferencesToSaveToBackupCount(@NonNull Context context) {
     SharedPreferences preferences = getSharedPreferences(context);
     long              count       = 0;
@@ -245,6 +249,18 @@ public class TextSecurePreferences {
 
     for (String booleanPreference : booleanPreferencesToBackupMolly) {
       if (preferences.contains(booleanPreference)) {
+        count++;
+      }
+    }
+
+    for (String stringSetPreference : stringSetPreferencesToBackupMolly) {
+      if (preferences.contains(stringSetPreference)) {
+        count++;
+      }
+    }
+
+    for (String integerPreference : integerPreferencesToBackupMolly) {
+      if (preferences.contains(integerPreference)) {
         count++;
       }
     }
@@ -294,6 +310,27 @@ public class TextSecurePreferences {
                                                       .setFile(SecurePreferenceManager.getSecurePreferencesName())
                                                       .setKey(booleanPreference)
                                                       .setBooleanValue(preferences.getBoolean(booleanPreference, false))
+                                                      .build());
+      }
+    }
+
+    for (String stringSetPreference : stringSetPreferencesToBackupMolly) {
+      if (preferences.contains(stringSetPreference)) {
+        backupProtos.add(BackupProtos.SharedPreference.newBuilder()
+                                                      .setFile(SecurePreferenceManager.getSecurePreferencesName())
+                                                      .setKey(stringSetPreference)
+                                                      .setIsStringSetValue(true)
+                                                      .addAllStringSetValue(preferences.getStringSet(stringSetPreference, Collections.emptySet()))
+                                                      .build());
+      }
+    }
+
+    for (String integerPreference : integerPreferencesToBackupMolly) {
+      if (preferences.contains(integerPreference)) {
+        backupProtos.add(BackupProtos.SharedPreference.newBuilder()
+                                                      .setFile(SecurePreferenceManager.getSecurePreferencesName())
+                                                      .setKey(integerPreference)
+                                                      .setIntegerValue(preferences.getInt(integerPreference, 0))
                                                       .build());
       }
     }

@@ -275,6 +275,8 @@ public class FullBackupImporter extends FullBackupBase {
       preferences.edit().putBoolean(preference.getKey(), preference.getBooleanValue()).commit();
     } else if (preference.hasIsStringSetValue() && preference.getIsStringSetValue()) {
       preferences.edit().putStringSet(preference.getKey(), new HashSet<>(preference.getStringSetValueList())).commit();
+    } else if (preference.hasIntegerValue()) {
+      preferences.edit().putInt(preference.getKey(), preference.getIntegerValue()).commit();
     }
   }
 
