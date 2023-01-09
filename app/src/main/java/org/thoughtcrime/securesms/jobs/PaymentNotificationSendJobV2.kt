@@ -4,7 +4,7 @@ import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.jobmanager.Data
 import org.thoughtcrime.securesms.jobmanager.Job
-import org.thoughtcrime.securesms.mms.OutgoingMediaMessage
+import org.thoughtcrime.securesms.mms.OutgoingMessage
 import org.thoughtcrime.securesms.net.NotPushRegisteredException
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
@@ -15,7 +15,7 @@ import kotlin.time.Duration.Companion.seconds
 /**
  * Crafts a [OutgoingPaymentsNotificationMessage] and uses the regular media sending framework to send it
  * instead of attempting to send directly. The logic for actually creating over-the-wire representation is
- * now in [PushMediaSendJob] which gets enqueued by [MessageSender.send].
+ * now in [IndividualSendJob] which gets enqueued by [MessageSender.send].
  */
 class PaymentNotificationSendJobV2 private constructor(
   parameters: Parameters,
@@ -63,14 +63,14 @@ class PaymentNotificationSendJobV2 private constructor(
 
     MessageSender.send(
       context,
-      OutgoingMediaMessage.paymentNotificationMessage(
+      OutgoingMessage.paymentNotificationMessage(
         recipient,
         uuid.toString(),
         System.currentTimeMillis(),
         recipient.expiresInSeconds.seconds.inWholeMilliseconds
       ),
       SignalDatabase.threads.getOrCreateThreadIdFor(recipient),
-      false,
+      MessageSender.SendType.SIGNAL,
       null,
       null
     )

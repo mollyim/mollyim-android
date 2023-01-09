@@ -15,9 +15,11 @@ import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.ResourceDecoder
 import com.bumptech.glide.load.engine.Resource
 import com.bumptech.glide.load.resource.SimpleResource
+import org.signal.core.util.concurrent.safeBlockingGet
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord
 import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.StoryTextPost
@@ -112,13 +114,19 @@ data class StoryTextPostModel(
     override fun handles(source: StoryTextPostModel, options: Options): Boolean = true
 
     override fun decode(source: StoryTextPostModel, width: Int, height: Int, options: Options): Resource<Bitmap> {
-      val message = SignalDatabase.mmsSms.getMessageFor(source.storySentAtMillis, source.storyAuthor)
+      val message = SignalDatabase.messages.getMessageFor(source.storySentAtMillis, source.storyAuthor).run {
+        if (this is MediaMmsMessageRecord) {
+          this.withAttachments(ApplicationDependencies.getApplication(), SignalDatabase.attachments.getAttachmentsForMessage(this.id))
+        } else {
+          this
+        }
+      }
       val view = StoryTextPostView(ContextThemeWrapper(ApplicationDependencies.getApplication(), R.style.TextSecure_DarkNoActionBar))
       val typeface = TypefaceCache.get(
         ApplicationDependencies.getApplication(),
         TextFont.fromStyle(source.storyTextPost.style),
         TextToScript.guessScript(source.storyTextPost.body)
-      ).blockingGet()
+      ).safeBlockingGet()
 
       val displayWidth: Int = ApplicationDependencies.getApplication().resources.displayMetrics.widthPixels
       val arHeight: Int = (RENDER_HW_AR * displayWidth).toInt()

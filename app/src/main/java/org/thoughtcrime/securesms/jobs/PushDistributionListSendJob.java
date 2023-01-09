@@ -26,7 +26,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.messages.GroupSendUtil;
 import org.thoughtcrime.securesms.messages.StorySendUtil;
 import org.thoughtcrime.securesms.mms.MmsException;
-import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
+import org.thoughtcrime.securesms.mms.OutgoingMessage;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.stories.Stories;
@@ -96,7 +96,7 @@ public final class PushDistributionListSendJob extends PushSendJob {
         throw new AssertionError("Not a distribution list! MessageId: " + messageId);
       }
 
-      OutgoingMediaMessage message = SignalDatabase.mms().getOutgoingMessage(messageId);
+      OutgoingMessage message = SignalDatabase.messages().getOutgoingMessage(messageId);
 
       if (!message.getStoryType().isStory()) {
         throw new AssertionError("Only story messages are currently supported! MessageId: " + messageId);
@@ -112,7 +112,7 @@ public final class PushDistributionListSendJob extends PushSendJob {
       jobManager.add(new PushDistributionListSendJob(messageId, destination, !attachmentUploadIds.isEmpty(), filterRecipientIds), attachmentUploadIds, attachmentUploadIds.isEmpty() ? null : destination.toQueueKey());
     } catch (NoSuchMessageException | MmsException e) {
       Log.w(TAG, "Failed to enqueue message.", e);
-      SignalDatabase.mms().markAsSentFailed(messageId);
+      SignalDatabase.messages().markAsSentFailed(messageId);
       notifyMediaMessageDeliveryFailed(context, messageId);
     }
   }
@@ -131,15 +131,15 @@ public final class PushDistributionListSendJob extends PushSendJob {
 
   @Override
   public void onAdded() {
-    SignalDatabase.mms().markAsSending(messageId);
+    SignalDatabase.messages().markAsSending(messageId);
   }
 
   @Override
   public void onPushSend()
       throws IOException, MmsException, NoSuchMessageException, RetryLaterException
   {
-    MessageTable             database                   = SignalDatabase.mms();
-    OutgoingMediaMessage     message                    = database.getOutgoingMessage(messageId);
+    MessageTable             database                   = SignalDatabase.messages();
+    OutgoingMessage          message                    = database.getOutgoingMessage(messageId);
     Set<NetworkFailure>      existingNetworkFailures    = new HashSet<>(message.getNetworkFailures());
     Set<IdentityKeyMismatch> existingIdentityMismatches = new HashSet<>(message.getIdentityKeyMismatches());
 
@@ -187,10 +187,10 @@ public final class PushDistributionListSendJob extends PushSendJob {
 
   @Override
   public void onFailure() {
-    SignalDatabase.mms().markAsSentFailed(messageId);
+    SignalDatabase.messages().markAsSentFailed(messageId);
   }
 
-  private List<SendMessageResult> deliver(@NonNull OutgoingMediaMessage message, @NonNull List<Recipient> destinations)
+  private List<SendMessageResult> deliver(@NonNull OutgoingMessage message, @NonNull List<Recipient> destinations)
       throws IOException, UntrustedIdentityException, UndeliverableMessageException
   {
     try {
@@ -215,7 +215,7 @@ public final class PushDistributionListSendJob extends PushSendJob {
 
       Log.d(TAG, "[" + messageId + "] Sending a story message with a manifest of size " + manifestCollection.size());
 
-      return GroupSendUtil.sendStoryMessage(context, message.getRecipient().requireDistributionListId(), destinations, isRecipientUpdate, new MessageId(messageId, true), message.getSentTimeMillis(), storyMessage, manifestCollection);
+      return GroupSendUtil.sendStoryMessage(context, message.getRecipient().requireDistributionListId(), destinations, isRecipientUpdate, new MessageId(messageId), message.getSentTimeMillis(), storyMessage, manifestCollection);
     } catch (ServerRejectedException e) {
       throw new UndeliverableMessageException(e);
     }

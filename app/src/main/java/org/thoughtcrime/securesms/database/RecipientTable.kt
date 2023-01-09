@@ -1185,7 +1185,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       }
     }
 
-    for (id in groups.allGroupV2Ids) {
+    for (id in groups.getAllGroupV2Ids()) {
       val recipient = Recipient.externalGroupExact(id!!)
       val recipientId = recipient.id
       val existing: RecipientRecord = getRecordForSync(recipientId) ?: throw AssertionError()
@@ -1551,6 +1551,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     value = Bitmask.update(value, Capabilities.STORIES, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isStories).serialize().toLong())
     value = Bitmask.update(value, Capabilities.GIFT_BADGES, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isGiftBadges).serialize().toLong())
     value = Bitmask.update(value, Capabilities.PNP, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isPnp).serialize().toLong())
+    value = Bitmask.update(value, Capabilities.PAYMENT_ACTIVATION, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isPaymentActivation).serialize().toLong())
 
     val values = ContentValues(1).apply {
       put(CAPABILITIES, value)
@@ -2474,7 +2475,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         }
         is PnpOperation.ChangeNumberInsert -> {
           if (changeSet.id is PnpIdResolver.PnpNoopId) {
-            SignalDatabase.sms.insertNumberChangeMessages(changeSet.id.recipientId)
+            SignalDatabase.messages.insertNumberChangeMessages(changeSet.id.recipientId)
           } else {
             throw IllegalStateException("There's a change number event on a newly-inserted recipient?")
           }
@@ -3283,8 +3284,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         INNER JOIN ${ThreadTable.TABLE_NAME} AS t ON t.${ThreadTable.RECIPIENT_ID} = r.$ID
         WHERE
           r.$PROFILE_SHARING = 0 AND (
-            EXISTS(SELECT 1 FROM ${SmsTable.TABLE_NAME} WHERE ${SmsTable.THREAD_ID} = t.${ThreadTable.ID} AND ${SmsTable.DATE_RECEIVED} < ?) OR
-            EXISTS(SELECT 1 FROM ${MmsTable.TABLE_NAME} WHERE ${MmsTable.THREAD_ID} = t.${ThreadTable.ID} AND ${MmsTable.DATE_RECEIVED} < ?)
+            EXISTS(SELECT 1 FROM ${MessageTable.TABLE_NAME} WHERE ${MessageTable.THREAD_ID} = t.${ThreadTable.ID} AND ${MessageTable.DATE_RECEIVED} < ?)
           )
       """.trimIndent()
 
@@ -3537,7 +3537,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         mergeEvent.previousE164 = secondaryRecord.e164
       }
 
-      SignalDatabase.sms.insertThreadMergeEvent(primaryRecord.id, threadMerge.threadId, mergeEvent.build())
+      SignalDatabase.messages.insertThreadMergeEvent(primaryRecord.id, threadMerge.threadId, mergeEvent.build())
     }
 
     // Recipient
@@ -3898,6 +3898,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       storiesCapability = Recipient.Capability.deserialize(Bitmask.read(capabilities, Capabilities.STORIES, Capabilities.BIT_LENGTH).toInt()),
       giftBadgesCapability = Recipient.Capability.deserialize(Bitmask.read(capabilities, Capabilities.GIFT_BADGES, Capabilities.BIT_LENGTH).toInt()),
       pnpCapability = Recipient.Capability.deserialize(Bitmask.read(capabilities, Capabilities.PNP, Capabilities.BIT_LENGTH).toInt()),
+      paymentActivation = Recipient.Capability.deserialize(Bitmask.read(capabilities, Capabilities.PAYMENT_ACTIVATION, Capabilities.BIT_LENGTH).toInt()),
     )
   }
 
@@ -4219,6 +4220,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     const val STORIES = 5
     const val GIFT_BADGES = 6
     const val PNP = 7
+    const val PAYMENT_ACTIVATION = 8
   }
 
   enum class VibrateState(val id: Int) {

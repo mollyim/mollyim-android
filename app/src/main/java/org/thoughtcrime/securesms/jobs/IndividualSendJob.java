@@ -22,9 +22,10 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
+import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.MmsException;
-import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
+import org.thoughtcrime.securesms.mms.OutgoingMessage;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
@@ -56,42 +57,55 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
-public class PushMediaSendJob extends PushSendJob {
+public class IndividualSendJob extends PushSendJob {
 
   public static final String KEY = "PushMediaSendJob";
 
-  private static final String TAG = Log.tag(PushMediaSendJob.class);
+  private static final String TAG = Log.tag(IndividualSendJob.class);
 
   private static final String KEY_MESSAGE_ID = "message_id";
 
-  private long messageId;
+  private final long messageId;
 
-  public PushMediaSendJob(long messageId, @NonNull Recipient recipient, boolean hasMedia) {
-    this(constructParameters(recipient, hasMedia), messageId);
+  public IndividualSendJob(long messageId, @NonNull Recipient recipient, boolean hasMedia) {
+    this(new Parameters.Builder()
+                       .setQueue(recipient.getId().toQueueKey(hasMedia))
+                       .addConstraint(NetworkConstraint.KEY)
+                       .setLifespan(TimeUnit.DAYS.toMillis(1))
+                       .setMaxAttempts(Parameters.UNLIMITED)
+                       .build(),
+         messageId);
   }
 
-  private PushMediaSendJob(Job.Parameters parameters, long messageId) {
+  private IndividualSendJob(Job.Parameters parameters, long messageId) {
     super(parameters);
     this.messageId = messageId;
+  }
+
+  public static Job create(long messageId, @NonNull Recipient recipient, boolean hasMedia) {
+    if (!recipient.hasServiceId()) {
+      throw new AssertionError("No ServiceId!");
+    }
+
+    if (recipient.isGroup()) {
+      throw new AssertionError("This job does not send group messages!");
+    }
+
+    return new IndividualSendJob(messageId, recipient, hasMedia);
   }
 
   @WorkerThread
   public static void enqueue(@NonNull Context context, @NonNull JobManager jobManager, long messageId, @NonNull Recipient recipient) {
     try {
-      if (!recipient.hasServiceId()) {
-        throw new AssertionError("No ServiceId!");
-      }
+      OutgoingMessage message             = SignalDatabase.messages().getOutgoingMessage(messageId);
+      Set<String>     attachmentUploadIds = enqueueCompressingAndUploadAttachmentsChains(jobManager, message);
 
-      MessageTable         database = SignalDatabase.mms();
-      OutgoingMediaMessage message  = database.getOutgoingMessage(messageId);
-      Set<String>          attachmentUploadIds = enqueueCompressingAndUploadAttachmentsChains(jobManager, message);
-
-      jobManager.add(new PushMediaSendJob(messageId, recipient, attachmentUploadIds.size() > 0), attachmentUploadIds, recipient.getId().toQueueKey());
-
+      jobManager.add(IndividualSendJob.create(messageId, recipient, attachmentUploadIds.size() > 0), attachmentUploadIds, recipient.getId().toQueueKey());
     } catch (NoSuchMessageException | MmsException e) {
       Log.w(TAG, "Failed to enqueue message.", e);
-      SignalDatabase.mms().markAsSentFailed(messageId);
+      SignalDatabase.messages().markAsSentFailed(messageId);
       notifyMediaMessageDeliveryFailed(context, messageId);
     }
   }
@@ -108,7 +122,7 @@ public class PushMediaSendJob extends PushSendJob {
 
   @Override
   public void onAdded() {
-    SignalDatabase.mms().markAsSending(messageId);
+    SignalDatabase.messages().markAsSending(messageId);
   }
 
   @Override
@@ -116,9 +130,9 @@ public class PushMediaSendJob extends PushSendJob {
       throws IOException, MmsException, NoSuchMessageException, UndeliverableMessageException, RetryLaterException
   {
     ExpiringMessageManager expirationManager = ApplicationDependencies.getExpiringMessageManager();
-    MessageTable           database          = SignalDatabase.mms();
-    OutgoingMediaMessage   message           = database.getOutgoingMessage(messageId);
-    long                   threadId          = database.getMessageRecord(messageId).getThreadId();
+    MessageTable    database = SignalDatabase.messages();
+    OutgoingMessage message  = database.getOutgoingMessage(messageId);
+    long            threadId = database.getMessageRecord(messageId).getThreadId();
 
     if (database.isSent(messageId)) {
       warn(TAG, String.valueOf(message.getSentTimeMillis()), "Message " + messageId + " was already sent. Ignoring.");
@@ -142,9 +156,9 @@ public class PushMediaSendJob extends PushSendJob {
 
       if (recipient.isSelf()) {
         SyncMessageId id = new SyncMessageId(recipient.getId(), message.getSentTimeMillis());
-        SignalDatabase.mmsSms().incrementDeliveryReceiptCount(id, System.currentTimeMillis());
-        SignalDatabase.mmsSms().incrementReadReceiptCount(id, System.currentTimeMillis());
-        SignalDatabase.mmsSms().incrementViewedReceiptCount(id, System.currentTimeMillis());
+        SignalDatabase.messages().incrementDeliveryReceiptCount(id, System.currentTimeMillis());
+        SignalDatabase.messages().incrementReadReceiptCount(id, System.currentTimeMillis());
+        SignalDatabase.messages().incrementViewedReceiptCount(id, System.currentTimeMillis());
       }
 
       if (unidentified && accessMode == UnidentifiedAccessMode.UNKNOWN && profileKey == null) {
@@ -187,11 +201,11 @@ public class PushMediaSendJob extends PushSendJob {
 
   @Override
   public void onFailure() {
-    SignalDatabase.mms().markAsSentFailed(messageId);
+    SignalDatabase.messages().markAsSentFailed(messageId);
     notifyMediaMessageDeliveryFailed(context, messageId);
   }
 
-  private boolean deliver(OutgoingMediaMessage message)
+  private boolean deliver(OutgoingMessage message)
       throws IOException, InsecureFallbackApprovalException, UntrustedIdentityException, UndeliverableMessageException
   {
     if (message.getRecipient() == null) {
@@ -229,11 +243,12 @@ public class PushMediaSendJob extends PushSendJob {
                                                                                                .withPreviews(previews)
                                                                                                .withGiftBadge(giftBadge)
                                                                                                .asExpirationUpdate(message.isExpirationUpdate())
+                                                                                               .asEndSessionMessage(message.isEndSession())
                                                                                                .withPayment(payment);
 
       if (message.getParentStoryId() != null) {
         try {
-          MessageRecord storyRecord    = SignalDatabase.mms().getMessageRecord(message.getParentStoryId().asMessageId().getId());
+          MessageRecord storyRecord    = SignalDatabase.messages().getMessageRecord(message.getParentStoryId().asMessageId().getId());
           Recipient     storyRecipient = storyRecord.isOutgoing() ? Recipient.self() : storyRecord.getRecipient();
 
           SignalServiceDataMessage.StoryContext storyContext = new SignalServiceDataMessage.StoryContext(storyRecipient.requireServiceId(), storyRecord.getDateSent());
@@ -260,12 +275,12 @@ public class PushMediaSendJob extends PushSendJob {
       if (Util.equals(SignalStore.account().getAci(), address.getServiceId())) {
         Optional<UnidentifiedAccessPair> syncAccess = UnidentifiedAccessUtil.getAccessForSync(context);
         SendMessageResult                result     = messageSender.sendSyncMessage(mediaMessage);
-        SignalDatabase.messageLog().insertIfPossible(messageRecipient.getId(), message.getSentTimeMillis(), result, ContentHint.RESENDABLE, new MessageId(messageId, true), false);
+        SignalDatabase.messageLog().insertIfPossible(messageRecipient.getId(), message.getSentTimeMillis(), result, ContentHint.RESENDABLE, new MessageId(messageId), false);
         return syncAccess.isPresent();
       } else {
         SendMessageResult result = messageSender.sendDataMessage(address, UnidentifiedAccessUtil.getAccessFor(context, messageRecipient), ContentHint.RESENDABLE, mediaMessage, IndividualSendEvents.EMPTY, message.isUrgent(), messageRecipient.needsPniSignature());
 
-        SignalDatabase.messageLog().insertIfPossible(messageRecipient.getId(), message.getSentTimeMillis(), result, ContentHint.RESENDABLE, new MessageId(messageId, true), message.isUrgent());
+        SignalDatabase.messageLog().insertIfPossible(messageRecipient.getId(), message.getSentTimeMillis(), result, ContentHint.RESENDABLE, new MessageId(messageId), message.isUrgent());
 
         if (messageRecipient.needsPniSignature()) {
           SignalDatabase.pendingPniSignatureMessages().insertIfNecessary(messageRecipient.getId(), message.getSentTimeMillis(), result);
@@ -284,7 +299,7 @@ public class PushMediaSendJob extends PushSendJob {
     }
   }
 
-  private SignalServiceDataMessage.Payment getPayment(OutgoingMediaMessage message) {
+  private SignalServiceDataMessage.Payment getPayment(OutgoingMessage message) {
     if (message.isPaymentsNotification()) {
       UUID                            paymentUuid = UuidUtil.parseOrThrow(message.getBody());
       PaymentTable.PaymentTransaction payment     = SignalDatabase.payments().getPayment(paymentUuid);
@@ -321,10 +336,10 @@ public class PushMediaSendJob extends PushSendJob {
     return data.getLong(KEY_MESSAGE_ID);
   }
 
-  public static final class Factory implements Job.Factory<PushMediaSendJob> {
+  public static final class Factory implements Job.Factory<IndividualSendJob> {
     @Override
-    public @NonNull PushMediaSendJob create(@NonNull Parameters parameters, @NonNull Data data) {
-      return new PushMediaSendJob(parameters, data.getLong(KEY_MESSAGE_ID));
+    public @NonNull IndividualSendJob create(@NonNull Parameters parameters, @NonNull Data data) {
+      return new IndividualSendJob(parameters, data.getLong(KEY_MESSAGE_ID));
     }
   }
 }

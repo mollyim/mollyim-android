@@ -109,19 +109,11 @@ public class WebRtcInteractor {
   }
 
   void insertMissedCall(@NonNull RemotePeer remotePeer, long timestamp, boolean isVideoOffer) {
-    signalCallManager.insertMissedCall(remotePeer.getRecipient(), true, timestamp, isVideoOffer);
-  }
-
-  void insertDeniedCall(@NonNull RemotePeer remotePeer, boolean isVideoOffer) {
-    signalCallManager.insertDeniedCall(remotePeer.getRecipient(), isVideoOffer);
-  }
-
-  void insertOutgoingCall(@NonNull RemotePeer remotePeer, boolean isVideoOffer) {
-    signalCallManager.insertOutgoingCall(remotePeer.getRecipient(), isVideoOffer);
+    signalCallManager.insertMissedCall(remotePeer.getRecipient(), timestamp, isVideoOffer);
   }
 
   void insertReceivedCall(@NonNull RemotePeer remotePeer, boolean isVideoOffer) {
-    signalCallManager.insertReceivedCall(remotePeer.getRecipient(), true, isVideoOffer);
+    signalCallManager.insertReceivedCall(remotePeer.getRecipient(), isVideoOffer);
   }
 
   boolean startWebRtcCallActivityIfPossible() {
@@ -194,5 +186,13 @@ public class WebRtcInteractor {
 
   public void requestGroupMembershipProof(GroupId.V2 groupId, int groupCallHashCode) {
     signalCallManager.requestGroupMembershipToken(groupId, groupCallHashCode);
+  }
+
+  public void sendAcceptedCallEventSyncMessage(@NonNull RemotePeer remotePeer, boolean isOutgoing, boolean isVideoCall) {
+    signalCallManager.sendAcceptedCallEventSyncMessage(remotePeer, isOutgoing, isVideoCall);
+  }
+
+  public void sendNotAcceptedCallEventSyncMessage(@NonNull RemotePeer remotePeer, boolean isOutgoing, boolean isVideoCall) {
+    signalCallManager.sendNotAcceptedCallEventSyncMessage(remotePeer, isOutgoing, isVideoCall);
   }
 }

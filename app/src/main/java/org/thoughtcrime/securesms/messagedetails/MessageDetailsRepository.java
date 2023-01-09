@@ -13,7 +13,6 @@ import org.thoughtcrime.securesms.conversation.ConversationMessage.ConversationM
 import org.thoughtcrime.securesms.database.DatabaseObserver;
 import org.thoughtcrime.securesms.database.GroupTable;
 import org.thoughtcrime.securesms.database.GroupReceiptTable;
-import org.thoughtcrime.securesms.database.MmsSmsTable;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatch;
@@ -37,8 +36,8 @@ public final class MessageDetailsRepository {
 
   private final Context context = ApplicationDependencies.getApplication();
 
-  @NonNull LiveData<MessageRecord> getMessageRecord(String type, Long messageId) {
-    return new MessageRecordLiveData(new MessageId(messageId, type.equals(MmsSmsTable.MMS_TRANSPORT)));
+  @NonNull LiveData<MessageRecord> getMessageRecord(Long messageId) {
+    return new MessageRecordLiveData(new MessageId(messageId));
   }
 
   @NonNull LiveData<MessageDetails> getMessageDetails(@Nullable MessageRecord messageRecord) {
@@ -57,9 +56,7 @@ public final class MessageDetailsRepository {
     return Observable.<MessageDetails>create(emitter -> {
       DatabaseObserver.MessageObserver messageObserver = mId -> {
         try {
-          MessageRecord messageRecord = messageId.isMms() ? SignalDatabase.mms().getMessageRecord(messageId.getId())
-                                                          : SignalDatabase.sms().getMessageRecord(messageId.getId());
-
+          MessageRecord  messageRecord  = SignalDatabase.messages().getMessageRecord(messageId.getId());
           MessageDetails messageDetails = getRecipientDeliveryStatusesInternal(messageRecord);
 
           emitter.onNext(messageDetails);

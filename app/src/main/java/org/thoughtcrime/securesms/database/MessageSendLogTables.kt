@@ -88,15 +88,9 @@ class MessageSendLogTables constructor(context: Context?, databaseHelper: Signal
 
     val CREATE_TRIGGERS = arrayOf(
       """
-        CREATE TRIGGER msl_sms_delete AFTER DELETE ON ${SmsTable.TABLE_NAME} 
+        CREATE TRIGGER msl_mms_delete AFTER DELETE ON ${org.thoughtcrime.securesms.database.MessageTable.TABLE_NAME} 
         BEGIN 
-        	DELETE FROM $TABLE_NAME WHERE $ID IN (SELECT ${MessageTable.PAYLOAD_ID} FROM ${MessageTable.TABLE_NAME} WHERE ${MessageTable.MESSAGE_ID} = old.${SmsTable.ID} AND ${MessageTable.IS_MMS} = 0);
-        END
-      """,
-      """
-        CREATE TRIGGER msl_mms_delete AFTER DELETE ON ${MmsTable.TABLE_NAME} 
-        BEGIN 
-        	DELETE FROM $TABLE_NAME WHERE $ID IN (SELECT ${MessageTable.PAYLOAD_ID} FROM ${MessageTable.TABLE_NAME} WHERE ${MessageTable.MESSAGE_ID} = old.${MmsTable.ID} AND ${MessageTable.IS_MMS} = 1);
+        	DELETE FROM $TABLE_NAME WHERE $ID IN (SELECT ${MessageTable.PAYLOAD_ID} FROM ${MessageTable.TABLE_NAME} WHERE ${MessageTable.MESSAGE_ID} = old.${org.thoughtcrime.securesms.database.MessageTable.ID} AND ${MessageTable.IS_MMS} = 1);
         END
       """,
       """
@@ -265,7 +259,7 @@ class MessageSendLogTables constructor(context: Context?, databaseHelper: Signal
         messageValues += ContentValues().apply {
           put(MessageTable.PAYLOAD_ID, payloadId)
           put(MessageTable.MESSAGE_ID, messageId.id)
-          put(MessageTable.IS_MMS, if (messageId.mms) 1 else 0)
+          put(MessageTable.IS_MMS, 0)
         }
       }
       SqlUtil.buildBulkInsert(MessageTable.TABLE_NAME, arrayOf(MessageTable.PAYLOAD_ID, MessageTable.MESSAGE_ID, MessageTable.IS_MMS), messageValues)
@@ -298,8 +292,7 @@ class MessageSendLogTables constructor(context: Context?, databaseHelper: Signal
           while (messageCursor.moveToNext()) {
             messageIds.add(
               MessageId(
-                id = CursorUtil.requireLong(messageCursor, MessageTable.MESSAGE_ID),
-                mms = CursorUtil.requireBoolean(messageCursor, MessageTable.IS_MMS)
+                id = CursorUtil.requireLong(messageCursor, MessageTable.MESSAGE_ID)
               )
             )
           }

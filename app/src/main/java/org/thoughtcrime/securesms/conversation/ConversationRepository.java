@@ -10,11 +10,11 @@ import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
 import org.thoughtcrime.securesms.database.DatabaseObserver;
-import org.thoughtcrime.securesms.database.GroupTable;
 import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadTable;
+import org.thoughtcrime.securesms.database.model.GroupRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.MultiDeviceViewedUpdateJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
@@ -58,7 +58,7 @@ class ConversationRepository {
   @WorkerThread
   public @NonNull ConversationData getConversationData(long threadId, @NonNull Recipient conversationRecipient, int jumpToPosition) {
     ThreadTable.ConversationMetadata metadata   = SignalDatabase.threads().getConversationMetadata(threadId);
-    int                              threadSize = SignalDatabase.mmsSms().getConversationCount(threadId);
+    int                              threadSize = SignalDatabase.messages().getMessageCountForThread(threadId);
     long                                lastSeen                       = metadata.getLastSeen();
     int                                 lastSeenPosition               = 0;
     long                                lastScrolled                   = metadata.getLastScrolled();
@@ -68,7 +68,7 @@ class ConversationRepository {
     boolean                             showUniversalExpireTimerUpdate = false;
 
     if (lastSeen > 0) {
-      lastSeenPosition = SignalDatabase.mmsSms().getMessagePositionOnOrAfterTimestamp(threadId, lastSeen);
+      lastSeenPosition = SignalDatabase.messages().getMessagePositionOnOrAfterTimestamp(threadId, lastSeen);
     }
 
     if (lastSeenPosition <= 0) {
@@ -76,14 +76,14 @@ class ConversationRepository {
     }
 
     if (lastSeen == 0 && lastScrolled > 0) {
-      lastScrolledPosition = SignalDatabase.mmsSms().getMessagePositionOnOrAfterTimestamp(threadId, lastScrolled);
+      lastScrolledPosition = SignalDatabase.messages().getMessagePositionOnOrAfterTimestamp(threadId, lastScrolled);
     }
 
     if (!isMessageRequestAccepted) {
       boolean isGroup                             = false;
       boolean recipientIsKnownOrHasGroupsInCommon = false;
       if (conversationRecipient.isGroup()) {
-        Optional<GroupTable.GroupRecord> group = SignalDatabase.groups().getGroup(conversationRecipient.getId());
+        Optional<GroupRecord> group = SignalDatabase.groups().getGroup(conversationRecipient.getId());
         if (group.isPresent()) {
           List<Recipient> recipients = Recipient.resolvedList(group.get().getMembers());
           for (Recipient recipient : recipients) {
@@ -104,7 +104,7 @@ class ConversationRepository {
         conversationRecipient.getExpiresInSeconds() == 0 &&
         !conversationRecipient.isGroup() &&
         conversationRecipient.isRegistered() &&
-        (threadId == -1 || !SignalDatabase.mmsSms().hasMeaningfulMessage(threadId)))
+        (threadId == -1 || !SignalDatabase.messages().hasMeaningfulMessage(threadId)))
     {
       showUniversalExpireTimerUpdate = true;
     }
@@ -114,7 +114,7 @@ class ConversationRepository {
 
   void markGiftBadgeRevealed(long messageId) {
     SignalExecutors.BOUNDED_IO.execute(() -> {
-      List<MessageTable.MarkedMessageInfo> markedMessageInfo = SignalDatabase.mms().setOutgoingGiftsRevealed(Collections.singletonList(messageId));
+      List<MessageTable.MarkedMessageInfo> markedMessageInfo = SignalDatabase.messages().setOutgoingGiftsRevealed(Collections.singletonList(messageId));
       if (!markedMessageInfo.isEmpty()) {
         Log.d(TAG, "Marked gift badge revealed. Sending view sync message.");
         MultiDeviceViewedUpdateJob.enqueue(
@@ -179,7 +179,7 @@ class ConversationRepository {
 
     return Observable.<Integer> create(emitter -> {
 
-      DatabaseObserver.Observer listener = () -> emitter.onNext(SignalDatabase.mmsSms().getIncomingMeaningfulMessageCountSince(threadId, afterTime));
+      DatabaseObserver.Observer listener = () -> emitter.onNext(SignalDatabase.messages().getIncomingMeaningfulMessageCountSince(threadId, afterTime));
 
       ApplicationDependencies.getDatabaseObserver().registerConversationObserver(threadId, listener);
       emitter.setCancellable(() -> ApplicationDependencies.getDatabaseObserver().unregisterObserver(listener));

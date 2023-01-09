@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.jobs;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Build;
 import android.text.TextUtils;
 
@@ -37,13 +36,11 @@ import org.thoughtcrime.securesms.events.PartProgressEvent;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil;
-import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.CertificateType;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
-import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader.DecryptableUri;
-import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
+import org.thoughtcrime.securesms.mms.OutgoingMessage;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.mms.QuoteModel;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
@@ -90,15 +87,6 @@ public abstract class PushSendJob extends SendJob {
 
   protected PushSendJob(Job.Parameters parameters) {
     super(parameters);
-  }
-
-  protected static Job.Parameters constructParameters(@NonNull Recipient recipient, boolean hasMedia) {
-    return new Parameters.Builder()
-                         .setQueue(recipient.getId().toQueueKey(hasMedia))
-                         .addConstraint(NetworkConstraint.KEY)
-                         .setLifespan(TimeUnit.DAYS.toMillis(1))
-                         .setMaxAttempts(Parameters.UNLIMITED)
-                         .build();
   }
 
   @Override
@@ -203,7 +191,7 @@ public abstract class PushSendJob extends SendJob {
     return null;
   }
 
-  protected static Set<String> enqueueCompressingAndUploadAttachmentsChains(@NonNull JobManager jobManager, OutgoingMediaMessage message) {
+  protected static Set<String> enqueueCompressingAndUploadAttachmentsChains(@NonNull JobManager jobManager, OutgoingMessage message) {
     List<Attachment> attachments = new LinkedList<>();
 
     attachments.addAll(message.getAttachments());
@@ -292,16 +280,16 @@ public abstract class PushSendJob extends SendJob {
   }
 
   protected static void notifyMediaMessageDeliveryFailed(Context context, long messageId) {
-    long                     threadId           = SignalDatabase.mms().getThreadIdForMessage(messageId);
+    long                     threadId           = SignalDatabase.messages().getThreadIdForMessage(messageId);
     Recipient                recipient          = SignalDatabase.threads().getRecipientForThreadId(threadId);
-    ParentStoryId.GroupReply groupReplyStoryId  = SignalDatabase.mms().getParentStoryIdForGroupReply(messageId);
+    ParentStoryId.GroupReply groupReplyStoryId  = SignalDatabase.messages().getParentStoryIdForGroupReply(messageId);
 
     if (threadId != -1 && recipient != null) {
       ApplicationDependencies.getMessageNotifier().notifyMessageDeliveryFailed(context, recipient, ConversationId.fromThreadAndReply(threadId, groupReplyStoryId));
     }
   }
 
-  protected Optional<SignalServiceDataMessage.Quote> getQuoteFor(OutgoingMediaMessage message) throws IOException {
+  protected Optional<SignalServiceDataMessage.Quote> getQuoteFor(OutgoingMessage message) throws IOException {
     if (message.getOutgoingQuote() == null) return Optional.empty();
 
     long                                                  quoteId              = message.getOutgoingQuote().getId();
@@ -364,7 +352,7 @@ public abstract class PushSendJob extends SendJob {
     }
   }
 
-  protected Optional<SignalServiceDataMessage.Sticker> getStickerFor(OutgoingMediaMessage message) {
+  protected Optional<SignalServiceDataMessage.Sticker> getStickerFor(OutgoingMessage message) {
     Attachment stickerAttachment = Stream.of(message.getAttachments()).filter(Attachment::isSticker).findFirst().orElse(null);
 
     if (stickerAttachment == null) {
@@ -386,7 +374,7 @@ public abstract class PushSendJob extends SendJob {
     }
   }
 
-  protected Optional<SignalServiceDataMessage.Reaction> getStoryReactionFor(@NonNull OutgoingMediaMessage message, @NonNull SignalServiceDataMessage.StoryContext storyContext) {
+  protected Optional<SignalServiceDataMessage.Reaction> getStoryReactionFor(@NonNull OutgoingMessage message, @NonNull SignalServiceDataMessage.StoryContext storyContext) {
     if (message.isStoryReaction()) {
       return Optional.of(new SignalServiceDataMessage.Reaction(message.getBody(),
                                                                false,
@@ -397,7 +385,7 @@ public abstract class PushSendJob extends SendJob {
     }
   }
 
-  List<SharedContact> getSharedContactsFor(OutgoingMediaMessage mediaMessage) {
+  List<SharedContact> getSharedContactsFor(OutgoingMessage mediaMessage) {
     List<SharedContact> sharedContacts = new LinkedList<>();
 
     for (Contact contact : mediaMessage.getSharedContacts()) {
@@ -417,7 +405,7 @@ public abstract class PushSendJob extends SendJob {
     return sharedContacts;
   }
 
-  List<SignalServicePreview> getPreviewsFor(OutgoingMediaMessage mediaMessage) {
+  List<SignalServicePreview> getPreviewsFor(OutgoingMessage mediaMessage) {
     return Stream.of(mediaMessage.getLinkPreviews()).map(lp -> {
       SignalServiceAttachment attachment = lp.getThumbnail().isPresent() ? getAttachmentPointerFor(lp.getThumbnail().get()) : null;
       return new SignalServicePreview(lp.getUrl(), lp.getTitle(), lp.getDescription(), lp.getDate(), Optional.ofNullable(attachment));
@@ -430,7 +418,7 @@ public abstract class PushSendJob extends SendJob {
                  .toList();
   }
 
-  @Nullable SignalServiceDataMessage.GiftBadge getGiftBadgeFor(@NonNull OutgoingMediaMessage message) throws UndeliverableMessageException {
+  @Nullable SignalServiceDataMessage.GiftBadge getGiftBadgeFor(@NonNull OutgoingMessage message) throws UndeliverableMessageException {
     GiftBadge giftBadge = message.getGiftBadge();
     if (giftBadge == null) {
       return null;
@@ -506,9 +494,9 @@ public abstract class PushSendJob extends SendJob {
 
     Log.w(TAG, "[Proof Required] Marking message as rate-limited. (id: " + messageId + ", mms: " + isMms + ", thread: " + threadId + ")");
     if (isMms) {
-      SignalDatabase.mms().markAsRateLimited(messageId);
+      SignalDatabase.messages().markAsRateLimited(messageId);
     } else {
-      SignalDatabase.sms().markAsRateLimited(messageId);
+      SignalDatabase.messages().markAsRateLimited(messageId);
     }
 
     if (proofRequired.getOptions().contains(ProofRequiredException.Option.RECAPTCHA)) {
@@ -516,7 +504,7 @@ public abstract class PushSendJob extends SendJob {
       SignalStore.rateLimit().markNeedsRecaptcha(proofRequired.getToken());
 
       if (recipient != null) {
-        ParentStoryId.GroupReply groupReply = SignalDatabase.mms().getParentStoryIdForGroupReply(messageId);
+        ParentStoryId.GroupReply groupReply = SignalDatabase.messages().getParentStoryIdForGroupReply(messageId);
         ApplicationDependencies.getMessageNotifier().notifyProofRequired(context, recipient, ConversationId.fromThreadAndReply(threadId, groupReply));
       } else {
         Log.w(TAG, "[Proof Required] No recipient! Couldn't notify.");

@@ -99,12 +99,11 @@ public final class FeatureFlags {
   private static final String HIDE_CONTACTS                     = "android.hide.contacts";
   public  static final String CREDIT_CARD_PAYMENTS              = "android.credit.card.payments.3";
   private static final String PAYMENTS_REQUEST_ACTIVATE_FLOW    = "android.payments.requestActivateFlow";
-  private static final String KEEP_MUTED_CHATS_ARCHIVED         = "android.keepMutedChatsArchived";
   public  static final String GOOGLE_PAY_DISABLED_REGIONS       = "global.donations.gpayDisabledRegions";
   public  static final String CREDIT_CARD_DISABLED_REGIONS      = "global.donations.ccDisabledRegions";
   public  static final String PAYPAL_DISABLED_REGIONS           = "global.donations.paypalDisabledRegions";
   private static final String CDS_HARD_LIMIT                    = "android.cds.hardLimit";
-  private static final String CHAT_FILTERS                      = "android.chat.filters";
+  private static final String CHAT_FILTERS                      = "android.chat.filters.3";
   private static final String PAYPAL_ONE_TIME_DONATIONS         = "android.oneTimePayPalDonations.2";
   private static final String PAYPAL_RECURRING_DONATIONS        = "android.recurringPayPalDonations";
 
@@ -115,8 +114,7 @@ public final class FeatureFlags {
   @VisibleForTesting
   static final Set<String> REMOTE_CAPABLE = SetUtil.newHashSet(
       PAYMENTS_KILL_SWITCH,
-      GROUPS_V2_RECOMMENDED_LIMIT,
-      GROUPS_V2_HARD_LIMIT,
+      GROUPS_V2_RECOMMENDED_LIMIT, GROUPS_V2_HARD_LIMIT,
       INTERNAL_USER,
       VERIFY_V2,
       CLIENT_EXPIRATION,
@@ -157,11 +155,9 @@ public final class FeatureFlags {
       HIDE_CONTACTS,
       CREDIT_CARD_PAYMENTS,
       PAYMENTS_REQUEST_ACTIVATE_FLOW,
-      KEEP_MUTED_CHATS_ARCHIVED,
       GOOGLE_PAY_DISABLED_REGIONS,
       CREDIT_CARD_DISABLED_REGIONS,
       PAYPAL_DISABLED_REGIONS,
-      KEEP_MUTED_CHATS_ARCHIVED,
       CDS_HARD_LIMIT,
       CHAT_FILTERS,
       PAYPAL_ONE_TIME_DONATIONS,
@@ -229,7 +225,6 @@ public final class FeatureFlags {
       RECIPIENT_MERGE_V2,
       CREDIT_CARD_PAYMENTS,
       PAYMENTS_REQUEST_ACTIVATE_FLOW,
-      KEEP_MUTED_CHATS_ARCHIVED,
       CDS_HARD_LIMIT
   );
 
@@ -520,13 +515,6 @@ public final class FeatureFlags {
   /** Whether client supports sending a request to another to activate payments */
   public static boolean paymentsRequestActivateFlow() {
     return getBoolean(PAYMENTS_REQUEST_ACTIVATE_FLOW, false);
-  }
-
-  /**
-   * Whether users can enable keeping conversations with incoming messages archived if the conversation is muted.
-   */
-  public static boolean keepMutedChatsArchived() {
-    return getBoolean(KEEP_MUTED_CHATS_ARCHIVED, false);
   }
 
   /**

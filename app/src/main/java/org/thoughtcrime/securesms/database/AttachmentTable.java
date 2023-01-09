@@ -235,7 +235,7 @@ public class AttachmentTable extends DatabaseTable {
     values.put(TRANSFER_STATE, TRANSFER_PROGRESS_FAILED);
 
     database.update(TABLE_NAME, values, PART_ID_WHERE + " AND " + TRANSFER_STATE + " < " + TRANSFER_PROGRESS_PERMANENT_FAILURE, attachmentId.toStrings());
-    notifyConversationListeners(SignalDatabase.mms().getThreadIdForMessage(mmsId));
+    notifyConversationListeners(SignalDatabase.messages().getThreadIdForMessage(mmsId));
   }
 
   public void setTransferProgressPermanentFailure(AttachmentId attachmentId, long mmsId)
@@ -246,7 +246,7 @@ public class AttachmentTable extends DatabaseTable {
     values.put(TRANSFER_STATE, TRANSFER_PROGRESS_PERMANENT_FAILURE);
 
     database.update(TABLE_NAME, values, PART_ID_WHERE, attachmentId.toStrings());
-    notifyConversationListeners(SignalDatabase.mms().getThreadIdForMessage(mmsId));
+    notifyConversationListeners(SignalDatabase.messages().getThreadIdForMessage(mmsId));
   }
 
   public @Nullable DatabaseAttachment getAttachment(@NonNull AttachmentId attachmentId)
@@ -421,7 +421,7 @@ public class AttachmentTable extends DatabaseTable {
       db.update(TABLE_NAME, values, MMS_ID + " = ?", new String[] { mmsId + "" });
       notifyAttachmentListeners();
 
-      long threadId = SignalDatabase.mms().getThreadIdForMessage(mmsId);
+      long threadId = SignalDatabase.messages().getThreadIdForMessage(mmsId);
       if (threadId > 0) {
         notifyConversationListeners(threadId);
       }
@@ -459,7 +459,7 @@ public class AttachmentTable extends DatabaseTable {
 
   public void trimAllAbandonedAttachments() {
     SQLiteDatabase db              = databaseHelper.getSignalWritableDatabase();
-    String         selectAllMmsIds = "SELECT " + MmsTable.ID + " FROM " + MmsTable.TABLE_NAME;
+    String         selectAllMmsIds = "SELECT " + MessageTable.ID + " FROM " + MessageTable.TABLE_NAME;
     String         where           = MMS_ID + " != " + PREUPLOAD_MESSAGE_ID + " AND " + MMS_ID + " NOT IN (" + selectAllMmsIds + ")";
 
     int deletes = db.delete(TABLE_NAME, where, null);
@@ -624,9 +624,9 @@ public class AttachmentTable extends DatabaseTable {
       //noinspection ResultOfMethodCallIgnored
       dataInfo.file.delete();
     } else {
-      long threadId = SignalDatabase.mms().getThreadIdForMessage(mmsId);
+      long threadId = SignalDatabase.messages().getThreadIdForMessage(mmsId);
 
-      if (!SignalDatabase.mms().isStory(mmsId)) {
+      if (!SignalDatabase.messages().isStory(mmsId)) {
         SignalDatabase.threads().updateSnippetUriSilently(threadId, PartAuthority.getAttachmentDataUri(attachmentId));
       }
 
@@ -972,7 +972,7 @@ public class AttachmentTable extends DatabaseTable {
     values.put(TRANSFER_STATE, TRANSFER_PROGRESS_DONE);
     database.update(TABLE_NAME, values, PART_ID_WHERE, ((DatabaseAttachment)attachment).getAttachmentId().toStrings());
 
-    notifyConversationListeners(SignalDatabase.mms().getThreadIdForMessage(messageId));
+    notifyConversationListeners(SignalDatabase.messages().getThreadIdForMessage(messageId));
   }
 
   public void setTransferState(long messageId, @NonNull AttachmentId attachmentId, int transferState) {
@@ -981,7 +981,7 @@ public class AttachmentTable extends DatabaseTable {
 
     values.put(TRANSFER_STATE, transferState);
     database.update(TABLE_NAME, values, PART_ID_WHERE, attachmentId.toStrings());
-    notifyConversationListeners(SignalDatabase.mms().getThreadIdForMessage(messageId));
+    notifyConversationListeners(SignalDatabase.messages().getThreadIdForMessage(messageId));
   }
 
   /**
