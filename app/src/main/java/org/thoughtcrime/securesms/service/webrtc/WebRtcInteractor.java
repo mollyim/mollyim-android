@@ -109,11 +109,11 @@ public class WebRtcInteractor {
   }
 
   void insertMissedCall(@NonNull RemotePeer remotePeer, long timestamp, boolean isVideoOffer) {
-    signalCallManager.insertMissedCall(remotePeer.getRecipient(), timestamp, isVideoOffer);
+    signalCallManager.insertMissedCall(remotePeer, timestamp, isVideoOffer);
   }
 
   void insertReceivedCall(@NonNull RemotePeer remotePeer, boolean isVideoOffer) {
-    signalCallManager.insertReceivedCall(remotePeer.getRecipient(), isVideoOffer);
+    signalCallManager.insertReceivedCall(remotePeer, isVideoOffer);
   }
 
   boolean startWebRtcCallActivityIfPossible() {

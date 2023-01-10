@@ -2052,7 +2052,6 @@ public final class MessageContentProcessor {
           database.markExpireStarted(messageId, message.getExpirationStartTimestamp());
           ApplicationDependencies.getExpiringMessageManager()
                                  .scheduleDeletion(messageId,
-                                                   true,
                                                    message.getExpirationStartTimestamp(),
                                                    TimeUnit.SECONDS.toMillis(message.getDataMessage().get().getExpiresInSeconds()));
         }
@@ -2274,7 +2273,6 @@ public final class MessageContentProcessor {
         database.markExpireStarted(messageId, message.getExpirationStartTimestamp());
         ApplicationDependencies.getExpiringMessageManager()
                                .scheduleDeletion(messageId,
-                                                 true,
                                                  message.getExpirationStartTimestamp(),
                                                  TimeUnit.SECONDS.toMillis(message.getDataMessage().get().getExpiresInSeconds()));
       }
@@ -2442,7 +2440,7 @@ public final class MessageContentProcessor {
     if (expiresInMillis > 0) {
       database.markExpireStarted(messageId, message.getExpirationStartTimestamp());
       ApplicationDependencies.getExpiringMessageManager()
-                             .scheduleDeletion(messageId, isGroup, message.getExpirationStartTimestamp(), expiresInMillis);
+                             .scheduleDeletion(messageId, message.getExpirationStartTimestamp(), expiresInMillis);
     }
 
     if (recipient.isSelf()) {

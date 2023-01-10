@@ -174,7 +174,7 @@ public class IndividualSendJob extends PushSendJob {
 
       if (message.getExpiresIn() > 0 && !message.isExpirationUpdate()) {
         database.markExpireStarted(messageId);
-        expirationManager.scheduleDeletion(messageId, true, message.getExpiresIn());
+        expirationManager.scheduleDeletion(messageId, message.getExpiresIn());
       }
 
       if (message.isViewOnce()) {

@@ -669,7 +669,8 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
     SQLiteDatabase db                      = databaseHelper.getSignalWritableDatabase();
     Recipient      recipient               = Recipient.resolved(groupRecipientId);
     long           threadId                = SignalDatabase.threads().getOrCreateThreadIdFor(recipient);
-    boolean        peerEraIdSameAsPrevious = updatePreviousGroupCall(threadId, peekGroupCallEraId, peekJoinedUuids, isCallFull);
+    long           expiresIn               = recipient.getExpiresInMillis();
+    boolean        peerEraIdSameAsPrevious = updatePreviousGroupCall(threadId, peekGroupCallEraId, peekJoinedUuids, isCallFull, expiresIn);
 
     try {
       db.beginTransaction();
@@ -792,7 +793,7 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
     TrimThreadJob.enqueueAsync(threadId);
   }
 
-  public boolean updatePreviousGroupCall(long threadId, @Nullable String peekGroupCallEraId, @NonNull Collection<UUID> peekJoinedUuids, boolean isCallFull) {
+  public boolean updatePreviousGroupCall(long threadId, @Nullable String peekGroupCallEraId, @NonNull Collection<UUID> peekJoinedUuids, boolean isCallFull, long expiresIn) {
     SQLiteDatabase db        = databaseHelper.getSignalWritableDatabase();
     String         where     = TYPE + " = ? AND " + THREAD_ID + " = ?";
     String[]       args      = SqlUtil.buildArgs(MessageTypes.GROUP_CALL_TYPE, threadId);
@@ -816,6 +817,15 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
 
       ContentValues contentValues = new ContentValues();
       contentValues.put(BODY, body);
+
+      if (inCallUuids.isEmpty()) {
+        if (sameEraId && record.getExpireStarted() == 0) {
+          contentValues.put(EXPIRES_IN, expiresIn);
+        }
+      } else {
+        contentValues.put(EXPIRES_IN, 0);
+        contentValues.put(EXPIRE_STARTED, 0);
+      }
 
       if (sameEraId && containsSelf) {
         contentValues.put(READ, 1);
@@ -2025,7 +2035,8 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
       cursor = database.query(TABLE_NAME + " INDEXED BY " + INDEX_THREAD_DATE, new String[] { ID, RECIPIENT_ID, DATE_SENT, TYPE, EXPIRES_IN, EXPIRE_STARTED, THREAD_ID, STORY_TYPE }, where, arguments, null, null, null);
 
       while(cursor != null && cursor.moveToNext()) {
-        if (MessageTypes.isSecureType(CursorUtil.requireLong(cursor, TYPE))) {
+        long type = CursorUtil.requireLong(cursor, TYPE);
+        if (MessageTypes.isSecureType(type) || MessageTypes.isCallLog(type)) {
           long           threadId       = CursorUtil.requireLong(cursor, THREAD_ID);
           RecipientId    recipientId    = RecipientId.from(CursorUtil.requireLong(cursor, RECIPIENT_ID));
           long           dateSent       = CursorUtil.requireLong(cursor, DATE_SENT);
@@ -2921,6 +2932,10 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
   }
 
   public boolean deleteMessage(long messageId) {
+    return deleteMessage(messageId, false);
+  }
+
+  public boolean deleteMessage(long messageId, boolean isExpiring) {
     Log.d(TAG, "deleteMessage(" + messageId + ")");
 
     long            threadId           = getThreadIdForMessage(messageId);
@@ -2934,7 +2949,9 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
     mentionDatabase.deleteMentionsForMessage(messageId);
 
     SQLiteDatabase database = databaseHelper.getSignalWritableDatabase();
-    database.delete(TABLE_NAME, ID_WHERE, new String[] {messageId+""});
+
+    final String query = ID_WHERE + (isExpiring ? (" AND " + EXPIRE_STARTED + " > 0") : "");
+    database.delete(TABLE_NAME, query, new String[] { messageId + "" });
 
     SignalDatabase.threads().setLastScrolled(threadId, 0);
     boolean threadDeleted = SignalDatabase.threads().update(threadId, false);
@@ -4280,7 +4297,7 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
 
     for (Pair<Long, Long> expiringMessage : expiringMessages) {
       ApplicationDependencies.getExpiringMessageManager()
-                             .scheduleDeletion(expiringMessage.first(), true, proposedExpireStarted, expiringMessage.second());
+                             .scheduleDeletion(expiringMessage.first(), proposedExpireStarted, expiringMessage.second());
     }
 
     for (long threadId : updatedThreads) {

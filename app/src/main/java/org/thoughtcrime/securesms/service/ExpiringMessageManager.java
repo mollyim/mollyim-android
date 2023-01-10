@@ -19,14 +19,12 @@ public class ExpiringMessageManager {
   private final TreeSet<ExpiringMessageReference> expiringMessageReferences = new TreeSet<>(new ExpiringMessageComparator());
   private final ExecutorService                   executor                  = Executors.newSingleThreadExecutor();
 
-  private final MessageTable smsDatabase;
-  private final MessageTable mmsDatabase;
+  private final MessageTable messageTable;
   private final Context      context;
 
   public ExpiringMessageManager(Context context) {
-    this.context     = context.getApplicationContext();
-    this.smsDatabase = SignalDatabase.messages();
-    this.mmsDatabase = SignalDatabase.messages();
+    this.context      = context.getApplicationContext();
+    this.messageTable = SignalDatabase.messages();
 
     executor.execute(new LoadTask());
     executor.execute(new ProcessTask());
@@ -36,15 +34,15 @@ public class ExpiringMessageManager {
     executor.shutdownNow();
   }
 
-  public void scheduleDeletion(long id, boolean mms, long expiresInMillis) {
-    scheduleDeletion(id, mms, System.currentTimeMillis(), expiresInMillis);
+  public void scheduleDeletion(long id, long expiresInMillis) {
+    scheduleDeletion(id, System.currentTimeMillis(), expiresInMillis);
   }
 
-  public void scheduleDeletion(long id, boolean mms, long startedAtTimestamp, long expiresInMillis) {
+  public void scheduleDeletion(long id, long startedAtTimestamp, long expiresInMillis) {
     long expiresAtMillis = startedAtTimestamp + expiresInMillis;
 
     synchronized (expiringMessageReferences) {
-      expiringMessageReferences.add(new ExpiringMessageReference(id, mms, expiresAtMillis));
+      expiringMessageReferences.add(new ExpiringMessageReference(id, expiresAtMillis));
       expiringMessageReferences.notifyAll();
     }
   }
@@ -57,13 +55,12 @@ public class ExpiringMessageManager {
 
   private class LoadTask implements Runnable {
     public void run() {
-      MessageTable.MmsReader mmsReader = MessageTable.mmsReaderFor(mmsDatabase.getExpirationStartedMessages());
+      MessageTable.MmsReader mmsReader = MessageTable.mmsReaderFor(messageTable.getExpirationStartedMessages());
 
       MessageRecord messageRecord;
 
       while ((messageRecord = mmsReader.getNext()) != null) {
         expiringMessageReferences.add(new ExpiringMessageReference(messageRecord.getId(),
-                                                                   messageRecord.isMms(),
                                                                    messageRecord.getExpireStarted() + messageRecord.getExpiresIn()));
       }
 
@@ -99,8 +96,7 @@ public class ExpiringMessageManager {
         }
 
         if (expiredMessage != null) {
-          if (expiredMessage.mms) mmsDatabase.deleteExpiringMessage(expiredMessage.id);
-          else                    smsDatabase.deleteExpiringMessage(expiredMessage.id);
+          messageTable.deleteMessage(expiredMessage.id, true);
         }
       }
     }
@@ -108,12 +104,10 @@ public class ExpiringMessageManager {
 
   private static class ExpiringMessageReference {
     private final long    id;
-    private final boolean mms;
     private final long    expiresAtMillis;
 
-    private ExpiringMessageReference(long id, boolean mms, long expiresAtMillis) {
+    private ExpiringMessageReference(long id, long expiresAtMillis) {
       this.id = id;
-      this.mms = mms;
       this.expiresAtMillis = expiresAtMillis;
     }
 
@@ -123,12 +117,12 @@ public class ExpiringMessageManager {
       if (!(other instanceof ExpiringMessageReference)) return false;
 
       ExpiringMessageReference that = (ExpiringMessageReference)other;
-      return this.id == that.id && this.mms == that.mms && this.expiresAtMillis == that.expiresAtMillis;
+      return this.id == that.id && this.expiresAtMillis == that.expiresAtMillis;
     }
 
     @Override
     public int hashCode() {
-      return (int)this.id ^ (mms ? 1 : 0) ^ (int)expiresAtMillis;
+      return (int)this.id ^ (int)expiresAtMillis;
     }
   }
 
@@ -139,8 +133,6 @@ public class ExpiringMessageManager {
       else if (lhs.expiresAtMillis > rhs.expiresAtMillis) return 1;
       else if (lhs.id < rhs.id)                           return -1;
       else if (lhs.id > rhs.id)                           return 1;
-      else if (!lhs.mms && rhs.mms)                       return -1;
-      else if (lhs.mms && !rhs.mms)                       return 1;
       else                                                return 0;
     }
   }

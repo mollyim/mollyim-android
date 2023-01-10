@@ -654,7 +654,7 @@ public class MessageSender {
 
       if (message.getExpiresIn() > 0 && !message.isExpirationUpdate()) {
         mmsDatabase.markExpireStarted(messageId);
-        expirationManager.scheduleDeletion(messageId, true, message.getExpiresIn());
+        expirationManager.scheduleDeletion(messageId, message.getExpiresIn());
       }
     } catch (NoSuchMessageException | MmsException e) {
       Log.w(TAG, "Failed to update self-sent message.", e);

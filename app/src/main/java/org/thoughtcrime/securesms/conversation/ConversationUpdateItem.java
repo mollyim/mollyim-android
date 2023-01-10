@@ -24,28 +24,25 @@ import androidx.lifecycle.Transformations;
 import com.google.android.material.button.MaterialButton;
 import com.google.common.collect.Sets;
 
-import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BindableConversationItem;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.components.ConversationItemFooter;
 import org.thoughtcrime.securesms.components.ExpirationTimerView;
 import org.thoughtcrime.securesms.conversation.colors.Colorizer;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
 import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog;
-import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.GroupCallUpdateDetailsUtil;
 import org.thoughtcrime.securesms.database.model.IdentityRecord;
 import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord;
 import org.thoughtcrime.securesms.database.model.LiveUpdateMessage;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.UpdateDescription;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.LiveGroup;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.IdentityUtil;
 import org.thoughtcrime.securesms.util.Projection;
@@ -557,7 +554,7 @@ public final class ConversationUpdateItem extends FrameLayout
           eventListener.onSendPaymentClicked(conversationMessage.getMessageRecord().getIndividualRecipient().getId());
         }
       });
-      // MOLLY: Ensure presentTimer is called for call logs
+      // MOLLY: Ensure presentTimer() is called above for call logs
     } else{
       actionButton.setVisibility(GONE);
       actionButton.setOnClickListener(null);
@@ -568,33 +565,7 @@ public final class ConversationUpdateItem extends FrameLayout
   }
 
   private void presentTimer(@NonNull final MessageRecord messageRecord) {
-    if (messageRecord.getExpiresIn() > 0 && !messageRecord.isPending()) {
-      timer.setVisibility(View.VISIBLE);
-      timer.setPercentComplete(0);
-
-      if (messageRecord.getExpireStarted() > 0) {
-        timer.setExpirationTime(messageRecord.getExpireStarted(),
-            messageRecord.getExpiresIn());
-        timer.startAnimation();
-
-        if (timer.isExpired()) {
-          ApplicationDependencies.getExpiringMessageManager().checkSchedule();
-        }
-      } else if (!messageRecord.isOutgoing() && !messageRecord.isMediaPending()) {
-        SignalExecutors.BOUNDED.execute(() -> {
-          ExpiringMessageManager expirationManager = ApplicationDependencies.getExpiringMessageManager();
-
-          long id        = messageRecord.getId();
-          long expiresIn = messageRecord.getExpiresIn();
-
-          SignalDatabase.sms().markExpireStarted(id);
-
-          expirationManager.scheduleDeletion(id, false, expiresIn);
-        });
-      }
-    } else {
-      timer.setVisibility(View.GONE);
-    }
+    ConversationItemFooter.presentTimer(messageRecord, timer);
   }
 
   private void setTimerColor(@NonNull UpdateDescription updateDescription, @ColorInt int defaultTint) {
