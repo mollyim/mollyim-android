@@ -281,10 +281,10 @@ public class ConversationListFragment extends MainFragment implements ActionMode
           viewModel.setFiltered(false, source);
           break;
         case OPENING:
+          ViewUtil.setMinimumHeight(collapsingToolbarLayout, openHeight);
           viewModel.setFiltered(true, source);
           break;
         case OPEN_APEX:
-          ViewUtil.setMinimumHeight(collapsingToolbarLayout, openHeight);
           if (source == ConversationFilterSource.DRAG) {
             SignalStore.uiHints().incrementNeverDisplayPullToFilterTip();
           }
@@ -1539,6 +1539,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
       if (viewHolder.itemView instanceof ConversationListItemAction ||
           viewHolder instanceof ConversationListAdapter.HeaderViewHolder ||
+          viewHolder instanceof ClearFilterViewHolder ||
           actionMode != null ||
           viewHolder.itemView.isSelected() ||
           activeAdapter == searchAdapter)
