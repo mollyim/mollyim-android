@@ -673,6 +673,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Această versiune a Signal a expirat. Actualizează acum pentru a trimite și primi mesaje.</string>
     <string name="ExpiredBuildReminder_update_now">Actualizează acum</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="ExpiredBuildReminder_api_19_message">Signal nu mai funcționează pe acest dispozitiv. Ca să folosești Signal din nou, actualizează-ți dispozitivul pentru o versiune mai nouă a Android sau treci la un dispozitiv mai nou.</string>
+
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
         <item quantity="one">%1$d solicitare de membru în așteptare.</item>
@@ -1958,11 +1961,11 @@
     <string name="ThreadRecord_video">Video</string>
     <string name="ThreadRecord_chat_session_refreshed">Sesiunea conversației a fost resetată</string>
     <!-- Displayed in the notification when the user is sent a gift -->
-    <string name="ThreadRecord__you_received_a_gift">Ai primit un cadou</string>
+    <string name="ThreadRecord__s_donated_for_you">%1$s donați pentru tine</string>
     <!-- Displayed in the notification when the user sends a gift -->
-    <string name="ThreadRecord__you_sent_a_gift">Ai trimis un cadou</string>
+    <string name="ThreadRecord__you_donated_for_s">Ai donat pentru %1$s</string>
     <!-- Displayed in the notification when the user has opened a received gift -->
-    <string name="ThreadRecord__you_redeemed_a_gift_badge">Ai răscumpărat o insignă cadou</string>
+    <string name="ThreadRecord__you_redeemed_a_badge">Ai răscumpărat o insignă</string>
     <!-- Displayed in the conversation list when someone reacted to your story -->
     <string name="ThreadRecord__reacted_s_to_your_story">A reacționat cu %1$s la povestea ta</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
@@ -2343,7 +2346,7 @@
     <!-- Label indicating that the story being replied to no longer exists -->
     <string name="QuoteView_no_longer_available">Nu mai este disponibilă</string>
     <!-- Label for quoted gift -->
-    <string name="QuoteView__gift">Cadou</string>
+    <string name="QuoteView__donation_for_a_friend">Donație pentru un prieten</string>
 
     <!-- conversation_fragment -->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Derulează până jos</string>
@@ -4457,7 +4460,7 @@
     <!-- Preference heading for other ways to donate -->
     <string name="ManageDonationsFragment__other_ways_to_give">Alte modalități de a dona</string>
     <!-- Preference label to launch badge gifting -->
-    <string name="ManageDonationsFragment__gift_a_badge">Oferă cadou o insignă</string>
+    <string name="ManageDonationsFragment__donate_for_a_friend">Donează pentru un Prieten</string>
 
     <string name="Boost__enter_custom_amount">Introdu o Sumă Specifică</string>
     <string name="Boost__one_time_contribution">Contribuție unică</string>
@@ -4513,10 +4516,10 @@
     <string name="DonationsErrors__failed_to_validate_badge">Validarea insignei a eșuat</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__could_not_validate">Nu s-a putut valida răspunsul serverului. Te rugăm să contactezi asistența.</string>
-    <!-- Displayed as title when some generic error happens during gift badge sending -->
-    <string name="DonationsErrors__failed_to_send_gift_badge">Trimiterea insignei cadou a eșuat</string>
-    <!-- Displayed as message when some generic error happens during gift badge sending -->
-    <string name="DonationsErrors__could_not_send_gift_badge">Nu s-a putut trimite insigna cadou. Te rugăm să contactezi asistența.</string>
+    <!-- Displayed as title when some generic error happens during sending donation on behalf of another user -->
+    <string name="DonationsErrors__donation_failed">Donația a eșuat</string>
+    <!-- Displayed as message when some generic error happens during sending donation on behalf of another user -->
+    <string name="DonationsErrors__your_payment_was_processed_but">Plata a fost procesată, dar Signal nu a putut să trimită mesajul de donație. Te rugăm contactează asistența.</string>
     <string name="DonationsErrors__your_badge_could_not">Insigna nu a putut fi adăugată în cont, dar este posibil să fi fost taxat. Te rugăm să contactezi asistența.</string>
     <string name="DonationsErrors__your_payment_is_still">Plata ta este încă în procesare. Ceea ce poate dura câteva minute în funcție de conexiunea ta.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">Anularea abonamentul a eșuat</string>
@@ -4525,16 +4528,16 @@
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Eroare de rețea. Verifică-ți conexiunea și încearcă din nou.</string>
     <string name="NetworkFailure__retry">Încearcă din nou</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__cant_send_gift">Nu se poate trimite cadoul</string>
+    <string name="DonationsErrors__cannot_send_donation">Nu se poate trimite donația</string>
     <!-- Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__target_does_not_support_gifting">Acest destinatar folosește o versiune de Signal care nu poate primi insigne cadou. Vor putea să primească cadouri când actualizează la cea mai recentă versiune.</string>
-    <!-- Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__couldnt_send_gift">Nu am putut trimite cadoul</string>
+    <string name="DonationsErrors__this_user_cant_receive_donations_until">Acest utilizator nu poate primi donații până nu actualizează Signal.</string>
     <!-- Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__please_check_your_network_connection">Cadoul nu a putut fi trimis din cauza unei erori de rețea. Verifică rețeaua și încearcă din nou.</string>
+    <string name="DonationsErrors__your_donation_could_not_be_sent">Donația ta nu a putut fi trimisă din cauza unei erori de rețea. Verifică-ți conexiunea și încearcă din nou.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__gift_badge">Insignă cadou</string>
+    <string name="GiftMessageView__donation_to_s">Donație către %1$s</string>
+    <!-- Gift message view title for incoming donations -->
+    <string name="GiftMessageView__s_donated_to_signal_on">%1$s donați către Signal în numele tău</string>
     <!-- Gift badge redeem action label -->
     <string name="GiftMessageView__redeem">Revendică</string>
     <!-- Gift badge view action label -->
@@ -4745,7 +4748,7 @@
     <!-- Donation receipts one-time tab label -->
     <string name="DonationReceiptListFragment__one_time">O dată</string>
     <!-- Donation receipts gift tab label -->
-    <string name="DonationReceiptListFragment__gift">Cadou</string>
+    <string name="DonationReceiptListFragment__donation_for_a_friend">Donație pentru un prieten</string>
     <!-- Donation receipts boost row label -->
     <!-- Donation receipts details title -->
     <!-- Donation receipts donation type heading -->
@@ -5103,22 +5106,24 @@
         <item quantity="few">%1$s · %2$d zile valabilitate</item>
         <item quantity="other">%1$s · %2$d de zile valabilitate</item>
     </plurals>
-    <!-- Tagline for gift row items -->
-    <string name="GiftRowItem__send_a_gift_badge">Trimite o insignă cadou</string>
     <!-- Headline text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__gift_a_badge">Oferă Cadou o Insignă</string>
+    <string name="GiftFlowStartFragment__donate_for_a_friend">Donează pentru un prieten</string>
     <!-- Description text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__gift_someone_a_badge">Oferă cuiva o insignă cadou făcând o donație către Signal în numele acestora. Vor primi o insignă pe care o pot afișa pe poza de profil.</string>
+    <plurals name="GiftFlowStartFragment__support_signal_by">
+        <item quantity="one">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d day</item>
+        <item quantity="few">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d days</item>
+        <item quantity="other">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d days</item>
+    </plurals>
     <!-- Action button label for start fragment for gifting a badge -->
     <string name="GiftFlowStartFragment__next">Următorul</string>
     <!-- Title text on choose recipient page for badge gifting -->
     <string name="GiftFlowRecipientSelectionFragment__choose_recipient">Alege destinatarul</string>
     <!-- Title text on confirm gift page -->
-    <string name="GiftFlowConfirmationFragment__confirm_gift">Confirmare cadou</string>
+    <string name="GiftFlowConfirmationFragment__confirm_donation">Confirmă donația</string>
     <!-- Heading text specifying who the gift will be sent to -->
     <string name="GiftFlowConfirmationFragment__send_to">Trimite către</string>
     <!-- Text explaining that gift will be sent to the chosen recipient -->
-    <string name="GiftFlowConfirmationFragment__your_gift_will_be_sent_in">Cadoul tău va fi trimis destinatarului printr-un mesaj direct. Adaugă propriul mesaj mai jos.</string>
+    <string name="GiftFlowConfirmationFragment__the_recipient_will_be_notified">Persoana pe care ai ales-o va fi anunțată despre donație printr-un mesaj 1 la 1. Adaugă mesajul propriu mai jos.</string>
     <!-- Text explaining that this gift is a one time donation -->
     <string name="GiftFlowConfirmationFragment__one_time_donation">Donație unică</string>
     <!-- Hint for add message input -->
@@ -5126,27 +5131,27 @@
     <!-- Displayed in the dialog while verifying the chosen recipient -->
     <string name="GiftFlowConfirmationFragment__verifying_recipient">Se verifică destinatarul…</string>
     <!-- Title for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__s_sent_you_a_gift">%1$s ți-a trimis un cadou</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_for_you">%1$s a făcut o donație pentru tine</string>
     <!-- Title for sheet shown when opening a sent gift -->
     <string name="ViewSentGiftBottomSheet__thanks_for_your_support">Îți mulțumim pentru sprijin!</string>
     <!-- Description for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__youve_received_a_gift_badge">Ai primit o insignă cadou de la %1$s! Ajută Signal să crească în popularitate prin afișarea acestei insigne pe profilul tău.</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_to_signal">%1$s a făcut o donație către Signal în numele tău! Arată-ți sprijinul pentru Signal la profil.</string>
     <!-- Description for sheet shown when opening a sent gift -->
-    <string name="ViewSentGiftBottomSheet__youve_gifted_a_badge">Ai dat cadou o insignă lui %1$s. Când vor accepta, vor avea opțiunea de a afișa sau ascunde insigna.</string>
+    <string name="ViewSentGiftBottomSheet__youve_made_a_donation_to_signal">Ai făcut o donație către Signal în numele %1$s. Persoana pe care ai ales-o va primi opțiunea de a-și afișa sprijinul la profil.</string>
     <!-- Primary action for pending gift sheet to redeem badge now -->
     <string name="ViewReceivedGiftSheet__redeem">Revendică</string>
     <!-- Primary action for pending gift sheet to redeem badge later -->
     <string name="ViewReceivedGiftSheet__not_now">Nu acum</string>
     <!-- Dialog text while redeeming a gift -->
-    <string name="ViewReceivedGiftSheet__redeeming_gift">Revendicare cadou…</string>
+    <string name="ViewReceivedGiftSheet__redeeming_badge">Răscumpărarea insignei…</string>
     <!-- Snackbar text when user presses "not now" on redemption sheet -->
     <string name="ConversationFragment__you_can_redeem_your_badge_later">Îți poți revendica insigna mai târziu.</string>
     <!-- Description text in gift thanks sheet -->
-    <string name="GiftThanksSheet__youve_gifted_a_badge_to_s">Ai dat cadou o insignă lui %1$s. Când vor accepta, vor avea opțiunea de a afișa sau ascunde insigna.</string>
+    <string name="GiftThanksSheet__youve_made_a_donation">Ai făcut o donație către Signal în numele %1$s. Persoana aleasă de tine va primi opțiunea să afișeze sprijinul la profil.</string>
     <!-- Expired gift sheet title -->
-    <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired">Insigna ta cadou a expirat</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired">Insigna ta a expirat</string>
     <!-- Expired gift sheet top description text -->
-    <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired_and_is">Insigna ta cadou a expirat, și nu mai este vizibilă pe profilul tău pentru ceilalți.</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired_and_is">Insigna ta a expirat și nu mai este vizibilă pentru ceilalți pe profilul tău.</string>
     <!-- Expired gift sheet bottom description text -->
     <string name="ExpiredGiftSheetConfiguration__to_continue">Pentru a continua să sprijini tehnologie construită pentru tine, te rugăm să iei în considerare posibilitatea de a devenii un Susținător lunar.</string>
     <!-- Expired gift sheet make a monthly donation button -->
@@ -5205,13 +5210,13 @@
     <string name="ContactSearchMediator__delete_the_custom">Ștergi povestea personalizată „%1$s“?</string>
     <!-- Dialog action item for deleting a custom story -->
     <string name="ContactSearchMediator__delete">Șterge</string>
-    <!-- Gift expiry days remaining -->
+    <!-- Donation for a friend expiry days remaining -->
     <plurals name="Gifts__d_days_remaining">
         <item quantity="one">A mai rămas %1$d zi</item>
         <item quantity="few">Au mai rămas %1$d zile</item>
         <item quantity="other">Au mai rămas %1$d de zile</item>
     </plurals>
-    <!-- Gift expiry hours remaining -->
+    <!-- Donation for a friend expiry hours remaining -->
     <plurals name="Gifts__d_hours_remaining">
         <item quantity="one">A mai rămas %1$d oră</item>
         <item quantity="few">Au mai rămas %1$d ore</item>
@@ -5223,7 +5228,7 @@
         <item quantity="few">Au mai rămas %1$d minute</item>
         <item quantity="other">Au mai rămas %1$d de minute</item>
     </plurals>
-    <!-- Gift expiry expired -->
+    <!-- Donation for a friend expiry expired -->
     <string name="Gifts__expired">Expirat</string>
 
     <!-- Label indicating that a user can tap to advance to the next post in a story -->
@@ -5530,8 +5535,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Card de credit sau debit</string>
-    <!-- Sheet summary when giving a gift -->
-    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">Trimite o insignă cadou</string>
+    <!-- Sheet summary when giving donating for a friend -->
+    <string name="GatewaySelectorBottomSheet__donate_for_a_friend">Donează pentru un prieten</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">Se anulează…</string>
@@ -5598,5 +5603,11 @@
     <string name="ChatFilter__pull_to_filter">Trage în jos pentru a filtra</string>
     <!-- Displayed in the "clear filter" item in the chat feed if the user opened the filter from the overflow menu -->
     <string name="ChatFilter__tip_pull_down">Sfat: Trage în jos în lista de conversații pentru a filtra</string>
+
+    <!-- Text for a banner that is shown at the top of the screen letting users know that they\'re version of signal will soon expire. The placeholder is a date. -->
+    <string name="API19Reminder_banner_message">Signal nu va mai susține versiunea de Android a dispozitivului tău curând. Ca să continui să folosești Signal, actualizează-ți dispozitivul sau treci la un dispozitiv nou prin %1$s.</string>
+
+    <!-- Text for a button in a banner shown at the top of the screen that users can click on to get more information. -->
+    <string name="API19Reminder_learn_more">Află mai multe</string>
 
 </resources>

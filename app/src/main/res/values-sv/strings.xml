@@ -653,6 +653,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Denna version av Signal har upphört att gälla. Uppdatera nu för att skicka och ta emot meddelanden.</string>
     <string name="ExpiredBuildReminder_update_now">Uppdatera nu</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="ExpiredBuildReminder_api_19_message">Signal fungerar inte längre på den här enheten. Om du vill använda Signal igen uppdaterar du enheten till en nyare version av Android eller byter till en nyare enhet.</string>
+
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
         <item quantity="one">%1$d väntande medlemsförfrågan.</item>
@@ -1887,11 +1890,11 @@
     <string name="ThreadRecord_video">Video</string>
     <string name="ThreadRecord_chat_session_refreshed">Chattsessionen uppdaterad</string>
     <!-- Displayed in the notification when the user is sent a gift -->
-    <string name="ThreadRecord__you_received_a_gift">Du har fått en gåva</string>
+    <string name="ThreadRecord__s_donated_for_you">%1$s har donerat åt dig</string>
     <!-- Displayed in the notification when the user sends a gift -->
-    <string name="ThreadRecord__you_sent_a_gift">Du har skickat en gåva</string>
+    <string name="ThreadRecord__you_donated_for_s">Du donerade åt %1$s</string>
     <!-- Displayed in the notification when the user has opened a received gift -->
-    <string name="ThreadRecord__you_redeemed_a_gift_badge">Du har löst in ett gåvomärke</string>
+    <string name="ThreadRecord__you_redeemed_a_badge">Du löste in ett märke</string>
     <!-- Displayed in the conversation list when someone reacted to your story -->
     <string name="ThreadRecord__reacted_s_to_your_story">Reagerade %1$s på din story</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
@@ -2267,7 +2270,7 @@
     <!-- Label indicating that the story being replied to no longer exists -->
     <string name="QuoteView_no_longer_available">Inte längre tillgänglig</string>
     <!-- Label for quoted gift -->
-    <string name="QuoteView__gift">Gåva</string>
+    <string name="QuoteView__donation_for_a_friend">Donation åt en vän</string>
 
     <!-- conversation_fragment -->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Bläddra till botten</string>
@@ -4355,7 +4358,7 @@
     <!-- Preference heading for other ways to donate -->
     <string name="ManageDonationsFragment__other_ways_to_give">Andra sätt att ge</string>
     <!-- Preference label to launch badge gifting -->
-    <string name="ManageDonationsFragment__gift_a_badge">Ge bort ett märke</string>
+    <string name="ManageDonationsFragment__donate_for_a_friend">Donera åt en vän</string>
 
     <string name="Boost__enter_custom_amount">Ange anpassat belopp</string>
     <string name="Boost__one_time_contribution">Engångsbidrag</string>
@@ -4411,10 +4414,10 @@
     <string name="DonationsErrors__failed_to_validate_badge">Det gick inte att validera märke</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__could_not_validate">Det gick inte att validera serversvar. Kontakta supporten.</string>
-    <!-- Displayed as title when some generic error happens during gift badge sending -->
-    <string name="DonationsErrors__failed_to_send_gift_badge">Det gick inte att skicka gåvomärke</string>
-    <!-- Displayed as message when some generic error happens during gift badge sending -->
-    <string name="DonationsErrors__could_not_send_gift_badge">Det gick inte att skicka gåvomärke. Kontakta supporten.</string>
+    <!-- Displayed as title when some generic error happens during sending donation on behalf of another user -->
+    <string name="DonationsErrors__donation_failed">Donation misslyckades</string>
+    <!-- Displayed as message when some generic error happens during sending donation on behalf of another user -->
+    <string name="DonationsErrors__your_payment_was_processed_but">Din betalning behandlades men Signal kunde inte skicka ditt donationsmeddelande. Kontakta supporten.</string>
     <string name="DonationsErrors__your_badge_could_not">Ditt märke kunde inte läggas till ditt konto, men du kan ha blivit debiterad. Kontakta supporten.</string>
     <string name="DonationsErrors__your_payment_is_still">Din betalning behandlas fortfarande. Detta kan ta några minuter beroende på din anslutning.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">Det gick inte att säga upp abonnemang</string>
@@ -4423,16 +4426,16 @@
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Nätverksfel. Kontrollera din anslutning och försök igen.</string>
     <string name="NetworkFailure__retry">Försök igen</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__cant_send_gift">Det går inte att skicka gåva</string>
+    <string name="DonationsErrors__cannot_send_donation">Kan inte skicka donation</string>
     <!-- Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__target_does_not_support_gifting">Mottagaren använder en version av Signal som inte kan ta emot gåvomärken. De kommer kunna ta emot gåvor när de uppdaterar till den senaste versionen.</string>
-    <!-- Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__couldnt_send_gift">Det gick inte att skicka gåva</string>
+    <string name="DonationsErrors__this_user_cant_receive_donations_until">Den här användaren kan inte ta emot donationer förrän de uppgraderar Signal.</string>
     <!-- Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__please_check_your_network_connection">Din gåva kunde inte skickas på grund av ett nätverksfel. Kontrollera din anslutning och försök igen.</string>
+    <string name="DonationsErrors__your_donation_could_not_be_sent">Din donation kunde inte skickas på grund av ett nätverksfel. Kontrollera din anslutning och försök igen.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__gift_badge">Gåvomärke</string>
+    <string name="GiftMessageView__donation_to_s">Donation till %1$s</string>
+    <!-- Gift message view title for incoming donations -->
+    <string name="GiftMessageView__s_donated_to_signal_on">%1$s har donerat till Signal å dina vägnar</string>
     <!-- Gift badge redeem action label -->
     <string name="GiftMessageView__redeem">Lös in</string>
     <!-- Gift badge view action label -->
@@ -4643,7 +4646,7 @@
     <!-- Donation receipts one-time tab label -->
     <string name="DonationReceiptListFragment__one_time">En gång</string>
     <!-- Donation receipts gift tab label -->
-    <string name="DonationReceiptListFragment__gift">Gåva</string>
+    <string name="DonationReceiptListFragment__donation_for_a_friend">Donation åt en vän</string>
     <!-- Donation receipts boost row label -->
     <!-- Donation receipts details title -->
     <!-- Donation receipts donation type heading -->
@@ -4993,22 +4996,23 @@
         <item quantity="one">%1$s · giltig i %2$d dag</item>
         <item quantity="other">%1$s · giltig i %2$d dagar</item>
     </plurals>
-    <!-- Tagline for gift row items -->
-    <string name="GiftRowItem__send_a_gift_badge">Skicka ett gåvomärke</string>
     <!-- Headline text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__gift_a_badge">Ge bort ett märke</string>
+    <string name="GiftFlowStartFragment__donate_for_a_friend">Donera åt en vän</string>
     <!-- Description text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__gift_someone_a_badge">Ge någon ett märke genom att donera till Signal i deras namn. De får då ett märke att visa på sin profilbild.</string>
+    <plurals name="GiftFlowStartFragment__support_signal_by">
+        <item quantity="one">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d day</item>
+        <item quantity="other">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d days</item>
+    </plurals>
     <!-- Action button label for start fragment for gifting a badge -->
     <string name="GiftFlowStartFragment__next">Nästa</string>
     <!-- Title text on choose recipient page for badge gifting -->
     <string name="GiftFlowRecipientSelectionFragment__choose_recipient">Välj mottagare</string>
     <!-- Title text on confirm gift page -->
-    <string name="GiftFlowConfirmationFragment__confirm_gift">Bekräfta gåva</string>
+    <string name="GiftFlowConfirmationFragment__confirm_donation">Bekräfta donation</string>
     <!-- Heading text specifying who the gift will be sent to -->
     <string name="GiftFlowConfirmationFragment__send_to">Skicka till</string>
     <!-- Text explaining that gift will be sent to the chosen recipient -->
-    <string name="GiftFlowConfirmationFragment__your_gift_will_be_sent_in">Din gåva kommer att skickas i ett privat meddelande till mottagaren. Lägg till ditt eget meddelande nedan.</string>
+    <string name="GiftFlowConfirmationFragment__the_recipient_will_be_notified">Mottagaren kommer att meddelas om donationen i ett privat meddelande. Lägg till ditt eget meddelande nedan.</string>
     <!-- Text explaining that this gift is a one time donation -->
     <string name="GiftFlowConfirmationFragment__one_time_donation">Engångsdonation</string>
     <!-- Hint for add message input -->
@@ -5016,27 +5020,27 @@
     <!-- Displayed in the dialog while verifying the chosen recipient -->
     <string name="GiftFlowConfirmationFragment__verifying_recipient">Verifierar mottagare …</string>
     <!-- Title for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__s_sent_you_a_gift">%1$s skickade dig en gåva</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_for_you">%1$s har gjort en donation åt dig</string>
     <!-- Title for sheet shown when opening a sent gift -->
     <string name="ViewSentGiftBottomSheet__thanks_for_your_support">Tack för ditt stöd!</string>
     <!-- Description for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__youve_received_a_gift_badge">Du har fått ett gåvomärke av %1$s! Hjälp Signal att skapa medvetenhet genom att visa detta märke på din profil.</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_to_signal">%1$s har gjort en donation till Signal för din räkning. Visa ditt stöd för Signal på din profil.</string>
     <!-- Description for sheet shown when opening a sent gift -->
-    <string name="ViewSentGiftBottomSheet__youve_gifted_a_badge">Du har gett ett märke till %1$s. När de accepterar får de ett val att visa eller dölja sitt märke.</string>
+    <string name="ViewSentGiftBottomSheet__youve_made_a_donation_to_signal">%1$s har gjort en donation till Signal för din räkning. De får möjlighet att visa sitt stöd på sin profil.</string>
     <!-- Primary action for pending gift sheet to redeem badge now -->
     <string name="ViewReceivedGiftSheet__redeem">Lös in</string>
     <!-- Primary action for pending gift sheet to redeem badge later -->
     <string name="ViewReceivedGiftSheet__not_now">Inte nu</string>
     <!-- Dialog text while redeeming a gift -->
-    <string name="ViewReceivedGiftSheet__redeeming_gift">Löser in gåva …</string>
+    <string name="ViewReceivedGiftSheet__redeeming_badge">Löser in märke …</string>
     <!-- Snackbar text when user presses "not now" on redemption sheet -->
     <string name="ConversationFragment__you_can_redeem_your_badge_later">Du kan lösa in ditt märke senare.</string>
     <!-- Description text in gift thanks sheet -->
-    <string name="GiftThanksSheet__youve_gifted_a_badge_to_s">Du har gett ett märke till %1$s. När de accepterar får de ett val att visa eller dölja sitt märke.</string>
+    <string name="GiftThanksSheet__youve_made_a_donation">%1$s har gjort en donation till Signal för din räkning. De får möjlighet att visa sitt stöd på sin profil.</string>
     <!-- Expired gift sheet title -->
-    <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired">Ditt gåvomärke har upphört att gälla</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired">Ditt märke har upphört att gälla</string>
     <!-- Expired gift sheet top description text -->
-    <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired_and_is">Ditt gåvomärke har upphört att gälla och är inte längre synligt för andra på din profil.</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired_and_is">Ditt märke har upphört att gälla och är inte längre synligt i din profil för andra.</string>
     <!-- Expired gift sheet bottom description text -->
     <string name="ExpiredGiftSheetConfiguration__to_continue">För att fortsätta stöda teknik som är byggd för dig, överväg att bli en månatlig upprätthållare.</string>
     <!-- Expired gift sheet make a monthly donation button -->
@@ -5090,12 +5094,12 @@
     <string name="ContactSearchMediator__delete_the_custom">Ta bort den anpassade storyn %1$s?</string>
     <!-- Dialog action item for deleting a custom story -->
     <string name="ContactSearchMediator__delete">Ta bort</string>
-    <!-- Gift expiry days remaining -->
+    <!-- Donation for a friend expiry days remaining -->
     <plurals name="Gifts__d_days_remaining">
         <item quantity="one">%1$d dag kvar</item>
         <item quantity="other">%1$d dagar kvar</item>
     </plurals>
-    <!-- Gift expiry hours remaining -->
+    <!-- Donation for a friend expiry hours remaining -->
     <plurals name="Gifts__d_hours_remaining">
         <item quantity="one">%1$d timme kvar</item>
         <item quantity="other">%1$d timmar kvar</item>
@@ -5105,7 +5109,7 @@
         <item quantity="one">%1$d minut kvar</item>
         <item quantity="other">%1$d minuter kvar</item>
     </plurals>
-    <!-- Gift expiry expired -->
+    <!-- Donation for a friend expiry expired -->
     <string name="Gifts__expired">Utgånget</string>
 
     <!-- Label indicating that a user can tap to advance to the next post in a story -->
@@ -5408,8 +5412,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Betalkort</string>
-    <!-- Sheet summary when giving a gift -->
-    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">Skicka ett gåvomärke</string>
+    <!-- Sheet summary when giving donating for a friend -->
+    <string name="GatewaySelectorBottomSheet__donate_for_a_friend">Donera åt en vän</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">Avbryter …</string>
@@ -5475,5 +5479,11 @@
     <string name="ChatFilter__pull_to_filter">Dra för att filtrera</string>
     <!-- Displayed in the "clear filter" item in the chat feed if the user opened the filter from the overflow menu -->
     <string name="ChatFilter__tip_pull_down">Tips: Dra ner på chattlistan för att filtrera</string>
+
+    <!-- Text for a banner that is shown at the top of the screen letting users know that they\'re version of signal will soon expire. The placeholder is a date. -->
+    <string name="API19Reminder_banner_message">Signal stöder snart inte längre enhetens version av Android. För att fortsätta använda Signal, uppdatera din enhet, eller växla till en nyare enhet senast den %1$s.</string>
+
+    <!-- Text for a button in a banner shown at the top of the screen that users can click on to get more information. -->
+    <string name="API19Reminder_learn_more">Läs mer</string>
 
 </resources>

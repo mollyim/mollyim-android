@@ -49,7 +49,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val COUNTRY_CODE_UZBEKISTAN = 998
     private const val COUNTRY_CODE_UKRAINE = 380
 
-    private const val G_HOST = "europe-west1-signal-cdn-reflector.cloudfunctions.net"
+    private const val G_HOST = "reflector-nrgwuv7kwq-uc.a.run.app"
     private const val F_SERVICE_HOST = "textsecure-service.whispersystems.org.global.prod.fastly.net"
     private const val F_STORAGE_HOST = "storage.signal.org.global.prod.fastly.net"
     private const val F_CDN_HOST = "cdn.signal.org.global.prod.fastly.net"
@@ -206,7 +206,8 @@ open class SignalServiceNetworkAccess(context: Context) {
     Network.socketFactory,
     Network.proxySelectorForSocks,
     Network.dns,
-    zkGroupServerPublicParams
+    zkGroupServerPublicParams,
+    false
   )
 
   private val censorshipConfiguration: Map<Int, SignalServiceConfiguration> = mapOf(
@@ -258,7 +259,8 @@ open class SignalServiceNetworkAccess(context: Context) {
     Network.socketFactory,
     Network.proxySelectorForSocks,
     Network.dns,
-    zkGroupServerPublicParams
+    zkGroupServerPublicParams,
+    true
   )
 
   open fun getConfiguration(): SignalServiceConfiguration {
@@ -301,6 +303,10 @@ open class SignalServiceNetworkAccess(context: Context) {
     return defaultCensoredCountryCodes.contains(countryCode)
   }
 
+  fun supportsWebsockets(): Boolean {
+    return !isCensored() || getConfiguration().supportsWebSockets()
+  }
+
   private fun buildGConfiguration(
     hostConfigs: List<HostConfig>
   ): SignalServiceConfiguration {
@@ -310,7 +316,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     val cdsUrls: Array<SignalContactDiscoveryUrl> = hostConfigs.map { SignalContactDiscoveryUrl("${it.baseUrl}/directory", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
     val kbsUrls: Array<SignalKeyBackupServiceUrl> = hostConfigs.map { SignalKeyBackupServiceUrl("${it.baseUrl}/backup", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
     val storageUrls: Array<SignalStorageUrl> = hostConfigs.map { SignalStorageUrl("${it.baseUrl}/storage", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
-    val cdsiUrls: Array<SignalCdsiUrl> = listOf(SignalCdsiUrl(BuildConfig.SIGNAL_CDSI_URL, serviceTrustStore)).toTypedArray()
+    val cdsiUrls: Array<SignalCdsiUrl> = hostConfigs.map { SignalCdsiUrl("${it.baseUrl}/cdsi", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
 
     return SignalServiceConfiguration(
       serviceUrls,
@@ -326,7 +332,8 @@ open class SignalServiceNetworkAccess(context: Context) {
       Network.socketFactory,
       Network.proxySelectorForSocks,
       Network.dns,
-      zkGroupServerPublicParams
+      zkGroupServerPublicParams,
+      true
     )
   }
 

@@ -653,6 +653,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal యొక్క ఈ వెర్షన్ గడువు ముగిసింది. సందేశాలను పంపడానికి మరియు స్వీకరించడానికి ఇప్పుడే నవీకరించండి.</string>
     <string name="ExpiredBuildReminder_update_now">నవీకరణ చేయండి ఇప్పుడు</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="ExpiredBuildReminder_api_19_message">ఈ పరికరంపై Signal ఇక ఏమాత్రం పని చేయదు. Signalను మళ్లీ ఉపయోగించడానికి, మీ పరికరాన్ని Android యొక్క కొత్త వెర్షన్‌కి అప్‌డేట్ చేయండి లేదా కొత్త పరికరానికి మారండి.</string>
+
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
         <item quantity="one">%1$d సభ్యుల అభ్యర్థన పెండింగ్‌లో ఉంది.</item>
@@ -1887,11 +1890,11 @@
     <string name="ThreadRecord_video">వీడియో</string>
     <string name="ThreadRecord_chat_session_refreshed">చాట్ సెషన్ రిఫ్రెష్ చేయబడింది</string>
     <!-- Displayed in the notification when the user is sent a gift -->
-    <string name="ThreadRecord__you_received_a_gift">మీరు ఒక బహుమతిని అందుకున్నారు</string>
+    <string name="ThreadRecord__s_donated_for_you">మీ కొరకు %1$s విరాళం ఇచ్చారు</string>
     <!-- Displayed in the notification when the user sends a gift -->
-    <string name="ThreadRecord__you_sent_a_gift">మీరు ఒక బహుమతిని పంపారు</string>
+    <string name="ThreadRecord__you_donated_for_s">మీరు %1$s కొరకు విరాళం ఇచ్చారు</string>
     <!-- Displayed in the notification when the user has opened a received gift -->
-    <string name="ThreadRecord__you_redeemed_a_gift_badge">మీరు ఒక బహుమతి బ్యాడ్జిని రిడీమ్ చేసుకున్నారు</string>
+    <string name="ThreadRecord__you_redeemed_a_badge">మీరు ఒక బ్యాడ్జీని రీడిమ్ చేసుకున్నారు</string>
     <!-- Displayed in the conversation list when someone reacted to your story -->
     <string name="ThreadRecord__reacted_s_to_your_story">మీ స్టోరీకు %1$s ప్రతిస్పందించారు</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
@@ -2267,7 +2270,7 @@
     <!-- Label indicating that the story being replied to no longer exists -->
     <string name="QuoteView_no_longer_available">ఇక ఏమాత్రం లభ్యం కాదు</string>
     <!-- Label for quoted gift -->
-    <string name="QuoteView__gift">బహుమతి</string>
+    <string name="QuoteView__donation_for_a_friend">ఒక స్నేహితుడి కొరకు విరాళం</string>
 
     <!-- conversation_fragment -->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">దిగువకు స్క్రోల్ చెయ్యి</string>
@@ -4355,7 +4358,7 @@
     <!-- Preference heading for other ways to donate -->
     <string name="ManageDonationsFragment__other_ways_to_give">ఇవ్వడానికి ఇతర మార్గాలు</string>
     <!-- Preference label to launch badge gifting -->
-    <string name="ManageDonationsFragment__gift_a_badge">బ్యాడ్జిని బహుమతిగా ఇవ్వండి</string>
+    <string name="ManageDonationsFragment__donate_for_a_friend">ఒక స్నేహితుడి కొరకు విరాళం ఇవ్వండి</string>
 
     <string name="Boost__enter_custom_amount">అనుకూల మొత్తాన్ని ఎంటర్ చేయండి</string>
     <string name="Boost__one_time_contribution">ఒక్కసారి కంట్రిబ్యూషన్</string>
@@ -4411,10 +4414,10 @@
     <string name="DonationsErrors__failed_to_validate_badge">బ్యాడ్జిని చెల్లుబాటు చేయడంలో విఫలమైంది</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__could_not_validate">సర్వీర్ ప్రతిస్పందనను వాలిడేట్ చేయలేకపోయింది. దయచేసి సపోర్ట్‌ని సంప్రదించండి.</string>
-    <!-- Displayed as title when some generic error happens during gift badge sending -->
-    <string name="DonationsErrors__failed_to_send_gift_badge">బహుమతి బ్యాడ్జిని పంపడంలో విఫలమైంది</string>
-    <!-- Displayed as message when some generic error happens during gift badge sending -->
-    <string name="DonationsErrors__could_not_send_gift_badge">బహుమతి బ్యాడ్జిని పంపలేకపోయింది. దయచేసి మద్దతును సంప్రదించండి.</string>
+    <!-- Displayed as title when some generic error happens during sending donation on behalf of another user -->
+    <string name="DonationsErrors__donation_failed">విరాళం ఇవ్వడం విఫలమైంది</string>
+    <!-- Displayed as message when some generic error happens during sending donation on behalf of another user -->
+    <string name="DonationsErrors__your_payment_was_processed_but">మీ చెల్లింపు ప్రాసెస్ చేయబడింది, అయితే Android మీ విరాళ సందేశాన్ని పంపలేకపోయింది. దయచేసి సపోర్ట్‌ని సంప్రదించండి.</string>
     <string name="DonationsErrors__your_badge_could_not">మీ బ్యాడ్జి మీ ఖాతాకు జోడించబడలేదు, కానీ మీకు ఛార్జ్ విధంచబడి ఉండవచ్చు. దయచేసి మద్దతును సంప్రదించండి.</string>
     <string name="DonationsErrors__your_payment_is_still">మీ పేమెంట్ ఇంకా ప్రాసెసింగ్‌లో ఉంది. మీ కనెక్షన్‌పై ఆధారపడి దీనికి కొన్ని నిమిషాలు పట్టవచ్చు.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">సబ్‌స్క్రిప్షన్ రద్దు చేయడంలో విఫలమైంది</string>
@@ -4423,16 +4426,16 @@
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">నెట్‌వర్క్ దోషం. మీ కనెక్షన్ చెక్ చేసి, మళ్లీ ప్రయత్నించండి.</string>
     <string name="NetworkFailure__retry">మళ్ళీ ప్రయత్నించు</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__cant_send_gift">బహుమతిని పంపలేదు</string>
+    <string name="DonationsErrors__cannot_send_donation">విరాళాన్ని పంపలేరు</string>
     <!-- Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__target_does_not_support_gifting">ఈ గ్రహీత బహుమతి బ్యాడ్జీలను అందుకోలేని Signal వెర్షన్‌ను ఉపయోగిస్తున్నారు. వారు తాజా వెర్షన్‌కు అప్‌డేట్ చేసినప్పుడు వారు బహుమతులను పొందగలుగుతారు.</string>
-    <!-- Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__couldnt_send_gift">బహుమతిని పంపలేకపోయారు</string>
+    <string name="DonationsErrors__this_user_cant_receive_donations_until">ఈ యూజర్ వారి Signalని అప్‌గ్రేడ్ చేసుకునేంత వరకు విరాళాలను పొందలేడు.</string>
     <!-- Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__please_check_your_network_connection">నెట్‌వర్క్ దోషం కారణంగా మీ బహుమతిని పంపలేకపోయింది. మీ కనెక్షన్‌ని తనిఖీ చేయండి మరియు మళ్లీ ప్రయత్నించండి.</string>
+    <string name="DonationsErrors__your_donation_could_not_be_sent">ఒక నెట్‌వర్క్ దోషం కారణంగా మీ విరాళాన్ని పంపలేరు. మీ కనెక్షన్‌ను తనిఖీ చేయండి మరియు మళ్ళీ ప్రయత్నించండి.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__gift_badge">బహుమతి బ్యాడ్జి</string>
+    <string name="GiftMessageView__donation_to_s">%1$sకు విరాళం ఇవ్వండి</string>
+    <!-- Gift message view title for incoming donations -->
+    <string name="GiftMessageView__s_donated_to_signal_on">మీ తరఫున %1$s Signalకు విరాళం ఇచ్చారు</string>
     <!-- Gift badge redeem action label -->
     <string name="GiftMessageView__redeem">రీడిమ్</string>
     <!-- Gift badge view action label -->
@@ -4643,7 +4646,7 @@
     <!-- Donation receipts one-time tab label -->
     <string name="DonationReceiptListFragment__one_time">ఒక్క-సారి</string>
     <!-- Donation receipts gift tab label -->
-    <string name="DonationReceiptListFragment__gift">బహుమతి</string>
+    <string name="DonationReceiptListFragment__donation_for_a_friend">ఒక స్నేహితుడి కొరకు విరాళం</string>
     <!-- Donation receipts boost row label -->
     <!-- Donation receipts details title -->
     <!-- Donation receipts donation type heading -->
@@ -4993,22 +4996,23 @@
         <item quantity="one">%1$s · %2$d రోజు కాలవ్యవధి</item>
         <item quantity="other">%1$s · %2$d రోజుల కాలవ్యవధి</item>
     </plurals>
-    <!-- Tagline for gift row items -->
-    <string name="GiftRowItem__send_a_gift_badge">బహుమతి బ్యాడ్జిని పంపండి</string>
     <!-- Headline text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__gift_a_badge">బ్యాడ్జిని బహుమతిగా ఇవ్వండి</string>
+    <string name="GiftFlowStartFragment__donate_for_a_friend">ఒక స్నేహితుడి కొరకు విరాళం ఇవ్వండి</string>
     <!-- Description text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__gift_someone_a_badge">Signal కు వారి పేరిట విరాళం ఇవ్వడం ద్వారా ఎవరికైనా ఒక బ్యాడ్జిని బహుమతిగా ఇవ్వండి. వారి ప్రొఫైల్ ఫోటోపై ప్రదర్శించడానికి వారు ఒక బ్యాడ్జిని పొందుతారు.</string>
+    <plurals name="GiftFlowStartFragment__support_signal_by">
+        <item quantity="one">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d day</item>
+        <item quantity="other">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d days</item>
+    </plurals>
     <!-- Action button label for start fragment for gifting a badge -->
     <string name="GiftFlowStartFragment__next">తరువాత</string>
     <!-- Title text on choose recipient page for badge gifting -->
     <string name="GiftFlowRecipientSelectionFragment__choose_recipient">గ్రహీతను ఎంచుకోండి</string>
     <!-- Title text on confirm gift page -->
-    <string name="GiftFlowConfirmationFragment__confirm_gift">బహుమతిని ధృవీకరించండి</string>
+    <string name="GiftFlowConfirmationFragment__confirm_donation">విరాళాన్ని ధృవీకరించండి</string>
     <!-- Heading text specifying who the gift will be sent to -->
     <string name="GiftFlowConfirmationFragment__send_to">వీరికి పంపండి</string>
     <!-- Text explaining that gift will be sent to the chosen recipient -->
-    <string name="GiftFlowConfirmationFragment__your_gift_will_be_sent_in">మీ గిఫ్ట్ గ్రహీతకు 1 టూ 1 సందేశంలో పంపబడుతుంది. మీస్వంత సందేశాన్ని దిగువన జోడించండి.</string>
+    <string name="GiftFlowConfirmationFragment__the_recipient_will_be_notified">గ్రహీతకు 1 ఆన్ 1 సందేశంలో విరాళం గురించి తెలియజేస్తారు. మీ స్వంత సందేశాన్ని దిగువన జోడించండి.</string>
     <!-- Text explaining that this gift is a one time donation -->
     <string name="GiftFlowConfirmationFragment__one_time_donation">ఒక్కసారి విరాళం</string>
     <!-- Hint for add message input -->
@@ -5016,27 +5020,27 @@
     <!-- Displayed in the dialog while verifying the chosen recipient -->
     <string name="GiftFlowConfirmationFragment__verifying_recipient">గ్రహీతను ధృవీకరిస్తోంది…</string>
     <!-- Title for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__s_sent_you_a_gift">%1$s మీకు ఒక బహుమతిని పంపారు</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_for_you">%1$s మీ కొరకు విరాళం ఇచ్చారు</string>
     <!-- Title for sheet shown when opening a sent gift -->
     <string name="ViewSentGiftBottomSheet__thanks_for_your_support">మీ సపోర్ట్‌కు ధన్యవాదాలు!</string>
     <!-- Description for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__youve_received_a_gift_badge">మీరు %1$s నుంచి ఒక బహుమతి బ్యాడ్జిని అందుకున్నారు! మీ ప్రొఫైల్‌పై ఈ బ్యాడ్జిని ప్రదర్శించడం ద్వారా అవగాహన పెంపొందించేందుకు Signal కు సహాయపడండి.</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_to_signal">%1$s మీ తరపున Signalకి విరాళం ఇచ్చారు! మీ ప్రొఫైల్‌లో Signal కోసం మీ మద్దతును చూపండి.</string>
     <!-- Description for sheet shown when opening a sent gift -->
-    <string name="ViewSentGiftBottomSheet__youve_gifted_a_badge">మీరు %1$sకు బ్యాడ్జిని బహుమతిగా ఇచ్చారు. వారు అంగీకరించినప్పుడు, వారి బ్యాడ్జిని చూపించేందుకు లేదా దాచిపెట్టేందుకు వారికి ఎంపిక ఇవ్వబడుతుంది.</string>
+    <string name="ViewSentGiftBottomSheet__youve_made_a_donation_to_signal">మీరు %1$s తరఫున Signalకు విరాళం ఇచ్చారు. వారి ప్రొఫైల్‌లో తమ మద్దతును చూపించే ఆప్షన్ ఇస్తారు.</string>
     <!-- Primary action for pending gift sheet to redeem badge now -->
     <string name="ViewReceivedGiftSheet__redeem">రీడిమ్</string>
     <!-- Primary action for pending gift sheet to redeem badge later -->
     <string name="ViewReceivedGiftSheet__not_now">ఇప్పుడు కాదు</string>
     <!-- Dialog text while redeeming a gift -->
-    <string name="ViewReceivedGiftSheet__redeeming_gift">బహుమతిని రీడిమ్ చేస్తోంది…</string>
+    <string name="ViewReceivedGiftSheet__redeeming_badge">బ్యాడ్జీని రీడిమ్ చేయడం…</string>
     <!-- Snackbar text when user presses "not now" on redemption sheet -->
     <string name="ConversationFragment__you_can_redeem_your_badge_later">మీరు తరువాత మీ బ్యాడ్జిని రిడీమ్ చేయవచ్చు.</string>
     <!-- Description text in gift thanks sheet -->
-    <string name="GiftThanksSheet__youve_gifted_a_badge_to_s">మీరు %1$sకు బ్యాడ్జిని బహుమతిగా ఇచ్చారు. వారు అంగీకరించినప్పుడు, వారి బ్యాడ్జిని చూపించేందుకు లేదా దాచిపెట్టేందుకు వారికి ఎంపిక ఇవ్వబడుతుంది.</string>
+    <string name="GiftThanksSheet__youve_made_a_donation">మీరు %1$s తరఫున Signalకు విరాళం ఇచ్చారు. వారి ప్రొఫైల్‌లో తమ మద్దతును చూపించే ఆప్షన్ ఇస్తారు.</string>
     <!-- Expired gift sheet title -->
-    <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired">మీ బహుమతి బ్యాడ్జి గడువు తీరింది</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired">మీ బ్యాడ్జీ గడువు తీరింది</string>
     <!-- Expired gift sheet top description text -->
-    <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired_and_is">మీ బహుమతి బ్యాడ్జి గడువు తీరింది, మరియు మీ ప్రొఫైల్‌పై ఇతరులకు ఇక ఏమాత్రం కనిపించదు.</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired_and_is">మీ బహుమతి బ్యాడ్జీ గడువు తీరింది మరియు మీ ప్రొఫైల్‌పై ఇతరులకు ఇక ఏమాత్రం కనిపించదు.</string>
     <!-- Expired gift sheet bottom description text -->
     <string name="ExpiredGiftSheetConfiguration__to_continue">మీ కొరకు రూపొందించిన టెక్నాలజీకి మద్దతు ఇవ్వడాన్ని కొనసాగించేందుకు, దయచేసి నెలవారీ విరాళకర్త అవ్వండి.</string>
     <!-- Expired gift sheet make a monthly donation button -->
@@ -5090,12 +5094,12 @@
     <string name="ContactSearchMediator__delete_the_custom">అనుకూల కథ \"%1$s\" ను తొలగించేదా?</string>
     <!-- Dialog action item for deleting a custom story -->
     <string name="ContactSearchMediator__delete">తొలగించండి</string>
-    <!-- Gift expiry days remaining -->
+    <!-- Donation for a friend expiry days remaining -->
     <plurals name="Gifts__d_days_remaining">
         <item quantity="one">%1$d రోజు మిగిలి ఉంది</item>
         <item quantity="other">%1$d రోజులు మిగిలి ఉన్నాయి</item>
     </plurals>
-    <!-- Gift expiry hours remaining -->
+    <!-- Donation for a friend expiry hours remaining -->
     <plurals name="Gifts__d_hours_remaining">
         <item quantity="one">%1$d గంట మిగిలి ఉన్నాయి</item>
         <item quantity="other">%1$d గంటలు మిగిలి ఉన్నాయి</item>
@@ -5105,7 +5109,7 @@
         <item quantity="one">%1$d నిమిషం మిగిలి ఉంది</item>
         <item quantity="other">%1$d నిమిషాలు మిగిలి ఉంది</item>
     </plurals>
-    <!-- Gift expiry expired -->
+    <!-- Donation for a friend expiry expired -->
     <string name="Gifts__expired">గడువు తీరింది</string>
 
     <!-- Label indicating that a user can tap to advance to the next post in a story -->
@@ -5408,8 +5412,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">క్రెడిట్ లేదా డెబిట్ కార్డు</string>
-    <!-- Sheet summary when giving a gift -->
-    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">బహుమతి బ్యాడ్జిని పంపండి</string>
+    <!-- Sheet summary when giving donating for a friend -->
+    <string name="GatewaySelectorBottomSheet__donate_for_a_friend">ఒక స్నేహితుడి కొరకు విరాళం ఇవ్వండి</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">రద్దు చేస్తోంది…</string>
@@ -5475,5 +5479,11 @@
     <string name="ChatFilter__pull_to_filter">ఫిల్టర్ చేయడానికి లాగండి</string>
     <!-- Displayed in the "clear filter" item in the chat feed if the user opened the filter from the overflow menu -->
     <string name="ChatFilter__tip_pull_down">చిట్కా: ఫిల్టర్ చేయడానికి చాట్ జాబితాపై కిందకు లాగండి</string>
+
+    <!-- Text for a banner that is shown at the top of the screen letting users know that they\'re version of signal will soon expire. The placeholder is a date. -->
+    <string name="API19Reminder_banner_message">త్వరలో మీ పరికరం Android వెర్షన్‌కు Signal ఇక ఏమాత్రం మద్దతు ఇవ్వదు. Signalని ఉపయోగించడాన్ని కొనసాగించేందుకు, మీ పరికరాన్ని అప్‌డేట్ చేయండి లేదా %1$s ద్వారా కొత్త పరికరానికి మారండి.</string>
+
+    <!-- Text for a button in a banner shown at the top of the screen that users can click on to get more information. -->
+    <string name="API19Reminder_learn_more">మరింత తెలుసుకోండి</string>
 
 </resources>

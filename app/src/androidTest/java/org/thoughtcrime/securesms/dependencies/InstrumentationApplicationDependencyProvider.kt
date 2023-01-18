@@ -73,7 +73,8 @@ class InstrumentationApplicationDependencyProvider(application: Application, def
       emptyList(),
       Network.socketFactory,
       Network.dns,
-      Base64.decode(BuildConfig.ZKGROUP_SERVER_PUBLIC_PARAMS)
+      Base64.decode(BuildConfig.ZKGROUP_SERVER_PUBLIC_PARAMS),
+      true
     )
 
     serviceNetworkAccessMock = mock {
