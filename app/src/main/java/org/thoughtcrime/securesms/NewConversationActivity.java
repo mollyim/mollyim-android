@@ -139,7 +139,7 @@ public class NewConversationActivity extends ContactSelectionActivity
               launch(resolved);
             } else {
               new MaterialAlertDialogBuilder(this)
-                  .setMessage(getString(R.string.NewConversationActivity__s_is_not_a_signal_user, resolved.getDisplayName(this)))
+                  .setMessage(getString(R.string.NewConversationActivity__s_is_not_registered_with_signal, resolved.getDisplayName(this)))
                   .setPositiveButton(android.R.string.ok, null)
                   .show();
             }
