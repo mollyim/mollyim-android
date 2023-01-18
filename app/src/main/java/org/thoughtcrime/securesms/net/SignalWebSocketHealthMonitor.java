@@ -84,7 +84,6 @@ public final class SignalWebSocketHealthMonitor implements HealthMonitor {
           break;
         case AUTHENTICATION_FAILED:
           TextSecurePreferences.setUnauthorizedReceived(context, true);
-          EventBus.getDefault().post(new ReminderUpdateEvent());
           break;
         case FAILED:
           break;

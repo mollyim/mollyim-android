@@ -19,11 +19,11 @@ import org.thoughtcrime.securesms.database.GroupTable;
 import org.thoughtcrime.securesms.database.MentionTable;
 import org.thoughtcrime.securesms.database.MentionUtil;
 import org.thoughtcrime.securesms.database.MessageTable;
-import org.thoughtcrime.securesms.database.MmsSmsColumns;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SearchTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadTable;
+import org.thoughtcrime.securesms.database.model.GroupRecord;
 import org.thoughtcrime.securesms.database.model.Mention;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
@@ -74,16 +74,16 @@ public class SearchRepository {
     this.threadTable    = SignalDatabase.threads();
     this.recipientTable = SignalDatabase.recipients();
     this.mentionDatabase = SignalDatabase.mentions();
-    this.mmsDatabase       = SignalDatabase.mms();
+    this.mmsDatabase       = SignalDatabase.messages();
     this.contactRepository = new ContactRepository(context, noteToSelfTitle);
     this.searchExecutor    = new LatestPrioritizedSerialExecutor(SignalExecutors.BOUNDED);
     this.serialExecutor    = new SerialExecutor(SignalExecutors.BOUNDED);
   }
 
-  public void queryThreads(@NonNull String query, @NonNull Consumer<ThreadSearchResult> callback) {
+  public void queryThreads(@NonNull String query, boolean unreadOnly, @NonNull Consumer<ThreadSearchResult> callback) {
     searchExecutor.execute(2, () -> {
       long               start  = System.currentTimeMillis();
-      List<ThreadRecord> result = queryConversations(query);
+      List<ThreadRecord> result = queryConversations(query, unreadOnly);
 
       Log.d(TAG, "[threads] Search took " + (System.currentTimeMillis() - start) + " ms");
 
@@ -155,7 +155,7 @@ public class SearchRepository {
     }
   }
 
-  private @NonNull List<ThreadRecord> queryConversations(@NonNull String query) {
+  private @NonNull List<ThreadRecord> queryConversations(@NonNull String query, boolean unreadOnly) {
     if (Util.isEmpty(query)) {
       return Collections.emptyList();
     }
@@ -175,7 +175,7 @@ public class SearchRepository {
 
     Set<RecipientId> groupsByTitleIds = new LinkedHashSet<>();
 
-    GroupTable.GroupRecord record;
+    GroupRecord record;
     try (GroupTable.Reader reader = SignalDatabase.groups().queryGroupsByTitle(query, true, false, false)) {
       while ((record = reader.getNext()) != null) {
         groupsByTitleIds.add(record.getRecipientId());
@@ -192,15 +192,15 @@ public class SearchRepository {
 
     List<ThreadRecord> output = new ArrayList<>(contactIds.size() + groupsByTitleIds.size() + groupsByMemberIds.size());
 
-    output.addAll(getMatchingThreads(contactIds));
-    output.addAll(getMatchingThreads(groupsByTitleIds));
-    output.addAll(getMatchingThreads(groupsByMemberIds));
+    output.addAll(getMatchingThreads(contactIds, unreadOnly));
+    output.addAll(getMatchingThreads(groupsByTitleIds, unreadOnly));
+    output.addAll(getMatchingThreads(groupsByMemberIds, unreadOnly));
 
     return output;
   }
 
-  private List<ThreadRecord> getMatchingThreads(@NonNull Collection<RecipientId> recipientIds) {
-    try (Cursor cursor = threadTable.getFilteredConversationList(new ArrayList<>(recipientIds))) {
+  private List<ThreadRecord> getMatchingThreads(@NonNull Collection<RecipientId> recipientIds, boolean unreadOnly) {
+    try (Cursor cursor = threadTable.getFilteredConversationList(new ArrayList<>(recipientIds), unreadOnly)) {
       return readToList(cursor, new ThreadModelBuilder(threadTable));
     }
   }
@@ -451,8 +451,8 @@ public class SearchRepository {
       Recipient   messageRecipient        = Recipient.live(messageRecipientId).get();
       String      body                    = CursorUtil.requireString(cursor, SearchTable.BODY);
       String      bodySnippet             = CursorUtil.requireString(cursor, SearchTable.SNIPPET);
-      long        receivedMs              = CursorUtil.requireLong(cursor, MmsSmsColumns.DATE_RECEIVED);
-      long        threadId                = CursorUtil.requireLong(cursor, MmsSmsColumns.THREAD_ID);
+      long        receivedMs              = CursorUtil.requireLong(cursor, MessageTable.DATE_RECEIVED);
+      long        threadId                = CursorUtil.requireLong(cursor, MessageTable.THREAD_ID);
       int         messageId               = CursorUtil.requireInt(cursor, SearchTable.MESSAGE_ID);
       boolean     isMms                   = CursorUtil.requireInt(cursor, SearchTable.IS_MMS) == 1;
 

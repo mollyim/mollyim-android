@@ -42,9 +42,9 @@ public class DeleteNotificationReceiver extends ExportedBroadcastReceiver {
       SignalExecutors.BOUNDED.execute(() -> {
         for (int i = 0; i < ids.length; i++) {
           if (!mms[i]) {
-            SignalDatabase.sms().markAsNotified(ids[i]);
+            SignalDatabase.messages().markAsNotified(ids[i]);
           } else {
-            SignalDatabase.mms().markAsNotified(ids[i]);
+            SignalDatabase.messages().markAsNotified(ids[i]);
           }
         }
         finisher.finish();

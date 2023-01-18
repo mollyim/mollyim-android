@@ -16,8 +16,6 @@
  */
 package org.thoughtcrime.securesms.conversation;
 
-import static org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.MONERO_TX_PATTERN;
-
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
@@ -28,7 +26,6 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.text.Annotation;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -44,7 +41,6 @@ import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.TouchDelegate;
 import android.view.View;
@@ -97,7 +93,6 @@ import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
 import org.thoughtcrime.securesms.conversation.ui.payment.PaymentMessageView;
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.database.MediaTable;
-import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
@@ -152,9 +147,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 import static org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.MONERO_TX_PATTERN;
 
@@ -2480,10 +2472,6 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   }
 
   private void handleMessageApproval() {
-    if (messageRecord.isMms()) {
-      SignalDatabase.mms().markAsSentFailed(messageRecord.getId());
-    } else {
-      SignalDatabase.sms().markAsSentFailed(messageRecord.getId());
-    }
+    SignalDatabase.messages().markAsSentFailed(messageRecord.getId());
   }
 }

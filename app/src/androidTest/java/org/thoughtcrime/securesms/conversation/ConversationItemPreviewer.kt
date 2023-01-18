@@ -10,7 +10,7 @@ import org.signal.core.util.ThreadUtil
 import org.thoughtcrime.securesms.attachments.PointerAttachment
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.mms.IncomingMediaMessage
-import org.thoughtcrime.securesms.mms.OutgoingMediaMessage
+import org.thoughtcrime.securesms.mms.OutgoingMessage
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.releasechannel.ReleaseChannel
@@ -72,7 +72,7 @@ class ConversationItemPreviewer {
       attachments = PointerAttachment.forPointers(Optional.of(attachments)),
     )
 
-    SignalDatabase.mms.insertSecureDecryptedMessageInbox(message, SignalDatabase.threads.getOrCreateThreadIdFor(other)).get()
+    SignalDatabase.messages.insertSecureDecryptedMessageInbox(message, SignalDatabase.threads.getOrCreateThreadIdFor(other)).get()
 
     ThreadUtil.sleep(1)
   }
@@ -91,7 +91,7 @@ class ConversationItemPreviewer {
       attachments = PointerAttachment.forPointers(Optional.of(attachments)),
     )
 
-    val insert = SignalDatabase.mms.insertSecureDecryptedMessageInbox(message, SignalDatabase.threads.getOrCreateThreadIdFor(other)).get()
+    val insert = SignalDatabase.messages.insertSecureDecryptedMessageInbox(message, SignalDatabase.threads.getOrCreateThreadIdFor(other)).get()
 
     SignalDatabase.attachments.getAttachmentsForMessage(insert.messageId).forEachIndexed { index, attachment ->
 //      if (index != 1) {
@@ -109,7 +109,7 @@ class ConversationItemPreviewer {
       attachment()
     }
 
-    val message = OutgoingMediaMessage(
+    val message = OutgoingMessage(
       recipient = other,
       body = body,
       attachments = PointerAttachment.forPointers(Optional.of(attachments)),
@@ -117,7 +117,7 @@ class ConversationItemPreviewer {
       isSecure = true
     )
 
-    val insert = SignalDatabase.mms.insertMessageOutbox(
+    val insert = SignalDatabase.messages.insertMessageOutbox(
       message,
       SignalDatabase.threads.getOrCreateThreadIdFor(other),
       false,

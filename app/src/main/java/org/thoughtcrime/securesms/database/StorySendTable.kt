@@ -36,7 +36,7 @@ class StorySendTable(context: Context, databaseHelper: SignalDatabase) : Databas
     val CREATE_TABLE = """
       CREATE TABLE $TABLE_NAME (
         $ID INTEGER PRIMARY KEY,
-        $MESSAGE_ID INTEGER NOT NULL REFERENCES ${MmsTable.TABLE_NAME} (${MmsTable.ID}) ON DELETE CASCADE,
+        $MESSAGE_ID INTEGER NOT NULL REFERENCES ${MessageTable.TABLE_NAME} (${MessageTable.ID}) ON DELETE CASCADE,
         $RECIPIENT_ID INTEGER NOT NULL REFERENCES ${RecipientTable.TABLE_NAME} (${RecipientTable.ID}) ON DELETE CASCADE,
         $SENT_TIMESTAMP INTEGER NOT NULL,
         $ALLOWS_REPLIES INTEGER NOT NULL,
@@ -141,9 +141,9 @@ class StorySendTable(context: Context, databaseHelper: SignalDatabase) : Databas
           WHERE $MESSAGE_ID != $messageId
           AND $SENT_TIMESTAMP = $sentTimestamp
           AND $MESSAGE_ID IN (
-            SELECT ${MmsTable.ID}
-            FROM ${MmsTable.TABLE_NAME}
-            WHERE ${MmsTable.REMOTE_DELETED} = 0
+            SELECT ${MessageTable.ID}
+            FROM ${MessageTable.TABLE_NAME}
+            WHERE ${MessageTable.REMOTE_DELETED} = 0
           )
         )
     """.trimIndent()
@@ -184,7 +184,7 @@ class StorySendTable(context: Context, databaseHelper: SignalDatabase) : Databas
       null
     ).use { cursor ->
       while (cursor.moveToNext()) {
-        messageIds += MessageId(cursor.requireLong(MESSAGE_ID), true)
+        messageIds += MessageId(cursor.requireLong(MESSAGE_ID))
       }
     }
 
@@ -208,7 +208,7 @@ class StorySendTable(context: Context, databaseHelper: SignalDatabase) : Databas
       .where(
         """
         $SENT_TIMESTAMP = ? AND
-        (SELECT ${MmsTable.REMOTE_DELETED} FROM ${MmsTable.TABLE_NAME} WHERE ${MmsTable.ID} = $MESSAGE_ID) = 0
+        (SELECT ${MessageTable.REMOTE_DELETED} FROM ${MessageTable.TABLE_NAME} WHERE ${MessageTable.ID} = $MESSAGE_ID) = 0
         """.trimIndent(),
         sentTimestamp
       )
@@ -250,10 +250,10 @@ class StorySendTable(context: Context, databaseHelper: SignalDatabase) : Databas
       val localManifest: SentStorySyncManifest = getLocalManifest(sentTimestamp)
 
       val query = """
-        SELECT ${MmsTable.TABLE_NAME}.${MmsTable.ID} as $MESSAGE_ID, ${DistributionListTables.DISTRIBUTION_ID}
-        FROM ${MmsTable.TABLE_NAME}
-        INNER JOIN ${DistributionListTables.LIST_TABLE_NAME} ON ${DistributionListTables.LIST_TABLE_NAME}.${DistributionListTables.RECIPIENT_ID} = ${MmsTable.TABLE_NAME}.${MmsTable.RECIPIENT_ID}
-        WHERE ${MmsTable.DATE_SENT} = $sentTimestamp AND ${DistributionListTables.DISTRIBUTION_ID} IS NOT NULL
+        SELECT ${MessageTable.TABLE_NAME}.${MessageTable.ID} as $MESSAGE_ID, ${DistributionListTables.DISTRIBUTION_ID}
+        FROM ${MessageTable.TABLE_NAME}
+        INNER JOIN ${DistributionListTables.LIST_TABLE_NAME} ON ${DistributionListTables.LIST_TABLE_NAME}.${DistributionListTables.RECIPIENT_ID} = ${MessageTable.TABLE_NAME}.${MessageTable.RECIPIENT_ID}
+        WHERE ${MessageTable.DATE_SENT} = $sentTimestamp AND ${DistributionListTables.DISTRIBUTION_ID} IS NOT NULL
       """.trimIndent()
 
       val distributionIdToMessageId = readableDatabase.query(query).use { cursor ->
@@ -311,8 +311,8 @@ class StorySendTable(context: Context, databaseHelper: SignalDatabase) : Databas
 
       val messagesWithoutAnyReceivers = localRows.map { it.messageId }.distinct() - remoteRows.map { it.messageId }.distinct()
       messagesWithoutAnyReceivers.forEach {
-        SignalDatabase.mms.markAsRemoteDelete(it)
-        SignalDatabase.mms.deleteRemotelyDeletedStory(it)
+        SignalDatabase.messages.markAsRemoteDelete(it)
+        SignalDatabase.messages.deleteRemotelyDeletedStory(it)
       }
 
       writableDatabase.setTransactionSuccessful()
@@ -329,16 +329,16 @@ class StorySendTable(context: Context, databaseHelper: SignalDatabase) : Databas
             $TABLE_NAME.$RECIPIENT_ID,
             $ALLOWS_REPLIES,
             $DISTRIBUTION_ID,
-            ${MmsTable.REMOTE_DELETED}
+            ${MessageTable.REMOTE_DELETED}
         FROM $TABLE_NAME
-        INNER JOIN ${MmsTable.TABLE_NAME} ON ${MmsTable.TABLE_NAME}.${MmsTable.ID} = $TABLE_NAME.$MESSAGE_ID
+        INNER JOIN ${MessageTable.TABLE_NAME} ON ${MessageTable.TABLE_NAME}.${MessageTable.ID} = $TABLE_NAME.$MESSAGE_ID
         WHERE $TABLE_NAME.$SENT_TIMESTAMP = ?
       """.trimIndent(),
       arrayOf(sentTimestamp)
     ).use { cursor ->
       val results: MutableMap<RecipientId, SentStorySyncManifest.Entry> = mutableMapOf()
       while (cursor.moveToNext()) {
-        val isRemoteDeleted = CursorUtil.requireBoolean(cursor, MmsTable.REMOTE_DELETED)
+        val isRemoteDeleted = CursorUtil.requireBoolean(cursor, MessageTable.REMOTE_DELETED)
         val recipientId = RecipientId.from(CursorUtil.requireLong(cursor, RECIPIENT_ID))
         val distributionId = DistributionId.from(CursorUtil.requireString(cursor, DISTRIBUTION_ID))
         val distributionIdList: List<DistributionId> = if (isRemoteDeleted) emptyList() else listOf(distributionId)

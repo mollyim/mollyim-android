@@ -173,7 +173,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     StandardUserAgentInterceptor(),
     RemoteDeprecationDetectorInterceptor(),
     DeprecatedClientPreventionInterceptor(),
-    DeviceTransferBlockingInterceptor.getInstance()
+    DeviceTransferBlockingInterceptor.getInstance(),
   )
 
   private val zkGroupServerPublicParams: ByteArray = try {

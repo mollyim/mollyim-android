@@ -7,7 +7,6 @@ import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -49,16 +48,14 @@ class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__ch
         }
       )
 
-      if (FeatureFlags.keepMutedChatsArchived() || FeatureFlags.internalUser()) {
-        switchPref(
-          title = DSLSettingsText.from(R.string.preferences__pref_keep_muted_chats_archived),
-          summary = DSLSettingsText.from(R.string.preferences__muted_chats_that_are_archived_will_remain_archived),
-          isChecked = state.keepMutedChatsArchived,
-          onClick = {
-            viewModel.setKeepMutedChatsArchived(!state.keepMutedChatsArchived)
-          }
-        )
-      }
+      switchPref(
+        title = DSLSettingsText.from(R.string.preferences__pref_keep_muted_chats_archived),
+        summary = DSLSettingsText.from(R.string.preferences__muted_chats_that_are_archived_will_remain_archived),
+        isChecked = state.keepMutedChatsArchived,
+        onClick = {
+          viewModel.setKeepMutedChatsArchived(!state.keepMutedChatsArchived)
+        }
+      )
 
       dividerPref()
 

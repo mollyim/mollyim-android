@@ -19,5 +19,6 @@ data class InternalSettingsState(
   val removeSenderKeyMinimium: Boolean,
   val delayResends: Boolean,
   val disableStorageService: Boolean,
-  val canClearOnboardingState: Boolean
+  val canClearOnboardingState: Boolean,
+  val pnpInitialized: Boolean
 )

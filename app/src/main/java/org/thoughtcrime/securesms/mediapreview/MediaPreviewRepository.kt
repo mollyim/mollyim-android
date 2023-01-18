@@ -84,18 +84,18 @@ class MediaPreviewRepository {
 
   fun remoteDelete(attachment: DatabaseAttachment): Completable {
     return Completable.fromRunnable {
-      MessageSender.sendRemoteDelete(attachment.mmsId, true)
+      MessageSender.sendRemoteDelete(attachment.mmsId)
     }.subscribeOn(Schedulers.io())
   }
 
   fun getMessagePositionIntent(context: Context, messageId: Long): Single<Intent> {
     return Single.fromCallable {
       val stopwatch = Stopwatch("Message Position Intent")
-      val messageRecord: MessageRecord = SignalDatabase.mms.getMessageRecord(messageId)
+      val messageRecord: MessageRecord = SignalDatabase.messages.getMessageRecord(messageId)
       stopwatch.split("get message record")
 
       val threadId: Long = messageRecord.threadId
-      val messagePosition: Int = SignalDatabase.mmsSms.getMessagePositionInConversation(threadId, messageRecord.dateReceived)
+      val messagePosition: Int = SignalDatabase.messages.getMessagePositionInConversation(threadId, messageRecord.dateReceived)
       stopwatch.split("get message position")
 
       val recipientId: RecipientId = SignalDatabase.threads.getRecipientForThreadId(threadId)?.id ?: throw IllegalStateException("Could not find recipient for thread ID $threadId")

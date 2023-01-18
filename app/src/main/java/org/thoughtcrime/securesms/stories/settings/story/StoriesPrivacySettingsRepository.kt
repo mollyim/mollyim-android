@@ -29,10 +29,10 @@ class StoriesPrivacySettingsRepository {
       Stories.onStorySettingsChanged(Recipient.self().id)
       ApplicationDependencies.restartAllNetworkConnections()
 
-      SignalDatabase.mms.getAllOutgoingStories(false, -1).use { reader ->
+      SignalDatabase.messages.getAllOutgoingStories(false, -1).use { reader ->
         reader.map { record -> record.id }
       }.forEach { messageId ->
-        MessageSender.sendRemoteDelete(messageId, true)
+        MessageSender.sendRemoteDelete(messageId)
       }
     }.subscribeOn(Schedulers.io())
   }
@@ -45,7 +45,7 @@ class StoriesPrivacySettingsRepository {
 
   fun userHasOutgoingStories(): Single<Boolean> {
     return Single.fromCallable {
-      SignalDatabase.mms.getAllOutgoingStories(false, -1).use {
+      SignalDatabase.messages.getAllOutgoingStories(false, -1).use {
         it.iterator().hasNext()
       }
     }.subscribeOn(Schedulers.io())

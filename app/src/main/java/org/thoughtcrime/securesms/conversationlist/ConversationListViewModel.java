@@ -16,6 +16,8 @@ import org.signal.paging.PagedData;
 import org.signal.paging.PagingConfig;
 import org.signal.paging.PagingController;
 import org.thoughtcrime.securesms.components.settings.app.notifications.profiles.NotificationProfilesRepository;
+import org.thoughtcrime.securesms.conversationlist.chatfilter.ConversationFilterRequest;
+import org.thoughtcrime.securesms.conversationlist.chatfilter.ConversationFilterSource;
 import org.thoughtcrime.securesms.conversationlist.model.Conversation;
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter;
 import org.thoughtcrime.securesms.conversationlist.model.ConversationSet;
@@ -24,6 +26,7 @@ import org.thoughtcrime.securesms.conversationlist.model.UnreadPaymentsLiveData;
 import org.thoughtcrime.securesms.database.DatabaseObserver;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.megaphone.Megaphone;
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.megaphone.Megaphones;
@@ -63,7 +66,7 @@ class ConversationListViewModel extends ViewModel {
   private final MutableLiveData<Megaphone>                  megaphone;
   private final MutableLiveData<SearchResult>               searchResult;
   private final MutableLiveData<ConversationSet>            selectedConversations;
-  private final MutableLiveData<ConversationFilter>         conversationFilter;
+  private final MutableLiveData<ConversationFilterRequest>  conversationFilterRequest;
   private final LiveData<ConversationListDataSource>        conversationListDataSource;
   private final Set<Conversation>                           internalSelection;
   private final LiveData<LivePagedData<Long, Conversation>> pagedData;
@@ -83,7 +86,6 @@ class ConversationListViewModel extends ViewModel {
   private String                  activeQuery;
   private SearchResult            activeSearchResult;
   private int                     pinnedCount;
-  private ConversationFilterLatch conversationFilterLatch;
 
   private ConversationListViewModel(@NonNull SearchRepository searchRepository, boolean isArchived) {
     this.megaphone                      = new MutableLiveData<>();
@@ -100,9 +102,11 @@ class ConversationListViewModel extends ViewModel {
     this.activeSearchResult             = SearchResult.EMPTY;
     this.invalidator                    = new Invalidator();
     this.disposables                    = new CompositeDisposable();
-    this.conversationFilter             = new MutableLiveData<>(ConversationFilter.OFF);
-    this.conversationFilterLatch        = ConversationFilterLatch.RESET;
-    this.conversationListDataSource     = Transformations.map(conversationFilter, filter -> ConversationListDataSource.create(filter, isArchived));
+    this.conversationFilterRequest      = new MutableLiveData<>(new ConversationFilterRequest(ConversationFilter.OFF, ConversationFilterSource.DRAG));
+    this.conversationListDataSource     = Transformations.map(Transformations.distinctUntilChanged(conversationFilterRequest),
+                                                              request -> ConversationListDataSource.create(request.getFilter(),
+                                                                                                           isArchived,
+                                                                                                           SignalStore.uiHints().canDisplayPullToFilterTip() && request.getSource() == ConversationFilterSource.OVERFLOW));
     this.pagedData                      = Transformations.map(conversationListDataSource, source -> PagedData.createForLiveData(source,
                                                                                                                                 new PagingConfig.Builder()
                                                                                                                                     .setPageSize(15)
@@ -124,13 +128,13 @@ class ConversationListViewModel extends ViewModel {
       });
     };
 
-    this.hasNoConversations = LiveDataUtil.mapAsync(LiveDataUtil.combineLatest(conversationFilter, getConversationList(), Pair::new), filterAndData -> {
+    this.hasNoConversations = LiveDataUtil.mapAsync(LiveDataUtil.combineLatest(conversationFilterRequest, getConversationList(), Pair::new), filterAndData -> {
       pinnedCount = SignalDatabase.threads().getPinnedConversationListCount(ConversationFilter.OFF);
 
       if (filterAndData.getSecond().size() > 0) {
         return false;
       } else {
-        return SignalDatabase.threads().getArchivedConversationListCount(filterAndData.getFirst()) == 0;
+        return SignalDatabase.threads().getArchivedConversationListCount(filterAndData.getFirst().getFilter()) == 0;
       }
     });
 
@@ -169,6 +173,10 @@ class ConversationListViewModel extends ViewModel {
 
   @NonNull LiveData<Optional<UnreadPayments>> getUnreadPaymentsLiveData() {
     return unreadPaymentsLiveData;
+  }
+
+  @NonNull LiveData<ConversationFilterRequest> getConversationFilterRequest() {
+    return conversationFilterRequest;
   }
 
   public int getPinnedCount() {
@@ -212,22 +220,17 @@ class ConversationListViewModel extends ViewModel {
     setSelection(newSelection);
   }
 
-  void setConversationFilterLatch(@NonNull ConversationFilterLatch latch) {
-    ConversationFilterLatch previous = conversationFilterLatch;
-    conversationFilterLatch = latch;
-    if (previous != latch && latch == ConversationFilterLatch.RESET) {
-      toggleUnreadChatsFilter();
-    }
-  }
-
-  public void toggleUnreadChatsFilter() {
-    ConversationFilter filter = Objects.requireNonNull(conversationFilter.getValue());
-    if (filter == ConversationFilter.UNREAD) {
-      Log.d(TAG, "Setting filter to OFF");
-      conversationFilter.setValue(ConversationFilter.OFF);
+  void setFiltered(boolean isFiltered, @NonNull ConversationFilterSource conversationFilterSource) {
+    if (isFiltered) {
+      conversationFilterRequest.setValue(new ConversationFilterRequest(ConversationFilter.UNREAD, conversationFilterSource));
+      if (activeQuery != null) {
+        onSearchQueryUpdated(activeQuery);
+      }
     } else {
-      Log.d(TAG, "Setting filter to UNREAD");
-      conversationFilter.setValue(ConversationFilter.UNREAD);
+      conversationFilterRequest.setValue(new ConversationFilterRequest(ConversationFilter.OFF, conversationFilterSource));
+      if (activeQuery != null) {
+        onSearchQueryUpdated(activeQuery);
+      }
     }
   }
 
@@ -272,19 +275,14 @@ class ConversationListViewModel extends ViewModel {
   void onSearchQueryUpdated(String query) {
     activeQuery = query;
 
+    ConversationFilter filter = Objects.requireNonNull(conversationFilterRequest.getValue()).getFilter();
+    if (filter != ConversationFilter.OFF) {
+      contactSearchDebouncer.publish(() -> submitConversationSearch(query, filter));
+      return;
+    }
+
     contactSearchDebouncer.publish(() -> {
-      searchRepository.queryThreads(query, result -> {
-        if (!result.getQuery().equals(activeQuery)) {
-          return;
-        }
-
-        if (!activeSearchResult.getQuery().equals(activeQuery)) {
-          activeSearchResult = SearchResult.EMPTY;
-        }
-
-        activeSearchResult = activeSearchResult.merge(result);
-        searchResult.postValue(activeSearchResult);
-      });
+      submitConversationSearch(query, filter);
 
       searchRepository.queryContacts(query, result -> {
         if (!result.getQuery().equals(activeQuery)) {
@@ -313,6 +311,21 @@ class ConversationListViewModel extends ViewModel {
         activeSearchResult = activeSearchResult.merge(result);
         searchResult.postValue(activeSearchResult);
       });
+    });
+  }
+
+  private void submitConversationSearch(@NonNull String query, @NonNull ConversationFilter conversationFilter) {
+    searchRepository.queryThreads(query, conversationFilter == ConversationFilter.UNREAD, result -> {
+      if (!result.getQuery().equals(activeQuery)) {
+        return;
+      }
+
+      if (!activeSearchResult.getQuery().equals(activeQuery)) {
+        activeSearchResult = SearchResult.EMPTY;
+      }
+
+      activeSearchResult = activeSearchResult.merge(result).merge(conversationFilter);
+      searchResult.postValue(activeSearchResult);
     });
   }
 

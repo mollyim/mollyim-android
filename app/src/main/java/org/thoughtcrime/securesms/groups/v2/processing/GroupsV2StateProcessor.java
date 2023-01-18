@@ -20,7 +20,7 @@ import org.signal.storageservice.protos.groups.local.DecryptedMember;
 import org.signal.storageservice.protos.groups.local.DecryptedPendingMember;
 import org.signal.storageservice.protos.groups.local.DecryptedPendingMemberRemoval;
 import org.thoughtcrime.securesms.database.GroupTable;
-import org.thoughtcrime.securesms.database.GroupTable.GroupRecord;
+import org.thoughtcrime.securesms.database.model.GroupRecord;
 import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -41,7 +41,7 @@ import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.MmsException;
-import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
+import org.thoughtcrime.securesms.mms.OutgoingMessage;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.sms.IncomingGroupUpdateMessage;
@@ -512,10 +512,10 @@ public class GroupsV2StateProcessor {
                                                                       .build();
 
       DecryptedGroupV2Context decryptedGroupV2Context = GroupProtoUtil.createDecryptedGroupV2Context(masterKey, new GroupMutation(decryptedGroup, simulatedGroupChange, simulatedGroupState), null);
-      OutgoingMediaMessage    leaveMessage            = OutgoingMediaMessage.groupUpdateMessage(groupRecipient, decryptedGroupV2Context, System.currentTimeMillis());
+      OutgoingMessage         leaveMessage            = OutgoingMessage.groupUpdateMessage(groupRecipient, decryptedGroupV2Context, System.currentTimeMillis());
 
       try {
-        MessageTable mmsDatabase = SignalDatabase.mms();
+        MessageTable mmsDatabase = SignalDatabase.messages();
         ThreadTable  threadTable = SignalDatabase.threads();
         long         threadId    = threadTable.getOrCreateThreadIdFor(groupRecipient);
         long         id          = mmsDatabase.insertMessageOutbox(leaveMessage, threadId, false, null);
@@ -738,13 +738,13 @@ public class GroupsV2StateProcessor {
 
       if (outgoing) {
         try {
-          MessageTable         mmsDatabase     = SignalDatabase.mms();
-          ThreadTable          threadTable     = SignalDatabase.threads();
-          RecipientId          recipientId     = recipientTable.getOrInsertFromGroupId(groupId);
-          Recipient            recipient       = Recipient.resolved(recipientId);
-          OutgoingMediaMessage outgoingMessage = OutgoingMediaMessage.groupUpdateMessage(recipient, decryptedGroupV2Context, timestamp);
-          long                 threadId        = threadTable.getOrCreateThreadIdFor(recipient);
-          long                 messageId       = mmsDatabase.insertMessageOutbox(outgoingMessage, threadId, false, null);
+          MessageTable    mmsDatabase     = SignalDatabase.messages();
+          ThreadTable     threadTable     = SignalDatabase.threads();
+          RecipientId     recipientId     = recipientTable.getOrInsertFromGroupId(groupId);
+          Recipient       recipient       = Recipient.resolved(recipientId);
+          OutgoingMessage outgoingMessage = OutgoingMessage.groupUpdateMessage(recipient, decryptedGroupV2Context, timestamp);
+          long            threadId        = threadTable.getOrCreateThreadIdFor(recipient);
+          long            messageId       = mmsDatabase.insertMessageOutbox(outgoingMessage, threadId, false, null);
 
           mmsDatabase.markAsSent(messageId, true);
           threadTable.update(threadId, false, false);
@@ -752,7 +752,7 @@ public class GroupsV2StateProcessor {
           Log.w(TAG, e);
         }
       } else {
-        MessageTable                        smsDatabase  = SignalDatabase.sms();
+        MessageTable                        smsDatabase  = SignalDatabase.messages();
         RecipientId                         sender       = RecipientId.from(editor.get());
         IncomingTextMessage                    incoming     = new IncomingTextMessage(sender, -1, timestamp, timestamp, timestamp, "", Optional.of(groupId), 0, false, null);
         IncomingGroupUpdateMessage          groupMessage = new IncomingGroupUpdateMessage(incoming, decryptedGroupV2Context);

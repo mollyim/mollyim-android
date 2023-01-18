@@ -142,7 +142,7 @@ public class ConversationItemFooter extends ConstraintLayout {
   public void setMessageRecord(@NonNull MessageRecord messageRecord, @NonNull Locale locale) {
     presentDate(messageRecord, locale);
     presentSimInfo(messageRecord);
-    presentTimer(messageRecord);
+    presentTimer(messageRecord, timerView);
     presentInsecureIndicator(messageRecord);
     presentDeliveryStatus(messageRecord);
     presentAudioDuration(messageRecord);
@@ -322,16 +322,16 @@ public class ConversationItemFooter extends ConstraintLayout {
     simView.setVisibility(View.GONE);
   }
 
-  @SuppressLint("StaticFieldLeak")
-  private void presentTimer(@NonNull final MessageRecord messageRecord) {
+  // MOLLY: Called from ConversationUpdateItem to show timer for call logs too
+  static public void presentTimer(@NonNull final MessageRecord messageRecord, @NonNull ExpirationTimerView timerView) {
     if (messageRecord.getExpiresIn() > 0 && !messageRecord.isPending()) {
-      this.timerView.setVisibility(View.VISIBLE);
-      this.timerView.setPercentComplete(0);
+      timerView.setVisibility(View.VISIBLE);
+      timerView.setPercentComplete(0);
 
       if (messageRecord.getExpireStarted() > 0) {
-        this.timerView.setExpirationTime(messageRecord.getExpireStarted(),
-                                         messageRecord.getExpiresIn());
-        this.timerView.startAnimation();
+        timerView.setExpirationTime(messageRecord.getExpireStarted(),
+                                    messageRecord.getExpiresIn());
+        timerView.startAnimation();
 
         if (timerView.isExpired()) {
           ApplicationDependencies.getExpiringMessageManager().checkSchedule();
@@ -339,20 +339,16 @@ public class ConversationItemFooter extends ConstraintLayout {
       } else if (!messageRecord.isOutgoing() && !messageRecord.isMediaPending()) {
         SignalExecutors.BOUNDED.execute(() -> {
           ExpiringMessageManager expirationManager = ApplicationDependencies.getExpiringMessageManager();
-          long                   id                = messageRecord.getId();
-          boolean                mms               = messageRecord.isMms();
 
-          if (mms) {
-            SignalDatabase.mms().markExpireStarted(id);
-          } else {
-            SignalDatabase.sms().markExpireStarted(id);
-          }
+          long id = messageRecord.getId();
 
-          expirationManager.scheduleDeletion(id, mms, messageRecord.getExpiresIn());
+          SignalDatabase.messages().markExpireStarted(id);
+
+          expirationManager.scheduleDeletion(id, messageRecord.getExpiresIn());
         });
       }
     } else {
-      this.timerView.setVisibility(View.GONE);
+      timerView.setVisibility(View.GONE);
     }
   }
 

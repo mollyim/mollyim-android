@@ -43,12 +43,12 @@ class InternalSettingsRepository(context: Context) {
         body = body,
         threadId = threadId,
         messageRanges = bodyRangeList.build(),
-        image = "/static/release-notes/signal.png",
-        imageWidth = 1800,
-        imageHeight = 720
+        media = "/static/release-notes/signal.png",
+        mediaWidth = 1800,
+        mediaHeight = 720
       )
 
-      SignalDatabase.sms.insertBoostRequestMessage(recipientId, threadId)
+      SignalDatabase.messages.insertBoostRequestMessage(recipientId, threadId)
 
       if (insertResult != null) {
         SignalDatabase.attachments.getAttachmentsForMessage(insertResult.messageId)
