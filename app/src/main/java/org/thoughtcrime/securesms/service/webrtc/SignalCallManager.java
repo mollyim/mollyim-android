@@ -832,7 +832,7 @@ private void processStateless(@NonNull Function1<WebRtcEphemeralState, WebRtcEph
 
   public void insertMissedCall(@NonNull RemotePeer remotePeer, long timestamp, boolean isVideoOffer) {
     CallTable.Call call = SignalDatabase.calls()
-                                        .updateCall(remotePeer.getCallId().longValue(), CallTable.Event.MISSED);
+                                        .updateCall(remotePeer.getCallId().longValue(), CallTable.Event.MISSED, timestamp);
 
     if (call == null) {
       CallTable.Type type = isVideoOffer ? CallTable.Type.VIDEO_CALL : CallTable.Type.AUDIO_CALL;
@@ -844,7 +844,7 @@ private void processStateless(@NonNull Function1<WebRtcEphemeralState, WebRtcEph
 
   public void insertReceivedCall(@NonNull RemotePeer remotePeer, boolean isVideoOffer) {
     CallTable.Call call = SignalDatabase.calls()
-                                        .updateCall(remotePeer.getCallId().longValue(), CallTable.Event.ACCEPTED);
+                                        .updateCall(remotePeer.getCallId().longValue(), CallTable.Event.ACCEPTED, null);
 
     if (call == null) {
       CallTable.Type type = isVideoOffer ? CallTable.Type.VIDEO_CALL : CallTable.Type.AUDIO_CALL;
@@ -937,7 +937,7 @@ private void processStateless(@NonNull Function1<WebRtcEphemeralState, WebRtcEph
   public void sendAcceptedCallEventSyncMessage(@NonNull RemotePeer remotePeer, boolean isOutgoing, boolean isVideoCall) {
     SignalDatabase
         .calls()
-        .updateCall(remotePeer.getCallId().longValue(), CallTable.Event.ACCEPTED);
+        .updateCall(remotePeer.getCallId().longValue(), CallTable.Event.ACCEPTED, null);
 
     if (TextSecurePreferences.isMultiDevice(context)) {
       networkExecutor.execute(() -> {
@@ -954,7 +954,7 @@ private void processStateless(@NonNull Function1<WebRtcEphemeralState, WebRtcEph
   public void sendNotAcceptedCallEventSyncMessage(@NonNull RemotePeer remotePeer, boolean isOutgoing, boolean isVideoCall) {
     SignalDatabase
         .calls()
-        .updateCall(remotePeer.getCallId().longValue(), CallTable.Event.NOT_ACCEPTED);
+        .updateCall(remotePeer.getCallId().longValue(), CallTable.Event.NOT_ACCEPTED, null);
 
     if (TextSecurePreferences.isMultiDevice(context)) {
       networkExecutor.execute(() -> {

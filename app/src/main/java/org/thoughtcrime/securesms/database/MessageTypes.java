@@ -293,6 +293,10 @@ public interface MessageTypes {
     return type == MISSED_VIDEO_CALL_TYPE;
   }
 
+  static boolean isMissedCall(long type) {
+    return isMissedAudioCall(type) || isMissedVideoCall(type);
+  }
+
   static boolean isGroupCall(long type) {
     return type == GROUP_CALL_TYPE;
   }

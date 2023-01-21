@@ -1262,7 +1262,7 @@ public final class MessageContentProcessor {
       if (typeMismatch || directionMismatch || eventDowngrade || peerMismatch) {
         warn(envelopeTimestamp, "Call event sync message is not valid for existing call record, ignoring. type: " + type + " direction: " + direction + "  event: " + event + " peerMismatch: " + peerMismatch);
       } else {
-        SignalDatabase.calls().updateCall(callId, event);
+        SignalDatabase.calls().updateCall(callId, event, timestamp);
       }
     } else {
       SignalDatabase.calls().insertCall(callId, timestamp, recipientId, type, direction, event);

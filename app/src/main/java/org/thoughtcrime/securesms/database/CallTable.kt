@@ -15,6 +15,7 @@ import org.signal.core.util.select
 import org.signal.core.util.update
 import org.signal.core.util.withinTransaction
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage.CallEvent
 
@@ -55,9 +56,11 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
 
   fun insertCall(callId: Long, timestamp: Long, peer: RecipientId, type: Type, direction: Direction, event: Event) {
     val messageType: Long = Call.getMessageType(type, direction, event)
+    val unread = MessageTypes.isMissedCall(messageType)
+    val expiresIn = Recipient.resolved(peer).expiresInMillis
 
     writableDatabase.withinTransaction {
-      val result = SignalDatabase.messages.insertCallLog(peer, messageType, timestamp)
+      val result = SignalDatabase.messages.insertCallLog(peer, messageType, timestamp, expiresIn, unread)
 
       val values = contentValuesOf(
         CALL_ID to callId,
@@ -69,6 +72,11 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
       )
 
       writableDatabase.insert(TABLE_NAME, null, values)
+
+      if (!unread && expiresIn > 0) {
+        SignalDatabase.messages.markExpireStarted(result.messageId, timestamp)
+        ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(result.messageId, timestamp, expiresIn)
+      }
     }
 
     ApplicationDependencies.getMessageNotifier().updateNotification(context)
@@ -76,8 +84,8 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     Log.i(TAG, "Inserted call: $callId type: $type direction: $direction event:$event")
   }
 
-  fun updateCall(callId: Long, event: Event): Call? {
-    return writableDatabase.withinTransaction {
+  fun updateCall(callId: Long, event: Event, timestamp: Long?): Call? {
+    val call = writableDatabase.withinTransaction {
       writableDatabase
         .update(TABLE_NAME)
         .values(EVENT to Event.serialize(event))
@@ -94,12 +102,24 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
       if (call != null) {
         Log.i(TAG, "Updated call: $callId event: $event")
 
-        SignalDatabase.messages.updateCallLog(call.messageId, call.messageType)
-        ApplicationDependencies.getMessageNotifier().updateNotification(context)
+        val unread = MessageTypes.isMissedCall(call.messageType)
+        val expiresIn = Recipient.resolved(call.peer).expiresInMillis
+
+        SignalDatabase.messages.updateCallLog(call.messageId, call.messageType, unread)
+
+        if (!unread && expiresIn > 0) {
+          val timestampOrNow = timestamp ?: System.currentTimeMillis()
+          SignalDatabase.messages.markExpireStarted(call.messageId, timestampOrNow)
+          ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(call.messageId, timestampOrNow, expiresIn)
+        }
       }
 
       call
     }
+
+    ApplicationDependencies.getMessageNotifier().updateNotification(context)
+
+    return call
   }
 
   fun getCallById(callId: Long): Call? {
