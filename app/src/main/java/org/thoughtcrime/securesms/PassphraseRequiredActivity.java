@@ -227,10 +227,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   }
 
   private Intent getUiBlockingUpgradeIntent() {
-    return getRoutedIntent(ApplicationMigrationActivity.class,
-                           TextSecurePreferences.hasPromptedPushRegistration(this)
-                               ? getConversationListIntent()
-                               : getPushRegistrationIntent());
+    return getRoutedIntent(ApplicationMigrationActivity.class, MainActivity.clearTop(this));
   }
 
   private Intent getPushRegistrationIntent() {
