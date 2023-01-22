@@ -8,16 +8,19 @@ import im.molly.unifiedpush.model.UnifiedPushStatus
 import im.molly.unifiedpush.model.saveStatus
 import im.molly.unifiedpush.util.MollySocketRequest
 import im.molly.unifiedpush.util.UnifiedPushHelper
+import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
 import org.unifiedpush.android.connector.MessagingReceiver
 import java.util.Timer
 import kotlin.concurrent.schedule
 
 class UnifiedPushReceiver : MessagingReceiver() {
   private val TAG = Log.tag(UnifiedPushReceiver::class.java)
-  private val TIMEOUT = 20_000L //20secs
+  private val TIMEOUT = 20_000L // 20secs
+  private val EXECUTOR = SerialMonoLifoExecutor(SignalExecutors.UNBOUNDED)
 
   override fun onNewEndpoint(context: Context, endpoint: String, instance: String) {
     Log.d(TAG, "New endpoint: $endpoint")
@@ -33,11 +36,11 @@ class UnifiedPushReceiver : MessagingReceiver() {
           UnifiedPushStatus.MISSING_ENDPOINT,
           UnifiedPushStatus.OK,
         ) -> {
-          Thread {
+          EXECUTOR.enqueue {
             MollySocketRequest.registerToMollySocketServer().saveStatus()
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().apply { action = BROADCAST_NEW_ENDPOINT })
             // TODO: alert if status changes from Ok to something else
-          }.start()
+          }
         }
         else -> {
           LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().apply { action = BROADCAST_NEW_ENDPOINT })

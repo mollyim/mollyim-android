@@ -13,9 +13,11 @@ import im.molly.unifiedpush.model.UnifiedPushStatus
 import im.molly.unifiedpush.model.saveStatus
 import im.molly.unifiedpush.util.MollySocketRequest
 import im.molly.unifiedpush.util.UnifiedPushHelper
+import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
 import org.thoughtcrime.securesms.util.livedata.Store
 import org.unifiedpush.android.connector.UnifiedPush
 
@@ -26,6 +28,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
   private val TAG = Log.tag(UnifiedPushSettingsViewModel::class.java)
   private val store = Store(getState())
   private var status: UnifiedPushStatus? = null
+  private val EXECUTOR = SerialMonoLifoExecutor(SignalExecutors.UNBOUNDED)
 
   val state: LiveData<UnifiedPushSettingsState> = store.stateLiveData
   val intentFilter = IntentFilter(BROADCAST_NEW_ENDPOINT)
@@ -99,12 +102,12 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
       UnifiedPush.getDistributors(application).getOrNull(0)?.let {
         status = UnifiedPushStatus.PENDING
         store.update { getState() }
-        Thread {
+        EXECUTOR.enqueue {
           UnifiedPush.saveDistributor(application, it)
           UnifiedPush.registerApp(application)
           UnifiedPushHelper.initializeMollySocketLinkedDevice()
           processNewStatus()
-        }.start()
+        }
         // Do not enable if there is no distributor
       } ?: return
     } else {
@@ -146,7 +149,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
     ) {
       Log.d(TAG, "Trying to register to MollySocket")
       status = UnifiedPushStatus.PENDING
-      Thread {
+      EXECUTOR.enqueue {
         try {
           if (MollySocketRequest.discoverMollySocketServer()) {
             SignalStore.unifiedpush().mollySocketFound = true
@@ -161,7 +164,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
           status = UnifiedPushStatus.INTERNAL_ERROR
         }
         store.update { getState() }
-      }.start()
+      }
     } else {
       status = SignalStore.unifiedpush().status
     }
