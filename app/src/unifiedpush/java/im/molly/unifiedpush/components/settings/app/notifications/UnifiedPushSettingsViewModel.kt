@@ -1,18 +1,16 @@
 package im.molly.unifiedpush.components.settings.app.notifications
 
 import android.app.Application
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import im.molly.unifiedpush.events.UnifiedPushRegistrationEvent
 import im.molly.unifiedpush.model.UnifiedPushStatus
 import im.molly.unifiedpush.model.saveStatus
 import im.molly.unifiedpush.util.MollySocketRequest
 import im.molly.unifiedpush.util.UnifiedPushHelper
+import org.greenrobot.eventbus.Subscribe
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
@@ -20,8 +18,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
 import org.thoughtcrime.securesms.util.livedata.Store
 import org.unifiedpush.android.connector.UnifiedPush
-
-val BROADCAST_NEW_ENDPOINT = "UnifiedPushSettingsViewModel.new_endpoint"
 
 class UnifiedPushSettingsViewModel(private val application: Application) : ViewModel() {
 
@@ -31,14 +27,10 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
   private val EXECUTOR = SerialMonoLifoExecutor(SignalExecutors.UNBOUNDED)
 
   val state: LiveData<UnifiedPushSettingsState> = store.stateLiveData
-  val intentFilter = IntentFilter(BROADCAST_NEW_ENDPOINT)
 
-  val broadcastReceiver = object : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
-      when (intent?.action) {
-        BROADCAST_NEW_ENDPOINT -> processNewStatus()
-      }
-    }
+  @Subscribe
+  fun onNewEndpoint(e: UnifiedPushRegistrationEvent) {
+    processNewStatus()
   }
 
   private fun getState(): UnifiedPushSettingsState {
