@@ -24,6 +24,7 @@ public final class SignalServiceConfiguration {
   private final ProxySelector                proxySelector;
   private final Dns                          dns;
   private final byte[]                       zkGroupServerPublicParams;
+  private final boolean                      supportsWebSocket;
 
   public SignalServiceConfiguration(SignalServiceUrl[] signalServiceUrls,
                                     Map<Integer, SignalCdnUrl[]> signalCdnUrlMap,
@@ -35,7 +36,8 @@ public final class SignalServiceConfiguration {
                                     SocketFactory socketFactory,
                                     ProxySelector proxySelector,
                                     Dns dns,
-                                    byte[] zkGroupServerPublicParams)
+                                    byte[] zkGroupServerPublicParams,
+                                    boolean supportsWebSocket)
   {
     this.signalServiceUrls          = signalServiceUrls;
     this.signalCdnUrlMap            = signalCdnUrlMap;
@@ -48,6 +50,7 @@ public final class SignalServiceConfiguration {
     this.proxySelector              = proxySelector;
     this.dns                        = dns;
     this.zkGroupServerPublicParams  = zkGroupServerPublicParams;
+    this.supportsWebSocket          = supportsWebSocket;
   }
 
   public SignalServiceUrl[] getSignalServiceUrls() {
@@ -92,5 +95,9 @@ public final class SignalServiceConfiguration {
 
   public byte[] getZkGroupServerPublicParams() {
     return zkGroupServerPublicParams;
+  }
+
+  public boolean supportsWebSockets() {
+    return supportsWebSocket;
   }
 }

@@ -693,6 +693,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">גרסה זו של Signal פגה. עדכן עכשיו כדי לשלוח ולקבל הודעות.</string>
     <string name="ExpiredBuildReminder_update_now">עדכן עכשיו</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="ExpiredBuildReminder_api_19_message">אפליקציית Signal כבר לא פועלת במכשיר הזה. כדי להשתמש ב–Signal שוב, צריך לעדכן את המכשיר לגרסה חדשה יותר של Android או להחליף למכשיר חדש יותר.</string>
+
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
         <item quantity="one">בקשה ממתינה של חבר קבוצה %1$d.</item>
@@ -2029,11 +2032,11 @@
     <string name="ThreadRecord_video">סרטון</string>
     <string name="ThreadRecord_chat_session_refreshed">שיח התכתבות רוענן</string>
     <!-- Displayed in the notification when the user is sent a gift -->
-    <string name="ThreadRecord__you_received_a_gift">קיבלת שי</string>
+    <string name="ThreadRecord__s_donated_for_you">%1$s תרם/ה בשבילך</string>
     <!-- Displayed in the notification when the user sends a gift -->
-    <string name="ThreadRecord__you_sent_a_gift">שלחת שי</string>
+    <string name="ThreadRecord__you_donated_for_s">תרמת בשביל %1$s</string>
     <!-- Displayed in the notification when the user has opened a received gift -->
-    <string name="ThreadRecord__you_redeemed_a_gift_badge">מימשת תג מתנה</string>
+    <string name="ThreadRecord__you_redeemed_a_badge">מימשת תג</string>
     <!-- Displayed in the conversation list when someone reacted to your story -->
     <string name="ThreadRecord__reacted_s_to_your_story">הגיב/ה %1$s לסטורי שלך</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
@@ -2419,7 +2422,7 @@
     <!-- Label indicating that the story being replied to no longer exists -->
     <string name="QuoteView_no_longer_available">לא זמין יותר</string>
     <!-- Label for quoted gift -->
-    <string name="QuoteView__gift">שי</string>
+    <string name="QuoteView__donation_for_a_friend">תרומה בשביל חבר/ה</string>
 
     <!-- conversation_fragment -->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">גלול לתחתית</string>
@@ -4559,7 +4562,7 @@
     <!-- Preference heading for other ways to donate -->
     <string name="ManageDonationsFragment__other_ways_to_give">דרכים אחרות לתת</string>
     <!-- Preference label to launch badge gifting -->
-    <string name="ManageDonationsFragment__gift_a_badge">הענקת תג במתנה</string>
+    <string name="ManageDonationsFragment__donate_for_a_friend">ביצוע תרומה בשביל חבר/ה</string>
 
     <string name="Boost__enter_custom_amount">הכנסת סכום מותאם אישית</string>
     <string name="Boost__one_time_contribution">תרומה חד־פעמית</string>
@@ -4615,10 +4618,10 @@
     <string name="DonationsErrors__failed_to_validate_badge">אימות התג נכשל</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__could_not_validate">לא היה ניתן לבדוק תקפות תגובת שרת. אנא צור קשר עם התמיכה.</string>
-    <!-- Displayed as title when some generic error happens during gift badge sending -->
-    <string name="DonationsErrors__failed_to_send_gift_badge">שליחת תג מתנה נכשלה</string>
-    <!-- Displayed as message when some generic error happens during gift badge sending -->
-    <string name="DonationsErrors__could_not_send_gift_badge">לא הייתה אפשרות לשלוח תג מתנה. כדאי ליצור קשר עם התמיכה.</string>
+    <!-- Displayed as title when some generic error happens during sending donation on behalf of another user -->
+    <string name="DonationsErrors__donation_failed">התרומה נכשלה</string>
+    <!-- Displayed as message when some generic error happens during sending donation on behalf of another user -->
+    <string name="DonationsErrors__your_payment_was_processed_but">התשלום שלך עבד אבל Signal לא הצליחה לשלוח את ההודעה על התרומה. יש ליצור קשר עם התמיכה.</string>
     <string name="DonationsErrors__your_badge_could_not">לא הייתה אפשרות להוסיף את התג שלך לחשבון שלך, אבל ייתכן שחויבת. כדאי ליצור קשר עם התמיכה.</string>
     <string name="DonationsErrors__your_payment_is_still">התשלום שלך עדין מעובד. זה יכול לקחת מספר דקות בהתאם לחיבור שלך.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">ביטול המנוי נכשל</string>
@@ -4627,16 +4630,16 @@
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">שגיאת רשת. בדוק את החיבור שלך ונסה שוב.</string>
     <string name="NetworkFailure__retry">נסה שוב</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__cant_send_gift">לא ניתן לשלוח מתנה</string>
+    <string name="DonationsErrors__cannot_send_donation">לא ניתן לשלוח תרומה</string>
     <!-- Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__target_does_not_support_gifting">הנמען או הנמענת משתמשים בגרסה של Signal שלא מאפשרת קבלת תגי מתנה. הם יוכלו לקבל מתנות כשהם יעדכנו לגרסה האחרונה.</string>
-    <!-- Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__couldnt_send_gift">שליחה מתנה נכשלה</string>
+    <string name="DonationsErrors__this_user_cant_receive_donations_until">משתמש זה לא יכול לקבל תרומות עד שהוא ישדרג את Signal.</string>
     <!-- Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__please_check_your_network_connection">לא הצלחנו לשלוח את המתנה שלך בגלל שגיאת רשת. כדאי לבדוק את החיבור ולנסות שוב.</string>
+    <string name="DonationsErrors__your_donation_could_not_be_sent">לא הצלחנו לשלוח את התרומה שלך בגלל שגיאת רשת. כדאי לבדוק את החיבור ולנסות שוב.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__gift_badge">תג מתנה</string>
+    <string name="GiftMessageView__donation_to_s">תרומה ל%1$s</string>
+    <!-- Gift message view title for incoming donations -->
+    <string name="GiftMessageView__s_donated_to_signal_on">%1$s תרם/ה ל–Signal בשמך</string>
     <!-- Gift badge redeem action label -->
     <string name="GiftMessageView__redeem">ממש</string>
     <!-- Gift badge view action label -->
@@ -4847,7 +4850,7 @@
     <!-- Donation receipts one-time tab label -->
     <string name="DonationReceiptListFragment__one_time">חד־פעמית</string>
     <!-- Donation receipts gift tab label -->
-    <string name="DonationReceiptListFragment__gift">שי</string>
+    <string name="DonationReceiptListFragment__donation_for_a_friend">תרומה בשביל חבר/ה</string>
     <!-- Donation receipts boost row label -->
     <!-- Donation receipts details title -->
     <!-- Donation receipts donation type heading -->
@@ -5213,22 +5216,25 @@
         <item quantity="many">%1$s · למשך %2$d ימים</item>
         <item quantity="other">%1$s · למשך %2$d ימים</item>
     </plurals>
-    <!-- Tagline for gift row items -->
-    <string name="GiftRowItem__send_a_gift_badge">שליחת תג מתנה</string>
     <!-- Headline text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__gift_a_badge">הענקת תג במתנה</string>
+    <string name="GiftFlowStartFragment__donate_for_a_friend">ביצוע תרומה בשביל חבר/ה</string>
     <!-- Description text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__gift_someone_a_badge">אפשר להעניק למישהו או מישהי תג במתנה באמצעות ביצוע תרומה ל–Signal בשמם. הוא או היא יקבלו תג להציג בתמונת הפרופיל.</string>
+    <plurals name="GiftFlowStartFragment__support_signal_by">
+        <item quantity="one">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d day</item>
+        <item quantity="two">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d days</item>
+        <item quantity="many">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d days</item>
+        <item quantity="other">Support Signal by making a donation for a friend or family member who uses Signal. They\'ll receive a badge to display on their profile for %1$d days</item>
+    </plurals>
     <!-- Action button label for start fragment for gifting a badge -->
     <string name="GiftFlowStartFragment__next">הבא</string>
     <!-- Title text on choose recipient page for badge gifting -->
     <string name="GiftFlowRecipientSelectionFragment__choose_recipient">בחר מקבל</string>
     <!-- Title text on confirm gift page -->
-    <string name="GiftFlowConfirmationFragment__confirm_gift">אשר שי</string>
+    <string name="GiftFlowConfirmationFragment__confirm_donation">אישור תרומה</string>
     <!-- Heading text specifying who the gift will be sent to -->
     <string name="GiftFlowConfirmationFragment__send_to">שלח אל</string>
     <!-- Text explaining that gift will be sent to the chosen recipient -->
-    <string name="GiftFlowConfirmationFragment__your_gift_will_be_sent_in">השי שלך יישלח בהודעה 1 על 1 אל המקבל. הוסף הודעה משלך למטה.</string>
+    <string name="GiftFlowConfirmationFragment__the_recipient_will_be_notified">נעדכן את הנמען/ת על התרומה בהודעת 1–על–1. אפשר להוסיף הודעה משלך למטה.</string>
     <!-- Text explaining that this gift is a one time donation -->
     <string name="GiftFlowConfirmationFragment__one_time_donation">תרומה חד פעמית</string>
     <!-- Hint for add message input -->
@@ -5236,27 +5242,27 @@
     <!-- Displayed in the dialog while verifying the chosen recipient -->
     <string name="GiftFlowConfirmationFragment__verifying_recipient">מוודא מקבל…</string>
     <!-- Title for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__s_sent_you_a_gift">%1$s שלח/ה לך שי</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_for_you">%1$s ביצע/ה תרומה בשבילך</string>
     <!-- Title for sheet shown when opening a sent gift -->
     <string name="ViewSentGiftBottomSheet__thanks_for_your_support">תודה על התמיכה שלך!</string>
     <!-- Description for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__youve_received_a_gift_badge">קיבלת תג מתנה מ%1$s! אפשר לעזור ל–Signal להעלאות מודעות באמצעות הצגת התג הזה בפרופיל שלך.</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_to_signal">%1$s ביצע/ה תרומה ל–Signal בשמך! אפשר להשוויץ בתמיכה שלך ב–Signal בפרופיל.</string>
     <!-- Description for sheet shown when opening a sent gift -->
-    <string name="ViewSentGiftBottomSheet__youve_gifted_a_badge">נתת תג במתנה ל%1$s. כשהוא או היא יקבלו אותו, תהיה להם אפשרות להראות או להסתיר את התג.</string>
+    <string name="ViewSentGiftBottomSheet__youve_made_a_donation_to_signal">ביצעת תרומה ל–Signal בשם %1$s. הוא או היא יקבלו את האפשרות להשוויץ בתמיכה שלהם בפרופיל.</string>
     <!-- Primary action for pending gift sheet to redeem badge now -->
     <string name="ViewReceivedGiftSheet__redeem">ממש</string>
     <!-- Primary action for pending gift sheet to redeem badge later -->
     <string name="ViewReceivedGiftSheet__not_now">לא עכשיו</string>
     <!-- Dialog text while redeeming a gift -->
-    <string name="ViewReceivedGiftSheet__redeeming_gift">מממש שי…</string>
+    <string name="ViewReceivedGiftSheet__redeeming_badge">תג במימוש…</string>
     <!-- Snackbar text when user presses "not now" on redemption sheet -->
     <string name="ConversationFragment__you_can_redeem_your_badge_later">אפשר לממש את התג שלך מאוחר יותר.</string>
     <!-- Description text in gift thanks sheet -->
-    <string name="GiftThanksSheet__youve_gifted_a_badge_to_s">נתת תג במתנה ל%1$s. כשהוא או היא יקבלו אותו, תהיה להם אפשרות להראות או להסתיר את התג.</string>
+    <string name="GiftThanksSheet__youve_made_a_donation">ביצעת תרומה ל–Signal בשם %1$s. הוא או היא יקבלו את האפשרות להשוויץ בתמיכה שלהם בפרופיל.</string>
     <!-- Expired gift sheet title -->
-    <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired">פג התוקף של תג המתנה שלך</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired">תוקף התג שלך פג</string>
     <!-- Expired gift sheet top description text -->
-    <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired_and_is">תג המתנה שלך פג תוקף והוא לא גלוי יותר לאחרים בפרופיל שלך.</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired_and_is">תוקף התג שלך פג, והוא כבר לא מוצג לאחרים בפרופיל שלך.</string>
     <!-- Expired gift sheet bottom description text -->
     <string name="ExpiredGiftSheetConfiguration__to_continue">כדי להמשיך לתמוך בטכנולוגיה שנבנתה עבורך, אנא שקול להפוך למחזיק חודשי.</string>
     <!-- Expired gift sheet make a monthly donation button -->
@@ -5320,14 +5326,14 @@
     <string name="ContactSearchMediator__delete_the_custom">למחוק את הסטורי המותאם אישית ״%1$s״?</string>
     <!-- Dialog action item for deleting a custom story -->
     <string name="ContactSearchMediator__delete">מחק</string>
-    <!-- Gift expiry days remaining -->
+    <!-- Donation for a friend expiry days remaining -->
     <plurals name="Gifts__d_days_remaining">
         <item quantity="one">%1$d יום נותר</item>
         <item quantity="two">%1$d ימים נותרו</item>
         <item quantity="many">%1$d ימים נותרו</item>
         <item quantity="other">%1$d ימים נותרו</item>
     </plurals>
-    <!-- Gift expiry hours remaining -->
+    <!-- Donation for a friend expiry hours remaining -->
     <plurals name="Gifts__d_hours_remaining">
         <item quantity="one">%1$d שעה נותרה</item>
         <item quantity="two">%1$d שעות נותרו</item>
@@ -5341,7 +5347,7 @@
         <item quantity="many">%1$d דקות נותרו</item>
         <item quantity="other">%1$d דקות נותרו</item>
     </plurals>
-    <!-- Gift expiry expired -->
+    <!-- Donation for a friend expiry expired -->
     <string name="Gifts__expired">פג</string>
 
     <!-- Label indicating that a user can tap to advance to the next post in a story -->
@@ -5652,8 +5658,8 @@
     </plurals>
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">כרטיס אשראי או דביט</string>
-    <!-- Sheet summary when giving a gift -->
-    <string name="GatewaySelectorBottomSheet__send_a_gift_badge">שליחת תג מתנה</string>
+    <!-- Sheet summary when giving donating for a friend -->
+    <string name="GatewaySelectorBottomSheet__donate_for_a_friend">ביצוע תרומה בשביל חבר/ה</string>
 
     <!-- StripePaymentInProgressFragment -->
     <string name="StripePaymentInProgressFragment__cancelling">מבטלים…</string>
@@ -5721,5 +5727,11 @@
     <string name="ChatFilter__pull_to_filter">אפשר לגרור כדי לסנן</string>
     <!-- Displayed in the "clear filter" item in the chat feed if the user opened the filter from the overflow menu -->
     <string name="ChatFilter__tip_pull_down">טיפ: אפשר לגרור למטה את רשימת הצ׳אטים כדי לסנן</string>
+
+    <!-- Text for a banner that is shown at the top of the screen letting users know that they\'re version of signal will soon expire. The placeholder is a date. -->
+    <string name="API19Reminder_banner_message">בקרוב Signal תפסיק לתמוך בגרסת Android של המכשיר שלך. כדי להמשיך להשתמש ב–Signal, צריך לעדכן את המכשיר או להחליף למכשיר חדש יותר עד %1$s.</string>
+
+    <!-- Text for a button in a banner shown at the top of the screen that users can click on to get more information. -->
+    <string name="API19Reminder_learn_more">למידע נוסף</string>
 
 </resources>

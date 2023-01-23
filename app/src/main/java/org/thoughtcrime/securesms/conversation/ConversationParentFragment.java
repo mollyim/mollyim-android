@@ -1620,7 +1620,7 @@ public class ConversationParentFragment extends Fragment
       return setMedia(draftMedia, draftMediaType);
     }
 
-    if (draftText == null && (draftMedia == null || ConversationIntents.isBubbleIntentUri(draftMedia)) && draftMediaType == null) {
+    if (draftText == null && (draftMedia == null || ConversationIntents.isBubbleIntentUri(draftMedia) || ConversationIntents.isNotificationIntentUri(draftMedia)) && draftMediaType == null) {
       Log.d(TAG, "Initializing draft from database");
       return initializeDraftFromDatabase();
     } else {
@@ -1774,6 +1774,7 @@ public class ConversationParentFragment extends Fragment
                   quoteResult.addListener(listener);
                   break;
                 case Draft.VOICE_NOTE:
+                case Draft.MENTION:
                   listener.onSuccess(true);
                   break;
               }

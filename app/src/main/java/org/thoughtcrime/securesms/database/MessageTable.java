@@ -609,8 +609,7 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
     return results;
   }
 
-  public @NonNull InsertResult insertCallLog(@NonNull RecipientId recipientId, long type, long timestamp) {
-    boolean   unread    = MessageTypes.isMissedAudioCall(type) || MessageTypes.isMissedVideoCall(type);
+  public @NonNull InsertResult insertCallLog(@NonNull RecipientId recipientId, long type, long timestamp, long expiresIn, boolean unread) {
     Recipient recipient = Recipient.resolved(recipientId);
     long      threadId  = SignalDatabase.threads().getOrCreateThreadIdFor(recipient);
 
@@ -622,6 +621,7 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
     values.put(READ, unread ? 0 : 1);
     values.put(TYPE, type);
     values.put(THREAD_ID, threadId);
+    values.put(EXPIRES_IN, expiresIn);
 
     long    messageId          = getWritableDatabase().insert(TABLE_NAME, null, values);
     boolean keepThreadArchived = SignalStore.settings().shouldKeepMutedChatsArchived() && Recipient.resolved(recipientId).isMuted();
@@ -638,8 +638,7 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
     return new InsertResult(messageId, threadId);
   }
 
-  public void updateCallLog(long messageId, long type) {
-    boolean       unread = MessageTypes.isMissedAudioCall(type) || MessageTypes.isMissedVideoCall(type);
+  public void updateCallLog(long messageId, long type, boolean unread) {
     ContentValues values = new ContentValues(2);
     values.put(TYPE, type);
     values.put(READ, unread ? 0 : 1);
@@ -2737,6 +2736,10 @@ public class MessageTable extends DatabaseTable implements MessageTypes, Recipie
     }
 
     Map<RecipientId, EarlyReceiptCache.Receipt> earlyDeliveryReceipts = earlyDeliveryReceiptCache.remove(message.getSentTimeMillis());
+
+    if (earlyDeliveryReceipts.size() > 0) {
+      Log.w(TAG, "Found early delivery receipts for " + message.getSentTimeMillis() + ". Applying them.");
+    }
 
     ContentValues contentValues = new ContentValues();
     contentValues.put(DATE_SENT, message.getSentTimeMillis());
