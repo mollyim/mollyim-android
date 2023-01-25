@@ -75,6 +75,11 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
   public void onCreate() {
     super.onCreate();
 
+    if (KeyCachingService.isLocked()) {
+      stopSelf();
+      return;
+    }
+
     mediaSession                 = new MediaSessionCompat(this, TAG);
     voiceNotePlaybackParameters  = new VoiceNotePlaybackParameters(mediaSession);
     mediaSessionConnector        = new MediaSessionConnector(mediaSession);
