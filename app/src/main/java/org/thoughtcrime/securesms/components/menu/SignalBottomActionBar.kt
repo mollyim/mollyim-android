@@ -41,7 +41,6 @@ class SignalBottomActionBar(context: Context, attributeSet: AttributeSet) : Line
   init {
     orientation = HORIZONTAL
     setBackgroundResource(R.drawable.signal_bottom_action_bar_background)
-
     elevation = 20f
   }
 

@@ -4,13 +4,13 @@
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
-            version('androidx-camera', '1.1.0')
+            version('androidx-camera', '1.2.0')
             version('androidx-fragment', '1.5.2')
             version('androidx-lifecycle', '2.5.1')
             version('androidx-navigation', '2.5.2')
             version('androidx-window', '1.0.0')
             version('exoplayer', '2.18.1')
-            version('glide', '4.13.2')
+            version('glide', '4.14.2')
             version('kotlin', '1.6.21')
             version('libsignal-client', '0.21.1')
             version('mp4parser', '1.9.39')
@@ -87,7 +87,7 @@ dependencyResolutionManagement {
             alias('signal-aesgcmprovider').to('org.signal:aesgcmprovider:0.0.3')
             alias('molly-argon2').to('im.molly:argon2:13.1-1')
             alias('molly-ringrtc').to('im.molly:ringrtc-android:2.22.0-1')
-            alias('signal-android-database-sqlcipher').to('org.signal:android-database-sqlcipher:4.4.3-S8')
+            alias('signal-android-database-sqlcipher').to('org.signal:android-database-sqlcipher:4.5.1-S1')
 
             // MOLLY
             alias('gosimple-nbvcxz').to('me.gosimple:nbvcxz:1.5.0')

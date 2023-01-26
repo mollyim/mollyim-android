@@ -20,7 +20,7 @@ RUN yes | sdkmanager --licenses
 
 RUN sdkmanager "platform-tools"
 
-ARG ANDROID_API_LEVEL=32
+ARG ANDROID_API_LEVEL=33
 ARG ANDROID_BUILD_TOOLS_VERSION=32.0.0
 
 RUN sdkmanager "platforms;android-${ANDROID_API_LEVEL}"

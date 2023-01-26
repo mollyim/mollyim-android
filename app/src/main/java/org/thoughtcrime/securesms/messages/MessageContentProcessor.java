@@ -35,6 +35,7 @@ import org.thoughtcrime.securesms.crypto.SecurityEvent;
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.database.CallTable;
 import org.thoughtcrime.securesms.database.GroupTable;
+import org.thoughtcrime.securesms.database.StorySendTable;
 import org.thoughtcrime.securesms.database.model.GroupRecord;
 import org.thoughtcrime.securesms.database.GroupReceiptTable;
 import org.thoughtcrime.securesms.database.GroupReceiptTable.GroupReceiptInfo;
@@ -1750,12 +1751,20 @@ public final class MessageContentProcessor {
 
     try {
       RecipientId   storyAuthorRecipient = RecipientId.from(storyContext.getAuthorServiceId());
+      RecipientId   selfId               = Recipient.self().getId();
       ParentStoryId parentStoryId;
       QuoteModel    quoteModel           = null;
       long          expiresInMillis      = 0L;
+      MessageId     storyMessageId       = null;
 
       try {
-        MessageId        storyMessageId  = database.getStoryId(storyAuthorRecipient, storyContext.getSentTimestamp());
+        if (selfId.equals(storyAuthorRecipient)) {
+          storyMessageId = SignalDatabase.storySends().getStoryMessageFor(senderRecipient.getId(), storyContext.getSentTimestamp());
+        }
+        if (storyMessageId == null) {
+          storyMessageId = database.getStoryId(storyAuthorRecipient, storyContext.getSentTimestamp());
+        }
+
         MmsMessageRecord story           = (MmsMessageRecord) database.getMessageRecord(storyMessageId.getId());
         Recipient        threadRecipient = Objects.requireNonNull(SignalDatabase.threads().getRecipientForThreadId(story.getThreadId()));
         boolean          groupStory      = threadRecipient.isActiveGroup();
@@ -1942,9 +1951,16 @@ public final class MessageContentProcessor {
   }
 
   private long handleSynchronizeSentExpirationUpdate(@NonNull SentTranscriptMessage message)
-      throws MmsException, BadGroupIdException
+      throws MmsException
   {
     log(message.getTimestamp(), "Synchronize sent expiration update.");
+
+    Optional<GroupId> groupId = getSyncMessageDestination(message).getGroupId();
+
+    if (groupId.isPresent() && groupId.get().isV2()) {
+      warn(String.valueOf(message.getTimestamp()), "Expiration update received for GV2. Ignoring.");
+      return -1;
+    }
 
     MessageTable database  = SignalDatabase.messages();
     Recipient    recipient = getSyncMessageDestination(message);
@@ -1974,9 +1990,9 @@ public final class MessageContentProcessor {
     try {
       Optional<SignalServiceDataMessage.Reaction> reaction             = message.getDataMessage().get().getReaction();
       ParentStoryId                               parentStoryId;
-      SignalServiceDataMessage.StoryContext storyContext = message.getDataMessage().get().getStoryContext().get();
-      MessageTable                          database     = SignalDatabase.messages();
-      Recipient                             recipient    = getSyncMessageDestination(message);
+      SignalServiceDataMessage.StoryContext       storyContext         = message.getDataMessage().get().getStoryContext().get();
+      MessageTable                                database             = SignalDatabase.messages();
+      Recipient                                   recipient            = getSyncMessageDestination(message);
       QuoteModel                                  quoteModel           = null;
       long                                        expiresInMillis      = 0L;
       RecipientId                                 storyAuthorRecipient = RecipientId.from(storyContext.getAuthorServiceId());
@@ -2206,8 +2222,8 @@ public final class MessageContentProcessor {
   {
     log(envelopeTimestamp, "Synchronize sent media message for " + message.getTimestamp());
 
-    MessageTable database   = SignalDatabase.messages();
-    Recipient    recipients = getSyncMessageDestination(message);
+    MessageTable                database        = SignalDatabase.messages();
+    Recipient                   recipients      = getSyncMessageDestination(message);
     Optional<QuoteModel>        quote           = getValidatedQuote(message.getDataMessage().get().getQuote());
     Optional<Attachment>        sticker         = getStickerAttachment(message.getDataMessage().get().getSticker());
     Optional<List<Contact>>     sharedContacts  = getContacts(message.getDataMessage().get().getSharedContacts());
@@ -3019,7 +3035,7 @@ public final class MessageContentProcessor {
         LinkPreview linkPreview = new LinkPreview(url.get(), title.orElse(""), description.orElse(""), preview.getDate(), thumbnail);
         linkPreviews.add(linkPreview);
       } else {
-        warn(String.format("Discarding an invalid link preview. hasTitle: %b presentInBody: %b validDomain: %b", hasTitle, presentInBody, validDomain));
+        warn(String.format("Discarding an invalid link preview. hasTitle: %b presentInBody: %b isStoryEmbed: %b validDomain: %b", hasTitle, presentInBody, isStoryEmbed, validDomain));
       }
     }
 
