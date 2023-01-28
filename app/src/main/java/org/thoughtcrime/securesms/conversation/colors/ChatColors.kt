@@ -40,9 +40,6 @@ class ChatColors(
   val chatBubbleMask: Drawable
     get() {
       return when {
-        false -> {
-          ColorDrawable(Color.TRANSPARENT)
-        }
         linearGradient != null -> {
           RotatableGradientDrawable(
             linearGradient.degrees,
@@ -60,8 +57,7 @@ class ChatColors(
    * Returns the ColorFilter to apply to a conversation bubble or other relevant piece of UI.
    */
   @IgnoredOnParcel
-  val chatBubbleColorFilter: ColorFilter =
-    PorterDuffColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN)
+  val chatBubbleColorFilter: ColorFilter = PorterDuffColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN)
 
   @ColorInt
   fun asSingleColor(): Int {
@@ -109,7 +105,6 @@ class ChatColors(
   }
 
   fun asCircle(): Drawable {
-
     val toWrap: Drawable = chatBubbleMask
     val path = Path()
 

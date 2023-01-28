@@ -8,7 +8,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
@@ -153,7 +152,6 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
         super.onPageSelected(position)
         if (position != viewModel.currentPosition) {
           debouncer.clear()
-          fullscreenHelper.showSystemUI()
         }
         viewModel.setCurrentPage(position)
       }
@@ -244,7 +242,6 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
     }
     bindAlbumRail(albumThumbnailMedia, currentItem)
 
-    fullscreenHelper.showSystemUI()
     crossfadeViewIn(binding.mediaPreviewDetailsContainer)
   }
 
@@ -351,9 +348,7 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
             scrollAlbumRailToCurrentAdapterPosition()
           }
         }
-      if (Build.VERSION.SDK_INT >= 21) {
-        viewPropertyAnimator.interpolator = PathInterpolator(0.17f, 0.17f, 0f, 1f)
-      }
+      viewPropertyAnimator.interpolator = PathInterpolator(0.17f, 0.17f, 0f, 1f)
       viewPropertyAnimator.start()
       true
     } else {
@@ -452,7 +447,6 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
 
     if (pagerAdapter.getFragmentTag(viewModel.currentPosition) == tag) {
       debouncer.clear()
-      fullscreenHelper.showSystemUI()
     }
   }
 

@@ -558,8 +558,6 @@ public class TextSecurePreferences {
 
     if (value) {
       clearLocalCredentials(context);
-    } else {
-      NotificationManagerCompat.from(context).cancel(NotificationIds.UNREGISTERED_NOTIFICATION_ID);
     }
   }
 

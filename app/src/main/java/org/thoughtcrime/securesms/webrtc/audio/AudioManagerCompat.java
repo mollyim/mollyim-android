@@ -235,7 +235,6 @@ public abstract class AudioManagerCompat {
     }
   }
 
-  @RequiresApi(21)
   private static class Api21AudioManagerCompat extends Api19AudioManagerCompat {
 
     private static AudioAttributes AUDIO_ATTRIBUTES = new AudioAttributes.Builder()

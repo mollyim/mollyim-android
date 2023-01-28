@@ -1532,7 +1532,7 @@ public class ConversationParentFragment extends Fragment
     SafetyNumberBottomSheet
         .forIdentityRecordsAndDestination(
             records,
-            new ContactSearchKey.RecipientSearchKey.KnownRecipient(recipient.getId())
+            new ContactSearchKey.RecipientSearchKey(recipient.getId(), false)
         )
         .show(getChildFragmentManager());
   }
@@ -2365,7 +2365,7 @@ public class ConversationParentFragment extends Fragment
   }
 
   private void showGroupCallingTooltip() {
-    if (Build.VERSION.SDK_INT == 19 || !SignalStore.tooltips().shouldShowGroupCallingTooltip() || callingTooltipShown) {
+    if (!SignalStore.tooltips().shouldShowGroupCallingTooltip() || callingTooltipShown) {
       return;
     }
 
@@ -2636,7 +2636,7 @@ public class ConversationParentFragment extends Fragment
       TextView       message      = inviteButton.get().findViewById(R.id.export_sms_message);
       MaterialButton actionButton = inviteButton.get().findViewById(R.id.export_sms_button);
 
-      message.setText(requireContext().getString(R.string.ConversationActivity__sms_messaging_is_currently_disabled_invite_s_to_to_signal_to_keep_the_conversation_here,
+      message.setText(requireContext().getString(R.string.ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here,
                                                  recipient.getDisplayName(requireContext())));
       actionButton.setText(R.string.ConversationActivity__invite_to_signal);
       actionButton.setOnClickListener(v -> handleInviteLink());
@@ -3403,7 +3403,7 @@ public class ConversationParentFragment extends Fragment
   }
 
   @Override
-  public void sendAnywayAfterSafetyNumberChangedInBottomSheet(@NonNull List<? extends ContactSearchKey.RecipientSearchKey> destinations) {
+  public void sendAnywayAfterSafetyNumberChangedInBottomSheet(@NonNull List<ContactSearchKey.RecipientSearchKey> destinations) {
     Log.d(TAG, "onSendAnywayAfterSafetyNumberChange");
     initializeIdentityRecords().addListener(new AssertedSuccessListener<Boolean>() {
       @Override
