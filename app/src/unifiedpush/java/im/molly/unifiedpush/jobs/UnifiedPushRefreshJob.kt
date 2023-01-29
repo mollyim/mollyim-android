@@ -1,9 +1,11 @@
+
 package im.molly.unifiedpush.jobs
 
 import im.molly.unifiedpush.model.RegistrationStatus
 import im.molly.unifiedpush.model.saveStatus
 import im.molly.unifiedpush.util.MollySocketRequest
 import im.molly.unifiedpush.util.UnifiedPushHelper
+import im.molly.unifiedpush.util.UnifiedPushNotificationBuilder
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.jobmanager.Job
@@ -43,12 +45,9 @@ class UnifiedPushRefreshJob private constructor(parameters: Parameters) : BaseJo
           Log.w(TAG, "The registration status has changed!")
           status.saveStatus()
           ApplicationContext.getInstance().initializeFcmCheck()
-          // TODO: alert user
+          UnifiedPushNotificationBuilder(context).setNotificationMollySocketRegistrationChanged()
         }
       }
-    } else {
-      ApplicationContext.getInstance().initializeFcmCheck()
-      // TODO: alert user
     }
   }
 
