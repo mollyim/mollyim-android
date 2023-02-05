@@ -73,7 +73,7 @@
     <plurals name="BioTextPreference_n_linked_devices">
         <item quantity="one">%d dispositivo vinculado</item>
         <item quantity="many">%d dispositivos vinculados</item>
-        <item quantity="other"/>
+        <item quantity="other">%d dispositivos vinculados</item>
     </plurals>
     <string name="DozeReminder_optimize_for_timely_notifications">Otimizar para notificações atempadas</string>
     <string name="DeviceAddFragment__link_without_scanning">Hiperligação sem digitalizar</string>
@@ -88,4 +88,5 @@
     <string name="EnableAppUpdatesMegaphone_check_for_updates">Verificar atualizações</string>
     <string name="EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them">O Molly pode verificar se existem novas atualizações e perguntar se as quer instalar.</string>
     <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">Irá aparecer uma notificação quando existirem novas atualizações</string>
+    <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s não está registado com o Signal</string>
 </resources>
