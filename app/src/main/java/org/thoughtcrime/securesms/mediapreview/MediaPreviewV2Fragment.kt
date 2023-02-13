@@ -9,19 +9,19 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.text.Annotation
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.GONE
-import android.view.ViewGroup.MarginLayoutParams
-import android.view.ViewGroup.VISIBLE
 import android.view.animation.PathInterpolator
 import android.widget.Toast
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
+import androidx.core.text.getSpans
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -43,11 +43,13 @@ import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
+import org.thoughtcrime.securesms.components.mention.MentionAnnotation
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragment
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragmentArgs
 import org.thoughtcrime.securesms.database.MediaTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.databinding.FragmentMediaPreviewV2Binding
+import org.thoughtcrime.securesms.mediapreview.caption.ExpandingCaptionView
 import org.thoughtcrime.securesms.mediapreview.mediarail.CenterDecoration
 import org.thoughtcrime.securesms.mediapreview.mediarail.MediaRailAdapter
 import org.thoughtcrime.securesms.mediapreview.mediarail.MediaRailAdapter.ImageLoadingListener
@@ -127,7 +129,7 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
     }
     viewModel.initialize(args.showThread, args.allMediaInRail, args.leftIsRecent)
     val sorting = MediaTable.Sorting.deserialize(args.sorting.ordinal)
-    viewModel.fetchAttachments(PartAuthority.requireAttachmentId(args.initialMediaUri), args.threadId, sorting)
+    viewModel.fetchAttachments(requireContext(), PartAuthority.requireAttachmentId(args.initialMediaUri), args.threadId, sorting)
   }
 
   @SuppressLint("RestrictedApi")
@@ -231,7 +233,7 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
       }
     }
 
-    bindTextViews(currentItem, currentState.showThread)
+    bindTextViews(currentItem, currentState.showThread, currentState.messageBodies)
     bindMenuItems(currentItem)
     bindMediaPreviewPlaybackControls(currentItem, getMediaPreviewFragmentFromChildFragmentManager(currentPosition))
 
@@ -245,14 +247,17 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
     crossfadeViewIn(binding.mediaPreviewDetailsContainer)
   }
 
-  private fun bindTextViews(currentItem: MediaTable.MediaRecord, showThread: Boolean) {
+  private fun bindTextViews(currentItem: MediaTable.MediaRecord, showThread: Boolean, messageBodies: Map<Long, SpannableString>) {
     binding.toolbar.title = getTitleText(currentItem, showThread)
     binding.toolbar.subtitle = getSubTitleText(currentItem)
     val messageId: Long? = currentItem.attachment?.mmsId
     if (messageId != null) {
       binding.toolbar.setOnClickListener { v ->
         viewModel.jumpToFragment(v.context, messageId).subscribeBy(
-          onSuccess = { startActivity(it) },
+          onSuccess = {
+            startActivity(it)
+            requireActivity().finish()
+          },
           onError = {
             Log.e(TAG, "Could not find message position for message ID: $messageId", it)
             Toast.makeText(v.context, R.string.MediaPreviewActivity_error_finding_message, Toast.LENGTH_LONG).show()
@@ -262,8 +267,27 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
     }
 
     val caption = currentItem.attachment?.caption
-    binding.mediaPreviewCaption.text = caption
-    binding.mediaPreviewCaption.visible = caption != null
+    if (caption != null) {
+      bindCaptionView(SpannableString(caption))
+    } else {
+      bindCaptionView(messageBodies[messageId])
+    }
+  }
+
+  private fun bindCaptionView(displayBody: SpannableString?) {
+    val caption: ExpandingCaptionView = binding.mediaPreviewCaption
+    if (displayBody.isNullOrEmpty()) {
+      caption.visible = false
+    } else {
+      caption.expandedHeight = calculateExpandedHeight()
+      caption.fullCaptionText = displayBody.removeMentionAnnotations()
+      caption.visible = true
+    }
+  }
+
+  private fun calculateExpandedHeight(): Int {
+    val height: Int = view?.height ?: return ViewUtil.dpToPx(requireContext(), EXPANDED_CAPTION_HEIGHT_FALLBACK_DP)
+    return ((height - binding.toolbar.height - binding.mediaPreviewPlaybackControls.height) * EXPANDED_CAPTION_HEIGHT_PERCENT).roundToInt()
   }
 
   private fun bindMenuItems(currentItem: MediaTable.MediaRecord) {
@@ -307,13 +331,18 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
   private fun bindAlbumRail(albumThumbnailMedia: List<Media>, currentItem: MediaTable.MediaRecord) {
     val albumRail: RecyclerView = binding.mediaPreviewPlaybackControls.recyclerView
     if (albumThumbnailMedia.size > 1) {
-      val firstRailDisplay = albumRail.visibility == GONE
+      val firstRailDisplay = albumRail.visibility == View.GONE
       if (firstRailDisplay) {
         albumRail.visibility = View.INVISIBLE
         albumRail.alpha = 0f
       }
       val railItems = albumThumbnailMedia.map { MediaRailAdapter.MediaRailItem(it, it.uri == currentItem.attachment?.uri) }
-      albumRailAdapter.submitList(railItems) { albumRail.post { scrollAlbumRailToCurrentAdapterPosition(!firstRailDisplay) } }
+      albumRailAdapter.submitList(railItems) {
+        albumRail.post {
+          scrollAlbumRailToCurrentAdapterPosition(!firstRailDisplay)
+          crossfadeViewIn(albumRail)
+        }
+      }
     } else {
       albumRail.visibility = View.GONE
       albumRailAdapter.submitList(emptyList())
@@ -341,7 +370,7 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
         .alpha(1f)
         .setDuration(duration)
         .withStartAction {
-          view.visibility = VISIBLE
+          view.visibility = View.VISIBLE
         }
         .withEndAction {
           if (getView() != null && view == binding.mediaPreviewPlaybackControls.recyclerView) {
@@ -410,7 +439,7 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
 
   private fun anchorMarginsToBottomInsets(viewToAnchor: View) {
     ViewCompat.setOnApplyWindowInsetsListener(viewToAnchor) { view: View, windowInsetsCompat: WindowInsetsCompat ->
-      val layoutParams = view.layoutParams as MarginLayoutParams
+      val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
       layoutParams.setMargins(
         windowInsetsCompat.systemWindowInsetLeft,
         layoutParams.topMargin,
@@ -602,6 +631,9 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
   }
 
   companion object {
+    private const val EXPANDED_CAPTION_HEIGHT_FALLBACK_DP = 400
+    private const val EXPANDED_CAPTION_HEIGHT_PERCENT: Float = 0.7F
+
     private val TAG = Log.tag(MediaPreviewV2Fragment::class.java)
 
     const val ARGS_KEY: String = "args"
@@ -611,4 +643,14 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
       return MediaUtil.isImageType(contentType) || MediaUtil.isVideoType(contentType)
     }
   }
+}
+
+private fun SpannableString.removeMentionAnnotations(): CharSequence {
+  val spans: Array<out Annotation> = this.getSpans()
+  spans.forEach {
+    if (MentionAnnotation.isMentionAnnotation(it)) {
+      this.removeSpan(it)
+    }
+  }
+  return this
 }

@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.database.model.StoryViewState
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.LiveGroup
 import org.thoughtcrime.securesms.groups.v2.GroupAddMembersResult
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.RecipientUtil
@@ -283,7 +284,7 @@ sealed class ConversationSettingsViewModel(
             isMuted = recipient.isMuted,
             isMuteAvailable = true,
             isSearchAvailable = true,
-            isAddToStoryAvailable = recipient.isPushV2Group && !recipient.isBlocked && isActive
+            isAddToStoryAvailable = recipient.isPushV2Group && !recipient.isBlocked && isActive && !SignalStore.storyValues().isFeatureDisabled
           ),
           canModifyBlockedState = RecipientUtil.isBlockable(recipient),
           specificSettingsState = state.requireGroupSettingsState().copy(

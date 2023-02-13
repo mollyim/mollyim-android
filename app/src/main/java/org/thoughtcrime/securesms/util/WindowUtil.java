@@ -6,13 +6,26 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
+import org.thoughtcrime.securesms.ScreenLockController;
+import org.thoughtcrime.securesms.service.KeyCachingService;
+
 public final class WindowUtil {
 
   private WindowUtil() {
+  }
+
+  public static void initializeScreenshotSecurity(@NonNull Context context, @NonNull Window window) {
+    boolean forceFlag = ScreenLockController.getAlwaysSetSecureFlagOnResume();
+    if (forceFlag || KeyCachingService.isLocked() || TextSecurePreferences.isScreenSecurityEnabled(context)) {
+      window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+    } else {
+      window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+    }
   }
 
   public static void setLightNavigationBarFromTheme(@NonNull Activity activity) {

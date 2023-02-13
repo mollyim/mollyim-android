@@ -171,6 +171,8 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   private static final long  MAX_CLUSTERING_TIME_DIFF   = TimeUnit.MINUTES.toMillis(3);
   private static final int   CONDENSED_MODE_MAX_LINES   = 3;
 
+  private static final SearchUtil.StyleFactory STYLE_FACTORY = () -> new CharacterStyle[] { new BackgroundColorSpan(Color.YELLOW), new ForegroundColorSpan(Color.BLACK) };
+
   private ConversationMessage         conversationMessage;
   private MessageRecord               messageRecord;
   private Optional<MessageRecord>     nextMessageRecord;
@@ -198,6 +200,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
             private   View                       storyReactionLabelWrapper;
             private   TextView                   storyReactionLabel;
             protected View                       quotedIndicator;
+            protected View                       scheduledIndicator;
 
   private @NonNull  Set<MultiselectPart>                    batchSelected = new HashSet<>();
   private @NonNull  Outliner                                outliner      = new Outliner();
@@ -220,17 +223,18 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   private int     measureCalls;
   private boolean updatingFooter;
 
-  private final PassthroughClickListener        passthroughClickListener     = new PassthroughClickListener();
-  private final AttachmentDownloadClickListener downloadClickListener        = new AttachmentDownloadClickListener();
-  private final SlideClickPassthroughListener   singleDownloadClickListener  = new SlideClickPassthroughListener(downloadClickListener);
-  private final SharedContactEventListener      sharedContactEventListener   = new SharedContactEventListener();
-  private final SharedContactClickListener      sharedContactClickListener   = new SharedContactClickListener();
-  private final LinkPreviewClickListener        linkPreviewClickListener     = new LinkPreviewClickListener();
-  private final ViewOnceMessageClickListener    revealableClickListener      = new ViewOnceMessageClickListener();
-  private final QuotedIndicatorClickListener    quotedIndicatorClickListener = new QuotedIndicatorClickListener();
-  private final UrlClickListener                urlClickListener             = new UrlClickListener();
-  private final Rect                            thumbnailMaskingRect         = new Rect();
-  private final TouchDelegateChangedListener    touchDelegateChangedListener = new TouchDelegateChangedListener();
+  private final PassthroughClickListener        passthroughClickListener        = new PassthroughClickListener();
+  private final AttachmentDownloadClickListener downloadClickListener           = new AttachmentDownloadClickListener();
+  private final SlideClickPassthroughListener   singleDownloadClickListener     = new SlideClickPassthroughListener(downloadClickListener);
+  private final SharedContactEventListener      sharedContactEventListener      = new SharedContactEventListener();
+  private final SharedContactClickListener      sharedContactClickListener      = new SharedContactClickListener();
+  private final LinkPreviewClickListener        linkPreviewClickListener        = new LinkPreviewClickListener();
+  private final ViewOnceMessageClickListener    revealableClickListener         = new ViewOnceMessageClickListener();
+  private final QuotedIndicatorClickListener    quotedIndicatorClickListener    = new QuotedIndicatorClickListener();
+  private final ScheduledIndicatorClickListener scheduledIndicatorClickListener = new ScheduledIndicatorClickListener();
+  private final UrlClickListener                urlClickListener                = new UrlClickListener();
+  private final Rect                            thumbnailMaskingRect            = new Rect();
+  private final TouchDelegateChangedListener    touchDelegateChangedListener    = new TouchDelegateChangedListener();
 
   private final Context context;
 
@@ -263,6 +267,11 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
         quotedIndicator.animate()
                        .scaleX(LONG_PRESS_SCALE_FACTOR)
                        .scaleY(LONG_PRESS_SCALE_FACTOR);
+      }
+      if (scheduledIndicator != null) {
+        scheduledIndicator.animate()
+                          .scaleX(LONG_PRESS_SCALE_FACTOR)
+                          .scaleY(LONG_PRESS_SCALE_FACTOR);
       }
     }
   };
@@ -313,6 +322,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     this.storyReactionLabel        =                    findViewById(R.id.story_reacted_label);
     this.quotedIndicator           =                    findViewById(R.id.quoted_indicator);
     this.paymentViewStub           =         new Stub<>(findViewById(R.id.payment_view_stub));
+    this.scheduledIndicator        =                    findViewById(R.id.scheduled_indicator);
 
     setOnClickListener(new ClickListener(null));
 
@@ -380,6 +390,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     setFooter(messageRecord, nextMessageRecord, locale, groupThread, hasWallpaper);
     setStoryReactionLabel(messageRecord);
     setHasBeenQuoted(conversationMessage);
+    setHasBeenScheduled(conversationMessage);
 
     if (audioViewStub.resolved()) {
       audioViewStub.get().setOnLongClickListener(passthroughClickListener);
@@ -975,8 +986,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (messageRequestAccepted) {
         linkifyMessageBody(styledText, batchSelected.isEmpty());
       }
-      styledText = SearchUtil.getHighlightedSpan(locale, () -> new BackgroundColorSpan(Color.YELLOW), styledText, searchQuery, SearchUtil.STRICT);
-      styledText = SearchUtil.getHighlightedSpan(locale, () -> new ForegroundColorSpan(Color.BLACK), styledText, searchQuery, SearchUtil.STRICT);
+      styledText = SearchUtil.getHighlightedSpan(locale, STYLE_FACTORY, styledText, searchQuery, SearchUtil.STRICT);
 
       if (hasExtraText(messageRecord)) {
         bodyText.setOverflowText(getLongMessageSpan(messageRecord));
@@ -1021,7 +1031,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
                                             boolean                      messageRequestAccepted,
                                             boolean                      allowedToPlayInline)
   {
-    boolean showControls = !messageRecord.isFailed();
+    boolean showControls = !messageRecord.isFailed() && !MessageRecordUtil.isScheduled(messageRecord);
 
     ViewUtil.setTopMargin(bodyText, readDimen(R.dimen.message_bubble_top_padding));
 
@@ -1688,6 +1698,19 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     }
   }
 
+  private void setHasBeenScheduled(@NonNull ConversationMessage message) {
+    if (scheduledIndicator == null) {
+      return;
+    }
+    if (message.hasBeenScheduled()) {
+      scheduledIndicator.setVisibility(View.VISIBLE);
+      scheduledIndicator.setOnClickListener(scheduledIndicatorClickListener);
+    } else {
+      scheduledIndicator.setVisibility(View.GONE);
+      scheduledIndicator.setOnClickListener(null);
+    }
+  }
+
   private boolean forceFooter(@NonNull MessageRecord messageRecord) {
     return hasAudio(messageRecord);
   }
@@ -1849,21 +1872,23 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   private boolean isStartOfMessageCluster(@NonNull MessageRecord current, @NonNull Optional<MessageRecord> previous, boolean isGroupThread) {
     if (isGroupThread) {
       return !previous.isPresent() || previous.get().isUpdate() || !DateUtils.isSameDay(current.getTimestamp(), previous.get().getTimestamp()) ||
-             !current.getRecipient().equals(previous.get().getRecipient()) || !isWithinClusteringTime(current, previous.get());
+             !current.getRecipient().equals(previous.get().getRecipient()) || !isWithinClusteringTime(current, previous.get()) || MessageRecordUtil.isScheduled(current);
     } else {
       return !previous.isPresent() || previous.get().isUpdate() || !DateUtils.isSameDay(current.getTimestamp(), previous.get().getTimestamp()) ||
-             current.isOutgoing() != previous.get().isOutgoing() || previous.get().isSecure() != current.isSecure() || !isWithinClusteringTime(current, previous.get());
+             current.isOutgoing() != previous.get().isOutgoing() || previous.get().isSecure() != current.isSecure() || !isWithinClusteringTime(current, previous.get()) ||
+             MessageRecordUtil.isScheduled(current);
     }
   }
 
   private boolean isEndOfMessageCluster(@NonNull MessageRecord current, @NonNull Optional<MessageRecord> next, boolean isGroupThread) {
     if (isGroupThread) {
       return !next.isPresent() || next.get().isUpdate() || !DateUtils.isSameDay(current.getTimestamp(), next.get().getTimestamp()) ||
-             !current.getRecipient().equals(next.get().getRecipient()) || !current.getReactions().isEmpty() || !isWithinClusteringTime(current, next.get());
+             !current.getRecipient().equals(next.get().getRecipient()) || !current.getReactions().isEmpty() || !isWithinClusteringTime(current, next.get()) ||
+             MessageRecordUtil.isScheduled(current);
     } else {
       return !next.isPresent() || next.get().isUpdate() || !DateUtils.isSameDay(current.getTimestamp(), next.get().getTimestamp()) ||
              current.isOutgoing() != next.get().isOutgoing() || !current.getReactions().isEmpty() || next.get().isSecure() != current.isSecure() ||
-             !isWithinClusteringTime(current, next.get());
+             !isWithinClusteringTime(current, next.get()) || MessageRecordUtil.isScheduled(current);
     }
   }
 
@@ -2206,6 +2231,16 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     public void onClick(final View view) {
       if (eventListener != null && batchSelected.isEmpty() && conversationMessage.hasBeenQuoted()) {
         eventListener.onQuotedIndicatorClicked((messageRecord));
+      } else {
+        passthroughClickListener.onClick(view);
+      }
+    }
+  }
+
+  private class ScheduledIndicatorClickListener implements View.OnClickListener {
+    public void onClick(final View view) {
+      if (eventListener != null && batchSelected.isEmpty()) {
+        eventListener.onScheduledIndicatorClicked(view, (messageRecord));
       } else {
         passthroughClickListener.onClick(view);
       }

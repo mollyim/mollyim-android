@@ -109,6 +109,7 @@ import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWra
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.security.Security;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
@@ -194,6 +195,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addNonBlocking(this::cleanAvatarStorage)
                             .addNonBlocking(this::initializeRevealableMessageManager)
                             .addNonBlocking(this::initializePendingRetryReceiptManager)
+                            .addNonBlocking(this::initializeScheduledMessageManager)
                             .addNonBlocking(PreKeysSyncJob::enqueueIfNeeded)
                             .addNonBlocking(this::initializePeriodicTasks)
                             .addNonBlocking(this::initializeCircumvention)
@@ -493,6 +495,10 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void initializePendingRetryReceiptManager() {
     ApplicationDependencies.getPendingRetryReceiptManager().scheduleIfNecessary();
+  }
+
+  private void initializeScheduledMessageManager() {
+    ApplicationDependencies.getScheduledMessageManager().scheduleIfNecessary();
   }
 
   private void initializeTrimThreadsByDateManager() {

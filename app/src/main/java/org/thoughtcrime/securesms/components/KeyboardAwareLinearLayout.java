@@ -16,7 +16,6 @@
  */
 package org.thoughtcrime.securesms.components;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
@@ -49,6 +48,8 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   public static final String KEYBOARD_HEIGHT_LANDSCAPE = "keyboard_height_landscape";
   public static final String KEYBOARD_HEIGHT_PORTRAIT  = "keyboard_height_portrait";
 
+  private static final long KEYBOARD_DEBOUNCE = 150;
+
   private final Rect                          rect            = new Rect();
   private final Set<OnKeyboardHiddenListener> hiddenListeners = new HashSet<>();
   private final Set<OnKeyboardShownListener>  shownListeners  = new HashSet<>();
@@ -67,6 +68,7 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   private boolean keyboardOpen = false;
   private int     rotation     = 0;
   private boolean isBubble     = false;
+  private long    openedAt     = 0;
 
   public KeyboardAwareLinearLayout(Context context) {
     this(context, null);
@@ -109,10 +111,6 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   }
 
   private void updateKeyboardState() {
-    updateKeyboardState(Integer.MAX_VALUE);
-  }
-
-  private void updateKeyboardState(int previousHeight) {
     if (viewInset == 0) viewInset = getViewInset();
 
     getWindowVisibleDisplayFrame(rect);
@@ -132,11 +130,7 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
         onKeyboardOpen(keyboardHeight);
       }
     } else if (keyboardOpen) {
-      if (previousHeight == keyboardHeight) {
-        onKeyboardClose();
-      } else {
-        postDelayed(() -> updateKeyboardState(keyboardHeight), 100);
-      }
+      onKeyboardClose();
     }
   }
 
@@ -144,7 +138,7 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
     rotation = getDeviceRotation();
-    if (getRootWindowInsets() != null) {
+    if (Build.VERSION.SDK_INT >= 23 && getRootWindowInsets() != null) {
       int          bottomInset;
       WindowInsets windowInsets = getRootWindowInsets();
 
@@ -161,7 +155,6 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
     }
   }
 
-  @TargetApi(21)
   private int getViewInset() {
     try {
       Field attachInfoField = View.class.getDeclaredField("mAttachInfo");
@@ -196,13 +189,21 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   protected void onKeyboardOpen(int keyboardHeight) {
     Log.i(TAG, "onKeyboardOpen(" + keyboardHeight + ")");
     keyboardOpen = true;
+    openedAt = System.currentTimeMillis();
 
     notifyShownListeners();
   }
 
   protected void onKeyboardClose() {
+    if (System.currentTimeMillis() - openedAt < KEYBOARD_DEBOUNCE) {
+      Log.i(TAG, "Delaying onKeyboardClose()");
+      postDelayed(this::updateKeyboardState, KEYBOARD_DEBOUNCE);
+      return;
+    }
+
     Log.i(TAG, "onKeyboardClose()");
     keyboardOpen = false;
+    openedAt = 0;
     notifyHiddenListeners();
   }
 

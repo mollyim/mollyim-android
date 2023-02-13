@@ -83,8 +83,8 @@ ktlint {
     version = "0.43.2"
 }
 
-def canonicalVersionCode = 1199
-def canonicalVersionName = "6.9.2"
+def canonicalVersionCode = 1205
+def canonicalVersionName = "6.10.9"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -130,6 +130,11 @@ android {
                 enableV4Signing false
             }
         }
+    }
+
+    dependenciesInfo {
+        includeInBundle false
+        includeInApk false
     }
 
     testOptions {

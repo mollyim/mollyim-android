@@ -33,9 +33,9 @@ import org.thoughtcrime.securesms.color.ViewColorSet
 import org.thoughtcrime.securesms.components.ContactFilterView
 import org.thoughtcrime.securesms.components.TooltipPopup
 import org.thoughtcrime.securesms.components.WrapperDialogFragment
+import org.thoughtcrime.securesms.contacts.paged.ContactSearchAdapter
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchConfiguration
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchError
-import org.thoughtcrime.securesms.contacts.paged.ContactSearchItems
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchMediator
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchState
@@ -118,7 +118,16 @@ class MultiselectForwardFragment :
     view.minimumHeight = resources.displayMetrics.heightPixels
 
     contactSearchRecycler = view.findViewById(R.id.contact_selection_list)
-    contactSearchMediator = ContactSearchMediator(this, contactSearchRecycler, FeatureFlags.shareSelectionLimit(), !args.selectSingleRecipient, ContactSearchItems.DisplaySmsTag.DEFAULT, this::getConfiguration, this::filterContacts)
+    contactSearchMediator = ContactSearchMediator(
+      this,
+      FeatureFlags.shareSelectionLimit(),
+      !args.selectSingleRecipient,
+      ContactSearchAdapter.DisplaySmsTag.DEFAULT,
+      this::getConfiguration,
+      this::filterContacts
+    )
+
+    contactSearchRecycler.adapter = contactSearchMediator.adapter
 
     callback = findListener()!!
     disposables.bindTo(viewLifecycleOwner.lifecycle)
@@ -445,6 +454,14 @@ class MultiselectForwardFragment :
             includeSelf = true
           )
         )
+
+        if (!query.isNullOrEmpty()) {
+          addSection(
+            ContactSearchConfiguration.Section.GroupMembers(
+              includeHeader = true
+            )
+          )
+        }
 
         addSection(
           ContactSearchConfiguration.Section.Groups(

@@ -7,6 +7,7 @@ import org.thoughtcrime.securesms.contacts.HeaderAction
  */
 class ContactSearchConfiguration private constructor(
   val query: String?,
+  val hasEmptyState: Boolean,
   val sections: List<Section>
 ) {
   sealed class Section(val sectionKey: SectionKey) {
@@ -69,16 +70,75 @@ class ContactSearchConfiguration private constructor(
       override val includeHeader: Boolean,
       override val expandConfig: ExpandConfig? = null
     ) : Section(SectionKey.GROUPS)
+
+    data class Arbitrary(
+      val types: Set<String>
+    ) : Section(SectionKey.ARBITRARY) {
+      override val includeHeader: Boolean = false
+      override val expandConfig: ExpandConfig? = null
+    }
+
+    data class GroupMembers(
+      override val includeHeader: Boolean = true,
+      override val expandConfig: ExpandConfig? = null
+    ) : Section(SectionKey.GROUP_MEMBERS)
+
+    data class Chats(
+      val isUnreadOnly: Boolean = false,
+      override val includeHeader: Boolean = true,
+      override val expandConfig: ExpandConfig? = null
+    ) : Section(SectionKey.CHATS)
+
+    data class Messages(
+      override val includeHeader: Boolean = true,
+      override val expandConfig: ExpandConfig? = null
+    ) : Section(SectionKey.MESSAGES)
   }
 
   /**
    * Describes a given section. Useful for labeling sections and managing expansion state.
    */
   enum class SectionKey {
+    /**
+     * Lists My Stories, distribution lists, as well as group stories.
+     */
     STORIES,
+
+    /**
+     * Recent chats.
+     */
     RECENTS,
+
+    /**
+     * 1:1 Contacts with whom I've started a chat.
+     */
     INDIVIDUALS,
-    GROUPS
+
+    /**
+     * Active groups the user is a member of
+     */
+    GROUPS,
+
+    /**
+     * Arbitrary row (think new group button, username row, etc)
+     */
+    ARBITRARY,
+
+    /**
+     * Contacts that are members of groups user is in that they've not explicitly
+     * started a conversation with.
+     */
+    GROUP_MEMBERS,
+
+    /**
+     * 1:1 and Group chats
+     */
+    CHATS,
+
+    /**
+     * Messages from 1:1 and Group chats
+     */
+    MESSAGES
   }
 
   /**
@@ -109,6 +169,7 @@ class ContactSearchConfiguration private constructor(
      * }
      * ```
      */
+    @JvmStatic
     fun build(builderFunction: Builder.() -> Unit): ContactSearchConfiguration {
       return ConfigurationBuilder().let {
         it.builderFunction()
@@ -124,13 +185,14 @@ class ContactSearchConfiguration private constructor(
     private val sections: MutableList<Section> = mutableListOf()
 
     override var query: String? = null
+    override var hasEmptyState: Boolean = false
 
     override fun addSection(section: Section) {
       sections.add(section)
     }
 
     fun build(): ContactSearchConfiguration {
-      return ContactSearchConfiguration(query, sections)
+      return ContactSearchConfiguration(query, hasEmptyState, sections)
     }
   }
 
@@ -139,6 +201,12 @@ class ContactSearchConfiguration private constructor(
    */
   interface Builder {
     var query: String?
+    var hasEmptyState: Boolean
+
+    fun arbitrary(first: String, vararg rest: String) {
+      addSection(Section.Arbitrary(setOf(first) + rest.toSet()))
+    }
+
     fun addSection(section: Section)
   }
 }

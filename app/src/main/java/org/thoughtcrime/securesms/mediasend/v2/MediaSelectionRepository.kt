@@ -17,6 +17,7 @@ import org.thoughtcrime.securesms.database.AttachmentTable.TransformProperties
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.Mention
 import org.thoughtcrime.securesms.database.model.StoryType
+import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.StorySend
 import org.thoughtcrime.securesms.mediasend.CompositeMediaTransform
@@ -76,7 +77,9 @@ class MediaSelectionRepository(context: Context) {
     singleContact: ContactSearchKey.RecipientSearchKey?,
     contacts: List<ContactSearchKey.RecipientSearchKey>,
     mentions: List<Mention>,
-    sendType: MessageSendType
+    bodyRanges: BodyRangeList?,
+    sendType: MessageSendType,
+    scheduledTime: Long = -1
   ): Maybe<MediaSendActivityResult> {
     if (isSms && contacts.isNotEmpty()) {
       throw IllegalStateException("Provided recipients to send to, but this is SMS!")
@@ -89,9 +92,10 @@ class MediaSelectionRepository(context: Context) {
     val isSendingToStories = singleContact?.isStory == true || contacts.any { it.isStory }
     val sentMediaQuality = if (isSendingToStories) SentMediaQuality.STANDARD else quality
 
-    return Maybe.create<MediaSendActivityResult> { emitter ->
+    return Maybe.create { emitter ->
       val trimmedBody: String = if (isViewOnce) "" else getTruncatedBody(message?.toString()?.trim()) ?: ""
       val trimmedMentions: List<Mention> = if (isViewOnce) emptyList() else mentions
+      val trimmedBodyRanges: BodyRangeList? = if (isViewOnce) null else bodyRanges
       val modelsToTransform: Map<Media, MediaTransform> = buildModelsToTransform(selectedMedia, stateMap, sentMediaQuality)
       val oldToNewMediaMap: Map<Media, Media> = MediaRepository.transformMediaSync(context, selectedMedia, modelsToTransform)
       val updatedMedia = oldToNewMediaMap.values.toList()
@@ -109,8 +113,8 @@ class MediaSelectionRepository(context: Context) {
         StoryType.NONE
       }
 
-      if (isSms || MessageSender.isLocalSelfSend(context, singleRecipient, MessageSender.SendType.SIGNAL)) {
-        Log.i(TAG, "SMS or local self-send. Skipping pre-upload.")
+      if (isSms || MessageSender.isLocalSelfSend(context, singleRecipient, MessageSender.SendType.SIGNAL) || (scheduledTime != -1L && storyType == StoryType.NONE)) {
+        Log.i(TAG, "SMS, local self-send, or scheduled send. Skipping pre-upload.")
         emitter.onSuccess(
           MediaSendActivityResult(
             recipientId = singleRecipient!!.id,
@@ -119,7 +123,9 @@ class MediaSelectionRepository(context: Context) {
             messageSendType = sendType,
             isViewOnce = isViewOnce,
             mentions = trimmedMentions,
-            storyType = StoryType.NONE
+            bodyRanges = trimmedBodyRanges,
+            storyType = StoryType.NONE,
+            scheduledTime = scheduledTime
           )
         )
       } else {
@@ -154,7 +160,7 @@ class MediaSelectionRepository(context: Context) {
         uploadRepository.updateDisplayOrder(updatedMedia)
         uploadRepository.getPreUploadResults { uploadResults ->
           if (contacts.isNotEmpty()) {
-            sendMessages(contacts, splitBody, uploadResults, trimmedMentions, isViewOnce, clippedVideosForStories)
+            sendMessages(contacts, splitBody, uploadResults, trimmedMentions, trimmedBodyRanges, isViewOnce, clippedVideosForStories)
             uploadRepository.deleteAbandonedAttachments()
             emitter.onComplete()
           } else if (uploadResults.isNotEmpty()) {
@@ -166,6 +172,7 @@ class MediaSelectionRepository(context: Context) {
                 messageSendType = sendType,
                 isViewOnce = isViewOnce,
                 mentions = trimmedMentions,
+                bodyRanges = trimmedBodyRanges,
                 storyType = storyType
               )
             )
@@ -179,6 +186,7 @@ class MediaSelectionRepository(context: Context) {
                 messageSendType = sendType,
                 isViewOnce = isViewOnce,
                 mentions = trimmedMentions,
+                bodyRanges = trimmedBodyRanges,
                 storyType = storyType
               )
             )
@@ -256,6 +264,7 @@ class MediaSelectionRepository(context: Context) {
     body: String,
     preUploadResults: Collection<PreUploadResult>,
     mentions: List<Mention>,
+    bodyRanges: BodyRangeList?,
     isViewOnce: Boolean,
     storyClips: List<Media>
   ) {
@@ -287,6 +296,7 @@ class MediaSelectionRepository(context: Context) {
         isViewOnce = isViewOnce,
         storyType = storyType,
         mentions = mentions,
+        bodyRanges = bodyRanges,
         isSecure = true
       )
 
@@ -317,6 +327,7 @@ class MediaSelectionRepository(context: Context) {
               isViewOnce = isViewOnce,
               storyType = storyType,
               mentions = mentions,
+              bodyRanges = bodyRanges,
               isSecure = true
             )
           )

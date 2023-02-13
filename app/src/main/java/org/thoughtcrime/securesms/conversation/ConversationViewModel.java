@@ -72,6 +72,7 @@ public class ConversationViewModel extends ViewModel {
   private final Application                           context;
   private final MediaRepository                       mediaRepository;
   private final ConversationRepository                conversationRepository;
+  private final ScheduledMessagesRepository           scheduledMessagesRepository;
   private final MutableLiveData<List<Media>>          recentMedia;
   private final BehaviorSubject<Long>                 threadId;
   private final Observable<MessageData>               messageData;
@@ -98,6 +99,7 @@ public class ConversationViewModel extends ViewModel {
   private final CompositeDisposable                   disposables;
   private final BehaviorSubject<Unit>                 conversationStateTick;
   private final PublishProcessor<Long>                markReadRequestPublisher;
+  private final Observable<Integer>                   scheduledMessageCount;
 
   private ConversationIntents.Args args;
   private int                      jumpToPosition;
@@ -106,6 +108,7 @@ public class ConversationViewModel extends ViewModel {
     this.context                        = ApplicationDependencies.getApplication();
     this.mediaRepository                = new MediaRepository();
     this.conversationRepository         = new ConversationRepository();
+    this.scheduledMessagesRepository    = new ScheduledMessagesRepository();
     this.recentMedia                    = new MutableLiveData<>();
     this.showScrollButtons              = new MutableLiveData<>(false);
     this.hasUnreadMentions              = new MutableLiveData<>(false);
@@ -198,6 +201,10 @@ public class ConversationViewModel extends ViewModel {
         .observeOn(Schedulers.io())
         .withLatestFrom(conversationMetadata, (messages, metadata) ->  new MessageData(metadata, messages))
         .doOnNext(a -> SignalLocalMetrics.ConversationOpen.onDataLoaded());
+
+    scheduledMessageCount = threadId
+        .observeOn(Schedulers.io())
+        .switchMap(scheduledMessagesRepository::getScheduledMessageCount);
 
     Observable<Recipient> liveRecipient = recipientId.distinctUntilChanged().switchMap(id -> Recipient.live(id).asObservable());
 
@@ -358,6 +365,10 @@ public class ConversationViewModel extends ViewModel {
   @NonNull Observable<ChatColors> getChatColors() {
     return chatColors
         .observeOn(AndroidSchedulers.mainThread());
+  }
+
+  @NonNull Observable<Integer> getScheduledMessageCount() {
+    return scheduledMessageCount.observeOn(AndroidSchedulers.mainThread());
   }
 
   void setHasUnreadMentions(boolean hasUnreadMentions) {

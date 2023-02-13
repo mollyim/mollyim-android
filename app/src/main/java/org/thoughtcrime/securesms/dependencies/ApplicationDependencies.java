@@ -37,6 +37,7 @@ import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.service.ExpiringStoriesManager;
 import org.thoughtcrime.securesms.service.PendingRetryReceiptManager;
+import org.thoughtcrime.securesms.service.ScheduledMessageManager;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
@@ -131,6 +132,7 @@ public class ApplicationDependencies {
   private static volatile ProfileService               profileService;
   private static volatile DeadlockDetector             deadlockDetector;
   private static volatile ClientZkReceiptOperations    clientZkReceiptOperations;
+  private static volatile ScheduledMessageManager      scheduledMessagesManager;
 
   @MainThread
   public static void init(@NonNull Application application, @NonNull Provider provider) {
@@ -467,6 +469,18 @@ public class ApplicationDependencies {
     return expiringMessageManager;
   }
 
+  public static @NonNull ScheduledMessageManager getScheduledMessageManager() {
+    if (scheduledMessagesManager == null) {
+      synchronized (LOCK) {
+        if (scheduledMessagesManager == null) {
+          scheduledMessagesManager = getProvider().provideScheduledMessageManager();
+        }
+      }
+    }
+
+    return scheduledMessagesManager;
+  }
+
   public static TypingStatusRepository getTypingStatusRepository() {
     if (typingStatusRepository == null) {
       synchronized (LOCK) {
@@ -726,5 +740,6 @@ public class ApplicationDependencies {
     @NonNull DeadlockDetector provideDeadlockDetector();
     @NonNull ClientZkReceiptOperations provideClientZkReceiptOperations(@NonNull SignalServiceConfiguration signalServiceConfiguration);
     @NonNull KeyBackupService provideKeyBackupService(@NonNull SignalServiceAccountManager signalServiceAccountManager, @NonNull KeyStore keyStore, @NonNull KbsEnclave enclave);
+    @NonNull ScheduledMessageManager provideScheduledMessageManager();
   }
 }
