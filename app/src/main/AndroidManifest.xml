@@ -88,8 +88,7 @@
                  android:supportsRtl="true"
                  android:resizeableActivity="true"
                  android:fullBackupOnly="false"
-                 android:allowBackup="false"
-                 tools:replace="android:allowBackup"
+                 android:allowBackup="true"
                  android:backupAgent=".absbackup.SignalBackupAgent"
                  android:theme="@style/TextSecure.LightTheme"
                  android:largeHeap="true">
