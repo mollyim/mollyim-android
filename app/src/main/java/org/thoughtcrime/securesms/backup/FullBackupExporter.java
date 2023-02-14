@@ -41,6 +41,7 @@ import org.thoughtcrime.securesms.database.SearchTable;
 import org.thoughtcrime.securesms.database.SenderKeyTable;
 import org.thoughtcrime.securesms.database.SenderKeySharedTable;
 import org.thoughtcrime.securesms.database.SessionTable;
+import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.SignedPreKeyTable;
 import org.thoughtcrime.securesms.database.StickerTable;
 import org.thoughtcrime.securesms.database.model.AvatarPickerDatabase;
@@ -651,7 +652,12 @@ public class FullBackupExporter extends FullBackupBase {
         throw new InvalidBackupStreamException();
       }
 
-      if (writeStream(in) != size) {
+      long totalWritten = writeStream(in);
+      if (totalWritten != size) {
+        if (totalWritten == 0) {
+          // MOLLY: Quick workaround for zero-sized broken attachments
+          SignalDatabase.attachments().deleteAttachment(attachmentId);
+        }
         throw new IOException("Size mismatch!");
       }
     }
