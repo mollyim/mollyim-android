@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -24,6 +23,7 @@ import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.ConfigurationUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.WindowUtil;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
-    initializeScreenshotSecurity();
+    WindowUtil.initializeScreenshotSecurity(this, getWindow());
   }
 
   @Override
@@ -230,20 +230,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     super.onDestroy();
   }
 
-  public void initializeScreenshotSecurity() {
-    boolean forceFlag = ScreenLockController.getAlwaysSetSecureFlagOnResume();
-    if (forceFlag || KeyCachingService.isLocked() || TextSecurePreferences.isScreenSecurityEnabled(this)) {
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-    } else {
-      getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
-    }
-  }
-
   private boolean hasShowWhenLockedWindow() {
     return (getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED) != 0;
   }
 
-  @RequiresApi(21)
   protected void setExcludeFromRecents(boolean exclude) {
     ActivityManager.AppTask task = getTask();
     if (task != null) {

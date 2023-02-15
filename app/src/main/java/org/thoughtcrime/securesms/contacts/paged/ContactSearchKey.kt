@@ -35,4 +35,23 @@ sealed class ContactSearchKey {
    * Key to an expand button for a given section
    */
   data class Expand(val sectionKey: ContactSearchConfiguration.SectionKey) : ContactSearchKey()
+
+  /**
+   * Arbitrary takes a string type and will map to exactly one ArbitraryData object.
+   *
+   * This is used to allow arbitrary extra data to be added to the contact search system.
+   */
+  data class Arbitrary(val type: String) : ContactSearchKey()
+
+  /**
+   * Search key for a ThreadRecord
+   */
+  data class Thread(val threadId: Long) : ContactSearchKey()
+
+  /**
+   * Search key for a MessageRecord
+   */
+  data class Message(val messageId: Long) : ContactSearchKey()
+
+  object Empty : ContactSearchKey()
 }

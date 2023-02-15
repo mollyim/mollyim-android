@@ -96,7 +96,7 @@ public class ExpiringMessageManager {
         }
 
         if (expiredMessage != null) {
-          messageTable.deleteMessage(expiredMessage.id, true);
+          messageTable.deleteExpiringMessage(expiredMessage.id);
         }
       }
     }

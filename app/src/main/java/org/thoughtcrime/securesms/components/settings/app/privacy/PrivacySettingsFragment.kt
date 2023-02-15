@@ -20,12 +20,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import mobi.upod.timedurationpicker.TimeDurationPicker
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
 import org.thoughtcrime.securesms.PassphraseActivity
 import org.thoughtcrime.securesms.R
@@ -48,6 +46,7 @@ import org.thoughtcrime.securesms.util.ExpirationUtil
 import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.SpanUtil
+import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -260,7 +259,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         isEnabled = !ScreenLockController.alwaysSetSecureFlagOnResume,
         onClick = {
           viewModel.setScreenSecurityEnabled(!state.screenSecurity)
-          (activity as BaseActivity).initializeScreenshotSecurity()
+          WindowUtil.initializeScreenshotSecurity(requireContext(), requireActivity().window)
         }
       )
 
@@ -343,7 +342,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
   private fun setBiometricScreenLock(enabled: Boolean) {
     viewModel.setBiometricScreenLock(enabled)
-    (activity as BaseActivity).initializeScreenshotSecurity()
+    WindowUtil.initializeScreenshotSecurity(requireContext(), requireActivity().window)
   }
 
   private fun getDeviceLockTimeoutSummary(timeoutSeconds: Long): String {

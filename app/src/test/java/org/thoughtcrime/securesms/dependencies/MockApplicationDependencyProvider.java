@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.service.ExpiringStoriesManager;
 import org.thoughtcrime.securesms.service.PendingRetryReceiptManager;
+import org.thoughtcrime.securesms.service.ScheduledMessageManager;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
@@ -232,6 +233,11 @@ public class MockApplicationDependencyProvider implements ApplicationDependencie
 
   @Override
   public @NonNull KeyBackupService provideKeyBackupService(@NonNull SignalServiceAccountManager signalServiceAccountManager, @NonNull KeyStore keyStore, @NonNull KbsEnclave enclave) {
+    return null;
+  }
+
+  @Override
+  public @NonNull ScheduledMessageManager provideScheduledMessageManager() {
     return null;
   }
 }

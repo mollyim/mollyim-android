@@ -118,6 +118,7 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
   @Override
   public void onDestroy() {
     super.onDestroy();
+    if (mediaSession == null) return;
     mediaSession.setActive(false);
     mediaSession.release();
     becomingNoisyReceiver.unregister();

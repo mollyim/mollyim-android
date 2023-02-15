@@ -49,7 +49,8 @@ import org.whispersystems.signalservice.api.push.exceptions.ProofRequiredExcepti
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
 import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserException;
 import org.whispersystems.signalservice.api.util.UuidUtil;
-import org.whispersystems.signalservice.internal.push.SignalServiceProtos;
+import org.whispersystems.signalservice.internal.push.SignalServiceProtos.BodyRange;
+import org.whispersystems.signalservice.internal.push.SignalServiceProtos.DataMessage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -99,8 +100,12 @@ public class IndividualSendJob extends PushSendJob {
   @WorkerThread
   public static void enqueue(@NonNull Context context, @NonNull JobManager jobManager, long messageId, @NonNull Recipient recipient) {
     try {
-      OutgoingMessage message             = SignalDatabase.messages().getOutgoingMessage(messageId);
-      Set<String>     attachmentUploadIds = enqueueCompressingAndUploadAttachmentsChains(jobManager, message);
+      OutgoingMessage message = SignalDatabase.messages().getOutgoingMessage(messageId);
+      if (message.getScheduledDate() != -1) {
+        ApplicationDependencies.getScheduledMessageManager().scheduleIfNecessary();
+        return;
+      }
+      Set<String> attachmentUploadIds = enqueueCompressingAndUploadAttachmentsChains(jobManager, message);
 
       jobManager.add(IndividualSendJob.create(messageId, recipient, attachmentUploadIds.size() > 0), attachmentUploadIds, recipient.getId().toQueueKey());
     } catch (NoSuchMessageException | MmsException e) {
@@ -231,6 +236,7 @@ public class IndividualSendJob extends PushSendJob {
       List<SignalServicePreview>                 previews            = getPreviewsFor(message);
       SignalServiceDataMessage.GiftBadge         giftBadge           = getGiftBadgeFor(message);
       SignalServiceDataMessage.Payment           payment             = getPayment(message);
+      List<BodyRange>                            bodyRanges          = getBodyRanges(message);
       SignalServiceDataMessage.Builder           mediaMessageBuilder = SignalServiceDataMessage.newBuilder()
                                                                                                .withBody(message.getBody())
                                                                                                .withAttachments(serviceAttachments)
@@ -244,7 +250,8 @@ public class IndividualSendJob extends PushSendJob {
                                                                                                .withGiftBadge(giftBadge)
                                                                                                .asExpirationUpdate(message.isExpirationUpdate())
                                                                                                .asEndSessionMessage(message.isEndSession())
-                                                                                               .withPayment(payment);
+                                                                                               .withPayment(payment)
+                                                                                               .withBodyRanges(bodyRanges);
 
       if (message.getParentStoryId() != null) {
         try {
@@ -316,12 +323,12 @@ public class IndividualSendJob extends PushSendJob {
 
       return new SignalServiceDataMessage.Payment(new SignalServiceDataMessage.PaymentNotification(payment.getReceipt(), payment.getNote()), null);
     } else {
-      SignalServiceProtos.DataMessage.Payment.Activation.Type type = null;
+      DataMessage.Payment.Activation.Type type = null;
 
       if (message.isRequestToActivatePayments()) {
-        type = SignalServiceProtos.DataMessage.Payment.Activation.Type.REQUEST;
+        type = DataMessage.Payment.Activation.Type.REQUEST;
       } else if (message.isPaymentsActivated()) {
-        type = SignalServiceProtos.DataMessage.Payment.Activation.Type.ACTIVATED;
+        type = DataMessage.Payment.Activation.Type.ACTIVATED;
       }
 
       if (type != null) {

@@ -6,15 +6,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.registration.viewmodel.RegistrationViewModel;
-import org.thoughtcrime.securesms.util.CommunicationActions;
 
 
 public final class RegistrationNavigationActivity extends PassphraseRequiredActivity {
@@ -41,12 +38,6 @@ public final class RegistrationNavigationActivity extends PassphraseRequiredActi
     Intent intent = new Intent(context, RegistrationNavigationActivity.class);
     intent.putExtra(RE_REGISTRATION_EXTRA, true);
     return intent;
-  }
-
-  @Override
-  protected void attachBaseContext(@NonNull Context newBase) {
-    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-    super.attachBaseContext(newBase);
   }
 
   @Override

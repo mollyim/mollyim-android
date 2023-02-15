@@ -22,10 +22,11 @@ import org.thoughtcrime.securesms.recipients.RecipientId
  * having to deal with database access.
  */
 open class ContactSearchPagedDataSourceRepository(
-  private val context: Context
+  context: Context
 ) {
 
   private val contactRepository = ContactRepository(context, context.getString(R.string.note_to_self))
+  private val context = context.applicationContext
 
   open fun getLatestStorySends(activeStoryCutoffDuration: Long): List<StorySend> {
     return SignalStore.storyValues()
@@ -46,6 +47,10 @@ open class ContactSearchPagedDataSourceRepository(
 
   open fun queryNonGroupContacts(query: String?, includeSelf: Boolean): Cursor? {
     return contactRepository.queryNonGroupContacts(query ?: "", includeSelf)
+  }
+
+  open fun queryGroupMemberContacts(query: String?): Cursor? {
+    return contactRepository.queryGroupMemberContacts(query ?: "")
   }
 
   open fun getGroupSearchIterator(
@@ -93,6 +98,16 @@ open class ContactSearchPagedDataSourceRepository(
 
   open fun getRecipientFromRecipientCursor(cursor: Cursor): Recipient {
     return Recipient.resolved(RecipientId.from(CursorUtil.requireLong(cursor, ContactRepository.ID_COLUMN)))
+  }
+
+  open fun getGroupsInCommon(recipient: Recipient): GroupsInCommon {
+    val groupsInCommon = SignalDatabase.groups.getPushGroupsContainingMember(recipient.id)
+    val groupRecipientIds = groupsInCommon.take(2).map { it.recipientId }
+    val names = Recipient.resolvedList(groupRecipientIds)
+      .map { it.getDisplayName(context) }
+      .sorted()
+
+    return GroupsInCommon(groupsInCommon.size, names)
   }
 
   open fun getRecipientFromGroupRecord(groupRecord: GroupRecord): Recipient {

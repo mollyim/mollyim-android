@@ -1,10 +1,8 @@
 package org.thoughtcrime.securesms.stories.viewer.reply.composer
 
-import android.app.Dialog
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -19,6 +17,7 @@ import org.thoughtcrime.securesms.components.emoji.EmojiToggle
 import org.thoughtcrime.securesms.components.emoji.MediaKeyboard
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord
 import org.thoughtcrime.securesms.database.model.Mention
+import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.mms.GlideApp
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -126,13 +125,14 @@ class StoryReplyComposer @JvmOverloads constructor(
     privacyChrome.visible = true
   }
 
-  fun consumeInput(): Pair<CharSequence, List<Mention>> {
+  fun consumeInput(): Input {
     val trimmedText = input.textTrimmed.toString()
     val mentions = input.mentions
+    val bodyRanges = input.styling
 
     input.setText("")
 
-    return trimmedText to mentions
+    return Input(trimmedText, mentions, bodyRanges)
   }
 
   fun openEmojiSearch() {
@@ -147,6 +147,10 @@ class StoryReplyComposer @JvmOverloads constructor(
     emojiDrawer.onCloseEmojiSearch()
   }
 
+  fun close() {
+    inputAwareLayout.hideCurrentInput(input)
+  }
+
   private fun onEmojiToggleClicked() {
     if (!emojiDrawer.isInitialised) {
       callback?.onInitializeEmojiDrawer(emojiDrawer)
@@ -159,12 +163,8 @@ class StoryReplyComposer @JvmOverloads constructor(
       callback?.onHideEmojiKeyboard()
     } else {
       isRequestingEmojiDrawer = true
-      inputAwareLayout.hideSoftkey(input) {
-        inputAwareLayout.post {
-          inputAwareLayout.show(input, emojiDrawer)
-          emojiDrawer.post { callback?.onShowEmojiKeyboard() }
-        }
-      }
+      inputAwareLayout.show(input, emojiDrawer)
+      emojiDrawer.post { callback?.onShowEmojiKeyboard() }
     }
   }
 
@@ -176,21 +176,5 @@ class StoryReplyComposer @JvmOverloads constructor(
     fun onHideEmojiKeyboard() = Unit
   }
 
-  companion object {
-    fun installIntoBottomSheet(context: Context, dialog: Dialog): StoryReplyComposer {
-      val container: ViewGroup = dialog.findViewById(R.id.container)
-
-      val oldComposer: StoryReplyComposer? = container.findViewById(R.id.input)
-      if (oldComposer != null) {
-        return oldComposer
-      }
-
-      val composer = StoryReplyComposer(context)
-
-      composer.id = R.id.input
-
-      container.addView(composer)
-      return composer
-    }
-  }
+  data class Input(val body: String, val mentions: List<Mention>, val bodyRanges: BodyRangeList?)
 }

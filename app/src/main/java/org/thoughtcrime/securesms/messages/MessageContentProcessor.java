@@ -34,22 +34,23 @@ import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.crypto.SecurityEvent;
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.database.CallTable;
-import org.thoughtcrime.securesms.database.GroupTable;
-import org.thoughtcrime.securesms.database.StorySendTable;
-import org.thoughtcrime.securesms.database.model.GroupRecord;
 import org.thoughtcrime.securesms.database.GroupReceiptTable;
 import org.thoughtcrime.securesms.database.GroupReceiptTable.GroupReceiptInfo;
+import org.thoughtcrime.securesms.database.GroupTable;
 import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.MessageTable.InsertResult;
 import org.thoughtcrime.securesms.database.MessageTable.SyncMessageId;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
-import org.thoughtcrime.securesms.database.PaymentTable;
 import org.thoughtcrime.securesms.database.PaymentMetaDataUtil;
+import org.thoughtcrime.securesms.database.PaymentTable;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SentStorySyncManifest;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.StickerTable;
 import org.thoughtcrime.securesms.database.ThreadTable;
+import org.thoughtcrime.securesms.database.model.DatabaseProtosUtil;
+import org.thoughtcrime.securesms.database.model.DistributionListId;
+import org.thoughtcrime.securesms.database.model.GroupRecord;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.Mention;
 import org.thoughtcrime.securesms.database.model.MessageId;
@@ -62,6 +63,7 @@ import org.thoughtcrime.securesms.database.model.ReactionRecord;
 import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.database.model.StoryType;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
+import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList;
 import org.thoughtcrime.securesms.database.model.databaseprotos.ChatColor;
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge;
 import org.thoughtcrime.securesms.database.model.databaseprotos.StoryTextPost;
@@ -170,6 +172,7 @@ import org.whispersystems.signalservice.api.payments.Money;
 import org.whispersystems.signalservice.api.push.DistributionId;
 import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
+import org.whispersystems.signalservice.internal.push.SignalServiceProtos;
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage;
 
 import java.io.IOException;
@@ -274,7 +277,7 @@ public final class MessageContentProcessor {
       if (content.getDataMessage().isPresent()) {
         GroupTable               groupDatabase = SignalDatabase.groups();
         SignalServiceDataMessage message       = content.getDataMessage().get();
-        boolean                  isMediaMessage = message.getAttachments().isPresent() || message.getQuote().isPresent() || message.getSharedContacts().isPresent() || message.getPreviews().isPresent() || message.getSticker().isPresent() || message.getMentions().isPresent();
+        boolean                  isMediaMessage = message.getAttachments().isPresent() || message.getQuote().isPresent() || message.getSharedContacts().isPresent() || message.getPreviews().isPresent() || message.getSticker().isPresent() || message.getMentions().isPresent() || message.getBodyRanges().isPresent();
         Optional<GroupId>        groupId        = GroupUtil.idFromGroupContext(message.getGroupContext());
         boolean                  isGv2Message   = groupId.isPresent() && groupId.get().isV2();
 
@@ -1550,7 +1553,8 @@ public final class MessageContentProcessor {
                                                                    content.getServerUuid(),
                                                                    null,
                                                                    false,
-                                                                   false);
+                                                                   false,
+                                                                   getBodyRangeList(message.getBodyRanges()));
 
       insertResult = database.insertSecureDecryptedMessageInbox(mediaMessage, -1);
 
@@ -1671,13 +1675,15 @@ public final class MessageContentProcessor {
         } else if (SignalDatabase.storySends().canReply(senderRecipient.getId(), storyContext.getSentTimestamp())) {
           MmsMessageRecord story = (MmsMessageRecord) database.getMessageRecord(storyMessageId.getId());
 
-          String displayText = "";
+          String        displayText = "";
+          BodyRangeList bodyRanges  = null;
           if (story.getStoryType().isTextStory()) {
             displayText = story.getBody();
+            bodyRanges  = story.getMessageRanges();
           }
 
           parentStoryId   = new ParentStoryId.DirectReply(storyMessageId.getId());
-          quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, displayText, false, story.getSlideDeck().asAttachments(), Collections.emptyList(), QuoteModel.Type.NORMAL);
+          quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, displayText, false, story.getSlideDeck().asAttachments(), Collections.emptyList(), QuoteModel.Type.NORMAL, bodyRanges);
           expiresInMillis = TimeUnit.SECONDS.toMillis(message.getExpiresInSeconds());
         } else {
           warn(content.getTimestamp(), "Story has reactions disabled. Dropping reaction.");
@@ -1780,12 +1786,14 @@ public final class MessageContentProcessor {
         } else if (groupStory || SignalDatabase.storySends().canReply(senderRecipient.getId(), storyContext.getSentTimestamp())) {
           parentStoryId   = new ParentStoryId.DirectReply(storyMessageId.getId());
 
-          String displayText = "";
+          String        displayText = "";
+          BodyRangeList bodyRanges  = null;
           if (story.getStoryType().isTextStory()) {
             displayText = story.getBody();
+            bodyRanges  = story.getMessageRanges();
           }
 
-          quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, displayText, false, story.getSlideDeck().asAttachments(), Collections.emptyList(), QuoteModel.Type.NORMAL);
+          quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, displayText, false, story.getSlideDeck().asAttachments(), Collections.emptyList(), QuoteModel.Type.NORMAL, bodyRanges);
           expiresInMillis = TimeUnit.SECONDS.toMillis(message.getExpiresInSeconds());
         } else {
           warn(content.getTimestamp(), "Story has replies disabled. Dropping reply.");
@@ -1795,6 +1803,8 @@ public final class MessageContentProcessor {
         warn(content.getTimestamp(), "Couldn't find story for reply.", e);
         return null;
       }
+
+      BodyRangeList bodyRanges = message.getBodyRanges().map(DatabaseProtosUtil::toBodyRangeList).orElse(null);
 
       IncomingMediaMessage mediaMessage = new IncomingMediaMessage(senderRecipient.getId(),
                                                                    content.getTimestamp(),
@@ -1819,7 +1829,8 @@ public final class MessageContentProcessor {
                                                                    content.getServerUuid(),
                                                                    null,
                                                                    false,
-                                                                   false);
+                                                                   false,
+                                                                   bodyRanges);
 
       Optional<InsertResult> insertResult = database.insertSecureDecryptedMessageInbox(mediaMessage, -1);
 
@@ -1883,6 +1894,7 @@ public final class MessageContentProcessor {
       Optional<List<LinkPreview>> linkPreviews   = getLinkPreviews(message.getPreviews(), message.getBody().orElse(""), false);
       Optional<List<Mention>>     mentions       = getMentions(message.getMentions());
       Optional<Attachment>        sticker        = getStickerAttachment(message.getSticker());
+      BodyRangeList               messageRanges  = getBodyRangeList(message.getBodyRanges());
 
       handlePossibleExpirationUpdate(content, message, Optional.empty(), senderRecipient, threadRecipient, receivedTime);
 
@@ -1909,7 +1921,8 @@ public final class MessageContentProcessor {
                                                                    content.getServerUuid(),
                                                                    null,
                                                                    false,
-                                                                   false);
+                                                                   false,
+                                                                   messageRanges);
 
       insertResult = database.insertSecureDecryptedMessageInbox(mediaMessage, -1);
 
@@ -2013,12 +2026,15 @@ public final class MessageContentProcessor {
       } else if (groupStory || story.getStoryType().isStoryWithReplies()) {
         parentStoryId   = new ParentStoryId.DirectReply(storyMessageId.getId());
 
-        String quoteBody = "";
+        String        quoteBody  = "";
+        BodyRangeList bodyRanges = null;
+
         if (story.getStoryType().isTextStory()) {
-          quoteBody = story.getBody();
+          quoteBody  = story.getBody();
+          bodyRanges = story.getMessageRanges();
         }
 
-        quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, quoteBody, false, story.getSlideDeck().asAttachments(), Collections.emptyList(), QuoteModel.Type.NORMAL);
+        quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, quoteBody, false, story.getSlideDeck().asAttachments(), Collections.emptyList(), QuoteModel.Type.NORMAL, bodyRanges);
         expiresInMillis = TimeUnit.SECONDS.toMillis(message.getDataMessage().get().getExpiresInSeconds());
       } else {
         warn(envelopeTimestamp, "Story has replies disabled. Dropping reply.");
@@ -2043,7 +2059,9 @@ public final class MessageContentProcessor {
                                                          Collections.emptySet(),
                                                          Collections.emptySet(),
                                                          null,
-                                                         true);
+                                                         true,
+                                                         null,
+                                                         -1);
 
       if (recipient.getExpiresInSeconds() != message.getDataMessage().get().getExpiresInSeconds()) {
         handleSynchronizeSentExpirationUpdate(message);
@@ -2161,25 +2179,29 @@ public final class MessageContentProcessor {
                                                        Collections.emptySet(),
                                                        Collections.emptySet(),
                                                        null,
-                                                       true);
+                                                       true,
+                                                       null,
+                                                       -1);
 
-    MessageTable database = SignalDatabase.messages();
-    long         threadId = SignalDatabase.threads().getOrCreateThreadIdFor(recipient);
+    MessageTable messageTable = SignalDatabase.messages();
+    long         threadId     = SignalDatabase.threads().getOrCreateThreadIdFor(recipient);
 
     long                     messageId;
     List<DatabaseAttachment> attachments;
 
-    database.beginTransaction();
+    messageTable.beginTransaction();
     try {
-      messageId = database.insertMessageOutbox(mediaMessage, threadId, false, GroupReceiptTable.STATUS_UNKNOWN, null);
+      messageId = messageTable.insertMessageOutbox(mediaMessage, threadId, false, GroupReceiptTable.STATUS_UNDELIVERED, null);
 
       if (recipient.isGroup()) {
         updateGroupReceiptStatus(message, messageId, recipient.requireGroupId());
+      } else if (recipient.getDistributionListId().isPresent()){
+        updateGroupReceiptStatusForDistributionList(message, messageId, recipient.getDistributionListId().get());
       } else {
-        database.markUnidentified(messageId, isUnidentified(message, recipient));
+        messageTable.markUnidentified(messageId, isUnidentified(message, recipient));
       }
 
-      database.markAsSent(messageId, true);
+      messageTable.markAsSent(messageId, true);
 
       List<DatabaseAttachment> allAttachments = SignalDatabase.attachments().getAttachmentsForMessage(messageId);
 
@@ -2191,9 +2213,9 @@ public final class MessageContentProcessor {
         SignalDatabase.messages().incrementReadReceiptCount(id, System.currentTimeMillis());
       }
 
-      database.setTransactionSuccessful();
+      messageTable.setTransactionSuccessful();
     } finally {
-      database.endTransaction();
+      messageTable.endTransaction();
     }
 
     for (DatabaseAttachment attachment : attachments) {
@@ -2256,7 +2278,9 @@ public final class MessageContentProcessor {
                                                        Collections.emptySet(),
                                                        Collections.emptySet(),
                                                        giftBadge.orElse(null),
-                                                       true);
+                                                       true,
+                                                       null,
+                                                       -1);
 
     if (recipients.getExpiresInSeconds() != message.getDataMessage().get().getExpiresInSeconds()) {
       handleSynchronizeSentExpirationUpdate(message);
@@ -2339,8 +2363,8 @@ public final class MessageContentProcessor {
   }
 
   private void updateGroupReceiptStatus(@NonNull SentTranscriptMessage message, long messageId, @NonNull GroupId groupString) {
-    GroupReceiptTable receiptDatabase     = SignalDatabase.groupReceipts();
-    List<RecipientId> messageRecipientIds = Stream.of(message.getRecipients()).map(RecipientId::from).toList();
+    GroupReceiptTable         receiptDatabase     = SignalDatabase.groupReceipts();
+    List<RecipientId>         messageRecipientIds = Stream.of(message.getRecipients()).map(RecipientId::from).toList();
     List<Recipient>           members             = SignalDatabase.groups().getGroupMembers(groupString, GroupTable.MemberSet.FULL_MEMBERS_EXCLUDING_SELF);
     Map<RecipientId, Integer> localReceipts       = Stream.of(receiptDatabase.getGroupReceiptInfo(messageId))
                                                           .collect(Collectors.toMap(GroupReceiptInfo::getRecipientId, GroupReceiptInfo::getStatus));
@@ -2358,6 +2382,27 @@ public final class MessageContentProcessor {
                                                                                                   .map(m -> new org.signal.libsignal.protocol.util.Pair<>(m.getId(), message.isUnidentified(m.requireServiceId())))
                                                                                                   .toList();
     receiptDatabase.setUnidentified(unidentifiedStatus, messageId);
+  }
+
+  private void updateGroupReceiptStatusForDistributionList(@NonNull SentTranscriptMessage message, long messageId, @NonNull DistributionListId distributionListId) {
+    GroupReceiptTable         receiptTable        = SignalDatabase.groupReceipts();
+    List<RecipientId>         messageRecipientIds = message.getRecipients().stream().map(RecipientId::from).collect(java.util.stream.Collectors.toList());
+    List<Recipient>           members             = SignalDatabase.distributionLists().getMembers(distributionListId).stream().map(Recipient::resolved).collect(java.util.stream.Collectors.toList());
+    Map<RecipientId, Integer> localReceipts       = receiptTable.getGroupReceiptInfo(messageId).stream().collect(java.util.stream.Collectors.toMap(GroupReceiptInfo::getRecipientId, GroupReceiptInfo::getStatus));
+
+    for (RecipientId messageRecipientId : messageRecipientIds) {
+      //noinspection ConstantConditions
+      if (localReceipts.containsKey(messageRecipientId) && localReceipts.get(messageRecipientId) < GroupReceiptTable.STATUS_UNDELIVERED) {
+        receiptTable.update(messageRecipientId, messageId, GroupReceiptTable.STATUS_UNDELIVERED, message.getTimestamp());
+      } else if (!localReceipts.containsKey(messageRecipientId)) {
+        receiptTable.insert(Collections.singletonList(messageRecipientId), messageId, GroupReceiptTable.STATUS_UNDELIVERED, message.getTimestamp());
+      }
+    }
+
+    List<org.signal.libsignal.protocol.util.Pair<RecipientId, Boolean>> unidentifiedStatus = members.stream()
+                                                                                                    .map(m -> new org.signal.libsignal.protocol.util.Pair<>(m.getId(), message.isUnidentified(m.requireServiceId())))
+                                                                                                   .collect(java.util.stream.Collectors.toList());
+    receiptTable.setUnidentified(unidentifiedStatus, messageId);
   }
 
   private @Nullable MessageId handleTextMessage(@NonNull SignalServiceContent content,
@@ -2412,9 +2457,10 @@ public final class MessageContentProcessor {
   {
     log(envelopeTimestamp, "Synchronize sent text message for " + message.getTimestamp());
 
-    Recipient recipient       = getSyncMessageDestination(message);
-    String    body            = message.getDataMessage().get().getBody().orElse("");
-    long      expiresInMillis = TimeUnit.SECONDS.toMillis(message.getDataMessage().get().getExpiresInSeconds());
+    Recipient     recipient       = getSyncMessageDestination(message);
+    String        body            = message.getDataMessage().get().getBody().orElse("");
+    long          expiresInMillis = TimeUnit.SECONDS.toMillis(message.getDataMessage().get().getExpiresInSeconds());
+    BodyRangeList bodyRanges      = message.getDataMessage().get().getBodyRanges().map(DatabaseProtosUtil::toBodyRangeList).orElse(null);
 
     if (recipient.getExpiresInSeconds() != message.getDataMessage().get().getExpiresInSeconds()) {
       handleSynchronizeSentExpirationUpdate(message);
@@ -2437,14 +2483,15 @@ public final class MessageContentProcessor {
                                                             StoryType.NONE,
                                                             Collections.emptyList(),
                                                             Collections.emptyList(),
-                                                            true);
+                                                            true,
+                                                            bodyRanges);
 
       messageId = SignalDatabase.messages().insertMessageOutbox(outgoingMessage, threadId, false, GroupReceiptTable.STATUS_UNKNOWN, null);
       database  = SignalDatabase.messages();
 
       updateGroupReceiptStatus(message, messageId, recipient.requireGroupId());
     } else {
-      OutgoingMessage outgoingTextMessage = OutgoingMessage.text(recipient, body, expiresInMillis, message.getTimestamp());
+      OutgoingMessage outgoingTextMessage = OutgoingMessage.text(recipient, body, expiresInMillis, message.getTimestamp(), bodyRanges);
 
       messageId = SignalDatabase.messages().insertMessageOutbox(outgoingTextMessage, threadId, false, null);
       database  = SignalDatabase.messages();
@@ -2947,7 +2994,7 @@ public final class MessageContentProcessor {
 
       String body = message.isPaymentNotification() ? message.getDisplayBody(context).toString() : message.getBody();
 
-      return Optional.of(new QuoteModel(quote.get().getId(), author, body, false, attachments, mentions, QuoteModel.Type.fromDataMessageType(quote.get().getType())));
+      return Optional.of(new QuoteModel(quote.get().getId(), author, body, false, attachments, mentions, QuoteModel.Type.fromDataMessageType(quote.get().getType()), message.getMessageRanges()));
     } else if (message != null) {
       warn("Found the target for the quote, but it's flagged as remotely deleted.");
     }
@@ -2960,7 +3007,8 @@ public final class MessageContentProcessor {
                                       true,
                                       PointerAttachment.forPointers(quote.get().getAttachments()),
                                       getMentions(quote.get().getMentions()),
-                                      QuoteModel.Type.fromDataMessageType(quote.get().getType())));
+                                      QuoteModel.Type.fromDataMessageType(quote.get().getType()),
+                                      DatabaseProtosUtil.toBodyRangeList(quote.get().getBodyRanges())));
   }
 
   private Optional<Attachment> getStickerAttachment(Optional<SignalServiceDataMessage.Sticker> sticker) {
@@ -3046,6 +3094,14 @@ public final class MessageContentProcessor {
     if (!signalServiceMentions.isPresent()) return Optional.empty();
 
     return Optional.of(getMentions(signalServiceMentions.get()));
+  }
+
+  private @Nullable BodyRangeList getBodyRangeList(Optional<List<SignalServiceProtos.BodyRange>> bodyRanges) {
+    if (!bodyRanges.isPresent()) {
+      return null;
+    }
+
+    return DatabaseProtosUtil.toBodyRangeList(bodyRanges.get());
   }
 
   private @NonNull List<Mention> getMentions(@Nullable List<SignalServiceDataMessage.Mention> signalServiceMentions) {

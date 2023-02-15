@@ -234,7 +234,8 @@ public final class MultiShareSender {
                                                               storyType.toTextStoryType(),
                                                               buildLinkPreviews(context, multiShareArgs.getLinkPreview()),
                                                               Collections.emptyList(),
-                                                              false);
+                                                              false,
+                                                              multiShareArgs.getBodyRanges());
 
         outgoingMessages.add(outgoingMessage);
       } else if (canSendAsTextStory) {
@@ -270,7 +271,8 @@ public final class MultiShareSender {
                                                                 storyType,
                                                                 Collections.emptyList(),
                                                                 validatedMentions,
-                                                                false);
+                                                                false,
+                                                                multiShareArgs.getBodyRanges());
 
           outgoingMessages.add(outgoingMessage);
         }
@@ -286,7 +288,8 @@ public final class MultiShareSender {
                                                             StoryType.NONE,
                                                             buildLinkPreviews(context, multiShareArgs.getLinkPreview()),
                                                             validatedMentions,
-                                                            false);
+                                                            false,
+                                                            multiShareArgs.getBodyRanges());
 
       outgoingMessages.add(outgoingMessage);
     }
@@ -376,7 +379,7 @@ public final class MultiShareSender {
 
     OutgoingMessage outgoingMessage;
     if (shouldSendAsPush(recipient, forceSms)) {
-      outgoingMessage = OutgoingMessage.text(recipient, body, expiresIn, System.currentTimeMillis());
+      outgoingMessage = OutgoingMessage.text(recipient, body, expiresIn, System.currentTimeMillis(), multiShareArgs.getBodyRanges());
     } else {
       outgoingMessage = OutgoingMessage.sms(recipient, body, subscriptionId);
     }
@@ -403,7 +406,8 @@ public final class MultiShareSender {
                                         .toByteArray()),
         sentTimestamp,
         storyType.toTextStoryType(),
-        buildLinkPreviews(context, multiShareArgs.getLinkPreview()));
+        buildLinkPreviews(context, multiShareArgs.getLinkPreview()),
+        multiShareArgs.getBodyRanges());
   }
 
   private static @NonNull String getBodyForTextStory(@Nullable String draftText, @Nullable LinkPreview linkPreview) {
