@@ -352,7 +352,7 @@
     <string name="ConversationActivity_new_say_it_with_stickers">نیا!اسٹیکرز کے ساتھ کہو</string>
 
     <string name="ConversationActivity_cancel">منسوخ کریں</string>
-    <string name="ConversationActivity_delete_conversation">گفتگو حذف کر دیں؟</string>
+    <string name="ConversationActivity_delete_conversation">گفتگو حذف کرنی ہے؟</string>
     <string name="ConversationActivity_delete_and_leave_group">گروپ کو حذف کریں اور چھوڑیں؟</string>
     <string name="ConversationActivity_this_conversation_will_be_deleted_from_all_of_your_devices">یہ گفتگو آپ کے سبھی devices سے حذف کردی جائے گی۔</string>
     <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">آپ اس گروپ کو چھوڑ دیں گے ، اور یہ آپ کے سبھی devices سے حذف ہوجائے گا۔</string>
@@ -393,7 +393,7 @@
     <!-- Toast text when contacts activity is not found -->
     <string name="ConversationFragment__contacts_app_not_found">کنٹکٹس کی ایپ نہیں ملی۔</string>
     <plurals name="ConversationFragment_delete_selected_messages">
-        <item quantity="one">منتخب شدہ پیغامات حذف کریں؟</item>
+        <item quantity="one">منتخب شدہ پیغام حذف کریں؟</item>
         <item quantity="other">منتخب شدہ پیغامات حذف کریں؟</item>
     </plurals>
     <string name="ConversationFragment_save_to_sd_card">اسٹوریج میں محفوظ کریں؟</string>
@@ -547,9 +547,9 @@
 
     <!-- ConversationListFilterPullView -->
     <!-- Note in revealable view before fully revealed -->
-    <string name="ConversationListFilterPullView__pull_down_to_filter">Pull down to filter</string>
+    <string name="ConversationListFilterPullView__pull_down_to_filter">فلٹر کرنے کے لیے نیچے کھینچیں</string>
     <!-- Note in revealable view after fully revealed -->
-    <string name="ConversationListFilterPullView__release_to_filter">Release to filter</string>
+    <string name="ConversationListFilterPullView__release_to_filter">فلٹر کرنے کے لیے ریلیز کریں</string>
 
     <!-- CreateProfileActivity -->
     <string name="CreateProfileActivity__profile">پروفائل </string>
@@ -660,9 +660,12 @@
     <string name="ScheduleMessageTimePickerBottomSheet__dialog_title">میسج شیڈول کریں</string>
     <!-- Text for confirmation button when scheduling messages that allows the user to confirm and schedule the sending time -->
     <string name="ScheduleMessageTimePickerBottomSheet__schedule_send">شیڈول بھیجیں</string>
-
     <!-- Disclaimer in message scheduling dialog. %1$s replaced with a GMT offset (e.g. GMT-05:00), and %2$s is replaced with the time zone name (e.g. Eastern Standard Time) -->
     <string name="ScheduleMessageTimePickerBottomSheet__timezone_disclaimer">(%1$s) %2$s میں تمام اوقات</string>
+    <!-- Warning dialog message text shown when select time for scheduled send is in the past resulting in an immediate send if scheduled. -->
+    <string name="ScheduleMessageTimePickerBottomSheet__select_time_in_past_dialog_warning">ماضی میں منتخب کردہ وقت۔ یہ فوری طور پر میسج بھیج دے گا۔</string>
+    <!-- Positive button text for warning dialog shown when scheduled send is in the past -->
+    <string name="ScheduleMessageTimePickerBottomSheet__select_time_in_past_dialog_positive_button">فوری طور پر بھیجیں</string>
 
     <!-- Context menu option to send a scheduled message now -->
     <string name="ScheduledMessagesBottomSheet_menu_send_now">ابھی بھیجیں</string>
@@ -1100,8 +1103,8 @@
     <string name="MediaOverviewActivity_Audio">آڈیو</string>
     <string name="MediaOverviewActivity_All">سب</string>
     <plurals name="MediaOverviewActivity_Media_delete_confirm_title">
-        <item quantity="one">منتخب کردہ اشیاء کو حذف کریں؟</item>
-        <item quantity="other">منتخب کردہ اشیاء کو حذف کریں؟</item>
+        <item quantity="one">منتخب کردہ آئٹم کو حذف کریں؟</item>
+        <item quantity="other">منتخب کردہ آئٹمز کو حذف کریں؟</item>
     </plurals>
     <plurals name="MediaOverviewActivity_Media_delete_confirm_message">
         <item quantity="one">یہ منتخب فائلوں کو مستقل طور پر حذف کردے گا۔ اس آئٹم سے وابستہ کوئی میسج ٹیکسٹ بھی حذف ہوجائے گا۔</item>
@@ -1265,7 +1268,7 @@
 
     <!-- GV2 member removals -->
     <string name="MessageRecord_you_removed_s">آپ نے %1$sکو ہٹا دیا۔</string>
-    <string name="MessageRecord_s_removed_s">%1$s نے %2$s کو ہٹا دیا</string>
+    <string name="MessageRecord_s_removed_s">%1$s نے %2$s کو ہٹا دیا۔</string>
     <string name="MessageRecord_s_removed_you_from_the_group">%1$s نے آپ کو گروپ سے ہٹا دیا۔</string>
     <string name="MessageRecord_you_left_the_group">آپ نے گروپ چھوڑ دیا۔</string>
     <string name="MessageRecord_s_left_the_group">%1$sگروپ چھوڑ دیا</string>
@@ -1874,7 +1877,7 @@
     <string name="StickerPackPreviewActivity_untitled">عنوان کے بغیر</string>
     <string name="StickerPackPreviewActivity_unknown">نامعلوم</string>
     <string name="StickerPackPreviewActivity_install">نصب کرنا</string>
-    <string name="StickerPackPreviewActivity_remove">مٹا دیں</string>
+    <string name="StickerPackPreviewActivity_remove">ہٹا دیں</string>
     <string name="StickerPackPreviewActivity_stickers">اسٹیکرز</string>
     <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">اسٹیکر پیک لوڈ ہونے میں ناکامی</string>
 
@@ -1953,6 +1956,8 @@
     <string name="ThreadRecord__reacted_s_to_their_story">ان کی سٹوری پر %1$s ردعمل دیا</string>
     <!-- Displayed in the conversation list when your most recent message is a payment to or from the person the conversation is with -->
     <string name="ThreadRecord_payment">پیمنٹ</string>
+    <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
+    <string name="ThreadRecord_scheduled_message">شیڈول کردہ میسج</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Molly اپ ڈیٹ</string>
@@ -3166,6 +3171,8 @@
     <string name="text_secure_normal__invite_friends">دوستوں کو مدعو کریں</string>
     <!-- Overflow menu entry to filter unread chats -->
     <string name="text_secure_normal__filter_unread_chats">بغیر پڑھی ہوئی چیٹس کو فلٹر کریں</string>
+    <!-- Overflow menu entry to disable unread chats filter -->
+    <string name="text_secure_normal__clear_unread_filter">نا پڑھا گیا فلٹر صاف کریں</string>
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment_context_menu__copy_to_clipboard">کلپ بورڈ کو کاپی کریں</string>
@@ -3391,7 +3398,7 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">آپ کے بیک اپ میں ایک بہت بڑی فائل شامل ہے جسے بیک اپ نہیں کیا جا سکتا۔ براہ کرم اسے حذف کریں اور ایک نیا بیک اپ تخلیق کریں۔</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">بیک اپ کا انتظام کرنے کے لئے ٹیپ کریں۔</string>
     <string name="RegistrationActivity_wrong_number">غلط نمبر؟</string>
-    <string name="RegistrationActivity_call_me_instead_available_in">Call me (%1$02d:%2$02d)</string>
+    <string name="RegistrationActivity_call_me_instead_available_in">مجھے کال کریں (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">Signal رابطہ سپورٹ کریں</string>
     <string name="RegistrationActivity_code_support_subject">Signal رجسٹریشن- Android کے لیے تصدیقی کوڈ درج کریں</string>
     <string name="RegistrationActivity_incorrect_code">غلط کوڈ</string>
@@ -4855,6 +4862,8 @@
     <string name="StoryReplyComposer__react_to_this_story">اس سٹوری پر ردعمل دیں</string>
     <!-- Displayed when the user is replying privately to someone who replied to one of their stories -->
     <string name="StoryReplyComposer__replying_privately_to_s">%1$s کو نجی طور پر جواب دینا</string>
+    <!-- Displayed when the user is replying privately to someone who replied to one of their stories -->
+    <string name="StoryReplyComposer__reply_to_s">%1$s کو جواب دیں</string>
     <!-- Context menu item to privately reply to a story response -->
     <!-- Context menu item to copy a story response -->
     <string name="StoryGroupReplyItem__copy">کاپی کریں</string>
@@ -5535,8 +5544,6 @@
     <string name="GroupStoryEducationSheet__next">اگلا</string>
     <string name="Registration_country_code_entry_hint">+0</string>
 
-    <!-- EOF -->
-
     <!-- PaypalCompleteOrderBottomSheet -->
     <string name="PaypalCompleteOrderBottomSheet__donate">عطیہ کریں</string>
     <string name="PaypalCompleteOrderBottomSheet__payment">پیمنٹ</string>
@@ -5551,8 +5558,8 @@
 
     <!-- Title for screen describing that sms support is going to be removed soon -->
     <string name="SmsRemoval_title_going_away">SMS سپورٹ ختم ہو رہی ہے</string>
-    <!-- Bullet point message shown on describing screen as first bullet why sms is being removed -->
-    <string name="SmsRemoval_info_bullet_1">Signal ایپ میں SMS پیغام رسانی کی اب مزید سپورٹ نہیں کی جائے گی۔</string>
+    <!-- Bullet point message shown on describing screen as first bullet why sms is being removed, placeholder with be date of removal (e.g., March 21st) -->
+    <string name="SmsRemoval_info_bullet_1_s">Signal ایپ میں SMS میسجنگ کی جلد ہی %1$s پر مزید سپورٹ نہیں کی جائے گی۔</string>
     <!-- Bullet point message shown on describing screen as second bullet why sms is being removed -->
     <string name="SmsRemoval_info_bullet_2">SMS پیغامات Signal پیغامات سے مختلف ہو سکتے ہیں۔ <b>اس سے انکرپٹ کردہ Signal پیغام رسانی متاثر نہیں ہوتی اور وہ کام کرنا جاری رکھے گی۔</b></string>
     <!-- Bullet point message shown on describing screen as third bullet why sms is being removed -->
@@ -5561,6 +5568,16 @@
     <string name="SmsRemoval_info_bullet_1_phase_3">SMS پیغامات بھیجنے کے لیے Signal کی طرف سے سپورٹ کو ہٹا دیا گیا ہے۔</string>
     <!-- Button label on sms removal info/megaphone to start the export SMS flow -->
     <string name="SmsRemoval_export_sms">SMS ایکسپورٹ کریں</string>
+
+    <!-- Set up your username megaphone -->
+    <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
+    <string name="SetUpYourUsername__set_up_your_signal_username">اپنا Signal یوزر نیم سیٹ کریں</string>
+    <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
+    <string name="SetUpYourUsername__usernames_let_others">یوزر نیمز کی بدولت دیگر افراد آپ کا فون نمبر جانے بغیر آپ کو میسج کر سکتے ہیں</string>
+    <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
+    <string name="SetUpYourUsername__not_now">ابھی نہیں</string>
+    <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
+    <string name="SetUpYourUsername__continue">جاری رکھیں</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -5571,4 +5588,18 @@
     <string name="TextFormatting_strikethrough">اسٹرائیک تھرو کریں</string>
     <!-- Popup menu label for applying monospace font style -->
     <string name="TextFormatting_monospace">مونو اسپیس کریں</string>
+
+    <!-- UsernameEducationFragment -->
+    <!-- Continue button which takes the user to the add a username screen -->
+    <string name="UsernameEducationFragment__continue">جاری رکھیں</string>
+    <!-- Displayed as a title on the username education screen -->
+    <string name="UsernameEducationFragment__set_up_your_signal_username">اپنا Signal یوزر نیم سیٹ کریں</string>
+
+    <!-- Username edit dialog -->
+    <!-- Option to open username editor displayed as a list item in a dialog -->
+    <string name="UsernameEditDialog__edit_username">یوزر نیم میں ترمیم کریں</string>
+    <!-- Option to delete username displayed as a list item in a dialog -->
+    <string name="UsernameEditDialog__delete_username">یوزر نیم حذف کریں</string>
+
+    <!-- EOF -->
 </resources>

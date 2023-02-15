@@ -9,6 +9,8 @@ apply from: 'translations.gradle'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'app.cash.exhaustive'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.squareup.wire'
+
 
 repositories {
     maven {
@@ -64,6 +66,16 @@ protobuf {
     }
 }
 
+wire {
+    kotlin {
+        javaInterop = true
+    }
+
+    sourcePath {
+        srcDir 'src/main/protowire'
+    }
+}
+
 def getEnv(String name) {
     return project.hasProperty('CI') ? System.getenv(name) : null
 }
@@ -83,8 +95,8 @@ ktlint {
     version = "0.43.2"
 }
 
-def canonicalVersionCode = 1205
-def canonicalVersionName = "6.10.9"
+def canonicalVersionCode = 1213
+def canonicalVersionName = "6.11.7"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -130,11 +142,6 @@ android {
                 enableV4Signing false
             }
         }
-    }
-
-    dependenciesInfo {
-        includeInBundle false
-        includeInApk false
     }
 
     testOptions {
@@ -197,6 +204,11 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = '1.3.2'
     }
 
     if (mollyRevision < 0 || mollyRevision >= postFixSize) {
@@ -572,6 +584,8 @@ dependencies {
     implementation libs.rxdogtag
 
     androidTestUtil testLibs.androidx.test.orchestrator
+
+    implementation project(':core-ui')
 }
 
 static def getCommitTag() {

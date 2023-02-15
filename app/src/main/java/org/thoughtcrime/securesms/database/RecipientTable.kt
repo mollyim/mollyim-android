@@ -30,6 +30,7 @@ import org.signal.core.util.requireLong
 import org.signal.core.util.requireNonNullString
 import org.signal.core.util.requireString
 import org.signal.core.util.select
+import org.signal.core.util.toSingleLine
 import org.signal.core.util.update
 import org.signal.core.util.withinTransaction
 import org.signal.libsignal.protocol.IdentityKey
@@ -183,6 +184,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     private const val NEEDS_PNI_SIGNATURE = "needs_pni_signature"
     private const val UNREGISTERED_TIMESTAMP = "unregistered_timestamp"
     private const val HIDDEN = "hidden"
+    const val REPORTING_TOKEN = "reporting_token"
     // MOLLY: Add new fields to clearFieldsForDeletion
 
     @JvmField
@@ -244,7 +246,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         $DISTRIBUTION_LIST_ID INTEGER DEFAULT NULL,
         $NEEDS_PNI_SIGNATURE INTEGER DEFAULT 0,
         $UNREGISTERED_TIMESTAMP INTEGER DEFAULT 0,
-        $HIDDEN INTEGER DEFAULT 0
+        $HIDDEN INTEGER DEFAULT 0,
+        $REPORTING_TOKEN BLOB DEFAULT NULL
       )
       """.trimIndent()
 
@@ -306,7 +309,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       BADGES,
       DISTRIBUTION_LIST_ID,
       NEEDS_PNI_SIGNATURE,
-      HIDDEN
+      HIDDEN,
+      REPORTING_TOKEN
     )
 
     private val ID_PROJECTION = arrayOf(ID)
@@ -1719,6 +1723,31 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     return updated
   }
 
+  fun setReportingToken(id: RecipientId, reportingToken: ByteArray) {
+    val values = ContentValues(1).apply {
+      put(REPORTING_TOKEN, reportingToken)
+    }
+
+    if (update(id, values)) {
+      ApplicationDependencies.getDatabaseObserver().notifyRecipientChanged(id)
+    }
+  }
+
+  fun getReportingToken(id: RecipientId): ByteArray? {
+    readableDatabase
+      .select(REPORTING_TOKEN)
+      .from(TABLE_NAME)
+      .where(ID_WHERE, id)
+      .run()
+      .use { cursor ->
+        if (cursor.moveToFirst()) {
+          return cursor.requireBlob(REPORTING_TOKEN)
+        } else {
+          return null
+        }
+      }
+  }
+
   fun getSimilarRecipientIds(recipient: Recipient): List<RecipientId> {
     val projection = SqlUtil.buildArgs(ID, "COALESCE(NULLIF($SYSTEM_JOINED_NAME, ''), NULLIF($PROFILE_JOINED_NAME, '')) AS checked_name")
     val where = "checked_name = ? AND $HIDDEN = ?"
@@ -3027,9 +3056,10 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     return readableDatabase.query(TABLE_NAME, SEARCH_PROJECTION, selection, args, null, null, orderBy)
   }
 
-  fun querySignalContactLetterHeaders(inputQuery: String, includeSelf: Boolean): Map<RecipientId, String> {
+  fun querySignalContactLetterHeaders(inputQuery: String, includeSelf: Boolean, includePush: Boolean, includeSms: Boolean): Map<RecipientId, String> {
     val searchSelection = ContactSearchSelection.Builder()
-      .withRegistered(true)
+      .withRegistered(includePush)
+      .withNonRegistered(includeSms)
       .withGroups(false)
       .excludeId(if (includeSelf) null else Recipient.self().id)
       .withSearchQuery(inputQuery)
@@ -3155,6 +3185,45 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       """.trimIndent()
     val args = SqlUtil.buildArgs(0, 0, query, query, query, query)
     return readableDatabase.query(TABLE_NAME, SEARCH_PROJECTION, selection, args, null, null, null)
+  }
+
+  /**
+   * Gets the query used for performing the all contacts search so that it can be injected as a subquery.
+   */
+  fun getAllContactsSubquery(inputQuery: String): SqlUtil.Query {
+    val query = SqlUtil.buildCaseInsensitiveGlobPattern(inputQuery)
+
+    //language=sql
+    val subquery = """SELECT $ID FROM (
+      SELECT ${SEARCH_PROJECTION.joinToString(",")} FROM $TABLE_NAME
+      WHERE $BLOCKED = ? AND $HIDDEN = ? AND
+      (
+          $SORT_NAME GLOB ? OR 
+          $USERNAME GLOB ? OR 
+          $PHONE GLOB ? OR 
+          $EMAIL GLOB ?
+      ))
+    """.toSingleLine()
+
+    return SqlUtil.Query(subquery, SqlUtil.buildArgs(0, 0, query, query, query, query))
+  }
+
+  fun getAllContactsWithoutThreads(inputQuery: String): Cursor {
+    val query = SqlUtil.buildCaseInsensitiveGlobPattern(inputQuery)
+
+    //language=sql
+    val subquery = """
+      SELECT ${SEARCH_PROJECTION.joinToString(", ")} FROM $TABLE_NAME
+      WHERE $BLOCKED = ? AND $HIDDEN = ? AND NOT EXISTS (SELECT 1 FROM ${ThreadTable.TABLE_NAME} WHERE ${ThreadTable.TABLE_NAME}.${ThreadTable.RECIPIENT_ID} = $TABLE_NAME.$ID LIMIT 1) 
+      AND (
+          $SORT_NAME GLOB ? OR 
+          $USERNAME GLOB ? OR 
+          $PHONE GLOB ? OR 
+          $EMAIL GLOB ?
+      )
+    """.toSingleLine()
+
+    return readableDatabase.query(subquery, SqlUtil.buildArgs(0, 0, query, query, query, query))
   }
 
   @JvmOverloads
@@ -4266,7 +4335,15 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     }
 
     companion object {
-      const val HAS_GROUP_IN_COMMON = "EXISTS (SELECT 1 FROM ${GroupTable.MembershipTable.TABLE_NAME} WHERE ${GroupTable.MembershipTable.TABLE_NAME}.${GroupTable.MembershipTable.RECIPIENT_ID} = $ID)"
+      //language=sql
+      private val HAS_GROUP_IN_COMMON = """
+        EXISTS (
+            SELECT 1 
+            FROM ${GroupTable.MembershipTable.TABLE_NAME}
+            INNER JOIN ${GroupTable.TABLE_NAME} ON ${GroupTable.TABLE_NAME}.${GroupTable.GROUP_ID} = ${GroupTable.MembershipTable.TABLE_NAME}.${GroupTable.MembershipTable.GROUP_ID}
+            WHERE ${GroupTable.MembershipTable.TABLE_NAME}.${GroupTable.MembershipTable.RECIPIENT_ID} = $TABLE_NAME.$ID AND ${GroupTable.TABLE_NAME}.${GroupTable.ACTIVE} = 1 AND ${GroupTable.TABLE_NAME}.${GroupTable.MMS} = 0
+        )
+      """.toSingleLine()
       const val FILTER_GROUPS = " AND $GROUP_ID IS NULL"
       const val FILTER_ID = " AND $ID != ?"
       const val FILTER_BLOCKED = " AND $BLOCKED = ?"
@@ -4275,8 +4352,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       const val QUERY_NON_SIGNAL_CONTACT = "$NON_SIGNAL_CONTACT AND ($PHONE GLOB ? OR $EMAIL GLOB ? OR $SYSTEM_JOINED_NAME GLOB ?)"
       const val SIGNAL_CONTACT = "$REGISTERED = ? AND (NULLIF($SYSTEM_JOINED_NAME, '') NOT NULL OR $PROFILE_SHARING = ?) AND ($SORT_NAME NOT NULL OR $USERNAME NOT NULL)"
       const val QUERY_SIGNAL_CONTACT = "$SIGNAL_CONTACT AND ($PHONE GLOB ? OR $SORT_NAME GLOB ? OR $USERNAME GLOB ?)"
-      const val GROUP_MEMBER_CONTACT = "$REGISTERED = ? AND $HAS_GROUP_IN_COMMON AND NOT (NULLIF($SYSTEM_JOINED_NAME, '') NOT NULL OR $PROFILE_SHARING = ?) AND ($SORT_NAME NOT NULL OR $USERNAME NOT NULL)"
-      const val QUERY_GROUP_MEMBER_CONTACT = "$GROUP_MEMBER_CONTACT AND ($PHONE GLOB ? OR $SORT_NAME GLOB ? OR $USERNAME GLOB ?)"
+      val GROUP_MEMBER_CONTACT = "$REGISTERED = ? AND $HAS_GROUP_IN_COMMON AND NOT (NULLIF($SYSTEM_JOINED_NAME, '') NOT NULL OR $PROFILE_SHARING = ?) AND ($SORT_NAME NOT NULL OR $USERNAME NOT NULL)"
+      val QUERY_GROUP_MEMBER_CONTACT = "$GROUP_MEMBER_CONTACT AND ($PHONE GLOB ? OR $SORT_NAME GLOB ? OR $USERNAME GLOB ?)"
     }
   }
 

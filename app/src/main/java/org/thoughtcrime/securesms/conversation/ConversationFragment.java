@@ -102,6 +102,7 @@ import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectFor
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragmentArgs;
 import org.thoughtcrime.securesms.conversation.quotes.MessageQuotesBottomSheet;
 import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog;
+import org.thoughtcrime.securesms.database.DatabaseObserver;
 import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord;
@@ -254,6 +255,8 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
 
   private @Nullable ConversationData conversationData;
   private @Nullable ChatWallpaper    chatWallpaper;
+
+  private final DatabaseObserver.Observer threadDeletedObserver = this::onThreadDelete;
 
   public static void prepare(@NonNull Context context) {
     FrameLayout parent = new FrameLayout(context);
@@ -434,6 +437,12 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
   }
 
+  @Override
+  public void onDestroy() {
+    ApplicationDependencies.getDatabaseObserver().unregisterObserver(threadDeletedObserver);
+    super.onDestroy();
+  }
+
   private @NonNull GiphyMp4ProjectionRecycler initializeGiphyMp4() {
     int                                            maxPlayback = GiphyMp4PlaybackPolicy.maxSimultaneousPlaybackInConversation();
     List<GiphyMp4ProjectionPlayerHolder>           holders     = GiphyMp4ProjectionPlayerHolder.injectVideoViews(requireContext(),
@@ -504,26 +513,6 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   public void onConfigurationChanged(@NonNull Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     updateToolbarDependentMargins();
-  }
-
-  public void onNewIntent() {
-    Log.d(TAG, "[onNewIntent]");
-
-    if (actionMode != null) {
-      actionMode.finish();
-    }
-
-    long oldThreadId = threadId;
-
-    initializeResources();
-    messageRequestViewModel.setConversationInfo(recipient.getId(), threadId);
-
-    int startingPosition = getStartPosition();
-    if (startingPosition != -1 && oldThreadId == threadId) {
-      list.post(() -> moveToPosition(startingPosition, () -> Log.w(TAG, "Could not scroll to requested message.")));
-    } else {
-      initializeListAdapter();
-    }
   }
 
   public void moveToLastSeen() {
@@ -677,8 +666,8 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     long oldThreadId      = threadId;
     int  startingPosition = getStartPosition();
 
-    this.recipient      = Recipient.live(conversationViewModel.getArgs().getRecipientId());
-    this.threadId       = conversationViewModel.getArgs().getThreadId();
+    this.recipient = Recipient.live(conversationViewModel.getArgs().getRecipientId());
+    setThreadId(conversationViewModel.getArgs().getThreadId());
     this.markReadHelper = new MarkReadHelper(ConversationId.forConversation(threadId), requireContext(), getViewLifecycleOwner());
 
     conversationViewModel.onConversationDataAvailable(recipient.getId(), threadId, startingPosition);
@@ -696,6 +685,12 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     if (oldThreadId != threadId) {
       ApplicationDependencies.getTypingStatusRepository().getTypists(oldThreadId).removeObservers(getViewLifecycleOwner());
     }
+  }
+
+  private void setThreadId(long threadId) {
+    this.threadId = threadId;
+    ApplicationDependencies.getDatabaseObserver().unregisterObserver(threadDeletedObserver);
+    ApplicationDependencies.getDatabaseObserver().registerConversationDeleteObserver(this.threadId, threadDeletedObserver);
   }
 
   private void initializeListAdapter() {
@@ -799,7 +794,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     List<ActionItem> items = new ArrayList<>();
 
     if (menuState.shouldShowReplyAction()) {
-      items.add(new ActionItem(R.drawable.ic_reply_24_tinted, getResources().getString(R.string.conversation_selection__menu_reply), () -> {
+      items.add(new ActionItem(R.drawable.symbol_reply_24, getResources().getString(R.string.conversation_selection__menu_reply), () -> {
         maybeShowSwipeToReplyTooltip();
         handleReplyMessage(getSelectedConversationMessage());
         if (actionMode != null) {
@@ -809,11 +804,11 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     }
 
     if (menuState.shouldShowForwardAction()) {
-      items.add(new ActionItem(R.drawable.ic_forward_24_tinted, getResources().getString(R.string.conversation_selection__menu_forward), () -> handleForwardMessageParts(selectedParts)));
+      items.add(new ActionItem(R.drawable.symbol_forward_24, getResources().getString(R.string.conversation_selection__menu_forward), () -> handleForwardMessageParts(selectedParts)));
     }
 
     if (menuState.shouldShowSaveAttachmentAction()) {
-      items.add(new ActionItem(R.drawable.ic_save_24_tinted, getResources().getString(R.string.conversation_selection__menu_save), () -> {
+      items.add(new ActionItem(R.drawable.symbol_save_android_24, getResources().getString(R.string.conversation_selection__menu_save), () -> {
         handleSaveAttachment((MediaMmsMessageRecord) getSelectedConversationMessage().getMessageRecord());
         if (actionMode != null) {
           actionMode.finish();
@@ -822,7 +817,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     }
 
     if (menuState.shouldShowCopyAction()) {
-      items.add(new ActionItem(R.drawable.ic_copy_24_tinted, getResources().getString(R.string.conversation_selection__menu_copy), () -> {
+      items.add(new ActionItem(R.drawable.symbol_copy_android_24, getResources().getString(R.string.conversation_selection__menu_copy), () -> {
         handleCopyMessage(selectedParts);
         if (actionMode != null) {
           actionMode.finish();
@@ -831,7 +826,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     }
 
     if (menuState.shouldShowDetailsAction()) {
-      items.add(new ActionItem(R.drawable.ic_info_tinted_24, getResources().getString(R.string.conversation_selection__menu_message_details), () -> {
+      items.add(new ActionItem(R.drawable.symbol_info_24, getResources().getString(R.string.conversation_selection__menu_message_details), () -> {
         handleDisplayDetails(getSelectedConversationMessage());
         if (actionMode != null) {
           actionMode.finish();
@@ -840,7 +835,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     }
 
     if (menuState.shouldShowDeleteAction()) {
-      items.add(new ActionItem(R.drawable.ic_delete_tinted_24, getResources().getString(R.string.conversation_selection__menu_delete), () -> {
+      items.add(new ActionItem(R.drawable.symbol_trash_24, getResources().getString(R.string.conversation_selection__menu_delete), () -> {
         handleDeleteMessages(selectedParts);
         if (actionMode != null) {
           actionMode.finish();
@@ -925,7 +920,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     if (this.threadId != threadId) {
       Log.i(TAG, "ThreadId changed from " + this.threadId + " to " + threadId + ". Recipient was " + this.recipient.getId() + " and is now " + recipient.getId());
 
-      this.threadId = threadId;
+      setThreadId(threadId);
       messageRequestViewModel.setConversationInfo(recipient.getId(), threadId);
 
       snapToTopDataObserver.requestScrollPosition(0);
@@ -1040,14 +1035,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
         @Override
         protected Void doInBackground(Void... voids) {
           for (MessageRecord messageRecord : messageRecords) {
-            boolean threadDeleted = SignalDatabase.messages().deleteMessage(messageRecord.getId());
-
-            if (threadDeleted) {
-              threadId = -1;
-              conversationViewModel.clearThreadId();
-              messageCountsViewModel.clearThreadId();
-              listener.setThreadId(threadId);
-            }
+            SignalDatabase.messages().deleteMessage(messageRecord.getId());
           }
 
           return null;
@@ -1063,6 +1051,13 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
 
     builder.setNegativeButton(android.R.string.cancel, null);
     return builder;
+  }
+
+  private void onThreadDelete() {
+    setThreadId(-1);
+    conversationViewModel.clearThreadId();
+    messageCountsViewModel.clearThreadId();
+    listener.setThreadId(threadId);
   }
 
   private static boolean isNoteToSelfDelete(Set<MessageRecord> messageRecords) {

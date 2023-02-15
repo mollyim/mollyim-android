@@ -17,7 +17,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.ContactSelectionActivity;
 import org.thoughtcrime.securesms.ContactSelectionListFragment;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.contacts.ContactsCursorLoader;
+import org.thoughtcrime.securesms.contacts.ContactSelectionDisplayMode;
 import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.groups.ui.creategroup.details.AddGroupDetailsActivity;
@@ -50,7 +50,7 @@ public class CreateGroupActivity extends ContactSelectionActivity {
     intent.putExtra(ContactSelectionListFragment.REFRESHABLE, false);
     intent.putExtra(ContactSelectionActivity.EXTRA_LAYOUT_RES_ID, R.layout.create_group_activity);
 
-    int displayMode = ContactsCursorLoader.DisplayMode.FLAG_PUSH;
+    int displayMode = ContactSelectionDisplayMode.FLAG_PUSH;
 
     intent.putExtra(ContactSelectionListFragment.DISPLAY_MODE, displayMode);
     intent.putExtra(ContactSelectionListFragment.SELECTION_LIMITS, FeatureFlags.groupLimits().excludingSelf());
