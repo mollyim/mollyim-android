@@ -50,7 +50,6 @@ import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
-import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 private val TAG = Log.tag(PrivacySettingsFragment::class.java)
@@ -353,7 +352,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
     return if (timeoutSeconds <= 0) {
       getString(R.string.AppProtectionPreferenceFragment_instant)
     } else {
-      String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
+      ExpirationUtil.getExpirationDisplayValue(requireContext(), timeoutSeconds.toInt())
     }
   }
 

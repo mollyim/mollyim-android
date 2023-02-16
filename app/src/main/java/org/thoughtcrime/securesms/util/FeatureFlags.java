@@ -85,7 +85,7 @@ public final class FeatureFlags {
   private static final String SOFTWARE_AEC_BLOCKLIST_MODELS     = "android.calling.softwareAecBlockList";
   private static final String USE_HARDWARE_AEC_IF_OLD           = "android.calling.useHardwareAecIfOlderThanApi29";
   private static final String USE_AEC3                          = "android.calling.useAec3";
-  private static final String PAYMENTS_COUNTRY_BLOCKLIST        = "android.payments.blocklist";
+  private static final String PAYMENTS_COUNTRY_BLOCKLIST        = "global.payments.disabledRegions";
   public  static final String PHONE_NUMBER_PRIVACY              = "android.pnp";
   private static final String USE_FCM_FOREGROUND_SERVICE        = "android.useFcmForegroundService.3";
   private static final String STORIES_AUTO_DOWNLOAD_MAXIMUM     = "android.stories.autoDownloadMaximum";
@@ -105,7 +105,6 @@ public final class FeatureFlags {
   private static final String PAYPAL_ONE_TIME_DONATIONS         = "android.oneTimePayPalDonations.2";
   private static final String PAYPAL_RECURRING_DONATIONS        = "android.recurringPayPalDonations.3";
   private static final String TEXT_FORMATTING                   = "android.textFormatting";
-  private static final String SCHEDULED_MESSAGE_SENDS           = "android.scheduledMessageSends";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -160,8 +159,7 @@ public final class FeatureFlags {
       CHAT_FILTERS,
       PAYPAL_ONE_TIME_DONATIONS,
       PAYPAL_RECURRING_DONATIONS,
-      TEXT_FORMATTING,
-      SCHEDULED_MESSAGE_SENDS
+      TEXT_FORMATTING
   );
 
   @VisibleForTesting
@@ -537,13 +535,6 @@ public final class FeatureFlags {
    */
   public static boolean textFormatting() {
     return getBoolean(TEXT_FORMATTING, false);
-  }
-
-  /**
-   *  Whether or not we allow the user to schedule message sends. This takes over the entry point for SMS message sends
-   */
-  public static boolean scheduledMessageSends() {
-    return getBoolean(SCHEDULED_MESSAGE_SENDS, false);
   }
 
   /** Only for rendering debug info. */

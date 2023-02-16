@@ -19,7 +19,6 @@ import org.thoughtcrime.securesms.util.Base64
 import org.whispersystems.signalservice.api.push.TrustStore
 import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl
 import org.whispersystems.signalservice.internal.configuration.SignalCdsiUrl
-import org.whispersystems.signalservice.internal.configuration.SignalContactDiscoveryUrl
 import org.whispersystems.signalservice.internal.configuration.SignalKeyBackupServiceUrl
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
 import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl
@@ -50,11 +49,11 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val COUNTRY_CODE_UKRAINE = 380
 
     private const val G_HOST = "reflector-nrgwuv7kwq-uc.a.run.app"
-    private const val F_SERVICE_HOST = "textsecure-service.whispersystems.org.global.prod.fastly.net"
+    private const val F_SERVICE_HOST = "chat-signal.global.ssl.fastly.net"
     private const val F_STORAGE_HOST = "storage.signal.org.global.prod.fastly.net"
     private const val F_CDN_HOST = "cdn.signal.org.global.prod.fastly.net"
     private const val F_CDN2_HOST = "cdn2.signal.org.global.prod.fastly.net"
-    private const val F_DIRECTORY_HOST = "api.directory.signal.org.global.prod.fastly.net"
+    private const val F_CDSI_HOST = "cdsi-signal.global.ssl.fastly.net"
     private const val F_KBS_HOST = "api.backup.signal.org.global.prod.fastly.net"
 
     private const val HTTPS_WWW_GOOGLE_COM = "https://www.google.com"
@@ -80,16 +79,18 @@ open class SignalServiceNetworkAccess(context: Context) {
       BuildConfig.STORAGE_URL.stripProtocol(),
       BuildConfig.SIGNAL_CDN_URL.stripProtocol(),
       BuildConfig.SIGNAL_CDN2_URL.stripProtocol(),
+      BuildConfig.SIGNAL_CDSI_URL.stripProtocol(),
       BuildConfig.SIGNAL_CONTACT_DISCOVERY_URL.stripProtocol(),
       BuildConfig.SIGNAL_KEY_BACKUP_URL.stripProtocol(),
       BuildConfig.SIGNAL_SFU_URL.stripProtocol(),
+      BuildConfig.SIGNAL_STAGING_SFU_URL.stripProtocol(),
       BuildConfig.CONTENT_PROXY_HOST.stripProtocol(),
       G_HOST,
       F_SERVICE_HOST,
       F_STORAGE_HOST,
       F_CDN_HOST,
       F_CDN2_HOST,
-      F_DIRECTORY_HOST,
+      F_CDSI_HOST,
       F_KBS_HOST,
       HTTPS_WWW_GOOGLE_COM.stripProtocol(),
       HTTPS_ANDROID_CLIENTS_GOOGLE_COM.stripProtocol(),
@@ -198,16 +199,14 @@ open class SignalServiceNetworkAccess(context: Context) {
       0 to fUrls.map { SignalCdnUrl(it, F_CDN_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
       2 to fUrls.map { SignalCdnUrl(it, F_CDN2_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
     ),
-    fUrls.map { SignalContactDiscoveryUrl(it, F_DIRECTORY_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
     fUrls.map { SignalKeyBackupServiceUrl(it, F_KBS_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
     fUrls.map { SignalStorageUrl(it, F_STORAGE_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
-    arrayOf(SignalCdsiUrl(BuildConfig.SIGNAL_CDSI_URL, serviceTrustStore)),
+    fUrls.map { SignalCdsiUrl(it, F_CDSI_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
     interceptors,
     Network.socketFactory,
     Network.proxySelectorForSocks,
     Network.dns,
     zkGroupServerPublicParams,
-    false
   )
 
   private val censorshipConfiguration: Map<Int, SignalServiceConfiguration> = mapOf(
@@ -251,7 +250,6 @@ open class SignalServiceNetworkAccess(context: Context) {
       0 to arrayOf(SignalCdnUrl(BuildConfig.SIGNAL_CDN_URL, serviceTrustStore)),
       2 to arrayOf(SignalCdnUrl(BuildConfig.SIGNAL_CDN2_URL, serviceTrustStore))
     ),
-    arrayOf(SignalContactDiscoveryUrl(BuildConfig.SIGNAL_CONTACT_DISCOVERY_URL, serviceTrustStore)),
     arrayOf(SignalKeyBackupServiceUrl(BuildConfig.SIGNAL_KEY_BACKUP_URL, serviceTrustStore)),
     arrayOf(SignalStorageUrl(BuildConfig.STORAGE_URL, serviceTrustStore)),
     arrayOf(SignalCdsiUrl(BuildConfig.SIGNAL_CDSI_URL, serviceTrustStore)),
@@ -260,7 +258,6 @@ open class SignalServiceNetworkAccess(context: Context) {
     Network.proxySelectorForSocks,
     Network.dns,
     zkGroupServerPublicParams,
-    true
   )
 
   open fun getConfiguration(): SignalServiceConfiguration {
@@ -303,17 +300,12 @@ open class SignalServiceNetworkAccess(context: Context) {
     return defaultCensoredCountryCodes.contains(countryCode)
   }
 
-  fun supportsWebsockets(): Boolean {
-    return !isCensored() || getConfiguration().supportsWebSockets()
-  }
-
   private fun buildGConfiguration(
     hostConfigs: List<HostConfig>
   ): SignalServiceConfiguration {
     val serviceUrls: Array<SignalServiceUrl> = hostConfigs.map { SignalServiceUrl("${it.baseUrl}/service", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
     val cdnUrls: Array<SignalCdnUrl> = hostConfigs.map { SignalCdnUrl("${it.baseUrl}/cdn", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
     val cdn2Urls: Array<SignalCdnUrl> = hostConfigs.map { SignalCdnUrl("${it.baseUrl}/cdn2", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
-    val cdsUrls: Array<SignalContactDiscoveryUrl> = hostConfigs.map { SignalContactDiscoveryUrl("${it.baseUrl}/directory", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
     val kbsUrls: Array<SignalKeyBackupServiceUrl> = hostConfigs.map { SignalKeyBackupServiceUrl("${it.baseUrl}/backup", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
     val storageUrls: Array<SignalStorageUrl> = hostConfigs.map { SignalStorageUrl("${it.baseUrl}/storage", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
     val cdsiUrls: Array<SignalCdsiUrl> = hostConfigs.map { SignalCdsiUrl("${it.baseUrl}/cdsi", it.host, gTrustStore, it.connectionSpec) }.toTypedArray()
@@ -324,7 +316,6 @@ open class SignalServiceNetworkAccess(context: Context) {
         0 to cdnUrls,
         2 to cdn2Urls
       ),
-      cdsUrls,
       kbsUrls,
       storageUrls,
       cdsiUrls,
@@ -333,7 +324,6 @@ open class SignalServiceNetworkAccess(context: Context) {
       Network.proxySelectorForSocks,
       Network.dns,
       zkGroupServerPublicParams,
-      true
     )
   }
 
