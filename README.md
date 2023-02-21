@@ -61,7 +61,7 @@ This table lists the current status of the dependencies:
 | Push notifications <sup>(1) (2)</sup> | ✔️ Websocket | ⚠️ FCM<br>✔️ Websocket | ⚠️ FCM<br>✔️ Websocket |
 | Location provider                     | ✘           | ⚠️ Google Maps        | ⚠️️️ Google Maps        |
 
-<sup>(1)</sup> You may need to disable the system battery optimizations to receive Websocket-based push notifications in background, as otherwise the app will be killed.<br>
+<sup>(1)</sup> You may need to disable the system battery optimizations to receive Websocket-based push notifications in background.<br>
 <sup>(2)</sup> If you are running a custom ROM and the app fails to register with Play Services (FCM) try the FOSS flavor.
 
 ## Compatibility with Signal
