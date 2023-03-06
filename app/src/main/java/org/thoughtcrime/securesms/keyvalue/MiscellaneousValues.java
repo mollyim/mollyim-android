@@ -42,7 +42,15 @@ public final class MiscellaneousValues extends SignalStoreValues {
 
   @Override
   @NonNull List<String> getKeysToIncludeInBackup() {
-    return Collections.singletonList(SMS_PHASE_1_START_MS);
+      return Arrays.asList(SMS_PHASE_1_START_MS,
+                           PNI_INITIALIZED_DEVICES,
+                           LAST_FOREGROUND_TIME,
+                           LAST_FCM_FOREGROUND_TIME,
+                           CDS_BLOCKED_UNTIL,
+                           CDS_TOKEN,
+                           LAST_GV2_PROFILE_CHECK_TIME,
+                           CENSORSHIP_SERVICE_REACHABLE,
+                           CENSORSHIP_LAST_CHECK_TIME);
   }
 
   public long getLastPrekeyRefreshTime() {

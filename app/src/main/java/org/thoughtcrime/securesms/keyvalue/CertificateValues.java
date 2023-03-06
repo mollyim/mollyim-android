@@ -6,6 +6,8 @@ import androidx.annotation.WorkerThread;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
+
 
 public final class CertificateValues extends SignalStoreValues {
 
@@ -22,7 +24,8 @@ public final class CertificateValues extends SignalStoreValues {
 
   @Override
   @NonNull List<String> getKeysToIncludeInBackup() {
-    return Collections.emptyList();
+    return Arrays.asList(UD_CERTIFICATE_UUID_AND_E164,
+                         UD_CERTIFICATE_UUID_ONLY);
   }
 
   @WorkerThread

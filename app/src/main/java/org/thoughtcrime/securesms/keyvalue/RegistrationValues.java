@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
 
 public final class RegistrationValues extends SignalStoreValues {
 
@@ -26,7 +27,9 @@ public final class RegistrationValues extends SignalStoreValues {
 
   @Override
   @NonNull List<String> getKeysToIncludeInBackup() {
-    return Collections.emptyList();
+    return Arrays.asList(REGISTRATION_COMPLETE,
+                         PIN_REQUIRED,
+                         HAS_UPLOADED_PROFILE);
   }
 
   public synchronized void clearRegistrationComplete() {

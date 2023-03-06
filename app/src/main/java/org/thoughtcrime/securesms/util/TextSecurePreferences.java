@@ -224,6 +224,8 @@ public class TextSecurePreferences {
       UPDATE_APK_INCLUDE_BETA,
       BLOCK_UNKNOWN,
       BIOMETRIC_SCREEN_LOCK,
+      PROMPTED_PUSH_REGISTRATION_PREF,
+      NETWORK_CONFIG_SEEN,
   };
 
   private static final String[] stringSetPreferencesToBackupMolly = {PASSPHRASE_LOCK_TRIGGER};

@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.Arrays;
 
 public final class KbsValues extends SignalStoreValues {
 
@@ -39,7 +40,15 @@ public final class KbsValues extends SignalStoreValues {
 
   @Override
   @NonNull List<String> getKeysToIncludeInBackup() {
-    return Collections.emptyList();
+    return Arrays.asList(V2_LOCK_ENABLED,
+                         MASTER_KEY,
+                         TOKEN_RESPONSE,
+                         PIN,
+                         LOCK_LOCAL_PIN_HASH,
+                         LAST_CREATE_FAILED_TIMESTAMP,
+                         OPTED_OUT,
+                         PIN_FORGOTTEN_OR_SKIPPED,
+                         KBS_AUTH_TOKENS);
   }
 
   /**

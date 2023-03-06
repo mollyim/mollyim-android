@@ -11,6 +11,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  * Specifically handles just the UI/UX state around PINs. For actual keys, see {@link KbsValues}.
@@ -34,7 +35,10 @@ public final class PinValues extends SignalStoreValues {
 
   @Override
   @NonNull List<String> getKeysToIncludeInBackup() {
-    return Collections.singletonList(PIN_REMINDERS_ENABLED);
+      return Arrays.asList(LAST_SUCCESSFUL_ENTRY,
+                           NEXT_INTERVAL,
+                           KEYBOARD_TYPE,
+                           PIN_REMINDERS_ENABLED);
   }
 
   public void onEntrySuccess(@NonNull String pin) {
