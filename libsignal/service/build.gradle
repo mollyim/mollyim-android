@@ -3,7 +3,6 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'java-test-fixtures'
 apply plugin: 'com.google.protobuf'
 apply plugin: 'idea'
-apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 archivesBaseName = "signal-service-java"
 version          = lib_signal_service_version_number

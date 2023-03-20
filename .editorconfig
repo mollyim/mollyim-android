@@ -2,4 +2,6 @@ root = true
 
 [*.kt]
 indent_size = 2
-twitter_compose_allowed_composition_locals=LocalExtendedColors
+ktlint_standard_trailing-comma-on-call-site = disable
+ktlint_standard_trailing-comma-on-declaration-site = disable
+ktlink_standard_spacing-between-declarations-with-annotations = disable

@@ -17,7 +17,6 @@ val signalJavaVersion: JavaVersion by extra
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id("org.jlleitschuh.gradle.ktlint")
     id("android-constants")
 }
 
@@ -46,11 +45,6 @@ android {
     }
 }
 
-ktlint {
-    // Use a newer version to resolve https://github.com/JLLeitschuh/ktlint-gradle/issues/507
-    version.set("0.47.1")
-}
-
 dependencies {
     lintChecks(project(":lintchecks"))
 
@@ -64,8 +58,6 @@ dependencies {
     implementation(libs.rxjava3.rxjava)
     implementation(libs.rxjava3.rxkotlin)
     implementation(libs.androidx.multidex)
-
-    ktlintRuleset(libs.ktlint.twitter.compose)
 
     testImplementation(testLibs.junit.junit)
     testImplementation(testLibs.mockito.core)

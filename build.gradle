@@ -8,12 +8,6 @@ buildscript {
                 includeVersion 'org.jetbrains.trove4j', 'trove4j', '20160824'
             }
         }
-        maven {
-            url "https://plugins.gradle.org/m2/"
-            content {
-                includeModule 'org.jlleitschuh.gradle', 'ktlint-gradle'
-            }
-        }
     }
     dependencies {
         classpath 'com.android.tools:r8:3.3.75'
@@ -21,7 +15,6 @@ buildscript {
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.17'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath libs.ktlint
         classpath 'app.cash.exhaustive:exhaustive-gradle:0.1.1'
         classpath ('com.squareup.wire:wire-gradle-plugin:4.4.3') {
             exclude group: 'com.squareup.wire', module: 'wire-swift-generator'
@@ -59,9 +52,7 @@ subprojects {
 task buildQa {
     group 'Verification'
     description 'Quality Assurance for build logic.'
-    dependsOn gradle.includedBuild('build-logic').task(':tools:test'),
-            gradle.includedBuild('build-logic').task(':tools:ktlintCheck'),
-            gradle.includedBuild('build-logic').task(':plugins:ktlintCheck')
+    dependsOn gradle.includedBuild('build-logic').task(':tools:test')
 }
 
 task qa {
@@ -70,10 +61,8 @@ task qa {
     dependsOn = [
             'buildQa',
             ':libsignal-service:test',
-            ':libsignal-service:ktlintCheck',
             ':app:testProdGmsWebsiteReleaseUnitTest',
             ':app:lintProdGmsWebsiteRelease',
-            ':app:ktlintCheck',
             ':app:assembleProdFossWebsiteRelease',
     ]
 }
