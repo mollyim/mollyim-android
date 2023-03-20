@@ -42,7 +42,6 @@ import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import java.util.concurrent.TimeUnit
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 private val TAG = Log.tag(PrivacySettingsFragment::class.java)
@@ -140,7 +139,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
           childFragmentManager.clearFragmentResult(TimeDurationPickerDialog.RESULT_DURATION)
           childFragmentManager.clearFragmentResultListener(TimeDurationPickerDialog.RESULT_DURATION)
           childFragmentManager.setFragmentResultListener(TimeDurationPickerDialog.RESULT_DURATION, this@PrivacySettingsFragment) { _, bundle ->
-            val timeoutSeconds = bundle.getLong(TimeDurationPickerDialog.RESULT_KEY_DURATION_MILLISECONDS).milliseconds.inWholeSeconds
+            val timeoutSeconds = bundle.getLong(TimeDurationPickerDialog.RESULT_KEY_DURATION_SECONDS)
             viewModel.setPassphraseLockTimeout(timeoutSeconds)
           }
           TimeDurationPickerDialog.create(state.passphraseLockTimeout.seconds).show(childFragmentManager, null)
@@ -328,10 +327,6 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
   }
 
   private fun getDeviceLockTimeoutSummary(timeoutSeconds: Long): String {
-    val hours = TimeUnit.SECONDS.toHours(timeoutSeconds)
-    val minutes = TimeUnit.SECONDS.toMinutes(timeoutSeconds) - hours * 60
-    val seconds = TimeUnit.SECONDS.toSeconds(timeoutSeconds) - minutes * 60 - hours * 3600
-
     return if (timeoutSeconds <= 0) {
       getString(R.string.AppProtectionPreferenceFragment_instant)
     } else {

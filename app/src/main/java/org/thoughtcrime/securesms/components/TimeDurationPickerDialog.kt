@@ -9,9 +9,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.databinding.TimeDurationPickerDialogBinding
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Time duration dialog for selection a duration of hours and minutes. Currently
@@ -26,7 +27,7 @@ class TimeDurationPickerDialog : DialogFragment(), NumericKeyboardView.Listener 
   private val binding: TimeDurationPickerDialogBinding
     get() = _binding!!
 
-  private var duration: String = "0000"
+  private var duration: String = "0000000"
   private var full: Boolean = false
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -34,7 +35,7 @@ class TimeDurationPickerDialog : DialogFragment(), NumericKeyboardView.Listener 
 
     binding.durationKeyboard.listener = this
 
-    setDuration(requireArguments().getLong(ARGUMENT_DURATION).milliseconds)
+    setDuration(requireArguments().getLong(ARGUMENT_DURATION_SECONDS).seconds)
 
     return MaterialAlertDialogBuilder(requireContext())
       .setView(binding.root)
@@ -42,7 +43,7 @@ class TimeDurationPickerDialog : DialogFragment(), NumericKeyboardView.Listener 
         setFragmentResult(
           RESULT_DURATION,
           bundleOf(
-            RESULT_KEY_DURATION_MILLISECONDS to getDuration().inWholeMilliseconds
+            RESULT_KEY_DURATION_SECONDS to getDuration().inWholeSeconds
           )
         )
       }
@@ -56,7 +57,7 @@ class TimeDurationPickerDialog : DialogFragment(), NumericKeyboardView.Listener 
     }
 
     duration = if (keyCode == -1) {
-      "0" + duration.substring(0, 3)
+      "0" + duration.substring(0, 6)
     } else {
       duration.substring(1) + keyCode
     }
@@ -65,35 +66,37 @@ class TimeDurationPickerDialog : DialogFragment(), NumericKeyboardView.Listener 
   }
 
   private fun updateDuration() {
-    binding.durationHour.text = duration.substring(0, 2)
-    binding.durationMinute.text = duration.substring(2)
-    full = duration.toInt() > 1000
+    binding.durationHour.text = duration.substring(0, 3)
+    binding.durationMinute.text = duration.substring(3, 5)
+    binding.durationSecond.text = duration.substring(5, 7)
+    full = duration.toInt() > 1000000
   }
 
   private fun setDuration(duration: Duration) {
-    val hour = duration.inWholeMinutes / 60
-    val minute = duration.inWholeMinutes.mod(60)
-    this.duration = String.format("%02d%02d", hour, minute)
+    duration.toComponents { hours, minutes, seconds, _ ->
+      this.duration = String.format("%03d%02d%02d", hours, minutes, seconds)
+    }
     updateDuration()
   }
 
   private fun getDuration(): Duration {
-    val hours = duration.substring(0, 2).toInt()
-    val minutes = duration.substring(2).toInt()
+    val hours = duration.substring(0, 3).toInt()
+    val minutes = duration.substring(3, 5).toInt()
+    val seconds = duration.substring(5, 7).toInt()
 
-    return hours.hours.plus(minutes.minutes)
+    return hours.hours.plus(minutes.minutes).plus(seconds.seconds).coerceAtMost(30.days)
   }
 
   companion object {
     const val RESULT_DURATION = "RESULT_DURATION"
-    const val RESULT_KEY_DURATION_MILLISECONDS = "RESULT_KEY_DURATION_MILLISECONDS"
+    const val RESULT_KEY_DURATION_SECONDS = "RESULT_KEY_DURATION_SECONDS"
 
-    private const val ARGUMENT_DURATION = "ARGUMENT_DURATION"
+    private const val ARGUMENT_DURATION_SECONDS = "ARGUMENT_DURATION_SECONDS"
 
     fun create(duration: Duration): TimeDurationPickerDialog {
       return TimeDurationPickerDialog().apply {
         arguments = bundleOf(
-          ARGUMENT_DURATION to duration.inWholeMilliseconds
+          ARGUMENT_DURATION_SECONDS to duration.inWholeSeconds
         )
       }
     }
