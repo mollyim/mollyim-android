@@ -29,6 +29,8 @@ class InMemoryLogger : Log.Logger() {
     latch.await()
   }
 
+  override fun clear() = Unit
+
   private fun add(entry: Entry) {
     executor.execute {
       logEntries += entry

@@ -79,6 +79,7 @@ class InstrumentationApplicationDependencyProvider(application: Application, def
       arrayOf(SignalCdsiUrl(baseUrl, "localhost", serviceTrustStore, ConnectionSpec.CLEARTEXT)),
       emptyList(),
       Network.socketFactory,
+      Network.proxySelectorForSocks,
       Network.dns,
       Base64.decode(BuildConfig.ZKGROUP_SERVER_PUBLIC_PARAMS)
     )
