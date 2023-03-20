@@ -669,10 +669,8 @@ public class FullBackupExporter extends FullBackupBase {
 
       long totalWritten = writeStream(in);
       if (totalWritten != size) {
-        if (totalWritten == 0) {
-          // MOLLY: Quick workaround for zero-sized broken attachments
-          SignalDatabase.attachments().deleteAttachment(attachmentId);
-        }
+        // MOLLY: Quick workaround for broken attachments
+        SignalDatabase.attachments().deleteAttachment(attachmentId);
         throw new IOException("Size mismatch!");
       }
     }
