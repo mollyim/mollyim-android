@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.jobs.UnableToStartException
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.AppForegroundObserver
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.messages.SignalServiceContent
@@ -47,7 +48,6 @@ import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
-import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
@@ -65,7 +65,6 @@ class IncomingMessageObserver(private val context: Application) {
     private val WEBSOCKET_READ_TIMEOUT = TimeUnit.MINUTES.toMillis(1)
     private val KEEP_ALIVE_TOKEN_MAX_AGE = TimeUnit.MINUTES.toMillis(5)
     private val MAX_BACKGROUND_TIME = TimeUnit.MINUTES.toMillis(5)
-    private val INSTANCE_COUNT = AtomicInteger(0)
 
     const val FOREGROUND_ID = 313399
   }
@@ -78,6 +77,7 @@ class IncomingMessageObserver(private val context: Application) {
   private val condition: Condition = lock.newCondition()
 
   private var appVisible = false
+  private var isForegroundService = false
   private var lastInteractionTime: Long = System.currentTimeMillis()
 
   @Volatile
@@ -88,19 +88,9 @@ class IncomingMessageObserver(private val context: Application) {
     private set
 
   init {
-    if (INSTANCE_COUNT.incrementAndGet() != 1) {
-      throw AssertionError("Multiple observers!")
-    }
-
     MessageRetrievalThread().start()
 
-    if (!SignalStore.account().fcmEnabled || SignalStore.internalValues().isWebsocketModeForced) {
-      try {
-        startWhenCapable(context, Intent(context, ForegroundService::class.java))
-      } catch (e: UnableToStartException) {
-        Log.w(TAG, "Unable to start foreground service for websocket!", e)
-      }
-    }
+    // MOLLY: Foreground service startup is handled inside the connection loop
 
     ApplicationDependencies.getAppForegroundObserver().addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
@@ -182,6 +172,11 @@ class IncomingMessageObserver(private val context: Application) {
 
   private fun isConnectionNecessary(): Boolean {
     lock.withLock {
+      if (KeyCachingService.isLocked()) {
+        Log.i(TAG, "Don't connect anymore. App is locked.")
+        return false
+      }
+
       val registered = SignalStore.account().isRegistered
       val fcmEnabled = SignalStore.account().fcmEnabled
       val hasNetwork = NetworkConstraint.isMet(context)
@@ -191,6 +186,15 @@ class IncomingMessageObserver(private val context: Application) {
       val timeIdle = if (appVisible) 0 else System.currentTimeMillis() - lastInteractionTime
       val removedRequests = keepAliveTokens.entries.removeIf { (_, createTime) -> createTime < keepAliveCutoffTime }
       val decryptQueueEmpty = ApplicationDependencies.getJobManager().isQueueEmpty(PushDecryptMessageJob.QUEUE)
+
+      if ((!fcmEnabled || forceWebsocket) && registered && !isForegroundService) {
+        try {
+          startWhenCapable(context, Intent(context, ForegroundService::class.java))
+          isForegroundService = true
+        } catch (e: UnableToStartException) {
+          Log.w(TAG, "Unable to start foreground service for websocket!", e)
+        }
+      }
 
       if (removedRequests) {
         Log.d(TAG, "Removed old keep web socket open requests.")
@@ -222,7 +226,6 @@ class IncomingMessageObserver(private val context: Application) {
   }
 
   fun terminateAsync() {
-    INSTANCE_COUNT.decrementAndGet()
     context.unregisterReceiver(connectionReceiver)
 
     SignalExecutors.BOUNDED.execute {
@@ -466,6 +469,11 @@ class IncomingMessageObserver(private val context: Application) {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
       super.onStartCommand(intent, flags, startId)
+
+      if (intent == null) {
+        stopForeground(true)
+        return START_STICKY
+      }
 
       val notification = NotificationCompat.Builder(applicationContext, NotificationChannels.getInstance().BACKGROUND)
         .setContentTitle(applicationContext.getString(R.string.app_name))
