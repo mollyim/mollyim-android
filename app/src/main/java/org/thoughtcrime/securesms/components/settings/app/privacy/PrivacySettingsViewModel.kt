@@ -7,11 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
-import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
-import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob
-import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.livedata.Store
 
@@ -77,19 +73,6 @@ class PrivacySettingsViewModel(
     refresh()
   }
 
-  fun setPhoneNumberSharingMode(phoneNumberSharingMode: PhoneNumberPrivacyValues.PhoneNumberSharingMode) {
-    SignalStore.phoneNumberPrivacy().phoneNumberSharingMode = phoneNumberSharingMode
-    StorageSyncHelper.scheduleSyncForDataChange()
-    refresh()
-  }
-
-  fun setPhoneNumberListingMode(phoneNumberListingMode: PhoneNumberPrivacyValues.PhoneNumberListingMode) {
-    SignalStore.phoneNumberPrivacy().phoneNumberListingMode = phoneNumberListingMode
-    StorageSyncHelper.scheduleSyncForDataChange()
-    ApplicationDependencies.getJobManager().startChain(RefreshAttributesJob()).then(RefreshOwnProfileJob()).enqueue()
-    refresh()
-  }
-
   fun setIncognitoKeyboard(enabled: Boolean) {
     sharedPreferences.edit().putBoolean(TextSecurePreferences.INCOGNITO_KEYBORAD_PREF, enabled).apply()
     refresh()
@@ -111,8 +94,6 @@ class PrivacySettingsViewModel(
       biometricScreenLock = TextSecurePreferences.isBiometricScreenLockEnabled(application),
       screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(application),
       incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(application),
-      seeMyPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberSharingMode,
-      findMeByPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberListingMode,
       universalExpireTimer = SignalStore.settings().universalExpireTimer
     )
   }

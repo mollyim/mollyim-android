@@ -147,7 +147,7 @@ public class WebSocketConnection extends WebSocketListener {
                                                                      .dns(dns)
                                                                      .sslSocketFactory(new Tls12SocketFactory(sslSocketFactory.first()),
                                                                                        sslSocketFactory.second())
-                                                                     .connectionSpecs(Util.immutableList(ConnectionSpec.RESTRICTED_TLS))
+                                                                     .connectionSpecs(serviceUrl.getConnectionSpecs().orElse(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
                                                                      .readTimeout(KEEPALIVE_TIMEOUT_SECONDS + 10, TimeUnit.SECONDS)
                                                                      .connectTimeout(KEEPALIVE_TIMEOUT_SECONDS + 10, TimeUnit.SECONDS);
 

@@ -13,6 +13,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.RecyclerView
 import org.signal.core.util.DimensionUnit
+import org.signal.core.util.getParcelableArrayListCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.FixedRoundedCornerBottomSheetDialogFragment
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchAdapter
@@ -67,7 +68,7 @@ class ChooseGroupStoryBottomSheet : FixedRoundedCornerBottomSheetDialogFragment(
       selectionLimits = FeatureFlags.shareSelectionLimit(),
       displayCheckBox = true,
       displaySmsTag = ContactSearchAdapter.DisplaySmsTag.DEFAULT,
-      displayPhoneNumber = ContactSearchAdapter.DisplayPhoneNumber.NEVER,
+      displaySecondaryInformation = ContactSearchAdapter.DisplaySecondaryInformation.NEVER,
       mapStateToConfiguration = { state ->
         ContactSearchConfiguration.build {
           query = state.query
@@ -159,7 +160,7 @@ class ChooseGroupStoryBottomSheet : FixedRoundedCornerBottomSheetDialogFragment(
 
   object ResultContract {
     fun getRecipientIds(bundle: Bundle): List<RecipientId> {
-      return bundle.getParcelableArrayList(RESULT_SET)!!
+      return bundle.getParcelableArrayListCompat(RESULT_SET, RecipientId::class.java)!!
     }
   }
 }

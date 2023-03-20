@@ -15,8 +15,6 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
-import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
-import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.messageprocessingalarm.MessageProcessReceiver;
@@ -87,7 +85,7 @@ public final class FeatureFlags {
   private static final String USE_AEC3                          = "android.calling.useAec3";
   private static final String PAYMENTS_COUNTRY_BLOCKLIST        = "global.payments.disabledRegions";
   public  static final String PHONE_NUMBER_PRIVACY              = "android.pnp";
-  private static final String USE_FCM_FOREGROUND_SERVICE        = "android.useFcmForegroundService.3";
+  private static final String USE_FCM_FOREGROUND_SERVICE        = "android.useFcmForegroundService.4";
   private static final String STORIES_AUTO_DOWNLOAD_MAXIMUM     = "android.stories.autoDownloadMaximum";
   private static final String TELECOM_MANUFACTURER_ALLOWLIST    = "android.calling.telecomAllowList";
   private static final String TELECOM_MODEL_BLOCKLIST           = "android.calling.telecomModelBlockList";
@@ -105,6 +103,7 @@ public final class FeatureFlags {
   private static final String PAYPAL_ONE_TIME_DONATIONS         = "android.oneTimePayPalDonations.2";
   private static final String PAYPAL_RECURRING_DONATIONS        = "android.recurringPayPalDonations.3";
   private static final String TEXT_FORMATTING                   = "android.textFormatting";
+  private static final String ANY_ADDRESS_PORTS_KILL_SWITCH     = "android.calling.fieldTrial.anyAddressPortsKillSwitch";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -159,7 +158,8 @@ public final class FeatureFlags {
       CHAT_FILTERS,
       PAYPAL_ONE_TIME_DONATIONS,
       PAYPAL_RECURRING_DONATIONS,
-      TEXT_FORMATTING
+      TEXT_FORMATTING,
+      ANY_ADDRESS_PORTS_KILL_SWITCH
   );
 
   @VisibleForTesting
@@ -490,6 +490,7 @@ public final class FeatureFlags {
     return getBoolean(USE_AEC3, true);
   }
 
+  /** Whether or not we show a foreground service on every high-priority FCM push. */
   public static boolean useFcmForegroundService() {
     return getBoolean(USE_FCM_FOREGROUND_SERVICE, false);
   }
@@ -535,6 +536,13 @@ public final class FeatureFlags {
    */
   public static boolean textFormatting() {
     return getBoolean(TEXT_FORMATTING, false);
+  }
+
+  /**
+   * Enable/disable RingRTC field trial for "AnyAddressPortsKillSwitch"
+   */
+  public static boolean callingFieldTrialAnyAddressPortsKillSwitch() {
+    return getBoolean(ANY_ADDRESS_PORTS_KILL_SWITCH, false);
   }
 
   /** Only for rendering debug info. */

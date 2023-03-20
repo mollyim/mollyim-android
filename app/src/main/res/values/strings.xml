@@ -14,6 +14,7 @@
     <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string>
     <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string>
     <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string>
+    <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -542,6 +543,15 @@
     <!-- ConversationTypingView -->
     <string name="ConversationTypingView__plus_d">+%1$d</string>
 
+    <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__relink_your_devices">Re-link your devices</string>
+    <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">The devices you added were unlinked when your device was unregistered. Go to Settings to re-link any devices.</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
+    <string name="RelinkDevicesReminderFragment__open_settings">Open settings</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
+    <string name="RelinkDevicesReminderFragment__later">Later</string>
+
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Select members</string>
 
@@ -953,6 +963,16 @@
     <string name="ManageProfileFragment__username_created">Username created</string>
     <!-- Snackbar message after copying username -->
     <string name="ManageProfileFragment__username_copied">Username copied</string>
+    <!-- Snackbar message after network failure while trying to delete username -->
+    <string name="ManageProfileFragment__couldnt_delete_username">Couldn\'t delete username. Try again later.</string>
+    <!-- Snackbar message after successful deletion of username -->
+    <string name="ManageProfileFragment__username_deleted">Username deleted</string>
+
+    <!-- UsernameOutOfSyncReminder -->
+    <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
+    <string name="UsernameOutOfSyncReminder__something_went_wrong">Something went wrong with your username, it\'s no longer assigned to your account. You can try and set it again or choose a new one.</string>
+    <!-- Action text to navigate user to manually fix the issue with their username -->
+    <string name="UsernameOutOfSyncReminder__fix_now">Fix now</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -1156,8 +1176,8 @@
     <string name="Megaphones_new_group">New group</string>
     <string name="Megaphones_invite_friends">Invite friends</string>
     <string name="Megaphones_use_sms">Use SMS</string>
-    <string name="Megaphones_appearance">Appearance</string>
-    <string name="Megaphones_add_photo">Add photo</string>
+    <string name="Megaphones_chat_colors">Chat colors</string>
+    <string name="Megaphones_add_a_profile_photo">Add a profile photo</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Replies</string>
@@ -1585,9 +1605,20 @@
     <string name="PinRestoreLockedFragment_create_new_pin">Create new PIN</string>
     <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
 
+    <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
+    <string name="ReRegisterWithPinFragment_send_sms_code">Send SMS code</string>
+    <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
+    <string name="ReRegisterWithPinFragment_support_email_subject">Signal Registration - Need Help with reregister PIN for Android</string>
+    <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
+    <string name="ReRegisterWithPinFragment_need_help_local">Your PIN is a %1$d+ digit code you created that can be numeric or alphanumeric.\n\nIf you can’t remember your PIN, you can create a new one.</string>
+    <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
+    <string name="ReRegisterWithPinFragment_skip_local">If you can’t remember your PIN, you can create a new one.</string>
+    <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
+    <string name="ReRegisterWithPinFragment_out_of_guesses_local">You\'ve run out of PIN guesses, but you can still access your Signal account by creating a new PIN.</string>
+
     <!-- PinOptOutDialog -->
     <string name="PinOptOutDialog_warning">Warning</string>
-    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You can not turn on Registration Lock while the PIN is disabled.</string>
+    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You cannot turn on Registration Lock while the PIN is disabled.</string>
     <string name="PinOptOutDialog_disable_pin">Disable PIN</string>
 
     <!-- RatingManager -->
@@ -1771,11 +1802,18 @@
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal needs the contacts and media permissions to help you connect with friends and send messages. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal needs the contacts permission to help you connect with friends. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
     <string name="RegistrationActivity_rate_limited_to_service">You\'ve made too many attempts to register this number. Please try again later.</string>
+    <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
+    <string name="RegistrationActivity_rate_limited_to_try_again">You\'ve made too many attempts to register this number. Please try again in %s.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Unable to connect to service. Please check network connection and try again.</string>
     <string name="RegistrationActivity_non_standard_number_format">Non-standard number format</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">The number you entered (%1$s) appears to be a non-standard format.\n\nDid you mean %2$s?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Phone Number Format</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Call requested</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+    <string name="RegistrationActivity_sms_requested">SMS requested</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+    <string name="RegistrationActivity_code_requested">Verification code requested</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="one">You are now %d step away from submitting a debug log.</item>
         <item quantity="other">You are now %d steps away from submitting a debug log.</item>
@@ -1795,6 +1833,16 @@
     <string name="RegistrationActivity_call">Call</string>
     <string name="RegistrationActivity_verification_code">Verification Code</string>
     <string name="RegistrationActivity_resend_code">Resend Code</string>
+    <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_title">Having trouble registering?</string>
+    <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Make sure your phone has a cellular signal to receive your SMS or call\n • Confirm you can receive a phone call to the number\n • Check that you have entered your phone number correctly.</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">For more information, please follow these troubleshooting steps or Contact Support</string>
+    <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">these troubleshooting steps</string>
+    <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">Contact Support</string>
 
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Turn on Registration Lock?</string>
@@ -1962,6 +2010,10 @@
     <string name="ThreadRecord_payment">Payment</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">Scheduled message</string>
+    <!--  Displayed in the conversation list when your message history has been merged -->
+    <string name="ThreadRecord_message_history_has_been_merged">Your message history has been merged</string>
+    <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
+    <string name="ThreadRecord_s_belongs_to_s">%1$s belongs to %2$s</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Molly update</string>
@@ -2098,6 +2150,8 @@
     <string name="MessageNotifier_reacted_s_to_your_file">Reacted %1$s to your file.</string>
     <string name="MessageNotifier_reacted_s_to_your_audio">Reacted %1$s to your audio.</string>
     <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reacted %1$s to your view-once media.</string>
+    <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
+    <string name="MessageNotifier_reacted_s_to_your_payment">Reacted %1$s to your payment.</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reacted %1$s to your sticker.</string>
     <string name="MessageNotifier_this_message_was_deleted">This message was deleted.</string>
 
@@ -3296,6 +3350,8 @@
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">Enter your PIN</string>
     <string name="RegistrationLockFragment__enter_the_pin_you_created">Enter the PIN you created for your account. This is different from your SMS verification code.</string>
+    <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
+    <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">Enter the PIN you created for your account.</string>
     <string name="RegistrationLockFragment__enter_alphanumeric_pin">Enter alphanumeric PIN</string>
     <string name="RegistrationLockFragment__enter_numeric_pin">Enter numeric PIN</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">Incorrect PIN. Try again.</string>
@@ -3399,7 +3455,10 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Your backup contains a very large file that cannot be backed up. Please delete it and create a new backup.</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">Tap to manage backups.</string>
     <string name="RegistrationActivity_wrong_number">Wrong number?</string>
+    <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">Call me (%1$02d:%2$02d)</string>
+    <!--    Countdown to when the user can request a new SMS code during registration.-->
+    <string name="RegistrationActivity_resend_sms_available_in">Resend Code (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">Contact Signal Support</string>
     <string name="RegistrationActivity_code_support_subject">Signal Registration - Verification Code for Android</string>
     <string name="RegistrationActivity_incorrect_code">Incorrect code</string>
@@ -3407,6 +3466,18 @@
     <string name="BackupUtil_unknown">Unknown</string>
     <string name="preferences_app_protection__see_my_phone_number">See my phone number</string>
     <string name="preferences_app_protection__find_me_by_phone_number">Find me by phone number</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">Phone number</string>
+    <!-- Subtext below option to launch into phone number privacy settings screen -->
+    <string name="preferences_app_protection__choose_who_can_see">Choose who can see your phone number and who can contact you on Signal with it.</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Who can see my number</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Nobody will see your phone number on Signal</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Who can find me by number</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Your phone number will be visible to people and groups you message. People who have your number in their phone contacts will also see it on Signal.</string>
     <string name="PhoneNumberPrivacy_everyone">Everyone</string>
     <string name="PhoneNumberPrivacy_my_contacts">My contacts</string>
     <string name="PhoneNumberPrivacy_nobody">Nobody</string>
@@ -4509,7 +4580,7 @@
     <string name="DonationsErrors__your_donation_could_not_be_sent">Your donation could not be sent because of a network error. Check your connection and try again.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_to_s">Donation to %1$s</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">Donation on behalf of %1$s</string>
     <!-- Gift message view title for incoming donations -->
     <string name="GiftMessageView__s_donated_to_signal_on">%1$s donated to Signal on your behalf</string>
     <!-- Gift badge redeem action label -->
@@ -5323,7 +5394,7 @@
     <!-- Title of the screen -->
     <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Exporting SMS messages</string>
     <!-- Message of the screen when exporting sms messages -->
-    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">This may take awhile</string>
+    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">This may take a while</string>
     <!-- Progress indicator for export -->
     <plurals name="ExportingSmsMessagesFragment__exporting_d_of_d">
         <item quantity="one">Exporting %1$d of %2$d…</item>
@@ -5601,6 +5672,16 @@
     <string name="UsernameEditDialog__edit_username">Edit username</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">Delete username</string>
+
+    <!-- Time duration picker -->
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for hour, e.g., 12h -->
+    <string name="TimeDurationPickerDialog_single_letter_hour_abbreviation">h</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for minute, e.g., 24m -->
+    <string name="TimeDurationPickerDialog_single_letter_minute_abbreviation">m</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
+    <string name="TimeDurationPickerDialog_positive_button">Set</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">Minimum time before screen lock applies is 1 minute.</string>
 
     <!-- EOF -->
 </resources>

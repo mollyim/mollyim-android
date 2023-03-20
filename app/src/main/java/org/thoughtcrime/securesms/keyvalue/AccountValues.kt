@@ -76,7 +76,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
       KEY_ACI_IDENTITY_PUBLIC_KEY,
       KEY_ACI_IDENTITY_PRIVATE_KEY,
       KEY_PNI_IDENTITY_PUBLIC_KEY,
-      KEY_PNI_IDENTITY_PRIVATE_KEY,
+      KEY_PNI_IDENTITY_PRIVATE_KEY
     )
   }
 

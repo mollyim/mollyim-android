@@ -24,7 +24,8 @@ import org.thoughtcrime.securesms.util.FeatureFlags
 class PaymentsValuesTest {
 
   @Rule
-  @JvmField val mockitoRule: MockitoRule = MockitoJUnit.rule()
+  @JvmField
+  val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
   @Mock
   private lateinit var featureFlags: MockedStatic<FeatureFlags>

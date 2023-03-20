@@ -35,7 +35,7 @@ data class FontManifest @JsonCreator constructor(
     @JsonProperty("chinese-traditional") val chineseTraditional: FontScript?,
     @JsonProperty("chinese-simplified") val chineseSimplified: FontScript?,
     @JsonProperty("arabic") val arabic: FontScript?,
-    @JsonProperty("japanese") val japanese: FontScript?,
+    @JsonProperty("japanese") val japanese: FontScript?
   )
 
   /**

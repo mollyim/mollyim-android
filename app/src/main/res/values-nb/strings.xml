@@ -14,6 +14,7 @@
   <!-- Removed by excludeNonTranslatables <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
 
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
@@ -98,9 +99,9 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Blokkerte brukere</string>
     <string name="BlockedUsersActivity__add_blocked_user">Legg til blokkert bruker</string>
-    <string name="BlockedUsersActivity__blocked_users_will">Blokkerte brukere kan ikke ringe eller sende deg meldinger.</string>
+    <string name="BlockedUsersActivity__blocked_users_will">Blokkerte brukere kan ikke ringe til deg eller sende deg meldinger.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Ingen blokkerte brukere</string>
-    <string name="BlockedUsersActivity__block_user">Blokker bruker?</string>
+    <string name="BlockedUsersActivity__block_user">Vil du blokkere brukeren?</string>
     <string name="BlockedUserActivity__s_will_not_be_able_to">\"%1$s\" vil ikke kunne ringe deg eller sende deg meldinger.</string>
     <string name="BlockedUsersActivity__block">Blokker</string>
 
@@ -138,8 +139,8 @@
     <string name="CreditCardFragment__continue">Fortsett</string>
 
     <!-- BlockUnblockDialog -->
-    <string name="BlockUnblockDialog_block_and_leave_s">Blokker og forlat %1$s?</string>
-    <string name="BlockUnblockDialog_block_s">Blokker %1$s?</string>
+    <string name="BlockUnblockDialog_block_and_leave_s">Vil du blokkere og forlate %1$s?</string>
+    <string name="BlockUnblockDialog_block_s">Vil du blokkere %1$s?</string>
     <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Du vil ikke lenger motta meldinger eller oppdateringer fra denne gruppen, og medlemmene vil ikke kunne legge deg til denne gruppen igjen.</string>
     <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Gruppens medlemmer vil ikke kunne legge deg til denne gruppen igjen.</string>
     <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Gruppemedlemmer kan legge deg til denne gruppen igjen.</string>
@@ -147,13 +148,13 @@
     <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Du vil være i stand til å sende meldinger og ringe hverandre og navn og bilde ditt vil bli delt med dem.</string>
     <!-- Text that is shown when unblocking an SMS contact -->
     <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">Dette fører til at dere kan sende meldinger til hverandre.</string>
-    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Blokkerte personer vil ikke kunne ringe deg eller sende deg meldinger.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Blokkerte personer vil ikke kunne ringe til deg eller sende deg meldinger.</string>
     <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Blokkerte personer vil ikke kunne sende deg meldinger.</string>
     <!-- Message shown on block dialog when blocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Blokker nyheter og oppdateringer fra Signal.</string>
     <!-- Message shown on unblock dialog when unblocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_resume_getting_signal_updates_and_news">Få nyheter og oppdateringer fra Signal.</string>
-    <string name="BlockUnblockDialog_unblock_s">avblokker %1$s?</string>
+    <string name="BlockUnblockDialog_unblock_s">Vil du fjerne blokkeringen av %1$s?</string>
     <string name="BlockUnblockDialog_block">Blokker</string>
     <string name="BlockUnblockDialog_block_and_leave">Blokker og forlat</string>
     <string name="BlockUnblockDialog_report_spam_and_block">Rapporter søppelpost og blokkér.</string>
@@ -447,7 +448,7 @@
     <!-- Message shown to indicate which notification profile is on/active -->
     <string name="ConversationFragment__s_on">%1$s på</string>
     <!-- Dialog title for block group link join requests -->
-    <string name="ConversationFragment__block_request">Blokkere forespørselen?</string>
+    <string name="ConversationFragment__block_request">Vil du blokkere forespørselen?</string>
     <!-- Dialog message for block group link join requests -->
     <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s kan ikke bli med i eller be om å bli med i denne gruppen via gruppelenken. De kan fremdeles legges til i gruppen manuelt.</string>
     <!-- Dialog confirm block request button -->
@@ -496,12 +497,12 @@
         <item quantity="other">Løsne</item>
     </plurals>
     <plurals name="ConversationListFragment_mute_plural">
-        <item quantity="one">Lydløs</item>
-        <item quantity="other">Lydløs</item>
+        <item quantity="one">Dempet samtale</item>
+        <item quantity="other">Dempede samtaler</item>
     </plurals>
     <plurals name="ConversationListFragment_unmute_plural">
-        <item quantity="one">Slå på lyd</item>
-        <item quantity="other">Slå på lyd</item>
+        <item quantity="one">Samtale med lyd slått på</item>
+        <item quantity="other">Samtaler med lyd slått på</item>
     </plurals>
     <string name="ConversationListFragment_select">Velg</string>
     <plurals name="ConversationListFragment_archive_plural">
@@ -541,6 +542,15 @@
 
     <!-- ConversationTypingView -->
     <string name="ConversationTypingView__plus_d">+%1$d</string>
+
+    <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__relink_your_devices">Koble til enhetene dine på nytt</string>
+    <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">Enhetene som du la til, ble koblet fra da du avregistrerte deg. Gå til innstillingene for å koble til enhetene på nytt.</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
+    <string name="RelinkDevicesReminderFragment__open_settings">Åpne innstillingene</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
+    <string name="RelinkDevicesReminderFragment__later">Senere</string>
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Velg medlemmer</string>
@@ -935,7 +945,7 @@
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Varsle meg om omtaler</string>
-    <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Motta varsler når du blir nevnt i mutede samtaler?</string>
+    <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Vil du motta varsler når du blir nevnt i dempede samtaler?</string>
     <string name="GroupMentionSettingDialog_always_notify_me">Varsle meg alltid</string>
     <string name="GroupMentionSettingDialog_dont_notify_me">Ikke varsle meg</string>
 
@@ -953,6 +963,16 @@
     <string name="ManageProfileFragment__username_created">Brukernavnet er lagret</string>
     <!-- Snackbar message after copying username -->
     <string name="ManageProfileFragment__username_copied">Brukernavnet er kopiert</string>
+    <!-- Snackbar message after network failure while trying to delete username -->
+    <string name="ManageProfileFragment__couldnt_delete_username">Kunne ikke slette brukernavnet. Prøv igjen senere.</string>
+    <!-- Snackbar message after successful deletion of username -->
+    <string name="ManageProfileFragment__username_deleted">Brukernavnet er slettet</string>
+
+    <!-- UsernameOutOfSyncReminder -->
+    <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
+    <string name="UsernameOutOfSyncReminder__something_went_wrong">Noe gikk galt med brukernavnet ditt. Det er ikke lenger knyttet til kontoen din. Du kan prøve å angi det på nytt, eller velge et annet brukernavn.</string>
+    <!-- Action text to navigate user to manually fix the issue with their username -->
+    <string name="UsernameOutOfSyncReminder__fix_now">Fiks nå</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -1156,8 +1176,8 @@
     <string name="Megaphones_new_group">Ny gruppe</string>
     <string name="Megaphones_invite_friends">Inviter venner</string>
     <string name="Megaphones_use_sms">Bruk SMS</string>
-    <string name="Megaphones_appearance">Utseende</string>
-    <string name="Megaphones_add_photo">Legg til et bilde</string>
+    <string name="Megaphones_chat_colors">Samtalefarger</string>
+    <string name="Megaphones_add_a_profile_photo">Legg til et profilbilde</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Svar</string>
@@ -1469,13 +1489,13 @@
     <string name="MessageRequestBottomView_continue">Fortsett</string>
     <string name="MessageRequestBottomView_delete">Slett</string>
     <string name="MessageRequestBottomView_block">Blokker</string>
-    <string name="MessageRequestBottomView_unblock">Skru av blokkering</string>
+    <string name="MessageRequestBottomView_unblock">Fjern blokkering</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">La %1$s sende meldinger til deg, samt dele navn og bilde med dem? De vil ikke vite at du har sett meldingen deres før du godtar.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">La %1$s sende meldinger til deg, samt dele navn og bilde med dem? Du vil ikke motta noen meldinger fra dem før du fjerner blokkeringen av dem.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Vil du at %1$s skal kunne sende deg meldinger, og vil du dele navn og bilde med vedkommende? Du mottar ikke noen meldinger før du fjerner blokkeringen av personen.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Vil du at %1$s kan sende deg meldinger? Du mottar ikke noen meldinger før du fjerner blokkeringen.</string>
-    <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Vil du at %1$s kan sende deg oppdateringer og nyheter? Du mottar ikke noen oppdateringer før du fjerner blokkeringen.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Vil du at %1$s skal kunne sende deg meldinger? Du mottar ikke noen meldinger før du fjerner blokkeringen av personen.</string>
+    <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Ønsker du å motta oppdateringer og nyheter fra %1$s? Du mottar ikke noen oppdateringer før du fjerner blokkeringen av personen.</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Fortsett denne samtalen med denne gruppen og del ditt navn og bilde med gruppens medlemmer?</string>
     <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">Oppgrader denne gruppen for å aktivere nye funksjoner som @-omtaler og gruppeadministratorer. Medlemmer som ikke har delt navn eller bilde i gruppen vil bli invitert inn.</string>
     <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">Denne Legacy gruppen kan ikke lenger benyttes fordi den er for stor. Maksimal gruppestørrelse er %1$d.</string>
@@ -1483,7 +1503,7 @@
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Bli medlem i denne gruppen samt dele navn og bilde med medlemmene? De vil ikke vite at du har sett meldingene før du godtar.</string>
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">Vil du bli medlem av denne gruppen og dele navnet og bildet ditt med den? Du ser ikke gruppemeldingene før du godtar invitasjonen.</string>
     <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Bli med i denne gruppen? De vil ikke se om du har sett meldingene deres før du godtar.</string>
-    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Fjerne blokkering av denne gruppen samt dele navn og bilde med medlemmene? Du vil ikke motta noen meldinger før du fjerner blokkeringen av den.</string>
+    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Vil du fjerne blokkering av denne gruppen samt dele navn og bilde med medlemmene? Du mottar ikke noen meldinger før du fjerner blokkeringen av gruppen.</string>
   <!-- Removed by excludeNonTranslatables <string name="MessageRequestBottomView_legacy_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <string name="MessageRequestProfileView_view">Vis</string>
     <string name="MessageRequestProfileView_member_of_one_group">Medlem av %1$s</string>
@@ -1584,9 +1604,20 @@
     <string name="PinRestoreLockedFragment_create_new_pin">Opprett ny PIN-kode</string>
   <!-- Removed by excludeNonTranslatables <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
+    <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
+    <string name="ReRegisterWithPinFragment_send_sms_code">Send kode på SMS</string>
+    <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
+    <string name="ReRegisterWithPinFragment_support_email_subject">Signal-registrering - Trenger hjelp til å registrere PIN-kode for Android</string>
+    <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
+    <string name="ReRegisterWithPinFragment_need_help_local">PIN-koden din er en kode på minst %1$d tegn som du har valgt selv.\n\nHvis du ikke husker PIN-koden din, kan du opprette en ny.</string>
+    <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
+    <string name="ReRegisterWithPinFragment_skip_local">Hvis du ikke husker PIN-koden din, kan du opprette en ny.</string>
+    <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
+    <string name="ReRegisterWithPinFragment_out_of_guesses_local">Du har gått tom for forsøk på å skrive inn PIN-koden, men du kan få tilgang til Signal-kontoen din ved å lage en ny kode.</string>
+
     <!-- PinOptOutDialog -->
     <string name="PinOptOutDialog_warning">Advarsel</string>
-    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Hvis du deaktiverer PIN-koden vil du miste all data når du gjennomfører Signal-registrering på nytt, med mindre du manuelt tar en sikkerhetskopi og gjenoppretter innholdet. Du kan ikke skru på registreringslås mens PIN-koden er deaktivert.</string>
+    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Hvis du deaktiverer PIN-koden mister du alle data når du gjennomfører Signal-registreringen på nytt, med mindre du manuelt tar en sikkerhetskopi og gjenoppretter innholdet. Du kan ikke slå på registreringslåsen mens PIN-koden er deaktivert.</string>
     <string name="PinOptOutDialog_disable_pin">Deaktiver PIN-kode</string>
 
     <!-- RatingManager -->
@@ -1713,7 +1744,7 @@
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallView__unmute">Slå lyd på</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__mute">Demping</string>
+    <string name="WebRtcCallView__mute">Demp</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallView__ring">Ring</string>
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -1731,7 +1762,7 @@
     <string name="CallParticipantView__you_wont_receive_their_audio_or_video">Du vil ikke motta deres lyd eller bilde og de vil ikke motta tilsvarende fra deg.</string>
     <string name="CallParticipantView__cant_receive_audio_video_from_s">Kan ikke motta lyd &amp; video fra %1$s</string>
     <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Kan ikke motta lyd og video fra %1$s</string>
-    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dette kan være fordi de ikke har verifisert ditt endrede sikkerhetsnummer, fordi det er et problem med enheten deres eller de har blokkert deg.</string>
+    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dette kan være fordi vedkommende ikke har verifisert det endrede sikkerhetsnummeret ditt, det er et problem med personens enhet eller hen har blokkert deg.</string>
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Sveip for å se skjermdelingen</string>
@@ -1768,11 +1799,18 @@
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal trenger kontaktene og medietillatelsene for å hjelpe deg med å få kontakt med venner og sende meldinger. Kontaktene dine lastes opp ved hjelp av Signal private kontaktoppdagelse, noe som betyr at de er ende-til-ende-krypterte og aldri synlige for Signal-tjenesten.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal trenger kontakttillatelsen for å hjelpe deg med å få kontakt med venner. Kontaktene dine lastes opp ved hjelp av Signal private kontaktoppdagelse, noe som betyr at de er ende-til-ende-krypterte og aldri synlige for Signal-tjenesten.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Du har gjort for mange forsøk på å registrere dette nummeret. Prøv igjen senere.</string>
+    <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
+    <string name="RegistrationActivity_rate_limited_to_try_again">Du har gjort for mange forsøk på å registrere dette nummeret. Prøv igjen om %1$s minutter.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Klarte ikke å koble til tjenesten. Kontroller at du har en stabil nettilkobling og prøv på nytt.</string>
     <string name="RegistrationActivity_non_standard_number_format">Ikke-standard tallformat</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Tallet du skrev inn (%1$s), ser ut til å være skrevet i et ikke-standard tallformat.\n\nMente du %2$s?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android – format for telefonnummer</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Anrop forespurt</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+    <string name="RegistrationActivity_sms_requested">SMS forespurt</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+    <string name="RegistrationActivity_code_requested">Bekreftelseskode forespurt</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="one">Du er nå %1$d steg unna fra å sende inn en feilsøkingslogg.</item>
         <item quantity="other">Du er nå %1$d steg unna fra å sende inn en feilsøkingslogg.</item>
@@ -1792,6 +1830,16 @@
     <string name="RegistrationActivity_call">Ring</string>
     <string name="RegistrationActivity_verification_code">Bekreftelseskode</string>
     <string name="RegistrationActivity_resend_code">Send koden på nytt</string>
+    <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_title">Har du problemer med å registrere deg?</string>
+    <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Pass på at telefonen din har dekning, slik at du kan motta koden på SMS eller via anrop\n • Sørg for at du kan motta anrop til telefonnummeret\n • Dobbeltsjekk at du har skrevet inn riktig telefonnummer.</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">For å få mer informasjon kan du følge disse feilsøkingstrinnene eller kontakte brukerstøtten vår</string>
+    <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">disse feilsøkingstrinnene</string>
+    <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">Kontakt brukerstøtte</string>
 
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Aktiver registreringslås?</string>
@@ -1958,6 +2006,10 @@
     <string name="ThreadRecord_payment">Betaling</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">Planlagt melding</string>
+    <!--  Displayed in the conversation list when your message history has been merged -->
+    <string name="ThreadRecord_message_history_has_been_merged">Meldingsloggene har blitt slått sammen</string>
+    <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
+    <string name="ThreadRecord_s_belongs_to_s">%1$s tilhører %2$s</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Molly oppdatering</string>
@@ -2087,14 +2139,16 @@
     <string name="MessageNotifier_unsecured_sms">Usikret SMS</string>
     <string name="MessageNotifier_contact_message">%1$s %2$s</string>
     <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
-    <string name="MessageNotifier_reacted_s_to_s">Reagerte %1$s til \"%2$s\".</string>
-    <string name="MessageNotifier_reacted_s_to_your_video">Reagerte %1$s til videoen din.</string>
-    <string name="MessageNotifier_reacted_s_to_your_image">Reagerte %1$s til bildet ditt.</string>
+    <string name="MessageNotifier_reacted_s_to_s">Reagerte med %1$s på «%2$s».</string>
+    <string name="MessageNotifier_reacted_s_to_your_video">Reagerte med %1$s på videoen din.</string>
+    <string name="MessageNotifier_reacted_s_to_your_image">Reagerte med %1$s på bildet ditt.</string>
     <string name="MessageNotifier_reacted_s_to_your_gif">Reagerte med %1$s på GIF-en din.</string>
-    <string name="MessageNotifier_reacted_s_to_your_file">Reagerte %1$s på filen din.</string>
-    <string name="MessageNotifier_reacted_s_to_your_audio">Reagerte %1$s på lyden din.</string>
-    <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagerte %1$spå engangsmediet ditt.</string>
-    <string name="MessageNotifier_reacted_s_to_your_sticker">Reagerte %1$s på klistremerket ditt.</string>
+    <string name="MessageNotifier_reacted_s_to_your_file">Reagerte med %1$s på filen din.</string>
+    <string name="MessageNotifier_reacted_s_to_your_audio">Reagerte med %1$s på lyden din.</string>
+    <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagerte med %1$s på vis-én-gang-mediefilen din.</string>
+    <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
+    <string name="MessageNotifier_reacted_s_to_your_payment">Reacted %1$s to your payment.</string>
+    <string name="MessageNotifier_reacted_s_to_your_sticker">Reagerte med %1$s på klistremerket ditt.</string>
     <string name="MessageNotifier_this_message_was_deleted">Denne meldingen ble slettet.</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Skru av varsling når kontakter tar i bruk Signal? Du kan skru de på igjen i Signal&gt; Innstillinger &gt; Varsler.</string>
@@ -2487,8 +2541,8 @@
 
     <!-- BadDecryptLearnMoreDialog -->
     <string name="BadDecryptLearnMoreDialog_delivery_issue">Problemer med levering</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">En melding, et klistremerke, en reaksjon, en lesebekreftelse eller et medium kunne ikke leveres til deg fra %1$s. Vedkommende kan ha prøvd å sende elementet til deg direkte eller i en gruppe.</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">En melding, et klistremerke, en reaksjon, en lesebekreftelse eller et medium fra %1$s kunne ikke leveres til deg.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">En melding, et klistremerke, en reaksjon eller en lesebekreftelse fra %1$s kunne ikke leveres til deg. Vedkommende kan ha prøvd å sende dette til deg direkte eller i en gruppe.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">En melding, et klistremerke, en reaksjon eller en lesebekreftelse fra %1$s kunne ikke leveres til deg.</string>
 
     <!-- profile_create_activity -->
     <string name="CreateProfileActivity_first_name_required">Fornavn (påkrevd)</string>
@@ -2675,9 +2729,9 @@
     <string name="preferences__pref_use_address_book_photos">Benytt adressebokbilder</string>
     <string name="preferences__display_contact_photos_from_your_address_book_if_available">Vis adressebokbilder hvis tilgjengelig</string>
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__pref_keep_muted_chats_archived">Hold lydløse samtaler arkivert</string>
+    <string name="preferences__pref_keep_muted_chats_archived">Hold dempede samtaler arkivert</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Samtaler som er satt på lydløs og arkiverte vil forbli arkiverte selv når du får en ny melding.</string>
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Dempede samtaler som er arkiverte vil forbli arkiverte selv når du får en ny melding.</string>
     <string name="preferences__generate_link_previews">Forhåndsvis nettsteder</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Hent forhåndsvisninger av lenker direkte fra nettsteder for meldinger du sender.</string>
     <string name="preferences__change_passphrase">Endre passordfrase</string>
@@ -2971,7 +3025,7 @@
     <string name="PaymentsDetailsFragment__sent_payment">Sendt betaling</string>
     <string name="PaymentsDetailsFragment__received_payment">Mottatt betaling</string>
     <string name="PaymentsDeatilsFragment__payment_completed_s">Betaling fullført %1$s</string>
-    <string name="PaymentsDetailsFragment__block_number">Blokker nummeret</string>
+    <string name="PaymentsDetailsFragment__block_number">Blokkeringsnummer</string>
 
     <!-- PaymentsTransferFragment -->
     <string name="PaymentsTransferFragment__transfer">Overfør</string>
@@ -3056,7 +3110,7 @@
 
     <!-- contact_selection_list -->
     <string name="contact_selection_list__unknown_contact">Ny melding til…</string>
-    <string name="contact_selection_list__unknown_contact_block">Blokker bruker</string>
+    <string name="contact_selection_list__unknown_contact_block">Blokker brukeren</string>
     <string name="contact_selection_list__unknown_contact_add_to_group">Legg til gruppen</string>
 
     <!-- conversation_callable_insecure -->
@@ -3128,10 +3182,10 @@
     <!-- conversation_secure_verified -->
 
     <!-- conversation_muted -->
-    <string name="conversation_muted__unmute">Slå lyd på</string>
+    <string name="conversation_muted__unmute">Vis</string>
 
     <!-- conversation_unmuted -->
-    <string name="conversation_unmuted__mute_notifications">Skru av varsler</string>
+    <string name="conversation_unmuted__mute_notifications">Ikke vis varsler</string>
 
     <!-- conversation -->
     <string name="conversation__menu_group_settings">Gruppeinstillinger</string>
@@ -3295,6 +3349,8 @@
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">Skriv inn PIN-koden din</string>
     <string name="RegistrationLockFragment__enter_the_pin_you_created">Skriv inn PIN-koden du opprettet for kontoen din. Dette er forskjellig fra SMS-bekreftelseskoden.</string>
+    <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
+    <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">Angi PIN-koden som er knyttet til kontoen din.</string>
     <string name="RegistrationLockFragment__enter_alphanumeric_pin">Skriv inn alfanumerisk PIN</string>
     <string name="RegistrationLockFragment__enter_numeric_pin">Skriv inn numerisk PIN</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">Feil PIN-kode. Prøv igjen.</string>
@@ -3398,7 +3454,10 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Sikkerhetskopien inneholder en veldig stor fil som ikke kunne kopieres. Slett filen og opprett en ny sikkerhetskopi.</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">Trykk for å håndtere sikkerhetskopier.</string>
     <string name="RegistrationActivity_wrong_number">Feil nummer?</string>
+    <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">Ring meg (%1$02d:%2$02d)</string>
+    <!--    Countdown to when the user can request a new SMS code during registration.-->
+    <string name="RegistrationActivity_resend_sms_available_in">Send koden på nytt (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">Kontakt Signal brukerstøtte</string>
     <string name="RegistrationActivity_code_support_subject">Signal Registrering - Verifikasjonskode for Android</string>
     <string name="RegistrationActivity_incorrect_code">Feil kode</string>
@@ -3406,6 +3465,18 @@
     <string name="BackupUtil_unknown">Ukjent</string>
     <string name="preferences_app_protection__see_my_phone_number">Se mitt telefonnummer</string>
     <string name="preferences_app_protection__find_me_by_phone_number">Finn meg via telefonnummer</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">Telefonnummer</string>
+    <!-- Subtext below option to launch into phone number privacy settings screen -->
+    <string name="preferences_app_protection__choose_who_can_see">Velg hvem som kan se telefonnummeret ditt og bruke det til å komme i kontakt med deg på Molly.</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Hvem kan se telefonnummeret mitt?</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Ingen kan se telefonnummeret ditt på Molly</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Hvem kan finne meg ved å søke opp telefonnummeret mitt?</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Telefonnummeret ditt vil være synlig for personer og grupper du sender meldinger til. Personer som har nummeret ditt i kontaktlisten på telefonen sin, vil også kunne se det på Molly.</string>
     <string name="PhoneNumberPrivacy_everyone">Alle</string>
     <string name="PhoneNumberPrivacy_my_contacts">Mine kontakter</string>
     <string name="PhoneNumberPrivacy_nobody">Ingen</string>
@@ -3563,7 +3634,7 @@
 
     <!-- RecipientBottomSheet -->
     <string name="RecipientBottomSheet_block">Blokker</string>
-    <string name="RecipientBottomSheet_unblock">Skru av blokkering</string>
+    <string name="RecipientBottomSheet_unblock">Fjern blokkering</string>
     <string name="RecipientBottomSheet_add_to_contacts">Legg til i kontakter</string>
     <!-- Error message that displays when a user tries to tap to view system contact details but has no app that supports it -->
     <string name="RecipientBottomSheet_unable_to_open_contacts">Finner ingen apper som kontaktene kan åpnes i.</string>
@@ -3615,9 +3686,9 @@
 
     <!-- StorageUtil -->
     <string name="StorageUtil__s_s">%1$s/%2$s</string>
-    <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" har blitt blokkert.</string>
-    <string name="BlockedUsersActivity__failed_to_block_s">Klarte ikke blokkere \"%1$s\"</string>
-    <string name="BlockedUsersActivity__s_has_been_unblocked">\"%1$s\" har blitt avblokkert.</string>
+    <string name="BlockedUsersActivity__s_has_been_blocked">«%1$s» har blitt blokkert.</string>
+    <string name="BlockedUsersActivity__failed_to_block_s">Kunne ikke blokkere «%1$s»</string>
+    <string name="BlockedUsersActivity__s_has_been_unblocked">Blokkeringen av «%1$s» er fjernet.</string>
 
     <!-- ReviewCardDialogFragment -->
     <string name="ReviewCardDialogFragment__review_members">Gå gjennom medlemmer</string>
@@ -3670,8 +3741,8 @@
     <string name="DeleteAccountFragment__deleting_your_account_will">Sletting av kontoen din vil:</string>
     <string name="DeleteAccountFragment__enter_your_phone_number">Skriv inn ditt telefonnummer</string>
     <string name="DeleteAccountFragment__delete_account">Slett kontoen</string>
-    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Slett kontoinformasjonen din og profilbildet ditt</string>
-    <string name="DeleteAccountFragment__delete_all_your_messages">Slett alle meldingene dine</string>
+    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">slette kontoinformasjonen og profilbildet ditt</string>
+    <string name="DeleteAccountFragment__delete_all_your_messages">slette alle meldingene dine</string>
     <string name="DeleteAccountFragment__delete_s_in_your_payments_account">Slett %1$s fra betalingskontoen</string>
     <string name="DeleteAccountFragment__no_country_code">Ingen landskode angitt</string>
     <string name="DeleteAccountFragment__no_number">Ikke noe nummer angitt</string>
@@ -3784,12 +3855,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Deaktiver lommeboken</string>
     <string name="DeactivateWalletFragment__your_balance">Din balanse</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Vi anbefaler deg å overføre pengene til en annen lommebokadresse før du deaktiverer betalingene. Hvis du velger å ikke overføre pengene dine nå, forblir de i lommeboken som er knyttet til Molly hvis du aktiverer betalinger på nytt.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Vi anbefaler deg å overføre pengene til en annen lommebokadresse før du deaktiverer betalinger. Hvis du velger å ikke overføre pengene nå, forblir de i lommeboken som er knyttet til Molly, hvis du aktiverer betalinger på nytt.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Overfør gjenværende saldo</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Deaktiver uten å overføre</string>
     <string name="DeactivateWalletFragment__deactivate">Deaktiver</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Vil du deaktivere uten å overføre?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Kontosaldoen din vil holde seg i lommeboken du har koblet til Molly, hvis du ønsker å reaktivere betalingene.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Saldoen din forblir i lommeboken som er knyttet til Molly, hvis du velger å aktivere betalinger på nytt.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Feil ved deaktivering av lommeboken.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4008,7 +4079,7 @@
     <string name="PrivacySettingsFragment__messaging">Meldinger</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Tidsavgrensede meldinger</string>
     <string name="PrivacySettingsFragment__app_security">App-sikkerhet</string>
-    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Blokker skjermbilder i sist brukte-liste og i programmet</string>
+    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Blokker skjermbilder i sist brukte-listen og inne i appen</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Signal-meldinger og samtaler, omdiriger alle samtaler, og forseglet avsender</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Standard nedtelling for nye samtaler</string>
     <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Sett standard utløpstid for tidsavgrensede meldinger, for nye samtaler startet av deg.</string>
@@ -4106,7 +4177,7 @@
     <string name="Donate2022Q2Megaphone_not_now">Ikke nå</string>
 
     <!-- EditReactionsFragment -->
-    <string name="EditReactionsFragment__customize_reactions">Tilpasse reaksjonene</string>
+    <string name="EditReactionsFragment__customize_reactions">Tilpass reaksjonene</string>
     <string name="EditReactionsFragment__tap_to_replace_an_emoji">Trykk for å erstatte en emoji</string>
     <string name="EditReactionsFragment__reset">Tilbakestill</string>
     <string name="EditReactionsFragment_save">Lagre</string>
@@ -4165,9 +4236,9 @@
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__call">Ring</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="ConversationSettingsFragment__mute">Demping</string>
+    <string name="ConversationSettingsFragment__mute">Ikke vis</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="ConversationSettingsFragment__muted">Dempet</string>
+    <string name="ConversationSettingsFragment__muted">Vis</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__search">Søk</string>
     <string name="ConversationSettingsFragment__disappearing_messages">Tidsavgrensede meldinger</string>
@@ -4177,7 +4248,7 @@
     <string name="ConversationSettingsFragment__view_safety_number">Vis sikkerhetsnummer</string>
     <string name="ConversationSettingsFragment__block">Blokker</string>
     <string name="ConversationSettingsFragment__block_group">Blokker gruppen</string>
-    <string name="ConversationSettingsFragment__unblock">Skru av blokkering</string>
+    <string name="ConversationSettingsFragment__unblock">Fjern blokkering</string>
     <string name="ConversationSettingsFragment__unblock_group">Fjern blokkering av gruppen</string>
     <string name="ConversationSettingsFragment__add_to_a_group">Legg til gruppen</string>
     <string name="ConversationSettingsFragment__see_all">Se alle</string>
@@ -4187,8 +4258,8 @@
     <string name="ConversationSettingsFragment__group_link">Gruppelenke</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">Legg til som ny kontakt</string>
     <string name="ConversationSettingsFragment__unmute">Slå lyd på</string>
-    <string name="ConversationSettingsFragment__conversation_muted_until_s">Samtalen er satt på lydløs frem til %1$s</string>
-    <string name="ConversationSettingsFragment__conversation_muted_forever">Samtalen er satt på lydløs for alltid</string>
+    <string name="ConversationSettingsFragment__conversation_muted_until_s">Samtalen er dempet frem til %1$s</string>
+    <string name="ConversationSettingsFragment__conversation_muted_forever">Samtalen er dempet for alltid</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Telefonnummeret er kopiert til utklippstavlen.</string>
     <string name="ConversationSettingsFragment__phone_number">Telefonnummer</string>
     <string name="ConversationSettingsFragment__get_badges">Få merker på profilen din ved å støtte Signal. Trykk på et merke for å lese mer.</string>
@@ -4204,8 +4275,8 @@
     <string name="PermissionsSettingsFragment__who_can_send_messages">Hvem kan sende meldinger?</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
-    <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Skru av varslinger</string>
-    <string name="SoundsAndNotificationsSettingsFragment__not_muted">Ikke i stillemodus</string>
+    <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Ikke vis varsler</string>
+    <string name="SoundsAndNotificationsSettingsFragment__not_muted">Vises</string>
     <string name="SoundsAndNotificationsSettingsFragment__mentions">Omtaler</string>
     <string name="SoundsAndNotificationsSettingsFragment__always_notify">Send alltid varsel</string>
     <string name="SoundsAndNotificationsSettingsFragment__do_not_notify">Ikke send varsel</string>
@@ -4508,7 +4579,7 @@
     <string name="DonationsErrors__your_donation_could_not_be_sent">Pengegaven kunne ikke sendes på grunn av en nettverksfeil. Sjekk internettilkoblingen og prøv igjen.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_to_s">Pengegave til %1$s</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">Pengegave på vegne av %1$s</string>
     <!-- Gift message view title for incoming donations -->
     <string name="GiftMessageView__s_donated_to_signal_on">%1$s ga penger til Signal på dine vegne</string>
     <!-- Gift badge redeem action label -->
@@ -4909,7 +4980,7 @@
     <!-- Switchable option for allowing replies and reactions on your stories -->
     <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Tillat svar og reaksjoner</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
-    <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Gjør det mulig for de som kan se storyen din å reagere og svare</string>
+    <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Gjør det mulig for de som kan se storyen din, å reagere og svare</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Signal-kontakter</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -5600,6 +5671,16 @@
     <string name="UsernameEditDialog__edit_username">Endre brukernavnet</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">Slett brukernavnet</string>
+
+    <!-- Time duration picker -->
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for hour, e.g., 12h -->
+    <string name="TimeDurationPickerDialog_single_letter_hour_abbreviation">t</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for minute, e.g., 24m -->
+    <string name="TimeDurationPickerDialog_single_letter_minute_abbreviation">min</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
+    <string name="TimeDurationPickerDialog_positive_button">Angi</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">Minimumstiden før skjermen låses er 1 minutt.</string>
 
     <!-- EOF -->
 </resources>

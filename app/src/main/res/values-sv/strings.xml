@@ -14,6 +14,7 @@
   <!-- Removed by excludeNonTranslatables <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
 
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
@@ -150,7 +151,7 @@
     <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Blockerade personer kommer inte att kunna ringa eller skicka meddelanden till dig.</string>
     <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Blockerade personer kommer inte att kunna skicka meddelanden till dig.</string>
     <!-- Message shown on block dialog when blocking the Signal release notes recipient -->
-    <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Blockera att ta emot Signal-uppdateringar och nyheter.</string>
+    <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Blockera att få uppdateringar och nyheter från Signal.</string>
     <!-- Message shown on unblock dialog when unblocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_resume_getting_signal_updates_and_news">Återuppta att ta emot Signal-uppdateringar och nyheter.</string>
     <string name="BlockUnblockDialog_unblock_s">Avblockera %1$s?</string>
@@ -500,8 +501,8 @@
         <item quantity="other">Tysta</item>
     </plurals>
     <plurals name="ConversationListFragment_unmute_plural">
-        <item quantity="one">Av-tysta</item>
-        <item quantity="other">Av-tysta</item>
+        <item quantity="one">Avtysta</item>
+        <item quantity="other">Avtysta</item>
     </plurals>
     <string name="ConversationListFragment_select">Markera</string>
     <plurals name="ConversationListFragment_archive_plural">
@@ -541,6 +542,15 @@
 
     <!-- ConversationTypingView -->
     <string name="ConversationTypingView__plus_d">+%1$d</string>
+
+    <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__relink_your_devices">Länka om dina enheter</string>
+    <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">Enheterna du lade till länkades av när din enhet avregistrerades. Gå till Inställningar för att länka om alla enheter.</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
+    <string name="RelinkDevicesReminderFragment__open_settings">Öppna inställningar</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
+    <string name="RelinkDevicesReminderFragment__later">Senare</string>
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Välj medlemmar</string>
@@ -953,6 +963,16 @@
     <string name="ManageProfileFragment__username_created">Användarnamn skapat</string>
     <!-- Snackbar message after copying username -->
     <string name="ManageProfileFragment__username_copied">Användarnamn kopierat</string>
+    <!-- Snackbar message after network failure while trying to delete username -->
+    <string name="ManageProfileFragment__couldnt_delete_username">Det gick inte att ta bort användarnamn. Försök igen senare.</string>
+    <!-- Snackbar message after successful deletion of username -->
+    <string name="ManageProfileFragment__username_deleted">Användarnamn raderat</string>
+
+    <!-- UsernameOutOfSyncReminder -->
+    <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
+    <string name="UsernameOutOfSyncReminder__something_went_wrong">Något gick fel med ditt användarnamn. Det är inte längre tilldelat ditt konto. Du kan försöka ställa in det igen eller välja ett nytt.</string>
+    <!-- Action text to navigate user to manually fix the issue with their username -->
+    <string name="UsernameOutOfSyncReminder__fix_now">Åtgärda nu</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -1156,8 +1176,8 @@
     <string name="Megaphones_new_group">Ny grupp</string>
     <string name="Megaphones_invite_friends">Bjud in vänner</string>
     <string name="Megaphones_use_sms">Använd SMS</string>
-    <string name="Megaphones_appearance">Utseende</string>
-    <string name="Megaphones_add_photo">Lägg till foto</string>
+    <string name="Megaphones_chat_colors">Chattfärger</string>
+    <string name="Megaphones_add_a_profile_photo">Lägg till en profilbild</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Svar</string>
@@ -1472,7 +1492,7 @@
     <string name="MessageRequestBottomView_unblock">Avblockera</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Tillåt att %1$s meddelar dig och dela ditt namn och foto? Personen vet inte att du har sett personens meddelande förrän du accepterar.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Tillåt att %1$s meddelar dig och dela ditt namn och foto? Du får inte några meddelanden förrän du har avblockerat personen.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Tillåt att %1$s skickar meddelanden till dig och dela ditt namn och foto? Du får inte några meddelanden förrän du har avblockerat personen.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Låta %1$s skicka meddelanden till dig? Du kommer inte att få några meddelanden förrän du avblockerar dem.</string>
     <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Få uppdateringar och nyheter från %1$s? Du kommer inte att få några uppdateringar förrän du avblockerar dem.</string>
@@ -1483,7 +1503,7 @@
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Gå med i denna grupp och dela ditt namn och foto med dess medlemmar? De vet inte att du har sett deras meddelanden förrän du accepterar.</string>
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">Gå med i denna grupp och dela ditt namn och foto med dess medlemmar? Du kommer inte se deras meddelanden förrän du accepterar.</string>
     <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Gå med i denna grupp? De vet inte att du har sett deras meddelanden förrän du accepterar det.</string>
-    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Avblockeringen av denna grupp och dela ditt namn och foto med dess medlemmar? Du får inte några meddelanden förrän du har avblockerat dem.</string>
+    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Avblockera denna grupp och dela ditt namn och foto med dess medlemmar? Du får inte några meddelanden förrän du har avblockerat dem.</string>
   <!-- Removed by excludeNonTranslatables <string name="MessageRequestBottomView_legacy_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <string name="MessageRequestProfileView_view">Visa</string>
     <string name="MessageRequestProfileView_member_of_one_group">Medlem av %1$s</string>
@@ -1583,6 +1603,17 @@
     <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">Du har slut på gissningar av PIN-koden men du kan fortfarande komma åt ditt Signal-konto genom att skapa en ny PIN-kod. För din integritet och säkerhet kommer ditt konto att återställas utan några sparade profilinformation eller inställningar.</string>
     <string name="PinRestoreLockedFragment_create_new_pin">Skapa ny PIN-kod</string>
   <!-- Removed by excludeNonTranslatables <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+
+    <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
+    <string name="ReRegisterWithPinFragment_send_sms_code">Skicka sms-kod</string>
+    <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
+    <string name="ReRegisterWithPinFragment_support_email_subject">Signal-registrering – Behöver hjälp med att registrera pinkoden för Android</string>
+    <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
+    <string name="ReRegisterWithPinFragment_need_help_local">Din pinkod är en kod på minst %1$d siffror som du har skapat. Den kan vara numerisk eller alfanumerisk.\n\nOm du inte kommer ihåg din pinkod kan du skapa en ny.</string>
+    <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
+    <string name="ReRegisterWithPinFragment_skip_local">Om du inte kommer ihåg din pinkod kan du skapa en ny.</string>
+    <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
+    <string name="ReRegisterWithPinFragment_out_of_guesses_local">Du har gjort för många försök att gissa din pinkod, men du kan fortfarande komma åt ditt Signal-konto genom att skapa en ny.</string>
 
     <!-- PinOptOutDialog -->
     <string name="PinOptOutDialog_warning">Varning</string>
@@ -1711,9 +1742,9 @@
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallView__camera">Kamera</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__unmute">Av-tysta</string>
+    <string name="WebRtcCallView__unmute">Ljud på</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__mute">Tysta</string>
+    <string name="WebRtcCallView__mute">Ljud av</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallView__ring">Ring</string>
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -1768,11 +1799,18 @@
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal behöver kontakter och mediabehörigheter för att hjälpa dig att ansluta till vänner och skicka meddelanden. Dina kontakter laddas upp med Signals privata kontaktupptäckt, vilket innebär att de är ände-till-ände-krypterade och aldrig synliga för Signal-tjänsten.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal behöver kontaktbehörighet för att hjälpa dig att få kontakt med vänner. Dina kontakter laddas upp med Signals privata kontaktupptäckt, vilket innebär att de är ände-till-ände-krypterade och aldrig synliga för Signal-tjänsten.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Du har gjort för många försök att registrera detta nummer. Försök igen senare.</string>
+    <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
+    <string name="RegistrationActivity_rate_limited_to_try_again">Du har gjort för många försök att registrera detta nummer. Försök igen om %1$s.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Det går inte att ansluta till tjänsten. Kontrollera nätverksanslutning och försök igen.</string>
     <string name="RegistrationActivity_non_standard_number_format">Icke-standardiserat sifferformat</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Siffran du angav (%1$s) verkar vara ett icke-standardformat.\n\nMenade du %2$s?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Telefonnummerformat</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Samtal begärt</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+    <string name="RegistrationActivity_sms_requested">Sms begärt</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+    <string name="RegistrationActivity_code_requested">Verifieringskod begärd</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="one">Du är nu %1$d steg bort från att skicka in en felsökningslogg.</item>
         <item quantity="other">Du är nu %1$d steg bort från att skicka in en felsökningslogg.</item>
@@ -1792,6 +1830,16 @@
     <string name="RegistrationActivity_call">Ring</string>
     <string name="RegistrationActivity_verification_code">Verifieringskod</string>
     <string name="RegistrationActivity_resend_code">Skicka koden på nytt</string>
+    <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_title">Har problem med att registrera?</string>
+    <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Se till att din telefon har en mobilsignal för att ta emot ditt sms eller samtal\n • Bekräfta att du kan ta emot ett telefonsamtal till numret\n • Kontrollera att du har angett ditt telefonnummer korrekt.</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">För mer information, följ dessa felsökningssteg eller kontakta supporten</string>
+    <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">dessa felsökningssteg</string>
+    <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">Kontakta supporten</string>
 
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Aktivera registreringslåset?</string>
@@ -1958,6 +2006,10 @@
     <string name="ThreadRecord_payment">Betalning</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">Schemalagt meddelande</string>
+    <!--  Displayed in the conversation list when your message history has been merged -->
+    <string name="ThreadRecord_message_history_has_been_merged">Din meddelandehistorik har slagits samman</string>
+    <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
+    <string name="ThreadRecord_s_belongs_to_s">%1$s tillhör %2$s</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Molly-uppdatering</string>
@@ -2094,6 +2146,8 @@
     <string name="MessageNotifier_reacted_s_to_your_file">Reagerade %1$s på din fil</string>
     <string name="MessageNotifier_reacted_s_to_your_audio">Reagerade %1$s på din ljudfil.</string>
     <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagerade %1$s på din visa-en-gång media.</string>
+    <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
+    <string name="MessageNotifier_reacted_s_to_your_payment">Reacted %1$s to your payment.</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reagerade %1$s på dina klistermärken.</string>
     <string name="MessageNotifier_this_message_was_deleted">Detta meddelande togs bort.</string>
 
@@ -2487,7 +2541,7 @@
 
     <!-- BadDecryptLearnMoreDialog -->
     <string name="BadDecryptLearnMoreDialog_delivery_issue">Leveransproblem</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">Ett meddelande, klistermärke, reaktion eller läskvitto kunde inte levereras till dig från %1$s. Det kan ha försökt att skickas direkt till dig eller i en grupp.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">Ett meddelande, klistermärke, reaktion eller läskvitto kunde inte levereras till dig från %1$s. De kan ha försökt att skicka det direkt till dig eller i en grupp.</string>
     <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">Ett meddelande, klistermärke, reaktion eller läskvitto kunde inte levereras till dig från %1$s.</string>
 
     <!-- profile_create_activity -->
@@ -2675,9 +2729,9 @@
     <string name="preferences__pref_use_address_book_photos">Använd foton från adressboken</string>
     <string name="preferences__display_contact_photos_from_your_address_book_if_available">Visa kontaktfoton från din adressbok om tillgängliga</string>
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__pref_keep_muted_chats_archived">Håll avstängda chattar arkiverade</string>
+    <string name="preferences__pref_keep_muted_chats_archived">Håll tystade chattar arkiverade</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Avstängda chattar som är arkiverade förblir arkiverade när ett nytt meddelande kommer.</string>
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Tystade chattar som är arkiverade förblir arkiverade när ett nytt meddelande kommer.</string>
     <string name="preferences__generate_link_previews">Skapa länkförhandsgranskningar</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Hämta länkförhandsgranskningar direkt från webbplatser för meddelanden du skickar.</string>
     <string name="preferences__change_passphrase">Ändra lösenord</string>
@@ -3128,7 +3182,7 @@
     <!-- conversation_secure_verified -->
 
     <!-- conversation_muted -->
-    <string name="conversation_muted__unmute">Av-tysta</string>
+    <string name="conversation_muted__unmute">Avtysta</string>
 
     <!-- conversation_unmuted -->
     <string name="conversation_unmuted__mute_notifications">Tysta aviseringar</string>
@@ -3295,6 +3349,8 @@
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">Ange din PIN-kod</string>
     <string name="RegistrationLockFragment__enter_the_pin_you_created">Ange PIN-koden du skapade för ditt konto. Denna skiljer sig från din SMS-verifieringskod.</string>
+    <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
+    <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">Ange pinkoden du skapade för ditt konto.</string>
     <string name="RegistrationLockFragment__enter_alphanumeric_pin">Ange alfanumerisk PIN-kod</string>
     <string name="RegistrationLockFragment__enter_numeric_pin">Ange numerisk PIN-kod</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">Felaktig PIN-kod. Försök igen.</string>
@@ -3398,7 +3454,10 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Din säkerhetskopia innehåller en stor fil som inte kan säkerhetskopieras. Radera den och skapa en ny säkerhetskopia.</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">Tryck för att hantera säkerhetskopior.</string>
     <string name="RegistrationActivity_wrong_number">Fel nummer?</string>
+    <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">Ring mig (%1$02d:%2$02d)</string>
+    <!--    Countdown to when the user can request a new SMS code during registration.-->
+    <string name="RegistrationActivity_resend_sms_available_in">Skicka kod igen (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">Kontakta Signal-support</string>
     <string name="RegistrationActivity_code_support_subject">Signal-registrering - Verifieringskod för Android</string>
     <string name="RegistrationActivity_incorrect_code">Felaktig kod</string>
@@ -3406,6 +3465,18 @@
     <string name="BackupUtil_unknown">Okänd</string>
     <string name="preferences_app_protection__see_my_phone_number">Se mitt telefonnummer</string>
     <string name="preferences_app_protection__find_me_by_phone_number">Hitta mig med telefonnummer</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">Telefonnummer</string>
+    <!-- Subtext below option to launch into phone number privacy settings screen -->
+    <string name="preferences_app_protection__choose_who_can_see">Välj vem som kan se ditt telefonnummer och vem som kan använda det för att kontakta dig på Molly.</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Vem kan se mitt nummer</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Ingen kommer att se ditt telefonnummer på Molly</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Vem kan hitta mig med nummer</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Ditt telefonnummer kommer att vara synligt för personer och grupper som du skickar meddelanden till. Personer som har ditt nummer i sina telefonkontakter ser det också på Molly.</string>
     <string name="PhoneNumberPrivacy_everyone">Alla</string>
     <string name="PhoneNumberPrivacy_my_contacts">Mina kontakter</string>
     <string name="PhoneNumberPrivacy_nobody">Ingen</string>
@@ -3667,11 +3738,11 @@
     <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">Svagt wifi. Växlat till mobilnät.</string>
 
     <!-- DeleteAccountFragment -->
-    <string name="DeleteAccountFragment__deleting_your_account_will">Borttagning av ditt konto kommer att:</string>
+    <string name="DeleteAccountFragment__deleting_your_account_will">Om du tar bort ditt konto kommer:</string>
     <string name="DeleteAccountFragment__enter_your_phone_number">Ange ditt telefonnummer</string>
     <string name="DeleteAccountFragment__delete_account">Ta bort konto</string>
-    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Ta bort din kontoinformation och profilfoto</string>
-    <string name="DeleteAccountFragment__delete_all_your_messages">Ta bort alla dina meddelanden</string>
+    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Din kontoinformation och profilfoto raderas</string>
+    <string name="DeleteAccountFragment__delete_all_your_messages">Alla dina meddelanden raderas</string>
     <string name="DeleteAccountFragment__delete_s_in_your_payments_account">Ta bort %1$s i ditt betalningskonto</string>
     <string name="DeleteAccountFragment__no_country_code">Ingen landskod specificerad</string>
     <string name="DeleteAccountFragment__no_number">Inget nummer specificerat</string>
@@ -4165,7 +4236,7 @@
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__call">Ring</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="ConversationSettingsFragment__mute">Ljud av</string>
+    <string name="ConversationSettingsFragment__mute">Tysta</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__muted">Tystad</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -4186,7 +4257,7 @@
     <string name="ConversationSettingsFragment__requests_and_invites">Förfrågningar &amp; inbjudningar</string>
     <string name="ConversationSettingsFragment__group_link">Grupplänk</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">Lägg till som en kontakt</string>
-    <string name="ConversationSettingsFragment__unmute">Av-tysta</string>
+    <string name="ConversationSettingsFragment__unmute">Avtysta</string>
     <string name="ConversationSettingsFragment__conversation_muted_until_s">Konversation tystad till %1$s</string>
     <string name="ConversationSettingsFragment__conversation_muted_forever">Konversation tystad för alltid</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Kopierat telefonnummer till urklipp.</string>
@@ -4242,7 +4313,7 @@
     <!-- Snackbar message after removing a contact -->
     <string name="NewConversationActivity__s_has_been_removed">%1$s har tagits bort</string>
     <!-- Snackbar message after blocking a contact -->
-    <string name="NewConversationActivity__s_has_been_blocked">%1$s har blivit blockerad</string>
+    <string name="NewConversationActivity__s_has_been_blocked">%1$s har blockerats</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">Det går inte att ta bort %1$s</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -4453,7 +4524,7 @@
     <string name="ExpiredBadgeBottomSheetDialogFragment__monthly_donation_cancelled">Månatlig donation avbruten</string>
     <!-- Displayed in the bottom sheet when a boost badge expires -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired_and">Ditt Boost-märke har upphört att gälla och är inte längre synligt på din profil.</string>
-    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Du kan återaktivera ditt Boost-märke för ytterligare 30 dagar med ett engångsbidrag.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Du kan återaktivera ditt Boost-märke i ytterligare 30 dagar med ett engångsbidrag.</string>
     <!-- Displayed when we do not think the user is a subscriber when their boost expires -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_keep">Du kan fortsätta att använda Signal men för att stödja teknik byggd för dig, överväg att bli en upprätthållare genom att göra en månatlig donation.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Bli en upprätthållare</string>
@@ -4465,7 +4536,7 @@
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled">Din återkommande månatliga donation avbröts eftersom vi inte kunde behandla din betalning. Ditt märke visas inte längre i din profil.</string>
     <!-- Copy displayed when badge expires after a payment failure and we have a displayable charge failure reason -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled_s">Din återkommande månatliga donation avbröts. %1$s Ditt %2$s-märke är inte längre synligt på din profil.</string>
-    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Du kan fortsätta använda Signal men för att stödja appen och återaktivera ditt märke, förnya nu.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Du kan fortsätta använda Signal men förnya nu för att stödja appen och återaktivera ditt märke.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Förnya abonnemang</string>
     <!-- Button label to send user to Google Pay website -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__go_to_google_pay">Gå till Google Pay</string>
@@ -4508,7 +4579,7 @@
     <string name="DonationsErrors__your_donation_could_not_be_sent">Din donation kunde inte skickas på grund av ett nätverksfel. Kontrollera din anslutning och försök igen.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_to_s">Donation till %1$s</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">Donation på uppdrag av %1$s</string>
     <!-- Gift message view title for incoming donations -->
     <string name="GiftMessageView__s_donated_to_signal_on">%1$s har donerat till Signal å dina vägnar</string>
     <!-- Gift badge redeem action label -->
@@ -4905,9 +4976,9 @@
     <!-- My story privacy fine print about what the privacy settings are for -->
     <string name="MyStorySettingsFragment__choose_who_can_view_your_story">Välj vilka som kan se din story. Ändringar påverkar inte stories som du redan har skickat.</string>
     <!-- Section header for options related to replies and reactions -->
-    <string name="MyStorySettingsFragment__replies_amp_reactions">Svar &amp; reaktioner</string>
+    <string name="MyStorySettingsFragment__replies_amp_reactions">Svar och reaktioner</string>
     <!-- Switchable option for allowing replies and reactions on your stories -->
-    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Tillåt svar &amp; reaktioner</string>
+    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Tillåt svar och reaktioner</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Låt personer som kan se din story reagera och svara</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
@@ -5600,6 +5671,16 @@
     <string name="UsernameEditDialog__edit_username">Redigera användarnamn</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">Ta bort användarnamn</string>
+
+    <!-- Time duration picker -->
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for hour, e.g., 12h -->
+    <string name="TimeDurationPickerDialog_single_letter_hour_abbreviation">tim</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for minute, e.g., 24m -->
+    <string name="TimeDurationPickerDialog_single_letter_minute_abbreviation">min</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
+    <string name="TimeDurationPickerDialog_positive_button">Ställ in</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">Minsta tid innan skärmlåset aktiveras är 1 minut.</string>
 
     <!-- EOF -->
 </resources>

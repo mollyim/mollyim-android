@@ -73,7 +73,7 @@ public final class OnboardingValues extends SignalStoreValues {
     putBoolean(SHOW_ADD_PHOTO, value);
   }
 
-  public boolean shouldShowAddPhoto(){
+  public boolean shouldShowAddPhoto() {
     return getBoolean(SHOW_ADD_PHOTO, false);
   }
 }

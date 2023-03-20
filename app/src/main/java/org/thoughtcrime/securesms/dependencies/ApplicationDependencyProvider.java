@@ -47,7 +47,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
-import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.SignalWebSocketHealthMonitor;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
@@ -160,11 +159,6 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
   @Override
   public @NonNull NetworkManager provideNetworkManager() {
     return NetworkManager.create(context);
-  }
-
-  @Override
-  public @NonNull IncomingMessageProcessor provideIncomingMessageProcessor() {
-    return new IncomingMessageProcessor(context);
   }
 
   @Override

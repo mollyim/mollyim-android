@@ -14,6 +14,7 @@
   <!-- Removed by excludeNonTranslatables <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
 
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
@@ -318,7 +319,7 @@
     <string name="ConversationActivity_transport_signal">Signalメッセージ</string>
     <string name="ConversationActivity_lets_switch_to_signal">メッセージアプリをMollyにしましょう %1$s</string>
     <string name="ConversationActivity_specify_recipient">連絡先を選択してください</string>
-    <string name="ConversationActivity_unblock">ブロックを解除します</string>
+    <string name="ConversationActivity_unblock">ブロック解除</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">添付ファイルのサイズが、送信するメッセージタイプに応じた制限を超えています。</string>
     <string name="ConversationActivity_unable_to_record_audio">録音できません！</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">メンバーではなくなったので、このグループにメッセージを送ることはできません。</string>
@@ -449,7 +450,7 @@
     <!-- Dialog cancel block request button -->
     <string name="ConversationFragment__cancel">キャンセル</string>
     <!-- Message shown after successfully blocking join requests for a user -->
-    <string name="ConversationFragment__blocked">ブロック中のユーザー</string>
+    <string name="ConversationFragment__blocked">ブロック済</string>
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">検索条件を解除する</string>
     <!-- Notice on chat list when no unread chats are available, centered on display -->
@@ -521,6 +522,15 @@
 
     <!-- ConversationTypingView -->
     <string name="ConversationTypingView__plus_d">+%1$d</string>
+
+    <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__relink_your_devices">端末を再リンクしてください</string>
+    <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">端末の登録解除時に、追加した端末のリンクが解除されました。設定に移動して、任意の端末を再リンクしてください。</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
+    <string name="RelinkDevicesReminderFragment__open_settings">設定を開く</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
+    <string name="RelinkDevicesReminderFragment__later">あとで</string>
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">メンバーの選択</string>
@@ -915,6 +925,16 @@
     <string name="ManageProfileFragment__username_created">ユーザー名を作成しました</string>
     <!-- Snackbar message after copying username -->
     <string name="ManageProfileFragment__username_copied">ユーザー名をコピーしました</string>
+    <!-- Snackbar message after network failure while trying to delete username -->
+    <string name="ManageProfileFragment__couldnt_delete_username">ユーザーネームを削除できませんでした。あとで再度試してください。</string>
+    <!-- Snackbar message after successful deletion of username -->
+    <string name="ManageProfileFragment__username_deleted">ユーザーネームを削除しました</string>
+
+    <!-- UsernameOutOfSyncReminder -->
+    <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
+    <string name="UsernameOutOfSyncReminder__something_went_wrong">ユーザーネームに問題が発生したため、アカウントに割り当てられていません。もう一度設定し直すか、新しいものを選んでみてください。</string>
+    <!-- Action text to navigate user to manually fix the issue with their username -->
+    <string name="UsernameOutOfSyncReminder__fix_now">今すぐ修正する</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -1108,8 +1128,8 @@
     <string name="Megaphones_new_group">新規グループ</string>
     <string name="Megaphones_invite_friends">友達を招待しましょう</string>
     <string name="Megaphones_use_sms">SMSを使用する</string>
-    <string name="Megaphones_appearance">デザイン</string>
-    <string name="Megaphones_add_photo">画像を追加</string>
+    <string name="Megaphones_chat_colors">チャットの色</string>
+    <string name="Megaphones_add_a_profile_photo">プロフィール画像を追加しよう</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">返信</string>
@@ -1520,6 +1540,17 @@
     <string name="PinRestoreLockedFragment_create_new_pin">新しいPINを作成</string>
   <!-- Removed by excludeNonTranslatables <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
+    <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
+    <string name="ReRegisterWithPinFragment_send_sms_code">SMSコードを送信する</string>
+    <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
+    <string name="ReRegisterWithPinFragment_support_email_subject">Signalの登録 - AndroidでPINの再登録に関するサポートが必要です</string>
+    <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
+    <string name="ReRegisterWithPinFragment_need_help_local">あなたのPINは %1$d桁以上のコードで、数字または英数字のいずれかです。\n\nPIN を忘れた場合は、新しい PIN を作成できます。</string>
+    <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
+    <string name="ReRegisterWithPinFragment_skip_local">PIN を忘れた場合は、新しい PIN を作成できます。</string>
+    <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
+    <string name="ReRegisterWithPinFragment_out_of_guesses_local">思いつくPINの候補がなくなっても、新しいPINを作成することで、Signalアカウントにアクセスすることができます。</string>
+
     <!-- PinOptOutDialog -->
     <string name="PinOptOutDialog_warning">ご注意ください</string>
     <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">PINを無効にすると、自身でバックアップと復元を行わない限り、Signalに再登録する際すべてのデータが失われます。PINを無効にしている間は登録ロックは使用できません。</string>
@@ -1553,7 +1584,7 @@
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">ブロックする</string>
-    <string name="RecipientPreferenceActivity_unblock">ブロックを解除する</string>
+    <string name="RecipientPreferenceActivity_unblock">ブロック解除</string>
 
     <!-- RecipientProvider -->
 
@@ -1698,11 +1729,18 @@
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signalは、ご友人とのつながりやメッセージ送信を支えるため、連絡先とメディアへのアクセス許可が必要です。連絡先はエンドツーエンドで暗号化し、Signalプライベートコンタクトディスカバリーを使用してアップロードされるため、Signalのサービス管理者は閲覧できません。</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signalは、ご友人とのつながりを支えるため、連絡先へのアクセス許可が必要です。連絡先はエンドツーエンドで暗号化し、Signalプライベートコンタクトディスカバリーを使用してアップロードされるため、Signalのサービス管理者は閲覧できません。</string>
     <string name="RegistrationActivity_rate_limited_to_service">この番号の登録試行回数が多すぎます。あとで再度試してください。</string>
+    <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
+    <string name="RegistrationActivity_rate_limited_to_try_again">この番号の登録試行回数が多すぎます。%1$s分後にもう一度お試しください。.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">サービスに接続できませんでした。ネットワークの接続を確認してから、再度試してください。</string>
     <string name="RegistrationActivity_non_standard_number_format">非標準の数字フォーマット</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">あなたが入力した数字 (%1$s) は、非標準のフォーマットのようです。\n\n%2$s を意図していすか？</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - 電話番号フォーマット</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">通話を要求されました</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+    <string name="RegistrationActivity_sms_requested">SMS が要求されました</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+    <string name="RegistrationActivity_code_requested">認証コードが要求されました</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="other">デバッグログの提出まで、あと%1$dステップです。</item>
     </plurals>
@@ -1721,6 +1759,16 @@
     <string name="RegistrationActivity_call">通話</string>
     <string name="RegistrationActivity_verification_code">認証コード</string>
     <string name="RegistrationActivity_resend_code">コードを再送信する</string>
+    <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_title">登録でお困りですか？</string>
+    <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• お使いの携帯電話が圏内にあってSMSまたは通話が可能かどうかを確認してください\n • 電話番号への着信が可能か確認してください\n • 電話番号が正しく入力されていることを確認してください。</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">詳細については、これらのトラブルシューティングの手順に従うか、サポートにお問い合わせください</string>
+    <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">これらのトラブルシューティングの手順</string>
+    <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">サポートに問い合わせる</string>
 
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">登録ロックを有効にしますか？</string>
@@ -1880,13 +1928,17 @@
     <!-- Displayed in the notification when the user has opened a received gift -->
     <string name="ThreadRecord__you_redeemed_a_badge">バッジに引き換えました</string>
     <!-- Displayed in the conversation list when someone reacted to your story -->
-    <string name="ThreadRecord__reacted_s_to_your_story">あなたのストーリーにリアクション%1$sしました</string>
+    <string name="ThreadRecord__reacted_s_to_your_story">あなたのストーリーに%1$sのリアクションがありました。</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
-    <string name="ThreadRecord__reacted_s_to_their_story">彼らのストーリー%1$sにリアクションしました</string>
+    <string name="ThreadRecord__reacted_s_to_their_story">この人のストーリーに%1$sのリアクションをしました</string>
     <!-- Displayed in the conversation list when your most recent message is a payment to or from the person the conversation is with -->
     <string name="ThreadRecord_payment">支払い</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">予約メッセージ</string>
+    <!--  Displayed in the conversation list when your message history has been merged -->
+    <string name="ThreadRecord_message_history_has_been_merged">メッセージ履歴が統合されました</string>
+    <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
+    <string name="ThreadRecord_s_belongs_to_s">%1$s は %2$s の番号です</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Mollyアップデート</string>
@@ -2015,14 +2067,16 @@
     <string name="MessageNotifier_unsecured_sms">安全でないSMS</string>
     <string name="MessageNotifier_contact_message">%1$s %2$s</string>
     <string name="MessageNotifier_unknown_contact_message">連絡先</string>
-    <string name="MessageNotifier_reacted_s_to_s">「%2$s」に %1$s</string>
-    <string name="MessageNotifier_reacted_s_to_your_video">あなたのビデオに %1$s</string>
-    <string name="MessageNotifier_reacted_s_to_your_image">あなたの画像に %1$s</string>
-    <string name="MessageNotifier_reacted_s_to_your_gif">あなたのGIFに %1$s</string>
-    <string name="MessageNotifier_reacted_s_to_your_file">あなたのファイルに %1$s</string>
-    <string name="MessageNotifier_reacted_s_to_your_audio">あなたの音声に %1$s</string>
-    <string name="MessageNotifier_reacted_s_to_your_view_once_media">あなたの使い捨てメディアに %1$s</string>
-    <string name="MessageNotifier_reacted_s_to_your_sticker">あなたのステッカーに %1$s</string>
+    <string name="MessageNotifier_reacted_s_to_s">「%2$s」に %1$sのリアクションをしました。</string>
+    <string name="MessageNotifier_reacted_s_to_your_video">あなたの動画に %1$sのリアクションがありました。</string>
+    <string name="MessageNotifier_reacted_s_to_your_image">あなたの画像に %1$sのリアクションがありました。</string>
+    <string name="MessageNotifier_reacted_s_to_your_gif">あなたのGIFに %1$sのリアクションがありました。</string>
+    <string name="MessageNotifier_reacted_s_to_your_file">あなたのファイルに %1$sのリアクションがありました。</string>
+    <string name="MessageNotifier_reacted_s_to_your_audio">あなたの音声に %1$sのリアクションがありました。</string>
+    <string name="MessageNotifier_reacted_s_to_your_view_once_media">あなたの使い捨てメディアに %1$sのリアクションがありました。</string>
+    <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
+    <string name="MessageNotifier_reacted_s_to_your_payment">Reacted %1$s to your payment.</string>
+    <string name="MessageNotifier_reacted_s_to_your_sticker">あなたのステッカーに %1$sのリアクションがありました。</string>
     <string name="MessageNotifier_this_message_was_deleted">このメッセージは消去されました。</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">連絡先のSignal参加時の通知を受け取らないようにしますか？この設定はあとでSignal &gt; 設定 &gt; 通知から元に戻せます。</string>
@@ -2404,7 +2458,7 @@
 
     <!-- BadDecryptLearnMoreDialog -->
     <string name="BadDecryptLearnMoreDialog_delivery_issue">配送エラー</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">%1$s からのメッセージ、ステッカー、リアクションまたは既読通知を、あなたに配送できませんでした。直接またはグループで、送信しようとしているかもしれません。</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">%1$s からのメッセージ、ステッカー、リアクションまたは既読通知をあなたに配送できませんでした。直接送信を試みたか、グループ内で送ろうとしたかもしれません。</string>
     <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">%1$s からのメッセージ、ステッカー、リアクションまたは既読通知を、あなたに配送できませんでした。</string>
 
     <!-- profile_create_activity -->
@@ -2472,7 +2526,7 @@
 
     <!-- message_details_recipient_header -->
     <string name="message_details_recipient_header__pending_send">保留中</string>
-    <string name="message_details_recipient_header__sent_to">宛先</string>
+    <string name="message_details_recipient_header__sent_to">送信済み</string>
     <string name="message_details_recipient_header__sent_from">送信元</string>
     <string name="message_details_recipient_header__delivered_to">配送先</string>
     <string name="message_details_recipient_header__read_by">既読者</string>
@@ -2552,10 +2606,10 @@
     <string name="arrays__use_default">既定を使う</string>
     <string name="arrays__use_custom">カスタムを使う</string>
 
-    <string name="arrays__mute_for_one_hour">1時間</string>
-    <string name="arrays__mute_for_eight_hours">8時間</string>
-    <string name="arrays__mute_for_one_day">1日間</string>
-    <string name="arrays__mute_for_seven_days">7日間</string>
+    <string name="arrays__mute_for_one_hour">1時間ミュート</string>
+    <string name="arrays__mute_for_eight_hours">8時間ミュート</string>
+    <string name="arrays__mute_for_one_day">1日間ミュート</string>
+    <string name="arrays__mute_for_seven_days">7日間ミュート</string>
     <string name="arrays__always">常時</string>
 
     <string name="arrays__settings_default">既定の設定</string>
@@ -3043,7 +3097,7 @@
     <!-- conversation_secure_verified -->
 
     <!-- conversation_muted -->
-    <string name="conversation_muted__unmute">ミュートを解除</string>
+    <string name="conversation_muted__unmute">ミュート解除</string>
 
     <!-- conversation_unmuted -->
     <string name="conversation_unmuted__mute_notifications">通知をミュート</string>
@@ -3207,6 +3261,8 @@
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">PINを入力してください</string>
     <string name="RegistrationLockFragment__enter_the_pin_you_created">あなたのアカウント用に作成したPINを入力してください。これはSMSの認証コードとは違います。</string>
+    <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
+    <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">アカウント用に作成した PIN を入力してください。</string>
     <string name="RegistrationLockFragment__enter_alphanumeric_pin">英数字のPINを入力</string>
     <string name="RegistrationLockFragment__enter_numeric_pin">数字のPINを入力</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">PINが違います。再度試してください。</string>
@@ -3305,7 +3361,10 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">非常に大きなファイルが含まれているためバックアップできません。そのファイルを消去して、新しいバックアップを作成してください。</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">タップしてバックアップを管理</string>
     <string name="RegistrationActivity_wrong_number">電話番号を訂正</string>
+    <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">電話で確認 (%1$02d:%2$02d)</string>
+    <!--    Countdown to when the user can request a new SMS code during registration.-->
+    <string name="RegistrationActivity_resend_sms_available_in">コードの再送信まで (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">Signalサポートに問い合わせ</string>
     <string name="RegistrationActivity_code_support_subject">Signal登録 - Android用認証コード</string>
     <string name="RegistrationActivity_incorrect_code">コードが違います</string>
@@ -3313,6 +3372,18 @@
     <string name="BackupUtil_unknown">不明</string>
     <string name="preferences_app_protection__see_my_phone_number">私の電話番号を確認できる人</string>
     <string name="preferences_app_protection__find_me_by_phone_number">電話番号で私を検索できる人</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">電話番号</string>
+    <!-- Subtext below option to launch into phone number privacy settings screen -->
+    <string name="preferences_app_protection__choose_who_can_see">あなたの電話番号を見ることができる人と、Mollyであなたに連絡できる人を選択してください。</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">電話番号を見ることができる人</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">あなたの電話番号は、誰のMollyにも表示されません</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">私を電話番号から検索できる人</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">あなたの電話番号は、メッセージを送信したすべての相手とグループに表示されます。連絡先にあなたの電話番号がある人にも、Mollyで表示されます。</string>
     <string name="PhoneNumberPrivacy_everyone">全員</string>
     <string name="PhoneNumberPrivacy_my_contacts">自分の連絡先</string>
     <string name="PhoneNumberPrivacy_nobody">なし</string>
@@ -3572,7 +3643,7 @@
     <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">Wi-Fi強度が弱いのでモバイルデータ通信に切り替えます。</string>
 
     <!-- DeleteAccountFragment -->
-    <string name="DeleteAccountFragment__deleting_your_account_will">アカウントを削除すると:</string>
+    <string name="DeleteAccountFragment__deleting_your_account_will">アカウントを消去すると:</string>
     <string name="DeleteAccountFragment__enter_your_phone_number">あなたの電話番号を入力してください</string>
     <string name="DeleteAccountFragment__delete_account">アカウントを消去する</string>
     <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">あなたのアカウント情報とプロフィール画像を消去します</string>
@@ -3906,7 +3977,7 @@
     <string name="NotificationProfilesFragment__create_profile">プロファイルを作成</string>
 
     <!-- PrivacySettingsFragment -->
-    <string name="PrivacySettingsFragment__blocked">ブロック中のユーザー</string>
+    <string name="PrivacySettingsFragment__blocked">ブロック済</string>
     <string name="PrivacySettingsFragment__d_contacts">%1$d件</string>
     <string name="PrivacySettingsFragment__messaging">メッセージ送受信</string>
     <string name="PrivacySettingsFragment__disappearing_messages">消えるメッセージ</string>
@@ -4078,7 +4149,7 @@
     <string name="ConversationSettingsFragment__view_safety_number">安全番号の検証</string>
     <string name="ConversationSettingsFragment__block">ブロック</string>
     <string name="ConversationSettingsFragment__block_group">グループをブロック</string>
-    <string name="ConversationSettingsFragment__unblock">ブロックを解除</string>
+    <string name="ConversationSettingsFragment__unblock">ブロック解除</string>
     <string name="ConversationSettingsFragment__unblock_group">グループのブロックを解除</string>
     <string name="ConversationSettingsFragment__add_to_a_group">グループへ追加</string>
     <string name="ConversationSettingsFragment__see_all">すべて表示</string>
@@ -4087,7 +4158,7 @@
     <string name="ConversationSettingsFragment__requests_and_invites">申請と招待</string>
     <string name="ConversationSettingsFragment__group_link">グループリンク</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">連絡先に追加</string>
-    <string name="ConversationSettingsFragment__unmute">ミュートを解除</string>
+    <string name="ConversationSettingsFragment__unmute">ミュート解除</string>
     <string name="ConversationSettingsFragment__conversation_muted_until_s">チャットは%1$sまでミュートされます</string>
     <string name="ConversationSettingsFragment__conversation_muted_forever">チャットは常にミュートされます</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">電話番号をクリップボードにコピーしました。</string>
@@ -4143,7 +4214,7 @@
     <!-- Snackbar message after removing a contact -->
     <string name="NewConversationActivity__s_has_been_removed">%1$s さんは削除されています</string>
     <!-- Snackbar message after blocking a contact -->
-    <string name="NewConversationActivity__s_has_been_blocked">%1$s さんはブロックされています</string>
+    <string name="NewConversationActivity__s_has_been_blocked">%1$s はブロックされました</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">%1$s さんを削除できません</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -4405,7 +4476,7 @@
     <string name="DonationsErrors__your_donation_could_not_be_sent">ネットワークエラーのため寄付を送信できませんでした。インターネット接続を確認して再度試してください。</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_to_s">%1$sへの寄付</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">%1$sに代わって寄付をする</string>
     <!-- Gift message view title for incoming donations -->
     <string name="GiftMessageView__s_donated_to_signal_on">%1$s があなたに代わってSignalに寄付しました</string>
     <!-- Gift badge redeem action label -->
@@ -4747,13 +4818,13 @@
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">このグループのメンバーではなくなったので、このストーリーに返信することはできません。</string>
     <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">ストーリーにリアクションがありました</string>
+    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">ストーリーにリアクションしました</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">閲覧</string>
     <!-- Label for story replies tab -->
     <string name="StoryViewsAndRepliesDialogFragment__replies">返信</string>
     <!-- Description of action for reaction button -->
-    <string name="StoryReplyComposer__react_to_this_story">ストーリーにリアクション</string>
+    <string name="StoryReplyComposer__react_to_this_story">ストーリーにリアクションする</string>
     <!-- Displayed when the user is replying privately to someone who replied to one of their stories -->
     <string name="StoryReplyComposer__replying_privately_to_s">%1$s に個人的に返信しています</string>
     <!-- Displayed when the user is replying privately to someone who replied to one of their stories -->
@@ -4949,9 +5020,9 @@
     <!-- Conversation Item label for when you react to someone else\'s story -->
     <string name="ConversationItem__you_reacted_to_s_story">%1$s のストーリーにリアクションしました</string>
     <!-- Conversation Item label for reactions to your story -->
-    <string name="ConversationItem__reacted_to_your_story">あなたのストーリーにリアクションされました</string>
+    <string name="ConversationItem__reacted_to_your_story">あなたのストーリーにリアクションがありました</string>
     <!-- Conversation Item label for reactions to an unavailable story -->
-    <string name="ConversationItem__reacted_to_a_story">ストーリーにリアクションがありました</string>
+    <string name="ConversationItem__reacted_to_a_story">ストーリーにリアクションしました</string>
 
     <!-- endregion -->
     <!-- Content description for expand contacts chevron -->
@@ -5201,7 +5272,7 @@
     <!-- Title of the screen -->
     <string name="ExportingSmsMessagesFragment__exporting_sms_messages">SMSメッセージをエクスポートしています</string>
     <!-- Message of the screen when exporting sms messages -->
-    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">しばらく掛かるかも知れません</string>
+    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">少し時間がかかるかも知れません</string>
     <!-- Progress indicator for export -->
     <plurals name="ExportingSmsMessagesFragment__exporting_d_of_d">
         <item quantity="other">%2$d 件中 %1$d 件をエクスポートしています…</item>
@@ -5475,6 +5546,16 @@
     <string name="UsernameEditDialog__edit_username">ユーザーネームの編集</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">ユーザーネームの消去</string>
+
+    <!-- Time duration picker -->
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for hour, e.g., 12h -->
+    <string name="TimeDurationPickerDialog_single_letter_hour_abbreviation">時間</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for minute, e.g., 24m -->
+    <string name="TimeDurationPickerDialog_single_letter_minute_abbreviation">分</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
+    <string name="TimeDurationPickerDialog_positive_button">設定する</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">画面ロックが作動するまでの最短時間は 1 分です。</string>
 
     <!-- EOF -->
 </resources>

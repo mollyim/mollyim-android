@@ -14,6 +14,7 @@
   <!-- Removed by excludeNonTranslatables <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
 
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
@@ -147,7 +148,7 @@
     <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Julle sal in staat wees om boodskappe en oproepe uit te ruil, en jou naam en foto sal met hulle gedeel word.</string>
     <!-- Text that is shown when unblocking an SMS contact -->
     <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">Julle sal boodskappe vir mekaar kan stuur.</string>
-    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Versperde mense kan nie bel of vir jou boodskappe stuur nie.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Versperde mense kan jou nie bel of vir jou boodskappe stuur nie.</string>
     <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Versperde mense sal nie vir jou boodskappe kan stuur nie.</string>
     <!-- Message shown on block dialog when blocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Versper ontvangs van Signal-bywerkings en -nuus.</string>
@@ -496,11 +497,11 @@
         <item quantity="other">Verwyder speld</item>
     </plurals>
     <plurals name="ConversationListFragment_mute_plural">
-        <item quantity="one">Skakel klank af</item>
+        <item quantity="one">Demp</item>
         <item quantity="other">Demp</item>
     </plurals>
     <plurals name="ConversationListFragment_unmute_plural">
-        <item quantity="one">Skakel klank aan</item>
+        <item quantity="one">Ontdemp</item>
         <item quantity="other">Ontdemp</item>
     </plurals>
     <string name="ConversationListFragment_select">Kies</string>
@@ -541,6 +542,15 @@
 
     <!-- ConversationTypingView -->
     <string name="ConversationTypingView__plus_d">+%1$d</string>
+
+    <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__relink_your_devices">Herkoppel jou toestelle</string>
+    <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">Die toestelle wat jy bygevoeg het, is ontkoppel toe jou toestel gederegistreer is. Gaan na Instellings om enige toestelle te herkoppel.</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
+    <string name="RelinkDevicesReminderFragment__open_settings">Maak instellings oop</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
+    <string name="RelinkDevicesReminderFragment__later">Later</string>
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Selekteer lede</string>
@@ -953,6 +963,16 @@
     <string name="ManageProfileFragment__username_created">Gebruikersnaam geskep</string>
     <!-- Snackbar message after copying username -->
     <string name="ManageProfileFragment__username_copied">Gebruikersnaam gekopieer</string>
+    <!-- Snackbar message after network failure while trying to delete username -->
+    <string name="ManageProfileFragment__couldnt_delete_username">Kon nie gebruikersnaam skrap nie. Probeer later weer.</string>
+    <!-- Snackbar message after successful deletion of username -->
+    <string name="ManageProfileFragment__username_deleted">Gebruikersnaam geskrap</string>
+
+    <!-- UsernameOutOfSyncReminder -->
+    <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
+    <string name="UsernameOutOfSyncReminder__something_went_wrong">Iets het verkeerd geloop met jou gebruikernaam, dit is nie meer aan jou rekening toegewys nie. Jy kan probeer om dit weer op te stel of \'n nuwe een kies.</string>
+    <!-- Action text to navigate user to manually fix the issue with their username -->
+    <string name="UsernameOutOfSyncReminder__fix_now">Stel nou reg</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -1156,8 +1176,8 @@
     <string name="Megaphones_new_group">Nuwe groep</string>
     <string name="Megaphones_invite_friends">Nooi vriende uit</string>
     <string name="Megaphones_use_sms">Gebruik SMS</string>
-    <string name="Megaphones_appearance">Voorkoms</string>
-    <string name="Megaphones_add_photo">Voeg foto toe</string>
+    <string name="Megaphones_chat_colors">Kletskleure</string>
+    <string name="Megaphones_add_a_profile_photo">Voeg ’n profielfoto by</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Antwoorde</string>
@@ -1584,6 +1604,17 @@
     <string name="PinRestoreLockedFragment_create_new_pin">Skep nuwe PIN</string>
   <!-- Removed by excludeNonTranslatables <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
+    <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
+    <string name="ReRegisterWithPinFragment_send_sms_code">Stuur SMS-kode</string>
+    <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
+    <string name="ReRegisterWithPinFragment_support_email_subject">Signal-registrasie - Hulp nodig met registreer van PIN vir Android</string>
+    <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
+    <string name="ReRegisterWithPinFragment_need_help_local">Jou PIN is \'n %1$d+-syferkode wat jy geskep het wat numeries of alfanumeries kan wees.\n\nAs jy nie jou PIN kan onthou nie, kan jy \'n nuwe een skep.</string>
+    <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
+    <string name="ReRegisterWithPinFragment_skip_local">As jy nie jou PIN kan onthou nie, kan jy \'n nuwe een skep.</string>
+    <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
+    <string name="ReRegisterWithPinFragment_out_of_guesses_local">Jy het jou PIN-raaiskote opgebruik, maar jy kan steeds toegang tot jou Signal-rekening verkry deur \'n nuwe PIN te skep.</string>
+
     <!-- PinOptOutDialog -->
     <string name="PinOptOutDialog_warning">Waarskuwing</string>
     <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Indien jy die PIN deaktiveer, sal jy alle data verloor wanneer jy Signal herregistreer, tensy jy handmatig \'n rugsteun maak en dit herwin. Jy kan nie Registrasiesluiting aanskakel terwyl die PIN gedeaktiveer is nie.</string>
@@ -1731,7 +1762,7 @@
     <string name="CallParticipantView__you_wont_receive_their_audio_or_video">Julle sal nie mekaar se oudio of video ontvang nie.</string>
     <string name="CallParticipantView__cant_receive_audio_video_from_s">Kan nie oudio &amp; video van %1$s ontvang nie</string>
     <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Kan nie oudio en video van %1$s ontvang nie</string>
-    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dit kan wees omdat hulle die verandering in jou veiligheidsnommer nog nie geverifieer het nie, hulle toestel gee probleme, of hulle het jou versper.</string>
+    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dit kan wees omdat hulle die verandering in jou veiligheidsnommer nog nie geverifieer het nie, of hulle toestel gee probleme, of hulle het jou versper.</string>
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Vee om skermdeling te bekyk</string>
@@ -1768,11 +1799,18 @@
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal benodig kontakte- en mediatoestemmings om jou te help om met vriende te verbind en boodskappe te stuur. Jou kontakte word opgelaai deur middel van Signal se privaatkontak-ontdekking, wat beteken dat hulle end-tot-end geënkripteer is en nooit vir die Signal-diens sigbaar is nie.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal benodig kontakte- en mediatoestemmings om jou te help om met vriende te verbind. Jou kontakte word opgelaai deur middel van Signal se privaatkontak-ontdekking, wat beteken dat hulle end-tot-end geënkripteer is en nooit vir die Signal-diens sigbaar is nie.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Jy het te veel keer probeer om hierdie nommer te registreer. Probeer gerus later weer.</string>
+    <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
+    <string name="RegistrationActivity_rate_limited_to_try_again">Jy het te veel keer probeer om hierdie nommer te registreer. Probeer asseblief weer oor %1$s.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Kan nie aan diens koppel nie. Kontroleer netwerkverbinding en probeer weer.</string>
     <string name="RegistrationActivity_non_standard_number_format">Niestandaard-nommerformaat</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Die nommer wat jy ingesleutel het (%1$s), lyk of dit in \'n niestandaard-formaat is. \n\nHet jy %2$s bedoel?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Foonnommerformaat</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Oproep versoek</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+    <string name="RegistrationActivity_sms_requested">SMS aangevra</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+    <string name="RegistrationActivity_code_requested">Verifiëringskode aangevra</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="one">Jy moet nog net %1$d stap doen voor jy ’n ontfoutlog indien.</item>
         <item quantity="other">Jy moet nog net %1$d stappe doen voor jy ’n ontfoutlog indien.</item>
@@ -1792,6 +1830,16 @@
     <string name="RegistrationActivity_call">Bel</string>
     <string name="RegistrationActivity_verification_code">Bevestigingskode</string>
     <string name="RegistrationActivity_resend_code">Stuur kode weer</string>
+    <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_title">Probleme met registrasie?</string>
+    <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Maak seker dat jou foon \'n selsein het om jou SMS of oproep te ontvang\n • Bevestig dat jy \'n foonoproep na die nommer kan ontvang\n • Kontroleer dat jy jou foonnommer korrek ingesleutel het.</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Vir meer inligting, volg asseblief hierdie foutopsporingstappe of kontak Steundiens</string>
+    <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">hierdie foutopsporingstappe</string>
+    <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">Kontak Steundiens</string>
 
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Skakel registrasieslot aan?</string>
@@ -1951,13 +1999,17 @@
     <!-- Displayed in the notification when the user has opened a received gift -->
     <string name="ThreadRecord__you_redeemed_a_badge">Jy het \'n wapen gebruik</string>
     <!-- Displayed in the conversation list when someone reacted to your story -->
-    <string name="ThreadRecord__reacted_s_to_your_story">%1$s Het op jou storie gereageer</string>
+    <string name="ThreadRecord__reacted_s_to_your_story">%1$s het op jou storie gereageer</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
-    <string name="ThreadRecord__reacted_s_to_their_story">%1$s Het op hulle storie gereageer</string>
+    <string name="ThreadRecord__reacted_s_to_their_story">%1$s het op hulle storie gereageer</string>
     <!-- Displayed in the conversation list when your most recent message is a payment to or from the person the conversation is with -->
     <string name="ThreadRecord_payment">Betaling</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">Geskeduleerde boodskap</string>
+    <!--  Displayed in the conversation list when your message history has been merged -->
+    <string name="ThreadRecord_message_history_has_been_merged">Jou boodskapgeskiedenis is saamgevoeg</string>
+    <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
+    <string name="ThreadRecord_s_belongs_to_s">%1$s behoort aan %2$s</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Molly-bywerking</string>
@@ -2088,13 +2140,15 @@
     <string name="MessageNotifier_contact_message">%1$s %2$s</string>
     <string name="MessageNotifier_unknown_contact_message">Kontak</string>
     <string name="MessageNotifier_reacted_s_to_s">Het %1$s gereageer op: \"%2$s\".</string>
-    <string name="MessageNotifier_reacted_s_to_your_video">Het %1$s gereageer op jou video</string>
+    <string name="MessageNotifier_reacted_s_to_your_video">Het %1$s gereageer op jou video.</string>
     <string name="MessageNotifier_reacted_s_to_your_image">Het %1$s gereageer op jou foto.</string>
-    <string name="MessageNotifier_reacted_s_to_your_gif">Het %1$s gereageer op jou GIF</string>
+    <string name="MessageNotifier_reacted_s_to_your_gif">Het %1$s gereageer op jou GIF.</string>
     <string name="MessageNotifier_reacted_s_to_your_file">Het %1$s gereageer op jou lêer.</string>
     <string name="MessageNotifier_reacted_s_to_your_audio">Het %1$s gereageer op jou oudio.</string>
     <string name="MessageNotifier_reacted_s_to_your_view_once_media">Het %1$s op jou eenkeerkyk-media gereageer.</string>
-    <string name="MessageNotifier_reacted_s_to_your_sticker">Het %1$s op jou plakker gereageer</string>
+    <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
+    <string name="MessageNotifier_reacted_s_to_your_payment">Reacted %1$s to your payment.</string>
+    <string name="MessageNotifier_reacted_s_to_your_sticker">Het %1$s op jou plakker gereageer.</string>
     <string name="MessageNotifier_this_message_was_deleted">Hierdie boodskap is geskrap.</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Skakel kennisgewings af dat kontakte by Signal aangesluit het? Jy kan dit weer aanskakel in Signal &gt; Instellings &gt; Kennisgewings.</string>
@@ -2675,9 +2729,9 @@
     <string name="preferences__pref_use_address_book_photos">Gebruik adresboekfoto\'s</string>
     <string name="preferences__display_contact_photos_from_your_address_book_if_available">Vertoon foto\'s van jou adresboek indien beskikbaar</string>
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__pref_keep_muted_chats_archived">Keep Muted Chats Archived</string>
+    <string name="preferences__pref_keep_muted_chats_archived">Hou gedempte kletse geargiveer</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Muted chats that are archived will remain archived when a new message arrives.</string>
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Gedempte kletse wat geargiveer is, sal geargiveer bly wanneer \'n nuwe boodskap aankom.</string>
     <string name="preferences__generate_link_previews">Genereer skakelvoorskoue</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Haal skakelvoorskoue direk van die webwerwe af vir boodskappe wat jy stuur.</string>
     <string name="preferences__change_passphrase">Verander wagwoordfrase</string>
@@ -3295,6 +3349,8 @@
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">Voer jou PIN in</string>
     <string name="RegistrationLockFragment__enter_the_pin_you_created">Voer die PIN in wat jy vir jou rekening geskep het. Dit is anders as jou SMS-verifikasiekode.</string>
+    <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
+    <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">Sleutel die PIN in wat jy vir jou rekening geskep het.</string>
     <string name="RegistrationLockFragment__enter_alphanumeric_pin">Voer alfanumeriese PIN in</string>
     <string name="RegistrationLockFragment__enter_numeric_pin">Voer numeriese PIN in</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">PIN verkeerd. Probeer weer.</string>
@@ -3398,7 +3454,10 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Jou rugsteun bevat \'n baie groot lêer wat nie gerugsteun kan word nie. Skrap dit asb. en skep \'n nuwe rugsteun.</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">Tik om rugsteunkopieë te bestuur.</string>
     <string name="RegistrationActivity_wrong_number">Verkeerde nommer?</string>
+    <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">Bel my (%1$02d:%2$02d)</string>
+    <!--    Countdown to when the user can request a new SMS code during registration.-->
+    <string name="RegistrationActivity_resend_sms_available_in">Stuur weer Kode (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">Kontak Signal-steundiens</string>
     <string name="RegistrationActivity_code_support_subject">Signal-registrasie - verifikasiekode vir Android</string>
     <string name="RegistrationActivity_incorrect_code">Verkeerde kode</string>
@@ -3406,6 +3465,18 @@
     <string name="BackupUtil_unknown">Onbekend</string>
     <string name="preferences_app_protection__see_my_phone_number">Sien my telefoonnommer</string>
     <string name="preferences_app_protection__find_me_by_phone_number">Vind my volgens my foonnommer</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">Telefoonnommer</string>
+    <!-- Subtext below option to launch into phone number privacy settings screen -->
+    <string name="preferences_app_protection__choose_who_can_see">Kies wie jou telefoonnommer kan sien en wie jou daarmee op Molly kan kontak.</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Wie my nommer kan sien</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Niemand sal jou telefoonnommer in Molly kan sien nie</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Wie my volgens my nommer kan vind</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Jou telefoonnommer sal sigbaar wees vir mense en groepe aan wie jy boodskappe stuur. Mense wat jou nommer in hulle telefoonkontakte het, sal dit ook in Molly kan sien.</string>
     <string name="PhoneNumberPrivacy_everyone">Enigiemand</string>
     <string name="PhoneNumberPrivacy_my_contacts">My kontakte</string>
     <string name="PhoneNumberPrivacy_nobody">Niemand</string>
@@ -3615,7 +3686,7 @@
 
     <!-- StorageUtil -->
     <string name="StorageUtil__s_s">%1$s/%2$s</string>
-    <string name="BlockedUsersActivity__s_has_been_blocked">“%1$s” is versper</string>
+    <string name="BlockedUsersActivity__s_has_been_blocked">“%1$s” is versper.</string>
     <string name="BlockedUsersActivity__failed_to_block_s">Kon nie “%1$s” versper nie</string>
     <string name="BlockedUsersActivity__s_has_been_unblocked">“%1$s” is ontsper.</string>
 
@@ -3670,14 +3741,14 @@
     <string name="DeleteAccountFragment__deleting_your_account_will">Die skrap van jou rekening sal:</string>
     <string name="DeleteAccountFragment__enter_your_phone_number">Voer jou foonnommer in</string>
     <string name="DeleteAccountFragment__delete_account">Skrap rekening</string>
-    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Skrap jou rekeninginligting en profielprent</string>
-    <string name="DeleteAccountFragment__delete_all_your_messages">Skrap al jou boodskappe</string>
+    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Jou rekeninginligting en profielfoto skrap</string>
+    <string name="DeleteAccountFragment__delete_all_your_messages">Al jou boodskappe skrap</string>
     <string name="DeleteAccountFragment__delete_s_in_your_payments_account">Skrap %1$s in jou betalingsrekening</string>
     <string name="DeleteAccountFragment__no_country_code">Geen landkode aangedui nie</string>
     <string name="DeleteAccountFragment__no_number">Geen nommer aangedui nie</string>
     <string name="DeleteAccountFragment__the_phone_number">Die foonnommer wat jy ingevoer het stem nie met dié van jou rekening ooreen nie.</string>
     <string name="DeleteAccountFragment__are_you_sure">Is jy seker jy wil jou rekening skrap?</string>
-    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Dit sal jou Signal-rekening skrap en die toepassing terugstel. Die toep sal toemaak nadat die proses voltooi is.</string>
+    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Dit sal jou Signal-rekening skrap en die toepassing terugstel. Die toepassing sal toemaak nadat die proses voltooi is.</string>
     <string name="DeleteAccountFragment__failed_to_delete_local_data">Kon nie lokale data skrap nie. Jy kan dit handmatig in die stelsel-toepassingsinstellings skrap.</string>
     <string name="DeleteAccountFragment__launch_app_settings">Lanseer toepassingsinstellings</string>
     <!-- Title of progress dialog shown when a user deletes their account and the process is leaving all groups -->
@@ -3784,12 +3855,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Deaktiveer beursie</string>
     <string name="DeactivateWalletFragment__your_balance">Jou balans</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Ons beveel aan dat jy jou fondse na ’n ander beursie-adres oordrag voor jy betalings deaktiveer. Indien jy kies om nie nou jou fondse oor te dra nie, sal hulle in die beursie wat aan Molly gekoppel is, bly as jy betalings heraktiveer.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Ons beveel aan dat jy jou fondse na ’n ander beursie-adres oordra voor jy betalings deaktiveer. Indien jy kies om nie nou jou fondse oor te dra nie, sal dit in jou beursie bly wat aan Molly gekoppel is indien jy betalings heraktiveer.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Dra oorblywende balans oor</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Deaktiveer sonder oordrag</string>
     <string name="DeactivateWalletFragment__deactivate">Deaktiveer</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Deaktiveer sonder oordrag?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Jou balans sal in jou Molly-gekoppelde beursie bly indien jy kies om betalings te heraktiveer.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Jou saldo sal in jou beursie bly wat aan Molly gekoppel is indien jy kies om betalings te heraktiveer.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Fout met beursie-deaktivering.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4008,7 +4079,7 @@
     <string name="PrivacySettingsFragment__messaging">Boodskappe</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Verdwynboodskappe</string>
     <string name="PrivacySettingsFragment__app_security">Toepassingveiligheid</string>
-    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Versper skermgrepe in die onlangs-lys en in die toepassing</string>
+    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Versper skermgrepe in die onlangs-lys en binne-in die toepassing</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Signal-boodskappe en oproepe, herlei oproepe altyd, en verseëlde afsender</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Verstek-tydhouer vir nuwe kletse</string>
     <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Stel ’n verstek-verdwynboodskap-tydhouer in vir alle kletse wat jy begin.</string>
@@ -4106,7 +4177,7 @@
     <string name="Donate2022Q2Megaphone_not_now">Nie nou nie</string>
 
     <!-- EditReactionsFragment -->
-    <string name="EditReactionsFragment__customize_reactions">Pas reaksies aan</string>
+    <string name="EditReactionsFragment__customize_reactions">Pasmaking van reaksies</string>
     <string name="EditReactionsFragment__tap_to_replace_an_emoji">Tik om ’n emoji te vervang</string>
     <string name="EditReactionsFragment__reset">Stel terug</string>
     <string name="EditReactionsFragment_save">Stoor</string>
@@ -4508,7 +4579,7 @@
     <string name="DonationsErrors__your_donation_could_not_be_sent">Jou geskenk kon nie gestuur word nie as gevolg van \'n netwerkfout. Kontroleer jou verbinding en probeer weer.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_to_s">Skenking aan %1$s</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">Skenking namens %1$s</string>
     <!-- Gift message view title for incoming donations -->
     <string name="GiftMessageView__s_donated_to_signal_on">%1$s het namens jou aan Signal geskenk</string>
     <!-- Gift badge redeem action label -->
@@ -4907,7 +4978,7 @@
     <!-- Section header for options related to replies and reactions -->
     <string name="MyStorySettingsFragment__replies_amp_reactions">Antwoorde &amp; reaksies</string>
     <!-- Switchable option for allowing replies and reactions on your stories -->
-    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Laat antwoorde &amp;amp toe; reaksies</string>
+    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Laat antwoorde &amp; reaksies toe</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Laat toe dat mense wat na jou storie kan kyk, daarop reageer en antwoord</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
@@ -5600,6 +5671,16 @@
     <string name="UsernameEditDialog__edit_username">Wysig gebruikersnaam</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">Skrap gebruikersnaam</string>
+
+    <!-- Time duration picker -->
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for hour, e.g., 12h -->
+    <string name="TimeDurationPickerDialog_single_letter_hour_abbreviation">h</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for minute, e.g., 24m -->
+    <string name="TimeDurationPickerDialog_single_letter_minute_abbreviation">m</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
+    <string name="TimeDurationPickerDialog_positive_button">Stel</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">Minimum tyd voordat skermslot in werking tree, is 1 minuut.</string>
 
     <!-- EOF -->
 </resources>

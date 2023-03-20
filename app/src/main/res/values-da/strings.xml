@@ -14,13 +14,14 @@
   <!-- Removed by excludeNonTranslatables <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
 
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
     <string name="delete">Slet</string>
     <string name="please_wait">Vent venligst …</string>
     <string name="save">Gem</string>
-    <string name="note_to_self">Egen note</string>
+    <string name="note_to_self">Personlig note</string>
 
     <!-- AlbumThumbnailView -->
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
@@ -150,7 +151,7 @@
     <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Blokerede personer vil hverken kunne ringe eller sende beskeder til dig.</string>
     <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Blokerede personer vil ikke kunne sende beskeder til dig.</string>
     <!-- Message shown on block dialog when blocking the Signal release notes recipient -->
-    <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Bloker modtagelse af Signal-opdateringer og nyheder.</string>
+    <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Blokér modtagelse af Signal-opdateringer og nyheder.</string>
     <!-- Message shown on unblock dialog when unblocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_resume_getting_signal_updates_and_news">Genoptag modtagelse af Signal-opdateringer og nyheder.</string>
     <string name="BlockUnblockDialog_unblock_s">Fjern blokering af %1$s?</string>
@@ -447,11 +448,11 @@
     <!-- Message shown to indicate which notification profile is on/active -->
     <string name="ConversationFragment__s_on">%1$s aktiveret</string>
     <!-- Dialog title for block group link join requests -->
-    <string name="ConversationFragment__block_request">Bloker anmodning?</string>
+    <string name="ConversationFragment__block_request">Blokér anmodning?</string>
     <!-- Dialog message for block group link join requests -->
     <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s vil ikke kunne tilslutte sig eller anmode om at blive medlem af denne gruppe via gruppelinket. Vedkommende kan stadig tilføjes til gruppen manuelt.</string>
     <!-- Dialog confirm block request button -->
-    <string name="ConversationFragment__block_request_button">Bloker anmodning</string>
+    <string name="ConversationFragment__block_request_button">Blokér anmodning</string>
     <!-- Dialog cancel block request button -->
     <string name="ConversationFragment__cancel">Annullér</string>
     <!-- Message shown after successfully blocking join requests for a user -->
@@ -542,6 +543,15 @@
     <!-- ConversationTypingView -->
     <string name="ConversationTypingView__plus_d">+%1$d</string>
 
+    <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__relink_your_devices">Tilknyt dine enheder igen</string>
+    <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">De enheder, du tilføjede, mistede forbindelse, da enhedens registrering blev fjernet. Gå til Indstillinger for at tilknytte enheder igen.</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
+    <string name="RelinkDevicesReminderFragment__open_settings">Åbn indstillinger</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
+    <string name="RelinkDevicesReminderFragment__later">Senere</string>
+
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Vælg medlemmer</string>
 
@@ -600,7 +610,7 @@
     <string name="BackupsPreferenceFragment__last_backup">Seneste sikkerhedskopi: %1$s</string>
     <string name="BackupsPreferenceFragment__backup_folder">Mappe til sikkerhedskopi</string>
     <!-- Title for a preference item allowing the user to selected the hour of the day when their chats are backed up. -->
-    <string name="BackupsPreferenceFragment__backup_time">Tid til en backup</string>
+    <string name="BackupsPreferenceFragment__backup_time">Tidspunkt for sikkerhedskopiering</string>
     <string name="BackupsPreferenceFragment__verify_backup_passphrase">Verificer adgangssætning for sikkerhedskopi</string>
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Test din adgangssætning for sikkerhedskopi og bekræft, at den matcher</string>
     <string name="BackupsPreferenceFragment__turn_on">Aktiver</string>
@@ -935,7 +945,7 @@
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Underret mig ved omtaler</string>
-    <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Vil du modtage notifikationer, når du omtales i ignorerede samtaler?</string>
+    <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Vil du modtage notifikationer, når du bliver tagget i ignorerede samtaler?</string>
     <string name="GroupMentionSettingDialog_always_notify_me">Underret mig altid</string>
     <string name="GroupMentionSettingDialog_dont_notify_me">Underret mig ikke</string>
 
@@ -953,6 +963,16 @@
     <string name="ManageProfileFragment__username_created">Brugernavn oprettet</string>
     <!-- Snackbar message after copying username -->
     <string name="ManageProfileFragment__username_copied">Brugernavn kopieret</string>
+    <!-- Snackbar message after network failure while trying to delete username -->
+    <string name="ManageProfileFragment__couldnt_delete_username">Kunne ikke slette brugernavn. Prøv igen senere.</string>
+    <!-- Snackbar message after successful deletion of username -->
+    <string name="ManageProfileFragment__username_deleted">Brugernavn slettet</string>
+
+    <!-- UsernameOutOfSyncReminder -->
+    <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
+    <string name="UsernameOutOfSyncReminder__something_went_wrong">Noget gik galt med dit brugernavn, det er ikke længere tildelt din konto. Du kan prøve at indstille det igen eller vælge et nyt.</string>
+    <!-- Action text to navigate user to manually fix the issue with their username -->
+    <string name="UsernameOutOfSyncReminder__fix_now">Få hjælp nu</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -1156,8 +1176,8 @@
     <string name="Megaphones_new_group">Ny gruppe</string>
     <string name="Megaphones_invite_friends">Inviter venner</string>
     <string name="Megaphones_use_sms">Brug SMS</string>
-    <string name="Megaphones_appearance">Udseende</string>
-    <string name="Megaphones_add_photo">Tilføj billede</string>
+    <string name="Megaphones_chat_colors">Chatfarver</string>
+    <string name="Megaphones_add_a_profile_photo">Tilføj et profilbillede</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Svar</string>
@@ -1469,12 +1489,12 @@
     <string name="MessageRequestBottomView_continue">Fortsæt</string>
     <string name="MessageRequestBottomView_delete">Slet</string>
     <string name="MessageRequestBottomView_block">Blokér</string>
-    <string name="MessageRequestBottomView_unblock">Ophæv blokering</string>
+    <string name="MessageRequestBottomView_unblock">Fjern blokering</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Lad %1$s sende dig beskeder og del dit navn og billede med vedkommende? De ved ikke, at du har set deres besked, før du accepterer.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Lad %1$s sende dig beskeder og del dit navn og billede med vedkommende? Du modtager ikke nogen beskeder, før du fjerner blokeringen.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Vil du lade %1$s sende beskeder til dig? Du vil ingen beskeder modtage før blokeringen fjernes.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Vil du give %1$s tilladelse til at sende dig beskeder? Du vil ingen beskeder modtage før blokeringen fjernes.</string>
     <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Få opdateringer og nyheder fra %1$s? Du vil ikke modtage opdateringer, før du ophæver din blokering.</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Fortsæt din samtale med gruppen, og del dit navn og billede med dens medlemmer?</string>
     <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">Opgrader gruppen for adgang til nye funktioner, som @omtaler og administrator. Medlemmer som ikke har delt deres navn eller billede i gruppen, vil blive inviteret til at deltage</string>
@@ -1584,9 +1604,20 @@
     <string name="PinRestoreLockedFragment_create_new_pin">Opret ny pinkode</string>
   <!-- Removed by excludeNonTranslatables <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
+    <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
+    <string name="ReRegisterWithPinFragment_send_sms_code">Send sms-kode</string>
+    <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
+    <string name="ReRegisterWithPinFragment_support_email_subject">Tilmelding på Signal – brug for hjælp til at genregistrere pinkoden på Android</string>
+    <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
+    <string name="ReRegisterWithPinFragment_need_help_local">Din pinkode er en numerisk eller alfanumerisk kode på %1$d+ cifre, som du har oprettet.\n\nHvis du ikke kan huske din pinkode, kan du oprette en ny.</string>
+    <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
+    <string name="ReRegisterWithPinFragment_skip_local">Hvis du ikke kan huske din pinkode, kan du oprette en ny.</string>
+    <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
+    <string name="ReRegisterWithPinFragment_out_of_guesses_local">Du har ikke flere gæt, men du kan stadig få adgang til din Signal-konto ved at oprette en ny pinkode.</string>
+
     <!-- PinOptOutDialog -->
     <string name="PinOptOutDialog_warning">Advarsel</string>
-    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Hvis du deaktiverer pinkode mister du alle data, når du omregistrerer Signal. Medmindre du sikkerhedskopierer og gendanner manuelt. Du kan ikke aktivere registreringslås, mens pinkoden er deaktiveret.</string>
+    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Hvis du deaktiverer pinkoden, mister du alle data, når du opretter Signal igen, medmindre du sikkerhedskopierer og gendanner manuelt. Du kan ikke aktivere registreringslås, mens pinkoden er deaktiveret.</string>
     <string name="PinOptOutDialog_disable_pin">Deaktiver pinkode</string>
 
     <!-- RatingManager -->
@@ -1731,7 +1762,7 @@
     <string name="CallParticipantView__you_wont_receive_their_audio_or_video">Du vil ikke modtage deres lyd eller billede og de vil ikke modtage dine.</string>
     <string name="CallParticipantView__cant_receive_audio_video_from_s">Kan ikke modtage lyd &amp; video fra %1$s</string>
     <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Kan ikke modtage lyd og video fra %1$s</string>
-    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dette kan skyldes, at personen ikke har bekræftet ændringen i jeres sikkerhedsnummer, at der er et problem med deres enhed, eller at de har blokeret dig.</string>
+    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dette kan skyldes at personen ikke har bekræftet ændringen i dit sikkerhedsnummer, at der er et problem med deres enhed eller at de har blokeret dig.</string>
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Stryg for at få vist skærmdeling</string>
@@ -1768,11 +1799,18 @@
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal har brug for tilladelse til at tilgå kontakter og lagerplads for at du kan oprette forbindelse til venner og sende beskeder. Dine kontakter uploades ved hjælp af Signals private kontaktopdagelse, hvilket betyder, at de er end-to-end-krypteret og aldrig synlige for Signal-tjenesten.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal har brug for tilladelse til at tilgå kontakter for at du kan oprette forbindelse til venner. Dine kontakter uploades ved hjælp af Signals private kontaktopdagelse, hvilket betyder, at de er end-to-end-krypteret og aldrig synlige for Signal-tjenesten.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Du har foretaget for mange forsøg på at registrere dette nummer. Prøv igen senere.</string>
+    <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
+    <string name="RegistrationActivity_rate_limited_to_try_again">Du har forsøgt at registrere dette nummer for mange gange. Prøv igen om %1$s.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Ikke muligt at få forbindelse til service. Tjek venligst din netværksforbindelse og prøv igen.</string>
     <string name="RegistrationActivity_non_standard_number_format">Ikke-standardiseret nummerformat</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Det nummer du har indtastet (%1$s) ser ud til at være et ikke-standardiseret format.\n\nMente du %2$s?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Telefonnummerformat</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Anmodet om opkald</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+    <string name="RegistrationActivity_sms_requested">Sms anmodet</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+    <string name="RegistrationActivity_code_requested">Verifikationskode anmodet</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="one">Du er nu kun %1$d trin fra at indsende en fejllog</item>
         <item quantity="other">Du er nu kun %1$d trin fra at indsende en fejlsøgningslog.</item>
@@ -1792,6 +1830,16 @@
     <string name="RegistrationActivity_call">Ring op</string>
     <string name="RegistrationActivity_verification_code">Verifikationskode</string>
     <string name="RegistrationActivity_resend_code">Gensend kode</string>
+    <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_title">Problemer ved tilmelding?</string>
+    <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Sørg for, at din telefon har forbindelse, så du kan modtage din sms eller dit opkald\n • Bekræft, at du kan modtage et opkald på nummeret\n • Tjek, at du har angivet dit telefonnummer korrekt.</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Du kan få flere oplysninger ved at følge disse fejlfindingstrin eller kontakte support</string>
+    <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">disse fejlfindingstrin</string>
+    <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">Kontakt support</string>
 
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Aktiver registreringslås?</string>
@@ -1958,6 +2006,10 @@
     <string name="ThreadRecord_payment">Betaling</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">Planlagt meddelelse</string>
+    <!--  Displayed in the conversation list when your message history has been merged -->
+    <string name="ThreadRecord_message_history_has_been_merged">Din beskedhistorik er blevet slået sammen</string>
+    <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
+    <string name="ThreadRecord_s_belongs_to_s">%1$s tilhører %2$s</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Opdater Molly</string>
@@ -2093,7 +2145,9 @@
     <string name="MessageNotifier_reacted_s_to_your_gif">Reagerede med %1$s på din GIF.</string>
     <string name="MessageNotifier_reacted_s_to_your_file">Reagerede med %1$s på din fil.</string>
     <string name="MessageNotifier_reacted_s_to_your_audio">Reagerede med %1$s på din lydfil.</string>
-    <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagerede med %1$s på din vis-én-gang mediefil.</string>
+    <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagerede med %1$s på din engangsmediefil.</string>
+    <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
+    <string name="MessageNotifier_reacted_s_to_your_payment">Reacted %1$s to your payment.</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reagerede med %1$s på dit klistermærke.</string>
     <string name="MessageNotifier_this_message_was_deleted">Beskeden blev slettet.</string>
 
@@ -2298,7 +2352,7 @@
     <string name="ConversationUpdateItem_enable_call_notifications">Aktiver opkaldsnotifikationer</string>
     <string name="ConversationUpdateItem_update_contact">Opdatér kontakt</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
-    <string name="ConversationUpdateItem_block_request">Bloker anmodning</string>
+    <string name="ConversationUpdateItem_block_request">Blokér anmodning</string>
     <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Ingen grupper til fælles. Gennemgå anmodninger omhyggeligt.</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Ingen kontakter i gruppen. Gennemgå anmodninger omhyggeligt.</string>
     <string name="ConversationUpdateItem_view">Vis</string>
@@ -2487,8 +2541,8 @@
 
     <!-- BadDecryptLearnMoreDialog -->
     <string name="BadDecryptLearnMoreDialog_delivery_issue">Leveringsproblem</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">En besked, klistermærke, reaktion eller læsekvittering kunne ikke leveres til dig fra %1$s. Vedkommende har muligvis forsøgt at sende direkte til dig eller i en gruppe.</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">En besked, klistermærke, reaktion eller læsekvittering kunne ikke leveres til dig fra %1$s.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">En besked, klistermærke, reaktion eller kvittering for læsning kunne ikke leveres til dig fra %1$s. Vedkommende har muligvis forsøgt at sende direkte til dig eller i en gruppe.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">En besked, klistermærke, reaktion eller kvittering for læsning kunne ikke leveres til dig fra %1$s.</string>
 
     <!-- profile_create_activity -->
     <string name="CreateProfileActivity_first_name_required">Fornavn (påkrævet)</string>
@@ -2635,7 +2689,7 @@
     <string name="arrays__use_default">Brug standard</string>
     <string name="arrays__use_custom">Brug tilpasset</string>
 
-    <string name="arrays__mute_for_one_hour">Ignorer 1 time</string>
+    <string name="arrays__mute_for_one_hour">Ignorer i 1 time</string>
     <string name="arrays__mute_for_eight_hours">Ignorer i 8 timer</string>
     <string name="arrays__mute_for_one_day">Ignorer 1 dag</string>
     <string name="arrays__mute_for_seven_days">Ignorer i 7 dage</string>
@@ -2971,7 +3025,7 @@
     <string name="PaymentsDetailsFragment__sent_payment">Sendt betaling</string>
     <string name="PaymentsDetailsFragment__received_payment">Modtaget betaling</string>
     <string name="PaymentsDeatilsFragment__payment_completed_s">Betaling afsluttet %1$s</string>
-    <string name="PaymentsDetailsFragment__block_number">Bloker nummer</string>
+    <string name="PaymentsDetailsFragment__block_number">Blokér nummer</string>
 
     <!-- PaymentsTransferFragment -->
     <string name="PaymentsTransferFragment__transfer">Overfør</string>
@@ -3295,6 +3349,8 @@
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">Indtast din pinkode</string>
     <string name="RegistrationLockFragment__enter_the_pin_you_created">Indtast den pinkode du oprettede til din konto. Den er forskellig fra din SMS-verifikationskode.</string>
+    <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
+    <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">Angiv den pinkode, du har oprettet til din konto.</string>
     <string name="RegistrationLockFragment__enter_alphanumeric_pin">Indtast alfanumerisk pinkode</string>
     <string name="RegistrationLockFragment__enter_numeric_pin">Indtast numerisk pinkode</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">Forkert pinkode. Prøv igen.</string>
@@ -3398,7 +3454,10 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Din seneste sikkerhedskopi indeholder en meget stor fil, som vi ikke kunne lave en sikkerhedskopi af. Slet filen, og opret en ny sikkerhedskopi.</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">Tryk for at administrere sikkerhedskopier.</string>
     <string name="RegistrationActivity_wrong_number">Forkert nummer?</string>
+    <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">Ring til mig (%1$02d:%2$02d)</string>
+    <!--    Countdown to when the user can request a new SMS code during registration.-->
+    <string name="RegistrationActivity_resend_sms_available_in">Send kode igen (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">Kontakt Signal Support</string>
     <string name="RegistrationActivity_code_support_subject">Signal-registrering - Verifikationskode for Android</string>
     <string name="RegistrationActivity_incorrect_code">Forkert kode</string>
@@ -3406,6 +3465,18 @@
     <string name="BackupUtil_unknown">Ukendt</string>
     <string name="preferences_app_protection__see_my_phone_number">Se mit telefonnummer</string>
     <string name="preferences_app_protection__find_me_by_phone_number">Find mig via telefonnummer</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">Telefonnummer</string>
+    <!-- Subtext below option to launch into phone number privacy settings screen -->
+    <string name="preferences_app_protection__choose_who_can_see">Vælg, hvem der kan se dit telefonnummer, og hvem der kan kontakte dig på Molly med det.</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Personer, der kan se mit nummer</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Ingen kan se dit telefonnummer på Molly</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Personer, der kan finde mig med mit nummer</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Dit telefonnummer vil være synligt for personer og grupper, du sender beskeder til. Personer, der har dit nummer i deres telefonkontakter, vil også se det på Molly.</string>
     <string name="PhoneNumberPrivacy_everyone">Alle</string>
     <string name="PhoneNumberPrivacy_my_contacts">Mine kontakter</string>
     <string name="PhoneNumberPrivacy_nobody">Ingen</string>
@@ -3615,9 +3686,9 @@
 
     <!-- StorageUtil -->
     <string name="StorageUtil__s_s">%1$s/%2$s</string>
-    <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" er blevet blokeret</string>
+    <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" er blevet blokeret.</string>
     <string name="BlockedUsersActivity__failed_to_block_s">Fejl ved blokering af \"%1$s\"</string>
-    <string name="BlockedUsersActivity__s_has_been_unblocked">\"%1$s\" er ikke længere blokeret</string>
+    <string name="BlockedUsersActivity__s_has_been_unblocked">\"%1$s\" er ikke længere blokeret.</string>
 
     <!-- ReviewCardDialogFragment -->
     <string name="ReviewCardDialogFragment__review_members">Gennemgå medlemmer</string>
@@ -3677,7 +3748,7 @@
     <string name="DeleteAccountFragment__no_number">Intet nummer angivet</string>
     <string name="DeleteAccountFragment__the_phone_number">Det indtastede telefonnummer matcher ikke med kontoen.</string>
     <string name="DeleteAccountFragment__are_you_sure">Er du sikker på, du vil slette din konto?</string>
-    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Dette vil slette din Signal-konto og nulstille applikationen. Appen vil lukke når processen er færdig.</string>
+    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Dette vil slette din Signal-konto og nulstille applikationen. Appen vil lukke, når processen er færdig.</string>
     <string name="DeleteAccountFragment__failed_to_delete_local_data">Lokale data kunne ikke slettes. Du kan rydde det manuelt i systemets applikationsindstillinger.</string>
     <string name="DeleteAccountFragment__launch_app_settings">Åbn appindstillinger</string>
     <!-- Title of progress dialog shown when a user deletes their account and the process is leaving all groups -->
@@ -4008,7 +4079,7 @@
     <string name="PrivacySettingsFragment__messaging">Beskeder</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Forsvindende beskeder</string>
     <string name="PrivacySettingsFragment__app_security">App-sikkerhed</string>
-    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Forhindr, at der tages skærmbilleder i oversigten over senest anvendte apps og inde i Signal-appen på din egen enhed.</string>
+    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Bloker muligheden for skærmbilleder i oversigten over senest anvendte apps og i Signal-appen</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Signal-beskeder og opkald, videresend altid opkald og forseglet afsender.</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Standardudløbstid for nye samtaler</string>
     <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Indstil en udløbstid for forsvindende beskeder, der skal gælde som standard for alle nye samtaler startet af dig.</string>
@@ -4178,7 +4249,7 @@
     <string name="ConversationSettingsFragment__block">Blokér</string>
     <string name="ConversationSettingsFragment__block_group">Blokér gruppe</string>
     <string name="ConversationSettingsFragment__unblock">Fjern blokering</string>
-    <string name="ConversationSettingsFragment__unblock_group">Ophæv blokering af gruppe</string>
+    <string name="ConversationSettingsFragment__unblock_group">Fjern blokering af gruppe</string>
     <string name="ConversationSettingsFragment__add_to_a_group">Tilføj til en gruppe</string>
     <string name="ConversationSettingsFragment__see_all">Se alle</string>
     <string name="ConversationSettingsFragment__add_members">Tilføj medlemmer</string>
@@ -4453,7 +4524,7 @@
     <string name="ExpiredBadgeBottomSheetDialogFragment__monthly_donation_cancelled">Månedlig donation annulleret</string>
     <!-- Displayed in the bottom sheet when a boost badge expires -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired_and">Din Boost-badge er udløbet, og er ikke længere synligt på din profil.</string>
-    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Du kan genaktivere din Boost-badge i yderligere 30 dage med et engangsbidrag.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Du kan genaktivere din Boost-badge i 30 dage med et engangsbidrag.</string>
     <!-- Displayed when we do not think the user is a subscriber when their boost expires -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_keep">Du kan fortsætte med at bruge Signal, men hvis du vil støtte teknologi, der er udviklet til dig, kan du overveje at støtte ved at lave en månedlig donation.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Bliv bidragsyder</string>
@@ -4508,7 +4579,7 @@
     <string name="DonationsErrors__your_donation_could_not_be_sent">Din donation kunne ikke sendes på grund af en netværksfejl. Tjek din forbindelse, og prøv igen.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_to_s">Donation til %1$s</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">Donation på vegne af %1$s</string>
     <!-- Gift message view title for incoming donations -->
     <string name="GiftMessageView__s_donated_to_signal_on">%1$s donerede til Signal på dine vegne</string>
     <!-- Gift badge redeem action label -->
@@ -4905,9 +4976,9 @@
     <!-- My story privacy fine print about what the privacy settings are for -->
     <string name="MyStorySettingsFragment__choose_who_can_view_your_story">Vælg, hvem der kan se din historie. Ændringer vil ikke påvirke historier, som du allerede har sendt.</string>
     <!-- Section header for options related to replies and reactions -->
-    <string name="MyStorySettingsFragment__replies_amp_reactions">Svar &amp; reaktioner</string>
+    <string name="MyStorySettingsFragment__replies_amp_reactions">Svar og reaktioner</string>
     <!-- Switchable option for allowing replies and reactions on your stories -->
-    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Tillad svar &amp; reaktioner</string>
+    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Tillad svar og reaktioner</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Lad folk, der kan se din historie, reagere og svare</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
@@ -5600,6 +5671,16 @@
     <string name="UsernameEditDialog__edit_username">Rediger brugernavn</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">Slet brugernavn</string>
+
+    <!-- Time duration picker -->
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for hour, e.g., 12h -->
+    <string name="TimeDurationPickerDialog_single_letter_hour_abbreviation">t</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for minute, e.g., 24m -->
+    <string name="TimeDurationPickerDialog_single_letter_minute_abbreviation">m</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
+    <string name="TimeDurationPickerDialog_positive_button">Indstil</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">Minimum tid inden skærmen låses er 1 minut.</string>
 
     <!-- EOF -->
 </resources>

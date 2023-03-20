@@ -119,7 +119,7 @@ class GroupTableTest {
     }
 
     val groupRecord = groupTable.getGroup(v2Group).get()
-    assertEquals(groupRecord.members.toSet(), setOf(harness.self.id, harness.others[1]))
+    assertEquals(setOf(harness.self.id, harness.others[1]), groupRecord.members.toSet())
   }
 
   @Test
@@ -222,6 +222,24 @@ class GroupTableTest {
 
     assertEquals(g1, gr1.get().id)
     assertEquals(g2, gr2.get().id)
+  }
+
+  @Test
+  fun givenASharedActiveGroupWithoutAThread_whenISearchForRecipientsWithGroupsInCommon_thenIExpectThatGroup() {
+    val groupInCommon = insertPushGroup()
+    val expected = Recipient.resolved(harness.others[0])
+
+    SignalDatabase.recipients.setProfileSharing(expected.id, false)
+
+    SignalDatabase.recipients.queryGroupMemberContacts("Buddy")!!.use {
+      assertTrue(it.moveToFirst())
+      assertEquals(1, it.count)
+      assertEquals(expected.id.toLong(), it.requireLong(RecipientTable.ID))
+    }
+
+    val groups = groupTable.getPushGroupsContainingMember(expected.id)
+    assertEquals(1, groups.size)
+    assertEquals(groups[0].id, groupInCommon)
   }
 
   private fun insertThread(groupId: GroupId): Long {

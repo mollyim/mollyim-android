@@ -1,34 +1,27 @@
 package org.thoughtcrime.securesms.components.settings.app.privacy
 
 import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.TextAppearanceSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.annotation.StringRes
 import androidx.biometric.BiometricManager
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import mobi.upod.timedurationpicker.TimeDurationPicker
-import mobi.upod.timedurationpicker.TimeDurationPickerDialog
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
 import org.thoughtcrime.securesms.PassphraseActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.biometric.BiometricDialogFragment
+import org.thoughtcrime.securesms.components.TimeDurationPickerDialog
 import org.thoughtcrime.securesms.components.settings.ClickPreference
 import org.thoughtcrime.securesms.components.settings.ClickPreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -37,8 +30,6 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.components.settings.PreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
-import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberListingMode
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.ConversationUtil
@@ -51,6 +42,8 @@ import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 private val TAG = Log.tag(PrivacySettingsFragment::class.java)
 
@@ -144,14 +137,13 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         summary = DSLSettingsText.from(getDeviceLockTimeoutSummary(state.passphraseLockTimeout)),
         isEnabled = state.passphraseLock && PassphraseLockTriggerPreference(state.passphraseLockTriggerValues).isTimeoutEnabled,
         onClick = {
-          TimeDurationPickerDialog(
-            context,
-            { _: TimeDurationPicker?, duration: Long ->
-              val timeoutSeconds = TimeUnit.MILLISECONDS.toSeconds(duration)
-              viewModel.setPassphraseLockTimeout(timeoutSeconds)
-            },
-            0, TimeDurationPicker.HH_MM_SS
-          ).show()
+          childFragmentManager.clearFragmentResult(TimeDurationPickerDialog.RESULT_DURATION)
+          childFragmentManager.clearFragmentResultListener(TimeDurationPickerDialog.RESULT_DURATION)
+          childFragmentManager.setFragmentResultListener(TimeDurationPickerDialog.RESULT_DURATION, this@PrivacySettingsFragment) { _, bundle ->
+            val timeoutSeconds = bundle.getLong(TimeDurationPickerDialog.RESULT_KEY_DURATION_MILLISECONDS).milliseconds.inWholeSeconds
+            viewModel.setPassphraseLockTimeout(timeoutSeconds)
+          }
+          TimeDurationPickerDialog.create(state.passphraseLockTimeout.seconds).show(childFragmentManager, null)
         }
       )
 
@@ -179,29 +171,20 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
       dividerPref()
 
+      sectionHeaderPref(R.string.PrivacySettingsFragment__messaging)
+
       if (FeatureFlags.phoneNumberPrivacy()) {
-        sectionHeaderPref(R.string.preferences_app_protection__who_can)
-
         clickPref(
-          title = DSLSettingsText.from(R.string.preferences_app_protection__see_my_phone_number),
-          summary = DSLSettingsText.from(getWhoCanSeeMyPhoneNumberSummary(state.seeMyPhoneNumber)),
+          title = DSLSettingsText.from(R.string.preferences_app_protection__phone_number),
+          summary = DSLSettingsText.from(R.string.preferences_app_protection__choose_who_can_see),
           onClick = {
-            onSeeMyPhoneNumberClicked(state.seeMyPhoneNumber)
-          }
-        )
-
-        clickPref(
-          title = DSLSettingsText.from(R.string.preferences_app_protection__find_me_by_phone_number),
-          summary = DSLSettingsText.from(getWhoCanFindMeByPhoneNumberSummary(state.findMeByPhoneNumber)),
-          onClick = {
-            onFindMyPhoneNumberClicked(state.findMeByPhoneNumber)
+            Navigation.findNavController(requireView())
+              .safeNavigate(R.id.action_privacySettingsFragment_to_phoneNumberPrivacySettingsFragment)
           }
         )
 
         dividerPref()
       }
-
-      sectionHeaderPref(R.string.PrivacySettingsFragment__messaging)
 
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__read_receipts),
@@ -272,7 +255,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
       )
 
       textPref(
-        summary = DSLSettingsText.from(incognitoSummary),
+        summary = DSLSettingsText.from(incognitoSummary)
       )
 
       dividerPref()
@@ -353,117 +336,6 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
       getString(R.string.AppProtectionPreferenceFragment_instant)
     } else {
       ExpirationUtil.getExpirationDisplayValue(requireContext(), timeoutSeconds.toInt())
-    }
-  }
-
-  @StringRes
-  private fun getWhoCanSeeMyPhoneNumberSummary(phoneNumberSharingMode: PhoneNumberPrivacyValues.PhoneNumberSharingMode): Int {
-    return when (phoneNumberSharingMode) {
-      PhoneNumberPrivacyValues.PhoneNumberSharingMode.EVERYONE -> R.string.PhoneNumberPrivacy_everyone
-      PhoneNumberPrivacyValues.PhoneNumberSharingMode.CONTACTS -> R.string.PhoneNumberPrivacy_my_contacts
-      PhoneNumberPrivacyValues.PhoneNumberSharingMode.NOBODY -> R.string.PhoneNumberPrivacy_nobody
-    }
-  }
-
-  @StringRes
-  private fun getWhoCanFindMeByPhoneNumberSummary(phoneNumberListingMode: PhoneNumberListingMode): Int {
-    return when (phoneNumberListingMode) {
-      PhoneNumberListingMode.LISTED -> R.string.PhoneNumberPrivacy_everyone
-      PhoneNumberListingMode.UNLISTED -> R.string.PhoneNumberPrivacy_nobody
-    }
-  }
-
-  private fun onSeeMyPhoneNumberClicked(phoneNumberSharingMode: PhoneNumberPrivacyValues.PhoneNumberSharingMode) {
-    val value = arrayOf(phoneNumberSharingMode)
-    val items = items(requireContext())
-    val modes: List<PhoneNumberPrivacyValues.PhoneNumberSharingMode> = ArrayList(items.keys)
-    val modeStrings = items.values.toTypedArray()
-    val selectedMode = modes.indexOf(value[0])
-
-    MaterialAlertDialogBuilder(requireActivity()).apply {
-      setTitle(R.string.preferences_app_protection__see_my_phone_number)
-      setCancelable(true)
-      setSingleChoiceItems(
-        modeStrings,
-        selectedMode
-      ) { _: DialogInterface?, which: Int -> value[0] = modes[which] }
-      setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-        val newSharingMode = value[0]
-        Log.i(
-          TAG,
-          String.format(
-            "PhoneNumberSharingMode changed to %s. Scheduling storage value sync",
-            newSharingMode
-          )
-        )
-        viewModel.setPhoneNumberSharingMode(value[0])
-      }
-      setNegativeButton(android.R.string.cancel, null)
-      show()
-    }
-  }
-
-  private fun items(context: Context): Map<PhoneNumberPrivacyValues.PhoneNumberSharingMode, CharSequence> {
-    val map: MutableMap<PhoneNumberPrivacyValues.PhoneNumberSharingMode, CharSequence> = LinkedHashMap()
-    map[PhoneNumberPrivacyValues.PhoneNumberSharingMode.EVERYONE] = titleAndDescription(
-      context,
-      context.getString(R.string.PhoneNumberPrivacy_everyone),
-      context.getString(R.string.PhoneNumberPrivacy_everyone_see_description)
-    )
-    map[PhoneNumberPrivacyValues.PhoneNumberSharingMode.NOBODY] =
-      context.getString(R.string.PhoneNumberPrivacy_nobody)
-    return map
-  }
-
-  private fun titleAndDescription(
-    context: Context,
-    header: String,
-    description: String
-  ): CharSequence {
-    return SpannableStringBuilder().apply {
-      append("\n")
-      append(header)
-      append("\n")
-      setSpan(
-        TextAppearanceSpan(context, android.R.style.TextAppearance_Small),
-        length,
-        length,
-        Spanned.SPAN_INCLUSIVE_INCLUSIVE
-      )
-      append(description)
-      append("\n")
-    }
-  }
-
-  fun onFindMyPhoneNumberClicked(phoneNumberListingMode: PhoneNumberListingMode) {
-    val context = requireContext()
-    val value = arrayOf(phoneNumberListingMode)
-    MaterialAlertDialogBuilder(requireActivity()).apply {
-      setTitle(R.string.preferences_app_protection__find_me_by_phone_number)
-      setCancelable(true)
-      setSingleChoiceItems(
-        arrayOf(
-          titleAndDescription(
-            context,
-            context.getString(R.string.PhoneNumberPrivacy_everyone),
-            context.getString(R.string.PhoneNumberPrivacy_everyone_find_description)
-          ),
-          context.getString(R.string.PhoneNumberPrivacy_nobody)
-        ),
-        value[0].ordinal
-      ) { _: DialogInterface?, which: Int -> value[0] = PhoneNumberListingMode.values()[which] }
-      setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-        Log.i(
-          TAG,
-          String.format(
-            "PhoneNumberListingMode changed to %s. Scheduling storage value sync",
-            value[0]
-          )
-        )
-        viewModel.setPhoneNumberListingMode(value[0])
-      }
-      setNegativeButton(android.R.string.cancel, null)
-      show()
     }
   }
 

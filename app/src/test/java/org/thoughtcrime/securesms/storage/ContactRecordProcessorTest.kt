@@ -189,6 +189,108 @@ class ContactRecordProcessorTest {
   }
 
   @Test
+  fun `isInvalid, valid E164, true`() {
+    // GIVEN
+    val subject = ContactRecordProcessor(ACI_A, PNI_A, E164_A, recipientTable)
+
+    val record = buildRecord {
+      setServiceId(ACI_B.toString())
+      setServiceE164(E164_B)
+    }
+
+    // WHEN
+    val result = subject.isInvalid(record)
+
+    // THEN
+    assertFalse(result)
+  }
+
+  @Test
+  fun `isInvalid, invalid E164 (missing +), true`() {
+    // GIVEN
+    val subject = ContactRecordProcessor(ACI_A, PNI_A, E164_A, recipientTable)
+
+    val record = buildRecord {
+      setServiceId(ACI_B.toString())
+      setServiceE164("15551234567")
+    }
+
+    // WHEN
+    val result = subject.isInvalid(record)
+
+    // THEN
+    assertTrue(result)
+  }
+
+  @Test
+  fun `isInvalid, invalid E164 (contains letters), true`() {
+    // GIVEN
+    val subject = ContactRecordProcessor(ACI_A, PNI_A, E164_A, recipientTable)
+
+    val record = buildRecord {
+      setServiceId(ACI_B.toString())
+      setServiceE164("+1555ABC4567")
+    }
+
+    // WHEN
+    val result = subject.isInvalid(record)
+
+    // THEN
+    assertTrue(result)
+  }
+
+  @Test
+  fun `isInvalid, invalid E164 (no numbers), true`() {
+    // GIVEN
+    val subject = ContactRecordProcessor(ACI_A, PNI_A, E164_A, recipientTable)
+
+    val record = buildRecord {
+      setServiceId(ACI_B.toString())
+      setServiceE164("+")
+    }
+
+    // WHEN
+    val result = subject.isInvalid(record)
+
+    // THEN
+    assertTrue(result)
+  }
+
+  @Test
+  fun `isInvalid, invalid E164 (too many numbers), true`() {
+    // GIVEN
+    val subject = ContactRecordProcessor(ACI_A, PNI_A, E164_A, recipientTable)
+
+    val record = buildRecord {
+      setServiceId(ACI_B.toString())
+      setServiceE164("+12345678901234567890")
+    }
+
+    // WHEN
+    val result = subject.isInvalid(record)
+
+    // THEN
+    assertTrue(result)
+  }
+
+  @Test
+  fun `isInvalid, invalid E164 (starts with zero), true`() {
+    // GIVEN
+    val subject = ContactRecordProcessor(ACI_A, PNI_A, E164_A, recipientTable)
+
+    val record = buildRecord {
+      setServiceId(ACI_B.toString())
+      setServiceE164("+05551234567")
+    }
+
+    // WHEN
+    val result = subject.isInvalid(record)
+
+    // THEN
+    assertTrue(result)
+  }
+
+  @Test
   fun `merge, e164MatchesButPnisDont pnpEnabled, keepLocal`() {
     // GIVEN
     val subject = ContactRecordProcessor(ACI_A, PNI_A, E164_A, recipientTable)
@@ -311,9 +413,9 @@ class ContactRecordProcessorTest {
   }
 
   companion object {
-    val STORAGE_ID_A: StorageId = StorageId.forStoryDistributionList(byteArrayOf(1, 2, 3, 4))
-    val STORAGE_ID_B: StorageId = StorageId.forStoryDistributionList(byteArrayOf(5, 6, 7, 8))
-    val STORAGE_ID_C: StorageId = StorageId.forStoryDistributionList(byteArrayOf(5, 6, 7, 8))
+    val STORAGE_ID_A: StorageId = StorageId.forContact(byteArrayOf(1, 2, 3, 4))
+    val STORAGE_ID_B: StorageId = StorageId.forContact(byteArrayOf(5, 6, 7, 8))
+    val STORAGE_ID_C: StorageId = StorageId.forContact(byteArrayOf(9, 10, 11, 12))
 
     val ACI_A = ACI.from(UUID.fromString("3436efbe-5a76-47fa-a98a-7e72c948a82e"))
     val ACI_B = ACI.from(UUID.fromString("8de7f691-0b60-4a68-9cd9-ed2f8453f9ed"))

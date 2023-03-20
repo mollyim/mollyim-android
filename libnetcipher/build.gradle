@@ -1,22 +1,26 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    id 'android-constants'
+}
 
 android {
-    buildToolsVersion BUILD_TOOL_VERSION
-    compileSdkVersion COMPILE_SDK
+    namespace 'info.guardianproject.netcipher'
+
+    buildToolsVersion = signalBuildToolsVersion
+    compileSdkVersion = signalCompileSdkVersion
 
     defaultConfig {
-        minSdkVersion MINIMUM_SDK
-        targetSdkVersion TARGET_SDK
+        minSdkVersion signalMinSdkVersion
+        targetSdkVersion signalTargetSdkVersion
     }
 
     compileOptions {
-        sourceCompatibility JAVA_VERSION
-        targetCompatibility JAVA_VERSION
+        sourceCompatibility signalJavaVersion
+        targetCompatibility signalJavaVersion
     }
 }
 
 dependencies {
-    lintChecks project(':lintchecks')
-
     implementation project(':core-util')
+    lintChecks project(':lintchecks')
 }

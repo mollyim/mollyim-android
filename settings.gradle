@@ -1,12 +1,45 @@
-plugins {
-    id "com.gradle.enterprise" version "3.11.1"
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    includeBuild("build-logic")
 }
 
-gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = "yes"
-        publishAlwaysIf(System.getenv("BUILD_SCAN") != null)
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url "https://raw.githubusercontent.com/signalapp/maven/master/sqlcipher/release/"
+            content {
+                includeModule 'org.signal', 'sqlcipher-android'
+            }
+        }
+        maven {
+            url "https://raw.githubusercontent.com/mollyim/maven/master/argon2/releases/"
+            content {
+                includeModule 'im.molly', 'argon2'
+            }
+        }
+        maven {
+            url "https://raw.githubusercontent.com/mollyim/maven/master/ringrtc/releases/"
+            content {
+                includeModule 'im.molly', 'ringrtc-android'
+            }
+        }
+        maven {
+            url "https://raw.githubusercontent.com/mollyim/maven/master/native-utils/releases/"
+            content {
+                includeModule 'im.molly', 'native-utils'
+            }
+        }
+        maven {
+            url "https://dl.cloudsmith.io/qxAgwaeEE1vN8aLU/mobilecoin/mobilecoin/maven/"
+        }
     }
 }
 

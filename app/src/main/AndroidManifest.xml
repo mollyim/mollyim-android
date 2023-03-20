@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="org.thoughtcrime.securesms">
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk tools:overrideLibrary="androidx.camera.core,androidx.camera.camera2,androidx.camera.lifecycle,androidx.camera.view" />
 
@@ -416,7 +415,7 @@
 
     <activity android:name=".registration.RegistrationNavigationActivity"
               android:launchMode="singleTask"
-              android:theme="@style/TextSecure.LightRegistrationTheme"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
@@ -625,6 +624,7 @@
     <service android:enabled="true" android:exported="false" android:name=".service.KeyCachingService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.WipeMemoryService"/>
     <service android:enabled="true" android:name=".messages.IncomingMessageObserver$ForegroundService"/>
+    <service android:enabled="true" android:name=".messages.IncomingMessageObserver$BackgroundService"/>
     <service android:name=".service.webrtc.AndroidCallConnectionService"
         android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE"
         android:exported="true">

@@ -1,54 +1,17 @@
 import com.android.build.api.dsl.ManagedVirtualDevice
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.google.protobuf'
-apply plugin: 'androidx.navigation.safeargs'
-apply plugin: 'org.jlleitschuh.gradle.ktlint'
-apply from: 'translations.gradle'
-apply plugin: 'org.jetbrains.kotlin.android'
-apply plugin: 'app.cash.exhaustive'
-apply plugin: 'kotlin-parcelize'
-apply plugin: 'com.squareup.wire'
-
-
-repositories {
-    maven {
-        url "https://raw.githubusercontent.com/signalapp/maven/master/sqlcipher/release/"
-        content {
-            includeModule 'org.signal', 'android-database-sqlcipher'
-        }
-    }
-    maven {
-        url "https://raw.githubusercontent.com/mollyim/maven/master/argon2/releases/"
-        content {
-            includeModule 'im.molly', 'argon2'
-        }
-    }
-    maven {
-        url "https://raw.githubusercontent.com/mollyim/maven/master/ringrtc/releases/"
-        content {
-            includeModule 'im.molly', 'ringrtc-android'
-        }
-    }
-    maven {
-        url "https://raw.githubusercontent.com/mollyim/maven/master/native-utils/releases/"
-        content {
-            includeModule 'im.molly', 'native-utils'
-        }
-    }
-
-    google()
-    mavenCentral()
-    mavenLocal()
-    maven {
-        url "https://dl.cloudsmith.io/qxAgwaeEE1vN8aLU/mobilecoin/mobilecoin/maven/"
-    }
-    jcenter {
-        content {
-            includeVersion "mobi.upod", "time-duration-picker", "1.1.3"
-        }
-    }
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.google.protobuf'
+    id 'androidx.navigation.safeargs'
+    id 'org.jlleitschuh.gradle.ktlint'
+    id 'org.jetbrains.kotlin.android'
+    id 'app.cash.exhaustive'
+    id 'kotlin-parcelize'
+    id 'com.squareup.wire'
+    id 'android-constants'
+    id 'translations'
 }
 
 protobuf {
@@ -92,11 +55,11 @@ ext {
 
 ktlint {
     // Use a newer version to resolve https://github.com/JLLeitschuh/ktlint-gradle/issues/507
-    version = "0.43.2"
+    version = "0.47.1"
 }
 
-def canonicalVersionCode = 1213
-def canonicalVersionName = "6.11.7"
+def canonicalVersionCode = 1231
+def canonicalVersionName = "6.14.4"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -113,20 +76,21 @@ def selectableVariants = [
         'stagingFossWebsiteDebug',
         'stagingFossWebsiteRelease',
         'stagingGmsWebsiteDebug',
-        'stagingGmsWebsiteInstrumentation',
         'stagingGmsWebsiteRelease',
 ]
 
 android {
-    buildToolsVersion BUILD_TOOL_VERSION
-    compileSdkVersion COMPILE_SDK
+    namespace 'org.thoughtcrime.securesms'
+
+    buildToolsVersion = signalBuildToolsVersion
+    compileSdkVersion = signalCompileSdkVersion
 
     flavorDimensions 'environment', 'license', 'distribution'
     useLibrary 'org.apache.http.legacy'
     testBuildType 'instrumentation'
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         freeCompilerArgs = ["-Xallow-result-return-type"]
     }
 
@@ -163,11 +127,6 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError true
-        baseline file("lint-baseline.xml")
-        disable "LintError"
-    }
 
     sourceSets {
         test {
@@ -181,26 +140,19 @@ android {
 
     compileOptions {
         coreLibraryDesugaringEnabled true
-        sourceCompatibility JAVA_VERSION
-        targetCompatibility JAVA_VERSION
+        sourceCompatibility signalJavaVersion
+        targetCompatibility signalJavaVersion
     }
 
     packagingOptions {
-        exclude 'LICENSE.txt'
-        exclude 'LICENSE'
-        exclude 'NOTICE'
-        exclude 'asm-license.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/proguard/androidx-annotations.pro'
-        exclude 'libsignal_jni.dylib'
-        exclude 'signal_jni.dll'
-        exclude '**/*.proto'
+        resources {
+            excludes += ['LICENSE.txt', 'LICENSE', 'NOTICE', 'asm-license.txt', 'META-INF/LICENSE', 'META-INF/LICENSE.md', 'META-INF/NOTICE', 'META-INF/LICENSE-notice.md', 'META-INF/proguard/androidx-annotations.pro', 'libsignal_jni.dylib', 'signal_jni.dll', '**/*.proto']
+        }
         jniLibs {
             // MOLLY: Compress native libs by default as APK is not split on ABIs
             useLegacyPackaging true
-        }
-    }
+        }    }
+
 
     buildFeatures {
         viewBinding true
@@ -219,8 +171,8 @@ android {
         versionCode canonicalVersionCode * postFixSize + mollyRevision
         versionName project.hasProperty('CI') ? getCommitTag() : canonicalVersionName
 
-        minSdkVersion MINIMUM_SDK
-        targetSdkVersion TARGET_SDK
+        minSdkVersion signalMinSdkVersion
+        targetSdkVersion signalTargetSdkVersion
 
         multiDexEnabled true
 
@@ -253,8 +205,7 @@ android {
         buildConfigField "String", "CONTENT_PROXY_HOST", "\"contentproxy.signal.org\""
         buildConfigField "int", "CONTENT_PROXY_PORT", "443"
         buildConfigField "String", "SIGNAL_AGENT", "\"OWA\""
-        buildConfigField "String", "CDS_MRENCLAVE", "\"74778bb0f93ae1f78c26e67152bab0bbeb693cd56d1bb9b4e9244157acc58081\""
-        buildConfigField "String", "CDSI_MRENCLAVE", "\"ef4787a56a154ac6d009138cac17155acd23cfe4329281252365dd7c252e7fbf\""
+        buildConfigField "String", "CDSI_MRENCLAVE", "\"0f6fd79cdfdaa5b2e6337f534d3baf999318b0c462a7ac1f41297a3e4b424a57\""
         buildConfigField "org.thoughtcrime.securesms.KbsEnclave", "KBS_ENCLAVE", "new org.thoughtcrime.securesms.KbsEnclave(\"e18376436159cda3ad7a45d9320e382e4a497f26b0dca34d8eab0bd0139483b5\", " +
                                                                                                                            "\"3a485adb56e2058ef7737764c738c4069dd62bc457637eafb6bbce1ce29ddb89\", " +
                                                                                                                            "\"45627094b2ea4a66f4cf0b182858a8dcf4b8479122c3820fe7fd0551a6d4cf5c\")"
@@ -382,7 +333,6 @@ android {
             buildConfigField "String", "SIGNAL_CONTACT_DISCOVERY_URL", "\"https://api-staging.directory.signal.org\""
             buildConfigField "String", "SIGNAL_CDSI_URL", "\"https://cdsi.staging.signal.org\""
             buildConfigField "String", "SIGNAL_KEY_BACKUP_URL", "\"https://api-staging.backup.signal.org\""
-            buildConfigField "String", "CDS_MRENCLAVE", "\"74778bb0f93ae1f78c26e67152bab0bbeb693cd56d1bb9b4e9244157acc58081\""
             buildConfigField "org.thoughtcrime.securesms.KbsEnclave", "KBS_ENCLAVE", "new org.thoughtcrime.securesms.KbsEnclave(\"39963b736823d5780be96ab174869a9499d56d66497aa8f9b2244f777ebc366b\", " +
                                                                                                                                "\"9dbc6855c198e04f21b5cc35df839fdcd51b53658454dfa3f817afefaffc95ef\", " +
                                                                                                                                "\"45627094b2ea4a66f4cf0b182858a8dcf4b8479122c3820fe7fd0551a6d4cf5c\")"
@@ -395,6 +345,12 @@ android {
             buildConfigField "String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/staging/registration/generate.html\""
             buildConfigField "String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/staging/challenge/generate.html\""
         }
+    }
+
+    lint {
+        abortOnError true
+        baseline file('lint-baseline.xml')
+        disable 'LintError'
     }
 
     android.applicationVariants.all { variant ->
@@ -432,7 +388,7 @@ dependencies {
 
     implementation (libs.androidx.appcompat) {
         version {
-            strictly '1.5.1'
+            strictly '1.6.1'
         }
     }
     implementation libs.androidx.window.window
@@ -440,7 +396,6 @@ dependencies {
     implementation libs.androidx.recyclerview
     implementation libs.material.material
     implementation libs.androidx.legacy.support
-    implementation libs.androidx.cardview
     implementation libs.androidx.preference
     implementation libs.androidx.legacy.preference
     implementation libs.androidx.gridlayout
@@ -518,7 +473,6 @@ dependencies {
     implementation libs.greenrobot.eventbus
     implementation libs.waitingdots
     implementation libs.google.zxing.android.integration
-    implementation libs.time.duration.picker
     implementation libs.google.zxing.core
     implementation libs.google.flexbox
     implementation (libs.subsampling.scale.image.view) {
@@ -571,6 +525,7 @@ dependencies {
     androidTestImplementation testLibs.androidx.test.ext.junit.ktx
     androidTestImplementation testLibs.mockito.android
     androidTestImplementation testLibs.mockito.kotlin
+    androidTestImplementation testLibs.mockk.android
     androidTestImplementation testLibs.square.okhttp.mockserver
 
     instrumentationImplementation (libs.androidx.fragment.testing) {
@@ -586,6 +541,7 @@ dependencies {
     androidTestUtil testLibs.androidx.test.orchestrator
 
     implementation project(':core-ui')
+    ktlintRuleset libs.ktlint.twitter.compose
 }
 
 static def getCommitTag() {

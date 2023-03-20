@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.push
 
 import android.content.Context
+import com.google.i18n.phonenumbers.PhoneNumberUtil
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
 import okhttp3.Interceptor
@@ -14,7 +15,6 @@ import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor
 import org.thoughtcrime.securesms.net.Network
 import org.thoughtcrime.securesms.net.RemoteDeprecationDetectorInterceptor
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor
-import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.util.Base64
 import org.whispersystems.signalservice.api.push.TrustStore
 import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl
@@ -174,7 +174,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     StandardUserAgentInterceptor(),
     RemoteDeprecationDetectorInterceptor(),
     DeprecatedClientPreventionInterceptor(),
-    DeviceTransferBlockingInterceptor.getInstance(),
+    DeviceTransferBlockingInterceptor.getInstance()
   )
 
   private val zkGroupServerPublicParams: ByteArray = try {
@@ -188,7 +188,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     HostConfig(HTTPS_ANDROID_CLIENTS_GOOGLE_COM, G_HOST, PLAY_CONNECTION_SPEC),
     HostConfig(HTTPS_CLIENTS_3_GOOGLE_COM, G_HOST, GMAPS_CONNECTION_SPEC),
     HostConfig(HTTPS_CLIENTS_4_GOOGLE_COM, G_HOST, GMAPS_CONNECTION_SPEC),
-    HostConfig(HTTPS_INBOX_GOOGLE_COM, G_HOST, GMAIL_CONNECTION_SPEC),
+    HostConfig(HTTPS_INBOX_GOOGLE_COM, G_HOST, GMAIL_CONNECTION_SPEC)
   )
 
   private val fUrls = arrayOf(HTTPS_CDN_SSTATIC_NET, HTTPS_GITHUB_GITHUBASSETS_COM, HTTPS_PINTEREST_COM, HTTPS_OPEN_SCDN_CO, HTTPS_WWW_REDDITSTATIC_COM)
@@ -197,7 +197,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     fUrls.map { SignalServiceUrl(it, F_SERVICE_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
     mapOf(
       0 to fUrls.map { SignalCdnUrl(it, F_CDN_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
-      2 to fUrls.map { SignalCdnUrl(it, F_CDN2_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
+      2 to fUrls.map { SignalCdnUrl(it, F_CDN2_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray()
     ),
     fUrls.map { SignalKeyBackupServiceUrl(it, F_KBS_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
     fUrls.map { SignalStorageUrl(it, F_STORAGE_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
@@ -206,30 +206,30 @@ open class SignalServiceNetworkAccess(context: Context) {
     Network.socketFactory,
     Network.proxySelectorForSocks,
     Network.dns,
-    zkGroupServerPublicParams,
+    zkGroupServerPublicParams
   )
 
   private val censorshipConfiguration: Map<Int, SignalServiceConfiguration> = mapOf(
     COUNTRY_CODE_EGYPT to buildGConfiguration(
-      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_EG, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_EG, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_UAE to buildGConfiguration(
-      listOf(HostConfig(HTTPS_WWW_GOOGLE_AE, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_AE, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_OMAN to buildGConfiguration(
-      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_OM, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_OM, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_QATAR to buildGConfiguration(
-      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_QA, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_QA, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_UZBEKISTAN to buildGConfiguration(
-      listOf(HostConfig(HTTPS_WWW_GOOGLE_CO_UZ, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_CO_UZ, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_UKRAINE to buildGConfiguration(
-      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_UA, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs,
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_UA, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_IRAN to fConfig,
-    COUNTRY_CODE_CUBA to fConfig,
+    COUNTRY_CODE_CUBA to fConfig
   )
 
   private val defaultCensoredConfiguration: SignalServiceConfiguration = buildGConfiguration(baseGHostConfigs)
@@ -241,7 +241,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     COUNTRY_CODE_QATAR,
     COUNTRY_CODE_IRAN,
     COUNTRY_CODE_CUBA,
-    COUNTRY_CODE_UZBEKISTAN,
+    COUNTRY_CODE_UZBEKISTAN
   )
 
   open val uncensoredConfiguration: SignalServiceConfiguration = SignalServiceConfiguration(
@@ -257,19 +257,19 @@ open class SignalServiceNetworkAccess(context: Context) {
     Network.socketFactory,
     Network.proxySelectorForSocks,
     Network.dns,
-    zkGroupServerPublicParams,
+    zkGroupServerPublicParams
   )
 
   open fun getConfiguration(): SignalServiceConfiguration {
     return getConfiguration(SignalStore.account().e164)
   }
 
-  open fun getConfiguration(localNumber: String?): SignalServiceConfiguration {
-    if (localNumber == null) {
+  open fun getConfiguration(e164: String?): SignalServiceConfiguration {
+    if (e164.isNullOrEmpty()) {
       return uncensoredConfiguration
     }
 
-    val countryCode: Int = PhoneNumberFormatter.getLocalCountryCode()
+    val countryCode: Int = PhoneNumberUtil.getInstance().parse(e164, null).countryCode
 
     return when (SignalStore.settings().censorshipCircumventionEnabled) {
       SettingsValues.CensorshipCircumventionEnabled.ENABLED -> {
@@ -323,7 +323,7 @@ open class SignalServiceNetworkAccess(context: Context) {
       Network.socketFactory,
       Network.proxySelectorForSocks,
       Network.dns,
-      zkGroupServerPublicParams,
+      zkGroupServerPublicParams
     )
   }
 

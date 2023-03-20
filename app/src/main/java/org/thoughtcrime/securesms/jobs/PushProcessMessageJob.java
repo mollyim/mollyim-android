@@ -9,7 +9,6 @@ import androidx.annotation.WorkerThread;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.groups.BadGroupIdException;
 import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobmanager.Data;
@@ -51,31 +50,6 @@ public final class PushProcessMessageJob extends BaseJob {
   @Nullable private final ExceptionMetadata    exceptionMetadata;
             private final long                 smsMessageId;
             private final long                 timestamp;
-
-  @WorkerThread
-  PushProcessMessageJob(@NonNull SignalServiceContent content,
-                        long smsMessageId,
-                        long timestamp)
-  {
-    this(MessageState.DECRYPTED_OK,
-         content,
-         null,
-         smsMessageId,
-         timestamp);
-  }
-
-  @WorkerThread
-  PushProcessMessageJob(@NonNull MessageState messageState,
-                        @NonNull ExceptionMetadata exceptionMetadata,
-                        long smsMessageId,
-                        long timestamp)
-  {
-    this(messageState,
-         null,
-         exceptionMetadata,
-         smsMessageId,
-         timestamp);
-  }
 
   @WorkerThread
   public PushProcessMessageJob(@NonNull MessageState messageState,
@@ -185,7 +159,7 @@ public final class PushProcessMessageJob extends BaseJob {
 
   @Override
   public void onRun() throws Exception {
-    MessageContentProcessor processor = MessageContentProcessor.forNormalContent(context);
+    MessageContentProcessor processor = MessageContentProcessor.create(context);
     processor.process(messageState, content, exceptionMetadata, timestamp, smsMessageId);
   }
 

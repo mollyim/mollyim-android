@@ -406,7 +406,7 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
     @JsonProperty val linkText: String?,
     @JsonProperty val title: String,
     @JsonProperty val body: String,
-    @JsonProperty val callToActionText: String?,
+    @JsonProperty val callToActionText: String?
   )
 
   class TranslatedRemoteMegaphone @JsonCreator constructor(
@@ -415,7 +415,7 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
     @JsonProperty val title: String,
     @JsonProperty val body: String,
     @JsonProperty val primaryCtaText: String?,
-    @JsonProperty val secondaryCtaText: String?,
+    @JsonProperty val secondaryCtaText: String?
   )
 
   class Factory : Job.Factory<RetrieveRemoteAnnouncementsJob> {

@@ -48,12 +48,19 @@ import kotlin.math.max
  */
 class DefaultMessageNotifier(context: Application) : MessageNotifier {
   @Volatile private var visibleThread: ConversationId? = null
+
   @Volatile private var lastDesktopActivityTimestamp: Long = -1
+
   @Volatile private var lastAudibleNotification: Long = -1
+
   @Volatile private var lastScheduledReminder: Long = 0
+
   @Volatile private var previousLockedStatus: Boolean = KeyCachingService.isLocked()
-  @Volatile private var previousPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings().messageNotificationsPrivacy
+
   @Volatile private var previousScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
+
+  @Volatile private var previousPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings().messageNotificationsPrivacy
+
   @Volatile private var previousState: NotificationState = NotificationState.EMPTY
 
   private val threadReminders: MutableMap<ConversationId, Reminder> = ConcurrentHashMap()

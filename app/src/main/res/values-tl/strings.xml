@@ -14,6 +14,7 @@
   <!-- Removed by excludeNonTranslatables <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
 
     <string name="yes">Oo</string>
     <string name="no">Hindi</string>
@@ -97,8 +98,8 @@
 
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Blocked users</string>
-    <string name="BlockedUsersActivity__add_blocked_user">I-add ang blocked user</string>
-    <string name="BlockedUsersActivity__blocked_users_will">Ang mga user na naka-block ay hindi magagawang tawagan ka o padalhan ka ng mga mensahe.</string>
+    <string name="BlockedUsersActivity__add_blocked_user">Mag-add ng blocked user</string>
+    <string name="BlockedUsersActivity__blocked_users_will">Hindi makakatawag o makakapag-send sa \'yo ng messages ang blocked users.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Walang blocked users</string>
     <string name="BlockedUsersActivity__block_user">Gusto mo bang i-block ang user na ito?</string>
     <string name="BlockedUserActivity__s_will_not_be_able_to">Hindi na makakatawag o makakapag-send ng messages si \"%1$s\" sa\'yo.</string>
@@ -147,16 +148,16 @@
     <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Pwede niyo nang i-message at tawagan ang isa\'t isa at ang pangalan at photo mo ay ibabahagi rin sa kanya.</string>
     <!-- Text that is shown when unblocking an SMS contact -->
     <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">Pwede niyo nang i-message ang isa\'t isa.</string>
-    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Hindi makakatawag o makakapag-send ng messages ang blocked users sa\'yo.</string>
-    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Hindi ka mapapadalhan ng messages ng mga taong binlock mo.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Hindi makakatawag o makakapag-send ng messages sa \'yo ang mga binlock mong tao.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Hindi makakapag-send ng messages sa \'yo ang mga binlock mong tao.</string>
     <!-- Message shown on block dialog when blocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">I-block ang pag-receive ng updates at news mula sa Signal.</string>
     <!-- Message shown on unblock dialog when unblocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_resume_getting_signal_updates_and_news">I-resume ang pag-receive ng updates at news mula sa Signal.</string>
-    <string name="BlockUnblockDialog_unblock_s">I-unblock ang %1$s?</string>
+    <string name="BlockUnblockDialog_unblock_s">Gusto mo bang i-unblock ang %1$s?</string>
     <string name="BlockUnblockDialog_block">I-block</string>
     <string name="BlockUnblockDialog_block_and_leave">I-block at Umalis</string>
-    <string name="BlockUnblockDialog_report_spam_and_block">I-report ang spam at i-block</string>
+    <string name="BlockUnblockDialog_report_spam_and_block">I-report bilang spam at i-block</string>
 
     <!-- BucketedThreadMedia -->
     <string name="BucketedThreadMedia_Today">Ngayong araw</string>
@@ -366,7 +367,7 @@
 
     <string name="ConversationActivity_error_sending_media">Error sending media</string>
 
-    <string name="ConversationActivity__reported_as_spam_and_blocked">Reported bilang spam at naka-block na.</string>
+    <string name="ConversationActivity__reported_as_spam_and_blocked">Ni-report bilang spam at na-block na.</string>
 
     <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
     <string name="ConversationActivity__sms_messaging_is_currently_disabled_you_can_export_your_messages_to_another_app_on_your_phone">Disabled sa ngayon ang SMS messaging. Pwede mong i-export ang iyong messages sa ibang app sa phone mo.</string>
@@ -496,12 +497,12 @@
         <item quantity="other">Unpin</item>
     </plurals>
     <plurals name="ConversationListFragment_mute_plural">
-        <item quantity="one">Mute</item>
-        <item quantity="other">Mute</item>
+        <item quantity="one">I-mute</item>
+        <item quantity="other">I-mute</item>
     </plurals>
     <plurals name="ConversationListFragment_unmute_plural">
-        <item quantity="one">Unmute</item>
-        <item quantity="other">Unmute</item>
+        <item quantity="one">I-unmute</item>
+        <item quantity="other">I-unmute</item>
     </plurals>
     <string name="ConversationListFragment_select">Select</string>
     <plurals name="ConversationListFragment_archive_plural">
@@ -541,6 +542,15 @@
 
     <!-- ConversationTypingView -->
     <string name="ConversationTypingView__plus_d">+%1$d</string>
+
+    <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__relink_your_devices">I-relink ang devices mo</string>
+    <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">Na-unlink ang devices na inilagay mo noong na-unregister ang iyong device. Pumunta sa Settings para i-relink ang anumang devices.</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
+    <string name="RelinkDevicesReminderFragment__open_settings">Buksan ang settings</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
+    <string name="RelinkDevicesReminderFragment__later">Mamaya na lang</string>
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Piliin ang members</string>
@@ -935,7 +945,7 @@
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">I-notify ako sa Mentions</string>
-    <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Gusto mo bang makatanggap ng notifications kapag ikaw ay na-mention sa muted chats?</string>
+    <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Gusto mo bang makatanggap ng notifications kapag na-mention ka sa muted chats?</string>
     <string name="GroupMentionSettingDialog_always_notify_me">I-notify ako palagi</string>
     <string name="GroupMentionSettingDialog_dont_notify_me">\'Wag akong i-notify</string>
 
@@ -953,6 +963,16 @@
     <string name="ManageProfileFragment__username_created">Nagawa na ang username</string>
     <!-- Snackbar message after copying username -->
     <string name="ManageProfileFragment__username_copied">Nakopya na ang username</string>
+    <!-- Snackbar message after network failure while trying to delete username -->
+    <string name="ManageProfileFragment__couldnt_delete_username">Hindi mabura ang username. Subukan ulit mamaya.</string>
+    <!-- Snackbar message after successful deletion of username -->
+    <string name="ManageProfileFragment__username_deleted">Nabura na ang username</string>
+
+    <!-- UsernameOutOfSyncReminder -->
+    <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
+    <string name="UsernameOutOfSyncReminder__something_went_wrong">Nagkaroon ng problema sa username mo, hindi na ito naka-assign sa iyong account. Maaari mong subukang ilagay ito ulit o pumili ng bago.</string>
+    <!-- Action text to navigate user to manually fix the issue with their username -->
+    <string name="UsernameOutOfSyncReminder__fix_now">Ayusin</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -1156,8 +1176,8 @@
     <string name="Megaphones_new_group">Bagong grupo</string>
     <string name="Megaphones_invite_friends">Imbitahan ang mga kaibigan</string>
     <string name="Megaphones_use_sms">Gamitin ang SMS</string>
-    <string name="Megaphones_appearance">Hitsura</string>
-    <string name="Megaphones_add_photo">Mag-add ng photo</string>
+    <string name="Megaphones_chat_colors">Chat colors</string>
+    <string name="Megaphones_add_a_profile_photo">Mag-add ng profile photo</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Replies</string>
@@ -1472,10 +1492,10 @@
     <string name="MessageRequestBottomView_unblock">I-unblock</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Hayaang mag-message si %1$s sa\'yo at i-share sa kanya ang pangalan at photo mo? Hindi niya malalaman na nakita mo ang kanyang message hanggang sa i-accept mo ito.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Hayaang mag-message si %1$s sa\'yo at i-share sa kanya ang pangalan at photo mo? Hindi niya malalaman na nakita mo ang kanyang message hanggang sa i-unblock mo siya.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Hayaang mag-message si %1$s sa \'yo at i-share sa kanya ang pangalan at photo mo? Hindi ka makakatanggap ng anumang message hanggang sa i-unblock mo siya.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Hayaang mag-message si %1$s sa\'yo? Hindi niya malalaman na nakita mo ang kanyang message hanggang sa i-unblock mo siya.</string>
-    <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Gusto mo bang makakuha ng updates at news mula kay %1$s? Hindi ka makakatanggap ng anumang updates hanggang sa i-unblock mo siya.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Hayaang mag-message si %1$s sa\'yo? Hindi ka makakatanggap ng anumang message hanggang sa i-unblock mo siya.</string>
+    <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Gusto mo bang makakuha ng updates at news mula kay %1$s? Hindi ka makakatanggap ng anumang update hanggang sa i-unblock mo siya.</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Gusto mo bang ipagpatuloy ang iyong conversation sa group na ito at i-share sa members nito ang pangalan at photo mo?</string>
     <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">I-upgrade ang group na ito para ma-activate ang bagong features gaya ng @mentions at admins. Ang members na hindi nai-share ang kanilang pangalan at photo sa group na ito ay iimbitahang mag-join.</string>
     <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">Ang Legacy Group na ito\'y hindi na pwedeng gamitin dahil masyado na itong malaki. Ang maximum group size ay %1$d.</string>
@@ -1483,7 +1503,7 @@
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Gusto mo bang mag-join sa group na ito at i-share sa members ang pangalan at photo mo? Hindi nila malalaman na nakita mo ang kanilang messages hanggang sa i-accept mo ito.</string>
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">Gusto mo bang mag-join sa group na ito at i-share sa members ang pangalan at photo mo? Hindi mo makikita ang kanilang messages hanggang sa i-accept mo ito.</string>
     <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Gusto mo bang mag-join sa group na ito? Hindi nila malalaman na nakita mo ang kanilang messages hanggang sa i-accept mo ito.</string>
-    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Gusto mo bang i-unblock ang group na ito at i-share sa members ang pangalan at photo mo? Wala kang matatanggap na anumang mensahe hangga\'t hindi mo sila ina-unblock.</string>
+    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Gusto mo bang i-unblock ang group na ito at i-share sa members ang pangalan at photo mo? Hindi ka makakatanggap ng anumang message hanggang sa i-unblock mo sila.</string>
   <!-- Removed by excludeNonTranslatables <string name="MessageRequestBottomView_legacy_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <string name="MessageRequestProfileView_view">Tingnan</string>
     <string name="MessageRequestProfileView_member_of_one_group">Kasapi ng %1$s</string>
@@ -1584,9 +1604,20 @@
     <string name="PinRestoreLockedFragment_create_new_pin">Gumawa ng bagong PIN</string>
   <!-- Removed by excludeNonTranslatables <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
+    <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
+    <string name="ReRegisterWithPinFragment_send_sms_code">I-send ang SMS code</string>
+    <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
+    <string name="ReRegisterWithPinFragment_support_email_subject">Signal Registration - Kailangan ng Tulong sa pag-register ulit ng PIN sa Android</string>
+    <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
+    <string name="ReRegisterWithPinFragment_need_help_local">Ang iyong PIN ay isang %1$d+ digit code na ginawa mo at maaari itong numeric o alphanumeric.\n\nKung hindi mo maalala ang iyong PIN, maaari kang gumawa ng bago.</string>
+    <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
+    <string name="ReRegisterWithPinFragment_skip_local">Kung hindi mo maalala ang iyong PIN, maaari kang gumawa ng bago.</string>
+    <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
+    <string name="ReRegisterWithPinFragment_out_of_guesses_local">Naubusan ka na ng PIN guesses, pero maaari mo pa ring ma-access ang iyong Signal account sa pamamagitan ng paggawa ng bagong PIN.</string>
+
     <!-- PinOptOutDialog -->
     <string name="PinOptOutDialog_warning">Babala</string>
-    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Kung idi-disable mo ang iyong PIN, mawawala ang lahat ng data kapag ika\'y nag-register ulit sa Signal maliban nalang kung manually kang nag-back up and restore. Hindi mo pwedeng i-turn on ang Registration Lock habang naka-disable ang PIN.</string>
+    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Kapag dinisable mo ang iyong PIN, mawawala ang lahat ng data kapag nag-register ka ulit sa Signal maliban na lang kung manually kang nag-back up at restore. Hindi mo pwedeng i-on ang Registration Lock habang naka-disable ang PIN.</string>
     <string name="PinOptOutDialog_disable_pin">I-disable ang PIN</string>
 
     <!-- RatingManager -->
@@ -1713,7 +1744,7 @@
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallView__unmute">I-unmute</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__mute">I-Mute</string>
+    <string name="WebRtcCallView__mute">I-mute</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallView__ring">Ring</string>
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -1726,12 +1757,12 @@
     </plurals>
 
     <!-- CallParticipantView -->
-    <string name="CallParticipantView__s_is_blocked">Si %1$s ay naka-block</string>
+    <string name="CallParticipantView__s_is_blocked">Naka-block si %1$s</string>
     <string name="CallParticipantView__more_info">Mas marami pang Info</string>
     <string name="CallParticipantView__you_wont_receive_their_audio_or_video">Hindi mo mare-receive ang kanyang audio o video at hindi niya rin mare-receive ang audio o video na galing sa\'yo.</string>
     <string name="CallParticipantView__cant_receive_audio_video_from_s">Hindi ma-receive ang audio at video galing kay %1$s</string>
     <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Hindi ma-receive ang audio at video galing kay %1$s</string>
-    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Maaaring ito ay dahil hindi niya na-verify ang iyong safety number change, may problema sa kanyang device, o naka-block ka sa kanya.</string>
+    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Maaaring ito ay dahil hindi niya na-verify ang iyong safety number change, may problema sa kanyang device, o binlock ka n\'ya.</string>
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">I-swipe para ma-view ang screen share</string>
@@ -1768,11 +1799,18 @@
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Kinakailangan ng Signal ng pahintulot para ma-access ang contacts at media para maka-connect ka sa friends mo at makapag-send ng message. Ina-upload ang contacts mo gamit ang private contact discovery ng Signal, kung saan end-to-end encrypted ang mga ito at hindi kailanman makikita ng Signal service.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Kinakailangan ng Signal ng pahintulot para ma-access ang contacts para maka-connect ka sa friends mo. Ina-upload ang contacts mo gamit ang private contact discovery ng Signal, kung saan end-to-end encrypted ang mga ito at hindi kailanman makikita ng Signal service.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Nakagawa ka ng napakaraming pagtatangkang irehistro ang numerong ito. Pakiusap na subukang muli kinalaunan.</string>
+    <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
+    <string name="RegistrationActivity_rate_limited_to_try_again">Masyadong maraming beses mo nang sinubukang i-register ang number na ito. Subukan ulit pagkatapos ng %1$s.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Hindi makakonekta sa serbisyo. Pakisuri ang koneksyon ng network at subukang muli.</string>
     <string name="RegistrationActivity_non_standard_number_format">Non-standard number format</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Ang number na nilagay mo (%1$s) ay mukhang isang non-standard format.\n\nDid you mean %2$s?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Phone Number Format</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Call requested</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+    <string name="RegistrationActivity_sms_requested">Nag-request ng SMS</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+    <string name="RegistrationActivity_code_requested">Nag-request ng verification code</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="one">Ikaw ngayon ay %1$d layong-hakbang na lang sa pagsusumite ng debug log.</item>
         <item quantity="other">%1$d hakbang ka pa para makapagsumite ng debug log.</item>
@@ -1792,6 +1830,16 @@
     <string name="RegistrationActivity_call">Tawag</string>
     <string name="RegistrationActivity_verification_code">Verification Code</string>
     <string name="RegistrationActivity_resend_code">I-resend ang Code</string>
+    <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_title">Nagkakaproblema ka ba sa pag-register?</string>
+    <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Siguraduhing may signal ang iyong phone para maka-receive ka ng verification code sa SMS o tawag\n • Kumpirmahing nakaka-receive ka ng tawag sa number mo\n • I-check kung tama ang phone number na inilagay mo.</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Para sa iba pang impormasyon, sundin ang sumusunod na troubleshooting steps o Kontakin ang Support</string>
+    <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">ang sumusunod na troubleshooting steps</string>
+    <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">Kontakin ang Support</string>
 
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Paganahin ang Registration Lock?</string>
@@ -1953,11 +2001,15 @@
     <!-- Displayed in the conversation list when someone reacted to your story -->
     <string name="ThreadRecord__reacted_s_to_your_story">Nag-react ng %1$s sa story mo</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
-    <string name="ThreadRecord__reacted_s_to_their_story">Nag-react ng %1$s sa story nila</string>
+    <string name="ThreadRecord__reacted_s_to_their_story">Nag-react ng %1$s sa story niya</string>
     <!-- Displayed in the conversation list when your most recent message is a payment to or from the person the conversation is with -->
     <string name="ThreadRecord_payment">Payment</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">Scheduled message</string>
+    <!--  Displayed in the conversation list when your message history has been merged -->
+    <string name="ThreadRecord_message_history_has_been_merged">Na-merge na ang iyong message history</string>
+    <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
+    <string name="ThreadRecord_s_belongs_to_s">Kay %2$s ang %1$s</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Update sa Molly</string>
@@ -2030,7 +2082,7 @@
     <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">Ang MMS na mensahe ay naka-encrypt para sa hindi-umiiral na sesyon</string>
 
     <!-- MuteDialog -->
-    <string name="MuteDialog_mute_notifications">Patahimikin ang mga notipikasyon</string>
+    <string name="MuteDialog_mute_notifications">I-mute ang notifications</string>
 
     <!-- ApplicationMigrationService -->
     <string name="ApplicationMigrationService_import_in_progress">Isinasagawa ang pag-i-import</string>
@@ -2089,11 +2141,13 @@
     <string name="MessageNotifier_unknown_contact_message">Kontak</string>
     <string name="MessageNotifier_reacted_s_to_s">Nag-react ng %1$s sa: \"%2$s\".</string>
     <string name="MessageNotifier_reacted_s_to_your_video">Nag-react ng %1$s sa iyong video.</string>
-    <string name="MessageNotifier_reacted_s_to_your_image">Nag-react ng %1$s sa iyong imahe.</string>
-    <string name="MessageNotifier_reacted_s_to_your_gif">Reacted %1$s to your GIF.</string>
+    <string name="MessageNotifier_reacted_s_to_your_image">Nag-react ng %1$s sa iyong image.</string>
+    <string name="MessageNotifier_reacted_s_to_your_gif">Nag-react ng %1$s sa iyong GIF.</string>
     <string name="MessageNotifier_reacted_s_to_your_file">Nag-react ng %1$s sa iyong file.</string>
     <string name="MessageNotifier_reacted_s_to_your_audio">Nag-react ng %1$s sa iyong audio.</string>
-    <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reacted %1$s to your view-once media.</string>
+    <string name="MessageNotifier_reacted_s_to_your_view_once_media">Nag-react ng %1$s sa iyong view-once media.</string>
+    <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
+    <string name="MessageNotifier_reacted_s_to_your_payment">Reacted %1$s to your payment.</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">Nag-react ng %1$s sa iyong sticker.</string>
     <string name="MessageNotifier_this_message_was_deleted">Nabura na ang message na ito.</string>
 
@@ -2487,8 +2541,8 @@
 
     <!-- BadDecryptLearnMoreDialog -->
     <string name="BadDecryptLearnMoreDialog_delivery_issue">Delivery Issue</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">Ang message, sticker, reaction, o read receipt mula kay %1$s ay hindi ma-deliver sa\'yo. Maaaring sinubukan niyang i-send ito sa\'yo directly o sa isang group.</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">Ang message, sticker, reaction, o read receipt mula kay %1$s ay hindi ma-deliver sa\'yo.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">Hindi ma-deliver sa \'yo ang message, sticker, reaction, o read receipt mula kay %1$s. Maaaring sinubukan niyang i-send ito sa \'yo directly o sa isang group.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">Hindi ma-deliver sa \'yo ang message, sticker, reaction, o read receipt mula kay %1$s.</string>
 
     <!-- profile_create_activity -->
     <string name="CreateProfileActivity_first_name_required">Pangalan (kailangan)</string>
@@ -2555,7 +2609,7 @@
 
     <!-- message_details_recipient_header -->
     <string name="message_details_recipient_header__pending_send">Pending</string>
-    <string name="message_details_recipient_header__sent_to">Sent to</string>
+    <string name="message_details_recipient_header__sent_to">Sinend kay</string>
     <string name="message_details_recipient_header__sent_from">Sent from</string>
     <string name="message_details_recipient_header__delivered_to">Delivered to</string>
     <string name="message_details_recipient_header__read_by">Read by</string>
@@ -2635,10 +2689,10 @@
     <string name="arrays__use_default">Gamitin ang default</string>
     <string name="arrays__use_custom">Gumamit ng custom</string>
 
-    <string name="arrays__mute_for_one_hour">Patahimikin nang 1 oras</string>
-    <string name="arrays__mute_for_eight_hours">I-mute for 8 hours</string>
-    <string name="arrays__mute_for_one_day">Patahimikin nang 1 araw</string>
-    <string name="arrays__mute_for_seven_days">Patahimikin nang 7 araw</string>
+    <string name="arrays__mute_for_one_hour">I-mute sa loob ng 1 oras</string>
+    <string name="arrays__mute_for_eight_hours">I-mute sa loob ng 8 oras</string>
+    <string name="arrays__mute_for_one_day">I-mute sa loob ng 1 araw</string>
+    <string name="arrays__mute_for_seven_days">I-mute sa loob ng 7 araw</string>
     <string name="arrays__always">Always</string>
 
     <string name="arrays__settings_default">Default ng settings</string>
@@ -2675,7 +2729,7 @@
     <string name="preferences__pref_use_address_book_photos">Use address book photos</string>
     <string name="preferences__display_contact_photos_from_your_address_book_if_available">I-display ang contact photos mula sa address book mo kung available</string>
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__pref_keep_muted_chats_archived">Panatilihin sa Archive ang Muted Chats</string>
+    <string name="preferences__pref_keep_muted_chats_archived">Panatilihinng Naka-archive ang Muted Chats</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
     <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Mananatili sa archive ang muted chats kahit may bagong message na dumating.</string>
     <string name="preferences__generate_link_previews">Mag-generate ng link previews</string>
@@ -2971,7 +3025,7 @@
     <string name="PaymentsDetailsFragment__sent_payment">Sent payment</string>
     <string name="PaymentsDetailsFragment__received_payment">Received payment</string>
     <string name="PaymentsDeatilsFragment__payment_completed_s">Payment completed%1$s</string>
-    <string name="PaymentsDetailsFragment__block_number">I-block ang number</string>
+    <string name="PaymentsDetailsFragment__block_number">Block number</string>
 
     <!-- PaymentsTransferFragment -->
     <string name="PaymentsTransferFragment__transfer">Transfer</string>
@@ -3128,10 +3182,10 @@
     <!-- conversation_secure_verified -->
 
     <!-- conversation_muted -->
-    <string name="conversation_muted__unmute">Huwag nang patahimikin</string>
+    <string name="conversation_muted__unmute">I-unmute</string>
 
     <!-- conversation_unmuted -->
-    <string name="conversation_unmuted__mute_notifications">Patahimikin ang mga notipikasyon</string>
+    <string name="conversation_unmuted__mute_notifications">I-mute ang notifications</string>
 
     <!-- conversation -->
     <string name="conversation__menu_group_settings">Group settings</string>
@@ -3295,6 +3349,8 @@
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">Ilagay ang iyong PIN</string>
     <string name="RegistrationLockFragment__enter_the_pin_you_created">Ipasok ang PIN na iyong nilikha para sa iyong account. Ito ay iba sa iyong SMS verification code.</string>
+    <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
+    <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">Ilagay ang ginawa mong PIN para sa account na ito.</string>
     <string name="RegistrationLockFragment__enter_alphanumeric_pin">Ilagay ang alphanumeric na PIN</string>
     <string name="RegistrationLockFragment__enter_numeric_pin">Ilagay ang numeric na PIN</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">Hindi tama ang PIN. Subukang muli.</string>
@@ -3398,7 +3454,10 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Ang backup mo ay may lamang masyadong malaking file na hindi ma-back up. Mangyaring burahin ito at gumawa ng bagong backup.</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">I-tap to manage backups.</string>
     <string name="RegistrationActivity_wrong_number">Maling number?</string>
+    <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">Tawagan ako (%1$02d:%2$02d)</string>
+    <!--    Countdown to when the user can request a new SMS code during registration.-->
+    <string name="RegistrationActivity_resend_sms_available_in">I-resend ang Code (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">Makipag-ugnayan sa Suporta ng Signal</string>
     <string name="RegistrationActivity_code_support_subject">Pagpaparehistro sa Signal - Verification Code para sa Android</string>
     <string name="RegistrationActivity_incorrect_code">Maling kodigo</string>
@@ -3406,6 +3465,18 @@
     <string name="BackupUtil_unknown">Hindi alam</string>
     <string name="preferences_app_protection__see_my_phone_number">Ipakita ang aking phone number</string>
     <string name="preferences_app_protection__find_me_by_phone_number">Find me by phone number</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">Phone number</string>
+    <!-- Subtext below option to launch into phone number privacy settings screen -->
+    <string name="preferences_app_protection__choose_who_can_see">Piliin kung sinong pwedeng makakita ng phone number mo at kung sinong pwedeng kumontak sa \'yo sa Molly gamit ito.</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Sinong makakakita ng number ko</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Walang makakakita ng phone number mo sa Molly</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Sinong makakahanap sa \'kin gamit ang number ko</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Makikita ng lahat ng tao at groups na mine-message mo ang iyong phone number. Makikita ka sa Molly bilang isang contact ng sinumang may phone number mo sa kanilang contacts.</string>
     <string name="PhoneNumberPrivacy_everyone">Everyone</string>
     <string name="PhoneNumberPrivacy_my_contacts">My contacts</string>
     <string name="PhoneNumberPrivacy_nobody">Nobody</string>
@@ -3615,9 +3686,9 @@
 
     <!-- StorageUtil -->
     <string name="StorageUtil__s_s">%1$s/%2$s</string>
-    <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" has been blocked.</string>
-    <string name="BlockedUsersActivity__failed_to_block_s">Failed to block \"%1$s\"</string>
-    <string name="BlockedUsersActivity__s_has_been_unblocked">\"%1$s\" has been unblocked.</string>
+    <string name="BlockedUsersActivity__s_has_been_blocked">Binlock si \"%1$s\".</string>
+    <string name="BlockedUsersActivity__failed_to_block_s">Hindi na-block si \"%1$s\"</string>
+    <string name="BlockedUsersActivity__s_has_been_unblocked">In-unblock si \"%1$s\".</string>
 
     <!-- ReviewCardDialogFragment -->
     <string name="ReviewCardDialogFragment__review_members">I-review ang Members</string>
@@ -3667,7 +3738,7 @@
     <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">Lumipat sa data connection dahil unstable ang Wi-Fi connection.</string>
 
     <!-- DeleteAccountFragment -->
-    <string name="DeleteAccountFragment__deleting_your_account_will">Ang pag-delete ng iyong account ay magreresulta sa:</string>
+    <string name="DeleteAccountFragment__deleting_your_account_will">Ang pagbura ng iyong account ay magreresulta sa:</string>
     <string name="DeleteAccountFragment__enter_your_phone_number">Ilagay ang numero ng iyong telepono</string>
     <string name="DeleteAccountFragment__delete_account">Burahin ang account</string>
     <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Burahin ang iyong contact info at profile photo</string>
@@ -3677,7 +3748,7 @@
     <string name="DeleteAccountFragment__no_number">Walang specified na number</string>
     <string name="DeleteAccountFragment__the_phone_number">Ang nilagay mong phone number ay hindi match sa number ng iyong account.</string>
     <string name="DeleteAccountFragment__are_you_sure">Sigurado ka bang nais mong burahin ang iyong account?</string>
-    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Buburahin nito ang iyong Signal account at mare-reset ang app. Sasara ang app pagkatapos nito.</string>
+    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Buburahin nito ang iyong Signal account at ire-reset ang app. Magsasara ang app pagkatapos ng proseso.</string>
     <string name="DeleteAccountFragment__failed_to_delete_local_data">Hindi mabura ang local data. Pwede mo itong i-clear manually sa system application settings.</string>
     <string name="DeleteAccountFragment__launch_app_settings">I-launch ang App Settings</string>
     <!-- Title of progress dialog shown when a user deletes their account and the process is leaving all groups -->
@@ -3784,12 +3855,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">I-deactivate ang Wallet</string>
     <string name="DeactivateWalletFragment__your_balance">Your balance</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">It\'s recommended that you transfer your funds to another wallet address bago mo i-deactivate ang payments. If you choose not to transfer your funds now, mananatili ito sa iyong wallet linked to Molly kapag nag-reactivate ka ng payments.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Inirerekomenda naming i-transfer mo muna ang iyong funds sa iba pang wallet address bago mo i-deactivate ang payments. Kapag pinili mong hindi i-transfer ang iyong funds ngayon, mananatili ito sa iyong wallet na naka-link sa Molly kapag ni-reactivate mo ang payments.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">I-transfer ang remaining balance</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Deactivate without transferring</string>
     <string name="DeactivateWalletFragment__deactivate">I-deactivate</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Gusto mo bang mag-deactivate without transferring?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Ang balance mo ay mananatili sa iyong wallet linked to Molly kapag nag-reactivate ka ng payments.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Mananatili ang balance mo sa iyong wallet na naka-link sa Molly kapag nag-reactivate ka ng payments.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Error deactivating wallet.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4008,7 +4079,7 @@
     <string name="PrivacySettingsFragment__messaging">Messaging</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Mga naglalahong mensahe</string>
     <string name="PrivacySettingsFragment__app_security">App security</string>
-    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">I-block ang mga screenshot sa listahan ng mga bago at sa loob ng app</string>
+    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">I-block ang screenshots sa recents list at sa loob ng app</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Signal messages and calls, always relay calls, and sealed sender</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Default timer para sa new chats</string>
     <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Mag-set ng default disappearing message timer para sa lahat ng new chats na sinimulan mo.</string>
@@ -4165,7 +4236,7 @@
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__call">Tawag</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="ConversationSettingsFragment__mute">I-Mute</string>
+    <string name="ConversationSettingsFragment__mute">I-mute</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__muted">Muted</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -4187,8 +4258,8 @@
     <string name="ConversationSettingsFragment__group_link">Link ng group</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">I-add as a contact</string>
     <string name="ConversationSettingsFragment__unmute">I-unmute</string>
-    <string name="ConversationSettingsFragment__conversation_muted_until_s">Conversation muted until %1$s</string>
-    <string name="ConversationSettingsFragment__conversation_muted_forever">Conversation muted forever</string>
+    <string name="ConversationSettingsFragment__conversation_muted_until_s">Naka-mute ang chat hanggang %1$s</string>
+    <string name="ConversationSettingsFragment__conversation_muted_forever">Forever na naka-mute ang chat</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Copied phone number to clipboard.</string>
     <string name="ConversationSettingsFragment__phone_number">Numero ng telepono</string>
     <string name="ConversationSettingsFragment__get_badges">Makakuha ng badges para sa profile mo sa pamamagitan ng pagsuporta sa Signal. I-tap ang isang badge para matuto pa tungkol dito.</string>
@@ -4204,7 +4275,7 @@
     <string name="PermissionsSettingsFragment__who_can_send_messages">Sinong pwedeng mag-send ng messages?</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
-    <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Patahimikin ang mga notipikasyon</string>
+    <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">I-mute ang notifications</string>
     <string name="SoundsAndNotificationsSettingsFragment__not_muted">Hindi naka-mute</string>
     <string name="SoundsAndNotificationsSettingsFragment__mentions">Mentions</string>
     <string name="SoundsAndNotificationsSettingsFragment__always_notify">Always notify</string>
@@ -4453,7 +4524,7 @@
     <string name="ExpiredBadgeBottomSheetDialogFragment__monthly_donation_cancelled">Kinancel ang Monthly Donation</string>
     <!-- Displayed in the bottom sheet when a boost badge expires -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired_and">Expired na ang iyong Boost badge at hindi na ito makikita sa profile mo.</string>
-    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Pwede mong i-reactivate ang iyong Boost badge nang dagdag na 30 araw sa pamamagitan ng one-time contribution.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Pwede mong i-reactivate ang iyong Boost badge nang karagdagang 30 araw sa pamamagitan ng one-time contribution.</string>
     <!-- Displayed when we do not think the user is a subscriber when their boost expires -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_keep">Pwede mo pa ring gamitin ang Signal app pero para masuportahan ang technology na ginawa para sa\'yo, inaanyayahan ka naming magbigay ng monthly donation.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Become a Sustainer</string>
@@ -4508,7 +4579,7 @@
     <string name="DonationsErrors__your_donation_could_not_be_sent">Hindi maipadala ang donation mo dahil sa network error. I-check ang iyong connection at subukan ulit.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_to_s">Donation para kay %1$s</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">Donation sa pangalan ni %1$s</string>
     <!-- Gift message view title for incoming donations -->
     <string name="GiftMessageView__s_donated_to_signal_on">Nag-donate sa Signal si %1$s para sa iyo</string>
     <!-- Gift badge redeem action label -->
@@ -4907,9 +4978,9 @@
     <!-- Section header for options related to replies and reactions -->
     <string name="MyStorySettingsFragment__replies_amp_reactions">Replies &amp; reactions</string>
     <!-- Switchable option for allowing replies and reactions on your stories -->
-    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Allow replies &amp; reactions</string>
+    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Payagan ang replies &amp; reactions</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
-    <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Payagang mag-react at mag-reply ang mga taong nag-view ng story mo</string>
+    <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Payagang mag-react at mag-reply ang mga taong pwedeng mag-view ng story mo</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
     <string name="SignalConnectionsBottomSheet___signal_connections">Signal Connections</string>
     <!-- Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required. -->
@@ -5059,7 +5130,7 @@
     <!-- Conversation Item label for when you react to someone else\'s story -->
     <string name="ConversationItem__you_reacted_to_s_story">Nag-react ka sa story ni %1$s</string>
     <!-- Conversation Item label for reactions to your story -->
-    <string name="ConversationItem__reacted_to_your_story">Nag-react sa iyong story</string>
+    <string name="ConversationItem__reacted_to_your_story">Nag-react sa story mo</string>
     <!-- Conversation Item label for reactions to an unavailable story -->
     <string name="ConversationItem__reacted_to_a_story">Nag-react sa isang story</string>
 
@@ -5600,6 +5671,16 @@
     <string name="UsernameEditDialog__edit_username">I-edit ang username</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">Burahin ang username</string>
+
+    <!-- Time duration picker -->
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for hour, e.g., 12h -->
+    <string name="TimeDurationPickerDialog_single_letter_hour_abbreviation">h</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for minute, e.g., 24m -->
+    <string name="TimeDurationPickerDialog_single_letter_minute_abbreviation">m</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
+    <string name="TimeDurationPickerDialog_positive_button">I-set</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">Ang minimum time bago ma-apply ang screen lock ay 1 minute.</string>
 
     <!-- EOF -->
 </resources>

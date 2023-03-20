@@ -39,6 +39,7 @@ import org.thoughtcrime.securesms.migrations.BlobStorageLocationMigrationJob;
 import org.thoughtcrime.securesms.migrations.CachedAttachmentsMigrationJob;
 import org.thoughtcrime.securesms.migrations.ClearGlideCacheMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
+import org.thoughtcrime.securesms.migrations.DecryptionsDrainedMigrationJob;
 import org.thoughtcrime.securesms.migrations.DeleteDeprecatedLogsMigrationJob;
 import org.thoughtcrime.securesms.migrations.DirectoryRefreshMigrationJob;
 import org.thoughtcrime.securesms.migrations.EmojiDownloadMigrationJob;
@@ -103,8 +104,8 @@ public final class JobManagerFactories {
       put(FontDownloaderJob.KEY,                     new FontDownloaderJob.Factory());
       put(ForceUpdateGroupV2Job.KEY,                 new ForceUpdateGroupV2Job.Factory());
       put(ForceUpdateGroupV2WorkerJob.KEY,           new ForceUpdateGroupV2WorkerJob.Factory());
+      put(GenerateAudioWaveFormJob.KEY,              new GenerateAudioWaveFormJob.Factory());
       put(GiftSendJob.KEY,                           new FailingJob.Factory());
-      put(SendPaymentsActivatedJob.KEY,              new SendPaymentsActivatedJob.Factory());
       put(GroupV1MigrationJob.KEY,                   new GroupV1MigrationJob.Factory());
       put(GroupCallUpdateSendJob.KEY,                new GroupCallUpdateSendJob.Factory());
       put(GroupCallPeekJob.KEY,                      new GroupCallPeekJob.Factory());
@@ -139,6 +140,7 @@ public final class JobManagerFactories {
       put(MultiDeviceVerifiedUpdateJob.KEY,          new MultiDeviceVerifiedUpdateJob.Factory());
       put(MultiDeviceViewOnceOpenJob.KEY,            new MultiDeviceViewOnceOpenJob.Factory());
       put(MultiDeviceViewedUpdateJob.KEY,            new MultiDeviceViewedUpdateJob.Factory());
+      put(NewRegistrationUsernameSyncJob.KEY,        new NewRegistrationUsernameSyncJob.Factory());
       put(NullMessageSendJob.KEY,                    new NullMessageSendJob.Factory());
       put(OptimizeMessageSearchIndexJob.KEY,         new OptimizeMessageSearchIndexJob.Factory());
       put(PaymentLedgerUpdateJob.KEY,                new PaymentLedgerUpdateJob.Factory());
@@ -160,6 +162,7 @@ public final class JobManagerFactories {
       put(PushProcessMessageJob.KEY,                 new PushProcessMessageJob.Factory());
       put(ReactionSendJob.KEY,                       new ReactionSendJob.Factory());
       put(RefreshAttributesJob.KEY,                  new RefreshAttributesJob.Factory());
+      put(RefreshKbsCredentialsJob.KEY, new RefreshKbsCredentialsJob.Factory());
       put(RefreshOwnProfileJob.KEY,                  new RefreshOwnProfileJob.Factory());
       put(RemoteConfigRefreshJob.KEY,                new RemoteConfigRefreshJob.Factory());
       put(RemoteDeleteSendJob.KEY,                   new RemoteDeleteSendJob.Factory());
@@ -175,6 +178,7 @@ public final class JobManagerFactories {
       put(RotateProfileKeyJob.KEY,                   new RotateProfileKeyJob.Factory());
       put(SenderKeyDistributionSendJob.KEY,          new SenderKeyDistributionSendJob.Factory());
       put(SendDeliveryReceiptJob.KEY,                new SendDeliveryReceiptJob.Factory());
+      put(SendPaymentsActivatedJob.KEY,              new SendPaymentsActivatedJob.Factory());
       put(SendReadReceiptJob.KEY,                    new SendReadReceiptJob.Factory(application));
       put(SendRetryReceiptJob.KEY,                   new SendRetryReceiptJob.Factory());
       put(SendViewedReceiptJob.KEY,                  new SendViewedReceiptJob.Factory(application));
@@ -210,6 +214,7 @@ public final class JobManagerFactories {
       put(CachedAttachmentsMigrationJob.KEY,         new FailingJob.Factory());
       put(ClearGlideCacheMigrationJob.KEY,           new ClearGlideCacheMigrationJob.Factory());
       put(DatabaseMigrationJob.KEY,                  new DatabaseMigrationJob.Factory());
+      put(DecryptionsDrainedMigrationJob.KEY,        new DecryptionsDrainedMigrationJob.Factory());
       put(DeleteDeprecatedLogsMigrationJob.KEY,      new DeleteDeprecatedLogsMigrationJob.Factory());
       put(DirectoryRefreshMigrationJob.KEY,          new DirectoryRefreshMigrationJob.Factory());
       put(EmojiDownloadMigrationJob.KEY,             new EmojiDownloadMigrationJob.Factory());
