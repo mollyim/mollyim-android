@@ -1,3 +1,5 @@
+import org.gradle.api.services.BuildService
+
 buildscript {
     ext.kotlin_version = '1.7.20'
     repositories {
@@ -46,6 +48,24 @@ subprojects {
     tasks.withType(AbstractArchiveTask).configureEach {
         preserveFileTimestamps = false
         reproducibleFileOrder = true
+    }
+
+    // MOLLY: Prevent memory starvation in parallel execution
+    def limiterService = gradle.sharedServices.registerIfAbsent("concurrencyConstraint", BuildService.class) {
+        it.maxParallelUsages.set(2)
+    }
+
+    //noinspection UnnecessaryQualifiedReference
+    def expensiveTaskClasses = [
+        com.android.build.gradle.internal.lint.AndroidLintAnalysisTask,
+        com.android.build.gradle.internal.tasks.R8Task,
+        org.jetbrains.kotlin.gradle.tasks.KotlinCompile,
+    ]
+
+    tasks.configureEach { task ->
+        if (expensiveTaskClasses.any { it.isInstance(task) }) {
+            usesService(limiterService)
+        }
     }
 }
 

@@ -34,6 +34,4 @@ COPY . /molly/
 WORKDIR /molly
 RUN git clean -df
 
-ENV ORG_GRADLE_PROJECT_CI=true
-
-ENTRYPOINT ["./gradlew"]
+ENTRYPOINT ["./gradlew", "-PCI=true"]

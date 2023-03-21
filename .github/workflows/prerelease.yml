@@ -14,18 +14,11 @@ jobs:
     if: "github.event.base_ref != 'refs/heads/main'"
     runs-on: ubuntu-22.04
     env:
+      GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
       CI_MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Increase swap space
-        run: |
-          sudo fallocate -l 8G /swapB
-          sudo chmod 600 /swapB
-          sudo mkswap /swapB
-          sudo swapon /swapB
-          swapon --show
 
       - name: Set up builder image
         run: docker-compose build
