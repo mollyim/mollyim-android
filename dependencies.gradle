@@ -15,7 +15,7 @@ dependencyResolutionManagement {
             version('kotlin', '1.6.21')
             version('libsignal-client', '0.22.0')
             version('mp4parser', '1.9.39')
-            version('android-gradle-plugin', '7.4.1')
+            version('android-gradle-plugin', '7.4.2')
 
             // Android Plugins
             alias('android-library').to('com.android.library', 'com.android.library.gradle.plugin').versionRef('android-gradle-plugin')
