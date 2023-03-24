@@ -13,6 +13,10 @@ plugins {
     id 'translations'
 }
 
+// Sort baseline.profm for reproducible builds
+// See issue: https://issuetracker.google.com/issues/231837768
+apply from: 'fix-profm.gradle'
+
 protobuf {
     protoc {
         artifact = 'com.google.protobuf:protoc:3.18.0'
