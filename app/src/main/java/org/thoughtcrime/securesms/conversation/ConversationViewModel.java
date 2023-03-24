@@ -126,7 +126,7 @@ public class ConversationViewModel extends ViewModel {
     this.recipientId                    = BehaviorSubject.create();
     this.threadId                       = BehaviorSubject.create();
     this.groupAuthorNameColorHelper     = new GroupAuthorNameColorHelper();
-    this.conversationStateStore         = new RxStore<>(ConversationState.create(), Schedulers.io());
+    this.conversationStateStore         = new RxStore<>(ConversationState.create(), Schedulers.computation());
     this.disposables                    = new CompositeDisposable();
     this.conversationStateTick          = BehaviorSubject.createDefault(Unit.INSTANCE);
     this.markReadRequestPublisher       = PublishProcessor.create();
@@ -206,7 +206,7 @@ public class ConversationViewModel extends ViewModel {
         .observeOn(Schedulers.io())
         .switchMap(scheduledMessagesRepository::getScheduledMessageCount);
 
-    Observable<Recipient> liveRecipient = recipientId.distinctUntilChanged().switchMap(id -> Recipient.live(id).asObservable());
+    Observable<Recipient> liveRecipient = recipientId.distinctUntilChanged().switchMap(id -> Recipient.live(id).observable());
 
     canShowAsBubble = threadId.observeOn(Schedulers.io()).map(conversationRepository::canShowAsBubble);
     wallpaper       = liveRecipient.map(r -> Optional.ofNullable(r.getWallpaper())).distinctUntilChanged();

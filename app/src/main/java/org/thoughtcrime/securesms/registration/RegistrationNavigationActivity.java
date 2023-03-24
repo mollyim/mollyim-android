@@ -12,13 +12,16 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.registration.viewmodel.RegistrationViewModel;
-
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
+import org.thoughtcrime.securesms.util.DynamicTheme;
 
 public final class RegistrationNavigationActivity extends PassphraseRequiredActivity {
 
   private static final String TAG = Log.tag(RegistrationNavigationActivity.class);
 
   public static final String RE_REGISTRATION_EXTRA = "re_registration";
+
+  private final DynamicTheme dynamicTheme = new DynamicNoActionBarTheme();
 
   private SmsRetrieverReceiver  smsRetrieverReceiver;
   private RegistrationViewModel viewModel;
@@ -42,6 +45,8 @@ public final class RegistrationNavigationActivity extends PassphraseRequiredActi
 
   @Override
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
+    dynamicTheme.onCreate(this);
+
     viewModel = new ViewModelProvider(this, new RegistrationViewModel.Factory(this, isReregister(getIntent()))).get(RegistrationViewModel.class);
 
     setContentView(R.layout.activity_registration_navigation);

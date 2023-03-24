@@ -24,8 +24,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 
-import androidx.annotation.Nullable;
-
+import org.jetbrains.annotations.Nullable;
 import org.signal.core.util.logging.Log;
 
 import java.security.MessageDigest;

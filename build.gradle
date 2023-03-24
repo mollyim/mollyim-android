@@ -1,3 +1,5 @@
+import org.gradle.api.services.BuildService
+
 buildscript {
     ext.kotlin_version = '1.7.20'
     repositories {
@@ -8,20 +10,13 @@ buildscript {
                 includeVersion 'org.jetbrains.trove4j', 'trove4j', '20160824'
             }
         }
-        maven {
-            url "https://plugins.gradle.org/m2/"
-            content {
-                includeModule 'org.jlleitschuh.gradle', 'ktlint-gradle'
-            }
-        }
     }
     dependencies {
         classpath 'com.android.tools:r8:3.3.75'
-        classpath 'com.android.tools.build:gradle:7.2.2'
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2'
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.17'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.2.1"
         classpath 'app.cash.exhaustive:exhaustive-gradle:0.1.1'
         classpath ('com.squareup.wire:wire-gradle-plugin:4.4.3') {
             exclude group: 'com.squareup.wire', module: 'wire-swift-generator'
@@ -33,26 +28,8 @@ buildscript {
     }
 }
 
-ext {
-    BUILD_TOOL_VERSION = '32.0.0'
-    // MOLLY: Edit Dockerfile to download the same SDK packages
-    COMPILE_SDK = 33
-    TARGET_SDK  = 31
-    MINIMUM_SDK = 23
-
-    JAVA_VERSION = JavaVersion.VERSION_1_8
-}
-
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
 }
 
 subprojects {
@@ -72,21 +49,59 @@ subprojects {
         preserveFileTimestamps = false
         reproducibleFileOrder = true
     }
+
+    // MOLLY: Prevent memory starvation in parallel execution
+    def limiterService = gradle.sharedServices.registerIfAbsent("concurrencyConstraint", BuildService.class) {
+        it.maxParallelUsages.set(2)
+    }
+
+    //noinspection UnnecessaryQualifiedReference
+    def expensiveTaskClasses = [
+        com.android.build.gradle.internal.lint.AndroidLintAnalysisTask,
+        com.android.build.gradle.internal.tasks.R8Task,
+        org.jetbrains.kotlin.gradle.tasks.KotlinCompile,
+    ]
+
+    tasks.configureEach { task ->
+        if (expensiveTaskClasses.any { it.isInstance(task) }) {
+            usesService(limiterService)
+        }
+    }
+}
+
+task buildQa {
+    group 'Verification'
+    description 'Quality Assurance for build logic.'
+    dependsOn gradle.includedBuild('build-logic').task(':tools:test')
 }
 
 task qa {
     group 'Verification'
     description 'Quality Assurance. Run before pushing.'
     dependsOn = [
+            'buildQa',
             ':libsignal-service:test',
-            ':libsignal-service:ktlintCheck',
             ':app:testProdGmsWebsiteReleaseUnitTest',
             ':app:lintProdGmsWebsiteRelease',
-            ':app:ktlintCheck',
             ':app:assembleProdFossWebsiteRelease',
     ]
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task format {
+    group 'Formatting'
+    description 'Runs the ktlint formatter on all sources in this project and included builds'
+
+    def dependencyList = subprojects.collect {
+        tasks.findByPath(":${it.name}:ktlintFormat")
+    }
+
+    dependencyList.removeIf { it == null}
+    dependencyList.add(0, gradle.includedBuild('build-logic').task(':plugins:ktlintFormat'))
+    dependencyList.add(0, gradle.includedBuild('build-logic').task(':tools:ktlintFormat'))
+
+    dependsOn dependencyList
 }

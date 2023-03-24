@@ -2213,7 +2213,8 @@ public class SignalServiceMessageSender {
     return aciStore.getSubDeviceSessions(recipient.getIdentifier());
   }
 
-  private OutgoingPushMessage getEncryptedMessage(SignalServiceAddress         recipient,
+  // Visible for testing only
+  public OutgoingPushMessage getEncryptedMessage(SignalServiceAddress         recipient,
                                                   Optional<UnidentifiedAccess> unidentifiedAccess,
                                                   int                          deviceId,
                                                   EnvelopeContent              plaintext,
@@ -2251,7 +2252,6 @@ public class SignalServiceMessageSender {
       throw new UntrustedIdentityException("Untrusted on send", recipient.getIdentifier(), e.getUntrustedIdentity());
     }
   }
-
 
   private List<PreKeyBundle> getPreKeys(SignalServiceAddress recipient, Optional<UnidentifiedAccess> unidentifiedAccess, int deviceId, boolean story) throws IOException {
     try {

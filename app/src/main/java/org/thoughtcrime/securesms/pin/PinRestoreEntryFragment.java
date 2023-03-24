@@ -36,7 +36,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.RegistrationUtil;
 import org.thoughtcrime.securesms.registration.fragments.RegistrationViewDelegate;
 import org.thoughtcrime.securesms.util.CommunicationActions;
-import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SupportEmailUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.navigation.SafeNavigation;
@@ -243,7 +242,7 @@ public class PinRestoreEntryFragment extends LoggingFragment {
       profile.putExtra("next_intent", main);
       startActivity(profile);
     } else {
-      RegistrationUtil.maybeMarkRegistrationComplete(requireContext());
+      RegistrationUtil.maybeMarkRegistrationComplete();
       ApplicationDependencies.getJobManager().add(new ProfileUploadJob());
       startActivity(MainActivity.clearTop(activity));
     }
@@ -271,9 +270,6 @@ public class PinRestoreEntryFragment extends LoggingFragment {
   private void enableAndFocusPinEntry() {
     pinEntry.setEnabled(true);
     pinEntry.setFocusable(true);
-
-    if (pinEntry.requestFocus()) {
-      ServiceUtil.getInputMethodManager(pinEntry.getContext()).showSoftInput(pinEntry, 0);
-    }
+    ViewUtil.focusAndShowKeyboard(pinEntry);
   }
 }

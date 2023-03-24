@@ -276,7 +276,6 @@ import org.thoughtcrime.securesms.util.ContextUtil;
 import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.Debouncer;
 import org.thoughtcrime.securesms.util.DrawableUtil;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FullscreenHelper;
 import org.thoughtcrime.securesms.util.IdentityUtil;
 import org.thoughtcrime.securesms.util.LifecycleDisposable;
@@ -501,7 +500,7 @@ public class ConversationParentFragment extends Fragment
       return;
     }
 
-    voiceNoteMediaController = new VoiceNoteMediaController(requireActivity());
+    voiceNoteMediaController = new VoiceNoteMediaController(requireActivity(), true);
     voiceRecorderWakeLock    = new VoiceRecorderWakeLock(requireActivity());
 
     // TODO [alex] LargeScreenSupport -- Should be removed once we move to multi-pane layout.
@@ -608,6 +607,8 @@ public class ConversationParentFragment extends Fragment
     if (SignalStore.rateLimit().needsRecaptcha()) {
       RecaptchaProofBottomSheetFragment.show(getChildFragmentManager());
     }
+
+    updateToggleButtonState();
   }
 
   @Override
@@ -962,7 +963,7 @@ public class ConversationParentFragment extends Fragment
     if (recipient != null && recipient.get().isMuted()) inflater.inflate(R.menu.conversation_muted, menu);
     else                                                inflater.inflate(R.menu.conversation_unmuted, menu);
 
-    if (isSingleConversation() && getRecipient().getContactUri() == null && !recipient.get().isReleaseNotes() && !recipient.get().isSelf()) {
+    if (isSingleConversation() && getRecipient().getContactUri() == null && !recipient.get().isReleaseNotes() && !recipient.get().isSelf() && recipient.get().hasE164()) {
       inflater.inflate(R.menu.conversation_add_to_contacts, menu);
     }
 
@@ -2177,7 +2178,8 @@ public class ConversationParentFragment extends Fragment
     callback.onInitializeToolbar(toolbar);
   }
 
-  protected boolean isInBubble() {
+  @Override
+  public boolean isInBubble() {
     return callback.isInBubble();
   }
 
@@ -2193,7 +2195,12 @@ public class ConversationParentFragment extends Fragment
 
     Log.i(TAG, "[initializeResources] Recipient: " + recipient.getId() + ", Thread: " + threadId);
 
-    recipient.observe(getViewLifecycleOwner(), this::onRecipientChanged);
+    disposables.add(
+        recipient
+            .observable()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::onRecipientChanged)
+    );
   }
 
   private void initializeLinkPreviewObserver() {
@@ -3200,13 +3207,8 @@ public class ConversationParentFragment extends Fragment
     requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
     voiceNoteMediaController.pausePlayback();
-    try {
-      recordingSession = new RecordingSession(audioRecorder.startRecording());
-      disposables.add(recordingSession);
-    } catch (AssertionError err) {
-      Log.e(TAG, "Could not start audio recording.", err);
-      Toast.makeText(requireContext(), R.string.ConversationActivity_unable_to_record_audio, Toast.LENGTH_SHORT).show();
-    }
+    recordingSession = new RecordingSession(audioRecorder.startRecording());
+    disposables.add(recordingSession);
   }
 
   @Override
@@ -3863,6 +3865,14 @@ public class ConversationParentFragment extends Fragment
     } else {
       MessageDetailsFragment.create(messageRecord, recipient.getId()).show(getChildFragmentManager(), null);
     }
+  }
+
+  @Override
+  public void onFirstRender() {
+    if (getActivity() != null) {
+      requireActivity().supportStartPostponedEnterTransition();
+    }
+    voiceNoteMediaController.finishPostpone();
   }
 
   @Override

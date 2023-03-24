@@ -14,13 +14,14 @@
   <!-- Removed by excludeNonTranslatables <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
 
     <string name="yes">Po</string>
     <string name="no">Jo</string>
     <string name="delete">Fshije</string>
     <string name="please_wait">Ju lutemi, prisni…</string>
     <string name="save">Ruaje</string>
-    <string name="note_to_self">Shënim për Veten</string>
+    <string name="note_to_self">Shënim për veten</string>
 
     <!-- AlbumThumbnailView -->
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
@@ -96,13 +97,13 @@
     <string name="BackgroundMessageRetriever_checking_for_messages">Duke kontrolluar për mesazhe…</string>
 
     <!-- BlockedUsersActivity -->
-    <string name="BlockedUsersActivity__blocked_users">Përdorues të bllokuar</string>
-    <string name="BlockedUsersActivity__add_blocked_user">Shtoni përdorues të bllokuar</string>
-    <string name="BlockedUsersActivity__blocked_users_will">Përdoruesit e bllokuar nuk do të mund t\'ju telefonojnë ose t\'ju dërgojnë mesazhe.</string>
+    <string name="BlockedUsersActivity__blocked_users">Përdoruesit e bllokuar</string>
+    <string name="BlockedUsersActivity__add_blocked_user">Shto përdorues të bllokuar</string>
+    <string name="BlockedUsersActivity__blocked_users_will">Përdoruesit e bllokuar nuk do të mund të të telefonojnë apo të të dërgojnë mesazhe.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Nuk ka përdorues të bllokuar</string>
-    <string name="BlockedUsersActivity__block_user">Të bllokohet përdoruesi?</string>
+    <string name="BlockedUsersActivity__block_user">Të bllokohet përdoruesin?</string>
     <string name="BlockedUserActivity__s_will_not_be_able_to">%1$s nuk do të jetë në gjendje t\'ju telefonojë ose t\'ju dërgojë mesazhe.</string>
-    <string name="BlockedUsersActivity__block">Bllokoje</string>
+    <string name="BlockedUsersActivity__block">Blloko</string>
 
     <!-- CreditCardFragment -->
     <!-- Title of fragment detailing the donation amount for one-time donation, displayed above the credit card text fields -->
@@ -138,8 +139,8 @@
     <string name="CreditCardFragment__continue">Vazhdo</string>
 
     <!-- BlockUnblockDialog -->
-    <string name="BlockUnblockDialog_block_and_leave_s">Blloko dhe dil %1$s?</string>
-    <string name="BlockUnblockDialog_block_s">Të bllokohet %1$s?</string>
+    <string name="BlockUnblockDialog_block_and_leave_s">Blloko dhe largohu nga %1$s?</string>
+    <string name="BlockUnblockDialog_block_s">Dëshiron të bllokosh %1$s?</string>
     <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Ju nuk do të merrni më mesazhe ose përditësime nga ky grup dhe anëtarët nuk do të mund t\'ju shtojnë më në këtë grup.</string>
     <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Anëtarët e grupit nuk do të mund t\'ju shtojnë përsëri në këtë grup.</string>
     <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Anëtarët e grupit do të mund t\'ju shtojnë sërish në këtë grup.</string>
@@ -147,16 +148,16 @@
     <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Ju do të jeni në gjendje t\'i dërgoni mesazhe dhe t\'i telefononi njëri-tjetrit dhe emri e fotografia juaj do të ndahen me ta.</string>
     <!-- Text that is shown when unblocking an SMS contact -->
     <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">Ju do të jeni në gjendje t\'i dërgoni mesazhe njëri-tjetrit.</string>
-    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Personat e bllokuar nuk do të mund t\'ju telefonojnë ose t\'ju dërgojnë mesazhe.</string>
-    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Personat e bllokuar nuk do të mund t\'ju dërgojnë mesazhe.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Personat e bllokuar nuk do të mund të të telefonojnë apo të të dërgojnë mesazhe.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Personat e bllokuar nuk do të mund të të dërgojnë mesazhe.</string>
     <!-- Message shown on block dialog when blocking the Signal release notes recipient -->
-    <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Blloko marrjen e përditësimeve dhe lajmeve të Signal-it.</string>
+    <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Blloko marrjen e përditësimeve dhe lajmeve të Signal.</string>
     <!-- Message shown on unblock dialog when unblocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_resume_getting_signal_updates_and_news">Rifilloni marrjen e përditësimeve dhe lajmeve të Signal-it.</string>
-    <string name="BlockUnblockDialog_unblock_s">Zhbllokoni %1$s?</string>
-    <string name="BlockUnblockDialog_block">Bllokoje</string>
-    <string name="BlockUnblockDialog_block_and_leave">Blloko dhe Dil</string>
-    <string name="BlockUnblockDialog_report_spam_and_block">Raportoni mesazhet e padëshiruara dhe bllokojini</string>
+    <string name="BlockUnblockDialog_unblock_s">Dëshiron të zhbllokosh %1$s?</string>
+    <string name="BlockUnblockDialog_block">Blloko</string>
+    <string name="BlockUnblockDialog_block_and_leave">Blloko dhe largohu</string>
+    <string name="BlockUnblockDialog_report_spam_and_block">Raporto mesazhet e padëshiruara dhe bllokoji</string>
 
     <!-- BucketedThreadMedia -->
     <string name="BucketedThreadMedia_Today">Sot</string>
@@ -447,11 +448,11 @@
     <!-- Message shown to indicate which notification profile is on/active -->
     <string name="ConversationFragment__s_on">%1$s në linjë</string>
     <!-- Dialog title for block group link join requests -->
-    <string name="ConversationFragment__block_request">Dëshironi të bllokoni kërkesën?</string>
+    <string name="ConversationFragment__block_request">Dëshiron të bllokosh kërkesën?</string>
     <!-- Dialog message for block group link join requests -->
     <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s nuk do të jetë në gjendje t\'i bashkohet ose të kërkojë t\'i bashkohet këtij grupi nëpërmjet liinkut të grupit. Ato ende mund të shtohen në grup manualisht.</string>
     <!-- Dialog confirm block request button -->
-    <string name="ConversationFragment__block_request_button">Bllokoje kërkesën</string>
+    <string name="ConversationFragment__block_request_button">Blloko kërkesën</string>
     <!-- Dialog cancel block request button -->
     <string name="ConversationFragment__cancel">Anuloje</string>
     <!-- Message shown after successfully blocking join requests for a user -->
@@ -496,12 +497,12 @@
         <item quantity="other">Çfiksoji</item>
     </plurals>
     <plurals name="ConversationListFragment_mute_plural">
-        <item quantity="one">Heshtoje</item>
-        <item quantity="other">Pa zë</item>
+        <item quantity="one">Hiqi zërin</item>
+        <item quantity="other">Hiqu zërin</item>
     </plurals>
     <plurals name="ConversationListFragment_unmute_plural">
-        <item quantity="one">Çheshtoje</item>
-        <item quantity="other">Me zë</item>
+        <item quantity="one">Ktheja zërin</item>
+        <item quantity="other">Kthejua zërin</item>
     </plurals>
     <string name="ConversationListFragment_select">Përzgjidhni</string>
     <plurals name="ConversationListFragment_archive_plural">
@@ -541,6 +542,15 @@
 
     <!-- ConversationTypingView -->
     <string name="ConversationTypingView__plus_d">+%1$d</string>
+
+    <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__relink_your_devices">Rilidh pajisjet e tua</string>
+    <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">Pajisjet që shtove u shkëputën kur pajisja u çregjistrua. Shko tek parametrat për të rilidhur çdo pajisje.</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
+    <string name="RelinkDevicesReminderFragment__open_settings">Hap parametrat</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
+    <string name="RelinkDevicesReminderFragment__later">Më vonë</string>
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">Përzgjidhni anëtarët</string>
@@ -935,7 +945,7 @@
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Njoftomë për Përmendje</string>
-    <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Të merren njoftime, kur jeni përmendur në fjalosje të heshtuara?</string>
+    <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Dëshiron të marrësh njoftime kur të përmendin në biseda pa zë?</string>
     <string name="GroupMentionSettingDialog_always_notify_me">Njoftomë përherë</string>
     <string name="GroupMentionSettingDialog_dont_notify_me">Mos më njofto</string>
 
@@ -953,6 +963,16 @@
     <string name="ManageProfileFragment__username_created">Emri i përdoruesit u krijua</string>
     <!-- Snackbar message after copying username -->
     <string name="ManageProfileFragment__username_copied">Emri i përdoruesit u kopjua</string>
+    <!-- Snackbar message after network failure while trying to delete username -->
+    <string name="ManageProfileFragment__couldnt_delete_username">Emri i përdoruesit nuk mund të fshihet. Provo sërish më vonë.</string>
+    <!-- Snackbar message after successful deletion of username -->
+    <string name="ManageProfileFragment__username_deleted">Emri i përdoruesit u fshi</string>
+
+    <!-- UsernameOutOfSyncReminder -->
+    <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
+    <string name="UsernameOutOfSyncReminder__something_went_wrong">Ka ndodhur një gabim me emrin tënd të përdoruesit, i cili nuk është më i lidhur me llogarinë tënde. Mund të provosh dhe ta vendosësh sërish ose të zgjedhësh një të ri.</string>
+    <!-- Action text to navigate user to manually fix the issue with their username -->
+    <string name="UsernameOutOfSyncReminder__fix_now">Rregulloje tani</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -1156,8 +1176,8 @@
     <string name="Megaphones_new_group">Grup i ri</string>
     <string name="Megaphones_invite_friends">Ftoni shokë</string>
     <string name="Megaphones_use_sms">Use SMS</string>
-    <string name="Megaphones_appearance">Dukje</string>
-    <string name="Megaphones_add_photo">Shtoni foto</string>
+    <string name="Megaphones_chat_colors">Ngjyrat e bisedës</string>
+    <string name="Megaphones_add_a_profile_photo">Shto foto profili</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Përgjigje</string>
@@ -1468,14 +1488,14 @@
     <string name="MessageRequestBottomView_accept">Pranoje</string>
     <string name="MessageRequestBottomView_continue">Vazhdo</string>
     <string name="MessageRequestBottomView_delete">Fshije</string>
-    <string name="MessageRequestBottomView_block">Bllokoje</string>
-    <string name="MessageRequestBottomView_unblock">Zhbllokoje</string>
+    <string name="MessageRequestBottomView_block">Blloko</string>
+    <string name="MessageRequestBottomView_unblock">Zhblloko</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Të lejohet %1$s t\\’ju dërgojë mesazh dhe të ndajë emrin dhe foton tuaj me të tjerë? S\\’do ta dijë se e keni parë mesazhin e tij, para se të pranoni këtë.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Të lejohet %1$s t\\’ju dërgojë mesazh dhe të ndajë emrin dhe foton tuaj me të tjerë? S\\’do të merrni ndonjë mesazh, para se ta zhbllokoni.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Dëshiron që %1$s të të dërgojnë mesazh dhe të ndash emrin dhe foton tënde me ta? Nuk do të marrësh asnjë mesazh derisa t\'i zhbllokosh.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Të lejohet %1$s t’ju dërgojë mesazh? S’do të merrni ndonjë mesazh, para se ta zhbllokoni.</string>
-    <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Merrni përditësime dhe lajme nga 1%1$s? S’do të merrni ndonjë përditësim, para se t’i zhbllokoni.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Dëshiron që %1$s të të dërgojnë mesazh? Nuk do të marrësh asnjë mesazh derisa t\'i zhbllokosh.</string>
+    <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Dëshiron të marrësh përditësime dhe lajme nga %1$s? Nuk do të marrësh asnjë përditësim derisa t\'i zhbllokosh.</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Të vazhdohet biseda juaj me këtë grup dhe t\\’u jepet emri dhe fotoja juaj anëtarëve të tij?</string>
     <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">Përmirësojeni këtë grup, që të aktivizohen veçori të reja, të tilla si @përmendje dhe përgjegjës. Anëtarët që nuk kanë dhënë emrin ose foton e tyre te ky grup, do të ftohen të bëhen pjesë.</string>
     <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">Ky Grup i Dikurshëm s\\’mund të përdoret më, ngaqë është shumë i madh. Madhësia maksimum për grupet është %1$d.</string>
@@ -1483,7 +1503,7 @@
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Të bëhet anëtarësim në këtë grup dhe të ndahet emri dhe fotoja juaj me anëtarët e tij? S\\’do ta dinë se i keni parë mesazhet e tyre, para se të pranoni këtë.</string>
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">Dëshironi t\'i bashkoheni këtij grupi dhe të ndani me anëtarët e tij emrin dhe foton tuaj? Ju nuk mund t\'i shihni mesazhet e tyre derisa të konfirmoni.</string>
     <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Doni të bëheni pjesë e këtij grupi? S\\’do ta dinë se i keni parë mesazhet e tyre, deri sa të pranoni.</string>
-    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Të zhbllokohet ky grup dhe të lejohet të ndajë emrin dhe foton tuaj me anëtarët e tij? S\\’do të merrni ndonjë mesazh, para se ta zhbllokoni.</string>
+    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Dëshiron të zhbllokosh këtë grup dhe të ndash me anëtarët e tij emrin dhe foton tënde? Nuk do të marrësh asnjë mesazh derisa t\'i zhbllokosh.</string>
   <!-- Removed by excludeNonTranslatables <string name="MessageRequestBottomView_legacy_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <string name="MessageRequestProfileView_view">Shihni</string>
     <string name="MessageRequestProfileView_member_of_one_group">Anëtar i %1$s</string>
@@ -1584,9 +1604,20 @@
     <string name="PinRestoreLockedFragment_create_new_pin">Krijoni PIN të ri</string>
   <!-- Removed by excludeNonTranslatables <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
+    <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
+    <string name="ReRegisterWithPinFragment_send_sms_code">Dërgo kodin SMS</string>
+    <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
+    <string name="ReRegisterWithPinFragment_support_email_subject">Regjistrimi i Signal - Ke nevojë për ndihmë për riregjistrimin e PIN-it për Android</string>
+    <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
+    <string name="ReRegisterWithPinFragment_need_help_local">PIN-i yt është një kod %1$d + shifror që ke krijuar që mund të jetë numerik ose alfanumerik.\n\nNëse nuk e mbani mend PIN-in tënd, mund të krijosh një të ri.</string>
+    <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
+    <string name="ReRegisterWithPinFragment_skip_local">Nëse nuk e mbani mend PIN-in tënd, mund të krijosh një të ri.</string>
+    <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
+    <string name="ReRegisterWithPinFragment_out_of_guesses_local">Të kanë mbaruar opsionet e kodit PIN, por mund të hysh ende në llogarinë tënde të Signal duke krijuar një PIN të ri.</string>
+
     <!-- PinOptOutDialog -->
     <string name="PinOptOutDialog_warning">Paralajmërim</string>
-    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Nëse çaktivizoni PIN-in, do të humbni krejt të dhënat, kur riregjistroni Signal-in, veç në i kopjeruajtshi dhe rikthefshi dorazi. S\\’mund të aktivizoni Kyçje Regjistrimi, teksa PIN-i është i çaktivizuar.</string>
+    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Nëse çaktivizoni kodin PIN, do t\'i humbni të gjitha të dhënat kur të regjistroni sërish Signal, veç nëse bëni manualisht kopje rezervë dhe rivendosje. Nuk mund të aktivizoni Çelësin e Regjistrimit kur kodi PIN është i çaktivizuar.</string>
     <string name="PinOptOutDialog_disable_pin">Çaktivizoje PIN-in</string>
 
     <!-- RatingManager -->
@@ -1616,8 +1647,8 @@
     <string name="Recipient_my_story">Postimi im i përkohshëm</string>
 
     <!-- RecipientPreferencesActivity -->
-    <string name="RecipientPreferenceActivity_block">Bllokoje</string>
-    <string name="RecipientPreferenceActivity_unblock">Zhbllokoje</string>
+    <string name="RecipientPreferenceActivity_block">Blloko</string>
+    <string name="RecipientPreferenceActivity_unblock">Zhblloko</string>
 
     <!-- RecipientProvider -->
 
@@ -1711,9 +1742,9 @@
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallView__camera">Kamerë</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__unmute">Çheshtoji</string>
+    <string name="WebRtcCallView__unmute">Ktheja zërin</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__mute">Heshtoje</string>
+    <string name="WebRtcCallView__mute">Hiqi zërin</string>
     <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallView__ring">Bjeri ziles</string>
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -1731,7 +1762,7 @@
     <string name="CallParticipantView__you_wont_receive_their_audio_or_video">S\\’do të merrni audio ose video prej tyre dhe as ata prej jush.</string>
     <string name="CallParticipantView__cant_receive_audio_video_from_s">S\\’mund të merret audio &amp; video prej %1$s</string>
     <string name="CallParticipantView__cant_receive_audio_and_video_from_s">S\\’mund të merret audio dhe video prej %1$s</string>
-    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Kjo mund të vijë ngaqë s\\’kanë verifikuar ndryshimin e numrit tuaj të sigurisë, ka një problem me pajisjen e tyre, ose ju kanë bllokuar.</string>
+    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Kjo mund të ndodhë sepse ata nuk e kanë verifikuar ndryshimin e numrit tënd të sigurisë, ka një problem me pajisjen e tyre ose të kanë bllokuar.</string>
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Fërkojeni që të shihni ndarje ekrani</string>
@@ -1768,11 +1799,18 @@
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Për t\\’ju ndihmuar të lidheni me shokët tuaj dhe dërgoni mesazhe, Signal-i lyp leje mbi kontaktet dhe median. Kontaktet tuaja ngarkohen duke përdorur pikasje private kontaktesh të Signal-it, që do të thotë se janë të fshehtëzuara skaj-më-skaj dhe kurrë të dukshme për shërbimin Signal.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Për t\\’ju ndihmuar të lidheni me shokët tuaj, Signal-i lyp leje mbi kontaktet. Kontaktet tuaja ngarkohen duke përdorur pikasje private kontaktesh të Signal-it, që do të thotë se janë të fshehtëzuara skaj-më-skaj dhe kurrë të dukshme për shërbimin Signal.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Keni bërë shumë përpjekje për të regjistruar këtë numër. Ju lutemi, riprovoni më vonë.</string>
+    <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
+    <string name="RegistrationActivity_rate_limited_to_try_again">Ke bërë shumë përpjekje për të regjistruar këtë numër. Të lutem provoje përsëri për %1$s.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">S\\’arrihet të bëhet lidhja te shërbimi. Ju lutemi, kontrolloni lidhjen me rrjetin dhe riprovoni.</string>
     <string name="RegistrationActivity_non_standard_number_format">Format jostandard numrash</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Numri që dhatë (%1$s) duket të jetë në një format jo standard.\n\nKishit ndërmend %2$s?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly për Android - Format Numrash Telefoni</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">U kërkua thirrje</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+    <string name="RegistrationActivity_sms_requested">Kërkohet SMS</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+    <string name="RegistrationActivity_code_requested">Kërkohet kodi i verifikimit</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="one">Ju ndan %1$d hap nga parashtrimi i një regjistri diagnostikimesh.</item>
         <item quantity="other">Ju ndajnë %1$d hapa nga parashtrimi i një regjistri diagnostikimesh.</item>
@@ -1792,6 +1830,16 @@
     <string name="RegistrationActivity_call">Thirrje</string>
     <string name="RegistrationActivity_verification_code">Kod verifikimi</string>
     <string name="RegistrationActivity_resend_code">Ridërgo kodin</string>
+    <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_title">Ke probleme me regjistrimin?</string>
+    <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Sigurohu që telefoni yt të ketë sinjal celular për të marrë SMS ose thirrje • Konfirmo se mund të marrësh telefonata në numër\n • Kontrollo nëse ke vendosur saktë numrin tënd të telefonit.</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Për më shumë informacion, ndiqni këto hapa për zgjidhjen e problemeve ose kontaktoni me asistencën</string>
+    <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">me këto hapa për zgjidhjen e problemeve</string>
+    <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">Kontaktoni asistencën</string>
 
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Të aktivizohet Kyçja e Regjistrimeve?</string>
@@ -1958,6 +2006,10 @@
     <string name="ThreadRecord_payment">Pagesë</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">Mesazh i planifikuar</string>
+    <!--  Displayed in the conversation list when your message history has been merged -->
+    <string name="ThreadRecord_message_history_has_been_merged">Historiku i mesazheve të tua është bashkuar</string>
+    <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
+    <string name="ThreadRecord_s_belongs_to_s">%1$s i përket %2$s</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Përditësim i Molly-it</string>
@@ -2030,7 +2082,7 @@
     <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">Mesazh MMS i fshehtëzuar për sesion që s\\’ekziston</string>
 
     <!-- MuteDialog -->
-    <string name="MuteDialog_mute_notifications">Heshtoji njoftimet</string>
+    <string name="MuteDialog_mute_notifications">Hiqi zërin njoftimeve</string>
 
     <!-- ApplicationMigrationService -->
     <string name="ApplicationMigrationService_import_in_progress">Importim në ecuri e sipër</string>
@@ -2088,13 +2140,15 @@
     <string name="MessageNotifier_contact_message">%1$s %2$s</string>
     <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
     <string name="MessageNotifier_reacted_s_to_s">Reagoi me %1$s ndaj: \"%2$s\".</string>
-    <string name="MessageNotifier_reacted_s_to_your_video">Reagoi me %1$s ndaj videos tuaj.</string>
-    <string name="MessageNotifier_reacted_s_to_your_image">Reagoi me %1$s ndaj figurës tuaj.</string>
-    <string name="MessageNotifier_reacted_s_to_your_gif">Reagoi me %1$s ndaj GIF-it tuaj.</string>
-    <string name="MessageNotifier_reacted_s_to_your_file">Reagoi me %1$s ndaj kartelës tuaj.</string>
-    <string name="MessageNotifier_reacted_s_to_your_audio">Reagoi me %1$s ndaj audios tuaj.</string>
-    <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagoi me %1$s te media juaj për një parje të vetme.</string>
-    <string name="MessageNotifier_reacted_s_to_your_sticker">Reagoi me %1$s ndaj ngjitësit tuaj.</string>
+    <string name="MessageNotifier_reacted_s_to_your_video">Reagoi me %1$s ndaj videos tënde.</string>
+    <string name="MessageNotifier_reacted_s_to_your_image">Reagoi me %1$s ndaj figurës tënde.</string>
+    <string name="MessageNotifier_reacted_s_to_your_gif">Reagoi me %1$s ndaj GIF-it tënd.</string>
+    <string name="MessageNotifier_reacted_s_to_your_file">Reagoi me %1$s ndaj kartelës tënde.</string>
+    <string name="MessageNotifier_reacted_s_to_your_audio">Reagoi me %1$s ndaj audios tënde.</string>
+    <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagoi me %1$s te media jote, të cilën mund ta shohësh veç një herë.</string>
+    <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
+    <string name="MessageNotifier_reacted_s_to_your_payment">Reagoi me %1$s ndaj pagesës tënde.</string>
+    <string name="MessageNotifier_reacted_s_to_your_sticker">Reagoi me %1$s ndaj ngjitësit tënd.</string>
     <string name="MessageNotifier_this_message_was_deleted">Ky mesazh u fshi.</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Të çaktivizohen njoftime Signal për kontakte të sapoardhur? Mund t\\’i aktivizoni sërish që nga Signal &gt; Rregullime &gt; Njoftime.</string>
@@ -2298,7 +2352,7 @@
     <string name="ConversationUpdateItem_enable_call_notifications">Aktivizo Njoftime Thirrjesh</string>
     <string name="ConversationUpdateItem_update_contact">Përditësoni kontaktin</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
-    <string name="ConversationUpdateItem_block_request">Bllokoje kërkesën</string>
+    <string name="ConversationUpdateItem_block_request">Blloko kërkesën</string>
     <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Pa grupe të përbashkët. Shqyrtojini me kujdes kërkesat.</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Pa kontakte në këtë grup. Shqyrtojini me kujdes kërkesat.</string>
     <string name="ConversationUpdateItem_view">Shihni</string>
@@ -2487,8 +2541,8 @@
 
     <!-- BadDecryptLearnMoreDialog -->
     <string name="BadDecryptLearnMoreDialog_delivery_issue">Problem Dërgimi</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">S\\’u dërgua dot te ju një mesazh, ngjitës, reagim, ose dëftesë leximi nga %1$s. Mund të ketë provuar ta dërgojë drejtpërsëdrejti për ju, ose në një grup.</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">S\\’u dërgua dot te ju një mesazh, ngjitës, reagim, ose dëftesë leximi nga %1$s.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">Një mesazh, ngjitës, reagim, ose verifikim leximi i %1$s nuk u dërgua dot te ti. Mund të ketë provuar ta dërgojë drejtpërsëdrejti te ti ose në një grup.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">Një mesazh, ngjitës, reagim, ose verifikim leximi i %1$s nuk u dërgua dot te ti.</string>
 
     <!-- profile_create_activity -->
     <string name="CreateProfileActivity_first_name_required">Emër (i domosdoshëm)</string>
@@ -2635,10 +2689,10 @@
     <string name="arrays__use_default">Përdor parazgjedhje</string>
     <string name="arrays__use_custom">Përdor vetjake</string>
 
-    <string name="arrays__mute_for_one_hour">Heshtoje për 1 orë</string>
-    <string name="arrays__mute_for_eight_hours">Heshtoji për 8 orë</string>
-    <string name="arrays__mute_for_one_day">Heshtoje për 1 ditë</string>
-    <string name="arrays__mute_for_seven_days">Heshtoje për 7 ditë</string>
+    <string name="arrays__mute_for_one_hour">Hiqi zërin për 1 orë</string>
+    <string name="arrays__mute_for_eight_hours">Hiqi zërin për 8 orë</string>
+    <string name="arrays__mute_for_one_day">Hiqi zërin për 1 ditë</string>
+    <string name="arrays__mute_for_seven_days">Hiqi zërin për 7 ditë</string>
     <string name="arrays__always">Përherë</string>
 
     <string name="arrays__settings_default">Rregullime parazgjedhje</string>
@@ -2677,7 +2731,7 @@
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
     <string name="preferences__pref_keep_muted_chats_archived">Mbaj të arkivuara bisedat pa zë</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Bisedat pa zë të arkivuara do të mbeten të të tilla edhe kur të vijë një mesazh i ri.</string>
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Bisedat pa zë të arkivuara do të mbeten të tilla edhe kur të vijë një mesazh i ri.</string>
     <string name="preferences__generate_link_previews">Prodho lidhje për paraparje</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Merrni, për mesazhet që dërgoni, paraparje lidhjesh drejt e nga sajtet.</string>
     <string name="preferences__change_passphrase">Ndryshoje frazëkalimin</string>
@@ -2971,7 +3025,7 @@
     <string name="PaymentsDetailsFragment__sent_payment">Pagesë e dërguar</string>
     <string name="PaymentsDetailsFragment__received_payment">Pagesë e marrë</string>
     <string name="PaymentsDeatilsFragment__payment_completed_s">Pagesë e plotësuar %1$s</string>
-    <string name="PaymentsDetailsFragment__block_number">Numër blloku</string>
+    <string name="PaymentsDetailsFragment__block_number">Numër i bllokuar</string>
 
     <!-- PaymentsTransferFragment -->
     <string name="PaymentsTransferFragment__transfer">Shpërngule</string>
@@ -3056,7 +3110,7 @@
 
     <!-- contact_selection_list -->
     <string name="contact_selection_list__unknown_contact">Mesazh i ri për…</string>
-    <string name="contact_selection_list__unknown_contact_block">Bllokoje përdoruesin</string>
+    <string name="contact_selection_list__unknown_contact_block">Blloko përdoruesin</string>
     <string name="contact_selection_list__unknown_contact_add_to_group">Shtoje te grupi</string>
 
     <!-- conversation_callable_insecure -->
@@ -3128,10 +3182,10 @@
     <!-- conversation_secure_verified -->
 
     <!-- conversation_muted -->
-    <string name="conversation_muted__unmute">Çheshtoji</string>
+    <string name="conversation_muted__unmute">Bëje me zë</string>
 
     <!-- conversation_unmuted -->
-    <string name="conversation_unmuted__mute_notifications">Heshtoji njoftimet</string>
+    <string name="conversation_unmuted__mute_notifications">Heshti njoftimet</string>
 
     <!-- conversation -->
     <string name="conversation__menu_group_settings">Rregullime grupi</string>
@@ -3295,6 +3349,8 @@
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">Jepni PIN-in tuaj</string>
     <string name="RegistrationLockFragment__enter_the_pin_you_created">Jepni PIN-in që krijuar për llogarinë tuaj. Ky është tjetër gjë nga kodi juaj i verifikimit me SMS.</string>
+    <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
+    <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">Vendos kodin PIN që krijove për llogarinë tënde.</string>
     <string name="RegistrationLockFragment__enter_alphanumeric_pin">Jepni PIN alfanumerik</string>
     <string name="RegistrationLockFragment__enter_numeric_pin">Jepni PIN numerik</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">PIN i pasaktë. Riprovoni.</string>
@@ -3398,7 +3454,10 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Rezerva jote përmban një skedar shumë të madh, që nuk mund të rezervohet. Të lutem, fshije dhe krijo një kopje të re rezervë.</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">Prekeni që të administroni kopjeruajtje.</string>
     <string name="RegistrationActivity_wrong_number">Numër i gabuar?</string>
+    <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">Më telefono (%1$02d:%2$02d)</string>
+    <!--    Countdown to when the user can request a new SMS code during registration.-->
+    <string name="RegistrationActivity_resend_sms_available_in">Ridërgo kodin (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">Lidhuni Me Asistencën e Signal-it</string>
     <string name="RegistrationActivity_code_support_subject">Regjistrim Signal-i - Kod Verifikimi për Android</string>
     <string name="RegistrationActivity_incorrect_code">Kod i gabuar</string>
@@ -3406,6 +3465,18 @@
     <string name="BackupUtil_unknown">E panjohur</string>
     <string name="preferences_app_protection__see_my_phone_number">Shohë numrin tim të telefonit</string>
     <string name="preferences_app_protection__find_me_by_phone_number">Të më gjejë përmes numrit të telefonit</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">Numër telefoni</string>
+    <!-- Subtext below option to launch into phone number privacy settings screen -->
+    <string name="preferences_app_protection__choose_who_can_see">Zgjidh se kush mund ta shohë numrin tënd të telefonit dhe kush mund të të kontaktojë nëpërmjet tij në Molly.</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Kush mund të shohë numrin tim</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Askush nuk do ta shohë numrin tënd të telefonit në Molly</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Kush mund të më gjejë nëpërmjet numrit</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Numri yt i telefonit do të jetë i dukshëm për personat dhe grupet, të cilëve u dërgon mesazhe. Personat që kanë numrin tënd të telefonit në kontaktet e tyre, do ta shohin edhe te Molly.</string>
     <string name="PhoneNumberPrivacy_everyone">Cilido</string>
     <string name="PhoneNumberPrivacy_my_contacts">Kontaktet e mia</string>
     <string name="PhoneNumberPrivacy_nobody">Askush</string>
@@ -3562,8 +3633,8 @@
     <!-- AdvancedPreferenceFragment -->
 
     <!-- RecipientBottomSheet -->
-    <string name="RecipientBottomSheet_block">Bllokoje</string>
-    <string name="RecipientBottomSheet_unblock">Zhbllokoje</string>
+    <string name="RecipientBottomSheet_block">Blloko</string>
+    <string name="RecipientBottomSheet_unblock">Zhblloko</string>
     <string name="RecipientBottomSheet_add_to_contacts">Shtoje tek kontaktet</string>
     <!-- Error message that displays when a user tries to tap to view system contact details but has no app that supports it -->
     <string name="RecipientBottomSheet_unable_to_open_contacts">S\\’gjendet dot një aplikacion i aftë për hapje kontaktesh.</string>
@@ -3615,8 +3686,8 @@
 
     <!-- StorageUtil -->
     <string name="StorageUtil__s_s">%1$s/%2$s</string>
-    <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" u bllokua.</string>
-    <string name="BlockedUsersActivity__failed_to_block_s">S\\’u arrit të bllokohej \"%1$s\"</string>
+    <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" është bllokuar.</string>
+    <string name="BlockedUsersActivity__failed_to_block_s">Bllokimi i \"%1$s\" dështoi</string>
     <string name="BlockedUsersActivity__s_has_been_unblocked">\"%1$s\" u zhbllokua.</string>
 
     <!-- ReviewCardDialogFragment -->
@@ -3644,7 +3715,7 @@
     <string name="ReviewCard__your_contact">Kontakti juaj</string>
     <string name="ReviewCard__remove_from_group">Hiqe nga grupi</string>
     <string name="ReviewCard__update_contact">Përditësoni kontaktin</string>
-    <string name="ReviewCard__block">Bllokoje</string>
+    <string name="ReviewCard__block">Blloko</string>
     <string name="ReviewCard__delete">Fshije</string>
     <string name="ReviewCard__recently_changed">Ndryshoi së fundi emrin e vet të profilit nga %1$s në %2$s</string>
 
@@ -3667,11 +3738,11 @@
     <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">Wi-Fi i dobët. Kalo me internetin e celularit.</string>
 
     <!-- DeleteAccountFragment -->
-    <string name="DeleteAccountFragment__deleting_your_account_will">Fshirja e llogarisë tuaj do të:</string>
+    <string name="DeleteAccountFragment__deleting_your_account_will">Fshirja e llogarisë tënde do të:</string>
     <string name="DeleteAccountFragment__enter_your_phone_number">Jepni numrin e telefonit tuaj</string>
     <string name="DeleteAccountFragment__delete_account">Fshije llogarinë</string>
-    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Fshij të dhënat e llogarisë dhe foton e profilit</string>
-    <string name="DeleteAccountFragment__delete_all_your_messages">Fshiji krejt mesazhet e tua</string>
+    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Fshi të dhënat e llogarisë dhe foton e profilit</string>
+    <string name="DeleteAccountFragment__delete_all_your_messages">Fshi të gjitha mesazhet e tua</string>
     <string name="DeleteAccountFragment__delete_s_in_your_payments_account">Fshi %1$s te llogaria jote e pagesave</string>
     <string name="DeleteAccountFragment__no_country_code">S\\’u dha kod vendi</string>
     <string name="DeleteAccountFragment__no_number">S\\’u tregua numër</string>
@@ -3784,12 +3855,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Çaktivizoni Portofolin</string>
     <string name="DeactivateWalletFragment__your_balance">Depozita juaj</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Rekomandohet që të shpërngulni fondet tuaja në një portofol tjetër, përpara se të çaktivizoni pagesat. Nëse zgjidhni të mos shpërngulen fonte tuaja tani, do të mbeten në portofolin tuaj të lidhur me Molly-in, nëse riaktivizoni pagesat.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Rekomandohet që të transferosh fondet e tua në një portofol tjetër, para se të çaktivizosh pagesat. Nëse zgjedh të mos transferosh fondet e tua tani, do të mbeten në portofolin tënd të lidhur me Molly, nëse riaktivizon pagesat.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Shpërngulni depozitën e mbetur</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Çaktivizoje pa e shpërngulur</string>
     <string name="DeactivateWalletFragment__deactivate">Çaktivizoje</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Të çaktivizohet pa e shpërngulur?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Depozita juaj do të mbetet në portofolin tuaj të lidhur me Molly-in, nëse zgjidhni të riaktivizoni pagesat.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Depozita jote do të mbetet në portofolin tënd të lidhur me Molly, nëse zgjedh të riaktivizosh pagesat.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Gabim gjatë çaktivizimit të portofolit.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4008,7 +4079,7 @@
     <string name="PrivacySettingsFragment__messaging">Shkëmbim Mesazhesh</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Zhdukje mesazhesh</string>
     <string name="PrivacySettingsFragment__app_security">Siguri aplikacioni</string>
-    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Blloko foto ekrani te lista e të rejave dhe brenda aplikacionit</string>
+    <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Blloko foto të ekranit te lista e të rejave dhe brenda aplikacionit</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Mesazhe dhe thirrje Signal, thirrjet kaloji përherë përmes relesh, dhe dërgues të vulosur</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Kohëmatës parazgjedhje për fjalosje të reja</string>
     <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Ujdisni një kohëmatës tretjeje mesazhesh për krejt fjalosjet e reja të nisura nga ju.</string>
@@ -4106,7 +4177,7 @@
     <string name="Donate2022Q2Megaphone_not_now">Jo tani</string>
 
     <!-- EditReactionsFragment -->
-    <string name="EditReactionsFragment__customize_reactions">Përshtatni reagime</string>
+    <string name="EditReactionsFragment__customize_reactions">Personalizo reagimet</string>
     <string name="EditReactionsFragment__tap_to_replace_an_emoji">Prekeni që të zëvendësoni një emoxhi</string>
     <string name="EditReactionsFragment__reset">Riktheje</string>
     <string name="EditReactionsFragment_save">Ruaje</string>
@@ -4165,7 +4236,7 @@
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__call">Thirrje</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="ConversationSettingsFragment__mute">Heshtoje</string>
+    <string name="ConversationSettingsFragment__mute">Hiqi zërin</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__muted">Pa zë</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -4175,10 +4246,10 @@
   <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
     <string name="ConversationSettingsFragment__contact_details">Hollësi kontakti</string>
     <string name="ConversationSettingsFragment__view_safety_number">Shihni numër sigurie</string>
-    <string name="ConversationSettingsFragment__block">Bllokoje</string>
-    <string name="ConversationSettingsFragment__block_group">Blloko grup</string>
-    <string name="ConversationSettingsFragment__unblock">Zhbllokoje</string>
-    <string name="ConversationSettingsFragment__unblock_group">Zhbllokoje grupin</string>
+    <string name="ConversationSettingsFragment__block">Blloko</string>
+    <string name="ConversationSettingsFragment__block_group">Blloko grupin</string>
+    <string name="ConversationSettingsFragment__unblock">Zhblloko</string>
+    <string name="ConversationSettingsFragment__unblock_group">Zhblloko grupin</string>
     <string name="ConversationSettingsFragment__add_to_a_group">Shtoje te grup</string>
     <string name="ConversationSettingsFragment__see_all">Shihini krejt</string>
     <string name="ConversationSettingsFragment__add_members">Shtoni anëtarë</string>
@@ -4186,9 +4257,9 @@
     <string name="ConversationSettingsFragment__requests_and_invites">Kërkesa &amp; ftesa</string>
     <string name="ConversationSettingsFragment__group_link">Lidhje grupi</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">Shtojeni si kontakt</string>
-    <string name="ConversationSettingsFragment__unmute">Çheshtoji</string>
-    <string name="ConversationSettingsFragment__conversation_muted_until_s">Bisedë e heshtuar deri më %1$s</string>
-    <string name="ConversationSettingsFragment__conversation_muted_forever">Bisedë e heshtuar përgjithmonë</string>
+    <string name="ConversationSettingsFragment__unmute">Ktheja zërin</string>
+    <string name="ConversationSettingsFragment__conversation_muted_until_s">Biseda pa zë deri më %1$s</string>
+    <string name="ConversationSettingsFragment__conversation_muted_forever">Biseda është pa zë përgjithmonë</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Numri i telefonit u kopjua në të papastër.</string>
     <string name="ConversationSettingsFragment__phone_number">Numër telefoni</string>
     <string name="ConversationSettingsFragment__get_badges">Merr distinktivët për profilin tënd, duke përkrahur Signal. Për të mësuar më shumë, kliko mbi një distinktiv.</string>
@@ -4204,8 +4275,8 @@
     <string name="PermissionsSettingsFragment__who_can_send_messages">Cilët mund të dërgojnë mesazhe?</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
-    <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Heshtoji njoftimet</string>
-    <string name="SoundsAndNotificationsSettingsFragment__not_muted">S\\’është heshtuar</string>
+    <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Hiqu zërin njoftimeve</string>
+    <string name="SoundsAndNotificationsSettingsFragment__not_muted">Nuk është pa zë</string>
     <string name="SoundsAndNotificationsSettingsFragment__mentions">Përmendje</string>
     <string name="SoundsAndNotificationsSettingsFragment__always_notify">Njofto përherë</string>
     <string name="SoundsAndNotificationsSettingsFragment__do_not_notify">Mos njofto</string>
@@ -4234,7 +4305,7 @@
     <!-- Context menu item remove -->
     <string name="NewConversationActivity__remove">Fshije</string>
     <!-- Context menu item block -->
-    <string name="NewConversationActivity__block">Bllokoje</string>
+    <string name="NewConversationActivity__block">Blloko</string>
     <!-- Dialog title when removing a contact -->
     <string name="NewConversationActivity__remove_s">Të hiqet %1$s?</string>
     <!-- Dialog message when removing a contact -->
@@ -4330,7 +4401,7 @@
     <string name="MediaReviewFragment__add_to_story">Shto në postimin e përkohshëm</string>
     <string name="MediaReviewFragment__add_a_message">Shtoni një mesazh</string>
     <string name="MediaReviewFragment__add_a_reply">Shtoni një përgjigje</string>
-    <string name="MediaReviewFragment__send_to">Dërgoja</string>
+    <string name="MediaReviewFragment__send_to">Dërguar</string>
     <string name="MediaReviewFragment__view_once_message">Mesazh për parje vetëm një herë</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">Një ose më tepër objekte qenë shumë të mëdhenj</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">Një ose më tepër objekte qenë të pavlefshëm</string>
@@ -4508,7 +4579,7 @@
     <string name="DonationsErrors__your_donation_could_not_be_sent">Dhurata jote nuk u dërgua dot për shkak të një gabimi në rrjet. Kontrollo lidhjen e internetit dhe riprovo.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_to_s">Dhurim për %1$s</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">Dhurim në emër të %1$s</string>
     <!-- Gift message view title for incoming donations -->
     <string name="GiftMessageView__s_donated_to_signal_on">%1$s dhuroi për Signal në emrin tënd</string>
     <!-- Gift badge redeem action label -->
@@ -4905,9 +4976,9 @@
     <!-- My story privacy fine print about what the privacy settings are for -->
     <string name="MyStorySettingsFragment__choose_who_can_view_your_story">Zgjidh personat që mund ta shohin postimin e përkohshëm. Ndryshimet nuk zbatohen te postimet e përkohshme që tashmë i ke dërguar.</string>
     <!-- Section header for options related to replies and reactions -->
-    <string name="MyStorySettingsFragment__replies_amp_reactions">Përgjigje &amp; reagime</string>
+    <string name="MyStorySettingsFragment__replies_amp_reactions">Përgjigjet &amp; reagimet</string>
     <!-- Switchable option for allowing replies and reactions on your stories -->
-    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Lejo përgjigje &amp; reagime</string>
+    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Lejo përgjigjet &amp; reagimet</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Lëri njerëzit që mund të shohin postimin tënd të përkohshëm të reagojnë dhe të përgjigjen</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
@@ -5057,7 +5128,7 @@
     <!-- Label for a button in a notification at the bottom of the chat list to turn off censorship circumvention -->
 
     <!-- Conversation Item label for when you react to someone else\'s story -->
-    <string name="ConversationItem__you_reacted_to_s_story">Ti reagove ndaj postimit të përkohshëm të %1$s</string>
+    <string name="ConversationItem__you_reacted_to_s_story">Reagove ndaj postimit të përkohshëm të %1$s</string>
     <!-- Conversation Item label for reactions to your story -->
     <string name="ConversationItem__reacted_to_your_story">Reagoi ndaj postimit tënd të përkohshëm</string>
     <!-- Conversation Item label for reactions to an unavailable story -->
@@ -5322,7 +5393,7 @@
     <!-- Title of the screen -->
     <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Mesazhet SMS po eksportohen</string>
     <!-- Message of the screen when exporting sms messages -->
-    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">Kjo mund të dojë pak kohë</string>
+    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">Mund të duhet pak kohë</string>
     <!-- Progress indicator for export -->
     <plurals name="ExportingSmsMessagesFragment__exporting_d_of_d">
         <item quantity="one">Po eksportohet %1$d nga %2$d…</item>
@@ -5600,6 +5671,16 @@
     <string name="UsernameEditDialog__edit_username">Ndrysho emrin e përdoruesit</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">Fshi emrin e përdoruesit</string>
+
+    <!-- Time duration picker -->
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for hour, e.g., 12h -->
+    <string name="TimeDurationPickerDialog_single_letter_hour_abbreviation">o</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for minute, e.g., 24m -->
+    <string name="TimeDurationPickerDialog_single_letter_minute_abbreviation">m</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
+    <string name="TimeDurationPickerDialog_positive_button">Vendose</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">Koha minimale përpara se të aplikohet kyçja e ekranit është 1 minutë.</string>
 
     <!-- EOF -->
 </resources>

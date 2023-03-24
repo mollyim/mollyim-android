@@ -21,6 +21,7 @@ import android.animation.Animator;
 import android.animation.LayoutTransition;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -68,6 +70,7 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
 
 import org.jetbrains.annotations.NotNull;
 import org.signal.core.util.DimensionUnit;
@@ -131,6 +134,8 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.longmessage.LongMessageFragment;
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder;
+import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory;
+import org.thoughtcrime.securesms.mediapreview.MediaPreviewV2Activity;
 import org.thoughtcrime.securesms.messagedetails.MessageDetailsFragment;
 import org.thoughtcrime.securesms.messagerequests.MessageRequestState;
 import org.thoughtcrime.securesms.messagerequests.MessageRequestViewModel;
@@ -721,6 +726,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
             startupStopwatch.split("first-render");
             startupStopwatch.stop(TAG);
             SignalLocalMetrics.ConversationOpen.onRenderFinished();
+            listener.onFirstRender();
           });
         }
       });
@@ -1455,6 +1461,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
                            @NonNull ConversationReactionOverlay.OnHideListener onHideListener);
     void    onCursorChanged();
     void    onMessageWithErrorClicked(@NonNull MessageRecord messageRecord);
+    void    onFirstRender();
     void    onVoiceNotePause(@NonNull Uri uri);
     void    onVoiceNotePlay(@NonNull Uri uri, long messageId, double progress);
     void    onVoiceNoteResume(@NonNull Uri uri, long messageId);
@@ -1463,6 +1470,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     void    onRegisterVoiceNoteCallbacks(@NonNull Observer<VoiceNotePlaybackState> onPlaybackStartObserver);
     void    onUnregisterVoiceNoteCallbacks(@NonNull Observer<VoiceNotePlaybackState> onPlaybackStartObserver);
     void    onInviteToSignal();
+    boolean isInBubble();
   }
 
   private class ConversationScrollListener extends OnScrollListener {
@@ -1638,8 +1646,11 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
                                         listener.onVoiceNoteResume(selectedConversationModel.getAudioUri(), messageRecord.getId());
                                       }
 
-                                      WindowUtil.setLightStatusBarFromTheme(requireActivity());
-                                      WindowUtil.setLightNavigationBarFromTheme(requireActivity());
+                                      if (getActivity() != null) {
+                                        WindowUtil.setLightStatusBarFromTheme(requireActivity());
+                                        WindowUtil.setLightNavigationBarFromTheme(requireActivity());
+                                      }
+
                                       clearFocusedItem();
 
                                       if (finalMp4Holder != null) {
@@ -2047,6 +2058,29 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     @Override
     public void onInviteToSignalClicked() {
       listener.onInviteToSignal();
+    }
+
+    @Override
+    public void goToMediaPreview(ConversationItem parent, View sharedElement, MediaIntentFactory.MediaPreviewArgs args) {
+      if (listener.isInBubble()) {
+        requireActivity().startActivity(MediaIntentFactory.create(requireActivity(), args));
+        return;
+      }
+
+      if (args.isVideoGif()) {
+        int                            adapterPosition = list.getChildAdapterPosition(parent);
+        GiphyMp4ProjectionPlayerHolder holder          = giphyMp4ProjectionRecycler.getCurrentHolder(adapterPosition);
+
+        if (holder != null) {
+          parent.showProjectionArea();
+          holder.hide();
+        }
+      }
+
+      sharedElement.setTransitionName(MediaPreviewV2Activity.SHARED_ELEMENT_TRANSITION_NAME);
+      requireActivity().setExitSharedElementCallback(new MaterialContainerTransformSharedElementCallback());
+      ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(requireActivity(), sharedElement, MediaPreviewV2Activity.SHARED_ELEMENT_TRANSITION_NAME);
+      requireActivity().startActivity(MediaIntentFactory.create(requireActivity(), args), options.toBundle());
     }
 
     @Override

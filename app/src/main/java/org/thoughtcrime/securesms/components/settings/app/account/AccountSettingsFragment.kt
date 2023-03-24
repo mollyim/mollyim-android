@@ -41,7 +41,6 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
 
   private fun getConfiguration(state: AccountSettingsState): DSLConfiguration {
     return configure {
-
       sectionHeaderPref(R.string.preferences_app_protection__signal_pin)
 
       @Suppress("DEPRECATION")

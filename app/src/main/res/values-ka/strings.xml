@@ -14,13 +14,14 @@
   <!-- Removed by excludeNonTranslatables <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
 
     <string name="yes">დიახ</string>
     <string name="no">არა</string>
     <string name="delete">წაშლა</string>
     <string name="please_wait">გთხოვთ დაელოდოთ…</string>
     <string name="save">შენახვა</string>
-    <string name="note_to_self">შენიშვნა საკუთარ თავს</string>
+    <string name="note_to_self">ჩემი ჩანიშვნები</string>
 
     <!-- AlbumThumbnailView -->
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
@@ -98,7 +99,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">დაბლოკილი მომხმარებლები</string>
     <string name="BlockedUsersActivity__add_blocked_user">დაბლოკილი მომხმარებლის დამატება</string>
-    <string name="BlockedUsersActivity__blocked_users_will">დაბლოკილ მომხმარებლებს არ ექნებათ შესაძლებლობა დაგირეკონ ან გამოგიგზავნონ შეტყობინებები.</string>
+    <string name="BlockedUsersActivity__blocked_users_will">დაბლოკილ მომხმარებლებს არ ექნებათ შესაძლებლობა დაგირეკონ ან მოგწერონ.</string>
     <string name="BlockedUsersActivity__no_blocked_users">დაბლოკილი მომხმარებლები ვერ მოიძებნა</string>
     <string name="BlockedUsersActivity__block_user">დავბლოკოთ მომხმარებელი?</string>
     <string name="BlockedUserActivity__s_will_not_be_able_to">\"%1$s\" ვერ შეძლებს დარეკვას და მოწერას.</string>
@@ -147,16 +148,16 @@
     <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">თქვენ შეძლებთ ერთმანეთთან მიმოწერას და დარეკვას, და შენი სახლი და სურათი იქნება მათთან გაზიარებული.</string>
     <!-- Text that is shown when unblocking an SMS contact -->
     <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">ერთმანეთთან მიმოწერას შეძლებთ.</string>
-    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">ბლოკირებული ადამიანები ვეღარ შეძლებენ შენთან დარეკვას ან შეტყობინების გამოგზავნას.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">ბლოკირებული ადამიანები ვეღარ შეძლებენ შენთან დარეკვას ან მოწერას.</string>
     <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">დაბლოკილი ხალხი ვერ მოგწერს.</string>
     <!-- Message shown on block dialog when blocking the Signal release notes recipient -->
-    <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">დაბლოკე Signal-ის სიახლეები.</string>
+    <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Signal-ის განახლებების და სიახლეების მიღების დაბლოკვა.</string>
     <!-- Message shown on unblock dialog when unblocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_resume_getting_signal_updates_and_news">განაგრძე Signal-ის სიახლეების მიღება.</string>
     <string name="BlockUnblockDialog_unblock_s">განვბლოკოთ %1$s?</string>
     <string name="BlockUnblockDialog_block">დაბლოკვა</string>
-    <string name="BlockUnblockDialog_block_and_leave">დაბლოკვა და გასვლა</string>
-    <string name="BlockUnblockDialog_report_spam_and_block">სპამის დარეპორტება და დაბლოკვა</string>
+    <string name="BlockUnblockDialog_block_and_leave">დაბლოკვა და დატოვება</string>
+    <string name="BlockUnblockDialog_report_spam_and_block">სპამად დაფიქსირება და დაბლოკვა</string>
 
     <!-- BucketedThreadMedia -->
     <string name="BucketedThreadMedia_Today">დღეს</string>
@@ -366,7 +367,7 @@
 
     <string name="ConversationActivity_error_sending_media">მედია ფაილის გაგზავნისას შეცდომა მოხდა</string>
 
-    <string name="ConversationActivity__reported_as_spam_and_blocked">დარეპორტდა როგორც სპამი და დაიბლოკა.</string>
+    <string name="ConversationActivity__reported_as_spam_and_blocked">დაფიქსირდა როგორც სპამი და დაიბლოკა.</string>
 
     <!-- Message shown when opening an SMS conversation with SMS disabled and they have unexported sms messages -->
     <string name="ConversationActivity__sms_messaging_is_currently_disabled_you_can_export_your_messages_to_another_app_on_your_phone">SMS მიმოწერები ამ ეტაპზე გამორთულია. შეგიძლია შენი შეტყობინებები შენს ტელეფონში არსებულ სხვა აპში გადაიტანო.</string>
@@ -541,6 +542,15 @@
 
     <!-- ConversationTypingView -->
     <string name="ConversationTypingView__plus_d">+%1$d</string>
+
+    <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__relink_your_devices">თავიდან მიაბი შენი მოწყობილობები</string>
+    <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">შენ მიერ დამატებული მოწყობილობები მას შემდეგ აღარ არის მიბმული, რაც შენი მოწყობილობის რეგისტრაცია გააუქმე. მოწყობილობების ახლიდან მისაბმელად გადადი პარამეტრებში.</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
+    <string name="RelinkDevicesReminderFragment__open_settings">პარამეტრებში შესვლა</string>
+    <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
+    <string name="RelinkDevicesReminderFragment__later">მოგვიანებით</string>
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__select_members">წევრების არჩევა</string>
@@ -953,6 +963,16 @@
     <string name="ManageProfileFragment__username_created">მომხმარებლის სახელი შეიქმნა</string>
     <!-- Snackbar message after copying username -->
     <string name="ManageProfileFragment__username_copied">მომხმარებლის სახელი დაკოპირდა</string>
+    <!-- Snackbar message after network failure while trying to delete username -->
+    <string name="ManageProfileFragment__couldnt_delete_username">მომხმარებლის სახელის წაშლა ვერ მოხერხდა. მოგვიანებით სცადე.</string>
+    <!-- Snackbar message after successful deletion of username -->
+    <string name="ManageProfileFragment__username_deleted">მომხმარებლის სახელი წაიშალა</string>
+
+    <!-- UsernameOutOfSyncReminder -->
+    <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
+    <string name="UsernameOutOfSyncReminder__something_went_wrong">შენს მომხმარებლის სახელს რაღაც მოუვიდა, ის შენს მონაცემებთან აღარ არის დაკავშირებული. შეგიძლია სცადო და ის ახლიდან დააყენო, ან ახალი შეარჩიო.</string>
+    <!-- Action text to navigate user to manually fix the issue with their username -->
+    <string name="UsernameOutOfSyncReminder__fix_now">ახლა მოგვარება</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -1156,8 +1176,8 @@
     <string name="Megaphones_new_group">ახალი ჯგუფი</string>
     <string name="Megaphones_invite_friends">მოიწვიე მეგობრები</string>
     <string name="Megaphones_use_sms">SMS-ის გამოყენება</string>
-    <string name="Megaphones_appearance">ვიზუალი</string>
-    <string name="Megaphones_add_photo">ფოტოს დამატება</string>
+    <string name="Megaphones_chat_colors">ჩატის ფერები</string>
+    <string name="Megaphones_add_a_profile_photo">პროფილის ფოტოს დამატება</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">პასუხები</string>
@@ -1472,9 +1492,9 @@
     <string name="MessageRequestBottomView_unblock">განბლოკვა</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">მივცეთ უფლება %1$s-ს მოგწეროს და შენი სახელი და ფოტო გავუზიაროთ? ის ვერ გაიგებს, რომ მისი შეტყობინება ნახე, სანამ არ დაეთანხმები.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">მივცეთ უფლება %1$s-ს მოგწეროს და შენი სახელი და ფოტო გავუზიაროთ? შეტყობინებებს არ მიიღებ, სანამ მას არ განბლოკავ.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">მივცეთ უფლება %1$s-ს მოგწეროს და შენი სახელი და ფოტო გავუზიაროთ? წერილებს არ მიიღებ, სანამ მას არ განბლოკავ.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">მივცეთ უფლება %1$s-ს მოგწეროს? შეტყობინებებს არ მიიღებ, სანამ მას არ განბლოკავ.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">მივცეთ უფლება %1$s-ს მოგწეროს? წერილებს არ მიიღებ, სანამ მას არ განბლოკავ.</string>
     <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">გსურს შეიტყო სიახლეები %1$s-ის შესახებ? განახლებებს არ მიიღებ, სანამ მას არ განბლოკავ.</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">გსურს გააგრძელო მიმოწერა ამ ჯგუფთან და გაუზიარო შენი სახელი და ფოტო მის წევრებს?</string>
     <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">განაახლე ეს ჯგუფი ახალი ფუნქციების, მაგალითად @მონიშვნებისა და ადმინების გასააქტიურებლად. წევრები, რომლებსაც არ გაუზიარებიათ თავიანთი სახელი ან ფოტო ამ ჯგუფში, მოწვეულნი იქნებიან გასაწევრიანებლად.</string>
@@ -1483,7 +1503,7 @@
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">გსურს შეუერთდე ამ ჯგუფს და გაუზიარო შენი სახელი და ფოტო მის წევრებს? ისინი ვერ გაიგებენ, რომ მათი შეტყობინებები ნახე, სანამ არ დაეთანხმები.</string>
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">გსურს შეუერთდე ამ ჯგუფს და გაუზიარო შენი სახელი და ფოტო მის წევრებს? მათ შეტყობინებებს ვერ ნახავ, სანამ არ დაეთანხმები.</string>
     <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">გსურს შეუერთდე ამ ჯგუფს? ისინი ვერ გაიგებენ, რომ მათი შეტყობინებები ნახე, სანამ არ დაეთანხმები.</string>
-    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">გსურს განბლოკო ეს ჯგუფი და გაუზიარო შენი სახელი და ფოტო მის წევრებს? შეტყობინებებს არ მიიღებ, სანამ მას არ განბლოკავ.</string>
+    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">გსურს განბლოკო ეს ჯგუფი და გაუზიარო შენი სახელი და ფოტო მის წევრებს? წერილებს არ მიიღებ, სანამ მას არ განბლოკავ.</string>
   <!-- Removed by excludeNonTranslatables <string name="MessageRequestBottomView_legacy_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <string name="MessageRequestProfileView_view">View</string>
     <string name="MessageRequestProfileView_member_of_one_group">%1$s-ის წევრი</string>
@@ -1584,9 +1604,20 @@
     <string name="PinRestoreLockedFragment_create_new_pin">შექმენი ახალი პინ-კოდი</string>
   <!-- Removed by excludeNonTranslatables <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
+    <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
+    <string name="ReRegisterWithPinFragment_send_sms_code">SMS კოდის გამოგზავნა</string>
+    <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
+    <string name="ReRegisterWithPinFragment_support_email_subject">რეგისტრაცია Signal-ზე - მესაჭიროება დახმარება ანდროიდზე პინ-კოდის თავიდან დასარეგისტრირებლად</string>
+    <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
+    <string name="ReRegisterWithPinFragment_need_help_local">შენი პინ-კოდი %1$d+ ციფრიანი კოდია, რომელიც შეიძლება იყოს ციფრული, ან ანბანურ-ციფრული.\n\nთუ შენს პინ-კოდს ვერ იხსენებ, შეგიძლია ახალი შექმნა.</string>
+    <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
+    <string name="ReRegisterWithPinFragment_skip_local">თუ შენს პინ-კოდს ვერ იხსენებ, შეგიძლია ახალი შექმნა.</string>
+    <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
+    <string name="ReRegisterWithPinFragment_out_of_guesses_local">პინ-კოდის გამოცნობის ცდები ამოგეწურა, მაგრამ შენი Signal-ის მონაცემებზე წვდომა მაინც გექნება ახალი პინ-კოდის შექმნით.</string>
+
     <!-- PinOptOutDialog -->
     <string name="PinOptOutDialog_warning">გაფრთხილება</string>
-    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">თუ პინ-კოდს გამორთავ, Signal-ზე ხელახლა დარეგისტრირებისას ყველა მონაცემს დაკარგავ, თუ ხელით არ შექმნი სარეზერვო კოპიას და აღადგენ. რეგისტრაციის დაბლოკვას ვერ ჩართავ, სანამ პინ-კოდი გამორთულია.</string>
+    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">თუ პინ-კოდს გამორთავ, Signal-ზე ხელახლა დარეგისტრირებისას ყველა მონაცემს დაკარგავ, თუ ხელით არ შექმნი სარეზერვო ასლს და აღადგენ. რეგისტრაციის დაბლოკვას ვერ ჩართავ, სანამ პინ-კოდი გამორთულია.</string>
     <string name="PinOptOutDialog_disable_pin">პინ-კოდის გამორთვა</string>
 
     <!-- RatingManager -->
@@ -1731,7 +1762,7 @@
     <string name="CallParticipantView__you_wont_receive_their_audio_or_video">მათ აუდიოს ან ვიდეოს არ მიიღებ და ის არ მიიღებს შენსას.</string>
     <string name="CallParticipantView__cant_receive_audio_video_from_s">აუდიოს &amp; ვიდეოს მიღება %1$s-სგან შეუძლებელია</string>
     <string name="CallParticipantView__cant_receive_audio_and_video_from_s">აუდიოსა და ვიდეოს მიღება %1$s-სგან შეუძლებელია</string>
-    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">ეს შეიძლება იმის გამო იყოს, რომ მან არ დაავერიფიცირა შენი უსაფრთხოების ნომრის ცვლილება, მის მოწყობილობას პრობლემა აქვს ან დაგბლოკა.</string>
+    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">ეს შეიძლება იმით იყოს გამოწვეული, რომ მან არ დაავერიფიცირა შენი უსაფრთხოების ნომრის ცვლილება, მის მოწყობილობას პრობლემა აქვს ან დაგბლოკა.</string>
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">გადაწიე ეკრანის გაზიარების სანახავად</string>
@@ -1768,11 +1799,18 @@
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">მეგობრებთან დაკავშირების დასახმარებლად და შეტყობინებების გასაგზავნად, Signal-ს კონტაქტებსა და მედიაზე წვდომის ნებართვა სჭირდება. შენი კონტაქტები იტვირთება Signal-ის პირადი კონტაქტის აღმოჩენის საშუალებით, რაც ნიშნავს, რომ ისინი ბოლომდე დაშიფრულია და არასოდეს ჩანს Signal-ის სერვისისთვის.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">მეგობრებთან დაკავშირების დასახმარებლად Signal-ს კონტაქტებზე წვდომის ნებართვა სჭირდება. შენი კონტაქტები იტვირთება Signal-ის პირადი კონტაქტის აღმოჩენის საშუალებით, რაც ნიშნავს, რომ ისინი ბოლომდე დაშიფრულია და არასოდეს ჩანს Signal-ის სერვისისთვის.</string>
     <string name="RegistrationActivity_rate_limited_to_service">თქვენ მოახდინეთ ძალიან ბევრი მცდელობა ამ ნომრის დარეგისტრირებისთვის. გთხოვთ ხელახლა სცადოთ მოგვიანებით.</string>
+    <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
+    <string name="RegistrationActivity_rate_limited_to_try_again">ამ ნომრის დარეგისტრირება ზედმეტად ბევრჯერ სცადე. გთხოვთ, %1$s-ში თავიდან სცადო.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">სერვისთან დაკავშირება შეუძლებელია. გთხოვთ, შეამოწმოთ ქსელის კავშირი და ხელახლა სცადოთ.</string>
     <string name="RegistrationActivity_non_standard_number_format">ნომრის არასტანდარტული ფორმატი</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">შენ მიერ შეყვანილი ნომერი (%1$s), როგორც ჩანს, არასტანდარტული ფორმატისაა. %2$s-ს გულისხმობდი?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android-ი - ტელეფონის ნომრის ფორმატი</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">დარეკვა მოთხოვნილია</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+    <string name="RegistrationActivity_sms_requested">SMS-ი მოთხოვნილია</string>
+    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+    <string name="RegistrationActivity_code_requested">ვერიფიკაციის კოდი მოთხოვნილია</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="one">ახლა გაშორებთ %1$d ნაბიჯი პრობლემების მოგვარების ჟურნალის გაგზავნიდან.</item>
         <item quantity="other">ახლა %1$d ნაბიჯი გაშორებს გაუმართაობის რეესტრის გაგზავნისგან.</item>
@@ -1792,6 +1830,16 @@
     <string name="RegistrationActivity_call">დარეკვა</string>
     <string name="RegistrationActivity_verification_code">ვერიფიკაციის კოდი</string>
     <string name="RegistrationActivity_resend_code">კოდის თავიდან გაგზავნა</string>
+    <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_title">ვერ რეგისტრირდები?</string>
+    <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
+    <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• დარწმუნდი, რომ შენს ტელეფონს SMS-ის ან ზარის მისაღებად ქსელის კავშირი აქვს\n • დაადასტურე, რომ შეგიძლია ნომერზე სატელეფონო ზარი მიიღო\n • შეამოწმე, რომ სწორად შეიყვანე შენი ტელეფონის ნომერი.</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">მეტი ინფორმაციისთვის, გთხოვთ, მიჰყვე პრობლემების მოგვარების ამ ნაბიჯებს ან მხარდაჭერის გუნდს დაუკავშირდე</string>
+    <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">პრობლემების მოგვარების ამ ნაბიჯებს</string>
+    <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
+    <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">მხარდაჭერის გუნდთან დაკავშირება</string>
 
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">ჩავრთოთ რეგისტრაციის დაბლოკვა?</string>
@@ -1958,6 +2006,10 @@
     <string name="ThreadRecord_payment">ტრანზაქცია</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">გადავადებული შეტყობინება</string>
+    <!--  Displayed in the conversation list when your message history has been merged -->
+    <string name="ThreadRecord_message_history_has_been_merged">შენი მიმოწოერის ისტორია გაერთიანდა</string>
+    <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
+    <string name="ThreadRecord_s_belongs_to_s">%1$s %2$s-ს ეკუთვნის</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Molly-ის განახლება</string>
@@ -2087,13 +2139,15 @@
     <string name="MessageNotifier_unsecured_sms">დაუცველი SMS-ი</string>
     <string name="MessageNotifier_contact_message">%1$s %2$s</string>
     <string name="MessageNotifier_unknown_contact_message">კონტაქტი</string>
-    <string name="MessageNotifier_reacted_s_to_s">გამოეხმაურა %1$s-ს: \"%2$s\".</string>
+    <string name="MessageNotifier_reacted_s_to_s">გამოეხმაურა %1$s: \"%2$s-ს\".</string>
     <string name="MessageNotifier_reacted_s_to_your_video">გამოეხმაურა %1$s შენს ვიდეოს.</string>
     <string name="MessageNotifier_reacted_s_to_your_image">გამოეხმაურა %1$s შენს სურათს.</string>
     <string name="MessageNotifier_reacted_s_to_your_gif">გამოეხმაურა %1$s შენს GIF-ს.</string>
     <string name="MessageNotifier_reacted_s_to_your_file">გამოეხმაურა %1$s შენს ფაილს.</string>
     <string name="MessageNotifier_reacted_s_to_your_audio">გამოეხმაურა %1$s შენს აუდიოს.</string>
-    <string name="MessageNotifier_reacted_s_to_your_view_once_media">გამოეხმაურა %1$s შენს ერთჯერად მედია-ფაილს.</string>
+    <string name="MessageNotifier_reacted_s_to_your_view_once_media">გამოეხმაურა %1$s შენს ერთხელ სანახავ მედია-ფაილს.</string>
+    <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
+    <string name="MessageNotifier_reacted_s_to_your_payment">Reacted %1$s to your payment.</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">გამოეხმაურა %1$s შენს სტიკერს.</string>
     <string name="MessageNotifier_this_message_was_deleted">ეს შეტყობინება იქნა წაშლილი.</string>
 
@@ -2487,8 +2541,8 @@
 
     <!-- BadDecryptLearnMoreDialog -->
     <string name="BadDecryptLearnMoreDialog_delivery_issue">გაგზავნის პრობლემა</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">შეტყობინება, სტიკერი, რეაქცია ან წაკითვის დასტური ვერ გამოგეგზავნება %1$s -სგან. შესაძლოა მან გამოგზავნა პირდაპირ, ან ჯგუფში სცადა.</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">შეტყობინება, სტიკერი, რეაქცია ან წაკითხვის დასტური ვერ გამოგეგზავნება %1$s -სგან.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">%1$s -სგან შეტყობინება, სტიკერი, რეაქცია ან წაკითხვის დასტური ვერ გამოგეგზავნება. შესაძლოა მან გამოგზავნა პირდაპირ, ან ჯგუფში სცადა.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">%1$s -სგან შეტყობინება, სტიკერი, რეაქცია ან წაკითხვის დასტური ვერ გამოგეგზავნება.</string>
 
     <!-- profile_create_activity -->
     <string name="CreateProfileActivity_first_name_required">სახელი (სავალდებულო)</string>
@@ -2677,7 +2731,7 @@
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
     <string name="preferences__pref_keep_muted_chats_archived">შეინახე დადუმებული ჩატები არქივში</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">ახალი შეტყობინების მიღებისას, დაარქივებული დადუმებული ჩატები არქივში დარჩება.</string>
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">ახალი წერილის მიღებისას, დაარქივებული დადუმებული ჩატები არქივში დარჩება.</string>
     <string name="preferences__generate_link_previews">ბმულსი წინასწარი ნახვის გენერირება</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">მიიღე ბმულის წინასწარი ნახვა შენს მიერ გაგზავნილი შეტყობინებებისთვის პირდაპირ ვებსაიტებიდან.</string>
     <string name="preferences__change_passphrase">პაროლ-ფრაზის შეცვლა</string>
@@ -3295,6 +3349,8 @@
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">შეიყვანე შენი პინ-კოდი</string>
     <string name="RegistrationLockFragment__enter_the_pin_you_created">შეიყვანე შენი მონაცემებისთვის შექმნილი პინ-კოდი. ის განსხვავდება შენი SMS ვერიფიკაციის კოდისგან.</string>
+    <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
+    <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">შეიყვანე შენი ანგარიშისთვის შექმნილი პინ-კოდი.</string>
     <string name="RegistrationLockFragment__enter_alphanumeric_pin">შეიყვანე ანბანურ-ციფრული პინ-კოდი</string>
     <string name="RegistrationLockFragment__enter_numeric_pin">შეიყვანე ციფრული პინ-კოდი</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">არასწორი პინ-კოდი. ხელახლა სცადე.</string>
@@ -3398,7 +3454,10 @@
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">შენი სარეზერვო კოპია შეიცავს ძალიან დიდ ფაილს, რომლის კოპირებაც ვერ ხერხდება. გთხოვთ წაშალო ის და ახალი სარეზერვო კოპია შექმნა.</string>
     <string name="LocalBackupJobApi29_tap_to_manage_backups">დააჭირე სარეზერვო კოპიების სამართავად.</string>
     <string name="RegistrationActivity_wrong_number">ნომერი არასწორია?</string>
+    <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">დამირეკეთ (%1$02d:%2$02d)</string>
+    <!--    Countdown to when the user can request a new SMS code during registration.-->
+    <string name="RegistrationActivity_resend_sms_available_in">კოდის თავიდან გაგზავნა (%1$02d:%2$02d)</string>
     <string name="RegistrationActivity_contact_signal_support">დაუკავშირდით Signal-ის მხარდაჭერას</string>
     <string name="RegistrationActivity_code_support_subject">Signal-ის რეგისტრაცია - დადასტურების კოდი Android-ითვის</string>
     <string name="RegistrationActivity_incorrect_code">არასწორი კოდი</string>
@@ -3406,6 +3465,18 @@
     <string name="BackupUtil_unknown">უცნობი</string>
     <string name="preferences_app_protection__see_my_phone_number">ჩემი მობილურის ნომრის ნახვა</string>
     <string name="preferences_app_protection__find_me_by_phone_number">ჩემი პოვნა მოვილურის ნომრით</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">ტელეფონის ნომერი</string>
+    <!-- Subtext below option to launch into phone number privacy settings screen -->
+    <string name="preferences_app_protection__choose_who_can_see">შეარჩიე, ვის შეუძლია ნახოს შენი ტელეფონის ნომერი და ვინ შეიძლება დაგიკავშირდეს Molly-ზე მისი დახმარებით.</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">ვის შეუძლია ჩემი ნომრის ნახვა</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Molly-ზე შენი ტელეფონის ნომერს ვერავინ ნახავს</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">ვის შეუძლია ნომრით მიპოვოს</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">შენი ტელეფონის ნომერი ხილული იქნება ყველა ადამიანისა და ჯგუფისთვის, ვისთანაც მიმოწერა გაქვს. ადამიანები, რომლებსაც შენი ნომერი სატელეფონო კონტაქტებში აქვთ, მას Molly-ზეც ნახავენ.</string>
     <string name="PhoneNumberPrivacy_everyone">ყველა</string>
     <string name="PhoneNumberPrivacy_my_contacts">ჩემი კონტაქტები</string>
     <string name="PhoneNumberPrivacy_nobody">არავინ</string>
@@ -3616,7 +3687,7 @@
     <!-- StorageUtil -->
     <string name="StorageUtil__s_s">%1$s/%2$s</string>
     <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" დაბლოკილია.</string>
-    <string name="BlockedUsersActivity__failed_to_block_s">\"%1$s\"-ის დაბლოკვა ვერ მოხერხდა.</string>
+    <string name="BlockedUsersActivity__failed_to_block_s">\"%1$s\"-ის დაბლოკვა ვერ მოხერხდა</string>
     <string name="BlockedUsersActivity__s_has_been_unblocked">\"%1$s\" განბლოკილია.</string>
 
     <!-- ReviewCardDialogFragment -->
@@ -3667,17 +3738,17 @@
     <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">Wi-Fi კავშირი სუსტია. გადაირთო მობილურის ინტერნეტზე.</string>
 
     <!-- DeleteAccountFragment -->
-    <string name="DeleteAccountFragment__deleting_your_account_will">შენი მონაცემების წაშლა:</string>
+    <string name="DeleteAccountFragment__deleting_your_account_will">შენი ანგარიშის წაშლით:</string>
     <string name="DeleteAccountFragment__enter_your_phone_number">შეიყვანე შენი ტელეფონის ნომერი</string>
     <string name="DeleteAccountFragment__delete_account">მონაცემების წაშლა</string>
-    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">წაშლის შენს მონაცემებს და პროფილის ფოტოს</string>
-    <string name="DeleteAccountFragment__delete_all_your_messages">ყველა შენი შეტყობინების წაშალა</string>
+    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">წაიშლება შენი მონაცემები და პროფილის ფოტოს</string>
+    <string name="DeleteAccountFragment__delete_all_your_messages">წაიშლება ყველა შენი შეტყობინება</string>
     <string name="DeleteAccountFragment__delete_s_in_your_payments_account">წაშლის %1$s შენი ტრანზაქციების მონაცემებიდან</string>
     <string name="DeleteAccountFragment__no_country_code">ქვეყნის კოდი არ არის მითითებული</string>
     <string name="DeleteAccountFragment__no_number">ნომერი არ არის მითითებული</string>
     <string name="DeleteAccountFragment__the_phone_number">შეყვანილი მობილურის ნომერი არ ემთხვევა შენს მონაცემებში აღნიშნულს.</string>
     <string name="DeleteAccountFragment__are_you_sure">დარწმუნებული ხარ, რომ შენი მონაცემების წაშლა გსურს?</string>
-    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">ეს წაშლის Signal-ის შენ მონაცემებს და განაახლებს აპლიკაციას. პროცესის დასრულების შემდეგ აპლიკაცია დაიხურება.</string>
+    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">ეს წაშლის Signal-ის შენს მონაცემებს და განაახლებს აპლიკაციას. პროცესის დასრულების შემდეგ აპლიკაცია დაიხურება.</string>
     <string name="DeleteAccountFragment__failed_to_delete_local_data">ადგილობრივი მონაცემების წაშლა ვერ მოხერხდა. შეგიძლია ისინი ხელით წაშალო სისტემის აპლიკაციის პარამეტრებში.</string>
     <string name="DeleteAccountFragment__launch_app_settings">აპის პარამეტრების გაშვება</string>
     <!-- Title of progress dialog shown when a user deletes their account and the process is leaving all groups -->
@@ -3784,12 +3855,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">საფულის დეაქტივაცია</string>
     <string name="DeactivateWalletFragment__your_balance">შენი ბალანსი</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">გადახდების დეაქტივაციამდე რეკომენდებულია შენი თანხების სხვა საფულის მისამართზე გადარიცხვა. თუ გადაწყვეტ, რომ შენი თანხები ახლა არ გადარიცხო, ისინი დარჩება Molly-თან დაკავშირებულ შენს საფულეში, თუ ხელახლა გააქტიურებთ გადახდებს.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">გადახდების დეაქტივაციამდე რეკომენდებულია, შენი თანხები სხვა საფულის მისამართზე გადარიცხო. თუ გადაწყვეტ, რომ შენი თანხები ახლა არ გადარიცხო, ისინი დარჩება Molly-თან დაკავშირებულ შენს საფულეში, თუ გადახდებს ხელახლა გააქტიურებ.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">დარჩენილი ბალანსის გადატანა</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">დეაქტივაცია გადატანის გარეშე</string>
     <string name="DeactivateWalletFragment__deactivate">დეაქტივაცია</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">გსურს გადატანის გარეშე დეაქტივაცია?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">შენი ბალანსი დარჩება შენს საფულეში, რომელიც დაკავშირებულია Molly-თან, თუ ტრანზაქციების ხელახლა გააქტიურებას გადაწყვეტ.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">თუ ტრანზაქციების ხელახლა გააქტიურებას გადაწყვეტ, შენი ბალანსი შენს საფულეში დარჩება, რომელიც Molly-თანაა დაკავშირებული.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">საფულის დეაქტივაციისას ხარვეზი მოხდა.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4187,8 +4258,8 @@
     <string name="ConversationSettingsFragment__group_link">ჯგუფის ბმული</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">კონტაქტად დამატება</string>
     <string name="ConversationSettingsFragment__unmute">მდუმარე რეჟიმის გამორთვა</string>
-    <string name="ConversationSettingsFragment__conversation_muted_until_s">მიწერმოწერა დადუმებულია %1$s-მდე</string>
-    <string name="ConversationSettingsFragment__conversation_muted_forever">მიწერმოწერა დადუმებულია სამუდამოდ</string>
+    <string name="ConversationSettingsFragment__conversation_muted_until_s">მიმოწერა დადუმებულია %1$s-მდე</string>
+    <string name="ConversationSettingsFragment__conversation_muted_forever">მიმოწერა დადუმებულია სამუდამოდ</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">მობილურის ნომერი ბუფერში დაკოპირდა.</string>
     <string name="ConversationSettingsFragment__phone_number">ტელეფონის ნომერი</string>
     <string name="ConversationSettingsFragment__get_badges">მიიღე ემბლემები შენი პროფილისთვის Signal-ის მხარდაჭერით. მეტი ინფორმაციისთვის დააჭირე ემბლემას.</string>
@@ -4242,7 +4313,7 @@
     <!-- Snackbar message after removing a contact -->
     <string name="NewConversationActivity__s_has_been_removed">%1$s წაიშალა</string>
     <!-- Snackbar message after blocking a contact -->
-    <string name="NewConversationActivity__s_has_been_blocked">%1$s დაიბლოკა</string>
+    <string name="NewConversationActivity__s_has_been_blocked">%1$s დაბლოკილია</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">%1$s-ის წაშლა ვერ მოხერხდა</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -4453,7 +4524,7 @@
     <string name="ExpiredBadgeBottomSheetDialogFragment__monthly_donation_cancelled">ყოველთვიური დონაცია გაუქმებულია</string>
     <!-- Displayed in the bottom sheet when a boost badge expires -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired_and">შენი ბუსტის ემბლემას ვადა ამოეწურა და შენს პროფილზე ის აღარ ჩანს.</string>
-    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">ერთჯერადი კონტრიბუციით შეგიძლია ბუსტის ემბლემა დამატებით 30 დღით გააგრძელო.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">შეგიძლია ერთჯერადი კონტრიბუციით ბუსტის ემბლემა დამატებით 30 დღით გააგრძელო.</string>
     <!-- Displayed when we do not think the user is a subscriber when their boost expires -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_keep">შეგიძლია Signal-ის გამოყენება გააგრძელო, მაგრამ შენთვის შექმნილი ტექნოლოგიის დასახმარებლად, შენ გაქვს შესაძლებლობა მისი მხარდამჭერი გახდე ყოველთვიური დონაციების გაკეთებით.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">გახდი მხარდამჭერი</string>
@@ -4465,7 +4536,7 @@
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled">შენი განმეორებადი ყოველთვიური დონაცია გაუქმდა, რადგან შენი ტრანზაქცია ვერ დავამუშავეთ. შენი ემბლემა აღარ ჩანს შენს პროფილზე.</string>
     <!-- Copy displayed when badge expires after a payment failure and we have a displayable charge failure reason -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled_s">შენი განმეორებადი ყოველთვიური დონაცია გაუქმდა. %1$s შენი %2$s ემბლემა აღარ ჩანს შენს პროფილზე.</string>
-    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">შეგიძლია გააგრძელო Signal-ის გამოყენება, მაგრამ აპის მხარდასაჭერად და შენი ემბლემის ხელახლა გასააქტიურებლად, აღადგინე გამოწერა.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">შეგიძლია Signal-ის გამოყენება გააგრძელო, მაგრამ აპის მხარდასაჭერად და შენი ემბლემის ხელახლა გასააქტიურებლად, გამოწერა უნდა აღადგინო.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">გამოწერის განახლება</string>
     <!-- Button label to send user to Google Pay website -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__go_to_google_pay">Google Pay-ში შესვლა</string>
@@ -4508,7 +4579,7 @@
     <string name="DonationsErrors__your_donation_could_not_be_sent">შენი დონაცია ვერ გაიგზავნა კავშირის ხარვეზის გამო. შეამოწმე შენი კავშირი და თავიდან სცადე.</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_to_s">დონაცია %1$s-სთვის</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">დონაცია %1$s-ის სახელზე</string>
     <!-- Gift message view title for incoming donations -->
     <string name="GiftMessageView__s_donated_to_signal_on">%1$s-მა Signal-ს დონაცია შენს სახელზე გაუკეთა</string>
     <!-- Gift badge redeem action label -->
@@ -4907,7 +4978,7 @@
     <!-- Section header for options related to replies and reactions -->
     <string name="MyStorySettingsFragment__replies_amp_reactions">პასუხები &amp; გამოხმაურება</string>
     <!-- Switchable option for allowing replies and reactions on your stories -->
-    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">პასუხებისა &amp; გამოხმაურებების დაშვება</string>
+    <string name="MyStorySettingsFragment__allow_replies_amp_reactions">პასუხებისა &amp; გამოხმაურების დაშვება</string>
     <!-- Summary for switchable option allowing replies and reactions on your story -->
     <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">ნება მიეცი ადამიანებს, რომლებსაც შეუძლიათ შენი Story-ის ნახვა, მას გამოეხმაურონ</string>
     <!-- Signal connections bolded text in the Signal Connections sheet -->
@@ -5600,6 +5671,16 @@
     <string name="UsernameEditDialog__edit_username">მომხმარებლის სახელის რედაქტირება</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">მომხმარებლის სახელის წაშლა</string>
+
+    <!-- Time duration picker -->
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for hour, e.g., 12h -->
+    <string name="TimeDurationPickerDialog_single_letter_hour_abbreviation">სთ</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label shown after the user input value for minute, e.g., 24m -->
+    <string name="TimeDurationPickerDialog_single_letter_minute_abbreviation">წთ</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
+    <string name="TimeDurationPickerDialog_positive_button">დაყენება</string>
+    <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">ეკრანის დაბლოკვის გამოყენებამდე მინიმალური დროა 1 წუთი.</string>
 
     <!-- EOF -->
 </resources>

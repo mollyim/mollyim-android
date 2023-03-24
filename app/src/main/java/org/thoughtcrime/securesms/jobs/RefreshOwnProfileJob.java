@@ -4,8 +4,11 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.usernames.BaseUsernameException;
+import org.signal.libsignal.usernames.Username;
 import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
@@ -19,6 +22,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.Base64;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.ProfileUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
@@ -28,8 +32,14 @@ import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.util.ExpiringProfileCredentialUtil;
+import org.whispersystems.signalservice.internal.push.ReserveUsernameResponse;
+import org.whispersystems.signalservice.internal.push.WhoAmIResponse;
+import org.whispersystems.util.Base64UrlSafe;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Objects;
+
 
 /**
  * Refreshes the profile of the local user. Different from {@link RetrieveProfileJob} in that we
@@ -116,10 +126,11 @@ public class RefreshOwnProfileJob extends BaseJob {
     profileAndCredential.getExpiringProfileKeyCredential()
                         .ifPresent(expiringProfileKeyCredential -> setExpiringProfileKeyCredential(self, ProfileKeyUtil.getSelfProfileKey(), expiringProfileKeyCredential));
 
-    String username = ApplicationDependencies.getSignalServiceAccountManager().getWhoAmI().getUsername();
-    SignalDatabase.recipients().setUsername(Recipient.self().getId(), username);
-
     StoryOnboardingDownloadJob.Companion.enqueueIfNeeded();
+
+    if (FeatureFlags.usernames()) {
+      checkUsernameIsInSync();
+    }
   }
 
   private void setExpiringProfileKeyCredential(@NonNull Recipient recipient,
@@ -216,6 +227,41 @@ public class RefreshOwnProfileJob extends BaseJob {
     if (!verified) {
       Log.w(TAG, "Unidentified access failed to verify! Refreshing attributes.");
       ApplicationDependencies.getJobManager().add(new RefreshAttributesJob());
+    }
+  }
+
+  static void checkUsernameIsInSync() {
+    try {
+      String  localUsername    = SignalDatabase.recipients().getUsername(Recipient.self().getId());
+      boolean hasLocalUsername = !TextUtils.isEmpty(localUsername);
+
+      if (!hasLocalUsername) {
+        return;
+      }
+
+      WhoAmIResponse whoAmIResponse     = ApplicationDependencies.getSignalServiceAccountManager().getWhoAmI();
+      boolean        hasServerUsername  = !TextUtils.isEmpty(whoAmIResponse.getUsernameHash());
+      String         serverUsernameHash = whoAmIResponse.getUsernameHash();
+      String         localUsernameHash  = Base64UrlSafe.encodeBytesWithoutPadding(Username.hash(localUsername));
+
+      if (!hasServerUsername || !Objects.equals(localUsernameHash, serverUsernameHash)) {
+        tryToReserveAndConfirmLocalUsername(localUsername, localUsernameHash);
+      }
+    } catch (IOException | BaseUsernameException e) {
+      Log.w(TAG, "Failed perform synchronization check", e);
+    }
+  }
+
+  private static void tryToReserveAndConfirmLocalUsername(@NonNull String localUsername, @NonNull String localUsernameHash) {
+    try {
+      ReserveUsernameResponse response = ApplicationDependencies.getSignalServiceAccountManager()
+                                                                .reserveUsername(Collections.singletonList(localUsernameHash));
+
+      ApplicationDependencies.getSignalServiceAccountManager()
+                             .confirmUsername(localUsername, response);
+    } catch (IOException e) {
+      Log.d(TAG, "Failed to synchronize username.", e);
+      SignalStore.phoneNumberPrivacy().markUsernameOutOfSync();
     }
   }
 

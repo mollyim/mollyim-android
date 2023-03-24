@@ -51,7 +51,7 @@ class ExpiringStoriesManager(
   override fun getDelayForEvent(event: Event): Long = event.delay
 
   @WorkerThread
-  override fun scheduleAlarm(application: Application, delay: Long) {
+  override fun scheduleAlarm(application: Application, event: Event, delay: Long) {
     setAlarm(application, delay, ExpireStoriesAlarm::class.java)
   }
 

@@ -82,6 +82,7 @@ import org.signal.core.util.Stopwatch;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.concurrent.SimpleTask;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.MainFragment;
 import org.thoughtcrime.securesms.MainNavigator;
 import org.thoughtcrime.securesms.MuteDialog;
@@ -104,6 +105,7 @@ import org.thoughtcrime.securesms.components.reminder.Reminder;
 import org.thoughtcrime.securesms.components.reminder.ReminderView;
 import org.thoughtcrime.securesms.components.reminder.ServiceOutageReminder;
 import org.thoughtcrime.securesms.components.reminder.UnauthorizedReminder;
+import org.thoughtcrime.securesms.components.reminder.UsernameOutOfSyncReminder;
 import org.thoughtcrime.securesms.components.settings.app.notifications.manual.NotificationProfileSelectionFragment;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlayerView;
@@ -145,6 +147,7 @@ import org.thoughtcrime.securesms.notifications.MarkReadReceiver;
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile;
 import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity;
 import org.thoughtcrime.securesms.permissions.Permissions;
+import org.thoughtcrime.securesms.profiles.manage.ManageProfileActivity;
 import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -156,6 +159,7 @@ import org.thoughtcrime.securesms.stories.tabs.ConversationListTab;
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTabsViewModel;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
+import org.thoughtcrime.securesms.util.CachedInflater;
 import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LifecycleDisposable;
@@ -287,7 +291,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
                                                       SelectionLimits.NO_LIMITS,
                                                       false,
                                                       ContactSearchAdapter.DisplaySmsTag.DEFAULT,
-                                                      ContactSearchAdapter.DisplayPhoneNumber.NEVER,
+                                                      ContactSearchAdapter.DisplaySecondaryInformation.NEVER,
                                                       this::mapSearchStateToConfiguration,
                                                       new ContactSearchMediator.SimpleCallbacks(),
                                                       false,
@@ -295,7 +299,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
                                                        fixedContacts,
                                                        displayCheckBox,
                                                        displaySmsTag,
-                                                       displayPhoneNumber,
+                                                       displaySecondaryInformation,
                                                        callbacks,
                                                        longClickCallbacks,
                                                        storyContextMenuCallbacks
@@ -306,7 +310,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
                                                             fixedContacts,
                                                             displayCheckBox,
                                                             displaySmsTag,
-                                                            displayPhoneNumber,
+                                                            displaySecondaryInformation,
                                                             new ContactSearchClickCallbacks(callbacks),
                                                             longClickCallbacks,
                                                             storyContextMenuCallbacks,
@@ -371,6 +375,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     list.setLayoutManager(new LinearLayoutManager(requireActivity()));
     list.setItemAnimator(itemAnimator);
     list.addItemDecoration(archiveDecoration);
+    CachedInflater.from(list.getContext()).clear();
+    CachedInflater.from(list.getContext()).cacheUntilLimit(R.layout.conversation_list_item_view, list, 10);
 
     snapToTopDataObserver = new SnapToTopDataObserver(list);
 
@@ -513,26 +519,35 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     super.onOptionsItemSelected(item);
 
-    switch (item.getItemId()) {
-      case R.id.menu_new_group:
-        handleCreateGroup(); return true;
-      case R.id.menu_settings:
-        handleDisplaySettings(); return true;
-      case R.id.menu_clear_passphrase:
-        handleClearPassphrase(); return true;
-      case R.id.menu_mark_all_read:
-        handleMarkAllRead(); return true;
-      case R.id.menu_invite:
-        handleInvite(); return true;
-      case R.id.menu_notification_profile:
-        handleNotificationProfile(); return true;
-      case R.id.menu_filter_unread_chats:
-        handleFilterUnreadChats(); return true;
-      case R.id.menu_clear_unread_filter:
-        onClearFilterClick(); return true;
-    }
+    int itemId = item.getItemId();
 
-    return false;
+    if (itemId == R.id.menu_new_group) {
+      handleCreateGroup();
+      return true;
+    } else if (itemId == R.id.menu_settings) {
+      handleDisplaySettings();
+      return true;
+    } else if (itemId == R.id.menu_clear_passphrase) {
+      handleClearPassphrase();
+      return true;
+    } else if (itemId == R.id.menu_mark_all_read) {
+      handleMarkAllRead();
+      return true;
+    } else if (itemId == R.id.menu_invite) {
+      handleInvite();
+      return true;
+    } else if (itemId == R.id.menu_notification_profile) {
+      handleNotificationProfile();
+      return true;
+    } else if (itemId == R.id.menu_filter_unread_chats) {
+      handleFilterUnreadChats();
+      return true;
+    } else if (itemId == R.id.menu_clear_unread_filter) {
+      onClearFilterClick();
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @Override
@@ -715,6 +730,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       CdsTemporaryErrorBottomSheet.show(getChildFragmentManager());
     } else if (reminderActionId == R.id.reminder_action_cds_permanent_error_learn_more) {
       CdsPermanentErrorBottomSheet.show(getChildFragmentManager());
+    } else if (reminderActionId == R.id.reminder_action_fix_username) {
+      startActivity(ManageProfileActivity.getIntentForUsernameEdit(requireContext()));
     }
   }
 
@@ -765,7 +782,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   private void updateSearchToolbarHint(@NonNull ConversationFilterRequest conversationFilterRequest) {
-    requireCallback().getSearchToolbar().get().setSearchInputHint(
+    Stub<Material3SearchToolbar> searchToolbar = requireCallback().getSearchToolbar();
+    if (!searchToolbar.resolved()) {
+      return;
+    }
+    searchToolbar.get().setSearchInputHint(
         conversationFilterRequest.getFilter() == ConversationFilter.OFF ? R.string.SearchToolbar_search : R.string.SearchToolbar_search_unread_chats
     );
   }
@@ -802,13 +823,14 @@ public class ConversationListFragment extends MainFragment implements ActionMode
         startupStopwatch.split("data-set");
         SignalLocalMetrics.ColdStart.onConversationListDataLoaded();
         defaultAdapter.unregisterAdapterDataObserver(this);
-        list.post(() -> {
-          AppStartup.getInstance().onCriticalRenderEventEnd();
-          startupStopwatch.split("first-render");
-          startupStopwatch.stop(TAG);
-
-          if (getContext() != null) {
-            ConversationFragment.prepare(getContext());
+        if (requireActivity() instanceof MainActivity) {
+          ((MainActivity) requireActivity()).onFirstRender();
+        }
+        list.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+          @Override
+          public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+            list.removeOnLayoutChangeListener(this);
+            list.post(ConversationListFragment.this::onFirstRender);
           }
         });
       }
@@ -881,6 +903,17 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       defaultAdapter.setSelectedConversations(conversations);
       updateMultiSelectState();
     });
+  }
+
+  private void onFirstRender() {
+    AppStartup.getInstance().onCriticalRenderEventEnd();
+    startupStopwatch.split("first-render");
+    startupStopwatch.stop(TAG);
+    mediaControllerOwner.getVoiceNoteMediaController().finishPostpone();
+    requireCallback().getSearchToolbar().get();
+    if (getContext() != null) {
+      ConversationFragment.prepare(getContext());
+    }
   }
 
   private void onConversationListChanged(@NonNull List<Conversation> conversations) {
@@ -974,6 +1007,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
         return Optional.of(new CdsTemporyErrorReminder(context));
       } else if (CdsPermanentErrorReminder.isEligible()) {
         return Optional.of(new CdsPermanentErrorReminder(context));
+      } else if (UsernameOutOfSyncReminder.isEligible()) {
+        return Optional.of(new UsernameOutOfSyncReminder(context));
       } else {
         return Optional.<Reminder>empty();
       }

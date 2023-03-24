@@ -29,7 +29,6 @@ class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__ch
 
   private fun getConfiguration(state: ChatsSettingsState): DSLConfiguration {
     return configure {
-
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__generate_link_previews),
         summary = DSLSettingsText.from(R.string.preferences__retrieve_link_previews_from_websites_for_messages),

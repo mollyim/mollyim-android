@@ -24,7 +24,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
-import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
@@ -88,6 +87,7 @@ public class ApplicationDependencies {
   private static final Object LOCK                    = new Object();
   private static final Object FRAME_RATE_TRACKER_LOCK = new Object();
   private static final Object JOB_MANAGER_LOCK        = new Object();
+  private static final Object SIGNAL_HTTP_CLIENT_LOCK = new Object();
 
   private static Application           application;
   // MOLLY: Rename provider to dependencyProvider
@@ -99,7 +99,6 @@ public class ApplicationDependencies {
   private static volatile SignalServiceMessageReceiver messageReceiver;
   private static volatile NetworkManager               networkManager;
   private static volatile IncomingMessageObserver      incomingMessageObserver;
-  private static volatile IncomingMessageProcessor     incomingMessageProcessor;
   private static volatile BackgroundMessageRetriever   backgroundMessageRetriever;
   private static volatile LiveRecipientCache           recipientCache;
   private static volatile JobManager                   jobManager;
@@ -297,18 +296,6 @@ public class ApplicationDependencies {
     }
 
     return networkManager;
-  }
-
-  public static @NonNull IncomingMessageProcessor getIncomingMessageProcessor() {
-    if (incomingMessageProcessor == null) {
-      synchronized (LOCK) {
-        if (incomingMessageProcessor == null) {
-          incomingMessageProcessor = getProvider().provideIncomingMessageProcessor();
-        }
-      }
-    }
-
-    return incomingMessageProcessor;
   }
 
   public static @NonNull BackgroundMessageRetriever getBackgroundMessageRetriever() {
@@ -560,7 +547,7 @@ public class ApplicationDependencies {
 
   public static @NonNull OkHttpClient getSignalOkHttpClient() {
     if (signalOkHttpClient == null) {
-      synchronized (LOCK) {
+      synchronized (SIGNAL_HTTP_CLIENT_LOCK) {
         if (signalOkHttpClient == null) {
           try {
             OkHttpClient   baseClient    = ApplicationDependencies.getOkHttpClient();
@@ -709,7 +696,6 @@ public class ApplicationDependencies {
     @NonNull SignalServiceMessageReceiver provideSignalServiceMessageReceiver(@NonNull SignalServiceConfiguration signalServiceConfiguration);
     @NonNull SignalServiceNetworkAccess provideSignalServiceNetworkAccess();
     @NonNull NetworkManager provideNetworkManager();
-    @NonNull IncomingMessageProcessor provideIncomingMessageProcessor();
     @NonNull BackgroundMessageRetriever provideBackgroundMessageRetriever();
     @NonNull LiveRecipientCache provideRecipientCache();
     @NonNull JobManager provideJobManager();

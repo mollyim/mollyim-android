@@ -10,10 +10,25 @@ on:
       - '.github/FUNDING.yml'
       - '.github/ISSUE_TEMPLATE/**'
 
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
 jobs:
   wrapper_validation:
     name: Validate Gradle wrapper
     runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run wrapper validation
+        uses: gradle/wrapper-validation-action@v1
+
+  test:
+    name: Run tests
+    runs-on: ubuntu-22.04
+    env:
+      GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
 
     steps:
       - uses: actions/checkout@v3
@@ -23,36 +38,14 @@ jobs:
         with:
           distribution: temurin
           java-version: 11
-
-      - name: Run wrapper validation
-        uses: gradle/wrapper-validation-action@master
-
-  test:
-    name: Run tests
-    runs-on: ubuntu-22.04
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Increase swap space
-        run: |
-          sudo fallocate -l 8G /swapB
-          sudo chmod 600 /swapB
-          sudo mkswap /swapB
-          sudo swapon /swapB
-          swapon --show
-
-      - name: Set up builder image
-        run: docker-compose build
-        working-directory: reproducible-builds
+          cache: gradle
 
       - name: Run tests
-        run: docker-compose run test
-        working-directory: reproducible-builds
+        run: ./gradlew build --no-daemon
 
       - name: Archive reports for failed tests
         if: "failure()"
         uses: actions/upload-artifact@v3
         with:
           name: test-reports
-          path: "reproducible-builds/test-reports"
+          path: '*/build/reports'

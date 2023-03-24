@@ -4,11 +4,12 @@ services:
     image: reproducible-molly
     build:
       context: ..
-    command: :app:assembleRelease :app:bundleRelease
+    command: :app:assembleRelease :app:bundleRelease --no-daemon
     volumes:
       - ./certs:/molly/app/certs:ro
       - ./outputs:/molly/app/build/outputs
     environment:
+      - GRADLE_OPTS
       - CI_APP_TITLE
       - CI_APP_FILENAME
       - CI_PACKAGE_ID
@@ -18,14 +19,3 @@ services:
       - CI_KEYSTORE_PATH
       - CI_KEYSTORE_PASSWORD
       - CI_KEYSTORE_ALIAS
-  test:
-    image: reproducible-molly
-    build:
-      context: ..
-    command: build
-    volumes:
-      - ./test-reports:/molly/app/build/reports
-    environment:
-      - BUILD_SCAN=1
-    profiles:
-      - test

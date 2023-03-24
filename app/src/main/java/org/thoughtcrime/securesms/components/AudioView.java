@@ -33,7 +33,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.audio.AudioWaveForm;
+import org.thoughtcrime.securesms.audio.AudioWaveForms;
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlaybackState;
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.events.PartProgressEvent;
@@ -42,6 +42,9 @@ import org.thoughtcrime.securesms.mms.SlideClickListener;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public final class AudioView extends FrameLayout {
 
@@ -76,6 +79,8 @@ public final class AudioView extends FrameLayout {
             private long               durationMillis;
             private AudioSlide         audioSlide;
             private Callbacks          callbacks;
+
+            private Disposable disposable = Disposable.disposed();
 
   private final Observer<VoiceNotePlaybackState> playbackStateObserver = this::onPlaybackState;
 
@@ -155,6 +160,7 @@ public final class AudioView extends FrameLayout {
   protected void onDetachedFromWindow() {
     super.onDetachedFromWindow();
     EventBus.getDefault().unregister(this);
+    disposable.dispose();
   }
 
   public void setProgressAndPlayBackgroundTint(@ColorInt int color) {
@@ -170,6 +176,7 @@ public final class AudioView extends FrameLayout {
                        final boolean showControls,
                        final boolean forceHideDuration)
   {
+    this.disposable.dispose();
     this.callbacks = callbacks;
 
     if (duration != null) {
@@ -211,16 +218,26 @@ public final class AudioView extends FrameLayout {
     if (seekBar instanceof WaveFormSeekBarView) {
       WaveFormSeekBarView waveFormView = (WaveFormSeekBarView) seekBar;
       waveFormView.setColors(waveFormPlayedBarsColor, waveFormUnplayedBarsColor, waveFormThumbTint);
-      new AudioWaveForm(getContext(), audio).getWaveForm(
-        data -> {
-          durationMillis = data.getDuration(TimeUnit.MILLISECONDS);
-          updateProgress(0, 0);
-          if (!forceHideDuration && duration != null) {
-            duration.setVisibility(VISIBLE);
-          }
-          waveFormView.setWaveData(data.getWaveForm());
-        },
-        () -> waveFormView.setWaveMode(false));
+      if (android.os.Build.VERSION.SDK_INT >= 23) {
+        disposable = AudioWaveForms.getWaveForm(getContext(), audioSlide.asAttachment())
+                                   .observeOn(AndroidSchedulers.mainThread())
+                                   .subscribe(
+                                        data -> {
+                                          durationMillis = data.getDuration(TimeUnit.MILLISECONDS);
+                                          updateProgress(0, 0);
+                                          if (!forceHideDuration && duration != null) {
+                                            duration.setVisibility(VISIBLE);
+                                          }
+                                          waveFormView.setWaveData(data.getWaveForm());
+                                        },
+                                        t -> waveFormView.setWaveMode(false)
+                                    );
+      } else {
+        waveFormView.setWaveMode(false);
+        if (duration != null) {
+          duration.setVisibility(GONE);
+        }
+      }
     }
 
     if (forceHideDuration && duration != null) {

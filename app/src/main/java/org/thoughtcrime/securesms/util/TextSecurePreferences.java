@@ -19,7 +19,7 @@ import org.signal.core.util.logging.Log;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.backup.BackupProtos;
+import org.thoughtcrime.securesms.backup.proto.SharedPreference;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -273,70 +273,70 @@ public class TextSecurePreferences {
     return count;
   }
 
-  public static List<BackupProtos.SharedPreference> getPreferencesToSaveToBackup(@NonNull Context context) {
-    SharedPreferences                   preferences  = getSharedPreferences(context);
-    List<BackupProtos.SharedPreference> backupProtos = new ArrayList<>();
-    String                              defaultFile  = BuildConfig.SIGNAL_PACKAGE_NAME + "_preferences";
+  public static List<SharedPreference> getPreferencesToSaveToBackup(@NonNull Context context) {
+    SharedPreferences      preferences  = getSharedPreferences(context);
+    List<SharedPreference> backupProtos = new ArrayList<>();
+    String                 defaultFile  = BuildConfig.SIGNAL_PACKAGE_NAME + "_preferences";
 
     for (String booleanPreference : booleanPreferencesToBackup) {
       if (preferences.contains(booleanPreference)) {
-        backupProtos.add(BackupProtos.SharedPreference.newBuilder()
-                                                      .setFile(defaultFile)
-                                                      .setKey(booleanPreference)
-                                                      .setBooleanValue(preferences.getBoolean(booleanPreference, false))
-                                                      .build());
+        backupProtos.add(new SharedPreference.Builder()
+                                             .file_(defaultFile)
+                                             .key(booleanPreference)
+                                             .booleanValue(preferences.getBoolean(booleanPreference, false))
+                                             .build());
       }
     }
 
     for (String stringPreference : stringPreferencesToBackup) {
       if (preferences.contains(stringPreference)) {
-        backupProtos.add(BackupProtos.SharedPreference.newBuilder()
-                                                      .setFile(defaultFile)
-                                                      .setKey(stringPreference)
-                                                      .setValue(preferences.getString(stringPreference, null))
-                                                      .build());
+        backupProtos.add(new SharedPreference.Builder()
+                                             .file_(defaultFile)
+                                             .key(stringPreference)
+                                             .value_(preferences.getString(stringPreference, null))
+                                             .build());
       }
     }
 
     for (String stringSetPreference : stringSetPreferencesToBackup) {
       if (preferences.contains(stringSetPreference)) {
-        backupProtos.add(BackupProtos.SharedPreference.newBuilder()
-                                                      .setFile(defaultFile)
-                                                      .setKey(stringSetPreference)
-                                                      .setIsStringSetValue(true)
-                                                      .addAllStringSetValue(preferences.getStringSet(stringSetPreference, Collections.emptySet()))
-                                                      .build());
+        backupProtos.add(new SharedPreference.Builder()
+                                             .file_(defaultFile)
+                                             .key(stringSetPreference)
+                                             .isStringSetValue(true)
+                                             .stringSetValue(new ArrayList<>(preferences.getStringSet(stringSetPreference, Collections.emptySet())))
+                                             .build());
       }
     }
 
     for (String booleanPreference : booleanPreferencesToBackupMolly) {
       if (preferences.contains(booleanPreference)) {
-        backupProtos.add(BackupProtos.SharedPreference.newBuilder()
-                                                      .setFile(SecurePreferenceManager.getSecurePreferencesName())
-                                                      .setKey(booleanPreference)
-                                                      .setBooleanValue(preferences.getBoolean(booleanPreference, false))
-                                                      .build());
+        backupProtos.add(new SharedPreference.Builder()
+                                             .file_(SecurePreferenceManager.getSecurePreferencesName())
+                                             .key(booleanPreference)
+                                             .booleanValue(preferences.getBoolean(booleanPreference, false))
+                                             .build());
       }
     }
 
     for (String stringSetPreference : stringSetPreferencesToBackupMolly) {
       if (preferences.contains(stringSetPreference)) {
-        backupProtos.add(BackupProtos.SharedPreference.newBuilder()
-                                                      .setFile(SecurePreferenceManager.getSecurePreferencesName())
-                                                      .setKey(stringSetPreference)
-                                                      .setIsStringSetValue(true)
-                                                      .addAllStringSetValue(preferences.getStringSet(stringSetPreference, Collections.emptySet()))
-                                                      .build());
+        backupProtos.add(new SharedPreference.Builder()
+                                             .file_(SecurePreferenceManager.getSecurePreferencesName())
+                                             .key(stringSetPreference)
+                                             .isStringSetValue(true)
+                                             .stringSetValue(new ArrayList<>(preferences.getStringSet(stringSetPreference, Collections.emptySet())))
+                                             .build());
       }
     }
 
     for (String integerPreference : integerPreferencesToBackupMolly) {
       if (preferences.contains(integerPreference)) {
-        backupProtos.add(BackupProtos.SharedPreference.newBuilder()
-                                                      .setFile(SecurePreferenceManager.getSecurePreferencesName())
-                                                      .setKey(integerPreference)
-                                                      .setIntegerValue(preferences.getInt(integerPreference, 0))
-                                                      .build());
+        backupProtos.add(new SharedPreference.Builder()
+                                             .file_(SecurePreferenceManager.getSecurePreferencesName())
+                                             .key(integerPreference)
+                                             .integerValue(preferences.getInt(integerPreference, 0))
+                                             .build());
       }
     }
 

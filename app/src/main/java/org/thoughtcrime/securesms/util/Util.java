@@ -49,6 +49,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.ComposeText;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -67,7 +68,7 @@ import java.util.concurrent.TimeUnit;
 public class Util {
   private static final String TAG = Log.tag(Util.class);
 
-  private static final long BUILD_LIFESPAN = TimeUnit.DAYS.toMillis(90);
+  private static final long BUILD_LIFESPAN = TimeUnit.DAYS.toMillis(1000);
 
   public static <T> List<T> asList(T... elements) {
     List<T> result = new LinkedList<>();
@@ -372,8 +373,25 @@ public class Util {
     return secret;
   }
 
+  /**
+   * @return The amount of time (in ms) until this build of Signal will be considered 'expired'.
+   *         Takes into account both the build age as well as any remote deprecation values.
+   */
   public static long getTimeUntilBuildExpiry() {
-    return TimeUnit.DAYS.toMillis(1000);
+    if (SignalStore.misc().isClientDeprecated()) {
+      return 0;
+    }
+
+    long buildAge                   = System.currentTimeMillis() - BuildConfig.BUILD_TIMESTAMP;
+    long timeUntilBuildDeprecation  = BUILD_LIFESPAN - buildAge;
+    long timeUntilRemoteDeprecation = RemoteDeprecation.getTimeUntilDeprecation();
+
+    if (timeUntilRemoteDeprecation != -1) {
+      long timeUntilDeprecation = Math.min(timeUntilBuildDeprecation, timeUntilRemoteDeprecation);
+      return Math.max(timeUntilDeprecation, 0);
+    } else {
+      return Math.max(timeUntilBuildDeprecation, 0);
+    }
   }
 
   public static <T> T getRandomElement(T[] elements) {
@@ -397,12 +415,10 @@ public class Util {
     else             return Uri.parse(uri);
   }
 
-  @TargetApi(VERSION_CODES.KITKAT)
   public static boolean isLowMemory(Context context) {
     ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
-    return (VERSION.SDK_INT >= VERSION_CODES.KITKAT && activityManager.isLowRamDevice()) ||
-           activityManager.getLargeMemoryClass() <= 64;
+    return activityManager.isLowRamDevice() || activityManager.getLargeMemoryClass() <= 64;
   }
 
   public static long getAvailMemory(@NonNull Context context) {
