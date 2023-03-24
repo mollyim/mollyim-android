@@ -157,7 +157,7 @@ class IncomingMessageObserver(private val context: Application) {
   private fun onAppForegrounded() {
     lock.withLock {
       appVisible = true
-      context.startService(Intent(context, BackgroundService::class.java))
+      BackgroundService.start(context)
       condition.signalAll()
     }
   }
