@@ -159,6 +159,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     isLinkedDevice = SignalStore.account.isLinkedDevice,
     preferredNotificationMethod = SignalStore.settings.preferredNotificationMethod,
     canReceiveFcm = SignalStore.account.canReceiveFcm,
+    canReceiveUnifiedPush = SignalStore.unifiedpush.isAvailableOrAirGapped
   )
 
   private fun canEnableNotifications(): Boolean {

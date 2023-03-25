@@ -44,6 +44,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet
 import org.thoughtcrime.securesms.util.BottomSheetUtil
+import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.PlayServicesUtil
 import org.thoughtcrime.securesms.util.RingtoneUtil
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
@@ -347,6 +348,7 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
       val showAlertIcon = when (state.preferredNotificationMethod) {
         NotificationDeliveryMethod.FCM -> !state.canReceiveFcm
         NotificationDeliveryMethod.WEBSOCKET -> false
+        NotificationDeliveryMethod.UNIFIEDPUSH -> !state.canReceiveUnifiedPush
       }
       radioListPref(
         title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__delivery_method),
@@ -356,6 +358,14 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         iconEnd = if (showAlertIcon) DSLSettingsIcon.from(R.drawable.ic_alert) else null,
         onSelected = {
           onNotificationMethodChanged(notificationMethodValues[it], state.preferredNotificationMethod)
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__configure_unifiedpush),
+        isEnabled = state.preferredNotificationMethod == NotificationDeliveryMethod.UNIFIEDPUSH,
+        onClick = {
+          navigateToUnifiedPushSettings()
         }
       )
     }
@@ -383,7 +393,30 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
       NotificationDeliveryMethod.WEBSOCKET -> {
         viewModel.setPreferredNotificationMethod(method)
       }
+
+      NotificationDeliveryMethod.UNIFIEDPUSH -> {
+        if (method != previousMethod) {
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.NotificationsSettingsFragment__mollysocket_server)
+            .setMessage(R.string.NotificationsSettingsFragment__to_use_unifiedpush_you_need_a_mollysocket_server)
+            .setPositiveButton(R.string.yes) { _, _ ->
+              viewModel.setPreferredNotificationMethod(method)
+              navigateToUnifiedPushSettings()
+            }
+            .setNegativeButton(R.string.no, null)
+            .setNeutralButton(R.string.LearnMoreTextView_learn_more) { _, _ ->
+              CommunicationActions.openBrowserLink(requireContext(), getString(R.string.mollysocket_setup_url))
+            }
+            .show()
+        } else {
+          navigateToUnifiedPushSettings()
+        }
+      }
     }
+  }
+
+  private fun navigateToUnifiedPushSettings() {
+    findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_unifiedPushFragment)
   }
 
   private fun getRingtoneSummary(uri: Uri): String {
