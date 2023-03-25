@@ -172,10 +172,6 @@ public final class InternalValues extends SignalStoreValues {
     return SignalStore.settings().getPreferredNotificationMethod() == SettingsValues.NotificationDeliveryMethod.WEBSOCKET;
   }
 
-  public boolean isFcmModeForced() {
-    return SignalStore.settings().getPreferredNotificationMethod() == SettingsValues.NotificationDeliveryMethod.FCM;
-  }
-
   public void setHevcEncoding(boolean enabled) {
     putBoolean(ENCODE_HEVC, enabled);
   }

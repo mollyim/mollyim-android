@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import im.molly.unifiedpush.UnifiedPushDistributor
 
 import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -119,6 +120,10 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     refresh()
   }
 
+  fun initializeUnifiedPushDistributor() {
+    UnifiedPushDistributor.selectFirstDistributor()
+  }
+
   fun setPlayServicesErrorCode(errorCode: Int?) {
     store.update { it.copy(playServicesErrorCode = errorCode) }
   }
@@ -161,7 +166,8 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     isLinkedDevice = SignalStore.account.isLinkedDevice,
     preferredNotificationMethod = SignalStore.settings.preferredNotificationMethod,
     playServicesErrorCode = currentState?.playServicesErrorCode,
-    canReceiveFcm = SignalStore.account.canReceiveFcm
+    canReceiveFcm = SignalStore.account.canReceiveFcm,
+    canReceiveUnifiedPush = SignalStore.unifiedpush.isAvailableOrAirGapped
   )
 
   private fun canEnableNotifications(): Boolean {

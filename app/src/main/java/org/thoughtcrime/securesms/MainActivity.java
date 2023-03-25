@@ -43,6 +43,8 @@ import org.thoughtcrime.securesms.util.SplashScreenUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.WindowUtil;
 
+import im.molly.unifiedpush.UnifiedPushDistributor;
+
 public class MainActivity extends PassphraseRequiredActivity implements VoiceNoteMediaControllerOwner {
 
   private static final String KEY_STARTING_TAB      = "STARTING_TAB";
@@ -130,6 +132,9 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
   private void presentVitalsState(VitalsViewModel.State state) {
     switch (state) {
       case NONE:
+        break;
+      case PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG:
+        UnifiedPushDistributor.showSelectDistributorDialog(this);
         break;
       case PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG:
         DeviceSpecificNotificationBottomSheet.show(getSupportFragmentManager());
