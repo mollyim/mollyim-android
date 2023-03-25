@@ -34,6 +34,7 @@ import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
 import org.whispersystems.signalservice.api.kbs.MasterKey;
 import org.whispersystems.signalservice.api.messages.calls.TurnServerInfo;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo;
+import org.whispersystems.signalservice.api.messages.multidevice.VerifyDeviceResponse;
 import org.whispersystems.signalservice.api.payments.CurrencyConversions;
 import org.whispersystems.signalservice.api.profiles.AvatarUploadParams;
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
@@ -1026,5 +1027,36 @@ public class SignalServiceAccountManager {
   public AuthCredentials getPaymentsAuthorization() throws IOException {
     return pushServiceSocket.getPaymentsAuthorization();
   }
+
+  public VerifyDeviceResponse verifySecondaryDevice(String verificationCode,
+                                                    int signalProtocolRegistrationId,
+                                                    boolean fetchesMessages,
+                                                    byte[] unidentifiedAccessKey,
+                                                    boolean unrestrictedUnidentifiedAccess,
+                                                    AccountAttributes.Capabilities capabilities,
+                                                    boolean discoverableByPhoneNumber,
+                                                    byte[] encryptedDeviceName,
+                                                    int pniRegistrationId)
+      throws IOException
+  {
+    AccountAttributes accountAttributes = new AccountAttributes(
+        null,
+        signalProtocolRegistrationId,
+        false,
+        false,
+        fetchesMessages,
+        null,
+        unidentifiedAccessKey,
+        unrestrictedUnidentifiedAccess,
+        discoverableByPhoneNumber,
+        capabilities,
+        Base64.encodeBytes(encryptedDeviceName),
+        pniRegistrationId,
+        null
+    );
+
+    return this.pushServiceSocket.verifySecondaryDevice(verificationCode, accountAttributes);
+  }
+
 
 }
