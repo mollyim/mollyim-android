@@ -7,11 +7,13 @@ package org.thoughtcrime.securesms.notifications
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import im.molly.unifiedpush.UnifiedPushDistributor
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig.ShowCondition
 import java.util.concurrent.TimeUnit
 
@@ -28,7 +30,7 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
     vitalsState = checkSubject
       .subscribeOn(Schedulers.io())
       .observeOn(Schedulers.io())
-      .throttleFirst(15, TimeUnit.MINUTES)
+      .throttleFirst(5, TimeUnit.MINUTES)
       .switchMapSingle {
         checkHeuristics()
       }
@@ -42,6 +44,10 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
 
   private fun checkHeuristics(): Single<State> {
     return Single.fromCallable {
+      if (SignalStore.unifiedpush.enabled && !UnifiedPushDistributor.checkIfActive()) {
+        return@fromCallable State.PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG
+      }
+
       val deviceSpecificCondition = SlowNotificationHeuristics.getDeviceSpecificShowCondition()
 
       if (deviceSpecificCondition == ShowCondition.ALWAYS && SlowNotificationHeuristics.shouldShowDeviceSpecificDialog()) {
@@ -66,6 +72,7 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
 
   enum class State {
     NONE,
+    PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG,
     PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG,
     PROMPT_GENERAL_BATTERY_SAVER_DIALOG,
   }

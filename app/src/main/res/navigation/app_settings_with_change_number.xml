@@ -452,6 +452,14 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
 
+        <action
+            android:id="@+id/action_notificationsSettingsFragment_to_unifiedPushFragment"
+            app:destination="@id/notificationUnifiedPushFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+
         <argument
             android:name="play_services_error_code"
             android:defaultValue="0"
@@ -886,6 +894,11 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
+
+    <!-- UnifiedPush -->
+    <fragment
+        android:id="@+id/notificationUnifiedPushFragment"
+        android:name="im.molly.unifiedpush.components.settings.app.notifications.UnifiedPushSettingsFragment" />
 
     <fragment
         android:id="@+id/editNotificationProfileFragment"

@@ -1302,6 +1302,18 @@
         </intent-filter>
     </receiver>
 
+    <receiver
+        android:name="im.molly.unifiedpush.receiver.UnifiedPushReceiver"
+        android:enabled="true"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="org.unifiedpush.android.connector.MESSAGE" />
+            <action android:name="org.unifiedpush.android.connector.UNREGISTERED" />
+            <action android:name="org.unifiedpush.android.connector.NEW_ENDPOINT" />
+            <action android:name="org.unifiedpush.android.connector.REGISTRATION_FAILED" />
+        </intent-filter>
+    </receiver>
+
     <service
         android:name=".gcm.FcmJobService"
         android:permission="android.permission.BIND_JOB_SERVICE"
