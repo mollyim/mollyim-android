@@ -23,8 +23,8 @@ import android.text.SpannableString
 import android.text.TextUtils
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.contentValuesOf
-import com.google.android.mms.pdu_alt.NotificationInd
-import com.google.android.mms.pdu_alt.PduHeaders
+import com.google.android.mms.pdu.NotificationInd
+import com.google.android.mms.pdu.PduHeaders
 import com.google.protobuf.InvalidProtocolBufferException
 import org.json.JSONArray
 import org.json.JSONException
@@ -748,8 +748,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return results
   }
 
-  fun insertCallLog(recipientId: RecipientId, type: Long, timestamp: Long): InsertResult {
-    val unread = MessageTypes.isMissedAudioCall(type) || MessageTypes.isMissedVideoCall(type)
+  fun insertCallLog(recipientId: RecipientId, type: Long, timestamp: Long, expiresIn: Long, unread: Boolean): InsertResult {
     val recipient = Recipient.resolved(recipientId)
     val threadId = threads.getOrCreateThreadIdFor(recipient)
 
@@ -760,6 +759,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       DATE_SENT to timestamp,
       READ to if (unread) 0 else 1,
       TYPE to type,
+      EXPIRES_IN to expiresIn,
       THREAD_ID to threadId
     )
 
@@ -777,9 +777,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return InsertResult(messageId, threadId)
   }
 
-  fun updateCallLog(messageId: Long, type: Long) {
-    val unread = MessageTypes.isMissedAudioCall(type) || MessageTypes.isMissedVideoCall(type)
-
+  fun updateCallLog(messageId: Long, type: Long, unread: Boolean) {
     writableDatabase
       .update(TABLE_NAME)
       .values(
@@ -811,7 +809,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   ) {
     val recipient = Recipient.resolved(groupRecipientId)
     val threadId = threads.getOrCreateThreadIdFor(recipient)
-    val peerEraIdSameAsPrevious = updatePreviousGroupCall(threadId, peekGroupCallEraId, peekJoinedUuids, isCallFull)
+    val expiresIn = recipient.expiresInMillis
+    val peerEraIdSameAsPrevious = updatePreviousGroupCall(threadId, peekGroupCallEraId, peekJoinedUuids, isCallFull, expiresIn)
 
     writableDatabase.withinTransaction { db ->
       if (!peerEraIdSameAsPrevious && !Util.isEmpty(peekGroupCallEraId)) {
@@ -919,7 +918,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     TrimThreadJob.enqueueAsync(threadId)
   }
 
-  fun updatePreviousGroupCall(threadId: Long, peekGroupCallEraId: String?, peekJoinedUuids: Collection<UUID>, isCallFull: Boolean): Boolean {
+  fun updatePreviousGroupCall(threadId: Long, peekGroupCallEraId: String?, peekJoinedUuids: Collection<UUID>, isCallFull: Boolean, expiresIn: Long): Boolean {
     return writableDatabase.withinTransaction { db ->
       val cursor = db
         .select(*MMS_PROJECTION)
@@ -944,6 +943,15 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         val contentValues = contentValuesOf(
           BODY to GroupCallUpdateDetailsUtil.createUpdatedBody(groupCallUpdateDetails, inCallUuids, isCallFull)
         )
+
+        if (inCallUuids.isEmpty()) {
+          if (sameEraId && record.expireStarted == 0L) {
+            contentValues.put(EXPIRES_IN, expiresIn)
+          }
+        } else {
+          contentValues.put(EXPIRES_IN, 0)
+          contentValues.put(EXPIRE_STARTED, 0)
+        }
 
         if (sameEraId && containsSelf) {
           contentValues.put(READ, 1)
@@ -3060,16 +3068,21 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return deleteMessage(messageId, threadId)
   }
 
+  fun deleteExpiringMessage(messageId: Long): Boolean {
+    val threadId = getThreadIdForMessage(messageId)
+    return deleteMessage(messageId, threadId, notify = true, isExpiring = true)
+  }
+
   fun deleteMessage(messageId: Long, notify: Boolean): Boolean {
     val threadId = getThreadIdForMessage(messageId)
-    return deleteMessage(messageId, threadId, notify)
+    return deleteMessage(messageId, threadId, notify, isExpiring = false)
   }
 
   fun deleteMessage(messageId: Long, threadId: Long): Boolean {
-    return deleteMessage(messageId, threadId, true)
+    return deleteMessage(messageId, threadId, notify = true, isExpiring = false)
   }
 
-  private fun deleteMessage(messageId: Long, threadId: Long, notify: Boolean): Boolean {
+  private fun deleteMessage(messageId: Long, threadId: Long, notify: Boolean, isExpiring: Boolean): Boolean {
     Log.d(TAG, "deleteMessage($messageId)")
 
     attachments.deleteAttachmentsForMessage(messageId)
@@ -3078,7 +3091,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     writableDatabase
       .delete(TABLE_NAME)
-      .where("$ID = ?", messageId)
+      .where("$ID = ?" + if (isExpiring) " AND $EXPIRE_STARTED > 0" else "", messageId)
       .run()
 
     threads.setLastScrolled(threadId, 0)
@@ -4315,7 +4328,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     }
 
     for (expiringMessage in expiringMessages) {
-      ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(expiringMessage.first(), true, proposedExpireStarted, expiringMessage.second())
+      ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(expiringMessage.first(), proposedExpireStarted, expiringMessage.second())
     }
 
     for (threadId in updatedThreads) {
