@@ -88,8 +88,6 @@ class IncomingMessageObserver(private val context: Application) {
     private set
 
   init {
-    MessageRetrievalThread().start()
-
     // MOLLY: Foreground service startup is handled inside the connection loop
 
     ApplicationDependencies.getAppForegroundObserver().addListener(object : AppForegroundObserver.Listener {
@@ -101,6 +99,10 @@ class IncomingMessageObserver(private val context: Application) {
         onAppBackgrounded()
       }
     })
+
+    // MOLLY: Start MessageRetrievalThread after the foreground listener to decrease the chances of deadlocking
+    // at onAppForegrounded() and isConnectionNecessary() while JobManager is being initialized.
+    MessageRetrievalThread().start()
 
     connectionReceiver = object : BroadcastReceiver() {
       override fun onReceive(context: Context, intent: Intent) {
