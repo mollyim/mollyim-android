@@ -3,10 +3,10 @@ package org.thoughtcrime.securesms.migrations;
 import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.util.SecurePreferenceManager;
@@ -60,7 +60,7 @@ public class TrimByLengthSettingsMigrationJob extends MigrationJob {
 
   public static class Factory implements Job.Factory<TrimByLengthSettingsMigrationJob> {
     @Override
-    public @NonNull TrimByLengthSettingsMigrationJob create(@NonNull Parameters parameters, @NonNull Data data) {
+    public @NonNull TrimByLengthSettingsMigrationJob create(@NonNull Parameters parameters, @Nullable byte[] serializedData) {
       return new TrimByLengthSettingsMigrationJob(parameters);
     }
   }

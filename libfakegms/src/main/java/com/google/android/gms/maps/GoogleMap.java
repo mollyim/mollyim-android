@@ -2,6 +2,7 @@ package com.google.android.gms.maps;
 
 import android.graphics.Bitmap;
 
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GoogleMap {
@@ -44,6 +45,10 @@ public class GoogleMap {
   }
 
   public void setMyLocationEnabled(boolean b) {
+  }
+
+  public boolean setMapStyle(MapStyleOptions loadRawResourceStyle) {
+    return false;
   }
 
   public interface SnapshotReadyCallback {

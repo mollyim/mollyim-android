@@ -384,6 +384,15 @@
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Жақында сізге қайта еске салғыш хат жіберіледі.</string>
 
+    <!-- Title for dialog shown when first sending formatted text -->
+    <string name="SendingFormattingTextDialog_title">Sending formatted text</string>
+    <!-- Message for dialog shown when first sending formatted text -->
+    <string name="SendingFormattingTextDialog_message">Some people may be using a version of Signal that doesn\'t support formatted text. They will not be able to see the formatting changes you\'ve made to your message.</string>
+    <!-- Button text for confirming they\'d like to send the message with formatting after seeing warning. -->
+    <string name="SendingFormattingTextDialog_send_anyway_button">Сонда да жіберу</string>
+    <!-- Button text for canceling sending the message with formatting after seeing warning. -->
+    <string name="SendingFormattingTextDialog_cancel_send_button">Болдырмау</string>
+
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
         <item quantity="one">%1$d оқылмаған хат</item>
@@ -481,12 +490,12 @@
         <item quantity="other">%1$d әңгіме кіріс қалтасына көшірілді</item>
     </plurals>
     <plurals name="ConversationListFragment_read_plural">
-        <item quantity="one">Оқылды</item>
-        <item quantity="other">Оқылды</item>
+        <item quantity="one">Оқылған</item>
+        <item quantity="other">Оқылған</item>
     </plurals>
     <plurals name="ConversationListFragment_unread_plural">
-        <item quantity="one">Оқылмады</item>
-        <item quantity="other">Оқылмады</item>
+        <item quantity="one">Оқылмаған</item>
+        <item quantity="other">Оқылмаған</item>
     </plurals>
     <plurals name="ConversationListFragment_pin_plural">
         <item quantity="one">Бекіту</item>
@@ -504,14 +513,14 @@
         <item quantity="one">Дыбысын қосу</item>
         <item quantity="other">Дыбысын қосу</item>
     </plurals>
-    <string name="ConversationListFragment_select">Бөлектеу</string>
+    <string name="ConversationListFragment_select">Таңдау</string>
     <plurals name="ConversationListFragment_archive_plural">
         <item quantity="one">Мұрағаттау</item>
         <item quantity="other">Мұрағаттау</item>
     </plurals>
     <plurals name="ConversationListFragment_unarchive_plural">
-        <item quantity="one">Мұрағатты шешу</item>
-        <item quantity="other">Мұрағатты ашу</item>
+        <item quantity="one">Мұрағаттан шығару</item>
+        <item quantity="other">Мұрағаттан шығару</item>
     </plurals>
     <plurals name="ConversationListFragment_delete_plural">
         <item quantity="one">Жою</item>
@@ -1735,19 +1744,17 @@
         <item quantity="other">%1$s, %2$s және тағы %3$d адам осы қоңырауға қатысып жатыр</item>
     </plurals>
 
-    <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__flip">Аудару</string>
-    <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__speaker">Үндеткіш</string>
-    <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__camera">Фотоаппарат</string>
-    <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__unmute">Дыбысын қосу</string>
-    <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__mute">Дыбысын өшіру</string>
-    <!-- Toggle label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallView__ring">Қоңырау шалу</string>
-    <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
+    <!-- Toggle content description for toggling camera direction  -->
+    <string name="WebRtcCallView__toggle_camera_direction">Toggle camera direction</string>
+    <!-- Toggle content description for toggling audio output  -->
+    <string name="WebRtcCallView__toggle_speaker">Toggle speaker</string>
+    <!-- Toggle content description for toggling camera state  -->
+    <string name="WebRtcCallView__toggle_camera">Toggle camera</string>
+    <!-- Toggle content description for toggling mute state  -->
+    <string name="WebRtcCallView__toggle_mute">Toggle mute</string>
+    <!-- Toggle content description for toggling group ring state  -->
+    <string name="WebRtcCallView__toggle_ring">Toggle ring</string>
+    <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">Қоңырауды аяқтау</string>
 
     <!-- CallParticipantsListDialog -->
@@ -2125,6 +2132,10 @@
     <string name="MessageNotifier_most_recent_from_s">Соңғы хаттар: %1$s</string>
     <string name="MessageNotifier_locked_message">Құлыпталған хат</string>
     <string name="MessageNotifier_message_delivery_failed">Хат жеткізілмеді.</string>
+    <!-- Shown in a notification when a story the user tries to send fails to be sent -->
+    <string name="MessageNotifier_story_delivery_failed">Сторис жіберілмеді</string>
+    <!-- Shown as notification title for when a notification about a story sent to a group story %1$s replaced with the group name -->
+    <string name="MessageNotifier_group_story_title">Сіз – %1$s</string>
     <string name="MessageNotifier_failed_to_deliver_message">Хатты жеткізу мүмкін болмады.</string>
     <string name="MessageNotifier_error_delivering_message">Хатты жеткізу кезінде қате шықты.</string>
     <string name="MessageNotifier_message_delivery_paused">Хатты жеткізу уақытша тоқтатылды.</string>
@@ -2147,7 +2158,7 @@
     <string name="MessageNotifier_reacted_s_to_your_audio">Аудиоңызға %1$s деп реакция білдірді.</string>
     <string name="MessageNotifier_reacted_s_to_your_view_once_media">Бір рет көрсетілетін мультимедиа файлыңызға %1$s деп реакция білдірді.</string>
     <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
-    <string name="MessageNotifier_reacted_s_to_your_payment">Reacted %1$s to your payment.</string>
+    <string name="MessageNotifier_reacted_s_to_your_payment">Төлеміңізге %1$s деп реакция қалдырды.</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">Стикеріңізге %1$s деп реакция білдірді.</string>
     <string name="MessageNotifier_this_message_was_deleted">Бұл хат жойылды.</string>
 
@@ -2264,6 +2275,12 @@
     <!-- contact_selection_activity -->
     <string name="contact_selection_activity__invite_to_signal">Molly қолданбасына шақыру</string>
     <string name="contact_selection_activity__new_group">Жаңа топ</string>
+    <!-- Row item title for refreshing contacts -->
+    <string name="contact_selection_activity__refresh_contacts">Refresh contacts</string>
+    <!-- Row item description for refreshing contacts -->
+    <string name="contact_selection_activity__missing_someone">Missing someone? Try refreshing</string>
+    <!-- Row header title for more section -->
+    <string name="contact_selection_activity__more">Толығырақ</string>
 
     <!-- contact_filter_toolbar -->
     <string name="contact_filter_toolbar__clear_entered_text_description">Енгізілген мәтінді тазалау</string>
@@ -3109,6 +3126,8 @@
     <!-- **************************************** -->
 
     <!-- contact_selection_list -->
+    <!-- Displayed in a row on the new call screen when searching by phone number. -->
+    <string name="contact_selection_list__new_call">New call to…</string>
     <string name="contact_selection_list__unknown_contact">Жаңа хат жіберілетін контакт…</string>
     <string name="contact_selection_list__unknown_contact_block">Пайдаланушыны блоктау</string>
     <string name="contact_selection_list__unknown_contact_add_to_group">Топқа қосу</string>
@@ -4818,6 +4837,8 @@
 
     <!-- Label for Chats tab in home app screen -->
     <string name="ConversationListTabs__chats">Чаттар</string>
+    <!-- Label for Calls tab in home app screen -->
+    <string name="ConversationListTabs__calls">Қоңыраулар</string>
     <!-- Label for Stories tab in home app screen -->
     <string name="ConversationListTabs__stories">Стористер</string>
     <!-- String for counts above 99 in conversation list tabs -->
@@ -5681,6 +5702,86 @@
     <string name="TimeDurationPickerDialog_positive_button">Орнату</string>
     <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
     <string name="TimeDurationPickerDialog_minimum_duration_warning">Экран құлыпталғанға дейінгі минималды уақыт – 1 минут.</string>
+
+    <!-- Call Log -->
+    <!-- Displayed below the user\'s name in row items on the call log. First placeholder is the call status, second is when it occurred -->
+    <string name="CallLogAdapter__s_dot_s">%1$s · %2$s</string>
+    <!-- Displayed for incoming calls -->
+    <string name="CallLogAdapter__incoming">Incoming</string>
+    <!-- Displayed for outgoing calls -->
+    <string name="CallLogAdapter__outgoing">Outgoing</string>
+    <!-- Displayed for missed calls -->
+    <string name="CallLogAdapter__missed">Missed</string>
+
+    <!-- Call Log context menu -->
+    <!-- Displayed as a context menu item to start a video call -->
+    <string name="CallContextMenu__video_call">Видеоқоңырау</string>
+    <!-- Displayed as a context menu item to join an ongoing group call -->
+    <string name="CallContextMenu__join_call">Қоңырауға қосылу</string>
+    <!-- Displayed as a context menu item to return to active call -->
+    <string name="CallContextMenu__return_to_call">Қоңырауға оралу</string>
+    <!-- Displayed as a context menu item to start an audio call -->
+    <string name="CallContextMenu__audio_call">Audio Call</string>
+    <!-- Displayed as a context menu item to go to chat -->
+    <string name="CallContextMenu__go_to_chat">Чатқа өту</string>
+    <!-- Displayed as a context menu item to see call info -->
+    <string name="CallContextMenu__info">Ақпарат</string>
+    <!-- Displayed as a context menu item to select multiple calls -->
+    <string name="CallContextMenu__select">Таңдау</string>
+    <!-- Displayed as a context menu item to delete this call -->
+    <string name="CallContextMenu__delete">Жою</string>
+
+    <!-- Call Log Fragment -->
+    <!-- Action bar menu item to only display missed calls -->
+    <string name="CallLogFragment__filter_missed_calls">Filter missed calls</string>
+    <!-- Action bar menu item to clear missed call filter -->
+    <string name="CallLogFragment__clear_filter">Сүзгіні тазалау</string>
+    <!-- Action bar menu item to open settings -->
+    <string name="CallLogFragment__settings">Параметрлер</string>
+    <!-- Action bar menu item to open notification profile settings -->
+    <string name="CallLogFragment__notification_profile">Хабарландыру профилі</string>
+    <!-- Call log new call content description -->
+    <string name="CallLogFragment__start_a_new_call">Start a new call</string>
+    <!-- Filter pull text when pulled -->
+    <string name="CallLogFragment__filtered_by_missed">Filtered by missed</string>
+    <!-- Bottom bar option to select all call entries -->
+    <string name="CallLogFragment__select_all">Барлығын таңдау</string>
+    <!-- Bottom bar option to delete all selected call entries -->
+    <string name="CallLogFragment__delete">Жою</string>
+    <!-- Title on multi-delete protection dialog (TODO - final terminology) -->
+  <!-- Removed by excludeNonTranslatables <plurals name="CallLogFragment__delete_d_calls" translatable="false">
+        <item quantity="one">Delete %1$d call?</item>
+        <item quantity="other">Delete %1$d calls?</item>
+    </plurals> -->
+    <!-- Positive action on multi-delete protection dialog -->
+    <string name="CallLogFragment__delete_for_me">Меннен ғана жою</string>
+    <!-- Snackbar label after deleting call logs -->
+    <plurals name="CallLogFragment__d_calls_deleted">
+        <item quantity="one">%1$d call deleted</item>
+        <item quantity="other">%1$d calls deleted</item>
+    </plurals>
+    <!-- Undo action for deletion snackbar -->
+    <string name="CallLogFragment__undo">Болдырмау</string>
+    <!-- Shown during empty state -->
+    <string name="CallLogFragment__no_calls">No calls.</string>
+    <!-- Shown during empty state -->
+    <string name="CallLogFragment__get_started_by_calling_a_friend">Get started by calling a friend.</string>
+
+    <!-- New call activity -->
+    <!-- Activity title in title bar -->
+    <string name="NewCallActivity__new_call">New call</string>
+
+    <!-- Call state update popups -->
+    <!-- Displayed when the user enables group call ringing -->
+    <string name="CallStateUpdatePopupWindow__ringing_on">Ringing on</string>
+    <!-- Displayed when the user disables group call ringing -->
+    <string name="CallStateUpdatePopupWindow__ringing_off">Ringing off</string>
+    <!-- Displayed when the user cannot enable group call ringing -->
+    <string name="CallStateUpdatePopupWindow__group_is_too_large">Group is too large to ring the participants</string>
+    <!-- Displayed when the user turns on their mic -->
+    <string name="CallStateUpdatePopupWindow__mic_on">Mic on</string>
+    <!-- Displayed when the user turns off their mic -->
+    <string name="CallStateUpdatePopupWindow__mic_off">Mic off</string>
 
     <!-- EOF -->
 </resources>
