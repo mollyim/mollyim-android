@@ -187,4 +187,12 @@ class ConversationRepository {
       listener.onChanged();
     }).subscribeOn(Schedulers.io());
   }
+
+  public void setConversationMuted(@NonNull RecipientId recipientId, long until) {
+    SignalExecutors.BOUNDED.execute(() -> SignalDatabase.recipients().setMuted(recipientId, until));
+  }
+
+  public void setConversationDistributionType(long threadId, int distributionType) {
+    SignalExecutors.BOUNDED.execute(() -> SignalDatabase.threads().setDistributionType(threadId, distributionType));
+  }
 }

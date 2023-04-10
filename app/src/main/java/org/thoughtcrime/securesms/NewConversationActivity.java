@@ -69,7 +69,7 @@ import java.util.stream.Stream;
  * @author Moxie Marlinspike
  */
 public class NewConversationActivity extends ContactSelectionActivity
-    implements ContactSelectionListFragment.ListCallback, ContactSelectionListFragment.OnItemLongClickListener
+    implements ContactSelectionListFragment.NewConversationCallback, ContactSelectionListFragment.OnItemLongClickListener
 {
 
   @SuppressWarnings("unused")
@@ -102,7 +102,7 @@ public class NewConversationActivity extends ContactSelectionActivity
   }
 
   @Override
-  public void onBeforeContactSelected(@NonNull Optional<RecipientId> recipientId, String number, @NonNull Consumer<Boolean> callback) {
+  public void onBeforeContactSelected(boolean isFromUnknownSearchKey, @NonNull Optional<RecipientId> recipientId, String number, @NonNull Consumer<Boolean> callback) {
     if (recipientId.isPresent()) {
       launch(Recipient.resolved(recipientId.get()));
     } else {

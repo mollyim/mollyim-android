@@ -1,12 +1,13 @@
 package org.thoughtcrime.securesms.jobs;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.jobmanager.Data;
+import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.MmsException;
@@ -49,11 +50,11 @@ public class MmsDownloadJob extends BaseJob {
   }
 
   @Override
-  public @NonNull Data serialize() {
-    return new Data.Builder().putLong(KEY_MESSAGE_ID, messageId)
-                             .putLong(KEY_THREAD_ID, threadId)
-                             .putBoolean(KEY_AUTOMATIC, automatic)
-                             .build();
+  public @Nullable byte[] serialize() {
+    return new JsonJobData.Builder().putLong(KEY_MESSAGE_ID, messageId)
+                                    .putLong(KEY_THREAD_ID, threadId)
+                                    .putBoolean(KEY_AUTOMATIC, automatic)
+                                    .serialize();
   }
 
   @Override
@@ -134,7 +135,9 @@ public class MmsDownloadJob extends BaseJob {
 
   public static final class Factory implements Job.Factory<MmsDownloadJob> {
     @Override
-    public @NonNull MmsDownloadJob create(@NonNull Parameters parameters, @NonNull Data data) {
+    public @NonNull MmsDownloadJob create(@NonNull Parameters parameters, @Nullable byte[] serializedData) {
+      JsonJobData data = JsonJobData.deserialize(serializedData);
+
       return new MmsDownloadJob(parameters,
                                 data.getLong(KEY_MESSAGE_ID),
                                 data.getLong(KEY_THREAD_ID),

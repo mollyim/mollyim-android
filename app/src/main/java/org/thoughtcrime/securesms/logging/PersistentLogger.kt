@@ -76,7 +76,7 @@ class PersistentLogger(
   }
 
   private fun write(level: String, tag: String?, message: String?, t: Throwable?, keepLonger: Boolean) {
-    logEntries.add(LogRequest(level, tag ?: "null", message, Date(), getThreadString(), t, keepLonger))
+    logEntries.add(LogRequest(level, tag ?: "null", message, System.currentTimeMillis(), getThreadString(), t, keepLonger))
   }
 
   private fun getThreadString(): String {
@@ -99,7 +99,7 @@ class PersistentLogger(
     val level: String,
     val tag: String,
     val message: String?,
-    val date: Date,
+    val createTime: Long,
     val threadString: String,
     val throwable: Throwable?,
     val keepLonger: Boolean
@@ -125,11 +125,13 @@ class PersistentLogger(
     fun requestToEntries(request: LogRequest): List<LogEntry> {
       val out = mutableListOf<LogEntry>()
 
+      val createDate = Date(request.createTime)
+
       out.add(
         LogEntry(
-          createdAt = request.date.time,
+          createdAt = request.createTime,
           keepLonger = request.keepLonger,
-          body = formatBody(request.threadString, request.date, request.level, request.tag, request.message)
+          body = formatBody(request.threadString, createDate, request.level, request.tag, request.message)
         )
       )
 
@@ -142,9 +144,9 @@ class PersistentLogger(
 
         val entries = lines.map { line ->
           LogEntry(
-            createdAt = request.date.time,
+            createdAt = request.createTime,
             keepLonger = request.keepLonger,
-            body = formatBody(request.threadString, request.date, request.level, request.tag, line)
+            body = formatBody(request.threadString, createDate, request.level, request.tag, line)
           )
         }
 

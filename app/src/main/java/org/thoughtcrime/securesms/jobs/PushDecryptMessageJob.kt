@@ -2,12 +2,13 @@ package org.thoughtcrime.securesms.jobs
 
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
-import org.thoughtcrime.securesms.jobmanager.Data
 import org.thoughtcrime.securesms.jobmanager.Job
+import org.thoughtcrime.securesms.jobmanager.JsonJobData
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messages.MessageContentProcessor.ExceptionMetadata
 import org.thoughtcrime.securesms.messages.MessageContentProcessor.MessageState
 import org.thoughtcrime.securesms.messages.MessageDecryptor
+import org.thoughtcrime.securesms.messages.protocol.BufferedProtocolStore
 import org.thoughtcrime.securesms.transport.RetryLaterException
 import org.whispersystems.signalservice.api.messages.SignalServiceContent
 import org.whispersystems.signalservice.api.messages.SignalServiceEnvelope
@@ -51,18 +52,20 @@ class PushDecryptMessageJob private constructor(
 
   override fun shouldTrace() = true
 
-  override fun serialize(): Data {
-    return Data.Builder()
+  override fun serialize(): ByteArray? {
+    return JsonJobData.Builder()
       .putBlobAsString(KEY_ENVELOPE, envelope.serialize())
       .putLong(KEY_SMS_MESSAGE_ID, smsMessageId)
-      .build()
+      .serialize()
   }
 
   override fun getFactoryKey() = KEY
 
   @Throws(RetryLaterException::class)
   public override fun onRun() {
-    val result = MessageDecryptor.decrypt(context, envelope.proto, envelope.serverDeliveredTimestamp)
+    val bufferedProtocolStore = BufferedProtocolStore.create()
+    val result = MessageDecryptor.decrypt(context, bufferedProtocolStore, envelope.proto, envelope.serverDeliveredTimestamp)
+    bufferedProtocolStore.flushToDisk()
 
     when (result) {
       is MessageDecryptor.Result.Success -> {
@@ -150,7 +153,8 @@ class PushDecryptMessageJob private constructor(
   }
 
   class Factory : Job.Factory<PushDecryptMessageJob> {
-    override fun create(parameters: Parameters, data: Data): PushDecryptMessageJob {
+    override fun create(parameters: Parameters, serializedData: ByteArray?): PushDecryptMessageJob {
+      val data = JsonJobData.deserialize(serializedData)
       return PushDecryptMessageJob(
         parameters,
         SignalServiceEnvelope.deserialize(data.getStringAsBlob(KEY_ENVELOPE)),

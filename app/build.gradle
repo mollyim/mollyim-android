@@ -56,9 +56,9 @@ ext {
     MAPS_API_KEY = getEnv('CI_MAPS_API_KEY') ?: mapsApiKey
 }
 
-def canonicalVersionCode = 1232
-def canonicalVersionName = "6.14.5"
-def mollyRevision = 1
+def canonicalVersionCode = 1235
+def canonicalVersionName = "6.15.3"
+def mollyRevision = 0
 
 def postFixSize = 100
 
@@ -223,6 +223,7 @@ android {
         // buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"unset\""
         // buildConfigField "String", "BUILD_VARIANT_TYPE", "\"unset\""
         buildConfigField "String", "BADGE_STATIC_ROOT", "\"https://updates2.signal.org/static/badges/\""
+        buildConfigField "boolean", "TRACING_ENABLED", "false"
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'

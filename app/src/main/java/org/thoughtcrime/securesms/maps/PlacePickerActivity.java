@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -25,9 +26,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
+import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.io.IOException;
@@ -52,6 +56,8 @@ public final class PlacePickerActivity extends AppCompatActivity {
   private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator();
   private static final String                KEY_CHAT_COLOR         = "chat_color";
 
+  private final DynamicTheme dynamicTheme = new DynamicNoActionBarTheme();
+
   private SingleAddressBottomSheet bottomSheet;
   private Address                  currentAddress;
   private LatLng                   initialLocation;
@@ -71,10 +77,12 @@ public final class PlacePickerActivity extends AppCompatActivity {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    dynamicTheme.onCreate(this);
+
     setContentView(R.layout.activity_place_picker);
 
     bottomSheet      = findViewById(R.id.bottom_sheet);
-    View                                    markerImage = findViewById(R.id.marker_image_view);
+    View markerImage = findViewById(R.id.marker_image_view);
     View fab         = findViewById(R.id.place_chosen_button);
 
     findViewById(R.id.btnMapTypeNormal).setOnClickListener(v -> handleMapType("normal"));
@@ -102,8 +110,18 @@ public final class PlacePickerActivity extends AppCompatActivity {
     if (mapFragment == null) throw new AssertionError("No map fragment");
 
     mapFragment.getMapAsync(googleMap -> {
-
       setMap(googleMap);
+      if (DynamicTheme.isDarkTheme(this)) {
+        try {
+          boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
+
+          if (!success) {
+            Log.e(TAG, "Style parsing failed.");
+          }
+        } catch (Resources.NotFoundException e) {
+          Log.e(TAG, "Can't find style. Error: ", e);
+        }
+      }
 
       enableMyLocationButtonIfHaveThePermission(googleMap);
 
@@ -127,6 +145,12 @@ public final class PlacePickerActivity extends AppCompatActivity {
         setCurrentLocation(googleMap.getCameraPosition().target);
       });
     });
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    dynamicTheme.onResume(this);
   }
 
   private void setInitialLocation(@NonNull LatLng latLng) {
