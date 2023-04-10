@@ -56,8 +56,8 @@ ext {
     MAPS_API_KEY = getEnv('CI_MAPS_API_KEY') ?: mapsApiKey
 }
 
-def canonicalVersionCode = 1235
-def canonicalVersionName = "6.15.3"
+def canonicalVersionCode = 1238
+def canonicalVersionName = "6.16.2"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -417,6 +417,9 @@ dependencies {
     implementation libs.androidx.autofill
     implementation libs.androidx.biometric
     implementation libs.androidx.sharetarget
+    implementation libs.androidx.profileinstaller
+    implementation libs.androidx.asynclayoutinflater
+    implementation libs.androidx.asynclayoutinflater.appcompat
     implementation libs.androidx.webkit
 
     gmsImplementation (libs.firebase.messaging) {

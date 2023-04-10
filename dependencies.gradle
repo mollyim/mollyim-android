@@ -71,6 +71,8 @@ dependencyResolutionManagement {
             alias('androidx-sqlite').to('androidx.sqlite:sqlite:2.1.0')
             alias('androidx-core-role').to('androidx.core:core-role:1.0.0')
             alias('androidx-profileinstaller').to('androidx.profileinstaller:profileinstaller:1.2.2')
+            alias('androidx-asynclayoutinflater').to('androidx.asynclayoutinflater:asynclayoutinflater:1.1.0-alpha01')
+            alias('androidx-asynclayoutinflater-appcompat').to('androidx.asynclayoutinflater:asynclayoutinflater-appcompat:1.1.0-alpha01')
             alias('androidx-webkit').to('androidx.webkit:webkit:1.4.0')
 
             // Material
@@ -102,7 +104,7 @@ dependencyResolutionManagement {
             alias('libsignal-android').to('org.signal', 'libsignal-android').versionRef('libsignal-client')
             alias('signal-aesgcmprovider').to('org.signal:aesgcmprovider:0.0.3')
             alias('molly-argon2').to('im.molly:argon2:13.1-1')
-            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.25.1-1')
+            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.26.1-1')
             alias('signal-android-database-sqlcipher').to('org.signal:sqlcipher-android:4.5.3-FTS-S3')
 
             // MOLLY

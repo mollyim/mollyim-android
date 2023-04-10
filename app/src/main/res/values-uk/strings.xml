@@ -385,9 +385,9 @@
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Незабаром ви отримаєте нове нагадування.</string>
 
     <!-- Title for dialog shown when first sending formatted text -->
-    <string name="SendingFormattingTextDialog_title">Sending formatted text</string>
+    <string name="SendingFormattingTextDialog_title">Надсилання форматованого тексту</string>
     <!-- Message for dialog shown when first sending formatted text -->
-    <string name="SendingFormattingTextDialog_message">Some people may be using a version of Signal that doesn\'t support formatted text. They will not be able to see the formatting changes you\'ve made to your message.</string>
+    <string name="SendingFormattingTextDialog_message">Деякі люди використовують версію Signal, яка не підтримує форматований текст. Такі користувачі не зможуть переглянути зміни форматування, які ви додали.</string>
     <!-- Button text for confirming they\'d like to send the message with formatting after seeing warning. -->
     <string name="SendingFormattingTextDialog_send_anyway_button">Усе одно надіслати</string>
     <!-- Button text for canceling sending the message with formatting after seeing warning. -->
@@ -521,49 +521,14 @@
         <item quantity="many">Непрочитані</item>
         <item quantity="other">Непрочитані</item>
     </plurals>
-    <plurals name="ConversationListFragment_pin_plural">
-        <item quantity="one">Закріпити</item>
-        <item quantity="few">Закріпити</item>
-        <item quantity="many">Закріпити</item>
-        <item quantity="other">Закріпити</item>
-    </plurals>
-    <plurals name="ConversationListFragment_unpin_plural">
-        <item quantity="one">Відкріпити</item>
-        <item quantity="few">Відкріпити</item>
-        <item quantity="many">Відкріпити</item>
-        <item quantity="other">Відкріпити</item>
-    </plurals>
-    <plurals name="ConversationListFragment_mute_plural">
-        <item quantity="one">Не сповіщати</item>
-        <item quantity="few">Не сповіщати</item>
-        <item quantity="many">Не сповіщати</item>
-        <item quantity="other">Не сповіщати</item>
-    </plurals>
-    <plurals name="ConversationListFragment_unmute_plural">
-        <item quantity="one">Сповіщати</item>
-        <item quantity="few">Сповіщати</item>
-        <item quantity="many">Сповіщати</item>
-        <item quantity="other">Сповіщати</item>
-    </plurals>
+    <string name="ConversationListFragment_pin">Закріпити</string>
+    <string name="ConversationListFragment_unpin">Відкріпити</string>
+    <string name="ConversationListFragment_mute">Не сповіщати</string>
+    <string name="ConversationListFragment_unmute">Сповіщати</string>
     <string name="ConversationListFragment_select">Вибрати</string>
-    <plurals name="ConversationListFragment_archive_plural">
-        <item quantity="one">Архівувати</item>
-        <item quantity="few">Архівувати</item>
-        <item quantity="many">Архівувати</item>
-        <item quantity="other">Архівувати</item>
-    </plurals>
-    <plurals name="ConversationListFragment_unarchive_plural">
-        <item quantity="one">Розархівувати</item>
-        <item quantity="few">Розархівувати</item>
-        <item quantity="many">Розархівувати</item>
-        <item quantity="other">Розархівувати</item>
-    </plurals>
-    <plurals name="ConversationListFragment_delete_plural">
-        <item quantity="one">Видалити</item>
-        <item quantity="few">Видалити</item>
-        <item quantity="many">Видалити</item>
-        <item quantity="other">Видалити</item>
-    </plurals>
+    <string name="ConversationListFragment_archive">Архівувати</string>
+    <string name="ConversationListFragment_unarchive">Розархівувати</string>
+    <string name="ConversationListFragment_delete">Видалити</string>
     <string name="ConversationListFragment_select_all">Вибрати все</string>
     <plurals name="ConversationListFragment_s_selected">
         <item quantity="one">%1$d обрано</item>
@@ -1883,15 +1848,15 @@
     </plurals>
 
     <!-- Toggle content description for toggling camera direction  -->
-    <string name="WebRtcCallView__toggle_camera_direction">Toggle camera direction</string>
+    <string name="WebRtcCallView__toggle_camera_direction">Перемкнути напрямок камери</string>
     <!-- Toggle content description for toggling audio output  -->
-    <string name="WebRtcCallView__toggle_speaker">Toggle speaker</string>
+    <string name="WebRtcCallView__toggle_speaker">Перемкнути динамік</string>
     <!-- Toggle content description for toggling camera state  -->
-    <string name="WebRtcCallView__toggle_camera">Toggle camera</string>
+    <string name="WebRtcCallView__toggle_camera">Перемкнути камеру</string>
     <!-- Toggle content description for toggling mute state  -->
-    <string name="WebRtcCallView__toggle_mute">Toggle mute</string>
+    <string name="WebRtcCallView__toggle_mute">Перемкнути звук</string>
     <!-- Toggle content description for toggling group ring state  -->
-    <string name="WebRtcCallView__toggle_ring">Toggle ring</string>
+    <string name="WebRtcCallView__toggle_ring">Перемкнути дзвінок</string>
     <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">Завершити виклик</string>
 
@@ -1965,6 +1930,8 @@
         <item quantity="other">Ви в %1$d кроках від відправки журналу налагодження</item>
     </plurals>
     <string name="RegistrationActivity_we_need_to_verify_that_youre_human">Нам потрібно підтвердження що Ви людина.</string>
+    <!-- An error shown when the request was valid, but due to an issue with a partner vendor, the server is unable to send an SMS code -->
+    <string name="RegistrationActivity_external_service_error">Signal was unable to send an SMS code due to an external failure.</string>
     <string name="RegistrationActivity_next">Далі</string>
     <string name="RegistrationActivity_continue">Продовжити</string>
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Візьміть конфіденційність з собою. \\ n-разів Будьте собою в кожному повідомленні.</string>
@@ -2422,9 +2389,9 @@
     <string name="contact_selection_activity__invite_to_signal">Запросити до Molly</string>
     <string name="contact_selection_activity__new_group">Нова група</string>
     <!-- Row item title for refreshing contacts -->
-    <string name="contact_selection_activity__refresh_contacts">Refresh contacts</string>
+    <string name="contact_selection_activity__refresh_contacts">Оновити контакти</string>
     <!-- Row item description for refreshing contacts -->
-    <string name="contact_selection_activity__missing_someone">Missing someone? Try refreshing</string>
+    <string name="contact_selection_activity__missing_someone">Когось не вистачає? Спробуйте оновити</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Більше</string>
 
@@ -3254,6 +3221,8 @@
 
     <!-- EditNoteFragment -->
     <string name="EditNoteFragment_note">Примітка</string>
+    <!-- Content descriptor explaining the use of the save note FAB for Android accessibility settings-->
+    <string name="EditNoteFragment__content_description_save_note">Зберегти примітку</string>
 
     <!-- ConfirmPaymentFragment -->
     <string name="ConfirmPayment__confirm_payment">Підтвердити платіж</string>
@@ -3295,7 +3264,7 @@
 
     <!-- contact_selection_list -->
     <!-- Displayed in a row on the new call screen when searching by phone number. -->
-    <string name="contact_selection_list__new_call">New call to…</string>
+    <string name="contact_selection_list__new_call">Новий дзвінок…</string>
     <string name="contact_selection_list__unknown_contact">Нове повідомлення для…</string>
     <string name="contact_selection_list__unknown_contact_block">Заблокувати користувача</string>
     <string name="contact_selection_list__unknown_contact_add_to_group">Додати до групи</string>
@@ -4185,6 +4154,60 @@
     <string name="AccountSettingsFragment__youll_be_asked_less_frequently">З часом питання буде з\'являтися все рідше</string>
     <string name="AccountSettingsFragment__require_your_signal_pin">Щоб повторно зареєструвати свій номер телефону в Signal, необхідний PIN-код Signal</string>
     <string name="AccountSettingsFragment__change_phone_number">Змінити номер телефону</string>
+    <!-- Account setting that allows user to request and export their signal account data -->
+    <string name="AccountSettingsFragment__request_account_data">Запит на дані акаунту</string>
+
+    <!-- ExportAccountDataFragment -->
+    <!-- Part of requesting account data flow, this is the section title for requesting that account data -->
+    <string name="ExportAccountDataFragment__your_account_data">Дані вашого акаунту</string>
+    <!-- Explanation of account data the user can request. %1$s is replaced with Learn more with a link -->
+    <string name="ExportAccountDataFragment__export_explanation">Завантажте й експортуйте звіт даних свого акаунту Signal. Звіт не містить повідомлень і медіафайлів. %1$s</string>
+    <!-- Learn more link to more information about requesting account data -->
+    <string name="ExportAccountDataFragment__learn_more">Подробиці</string>
+    <!-- Button action to download the report data -->
+    <string name="ExportAccountDataFragment__download_report">Завантажити звіт</string>
+    <!-- Button action to export the report data to another app (e.g. email) -->
+    <string name="ExportAccountDataFragment__export_report">Експортувати звіт</string>
+    <!-- Button action to delete the requested account data -->
+    <string name="ExportAccountDataFragment__delete_report">Видалити звіт</string>
+
+    <!-- Radio option to export the data as a text file .txt -->
+    <string name="ExportAccountDataFragment__export_as_txt">Експорт як TXT</string>
+    <!-- Label for the text file option -->
+    <string name="ExportAccountDataFragment__export_as_txt_label">Зручний для читання текстовий файл</string>
+    <!-- Radio option to export the data as a json (java script object notation) file .json -->
+    <string name="ExportAccountDataFragment__export_as_json">Експорт як JSON</string>
+    <!-- Label for the json file option, the account data in a machine readable file format -->
+    <string name="ExportAccountDataFragment__export_as_json_label">Машиночитаний файл</string>
+
+    <!-- Action to cancel (in a dialog) -->
+    <string name="ExportAccountDataFragment__cancel_action">Скасувати</string>
+
+    <!-- Acknowledgement for download failure -->
+    <string name="ExportAccountDataFragment__ok_action">Добре</string>
+    <!-- Message shown when report download fails -->
+    <string name="ExportAccountDataFragment__report_download_failed">Не вдалося завантажити звіт через помилку мережі. Перевірте підключення до мережі і спробуйте знову.</string>
+
+    <!-- Title for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_confirmation">Експортувати дані?</string>
+    <!-- Message for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_confirmation_message">Діліться даними свого акаунту Signal лише з людьми і застосунками, яким ви довіряєте.</string>
+    <!-- Action to export in for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_action">Експорт</string>
+
+    <!-- Action to delete report in confirmation dialog -->
+    <string name="ExportAccountDataFragment__delete_report_action">Видалити</string>
+    <!-- Title for delete report confirmation dialog -->
+    <string name="ExportAccountDataFragment__delete_report_confirmation">Видалити звіт?</string>
+    <!-- Message for delete report confirmation dialog -->
+    <string name="ExportAccountDataFragment__delete_report_confirmation_message">Ця дія не видалить дані з вашого акаунту.</string>
+
+    <!-- Shown as a snackbar letting the user know the report was deleted -->
+    <string name="ExportAccountDataFragment__delete_report_snackbar">Звіт видалено</string>
+    <!-- Shown in a dialog with a spinner while the report is downloading -->
+    <string name="ExportAccountDataFragment__download_progress">Завантажуємо звіт…</string>
+    <!-- Explanation that the downloaded report will be available for 30 days before it is deleted -->
+    <string name="ExportAccountDataFragment__report_deletion_disclaimer">Звіт буде доступний для експорту протягом 30 днів, а потім він автоматично видалиться.</string>
 
     <!-- ChangeNumberFragment -->
     <string name="ChangeNumberFragment__use_this_to_change_your_current_phone_number_to_a_new_phone_number">Скористайтесь цим, аби змінити свій поточний номер телефону на новий. Ви не можете скасувати цю зміну.\n\nПерш ніж продовжити, переконайтеся, що ваш новий номер може отримувати SMS або дзвінки.</string>
@@ -4272,7 +4295,7 @@
     <string name="NotificationsSettingsFragment__messages">Повідомлення</string>
     <string name="NotificationsSettingsFragment__calls">Виклики</string>
     <string name="NotificationsSettingsFragment__notify_when">Сповіщати коли…</string>
-    <string name="NotificationsSettingsFragment__contact_joins_signal">Контакт приєданвся до Signal</string>
+    <string name="NotificationsSettingsFragment__contact_joins_signal">Контакт приєднався до Signal</string>
     <!-- Notification preference header -->
     <string name="NotificationsSettingsFragment__notification_profiles">Профілі сповіщень</string>
     <!-- Notification preference option header -->
@@ -5044,7 +5067,7 @@
     <!-- Label for Chats tab in home app screen -->
     <string name="ConversationListTabs__chats">Чати</string>
     <!-- Label for Calls tab in home app screen -->
-    <string name="ConversationListTabs__calls">Виклики</string>
+    <string name="ConversationListTabs__calls">Дзвінки</string>
     <!-- Label for Stories tab in home app screen -->
     <string name="ConversationListTabs__stories">Сторіз</string>
     <!-- String for counts above 99 in conversation list tabs -->
@@ -5930,12 +5953,20 @@
     <string name="TextFormatting_strikethrough">Закреслення</string>
     <!-- Popup menu label for applying monospace font style -->
     <string name="TextFormatting_monospace">Моноширинний</string>
+    <!-- Popup menu label for applying spoiler style -->
+    <string name="TextFormatting_spoiler">Спойлер</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
     <string name="UsernameEducationFragment__continue">Продовжити</string>
     <!-- Displayed as a title on the username education screen -->
     <string name="UsernameEducationFragment__set_up_your_signal_username">Встановіть ім\'я користувача Signal</string>
+    <!-- Displayed as body text in the username education screen -->
+    <string name="UsernameEducationFragment__usernames_are_paired_with_a_set_of_digits">Імена користувачів мають кілька цифр, які не відображаються у вашому профілі</string>
+    <!-- Displayed as body text in the username education screen -->
+    <string name="UsernameEducationFragment__each_username_has_a_unique_qr_code">Кожне ім’я користувача має унікальний QR-код і посилання, якими можна поділитися з друзями, щоб вони могли розпочати з вами розмову</string>
+    <!-- Displayed as body text in the username education screen. The string references the names of settings, so they should match our translations for those settings. -->
+    <string name="UsernameEducationFragment__turn_off_phone_number_discovery">Вимкніть виявлення номеру телефону, перейшовши в Налаштування &gt; Конфіденційність &gt; Номер телефону &gt; «Хто може знайти мене за номером телефону», щоб використовувати своє ім\'я користувача як основний спосіб зв\'язку з вами</string>
 
     <!-- Username edit dialog -->
     <!-- Option to open username editor displayed as a list item in a dialog -->
@@ -5957,19 +5988,19 @@
     <!-- Displayed below the user\'s name in row items on the call log. First placeholder is the call status, second is when it occurred -->
     <string name="CallLogAdapter__s_dot_s">%1$s · %2$s</string>
     <!-- Displayed for incoming calls -->
-    <string name="CallLogAdapter__incoming">Incoming</string>
+    <string name="CallLogAdapter__incoming">Вхідний</string>
     <!-- Displayed for outgoing calls -->
-    <string name="CallLogAdapter__outgoing">Outgoing</string>
+    <string name="CallLogAdapter__outgoing">Вихідний</string>
     <!-- Displayed for missed calls -->
-    <string name="CallLogAdapter__missed">Missed</string>
+    <string name="CallLogAdapter__missed">Пропущений</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
-    <string name="CallContextMenu__video_call">Відеодзвінок</string>
+    <string name="CallContextMenu__video_call">Відеовиклик</string>
     <!-- Displayed as a context menu item to join an ongoing group call -->
     <string name="CallContextMenu__join_call">Приєднатися до дзвінка</string>
     <!-- Displayed as a context menu item to return to active call -->
-    <string name="CallContextMenu__return_to_call">Повернутись до виклику</string>
+    <string name="CallContextMenu__return_to_call">Повернутися до дзвінка</string>
     <!-- Displayed as a context menu item to start an audio call -->
     <string name="CallContextMenu__audio_call">Голосовий виклик</string>
     <!-- Displayed as a context menu item to go to chat -->
@@ -5983,7 +6014,7 @@
 
     <!-- Call Log Fragment -->
     <!-- Action bar menu item to only display missed calls -->
-    <string name="CallLogFragment__filter_missed_calls">Filter missed calls</string>
+    <string name="CallLogFragment__filter_missed_calls">Фільтрувати пропущені Дзвінки</string>
     <!-- Action bar menu item to clear missed call filter -->
     <string name="CallLogFragment__clear_filter">Очистити фільтр</string>
     <!-- Action bar menu item to open settings -->
@@ -5991,9 +6022,9 @@
     <!-- Action bar menu item to open notification profile settings -->
     <string name="CallLogFragment__notification_profile">Профіль сповіщень</string>
     <!-- Call log new call content description -->
-    <string name="CallLogFragment__start_a_new_call">Start a new call</string>
+    <string name="CallLogFragment__start_a_new_call">Почати новий виклик</string>
     <!-- Filter pull text when pulled -->
-    <string name="CallLogFragment__filtered_by_missed">Filtered by missed</string>
+    <string name="CallLogFragment__filtered_by_missed">Фільтр за пропущеними</string>
     <!-- Bottom bar option to select all call entries -->
     <string name="CallLogFragment__select_all">Вибрати все</string>
     <!-- Bottom bar option to delete all selected call entries -->
@@ -6007,33 +6038,38 @@
     <string name="CallLogFragment__delete_for_me">Видалити для мене</string>
     <!-- Snackbar label after deleting call logs -->
     <plurals name="CallLogFragment__d_calls_deleted">
-        <item quantity="one">%1$d call deleted</item>
-        <item quantity="few">%1$d calls deleted</item>
-        <item quantity="many">%1$d calls deleted</item>
-        <item quantity="other">%1$d calls deleted</item>
+        <item quantity="one">Видалено %1$d дзвінок</item>
+        <item quantity="few">Видалено %1$d Дзвінки</item>
+        <item quantity="many">Видалено %1$d дзвінків</item>
+        <item quantity="other">Видалено %1$d дзвінка</item>
     </plurals>
     <!-- Undo action for deletion snackbar -->
-    <string name="CallLogFragment__undo">Відмінити</string>
+    <string name="CallLogFragment__undo">Скасувати</string>
     <!-- Shown during empty state -->
-    <string name="CallLogFragment__no_calls">No calls.</string>
+    <string name="CallLogFragment__no_calls">Дзвінків немає.</string>
     <!-- Shown during empty state -->
-    <string name="CallLogFragment__get_started_by_calling_a_friend">Get started by calling a friend.</string>
+    <string name="CallLogFragment__get_started_by_calling_a_friend">Почніть із дзвінка другу.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
-    <string name="NewCallActivity__new_call">New call</string>
+    <string name="NewCallActivity__new_call">Новий дзвінок</string>
 
     <!-- Call state update popups -->
     <!-- Displayed when the user enables group call ringing -->
-    <string name="CallStateUpdatePopupWindow__ringing_on">Ringing on</string>
+    <string name="CallStateUpdatePopupWindow__ringing_on">Дзвінок увімкнено</string>
     <!-- Displayed when the user disables group call ringing -->
-    <string name="CallStateUpdatePopupWindow__ringing_off">Ringing off</string>
+    <string name="CallStateUpdatePopupWindow__ringing_off">Дзвінок вимкнено</string>
     <!-- Displayed when the user cannot enable group call ringing -->
-    <string name="CallStateUpdatePopupWindow__group_is_too_large">Group is too large to ring the participants</string>
+    <string name="CallStateUpdatePopupWindow__group_is_too_large">Група завелика для дзвінків її учасникам</string>
     <!-- Displayed when the user turns on their mic -->
-    <string name="CallStateUpdatePopupWindow__mic_on">Mic on</string>
+    <string name="CallStateUpdatePopupWindow__mic_on">Мікрофон увімкнено</string>
     <!-- Displayed when the user turns off their mic -->
-    <string name="CallStateUpdatePopupWindow__mic_off">Mic off</string>
+    <string name="CallStateUpdatePopupWindow__mic_off">Мікрофон вимкнено</string>
+
+    <!-- Accessibility label describing the capture button on the camera screen -->
+    <string name="CameraControls_capture_button_accessibility_label">Кнопка «Сфотографувати»</string>
+    <!-- Accessibility label describing the continue button on the camera screen -->
+    <string name="CameraControls_continue_button_accessibility_label">Кнопка «Продовжити»</string>
 
     <!-- EOF -->
 </resources>
