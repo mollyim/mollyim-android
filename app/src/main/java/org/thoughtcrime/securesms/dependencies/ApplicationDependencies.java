@@ -33,6 +33,7 @@ import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.push.SignalServiceTrustStore;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
+import org.thoughtcrime.securesms.service.DeletedCallEventManager;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.service.ExpiringStoriesManager;
 import org.thoughtcrime.securesms.service.PendingRetryReceiptManager;
@@ -115,6 +116,7 @@ public class ApplicationDependencies {
   private static volatile ViewOnceMessageManager       viewOnceMessageManager;
   private static volatile ExpiringStoriesManager       expiringStoriesManager;
   private static volatile ExpiringMessageManager       expiringMessageManager;
+  private static volatile DeletedCallEventManager      deletedCallEventManager;
   private static volatile Payments                     payments;
   private static volatile SignalCallManager            signalCallManager;
   private static volatile OkHttpClient                 okHttpClient;
@@ -456,6 +458,18 @@ public class ApplicationDependencies {
     return expiringMessageManager;
   }
 
+  public static @NonNull DeletedCallEventManager getDeletedCallEventManager() {
+    if (deletedCallEventManager == null) {
+      synchronized (LOCK) {
+        if (deletedCallEventManager == null) {
+          deletedCallEventManager = getProvider().provideDeletedCallEventManager();
+        }
+      }
+    }
+
+    return deletedCallEventManager;
+  }
+
   public static @NonNull ScheduledMessageManager getScheduledMessageManager() {
     if (scheduledMessagesManager == null) {
       synchronized (LOCK) {
@@ -708,6 +722,7 @@ public class ApplicationDependencies {
     @NonNull ViewOnceMessageManager provideViewOnceMessageManager();
     @NonNull ExpiringStoriesManager provideExpiringStoriesManager();
     @NonNull ExpiringMessageManager provideExpiringMessageManager();
+    @NonNull DeletedCallEventManager provideDeletedCallEventManager();
     @NonNull TypingStatusRepository provideTypingStatusRepository();
     @NonNull TypingStatusSender provideTypingStatusSender();
     @NonNull DatabaseObserver provideDatabaseObserver();

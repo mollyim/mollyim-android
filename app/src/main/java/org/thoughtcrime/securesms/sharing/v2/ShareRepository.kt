@@ -40,7 +40,9 @@ class ShareRepository(context: Context) {
     }
 
     val uri = multiShareExternal.uri
-    val mimeType = getMimeType(appContext, uri, multiShareExternal.mimeType)
+    val size = getSize(appContext, uri)
+    val name = getFileName(appContext, uri)
+    val mimeType = getMimeType(appContext, uri, multiShareExternal.mimeType, name?.substringAfterLast('.', ""))
 
     val stream: InputStream = try {
       appContext.contentResolver.openInputStream(uri)
@@ -48,9 +50,6 @@ class ShareRepository(context: Context) {
       Log.w(TAG, "Failed to read stream!", e)
       null
     } ?: return ResolvedShareData.Failure
-
-    val size = getSize(appContext, uri)
-    val name = getFileName(appContext, uri)
 
     val blobUri: Uri = try {
       BlobProvider.getInstance()
@@ -131,8 +130,8 @@ class ShareRepository(context: Context) {
   companion object {
     private val TAG = Log.tag(ShareRepository::class.java)
 
-    private fun getMimeType(context: Context, uri: Uri, mimeType: String?): String {
-      var updatedMimeType = MediaUtil.getMimeType(context, uri)
+    private fun getMimeType(context: Context, uri: Uri, mimeType: String?, fileExtension: String? = null): String {
+      var updatedMimeType = MediaUtil.getMimeType(context, uri, fileExtension)
       if (updatedMimeType == null) {
         updatedMimeType = MediaUtil.getCorrectedMimeType(mimeType)
       }

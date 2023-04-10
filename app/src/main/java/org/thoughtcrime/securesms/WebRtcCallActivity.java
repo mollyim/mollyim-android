@@ -32,11 +32,9 @@ import android.os.Bundle;
 import android.util.Rational;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Consumer;
@@ -426,15 +424,19 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   }
 
   private void handleSetAudioHandset() {
-    ApplicationDependencies.getSignalCallManager().selectAudioDevice(SignalAudioManager.AudioDevice.EARPIECE);
+    ApplicationDependencies.getSignalCallManager().selectAudioDevice(new SignalAudioManager.ChosenAudioDeviceIdentifier(SignalAudioManager.AudioDevice.EARPIECE));
   }
 
   private void handleSetAudioSpeaker() {
-    ApplicationDependencies.getSignalCallManager().selectAudioDevice(SignalAudioManager.AudioDevice.SPEAKER_PHONE);
+    ApplicationDependencies.getSignalCallManager().selectAudioDevice(new SignalAudioManager.ChosenAudioDeviceIdentifier(SignalAudioManager.AudioDevice.SPEAKER_PHONE));
   }
 
   private void handleSetAudioBluetooth() {
-    ApplicationDependencies.getSignalCallManager().selectAudioDevice(SignalAudioManager.AudioDevice.BLUETOOTH);
+    ApplicationDependencies.getSignalCallManager().selectAudioDevice(new SignalAudioManager.ChosenAudioDeviceIdentifier(SignalAudioManager.AudioDevice.BLUETOOTH));
+  }
+
+  private void handleSetAudioWiredHeadset() {
+    ApplicationDependencies.getSignalCallManager().selectAudioDevice(new SignalAudioManager.ChosenAudioDeviceIdentifier(SignalAudioManager.AudioDevice.WIRED_HEADSET));
   }
 
   private void handleSetMuteAudio(boolean enabled) {
@@ -579,7 +581,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   private void handleNoSuchUser(final @NonNull WebRtcViewModel event) {
     if (isFinishing()) return; // XXX Stuart added this check above, not sure why, so I'm repeating in ignorance. - moxie
-    new AlertDialog.Builder(this)
+    new MaterialAlertDialogBuilder(this)
         .setTitle(R.string.RedPhone_number_not_registered)
         .setIcon(R.drawable.ic_warning)
         .setMessage(R.string.RedPhone_the_number_you_dialed_does_not_support_secure_voice)
@@ -810,15 +812,24 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
         case HANDSET:
           handleSetAudioHandset();
           break;
-        case HEADSET:
+        case BLUETOOTH_HEADSET:
           handleSetAudioBluetooth();
           break;
         case SPEAKER:
           handleSetAudioSpeaker();
           break;
+        case WIRED_HEADSET:
+          handleSetAudioWiredHeadset();
+          break;
         default:
           throw new IllegalStateException("Unknown output: " + audioOutput);
       }
+    }
+
+    @RequiresApi(31)
+    @Override
+    public void onAudioOutputChanged31(@NonNull int audioDeviceInfo) {
+      ApplicationDependencies.getSignalCallManager().selectAudioDevice(new SignalAudioManager.ChosenAudioDeviceIdentifier(audioDeviceInfo));
     }
 
     @Override
@@ -863,11 +874,6 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     }
 
     @Override
-    public void onShowParticipantsList() {
-      CallParticipantsListDialog.show(getSupportFragmentManager());
-    }
-
-    @Override
     public void onPageChanged(@NonNull CallParticipantsState.SelectedPage page) {
       viewModel.setIsViewingFocusedParticipant(page);
     }
@@ -887,6 +893,16 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
         ApplicationDependencies.getSignalCallManager().setRingGroup(false);
         callStateUpdatePopupWindow.onCallStateUpdate(CallStateUpdatePopupWindow.CallStateUpdate.RINGING_DISABLED);
       }
+    }
+
+    @Override
+    public void onCallInfoClicked() {
+      CallParticipantsListDialog.show(getSupportFragmentManager());
+    }
+
+    @Override
+    public void onNavigateUpClicked() {
+      onBackPressed();
     }
   }
 

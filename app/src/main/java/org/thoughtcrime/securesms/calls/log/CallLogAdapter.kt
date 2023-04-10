@@ -9,6 +9,7 @@ import androidx.core.widget.TextViewCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.database.CallTable
 import org.thoughtcrime.securesms.databinding.CallLogAdapterItemBinding
+import org.thoughtcrime.securesms.databinding.CallLogCreateCallLinkItemBinding
 import org.thoughtcrime.securesms.databinding.ConversationListItemClearFilterBinding
 import org.thoughtcrime.securesms.mms.GlideApp
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -51,6 +52,13 @@ class CallLogAdapter(
         inflater = ConversationListItemClearFilterBinding::inflate
       )
     )
+    registerFactory(
+      CreateCallLinkModel::class.java,
+      BindingFactory(
+        creator = { CreateCallLinkViewHolder(it, callbacks::onCreateACallLinkClicked) },
+        inflater = CallLogCreateCallLinkItemBinding::inflate
+      )
+    )
   }
 
   fun submitCallRows(
@@ -65,6 +73,7 @@ class CallLogAdapter(
         when (it) {
           is CallLogRow.Call -> CallModel(it, selectionState, itemCount)
           is CallLogRow.ClearFilter -> ClearFilterModel()
+          is CallLogRow.CreateCallLink -> CreateCallLinkModel()
         }
       }
 
@@ -112,6 +121,12 @@ class CallLogAdapter(
     override fun areContentsTheSame(newItem: ClearFilterModel): Boolean = true
   }
 
+  private class CreateCallLinkModel : MappingModel<CreateCallLinkModel> {
+    override fun areItemsTheSame(newItem: CreateCallLinkModel): Boolean = true
+
+    override fun areContentsTheSame(newItem: CreateCallLinkModel): Boolean = true
+  }
+
   private class CallModelViewHolder(
     binding: CallLogAdapterItemBinding,
     private val onCallClicked: (CallLogRow.Call) -> Unit,
@@ -138,13 +153,12 @@ class CallLogAdapter(
 
       val event = model.call.call.event
       val direction = model.call.call.direction
-      val type = model.call.call.type
 
       binding.callRecipientAvatar.setAvatar(GlideApp.with(binding.callRecipientAvatar), model.call.peer, true)
       binding.callRecipientBadge.setBadgeFromRecipient(model.call.peer)
       binding.callRecipientName.text = model.call.peer.getDisplayName(context)
       presentCallInfo(event, direction, model.call.date)
-      presentCallType(type, model.call.peer)
+      presentCallType(model)
     }
 
     private fun presentCallInfo(event: CallTable.Event, direction: CallTable.Direction, date: Long) {
@@ -175,20 +189,47 @@ class CallLogAdapter(
       binding.callInfo.setTextColor(color)
     }
 
-    private fun presentCallType(callType: CallTable.Type, peer: Recipient) {
-      when (callType) {
+    private fun presentCallType(model: CallModel) {
+      when (model.call.call.type) {
         CallTable.Type.AUDIO_CALL -> {
           binding.callType.setImageResource(R.drawable.symbol_phone_24)
-          binding.callType.setOnClickListener { onStartAudioCallClicked(peer) }
+          binding.callType.setOnClickListener { onStartAudioCallClicked(model.call.peer) }
+          binding.callType.visible = true
+          binding.groupCallButton.visible = false
         }
 
         CallTable.Type.VIDEO_CALL -> {
           binding.callType.setImageResource(R.drawable.symbol_video_24)
-          binding.callType.setOnClickListener { onStartVideoCallClicked(peer) }
+          binding.callType.setOnClickListener { onStartVideoCallClicked(model.call.peer) }
+          binding.callType.visible = true
+          binding.groupCallButton.visible = false
+        }
+
+        CallTable.Type.GROUP_CALL, CallTable.Type.AD_HOC_CALL -> {
+          binding.callType.setImageResource(R.drawable.symbol_video_24)
+          binding.callType.setOnClickListener { onStartVideoCallClicked(model.call.peer) }
+          binding.groupCallButton.setOnClickListener { onStartVideoCallClicked(model.call.peer) }
+
+          when (model.call.groupCallState) {
+            CallLogRow.GroupCallState.NONE, CallLogRow.GroupCallState.FULL -> {
+              binding.callType.visible = true
+              binding.groupCallButton.visible = false
+            }
+            CallLogRow.GroupCallState.ACTIVE, CallLogRow.GroupCallState.LOCAL_USER_JOINED -> {
+              binding.callType.visible = false
+              binding.groupCallButton.visible = true
+
+              binding.groupCallButton.setText(
+                if (model.call.groupCallState == CallLogRow.GroupCallState.LOCAL_USER_JOINED) {
+                  R.string.CallLogAdapter__return
+                } else {
+                  R.string.CallLogAdapter__join
+                }
+              )
+            }
+          }
         }
       }
-
-      binding.callType.visible = true
     }
 
     @DrawableRes
@@ -230,7 +271,23 @@ class CallLogAdapter(
     override fun bind(model: ClearFilterModel) = Unit
   }
 
+  private class CreateCallLinkViewHolder(
+    binding: CallLogCreateCallLinkItemBinding,
+    onClick: () -> Unit
+  ) : BindingViewHolder<CreateCallLinkModel, CallLogCreateCallLinkItemBinding>(binding) {
+    init {
+      binding.root.setOnClickListener { onClick() }
+    }
+
+    override fun bind(model: CreateCallLinkModel) = Unit
+  }
+
   interface Callbacks {
+    /**
+     * Invoked when 'Create a call link' is clicked
+     */
+    fun onCreateACallLinkClicked()
+
     /**
      * Invoked when a call row is clicked
      */

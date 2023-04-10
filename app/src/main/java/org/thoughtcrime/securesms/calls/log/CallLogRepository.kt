@@ -26,33 +26,28 @@ class CallLogRepository : CallLogPagedDataSource.CallRepository {
         refresh()
       }
 
-      val messageObserver = DatabaseObserver.MessageObserver {
-        refresh()
-      }
-
       ApplicationDependencies.getDatabaseObserver().registerConversationListObserver(databaseObserver)
-      ApplicationDependencies.getDatabaseObserver().registerMessageUpdateObserver(messageObserver)
+      ApplicationDependencies.getDatabaseObserver().registerCallUpdateObserver(databaseObserver)
 
       emitter.setCancellable {
         ApplicationDependencies.getDatabaseObserver().unregisterObserver(databaseObserver)
-        ApplicationDependencies.getDatabaseObserver().unregisterObserver(messageObserver)
       }
     }
   }
 
   fun deleteSelectedCallLogs(
-    selectedMessageIds: Set<Long>
+    selectedCallIds: Set<Long>
   ): Completable {
     return Completable.fromAction {
-      SignalDatabase.messages.deleteCallUpdates(selectedMessageIds)
+      SignalDatabase.calls.deleteCallEvents(selectedCallIds)
     }.observeOn(Schedulers.io())
   }
 
   fun deleteAllCallLogsExcept(
-    selectedMessageIds: Set<Long>
+    selectedCallIds: Set<Long>
   ): Completable {
     return Completable.fromAction {
-      SignalDatabase.messages.deleteAllCallUpdatesExcept(selectedMessageIds)
+      SignalDatabase.calls.deleteAllCallEventsExcept(selectedCallIds)
     }.observeOn(Schedulers.io())
   }
 }

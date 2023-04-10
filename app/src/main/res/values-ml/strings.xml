@@ -15,6 +15,7 @@
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url_no_scheme" translatable="false">signal.me/#u/%1$s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="export_account_data_url" translatable="false">https://support.signal.org/hc/articles/5538911756954</string> -->
 
     <string name="yes">അതെ/ഉവ്വ്</string>
     <string name="no">അല്ല/ഇല്ല</string>
@@ -1736,6 +1737,19 @@
     <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">കോൾ അവസാനിപ്പിക്കൂ</string>
 
+    <!-- Error message when the developer added a button in the wrong place. -->
+    <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">UI പിശക് സംഭവിച്ചു. ഈ പിശക് ഡെവലപ്പർമാർക്ക് റിപ്പോർട്ട് ചെയ്യൂ.</string>
+    <!-- Error message when the user is trying to change audio outputs but none are present. -->
+    <string name="WebRtcAudioOutputToggleButton_no_eligible_audio_i_o_detected">യോഗ്യതയുള്ള ഓഡിയോ I/O ഒന്നും കണ്ടെത്തിയില്ല.</string>
+    <!-- A text description of the bluetooth icon, used for accessibility. -->
+    <string name="WebRtcAudioOutputBottomSheet__bluetooth_icon_content_description">ബ്ലൂടൂത്തിനെ പ്രതിനിധീകരിക്കുന്ന ഐക്കൺ.</string>
+    <!-- A text description of the headset icon, used for accessibility. -->
+    <string name="WebRtcAudioOutputBottomSheet__headset_icon_content_description">വയേർഡ് ഹെഡ്‌സെറ്റിനെ പ്രതിനിധീകരിക്കുന്ന ഐക്കൺ.</string>
+    <!-- A text description of the speaker icon, used for accessibility. -->
+    <string name="WebRtcAudioOutputBottomSheet__speaker_icon_content_description">സ്‌പീക്കർഫോണിനെ പ്രതിനിധീകരിക്കുന്ന ഐക്കൺ.</string>
+    <!-- A text description of the earpiece icon, used for accessibility. -->
+    <string name="WebRtcAudioOutputBottomSheet__earpiece_icon_content_description">ഉപകരണത്തിന്‍റെ ഇയർപീസിനെ പ്രതിനിധീകരിക്കുന്ന ഐക്കൺ.</string>
+
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call_d_people">
         <item quantity="one">ഈ കോളിൽ - %1$d ആളുണ്ട്</item>
@@ -1803,7 +1817,7 @@
     </plurals>
     <string name="RegistrationActivity_we_need_to_verify_that_youre_human">നിങ്ങൾ മനുഷ്യനാണെന്ന് ഞങ്ങൾ പരിശോധിക്കേണ്ടതുണ്ട്.</string>
     <!-- An error shown when the request was valid, but due to an issue with a partner vendor, the server is unable to send an SMS code -->
-    <string name="RegistrationActivity_external_service_error">Signal was unable to send an SMS code due to an external failure.</string>
+    <string name="RegistrationActivity_external_service_error">ബാഹ്യ പിശക് കാരണം Signal-ന് SMS കോഡ് അയയ്ക്കാനായില്ല.</string>
     <string name="RegistrationActivity_next">അടുത്തത്</string>
     <string name="RegistrationActivity_continue">തുടരുക</string>
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">സ്വകാര്യത നിങ്ങൾക്കൊപ്പം കൊണ്ടുപോകുക.\nഎല്ലാ സന്ദേശത്തിലും നിങ്ങൾ നിങ്ങളെപ്പോലെ ആകുക.</string>
@@ -2240,10 +2254,18 @@
     <string name="WebRtcCallScreen__answer_without_video">വീഡിയോ ഇല്ലാതെ ഉത്തരം നൽകുക</string>
 
     <!-- WebRtcAudioOutputToggle -->
+    <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">ഓഡിയോ ഔട്ട്പുട്ട്</string>
+    <!-- Audio output option referring to the earpiece built into the phone -->
     <string name="WebRtcAudioOutputToggle__phone_earpiece">ഫോൺ ഇയർപീസ്</string>
+    <!-- Audio output option referring to the louder speaker built into the phone -->
     <string name="WebRtcAudioOutputToggle__speaker">സ്പീക്കർ</string>
+    <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">ബ്ലൂടൂത്ത്</string>
+    <!-- Audio output option referring to an external headset connected via a 3.5mm headphone jack -->
+    <string name="WebRtcAudioOutputToggle__wired_headset">വയേർഡ് ഹെഡ്‌സെറ്റ്</string>
+    <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
+    <string name="WebRtcAudioOutputToggle__wired_headset_usb">വയേർഡ് ഹെഡ്‌സെറ്റ് (യുഎസ്ബി)</string>
 
     <string name="WebRtcCallControls_answer_call_description">കോൾ സ്വീകരിക്കുക</string>
     <string name="WebRtcCallControls_reject_call_description">കോൾ നിരസിക്കുക</string>
@@ -3975,21 +3997,17 @@
     <string name="AccountSettingsFragment__require_your_signal_pin">നിങ്ങളുടെ ഫോൺ നമ്പർ വീണ്ടും Signal-ൽ രജിസ്റ്റർ ചെയ്യുന്നതിന് നിങ്ങളുടെ Signal പിൻ ആവശ്യമാണ്</string>
     <string name="AccountSettingsFragment__change_phone_number">ഫോൺ നമ്പർ മാറ്റുക</string>
     <!-- Account setting that allows user to request and export their signal account data -->
-    <string name="AccountSettingsFragment__request_account_data">അക്കൗണ്ട് ഡാറ്റ അഭ്യർത്ഥിക്കുക</string>
+    <string name="AccountSettingsFragment__request_account_data">നിങ്ങളുടെ അക്കൗണ്ട് ഡാറ്റ</string>
 
     <!-- ExportAccountDataFragment -->
     <!-- Part of requesting account data flow, this is the section title for requesting that account data -->
     <string name="ExportAccountDataFragment__your_account_data">നിങ്ങളുടെ അക്കൗണ്ട് ഡാറ്റ</string>
     <!-- Explanation of account data the user can request. %1$s is replaced with Learn more with a link -->
-    <string name="ExportAccountDataFragment__export_explanation">നിങ്ങളുടെ Signal അക്കൗണ്ട് ഡാറ്റയുടെ റിപ്പോർട്ട് ഡൗൺലോഡ് ചെയ്‌ത് എക്സ്പോർട്ട് ചെയ്യുക. ഈ റിപ്പോർട്ടിൽ മെസേജുകളോ മീഡിയയോ ഉൾപ്പെടുന്നില്ല. %1$s</string>
+    <string name="ExportAccountDataFragment__export_explanation">നിങ്ങളുടെ Signal അക്കൗണ്ട് ഡാറ്റയുടെ റിപ്പോർട്ട് എക്സ്പോർട്ട് ചെയ്യുക. ഈ റിപ്പോർട്ടിൽ മെസേജുകളോ മീഡിയയോ ഉൾപ്പെടുന്നില്ല. %1$s</string>
     <!-- Learn more link to more information about requesting account data -->
     <string name="ExportAccountDataFragment__learn_more">കൂടുതലറിയുക</string>
-    <!-- Button action to download the report data -->
-    <string name="ExportAccountDataFragment__download_report">റിപ്പോർട്ട് ഡൗൺലോഡ് ചെയ്യുക</string>
     <!-- Button action to export the report data to another app (e.g. email) -->
     <string name="ExportAccountDataFragment__export_report">റിപ്പോർട്ട് എക്സ്പോർട്ട് ചെയ്യുക</string>
-    <!-- Button action to delete the requested account data -->
-    <string name="ExportAccountDataFragment__delete_report">റിപ്പോർട്ട് ഇല്ലാതാക്കുക</string>
 
     <!-- Radio option to export the data as a text file .txt -->
     <string name="ExportAccountDataFragment__export_as_txt">TXT ആയി എക്സ്പോർട്ട് ചെയ്യുക</string>
@@ -4005,8 +4023,10 @@
 
     <!-- Acknowledgement for download failure -->
     <string name="ExportAccountDataFragment__ok_action">ഓകെ</string>
-    <!-- Message shown when report download fails -->
-    <string name="ExportAccountDataFragment__report_download_failed">നെറ്റ്‌വർക്ക് പിശക് കാരണം നിങ്ങളുടെ റിപ്പോർട്ട് ഡൗൺലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. നിങ്ങളുടെ കണക്ഷൻ പരിശോധിച്ച ശേഷം വീണ്ടും ശ്രമിക്കുക.</string>
+    <!-- Title of dialog shown when report fails to generate -->
+    <string name="ExportAccountDataFragment__report_generation_failed">റിപ്പോർട്ട് ജനറേറ്റ് ചെയ്യാനായില്ല</string>
+    <!-- Message of dialog shown when report fails to generate asking user to check network connection -->
+    <string name="ExportAccountDataFragment__check_network">നിങ്ങളുടെ കണക്ഷൻ പരിശോധിച്ച ശേഷം വീണ്ടും ശ്രമിക്കുക.</string>
 
     <!-- Title for export confirmation dialog -->
     <string name="ExportAccountDataFragment__export_report_confirmation">ഡാറ്റ എക്സ്പോർട്ട് ചെയ്യണോ?</string>
@@ -4015,19 +4035,10 @@
     <!-- Action to export in for export confirmation dialog -->
     <string name="ExportAccountDataFragment__export_report_action">എക്സ്പോർട്ട് ചെയ്യുക</string>
 
-    <!-- Action to delete report in confirmation dialog -->
-    <string name="ExportAccountDataFragment__delete_report_action">ഇല്ലാതാക്കൂ</string>
-    <!-- Title for delete report confirmation dialog -->
-    <string name="ExportAccountDataFragment__delete_report_confirmation">റിപ്പോർട്ട് ഇല്ലാതാക്കണോ?</string>
-    <!-- Message for delete report confirmation dialog -->
-    <string name="ExportAccountDataFragment__delete_report_confirmation_message">ഇത് നിങ്ങളുടെ അക്കൗണ്ടിൽ നിന്ന് ഡാറ്റയൊന്നും ഇല്ലാതാക്കില്ല.</string>
-
-    <!-- Shown as a snackbar letting the user know the report was deleted -->
-    <string name="ExportAccountDataFragment__delete_report_snackbar">റിപ്പോർട്ട് ഇല്ലാതാക്കി</string>
     <!-- Shown in a dialog with a spinner while the report is downloading -->
-    <string name="ExportAccountDataFragment__download_progress">റിപ്പോർട്ട് ഡൗൺലോഡ് ചെയ്യുന്നു…</string>
-    <!-- Explanation that the downloaded report will be available for 30 days before it is deleted -->
-    <string name="ExportAccountDataFragment__report_deletion_disclaimer">30 ദിവസത്തേക്ക് നിങ്ങളുടെ റിപ്പോർട്ട് എക്സ്പോർട്ട് ചെയ്യാനായി ലഭ്യമാകും, അതിന് ശേഷം സ്വയമവേ ഇല്ലാതാക്കും.</string>
+    <string name="ExportAccountDataFragment__download_progress">റിപ്പോർട്ട് ജനറേറ്റ് ചെയ്യുന്നു…</string>
+    <!-- Explanation that the report is only generated on export and is not saved on the device -->
+    <string name="ExportAccountDataFragment__report_not_stored_disclaimer">എക്സ്പോർട്ട് ചെയ്യുമ്പോഴെ നിങ്ങളുടെ റിപ്പോർട്ട് ജനറേറ്റ് ചെയ്യൂ, Signal അത് നിങ്ങളുടെ ഉപകരണത്തിൽ സ്റ്റോർ ചെയ്യുന്നില്ല.</string>
 
     <!-- ChangeNumberFragment -->
     <string name="ChangeNumberFragment__use_this_to_change_your_current_phone_number_to_a_new_phone_number">നിങ്ങളുടെ നിലവിലെ ഫോൺ നമ്പർ ഒരു പുതിയ ഫോൺ നമ്പറിലേക്ക് മാറ്റാൻ ഇത് ഉപയോഗിക്കുക. നിങ്ങൾക്ക് ഈ മാറ്റം പഴയപടിയാക്കാനാകില്ല.\n\nതുടരുന്നതിന് മുമ്പ്, നിങ്ങളുടെ പുതിയ നമ്പറിന് SMS അല്ലെങ്കിൽ കോളുകൾ ലഭിക്കുമെന്ന് ഉറപ്പാക്കുക.</string>
@@ -4473,6 +4484,9 @@
     <string name="ImageEditorHud__undo">തിരിച്ചാക്കുക</string>
     <string name="ImageEditorHud__toggle_between_marker_and_highlighter">മാർക്കറിനും ഹൈലൈറ്ററിനും ഇടയിൽ മാറ്റുക</string>
     <string name="ImageEditorHud__toggle_between_text_styles">ടെക്സ്റ്റ് ശൈലികൾക്കിടയിൽ മാറ്റുക</string>
+
+    <!-- Header for section of featured stickers (location/time stickers) -->
+    <string name="ScribbleStickersFragment__featured_stickers">ഫീച്ചർ ചെയ്തവ</string>
 
     <string name="MediaCountIndicatorButton__send">അയയ്‌ക്കുക</string>
 
@@ -5757,6 +5771,10 @@
     <string name="CallLogAdapter__outgoing">ഔട്ട്ഗോയിംഗ്</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">മിസ്‌ഡ്</string>
+    <!-- Displayed on Group Call button if user is not in the call -->
+    <string name="CallLogAdapter__join">ചേരുക</string>
+    <!-- Displayed on Group Call button if user is in the call -->
+    <string name="CallLogAdapter__return">റിട്ടേൺ</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -5832,6 +5850,52 @@
     <string name="CameraControls_capture_button_accessibility_label">ക്യാപ്ച്ചർ ബട്ടൺ</string>
     <!-- Accessibility label describing the continue button on the camera screen -->
     <string name="CameraControls_continue_button_accessibility_label">തുടരുക ബട്ടൺ</string>
+
+    <!-- CallPreference -->
+    <!-- Missed group call in call info -->
+    <string name="CallPreference__missed_group_call">മിസ്‌ഡ് ഗ്രൂപ്പ് കോൾ</string>
+    <!-- Incoming group call in call info -->
+    <string name="CallPreference__incoming_group_call">ഇൻകമിംഗ് ഗ്രൂപ്പ് കോൾ</string>
+    <!-- Outgoing group call in call info -->
+    <string name="CallPreference__outgoing_group_call">ഔട്ട്‌ഗോയിംഗ് ഗ്രൂപ്പ് കോൾ</string>
+
+    <!-- CreateCallLink -->
+    <!-- Call link creation item title on calls tab -->
+    <string name="CreateCallLink__create_a_call_link">കോൾ ലിങ്ക് സൃഷ്ടിക്കൂ</string>
+    <!-- Call link creation item description on calls tab -->
+    <string name="CreateCallLink__share_a_link_for">Signal കോളിനുള്ള ലിങ്ക് പങ്കിടൂ</string>
+
+    <!-- CreateCallLinkBottomSheetDialogFragment -->
+    <!-- Fragment title -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__create_call_link">കോൾ ലിങ്ക് സൃഷ്ടിക്കൂ</string>
+    <!-- Displayed as a default name for the signal call -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__signal_call">Signal കോൾ</string>
+    <!-- Displayed on a small button to allow user to instantly join call -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__join">ചേരുക</string>
+    <!-- Option to open a full screen dialog to enter a call name -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__add_call_name">കോളിന്‍റെ പേര് ചേർക്കുക</string>
+    <!-- Toggle to require approval for all members before joining -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__approve_all_members">എല്ലാ അംഗങ്ങളെയും അംഗീകരിക്കൂ</string>
+    <!-- Row label to share the link via Signal -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__share_link_via_signal">Signal-ലൂടെ ലിങ്ക് പങ്കിടൂ</string>
+    <!-- Row label to copy the link to the clipboard -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__copy_link">ലിങ്ക് പകർത്തുക</string>
+    <!-- Row label to share the link with the external share sheet -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__share_link">ലിങ്ക് പങ്കിടുക</string>
+    <!-- Button text to dismiss the sheet and add it as an upcoming call -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__done">പൂർത്തിയായി</string>
+    <!-- Displayed when we can\'t find a suitable way to open the system share picker -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__failed_to_open_share_sheet">പങ്കിടൽ ഷീറ്റ് തുറക്കാനായില്ല.</string>
+    <!-- Displayed when we copy the call link to the clipboard -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard">ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി</string>
+
+    <!-- EditCallLinkNameDialogFragment -->
+    <!-- App bar title for editing a call name -->
+    <string name="EditCallLinkNameDialogFragment__edit_call_name">കോളിന്റെ പേര് എഡിറ്റ് ചെയ്യുക</string>
+    <!-- Text on button to confirm edit -->
+    <string name="EditCallLinkNameDialogFragment__save">സംരക്ഷിക്കൂ</string>
+    <!-- Placeholder text on input field when editing call name -->
+    <string name="EditCallLinkNameDialogFragment__call_name">കോളിന്റെ പേര്</string>
 
     <!-- EOF -->
 </resources>
