@@ -635,6 +635,13 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
       }
   }
 
+  fun containsId(threadId: Long): Boolean {
+    return readableDatabase
+      .exists(TABLE_NAME)
+      .where("$ID = ?", threadId)
+      .run()
+  }
+
   fun getFilteredConversationList(filter: List<RecipientId>, unreadOnly: Boolean): Cursor? {
     if (filter.isEmpty()) {
       return null
