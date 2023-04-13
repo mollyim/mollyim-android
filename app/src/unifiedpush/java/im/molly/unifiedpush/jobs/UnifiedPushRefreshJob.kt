@@ -35,7 +35,7 @@ class UnifiedPushRefreshJob private constructor(parameters: Parameters) : BaseJo
   @Throws(Exception::class)
   public override fun onRun() {
     Log.d(TAG, "Running the refresh job")
-    UnifiedPushHelper.checkDistributorPresence()
+    UnifiedPushHelper.checkDistributorPresence(context)
     if (UnifiedPushHelper.isUnifiedPushAvailable() && !SignalStore.unifiedpush().airGaped) {
       Log.i(TAG, "Reregistering to MollySocket...")
       when (val status = MollySocketRequest.registerToMollySocketServer()) {

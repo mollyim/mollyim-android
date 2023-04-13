@@ -1,21 +1,20 @@
 package im.molly.unifiedpush.util
 
+import android.content.Context
 import im.molly.unifiedpush.device.MollySocketLinkedDevice
 import im.molly.unifiedpush.model.UnifiedPushStatus
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.unifiedpush.android.connector.UnifiedPush
 
 object UnifiedPushHelper {
   private val TAG = Log.tag(UnifiedPushHelper::class.java)
-  private val context = ApplicationDependencies.getApplication()
 
   // return false if the initialization failed
-  fun initializeMollySocketLinkedDevice(): Boolean {
+  fun initializeMollySocketLinkedDevice(context: Context): Boolean {
     if (SignalStore.account().isRegistered) {
       Log.d(TAG, "Initializing UnifiedPush")
-      MollySocketLinkedDevice().device ?: run {
+      MollySocketLinkedDevice(context).device ?: run {
         Log.w(TAG, "Can't initialize the linked device for MollySocket")
         return false
       }
@@ -37,7 +36,7 @@ object UnifiedPushHelper {
     return SignalStore.account().fcmEnabled || isUnifiedPushAvailable()
   }
 
-  fun checkDistributorPresence() {
+  fun checkDistributorPresence(context: Context) {
     if (UnifiedPush.getDistributor(context).isEmpty()) {
       SignalStore.unifiedpush().endpoint = null
     }

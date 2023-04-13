@@ -97,7 +97,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
         EXECUTOR.enqueue {
           UnifiedPush.saveDistributor(application, it)
           UnifiedPush.registerApp(application)
-          UnifiedPushHelper.initializeMollySocketLinkedDevice()
+          UnifiedPushHelper.initializeMollySocketLinkedDevice(ApplicationContext.getInstance())
           processNewStatus()
         }
         // Do not enable if there is no distributor

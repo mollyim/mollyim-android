@@ -1,5 +1,6 @@
 package im.molly.unifiedpush.device
 
+import android.content.Context
 import im.molly.unifiedpush.model.MollyDevice
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.util.KeyHelper
@@ -20,10 +21,9 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import java.io.IOException
 import java.nio.charset.Charset
 
-class MollySocketLinkedDevice {
+class MollySocketLinkedDevice(val context: Context) {
   private val TAG = Log.tag(MollySocketLinkedDevice::class.java)
   private val DEVICE_NAME = "MollySocket"
-  private val context = ApplicationDependencies.getApplication()
 
   var device: MollyDevice? = null
 
