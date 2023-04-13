@@ -13,6 +13,7 @@ import im.molly.unifiedpush.util.UnifiedPushHelper
 import org.greenrobot.eventbus.Subscribe
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
@@ -97,7 +98,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
         EXECUTOR.enqueue {
           UnifiedPush.saveDistributor(application, it)
           UnifiedPush.registerApp(application)
-          UnifiedPushHelper.initializeMollySocketLinkedDevice()
+          UnifiedPushHelper.initializeMollySocketLinkedDevice(ApplicationContext.getInstance())
           processNewStatus()
         }
         // Do not enable if there is no distributor
