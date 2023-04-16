@@ -24,7 +24,6 @@ import org.osmdroid.views.CustomZoomButtonsDisplay;
 import org.osmdroid.views.overlay.Marker;
 
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.net.Network;
 
@@ -56,7 +55,7 @@ public class MapView extends org.osmdroid.views.MapView {
   }
 
   private void setDefaultConfiguration(Context context) {
-    String userAgent = String.format("%s/%s", context.getString(R.string.app_name), BuildConfig.VERSION_NAME);
+    final String userAgent = context.getPackageName();
     final IConfigurationProvider config = Configuration.getInstance();
     final Proxy proxy = Network.getProxy();
     config.load(context, PreferenceManager.getDefaultSharedPreferences(context));
