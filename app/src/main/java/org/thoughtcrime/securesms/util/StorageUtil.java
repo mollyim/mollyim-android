@@ -52,6 +52,10 @@ public class StorageUtil {
     return backups;
   }
 
+  public static File getTileCacheDirectory(@NonNull Context context) {
+    return new File(context.getCacheDir(), "tiles");
+  }
+
   @RequiresApi(24)
   public static @NonNull String getDisplayPath(@NonNull Context context, @NonNull Uri uri) {
     String lastPathSegment = Objects.requireNonNull(uri.getLastPathSegment());

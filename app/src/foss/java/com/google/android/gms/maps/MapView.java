@@ -17,7 +17,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.config.IConfigurationProvider;
+import org.osmdroid.tileprovider.MapTileProviderBase;
 import org.osmdroid.tileprovider.TileStates;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsDisplay;
 import org.osmdroid.views.overlay.Marker;
@@ -25,6 +27,7 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.net.Network;
+import org.thoughtcrime.securesms.osm.MapTileProvider;
 
 import java.net.Proxy;
 
@@ -34,16 +37,20 @@ public class MapView extends org.osmdroid.views.MapView {
   private MyLocationNewOverlay myLocationNewOverlay;
   private OnMapLoadedCallback  onMapLoadedCallback;
 
+  static private MapTileProviderBase createTileProvider(Context context) {
+    return new MapTileProvider(context, TileSourceFactory.DEFAULT_TILE_SOURCE);
+  }
+
   public MapView(Context context) {
-    super(context);
+    super(context, createTileProvider(context));
   }
 
   public MapView(Context context, AttributeSet attrs) {
-    super(context, attrs);
+    super(context, createTileProvider(context), null, attrs);
   }
 
   public MapView(Context context, AttributeSet attrs, int defStyle) {
-    super(context, attrs);
+    super(context, createTileProvider(context), null, attrs);
   }
 
   public void getMapAsync(OnMapReadyCallback callback) {
