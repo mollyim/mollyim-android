@@ -148,6 +148,8 @@ public class BackupsPreferenceFragment extends Fragment {
                                           data,
                                           StorageUtil.getDisplayPath(requireContext(), data.getData()),
                                           this::setBackupsEnabled);
+    } else {
+      Log.w(TAG, "Unknown activity result. code: " + requestCode + " resultCode: " + resultCode + " data present: " + (data != null));
     }
   }
 

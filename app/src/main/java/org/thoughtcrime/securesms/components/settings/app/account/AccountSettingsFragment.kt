@@ -13,7 +13,6 @@ import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity
 import org.thoughtcrime.securesms.pin.RegistrationLockV2Dialog
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -104,14 +103,12 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
         }
       )
 
-      if (FeatureFlags.exportAccountData()) {
-        clickPref(
-          title = DSLSettingsText.from(R.string.AccountSettingsFragment__request_account_data),
-          onClick = {
-            Navigation.findNavController(requireView()).safeNavigate(R.id.action_accountSettingsFragment_to_exportAccountFragment)
-          }
-        )
-      }
+      clickPref(
+        title = DSLSettingsText.from(R.string.AccountSettingsFragment__request_account_data),
+        onClick = {
+          Navigation.findNavController(requireView()).safeNavigate(R.id.action_accountSettingsFragment_to_exportAccountFragment)
+        }
+      )
 
       clickPref(
         title = DSLSettingsText.from(R.string.preferences__delete_account, ContextCompat.getColor(requireContext(), R.color.signal_alert_primary)),

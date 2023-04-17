@@ -64,7 +64,8 @@ class ConversationRepository {
     long                                lastScrolled                   = metadata.getLastScrolled();
     int                                 lastScrolledPosition           = 0;
     boolean                             isMessageRequestAccepted       = RecipientUtil.isMessageRequestAccepted(context, threadId);
-    ConversationData.MessageRequestData messageRequestData             = new ConversationData.MessageRequestData(isMessageRequestAccepted);
+    boolean                             isConversationHidden           = RecipientUtil.isRecipientHidden(threadId);
+    ConversationData.MessageRequestData messageRequestData             = new ConversationData.MessageRequestData(isMessageRequestAccepted, isConversationHidden);
     boolean                             showUniversalExpireTimerUpdate = false;
 
     if (lastSeen > 0) {
@@ -97,7 +98,7 @@ class ConversationRepository {
       } else if (conversationRecipient.hasGroupsInCommon()) {
         recipientIsKnownOrHasGroupsInCommon = true;
       }
-      messageRequestData = new ConversationData.MessageRequestData(isMessageRequestAccepted, recipientIsKnownOrHasGroupsInCommon, isGroup);
+      messageRequestData = new ConversationData.MessageRequestData(isMessageRequestAccepted, isConversationHidden, recipientIsKnownOrHasGroupsInCommon, isGroup);
     }
 
     if (SignalStore.settings().getUniversalExpireTimer() != 0 &&

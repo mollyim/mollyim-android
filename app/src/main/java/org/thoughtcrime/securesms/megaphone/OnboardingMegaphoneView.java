@@ -15,6 +15,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.InviteActivity;
 import org.thoughtcrime.securesms.MainActivity;
@@ -23,7 +24,6 @@ import org.thoughtcrime.securesms.databinding.OnboardingMegaphoneCardBinding;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileActivity;
 import org.thoughtcrime.securesms.stories.settings.story.StoriesPrivacySettingsRepository;
-import org.thoughtcrime.securesms.util.LifecycleDisposable;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity;
 
 import java.util.ArrayList;
