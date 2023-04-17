@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 
 import androidx.core.content.res.ResourcesCompat;
-import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -17,14 +16,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.TileStates;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsDisplay;
 import org.osmdroid.views.overlay.Marker;
 
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.net.Network;
+
+import java.net.Proxy;
 
 public class MapView extends org.osmdroid.views.MapView {
   private Marker               marker;
@@ -52,9 +54,13 @@ public class MapView extends org.osmdroid.views.MapView {
   }
 
   private void setDefaultConfiguration(Context context) {
-    String userAgent = String.format("%s/%s", context.getString(R.string.app_name), BuildConfig.VERSION_NAME);
-    Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
-    Configuration.getInstance().setUserAgentValue(userAgent);
+    final String userAgent = context.getPackageName();
+    final IConfigurationProvider config = Configuration.getInstance();
+    final Proxy proxy = Network.getProxy();
+    config.setUserAgentValue(userAgent);
+    if (proxy != null) {
+      config.setHttpProxy(proxy);
+    }
 
     getZoomController().getDisplay().setPositions(
         false,

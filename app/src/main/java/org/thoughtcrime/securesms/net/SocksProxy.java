@@ -49,7 +49,7 @@ public class SocksProxy {
   public InetSocketAddress getSocketAddress() {
     InetSocketAddress address = null;
     try {
-      address = new InetSocketAddress(host, port);
+      address = InetSocketAddress.createUnresolved(host, port);
     } catch (IllegalArgumentException ignored) { }
     return address;
   }
