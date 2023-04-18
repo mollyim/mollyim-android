@@ -17,6 +17,8 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.util.PowerManagerCompat;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
+import im.molly.unifiedpush.util.UnifiedPushHelper;
+
 @SuppressLint("BatteryLife")
 public class DozeReminder extends Reminder {
 
@@ -34,6 +36,7 @@ public class DozeReminder extends Reminder {
   public static boolean isEligible(Context context) {
     return !SignalStore.account().isFcmEnabled()                   &&
            !TextSecurePreferences.hasPromptedOptimizeDoze(context) &&
+           !UnifiedPushHelper.isUnifiedPushAvailable()             &&
            !((PowerManager)context.getSystemService(Context.POWER_SERVICE)).isIgnoringBatteryOptimizations(context.getPackageName());
   }
 
