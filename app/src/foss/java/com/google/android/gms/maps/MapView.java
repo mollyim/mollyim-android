@@ -36,6 +36,7 @@ public class MapView extends org.osmdroid.views.MapView {
   private boolean isMyLocationEnabled = false;
   private MyLocationNewOverlay myLocationNewOverlay;
   private OnMapLoadedCallback  onMapLoadedCallback;
+  private boolean              isMapRenderWatcherRunning = false;
 
   static private MapTileProviderBase createTileProvider(Context context) {
     return new MapTileProvider(context, TileSourceFactory.DEFAULT_TILE_SOURCE);
@@ -99,7 +100,6 @@ public class MapView extends org.osmdroid.views.MapView {
     IMapController mapController = getController();
     mapController.setCenter(toPoint(position.target));
     mapController.setZoom(position.zoom);
-    waitMapRender();
   }
 
   Bitmap snapshot() {
@@ -111,12 +111,15 @@ public class MapView extends org.osmdroid.views.MapView {
   }
 
   private void waitMapRender() {
+    if(isMapRenderWatcherRunning) return;
+    isMapRenderWatcherRunning = true;
     postDelayed(new Runnable() {
       @Override
       public void run() {
         TileStates tileStates = getOverlayManager().getTilesOverlay().getTileStates();
         if (tileStates.getTotal() > 0 && (tileStates.getTotal() == tileStates.getUpToDate())) {
           if (onMapLoadedCallback != null) onMapLoadedCallback.onMapLoaded();
+          isMapRenderWatcherRunning = false;
         } else {
           // We are not done yet. wait for a few cycles and check again
           postDelayed(this, 72);
@@ -127,6 +130,7 @@ public class MapView extends org.osmdroid.views.MapView {
 
   void setOnMapLoadedCallback(OnMapLoadedCallback onMapLoadedCallback) {
     this.onMapLoadedCallback = onMapLoadedCallback;
+    waitMapRender();
   }
 
   void setMyLocationEnabled(boolean isMyLocationEnabled) {
