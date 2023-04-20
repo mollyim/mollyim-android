@@ -56,6 +56,7 @@ public class MapView extends org.osmdroid.views.MapView {
 
   public void getMapAsync(OnMapReadyCallback callback) {
     setDefaultConfiguration(getContext());
+    this.setTilesScaledToDpi(true);
 
     GoogleMap googleMap = new GoogleMap(this);
     callback.onMapReady(googleMap);
