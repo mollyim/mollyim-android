@@ -1479,6 +1479,8 @@
     <string name="MessageRequestBottomView_delete">Futa</string>
     <string name="MessageRequestBottomView_block">Zuia</string>
     <string name="MessageRequestBottomView_unblock">Ondoa kizuizi</string>
+    <!-- Text explaining a message request from someone you\'ve removed before -->
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_you_removed_them_before">Ruhusu %1$s akutumie ujumbe na ushiriki jina na picha yako nao? Ulikuwa umemuondoa mtu huyu hapo zamani.</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Ungependa kumruhusu %1$s akutumie ujumbe na ushiriki naye jina na picha yako? Hatajua umeona ujumbe wake hadi utakapokubali.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Je ungependa kumruhusu %1$s akutumie ujumbe na ushiriki naye jina na picha yako? Hutapokea ujumbe wowote mpaka utakapoondoa kizuizi kwake.</string>
@@ -1988,6 +1990,8 @@
     <string name="ThreadRecord_message_could_not_be_processed">Ujumbe haujaweza kuchakatishwa</string>
     <string name="ThreadRecord_delivery_issue">Hitilafu ya uwasilishaji</string>
     <string name="ThreadRecord_message_request">Ombi la Ujumbe</string>
+    <!-- Thread preview for a recipient that has been hidden -->
+    <string name="ThreadRecord_hidden_recipient">Umemficha mtu huyu, watumie ujumbe tena ili kuwaongeza tena kwenye orodha yako.</string>
     <string name="ThreadRecord_photo">Picha</string>
     <string name="ThreadRecord_gif">GIF</string>
     <string name="ThreadRecord_voice_message">Ujumbe wa Sauti</string>
@@ -2383,7 +2387,8 @@
     <string name="ConversationUpdateItem_send_payment">Tuma Malipo</string>
     <!-- Update item button text to activate payments -->
     <string name="ConversationUpdateItem_activate_payments">Wezesha Malipo</string>
-
+    <!-- Update item alerting the user they hid this person and that they can message them to unhide them -->
+    <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">Umemuondoa mtu huyu, kuwatumia tena jumbe kutawarudisha kwenye orodha yako.</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Cheza … Pumzisha</string>
@@ -4012,11 +4017,11 @@
     <!-- Radio option to export the data as a text file .txt -->
     <string name="ExportAccountDataFragment__export_as_txt">Hamisha kama TXT</string>
     <!-- Label for the text file option -->
-    <string name="ExportAccountDataFragment__export_as_txt_label">Faili la Easy-to-read</string>
+    <string name="ExportAccountDataFragment__export_as_txt_label">Faili la maandishi yaliyo rahisi-kusoma</string>
     <!-- Radio option to export the data as a json (java script object notation) file .json -->
     <string name="ExportAccountDataFragment__export_as_json">Hamisha kama JSON</string>
     <!-- Label for the json file option, the account data in a machine readable file format -->
-    <string name="ExportAccountDataFragment__export_as_json_label">Faili la Kusomwa na Mashini</string>
+    <string name="ExportAccountDataFragment__export_as_json_label">Faili linaloweza kusomwa na mashine</string>
 
     <!-- Action to cancel (in a dialog) -->
     <string name="ExportAccountDataFragment__cancel_action">Ghairi</string>
@@ -4026,19 +4031,19 @@
     <!-- Title of dialog shown when report fails to generate -->
     <string name="ExportAccountDataFragment__report_generation_failed">Imeshindwa kutengeneza ripoti</string>
     <!-- Message of dialog shown when report fails to generate asking user to check network connection -->
-    <string name="ExportAccountDataFragment__check_network">Angalia muunganisho wa mtandao wako kisha ujaribu tena.</string>
+    <string name="ExportAccountDataFragment__check_network">Angalia muunganisho wako wa mtandao kisha ujaribu tena.</string>
 
     <!-- Title for export confirmation dialog -->
     <string name="ExportAccountDataFragment__export_report_confirmation">Hamisha data?</string>
     <!-- Message for export confirmation dialog -->
-    <string name="ExportAccountDataFragment__export_report_confirmation_message">Sambaza data za akaunti yako ya Signal kwa watu au programu unazoziamini.</string>
+    <string name="ExportAccountDataFragment__export_report_confirmation_message">Shiriki data za akaunti yako ya Signal na watu au programu unazoziamini.</string>
     <!-- Action to export in for export confirmation dialog -->
     <string name="ExportAccountDataFragment__export_report_action">Hamisha</string>
 
     <!-- Shown in a dialog with a spinner while the report is downloading -->
     <string name="ExportAccountDataFragment__download_progress">Inatengeneza ripoti…</string>
     <!-- Explanation that the report is only generated on export and is not saved on the device -->
-    <string name="ExportAccountDataFragment__report_not_stored_disclaimer">Ripoti yako inatengenezwa muda ule wa kuhama tu na hauhifadhiwi na Signal kwenye kifaa chako.</string>
+    <string name="ExportAccountDataFragment__report_not_stored_disclaimer">Ripoti yako inatengenezwa muda tu inapohamishwa na haihifadhiwi na Signal kwenye kifaa chako.</string>
 
     <!-- ChangeNumberFragment -->
     <string name="ChangeNumberFragment__use_this_to_change_your_current_phone_number_to_a_new_phone_number">Tumia hii kubadili nambari yako ya simu ya sasa hivi hadi nambari mpya. Huwezi kubatilisha mabadiliko haya.\n\\Kabla ya kuendelea, hakikisha nambari yako mpya inaweza kupokea ujumbe mfupi au simu.</string>
@@ -5775,6 +5780,8 @@
     <string name="CallLogAdapter__join">Jiunge</string>
     <!-- Displayed on Group Call button if user is in the call -->
     <string name="CallLogAdapter__return">Rudi</string>
+    <!-- Call state template when there is more than one call collapsed into a single row. D is a number > 1 and S is a call info string (like Missed) -->
+    <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -5852,6 +5859,8 @@
     <string name="CameraControls_continue_button_accessibility_label">Kitufe cha Kuendelea</string>
 
     <!-- CallPreference -->
+    <!-- Generic group call in call info -->
+    <string name="CallPreference__group_call">Mazungumzo ya simu ya kikundi</string>
     <!-- Missed group call in call info -->
     <string name="CallPreference__missed_group_call">Simu fifi ya kikundi</string>
     <!-- Incoming group call in call info -->

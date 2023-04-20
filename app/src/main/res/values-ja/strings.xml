@@ -1428,6 +1428,8 @@
     <string name="MessageRequestBottomView_delete">消去する</string>
     <string name="MessageRequestBottomView_block">ブロック</string>
     <string name="MessageRequestBottomView_unblock">ブロック解除</string>
+    <!-- Text explaining a message request from someone you\'ve removed before -->
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_you_removed_them_before">%1$s があなたへメッセージを送信できるように、またあなたの名前とプロフィール画像が共有されるようにしますか？過去に削除したメンバーです。</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">%1$s からメッセージを受信し、あなたの名前と画像を共有しますか？承認するまで、相手にはあなたがメッセージを見たことははわかりません。</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">%1$s にあなたへのメッセージ送信や、名前とプロフィール画像の共有を許可しますか？ブロックを解除するまでメッセージは届きません。</string>
@@ -1924,6 +1926,8 @@
     <string name="ThreadRecord_message_could_not_be_processed">メッセージを処理できませんでした</string>
     <string name="ThreadRecord_delivery_issue">配送エラー</string>
     <string name="ThreadRecord_message_request">メッセージ申請</string>
+    <!-- Thread preview for a recipient that has been hidden -->
+    <string name="ThreadRecord_hidden_recipient">過去に非表示にしたメンバーです。メッセージを送ると、このメンバーはリストに再度追加されます。</string>
     <string name="ThreadRecord_photo">写真</string>
     <string name="ThreadRecord_gif">GIF</string>
     <string name="ThreadRecord_voice_message">音声メッセージ</string>
@@ -2314,7 +2318,8 @@
     <string name="ConversationUpdateItem_send_payment">送金</string>
     <!-- Update item button text to activate payments -->
     <string name="ConversationUpdateItem_activate_payments">決済機能を有効化</string>
-
+    <!-- Update item alerting the user they hid this person and that they can message them to unhide them -->
+    <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">過去に削除したメンバーです。メッセージを送ると、このメンバーはリストに再度追加されます。</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">再生 … 停止</string>
@@ -3907,11 +3912,11 @@
     <string name="AccountSettingsFragment__require_your_signal_pin">あなたの電話番号をSignalに再登録する際に、Signal PINを要求します。</string>
     <string name="AccountSettingsFragment__change_phone_number">電話番号を変更</string>
     <!-- Account setting that allows user to request and export their signal account data -->
-    <string name="AccountSettingsFragment__request_account_data">お客様のアカウントデータ</string>
+    <string name="AccountSettingsFragment__request_account_data">あなたのアカウントデータ</string>
 
     <!-- ExportAccountDataFragment -->
     <!-- Part of requesting account data flow, this is the section title for requesting that account data -->
-    <string name="ExportAccountDataFragment__your_account_data">お客様のアカウントデータ</string>
+    <string name="ExportAccountDataFragment__your_account_data">あなたのアカウントデータ</string>
     <!-- Explanation of account data the user can request. %1$s is replaced with Learn more with a link -->
     <string name="ExportAccountDataFragment__export_explanation">Signal アカウントデータのレポートをエクスポートします。このレポートには、メッセージやメディアは一切含まれません。%1$s</string>
     <!-- Learn more link to more information about requesting account data -->
@@ -5657,6 +5662,8 @@
     <string name="CallLogAdapter__join">参加する</string>
     <!-- Displayed on Group Call button if user is in the call -->
     <string name="CallLogAdapter__return">戻る</string>
+    <!-- Call state template when there is more than one call collapsed into a single row. D is a number > 1 and S is a call info string (like Missed) -->
+    <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -5733,6 +5740,8 @@
     <string name="CameraControls_continue_button_accessibility_label">続行ボタン</string>
 
     <!-- CallPreference -->
+    <!-- Generic group call in call info -->
+    <string name="CallPreference__group_call">グループ通話</string>
     <!-- Missed group call in call info -->
     <string name="CallPreference__missed_group_call">グループ通話着信あり</string>
     <!-- Incoming group call in call info -->
