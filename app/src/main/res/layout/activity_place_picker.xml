@@ -22,6 +22,7 @@
         app:backgroundColor="@color/signal_colorBackground"/>
 
     <LinearLayout
+        android:id="@+id/map_type_overlay"
         android:layout_width="wrap_content"
         android:layout_height="140dp"
         android:adjustViewBounds="true"

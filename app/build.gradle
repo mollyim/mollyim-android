@@ -182,6 +182,7 @@ android {
         buildConfigField "int", "SIGNAL_CANONICAL_VERSION_CODE", "$canonicalVersionCode"
         buildConfigField "String", "BACKUP_FILENAME", "\"" + BASE_APP_FILENAME.toLowerCase() + "\""
         buildConfigField "boolean", "FORCE_INTERNAL_USER_FLAG", "$FORCE_INTERNAL_USER_FLAG"
+        buildConfigField "boolean", "USE_OSM", "false"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -318,6 +319,7 @@ android {
             versionNameSuffix '-FOSS'
             buildConfigField "boolean", "USE_PLAY_SERVICES", "false"
             buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\""
+            buildConfigField "boolean", "USE_OSM", "true"
         }
 
         prod {
@@ -439,6 +441,8 @@ dependencies {
 
     gmsImplementation libs.google.play.services.maps
     gmsImplementation libs.google.play.services.auth
+
+    fossImplementation 'org.osmdroid:osmdroid-android:6.1.16'
 
     implementation libs.bundles.exoplayer
 

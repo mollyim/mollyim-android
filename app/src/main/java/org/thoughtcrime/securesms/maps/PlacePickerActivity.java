@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
@@ -85,9 +86,13 @@ public final class PlacePickerActivity extends AppCompatActivity {
     View markerImage = findViewById(R.id.marker_image_view);
     View fab         = findViewById(R.id.place_chosen_button);
 
-    findViewById(R.id.btnMapTypeNormal).setOnClickListener(v -> handleMapType("normal"));
-    findViewById(R.id.btnMapTypeSatellite).setOnClickListener(v -> handleMapType("satellite"));
-    findViewById(R.id.btnMapTypeTerrain).setOnClickListener(v -> handleMapType("terrain"));
+    if (BuildConfig.USE_OSM) {
+      findViewById(R.id.map_type_overlay).setVisibility(View.GONE);
+    } else {
+      findViewById(R.id.btnMapTypeNormal).setOnClickListener(v -> handleMapType("normal"));
+      findViewById(R.id.btnMapTypeSatellite).setOnClickListener(v -> handleMapType("satellite"));
+      findViewById(R.id.btnMapTypeTerrain).setOnClickListener(v -> handleMapType("terrain"));
+    }
 
     ViewCompat.setBackgroundTintList(fab, ColorStateList.valueOf(getIntent().getIntExtra(KEY_CHAT_COLOR, Color.RED)));
     fab.setOnClickListener(v -> finishWithAddress());

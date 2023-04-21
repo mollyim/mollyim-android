@@ -100,9 +100,11 @@ import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.FileUtils;
 import org.thoughtcrime.securesms.util.PlayServicesUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
+import org.thoughtcrime.securesms.util.StorageUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
@@ -161,6 +163,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     ScreenLockController.enableAutoLock(TextSecurePreferences.isBiometricScreenLockEnabled(this));
 
     initializePassphraseLock();
+    cleanCacheDir();
   }
 
   private void onCreateUnlock() {
@@ -423,6 +426,14 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
         TextSecurePreferences.setPassphraseLockEnabled(this, true);
       }
     }
+  }
+
+  private void cleanCacheDir() {
+    SignalExecutors.BOUNDED.execute(() -> {
+      if (BuildConfig.USE_OSM) {
+        FileUtils.deleteDirectoryContents(StorageUtil.getTileCacheDirectory(this));
+      }
+    });
   }
 
   @VisibleForTesting
