@@ -68,7 +68,9 @@ public class SignalPlace {
     if (BuildConfig.USE_OSM) {
       description += Uri.parse(OSM_URL)
                         .buildUpon()
-                        .encodedFragment(String.format("map=15/%s/%s", latitude, longitude))
+                        .appendQueryParameter("mlat", String.valueOf(latitude))
+                        .appendQueryParameter("mlon", String.valueOf(longitude))
+                        .encodedFragment(String.format("map=17/%s/%s", latitude, longitude))
                         .build().toString();
     } else {
       description += Uri.parse(GMS_URL)
