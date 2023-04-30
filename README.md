@@ -22,6 +22,14 @@ You can download the app from GitHub's [Releases](https://github.com/mollyim/mol
     alt="Get it on F-Droid"
     height="80">](https://molly.im/fdroid/)
 
+You can also download the app from [Accrescent](https://accrescent.app/):
+
+<a href="https://accrescent.app/app/im.molly.app">
+   <img alt="Get it on Accrescent"
+      src="https://accrescent.app/badges/get-it-on.png"
+      height="80">
+</a>
+
 There are two flavors to choose from download: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
 
 Signing certificate fingerprints to [verify](https://developer.android.com/studio/command-line/apksigner#usage-verify) the APK:
