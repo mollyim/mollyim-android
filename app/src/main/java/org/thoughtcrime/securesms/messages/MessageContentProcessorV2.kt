@@ -111,6 +111,8 @@ open class MessageContentProcessorV2(private val context: Context) {
         getGroupRecipient(content.storyMessage.group, sender)
       } else if (content.dataMessage.hasGroupContext) {
         getGroupRecipient(content.dataMessage.groupV2, sender)
+      } else if (content.editMessage.dataMessage.hasGroupContext) {
+        getGroupRecipient(content.editMessage.dataMessage.groupV2, sender)
       } else {
         sender
       }
@@ -251,8 +253,9 @@ open class MessageContentProcessorV2(private val context: Context) {
       groupV2: SignalServiceProtos.GroupContextV2
     ): Boolean {
       return try {
-        val updatedTimestamp = if (groupV2.hasSignedGroupChange) timestamp else timestamp - 1
-        GroupManager.updateGroupFromServer(context, groupV2.groupMasterKey, groupV2.revision, updatedTimestamp, groupV2.signedGroupChange)
+        val signedGroupChange: ByteArray? = if (groupV2.hasSignedGroupChange) groupV2.signedGroupChange else null
+        val updatedTimestamp = if (signedGroupChange != null) timestamp else timestamp - 1
+        GroupManager.updateGroupFromServer(context, groupV2.groupMasterKey, groupV2.revision, updatedTimestamp, signedGroupChange)
         true
       } catch (e: GroupNotAMemberException) {
         warn(timestamp, "Ignoring message for a group we're not in")
@@ -378,6 +381,21 @@ open class MessageContentProcessorV2(private val context: Context) {
       }
       content.hasDecryptionErrorMessage() -> {
         handleRetryReceipt(envelope, metadata, content.decryptionErrorMessage!!.toDecryptionErrorMessage(metadata), senderRecipient)
+      }
+      content.hasEditMessage() -> {
+        if (FeatureFlags.editMessageReceiving()) {
+          EditMessageProcessor.process(
+            context,
+            senderRecipient,
+            threadRecipient,
+            envelope,
+            content,
+            metadata,
+            if (processingEarlyContent) null else EarlyMessageCacheEntry(envelope, content, metadata, serverDeliveredTimestamp)
+          )
+        } else {
+          warn(envelope.timestamp, "Got message edit, but processing is disabled")
+        }
       }
       content.hasSenderKeyDistributionMessage() || content.hasPniSignatureMessage() -> {
         // Already handled, here in order to prevent unrecognized message log

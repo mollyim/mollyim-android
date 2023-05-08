@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.multidex)
     implementation(libs.material.material)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.kotlin.stdlib.jdk8)
 
     testImplementation(testLibs.junit.junit)
     testImplementation(testLibs.mockito.core)

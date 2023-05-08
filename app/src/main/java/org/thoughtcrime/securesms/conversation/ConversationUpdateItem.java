@@ -162,10 +162,10 @@ public final class ConversationUpdateItem extends FrameLayout
     this.conversationRecipient    = conversationRecipient;
     this.isMessageRequestAccepted = isMessageRequestAccepted;
 
-    senderObserver.observe(lifecycleOwner, messageRecord.getIndividualRecipient());
+    senderObserver.observe(lifecycleOwner, messageRecord.getFromRecipient());
 
     if (conversationRecipient.isActiveGroup() &&
-        (messageRecord.isGroupCall() || messageRecord.isCollapsedGroupV2JoinUpdate() || messageRecord.isGroupV2JoinRequest(messageRecord.getIndividualRecipient().getServiceId().orElse(null)))) {
+        (messageRecord.isGroupCall() || messageRecord.isCollapsedGroupV2JoinUpdate() || messageRecord.isGroupV2JoinRequest(messageRecord.getFromRecipient().getServiceId().orElse(null)))) {
       groupObserver.observe(lifecycleOwner, conversationRecipient);
       groupData.observe(lifecycleOwner, conversationRecipient);
     } else {
@@ -446,7 +446,7 @@ public final class ConversationUpdateItem extends FrameLayout
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
         if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onSafetyNumberLearnMoreClicked(conversationMessage.getMessageRecord().getIndividualRecipient());
+          eventListener.onSafetyNumberLearnMoreClicked(conversationMessage.getMessageRecord().getFromRecipient());
         }
       });
     } else if (conversationMessage.getMessageRecord().isGroupCall()) {
@@ -519,15 +519,15 @@ public final class ConversationUpdateItem extends FrameLayout
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
         if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onBadDecryptLearnMoreClicked(conversationMessage.getMessageRecord().getRecipient().getId());
+          eventListener.onBadDecryptLearnMoreClicked(conversationMessage.getMessageRecord().getFromRecipient().getId());
         }
       });
-    } else if (conversationMessage.getMessageRecord().isChangeNumber() && conversationMessage.getMessageRecord().getIndividualRecipient().isSystemContact()) {
+    } else if (conversationMessage.getMessageRecord().isChangeNumber() && conversationMessage.getMessageRecord().getFromRecipient().isSystemContact()) {
       actionButton.setText(R.string.ConversationUpdateItem_update_contact);
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
         if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onChangeNumberUpdateContact(conversationMessage.getMessageRecord().getIndividualRecipient());
+          eventListener.onChangeNumberUpdateContact(conversationMessage.getMessageRecord().getFromRecipient());
         }
       });
     } else if (shouldShowBlockRequestAction(conversationMessage.getMessageRecord())) {
@@ -535,7 +535,7 @@ public final class ConversationUpdateItem extends FrameLayout
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
         if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onBlockJoinRequest(conversationMessage.getMessageRecord().getIndividualRecipient());
+          eventListener.onBlockJoinRequest(conversationMessage.getMessageRecord().getFromRecipient());
         }
       });
     } else if (conversationMessage.getMessageRecord().isPaymentsRequestToActivate() && !conversationMessage.getMessageRecord().isOutgoing() && !SignalStore.paymentsValues().mobileCoinPaymentsEnabled()) {
@@ -551,7 +551,7 @@ public final class ConversationUpdateItem extends FrameLayout
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
         if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onSendPaymentClicked(conversationMessage.getMessageRecord().getIndividualRecipient().getId());
+          eventListener.onSendPaymentClicked(conversationMessage.getMessageRecord().getFromRecipient().getId());
         }
       });
       // MOLLY: Ensure presentTimer() is called above for call logs
@@ -573,7 +573,7 @@ public final class ConversationUpdateItem extends FrameLayout
   }
 
   private boolean shouldShowBlockRequestAction(MessageRecord messageRecord) {
-    Recipient toBlock = messageRecord.getIndividualRecipient();
+    Recipient toBlock = messageRecord.getFromRecipient();
 
     if (!toBlock.hasServiceId() || !groupData.isSelfAdmin() || groupData.isBanned(toBlock) || groupData.isFullMember(toBlock)) {
       return false;

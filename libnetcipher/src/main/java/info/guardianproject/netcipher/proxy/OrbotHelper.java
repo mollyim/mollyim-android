@@ -30,7 +30,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import org.jetbrains.annotations.Nullable;
+import androidx.annotation.Nullable;
+
 import org.signal.core.util.logging.Log;
 
 import java.net.MalformedURLException;

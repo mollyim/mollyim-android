@@ -19,6 +19,8 @@ import androidx.navigation.Navigator
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.SimpleTask
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.MainActivity
@@ -57,6 +59,7 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
   }
 
   private val conversationListTabsViewModel: ConversationListTabsViewModel by viewModels(ownerProducer = { requireActivity() })
+  private val disposables: LifecycleDisposable = LifecycleDisposable()
 
   private lateinit var _toolbarBackground: View
   private lateinit var _toolbar: Toolbar
@@ -78,6 +81,8 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    disposables.bindTo(viewLifecycleOwner)
+
     _toolbarBackground = view.findViewById(R.id.toolbar_background)
     _toolbar = view.findViewById(R.id.toolbar)
     _basicToolbar = Stub(view.findViewById(R.id.toolbar_basic_stub))
@@ -94,7 +99,7 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
 
     (requireActivity() as AppCompatActivity).setSupportActionBar(_toolbar)
 
-    conversationListTabsViewModel.state.observe(viewLifecycleOwner) { state ->
+    disposables += conversationListTabsViewModel.state.subscribeBy { state ->
       val controller: NavController = requireView().findViewById<View>(R.id.fragment_container).findNavController()
       when (controller.currentDestination?.id) {
         R.id.conversationListFragment -> goToStateFromConversationList(state, controller)
@@ -108,7 +113,7 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
   private fun goToStateFromConversationList(state: ConversationListTabsState, navController: NavController) {
     if (state.tab == ConversationListTab.CHATS) {
       return
-    } else if (state.tab == ConversationListTab.STORIES) {
+    } else {
       val cameraFab = requireView().findViewById<View>(R.id.camera_fab)
       val newConvoFab = requireView().findViewById<View>(R.id.fab)
 
@@ -124,18 +129,17 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
         )
       }
 
+      val destination = if (state.tab == ConversationListTab.STORIES) {
+        R.id.action_conversationListFragment_to_storiesLandingFragment
+      } else {
+        R.id.action_conversationListFragment_to_callLogFragment
+      }
+
       navController.navigate(
-        R.id.action_conversationListFragment_to_storiesLandingFragment,
+        destination,
         null,
         null,
         extras
-      )
-    } else {
-      navController.navigate(
-        R.id.action_conversationListFragment_to_callLogFragment,
-        null,
-        null,
-        null
       )
     }
   }
@@ -346,14 +350,17 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
         conversationListTabsViewModel.isShowingArchived(false)
         presentToolbarForConversationListFragment()
       }
+
       R.id.conversationListArchiveFragment -> {
         conversationListTabsViewModel.isShowingArchived(true)
         presentToolbarForConversationListArchiveFragment()
       }
+
       R.id.storiesLandingFragment -> {
         conversationListTabsViewModel.isShowingArchived(false)
         presentToolbarForStoriesLandingFragment()
       }
+
       R.id.callLogFragment -> {
         conversationListTabsViewModel.isShowingArchived(false)
         presentToolbarForCallLogFragment()
