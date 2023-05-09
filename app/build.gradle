@@ -234,6 +234,12 @@ android {
 
         resConfigs autoResConfig()
 
+        bundle {
+            language {
+                enableSplit = false
+            }
+        }
+
         testInstrumentationRunner "org.thoughtcrime.securesms.testing.SignalTestRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
     }
