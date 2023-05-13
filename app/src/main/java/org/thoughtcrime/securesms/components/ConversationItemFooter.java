@@ -28,6 +28,7 @@ import com.airbnb.lottie.model.KeyPath;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
+import org.thoughtcrime.securesms.conversation.ConversationItemDisplayMode;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
@@ -35,7 +36,6 @@ import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.Projection;
@@ -141,8 +141,8 @@ public class ConversationItemFooter extends ConstraintLayout {
     timerView.stopAnimation();
   }
 
-  public void setMessageRecord(@NonNull MessageRecord messageRecord, @NonNull Locale locale) {
-    presentDate(messageRecord, locale);
+  public void setMessageRecord(@NonNull MessageRecord messageRecord, @NonNull Locale locale, @NonNull ConversationItemDisplayMode displayMode) {
+    presentDate(messageRecord, locale, displayMode);
     presentSimInfo(messageRecord);
     presentTimer(messageRecord, timerView);
     presentInsecureIndicator(messageRecord);
@@ -216,7 +216,7 @@ public class ConversationItemFooter extends ConstraintLayout {
     }
   }
 
-  public TextView getDateView() {
+  public View getDateView() {
     return dateView;
   }
 
@@ -298,13 +298,13 @@ public class ConversationItemFooter extends ConstraintLayout {
     return speedToggleHitRect;
   }
 
-  private void presentDate(@NonNull MessageRecord messageRecord, @NonNull Locale locale) {
+  private void presentDate(@NonNull MessageRecord messageRecord, @NonNull Locale locale, @NonNull ConversationItemDisplayMode displayMode) {
     dateView.forceLayout();
     if (messageRecord.isFailed()) {
       int errorMsg;
       if (messageRecord.hasFailedWithNetworkFailures()) {
         errorMsg = R.string.ConversationItem_error_network_not_delivered;
-      } else if (messageRecord.getRecipient().isPushGroup() && messageRecord.isIdentityMismatchFailure()) {
+      } else if (messageRecord.getToRecipient().isPushGroup() && messageRecord.isIdentityMismatchFailure()) {
         errorMsg = R.string.ConversationItem_error_partially_not_delivered;
       } else {
         errorMsg = R.string.ConversationItem_error_not_sent_tap_for_details;
@@ -318,7 +318,11 @@ public class ConversationItemFooter extends ConstraintLayout {
     } else if (MessageRecordUtil.isScheduled(messageRecord)) {
       dateView.setText(DateUtils.getOnlyTimeString(getContext(), locale, ((MediaMmsMessageRecord) messageRecord).getScheduledDate()));
     } else {
-      dateView.setText(DateUtils.getSimpleRelativeTimeSpanString(getContext(), locale, messageRecord.getTimestamp()));
+      String date = DateUtils.getSimpleRelativeTimeSpanString(getContext(), locale, messageRecord.getTimestamp());
+      if (displayMode != ConversationItemDisplayMode.DETAILED && messageRecord instanceof MediaMmsMessageRecord && ((MediaMmsMessageRecord) messageRecord).isEditMessage()) {
+        date = getContext().getString(R.string.ConversationItem_edited_timestamp_footer, date);
+      }
+      dateView.setText(date);
     }
   }
 
@@ -342,13 +346,11 @@ public class ConversationItemFooter extends ConstraintLayout {
         }
       } else if (!messageRecord.isOutgoing() && !messageRecord.isMediaPending()) {
         SignalExecutors.BOUNDED.execute(() -> {
-          ExpiringMessageManager expirationManager = ApplicationDependencies.getExpiringMessageManager();
+          long    id  = messageRecord.getId();
+          long    now = System.currentTimeMillis();
 
-          long id = messageRecord.getId();
-
-          SignalDatabase.messages().markExpireStarted(id);
-
-          expirationManager.scheduleDeletion(id, messageRecord.getExpiresIn());
+          SignalDatabase.messages().markExpireStarted(id, now);
+          ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(id, true, now, messageRecord.getExpiresIn());
         });
       }
     } else {
@@ -364,7 +366,7 @@ public class ConversationItemFooter extends ConstraintLayout {
     long newMessageId = buildMessageId(messageRecord);
 
     if (previousMessageId == newMessageId && deliveryStatusView.isPending() && !messageRecord.isPending()) {
-      if (messageRecord.getRecipient().isGroup()) {
+      if (messageRecord.getToRecipient().isGroup()) {
         SignalLocalMetrics.GroupMessageSend.onUiUpdated(messageRecord.getId());
       } else {
         SignalLocalMetrics.IndividualMessageSend.onUiUpdated(messageRecord.getId());
@@ -407,7 +409,7 @@ public class ConversationItemFooter extends ConstraintLayout {
       if (mmsMessageRecord.getSlideDeck().getAudioSlide() != null) {
         showAudioDurationViews();
 
-        if (messageRecord.getViewedReceiptCount() > 0 || (messageRecord.isOutgoing() && Objects.equals(messageRecord.getRecipient(), Recipient.self()))) {
+        if (messageRecord.getViewedReceiptCount() > 0 || (messageRecord.isOutgoing() && Objects.equals(messageRecord.getToRecipient(), Recipient.self()))) {
           revealDot.setProgress(1f);
         } else {
           revealDot.setProgress(0f);

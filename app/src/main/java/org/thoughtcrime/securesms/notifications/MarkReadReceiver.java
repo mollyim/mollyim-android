@@ -109,7 +109,7 @@ public class MarkReadReceiver extends BroadcastReceiver {
 
       ExpiringMessageManager expirationManager = ApplicationDependencies.getExpiringMessageManager();
 
-      expirationInfo.stream().forEach(info -> expirationManager.scheduleDeletion(info.getId(), info.getExpiresIn()));
+      expirationInfo.stream().forEach(info -> expirationManager.scheduleDeletion(info.getId(), info.isMms(), info.getExpiresIn()));
     }
   }
 }

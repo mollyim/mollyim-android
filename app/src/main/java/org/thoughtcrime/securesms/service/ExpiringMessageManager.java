@@ -34,11 +34,11 @@ public class ExpiringMessageManager {
     executor.shutdownNow();
   }
 
-  public void scheduleDeletion(long id, long expiresInMillis) {
-    scheduleDeletion(id, System.currentTimeMillis(), expiresInMillis);
+  public void scheduleDeletion(long id, boolean mms, long expiresInMillis) {
+    scheduleDeletion(id, mms, System.currentTimeMillis(), expiresInMillis);
   }
 
-  public void scheduleDeletion(long id, long startedAtTimestamp, long expiresInMillis) {
+  public void scheduleDeletion(long id, boolean mms, long startedAtTimestamp, long expiresInMillis) {
     long expiresAtMillis = startedAtTimestamp + expiresInMillis;
 
     synchronized (expiringMessageReferences) {

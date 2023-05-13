@@ -11,15 +11,18 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.SharedElementCallback
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.Flowables
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.util.DimensionUnit
@@ -27,6 +30,7 @@ import org.signal.core.util.concurrent.LifecycleDisposable
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.calls.new.NewCallActivity
 import org.thoughtcrime.securesms.components.Material3SearchToolbar
+import org.thoughtcrime.securesms.components.ScrollToPositionDelegate
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.components.menu.ActionItem
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
@@ -47,22 +51,18 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTab
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTabsViewModel
 import org.thoughtcrime.securesms.util.CommunicationActions
-import org.thoughtcrime.securesms.util.SnapToTopDataObserver
-import org.thoughtcrime.securesms.util.SnapToTopDataObserver.ScrollRequestValidator
 import org.thoughtcrime.securesms.util.ViewUtil
+import org.thoughtcrime.securesms.util.doAfterNextLayout
 import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.visible
 import java.util.Objects
+import java.util.concurrent.TimeUnit
 
 /**
  * Call Log tab.
  */
 @SuppressLint("DiscouragedApi")
 class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Callbacks, CallLogContextMenu.Callbacks {
-
-  companion object {
-    private const val LIST_SMOOTH_SCROLL_TO_TOP_THRESHOLD = 25
-  }
 
   private val viewModel: CallLogViewModel by viewModels()
   private val binding: CallLogFragmentBinding by ViewBinderDelegate(CallLogFragmentBinding::bind)
@@ -99,35 +99,27 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     requireActivity().addMenuProvider(menuProvider, viewLifecycleOwner)
+    initializeSharedElementTransition()
 
     val adapter = CallLogAdapter(this)
     disposables.bindTo(viewLifecycleOwner)
     adapter.setPagingController(viewModel.controller)
 
-    val snapToTopDataObserver = SnapToTopDataObserver(
-      binding.recycler,
-      object : ScrollRequestValidator {
-        override fun isPositionStillValid(position: Int): Boolean {
-          return position < adapter.itemCount && position >= 0
-        }
+    val scrollToPositionDelegate = ScrollToPositionDelegate(
+      recyclerView = binding.recycler,
+      canJumpToPosition = { adapter.isAvailableAround(it) }
+    )
 
-        override fun isItemAtPositionLoaded(position: Int): Boolean {
-          return adapter.getItem(position) != null
-        }
-      }
-    ) {
-      val layoutManager = binding.recycler.layoutManager as? LinearLayoutManager ?: return@SnapToTopDataObserver
-      if (layoutManager.findFirstVisibleItemPosition() <= LIST_SMOOTH_SCROLL_TO_TOP_THRESHOLD) {
-        binding.recycler.smoothScrollToPosition(0)
-      } else {
-        binding.recycler.scrollToPosition(0)
-      }
-    }
-
+    disposables += scrollToPositionDelegate
     disposables += Flowables.combineLatest(viewModel.data, viewModel.selectedAndStagedDeletion)
       .observeOn(AndroidSchedulers.mainThread())
       .subscribe { (data, selected) ->
-        val filteredCount = adapter.submitCallRows(data, selected.first, selected.second)
+        val filteredCount = adapter.submitCallRows(
+          data,
+          selected.first,
+          selected.second,
+          scrollToPositionDelegate::notifyListCommitted
+        )
         binding.emptyState.visible = filteredCount == 0
       }
 
@@ -167,8 +159,8 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
       )
     )
 
-    initializePullToFilter()
-    initializeTapToScrollToTop(snapToTopDataObserver)
+    initializePullToFilter(scrollToPositionDelegate)
+    initializeTapToScrollToTop(scrollToPositionDelegate)
 
     requireActivity().onBackPressedDispatcher.addCallback(
       viewLifecycleOwner,
@@ -195,11 +187,31 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
     viewModel.markAllCallEventsRead()
   }
 
-  private fun initializeTapToScrollToTop(snapToTopDataObserver: SnapToTopDataObserver) {
+  private fun initializeSharedElementTransition() {
+    ViewCompat.setTransitionName(binding.fab, "new_convo_fab")
+    ViewCompat.setTransitionName(binding.fabSharedElementTarget, "camera_fab")
+
+    sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.change_transform_fabs)
+    setEnterSharedElementCallback(object : SharedElementCallback() {
+      override fun onSharedElementStart(sharedElementNames: MutableList<String>?, sharedElements: MutableList<View>?, sharedElementSnapshots: MutableList<View>?) {
+        if (sharedElementNames?.contains("camera_fab") == true) {
+          this@CallLogFragment.binding.fab.setImageResource(R.drawable.symbol_edit_24)
+          disposables += Single.timer(200, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy {
+              this@CallLogFragment.binding.fab.setImageResource(R.drawable.symbol_phone_plus_24)
+              this@CallLogFragment.binding.fabSharedElementTarget.alpha = 0f
+            }
+        }
+      }
+    })
+  }
+
+  private fun initializeTapToScrollToTop(scrollToPositionDelegate: ScrollToPositionDelegate) {
     disposables += tabsViewModel.tabClickEvents
       .filter { it == ConversationListTab.CALLS }
       .subscribeBy(onNext = {
-        snapToTopDataObserver.requestScrollPosition(0)
+        scrollToPositionDelegate.resetScrollPosition()
       })
   }
 
@@ -245,13 +257,18 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
     }
   }
 
-  private fun initializePullToFilter() {
+  private fun initializePullToFilter(scrollToPositionDelegate: ScrollToPositionDelegate) {
     val collapsingToolbarLayout = binding.collapsingToolbar
     val openHeight = DimensionUnit.DP.toPixels(FilterLerp.FILTER_OPEN_HEIGHT).toInt()
 
     binding.pullView.onFilterStateChanged = OnFilterStateChanged { state: FilterPullState?, source: ConversationFilterSource ->
       when (state) {
-        FilterPullState.CLOSING -> viewModel.setFilter(CallLogFilter.ALL)
+        FilterPullState.CLOSING -> {
+          viewModel.setFilter(CallLogFilter.ALL)
+          binding.recycler.doAfterNextLayout {
+            scrollToPositionDelegate.resetScrollPosition()
+          }
+        }
         FilterPullState.OPENING -> {
           ViewUtil.setMinimumHeight(collapsingToolbarLayout, openHeight)
           viewModel.setFilter(CallLogFilter.MISSED)
@@ -277,7 +294,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
       }
 
       override fun canStartNestedScroll(): Boolean {
-        return !callLogActionMode.isInActionMode() || !isSearchOpen() || binding.pullView.isCloseable()
+        return !callLogActionMode.isInActionMode() && !isSearchOpen()
       }
     }
 
@@ -301,7 +318,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
   }
 
   override fun onCallLongClicked(itemView: View, callLogRow: CallLogRow.Call): Boolean {
-    callLogContextMenu.show(itemView, callLogRow)
+    callLogContextMenu.show(binding.recycler, itemView, callLogRow)
     return true
   }
 
@@ -376,12 +393,14 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
       val actionMode = (requireActivity() as AppCompatActivity).startSupportActionMode(callback)
       requireListener<Callback>().onMultiSelectStarted()
       signalBottomActionBarController.setVisibility(true)
+      binding.fab.visible = false
       return actionMode
     }
 
     override fun onActionModeWillEnd() {
       requireListener<Callback>().onMultiSelectFinished()
       signalBottomActionBarController.setVisibility(false)
+      binding.fab.visible = true
     }
 
     override fun getResources(): Resources = resources

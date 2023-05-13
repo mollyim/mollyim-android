@@ -20,5 +20,6 @@ data class InternalSettingsState(
   val delayResends: Boolean,
   val disableStorageService: Boolean,
   val canClearOnboardingState: Boolean,
-  val pnpInitialized: Boolean
+  val pnpInitialized: Boolean,
+  val useConversationFragmentV2: Boolean
 )

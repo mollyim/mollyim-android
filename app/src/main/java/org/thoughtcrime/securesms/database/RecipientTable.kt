@@ -14,6 +14,7 @@ import net.zetetic.database.sqlcipher.SQLiteConstraintException
 import org.signal.core.util.Bitmask
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.SqlUtil
+import org.signal.core.util.delete
 import org.signal.core.util.exists
 import org.signal.core.util.logging.Log
 import org.signal.core.util.optionalBlob
@@ -32,7 +33,6 @@ import org.signal.core.util.requireLong
 import org.signal.core.util.requireNonNullString
 import org.signal.core.util.requireString
 import org.signal.core.util.select
-import org.signal.core.util.toSingleLine
 import org.signal.core.util.update
 import org.signal.core.util.withinTransaction
 import org.signal.libsignal.protocol.IdentityKey
@@ -253,7 +253,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         $REPORTING_TOKEN BLOB DEFAULT NULL,
         $SYSTEM_NICKNAME TEXT DEFAULT NULL
       )
-      """.trimIndent()
+      """
 
     val CREATE_INDEXS = arrayOf(
       "CREATE INDEX IF NOT EXISTS recipient_group_type_index ON $TABLE_NAME ($GROUP_TYPE);",
@@ -342,7 +342,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
           NULLIF($USERNAME, '')
         )
       ) AS $SORT_NAME
-      """.trimIndent()
+      """
     )
 
     @JvmField
@@ -384,7 +384,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         ' ',
         ''
       ) AS $SORT_NAME
-      """.trimIndent()
+      """
     )
 
     private val INSIGHTS_INVITEE_LIST =
@@ -400,6 +400,9 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         $TABLE_NAME.$HIDDEN = 0
       ORDER BY ${ThreadTable.TABLE_NAME}.${ThreadTable.DATE} DESC LIMIT 50
       """
+
+    /** Used as a placeholder recipient for self during migrations when self isn't yet available. */
+    private val PLACEHOLDER_SELF_ID = -2L
   }
 
   fun getByE164(e164: String): Optional<RecipientId> {
@@ -1078,7 +1081,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       $TABLE_NAME LEFT OUTER JOIN ${IdentityTable.TABLE_NAME} ON $TABLE_NAME.$SERVICE_ID = ${IdentityTable.TABLE_NAME}.${IdentityTable.ADDRESS} 
                   LEFT OUTER JOIN ${GroupTable.TABLE_NAME} ON $TABLE_NAME.$GROUP_ID = ${GroupTable.TABLE_NAME}.${GroupTable.GROUP_ID} 
                   LEFT OUTER JOIN ${ThreadTable.TABLE_NAME} ON $TABLE_NAME.$ID = ${ThreadTable.TABLE_NAME}.${ThreadTable.RECIPIENT_ID}
-      """.trimIndent()
+      """
     val out: MutableList<RecipientRecord> = ArrayList()
     val columns: Array<String> = TYPED_RECIPIENT_PROJECTION + arrayOf(
       SYSTEM_NICKNAME,
@@ -1128,7 +1131,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
               FROM ${DistributionListTables.ListTable.TABLE_NAME}
             )
         )
-        """.toSingleLine(),
+        """,
         GroupType.NONE.id,
         Recipient.self().id,
         GroupType.SIGNAL_V1.id
@@ -2013,7 +2016,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
    * Associates the provided IDs together. The assumption here is that all of the IDs correspond to the local user and have been verified.
    */
   fun linkIdsForSelf(aci: ACI, pni: PNI, e164: String) {
-    getAndPossiblyMerge(serviceId = aci, pni = pni, e164 = e164, changeSelf = true, pniVerified = true)
+    val id: RecipientId = getAndPossiblyMerge(serviceId = aci, pni = pni, e164 = e164, changeSelf = true, pniVerified = true)
+    updatePendingSelfData(id)
   }
 
   /**
@@ -3136,7 +3140,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
           ORDER BY $SORT_NAME, $SYSTEM_JOINED_NAME, $SEARCH_PROFILE_NAME, $PHONE
         )
         GROUP BY letter_header
-      """.trimIndent(),
+      """,
       searchSelection.args
     ).use { cursor ->
       if (cursor.count == 0) {
@@ -3241,7 +3245,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
           $PHONE GLOB ? OR 
           $EMAIL GLOB ?
         )
-      """.trimIndent()
+      """
     val args = SqlUtil.buildArgs(0, 0, query, query, query, query)
     return readableDatabase.query(TABLE_NAME, SEARCH_PROJECTION, selection, args, null, null, null)
   }
@@ -3262,7 +3266,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
           $PHONE GLOB ? OR 
           $EMAIL GLOB ?
       ))
-    """.toSingleLine()
+    """
 
     return SqlUtil.Query(subquery, SqlUtil.buildArgs(0, 0, query, query, query, query))
   }
@@ -3280,7 +3284,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
           $PHONE GLOB ? OR 
           $EMAIL GLOB ?
       )
-    """.toSingleLine()
+    """
 
     return readableDatabase.query(subquery, SqlUtil.buildArgs(0, 0, query, query, query, query))
   }
@@ -3457,7 +3461,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
           r.$PROFILE_SHARING = 0 AND (
             EXISTS(SELECT 1 FROM ${MessageTable.TABLE_NAME} WHERE ${MessageTable.THREAD_ID} = t.${ThreadTable.ID} AND ${MessageTable.DATE_RECEIVED} < ?)
           )
-      """.trimIndent()
+      """
 
     val idsToUpdate: MutableList<Long> = ArrayList()
     readableDatabase.rawQuery(select, whereArgs).use { cursor ->
@@ -3890,6 +3894,25 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
   }
 
   /**
+   * Should be called immediately after we create a recipient for self.
+   * This clears up any placeholders we put in the database for the local user, which is typically only done in database migrations.
+   */
+  fun updatePendingSelfData(selfId: RecipientId) {
+    SignalDatabase.messages.updatePendingSelfData(RecipientId.from(PLACEHOLDER_SELF_ID), selfId)
+
+    val deletes = writableDatabase
+      .delete(TABLE_NAME)
+      .where("$ID = ?", PLACEHOLDER_SELF_ID)
+      .run()
+
+    if (deletes > 0) {
+      Log.w(TAG, "Deleted a PLACEHOLDER_SELF from the table.")
+    } else {
+      Log.i(TAG, "No PLACEHOLDER_SELF in the table.")
+    }
+  }
+
+  /**
    * Should only be used for debugging! A very destructive action that clears all known serviceIds from people with phone numbers (so that we could eventually
    * get them back through CDS).
    */
@@ -3976,7 +3999,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         UPDATE $TABLE_NAME
         SET $SERVICE_ID = $PNI_COLUMN
         WHERE $ID = ? AND $PNI_COLUMN NOT NULL
-      """.toSingleLine(),
+      """,
       SqlUtil.buildArgs(recipientId)
     )
 
@@ -4444,7 +4467,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
             INNER JOIN ${GroupTable.TABLE_NAME} ON ${GroupTable.TABLE_NAME}.${GroupTable.GROUP_ID} = ${GroupTable.MembershipTable.TABLE_NAME}.${GroupTable.MembershipTable.GROUP_ID}
             WHERE ${GroupTable.MembershipTable.TABLE_NAME}.${GroupTable.MembershipTable.RECIPIENT_ID} = $TABLE_NAME.$ID AND ${GroupTable.TABLE_NAME}.${GroupTable.ACTIVE} = 1 AND ${GroupTable.TABLE_NAME}.${GroupTable.MMS} = 0
         )
-      """.toSingleLine()
+      """
       const val FILTER_GROUPS = " AND $GROUP_ID IS NULL"
       const val FILTER_ID = " AND $ID != ?"
       const val FILTER_BLOCKED = " AND $BLOCKED = ?"

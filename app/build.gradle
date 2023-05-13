@@ -56,8 +56,8 @@ ext {
     MAPS_API_KEY = getEnv('CI_MAPS_API_KEY') ?: mapsApiKey
 }
 
-def canonicalVersionCode = 1247
-def canonicalVersionName = "6.18.4"
+def canonicalVersionCode = 1256
+def canonicalVersionName = "6.19.9"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -150,7 +150,8 @@ android {
         jniLibs {
             // MOLLY: Compress native libs by default as APK is not split on ABIs
             useLegacyPackaging true
-        }    }
+        }
+    }
 
 
     buildFeatures {
@@ -232,6 +233,12 @@ android {
         }
 
         resConfigs autoResConfig()
+
+        bundle {
+            language {
+                enableSplit = false
+            }
+        }
 
         testInstrumentationRunner "org.thoughtcrime.securesms.testing.SignalTestRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -390,7 +397,6 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    implementation libs.androidx.core.ktx
     implementation libs.androidx.fragment.ktx
     lintChecks project(':lintchecks')
 
@@ -550,6 +556,8 @@ dependencies {
     }
 
     testImplementation testLibs.espresso.core
+
+    implementation libs.kotlin.stdlib.jdk8
 
     implementation libs.rxjava3.rxandroid
     implementation libs.rxjava3.rxkotlin

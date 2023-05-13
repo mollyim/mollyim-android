@@ -18,7 +18,6 @@ import org.signal.core.util.logging.Log
 import org.signal.core.util.withinTransaction
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.crypto.ReentrantSessionLock
-import org.thoughtcrime.securesms.database.MessageTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
@@ -45,9 +44,9 @@ import org.whispersystems.signalservice.api.websocket.WebSocketUnavailableExcept
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
-import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
@@ -73,7 +72,7 @@ class IncomingMessageObserver(private val context: Application) {
   private val connectionReceiver: BroadcastReceiver
 
   private val lock: ReentrantLock = ReentrantLock()
-  private val condition: Condition = lock.newCondition()
+  private val connectionNecessarySemaphore = Semaphore(0)
 
   private var appVisible = false
   private var isForegroundService = false
@@ -111,7 +110,7 @@ class IncomingMessageObserver(private val context: Application) {
             decryptionDrained = false
             disconnect()
           }
-          condition.signalAll()
+          connectionNecessarySemaphore.release()
         }
       }
     }
@@ -124,9 +123,7 @@ class IncomingMessageObserver(private val context: Application) {
   }
 
   fun notifyRegistrationChanged() {
-    lock.withLock {
-      condition.signalAll()
-    }
+    connectionNecessarySemaphore.release()
   }
 
   fun addDecryptionDrainedListener(listener: Runnable) {
@@ -143,9 +140,7 @@ class IncomingMessageObserver(private val context: Application) {
   fun notifyDecryptionsDrained() {
     if (ApplicationDependencies.getJobManager().isQueueEmpty(PushDecryptMessageJob.QUEUE)) {
       Log.i(TAG, "Queue was empty when notified. Signaling change.")
-      lock.withLock {
-        condition.signalAll()
-      }
+      connectionNecessarySemaphore.release()
     } else {
       Log.i(TAG, "Queue still had items when notified. Registering listener to signal change.")
       ApplicationDependencies.getJobManager().addListener(
@@ -159,7 +154,7 @@ class IncomingMessageObserver(private val context: Application) {
     lock.withLock {
       appVisible = true
       BackgroundService.start(context)
-      condition.signalAll()
+      connectionNecessarySemaphore.release()
     }
   }
 
@@ -167,7 +162,7 @@ class IncomingMessageObserver(private val context: Application) {
     lock.withLock {
       appVisible = false
       lastInteractionTime = System.currentTimeMillis()
-      condition.signalAll()
+      connectionNecessarySemaphore.release()
     }
   }
 
@@ -223,14 +218,16 @@ class IncomingMessageObserver(private val context: Application) {
   }
 
   private fun waitForConnectionNecessary() {
-    lock.withLock {
-      try {
-        while (!isConnectionNecessary()) {
-          condition.await()
+    try {
+      connectionNecessarySemaphore.drainPermits()
+      while (!isConnectionNecessary()) {
+        val numberDrained = connectionNecessarySemaphore.drainPermits()
+        if (numberDrained == 0) {
+          connectionNecessarySemaphore.acquire()
         }
-      } catch (e: InterruptedException) {
-        throw AssertionError(e)
       }
+    } catch (e: InterruptedException) {
+      throw AssertionError(e)
     }
   }
 
@@ -253,7 +250,7 @@ class IncomingMessageObserver(private val context: Application) {
     lock.withLock {
       keepAliveTokens[key] = System.currentTimeMillis()
       lastInteractionTime = System.currentTimeMillis()
-      condition.signalAll()
+      connectionNecessarySemaphore.release()
     }
   }
 
@@ -261,7 +258,7 @@ class IncomingMessageObserver(private val context: Application) {
     lock.withLock {
       keepAliveTokens.remove(key)
       lastInteractionTime = System.currentTimeMillis()
-      condition.signalAll()
+      connectionNecessarySemaphore.release()
     }
   }
 
@@ -327,7 +324,7 @@ class IncomingMessageObserver(private val context: Application) {
     val senderId = RecipientId.from(ServiceId.parseOrThrow(envelope.sourceUuid))
 
     Log.i(TAG, "Received server receipt. Sender: $senderId, Device: ${envelope.sourceDevice}, Timestamp: ${envelope.timestamp}")
-    SignalDatabase.messages.incrementDeliveryReceiptCount(MessageTable.SyncMessageId(senderId, envelope.timestamp), System.currentTimeMillis())
+    SignalDatabase.messages.incrementDeliveryReceiptCount(envelope.timestamp, senderId, System.currentTimeMillis())
     SignalDatabase.messageLog.deleteEntryForRecipient(envelope.timestamp, senderId, envelope.sourceDevice)
   }
 
@@ -457,9 +454,7 @@ class IncomingMessageObserver(private val context: Application) {
       if (jobState.isComplete) {
         if (ApplicationDependencies.getJobManager().isQueueEmpty(PushDecryptMessageJob.QUEUE)) {
           Log.i(TAG, "Queue is now empty. Signaling change.")
-          lock.withLock {
-            condition.signalAll()
-          }
+          connectionNecessarySemaphore.release()
           ApplicationDependencies.getJobManager().removeListener(this)
         } else {
           Log.i(TAG, "Item finished in queue, but it's still not empty. Waiting to signal change.")

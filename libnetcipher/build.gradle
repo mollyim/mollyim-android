@@ -22,5 +22,6 @@ android {
 
 dependencies {
     implementation project(':core-util')
+    implementation 'androidx.annotation:annotation-jvm:1.6.0'
     lintChecks project(':lintchecks')
 }

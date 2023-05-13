@@ -99,6 +99,11 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     refresh()
   }
 
+  fun setUseConversationFragmentV2(enabled: Boolean) {
+    SignalStore.internalValues().setUseConversationFragmentV2(enabled)
+    refresh()
+  }
+
   fun addSampleReleaseNote() {
     repository.addSampleReleaseNote()
   }
@@ -124,7 +129,8 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     delayResends = SignalStore.internalValues().delayResends(),
     disableStorageService = SignalStore.internalValues().storageServiceDisabled(),
     canClearOnboardingState = SignalStore.storyValues().hasDownloadedOnboardingStory && Stories.isFeatureEnabled(),
-    pnpInitialized = SignalStore.misc().hasPniInitializedDevices()
+    pnpInitialized = SignalStore.misc().hasPniInitializedDevices(),
+    useConversationFragmentV2 = SignalStore.internalValues().useConversationFragmentV2()
   )
 
   fun onClearOnboardingState() {
