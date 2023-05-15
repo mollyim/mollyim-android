@@ -11,6 +11,7 @@ import org.signal.core.util.ListUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
 import org.thoughtcrime.securesms.database.MessageTable.MarkedMessageInfo;
+import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -149,6 +150,11 @@ public class SendReadReceiptJob extends BaseJob {
 
     if (!RecipientUtil.isMessageRequestAccepted(context, threadId)) {
       Log.w(TAG, "Refusing to send receipts to untrusted recipient");
+      return;
+    }
+
+    if (recipientId.toLong() == RecipientTable.PLACEHOLDER_SELF_ID) {
+      Log.i(TAG, "Not sending to placeholder self, aborting.");
       return;
     }
 

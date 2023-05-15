@@ -402,7 +402,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       """
 
     /** Used as a placeholder recipient for self during migrations when self isn't yet available. */
-    private val PLACEHOLDER_SELF_ID = -2L
+    public const val PLACEHOLDER_SELF_ID = -2L
   }
 
   fun getByE164(e164: String): Optional<RecipientId> {

@@ -45,7 +45,7 @@ import org.thoughtcrime.securesms.database.helpers.migration.V186_ForeignKeyIndi
 import org.thoughtcrime.securesms.database.helpers.migration.V187_MoreForeignKeyIndexesMigration
 import org.thoughtcrime.securesms.database.helpers.migration.V188_FixMessageRecipientsAndEditMessageMigration
 import org.thoughtcrime.securesms.database.helpers.migration.V189_CreateCallLinkTableColumnsAndRebuildFKReference
-import org.thoughtcrime.securesms.database.helpers.migration.V190_UniqueMessageMigration
+import org.thoughtcrime.securesms.database.helpers.migration.V190_UpdatePendingSelfDataMigration
 import org.thoughtcrime.securesms.database.helpers.migration.V191_UniqueMessageMigrationV2
 
 /**
@@ -224,7 +224,8 @@ object SignalDatabaseMigrations {
     }
 
     if (oldVersion < 190) {
-      V190_UniqueMessageMigration.migrate(context, db, oldVersion, newVersion)
+      // MOLLY: Fix V188_FixMessageRecipientsAndEditMessageMigration invalid migration
+      V190_UpdatePendingSelfDataMigration.migrate(context, db, oldVersion, newVersion)
     }
 
     if (oldVersion < 191) {
