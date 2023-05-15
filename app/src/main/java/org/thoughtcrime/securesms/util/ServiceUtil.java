@@ -7,6 +7,7 @@ import android.app.AppOpsManager;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.app.job.JobScheduler;
+import android.bluetooth.BluetoothManager;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.hardware.SensorManager;
@@ -109,5 +110,9 @@ public class ServiceUtil {
 
   public static AppOpsManager getAppOpsManager(@NonNull Context context) {
     return ContextCompat.getSystemService(context, AppOpsManager.class);
+  }
+
+  public static BluetoothManager getBluetoothManager(@NonNull Context context) {
+    return ContextCompat.getSystemService(context, BluetoothManager.class);
   }
 }

@@ -12,9 +12,13 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class LocalBackupListener extends PersistentAlarmManagerListener {
+
+  private static final int BACKUP_JITTER_WINDOW_SECONDS = Math.toIntExact(TimeUnit.MINUTES.toSeconds(10));
 
   @Override
   protected boolean shouldScheduleExact() {
@@ -49,6 +53,11 @@ public class LocalBackupListener extends PersistentAlarmManagerListener {
     int           hour   = SignalStore.settings().getBackupHour();
     int           minute = SignalStore.settings().getBackupMinute();
     LocalDateTime next   = nextInstant.withHour(hour).withMinute(minute).withSecond(0);
+
+    int jitter = (new Random().nextInt(BACKUP_JITTER_WINDOW_SECONDS)) - (BACKUP_JITTER_WINDOW_SECONDS / 2);
+
+    next.plusSeconds(jitter);
+
     if (nextInstant.isAfter(next)) {
       next = next.plusDays(1);
     }

@@ -468,14 +468,23 @@ class IncomingMessageObserver(private val context: Application) {
       return null
     }
 
+    override fun onCreate() {
+      // MOLLY: Do not foreground on service restart
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
       super.onStartCommand(intent, flags, startId)
 
       if (intent == null) {
-        stopForeground(true)
-        return START_STICKY
+        stopForeground(STOP_FOREGROUND_REMOVE)
+      } else {
+        postForegroundNotification()
       }
 
+      return START_STICKY
+    }
+
+    private fun postForegroundNotification() {
       val notification = NotificationCompat.Builder(applicationContext, NotificationChannels.getInstance().BACKGROUND)
         .setContentTitle(applicationContext.getString(R.string.app_name))
         .setContentText(applicationContext.getString(R.string.MessageRetrievalService_ready_to_receive_messages))
@@ -486,8 +495,6 @@ class IncomingMessageObserver(private val context: Application) {
         .build()
 
       startForeground(FOREGROUND_ID, notification)
-
-      return START_STICKY
     }
   }
 

@@ -80,7 +80,6 @@ open class SignalServiceNetworkAccess(context: Context) {
       BuildConfig.SIGNAL_CDN_URL.stripProtocol(),
       BuildConfig.SIGNAL_CDN2_URL.stripProtocol(),
       BuildConfig.SIGNAL_CDSI_URL.stripProtocol(),
-      BuildConfig.SIGNAL_CONTACT_DISCOVERY_URL.stripProtocol(),
       BuildConfig.SIGNAL_KEY_BACKUP_URL.stripProtocol(),
       BuildConfig.SIGNAL_SFU_URL.stripProtocol(),
       BuildConfig.SIGNAL_STAGING_SFU_URL.stripProtocol(),
