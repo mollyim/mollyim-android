@@ -156,7 +156,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
     super.onCreate();
 
-    initializeSecurityProvider();
     SqlCipherLibraryLoader.load();
     EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
     DynamicTheme.setDefaultDayNightMode(this);
@@ -186,6 +185,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                               initializeLogging();
                               Log.i(TAG, "onCreateUnlock()");
                             })
+                            .addBlocking("security-provider", this::initializeSecurityProvider)
                             .addBlocking("crash-handling", this::initializeCrashHandling)
                             .addBlocking("rx-init", this::initializeRx)
                             .addBlocking("app-dependencies", this::initializeAppDependencies)
@@ -335,13 +335,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void initializeSecurityProvider() {
-    try {
-      Class.forName("org.signal.aesgcmprovider.AesGcmCipher");
-    } catch (ClassNotFoundException e) {
-      Log.e(TAG, "Failed to find AesGcmCipher class");
-      throw new ProviderInitializationException();
-    }
-
     int aesPosition = Security.insertProviderAt(new AesGcmProvider(), 1);
     Log.i(TAG, "Installed AesGcmProvider: " + aesPosition);
 

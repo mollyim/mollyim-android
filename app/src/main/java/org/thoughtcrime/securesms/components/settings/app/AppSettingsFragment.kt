@@ -1,12 +1,21 @@
 package org.thoughtcrime.securesms.components.settings.app
 
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.IdRes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
 import org.thoughtcrime.securesms.components.AvatarImageView
+import org.thoughtcrime.securesms.components.reminder.ExpiredBuildReminder
+import org.thoughtcrime.securesms.components.reminder.Reminder
+import org.thoughtcrime.securesms.components.reminder.ReminderView
+import org.thoughtcrime.securesms.components.reminder.UnauthorizedReminder
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
@@ -14,18 +23,35 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.components.settings.PreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.events.ReminderUpdateEvent
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity
 import org.thoughtcrime.securesms.util.FeatureFlags
+import org.thoughtcrime.securesms.util.PlayStoreUtil
+import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
+import org.thoughtcrime.securesms.util.views.Stub
 
-class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__menu_settings) {
+class AppSettingsFragment : DSLSettingsFragment(
+  titleId = R.string.text_secure_normal__menu_settings,
+  layoutId = R.layout.dsl_settings_fragment_with_reminder
+) {
 
   private val viewModel: AppSettingsViewModel by viewModels()
+
+  private lateinit var reminderView: Stub<ReminderView>
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    reminderView = ViewUtil.findStubById(view, R.id.reminder_stub)
+
+    updateReminders()
+  }
 
   override fun bindAdapter(adapter: MappingAdapter) {
     adapter.registerFactory(BioPreference::class.java, LayoutFactory(::BioPreferenceViewHolder, R.layout.bio_preference_item))
@@ -36,12 +62,77 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
     }
   }
 
+  @Subscribe(threadMode = ThreadMode.MAIN)
+  fun onEvent(event: ReminderUpdateEvent?) {
+    updateReminders()
+  }
+
+  private fun updateReminders() {
+    if (ExpiredBuildReminder.isEligible()) {
+      showReminder(ExpiredBuildReminder(context))
+    } else if (UnauthorizedReminder.isEligible(context)) {
+      showReminder(UnauthorizedReminder(context))
+    } else {
+      hideReminders()
+    }
+    viewModel.refreshDeprecatedOrUnregistered()
+  }
+
+  private fun showReminder(reminder: Reminder) {
+    if (!reminderView.resolved()) {
+      reminderView.get().addOnLayoutChangeListener { _, _, top, _, bottom, _, _, _, _ ->
+        recyclerView?.setPadding(0, bottom - top, 0, 0)
+      }
+      recyclerView?.clipToPadding = false
+    }
+    reminderView.get().showReminder(reminder)
+    reminderView.get().setOnActionClickListener { reminderActionId: Int -> this.handleReminderAction(reminderActionId) }
+  }
+
+  private fun hideReminders() {
+    if (reminderView.resolved()) {
+      reminderView.get().hide()
+      recyclerView?.clipToPadding = true
+    }
+  }
+
+  private fun handleReminderAction(@IdRes reminderActionId: Int) {
+    when (reminderActionId) {
+      R.id.reminder_action_update_now -> {
+        PlayStoreUtil.openPlayStoreOrOurApkDownloadPage(requireContext())
+      }
+      R.id.reminder_action_re_register -> {
+        startActivity(RegistrationNavigationActivity.newIntentForReRegistration(requireContext()))
+      }
+    }
+  }
+
+  override fun onResume() {
+    super.onResume()
+    EventBus.getDefault().register(this)
+  }
+
+  override fun onPause() {
+    super.onPause()
+    EventBus.getDefault().unregister(this)
+  }
+
   private fun getConfiguration(state: AppSettingsState): DSLConfiguration {
     return configure {
       customPref(
-        BioPreference(state.self) {
-          findNavController().safeNavigate(R.id.action_appSettingsFragment_to_manageProfileActivity)
-        }
+        BioPreference(
+          recipient = state.self,
+          onRowClicked = {
+            findNavController().safeNavigate(R.id.action_appSettingsFragment_to_manageProfileActivity)
+          },
+          onQrButtonClicked = {
+            if (Recipient.self().getUsername().isPresent()) {
+              findNavController().safeNavigate(R.id.action_appSettingsFragment_to_usernameLinkSettingsFragment)
+            } else {
+              findNavController().safeNavigate(R.id.action_appSettingsFragment_to_usernameEducationFragment)
+            }
+          }
+        )
       )
 
       clickPref(
@@ -57,7 +148,8 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
         icon = DSLSettingsIcon.from(R.drawable.symbol_devices_24),
         onClick = {
           findNavController().safeNavigate(R.id.action_appSettingsFragment_to_deviceActivity)
-        }
+        },
+        isEnabled = state.isDeprecatedOrUnregistered()
       )
 
       externalLinkPref(
@@ -81,7 +173,8 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
         icon = DSLSettingsIcon.from(R.drawable.symbol_chat_24),
         onClick = {
           findNavController().safeNavigate(R.id.action_appSettingsFragment_to_chatsSettingsFragment)
-        }
+        },
+        isEnabled = state.isDeprecatedOrUnregistered()
       )
 
       clickPref(
@@ -89,7 +182,8 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
         icon = DSLSettingsIcon.from(R.drawable.symbol_stories_24),
         onClick = {
           findNavController().safeNavigate(AppSettingsFragmentDirections.actionAppSettingsFragmentToStoryPrivacySettings(R.string.preferences__stories))
-        }
+        },
+        isEnabled = state.isDeprecatedOrUnregistered()
       )
 
       clickPref(
@@ -97,7 +191,8 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
         icon = DSLSettingsIcon.from(R.drawable.symbol_bell_24),
         onClick = {
           findNavController().safeNavigate(R.id.action_appSettingsFragment_to_notificationsSettingsFragment)
-        }
+        },
+        isEnabled = state.isDeprecatedOrUnregistered()
       )
 
       clickPref(
@@ -105,7 +200,8 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
         icon = DSLSettingsIcon.from(R.drawable.symbol_lock_24),
         onClick = {
           findNavController().safeNavigate(R.id.action_appSettingsFragment_to_privacySettingsFragment)
-        }
+        },
+        isEnabled = state.isDeprecatedOrUnregistered()
       )
 
       clickPref(
@@ -167,7 +263,7 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
     }
   }
 
-  private class BioPreference(val recipient: Recipient, val onClick: () -> Unit) : PreferenceModel<BioPreference>() {
+  private class BioPreference(val recipient: Recipient, val onRowClicked: () -> Unit, val onQrButtonClicked: () -> Unit) : PreferenceModel<BioPreference>() {
     override fun areContentsTheSame(newItem: BioPreference): Boolean {
       return super.areContentsTheSame(newItem) && recipient.hasSameContent(newItem.recipient)
     }
@@ -182,11 +278,12 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
     private val avatarView: AvatarImageView = itemView.findViewById(R.id.icon)
     private val aboutView: TextView = itemView.findViewById(R.id.about)
     private val badgeView: BadgeImageView = itemView.findViewById(R.id.badge)
+    private val qrButton: View = itemView.findViewById(R.id.qr_button)
 
     override fun bind(model: BioPreference) {
       super.bind(model)
 
-      itemView.setOnClickListener { model.onClick() }
+      itemView.setOnClickListener { model.onRowClicked() }
 
       titleView.text = model.recipient.profileName.toString()
       summaryView.text = PhoneNumberFormatter.prettyPrint(model.recipient.requireE164())
@@ -196,6 +293,14 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
       titleView.visibility = View.VISIBLE
       summaryView.visibility = View.VISIBLE
       avatarView.visibility = View.VISIBLE
+
+      if (FeatureFlags.usernames()) {
+        qrButton.visibility = View.VISIBLE
+        qrButton.isClickable = true
+        qrButton.setOnClickListener { model.onQrButtonClicked() }
+      } else {
+        qrButton.visibility = View.GONE
+      }
 
       if (model.recipient.combinedAboutAndEmoji != null) {
         aboutView.text = model.recipient.combinedAboutAndEmoji

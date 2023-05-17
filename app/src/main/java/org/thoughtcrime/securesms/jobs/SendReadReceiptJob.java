@@ -11,6 +11,7 @@ import org.signal.core.util.ListUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
 import org.thoughtcrime.securesms.database.MessageTable.MarkedMessageInfo;
+import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -152,6 +153,11 @@ public class SendReadReceiptJob extends BaseJob {
       return;
     }
 
+    if (recipientId.toLong() == RecipientTable.PLACEHOLDER_SELF_ID) {
+      Log.i(TAG, "Not sending to placeholder self, aborting.");
+      return;
+    }
+
     Recipient recipient = Recipient.resolved(recipientId);
 
     if (recipient.isSelf()) {
@@ -175,6 +181,11 @@ public class SendReadReceiptJob extends BaseJob {
 
     if (recipient.isUnregistered()) {
       Log.w(TAG, recipient.getId() + " not registered!");
+      return;
+    }
+
+    if (!recipient.hasServiceId() && !recipient.hasE164()) {
+      Log.w(TAG, "No serviceId or e164!");
       return;
     }
 
