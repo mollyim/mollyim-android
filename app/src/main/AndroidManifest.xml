@@ -560,6 +560,14 @@
             <data android:scheme="sgnl"
                 android:host="signal.me" />
         </intent-filter>
+
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https"
+                android:host="signal.link" />
+        </intent-filter>
     </activity>
 
     <activity android:name=".conversation.v2.ConversationActivity"
@@ -626,6 +634,11 @@
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateAlwaysVisible"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
+
+    <activity android:name=".calls.links.details.CallLinkDetailsActivity"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".calls.new.NewCallActivity"
             android:theme="@style/Theme.Signal.DayNight.NoActionBar"

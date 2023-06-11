@@ -76,6 +76,7 @@ import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.concurrent.SimpleTask;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.BindableConversationItem;
 import org.thoughtcrime.securesms.LoggingFragment;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.ConversationScrollToView;
@@ -309,7 +310,17 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
           }
         },
         () -> conversationViewModel.shouldPlayMessageAnimations() && list.getScrollState() == RecyclerView.SCROLL_STATE_IDLE,
-        () -> list.canScrollVertically(1) || list.canScrollVertically(-1));
+        () -> list.canScrollVertically(1) || list.canScrollVertically(-1),
+        (viewHolder) -> {
+          if (viewHolder instanceof ConversationAdapter.ConversationViewHolder) {
+            ConversationAdapter.ConversationViewHolder conversationViewHolder = (ConversationAdapter.ConversationViewHolder) viewHolder;
+            BindableConversationItem                   conversationItem       = conversationViewHolder.getBindable();
+            if (conversationItem != null) {
+              return !MessageRecordUtil.isEditMessage(conversationItem.getConversationMessage().getMessageRecord());
+            }
+          }
+          return true;
+        });
 
     multiselectItemDecoration = new MultiselectItemDecoration(requireContext(), () -> chatWallpaper);
 
@@ -1169,7 +1180,7 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   }
 
   public void stageOutgoingMessage(OutgoingMessage message) {
-    if (message.getScheduledDate() != -1) {
+    if (message.getScheduledDate() != -1 || message.isMessageEdit()) {
       return;
     }
 
@@ -2006,9 +2017,9 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
     @Override
     public void onEditedIndicatorClicked(@NonNull MessageRecord messageRecord) {
       if (messageRecord.isOutgoing()) {
-        EditMessageHistoryDialog.show(getChildFragmentManager(), messageRecord.getToRecipient().getId(), messageRecord.getId());
+        EditMessageHistoryDialog.show(getChildFragmentManager(), messageRecord.getToRecipient().getId(), messageRecord);
       } else {
-        EditMessageHistoryDialog.show(getChildFragmentManager(), messageRecord.getFromRecipient().getId(), messageRecord.getId());
+        EditMessageHistoryDialog.show(getChildFragmentManager(), messageRecord.getFromRecipient().getId(), messageRecord);
       }
     }
 

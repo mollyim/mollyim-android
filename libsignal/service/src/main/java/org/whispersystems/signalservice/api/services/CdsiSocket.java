@@ -161,7 +161,7 @@ final class CdsiSocket {
                 webSocket.close(1000, "OK");
                 break;
             }
-          } catch (IOException | SgxCommunicationFailureException | AttestationDataException e) {
+          } catch (IOException | AttestationDataException | SgxCommunicationFailureException e) {
             Log.w(TAG, e);
             webSocket.close(1000, "OK");
             emitter.tryOnError(e);

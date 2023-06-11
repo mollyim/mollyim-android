@@ -499,6 +499,10 @@
     <string name="ConversationFragment__update_build">Molly ಅನ್ನು ನವೀಕರಿಸಿ</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
     <string name="ConversationFragment__reregister_signal">Molly ಅನ್ನು ಮರುನೋಂದಾಯಿಸಿ</string>
+    <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
+    <string name="ConversationFragment__content_description_back_button">ಹಿಂದಕ್ಕೆ ನ್ಯಾವಿಗೇಟ್ ಮಾಡಿ.</string>
+    <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
+    <string name="ConversationFragment__content_description_launch_signal_button">Molly ತೆರೆಯಿರಿ</string>
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">ಫಿಲ್ಟರ್ ತೆರವುಗೊಳಿಸಿ</string>
     <!-- Notice on chat list when no unread chats are available, centered on display -->
@@ -1666,6 +1670,8 @@
     <string name="Recipient_you">ನೀವು</string>
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">ನನ್ನ ಸ್ಟೋರಿ</string>
+    <!-- Name of recipient for a call link without a name -->
+    <string name="Recipient_signal_call">Molly ಕರೆ</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">ನಿರ್ಬಂಧಿಸಿ</string>
@@ -2242,9 +2248,8 @@
     <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">ಯಾವಾಗ Molly ಲಾಕ್ ಮಾಡಲಾಗಿದೆಯೋ ಆವಾಗ ತ್ವರಿತ ಪ್ರತಿಕ್ರಿಯೆ ಲಭ್ಯವಿಲ್ಲ!</string>
     <string name="QuickResponseService_problem_sending_message">ಸಂದೇಶ ಕಳುಹಿಸುವಲ್ಲಿ ಸಮಸ್ಯೆ!</string>
 
-    <!-- SaveAttachmentTask -->
-    <string name="SaveAttachmentTask_saved_to">%1$sಗೆ ಉಳಿಸಲಾಗಿದೆ</string>
-    <string name="SaveAttachmentTask_saved">ಉಳಿಸಲಾಗಿದೆ</string>
+    <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
+    <string name="SaveAttachmentTask_saved">ಮೀಡಿಯಾ ಉಳಿಸಲಾಗಿದೆ</string>
 
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">ಹುಡುಕಿ</string>
@@ -4319,6 +4324,8 @@
     <string name="HelpSettingsFragment__contact_us">ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ</string>
     <string name="HelpSettingsFragment__version">ಆವೃತ್ತಿ</string>
     <string name="HelpSettingsFragment__debug_log">ಡೀಬಗ್ ಲಾಗ್</string>
+    <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
+    <string name="HelpSettingsFragment__licenses">ಪರವಾನಗಿಗಳು</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">ನಿಯಮಗಳು &amp; ಖಾಸಗಿತನ ನೀತಿ</string>
     <string name="HelpFragment__copyright_signal_messenger">ಹಕ್ಕುಸ್ವಾಮ್ಯ Molly ಮೆಸೆಂಜರ್</string>
     <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3 ಅಡಿಯಲ್ಲಿ ಪರವಾನಗಿ ಹೊಂದಿದೆ</string>
@@ -5923,6 +5930,8 @@
     <string name="CallLogAdapter__return">ಹಿಂತಿರುಗಿ</string>
     <!-- Call state template when there is more than one call collapsed into a single row. D is a number > 1 and S is a call info string (like Missed) -->
     <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
+    <!-- Status text on call links -->
+    <string name="CallLogAdapter__call_link">ಕರೆ ಲಿಂಕ್</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -6068,6 +6077,12 @@
     <string name="CallLinkDetailsFragment__share_link">ಲಿಂಕ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
     <!-- Displayed in a text row, allowing the user to delete the call link -->
     <string name="CallLinkDetailsFragment__delete_call_link">ಕರೆ ಲಿಂಕ್ ಅಳಿಸಿ</string>
+    <!-- Displayed whenever a name change, revocation, etc, fails. -->
+    <string name="CallLinkDetailsFragment__couldnt_save_changes">ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ನಿಮ್ಮ ನೆಟ್‌ವರ್ಕ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಹಾಗೂ ಇನ್ನೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <!-- Displayed as title in dialog when user attempts to delete the link -->
+    <string name="CallLinkDetailsFragment__delete_link">ಲಿಂಕ್ ಅಳಿಸಬೇಕೇ?</string>
+    <!-- Displayed as body in dialog when user attempts to delete the link -->
+    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">ಈ ಲಿಂಕ್ ಅನ್ನು ಹೊಂದಿರುವ ಯಾರಿಗೂ ಇದು ಕಾರ್ಯಾಚರಿಸುವುದಿಲ್ಲ.</string>
 
     <!-- Button label for the share button in the username link settings -->
     <string name="UsernameLinkSettings_share_button_label">ಹಂಚಿಕೊಳ್ಳಿ</string>
@@ -6091,6 +6106,13 @@
     <string name="UsernameLinkSettings_qr_scan_description">ನಿಮ್ಮ ಸಂಪರ್ಕದ ಸಾಧನದಲ್ಲಿ QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.</string>
     <!-- App bar title for the username QR code color picker screen -->
     <string name="UsernameLinkSettings_color_picker_app_bar_title">ಬಣ್ಣ</string>
+    <!-- Body of a dialog that is displayed when we failed to read a username QR code. -->
+    <string name="UsernameLinkSettings_qr_result_invalid">QR ಕೋಡ್ ಅಮಾನ್ಯವಾಗಿತ್ತು.</string>
+    <!-- Body of a dialog that is displayed when the username we looked up could not be found. -->
+    <string name="UsernameLinkSettings_qr_result_not_found">ಯೂಸರ್‌ನೇಮ್ %1$s ಅನ್ನು ಹೊಂದಿರುವ ಬಳಕೆದಾರ ಕಂಡುಬರಲಿಲ್ಲ.</string>
+    <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
+    <string name="UsernameLinkSettings_qr_result_network_error">ನೆಟ್‌ವರ್ಕ್ ದೋಷ ಕಂಡುಬಂದಿತು. ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+
 
     <!-- EOF -->
 </resources>

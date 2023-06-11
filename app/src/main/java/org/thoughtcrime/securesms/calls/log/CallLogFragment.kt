@@ -28,6 +28,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.calls.links.details.CallLinkDetailsActivity
 import org.thoughtcrime.securesms.calls.new.NewCallActivity
 import org.thoughtcrime.securesms.components.Material3SearchToolbar
 import org.thoughtcrime.securesms.components.ScrollToPositionDelegate
@@ -311,9 +312,23 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
   override fun onCallClicked(callLogRow: CallLogRow.Call) {
     if (viewModel.selectionStateSnapshot.isNotEmpty(binding.recycler.adapter!!.itemCount)) {
       viewModel.toggleSelected(callLogRow.id)
-    } else {
-      val intent = ConversationSettingsActivity.forCall(requireContext(), callLogRow.peer, (callLogRow.id as CallLogRow.Id.Call).children.toLongArray())
+    } else if (!callLogRow.peer.isCallLink) {
+      val intent = ConversationSettingsActivity.forCall(
+        requireContext(),
+        callLogRow.peer,
+        (callLogRow.id as CallLogRow.Id.Call).children.toLongArray()
+      )
       startActivity(intent)
+    } else {
+      startActivity(CallLinkDetailsActivity.createIntent(requireContext(), callLogRow.peer.requireCallLinkRoomId()))
+    }
+  }
+
+  override fun onCallLinkClicked(callLogRow: CallLogRow.CallLink) {
+    if (viewModel.selectionStateSnapshot.isNotEmpty(binding.recycler.adapter!!.itemCount)) {
+      viewModel.toggleSelected(callLogRow.id)
+    } else {
+      startActivity(CallLinkDetailsActivity.createIntent(requireContext(), callLogRow.record.roomId))
     }
   }
 
@@ -322,25 +337,30 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
     return true
   }
 
+  override fun onCallLinkLongClicked(itemView: View, callLinkLogRow: CallLogRow.CallLink): Boolean {
+    callLogContextMenu.show(binding.recycler, itemView, callLinkLogRow)
+    return true
+  }
+
   override fun onClearFilterClicked() {
     binding.pullView.toggle()
     binding.recyclerCoordinatorAppBar.setExpanded(false, true)
   }
 
-  override fun onStartAudioCallClicked(peer: Recipient) {
-    CommunicationActions.startVoiceCall(this, peer)
+  override fun onStartAudioCallClicked(recipient: Recipient) {
+    CommunicationActions.startVoiceCall(this, recipient)
   }
 
-  override fun onStartVideoCallClicked(peer: Recipient) {
-    CommunicationActions.startVideoCall(this, peer)
+  override fun onStartVideoCallClicked(recipient: Recipient) {
+    CommunicationActions.startVideoCall(this, recipient)
   }
 
-  override fun startSelection(call: CallLogRow.Call) {
+  override fun startSelection(call: CallLogRow) {
     callLogActionMode.start()
     viewModel.toggleSelected(call.id)
   }
 
-  override fun deleteCall(call: CallLogRow.Call) {
+  override fun deleteCall(call: CallLogRow) {
     MaterialAlertDialogBuilder(requireContext())
       .setTitle(resources.getQuantityString(R.plurals.CallLogFragment__delete_d_calls, 1, 1))
       .setPositiveButton(R.string.CallLogFragment__delete_for_me) { _, _ ->
