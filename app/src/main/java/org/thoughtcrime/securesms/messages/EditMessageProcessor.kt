@@ -17,7 +17,7 @@ import org.thoughtcrime.securesms.messages.MessageContentProcessorV2.Companion.l
 import org.thoughtcrime.securesms.messages.MessageContentProcessorV2.Companion.warn
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.groupId
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.isMediaMessage
-import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.toPointers
+import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.toPointersWithinLimit
 import org.thoughtcrime.securesms.mms.IncomingMediaMessage
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.notifications.v2.ConversationId.Companion.forConversation
@@ -78,7 +78,7 @@ object EditMessageProcessor {
       return
     }
 
-    if (groupId != null && MessageContentProcessorV2.handleGv2PreProcessing(context, envelope.timestamp, content, metadata, groupId, message.groupV2, senderRecipient)) {
+    if (groupId != null && MessageContentProcessorV2.handleGv2PreProcessing(context, envelope.timestamp, content, metadata, groupId, message.groupV2, senderRecipient) == MessageContentProcessorV2.Gv2PreProcessResult.IGNORE) {
       warn(envelope.timestamp, "[handleEditMessage] Group processor indicated we should ignore this.")
       return
     }
@@ -136,7 +136,7 @@ object EditMessageProcessor {
     } else {
       null
     }
-    val attachments = message.attachmentsList.toPointers()
+    val attachments = message.attachmentsList.toPointersWithinLimit()
     attachments.filter {
       MediaUtil.SlideType.LONG_TEXT == MediaUtil.getSlideTypeFromContentType(it.contentType)
     }

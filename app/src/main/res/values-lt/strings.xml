@@ -24,6 +24,15 @@
     <string name="save">Įrašyti</string>
     <string name="note_to_self">Priminimas sau</string>
 
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a weather/climate application. -->
+    <string name="app_icon_label_weather">Orai</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a note-taking application.-->
+    <string name="app_icon_label_notes">Užrašai</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a news/journalism application. -->
+    <string name="app_icon_label_news">Naujienos</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in waves of the ocean. -->
+    <string name="app_icon_label_waves">Bangos</string>
+
     <!-- AlbumThumbnailView -->
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
@@ -183,7 +192,13 @@
     <string name="CameraContacts_recent_contacts">Paskiausi adresatai</string>
     <string name="CameraContacts_signal_contacts">Signal adresatai</string>
     <string name="CameraContacts_signal_groups">Signal grupės</string>
-    <string name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">Gali bendrinti ne daugiau kaip %1$d pokalbiuose (-ių).</string>
+    <!-- A warning shown in a toast when  -->
+    <plurals name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">
+        <item quantity="one">Gali bendrinti ne daugiau kaip %1$d pokalbyje.</item>
+        <item quantity="few">Gali bendrinti ne daugiau kaip %1$d pokalbiuose.</item>
+        <item quantity="many">Gali bendrinti ne daugiau kaip %1$d pokalbio.</item>
+        <item quantity="other">Gali bendrinti ne daugiau kaip %1$d pokalbių.</item>
+    </plurals>
     <string name="CameraContacts_select_signal_recipients">Pasirinkti Signal gavėjus</string>
     <string name="CameraContacts_no_signal_contacts">Nėra Signal adresatų</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Galite naudoti kameros mygtuką tik tam, kad siųstumėte nuotraukas Signal adresatams. </string>
@@ -2086,7 +2101,8 @@
     <string name="StickerPackPreviewActivity_untitled">Be pavadinimo</string>
     <string name="StickerPackPreviewActivity_unknown">Nežinoma</string>
     <string name="StickerPackPreviewActivity_install">Įdiegti</string>
-    <string name="StickerPackPreviewActivity_remove">Šalinti</string>
+    <!-- Label for a button that, if pressed, will uninstall the sticker pack that is currently being previewed. -->
+    <string name="StickerPackPreviewActivity_remove">Pašalinti</string>
     <string name="StickerPackPreviewActivity_stickers">Lipdukai</string>
     <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Nepavyko įkelti lipdukų paketo</string>
 
@@ -2286,6 +2302,22 @@
     <string name="MediaPreviewFragment_read_more_overflow_text">Skaityti daugiau</string>
 
     <!-- MessageNotifier -->
+    <!-- Text shown in a system notification that is used to summarize your notification. The first placeholder is a pluralized string that describes how many messages (e.g. "3 messages"), and the second placeholder is a pluralized string that describes the number of unique chats those message appear in (e.g. "2 chats"). -->
+    <string name="MessageNotifier_s_in_s">%1$s grupėje %2$s</string>
+    <!-- Text shown in a system notification that is used to summary how many messages you received. -->
+    <plurals name="MessageNotifier_d_messages">
+        <item quantity="one">%1$d žinutė</item>
+        <item quantity="few">%1$d žinutės</item>
+        <item quantity="many">%1$d žinutės</item>
+        <item quantity="other">%1$d žinučių</item>
+    </plurals>
+    <!-- Text shown in a system notification that is used to summary how many chats have new messages. -->
+    <plurals name="MessageNotifier_d_chats">
+        <item quantity="one">%1$d pokalbis</item>
+        <item quantity="few">%1$d pokalbiai</item>
+        <item quantity="many">%1$d pokalbio</item>
+        <item quantity="other">%1$d pokalbių</item>
+    </plurals>
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d naujos žinutės %2$d pokalbiuose</string>
     <string name="MessageNotifier_most_recent_from_s">Paskiausia nuo: %1$s</string>
     <string name="MessageNotifier_locked_message">Užrakinta žinutė</string>
@@ -3019,6 +3051,28 @@
     <string name="preferences__appearance">Išvaizda</string>
     <string name="preferences__theme">Apipavidalinimas</string>
     <string name="preferences__chat_color_and_wallpaper">Pokalbio spalva ir fonas</string>
+    <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
+    <string name="preferences__app_icon">Programėlės piktograma</string>
+    <!-- Approval for changing the app icon. -->
+    <string name="preferences__app_icon_dialog_ok">Gerai</string>
+    <!-- Cancelling the operation of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_cancel">Atšaukti</string>
+    <!-- Title for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_title">Keisti programėlės piktogramą ir pavadinimą į „%1$s“</string>
+    <!-- Description for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_description">Keičiant programėlės piktogramą ir pavadinimą, „Molly“ turės užsiverti. Pranešimuose visada bus rodoma numatytoji „Molly“ piktograma ir pavadinimas.</string>
+    <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+    <string name="preferences__app_icon_warning_learn_more">Pasirink programėlės piktogramą ir pavadinimą, kurie bus matomi telefono pradžios ekrane ir programėlių aplanke. Pranešimuose visada bus rodoma numatytoji „Molly“ piktograma ir pavadinimas. Sužinoti daugiau</string>
+    <!-- Visible warning label for the limitations of changing the app icon. -->
+    <string name="preferences__app_icon_warning">Programėlių piktogramos ir pavadinimai matomi telefono pradžios ekrane ir programėlių aplanke.</string>
+    <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+    <string name="preferences__app_icon_notification_warning">Pranešimuose visada bus rodoma numatytoji „Molly“ piktograma ir pavadinimas.</string>
+    <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+    <string name="preferences__app_icon_learn_more">Sužinoti daugiau</string>
+    <!--Text description of the app icon option for visually impaired users. -->
+    <string name="preferences__app_icon_content_description">%1$s piktograma</string>
+    <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+    <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">Vaizdas, iliustruojantis, kur bus matoma pakeista programėlės piktograma.</string>
     <string name="preferences__disable_pin">Išjungti PIN kodą</string>
     <string name="preferences__enable_pin">Įjungti PIN kodą</string>
     <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">Jei išjungsite PIN kodą, tuomet registruodamiesi iš naujo Signal programėlėje, prarasite visus duomenis, nebent rankiniu būdu pasidarysite atsarginę kopiją ir ją atkursite. Tol, kol PIN kodas yra išjungtas, negalėsite įjungti Registracijos užrakto.</string>
@@ -3054,7 +3108,13 @@
     <string name="preferences_storage__delete_older_messages">Ištrinti senesnes žinutes?</string>
     <string name="preferences_storage__clear_message_history">Išvalyti žinučių istoriją?</string>
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">Tai visam laikui iš tavo įrenginio ištrins visą žinučių istoriją ir įrašus, kurie senesni nei %1$s.</string>
-    <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">Visi pokalbiai bus negrįžtamai apkarpyti iki %1$s naujausių žinučių.</string>
+    <!-- The body of an alert dialog that is shown when confirming a trim operation. Trimming will delete all but the most recent messages in a chat. The placeholder represents how many messages are kept in each chat. All older messages are deleted. -->
+    <plurals name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">
+        <item quantity="one">Visi pokalbiai bus negrįžtamai apkarpyti iki naujausios žinutės.</item>
+        <item quantity="few">Visi pokalbiai bus negrįžtamai apkarpyti iki %1$s naujausių žinučių.</item>
+        <item quantity="many">Visi pokalbiai bus negrįžtamai apkarpyti iki %1$s naujausios žinutės.</item>
+        <item quantity="other">Visi pokalbiai bus negrįžtamai apkarpyti iki %1$s naujausių žinučių.</item>
+    </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Tai visam laikui iš tavo įrenginio ištrins visą žinučių istoriją ir įrašus.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Ar tikrai nori ištrinti visą žinučių istoriją?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Visa žinučių istorija bus pašalinta visam laikui. Šio veiksmo nebus galima atšaukti.</string>
@@ -3398,6 +3458,7 @@
     <string name="conversation_list_search_description">Ieškoti</string>
     <string name="conversation_list__pinned">Prisegti pokalbiai</string>
     <string name="conversation_list__chats">Pokalbiai</string>
+    <!-- A warning shown in a toast that tells you that you can\'t pin any more chats. Pinning a chat means keeping the chat at the top of your chat list. The placeholder represents how many chats you\'re allowed to pin. -->
     <string name="conversation_list__you_can_only_pin_up_to_d_chats">Galite prisegti daugiausiai %1$d pokalbių</string>
 
     <!-- conversation_list_item_view -->
@@ -3448,6 +3509,7 @@
     <!-- conversation_group_options -->
     <string name="convesation_group_options__recipients_list">Gavėjų sąrašas</string>
     <string name="conversation_group_options__delivery">Pristatymas</string>
+    <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">Pokalbis</string>
     <string name="conversation_group_options__broadcast">Transliavimas</string>
 
@@ -3498,10 +3560,12 @@
     <string name="Insights__percent">%</string>
     <string name="Insights__title">Įžvalgos</string>
     <string name="InsightsDashboardFragment__title">Įžvalgos</string>
+    <!-- Body text for a page describing how many signal messages you\'ve sent. The first placeholder represents the number of signal messages sent, and the second placeholder represents how many days have passed. -->
     <string name="InsightsDashboardFragment__signal_protocol_automatically_protected">„Signal“ protokolas automatiškai apsaugojo %1$d %% tavo siunčiamų žinučių per pastarąsias %2$d d. Pokalbiai tarp „Signal“ naudotojų visada yra visiškai užšifruoti.</string>
     <string name="InsightsDashboardFragment__spread_the_word">Skleiskite žinią</string>
     <string name="InsightsDashboardFragment__not_enough_data">Trūksta duomenų</string>
     <string name="InsightsDashboardFragment__your_insights_percentage_is_calculated_based_on">Tavo įžvalgų procentinė dalis yra apskaičiuojama remiantis per pastarąsias %1$d d. išsiunčiamų žinučių, kurios neišnyko ir nebuvo ištrintos, skaičiumi.</string>
+    <!-- Label for a button that, when pressed, will begin a chat with a person whose name is showed on the screen. -->
     <string name="InsightsDashboardFragment__start_a_conversation">Pradėti pokalbį</string>
     <string name="InsightsDashboardFragment__invite_your_contacts">Nuo šiol, pakvietę daugiau adresatų naudotis Signal, bendraukite saugiai ir įjunkite naujas ypatybes, kurios viršija nešifruotų SMS žinučių apribojimus.</string>
     <string name="InsightsDashboardFragment__this_stat_was_generated_locally">Ši statistika buvo sugeneruota jūsų įrenginyje ir ją galite matyti tik jūs. Ji niekada nėra niekur persiunčiama.</string>
@@ -4447,7 +4511,7 @@
     <string name="HelpSettingsFragment__debug_log">Derinimo žurnalas</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Sąlygos ir Privatumo politika</string>
     <string name="HelpFragment__copyright_signal_messenger">Autorių teisės Molly pokalbių programėlė</string>
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__licenced_under_the_gplv3">Licencijuota pagal GPLv3</string> -->
+    <string name="HelpFragment__licenced_under_the_agplv3">Licencijuota pagal GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
     <string name="DataAndStorageSettingsFragment__media_quality">Medijos kokybė</string>
@@ -4582,6 +4646,7 @@
     <string name="ConversationSettingsFragment__group_link">Grupės nuoroda</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">Pridėti kaip adresatą</string>
     <string name="ConversationSettingsFragment__unmute">Įjungti garsą</string>
+    <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
     <string name="ConversationSettingsFragment__conversation_muted_until_s">Pokalbis nutildytas iki %1$s</string>
     <string name="ConversationSettingsFragment__conversation_muted_forever">Pokalbis nutildytas visam laikui</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Telefono numeris nukopijuotas į iškarpinę.</string>

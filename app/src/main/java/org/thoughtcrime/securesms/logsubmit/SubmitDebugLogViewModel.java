@@ -70,7 +70,7 @@ public class SubmitDebugLogViewModel extends ViewModel {
           }
 
           @Override
-          public @NotNull List<LogLine> load(int start, int length, @NotNull CancellationSignal cancellationSignal) {
+          public @NonNull List<LogLine> load(int start, int length, int totalSize, @NonNull CancellationSignal cancellationSignal) {
             return staticLines.subList(start, start + length);
           }
 

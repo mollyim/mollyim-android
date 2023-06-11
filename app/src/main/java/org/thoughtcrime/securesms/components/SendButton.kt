@@ -195,7 +195,7 @@ class SendButton(context: Context, attributeSet: AttributeSet?) : AppCompatImage
       .show(items)
   }
 
-  interface SendTypeChangedListener {
+  fun interface SendTypeChangedListener {
     fun onSendTypeChanged(newType: MessageSendType, manuallySelected: Boolean)
   }
 

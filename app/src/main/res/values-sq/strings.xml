@@ -24,6 +24,15 @@
     <string name="save">Ruaje</string>
     <string name="note_to_self">Shënim për veten</string>
 
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a weather/climate application. -->
+    <string name="app_icon_label_weather">Moti</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a note-taking application.-->
+    <string name="app_icon_label_notes">Shënime</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a news/journalism application. -->
+    <string name="app_icon_label_news">Lajme</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in waves of the ocean. -->
+    <string name="app_icon_label_waves">Valët</string>
+
     <!-- AlbumThumbnailView -->
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
@@ -183,7 +192,11 @@
     <string name="CameraContacts_recent_contacts">Kontakte më të fundit</string>
     <string name="CameraContacts_signal_contacts">Kontaktet e Signal-it</string>
     <string name="CameraContacts_signal_groups">Grupet e Signal- it</string>
-    <string name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">Mund ta ndash me një maksimum prej %1$d bisedash.</string>
+    <!-- A warning shown in a toast when  -->
+    <plurals name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">
+        <item quantity="one">Mund ta ndash me një maksimum prej %1$d bisede.</item>
+        <item quantity="other">Mund ta ndash me një maksimum prej %1$d bisedash.</item>
+    </plurals>
     <string name="CameraContacts_select_signal_recipients">Zgjidhni përdoruesit e Signal-it</string>
     <string name="CameraContacts_no_signal_contacts">Nuk ka kontakte të Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Ju mund të përdorni vetëm butonin e kamerës për të dërguar foto te kontaktet e Signal-it. </string>
@@ -1956,7 +1969,8 @@
     <string name="StickerPackPreviewActivity_untitled">Pa titull</string>
     <string name="StickerPackPreviewActivity_unknown">I panjohur</string>
     <string name="StickerPackPreviewActivity_install">Instaloje</string>
-    <string name="StickerPackPreviewActivity_remove">Hiqe</string>
+    <!-- Label for a button that, if pressed, will uninstall the sticker pack that is currently being previewed. -->
+    <string name="StickerPackPreviewActivity_remove">Çinstaloje</string>
     <string name="StickerPackPreviewActivity_stickers">Ngjitëse</string>
     <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">S\\’u arrit të ngarkohej paketë ngjitësish</string>
 
@@ -2154,6 +2168,18 @@
     <string name="MediaPreviewFragment_read_more_overflow_text">Lexoni Më Tepër</string>
 
     <!-- MessageNotifier -->
+    <!-- Text shown in a system notification that is used to summarize your notification. The first placeholder is a pluralized string that describes how many messages (e.g. "3 messages"), and the second placeholder is a pluralized string that describes the number of unique chats those message appear in (e.g. "2 chats"). -->
+    <string name="MessageNotifier_s_in_s">%1$s te %2$s</string>
+    <!-- Text shown in a system notification that is used to summary how many messages you received. -->
+    <plurals name="MessageNotifier_d_messages">
+        <item quantity="one">%1$d mesazh</item>
+        <item quantity="other">%1$d mesazhe</item>
+    </plurals>
+    <!-- Text shown in a system notification that is used to summary how many chats have new messages. -->
+    <plurals name="MessageNotifier_d_chats">
+        <item quantity="one">%1$d bisedat</item>
+        <item quantity="other">%1$d bisedë</item>
+    </plurals>
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d mesazhe të reja në %2$d biseda</string>
     <string name="MessageNotifier_most_recent_from_s">Më të rejat nga: %1$s</string>
     <string name="MessageNotifier_locked_message">Mesazh i kyçur</string>
@@ -2863,6 +2889,28 @@
     <string name="preferences__appearance">Dukje</string>
     <string name="preferences__theme">Temë</string>
     <string name="preferences__chat_color_and_wallpaper">Ngjyra e sfondit të bisedës &amp; letra e murit</string>
+    <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
+    <string name="preferences__app_icon">Ikona e aplikacionit</string>
+    <!-- Approval for changing the app icon. -->
+    <string name="preferences__app_icon_dialog_ok">OK</string>
+    <!-- Cancelling the operation of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_cancel">Anulo</string>
+    <!-- Title for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_title">Ndrysho ikonën dhe emrin e aplikacionit në \"%1$s\"</string>
+    <!-- Description for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_description">Molly do të duhet të mbyllet për të ndryshuar ikonën dhe emrin e aplikacionit. Njoftimet do të shfaqin gjithmonë ikonën dhe emrin e paracaktuar të Molly.</string>
+    <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+    <string name="preferences__app_icon_warning_learn_more">Zgjidh një ikonë dhe një emër aplikacioni, i cili do të jetë i dukshëm në ekranin bazë të telefonit tënd dhe në skedarin e aplikacionit. Njoftimet do të shfaqin gjithmonë ikonën dhe emrin e paracaktuar të Molly. Mëso më shumë</string>
+    <!-- Visible warning label for the limitations of changing the app icon. -->
+    <string name="preferences__app_icon_warning">Ikonat dhe emrat e aplikacioneve janë të dukshme në ekranin bazë dhe në skedarin e aplikacioneve.</string>
+    <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+    <string name="preferences__app_icon_notification_warning">Njoftimet do të shfaqin gjithmonë ikonën dhe emrin e paracaktuar të Molly.</string>
+    <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+    <string name="preferences__app_icon_learn_more">Mëso më shumë</string>
+    <!--Text description of the app icon option for visually impaired users. -->
+    <string name="preferences__app_icon_content_description">Ikona për %1$s</string>
+    <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+    <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">Grafik që ilustron se ku do të jetë e dukshme ikona e aplikacionit zëvendësues.</string>
     <string name="preferences__disable_pin">Çaktivizoje PIN-in</string>
     <string name="preferences__enable_pin">Aktivizoje PIN-in</string>
     <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">Nëse çaktivizoni PIN-in, do të humbni krejt të dhënat, kur riregjistroni Signal-in, veç në i kopjeruajtshi dhe rikthefshi dorazi. S\\’mund të aktivizoni Kyçje Regjistrimi, teksa PIN-i është i çaktivizuar.</string>
@@ -2898,7 +2946,11 @@
     <string name="preferences_storage__delete_older_messages">Të fshihen mesazhet e vjetra?</string>
     <string name="preferences_storage__clear_message_history">Të pastrohet historiku i mesazheve?</string>
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">Kjo do të fshijë përgjithmonë të gjithë historikun e mesazheve dhe mediat nga pajisja jote, që janë më të vjetra se %1$s.</string>
-    <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">Kjo do t\'i shkurtojë përgjithmonë të gjitha bisedat me %1$s mesazhet më të fundit.</string>
+    <!-- The body of an alert dialog that is shown when confirming a trim operation. Trimming will delete all but the most recent messages in a chat. The placeholder represents how many messages are kept in each chat. All older messages are deleted. -->
+    <plurals name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">
+        <item quantity="one">Kjo do t\'i shkurtojë përgjithmonë të gjitha bisedat te mesazhet më të fundit.</item>
+        <item quantity="other">Kjo do t\'i shkurtojë përgjithmonë të gjitha bisedat te %1$s mesazhet më të fundit.</item>
+    </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Kjo do të fshijë përgjithmonë të gjithë historikun e mesazheve dhe mediat nga pajisja jote.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Je i sigurt se dëshiron të fshish krejt historikun e mesazheve?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">I gjithë historiku i mesazheve do të hiqet përgjithmonë. Ky veprim nuk mund të zhbëhet.</string>
@@ -3240,6 +3292,7 @@
     <string name="conversation_list_search_description">Kërko</string>
     <string name="conversation_list__pinned">E fiksuar</string>
     <string name="conversation_list__chats">Bisedat</string>
+    <!-- A warning shown in a toast that tells you that you can\'t pin any more chats. Pinning a chat means keeping the chat at the top of your chat list. The placeholder represents how many chats you\'re allowed to pin. -->
     <string name="conversation_list__you_can_only_pin_up_to_d_chats">Mund të fiksoni deri në %1$d biseda</string>
 
     <!-- conversation_list_item_view -->
@@ -3288,6 +3341,7 @@
     <!-- conversation_group_options -->
     <string name="convesation_group_options__recipients_list">Listë marrësish</string>
     <string name="conversation_group_options__delivery">Dërgim</string>
+    <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">Biseda</string>
     <string name="conversation_group_options__broadcast">Transmetim</string>
 
@@ -3338,10 +3392,12 @@
     <string name="Insights__percent">%</string>
     <string name="Insights__title">Prirje</string>
     <string name="InsightsDashboardFragment__title">Prirje</string>
+    <!-- Body text for a page describing how many signal messages you\'ve sent. The first placeholder represents the number of signal messages sent, and the second placeholder represents how many days have passed. -->
     <string name="InsightsDashboardFragment__signal_protocol_automatically_protected">Protokolli i Signal mbrojti automatikisht %1$d%% të mesazheve të tua dalëse gjatë %2$d ditëve të fundit. Bisedat ndërmjet përdoruesve të Signal janë gjithmonë të koduara nga skaji në skaj.</string>
     <string name="InsightsDashboardFragment__spread_the_word">Përhapni fjalën</string>
     <string name="InsightsDashboardFragment__not_enough_data">Pa të dhëna të mjaftueshme</string>
     <string name="InsightsDashboardFragment__your_insights_percentage_is_calculated_based_on">Përqindja jote për Prirjet llogaritet bazuar në mesazhet dalës brenda %1$d ditëve të kaluara që nuk janë zhdukur apo fshirë.</string>
+    <!-- Label for a button that, when pressed, will begin a chat with a person whose name is showed on the screen. -->
     <string name="InsightsDashboardFragment__start_a_conversation">Fillo një bisedë</string>
     <string name="InsightsDashboardFragment__invite_your_contacts">Filloni të komunikoni në mënyrë të parrezik dhe aktivizoni veçorit të reja që shkojnë tej kufizimeve të mesazheve SMS të pafshehtëzuar, duke ftuar më tepër kontakte të bëhen pjesë e Signal-it.</string>
     <string name="InsightsDashboardFragment__this_stat_was_generated_locally">Këto statistika u prodhuan lokalisht në pajisjen tuaj dhe mund të shihen vetëm nga ju. Nuk transmetohen kurrë diku.</string>
@@ -4265,7 +4321,7 @@
     <string name="HelpSettingsFragment__debug_log">Regjistër diagnostikimesh</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Kushte &amp; Rregulla Privatësie</string>
     <string name="HelpFragment__copyright_signal_messenger">Të drejta kopjimi Molly Messenger</string>
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__licenced_under_the_gplv3">Licencuar nën GPLv3</string> -->
+    <string name="HelpFragment__licenced_under_the_agplv3">Licencuar sipas GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
     <string name="DataAndStorageSettingsFragment__media_quality">Cilësi media</string>
@@ -4396,6 +4452,7 @@
     <string name="ConversationSettingsFragment__group_link">Lidhje grupi</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">Shtojeni si kontakt</string>
     <string name="ConversationSettingsFragment__unmute">Ktheja zërin</string>
+    <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
     <string name="ConversationSettingsFragment__conversation_muted_until_s">Biseda pa zë deri në %1$s</string>
     <string name="ConversationSettingsFragment__conversation_muted_forever">Biseda u bë pa zë përgjithmonë</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Numri i telefonit u kopjua në të papastër.</string>

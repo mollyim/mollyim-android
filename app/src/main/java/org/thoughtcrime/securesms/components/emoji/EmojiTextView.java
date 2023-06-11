@@ -68,11 +68,9 @@ public class EmojiTextView extends AppCompatTextView {
   private TextDirectionHeuristic textDirection;
   private boolean                isJumbomoji;
   private boolean                forceJumboEmoji;
-  private boolean                isInOnDraw;
 
-  private       MentionRendererDelegate          mentionRendererDelegate;
-  private final SpoilerRendererDelegate          spoilerRendererDelegate;
-  private       SpoilerFilteringSpannableFactory spoilerFilteringSpannableFactory;
+  private       MentionRendererDelegate mentionRendererDelegate;
+  private final SpoilerRendererDelegate spoilerRendererDelegate;
 
   public EmojiTextView(Context context) {
     this(context, null);
@@ -113,15 +111,8 @@ public class EmojiTextView extends AppCompatTextView {
     setText(getText());
   }
 
-  public void enableSpoilerFiltering() {
-    spoilerFilteringSpannableFactory = new SpoilerFilteringSpannableFactory(() -> isInOnDraw);
-    setSpannableFactory(spoilerFilteringSpannableFactory);
-  }
-
   @Override
   protected void onDraw(Canvas canvas) {
-    isInOnDraw = true;
-
     boolean hasSpannedText = getText() instanceof Spanned;
     boolean hasLayout      = getLayout() != null;
 
@@ -134,8 +125,6 @@ public class EmojiTextView extends AppCompatTextView {
     if (hasSpannedText && !hasLayout && getLayout() != null) {
       drawSpecialRenderers(canvas, null, spoilerRendererDelegate);
     }
-
-    isInOnDraw = false;
   }
 
   private void drawSpecialRenderers(@NonNull Canvas canvas, @Nullable MentionRendererDelegate mentionDelegate, @NonNull SpoilerRendererDelegate spoilerDelegate) {
@@ -187,9 +176,6 @@ public class EmojiTextView extends AppCompatTextView {
       textToSet = new SpannableStringBuilder(EmojiProvider.emojify(candidates, text, this, isJumbomoji || forceJumboEmoji));
     }
 
-    if (spoilerFilteringSpannableFactory != null) {
-      textToSet = spoilerFilteringSpannableFactory.wrap(textToSet);
-    }
     super.setText(textToSet, BufferType.SPANNABLE);
 
     // Android fails to ellipsize spannable strings. (https://issuetracker.google.com/issues/36991688)
@@ -333,11 +319,7 @@ public class EmojiTextView extends AppCompatTextView {
         newTextToSet = EmojiProvider.emojify(newCandidates, newContent, this, isJumbomoji || forceJumboEmoji);
       }
 
-      if (spoilerFilteringSpannableFactory != null) {
-        spoilerFilteringSpannableFactory.wrap(newTextToSet);
-      }
-
-      super.setText(newContent, BufferType.SPANNABLE);
+      super.setText(newTextToSet, BufferType.SPANNABLE);
     }
   }
 
@@ -366,7 +348,9 @@ public class EmojiTextView extends AppCompatTextView {
         newContent.append(getText().subSequence(0, overflowStart).toString())
                   .append(ellipsized.subSequence(0, ellipsized.length()).toString());
 
-        TextUtils.copySpansFrom(getText(newContent.length() - 1), 0, newContent.length() - 1, Object.class, newContent, 0);
+        if (newContent.length() > 0) {
+          TextUtils.copySpansFrom(getText(newContent.length() - 1), 0, newContent.length() - 1, Object.class, newContent, 0);
+        }
 
         newContent.append(Optional.ofNullable(overflowText).orElse(""));
 

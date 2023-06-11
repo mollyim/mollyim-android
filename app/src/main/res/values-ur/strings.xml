@@ -24,6 +24,15 @@
     <string name="save">محفوظ کریں</string>
     <string name="note_to_self">خود کے لیے نوٹ</string>
 
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a weather/climate application. -->
+    <string name="app_icon_label_weather">موسم</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a note-taking application.-->
+    <string name="app_icon_label_notes">نوٹس</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a news/journalism application. -->
+    <string name="app_icon_label_news">خبریں</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in waves of the ocean. -->
+    <string name="app_icon_label_waves">ویوز</string>
+
     <!-- AlbumThumbnailView -->
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
@@ -183,7 +192,11 @@
     <string name="CameraContacts_recent_contacts">موجودہ رابطے</string>
     <string name="CameraContacts_signal_contacts">Signal رابطے</string>
     <string name="CameraContacts_signal_groups">Signal گروپس</string>
-    <string name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">آپ زیادہ سے زیادہ %1$d چیٹس شیئر کر سکتے ہیں۔</string>
+    <!-- A warning shown in a toast when  -->
+    <plurals name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">
+        <item quantity="one">آپ زیادہ سے زیادہ %1$d کے ساتھ چیٹ شیئر کر سکتے ہیں۔</item>
+        <item quantity="other">آپ زیادہ سے زیادہ %1$d چیٹس شیئر کر سکتے ہیں۔</item>
+    </plurals>
     <string name="CameraContacts_select_signal_recipients">Signal وصول کنندگان منتخب کریں</string>
     <string name="CameraContacts_no_signal_contacts">کوئی Signal رابطے نہیں ہیں</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Signal رابطوں کو تصاویر بھیجنے کیلئے آپ صرف کیمرہ بٹن استعمال کرسکتے ہیں۔ </string>
@@ -1956,7 +1969,8 @@
     <string name="StickerPackPreviewActivity_untitled">عنوان کے بغیر</string>
     <string name="StickerPackPreviewActivity_unknown">نامعلوم</string>
     <string name="StickerPackPreviewActivity_install">نصب کرنا</string>
-    <string name="StickerPackPreviewActivity_remove">ہٹا دیں</string>
+    <!-- Label for a button that, if pressed, will uninstall the sticker pack that is currently being previewed. -->
+    <string name="StickerPackPreviewActivity_remove">ان انسٹال</string>
     <string name="StickerPackPreviewActivity_stickers">اسٹیکرز</string>
     <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">اسٹیکر پیک لوڈ ہونے میں ناکامی</string>
 
@@ -2154,6 +2168,18 @@
     <string name="MediaPreviewFragment_read_more_overflow_text">مزید پڑھ</string>
 
     <!-- MessageNotifier -->
+    <!-- Text shown in a system notification that is used to summarize your notification. The first placeholder is a pluralized string that describes how many messages (e.g. "3 messages"), and the second placeholder is a pluralized string that describes the number of unique chats those message appear in (e.g. "2 chats"). -->
+    <string name="MessageNotifier_s_in_s">%1$s میں %2$s</string>
+    <!-- Text shown in a system notification that is used to summary how many messages you received. -->
+    <plurals name="MessageNotifier_d_messages">
+        <item quantity="one">%1$d پيغام</item>
+        <item quantity="other">%1$d پيغامات</item>
+    </plurals>
+    <!-- Text shown in a system notification that is used to summary how many chats have new messages. -->
+    <plurals name="MessageNotifier_d_chats">
+        <item quantity="one">%1$d چیٹس</item>
+        <item quantity="other">%1$d چیٹس</item>
+    </plurals>
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%2$d چیٹس میں %1$d نئے میسجز</string>
     <string name="MessageNotifier_most_recent_from_s">سب سے حالیہ کی طرف سے:%1$s</string>
     <string name="MessageNotifier_locked_message">پیغامات لاک ہیں</string>
@@ -2863,6 +2889,28 @@
     <string name="preferences__appearance">ظہور ہونا</string>
     <string name="preferences__theme">موضوع</string>
     <string name="preferences__chat_color_and_wallpaper">چیٹ کا رنگ اور وال پیپر</string>
+    <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
+    <string name="preferences__app_icon">ایپ آئیکن</string>
+    <!-- Approval for changing the app icon. -->
+    <string name="preferences__app_icon_dialog_ok">ٹھیک ہے</string>
+    <!-- Cancelling the operation of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_cancel">منسوخ کریں</string>
+    <!-- Title for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_title">ایپ آئیکن اور نام کو \"%1$s\" سے تبدیل کریں</string>
+    <!-- Description for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_description">ایپ آئیکن اور نام کو تبدیل کرنے کے لیے Molly کو بند کرنے کی ضرورت ہو گی۔ اطلاعات ہمیشہ Molly کے ڈیفالٹ آئیکن اور نام کو ظاہر کریں گی۔</string>
+    <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+    <string name="preferences__app_icon_warning_learn_more">وہ ایپ آئیکن اور نام منتخب کریں، جو آپ کے فون کی ہوم اسکرین اور ایپ ڈرار پر نظر آئیں گے۔ اطلاعات ہمیشہ Molly کے ڈیفالٹ آئیکن اور نام کو ظاہر کریں گی۔ مزید جانیں</string>
+    <!-- Visible warning label for the limitations of changing the app icon. -->
+    <string name="preferences__app_icon_warning">ایپ آئیکنز اور نام ہوم اسکرین اور ایپ ڈرار پر نظر آتے ہیں۔</string>
+    <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+    <string name="preferences__app_icon_notification_warning">اطلاعات ہمیشہ Molly کے ڈیفالٹ آئیکن اور نام کو ظاہر کریں گی۔</string>
+    <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+    <string name="preferences__app_icon_learn_more">مزید جانیں</string>
+    <!--Text description of the app icon option for visually impaired users. -->
+    <string name="preferences__app_icon_content_description">%1$s کے لیے آئیکن</string>
+    <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+    <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">گرافک وہ جگہ ظاہر کر رہی ہے جہاں تبدیل کیا گیا ایپ آئیکن نظر آئے گا۔</string>
     <string name="preferences__disable_pin">PIN کو غیر فعال کریں</string>
     <string name="preferences__enable_pin">PIN کو فعال کریں</string>
     <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">اگر آپ PIN کو غیر فعال کردیتے ہیں تو ، آپ جب تک دستی طور پر بیک اپ اور بحالی نہیں کرتے ہیں تب تک آپ تمام اعداد و شمار کو کھو دیں گے۔ جب PIN غیر فعال ہو تو آپ رجسٹریشن لاک آن نہیں کرسکتے ہیں۔</string>
@@ -2898,7 +2946,11 @@
     <string name="preferences_storage__delete_older_messages">پرانے پیغامات کو حذف کریں؟</string>
     <string name="preferences_storage__clear_message_history">میسج کی ہسٹری صاف کریں؟</string>
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">یہ آپ کی ڈیوائس سے میسج کی تمام ہسٹری اور میڈیا کو مستقل طور پر ڈیلیٹ کر دے گا جو %1$s سے زیادہ پرانے ہیں۔</string>
-    <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">اس سے تمام چیٹس مستقل طور پر %1$s حالیہ ترین میسجز تک کم ہو جائیں گی۔</string>
+    <!-- The body of an alert dialog that is shown when confirming a trim operation. Trimming will delete all but the most recent messages in a chat. The placeholder represents how many messages are kept in each chat. All older messages are deleted. -->
+    <plurals name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">
+        <item quantity="one">اس سے تمام چیٹس مستقل طور پر حالیہ ترین میسج تک کم ہو جائیں گی۔</item>
+        <item quantity="other">اس سے تمام چیٹس مستقل طور پر %1$s حالیہ ترین میسجز تک کم ہو جائیں گی۔</item>
+    </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">یہ آپ کی ڈیوائس سے میسج کی تمام ہسٹری اور میڈیا کو مستقل طور پر ڈیلیٹ کردے گا۔</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">کیا آپ واقعی میسج کی ساری ہسٹری کو ڈیلیٹ کرنا چاہتے ہیں؟</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">میسج کی ساری ہسٹری کو مستقل طور پر ختم کر دیا جائے گا۔ اس کارروائی کو کالعدم نہیں کیا جا سکتا۔</string>
@@ -3240,6 +3292,7 @@
     <string name="conversation_list_search_description">تلا ‎ش کر یں</string>
     <string name="conversation_list__pinned">پن لگا ہوا</string>
     <string name="conversation_list__chats">چیٹس</string>
+    <!-- A warning shown in a toast that tells you that you can\'t pin any more chats. Pinning a chat means keeping the chat at the top of your chat list. The placeholder represents how many chats you\'re allowed to pin. -->
     <string name="conversation_list__you_can_only_pin_up_to_d_chats">آپ صرف %1$d چیٹس تک پِن کر سکتے ہیں</string>
 
     <!-- conversation_list_item_view -->
@@ -3288,6 +3341,7 @@
     <!-- conversation_group_options -->
     <string name="convesation_group_options__recipients_list">وصول کنندگان کی فہرست</string>
     <string name="conversation_group_options__delivery">سپردگی</string>
+    <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">چیٹ</string>
     <string name="conversation_group_options__broadcast">نشر کرنا</string>
 
@@ -3338,10 +3392,12 @@
     <string name="Insights__percent">%</string>
     <string name="Insights__title">Insights</string>
     <string name="InsightsDashboardFragment__title">Insights</string>
+    <!-- Body text for a page describing how many signal messages you\'ve sent. The first placeholder represents the number of signal messages sent, and the second placeholder represents how many days have passed. -->
     <string name="InsightsDashboardFragment__signal_protocol_automatically_protected">Signal پروٹوکول نے گزشتہ %2$d دنوں میں آپ کے جانے والے میسجز کی %1$d%% خود کار طور پر حفاظت کی ہے۔ Signal یوزرز کے درمیان ہونے والی چیٹس ہمیشہ اینڈ ٹو اینڈ انکرپٹ کردہ ہوتی ہیں۔</string>
     <string name="InsightsDashboardFragment__spread_the_word">آگہی پھیلائیں</string>
     <string name="InsightsDashboardFragment__not_enough_data">کافی اعداد و شمار نہیں ہیں</string>
     <string name="InsightsDashboardFragment__your_insights_percentage_is_calculated_based_on">آپ کی insight کی فیصد کا حساب گزشتہ%1$d دنوں میں جانے والے پیغامات کی بنیاد پر کیا جاتا ہے جو غائب نہیں ہوئے ہیں یا حذف نہیں ہوئے ہیں۔</string>
+    <!-- Label for a button that, when pressed, will begin a chat with a person whose name is showed on the screen. -->
     <string name="InsightsDashboardFragment__start_a_conversation">چیٹ شروع کریں</string>
     <string name="InsightsDashboardFragment__invite_your_contacts">محفوظ طریقے سے بات چیت کرنا شروع کریں اور ایسی نئی خصوصیات کو اہل بنائیں جو Signal میں شامل ہونے کے لئے مزید رابطوں کو مدعو کرکے unencrypted SMS پیغامات کی حدود سے باہر ہیں۔</string>
     <string name="InsightsDashboardFragment__this_stat_was_generated_locally">یہ اعدادوشمار مقامی طور پر آپ کے آلہ پر تیار کیے گئے تھے اور صرف آپ ہی دیکھ سکتے ہیں۔ وہ کبھی بھی کہیں منتقل نہیں ہوتے ہیں۔</string>
@@ -4265,7 +4321,7 @@
     <string name="HelpSettingsFragment__debug_log">ڈی بگ لاگ</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">شرائط &amp;amp:رازداری کی پالیسی</string>
     <string name="HelpFragment__copyright_signal_messenger">کاپی رائٹ Molly میسنجر</string>
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__licenced_under_the_gplv3">GPLv3 کے تحت لائسنس یافتہ</string> -->
+    <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3 کے تحت لائسنس یافتہ</string>
 
     <!-- DataAndStorageSettingsFragment -->
     <string name="DataAndStorageSettingsFragment__media_quality">میڈیا کوالٹی</string>
@@ -4396,6 +4452,7 @@
     <string name="ConversationSettingsFragment__group_link">گروپ لنک</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">بطور رابطہ شامل کریں</string>
     <string name="ConversationSettingsFragment__unmute">غیر خاموش کریں</string>
+    <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
     <string name="ConversationSettingsFragment__conversation_muted_until_s">چیٹ کو %1$s تک خاموش کر دیا گیا</string>
     <string name="ConversationSettingsFragment__conversation_muted_forever">چیٹ کو ہمیشہ کے لیے خاموش کر دیا گیا</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">کلپ بورڈ پر فون نمبر کاپی کیا گیا۔</string>
