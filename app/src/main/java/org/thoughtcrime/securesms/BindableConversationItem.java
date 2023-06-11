@@ -113,5 +113,6 @@ public interface BindableConversationItem extends Unbindable, GiphyMp4Playable, 
     boolean onUrlClicked(@NonNull String url);
     void goToMediaPreview(ConversationItem parent, View sharedElement, MediaIntentFactory.MediaPreviewArgs args);
     void onEditedIndicatorClicked(@NonNull MessageRecord messageRecord);
+    void onShowGroupDescriptionClicked(@NonNull String groupName, @NonNull String description, boolean shouldLinkifyWebLinks);
   }
 }

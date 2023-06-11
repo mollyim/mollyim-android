@@ -24,6 +24,15 @@
     <string name="save">Сақтау</string>
     <string name="note_to_self">Өзіне ескертпе</string>
 
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a weather/climate application. -->
+    <string name="app_icon_label_weather">Ауа райы</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a note-taking application.-->
+    <string name="app_icon_label_notes">Ескертпелер</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a news/journalism application. -->
+    <string name="app_icon_label_news">Жаңалықтар</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in waves of the ocean. -->
+    <string name="app_icon_label_waves">Толқындар</string>
+
     <!-- AlbumThumbnailView -->
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
@@ -183,7 +192,11 @@
     <string name="CameraContacts_recent_contacts">Соңғы контактілер</string>
     <string name="CameraContacts_signal_contacts">Signal контактілері</string>
     <string name="CameraContacts_signal_groups">Signal топтары</string>
-    <string name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">Максимум %1$d чатпен бөлісе аласыз.</string>
+    <!-- A warning shown in a toast when  -->
+    <plurals name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">
+        <item quantity="one">Максимум %1$d чатпен бөлісе аласыз.</item>
+        <item quantity="other">Максимум %1$d чатпен бөлісе аласыз.</item>
+    </plurals>
     <string name="CameraContacts_select_signal_recipients">Signal алушыларын таңдау</string>
     <string name="CameraContacts_no_signal_contacts">Signal контактілері жоқ</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Фотосуреттерді Signal контактілеріне жіберу үшін ғана камера түймесін қолдана аласыз. </string>
@@ -1956,7 +1969,8 @@
     <string name="StickerPackPreviewActivity_untitled">Атауы жоқ</string>
     <string name="StickerPackPreviewActivity_unknown">Белгісіз</string>
     <string name="StickerPackPreviewActivity_install">Орнату</string>
-    <string name="StickerPackPreviewActivity_remove">Өшіру</string>
+    <!-- Label for a button that, if pressed, will uninstall the sticker pack that is currently being previewed. -->
+    <string name="StickerPackPreviewActivity_remove">Орнатылғанды жою</string>
     <string name="StickerPackPreviewActivity_stickers">Жапсырмалар</string>
     <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Стикерлер жинағы жүктелмеді</string>
 
@@ -2154,6 +2168,18 @@
     <string name="MediaPreviewFragment_read_more_overflow_text">Read More</string>
 
     <!-- MessageNotifier -->
+    <!-- Text shown in a system notification that is used to summarize your notification. The first placeholder is a pluralized string that describes how many messages (e.g. "3 messages"), and the second placeholder is a pluralized string that describes the number of unique chats those message appear in (e.g. "2 chats"). -->
+    <string name="MessageNotifier_s_in_s">%2$s тобындағы %1$s</string>
+    <!-- Text shown in a system notification that is used to summary how many messages you received. -->
+    <plurals name="MessageNotifier_d_messages">
+        <item quantity="one">%1$d хат</item>
+        <item quantity="other">%1$d хат</item>
+    </plurals>
+    <!-- Text shown in a system notification that is used to summary how many chats have new messages. -->
+    <plurals name="MessageNotifier_d_chats">
+        <item quantity="one">%1$d чат</item>
+        <item quantity="other">%1$d чат</item>
+    </plurals>
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%2$d чатта %1$d жаңа хат бар</string>
     <string name="MessageNotifier_most_recent_from_s">Соңғы хаттар: %1$s</string>
     <string name="MessageNotifier_locked_message">Құлыпталған хат</string>
@@ -2863,6 +2889,28 @@
     <string name="preferences__appearance">Сыртқы көрінісі</string>
     <string name="preferences__theme">Тақырып</string>
     <string name="preferences__chat_color_and_wallpaper">Чат түсі және тұсқағазы</string>
+    <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
+    <string name="preferences__app_icon">Қолданба белгішесі</string>
+    <!-- Approval for changing the app icon. -->
+    <string name="preferences__app_icon_dialog_ok">OK</string>
+    <!-- Cancelling the operation of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_cancel">Бас тарту</string>
+    <!-- Title for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_title">Қолданба белгішесі мен атын \"%1$s\" деп өзгерту</string>
+    <!-- Description for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_description">Қолданбаның белгішесі мен атын өзгерту үшін Molly-дың жабылуына тура келеді. Хабарландыруларда міндетті түрде әдепкі Molly белгішесі мен аты көрсетіледі.</string>
+    <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+    <string name="preferences__app_icon_warning_learn_more">Қолданбаның белгішесі мен атын таңдаңыз, олар телефоныңыздың басты экранында және қолданбалар панелінде көрсетіледі. Хабарландыруларда міндетті түрде әдепкі Molly белгішесі мен аты көрсетіледі. Толық ақпарат</string>
+    <!-- Visible warning label for the limitations of changing the app icon. -->
+    <string name="preferences__app_icon_warning">Қолданба белгішелері мен аттары басты экранда және қолданба панелінде көрініп тұрады.</string>
+    <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+    <string name="preferences__app_icon_notification_warning">Хабарландыруларда міндетті түрде әдепкі Molly белгішесі мен аты көрсетіледі.</string>
+    <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+    <string name="preferences__app_icon_learn_more">Толық ақпарат</string>
+    <!--Text description of the app icon option for visually impaired users. -->
+    <string name="preferences__app_icon_content_description">%1$s белгішесі</string>
+    <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+    <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">Ауыстырылатын қолданба белгішесі қай жерде тұратынын көрсететін график.</string>
     <string name="preferences__disable_pin">PIN-кодты өшіру</string>
     <string name="preferences__enable_pin">PIN-кодты қосу</string>
     <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">PIN-кодты өшіріп қойсаңыз, резервтік көшірмесін қолмен жасап, оны қалпына келтірмейінше, Signal қолданбасына қайта тіркелгенде, барлық дерегіңіз өшіп қалады. PIN-кодты өшіріп қойып, Тіркелу құлпын аша алмайсыз.</string>
@@ -2898,7 +2946,11 @@
     <string name="preferences_storage__delete_older_messages">Ескі хаттарды жою керек пе?</string>
     <string name="preferences_storage__clear_message_history">Хаттар тарихын тазалау керек пе?</string>
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">Бұл функция құрылғыңыздағы хаттар тарихын түгелдей және %1$s күнінен ескі мультимедиалық файлдарды біржола жойып тастайды.</string>
-    <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">Бұл функция чаттың барлығын ең соңғы %1$s хатқа дейін біржола қысқартып тастайды.</string>
+    <!-- The body of an alert dialog that is shown when confirming a trim operation. Trimming will delete all but the most recent messages in a chat. The placeholder represents how many messages are kept in each chat. All older messages are deleted. -->
+    <plurals name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">
+        <item quantity="one">Бұл функция чаттың барлығын ең соңғы %1$s хатқа дейін біржола қысқартып тастайды.</item>
+        <item quantity="other">Бұл функция чаттың барлығын ең соңғы %1$s хатқа дейін біржола қысқартып тастайды.</item>
+    </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Бұл функция құрылғыңыздағы хаттар тарихын және мультимедианы біржола жойып тастайды.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Хаттар тарихын шынымен де түгелдей жойып тастағыңыз келе ме?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Хаттар тарихы түгелдей біржола өшіп қалады. Өшіріп тастасаңыз, оны қайтарып ала алмайсыз.</string>
@@ -3240,6 +3292,7 @@
     <string name="conversation_list_search_description">Іздеу</string>
     <string name="conversation_list__pinned">Бекітілді</string>
     <string name="conversation_list__chats">Чаттар</string>
+    <!-- A warning shown in a toast that tells you that you can\'t pin any more chats. Pinning a chat means keeping the chat at the top of your chat list. The placeholder represents how many chats you\'re allowed to pin. -->
     <string name="conversation_list__you_can_only_pin_up_to_d_chats">Бар-жоғы %1$d чатты бекіте аласыз</string>
 
     <!-- conversation_list_item_view -->
@@ -3288,6 +3341,7 @@
     <!-- conversation_group_options -->
     <string name="convesation_group_options__recipients_list">Алушылар тізімі</string>
     <string name="conversation_group_options__delivery">Жеткізу</string>
+    <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">Чат</string>
     <string name="conversation_group_options__broadcast">Трансляция</string>
 
@@ -3338,10 +3392,12 @@
     <string name="Insights__percent">%</string>
     <string name="Insights__title">Аналитикалық ақпарат</string>
     <string name="InsightsDashboardFragment__title">Аналитикалық ақпарат</string>
+    <!-- Body text for a page describing how many signal messages you\'ve sent. The first placeholder represents the number of signal messages sent, and the second placeholder represents how many days have passed. -->
     <string name="InsightsDashboardFragment__signal_protocol_automatically_protected">Signal протоколы соңғы %2$d күнде сіз жіберген хаттардың ішінен %1$d%% хатты автоматты түрде қорғады. Signal пайдаланушылары арасындағы чаттар үнемі өтпелі шифрлаумен қорғалады.</string>
     <string name="InsightsDashboardFragment__spread_the_word">Ақпарат тарату</string>
     <string name="InsightsDashboardFragment__not_enough_data">Деректер жеткіліксіз</string>
     <string name="InsightsDashboardFragment__your_insights_percentage_is_calculated_based_on">Аналитикалық пайыздық мөлшерлеме соңғы %1$d күнде жоғалмаған немесе жойылмаған шығыс хаттар негізінде есептеледі.</string>
+    <!-- Label for a button that, when pressed, will begin a chat with a person whose name is showed on the screen. -->
     <string name="InsightsDashboardFragment__start_a_conversation">Чатты бастау</string>
     <string name="InsightsDashboardFragment__invite_your_contacts">Хаттарыңыздың қауіпсіздігіне алаңдамай, Signal-ға көп контакт шақыру арқылы шифрланбаған SMS хаттардың шектеулерінен тыс жаңа функцияларды қосыңыз.</string>
     <string name="InsightsDashboardFragment__this_stat_was_generated_locally">Бұл статистика сіздің құрылғыңызда жергілікті түрде жасалған және оны тек сіз көре аласыз. Олар басқа ешбір жерге жіберілмейді.</string>
@@ -4265,7 +4321,7 @@
     <string name="HelpSettingsFragment__debug_log">Ақауларды түзету журналы</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Шарттар және Құпиялық саясаты</string>
     <string name="HelpFragment__copyright_signal_messenger">Авторлық құқығы қорғалған Molly мессенджері</string>
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__licenced_under_the_gplv3">GPLv3 бойынша лицензияланған</string> -->
+    <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3 лицензиясымен жұмыс істейді</string>
 
     <!-- DataAndStorageSettingsFragment -->
     <string name="DataAndStorageSettingsFragment__media_quality">Мультимедиа сапасы</string>
@@ -4396,6 +4452,7 @@
     <string name="ConversationSettingsFragment__group_link">Топ сілтемесі</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">Контакт ретінде қосу</string>
     <string name="ConversationSettingsFragment__unmute">Дыбысын қосу</string>
+    <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
     <string name="ConversationSettingsFragment__conversation_muted_until_s">Чаттың дауысы %1$s дейін өшті</string>
     <string name="ConversationSettingsFragment__conversation_muted_forever">Чаттың дауысы біржола өшті</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Телефон нөмірі буферге көшірілді.</string>

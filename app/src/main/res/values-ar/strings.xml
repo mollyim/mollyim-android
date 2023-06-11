@@ -24,6 +24,15 @@
     <string name="save">حفظ</string>
     <string name="note_to_self">الملاحظات الشخصية</string>
 
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a weather/climate application. -->
+    <string name="app_icon_label_weather">طقس</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a note-taking application.-->
+    <string name="app_icon_label_notes">ملاحظات</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a news/journalism application. -->
+    <string name="app_icon_label_news">أخبار</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in waves of the ocean. -->
+    <string name="app_icon_label_waves">أمواج</string>
+
     <!-- AlbumThumbnailView -->
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
@@ -80,7 +89,7 @@
     <string name="AttachmentManager_cant_open_media_selection">تعذر العثور على تطبيق لتحديد الوسائط.</string>
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">يحتاج Molly إلى إذن الوصول إلى التخزين من أجل إرفاق الصور والفيديوهات والملفّات الصوتيّة، ولكن الإذن لم يُمنح بشكل دائم. الّرجاء زيارة قائمة إعدادات التطبيق، واختيار \"الأذونات\"، ومن ثمّ تفعيل \"سعة التخزين\".</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">يحتاج Molly إلى إذن الوصول لِ جهات الاتصال من أجل إرفاق بيانات جهة اتصال، لكن الإذن لم يُمنح بشكل دائم. الّرجاء زيارة قائمة إعدادات التطبيق، واختيار \"الأذونات\"، ومن ثم تفعيل \"جهات الاتصال\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">يحتاج Molly إلى إذن الوصول إلى الموقع من أجل إرفاق الموقع الجغرافي ولكن تم إيقاف الإذن على نحو دائم. يرجى زيارة قائمة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"الموقع\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">يحتاج Molly إلى إذن الوصول إلى الموقع من أجل إرفاق الموقع ولكن تم إيقاف الإذن على نحو دائم. يرجى زيارة قائمة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"الموقع\".</string>
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">لم يُفعّل %1$s عمليات الدفع </string>
     <!-- Alert dialog description to send the recipient a request to activate payments -->
@@ -183,7 +192,15 @@
     <string name="CameraContacts_recent_contacts">جهات الاتصال مؤخّراً</string>
     <string name="CameraContacts_signal_contacts">جهات اتصال Signal</string>
     <string name="CameraContacts_signal_groups">مجموعات Signal</string>
-    <string name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">يمكنك المشاركة مع %1$d دردشات كحد أقصى.</string>
+    <!-- A warning shown in a toast when  -->
+    <plurals name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">
+        <item quantity="zero">يمكنك المشاركة مع %1$d دردشات كحد أقصى.</item>
+        <item quantity="one">يمكنك المشاركة مع %1$d دردشة كحد أقصى.</item>
+        <item quantity="two">يمكنك المشاركة مع %1$d دردشتين كحد أقصى.</item>
+        <item quantity="few">يمكنك المشاركة مع %1$d دردشات كحد أقصى.</item>
+        <item quantity="many">يمكنك المشاركة مع %1$d دردشة كحد أقصى.</item>
+        <item quantity="other">يمكنك المشاركة مع %1$d دردشة كحد أقصى.</item>
+    </plurals>
     <string name="CameraContacts_select_signal_recipients">اختاري المتلقّيين من Signal</string>
     <string name="CameraContacts_no_signal_contacts">لا جهات اتصال في Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">يمكنكم استخدام زر الكاميرا لإرسال الصور إلى جهات الاتصال في Signal فقط. </string>
@@ -2216,7 +2233,8 @@
     <string name="StickerPackPreviewActivity_untitled">بدون عنوان</string>
     <string name="StickerPackPreviewActivity_unknown">مجهول</string>
     <string name="StickerPackPreviewActivity_install">تثبيت</string>
-    <string name="StickerPackPreviewActivity_remove">إزالة</string>
+    <!-- Label for a button that, if pressed, will uninstall the sticker pack that is currently being previewed. -->
+    <string name="StickerPackPreviewActivity_remove">إلغاء التثبيت</string>
     <string name="StickerPackPreviewActivity_stickers">ملصقات</string>
     <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">فشل في تحميل مجموعة الملصقات</string>
 
@@ -2418,6 +2436,26 @@
     <string name="MediaPreviewFragment_read_more_overflow_text">قراءة المزيد</string>
 
     <!-- MessageNotifier -->
+    <!-- Text shown in a system notification that is used to summarize your notification. The first placeholder is a pluralized string that describes how many messages (e.g. "3 messages"), and the second placeholder is a pluralized string that describes the number of unique chats those message appear in (e.g. "2 chats"). -->
+    <string name="MessageNotifier_s_in_s">%1$s في %2$s</string>
+    <!-- Text shown in a system notification that is used to summary how many messages you received. -->
+    <plurals name="MessageNotifier_d_messages">
+        <item quantity="zero">%1$d رسائل</item>
+        <item quantity="one">%1$d رسالة</item>
+        <item quantity="two">%1$d رسالتين</item>
+        <item quantity="few">%1$d رسائل</item>
+        <item quantity="many">%1$d رسالة</item>
+        <item quantity="other">%1$d رسالة</item>
+    </plurals>
+    <!-- Text shown in a system notification that is used to summary how many chats have new messages. -->
+    <plurals name="MessageNotifier_d_chats">
+        <item quantity="zero">%1$d دردشات</item>
+        <item quantity="one">%1$d دردشة</item>
+        <item quantity="two">%1$d دردشتين</item>
+        <item quantity="few">%1$d دردشات</item>
+        <item quantity="many">%1$d دردشة</item>
+        <item quantity="other">%1$d دردشة</item>
+    </plurals>
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d رسائل جديدة في %2$d الدردشات</string>
     <string name="MessageNotifier_most_recent_from_s">الأحدث من: %1$s</string>
     <string name="MessageNotifier_locked_message">رسالة مقفلة</string>
@@ -3175,6 +3213,28 @@
     <string name="preferences__appearance">المظهر</string>
     <string name="preferences__theme">المظهر</string>
     <string name="preferences__chat_color_and_wallpaper">لون الدردشة والخلفية</string>
+    <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
+    <string name="preferences__app_icon">أيقونة التطبيق</string>
+    <!-- Approval for changing the app icon. -->
+    <string name="preferences__app_icon_dialog_ok">موافق</string>
+    <!-- Cancelling the operation of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_cancel">إلغاء</string>
+    <!-- Title for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_title">غيّر أيقونة واسم التطبيق إلى \"%1$s\"</string>
+    <!-- Description for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_description">سيتعيّن إغلاق Molly لتغيير أيقونة واسم التطبيق. ستُظهر الإشعارات أيقونة واسم Molly الافتراضيين دائمًا.</string>
+    <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+    <string name="preferences__app_icon_warning_learn_more">اختر أيقونة واسم تطبيق اللذيْن سَيظهران على شاشة هاتفك الرئيسية ودرج التطبيقات. ستُظهر الإشعارات أيقونة واسم Molly الافتراضيين دائمًا. معرفة المزيد</string>
+    <!-- Visible warning label for the limitations of changing the app icon. -->
+    <string name="preferences__app_icon_warning">تظهر أيقونات وأسماء التطبيقات على الشاشة الرئيسية ودرج التطبيقات.</string>
+    <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+    <string name="preferences__app_icon_notification_warning">ستُظهر الإشعارات أيقونة واسم Molly الافتراضيين دائمًا.</string>
+    <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+    <string name="preferences__app_icon_learn_more">معرفة المزيد</string>
+    <!--Text description of the app icon option for visually impaired users. -->
+    <string name="preferences__app_icon_content_description">أيقونة %1$s</string>
+    <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+    <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">رسم يُوضح المكان الذي سَتظهر فيه أيقونة التطبيق البديلة.</string>
     <string name="preferences__disable_pin">تعطيل الرقم التعريفي الشخصي</string>
     <string name="preferences__enable_pin">تفعيل الرقم التعريفي الشخصي</string>
     <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">إذا قمت بتعطيل الرقم التعريفي الشخصي، ستضيع جميع البيانات عند قيامك بإعادة التسجيل إلى Signal إلا إذا قمت باسترجاعها بواسطة النسخ الاحتياطي اليدوي. لا يمكنك تفعيل قفل التسجيل أثناء تعطيل الرقم التعريفي الشخصي.</string>
@@ -3210,7 +3270,15 @@
     <string name="preferences_storage__delete_older_messages">حذف الرسائل القديمة؟</string>
     <string name="preferences_storage__clear_message_history">محو محفوظات الرسائل؟</string>
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">ستُحذَف جميع محفوظات الرسائل والوسائط الأقدم من %1$s من جهازك بصفة نهائية.</string>
-    <string name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">سَيتم تقليم كل الدردشات إلى أحدث %1$s رسالة.</string>
+    <!-- The body of an alert dialog that is shown when confirming a trim operation. Trimming will delete all but the most recent messages in a chat. The placeholder represents how many messages are kept in each chat. All older messages are deleted. -->
+    <plurals name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">
+        <item quantity="zero">سَيتم تقليم كل الدردشات إلى أحدث %1$s رسالة.</item>
+        <item quantity="one">سَيتم تقليم كل الدردشات إلى أحدث %1$s رسالة.</item>
+        <item quantity="two">سَيتم تقليم كل الدردشات إلى أحدث %1$s رسالتين.</item>
+        <item quantity="few">سَيتم تقليم كل الدردشات إلى أحدث %1$s رسائل.</item>
+        <item quantity="many">سَيتم تقليم كل الدردشات إلى أحدث %1$s رسالة.</item>
+        <item quantity="other">سَيتم تقليم كل الدردشات إلى أحدث %1$s رسالة.</item>
+    </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">ستُحذَف جميع محفوظات الرسائل والوسائط من جهازك بصفة نهائية.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">هل أنت متأكد من أنك تريد حذف كل محفوظات الرسائل؟</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">ستُحذف محفوظات الرسائل نهائيًا. لن يتم التراجع عن هذا الإجراء.</string>
@@ -3556,6 +3624,7 @@
     <string name="conversation_list_search_description">بحث</string>
     <string name="conversation_list__pinned">مثبَّت</string>
     <string name="conversation_list__chats">الدردشات</string>
+    <!-- A warning shown in a toast that tells you that you can\'t pin any more chats. Pinning a chat means keeping the chat at the top of your chat list. The placeholder represents how many chats you\'re allowed to pin. -->
     <string name="conversation_list__you_can_only_pin_up_to_d_chats">يمكنك تثبيت ما يصل إلى %1$d دردشات فقط</string>
 
     <!-- conversation_list_item_view -->
@@ -3608,6 +3677,7 @@
     <!-- conversation_group_options -->
     <string name="convesation_group_options__recipients_list">قائمة المستلمون</string>
     <string name="conversation_group_options__delivery">تسليم</string>
+    <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">دردشة</string>
     <string name="conversation_group_options__broadcast">بث</string>
 
@@ -3658,10 +3728,12 @@
     <string name="Insights__percent">%</string>
     <string name="Insights__title">رؤى</string>
     <string name="InsightsDashboardFragment__title">رؤى</string>
+    <!-- Body text for a page describing how many signal messages you\'ve sent. The first placeholder represents the number of signal messages sent, and the second placeholder represents how many days have passed. -->
     <string name="InsightsDashboardFragment__signal_protocol_automatically_protected">قام بروتوكول Signal بحماية %1$d%% من رسائلك الصادرة خلال %2$d يوما الماضية. الدردشات بين مستخدمي Signal مُعمَّاة دائمًا من طرف إلى طرف.</string>
     <string name="InsightsDashboardFragment__spread_the_word">انشر الخبر</string>
     <string name="InsightsDashboardFragment__not_enough_data">لا يوجد بيانات كافية</string>
     <string name="InsightsDashboardFragment__your_insights_percentage_is_calculated_based_on">نسبة الرؤى الخاصة بك يتم حسابها بناءً على الرسائل المرسلة خلال %1$d يومًا الماضية والتي لم تختفي أو يتم حذفها.</string>
+    <!-- Label for a button that, when pressed, will begin a chat with a person whose name is showed on the screen. -->
     <string name="InsightsDashboardFragment__start_a_conversation">بدء دردشة</string>
     <string name="InsightsDashboardFragment__invite_your_contacts">ابدؤوا بالتواصل بأمان وقوموا بتفعيل الخصائص الجديدة التي تتعدى الحدود التي تفرضها رسائل SMS المُعمَّاة وذلك عن طريق دعوة المزيد من جهات اتصالكم للانضمام إلى Signal.</string>
     <string name="InsightsDashboardFragment__this_stat_was_generated_locally">تم توليد هذه الإحصائيات محليّاً على جهازك وأنت الوحيد الذى يستطيع رؤيتها. لا يتم نقلها أبدا إلى أي مكان.</string>
@@ -4629,7 +4701,7 @@
     <string name="HelpSettingsFragment__debug_log">سِجل التصحيح</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">الشروط وسياسة الخصوصية</string>
     <string name="HelpFragment__copyright_signal_messenger">جميع الحقوق محفوظة لمِرسال Molly‬</string>
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__licenced_under_the_gplv3">بموجب « رخصة جْنُو العمومية، الإصدار الثالث »</string> -->
+    <string name="HelpFragment__licenced_under_the_agplv3">بموجب رخصة GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
     <string name="DataAndStorageSettingsFragment__media_quality">جودة الوسائط</string>
@@ -4768,6 +4840,7 @@
     <string name="ConversationSettingsFragment__group_link">وصلة المجموعة</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">الإضافة كجهة اتصال</string>
     <string name="ConversationSettingsFragment__unmute">إلغاء كتم الدردشات</string>
+    <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
     <string name="ConversationSettingsFragment__conversation_muted_until_s">كتم الدردشة حتى %1$s</string>
     <string name="ConversationSettingsFragment__conversation_muted_forever">كُتمَت الدردشة للأبد</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">لقد نُسخ رقم الهاتف إلى الحافظة.</string>

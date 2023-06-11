@@ -65,12 +65,16 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 
   private val threadReminders: MutableMap<ConversationId, Reminder> = ConcurrentHashMap()
   private val stickyThreads: MutableMap<ConversationId, StickyThread> = mutableMapOf()
+  private val lastThreadNotification: MutableMap<ConversationId, Long> = ConcurrentHashMap()
 
   private val executor = CancelableExecutor()
 
   override fun setVisibleThread(conversationId: ConversationId?) {
     visibleThread = conversationId
     stickyThreads.remove(conversationId)
+    if (conversationId != null) {
+      lastThreadNotification.remove(conversationId)
+    }
   }
 
   override fun getVisibleThread(): Optional<ConversationId> {
@@ -217,7 +221,8 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
       lastAudibleNotification = lastAudibleNotification,
       notificationConfigurationChanged = notificationConfigurationChanged,
       alertOverrides = alertOverrides,
-      previousState = previousState
+      previousState = previousState,
+      lastThreadNotification = lastThreadNotification
     )
 
     previousState = state

@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.util;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.text.TextPaint;
 import android.text.style.URLSpan;
@@ -48,6 +49,10 @@ public class LongClickCopySpan extends URLSpan {
 
   @Override
   public void updateDrawState(@NonNull TextPaint ds) {
+    if (ds.getColor() == Color.TRANSPARENT) {
+      return;
+    }
+
     super.updateDrawState(ds);
     if (textColor != null) {
       ds.setColor(textColor);

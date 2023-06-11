@@ -9,6 +9,7 @@ import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
 import org.signal.core.util.toOptional
+import org.signal.libsignal.zkgroup.groups.GroupSecretParams
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation
 import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
@@ -70,7 +71,7 @@ import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.isPaymentActiv
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.isPaymentActivationRequest
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.isStoryReaction
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.toPointer
-import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.toPointers
+import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.toPointersWithinLimit
 import org.thoughtcrime.securesms.mms.IncomingMediaMessage
 import org.thoughtcrime.securesms.mms.MmsException
 import org.thoughtcrime.securesms.mms.QuoteModel
@@ -109,6 +110,8 @@ import kotlin.time.Duration.Companion.seconds
 
 object DataMessageProcessor {
 
+  private const val BODY_RANGE_PROCESSING_LIMIT = 250
+
   fun process(
     context: Context,
     senderRecipient: Recipient,
@@ -120,10 +123,13 @@ object DataMessageProcessor {
     earlyMessageCacheEntry: EarlyMessageCacheEntry?
   ) {
     val message: DataMessage = content.dataMessage
-    val groupId: GroupId.V2? = if (message.hasGroupContext) GroupId.v2(message.groupV2.groupMasterKey) else null
+    val groupSecretParams = if (message.hasGroupContext) GroupSecretParams.deriveFromMasterKey(message.groupV2.groupMasterKey) else null
+    val groupId: GroupId.V2? = if (groupSecretParams != null) GroupId.v2(groupSecretParams.publicParams.groupIdentifier) else null
 
+    var groupProcessResult: MessageContentProcessorV2.Gv2PreProcessResult? = null
     if (groupId != null) {
-      if (MessageContentProcessorV2.handleGv2PreProcessing(context, envelope.timestamp, content, metadata, groupId, message.groupV2, senderRecipient)) {
+      groupProcessResult = MessageContentProcessorV2.handleGv2PreProcessing(context, envelope.timestamp, content, metadata, groupId, message.groupV2, senderRecipient, groupSecretParams)
+      if (groupProcessResult == MessageContentProcessorV2.Gv2PreProcessResult.IGNORE) {
         return
       }
     }
@@ -146,8 +152,14 @@ object DataMessageProcessor {
       message.hasGroupCallUpdate() -> handleGroupCallUpdateMessage(envelope, message, senderRecipient.id, groupId)
     }
 
-    if (groupId != null && SignalDatabase.groups.isUnknownGroup(groupId)) {
-      handleUnknownGroupMessage(envelope.timestamp, message.groupV2)
+    if (groupId != null) {
+      val unknownGroup = when (groupProcessResult) {
+        MessageContentProcessorV2.Gv2PreProcessResult.GROUP_UP_TO_DATE -> threadRecipient.isUnknownGroup
+        else -> SignalDatabase.groups.isUnknownGroup(groupId)
+      }
+      if (unknownGroup) {
+        handleUnknownGroupMessage(envelope.timestamp, message.groupV2)
+      }
     }
 
     if (message.hasProfileKey()) {
@@ -824,10 +836,10 @@ object DataMessageProcessor {
       val quote: QuoteModel? = getValidatedQuote(context, envelope.timestamp, message)
       val contacts: List<Contact> = getContacts(message)
       val linkPreviews: List<LinkPreview> = getLinkPreviews(message.previewList, message.body ?: "", false)
-      val mentions: List<Mention> = getMentions(message.bodyRangesList)
+      val mentions: List<Mention> = getMentions(message.bodyRangesList.take(BODY_RANGE_PROCESSING_LIMIT))
       val sticker: Attachment? = getStickerAttachment(envelope.timestamp, message)
-      val attachments: List<Attachment> = message.attachmentsList.toPointers()
-      val messageRanges: BodyRangeList? = if (message.bodyRangesCount > 0) message.bodyRangesList.filter { it.hasStyle() }.toList().toBodyRangeList() else null
+      val attachments: List<Attachment> = message.attachmentsList.toPointersWithinLimit()
+      val messageRanges: BodyRangeList? = if (message.bodyRangesCount > 0) message.bodyRangesList.asSequence().take(BODY_RANGE_PROCESSING_LIMIT).filter { it.hasStyle() }.toList().toBodyRangeList() else null
 
       handlePossibleExpirationUpdate(envelope, metadata, senderRecipient.id, threadRecipient, groupId, message.expireTimer.seconds, receivedTime)
 
