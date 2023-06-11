@@ -85,6 +85,7 @@ import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
 import org.thoughtcrime.securesms.storage.StorageRecordUpdate
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.storage.StorageSyncModels
@@ -317,7 +318,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       DISTRIBUTION_LIST_ID,
       NEEDS_PNI_SIGNATURE,
       HIDDEN,
-      REPORTING_TOKEN
+      REPORTING_TOKEN,
+      CALL_LINK_ROOM_ID
     )
 
     private val ID_PROJECTION = arrayOf(ID)
@@ -418,6 +420,10 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
 
   fun getByServiceId(serviceId: ServiceId): Optional<RecipientId> {
     return getByColumn(SERVICE_ID, serviceId.toString())
+  }
+
+  fun getByCallLinkRoomId(callLinkRoomId: CallLinkRoomId): Optional<RecipientId> {
+    return getByColumn(CALL_LINK_ROOM_ID, callLinkRoomId.serialize())
   }
 
   /**
@@ -555,6 +561,19 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         put(STORAGE_SERVICE_ID, Base64.encodeBytes(storageId ?: StorageSyncHelper.generateKey()))
         put(PROFILE_SHARING, 1)
       }
+    ).recipientId
+  }
+
+  fun getOrInsertFromCallLinkRoomId(callLinkRoomId: CallLinkRoomId, avatarColor: AvatarColor): RecipientId {
+    return getOrInsertByColumn(
+      CALL_LINK_ROOM_ID,
+      callLinkRoomId.serialize(),
+      contentValuesOf(
+        GROUP_TYPE to GroupType.CALL_LINK.id,
+        CALL_LINK_ROOM_ID to callLinkRoomId.serialize(),
+        PROFILE_SHARING to 1,
+        AVATAR_COLOR to avatarColor.serialize()
+      )
     ).recipientId
   }
 
@@ -1788,11 +1807,19 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     }
   }
 
-  fun markHidden(id: RecipientId) {
-    val contentValues = contentValuesOf(
-      HIDDEN to 1,
-      PROFILE_SHARING to 0
-    )
+  fun markHidden(id: RecipientId, clearProfileKey: Boolean = false) {
+    val contentValues = if (clearProfileKey) {
+      contentValuesOf(
+        HIDDEN to 1,
+        PROFILE_SHARING to 0,
+        PROFILE_KEY to null
+      )
+    } else {
+      contentValuesOf(
+        HIDDEN to 1,
+        PROFILE_SHARING to 0
+      )
+    }
 
     val updated = writableDatabase.update(TABLE_NAME, contentValues, "$ID_WHERE AND $GROUP_TYPE = ?", SqlUtil.buildArgs(id, GroupType.NONE.id)) > 0
     if (updated) {
@@ -4125,7 +4152,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       hasGroupsInCommon = cursor.requireBoolean(GROUPS_IN_COMMON),
       badges = parseBadgeList(cursor.requireBlob(BADGES)),
       needsPniSignature = cursor.requireBoolean(NEEDS_PNI_SIGNATURE),
-      isHidden = cursor.requireBoolean(HIDDEN)
+      isHidden = cursor.requireBoolean(HIDDEN),
+      callLinkRoomId = cursor.requireString(CALL_LINK_ROOM_ID)?.let { CallLinkRoomId.DatabaseSerializer.deserialize(it) }
     )
   }
 

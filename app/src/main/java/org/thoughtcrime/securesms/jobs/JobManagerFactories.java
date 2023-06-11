@@ -130,10 +130,10 @@ public final class JobManagerFactories {
       put(MmsReceiveJob.KEY,                         new FailingJob.Factory());
       put(MmsSendJob.KEY,                            new FailingJob.Factory());
       put(MultiDeviceBlockedUpdateJob.KEY,           new MultiDeviceBlockedUpdateJob.Factory());
+      put(MultiDeviceCallLinkSyncJob.KEY,            new MultiDeviceCallLinkSyncJob.Factory());
       put(MultiDeviceConfigurationUpdateJob.KEY,     new MultiDeviceConfigurationUpdateJob.Factory());
       put(MultiDeviceContactSyncJob.KEY,             new MultiDeviceContactSyncJob.Factory());
       put(MultiDeviceContactUpdateJob.KEY,           new MultiDeviceContactUpdateJob.Factory());
-      put(MultiDeviceGroupUpdateJob.KEY,             new MultiDeviceGroupUpdateJob.Factory());
       put(MultiDeviceKeysUpdateJob.KEY,              new MultiDeviceKeysUpdateJob.Factory());
       put(MultiDeviceMessageRequestResponseJob.KEY,  new MultiDeviceMessageRequestResponseJob.Factory());
       put(MultiDeviceOutgoingPaymentSyncJob.KEY,     new MultiDeviceOutgoingPaymentSyncJob.Factory());
@@ -171,6 +171,7 @@ public final class JobManagerFactories {
       put(ReactionSendJob.KEY,                       new ReactionSendJob.Factory());
       put(RebuildMessageSearchIndexJob.KEY,          new RebuildMessageSearchIndexJob.Factory());
       put(RefreshAttributesJob.KEY,                  new RefreshAttributesJob.Factory());
+      put(RefreshCallLinkDetailsJob.KEY,             new RefreshCallLinkDetailsJob.Factory());
       put(RefreshKbsCredentialsJob.KEY,              new RefreshKbsCredentialsJob.Factory());
       put(RefreshOwnProfileJob.KEY,                  new RefreshOwnProfileJob.Factory());
       put(RemoteConfigRefreshJob.KEY,                new RemoteConfigRefreshJob.Factory());
@@ -279,6 +280,7 @@ public final class JobManagerFactories {
       put("RecipientChangedNumberJob",               new FailingJob.Factory());
       put("PushTextSendJob",                         new IndividualSendJob.Factory());
       put("MultiDevicePniIdentityUpdateJob",         new FailingJob.Factory());
+      put("MultiDeviceGroupUpdateJob",               new FailingJob.Factory());
     }};
   }
 

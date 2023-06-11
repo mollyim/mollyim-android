@@ -491,6 +491,10 @@
     <string name="ConversationFragment__update_build">Molly نى يېڭىلا</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
     <string name="ConversationFragment__reregister_signal">Molly غا قايتا تىزىملىتىش</string>
+    <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
+    <string name="ConversationFragment__content_description_back_button">كەينىگە قايتىش.</string>
+    <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
+    <string name="ConversationFragment__content_description_launch_signal_button">Molly نى ئېچىڭ</string>
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">سۈزگۈچلەرنى بىكار قىلىش</string>
     <!-- Notice on chat list when no unread chats are available, centered on display -->
@@ -1607,6 +1611,8 @@
     <string name="Recipient_you">سىز</string>
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">ھېكايەم</string>
+    <!-- Name of recipient for a call link without a name -->
+    <string name="Recipient_signal_call">Molly چاقىرىقى</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">چەكلەش</string>
@@ -2173,9 +2179,8 @@
     <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly قۇلۇپلانغاندا تېز ئىنكاسنى ئىشلەتكىلى بولمايدۇ!</string>
     <string name="QuickResponseService_problem_sending_message">ئۇچۇر يوللاشتا مەسىلە كۆرۈلدى!</string>
 
-    <!-- SaveAttachmentTask -->
-    <string name="SaveAttachmentTask_saved_to">«%1$s» گە ساقلاندى</string>
-    <string name="SaveAttachmentTask_saved">ساقلاندى</string>
+    <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
+    <string name="SaveAttachmentTask_saved">مېدىيا ساقلاندى</string>
 
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">ئىزدە</string>
@@ -4224,6 +4229,8 @@
     <string name="HelpSettingsFragment__contact_us">بىز بىلەن ئالاقىلىشىڭ</string>
     <string name="HelpSettingsFragment__version">نەشر</string>
     <string name="HelpSettingsFragment__debug_log">سازلاش خاتىرىسى</string>
+    <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
+    <string name="HelpSettingsFragment__licenses">ئىجازەتنامە</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">شەرتلەر &amp;  مەخپىيەتلىك تۈزۈمى</string>
     <string name="HelpFragment__copyright_signal_messenger">‫Molly Messenger نەشر ھوقۇقىغا ئىگە</string>
     <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3 غا ئ‍اساسەن ئىجازەت قىلىنغان</string>
@@ -5800,6 +5807,8 @@
     <string name="CallLogAdapter__return">قايتىش</string>
     <!-- Call state template when there is more than one call collapsed into a single row. D is a number > 1 and S is a call info string (like Missed) -->
     <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
+    <!-- Status text on call links -->
+    <string name="CallLogAdapter__call_link">چاقىرىق ئۇلانمىسى</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -5943,6 +5952,12 @@
     <string name="CallLinkDetailsFragment__share_link">ئۇلانما ئورتاقلىشىش</string>
     <!-- Displayed in a text row, allowing the user to delete the call link -->
     <string name="CallLinkDetailsFragment__delete_call_link">چاقىرىق ئۇلانمىسىنى ئۆچۈرۈش</string>
+    <!-- Displayed whenever a name change, revocation, etc, fails. -->
+    <string name="CallLinkDetailsFragment__couldnt_save_changes">ئۆزگەرتىش ساقلانمىدى. تور ئۇلىنىشىنى تەكشۈرۈپ قايتا سىناڭ.</string>
+    <!-- Displayed as title in dialog when user attempts to delete the link -->
+    <string name="CallLinkDetailsFragment__delete_link">ئۇلانمىنى ئۆچۈرەمسىز؟</string>
+    <!-- Displayed as body in dialog when user attempts to delete the link -->
+    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">بۇ ئۇلانمىنى ھېچكىم ئىشلىتەلمەيدۇ.</string>
 
     <!-- Button label for the share button in the username link settings -->
     <string name="UsernameLinkSettings_share_button_label">ھەمبەھىرلە</string>
@@ -5966,6 +5981,13 @@
     <string name="UsernameLinkSettings_qr_scan_description">ئالاقىدىشىڭىزنىڭ ئۈسكۈنىسىدىكى QR كودنى سېكاننېرلاڭ.</string>
     <!-- App bar title for the username QR code color picker screen -->
     <string name="UsernameLinkSettings_color_picker_app_bar_title">رەڭ</string>
+    <!-- Body of a dialog that is displayed when we failed to read a username QR code. -->
+    <string name="UsernameLinkSettings_qr_result_invalid">QR كودى ئىناۋەتسىز.</string>
+    <!-- Body of a dialog that is displayed when the username we looked up could not be found. -->
+    <string name="UsernameLinkSettings_qr_result_not_found">%1$s ئىسىملىك ئىشلەتكۈچى تېپىلمىدى.</string>
+    <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
+    <string name="UsernameLinkSettings_qr_result_network_error">تور خاتالىقى كۆرۈلدى. قايتا سىناڭ.</string>
+
 
     <!-- EOF -->
 </resources>

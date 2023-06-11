@@ -22,6 +22,8 @@ import org.signal.libsignal.protocol.util.Pair;
 import org.signal.libsignal.usernames.BaseUsernameException;
 import org.signal.libsignal.usernames.Username;
 import org.signal.libsignal.zkgroup.VerificationFailedException;
+import org.signal.libsignal.zkgroup.calllinks.CreateCallLinkCredentialRequest;
+import org.signal.libsignal.zkgroup.calllinks.CreateCallLinkCredentialResponse;
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations;
 import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
@@ -283,11 +285,13 @@ public class PushServiceSocket {
   private static final String REGISTRATION_PATH    = "/v1/registration";
 
   private static final String CDSI_AUTH = "/v2/directory/auth";
+  private static final String SVR2_AUTH = "/v2/backup/auth";
 
   private static final String REPORT_SPAM = "/v1/messages/report/%s/%s";
 
   private static final String BACKUP_AUTH_CHECK = "/v1/backup/auth/check";
 
+  private static final String CALL_LINK_CREATION_AUTH = "/v1/call-link/create-auth";
   private static final String SERVER_DELIVERED_TIMESTAMP_HEADER = "X-Signal-Timestamp";
 
   private static final Map<String, String> NO_HEADERS = Collections.emptyMap();
@@ -423,6 +427,13 @@ public class PushServiceSocket {
   public CdsiAuthResponse getCdsiAuth() throws IOException {
     String body = makeServiceRequest(CDSI_AUTH, "GET", null);
     return JsonUtil.fromJsonResponse(body, CdsiAuthResponse.class);
+  }
+
+  public String getSvr2Authorization() throws IOException {
+    String          body        = makeServiceRequest(SVR2_AUTH, "GET", null);
+    AuthCredentials credentials = JsonUtil.fromJsonResponse(body, AuthCredentials.class);
+
+    return credentials.asBasic();
   }
 
   public VerifyAccountResponse changeNumber(@Nonnull ChangePhoneNumberRequest changePhoneNumberRequest)
@@ -1144,6 +1155,17 @@ public class PushServiceSocket {
     } else {
       throw new MalformedResponseException("Unable to parse response");
     }
+  }
+
+  public CreateCallLinkCredentialResponse getCallLinkAuthResponse(CreateCallLinkCredentialRequest request) throws IOException {
+    String payload = JsonUtil.toJson(CreateCallLinkAuthRequest.create(request));
+    String response = makeServiceRequest(
+        CALL_LINK_CREATION_AUTH,
+        "POST",
+        payload
+    );
+
+    return JsonUtil.fromJson(response, CreateCallLinkAuthResponse.class).getCreateCallLinkCredentialResponse();
   }
 
   private AuthCredentials getAuthCredentials(String authPath) throws IOException {

@@ -1,7 +1,5 @@
 package org.thoughtcrime.securesms.keyvalue;
 
-import android.preference.PreferenceManager;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -9,6 +7,7 @@ import org.thoughtcrime.securesms.components.settings.app.usernamelinks.Username
 import org.thoughtcrime.securesms.database.model.databaseprotos.PendingChangeNumberMetadata;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.impl.ChangeNumberConstraintObserver;
+import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +37,7 @@ public final class MiscellaneousValues extends SignalStoreValues {
   private static final String USERNAME_QR_CODE_COLOR         = "mis.username_qr_color_scheme";
   private static final String KEYBOARD_LANDSCAPE_HEIGHT      = "misc.keyboard.landscape_height";
   private static final String KEYBOARD_PORTRAIT_HEIGHT       = "misc.keyboard.protrait_height";
+  private static final String LAST_CONSISTENCY_CHECK_TIME    = "misc.last_consistency_check_time";
 
   MiscellaneousValues(@NonNull KeyValueStore store) {
     super(store);
@@ -274,8 +274,8 @@ public final class MiscellaneousValues extends SignalStoreValues {
     int height = getInteger(KEYBOARD_LANDSCAPE_HEIGHT, 0);
     if (height == 0) {
       //noinspection deprecation
-      height = PreferenceManager.getDefaultSharedPreferences(ApplicationDependencies.getApplication())
-                                .getInt("keyboard_height_landscape", 0);
+      height = SecurePreferenceManager.getSecurePreferences(ApplicationDependencies.getApplication())
+                                      .getInt("keyboard_height_landscape", 0);
 
       if (height > 0) {
         setKeyboardLandscapeHeight(height);
@@ -292,7 +292,7 @@ public final class MiscellaneousValues extends SignalStoreValues {
     int height = (int) getInteger(KEYBOARD_PORTRAIT_HEIGHT, 0);
     if (height == 0) {
       //noinspection deprecation
-      height = PreferenceManager.getDefaultSharedPreferences(ApplicationDependencies.getApplication())
+      height = SecurePreferenceManager.getSecurePreferences(ApplicationDependencies.getApplication())
                                 .getInt("keyboard_height_portrait", 0);
 
       if (height > 0) {
@@ -304,5 +304,13 @@ public final class MiscellaneousValues extends SignalStoreValues {
 
   public void setKeyboardPortraitHeight(int height) {
     putInteger(KEYBOARD_PORTRAIT_HEIGHT, height);
+  }
+
+  public long getLastConsistencyCheckTime() {
+    return getLong(LAST_CONSISTENCY_CHECK_TIME, 0);
+  }
+
+  public void setLastConsistencyCheckTime(long time) {
+    putLong(LAST_CONSISTENCY_CHECK_TIME, time);
   }
 }
