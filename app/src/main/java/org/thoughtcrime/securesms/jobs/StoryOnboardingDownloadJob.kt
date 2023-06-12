@@ -66,6 +66,11 @@ class StoryOnboardingDownloadJob private constructor(parameters: Parameters) : B
   override fun onFailure() = Unit
 
   override fun onRun() {
+    if (!SignalStore.account().isRegistered) {
+      Log.i(TAG, "Not registered, skipping.")
+      return
+    }
+
     if (SignalStore.storyValues().hasDownloadedOnboardingStory) {
       Log.i(TAG, "Already downloaded onboarding story. Exiting.")
       return
