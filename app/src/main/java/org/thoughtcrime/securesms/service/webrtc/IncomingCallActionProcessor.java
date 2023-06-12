@@ -108,7 +108,7 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 callSetupState.getIceServers(),
                                                 WebRtcUtil.getProxyInfo(),
                                                 hideIp,
-                                                NetworkUtil.getCallingBandwidthMode(context),
+                                                NetworkUtil.getCallingDataMode(context),
                                                 AUDIO_LEVELS_INTERVAL,
                                                 false);
     } catch (CallException e) {

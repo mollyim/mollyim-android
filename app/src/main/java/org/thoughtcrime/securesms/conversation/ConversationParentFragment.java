@@ -718,9 +718,13 @@ public class ConversationParentFragment extends Fragment
       }, nothing -> onRecipientChanged(recipient.get()));
       break;
     case PICK_LOCATION:
-      SignalPlace place = new SignalPlace(PlacePickerActivity.addressFromData(data));
-      attachmentManager.setLocation(place, getCurrentMediaConstraints());
-      draftViewModel.setLocationDraft(place);
+      if (data.getData() != null) {
+        SignalPlace place = new SignalPlace(PlacePickerActivity.addressFromData(data));
+        attachmentManager.setLocation(place, data.getData());
+        draftViewModel.setLocationDraft(place);
+      } else {
+        Log.w(TAG, "Location missing thumbnail");
+      }
       break;
     case SMS_DEFAULT:
       viewModel.updateSecurityInfo();
@@ -1671,16 +1675,16 @@ public class ConversationParentFragment extends Fragment
       reminderView.get().setOnActionClickListener(this::handleReminderAction);
     } else if (ServiceOutageReminder.isEligible(context)) {
       ApplicationDependencies.getJobManager().add(new ServiceOutageDetectionJob());
-      reminderView.get().showReminder(new ServiceOutageReminder(context));
+      reminderView.get().showReminder(new ServiceOutageReminder());
     } else if (actionableRequestingMembers != null && actionableRequestingMembers > 0) {
-      reminderView.get().showReminder(PendingGroupJoinRequestsReminder.create(context, actionableRequestingMembers));
+      reminderView.get().showReminder(new PendingGroupJoinRequestsReminder(actionableRequestingMembers));
       reminderView.get().setOnActionClickListener(id -> {
         if (id == R.id.reminder_action_review_join_requests) {
           startActivity(ManagePendingAndRequestingMembersActivity.newIntent(context, getRecipient().getGroupId().get().requireV2()));
         }
       });
     } else if (gv1MigrationSuggestions != null && gv1MigrationSuggestions.size() > 0 && recipient.get().isPushV2Group()) {
-      reminderView.get().showReminder(new GroupsV1MigrationSuggestionsReminder(context, gv1MigrationSuggestions));
+      reminderView.get().showReminder(new GroupsV1MigrationSuggestionsReminder(gv1MigrationSuggestions));
       reminderView.get().setOnActionClickListener(actionId -> {
         if (actionId == R.id.reminder_action_gv1_suggestion_add_members) {
           GroupsV1MigrationSuggestionsDialog.show(requireActivity(), recipient.get().requireGroupId().requireV2(), gv1MigrationSuggestions);
@@ -1691,12 +1695,12 @@ public class ConversationParentFragment extends Fragment
       reminderView.get().setOnDismissListener(() -> {
       });
     } else if (isInBubble() && !SignalStore.tooltips().hasSeenBubbleOptOutTooltip() && Build.VERSION.SDK_INT > 29) {
-      reminderView.get().showReminder(new BubbleOptOutReminder(context));
+      reminderView.get().showReminder(new BubbleOptOutReminder());
       reminderView.get().setOnActionClickListener(actionId -> {
         SignalStore.tooltips().markBubbleOptOutTooltipSeen();
         reminderView.get().hide();
 
-        if (actionId == R.id.reminder_action_turn_off) {
+        if (actionId == R.id.reminder_action_bubble_turn_off) {
           Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_BUBBLE_SETTINGS)
               .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().getPackageName())
               .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -4224,7 +4228,7 @@ public class ConversationParentFragment extends Fragment
 
         AlertDialog.Builder builder = new MaterialAlertDialogBuilder(requireContext());
         builder.setIcon(R.drawable.ic_warning);
-        builder.setTitle("No longer verified");
+        builder.setTitle(R.string.ConversationFragment__no_longer_verified);
         builder.setItems(unverifiedNames, (dialog, which) -> {
           startActivity(VerifyIdentityActivity.newIntent(requireContext(), unverifiedIdentities.get(which), false));
         });

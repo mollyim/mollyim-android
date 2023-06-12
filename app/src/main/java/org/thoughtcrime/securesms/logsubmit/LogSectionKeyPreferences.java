@@ -23,7 +23,7 @@ final class LogSectionKeyPreferences implements LogSection {
                               .append("Lock Trigger         : ").append(TextSecurePreferences.getPassphraseLockTrigger(context)).append("\n")
                               .append("Lock Timeout         : ").append(TextSecurePreferences.getPassphraseLockTimeout(context)).append("\n")
                               .append("Prefer Contact Photos: ").append(SignalStore.settings().isPreferSystemContactPhotos()).append("\n")
-                              .append("Call Bandwidth Mode  : ").append(SignalStore.settings().getCallBandwidthMode()).append("\n")
+                              .append("Call Data Mode       : ").append(SignalStore.settings().getCallDataMode()).append("\n")
                               .append("Media Quality        : ").append(SignalStore.settings().getSentMediaQuality()).append("\n")
                               .append("Client Deprecated    : ").append(SignalStore.misc().isClientDeprecated()).append("\n")
                               .append("Push Registered      : ").append(SignalStore.account().isRegistered()).append("\n")

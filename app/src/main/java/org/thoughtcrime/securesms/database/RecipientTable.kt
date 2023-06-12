@@ -23,6 +23,8 @@ import org.signal.core.util.optionalInt
 import org.signal.core.util.optionalLong
 import org.signal.core.util.optionalString
 import org.signal.core.util.or
+import org.signal.core.util.orNull
+import org.signal.core.util.readToList
 import org.signal.core.util.readToSet
 import org.signal.core.util.readToSingleBoolean
 import org.signal.core.util.readToSingleLong
@@ -46,6 +48,7 @@ import org.thoughtcrime.securesms.badges.Badges.toDatabaseBadge
 import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.color.MaterialColor
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor
+import org.thoughtcrime.securesms.conversation.colors.AvatarColorHash
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.conversation.colors.ChatColors.Companion.forChatColor
 import org.thoughtcrime.securesms.conversation.colors.ChatColors.Id.Companion.forLongValue
@@ -600,7 +603,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     } else {
       val values = ContentValues().apply {
         put(GROUP_ID, groupId.toString())
-        put(AVATAR_COLOR, AvatarColor.random().serialize())
+        put(AVATAR_COLOR, AvatarColorHash.forGroupId(groupId).serialize())
       }
 
       val id = writableDatabase.insert(TABLE_NAME, null, values)
@@ -3118,6 +3121,21 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       }
   }
 
+  fun queryByInternalFields(query: String): List<RecipientRecord> {
+    if (query.isBlank()) {
+      return emptyList()
+    }
+
+    return readableDatabase
+      .select()
+      .from(TABLE_NAME)
+      .where("$ID LIKE ? OR $SERVICE_ID LIKE ? OR $PNI_COLUMN LIKE ?", "%$query%", "%$query%", "%$query%")
+      .run()
+      .readToList { cursor ->
+        getRecord(context, cursor)
+      }
+  }
+
   fun getSignalContacts(includeSelf: Boolean): Cursor? {
     return getSignalContacts(includeSelf, "$SORT_NAME, $SYSTEM_JOINED_NAME, $SEARCH_PROFILE_NAME, $USERNAME, $PHONE")
   }
@@ -3817,12 +3835,13 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
   private fun buildContentValuesForNewUser(e164: String?, pni: PNI?, aci: ACI?): ContentValues {
     check(e164 != null || pni != null || aci != null) { "Must provide some sort of identifier!" }
 
+    val serviceId = (aci ?: pni)?.toString()
     val values = contentValuesOf(
       PHONE to e164,
-      SERVICE_ID to (aci ?: pni)?.toString(),
+      SERVICE_ID to serviceId,
       PNI_COLUMN to pni?.toString(),
       STORAGE_SERVICE_ID to Base64.encodeBytes(StorageSyncHelper.generateKey()),
-      AVATAR_COLOR to AvatarColor.random().serialize()
+      AVATAR_COLOR to AvatarColorHash.forAddress(serviceId, e164).serialize()
     )
 
     if (pni != null || aci != null) {
@@ -3879,14 +3898,16 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       }
 
       if (isInsert) {
-        put(AVATAR_COLOR, AvatarColor.random().serialize())
+        put(AVATAR_COLOR, AvatarColorHash.forAddress(contact.serviceId.toString(), contact.number.orNull()).serialize())
       }
     }
   }
 
   private fun getValuesForStorageGroupV1(groupV1: SignalGroupV1Record, isInsert: Boolean): ContentValues {
     return ContentValues().apply {
-      put(GROUP_ID, GroupId.v1orThrow(groupV1.groupId).toString())
+      val groupId = GroupId.v1orThrow(groupV1.groupId)
+
+      put(GROUP_ID, groupId.toString())
       put(GROUP_TYPE, GroupType.SIGNAL_V1.id)
       put(PROFILE_SHARING, if (groupV1.isProfileSharingEnabled) "1" else "0")
       put(BLOCKED, if (groupV1.isBlocked) "1" else "0")
@@ -3900,14 +3921,16 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       }
 
       if (isInsert) {
-        put(AVATAR_COLOR, AvatarColor.random().serialize())
+        put(AVATAR_COLOR, AvatarColorHash.forGroupId(groupId).serialize())
       }
     }
   }
 
   private fun getValuesForStorageGroupV2(groupV2: SignalGroupV2Record, isInsert: Boolean): ContentValues {
     return ContentValues().apply {
-      put(GROUP_ID, GroupId.v2(groupV2.masterKeyOrThrow).toString())
+      val groupId = GroupId.v2(groupV2.masterKeyOrThrow)
+
+      put(GROUP_ID, groupId.toString())
       put(GROUP_TYPE, GroupType.SIGNAL_V2.id)
       put(PROFILE_SHARING, if (groupV2.isProfileSharingEnabled) "1" else "0")
       put(BLOCKED, if (groupV2.isBlocked) "1" else "0")
@@ -3922,7 +3945,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       }
 
       if (isInsert) {
-        put(AVATAR_COLOR, AvatarColor.random().serialize())
+        put(AVATAR_COLOR, AvatarColorHash.forGroupId(groupId).serialize())
       }
     }
   }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
@@ -23,9 +22,10 @@ public class UnverifiedBannerView extends LinearLayout {
 
   private static final String TAG = Log.tag(UnverifiedBannerView.class);
 
-  private View      container;
-  private TextView  text;
-  private ImageView closeButton;
+  private View           container;
+  private TextView       text;
+  private ImageView      closeButton;
+  private OnHideListener onHideListener;
 
   public UnverifiedBannerView(Context context) {
     super(context);
@@ -37,13 +37,11 @@ public class UnverifiedBannerView extends LinearLayout {
     initialize();
   }
 
-  @RequiresApi(api = 11)
   public UnverifiedBannerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     initialize();
   }
 
-  @RequiresApi(api = 21)
   public UnverifiedBannerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
     initialize();
@@ -81,16 +79,27 @@ public class UnverifiedBannerView extends LinearLayout {
     });
   }
 
+  public void setOnHideListener(@Nullable OnHideListener onHideListener) {
+    this.onHideListener = onHideListener;
+  }
+
   public void hide() {
+    if (onHideListener != null && onHideListener.onHide()) {
+      return;
+    }
+
     setVisibility(View.GONE);
   }
 
   public interface DismissListener {
-    public void onDismissed(List<IdentityRecord> unverifiedIdentities);
+    void onDismissed(List<IdentityRecord> unverifiedIdentities);
   }
 
   public interface ClickListener {
-    public void onClicked(List<IdentityRecord> unverifiedIdentities);
+    void onClicked(List<IdentityRecord> unverifiedIdentities);
   }
 
+  public interface OnHideListener {
+    boolean onHide();
+  }
 }

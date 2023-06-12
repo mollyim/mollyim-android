@@ -158,7 +158,7 @@ public class OutgoingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 callSetupState.getIceServers(),
                                                 WebRtcUtil.getProxyInfo(),
                                                 callSetupState.isAlwaysTurnServers(),
-                                                NetworkUtil.getCallingBandwidthMode(context),
+                                                NetworkUtil.getCallingDataMode(context),
                                                 AUDIO_LEVELS_INTERVAL,
                                                 currentState.getCallSetupState(activePeer).isEnableVideoOnCreate());
     } catch (CallException e) {

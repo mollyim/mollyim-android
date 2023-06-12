@@ -4,14 +4,13 @@ import android.app.Application;
 import android.app.job.JobInfo;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import org.thoughtcrime.securesms.jobmanager.Constraint;
-import org.thoughtcrime.securesms.net.Network;
 
 public class NetworkConstraint implements Constraint {
 
@@ -45,14 +44,15 @@ public class NetworkConstraint implements Constraint {
   }
 
   public static boolean isMet(@NonNull Context context) {
-    if (!Network.isEnabled()) {
+    if (!org.thoughtcrime.securesms.net.Network.isEnabled()) {
       return false;
     }
 
     ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo         activeNetworkInfo   = connectivityManager.getActiveNetworkInfo();
 
-    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    Network             activeNetwork       = connectivityManager.getActiveNetwork();
+    NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork);
+    return networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
   }
 
   public static final class Factory implements Constraint.Factory<NetworkConstraint> {
