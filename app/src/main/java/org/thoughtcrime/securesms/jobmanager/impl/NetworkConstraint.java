@@ -4,10 +4,10 @@ import android.app.Application;
 import android.app.job.JobInfo;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import org.thoughtcrime.securesms.jobmanager.Constraint;
@@ -49,10 +49,9 @@ public class NetworkConstraint implements Constraint {
     }
 
     ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo         activeNetworkInfo   = connectivityManager.getActiveNetworkInfo();
 
-    Network             activeNetwork       = connectivityManager.getActiveNetwork();
-    NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork);
-    return networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
   }
 
   public static final class Factory implements Constraint.Factory<NetworkConstraint> {
