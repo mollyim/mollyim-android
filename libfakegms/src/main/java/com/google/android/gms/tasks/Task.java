@@ -26,4 +26,9 @@ public class Task<TResult> {
     listener.onComplete(this);
     return this;
   }
+
+  public Task<TResult> addOnCanceledListener(OnCanceledListener listener) {
+    listener.onCanceled();
+    return this;
+  }
 }

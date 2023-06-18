@@ -11,8 +11,11 @@ import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobMigration;
 import org.thoughtcrime.securesms.jobmanager.impl.AutoDownloadEmojiConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.ChangeNumberConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.ChangeNumberConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.ChargingConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.ChargingConstraintObserver;
+import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.DecryptionsDrainedConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.DecryptionsDrainedConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraint;
@@ -95,6 +98,7 @@ public final class JobManagerFactories {
       put(AvatarGroupsV1DownloadJob.KEY,             new AvatarGroupsV1DownloadJob.Factory());
       put(AvatarGroupsV2DownloadJob.KEY,             new AvatarGroupsV2DownloadJob.Factory());
       put(BoostReceiptRequestResponseJob.KEY,        new FailingJob.Factory());
+      put(CallLinkPeekJob.KEY,                       new CallLinkPeekJob.Factory());
       put("CallSyncEventJob",                        new FailingJob.Factory());
       put(CallSyncEventJob.KEY,                      new CallSyncEventJob.Factory());
       put(CheckServiceReachabilityJob.KEY,           new CheckServiceReachabilityJob.Factory());
@@ -289,6 +293,7 @@ public final class JobManagerFactories {
       put(AutoDownloadEmojiConstraint.KEY,           new AutoDownloadEmojiConstraint.Factory(application));
       put(ChangeNumberConstraint.KEY,                new ChangeNumberConstraint.Factory());
       put(ChargingConstraint.KEY,                    new ChargingConstraint.Factory());
+      put(DataRestoreConstraint.KEY,                 new DataRestoreConstraint.Factory());
       put(DecryptionsDrainedConstraint.KEY,          new DecryptionsDrainedConstraint.Factory());
       put(MasterSecretConstraint.KEY,                new MasterSecretConstraint.Factory(application));
       put(NetworkConstraint.KEY,                     new NetworkConstraint.Factory(application));
@@ -301,7 +306,9 @@ public final class JobManagerFactories {
                          new ChargingConstraintObserver(application),
                          new NetworkConstraintObserver(application),
                          new DecryptionsDrainedConstraintObserver(),
-                         new NotInCallConstraintObserver());
+                         new NotInCallConstraintObserver(),
+                         ChangeNumberConstraintObserver.INSTANCE,
+                         DataRestoreConstraintObserver.INSTANCE);
   }
 
   public static List<JobMigration> getJobMigrations(@NonNull Application application) {

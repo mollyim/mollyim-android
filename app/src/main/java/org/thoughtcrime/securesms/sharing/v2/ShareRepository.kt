@@ -65,6 +65,7 @@ class ShareRepository(context: Context) {
     return ResolvedShareData.ExternalUri(
       uri = blobUri,
       mimeType = mimeType,
+      text = multiShareExternal.text,
     )
   }
 

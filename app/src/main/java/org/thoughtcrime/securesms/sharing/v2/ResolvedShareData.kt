@@ -16,10 +16,11 @@ sealed class ResolvedShareData {
 
   data class ExternalUri(
     val uri: Uri,
-    val mimeType: String
+    val mimeType: String,
+    val text: CharSequence?,
   ) : ResolvedShareData() {
     override fun toMultiShareArgs(): MultiShareArgs {
-      return MultiShareArgs.Builder(setOf()).withDataUri(uri).withDataType(mimeType).build()
+      return MultiShareArgs.Builder(setOf()).withDataUri(uri).withDataType(mimeType).withDraftText(text?.toString()).build()
     }
   }
 

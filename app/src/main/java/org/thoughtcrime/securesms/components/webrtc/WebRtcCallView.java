@@ -389,9 +389,9 @@ public class WebRtcCallView extends ConstraintLayout {
     if ((visible & SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
       if (controls.adjustForFold()) {
         pictureInPictureGestureHelper.clearVerticalBoundaries();
-        pictureInPictureGestureHelper.setTopVerticalBoundary(largeHeader.getTop());
+        pictureInPictureGestureHelper.setTopVerticalBoundary(getPipBarrier().getTop());
       } else {
-        pictureInPictureGestureHelper.setTopVerticalBoundary(largeHeader.getBottom());
+        pictureInPictureGestureHelper.setTopVerticalBoundary(getPipBarrier().getBottom());
         pictureInPictureGestureHelper.setBottomVerticalBoundary(videoToggle.getTop());
       }
     } else {
@@ -575,6 +575,14 @@ public class WebRtcCallView extends ConstraintLayout {
 
   private void setStatus(@StringRes int statusRes) {
     setStatus(getContext().getString(statusRes));
+  }
+
+  private @NonNull View getPipBarrier() {
+    if (collapsedToolbar.isEnabled()) {
+      return collapsedToolbar;
+    } else {
+      return largeHeader;
+    }
   }
 
   public void setStatusFromHangupType(@NonNull HangupMessage.Type hangupType) {

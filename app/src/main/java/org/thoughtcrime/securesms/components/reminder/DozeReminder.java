@@ -9,7 +9,7 @@ import android.os.PowerManager;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
 
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
@@ -19,10 +19,8 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 @SuppressLint("BatteryLife")
 public class DozeReminder extends Reminder {
 
-  @RequiresApi(api = 23)
   public DozeReminder(@NonNull final Context context) {
-    super(getDozeTitle(context),
-          getDozeText(context));
+    super(getDozeTitle(context), getDozeText(context));
 
     setOkListener(v -> {
       TextSecurePreferences.setPromptedOptimizeDoze(context, true);
@@ -40,19 +38,19 @@ public class DozeReminder extends Reminder {
            !((PowerManager)context.getSystemService(Context.POWER_SERVICE)).isIgnoringBatteryOptimizations(context.getPackageName());
   }
 
-  private static String getDozeTitle(Context context) {
+  private static @StringRes int getDozeTitle(Context context) {
     if (BuildConfig.USE_PLAY_SERVICES) {
-      return context.getString(R.string.DozeReminder_optimize_for_missing_play_services);
+      return R.string.DozeReminder_optimize_for_missing_play_services;
     } else {
-      return context.getString(R.string.DozeReminder_optimize_for_timely_notifications);
+      return R.string.DozeReminder_optimize_for_timely_notifications;
     }
   }
 
-  private static String getDozeText(Context context) {
+  private static @StringRes int getDozeText(Context context) {
     if (BuildConfig.USE_PLAY_SERVICES) {
-      return context.getString(R.string.DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery);
+      return R.string.DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery;
     } else {
-      return context.getString(R.string.DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby);
+      return R.string.DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby;
     }
   }
 }

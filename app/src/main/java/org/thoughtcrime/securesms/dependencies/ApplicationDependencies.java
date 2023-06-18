@@ -674,7 +674,7 @@ public class ApplicationDependencies {
     if (callLinksService == null) {
       synchronized (LOCK) {
         if (callLinksService == null) {
-          callLinksService = provider.provideCallLinksService(getSignalServiceNetworkAccess().getConfiguration(), getGroupsV2Operations());
+          callLinksService = getProvider().provideCallLinksService(getSignalServiceNetworkAccess().getConfiguration(), getGroupsV2Operations());
         }
       }
     }

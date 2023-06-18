@@ -66,10 +66,13 @@ import com.google.common.collect.Sets;
 import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.StringUtil;
 import org.signal.core.util.logging.Log;
+import org.signal.ringrtc.CallLinkRootKey;
 import org.thoughtcrime.securesms.BindableConversationItem;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
 import org.thoughtcrime.securesms.badges.BadgeImageView;
+import org.thoughtcrime.securesms.calls.links.CallLinkJoinButton;
+import org.thoughtcrime.securesms.calls.links.CallLinks;
 import org.thoughtcrime.securesms.components.AlertView;
 import org.thoughtcrime.securesms.components.AudioView;
 import org.thoughtcrime.securesms.components.AvatarImageView;
@@ -122,6 +125,7 @@ import org.thoughtcrime.securesms.recipients.RecipientForeverObserver;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageView;
 import org.thoughtcrime.securesms.util.DateUtils;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.InterceptableLongClickCopyLinkSpan;
 import org.thoughtcrime.securesms.util.LinkUtil;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
@@ -214,6 +218,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   private           Stub<LinkPreviewView>                   linkPreviewStub;
   private           Stub<BorderlessImageView>               stickerStub;
   private           Stub<ViewOnceMessageView>               revealableStub;
+  private           Stub<CallLinkJoinButton>                joinCallLinkStub;
   private           Stub<Button>                            callToActionStub;
   private           Stub<PaymentMessageView>                paymentViewStub;
   private @Nullable EventListener                           eventListener;
@@ -311,6 +316,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     this.linkPreviewStub           = new Stub<>(findViewById(R.id.link_preview_stub));
     this.stickerStub               = new Stub<>(findViewById(R.id.sticker_view_stub));
     this.revealableStub            = new Stub<>(findViewById(R.id.revealable_view_stub));
+    this.joinCallLinkStub          = ViewUtil.findStubById(this, R.id.conversation_item_join_button);
     this.callToActionStub          = ViewUtil.findStubById(this, R.id.conversation_item_call_to_action_stub);
     this.groupSenderHolder         = findViewById(R.id.group_sender_holder);
     this.quoteView                 = findViewById(R.id.quote_view);
@@ -1065,6 +1071,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       if (sharedContactStub.resolved()) sharedContactStub.get().setVisibility(GONE);
       if (linkPreviewStub.resolved()) linkPreviewStub.get().setVisibility(GONE);
       if (stickerStub.resolved()) stickerStub.get().setVisibility(View.GONE);
+      if (callToActionStub.resolved()) callToActionStub.get().setVisibility(View.GONE);
       paymentViewStub.setVisibility(View.GONE);
 
       revealableStub.get().setMessage((MmsMessageRecord) messageRecord, hasWallpaper);
@@ -1107,11 +1114,23 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       //noinspection ConstantConditions
       LinkPreview linkPreview = ((MmsMessageRecord) messageRecord).getLinkPreviews().get(0);
 
+      if (FeatureFlags.adHocCalling()) {
+        CallLinkRootKey callLinkRootKey = CallLinks.parseUrl(linkPreview.getUrl());
+        if (callLinkRootKey != null) {
+          joinCallLinkStub.setVisibility(View.VISIBLE);
+          joinCallLinkStub.get().setJoinClickListener(v -> {
+            if (eventListener != null) {
+              eventListener.onJoinCallLink(callLinkRootKey);
+            }
+          });
+        }
+      }
+
       if (hasBigImageLinkPreview(messageRecord)) {
         mediaThumbnailStub.require().setVisibility(VISIBLE);
         mediaThumbnailStub.require().setMinimumThumbnailWidth(readDimen(R.dimen.media_bubble_min_width_with_content));
         mediaThumbnailStub.require().setMaximumThumbnailHeight(readDimen(R.dimen.media_bubble_max_height));
-        mediaThumbnailStub.require().setImageResource(glideRequests, Collections.singletonList(new ImageSlide(context, linkPreview.getThumbnail().get())), showControls, false);
+        mediaThumbnailStub.require().setImageResource(glideRequests, Collections.singletonList(new ImageSlide(linkPreview.getThumbnail().get())), showControls, false);
         mediaThumbnailStub.require().setThumbnailClickListener(new LinkPreviewThumbnailClickListener());
         mediaThumbnailStub.require().setDownloadClickListener(downloadClickListener);
         mediaThumbnailStub.require().setOnLongClickListener(passthroughClickListener);

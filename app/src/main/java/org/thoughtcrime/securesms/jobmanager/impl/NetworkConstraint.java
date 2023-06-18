@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import org.thoughtcrime.securesms.jobmanager.Constraint;
-import org.thoughtcrime.securesms.net.Network;
 
 public class NetworkConstraint implements Constraint {
 
@@ -45,7 +44,7 @@ public class NetworkConstraint implements Constraint {
   }
 
   public static boolean isMet(@NonNull Context context) {
-    if (!Network.isEnabled()) {
+    if (!org.thoughtcrime.securesms.net.Network.isEnabled()) {
       return false;
     }
 

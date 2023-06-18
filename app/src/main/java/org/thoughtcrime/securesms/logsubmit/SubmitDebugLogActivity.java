@@ -24,6 +24,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import org.thoughtcrime.securesms.BaseActivity;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
@@ -292,17 +294,17 @@ public class SubmitDebugLogActivity extends BaseActivity implements SubmitDebugL
   }
 
   private void presentResultDialog(@NonNull String url) {
-    AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                                                 .setTitle(R.string.SubmitDebugLogActivity_success)
-                                                 .setCancelable(false)
-                                                 .setNeutralButton(android.R.string.ok, (d, w) -> finish())
-                                                 .setPositiveButton(R.string.SubmitDebugLogActivity_share, (d, w) -> {
-                                                   ShareCompat.IntentBuilder.from(this)
-                                                                            .setText(url)
-                                                                            .setType("text/plain")
-                                                                            .addEmailTo(SupportEmailUtil.getSupportEmailAddress(this))
-                                                                            .startChooser();
-                                                 });
+    AlertDialog.Builder builder = new MaterialAlertDialogBuilder(this)
+        .setTitle(R.string.SubmitDebugLogActivity_success)
+        .setCancelable(false)
+        .setNeutralButton(android.R.string.ok, (d, w) -> finish())
+        .setPositiveButton(R.string.SubmitDebugLogActivity_share, (d, w) -> {
+          ShareCompat.IntentBuilder.from(this)
+                                   .setText(url)
+                                   .setType("text/plain")
+                                   .addEmailTo(SupportEmailUtil.getSupportEmailAddress(this))
+                                   .startChooser();
+        });
 
     String            dialogText          = getResources().getString(R.string.SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue, url);
     SpannableString   spannableDialogText = new SpannableString(dialogText);
