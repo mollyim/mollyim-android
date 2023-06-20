@@ -1,6 +1,8 @@
 package im.molly.unifiedpush.receiver
 
 import android.content.Context
+import androidx.core.os.bundleOf
+import com.google.firebase.messaging.RemoteMessage
 import im.molly.unifiedpush.events.UnifiedPushRegistrationEvent
 import im.molly.unifiedpush.model.UnifiedPushStatus
 import im.molly.unifiedpush.model.saveStatus
@@ -10,12 +12,10 @@ import im.molly.unifiedpush.util.UnifiedPushNotificationBuilder
 import org.greenrobot.eventbus.EventBus
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.gcm.FcmReceiveService
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
 import org.unifiedpush.android.connector.MessagingReceiver
-import java.util.Timer
-import kotlin.concurrent.schedule
 
 class UnifiedPushReceiver : MessagingReceiver() {
   private val TAG = Log.tag(UnifiedPushReceiver::class.java)
@@ -70,9 +70,8 @@ class UnifiedPushReceiver : MessagingReceiver() {
   override fun onMessage(context: Context, message: ByteArray, instance: String) {
     if (UnifiedPushHelper.isUnifiedPushAvailable()) {
       Log.d(TAG, "New message")
-      ApplicationDependencies.getIncomingMessageObserver().registerKeepAliveToken(UnifiedPushReceiver::class.java.name)
-      Timer().schedule(TIMEOUT) {
-        ApplicationDependencies.getIncomingMessageObserver().removeKeepAliveToken(UnifiedPushReceiver::class.java.name)
+      EXECUTOR.enqueue {
+        FcmReceiveService.handleReceivedNotification(context, RemoteMessage(bundleOf("google.delivered_priority" to "high")))
       }
     }
   }
