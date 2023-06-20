@@ -20,7 +20,7 @@ public class RemoteMessage {
   }
 
   public int getPriority() {
-    return 0;
+    return PRIORITY_HIGH;
   }
 
   public static class Data {
