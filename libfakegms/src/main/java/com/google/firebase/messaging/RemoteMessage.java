@@ -1,7 +1,12 @@
 package com.google.firebase.messaging;
 
+import android.os.Bundle;
+
 public class RemoteMessage {
   public static final int PRIORITY_HIGH = 1;
+
+  public RemoteMessage(Bundle bundle) {
+  }
 
   public Data getData() {
     return new Data();
