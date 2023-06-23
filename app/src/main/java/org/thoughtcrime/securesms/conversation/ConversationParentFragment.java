@@ -295,6 +295,7 @@ import org.whispersystems.signalservice.api.SignalSessionLock;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -439,6 +440,7 @@ public class ConversationParentFragment extends Fragment
   private GroupCallViewModel           groupCallViewModel;
   private VoiceRecorderWakeLock        voiceRecorderWakeLock;
   private DraftViewModel               draftViewModel;
+  private KeyboardPagerViewModel       keyboardPagerViewModel;
   private VoiceNoteMediaController     voiceNoteMediaController;
   private VoiceNotePlayerView          voiceNotePlayerView;
   private Material3OnScrollHelper      material3OnScrollHelper;
@@ -460,7 +462,7 @@ public class ConversationParentFragment extends Fragment
   private Callback             callback;
   private RecentEmojiPageModel recentEmojis;
 
-  private ConversationOptionsMenu.Provider menuProvider;
+  private Set<KeyboardPage> previousPages;
 
   public static ConversationParentFragment create(Intent intent) {
     ConversationParentFragment fragment = new ConversationParentFragment();
@@ -480,7 +482,6 @@ public class ConversationParentFragment extends Fragment
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     disposables.bindTo(getViewLifecycleOwner());
-    menuProvider = new ConversationOptionsMenu.Provider(this, disposables);
     SpoilerAnnotation.resetRevealedSpoilers();
 
     if (requireActivity() instanceof Callback) {
@@ -556,10 +557,6 @@ public class ConversationParentFragment extends Fragment
       }
     };
     requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backPressedCallback);
-
-    if (isSearchRequested && savedInstanceState == null) {
-      menuProvider.onCreateMenu(toolbar.getMenu(), requireActivity().getMenuInflater());
-    }
 
     sendButton.post(() -> sendButton.triggerSelectedChangedEvent());
   }
@@ -849,6 +846,7 @@ public class ConversationParentFragment extends Fragment
         }
 
         composeText.addTextChangedListener(typingTextWatcher);
+        composeText.setStylingChangedListener(typingTextWatcher);
         composeText.setSelection(composeText.length(), composeText.length());
       }
     });
@@ -970,7 +968,7 @@ public class ConversationParentFragment extends Fragment
     if (!isSearchRequested && getActivity() != null) {
       optionsMenuDebouncer.publish(() -> {
         if (getActivity() != null) {
-          menuProvider.onCreateMenu(toolbar.getMenu(), requireActivity().getMenuInflater());
+          toolbar.invalidateMenu();
         }
       });
     }
@@ -2020,8 +2018,8 @@ public class ConversationParentFragment extends Fragment
   }
 
   protected void initializeActionBar() {
+    toolbar.addMenuProvider(new ConversationOptionsMenu.Provider(this, disposables));
     invalidateOptionsMenu();
-    toolbar.setOnMenuItemClickListener(menuProvider::onMenuItemSelected);
     toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_back_button);
     if (isInBubble()) {
       toolbar.setNavigationIcon(DrawableUtil.tint(ContextUtil.requireDrawable(requireContext(), R.drawable.ic_notification),
@@ -2278,6 +2276,11 @@ public class ConversationParentFragment extends Fragment
                 .setText(R.string.ConversationActivity__tap_here_to_start_a_group_call)
                 .setOnDismissListener(() -> SignalStore.tooltips().markGroupCallingTooltipSeen())
                 .show(TooltipPopup.POSITION_BELOW);
+  }
+
+  @Override
+  public void handleFormatText(@IdRes int id) {
+    composeText.handleFormatText(id);
   }
 
   @Override
@@ -2611,7 +2614,7 @@ public class ConversationParentFragment extends Fragment
   }
 
   private void initializeMediaKeyboardProviders() {
-    KeyboardPagerViewModel keyboardPagerViewModel = new ViewModelProvider(requireActivity()).get(KeyboardPagerViewModel.class);
+    keyboardPagerViewModel = new ViewModelProvider(requireActivity()).get(KeyboardPagerViewModel.class);
 
     switch (TextSecurePreferences.getMediaKeyboardMode(requireContext())) {
       case EMOJI:
@@ -3507,6 +3510,11 @@ public class ConversationParentFragment extends Fragment
   }
 
   @Override
+  public boolean isTextHighlighted() {
+    return composeText.isTextHighlighted();
+  }
+
+  @Override
   public void showExpiring(@NonNull Recipient recipient) {
     titleView.showExpiring(recipient);
   }
@@ -3553,6 +3561,7 @@ public class ConversationParentFragment extends Fragment
     public void onError(Throwable t) {
       Toast.makeText(requireContext(), R.string.ConversationActivity_unable_to_record_audio, Toast.LENGTH_LONG).show();
       Log.e(TAG, "Error in RecordingSession.", t);
+      recordingSession.discardRecording();
       recordingSession.dispose();
       recordingSession = null;
     }
@@ -3689,7 +3698,7 @@ public class ConversationParentFragment extends Fragment
     }
   }
 
-  private class ComposeTextWatcher extends SimpleTextWatcher {
+  private class ComposeTextWatcher extends SimpleTextWatcher implements ComposeText.StylingChangedListener {
 
     private boolean typingStatusEnabled = true;
 
@@ -3729,6 +3738,11 @@ public class ConversationParentFragment extends Fragment
 
     public void setTypingStatusEnabled(boolean enabled) {
       this.typingStatusEnabled = enabled;
+    }
+
+    @Override
+    public void onStylingChanged() {
+      handleSaveDraftOnTextChange(composeText.getTextTrimmed());
     }
   }
 
@@ -4042,6 +4056,11 @@ public class ConversationParentFragment extends Fragment
       return;
     }
 
+    if (SignalStore.uiHints().hasNotSeenEditMessageBetaAlert()) {
+      Dialogs.showEditMessageBetaDialog(requireContext(), this::handleSendEditMessage);
+      return;
+    }
+
     MessageRecord editMessage = inputPanel.getEditMessage();
     if (editMessage == null) {
       Log.w(TAG, "No edit message found, forcing exit");
@@ -4065,12 +4084,19 @@ public class ConversationParentFragment extends Fragment
   @Override
   public void onEnterEditMode() {
     updateToggleButtonState();
+    previousPages = keyboardPagerViewModel.pages().getValue();
+    keyboardPagerViewModel.setOnlyPage(KeyboardPage.EMOJI);
+    onKeyboardChanged(KeyboardPage.EMOJI);
   }
 
   @Override
   public void onExitEditMode() {
     updateToggleButtonState();
     draftViewModel.deleteMessageEditDraft();
+    if (previousPages != null) {
+      keyboardPagerViewModel.setPages(previousPages);
+      previousPages = null;
+    }
   }
 
   @Override

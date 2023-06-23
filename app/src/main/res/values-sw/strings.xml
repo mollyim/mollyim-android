@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">Majibu</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Simu ya Signal inaendelea</string>
     <string name="NotificationBarManager__establishing_signal_call">Inaanzisha simu ya Signal</string>
-    <string name="NotificationBarManager__incoming_signal_call">Simu ya Signal inayoingia</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Simu ya kikundi ya Signal inaingia</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Kuanzisha huduma ya kupiga simu na Molly</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Kusimamisha huduma ya mazungumzo ya simu ya Molly</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s ameanzisha mazungumzo ya simu ya kikundi · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Umeanzisha simu ya kikundi · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s yuko kwenye mazungumzo ya simu ya kikundi · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Uko kwenye mazungumzo ya simu ya kikundi · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s na %2$s wako kwenye mazungumzo ya simu ya kikundi · %3$s</string>
     <string name="MessageRecord_group_call_s">Mazungumzo ya simu ya kikundi · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s ameanzisha mazungumzo ya simu ya kikundi</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Umeanzisha mazungumzo ya simu ya kikundi</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s yuko kwenye mazungumzo ya simu ya kikundi</string>
     <string name="MessageRecord_you_are_in_the_group_call">Uko kwenye mazungumzo ya simu ya kikundi</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s na %2$s wako kwenye mazungumzo ya simu ya kikundi</string>
@@ -2345,7 +2342,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Vipokea sauti vya kichwani Vyenye Waya</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Kisikilizishi cha Kichwani</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3342,8 @@
     <string name="conversation__menu_conversation_settings">Mpangilio wa Gumzo</string>
     <string name="conversation__menu_add_shortcut">Ongeza kwenye skrini ya nyumbani</string>
     <string name="conversation__menu_create_bubble">Unda kiputo</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Panua kidukizo</string>
@@ -3546,6 +3545,20 @@
     <string name="KbsMegaphone__create_a_pin">Unda Nenosiri</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN hutumika kusimba maelezo yaliyohifadhiwa kwa kutumia Signal.</string>
     <string name="KbsMegaphone__create_pin">Unda Nenosiri</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Simu ya Kawaida ya Molly Inayopiga Sasa</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Simu ya Video ya Molly Inayopiga Sasa</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Simu ya kikundi ya Molly inaingia</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Simu ya Kawaida ya Molly Inayoendelea</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Simu ya Video ya Molly Inayoendelea</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Simu ya Kikundi ya Molly Inayoendelea</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Ikoni ya usafiri</string>
@@ -5905,6 +5918,8 @@
     <string name="TextFormatting_monospace">Nafasi moja</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Muundo fiche</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5986,15 @@
     <string name="CallContextMenu__delete">Futa</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Inafuta…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Imeshindwa kufuta.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Haiwezi kufuta kiungo. Angalia muunganisho wako na ujaribu tena.</item>
+        <item quantity="other">Sio viungo vyote vya kupiga simu vinaweza kufutwa. Angalia muunganisho wako na ujaribu tena.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Historia ya simu imefutwa</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6116,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Historia ya uhariri</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Signal beta pekee</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Kuhariri ujumbe kunapatikana kwa watumiaji wa beta wa Signal pekee. Ukihariri ujumbe, utaonekana kwa watu walio kwenye toleo jipya la beta la Signal pekee.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Ghairi</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Tuma</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

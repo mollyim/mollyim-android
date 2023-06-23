@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">Отговори</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Протича Signal разговор</string>
     <string name="NotificationBarManager__establishing_signal_call">Установяване на Signal разговор</string>
-    <string name="NotificationBarManager__incoming_signal_call">Входящо Signal обаждане</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Входящо Signal групово обаждане</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Стартиране на услугата за разговори на Molly</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Спиране на услугата за разговори на Molly</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s започна групов разговор · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Започнахте групово повикване · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s е в групов разговор · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Вие сте в групов разговор · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s и %2$s са в групов разговор · %3$s</string>
     <string name="MessageRecord_group_call_s">Групов разговор · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s започна групов разговор</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Започнахте групово повикване</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s е в груповия разговор</string>
     <string name="MessageRecord_you_are_in_the_group_call">Вие сте в груповия разговор</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s и %2$s са в груповия разговор</string>
@@ -2345,7 +2342,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Кабелни слушалки</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Слушалки с кабел</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3342,8 @@
     <string name="conversation__menu_conversation_settings">Настройки на чата</string>
     <string name="conversation__menu_add_shortcut">Добавяне на работния плот</string>
     <string name="conversation__menu_create_bubble">Създаване на балон</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Разшири диалога</string>
@@ -3546,6 +3545,20 @@
     <string name="KbsMegaphone__create_a_pin">Създайте си ПИН</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">ПИН кодовете съхраняват криптирана информацията, която се съхранява в Signal.</string>
     <string name="KbsMegaphone__create_pin">Създаване на ПИН</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Входящо гласово повикване в Molly</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Входящо видео повикване в Molly</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Входящо Molly групово обаждане</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Текущо гласово повикване в Molly</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Текущо видео повикване в Molly</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Текущо групово повикване в Molly</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Икона за транспорт</string>
@@ -5905,6 +5918,8 @@
     <string name="TextFormatting_monospace">Моношир</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Спойлър</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5986,15 @@
     <string name="CallContextMenu__delete">Изтриване</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Изтриване…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Неуспешно изтриване.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Линкът не може да бъде изтрит. Проверете връзката си и опитайте отново.</item>
+        <item quantity="other">Не всички линкове за повикване могат да бъдат изтрити. Проверете връзката си и опитайте отново.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Изчистена история на повикванията</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6116,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">История на редакциите</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Само за Signal beta</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Редактирането на съобщения е достъпно само за бета потребители на Signal. Ако редактирате съобщение, то ще се вижда само от хора, които използват най-новата версия на Signal beta.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Отказ</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Изпращане</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

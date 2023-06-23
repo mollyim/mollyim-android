@@ -1174,10 +1174,7 @@
     <string name="MessageQuotesBottomSheet_replies">回覆</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Signal 通話中</string>
     <string name="NotificationBarManager__establishing_signal_call">籌備緊 Signal 通話</string>
-    <string name="NotificationBarManager__incoming_signal_call">打入嚟嘅 Signal 通話</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">打入嚟嘅 Signal 成谷通話</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">開始 Molly 通話服務</string>
     <string name="NotificationBarManager__stopping_signal_call_service">停止緊 Molly 通話服務</string>
@@ -1433,14 +1430,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s 已發起成谷通話 · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">你開始咗一個群組通話 · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s 嚟到成谷通話 · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">您嚟到成谷通話 · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s 同 %2$s 嚟到成谷通話 · %3$s</string>
     <string name="MessageRecord_group_call_s">成谷通話 · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s 已發起成谷通話</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">你開始咗一個群組通話</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s 嚟到成谷通話</string>
     <string name="MessageRecord_you_are_in_the_group_call">您嚟到成谷通話</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s 同 %2$s 嚟到成谷通話</string>
@@ -2275,7 +2272,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">藍牙</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">有線耳機</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">有線耳機</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3262,6 +3259,8 @@
     <string name="conversation__menu_conversation_settings">聊天設定</string>
     <string name="conversation__menu_add_shortcut">喺主畫面加個公仔</string>
     <string name="conversation__menu_create_bubble">建立氣泡</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">過去再放大</string>
@@ -3455,6 +3454,20 @@
     <string name="KbsMegaphone__create_a_pin">建立一個 PIN 碼</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">有 PIN 碼，儲存喺 Signal 嘅資訊就安心加密。</string>
     <string name="KbsMegaphone__create_pin">建立 PIN 碼</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">打入嚟嘅 Molly 語音通話</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">打入嚟嘅 Molly 視像通話</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">打入嚟嘅 Molly 成谷通話</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">傾緊 Molly 語音通話</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">傾緊 Molly 視像通話</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">傾緊 Molly 群組通話</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">物流公仔</string>
@@ -5782,6 +5795,8 @@
     <string name="TextFormatting_monospace">等寬</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">劇透文字</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5848,6 +5863,14 @@
     <string name="CallContextMenu__delete">刪除</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">刪除緊…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">刪除失敗。</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="other">刪除唔到全部通話連結。請你檢查吓網絡連線，然後再試過啦。</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">清除咗通話紀錄</string>
     <!-- Dialog title to clear all call events -->
@@ -5967,6 +5990,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">編輯紀錄</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">只限 Signal 測試版</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">編輯訊息功能只限 Signal 測試版嘅用戶使用。只有用 Signal 最新測試版嘅用戶先可以睇到你嘅編輯訊息。</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">取消</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">傳送</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

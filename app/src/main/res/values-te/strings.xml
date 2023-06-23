@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">రిప్లైలు</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">పురోగతి లో Signal కాల్</string>
     <string name="NotificationBarManager__establishing_signal_call">స్థాపించబడుతున్న Signal కాల్</string>
-    <string name="NotificationBarManager__incoming_signal_call">క్రొత్తగా వచ్చిన Signal కాల్</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">ఇన్‌కమింగ్ Signal గ్రూప్ కాల్</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Molly కాల్ సర్వీస్‌ని ప్రారంభిస్తోంది</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Molly కాల్ సర్వీస్‌ని ఆపివేస్తోంది</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s సమూహ కాల్ ప్రారంభించారు. %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">మీరు గ్రూప్ కాల్ ప్రారంభించారు · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s సమూహ కాల్‌లో ఉన్నారు · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">మీరు గ్రూప్ కాల్‌లో ఉన్నారు. %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s మరియు %2$s గ్రూప్ కాల్‌లో ఉన్నారు · %3$s</string>
     <string name="MessageRecord_group_call_s">సమూహ కాల్ · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s సమూహ కాల్ ప్రారంభించారు</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">మీరు సమూహ కాల్ ప్రారంభించారు</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s సమూహ కాల్‌లో ఉన్నారు</string>
     <string name="MessageRecord_you_are_in_the_group_call">మీరు గ్రూప్ కాల్‌లో ఉన్నారు</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s మరియు %2$s గ్రూప్ కాల్‌లో ఉన్నారు</string>
@@ -2345,7 +2342,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">వైర్డ్ హెడ్‌ఫోన్‌లు</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">వైర్డ్ హెడ్‌సెట్</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3342,8 @@
     <string name="conversation__menu_conversation_settings">చాట్ సెట్టింగులు</string>
     <string name="conversation__menu_add_shortcut">హోమ్ స్క్రీన్కు జోడించండి</string>
     <string name="conversation__menu_create_bubble">బబుల్ సృష్టించు</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">పాపప్ విస్తరించు</string>
@@ -3546,6 +3545,20 @@
     <string name="KbsMegaphone__create_a_pin">పిన్ సృష్టించండి</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">పిన్‌లు Signal గుప్తీకరించిన సమాచారాన్ని నిల్వ చేస్తాయి.</string>
     <string name="KbsMegaphone__create_pin">పిన్ సృష్టించండి</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">ఇన్‌కమింగ్ Molly వాయిస్ కాల్</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">ఇన్‌కమింగ్ Molly వీడియో కాల్</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">ఇన్‌కమింగ్ Molly గ్రూప్ కాల్</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">కొనసాగుతున్న Molly వాయిస్ కాల్</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">కొనసాగుతున్న Molly వీడియో కాల్</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">కొనసాగుతున్న Molly గ్రూప్ కాల్</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">రవాణా చిహ్నం</string>
@@ -5905,6 +5918,8 @@
     <string name="TextFormatting_monospace">మోనోస్పేస్</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">స్పాయిలర్</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5986,15 @@
     <string name="CallContextMenu__delete">తొలగించండి</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">తొలగిస్తోంది…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">తొలగించడం విఫలమైంది.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">లింక్‌ను తొలగించలేదు. మీ కనెక్షన్‌ను తనిఖీ చేయండి మరియు మళ్లీ ప్రయత్నించండి.</item>
+        <item quantity="other">అన్ని కాల్ లింక్‌లను తొలగించడం సాధ్యం కాదు. మీ కనెక్షన్‌ను తనిఖీ చేయండి మరియు మళ్లీ ప్రయత్నించండి.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">కాల్ చరిత్రను తొలగించాము</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6116,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">సవరణ చరిత్ర</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Signal బీటా మాత్రమే</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Signal బీటా యూజర్లకు మాత్రమే సందేశాలను సవరించడం అందుబాటులో ఉంది. ఒకవేళ మీరు ఒక సందేశాన్ని సవరిస్తే, Signal బీటా యొక్క తాజా వెర్షన్‌పై ఉన్న వ్యక్తులకు మాత్రమే ఇది కనపడుతుంది.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">రద్దు చేయండి</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">పంపు</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

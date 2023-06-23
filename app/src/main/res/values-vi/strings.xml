@@ -1174,10 +1174,7 @@
     <string name="MessageQuotesBottomSheet_replies">Câu trả lời</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Đang tiến hành cuộc gọi Signal</string>
     <string name="NotificationBarManager__establishing_signal_call">Đang thiết lập cuộc gọi Signal</string>
-    <string name="NotificationBarManager__incoming_signal_call">Cuộc gọi đến Signal</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Đang có cuộc gọi nhóm Signal đến</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Đang khởi động dịch vụ gọi thoại Molly</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Dừng dịch vụ gọi thoại Molly</string>
@@ -1433,14 +1430,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s đã bắt đầu cuộc gọi nhóm · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Bạn đã bắt đầu cuộc gọi nhóm · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s đang trong cuộc gọi nhóm · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Bạn đang trong cuộc gọi nhóm · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s và %2$s đang trong cuộc gọi nhóm · %3$s</string>
     <string name="MessageRecord_group_call_s">Cuộc gọi nhóm · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s đã bắt đầu cuộc gọi nhóm</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Bạn đã bắt đầu cuộc gọi nhóm</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s đang trong cuộc gọi nhóm</string>
     <string name="MessageRecord_you_are_in_the_group_call">Bạn đang trong cuộc gọi nhóm</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s và %2$s đang trong cuộc gọi nhóm</string>
@@ -2275,7 +2272,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Tai nghe có dây</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Tai nghe có dây</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3262,6 +3259,8 @@
     <string name="conversation__menu_conversation_settings">Cài đặt cuộc trò chuyện</string>
     <string name="conversation__menu_add_shortcut">Thêm vào màn hình chính</string>
     <string name="conversation__menu_create_bubble">Tạo bong bóng</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Nới rộng khung popup</string>
@@ -3455,6 +3454,20 @@
     <string name="KbsMegaphone__create_a_pin">Tạo mã PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Mã PIN giúp dữ liệu lưu trữ với Signal được bảo mật.</string>
     <string name="KbsMegaphone__create_pin">Tạo mã PIN</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Cuộc gọi thoại Molly đến</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Cuộc gọi video Molly đến</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Đang có cuộc gọi nhóm Molly đến</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Đang gọi thoại Molly</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Đang gọi video Molly</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Đang gọi nhóm Molly</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Biểu tượng chuyển tải</string>
@@ -5782,6 +5795,8 @@
     <string name="TextFormatting_monospace">Đơn cách</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Spoiler</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5848,6 +5863,14 @@
     <string name="CallContextMenu__delete">Xóa</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Đang xóa…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Xóa không thành công.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="other">Không thể xóa một số đường dẫn cuộc gọi. Vui lòng kiểm tra kết nối mạng và thử lại.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Đã xóa lịch sử cuộc gọi</string>
     <!-- Dialog title to clear all call events -->
@@ -5967,6 +5990,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Lịch sử chỉnh sửa</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Chỉ có trên bản beta của Signal</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Tính năng sửa tin nhắn chỉ khả dụng cho người dùng bản beta của Signal. Nếu bạn sửa một tin nhắn, nội dung sau khi thay đổi sẽ chỉ hiển thị với người dùng bản beta mới nhất của Signal.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Hủy</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Gửi</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">Cavablar</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Signal zəngi davam edir</string>
     <string name="NotificationBarManager__establishing_signal_call">Signal zəngi edilir</string>
-    <string name="NotificationBarManager__incoming_signal_call">Gələn Signal zəngi</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Gələn Signal görüntülü zəngi</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Molly zəng xidməti başladılır</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Molly zəng xidməti dayandırılır</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s bir qrup zəngi başlatdı · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Qrup zənginə başlama vaxtınız · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s qrup zəngindədir · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Qrup zəngindəsiniz · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s və %2$s qrup zəngindədir · %3$s</string>
     <string name="MessageRecord_group_call_s">Qrup zəngi · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s bir qrup zəngi başlatdı</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Bir qrup zəngi başlatdınız</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s qrup zəngindədir</string>
     <string name="MessageRecord_you_are_in_the_group_call">Qrup zəngindəsiniz</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s və %2$s qrup zəngindədir</string>
@@ -2345,7 +2342,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Simli qulaqlıqlar</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Simli qulaqlıq</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3342,8 @@
     <string name="conversation__menu_conversation_settings">Çat parametrləri</string>
     <string name="conversation__menu_add_shortcut">Əsas ekrana əlavə et</string>
     <string name="conversation__menu_create_bubble">Şar yarat</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Açılan pəncərəni genişləndir</string>
@@ -3546,6 +3545,20 @@
     <string name="KbsMegaphone__create_a_pin">PIN yarat</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN-lər, Signal-da saxlanılan məlumatları şifrələnmiş olaraq tutur.</string>
     <string name="KbsMegaphone__create_pin">PİN yarat</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Gələn Molly audio zəngi</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Gələn Molly video zəngi</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Gələn Molly görüntülü zəngi</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Davam edən Molly audio zəngi</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Davam edən Molly video zəngi</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Davam edən Molly qrup zəngi</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Nəqliyyat nişanı</string>
@@ -5905,6 +5918,8 @@
     <string name="TextFormatting_monospace">Qeyri-proporsional</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Spoiler</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5986,15 @@
     <string name="CallContextMenu__delete">Sil</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Silinir…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Silinmədi.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Keçidi silmək mümkün olmadı, bağlantınızı yoxlayıb yenidən cəhd edin.</item>
+        <item quantity="other">Bütün zəng keçidlərini silmək mümkün olmadı. Bağlantınızı yoxlayıb yenidən cəhd edin.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Zəng tarixçəsi təmizləndi</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6116,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Redaktə tarixçəsi</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Yalnız Signal beta</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Mesajların redaktəsi funksiyası yalnız Signal beta istifadəçiləri üçün əlçatandır. Bir mesajı redaktə etsəniz, onu yalnız Signal betanın son versiyasından istifadə edən şəxslər görə biləcək.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Ləğv et</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Göndər</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

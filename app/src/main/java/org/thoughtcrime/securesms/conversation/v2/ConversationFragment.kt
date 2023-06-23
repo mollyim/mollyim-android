@@ -40,6 +40,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
@@ -79,6 +80,7 @@ import org.signal.core.util.concurrent.addTo
 import org.signal.core.util.dp
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
+import org.signal.core.util.setActionItemTint
 import org.signal.libsignal.protocol.InvalidMessageException
 import org.signal.ringrtc.CallLinkRootKey
 import org.thoughtcrime.securesms.BlockUnblockDialog
@@ -87,8 +89,10 @@ import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.MuteDialog
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.audio.AudioRecorder
 import org.thoughtcrime.securesms.components.AnimatingToggle
 import org.thoughtcrime.securesms.components.ComposeText
+import org.thoughtcrime.securesms.components.ConversationSearchBottomBar
 import org.thoughtcrime.securesms.components.HidingLinearLayout
 import org.thoughtcrime.securesms.components.InputAwareConstraintLayout
 import org.thoughtcrime.securesms.components.InputPanel
@@ -102,6 +106,7 @@ import org.thoughtcrime.securesms.components.menu.ActionItem
 import org.thoughtcrime.securesms.components.menu.SignalBottomActionBar
 import org.thoughtcrime.securesms.components.recyclerview.SmoothScrollingLinearLayoutManager
 import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsActivity
+import org.thoughtcrime.securesms.components.voice.VoiceNoteDraft
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlaybackState
 import org.thoughtcrime.securesms.contactshare.Contact
@@ -122,6 +127,7 @@ import org.thoughtcrime.securesms.conversation.ConversationReactionDelegate
 import org.thoughtcrime.securesms.conversation.ConversationReactionOverlay
 import org.thoughtcrime.securesms.conversation.ConversationReactionOverlay.OnActionSelectedListener
 import org.thoughtcrime.securesms.conversation.ConversationReactionOverlay.OnHideListener
+import org.thoughtcrime.securesms.conversation.ConversationSearchViewModel
 import org.thoughtcrime.securesms.conversation.MarkReadHelper
 import org.thoughtcrime.securesms.conversation.MenuState
 import org.thoughtcrime.securesms.conversation.MessageSendType
@@ -189,18 +195,21 @@ import org.thoughtcrime.securesms.messagedetails.MessageDetailsFragment
 import org.thoughtcrime.securesms.messagerequests.MessageRequestRepository
 import org.thoughtcrime.securesms.messagerequests.MessageRequestState
 import org.thoughtcrime.securesms.mms.AttachmentManager
+import org.thoughtcrime.securesms.mms.AudioSlide
 import org.thoughtcrime.securesms.mms.GlideApp
 import org.thoughtcrime.securesms.mms.MediaConstraints
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.mms.SlideDeck
 import org.thoughtcrime.securesms.mms.SlideFactory
+import org.thoughtcrime.securesms.mms.StickerSlide
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewCardDialogFragment
 import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment
 import org.thoughtcrime.securesms.reactions.ReactionsBottomSheetDialogFragment
+import org.thoughtcrime.securesms.reactions.any.ReactWithAnyEmojiBottomSheetDialogFragment
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientExporter
 import org.thoughtcrime.securesms.recipients.RecipientFormattingException
@@ -251,11 +260,15 @@ import java.util.concurrent.ExecutionException
 /**
  * A single unified fragment for Conversations.
  */
-class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) {
+class ConversationFragment :
+  LoggingFragment(R.layout.v2_conversation_fragment),
+  ReactWithAnyEmojiBottomSheetDialogFragment.Callback,
+  ReactionsBottomSheetDialogFragment.Callback {
 
   companion object {
     private val TAG = Log.tag(ConversationFragment::class.java)
     private const val ACTION_PINNED_SHORTCUT = "action_pinned_shortcut"
+    private const val SAVED_STATE_IS_SEARCH_REQUESTED = "is_search_requested"
   }
 
   private val args: ConversationIntents.Args by lazy {
@@ -302,11 +315,14 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     DraftViewModel(threadId = args.threadId, repository = DraftRepository(conversationArguments = args))
   }
 
+  private val searchViewModel: ConversationSearchViewModel by viewModel {
+    ConversationSearchViewModel(getString(R.string.note_to_self))
+  }
+
   private val conversationTooltips = ConversationTooltips(this)
   private val colorizer = Colorizer()
   private val textDraftSaveDebouncer = Debouncer(500)
 
-  private lateinit var conversationOptionsMenuProvider: ConversationOptionsMenu.Provider
   private lateinit var layoutManager: LinearLayoutManager
   private lateinit var markReadHelper: MarkReadHelper
   private lateinit var giphyMp4ProjectionRecycler: GiphyMp4ProjectionRecycler
@@ -318,10 +334,13 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
   private lateinit var attachmentManager: AttachmentManager
   private lateinit var multiselectItemDecoration: MultiselectItemDecoration
   private lateinit var threadHeaderMarginDecoration: ThreadHeaderMarginDecoration
+  private lateinit var dateHeaderDecoration: DateHeaderDecoration
 
   private var animationsAllowed = false
   private var actionMode: ActionMode? = null
   private var pinnedShortcutReceiver: BroadcastReceiver? = null
+  private var searchMenuItem: MenuItem? = null
+  private var isSearchRequested: Boolean = false
 
   private val jumpAndPulseScrollStrategy = object : ScrollToPositionDelegate.ScrollStrategy {
     override fun performScroll(recyclerView: RecyclerView, layoutManager: LinearLayoutManager, position: Int, smooth: Boolean) {
@@ -352,7 +371,11 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
   private val bottomActionBar: SignalBottomActionBar
     get() = binding.conversationBottomActionBar
 
+  private val searchNav: ConversationSearchBottomBar
+    get() = binding.conversationSearchBottomBar.root
+
   private lateinit var reactionDelegate: ConversationReactionDelegate
+  private lateinit var voiceMessageRecordingDelegate: VoiceMessageRecordingDelegate
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -364,7 +387,6 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     disposables.bindTo(viewLifecycleOwner)
     FullscreenHelper(requireActivity()).showSystemUI()
 
-    conversationOptionsMenuProvider = ConversationOptionsMenu.Provider(ConversationOptionsMenuCallback(), disposables)
     markReadHelper = MarkReadHelper(ConversationId.forConversation(args.threadId), requireContext(), viewLifecycleOwner)
 
     initializeConversationThreadUi()
@@ -393,6 +415,18 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     container.fragmentManager = childFragmentManager
 
     ToolbarDependentMarginListener(binding.toolbar)
+  }
+
+  override fun onViewStateRestored(savedInstanceState: Bundle?) {
+    super.onViewStateRestored(savedInstanceState)
+
+    isSearchRequested = savedInstanceState?.getBoolean(SAVED_STATE_IS_SEARCH_REQUESTED, false) ?: false
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    outState.putBoolean(SAVED_STATE_IS_SEARCH_REQUESTED, isSearchRequested)
   }
 
   override fun onResume() {
@@ -433,6 +467,18 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     }
   }
 
+  override fun onReactWithAnyEmojiDialogDismissed() {
+    reactionDelegate.hide()
+  }
+
+  override fun onReactWithAnyEmojiSelected(emoji: String) {
+    reactionDelegate.hide()
+  }
+
+  override fun onReactionsDialogDismissed() {
+    clearFocusedItem()
+  }
+
   private fun observeConversationThread() {
     var firstRender = true
     disposables += viewModel
@@ -456,6 +502,7 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
 
         adapter.submitList(it) {
           scrollToPositionDelegate.notifyListCommitted()
+          dateHeaderDecoration.currentItems = it
 
           if (firstRender) {
             firstRender = false
@@ -508,6 +555,7 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
       setCursorPositionChangedListener(composeTextEventsListener)
       setOnKeyListener(composeTextEventsListener)
       addTextChangedListener(composeTextEventsListener)
+      setStylingChangedListener(composeTextEventsListener)
       setOnClickListener(composeTextEventsListener)
       onFocusChangeListener = composeTextEventsListener
     }
@@ -550,6 +598,12 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     val conversationReactionStub = Stub<ConversationReactionOverlay>(binding.conversationReactionScrubberStub)
     reactionDelegate = ConversationReactionDelegate(conversationReactionStub)
     reactionDelegate.setOnReactionSelectedListener(OnReactionsSelectedListener())
+
+    voiceMessageRecordingDelegate = VoiceMessageRecordingDelegate(
+      this,
+      AudioRecorder(requireContext(), inputPanel),
+      VoiceMessageRecordingSessionCallbacks()
+    )
 
     binding.conversationBanner.listener = ConversationBannerListener()
     viewModel
@@ -604,6 +658,10 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
         }
       }
       .addTo(disposables)
+
+    initializeSearch()
+
+    inputPanel.setListener(InputPanelListener())
   }
 
   private fun presentInputReadyState(inputReadyState: InputReadyState) {
@@ -710,11 +768,13 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
   }
 
   private fun invalidateOptionsMenu() {
-    // TODO [cfv2] -- Handle search... is there a better way to manage this state? Maybe an event system?
-    conversationOptionsMenuProvider.onCreateMenu(binding.toolbar.menu, requireActivity().menuInflater)
+    if (!isSearchRequested) {
+      binding.toolbar.invalidateMenu()
+    }
   }
 
   private fun presentActionBarMenu() {
+    binding.toolbar.addMenuProvider(ConversationOptionsMenu.Provider(ConversationOptionsMenuCallback(), disposables))
     invalidateOptionsMenu()
 
     when (args.conversationScreenType) {
@@ -722,8 +782,6 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
       ConversationScreenType.BUBBLE -> presentNavigationIconForBubble()
       ConversationScreenType.POPUP -> Unit
     }
-
-    binding.toolbar.setOnMenuItemClickListener(conversationOptionsMenuProvider::onMenuItemSelected)
   }
 
   private fun presentNavigationIconForNormal() {
@@ -770,6 +828,18 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
       binding.conversationWallpaperDim.visible = false
     }
 
+    val toolbarTint = ContextCompat.getColor(
+      requireContext(),
+      if (chatWallpaper != null) {
+        R.color.signal_colorNeutralInverse
+      } else {
+        R.color.signal_colorOnSurface
+      }
+    )
+
+    binding.toolbar.setTitleTextColor(toolbarTint)
+    binding.toolbar.setActionItemTint(toolbarTint)
+
     val wallpaperEnabled = chatWallpaper != null
     binding.conversationWallpaper.visible = wallpaperEnabled
     binding.scrollToBottom.setWallpaperEnabled(wallpaperEnabled)
@@ -777,6 +847,7 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     binding.conversationDisabledInput.setWallpaperEnabled(wallpaperEnabled)
 
     adapter.onHasWallpaperChanged(wallpaperEnabled)
+    dateHeaderDecoration.hasWallpaper = wallpaperEnabled
   }
 
   private fun presentChatColors(chatColors: ChatColors) {
@@ -898,6 +969,9 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
 
     threadHeaderMarginDecoration = ThreadHeaderMarginDecoration()
     binding.conversationItemRecycler.addItemDecoration(threadHeaderMarginDecoration)
+
+    dateHeaderDecoration = DateHeaderDecoration(hasWallpaper = args.wallpaper != null)
+    binding.conversationItemRecycler.addItemDecoration(dateHeaderDecoration, 0)
   }
 
   private fun initializeGiphyMp4(): GiphyMp4ProjectionRecycler {
@@ -918,6 +992,32 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
       0
     )
     return callback
+  }
+
+  private fun initializeSearch() {
+    searchViewModel.searchResults.observe(viewLifecycleOwner) { result ->
+      if (result == null) {
+        return@observe
+      }
+
+      if (result.results.isNotEmpty()) {
+        val messageResult = result.results[result.position]
+        disposables += viewModel
+          .moveToSearchResult(messageResult)
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribeBy {
+            moveToPosition(it)
+          }
+      }
+
+      searchNav.setData(result.position, result.results.size)
+    }
+
+    searchNav.setEventListener(SearchEventListener())
+
+    disposables += viewModel.searchQuery.subscribeBy {
+      adapter.updateSearchQuery(it)
+    }
   }
 
   private fun updateToggleButtonState() {
@@ -961,6 +1061,22 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
         }
       }
     }
+  }
+
+  private fun sendSticker(
+    stickerRecord: StickerRecord,
+    clearCompose: Boolean
+  ) {
+    val stickerLocator = StickerLocator(stickerRecord.packId, stickerRecord.packKey, stickerRecord.stickerId, stickerRecord.emoji)
+    val slide = StickerSlide(
+      requireContext(),
+      stickerRecord.uri,
+      stickerRecord.size,
+      stickerLocator,
+      stickerRecord.contentType
+    )
+
+    sendMessageWithoutComposeInput(slide, clearCompose = clearCompose)
   }
 
   private fun sendMessageWithoutComposeInput(
@@ -1245,12 +1361,9 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
   //region Message action handling
 
   private fun handleReplyToMessage(conversationMessage: ConversationMessage) {
-    /*
-    TODO [cfv2]
     if (isSearchRequested) {
-      searchViewItem.collapseActionView();
+      searchMenuItem?.collapseActionView()
     }
-     */
 
     if (inputPanel.inEditMessageMode()) {
       inputPanel.exitEditMessageMode()
@@ -1276,12 +1389,9 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
       return
     }
 
-    /*
-    TODO [cfv2]
-     if (isSearchRequested) {
-      searchViewItem.collapseActionView();
+    if (isSearchRequested) {
+      searchMenuItem?.collapseActionView()
     }
-     */
 
     viewModel.resolveMessageToEdit(conversationMessage)
       .subscribeBy { updatedMessage ->
@@ -1337,6 +1447,25 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
 
   private fun handleCopyMessage(messageParts: Set<MultiselectPart>) {
     viewModel.copyToClipboard(requireContext(), messageParts).subscribe().addTo(disposables)
+  }
+
+  private fun handleResend(conversationMessage: ConversationMessage) {
+    viewModel.resendMessage(conversationMessage).subscribe()
+  }
+
+  private fun handleEnterMultiselect(conversationMessage: ConversationMessage) {
+    val parts = conversationMessage.multiselectCollection.toSet()
+    parts.forEach { adapter.toggleSelection(it) }
+    binding.conversationItemRecycler.invalidateItemDecorations()
+    actionMode = (requireActivity() as AppCompatActivity).startSupportActionMode(actionModeCallback)
+  }
+
+  private fun handleViewPaymentDetails(conversationMessage: ConversationMessage) {
+    val record: MediaMmsMessageRecord = conversationMessage.messageRecord as? MediaMmsMessageRecord ?: return
+    val payment = record.payment ?: return
+    if (record.isPaymentNotification) {
+      startActivity(PaymentsActivity.navigateToPaymentDetails(requireContext(), payment.uuid))
+    }
   }
 
   private fun handleDisplayDetails(conversationMessage: ConversationMessage) {
@@ -1403,7 +1532,7 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
       }
 
       val timestamp = MarkReadHelper.getLatestTimestamp(adapter, layoutManager)
-      timestamp.ifPresent(viewModel::requestMarkRead)
+      timestamp.ifPresent(markReadHelper::onViewsRevealed)
     }
   }
 
@@ -1551,13 +1680,13 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
       context ?: return
       val reactionsTag = "REACTIONS"
       if (parentFragmentManager.findFragmentByTag(reactionsTag) == null) {
-        ReactionsBottomSheetDialogFragment.create(messageId, isMms).show(parentFragmentManager, reactionsTag)
+        ReactionsBottomSheetDialogFragment.create(messageId, isMms).show(childFragmentManager, reactionsTag)
       }
     }
 
     override fun onGroupMemberClicked(recipientId: RecipientId, groupId: GroupId) {
       context ?: return
-      RecipientBottomSheetDialogFragment.create(recipientId, groupId).show(parentFragmentManager, "BOTTOM")
+      RecipientBottomSheetDialogFragment.create(recipientId, groupId).show(childFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
     }
 
     override fun onMessageWithErrorClicked(messageRecord: MessageRecord) {
@@ -1908,6 +2037,7 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
   }
 
   private inner class ConversationOptionsMenuCallback : ConversationOptionsMenu.Callback {
+
     override fun getSnapshot(): ConversationOptionsMenu.Snapshot {
       val recipient: Recipient? = viewModel.recipientSnapshot
       return ConversationOptionsMenu.Snapshot(
@@ -1925,8 +2055,78 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
       )
     }
 
+    override fun isTextHighlighted(): Boolean {
+      return composeText.isTextHighlighted
+    }
+
     override fun onOptionsMenuCreated(menu: Menu) {
-      // TODO [cfv2]
+      searchMenuItem = menu.findItem(R.id.menu_search)
+
+      val searchView: SearchView = searchMenuItem!!.actionView as SearchView
+      val queryListener: SearchView.OnQueryTextListener = object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String): Boolean {
+          searchViewModel.onQueryUpdated(query, args.threadId, true)
+          searchNav.showLoading()
+          viewModel.setSearchQuery(query)
+          return true
+        }
+
+        override fun onQueryTextChange(newText: String): Boolean {
+          searchViewModel.onQueryUpdated(newText, args.threadId, false)
+          searchNav.showLoading()
+          viewModel.setSearchQuery(newText)
+          return true
+        }
+      }
+
+      searchMenuItem!!.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+        override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+          searchView.setOnQueryTextListener(queryListener)
+          isSearchRequested = true
+          searchViewModel.onSearchOpened()
+          searchNav.visible = true
+          searchNav.setData(0, 0)
+          inputPanel.setHideForSearch(true)
+
+          (0 until menu.size()).forEach {
+            if (menu.getItem(it) != searchMenuItem) {
+              menu.getItem(it).isVisible = false
+            }
+          }
+
+          return true
+        }
+
+        override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+          searchView.setOnQueryTextListener(null)
+          isSearchRequested = false
+          searchViewModel.onSearchClosed()
+          searchNav.visible = false
+          inputPanel.setHideForSearch(false)
+          viewModel.setSearchQuery(null)
+          invalidateOptionsMenu()
+          return true
+        }
+      })
+
+      searchView.maxWidth = Integer.MAX_VALUE
+
+      if (isSearchRequested) {
+        if (searchMenuItem!!.expandActionView()) {
+          searchViewModel.onSearchOpened()
+        }
+      }
+
+      val toolbarTextAndIconColor = ContextCompat.getColor(
+        requireContext(),
+        if (viewModel.wallpaperSnapshot != null) {
+          R.color.signal_colorNeutralInverse
+        } else {
+          R.color.signal_colorOnSurface
+        }
+      )
+
+      binding.toolbar.setActionItemTint(toolbarTextAndIconColor)
     }
 
     override fun handleVideo() {
@@ -1974,7 +2174,7 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     }
 
     override fun handleSearch() {
-      // TODO [cfv2] - ("Not yet implemented")
+      searchViewModel.onSearchOpened()
     }
 
     override fun handleAddToContacts() {
@@ -2087,15 +2287,32 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     override fun showGroupCallingTooltip() {
       conversationTooltips.displayGroupCallingTooltip(requireView().findViewById(R.id.menu_video_secure))
     }
+
+    override fun handleFormatText(id: Int) {
+      composeText.handleFormatText(id)
+    }
   }
 
   private inner class OnReactionsSelectedListener : ConversationReactionOverlay.OnReactionSelectedListener {
     override fun onReactionSelected(messageRecord: MessageRecord, emoji: String?) {
       reactionDelegate.hide()
+
+      if (emoji != null) {
+        disposables += viewModel.updateReaction(messageRecord, emoji).subscribe()
+      }
     }
 
     override fun onCustomReactionSelected(messageRecord: MessageRecord, hasAddedCustomEmoji: Boolean) {
       reactionDelegate.hide()
+      disposables += viewModel.updateCustomReaction(messageRecord, hasAddedCustomEmoji)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeBy(
+          onSuccess = {
+            ReactWithAnyEmojiBottomSheetDialogFragment
+              .createForMessageRecord(messageRecord, -1)
+              .show(childFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+          }
+        )
     }
   }
 
@@ -2113,11 +2330,11 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
         ConversationReactionOverlay.Action.REPLY -> handleReplyToMessage(conversationMessage)
         ConversationReactionOverlay.Action.EDIT -> handleEditMessage(conversationMessage)
         ConversationReactionOverlay.Action.FORWARD -> handleForwardMessageParts(conversationMessage.multiselectCollection.toSet())
-        ConversationReactionOverlay.Action.RESEND -> Unit // TODO [cfv2]
+        ConversationReactionOverlay.Action.RESEND -> handleResend(conversationMessage)
         ConversationReactionOverlay.Action.DOWNLOAD -> handleSaveAttachment(conversationMessage.messageRecord as MediaMmsMessageRecord)
         ConversationReactionOverlay.Action.COPY -> handleCopyMessage(conversationMessage.multiselectCollection.toSet())
-        ConversationReactionOverlay.Action.MULTISELECT -> Unit // TODO [cfv2]
-        ConversationReactionOverlay.Action.PAYMENT_DETAILS -> Unit // TODO [cfv2]
+        ConversationReactionOverlay.Action.MULTISELECT -> handleEnterMultiselect(conversationMessage)
+        ConversationReactionOverlay.Action.PAYMENT_DETAILS -> handleViewPaymentDetails(conversationMessage)
         ConversationReactionOverlay.Action.VIEW_INFO -> handleDisplayDetails(conversationMessage)
         ConversationReactionOverlay.Action.DELETE -> handleDeleteMessages(conversationMessage.multiselectCollection.toSet())
       }
@@ -2399,7 +2616,8 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     View.OnClickListener,
     TextWatcher,
     OnFocusChangeListener,
-    ComposeText.CursorPositionChangedListener {
+    ComposeText.CursorPositionChangedListener,
+    ComposeText.StylingChangedListener {
 
     private var beforeLength = 0
     private var previousText = ""
@@ -2478,6 +2696,10 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
 
       previousText = text
     }
+
+    override fun onStylingChanged() {
+      handleSaveDraftOnTextChange(composeText.textTrimmed)
+    }
   }
 
   //endregion Compose + Send Callbacks
@@ -2502,23 +2724,32 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     }
 
     override fun onRecorderStarted() {
-      // TODO [cfv2] Not yet implemented
+      voiceMessageRecordingDelegate.onRecorderStarted()
     }
 
     override fun onRecorderLocked() {
-      // TODO [cfv2] Not yet implemented
+      updateToggleButtonState()
+      voiceMessageRecordingDelegate.onRecorderLocked()
     }
 
     override fun onRecorderFinished() {
-      // TODO [cfv2] Not yet implemented
+      updateToggleButtonState()
+      voiceMessageRecordingDelegate.onRecorderFinished()
     }
 
     override fun onRecorderCanceled(byUser: Boolean) {
-      // TODO [cfv2] Not yet implemented
+      updateToggleButtonState()
+      voiceMessageRecordingDelegate.onRecorderCanceled(byUser)
     }
 
     override fun onRecorderPermissionRequired() {
-      // TODO [cfv2] Not yet implemented
+      Permissions
+        .with(this@ConversationFragment)
+        .request(Manifest.permission.RECORD_AUDIO)
+        .ifNecessary()
+        .withRationaleDialog(getString(R.string.ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone), R.drawable.ic_mic_solid_24)
+        .withPermanentDenialDialog(getString(R.string.ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages))
+        .execute()
     }
 
     override fun onEmojiToggle() {
@@ -2530,7 +2761,10 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     }
 
     override fun onStickerSuggestionSelected(sticker: StickerRecord) {
-      // TODO [cfv2] Not yet implemented
+      sendSticker(
+        stickerRecord = sticker,
+        clearCompose = true
+      )
     }
 
     override fun onQuoteChanged(id: Long, author: RecipientId) {
@@ -2542,12 +2776,14 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
     }
 
     override fun onEnterEditMode() {
-      // TODO [cfv2] Not yet implemented
+      updateToggleButtonState()
+      // TODO [cfv2] -- Save keyboard pager state and force emoji
     }
 
     override fun onExitEditMode() {
       updateToggleButtonState()
       draftViewModel.deleteMessageEditDraft()
+      // TODO [cfv2] -- Restore keyboard pager pages
     }
   }
 
@@ -2617,6 +2853,16 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
 
   //endregion
 
+  private inner class SearchEventListener : ConversationSearchBottomBar.EventListener {
+    override fun onSearchMoveUpPressed() {
+      searchViewModel.onMoveUp()
+    }
+
+    override fun onSearchMoveDownPressed() {
+      searchViewModel.onMoveDown()
+    }
+  }
+
   private inner class ToolbarDependentMarginListener(private val toolbar: Toolbar) : ViewTreeObserver.OnGlobalLayoutListener {
 
     init {
@@ -2640,6 +2886,28 @@ class ConversationFragment : LoggingFragment(R.layout.v2_conversation_fragment) 
       if (view is ConversationHeaderView) {
         outRect.top = toolbarMargin
       }
+    }
+  }
+
+  private inner class VoiceMessageRecordingSessionCallbacks : VoiceMessageRecordingDelegate.SessionCallback {
+    override fun onSessionWillBegin() {
+      getVoiceNoteMediaController().pausePlayback()
+    }
+
+    override fun sendVoiceNote(draft: VoiceNoteDraft) {
+      val audioSlide = AudioSlide(requireContext(), draft.uri, draft.size, MediaUtil.AUDIO_AAC, true)
+
+      sendMessageWithoutComposeInput(
+        slide = audioSlide
+      )
+    }
+
+    override fun cancelEphemeralVoiceNoteDraft(draft: VoiceNoteDraft) {
+      draftViewModel.cancelEphemeralVoiceNoteDraft(draft.asDraft())
+    }
+
+    override fun saveEphemeralVoiceNoteDraft(draft: VoiceNoteDraft) {
+      draftViewModel.cancelEphemeralVoiceNoteDraft(draft.asDraft())
     }
   }
 }

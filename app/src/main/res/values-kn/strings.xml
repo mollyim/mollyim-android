@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">ಪ್ರತಿಕ್ರಿಯೆಗಳು</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Signal ಕರೆ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
     <string name="NotificationBarManager__establishing_signal_call">Signal ಕರೆ ಸ್ಥಾಪಿಸಲಾಗುತ್ತಿದೆ</string>
-    <string name="NotificationBarManager__incoming_signal_call">ಒಳಬರುವ Signal ಕರೆ</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">ಒಳಬರುವ Signal ಗ್ರೂಪ್ ಕರೆ</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Molly ಕರೆ ಸೇವೆ ಆರಂಭಿಸಲಾಗುತ್ತಿದೆ</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Molly ಕಾಲ್ ಸರ್ವೀಸ್ ಅನ್ನು ನಿಲ್ಲಿಸಲಾಗುತ್ತಿದೆ</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s ಅವರು ಗ್ರೂಪ್ ಕಾಲ್ ಆರಂಭಿಸಿದ್ದಾರೆ · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">ನೀವು ಗ್ರೂಪ್ ಕರೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿದ್ದೀರಿ · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s ಗ್ರೂಪ್‌ ಕಾಲ್‌ನಲ್ಲಿದ್ದಾರೆ · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">ನೀವು ಗ್ರೂಪ್‌ ಕಾಲ್‌ನಲ್ಲಿದ್ದೀರಿ · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s ಮತ್ತು %2$s ಗ್ರೂಪ್‌ ಕಾಲ್‌ನಲ್ಲಿದ್ದಾರೆ · %3$s</string>
     <string name="MessageRecord_group_call_s">ಗ್ರೂಪ್ ಕಾಲ್ · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s ಅವರು ಗ್ರೂಪ್ ಕಾಲ್ ಆರಂಭಿಸಿದ್ದಾರೆ</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">ನೀವು ಗುಂಪು ಕರೆಯೊಂದನ್ನು ಪ್ರಾರಂಭಿಸಿದ್ದೀರಿ</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s ಅವರು ಗ್ರೂಪ್ ಕಾಲ್‌ನಲ್ಲಿದ್ದಾರೆ</string>
     <string name="MessageRecord_you_are_in_the_group_call">ನೀವು ಗ್ರೂಪ್‌ ಕಾಲ್‌ನಲ್ಲಿದ್ದೀರಿ</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s ಮತ್ತು %2$s ಗ್ರೂಪ್‌ ಕಾಲ್‌ನಲ್ಲಿದ್ದಾರೆ</string>
@@ -2345,7 +2342,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">ಬ್ಲೂಟೂತ್</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">ವೈರ್‌ಯುಕ್ತ ಹೆಡ್‌ಫೋನ್‍‌ಗಳು</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">ವೈರ್‌ಯುಕ್ತ ಹೆಡ್‌ಸೆಟ್</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3342,8 @@
     <string name="conversation__menu_conversation_settings">ಚಾಟ್‌‌ ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
     <string name="conversation__menu_add_shortcut">ಹೋಮ್ ಸ್ಕ್ರೀನಿಗೆ ಸೇರಿಸಿ</string>
     <string name="conversation__menu_create_bubble">ಗುಳ್ಳೆಯನ್ನು ರಚಿಸಿರಿ</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">ಪಾಪ್ಅಪ್ ವಿಸ್ತರಿಸಿ</string>
@@ -3546,6 +3545,20 @@
     <string name="KbsMegaphone__create_a_pin">ಒಂದು ಪಿನ್ ರಚಿಸಿ</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Signal ಎನ್‌ಕ್ರಿಪ್ಟ್‌ ಮಾಡಿರುವ ಸಂಗ್ರಹಿಸಿದ ಮಾಹಿತಿಯನ್ನು ಪಿನ್‌ಗಳು ಇರಿಸಿಕೊಳ್ಳುತ್ತವೆ.</string>
     <string name="KbsMegaphone__create_pin">ಪಿನ್ ರಚಿಸಿ</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">ಒಳಬರುವ Molly ಧ್ವನಿ ಕರೆ</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">ಒಳಬರುವ Molly ವೀಡಿಯೊ ಕರೆ</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">ಒಳಬರುವ Molly ಗ್ರೂಪ್ ಕರೆ</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">ಚಾಲ್ತಿಯಲ್ಲಿರುವ Molly ಧ್ವನಿ ಕರೆ</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">ಚಾಲ್ತಿಯಲ್ಲಿರುವ Molly ವೀಡಿಯೊ ಕರೆ</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">ಚಾಲ್ತಿಯಲ್ಲಿರುವ Molly ಗ್ರೂಪ್ ಕರೆ</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">ಸಾರಿಗೆ ಐಕನ್</string>
@@ -5905,6 +5918,8 @@
     <string name="TextFormatting_monospace">ಮೋನೋಸ್ಪೇಸ್</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">ಸ್ಪಾಯ್ಲರ್</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5986,15 @@
     <string name="CallContextMenu__delete">ಅಳಿಸಿ</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">ಅಳಿಸಲಾಗುತ್ತಿದೆ…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">ಅಳಿಸುವಿಕೆ ವಿಫಲಗೊಂಡಿದೆ.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">ಲಿಂಕ್ ಅನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ನಿಮ್ಮ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</item>
+        <item quantity="other">ಎಲ್ಲಾ ಕರೆ ಲಿಂಕ್‍‌ಗಳನ್ನು ಅಳಿಸಲಾಗಲಿಲ್ಲ. ನಿಮ್ಮ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">ಕರೆ ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸಲಾಗಿದೆ</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6116,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">ಎಡಿಟ್‌ನ ಇತಿಹಾಸ</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Signal ಬೀಟಾ ಮಾತ್ರ</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">ಮೆಸೇಜ್‌ಗಳನ್ನು ಎಡಿಟ್ ಮಾಡುವಿಕೆಯು Signal ಬೀಟಾ ಬಳಕೆದಾರರಿಗೆ ಮಾತ್ರ ಲಭ್ಯವಿದೆ. ಮೆಸೇಜ್ ಅನ್ನು ನೀವು ಎಡಿಟ್ ಮಾಡಿದರೆ, ಅದು Signal ಬೀಟಾದ ಇತ್ತೀಚಿನ ಆವೃತ್ತಿಯಲ್ಲಿರುವವರಿಗೆ ಮಾತ್ರ ಕಾಣುತ್ತದೆ.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">ರದ್ದುಮಾಡಿ</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">ಕಳುಹಿಸು</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

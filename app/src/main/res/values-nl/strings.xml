@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">Reacties</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Je zit nog in een Signal-oproep</string>
     <string name="NotificationBarManager__establishing_signal_call">Signal-oproep aan het opzetten</string>
-    <string name="NotificationBarManager__incoming_signal_call">Inkomende Signal-oproep</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Binnenkomende Signal-groepsoproep</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Molly-oproepen starten</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Molly-oproep-ondersteuning wordt gestopt</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s heeft een groepsoproep gestart · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Je hebt een groepsoproep gestart · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s is in deze groepsoproep aanwezig · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Je neemt deel aan een groepsoproep · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s en %2$s zijn in deze groepsoproep aanwezig · %3$s</string>
     <string name="MessageRecord_group_call_s">Groepsoproep · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s heeft een groepsoproep gestart</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Je hebt een groepsoproep gestart</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s is in deze groepsoproep aanwezig</string>
     <string name="MessageRecord_you_are_in_the_group_call">Je neemt deel aan de groepsoproep</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s en %2$s zijn in deze groepsoproep aanwezig</string>
@@ -2345,7 +2342,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Bedrade hoofdtelefoon</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Bedrade headset</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3294,7 +3291,7 @@
     <!-- Button to reply to a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="conversation_selection__menu_reply">Reageren</string>
     <!-- Button to edit a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="conversation_selection__menu_edit">Aanpassen</string>
+    <string name="conversation_selection__menu_edit">Bewerken</string>
     <!-- Button to save a message attachment (image, file etc.); Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_save">Bijlage opslaan</string>
     <!-- Button to retry sending a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
@@ -3345,6 +3342,8 @@
     <string name="conversation__menu_conversation_settings">Chatinstellingen</string>
     <string name="conversation__menu_add_shortcut">Aan thuisscherm toevoegen</string>
     <string name="conversation__menu_create_bubble">Bubbel aanmaken</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Pop-up vergroten</string>
@@ -3546,6 +3545,20 @@
     <string name="KbsMegaphone__create_a_pin">Een pincode aanmaken</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Met een pincode wordt informatie versleuteld voor die wordt opgeslagen op Signals servers. Zelfs Signals ontwikkelaars kunnen je informatie niet inzien.</string>
     <string name="KbsMegaphone__create_pin">Pincode aanmaken</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Inkomende Molly-spraakoproep</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Inkomende Molly-video-oproep</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Binnenkomende Molly-groepsoproep</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Lopende Molly-spraakoproep</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Lopende Molly-video-oproep</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Lopende Molly-groepsoproep</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Transportmethodepictogram</string>
@@ -5905,6 +5918,8 @@
     <string name="TextFormatting_monospace">Monospace</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Spoiler</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5986,15 @@
     <string name="CallContextMenu__delete">Wissen</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Wissen…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Wissen mislukt.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Link kan niet gewist worden. Controleer je verbinding en probeer het opnieuw.</item>
+        <item quantity="other">Niet alle oproeplinks konden gewist worden. Controleer je verbinding en probeer het opnieuw.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Oproepgeschiedenis gewist</string>
     <!-- Dialog title to clear all call events -->
@@ -6091,7 +6115,16 @@
     <string name="ChooseNavigationBarStyleFragment__compact">Compact</string>
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
-    <string name="EditMessageHistoryDialog_title">Bewerkgeschiedenis</string>
+    <string name="EditMessageHistoryDialog_title">Bewerkingsgeschiedenis</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Alleen Signal-bèta</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Berichten bewerken is alleen beschikbaar voor gebruikers van Signal-bèta. Als je een bericht bewerkt, is dat alleen zichtbaar voor gebruikers van de laatste versie van Signal-bèta.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Annuleren</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Verzend</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

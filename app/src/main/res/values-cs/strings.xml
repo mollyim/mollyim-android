@@ -1303,10 +1303,7 @@
     <string name="MessageQuotesBottomSheet_replies">Odpovědi</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Probíhá hovor Signal</string>
     <string name="NotificationBarManager__establishing_signal_call">Navazuji hovor Signal</string>
-    <string name="NotificationBarManager__incoming_signal_call">Příchozí hovor Signal</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Příchozí Signal skupinový hovor</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Zahájení služby volání Molly</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Zastavuji službu hovorů Molly</string>
@@ -1586,14 +1583,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s zahájil skupinový hovor · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Zahájili jste skupinový hovor · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s se účastní skupinového hovoru · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Účastníte se skupinového hovoru · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s a %2$s se účastní skupinového hovoru · %3$s</string>
     <string name="MessageRecord_group_call_s">Skupinový hovor · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s zahájil skupinový hovor</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Zahájili jste skupinový hovor</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s se účastní skupinového hovoru</string>
     <string name="MessageRecord_you_are_in_the_group_call">Účastníte se skupinového hovoru</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s a %2$s se účastní skupinového hovoru</string>
@@ -2485,7 +2482,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Drátová sluchátka</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Drátová sluchátka s mikrofonem</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3511,6 +3508,8 @@
     <string name="conversation__menu_conversation_settings">Nastavení chatu</string>
     <string name="conversation__menu_add_shortcut">Přidat na domovskou stránku</string>
     <string name="conversation__menu_create_bubble">Vytvořit bublinu</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Rozbalit menu</string>
@@ -3728,6 +3727,20 @@
     <string name="KbsMegaphone__create_a_pin">Vytvořit PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN uchovává informace uložené v Signal zašifrované.</string>
     <string name="KbsMegaphone__create_pin">Vytvořit PIN</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Příchozí hlasový hovor Molly</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Příchozí videohovor Molly</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Příchozí Molly skupinový hovor</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Probíhající hlasový hovor Molly</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Probíhající videohovor Molly</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Probíhající skupinový hovor Molly</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Ikona přenosu</string>
@@ -6151,6 +6164,8 @@
     <string name="TextFormatting_monospace">Písmo se stejnou roztečí</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Zastření</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -6217,6 +6232,17 @@
     <string name="CallContextMenu__delete">Smazat</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Odstraňování…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Odstranění se nezdařilo.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Odkaz se nepodařilo odstranit. Zkontrolujte své připojení a zkuste to znovu.</item>
+        <item quantity="few">Nepodařilo se odstranit všechny odkazy. Zkontrolujte své připojení a zkuste to znovu.</item>
+        <item quantity="many">Nepodařilo se odstranit všechny odkazy. Zkontrolujte své připojení a zkuste to znovu.</item>
+        <item quantity="other">Nepodařilo se odstranit všechny odkazy. Zkontrolujte své připojení a zkuste to znovu.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Historie hovorů smazána</string>
     <!-- Dialog title to clear all call events -->
@@ -6342,6 +6368,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Historie úprav</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Pouze Signal beta</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Úprava zpráv je dostupná jen uživatelům verze Signal beta. Pokud zprávu upravíte, zobrazí se jen lidem, kteří používají nejnovější verzi Signal beta.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Zrušit</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Odeslat</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

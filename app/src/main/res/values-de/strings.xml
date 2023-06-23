@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">Antworten</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Signal-Anruf läuft</string>
     <string name="NotificationBarManager__establishing_signal_call">Signal-Anruf wird hergestellt</string>
-    <string name="NotificationBarManager__incoming_signal_call">Eingehender Signal-Anruf</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Eingehender Signal-Gruppenanruf</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Den Molly Anrufdienst starten</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Mollys Anrufdienst wird gestoppt</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s hat einen Gruppenanruf begonnen · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Du hast einen Gruppenanruf gestartet · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s nimmt am Gruppenanruf teil · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Du nimmst am Gruppenanruf teil · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s und %2$s nehmen am Gruppenanruf teil · %3$s</string>
     <string name="MessageRecord_group_call_s">Gruppenanruf · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s hat einen Gruppenanruf gestartet</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Du hast einen Gruppenanruf gestartet</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s nimmt am Gruppenanruf teil</string>
     <string name="MessageRecord_you_are_in_the_group_call">Du nimmst am Gruppenanruf teil</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s und %2$s nehmen am Gruppenanruf teil</string>
@@ -2345,7 +2342,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Kopfhörer mit Kabel</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Headset mit Kabel</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3342,8 @@
     <string name="conversation__menu_conversation_settings">Chateinstellungen</string>
     <string name="conversation__menu_add_shortcut">Zum Startbildschirm hinzufügen</string>
     <string name="conversation__menu_create_bubble">Bubble erstellen</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Unterhaltung maximieren</string>
@@ -3546,6 +3545,20 @@
     <string name="KbsMegaphone__create_a_pin">Erstelle eine PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PINs halten deine bei Signal gespeicherten Informationen verschlüsselt.</string>
     <string name="KbsMegaphone__create_pin">PIN erstellen</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Eingehender Molly-Sprachanruf</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Eingehender Molly-Videoanruf</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Eingehender Molly-Gruppenanruf</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Laufender Molly-Sprachanruf</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Laufender Molly-Videoanruf</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Laufender Molly-Gruppenanruf</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Übertragungssymbol</string>
@@ -5905,6 +5918,8 @@
     <string name="TextFormatting_monospace">Nichtproportionale Schriftart</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Spoiler</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5986,15 @@
     <string name="CallContextMenu__delete">Löschen</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Wird gelöscht …</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Löschen fehlgeschlagen.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Der Link konnte nicht gelöscht werden. Überprüfe deine Internetverbindung und versuche es erneut.</item>
+        <item quantity="other">Nicht alle Anruflinks konnten gelöscht werden. Überprüfe deine Internetverbindung und versuche es erneut.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Anrufverlauf wurde geleert</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6116,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Bearbeitungsverlauf</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Nur Signal Beta</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Das Bearbeiten von Nachrichten ist nur für Signal Beta Nutzer verfügbar. Wenn du eine Nachricht bearbeitest, ist sie nur für Personen sichtbar, die die aktuelle Version von Signal Beta verwenden.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Abbrechen</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Senden</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

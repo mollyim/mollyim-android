@@ -1303,10 +1303,7 @@
     <string name="MessageQuotesBottomSheet_replies">Odgovori</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Klic Signal poteka</string>
     <string name="NotificationBarManager__establishing_signal_call">Vzpostavljam klic Signal</string>
-    <string name="NotificationBarManager__incoming_signal_call">Dohodni klic Signal</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Dohodni skupinski klic Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Začetek klicanja Molly</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Ustavljanje klicanja Molly</string>
@@ -1586,14 +1583,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s je začel_a skupinski klic. · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Začeli ste skupinski klic · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s je v skupinskem klicu. · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Ste v skupinskem klicu · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s in %2$s sta v skupinskem klicu · %3$s</string>
     <string name="MessageRecord_group_call_s">Skupinski klic · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s je začel_a skupinski klic</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Začeki ste skupinski klic</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s je v skupinskem klicu.</string>
     <string name="MessageRecord_you_are_in_the_group_call">Ste v skupinskem klicu</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s in %2$s sta v skupinskem klicu</string>
@@ -2485,7 +2482,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Žične slušalke</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Žične slušalke</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3511,6 +3508,8 @@
     <string name="conversation__menu_conversation_settings">Nastavitve klepeta</string>
     <string name="conversation__menu_add_shortcut">Dodaj na domači zaslon</string>
     <string name="conversation__menu_create_bubble">Ustvari mehurček</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Razširi pojavno okno</string>
@@ -3728,6 +3727,20 @@
     <string name="KbsMegaphone__create_a_pin">Ustvari PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN zavaruje informacije shranjene na Signalu z uporabo šifriranja.</string>
     <string name="KbsMegaphone__create_pin">Ustvari PIN</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Dohodni klic</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Dohodni video klic</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Dohodni skupinski klic Molly</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Klic v teku</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Video klic v teku</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Skupinski klic v teku</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Ikona transporta</string>
@@ -6151,6 +6164,8 @@
     <string name="TextFormatting_monospace">Monospace</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Skrito besedilo</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Clear formatting</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -6217,6 +6232,17 @@
     <string name="CallContextMenu__delete">Izbriši</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Brisanje …</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Brisanje ni uspelo.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Povezave ni mogoče izbrisati. Preverite internetno povezavo in poskusite znova.</item>
+        <item quantity="two">Obeh povezav ni mogoče izbrisati. Preverite internetno povezavo in poskusite znova.</item>
+        <item quantity="few">Povezav ni mogoče izbrisati. Preverite internetno povezavo in poskusite znova.</item>
+        <item quantity="other">Povezav ni mogoče izbrisati. Preverite internetno povezavo in poskusite znova.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Zgodovina klicev je izbrisana</string>
     <!-- Dialog title to clear all call events -->
@@ -6342,6 +6368,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Zgodovina urejanja</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Samo Signal beta</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Urejanje sporočil je na voljo samo uporabnikom Signala beta. Če uredite sporočilo, bo vidno samo ljudem, ki uporabljajo najnovejšo različico Signala beta.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Prekliči</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Pošlji</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->
