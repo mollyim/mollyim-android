@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">Respostes</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Trucada del Signal en curs</string>
     <string name="NotificationBarManager__establishing_signal_call">S\'estableix la trucada del Signal</string>
-    <string name="NotificationBarManager__incoming_signal_call">Trucada del Signal rebuda</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Trucada de grup de Signal rebuda</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Començar el servei de trucada de Molly</string>
     <string name="NotificationBarManager__stopping_signal_call_service">S\'atura el servei de trucades del Molly</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s ha iniciat una trucada de grup · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Has iniciat una trucada de grup · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s és a la trucada de grup · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Sou a la trucada de grup · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s i %2$s són a la trucada de grup · %3$s</string>
     <string name="MessageRecord_group_call_s">Trucada de grup · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s ha iniciat una trucada de grup.</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Heu iniciat una trucada de grup.</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s és a la trucada de grup.</string>
     <string name="MessageRecord_you_are_in_the_group_call">Sou a la trucada de grup.</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s i %2$s són a la trucada de grup.</string>
@@ -2316,7 +2313,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Per respondre la trucada, permeteu que el Molly accedeixi al micròfon.</string>
-    <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Per respondre una trucada de %1$s, permeteu que el Molly tingui accés al micròfon.</string>
+    <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">To answer the video call, give Molly access to your microphone and camera.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">El Molly necessita el permís del micròfon i de la càmera per tal de fer o rebre trucades, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">S\'ha respost en un dispositiu enllaçat.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">S\'ha rebutjat en un dispositiu enllaçat.</string>
@@ -2345,7 +2343,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Auriculars amb cable</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Auriculars amb cable</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3343,8 @@
     <string name="conversation__menu_conversation_settings">Ajustos del xat</string>
     <string name="conversation__menu_add_shortcut">Afegeix a la pantalla d\'inici</string>
     <string name="conversation__menu_create_bubble">Crea una bombolla</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Format del text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Expandeix la finestra emergent</string>
@@ -3546,6 +3546,20 @@
     <string name="KbsMegaphone__create_a_pin">Crea un PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Els PIN mantenen encriptada la informació desada amb el Signal.</string>
     <string name="KbsMegaphone__create_pin">Crea un PIN</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Trucada de veu Molly entrant</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Videotrucada de Molly entrant</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Trucada de grup de Molly rebuda</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Trucada de veu de Molly en curs</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Trucada de vídeo de Molly en curs</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Trucada de grup de Molly en curs</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Icona de trànsit</string>
@@ -5905,6 +5919,8 @@
     <string name="TextFormatting_monospace">Monoespai</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Spoiler</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Eliminar format</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5987,15 @@
     <string name="CallContextMenu__delete">Eliminar</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Eliminant…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">No s\'ha pogut eliminar.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">No s\'ha pogut eliminar l\'enllaç. Comprova la connexió i torna-ho a provar.</item>
+        <item quantity="other">No tots els enllaços de trucada poden ser eliminats. Comprova la connexió i torna-ho a provar.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Historial de trucades netejat</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6117,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Historial d\'edicions</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Només per a la versió beta de Signal</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">La funció d\'edició de missatges només està disponible per a les persones que tinguin la versió beta de Signal. Si edites un missatge, només serà visible per a aquelles persones que tinguin la darrera versió de Signal beta.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Cancel·lar</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Envia</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

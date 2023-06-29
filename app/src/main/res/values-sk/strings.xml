@@ -1303,10 +1303,7 @@
     <string name="MessageQuotesBottomSheet_replies">Odpovede</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Prebieha Signal hovor</string>
     <string name="NotificationBarManager__establishing_signal_call">Príprava na Signal hovor</string>
-    <string name="NotificationBarManager__incoming_signal_call">Prichádzajúci Signal hovor</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Prichádzajúci Signal skupinový hovor</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Spúšťa sa služba Molly hovor</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Zastavenie služby Molly hovoru</string>
@@ -1586,14 +1583,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s zahájil(a) skupinový hovor · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Zahájili ste skupinový hovor · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s je v skupinovom hovore · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Ste v skupinovom hovore · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s a %2$s sú v skupinovom hovore · %3$s</string>
     <string name="MessageRecord_group_call_s">Skupinový hovor · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s zahájil(a) skupinový hovor</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Zahájili ste skupinový hovor</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s je v skupinovom hovore</string>
     <string name="MessageRecord_you_are_in_the_group_call">Ste v skupinovom hovore</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s a %2$s sú v skupinovom hovore</string>
@@ -2456,7 +2453,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Ak chcete prijať hovor, poskytnite Molly prístup k mikrofónu.</string>
-    <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Pre prijatie hovoru od %1$s musíte povoliť Mollyu prístup k mikrofónu.</string>
+    <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">To answer the video call, give Molly access to your microphone and camera.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly potrebuje prístup k mikrofónu a fotoaparátu aby mohol volať alebo prijímať hovory, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Mikrofón\" a \"Fotoaparát\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Prijaté na pripojenom zariadení.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Odmietnuté na pripojenom zariadení.</string>
@@ -2485,7 +2483,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Káblové slúchadlá</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Káblové slúchadlá</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3511,6 +3509,8 @@
     <string name="conversation__menu_conversation_settings">Nastavenia četu</string>
     <string name="conversation__menu_add_shortcut">Pridať na plochu</string>
     <string name="conversation__menu_create_bubble">Vytvoriť bublinu</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Formátovať text</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Rozbaliť okno</string>
@@ -3728,6 +3728,20 @@
     <string name="KbsMegaphone__create_a_pin">Vytvoriť PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN kódy udržiavajú informácie uložené v Signale zašifrované.</string>
     <string name="KbsMegaphone__create_pin">Vytvoriť PIN</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Prichádzajúci Molly hlasový hovor</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Prichádzajúci Molly videohovor</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Prichádzajúci Molly skupinový hovor</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Prebieha Molly hlasový hovor</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Prebieha Molly videohovor</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Prebieha Molly skupinový hovor</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Ikona prenosu</string>
@@ -6151,6 +6165,8 @@
     <string name="TextFormatting_monospace">Monospace</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Spoiler</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Vymazať formátovanie</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -6217,6 +6233,17 @@
     <string name="CallContextMenu__delete">Vymazať</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Vymazáva sa…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Proces vymazania zlyhal.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Odkaz nie je možné odstrániť. Skontrolujte pripojenie a skúste to znova.</item>
+        <item quantity="few">Nepodarilo sa odstrániť všetky odkazy na hovor. Skontrolujte pripojenie a skúste to znova.</item>
+        <item quantity="many">Nepodarilo sa odstrániť všetky odkazy na hovor. Skontrolujte pripojenie a skúste to znova.</item>
+        <item quantity="other">Nepodarilo sa odstrániť všetky odkazy na hovor. Skontrolujte pripojenie a skúste to znova.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">História hovorov bola vymazaná</string>
     <!-- Dialog title to clear all call events -->
@@ -6342,6 +6369,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">História úprav</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Len Signal beta</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Úprava správ je k dispozícii iba pre používateľov beta verzie Signalu. Ak upravíte správu, zobrazí sa iba ľuďom, ktorí používajú najnovšiu beta verziu Signalu.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Zrušiť</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Poslať</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

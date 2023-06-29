@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">Përgjigje</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Thirrje Signal në zhvillim e sipër</string>
     <string name="NotificationBarManager__establishing_signal_call">Po bëhet thirrje Signal</string>
-    <string name="NotificationBarManager__incoming_signal_call">Thirrje ardhëse Signal</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Thirrje ardhëse për grup Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Po fillon shërbimi i thirrjes telefonike i Molly</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Po ndalet shërbimi Molly i thirrjeve</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s nisi një thirrje grupi · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Ti fillove një thirrje në grup · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s gjendet te thirrja e grupit · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Gjendeni te thirrja e grupit · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s dhe %2$s gjenden te thirrja e grupit · %3$s</string>
     <string name="MessageRecord_group_call_s">Thirrje grupi · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s nisi një thirrje grupi</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Nisët një thirrje grupi</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s gjendet te thirrja e grupit</string>
     <string name="MessageRecord_you_are_in_the_group_call">Gjendeni te thirrja e grupit</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s dhe %2$s gjenden te thirrja e grupit</string>
@@ -2316,7 +2313,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Që t’i përgjigjeni thirrjes, jepini Molly-it leje të përdorë mikrofonin tuaj.</string>
-    <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Për t\\’iu përgjigjur thirrjes prej %1$s, lejojini Molly-it të përdorë mikrofonin tuaj.</string>
+    <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">To answer the video call, give Molly access to your microphone and camera.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Që të bëjë ose pranojë thirrje, Molly-i lyp leje mbi Mikrofonin dhe Kamerën, por këto i janë mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofonin\" dhe \"Kamerën\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">U përgjigj në një pajisje të lidhur.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Hedhur tej në një pajisje të lidhur.</string>
@@ -2345,7 +2343,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Kufje me kabull</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Kufje me tela</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3343,8 @@
     <string name="conversation__menu_conversation_settings">Parametrat e bisedës</string>
     <string name="conversation__menu_add_shortcut">Shtoje te skena e kreut</string>
     <string name="conversation__menu_create_bubble">Krijo flluskë</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Formato tekstin</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Zgjero flluskën</string>
@@ -3546,6 +3546,20 @@
     <string name="KbsMegaphone__create_a_pin">Krijoni PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN-et i mbajnë të fshehtëzuara të dhënat që depozitohen me Signal-in.</string>
     <string name="KbsMegaphone__create_pin">Krijoni PIN</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Thirrje zanore hyrëse në Molly</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Thirrje video hyrëse në Molly</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Thirrje ardhëse për grup Molly</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Thirrje zanore në Molly në vijim</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Thirrje video në Molly në vijim</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Thirrje në grup në Molly në vijim</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Ikonë bartjesh</string>
@@ -5905,6 +5919,8 @@
     <string name="TextFormatting_monospace">Njëhapësirëshe</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Fsheh</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Pastro formatimin</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5987,15 @@
     <string name="CallContextMenu__delete">Fshije</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Po fshihet…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Fshirja dështoi.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Lidhja nuk mund të fshihet. Kontrollo lidhjen dhe provo përsëri.</item>
+        <item quantity="other">Jo të gjitha lidhjet e thirrjeve mundën të fshiheshin. Kontrollo rrjetin tënd dhe provo përsëri.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Historiku i thirrjeve u pastrua</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6117,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Historiku i përpunimeve</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Vetëm Signal beta</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Përpunimi i mesazheve është i disponueshëm vetëm për përdoruesit e Signal beta. Nëse përpunon një mesazh, ai do të jetë i dukshëm vetëm për personat që kanë versionin më të fundit të Signal beta.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Anulo</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Dërgoje</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

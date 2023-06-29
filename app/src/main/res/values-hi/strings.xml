@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">जवाब</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Signal कॉल प्रगति पर है</string>
     <string name="NotificationBarManager__establishing_signal_call">Signal कॉल की स्थापना की जा रही है</string>
-    <string name="NotificationBarManager__incoming_signal_call">आने वाली Signal कॉल</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">इनकमिंग सिग्नल ग्रूप कॉल</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Molly कॉल सेवा शुरू की जा रही है</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Molly कॉल सेवा बंद की जा रही है</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s ने एक ग्रुप कॉल शुरू की · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">आपने एक ग्रुप कॉल शुरू की · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s ग्रुप कॉल में है · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">आप ग्रुप कॉल में हैं · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s और %2$s ग्रुप कॉल में हैं · %3$s</string>
     <string name="MessageRecord_group_call_s">ग्रुप कॉल · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s ने एक ग्रुप कॉल शुरू की</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">आपने एक ग्रुप कॉल शुरू की</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s ग्रुप कॉल में है</string>
     <string name="MessageRecord_you_are_in_the_group_call">आप ग्रुप कॉल मे हैं</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s और %2$s ग्रुप कॉल में हैं</string>
@@ -2316,7 +2313,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">कॉल का जवाब देने के लिए Molly को अपने माइक्रोफ़ोन का ऐक्सेस दें।</string>
-    <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%1$s से कॉल का जवाब देने के लिए, Molly को अपने माइक्रोफ़ोन तक पहुंचने दें।</string>
+    <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">To answer the video call, give Molly access to your microphone and camera.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">कॉल करने या प्राप्त करने के लिए Molly को माइक्रोफ़ोन और कैमरा अनुमतियों की आवश्यकता होती है, लेकिन उन्हें स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफ़ोन\" और \"कैमरा\" सक्षम करें।</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">एक लिंक किए हुए डिवाइस पर जवाब दिया गया।</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">एक लिंक किए हुए डिवाइस पर रद्द किया गया।</string>
@@ -2345,7 +2343,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">ब्लूटुथ</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">वायर्ड हेडफ़ोन</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">वायर्ड हेडसेट</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3343,8 @@
     <string name="conversation__menu_conversation_settings">चैट सेटिंग्स</string>
     <string name="conversation__menu_add_shortcut">होम स्क्रीन में शामिल करें</string>
     <string name="conversation__menu_create_bubble">बबल बनाएँ</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">फॉर्मेट टेक्स्ट</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">पॉपअप का विस्तार करें</string>
@@ -3546,6 +3546,20 @@
     <string name="KbsMegaphone__create_a_pin">पिेन बनाएँ</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PINs वह जानकारी रखते हैं जो Signal एन्क्रिप्टेड के साथ संग्रहीत होती है।</string>
     <string name="KbsMegaphone__create_pin">पिेन बनाएँ</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">आने वाली Molly वॉयस कॉल</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">आने वाली Molly वीडियो कॉल</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">इनकमिंग सिग्नल ग्रूप कॉल</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">जारी Molly वॉइस कॉल</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">जारी Molly वीडियो कॉल</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">जारी Molly ग्रुप कॉल</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">परिवहन चिह्न</string>
@@ -5905,6 +5919,8 @@
     <string name="TextFormatting_monospace">मोनोस्पेस</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">स्पॉइलर</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">फॉर्मेटिंग साफ करें</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5987,15 @@
     <string name="CallContextMenu__delete">डिलीट करें</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">डिलीट किया जा रहा है…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">डिलीट करना विफल रहा।</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">लिंक मिटाया नहीं जा सकता। अपना कनेक्शन जांचें और पुनः प्रयास करें।</item>
+        <item quantity="other">लिंक मिटाया नहीं जा सकता। अपना कनेक्शन जांचें और पुनः प्रयास करें।</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">कॉल इतिहास साफ किया गया</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6117,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">संपादित इतिहास</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">केवल Signal बीटा</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">संदेशों का संपादन केवल Signal बीटा उपयोगकर्ताओं के लिए उपलब्ध है। यदि आप किसी संदेश को संपादित करते हैं, तो वह केवल उन लोगों को दिखाई देगा जो Signal बीटा के नवीनतम संस्करण पर हैं।</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">रद्द करें</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">भेजें</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

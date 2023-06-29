@@ -1174,10 +1174,7 @@
     <string name="MessageQuotesBottomSheet_replies">ပြန်စာများ</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Signal ဖုန်းခေါ်နေသည်</string>
     <string name="NotificationBarManager__establishing_signal_call">Signal ဖုန်းခေါ်ဆိုမှုစတင်နေသည်</string>
-    <string name="NotificationBarManager__incoming_signal_call">Signal မှဖုန်းဝင်လာသည်</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Signal အဖွဲ့ကောလ် အဝင်</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Molly ကောလ် ဝန်ဆောင်မှုကို စတင်နေပါသည်</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Molly ဖုန်းခေါ်ဆိုခြင်း ဝန်ဆောင်မှုကို ရပ်ဆိုင်းနေသည်</string>
@@ -1433,14 +1430,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s သည် အဖွဲ့လိုက်ခေါ်ဆိုမှု စခဲ့ပါသည် · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">အဖွဲ့ကောလ်ကို သင် စတင်ခဲ့ပါသည် · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s သည် အဖွဲ့လိုက်ခေါ်ဆိုမှုထဲ၌ ရှိပါသည် · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">သင်သည် အဖွဲ့လိုက်ခေါ်ဆိုမှုထဲတွင် ရှိပါသည် · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s နှင့် %2$s သည် အဖွဲ့လိုက်ခေါ်ဆိုမှုထဲ၌ ရှိပါသည် · %3$s</string>
     <string name="MessageRecord_group_call_s">အဖွဲ့လိုက်ခေါ်ဆိုမှု · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s သည် အဖွဲ့လိုက်ခေါ်ဆိုမှု စခဲ့ပါသည်</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">အဖွဲ့လိုက် ဖုန်းခေါ်ဆိုမှု သင်စခဲ့ပါသည်</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s သည် အဖွဲ့လိုက်ခေါ်ဆိုမှုထဲ၌ ရှိပါသည်</string>
     <string name="MessageRecord_you_are_in_the_group_call">သင်သည် အဖွဲ့လိုက်ခေါ်ဆိုမှုထဲ၌ ရှိပါသည်</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s နှင့် %2$s သည် အဖွဲ့လိုက်ခေါ်ဆိုမှုထဲ၌ ရှိပါသည်</string>
@@ -2246,7 +2243,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">ကောလ် ဖြေဆိုရန် Molly အား သင့်မိုက်ခရိုဖုန်းကို သုံးခွင့်ပေးပါ။</string>
-    <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%1$sမှ ဖုန်းကိုဖြေဆိုရန် Molly အား မိုက်ခရိုဖုန်းအသုံးပြုခွင့်ပေးပါ။</string>
+    <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">To answer the video call, give Molly access to your microphone and camera.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">ဖုန်းခေါ်ဆိုမှုပြုနိုင်ရန် Mollyမှ မိုက်ခရိုဖုန်း နှင့် ကင်မရာအား အသုံးပြုခွင့် ရရန်လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ မိုက်ခရိုဖုန်း နှင့် ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">ချိတ်ဆက်ထားသော စက်ပေါ်တွင် ဖြေဆိုခဲ့ပါသည်။</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">ချိတ်ဆက်ထားသော စက်ပေါ်တွင် ငြင်းဆိုခဲ့ပါသည်။</string>
@@ -2275,7 +2273,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">ဘလူးတုသ်</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">ကြိုးတပ်နားကြပ်</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">ကြိုးတပ်နားကြပ်</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3262,6 +3260,8 @@
     <string name="conversation__menu_conversation_settings">ချက်(တ်) ဆက်တင်</string>
     <string name="conversation__menu_add_shortcut">ပင်မစာမျက်နှာသို့ ထည့်ပါ</string>
     <string name="conversation__menu_create_bubble">ပူဖောင်းကို ဖန်တီးပါ</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">စာသားကို ပုံစံချရန်</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">popup ကို တိုးချဲ့ပါ</string>
@@ -3455,6 +3455,20 @@
     <string name="KbsMegaphone__create_a_pin">ပင်နံပါတ်တစ်ခုဖန်တီးပါ</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">ပင်နံပါတ်အသုံးပြုချင်းသည် Signal ဖြင့်သိမ်းထားသောသတင်းအချက်အလက်များကို ကုဒ်ဖြင့်သိမ်းဆည်းသည်။</string>
     <string name="KbsMegaphone__create_pin">ပင်နံပါတ်ဖန်တီးပါ</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly အော်ဒီယိုကောလ် အဝင်</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Molly ဗီဒီယိုကောလ် အဝင်</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Molly အဖွဲ့ကောလ် အဝင်</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Molly အော်ဒီယိုကောလ် အထွက်</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Molly ဗီဒီယိုကောလ် အထွက်</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Molly အဖွဲ့ကောလ် အထွက်</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">ပုံသင်္ကေတကို ပို့ဆောင်ပါ။</string>
@@ -5782,6 +5796,8 @@
     <string name="TextFormatting_monospace">Monospace</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">စာကို ဝါးထားရန်</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">ပုံစံချခြင်းကို ဖယ်ရှားရန်</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5848,6 +5864,14 @@
     <string name="CallContextMenu__delete">ဖျက်ရန်</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">ဖျက်နေဆဲ…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">ဖျက်ရန် မအောင်မြင်ပါ။</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="other">ကောလ်လင့်ခ်အားလုံးကို ဖျက်၍ မရနိုင်ခဲ့ပါ။ သင့်အင်တာနက်ချိတ်ဆက်မှုကို ပြန်စစ်ဆေးပြီး ထပ်ကြိုးစားကြည့်ပါ။</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">ကောလ်မှတ်တမ်းကို ရှင်းရန်</string>
     <!-- Dialog title to clear all call events -->
@@ -5967,6 +5991,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">တည်းဖြတ်မှု မှတ်တမ်း</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Signal Beta သီးသန့်</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">မက်ဆေ့ချ်များ တည်းဖြတ်ခြင်းကို Signal Beta သုံးစွဲသူများအတွက်သာ ရရှိနိုင်ပါသည်။ မက်ဆေ့ချ်တစ်စောင်ကို တည်းဖြတ်ပါက ၎င်းကို Signal Beta နောက်ဆုံးထွက်ဗားရှင်းရှိသူများသာ မြင်ရပါမည်။</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">မလုပ်တော့ပါ</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">ပို့ပါ</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

@@ -14,6 +14,7 @@ import androidx.lifecycle.LifecycleOwner
 import org.signal.core.util.dp
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.spoiler.SpoilerAnnotation.SpoilerClickableSpan
+import org.thoughtcrime.securesms.util.AccessibilityUtil
 import org.thoughtcrime.securesms.util.getLifecycle
 
 /**
@@ -33,9 +34,11 @@ class SpoilerRendererDelegate @JvmOverloads constructor(
   private val cachedAnnotations = HashMap<Int, Map<Annotation, SpoilerClickableSpan?>>()
   private val cachedMeasurements = HashMap<Int, SpanMeasurements>()
 
+  private var systemAnimationsEnabled = !AccessibilityUtil.areAnimationsDisabled(view.context)
+
   private val animator = TimeAnimator().apply {
     setTimeListener { _, _, _ ->
-      SpoilerPaint.update()
+      SpoilerPaint.update(systemAnimationsEnabled)
       view.invalidate()
     }
   }
@@ -53,9 +56,11 @@ class SpoilerRendererDelegate @JvmOverloads constructor(
     view.addOnAttachStateChangeListener(object : OnAttachStateChangeListener {
       override fun onViewDetachedFromWindow(v: View) = stopAnimating()
       override fun onViewAttachedToWindow(v: View) {
-        view.getLifecycle().addObserver(object : DefaultLifecycleObserver {
+        view.getLifecycle()?.addObserver(object : DefaultLifecycleObserver {
           override fun onResume(owner: LifecycleOwner) {
             canAnimate = true
+            systemAnimationsEnabled = !AccessibilityUtil.areAnimationsDisabled(view.context)
+            view.invalidate()
           }
 
           override fun onPause(owner: LifecycleOwner) {

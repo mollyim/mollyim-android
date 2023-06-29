@@ -1217,10 +1217,7 @@
     <string name="MessageQuotesBottomSheet_replies">Svar</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Signal-samtale pågår</string>
     <string name="NotificationBarManager__establishing_signal_call">Setter opp Signal-anrop</string>
-    <string name="NotificationBarManager__incoming_signal_call">Inngående Signal-anrop</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Innkommende gruppeanrop på Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Starter anropstjenesten Molly</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Stopper Molly-tjenesten</string>
@@ -1484,14 +1481,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s startet en gruppesamtale · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Du startet en gruppesamtale · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s er i gruppesamtalen · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Du er i gruppesamtalen · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s og %2$s er i gruppesamtalen · %3$s</string>
     <string name="MessageRecord_group_call_s">Gruppesamtale · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s startet en gruppesamtale</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Du gjorde et gruppeanrop</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s er i gruppesamtalen</string>
     <string name="MessageRecord_you_are_in_the_group_call">Du er med i gruppesamtalen</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s og %2$s er i gruppesamtalen</string>
@@ -2316,7 +2313,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Gi Molly tilgang til mikrofonen for å svare på anropet.</string>
-    <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Gi Molly tilgang til mikrofonen for å besvare samtalen fra 1%1$s.</string>
+    <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">To answer the video call, give Molly access to your microphone and camera.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly krever tillatelser fra systemet for å kunne ringe eller motta samtaler, men du har valgt å avslå minst én av disse permanent. Gå til «Apper»-menyen på systemet og slå på tillatelser for «Mikrofon» og «Kamera».</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Besvart på en koblet enhet.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Avslått på en koblet enhet.</string>
@@ -2345,7 +2343,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Hodetelefoner</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Hodetelefoner</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3345,6 +3343,8 @@
     <string name="conversation__menu_conversation_settings">Samtaleinnstillinger</string>
     <string name="conversation__menu_add_shortcut">Legg til på startskjermen</string>
     <string name="conversation__menu_create_bubble">Lag boble</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Formater tekst</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Utvid forgrunnsvindu</string>
@@ -3546,6 +3546,20 @@
     <string name="KbsMegaphone__create_a_pin">Lag en PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN-koden holder informasjonen som er lagret i Signal kryptert.</string>
     <string name="KbsMegaphone__create_pin">Lag PIN</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Inkommende taleanrop i Molly</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Inkommende videoanrop i Molly</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Innkommende gruppeanrop på Molly</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Pågående lydsamtale i Molly</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Pågående videosamtale i Molly</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Pågående gruppesamtale i Molly</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Transport-ikon</string>
@@ -5905,6 +5919,8 @@
     <string name="TextFormatting_monospace">Fast tegnavstand</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Spoiler</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Fjern formatering</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5971,6 +5987,15 @@
     <string name="CallContextMenu__delete">Slett</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Sletter …</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Slettingen mislyktes.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="one">Lenken kunne ikke slettes. Sjekk internettilkoblingen og prøv igjen.</item>
+        <item quantity="other">Enkelte lenker kunne ikke slettes. Sjekk internettilkoblingen og prøv igjen.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Anropsloggen er tom</string>
     <!-- Dialog title to clear all call events -->
@@ -6092,6 +6117,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Redigeringshistorikk</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Kun med Signal Beta</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Kun Signal Beta-brukere kan redigere meldinger. Hvis du redigerer en melding, vil endringen kun vises for personer som bruker den nyeste versjonen av Signal Beta.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Avbryt</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Send</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

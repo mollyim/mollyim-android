@@ -77,6 +77,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.PersistentLogger;
 import org.thoughtcrime.securesms.messageprocessingalarm.MessageProcessReceiver;
+import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.mms.SignalGlideComponents;
@@ -406,7 +407,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   public void finalizeMessageRetrieval() {
-    ApplicationDependencies.getIncomingMessageObserver().stopForegroundService();
+    IncomingMessageObserver.ForegroundService.Companion.stop(this);
     ApplicationDependencies.closeConnections();
   }
 

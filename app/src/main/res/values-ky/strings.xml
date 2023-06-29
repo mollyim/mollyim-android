@@ -1174,10 +1174,7 @@
     <string name="MessageQuotesBottomSheet_replies">Жооптор</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager_signal_call_in_progress">Signal аркылуу чалып жатасыз</string>
     <string name="NotificationBarManager__establishing_signal_call">Signal аркылуу чалып баштадыңыз</string>
-    <string name="NotificationBarManager__incoming_signal_call">Кимдир бирөө Signal аркылуу чалып жатат</string>
-    <string name="NotificationBarManager__incoming_signal_group_call">Signal аркылуу топтун ичинде чалып жатат</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">Molly аркылуу чалуу кызматы</string>
     <string name="NotificationBarManager__stopping_signal_call_service">Molly аркылуу чалуу кызматы токтотулууда</string>
@@ -1433,14 +1430,14 @@
 
     <!-- Group Calling update messages -->
     <string name="MessageRecord_s_started_a_group_call_s">%1$s топтун ичинде чалып баштады · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">You started a group call · %1$s</string>
+    <string name="MessageRecord_you_started_a_group_call_s">Топтук чалууну баштадыңыз · %1$s</string>
     <string name="MessageRecord_s_is_in_the_group_call_s">%1$s топтун ичиндеги чалууда · %2$s</string>
     <string name="MessageRecord_you_are_in_the_group_call_s1">Топтук чалуудасыз · %1$s</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s менен %2$s топтук чалууда · %3$s</string>
     <string name="MessageRecord_group_call_s">Топтук чалуу · %1$s</string>
 
     <string name="MessageRecord_s_started_a_group_call">%1$s топтун ичинде чалып баштады</string>
-    <string name="MessageRecord_you_started_a_group_call">You started a group call</string>
+    <string name="MessageRecord_you_started_a_group_call">Топтук чалууну баштадыңыз</string>
     <string name="MessageRecord_s_is_in_the_group_call">%1$s топтук чалууда</string>
     <string name="MessageRecord_you_are_in_the_group_call">Топтук чалуудасыз</string>
     <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s менен %2$s топтук чалууда</string>
@@ -2246,7 +2243,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Чалууга жооп берүү үчүн Molly колдонмосуна микрофонуңуз керек.</string>
-    <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Ушул номерден %1$s келип жаткан чалууга жооп берүү үчүн Molly\'га микрофонуңузду жеткиликтүү кылыңыз.</string>
+    <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">To answer the video call, give Molly access to your microphone and camera.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Чалуу же чалууларды кабыл алуу үчүн Molly колдонмосуна микрофон менен камераны колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Микрофон\" жана \"Камера\" дегенди иштетиңиз.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Байланышкан түзмөктө жооп берилди.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Байланышкан түзмөктө четке кагылды.</string>
@@ -2275,7 +2273,7 @@
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
     <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
     <!-- Audio output option referring to a pair of headphones that do not contain a microphone connected via a 3.5mm headphone jack -->
-    <string name="WebRtcAudioOutputToggle__wired_headphones">Wired Headphones</string>
+    <string name="WebRtcAudioOutputToggle__wired_headphones">Зымдуу гарнитура</string>
     <!-- Audio output option referring to an external headset that contains a microphone connected via a 3.5mm headphone jack -->
     <string name="WebRtcAudioOutputToggle__wired_headset">Зымдуу гарнитура</string>
     <!-- Audio output option referring to an external headset connected via a USB-C data cable -->
@@ -3262,6 +3260,8 @@
     <string name="conversation__menu_conversation_settings">Маек параметрлери</string>
     <string name="conversation__menu_add_shortcut">Башкы экранга кошуу</string>
     <string name="conversation__menu_create_bubble">Калкып чыкма маек түзүү</string>
+    <!-- Overflow menu option that allows formatting of text -->
+    <string name="conversation__menu_format_text">Текстти форматтоо</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Калкып чыкма терезени кеңейтүү</string>
@@ -3455,6 +3455,20 @@
     <string name="KbsMegaphone__create_a_pin">PIN код түзүү</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN коддору Signal кызматында сакталган маалыматты шифрлейт.</string>
     <string name="KbsMegaphone__create_pin">PIN код түзүү</string>
+
+    <!-- CallNotificationBuilder -->
+    <!-- Displayed in a notification when a Signal voice call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly\'да кимдир бирөө үн режиминде чалып жатат</string>
+    <!-- Displayed in a notification when a Signal video call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Molly\'да кимдир бирөө видео режимде чалып жатат</string>
+    <!-- Displayed in a notification when a Signal group call is ringing -->
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Molly аркылуу топтун ичинде чалып жатат</string>
+    <!-- Displayed in a notification when a Signal voice call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Учурдагы Molly аудио чалуусу</string>
+    <!-- Displayed in a notification when a Signal video call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Учурдагы Molly видео чалуусу</string>
+    <!-- Displayed in a notification when a Signal group call is in progress -->
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Учурдагы Molly топтук чалуусу</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Транспорттун сүрөтчөсү</string>
@@ -5782,6 +5796,8 @@
     <string name="TextFormatting_monospace">Monospace</string>
     <!-- Popup menu label for applying spoiler style -->
     <string name="TextFormatting_spoiler">Бүдөмүктөтүү</string>
+    <!-- Popup menu label for clearing applied formatting -->
+    <string name="TextFormatting_clear_formatting">Форматты тазалоо</string>
 
     <!-- UsernameEducationFragment -->
     <!-- Continue button which takes the user to the add a username screen -->
@@ -5848,6 +5864,14 @@
     <string name="CallContextMenu__delete">Өчүрүү</string>
 
     <!-- Call Log Fragment -->
+    <!-- Displayed when deleting call history items -->
+    <string name="CallLogFragment__deleting">Өчүрүлүүдө…</string>
+    <!-- Displayed in a toast when a deletion fails for an unknown reason -->
+    <string name="CallLogFragment__deletion_failed">Өчпөй калды.</string>
+    <!-- Displayed as message in error dialog when can\'t delete links -->
+    <plurals name="CallLogFragment__cant_delete_call_link">
+        <item quantity="other">Чалуу шилтемелеринин айрымдары өчпөй калды. Байланышты текшерип, кайталап көрүңүз.</item>
+    </plurals>
     <!-- Snackbar text after clearing the call history -->
     <string name="CallLogFragment__cleared_call_history">Чалуулар таржымалы тазаланды</string>
     <!-- Dialog title to clear all call events -->
@@ -5967,6 +5991,15 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Оңдолгондор</string>
+    <!-- Title of dialog shown alerting user that edit message is in beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_title">Signal сынамык режимде гана</string>
+    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
+    <string name="SendingEditMessageBetaOnlyDialog_body">Билдирүүлөрдү Signal\'дын сынамык колдонуучулары гана оңдой алышат. Эгер билдирүүнү оңдосоңуз, ал Signal\'дын эң акыркы сынамык версиясын колдонгон адамдарга гана көрүнөт.</string>
+    <!-- Button to cancel sending edit message as it is beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_cancel">Жок</string>
+    <!-- Button to continue sending edit message despite it being beta only -->
+    <string name="SendingEditMessageBetaOnlyDialog_send">Жөнөтүү</string>
+
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->

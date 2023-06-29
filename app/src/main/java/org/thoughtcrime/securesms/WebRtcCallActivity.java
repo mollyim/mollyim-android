@@ -56,6 +56,7 @@ import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.thoughtcrime.securesms.components.TooltipPopup;
 import org.thoughtcrime.securesms.components.sensors.DeviceOrientationMonitor;
+import org.thoughtcrime.securesms.components.webrtc.CallLinkInfoSheet;
 import org.thoughtcrime.securesms.components.webrtc.CallParticipantsListUpdatePopupWindow;
 import org.thoughtcrime.securesms.components.webrtc.CallParticipantsState;
 import org.thoughtcrime.securesms.components.webrtc.CallStateUpdatePopupWindow;
@@ -72,6 +73,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
 import org.thoughtcrime.securesms.messagerequests.CalleeMustAcceptMessageRequestActivity;
 import org.thoughtcrime.securesms.permissions.Permissions;
+import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet;
@@ -105,10 +107,18 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   private static final int STANDARD_DELAY_FINISH = 1000;
   private static final int VIBRATE_DURATION      = 50;
 
-  public static final String ANSWER_ACTION   = WebRtcCallActivity.class.getCanonicalName() + ".ANSWER_ACTION";
-  public static final String DENY_ACTION     = WebRtcCallActivity.class.getCanonicalName() + ".DENY_ACTION";
-  public static final String NO_ACTION       = WebRtcCallActivity.class.getCanonicalName() + ".NO_ACTION";
-  public static final String END_CALL_ACTION = WebRtcCallActivity.class.getCanonicalName() + ".END_CALL_ACTION";
+  /**
+   * ANSWER the call via voice-only.
+   */
+  public static final String ANSWER_ACTION       = WebRtcCallActivity.class.getCanonicalName() + ".ANSWER_ACTION";
+
+  /**
+   * ANSWER the call via video.
+   */
+  public static final String ANSWER_VIDEO_ACTION = WebRtcCallActivity.class.getCanonicalName() + ".ANSWER_VIDEO_ACTION";
+  public static final String DENY_ACTION         = WebRtcCallActivity.class.getCanonicalName() + ".DENY_ACTION";
+  public static final String NO_ACTION           = WebRtcCallActivity.class.getCanonicalName() + ".NO_ACTION";
+  public static final String END_CALL_ACTION     = WebRtcCallActivity.class.getCanonicalName() + ".END_CALL_ACTION";
 
   public static final String EXTRA_ENABLE_VIDEO_IF_AVAILABLE = WebRtcCallActivity.class.getCanonicalName() + ".ENABLE_VIDEO_IF_AVAILABLE";
   public static final String EXTRA_STARTED_FROM_FULLSCREEN   = WebRtcCallActivity.class.getCanonicalName() + ".STARTED_FROM_FULLSCREEN";
@@ -161,10 +171,16 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     initializeViewModel(isLandscapeEnabled);
     initializePictureInPictureParams();
 
-    processIntent(getIntent());
+    if (ANSWER_VIDEO_ACTION.equals(getIntent().getAction())) {
+      enableVideoIfAvailable = true;
+    } else if (ANSWER_ACTION.equals(getIntent().getAction()) || getIntent().getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false)) {
+      enableVideoIfAvailable = false;
+    } else {
+      enableVideoIfAvailable = getIntent().getBooleanExtra(EXTRA_ENABLE_VIDEO_IF_AVAILABLE, false);
+      getIntent().removeExtra(EXTRA_ENABLE_VIDEO_IF_AVAILABLE);
+    }
 
-    enableVideoIfAvailable = getIntent().getBooleanExtra(EXTRA_ENABLE_VIDEO_IF_AVAILABLE, false);
-    getIntent().removeExtra(EXTRA_ENABLE_VIDEO_IF_AVAILABLE);
+    processIntent(getIntent());
 
     windowLayoutInfoConsumer = new WindowLayoutInfoConsumer();
 
@@ -214,6 +230,8 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     if (!screenLocked) {
       if (ANSWER_ACTION.equals(getIntent().getAction())) {
         handleAnswerWithAudio();
+      } else if (ANSWER_VIDEO_ACTION.equals(getIntent().getAction())) {
+        handleAnswerWithVideo();
       }
     }
   }
@@ -314,12 +332,15 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   }
 
   private void processIntent(@NonNull Intent intent) {
-    if (ANSWER_ACTION.equals(intent.getAction()) || NO_ACTION.equals(intent.getAction())) {
+    final String action = intent.getAction();
+    if (ANSWER_ACTION.equals(action) || ANSWER_VIDEO_ACTION.equals(action) || NO_ACTION.equals(action)) {
       // MOLLY: Hold this action until activity's screen is unlocked
       setIntent(intent);
-    } else if (DENY_ACTION.equals(intent.getAction())) {
+    } else if (ANSWER_VIDEO_ACTION.equals(action)) {
+      handleAnswerWithVideo();
+    } else if (DENY_ACTION.equals(action)) {
       handleDenyCall();
-    } else if (END_CALL_ACTION.equals(intent.getAction())) {
+    } else if (END_CALL_ACTION.equals(action)) {
       handleEndCall();
     }
   }
@@ -507,26 +528,20 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   }
 
   private void handleAnswerWithVideo() {
-    Recipient recipient = viewModel.getRecipient().get();
+    Permissions.with(this)
+               .request(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA)
+               .ifNecessary()
+               .withRationaleDialog(getString(R.string.WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera), R.drawable.ic_mic_solid_24, R.drawable.ic_video_solid_24_tinted)
+               .withPermanentDenialDialog(getString(R.string.WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls))
+               .onAllGranted(() -> {
+                 callScreen.setStatus(getString(R.string.RedPhone_answering));
 
-    if (!recipient.equals(Recipient.UNKNOWN)) {
-      Permissions.with(this)
-                 .request(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA)
-                 .ifNecessary()
-                 .withRationaleDialog(getString(R.string.WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone, recipient.getDisplayName(this)),
-                                      R.drawable.ic_mic_solid_24, R.drawable.ic_video_solid_24_tinted)
-                 .withPermanentDenialDialog(getString(R.string.WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls))
-                 .onAllGranted(() -> {
-                   callScreen.setRecipient(recipient);
-                   callScreen.setStatus(getString(R.string.RedPhone_answering));
+                 ApplicationDependencies.getSignalCallManager().acceptCall(true);
 
-                   ApplicationDependencies.getSignalCallManager().acceptCall(true);
-
-                   handleSetMuteVideo(false);
-                 })
-                 .onAnyDenied(this::handleDenyCall)
-                 .execute();
-    }
+                 handleSetMuteVideo(false);
+               })
+               .onAnyDenied(this::handleDenyCall)
+               .execute();
   }
 
   private void handleDenyCall() {
@@ -924,7 +939,13 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
     @Override
     public void onCallInfoClicked() {
-      CallParticipantsListDialog.show(getSupportFragmentManager());
+      LiveRecipient liveRecipient = viewModel.getRecipient();
+
+      if (liveRecipient.get().isCallLink()) {
+        CallLinkInfoSheet.show(getSupportFragmentManager(), liveRecipient.get().requireCallLinkRoomId());
+      } else {
+        CallParticipantsListDialog.show(getSupportFragmentManager());
+      }
     }
 
     @Override
