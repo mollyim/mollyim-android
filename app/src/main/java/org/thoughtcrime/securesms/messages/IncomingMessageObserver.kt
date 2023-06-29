@@ -30,7 +30,6 @@ import org.thoughtcrime.securesms.jobs.PushProcessMessageJobV2
 import org.thoughtcrime.securesms.jobs.UnableToStartException
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messages.MessageDecryptor.FollowUpOperation
-import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.groupId
 import org.thoughtcrime.securesms.messages.protocol.BufferedProtocolStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.recipients.RecipientId
@@ -46,6 +45,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 import kotlin.math.round
@@ -99,8 +99,9 @@ class IncomingMessageObserver(private val context: Application) {
 
   private val messageContentProcessor = MessageContentProcessorV2(context)
 
+  private var foregroundServiceStartPending = AtomicBoolean(true)
+
   private var appVisible = false
-  private var isForegroundService = false
   private var lastInteractionTime: Long = System.currentTimeMillis()
 
   @Volatile
@@ -111,11 +112,9 @@ class IncomingMessageObserver(private val context: Application) {
     private set
 
   init {
-    // MOLLY: Foreground service startup is handled inside the connection loop
-
-    // MOLLY: Start MessageRetrievalThread after the foreground listener to decrease the chances of deadlocking
-    // at onAppForegrounded() and isConnectionNecessary() while JobManager is being initialized.
     MessageRetrievalThread().start()
+
+    // MOLLY: Foreground service startup is handled inside the connection loop
 
     ApplicationDependencies.getAppForegroundObserver().addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
@@ -128,10 +127,6 @@ class IncomingMessageObserver(private val context: Application) {
     })
 
     networkConnectionListener.register()
-  }
-
-  fun stopForegroundService() {
-    context.stopService(Intent(context, ForegroundService::class.java))
   }
 
   fun notifyRegistrationChanged() {
@@ -208,16 +203,19 @@ class IncomingMessageObserver(private val context: Application) {
     val forceWebsocket = SignalStore.internalValues().isWebsocketModeForced
     val decryptQueueEmpty = ApplicationDependencies.getJobManager().isQueueEmpty(PushDecryptMessageJob.QUEUE)
 
-    if (!fcmEnabled || forceWebsocket && registered && !isForegroundService) {
-      try {
-        ForegroundServiceUtil.start(context, Intent(context, ForegroundService::class.java))
-      } catch (e: UnableToStartException) {
-        Log.w(TAG, "Unable to start foreground service for websocket. Deferring to background to try with blocking")
-        SignalExecutors.UNBOUNDED.execute {
-          try {
-            startWhenCapable(context, Intent(context, ForegroundService::class.java))
-          } catch (e: UnableToStartException) {
-            Log.w(TAG, "Unable to start foreground service for websocket!", e)
+    if (!fcmEnabled || forceWebsocket) {
+      // MOLLY: Try to start the foreground service only once
+      if (foregroundServiceStartPending.getAndSet(false)) {
+        try {
+          ForegroundServiceUtil.start(context, Intent(context, ForegroundService::class.java))
+        } catch (e: UnableToStartException) {
+          Log.w(TAG, "Unable to start foreground service for websocket. Deferring to background to try with blocking")
+          SignalExecutors.UNBOUNDED.execute {
+            try {
+              startWhenCapable(context, Intent(context, ForegroundService::class.java))
+            } catch (e: UnableToStartException) {
+              Log.w(TAG, "Unable to start foreground service for websocket!", e)
+            }
           }
         }
       }
@@ -491,13 +489,15 @@ class IncomingMessageObserver(private val context: Application) {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-      super.onStartCommand(intent, flags, startId)
-
-      if (intent == null) {
+      if (intent == null || KeyCachingService.isLocked()) {
+        Log.i(TAG, "Delaying the startup of the foreground service for websocket.")
         stopForeground(STOP_FOREGROUND_REMOVE)
-      } else {
-        postForegroundNotification()
+        return START_NOT_STICKY
       }
+
+      Log.d(TAG, "Foreground service for websocket started.")
+
+      postForegroundNotification()
 
       return START_STICKY
     }
@@ -513,6 +513,16 @@ class IncomingMessageObserver(private val context: Application) {
         .build()
 
       startForeground(FOREGROUND_ID, notification)
+    }
+
+    override fun onDestroy() {
+      Log.d(TAG, "Foreground service for websocket destroyed.")
+    }
+
+    companion object {
+      fun stop(context: Context) {
+        context.stopService(Intent(context, ForegroundService::class.java))
+      }
     }
   }
 
