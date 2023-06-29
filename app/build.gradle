@@ -56,8 +56,8 @@ ext {
     MAPS_API_KEY = getEnv('CI_MAPS_API_KEY') ?: mapsApiKey
 }
 
-def canonicalVersionCode = 1282
-def canonicalVersionName = "6.24.3"
+def canonicalVersionCode = 1283
+def canonicalVersionName = "6.24.4"
 def mollyRevision = 0
 
 def postFixSize = 100
