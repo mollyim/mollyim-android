@@ -7,19 +7,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+
+import im.molly.unifiedpush.util.UnifiedPushHelper
+import org.signal.core.util.concurrent.SignalExecutors
+import org.thoughtcrime.securesms.ApplicationContext
+import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.SlowNotificationHeuristics
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference
 import org.thoughtcrime.securesms.util.TextSecurePreferences
+import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
 import org.thoughtcrime.securesms.util.livedata.Store
+import org.unifiedpush.android.connector.UnifiedPush
 
 class NotificationsSettingsViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 
   private val store = Store(getState())
 
   val state: LiveData<NotificationsSettingsState> = store.stateLiveData
+  private val EXECUTOR = SerialMonoLifoExecutor(SignalExecutors.UNBOUNDED)
 
   init {
     if (NotificationChannels.supported()) {
@@ -108,6 +116,29 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     refresh()
   }
 
+  fun setNotificationDeliveryMethod(method: NotificationDeliveryMethod) {
+    SignalStore.settings.notificationDeliveryMethod = method
+    SignalStore.unifiedpush.enabled = method == NotificationDeliveryMethod.UNIFIEDPUSH
+    SignalStore.internal.isWebsocketModeForced = method == NotificationDeliveryMethod.WEBSOCKET
+    val context = ApplicationContext.getInstance()
+    if (method == NotificationDeliveryMethod.UNIFIEDPUSH) {
+      UnifiedPush.getDistributors(context).getOrNull(0)?.let {
+        refresh()
+        EXECUTOR.enqueue {
+          UnifiedPush.saveDistributor(context, it)
+          UnifiedPush.registerApp(context)
+          UnifiedPushHelper.initializeMollySocketLinkedDevice(context)
+        }
+        // Do not enable if there is no distributor
+      } ?: return
+    } else {
+      UnifiedPush.unregisterApp(context)
+      SignalStore.unifiedpush.airGaped = false
+      SignalStore.unifiedpush.mollySocketUrl = null
+    }
+    refresh()
+  }
+
   /**
    * @param currentState If provided and [calculateSlowNotifications] = false, then we will copy the slow notification state from it
    * @param calculateSlowNotifications If true, calculate the true slow notification state (this is not main-thread safe). Otherwise, it will copy from
@@ -142,7 +173,8 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     ),
     notifyWhileLocked = TextSecurePreferences.isPassphraseLockNotificationsEnabled(AppDependencies.application) && SignalStore.account.pushAvailable,
     canEnableNotifyWhileLocked = SignalStore.account.pushAvailable,
-    notifyWhenContactJoinsSignal = SignalStore.settings.isNotifyWhenContactJoinsSignal
+    notifyWhenContactJoinsSignal = SignalStore.settings.isNotifyWhenContactJoinsSignal,
+    notificationDeliveryMethod = SignalStore.settings.notificationDeliveryMethod
   )
 
   private fun canEnableNotifications(): Boolean {
