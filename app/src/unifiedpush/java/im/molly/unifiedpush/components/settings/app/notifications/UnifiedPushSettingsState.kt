@@ -9,7 +9,6 @@ data class Distributor(
 )
 
 data class UnifiedPushSettingsState(
-  val enabled: Boolean,
   val airGaped: Boolean,
   val device: MollyDevice?,
   val distributors: List<Distributor>,

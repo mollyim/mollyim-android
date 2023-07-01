@@ -110,7 +110,8 @@
     <string name="RegistrationActivity_provider_declined">The provider has declined to send you a verification code, likely due to fraud prevention rules.</string>
     <string name="NotificationsSettingsFragment__unifiedpush">UnifiedPush</string>
     <string name="NotificationsSettingsFragment__pushStrategy">Push Strategy</string>
-    <string name="NotificationsSettingsFragment__pushStrategyDescription">Enable UnifiedPush and choose the method to receive notifications</string>
+    <string name="NotificationsSettingsFragment__deliveryMethod">Delivery Method</string>
+    <string name="NotificationsSettingsFragment__unifiedpushDescription">Preferred service to receive notifications</string>
     <string name="UnifiedPushSettingsViewModel__no_distributor">None available</string>
     <string name="UnifiedPushSettingsFragment__enabled">Enabled</string>
     <string name="UnifiedPushSettingsFragment__method">Notification method</string>
@@ -143,4 +144,7 @@
     <string name="UnifiedPushNotificationBuilder__endpoint_changed_airgaped">Your UnifiedPush endpoint has changed. You must update your connection on MollySocket.</string>
     <string name="UnifiedPushNotificationBuilder__endpoint_changed_error">An error occurred while changing your UnifiedPush endpoint. Try to register again to MollySocket.</string>
     <string name="UnifiedPushNotificationBuilder__registration_failed">Your UnifiedPush distributor refused the registration. You may not have any connection or a requirement is missing for your distributor.</string>
+    <string name="NotificationMethod__label_unifiedpush">UnifiedPush</string>
+    <string name="NotificationMethod__label_fcm">Google Services</string>
+    <string name="NotificationMethod__label_websocket">WebSocket</string>
 </resources>

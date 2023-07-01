@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.components.settings.RadioListPreference
 import org.thoughtcrime.securesms.components.settings.RadioListPreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.components.settings.models.Banner
+import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet
@@ -61,6 +62,11 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
 
   private val ledBlinkValues by lazy { resources.getStringArray(R.array.pref_led_blink_pattern_values) }
   private val ledBlinkLabels by lazy { resources.getStringArray(R.array.pref_led_blink_pattern_entries) }
+
+  private val notificationMethodValues = NotificationDeliveryMethod.values().filterNot {
+    !SignalStore.account().fcmEnabled && it == NotificationDeliveryMethod.FCM
+  }
+  private val notificationMethodLabels by lazy { notificationMethodValues.map { resources.getString(it.getStringId()) }.toTypedArray() }
 
   private lateinit var viewModel: NotificationsSettingsViewModel
 
@@ -286,11 +292,21 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
 
       dividerPref()
 
-      sectionHeaderPref(R.string.NotificationsSettingsFragment__unifiedpush)
+      sectionHeaderPref(R.string.NotificationsSettingsFragment__pushStrategy)
+
+      radioListPref(
+        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__deliveryMethod),
+        listItems = notificationMethodLabels,
+        selected = notificationMethodValues.indexOf(state.notificationDeliveryMethod),
+        onSelected = {
+          viewModel.setNotificationDeliveryMethod(notificationMethodValues[it])
+        }
+      )
 
       clickPref(
-        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__pushStrategy),
-        summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__pushStrategyDescription),
+        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__unifiedpush),
+        summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__unifiedpushDescription),
+        isEnabled = state.notificationDeliveryMethod == NotificationDeliveryMethod.UNIFIEDPUSH,
         onClick = {
           findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_unifiedPushFragment)
         }

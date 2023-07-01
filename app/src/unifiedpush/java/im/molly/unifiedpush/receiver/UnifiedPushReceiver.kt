@@ -19,7 +19,6 @@ import org.unifiedpush.android.connector.MessagingReceiver
 
 class UnifiedPushReceiver : MessagingReceiver() {
   private val TAG = Log.tag(UnifiedPushReceiver::class.java)
-  private val TIMEOUT = 20_000L // 20secs
   private val EXECUTOR = SerialMonoLifoExecutor(SignalExecutors.UNBOUNDED)
 
   override fun onNewEndpoint(context: Context, endpoint: String, instance: String) {

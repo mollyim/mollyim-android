@@ -168,12 +168,10 @@ public final class InternalValues extends SignalStoreValues {
    * Whether or not the system is forced to be in 'websocket mode', where FCM is ignored and we use a foreground service to keep the app alive.
    */
   public boolean isWebsocketModeForced() {
-    if (FeatureFlags.internalUser()) {
-      return getBoolean(FORCE_WEBSOCKET_MODE, false);
-    } else {
-      return false;
-    }
+    return getBoolean(FORCE_WEBSOCKET_MODE, false);
   }
+
+  public void setWebsocketModeForced(boolean value) { putBoolean(FORCE_WEBSOCKET_MODE, value); }
 
   public void setLastScrollPosition(int position) {
     putInteger(LAST_SCROLL_POSITION, position);

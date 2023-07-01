@@ -2,6 +2,7 @@ package im.molly.unifiedpush.components.settings.app.notifications
 
 import android.app.Application
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +10,6 @@ import im.molly.unifiedpush.events.UnifiedPushRegistrationEvent
 import im.molly.unifiedpush.model.UnifiedPushStatus
 import im.molly.unifiedpush.model.saveStatus
 import im.molly.unifiedpush.util.MollySocketRequest
-import im.molly.unifiedpush.util.UnifiedPushHelper
 import org.greenrobot.eventbus.Subscribe
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
@@ -47,8 +47,6 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
       Distributor(
         applicationId = it,
         name = try {
-          val ai = application.packageManager.getApplicationInfo(it, 0)
-          /* When Android 13 will be supported:
           val ai = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             application.packageManager.getApplicationInfo(it,
               PackageManager.ApplicationInfoFlags.of(
@@ -57,7 +55,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
             )
           } else {
             application.packageManager.getApplicationInfo(it, 0)
-          }*/
+          }
           application.packageManager.getApplicationLabel(ai)
         } catch (e: PackageManager.NameNotFoundException) {
           it
@@ -76,7 +74,6 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
     }
 
     return UnifiedPushSettingsState(
-      enabled = SignalStore.unifiedpush().enabled,
       airGaped = SignalStore.unifiedpush().airGaped,
       device = SignalStore.unifiedpush().device,
       distributors = distributors,
@@ -86,28 +83,6 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
       mollySocketOk = SignalStore.unifiedpush().mollySocketFound,
       status = status ?: SignalStore.unifiedpush().status,
     )
-  }
-
-  fun setUnifiedPushEnabled(enabled: Boolean) {
-    SignalStore.unifiedpush().enabled = enabled
-    if (enabled) {
-      UnifiedPush.getDistributors(application).getOrNull(0)?.let {
-        status = UnifiedPushStatus.PENDING
-        store.update { getState() }
-        EXECUTOR.enqueue {
-          UnifiedPush.saveDistributor(application, it)
-          UnifiedPush.registerApp(application)
-          UnifiedPushHelper.initializeMollySocketLinkedDevice(ApplicationContext.getInstance())
-          processNewStatus()
-        }
-        // Do not enable if there is no distributor
-      } ?: return
-    } else {
-      UnifiedPush.unregisterApp(application)
-      SignalStore.unifiedpush().airGaped = false
-      SignalStore.unifiedpush().mollySocketUrl = null
-      processNewStatus()
-    }
   }
 
   fun setUnifiedPushAirGaped(airGaped: Boolean) {

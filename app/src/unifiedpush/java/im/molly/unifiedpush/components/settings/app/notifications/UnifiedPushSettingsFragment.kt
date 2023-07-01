@@ -48,62 +48,51 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationsSe
         summary = DSLSettingsText.from(getStatusSummary(state)),
       )
 
+      radioListPref(
+        title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__method),
+        listItems = state.distributors.map { it.name }.toTypedArray(),
+        selected = state.selected,
+        onSelected = {
+          viewModel.setUnifiedPushDistributor(state.distributors[it].applicationId)
+        },
+      )
+
+      dividerPref()
+
       switchPref(
-        title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__enabled),
-        isChecked = state.enabled,
+        title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__air_gaped)),
+        summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__air_gaped_summary)),
+        isChecked = state.airGaped,
         onClick = {
-          viewModel.setUnifiedPushEnabled(!state.enabled)
+          viewModel.setUnifiedPushAirGaped(!state.airGaped)
         }
       )
 
-      if (state.enabled) {
+      if (state.airGaped) {
 
-        radioListPref(
-          title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__method),
-          listItems = state.distributors.map { it.name }.toTypedArray(),
-          selected = state.selected,
-          onSelected = {
-            viewModel.setUnifiedPushDistributor(state.distributors[it].applicationId)
+        clickPref(
+          title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_parameters)),
+          summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__click_to_copy)),
+          iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
+          onClick = { writeTextToClipboard(requireContext(), "Server parameters", getServerParameters(state)) },
+        )
+      } else {
+
+        clickPref(
+          title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__account_id)),
+          summary = DSLSettingsText.from(state.device?.uuid ?: getString(R.string.UnifiedPushSettingsFragment__unknown)),
+          iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
+          onClick = {
+            writeTextToClipboard(requireContext(), "Account ID", state.device?.uuid ?: getString(R.string.UnifiedPushSettingsFragment__unknown))
           },
         )
 
-        dividerPref()
-
-        switchPref(
-          title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__air_gaped)),
-          summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__air_gaped_summary)),
-          isChecked = state.airGaped,
-          onClick = {
-            viewModel.setUnifiedPushAirGaped(!state.airGaped)
-          }
+        clickPref(
+          title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_url)),
+          summary = DSLSettingsText.from(state.mollySocketUrl ?: getString(R.string.UnifiedPushSettingsFragment__no_server_url_summary)),
+          iconEnd = getMollySocketUrlIcon(state),
+          onClick = { urlDialog(state) },
         )
-
-        if (state.airGaped) {
-
-          clickPref(
-            title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_parameters)),
-            summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__click_to_copy)),
-            iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
-            onClick = { writeTextToClipboard(requireContext(), "Server parameters", getServerParameters(state)) },
-          )
-        } else {
-
-          clickPref(
-            title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__account_id)),
-            summary = DSLSettingsText.from(state.device?.uuid ?: getString(R.string.UnifiedPushSettingsFragment__unknown)),
-            iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
-            onClick = {
-              writeTextToClipboard(requireContext(), "Account ID", state.device?.uuid ?: getString(R.string.UnifiedPushSettingsFragment__unknown))
-            },
-          )
-
-          clickPref(
-            title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_url)),
-            summary = DSLSettingsText.from(state.mollySocketUrl ?: getString(R.string.UnifiedPushSettingsFragment__no_server_url_summary)),
-            iconEnd = getMollySocketUrlIcon(state),
-            onClick = { urlDialog(state) },
-          )
-        }
       }
     }
   }

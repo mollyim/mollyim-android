@@ -67,6 +67,8 @@ public final class SettingsValues extends SignalStoreValues {
   private static final String KEEP_MUTED_CHATS_ARCHIVED               = "settings.keepMutedChatsArchived";
   private static final String USE_COMPACT_NAVIGATION_BAR              = "settings.useCompactNavigationBar";
 
+  private static final String NOTIFICATION_DELIVERY_METHOD              = "settings.notificationDeliveryMethod";
+
   public static final int BACKUP_DEFAULT_HOUR   = 2;
   public static final int BACKUP_DEFAULT_MINUTE = 0;
 
@@ -462,6 +464,12 @@ public final class SettingsValues extends SignalStoreValues {
     return getBoolean(USE_COMPACT_NAVIGATION_BAR, false);
   }
 
+  public NotificationDeliveryMethod getNotificationDeliveryMethod() { return NotificationDeliveryMethod.valueOf(
+      getString(NOTIFICATION_DELIVERY_METHOD, NotificationDeliveryMethod.WEBSOCKET.toString())
+  );}
+
+  public void setNotificationDeliveryMethod(NotificationDeliveryMethod method) { putString(NOTIFICATION_DELIVERY_METHOD, method.toString()); };
+
   private @Nullable Uri getUri(@NonNull String key) {
     String uri = getString(key, "");
 
@@ -523,6 +531,22 @@ public final class SettingsValues extends SignalStoreValues {
         default:
           throw new IllegalArgumentException("Unrecognized value " + value);
       }
+    }
+  }
+
+  public enum NotificationDeliveryMethod {
+    FCM, WEBSOCKET, UNIFIEDPUSH;
+
+    public int getStringId() {
+      switch (this) {
+        case FCM:
+          return R.string.NotificationMethod__label_fcm;
+        case WEBSOCKET:
+          return R.string.NotificationMethod__label_websocket;
+        case UNIFIEDPUSH:
+          return R.string.NotificationMethod__label_unifiedpush;
+      }
+      throw new IllegalArgumentException("Unrecognized value " + this.toString());
     }
   }
 }
