@@ -17,6 +17,7 @@
     <uses-feature android:name="android.hardware.wifi" android:required="false"/>
     <uses-feature android:name="android.hardware.portrait" android:required="false"/>
     <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <uses-permission android:name="${applicationId}.ACCESS_SECRETS"/>
@@ -1032,6 +1033,11 @@
     <receiver android:name=".service.TrimThreadsByDateManager$TrimThreadsByDateAlarm" />
 
     <receiver android:name=".payments.backup.phrase.ClearClipboardAlarmReceiver" />
+
+    <provider android:name=".providers.AvatarProvider"
+              android:authorities="${applicationId}.avatar"
+              android:exported="false"
+              android:grantUriPermissions="true" />
 
     <provider android:name=".providers.PartProvider"
               android:grantUriPermissions="true"

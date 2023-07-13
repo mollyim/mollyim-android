@@ -171,6 +171,8 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     initializeViewModel(isLandscapeEnabled);
     initializePictureInPictureParams();
 
+    logIntent(getIntent());
+
     if (ANSWER_VIDEO_ACTION.equals(getIntent().getAction())) {
       enableVideoIfAvailable = true;
     } else if (ANSWER_ACTION.equals(getIntent().getAction()) || getIntent().getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false)) {
@@ -240,6 +242,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   public void onNewIntent(Intent intent) {
     Log.i(TAG, "onNewIntent(" + intent.getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false) + ")");
     super.onNewIntent(intent);
+    logIntent(intent);
     processIntent(intent);
   }
 
@@ -329,6 +332,12 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   private boolean isInPipMode() {
     return isSystemPipEnabledAndAvailable() && isInPictureInPictureMode();
+  }
+
+  private void logIntent(@NonNull Intent intent) {
+    Log.d(TAG, "Intent: Action: " + intent.getAction());
+    Log.d(TAG, "Intent: EXTRA_STARTED_FROM_FULLSCREEN: " + intent.getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false));
+    Log.d(TAG, "Intent: EXTRA_ENABLE_VIDEO_IF_AVAILABLE: " + intent.getBooleanExtra(EXTRA_ENABLE_VIDEO_IF_AVAILABLE, false));
   }
 
   private void processIntent(@NonNull Intent intent) {

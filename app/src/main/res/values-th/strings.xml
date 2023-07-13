@@ -855,6 +855,8 @@
     <string name="LinkPreviewView_no_link_preview_available">ไม่มีภาพตัวอย่างลิงก์ให้ดู</string>
     <string name="LinkPreviewView_this_group_link_is_not_active">ลิงก์นี้ไม่ได้เปิดให้ใช้ในตอนนี้</string>
     <string name="LinkPreviewView_domain_date">%1$s · %2$s</string>
+    <!-- Description for Call Link url previews -->
+    <string name="LinkPreviewView__use_this_link_to_join_a_signal_call">ใช้ลิงก์นี้เพื่อเข้าร่วมการโทรของ Signal</string>
 
     <!-- LinkPreviewRepository -->
     <plurals name="LinkPreviewRepository_d_members">
@@ -1567,8 +1569,8 @@
         <item quantity="other">คุณสามารถลองได้อีก %1$d ครั้ง ถ้าคุณลองจนครบจำนวนครั้งแล้วคุณสามารถสร้างรหัส PIN ใหม่ คุณสามารถลงทะเบียนและใช้บัญชีของคุณได้ แต่คุณจะสูญเสียการตั้งค่าเดิมเช่นข้อมูลโปรไฟล์ของคุณ</item>
     </plurals>
     <string name="PinRestoreEntryFragment_signal_registration_need_help_with_pin">การลงทะเบียน Signal - ต้องการความช่วยเหลือเกี่ยวกับ PIN สำหรับ Android</string>
-    <string name="PinRestoreEntryFragment_enter_alphanumeric_pin">ใส่รหัส PIN ด้วยตัวอักษรและตัวเลข</string>
-    <string name="PinRestoreEntryFragment_enter_numeric_pin">ใส่รหัส PIN ด้วยตัวเลข</string>
+    <!-- Button label to prompt the user to switch between an alphanumeric and numeric-only keyboards -->
+    <string name="PinRestoreEntryFragment_switch_keyboard">สลับแป้นพิมพ์</string>
 
     <!-- PinRestoreLockedFragment -->
     <string name="PinRestoreLockedFragment_create_your_pin">สร้างรหัส PIN ของคุณ</string>
@@ -2244,7 +2246,7 @@
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">หากต้องการรับสาย ต้องให้สิทธิ์ Molly เข้าถึงไมโครโฟนของคุณ</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">To answer the video call, give Molly access to your microphone and camera.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">อนุญาตให้ Molly เข้าถึงไมโครโฟนและกล้องของคุณเพื่อรับสายวิดีโอคอล</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">เพื่อที่จะโทรออกและรับสาย Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">มีการรับสายบนอุปกรณ์ที่เชื่อมโยงอยู่</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">ถูกปฏิเสธสายบนอุปกรณ์ที่เชื่อมโยงอยู่</string>
@@ -3359,7 +3361,9 @@
 
     <!-- BaseKbsPinFragment -->
     <string name="BaseKbsPinFragment__next">ต่อไป</string>
+    <!-- Button label to prompt them to create a password ("PIN") using numbers and letters rather than only numbers. -->
     <string name="BaseKbsPinFragment__create_alphanumeric_pin">สร้างรหัส PIN ด้วยตัวอักษรและตัวเลข</string>
+    <!-- Button label to prompt them to return to creating a numbers-only password ("PIN") -->
     <string name="BaseKbsPinFragment__create_numeric_pin">สร้างรหัส PIN ด้วยตัวเลข</string>
   <!-- Removed by excludeNonTranslatables <string name="BaseKbsPinFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
@@ -3419,8 +3423,8 @@
     <string name="RegistrationLockFragment__enter_the_pin_you_created">ใส่รหัส PIN ที่คุณสร้างขึ้นสำหรับบัญชีของคุณ รหัสนี้แตกต่างจากรหัสตรวจยืนยันทาง SMS</string>
     <!-- Info text shown above a pin entry text box describing what pin they should be entering. -->
     <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">ใส่ PIN ที่คุณสร้างไว้สำหรับบัญชีของคุณ</string>
-    <string name="RegistrationLockFragment__enter_alphanumeric_pin">ใส่รหัส PIN ด้วยตัวอักษรและตัวเลข</string>
-    <string name="RegistrationLockFragment__enter_numeric_pin">ใส่รหัส PIN ด้วยตัวเลข</string>
+    <!-- Button label to prompt the user to switch between an alphanumeric and numeric-only keyboards -->
+    <string name="RegistrationLockFragment__switch_keyboard">สลับแป้นพิมพ์</string>
     <string name="RegistrationLockFragment__incorrect_pin_try_again">รหัส PIN ไม่ถูกต้อง ลองอีกครั้ง</string>
     <string name="RegistrationLockFragment__forgot_pin">ลืมรหัส PIN หรือ?</string>
     <string name="RegistrationLockFragment__incorrect_pin">รหัส PIN ไม่ถูกต้อง</string>
@@ -5894,13 +5898,11 @@
     <string name="CallLogFragment__filtered_by_missed">กรองสายที่ไม่ได้รับ</string>
     <!-- Bottom bar option to select all call entries -->
     <string name="CallLogFragment__select_all">เลือกทั้งหมด</string>
-    <!-- Bottom bar option to delete all selected call entries -->
+    <!-- Bottom bar option to delete all selected call entries and dialog action to confirm deletion -->
     <string name="CallLogFragment__delete">ลบ</string>
     <plurals name="CallLogFragment__delete_d_calls">
         <item quantity="other">ลบการโทร %1$d รายการใช่หรือไม่</item>
     </plurals>
-    <!-- Positive action on multi-delete protection dialog -->
-    <string name="CallLogFragment__delete_for_me">ลบของฉัน</string>
     <!-- Snackbar label after deleting call logs -->
     <plurals name="CallLogFragment__d_calls_deleted">
         <item quantity="other">ลบการโทร %1$d รายการแล้ว</item>

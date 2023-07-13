@@ -10,8 +10,8 @@ android {
     compileSdkVersion = signalCompileSdkVersion
 
     defaultConfig {
-        minSdkVersion signalMinSdkVersion
-        targetSdkVersion signalTargetSdkVersion
+        minSdk = signalMinSdkVersion
+        targetSdk = signalTargetSdkVersion
     }
 
     compileOptions {
@@ -21,6 +21,6 @@ android {
 }
 
 dependencies {
-    implementation libs.androidx.fragment.ktx
+    implementation libs.androidx.fragment
     lintChecks project(':lintchecks')
 }

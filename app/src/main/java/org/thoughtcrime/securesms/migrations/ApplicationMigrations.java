@@ -120,9 +120,10 @@ public class ApplicationMigrations {
     static final int PREKEY_SYNC                   = 87;
     //static final int DEDUPE_DB_MIGRATION         = 88; // MOLLY: Skipped migration
     static final int DEDUPE_DB_MIGRATION_2         = 89;
+    static final int EMOJI_VERSION_8               = 90;
   }
 
-  public static final int CURRENT_VERSION = 89;
+  public static final int CURRENT_VERSION = 90;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -530,6 +531,10 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.DEDUPE_DB_MIGRATION_2) {
       jobs.put(Version.DEDUPE_DB_MIGRATION_2, new DatabaseMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.EMOJI_VERSION_8) {
+      jobs.put(Version.EMOJI_VERSION_8, new EmojiDownloadMigrationJob());
     }
 
     return jobs;

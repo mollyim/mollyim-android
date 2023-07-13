@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile
 import org.whispersystems.signalservice.api.push.ACI
+import org.whispersystems.signalservice.api.push.ServiceIdType
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.internal.ServiceResponse
 import org.whispersystems.signalservice.internal.ServiceResponseProcessor
@@ -84,7 +85,8 @@ class SignalActivityRule(private val othersCount: Int = 4) : ExternalResource() 
         password = Util.getSecret(18),
         registrationId = registrationRepository.registrationId,
         profileKey = registrationRepository.getProfileKey("+15555550101"),
-        preKeyCollections = RegistrationRepository.generatePreKeys()!!,
+        aciPreKeyCollection = RegistrationRepository.generatePreKeysForType(ServiceIdType.ACI),
+        pniPreKeyCollection = RegistrationRepository.generatePreKeysForType(ServiceIdType.PNI),
         fcmToken = null,
         pniRegistrationId = registrationRepository.pniRegistrationId,
         recoveryPassword = "asdfasdfasdfasdf"

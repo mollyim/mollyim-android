@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.preferences;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

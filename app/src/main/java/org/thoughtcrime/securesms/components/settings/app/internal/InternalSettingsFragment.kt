@@ -564,6 +564,13 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       }
 
       dividerPref()
+      clickPref(
+        title = DSLSettingsText.from("Launch ConversationTestFragment"),
+        onClick = {
+          findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToInternalConversationTestFragment())
+        }
+      )
+
       switchPref(
         title = DSLSettingsText.from("Use V2 ConversationFragment"),
         isChecked = state.useConversationFragmentV2,
