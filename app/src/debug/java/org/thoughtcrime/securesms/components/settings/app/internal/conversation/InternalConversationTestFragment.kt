@@ -257,14 +257,6 @@ class InternalConversationTestFragment : Fragment(R.layout.conversation_test_fra
       return true
     }
 
-    override fun onViewGiftBadgeClicked(messageRecord: MessageRecord) {
-      Toast.makeText(requireContext(), "Can't touch this.", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onGiftBadgeRevealed(messageRecord: MessageRecord) {
-      Toast.makeText(requireContext(), "Can't touch this.", Toast.LENGTH_SHORT).show()
-    }
-
     override fun goToMediaPreview(parent: ConversationItem?, sharedElement: View?, args: MediaIntentFactory.MediaPreviewArgs?) {
       Toast.makeText(requireContext(), "Can't touch this.", Toast.LENGTH_SHORT).show()
     }

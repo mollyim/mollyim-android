@@ -345,8 +345,6 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     if (ANSWER_ACTION.equals(action) || ANSWER_VIDEO_ACTION.equals(action) || NO_ACTION.equals(action)) {
       // MOLLY: Hold this action until activity's screen is unlocked
       setIntent(intent);
-    } else if (ANSWER_VIDEO_ACTION.equals(action)) {
-      handleAnswerWithVideo();
     } else if (DENY_ACTION.equals(action)) {
       handleDenyCall();
     } else if (END_CALL_ACTION.equals(action)) {
