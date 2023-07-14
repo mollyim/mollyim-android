@@ -86,6 +86,8 @@ open class SignalServiceNetworkAccess(context: Context) {
       BuildConfig.SIGNAL_SFU_URL.stripProtocol(),
       BuildConfig.SIGNAL_STAGING_SFU_URL.stripProtocol(),
       BuildConfig.CONTENT_PROXY_HOST.stripProtocol(),
+      BuildConfig.SIGNAL_CDSI_URL.stripProtocol(),
+      BuildConfig.SIGNAL_SVR2_URL.stripProtocol(),
       G_HOST,
       F_SERVICE_HOST,
       F_STORAGE_HOST,

@@ -87,6 +87,7 @@ import org.whispersystems.signalservice.api.util.Uint64Util;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 import org.whispersystems.signalservice.api.websocket.WebSocketUnavailableException;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
+import org.whispersystems.signalservice.internal.crypto.AttachmentDigest;
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
 import org.whispersystems.signalservice.internal.push.AttachmentV2UploadAttributes;
 import org.whispersystems.signalservice.internal.push.AttachmentV3UploadAttributes;
@@ -438,7 +439,7 @@ public class SignalServiceMessageSender {
                                            long targetSentTimestamp)
       throws UntrustedIdentityException, IOException
   {
-    Log.d(TAG, "[" + message.getTimestamp() + "] Sending an edit message.");
+    Log.d(TAG, "[" + message.getTimestamp() + "] Sending an edit message for " + targetSentTimestamp + ".");
 
     Content content = createEditMessageContent(new SignalServiceEditMessage(targetSentTimestamp, message));
 
@@ -641,12 +642,14 @@ public class SignalServiceMessageSender {
   public SendMessageResult sendSyncMessage(SignalServiceDataMessage dataMessage)
       throws IOException, UntrustedIdentityException
   {
+    Log.d(TAG, "[" + dataMessage.getTimestamp() + "] Sending self-sync message.");
     return sendSyncMessage(createSelfSendSyncMessage(dataMessage), Optional.empty());
   }
 
   public SendMessageResult sendSelfSyncEditMessage(SignalServiceEditMessage editMessage)
       throws IOException, UntrustedIdentityException
   {
+    Log.d(TAG, "[" + editMessage.getDataMessage().getTimestamp() + "] Sending self-sync edit message for " + editMessage.getTargetSentTimestamp() + ".");
     return sendSyncMessage(createSelfSendSyncEditMessage(editMessage), Optional.empty());
   }
 
@@ -762,7 +765,7 @@ public class SignalServiceMessageSender {
       v2UploadAttributes = socket.getAttachmentV2UploadAttributes();
     }
 
-    Pair<Long, byte[]> attachmentIdAndDigest = socket.uploadAttachment(attachmentData, v2UploadAttributes);
+    Pair<Long, AttachmentDigest> attachmentIdAndDigest = socket.uploadAttachment(attachmentData, v2UploadAttributes);
 
     return new SignalServiceAttachmentPointer(0,
                                               new SignalServiceAttachmentRemoteId(attachmentIdAndDigest.first()),
@@ -771,7 +774,8 @@ public class SignalServiceMessageSender {
                                               Optional.of(Util.toIntExact(attachment.getLength())),
                                               attachment.getPreview(),
                                               attachment.getWidth(), attachment.getHeight(),
-                                              Optional.of(attachmentIdAndDigest.second()),
+                                              Optional.of(attachmentIdAndDigest.second().getDigest()),
+                                              Optional.of(attachmentIdAndDigest.second().getIncrementalDigest()),
                                               attachment.getFileName(),
                                               attachment.getVoiceNote(),
                                               attachment.isBorderless(),
@@ -811,7 +815,7 @@ public class SignalServiceMessageSender {
   }
 
   private SignalServiceAttachmentPointer uploadAttachmentV3(SignalServiceAttachmentStream attachment, byte[] attachmentKey, PushAttachmentData attachmentData) throws IOException {
-    byte[] digest = socket.uploadAttachment(attachmentData);
+    AttachmentDigest digest = socket.uploadAttachment(attachmentData);
     return new SignalServiceAttachmentPointer(attachmentData.getResumableUploadSpec().getCdnNumber(),
                                               new SignalServiceAttachmentRemoteId(attachmentData.getResumableUploadSpec().getCdnKey()),
                                               attachment.getContentType(),
@@ -820,7 +824,8 @@ public class SignalServiceMessageSender {
                                               attachment.getPreview(),
                                               attachment.getWidth(),
                                               attachment.getHeight(),
-                                              Optional.of(digest),
+                                              Optional.of(digest.getDigest()),
+                                              Optional.ofNullable(digest.getIncrementalDigest()),
                                               attachment.getFileName(),
                                               attachment.getVoiceNote(),
                                               attachment.isBorderless(),

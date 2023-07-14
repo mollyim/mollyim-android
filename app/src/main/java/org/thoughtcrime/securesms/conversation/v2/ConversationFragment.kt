@@ -29,6 +29,7 @@ import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageButton
@@ -52,6 +53,8 @@ import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -96,11 +99,15 @@ import org.thoughtcrime.securesms.components.ConversationSearchBottomBar
 import org.thoughtcrime.securesms.components.HidingLinearLayout
 import org.thoughtcrime.securesms.components.InputAwareConstraintLayout
 import org.thoughtcrime.securesms.components.InputPanel
+import org.thoughtcrime.securesms.components.InsetAwareConstraintLayout
 import org.thoughtcrime.securesms.components.ProgressCardDialogFragment
 import org.thoughtcrime.securesms.components.ProgressCardDialogFragmentArgs
 import org.thoughtcrime.securesms.components.ScrollToPositionDelegate
 import org.thoughtcrime.securesms.components.SendButton
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
+import org.thoughtcrime.securesms.components.emoji.EmojiEventListener
+import org.thoughtcrime.securesms.components.emoji.MediaKeyboard
+import org.thoughtcrime.securesms.components.emoji.RecentEmojiPageModel
 import org.thoughtcrime.securesms.components.mention.MentionAnnotation
 import org.thoughtcrime.securesms.components.menu.ActionItem
 import org.thoughtcrime.securesms.components.menu.SignalBottomActionBar
@@ -148,6 +155,11 @@ import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectFor
 import org.thoughtcrime.securesms.conversation.quotes.MessageQuotesBottomSheet
 import org.thoughtcrime.securesms.conversation.ui.edit.EditMessageHistoryDialog
 import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQuery
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQueryChangedListener
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQueryReplacement
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQueryResultsControllerV2
+import org.thoughtcrime.securesms.conversation.ui.inlinequery.InlineQueryViewModelV2
 import org.thoughtcrime.securesms.conversation.v2.groups.ConversationGroupCallViewModel
 import org.thoughtcrime.securesms.conversation.v2.groups.ConversationGroupViewModel
 import org.thoughtcrime.securesms.conversation.v2.keyboard.AttachmentKeyboardFragment
@@ -181,8 +193,17 @@ import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationInitiatio
 import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationSuggestionsDialog
 import org.thoughtcrime.securesms.groups.v2.GroupBlockJoinRequestResult
 import org.thoughtcrime.securesms.invites.InviteActions
+import org.thoughtcrime.securesms.keyboard.KeyboardPage
+import org.thoughtcrime.securesms.keyboard.KeyboardPagerFragment
+import org.thoughtcrime.securesms.keyboard.KeyboardPagerViewModel
+import org.thoughtcrime.securesms.keyboard.emoji.EmojiKeyboardPageFragment
+import org.thoughtcrime.securesms.keyboard.emoji.search.EmojiSearchFragment
+import org.thoughtcrime.securesms.keyboard.gif.GifKeyboardPageFragment
+import org.thoughtcrime.securesms.keyboard.sticker.StickerKeyboardPageFragment
+import org.thoughtcrime.securesms.keyboard.sticker.StickerSearchDialogFragment
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkpreview.LinkPreview
+import org.thoughtcrime.securesms.linkpreview.LinkPreviewViewModelV2
 import org.thoughtcrime.securesms.longmessage.LongMessageFragment
 import org.thoughtcrime.securesms.mediaoverview.MediaOverviewActivity
 import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory
@@ -190,23 +211,26 @@ import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory.create
 import org.thoughtcrime.securesms.mediapreview.MediaPreviewV2Activity
 import org.thoughtcrime.securesms.mediasend.Media
 import org.thoughtcrime.securesms.mediasend.MediaSendActivityResult
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
 import org.thoughtcrime.securesms.messagedetails.MessageDetailsFragment
 import org.thoughtcrime.securesms.messagerequests.MessageRequestRepository
 import org.thoughtcrime.securesms.messagerequests.MessageRequestState
 import org.thoughtcrime.securesms.mms.AttachmentManager
 import org.thoughtcrime.securesms.mms.AudioSlide
+import org.thoughtcrime.securesms.mms.GifSlide
 import org.thoughtcrime.securesms.mms.GlideApp
+import org.thoughtcrime.securesms.mms.ImageSlide
 import org.thoughtcrime.securesms.mms.MediaConstraints
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.mms.SlideDeck
 import org.thoughtcrime.securesms.mms.SlideFactory
 import org.thoughtcrime.securesms.mms.StickerSlide
+import org.thoughtcrime.securesms.mms.VideoSlide
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewCardDialogFragment
+import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment
 import org.thoughtcrime.securesms.reactions.ReactionsBottomSheetDialogFragment
 import org.thoughtcrime.securesms.reactions.any.ReactWithAnyEmojiBottomSheetDialogFragment
@@ -220,7 +244,11 @@ import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageActivity
 import org.thoughtcrime.securesms.revealable.ViewOnceUtil
 import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
+import org.thoughtcrime.securesms.sms.MessageSender
+import org.thoughtcrime.securesms.stickers.StickerEventListener
 import org.thoughtcrime.securesms.stickers.StickerLocator
+import org.thoughtcrime.securesms.stickers.StickerManagementActivity
+import org.thoughtcrime.securesms.stickers.StickerPackInstallEvent
 import org.thoughtcrime.securesms.stickers.StickerPackPreviewActivity
 import org.thoughtcrime.securesms.stories.StoryViewerArgs
 import org.thoughtcrime.securesms.stories.viewer.StoryViewerActivity
@@ -230,6 +258,7 @@ import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.Debouncer
 import org.thoughtcrime.securesms.util.DeleteDialog
+import org.thoughtcrime.securesms.util.Dialogs
 import org.thoughtcrime.securesms.util.DrawableUtil
 import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.FullscreenHelper
@@ -241,12 +270,14 @@ import org.thoughtcrime.securesms.util.StorageUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.WindowUtil
+import org.thoughtcrime.securesms.util.activityViewModel
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture
 import org.thoughtcrime.securesms.util.doAfterNextLayout
 import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.getRecordQuoteType
 import org.thoughtcrime.securesms.util.hasAudio
 import org.thoughtcrime.securesms.util.hasGiftBadge
+import org.thoughtcrime.securesms.util.isValidReactionTarget
 import org.thoughtcrime.securesms.util.viewModel
 import org.thoughtcrime.securesms.util.views.Stub
 import org.thoughtcrime.securesms.util.visible
@@ -256,6 +287,7 @@ import org.thoughtcrime.securesms.wallpaper.ChatWallpaperDimLevelUtil
 import java.util.Locale
 import java.util.Optional
 import java.util.concurrent.ExecutionException
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * A single unified fragment for Conversations.
@@ -263,12 +295,20 @@ import java.util.concurrent.ExecutionException
 class ConversationFragment :
   LoggingFragment(R.layout.v2_conversation_fragment),
   ReactWithAnyEmojiBottomSheetDialogFragment.Callback,
-  ReactionsBottomSheetDialogFragment.Callback {
+  ReactionsBottomSheetDialogFragment.Callback,
+  EmojiKeyboardPageFragment.Callback,
+  EmojiEventListener,
+  GifKeyboardPageFragment.Host,
+  StickerEventListener,
+  StickerKeyboardPageFragment.Callback,
+  MediaKeyboard.MediaKeyboardListener,
+  EmojiSearchFragment.Callback {
 
   companion object {
     private val TAG = Log.tag(ConversationFragment::class.java)
     private const val ACTION_PINNED_SHORTCUT = "action_pinned_shortcut"
     private const val SAVED_STATE_IS_SEARCH_REQUESTED = "is_search_requested"
+    private const val EMOJI_SEARCH_FRAGMENT_TAG = "EmojiSearchFragment"
   }
 
   private val args: ConversationIntents.Args by lazy {
@@ -292,6 +332,12 @@ class ConversationFragment :
       repository = ConversationRepository(context = requireContext(), isInBubble = args.conversationScreenType == ConversationScreenType.BUBBLE),
       recipientRepository = conversationRecipientRepository,
       messageRequestRepository = messageRequestRepository
+    )
+  }
+
+  private val linkPreviewViewModel: LinkPreviewViewModelV2 by viewModel {
+    LinkPreviewViewModelV2(
+      enablePlaceholder = false
     )
   }
 
@@ -319,9 +365,30 @@ class ConversationFragment :
     ConversationSearchViewModel(getString(R.string.note_to_self))
   }
 
+  private val keyboardPagerViewModel: KeyboardPagerViewModel by activityViewModels()
+
+  private val stickerViewModel: StickerSuggestionsViewModel by viewModel {
+    StickerSuggestionsViewModel()
+  }
+
+  private val inlineQueryViewModel: InlineQueryViewModelV2 by activityViewModel {
+    InlineQueryViewModelV2(recipientRepository = conversationRecipientRepository)
+  }
+
+  private val inlineQueryController: InlineQueryResultsControllerV2 by lazy {
+    InlineQueryResultsControllerV2(
+      this,
+      inlineQueryViewModel,
+      inputPanel,
+      (requireView() as ViewGroup),
+      composeText
+    )
+  }
+
   private val conversationTooltips = ConversationTooltips(this)
   private val colorizer = Colorizer()
   private val textDraftSaveDebouncer = Debouncer(500)
+  private val recentEmojis: RecentEmojiPageModel by lazy { RecentEmojiPageModel(ApplicationDependencies.getApplication(), TextSecurePreferences.RECENT_STORAGE_KEY) }
 
   private lateinit var layoutManager: LinearLayoutManager
   private lateinit var markReadHelper: MarkReadHelper
@@ -341,6 +408,7 @@ class ConversationFragment :
   private var pinnedShortcutReceiver: BroadcastReceiver? = null
   private var searchMenuItem: MenuItem? = null
   private var isSearchRequested: Boolean = false
+  private var previousPages: Set<KeyboardPage>? = null
 
   private val jumpAndPulseScrollStrategy = object : ScrollToPositionDelegate.ScrollStrategy {
     override fun performScroll(recyclerView: RecyclerView, layoutManager: LinearLayoutManager, position: Int, smooth: Boolean) {
@@ -415,6 +483,7 @@ class ConversationFragment :
     container.fragmentManager = childFragmentManager
 
     ToolbarDependentMarginListener(binding.toolbar)
+    initializeMediaKeyboard()
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -458,6 +527,7 @@ class ConversationFragment :
   override fun onConfigurationChanged(newConfig: Configuration) {
     super.onConfigurationChanged(newConfig)
     ToolbarDependentMarginListener(binding.toolbar)
+    inlineQueryController.onOrientationChange(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
   }
 
   override fun onDestroyView() {
@@ -477,6 +547,85 @@ class ConversationFragment :
 
   override fun onReactionsDialogDismissed() {
     clearFocusedItem()
+  }
+
+  override fun openEmojiSearch() {
+    val fragment = childFragmentManager.findFragmentByTag(EMOJI_SEARCH_FRAGMENT_TAG)
+    if (fragment == null) {
+      childFragmentManager.commit {
+        add(R.id.emoji_search_container, EmojiSearchFragment(), EMOJI_SEARCH_FRAGMENT_TAG)
+      }
+    }
+  }
+
+  override fun closeEmojiSearch() {
+    val fragment = childFragmentManager.findFragmentByTag(EMOJI_SEARCH_FRAGMENT_TAG)
+    if (fragment != null) {
+      childFragmentManager.commit(allowStateLoss = true) {
+        remove(fragment)
+      }
+    }
+  }
+
+  override fun onEmojiSelected(emoji: String?) {
+    if (emoji != null) {
+      inputPanel.onEmojiSelected(emoji)
+      recentEmojis.onCodePointSelected(emoji)
+    }
+  }
+
+  override fun onKeyEvent(keyEvent: KeyEvent?) {
+    if (keyEvent != null) {
+      inputPanel.onKeyEvent(keyEvent)
+    }
+  }
+
+  override fun openStickerSearch() {
+    StickerSearchDialogFragment.show(childFragmentManager)
+  }
+
+  override fun onStickerSelected(sticker: StickerRecord) {
+    sendSticker(
+      stickerRecord = sticker,
+      clearCompose = false
+    )
+  }
+
+  override fun onStickerManagementClicked() {
+    startActivity(StickerManagementActivity.getIntent(requireContext()))
+    container.hideInput()
+  }
+
+  override fun isMms(): Boolean {
+    return false
+  }
+
+  override fun openGifSearch() {
+    val recipientId = viewModel.recipientSnapshot?.id ?: return
+    conversationActivityResultContracts.launchGifSearch(recipientId, composeText.textTrimmed)
+  }
+
+  override fun onGifSelectSuccess(blobUri: Uri, width: Int, height: Int) {
+    setMedia(
+      uri = blobUri,
+      mediaType = SlideFactory.MediaType.from(BlobProvider.getMimeType(blobUri))!!,
+      width = width,
+      height = height,
+      videoGif = true
+    )
+  }
+
+  override fun onShown() {
+    inputPanel.mediaKeyboardListener.onShown()
+  }
+
+  override fun onHidden() {
+    inputPanel.mediaKeyboardListener.onHidden()
+    closeEmojiSearch()
+  }
+
+  override fun onKeyboardChanged(page: KeyboardPage) {
+    inputPanel.mediaKeyboardListener.onKeyboardChanged(page)
   }
 
   private fun observeConversationThread() {
@@ -586,6 +735,7 @@ class ConversationFragment :
 
     val keyboardEvents = KeyboardEvents()
     container.listener = keyboardEvents
+    container.addKeyboardStateListener(keyboardEvents)
     requireActivity()
       .onBackPressedDispatcher
       .addCallback(
@@ -660,8 +810,39 @@ class ConversationFragment :
       .addTo(disposables)
 
     initializeSearch()
+    initializeLinkPreviews()
+    initializeStickerSuggestions()
+    initializeInlineSearch()
 
     inputPanel.setListener(InputPanelListener())
+  }
+
+  private fun initializeInlineSearch() {
+    inlineQueryController.onOrientationChange(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+
+    composeText.apply {
+      setInlineQueryChangedListener(object : InlineQueryChangedListener {
+        override fun onQueryChanged(inlineQuery: InlineQuery) {
+          inlineQueryViewModel.onQueryChange(inlineQuery)
+        }
+      })
+
+      setMentionValidator { annotations ->
+        val recipient = viewModel.recipientSnapshot ?: return@setMentionValidator annotations
+
+        val validIds = recipient.participantIds
+          .map { MentionAnnotation.idToMentionAnnotationValue(it) }
+          .toSet()
+
+        annotations.filterNot { validIds.contains(it.value) }
+      }
+    }
+
+    inlineQueryViewModel
+      .selection
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe { r: InlineQueryReplacement -> composeText.replaceText(r) }
+      .addTo(disposables)
   }
 
   private fun presentInputReadyState(inputReadyState: InputReadyState) {
@@ -986,9 +1167,7 @@ class ConversationFragment :
     val callback = GiphyMp4ProjectionRecycler(holders)
     GiphyMp4PlaybackController.attach(binding.conversationItemRecycler, callback, maxPlayback)
     binding.conversationItemRecycler.addItemDecoration(
-      GiphyMp4ItemDecoration(callback) { translationY: Float ->
-        binding.reactionsShade.translationY = translationY + binding.conversationItemRecycler.height
-      },
+      GiphyMp4ItemDecoration(callback),
       0
     )
     return callback
@@ -1017,6 +1196,55 @@ class ConversationFragment :
 
     disposables += viewModel.searchQuery.subscribeBy {
       adapter.updateSearchQuery(it)
+    }
+  }
+
+  private fun initializeLinkPreviews() {
+    linkPreviewViewModel.linkPreviewState
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribeBy { state ->
+        if (state.isLoading) {
+          inputPanel.setLinkPreviewLoading()
+        } else if (state.hasLinks() && !state.linkPreview.isPresent) {
+          inputPanel.setLinkPreviewNoPreview(state.error)
+        } else {
+          inputPanel.setLinkPreview(GlideApp.with(this), state.linkPreview)
+        }
+
+        updateToggleButtonState()
+      }
+      .addTo(disposables)
+  }
+
+  private fun initializeMediaKeyboard() {
+    val isSystemEmojiPreferred = SignalStore.settings().isPreferSystemEmoji
+    val keyboardMode: TextSecurePreferences.MediaKeyboardMode = TextSecurePreferences.getMediaKeyboardMode(requireContext())
+
+    inputPanel.showMediaKeyboardToggle(true)
+
+    val keyboardPage = when (keyboardMode) {
+      TextSecurePreferences.MediaKeyboardMode.EMOJI -> if (isSystemEmojiPreferred) KeyboardPage.STICKER else KeyboardPage.EMOJI
+      TextSecurePreferences.MediaKeyboardMode.STICKER -> KeyboardPage.STICKER
+      TextSecurePreferences.MediaKeyboardMode.GIF -> KeyboardPage.GIF
+    }
+
+    inputPanel.setMediaKeyboardToggleMode(keyboardPage)
+    keyboardPagerViewModel.switchToPage(keyboardPage)
+  }
+
+  private fun initializeStickerSuggestions() {
+    stickerViewModel.stickers
+      .subscribeBy(onNext = inputPanel::setStickerSuggestions)
+      .addTo(disposables)
+  }
+
+  private fun updateLinkPreviewState() {
+    // TODO [cfv2] include viewModel.isPushAvailable && in check
+    if (!attachmentManager.isAttachmentPresent && context != null) {
+      linkPreviewViewModel.onEnabled()
+      linkPreviewViewModel.onTextChanged(composeText.textTrimmed.toString(), composeText.selectionStart, composeText.selectionEnd)
+    } else {
+      linkPreviewViewModel.onUserCancel()
     }
   }
 
@@ -1054,7 +1282,7 @@ class ConversationFragment :
         buttonToggle.display(sendButton)
         quickAttachment.hide()
 
-        if (!attachmentManager.isAttachmentPresent) { // todo [cfv2] && !linkPreviewViewModel.hasLinkPreviewUi()) {
+        if (!attachmentManager.isAttachmentPresent && !linkPreviewViewModel.hasLinkPreviewUi) {
           inlineAttachment.show()
         } else {
           inlineAttachment.hide()
@@ -1077,6 +1305,8 @@ class ConversationFragment :
     )
 
     sendMessageWithoutComposeInput(slide, clearCompose = clearCompose)
+
+    viewModel.updateStickerLastUsedTime(stickerRecord, System.currentTimeMillis().milliseconds)
   }
 
   private fun sendMessageWithoutComposeInput(
@@ -1092,7 +1322,8 @@ class ConversationFragment :
       mentions = emptyList(),
       bodyRanges = null,
       messageToEdit = null,
-      quote = null
+      quote = null,
+      linkPreviews = emptyList()
     )
   }
 
@@ -1105,9 +1336,12 @@ class ConversationFragment :
     scheduledDate: Long = -1,
     slideDeck: SlideDeck? = if (attachmentManager.isAttachmentPresent) attachmentManager.buildSlideDeck() else null,
     contacts: List<Contact> = emptyList(),
-    clearCompose: Boolean = true
+    clearCompose: Boolean = true,
+    linkPreviews: List<LinkPreview> = linkPreviewViewModel.onSend(),
+    preUploadResults: List<MessageSender.PreUploadResult> = emptyList(),
+    afterSendComplete: () -> Unit = {}
   ) {
-    val metricId = viewModel.recipientSnapshot?.let { if (it.isGroup == true) SignalLocalMetrics.GroupMessageSend.start() else SignalLocalMetrics.IndividualMessageSend.start() }
+    val metricId = viewModel.recipientSnapshot?.let { if (it.isGroup) SignalLocalMetrics.GroupMessageSend.start() else SignalLocalMetrics.IndividualMessageSend.start() }
 
     val send: Completable = viewModel.sendMessage(
       metricId = metricId,
@@ -1118,7 +1352,9 @@ class ConversationFragment :
       quote = quote,
       mentions = mentions,
       bodyRanges = bodyRanges,
-      contacts = contacts
+      contacts = contacts,
+      linkPreviews = linkPreviews,
+      preUploadResults = preUploadResults
     )
 
     disposables += send
@@ -1136,7 +1372,10 @@ class ConversationFragment :
             is RecipientFormattingException -> toast(R.string.ConversationActivity_recipient_is_not_a_valid_sms_or_email_address_exclamation, Toast.LENGTH_LONG)
           }
         },
-        onComplete = this::onSendComplete
+        onComplete = {
+          onSendComplete()
+          afterSendComplete()
+        }
       )
   }
 
@@ -1153,7 +1392,7 @@ class ConversationFragment :
     scrollToPositionDelegate.resetScrollPosition()
     attachmentManager.cleanup()
 
-    // todo [cfv2] updateLinkPreviewState();
+    updateLinkPreviewState()
 
     draftViewModel.onSendComplete()
 
@@ -1349,13 +1588,6 @@ class ConversationFragment :
     reactionDelegate.setOnHideListener(onHideListener)
     reactionDelegate.show(requireActivity(), viewModel.recipientSnapshot!!, conversationMessage, conversationGroupViewModel.isNonAdminInAnnouncementGroup(), selectedConversationModel)
     composeText.clearFocus()
-
-    /*
-    // TODO [cfv2]
-    if (attachmentKeyboardStub.resolved()) {
-      attachmentKeyboardStub.get().hide(true);
-    }
-     */
   }
 
   //region Message action handling
@@ -1431,7 +1663,7 @@ class ConversationFragment :
   }
 
   private fun performAttachmentSave(attachments: Set<SaveAttachmentUtil.SaveAttachment>) {
-    val progressDialog = ProgressCardDialogFragment()
+    val progressDialog = ProgressCardDialogFragment.create()
     progressDialog.arguments = ProgressCardDialogFragmentArgs.Builder(
       resources.getQuantityString(R.plurals.ConversationFragment_saving_n_attachments_to_sd_card, attachments.size, attachments.size)
     ).build().toBundle()
@@ -1893,9 +2125,7 @@ class ConversationFragment :
       val messageRecord = item.getMessageRecord()
       val recipient = viewModel.recipientSnapshot ?: return
 
-      if (messageRecord.isSecure &&
-        !messageRecord.isRemoteDelete &&
-        !messageRecord.isUpdate &&
+      if (messageRecord.isValidReactionTarget() &&
         !recipient.isBlocked &&
         !viewModel.hasMessageRequestState &&
         (!recipient.isGroup || recipient.isActiveGroup) &&
@@ -1926,8 +2156,7 @@ class ConversationFragment :
 
           val snapshot = ConversationItemSelection.snapshotView(itemView, binding.conversationItemRecycler, messageRecord, videoBitmap)
 
-          // TODO [cfv2] -- Should only have a focused view if the keyboard was open.
-          val focusedView = null // itemView.rootView.findFocus()
+          val focusedView = if (container.isInputShowing) null else itemView.rootView.findFocus()
           val bodyBubble = itemView.bodyBubble!!
           val selectedConversationModel = SelectedConversationModel(
             snapshot,
@@ -1957,7 +2186,6 @@ class ConversationFragment :
           }
 
           val conversationItem: ConversationItem = itemView
-          val isAttachmentKeyboardOpen = false /* TODO [cfv2] -- isAttachmentKeyboardOpen */
           handleReaction(
             item.conversationMessage,
             ReactionsToolbarListener(item.conversationMessage),
@@ -1995,10 +2223,6 @@ class ConversationFragment :
 
                 if (showScrollButtons) {
                   viewModel.setShowScrollButtons(true)
-                }
-
-                if (isAttachmentKeyboardOpen) {
-                  // listener.openAttachmentKeyboard();
                 }
               }
             }
@@ -2042,7 +2266,7 @@ class ConversationFragment :
       val recipient: Recipient? = viewModel.recipientSnapshot
       return ConversationOptionsMenu.Snapshot(
         recipient = recipient,
-        isPushAvailable = true, // TODO [cfv2]
+        isPushAvailable = recipient?.isRegistered == true && Recipient.self().isRegistered,
         canShowAsBubble = Observable.empty(),
         isActiveGroup = recipient?.isActiveGroup == true,
         isActiveV2Group = recipient?.let { it.isActiveGroup && it.isPushV2Group } == true,
@@ -2344,7 +2568,7 @@ class ConversationFragment :
   inner class ActionModeCallback : ActionMode.Callback {
     override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
       mode.title = calculateSelectedItemCount()
-      // TODO [cfv2] listener.onMessageActionToolbarOpened();
+      // TODO [cfv2] scheduled message - listener.onMessageActionToolbarOpened();
       setCorrectActionModeMenuVisibility()
       return true
     }
@@ -2356,7 +2580,7 @@ class ConversationFragment :
     override fun onDestroyActionMode(mode: ActionMode) {
       adapter.clearSelection()
       setBottomActionBarVisibility(false)
-      // TODO [cfv2] listener.onMessageActionToolbarClosed();
+      // TODO [cfv2] scheduled message - listener.onMessageActionToolbarClosed();
       binding.conversationItemRecycler.invalidateItemDecorations()
       actionMode = null
     }
@@ -2373,8 +2597,70 @@ class ConversationFragment :
       )
     }
 
-    override fun onMediaSend(result: MediaSendActivityResult) {
-      // TODO [cfv2] media send
+    override fun onMediaSend(result: MediaSendActivityResult?) {
+      if (result == null) {
+        return
+      }
+
+      val recipientSnapshot = viewModel.recipientSnapshot
+      if (result.recipientId != recipientSnapshot?.id) {
+        Log.w(TAG, "Result's recipientId did not match ours! Result: " + result.recipientId + ", Ours: " + recipientSnapshot?.id)
+        toast(R.string.ConversationActivity_error_sending_media)
+        return
+      }
+
+      if (result.isPushPreUpload) {
+        sendPreUploadMediaMessage(result)
+        return
+      }
+
+      val slides: List<Slide> = result.nonUploadedMedia.mapNotNull {
+        when {
+          MediaUtil.isVideoType(it.mimeType) -> VideoSlide(requireContext(), it.uri, it.size, it.isVideoGif, it.width, it.height, it.caption.orNull(), it.transformProperties.orNull())
+          MediaUtil.isGif(it.mimeType) -> GifSlide(requireContext(), it.uri, it.size, it.width, it.height, it.isBorderless, it.caption.orNull())
+          MediaUtil.isImageType(it.mimeType) -> ImageSlide(requireContext(), it.uri, it.mimeType, it.size, it.width, it.height, it.isBorderless, it.caption.orNull(), null, it.transformProperties.orNull())
+          else -> {
+            Log.w(TAG, "Asked to send an unexpected mimeType: '${it.mimeType}'. Skipping.")
+            null
+          }
+        }
+      }
+
+      sendMessage(
+        body = result.body,
+        mentions = result.mentions,
+        bodyRanges = result.bodyRanges,
+        messageToEdit = null,
+        quote = if (result.isViewOnce) null else inputPanel.quote.orNull(),
+        scheduledDate = result.scheduledTime,
+        slideDeck = SlideDeck().apply { slides.forEach { addSlide(it) } },
+        contacts = emptyList(),
+        clearCompose = true,
+        linkPreviews = emptyList()
+      ) {
+        viewModel.deleteSlideData(slides)
+      }
+    }
+
+    private fun sendPreUploadMediaMessage(result: MediaSendActivityResult) {
+      if (SignalStore.uiHints().hasNotSeenTextFormattingAlert() && result.bodyRanges != null && result.bodyRanges.rangesCount > 0) {
+        Dialogs.showFormattedTextDialog(requireContext()) { sendPreUploadMediaMessage(result) }
+        return
+      }
+
+      sendMessage(
+        body = result.body,
+        mentions = result.mentions,
+        bodyRanges = result.bodyRanges,
+        messageToEdit = null,
+        quote = if (result.isViewOnce) null else inputPanel.quote.orNull(),
+        scheduledDate = result.scheduledTime,
+        slideDeck = null,
+        contacts = emptyList(),
+        clearCompose = true,
+        linkPreviews = emptyList(),
+        preUploadResults = result.preUploadResults
+      )
     }
   }
 
@@ -2650,7 +2936,8 @@ class ConversationFragment :
       if (composeText.textTrimmed.isEmpty() || beforeLength == 0) {
         composeText.postDelayed({ updateToggleButtonState() }, 50)
       }
-      // todo [cfv2] stickerViewModel.onInputTextUpdated(s.toString())
+
+      stickerViewModel.onInputTextUpdated(s.toString())
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {
@@ -2660,7 +2947,7 @@ class ConversationFragment :
     }
 
     override fun onCursorPositionChanged(start: Int, end: Int) {
-      // todo [cfv2] linkPreviewViewModel.onTextChanged(requireContext(), composeText.getTextTrimmed().toString(), start, end);
+      linkPreviewViewModel.onTextChanged(composeText.textTrimmed.toString(), start, end)
     }
 
     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -2753,11 +3040,11 @@ class ConversationFragment :
     }
 
     override fun onEmojiToggle() {
-      // TODO [cfv2] Not yet implemented
+      container.toggleInput(MediaKeyboardFragmentCreator, composeText, showSoftKeyOnHide = true)
     }
 
     override fun onLinkPreviewCanceled() {
-      // TODO [cfv2] Not yet implemented
+      linkPreviewViewModel.onUserCancel()
     }
 
     override fun onStickerSuggestionSelected(sticker: StickerRecord) {
@@ -2777,13 +3064,18 @@ class ConversationFragment :
 
     override fun onEnterEditMode() {
       updateToggleButtonState()
-      // TODO [cfv2] -- Save keyboard pager state and force emoji
+      previousPages = keyboardPagerViewModel.pages().value
+      keyboardPagerViewModel.setOnlyPage(KeyboardPage.EMOJI)
+      onKeyboardChanged(KeyboardPage.EMOJI)
     }
 
     override fun onExitEditMode() {
       updateToggleButtonState()
       draftViewModel.deleteMessageEditDraft()
-      // TODO [cfv2] -- Restore keyboard pager pages
+      if (previousPages != null) {
+        keyboardPagerViewModel.setPages(previousPages!!)
+        previousPages = null
+      }
     }
   }
 
@@ -2793,7 +3085,9 @@ class ConversationFragment :
 
   private inner class AttachmentManagerListener : AttachmentManager.AttachmentListener {
     override fun onAttachmentChanged() {
-      // TODO [cfv2] implement
+      // TODO [cfv2] handleSecurityChange(viewModel.getConversationStateSnapshot().getSecurityInfo());
+      updateToggleButtonState()
+      updateLinkPreviewState()
     }
 
     override fun onLocationRemoved() {
@@ -2821,14 +3115,19 @@ class ConversationFragment :
           AttachmentKeyboardButton.PAYMENT -> AttachmentManager.selectPayment(this@ConversationFragment, viewModel.recipientSnapshot!!)
         }
       } else if (media != null) {
-        startActivityForResult(MediaSelectionActivity.editor(requireActivity(), sendButton.selectedSendType, listOf(media), viewModel.recipientSnapshot!!.id, composeText.textTrimmed), 12)
+        conversationActivityResultContracts.launchMediaEditor(listOf(media), viewModel.recipientSnapshot!!.id, composeText.textTrimmed)
       }
 
       container.hideInput()
     }
   }
 
-  private inner class KeyboardEvents : OnBackPressedCallback(false), InputAwareConstraintLayout.Listener {
+  private object MediaKeyboardFragmentCreator : InputAwareConstraintLayout.FragmentCreator {
+    override val id: Int = 2
+    override fun create(): Fragment = KeyboardPagerFragment()
+  }
+
+  private inner class KeyboardEvents : OnBackPressedCallback(false), InputAwareConstraintLayout.Listener, InsetAwareConstraintLayout.KeyboardStateListener {
     override fun handleOnBackPressed() {
       container.hideInput()
     }
@@ -2840,6 +3139,12 @@ class ConversationFragment :
     override fun onInputHidden() {
       isEnabled = false
     }
+
+    override fun onKeyboardShown() = Unit
+
+    override fun onKeyboardHidden() {
+      closeEmojiSearch()
+    }
   }
 
   //endregion
@@ -2849,6 +3154,19 @@ class ConversationFragment :
   @Subscribe(threadMode = ThreadMode.POSTING)
   fun onIdentityRecordUpdate(event: IdentityRecord?) {
     viewModel.updateIdentityRecords()
+  }
+
+  @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+  fun onStickerPackInstalled(event: StickerPackInstallEvent?) {
+    if (event == null) {
+      return
+    }
+
+    EventBus.getDefault().removeStickyEvent(event)
+
+    if (!inputPanel.isStickerMode) {
+      conversationTooltips.displayStickerPackInstalledTooltip(inputPanel.mediaKeyboardToggleAnchorView, event)
+    }
   }
 
   //endregion

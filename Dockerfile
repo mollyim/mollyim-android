@@ -1,9 +1,11 @@
-FROM openjdk:11.0.13-bulleye@sha256:f6ded9543abec9fd65e26cc4b3b683fe6f593c04b17ddfd327fcdffe0ca9fda3 AS builder
+FROM eclipse-temurin:17.0.7_7-sdk-jammy@sha256:ab4bbe391a42adc8e590d0c54b3ca7903cbc3b62a3e3b23ac8dce94ebfef6b9e AS builder
 
-ARG ANDROID_SDK_DIST=commandlinetools-linux-7583922_latest.zip
-ARG ANDROID_SDK_SHA256=124f2d5115eee365df6cf3228ffbca6fc3911d16f8025bebd5b1c6e2fcfa7faf
+ARG ANDROID_SDK_DIST=commandlinetools-linux-9477386_latest.zip
+ARG ANDROID_SDK_SHA256=bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0
 
 ENV ANDROID_HOME=/opt/android-sdk-linux
+
+RUN apt-get update && apt-get install -y unzip git
 
 RUN mkdir -p "${ANDROID_HOME}"
 

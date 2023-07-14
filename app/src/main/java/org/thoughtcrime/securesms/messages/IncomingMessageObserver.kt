@@ -35,6 +35,7 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.AppForegroundObserver
+import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.whispersystems.signalservice.api.push.ServiceId
 import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
@@ -86,9 +87,9 @@ class IncomingMessageObserver(private val context: Application) {
 
   private val lock: ReentrantLock = ReentrantLock()
   private val connectionNecessarySemaphore = Semaphore(0)
-  private val networkConnectionListener = NetworkConnectionListener(context) { isNetworkAvailable ->
+  private val networkConnectionListener = NetworkConnectionListener(context) { isNetworkUnavailable ->
     lock.withLock {
-      if (isNetworkAvailable()) {
+      if (isNetworkUnavailable()) {
         Log.w(TAG, "Lost network connection. Shutting down our websocket connections and resetting the drained state.")
         decryptionDrained = false
         disconnect()
@@ -421,8 +422,8 @@ class IncomingMessageObserver(private val context: Application) {
                 val timePerMessage: Float = duration / batch.size.toFloat()
                 Log.d(TAG, "Decrypted ${batch.size} envelopes in $duration ms (~${round(timePerMessage * 100) / 100} ms per message)")
               }
-
               attempts = 0
+              SignalLocalMetrics.PushWebsocketFetch.onProcessedBatch()
 
               if (!hasMore && !decryptionDrained) {
                 Log.i(TAG, "Decryptions newly-drained.")

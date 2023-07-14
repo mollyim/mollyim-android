@@ -10,8 +10,8 @@ android {
     compileSdkVersion = signalCompileSdkVersion
 
     defaultConfig {
-        minSdkVersion signalMinSdkVersion
-        targetSdkVersion signalTargetSdkVersion
+        minSdk = signalMinSdkVersion
+        targetSdk = signalTargetSdkVersion
     }
 
     compileOptions {
@@ -22,6 +22,6 @@ android {
 
 dependencies {
     implementation project(':core-util')
-    implementation 'androidx.annotation:annotation-jvm:1.6.0'
+    implementation libs.androidx.annotation
     lintChecks project(':lintchecks')
 }

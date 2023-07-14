@@ -42,23 +42,28 @@ import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.Quote
 import org.thoughtcrime.securesms.database.model.ReactionRecord
+import org.thoughtcrime.securesms.database.model.StickerRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.linkpreview.LinkPreview
 import org.thoughtcrime.securesms.messagerequests.MessageRequestRepository
 import org.thoughtcrime.securesms.messagerequests.MessageRequestState
 import org.thoughtcrime.securesms.mms.GlideRequests
 import org.thoughtcrime.securesms.mms.QuoteModel
+import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.mms.SlideDeck
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.search.MessageResult
+import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.thoughtcrime.securesms.util.rx.RxStore
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import java.util.Optional
+import kotlin.time.Duration
 
 /**
  * ConversationViewModel, which operates solely off of a thread id that never changes.
@@ -297,7 +302,9 @@ class ConversationViewModel(
     quote: QuoteModel?,
     mentions: List<Mention>,
     bodyRanges: BodyRangeList?,
-    contacts: List<Contact>
+    contacts: List<Contact>,
+    linkPreviews: List<LinkPreview>,
+    preUploadResults: List<MessageSender.PreUploadResult>
   ): Completable {
     return repository.sendMessage(
       threadId = threadId,
@@ -310,7 +317,9 @@ class ConversationViewModel(
       quote = quote,
       mentions = mentions,
       bodyRanges = bodyRanges,
-      contacts = contacts
+      contacts = contacts,
+      linkPreviews = linkPreviews,
+      preUploadResults = preUploadResults
     ).observeOn(AndroidSchedulers.mainThread())
   }
 
@@ -350,5 +359,13 @@ class ConversationViewModel(
 
   fun resolveMessageToEdit(conversationMessage: ConversationMessage): Single<ConversationMessage> {
     return repository.resolveMessageToEdit(conversationMessage)
+  }
+
+  fun deleteSlideData(slides: List<Slide>) {
+    repository.deleteSlideData(slides)
+  }
+
+  fun updateStickerLastUsedTime(stickerRecord: StickerRecord, timestamp: Duration) {
+    repository.updateStickerLastUsedTime(stickerRecord, timestamp)
   }
 }

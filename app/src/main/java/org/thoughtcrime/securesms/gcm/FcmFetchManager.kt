@@ -3,13 +3,16 @@ package org.thoughtcrime.securesms.gcm
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.PowerManager
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob
 import org.thoughtcrime.securesms.messages.WebSocketStrategy
+import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
+import kotlin.time.Duration.Companion.minutes
 
 /**
  * Our goals with FCM processing are as follows:
@@ -33,6 +36,8 @@ object FcmFetchManager {
   private const val MAX_BLOCKING_TIME_MS = 500L
   private val EXECUTOR = SerialMonoLifoExecutor(SignalExecutors.UNBOUNDED)
 
+  val WEBSOCKET_DRAIN_TIMEOUT = 5.minutes.inWholeMilliseconds
+
   @Volatile
   private var activeCount = 0
 
@@ -44,6 +49,8 @@ object FcmFetchManager {
 
   @Volatile
   private var startForegroundOnDestroy = false
+
+  private var wakeLock: PowerManager.WakeLock? = null
 
   /**
    * @return True if a service was successfully started, otherwise false.
@@ -88,7 +95,13 @@ object FcmFetchManager {
   }
 
   private fun fetch(context: Context) {
-    retrieveMessages(context)
+    val metricId = SignalLocalMetrics.PushWebsocketFetch.startFetch()
+    val success = retrieveMessages(context)
+    if (!success) {
+      SignalLocalMetrics.PushWebsocketFetch.onTimedOut(metricId)
+    } else {
+      SignalLocalMetrics.PushWebsocketFetch.onDrained(metricId)
+    }
 
     synchronized(this) {
       activeCount--
@@ -132,8 +145,8 @@ object FcmFetchManager {
   }
 
   @JvmStatic
-  fun retrieveMessages(context: Context) {
-    val success = ApplicationDependencies.getBackgroundMessageRetriever().retrieveMessages(context, WebSocketStrategy())
+  fun retrieveMessages(context: Context): Boolean {
+    val success = ApplicationDependencies.getBackgroundMessageRetriever().retrieveMessages(context, WebSocketStrategy(WEBSOCKET_DRAIN_TIMEOUT))
 
     if (success) {
       Log.i(TAG, "Successfully retrieved messages.")
@@ -146,6 +159,8 @@ object FcmFetchManager {
         ApplicationDependencies.getJobManager().add(PushNotificationReceiveJob())
       }
     }
+
+    return success
   }
 
   fun onDestroyForegroundFetchService() {

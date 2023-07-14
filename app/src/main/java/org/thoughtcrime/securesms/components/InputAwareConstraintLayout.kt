@@ -26,6 +26,9 @@ class InputAwareConstraintLayout @JvmOverloads constructor(
   private var inputId: Int? = null
   private var input: Fragment? = null
 
+  val isInputShowing: Boolean
+    get() = input != null
+
   lateinit var fragmentManager: FragmentManager
   var listener: Listener? = null
 
@@ -34,10 +37,13 @@ class InputAwareConstraintLayout @JvmOverloads constructor(
     hideInput(resetKeyboardGuideline = false)
   }
 
-  fun toggleInput(fragmentCreator: FragmentCreator, imeTarget: EditText, toggled: (Boolean) -> Unit = { }) {
+  fun toggleInput(fragmentCreator: FragmentCreator, imeTarget: EditText, showSoftKeyOnHide: Boolean = false) {
     if (fragmentCreator.id == inputId) {
-      hideInput(resetKeyboardGuideline = true)
-      toggled(false)
+      if (showSoftKeyOnHide) {
+        showSoftkey(imeTarget)
+      } else {
+        hideInput(resetKeyboardGuideline = true)
+      }
     } else {
       hideInput(resetKeyboardGuideline = false)
       showInput(fragmentCreator, imeTarget)
@@ -55,6 +61,7 @@ class InputAwareConstraintLayout @JvmOverloads constructor(
     fragmentManager
       .beginTransaction()
       .replace(R.id.input_container, input!!)
+      .runOnCommit { (input as? InputFragment)?.show() }
       .commit()
 
     overrideKeyboardGuidelineWithPreviousHeight()
@@ -66,6 +73,7 @@ class InputAwareConstraintLayout @JvmOverloads constructor(
   private fun hideInput(resetKeyboardGuideline: Boolean) {
     val inputHidden = input != null
     input?.let {
+      (input as? InputFragment)?.hide()
       fragmentManager
         .beginTransaction()
         .remove(it)
@@ -93,5 +101,10 @@ class InputAwareConstraintLayout @JvmOverloads constructor(
   interface Listener {
     fun onInputShown()
     fun onInputHidden()
+  }
+
+  interface InputFragment {
+    fun show()
+    fun hide()
   }
 }
