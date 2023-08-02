@@ -51,7 +51,7 @@ Molly has unique features compared to Signal:
 - **Contact deletion** - Allows you to delete contacts and stop sharing your profile
 - **Disappearing call history** - Clear call notifications together with expiring messages
 - **Debug logs are optional** - Android logging can be disabled
-- **Custom backup scheduling** - Choose between daily or weekly interval and the number of backups to retain
+- **Custom backup scheduling** - Choose between a daily or weekly interval and the number of backups to retain
 - **SOCKS proxy and Tor support** - Tunnel app network traffic via proxy and Orbot
 
 Besides that, you will find all the features of Signal plus some minor tweaks and improvements. As with Signal, SMS is not supported.  
@@ -70,22 +70,22 @@ This table lists the current status of the dependencies:
 | Location provider                     | ✔️ OpenStreetMap | ⚠️ Google Maps        | ⚠️️️ Google Maps        |
 
 <sup>(1)</sup> You may need to disable the system battery optimizations to receive Websocket-based push notifications in background.<br>
-<sup>(2)</sup> If you are running a custom ROM and the app fails to register with Play Services (FCM) try the FOSS flavor.
+<sup>(2)</sup> If you are running a custom operating system and the app fails to register with Play Services (FCM) try the FOSS flavor.
 
 ## Compatibility with Signal
 
 Molly and Signal apps can be installed on the same device. If you need a 2nd number to chat, you can use Molly along with Signal.
 
-However, you cannot use the same phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. Remember that you are not limited to use only your main phone number, but also any number on which you can receive SMS or phone calls at registration.
+However, you cannot use the same phone number on both apps at the same time. Only the last app registered will remain active, and the other will go offline. Remember that you are not limited to use only your main phone number - you can use any number on which you can receive SMS or phone calls at registration.
 
-If you are correctly a Signal user and want to use Molly instead of Signal
+If you are currently a Signal user and want to use Molly instead of Signal
 (with the same phone number), see [Migrating From
 Signal](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
 on the wiki.
 
 ## Backups
 
-Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around, simply by choosing the backup folder and file. To import from Signal use a matching or newer version of Molly.
+Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around, simply by choosing the backup folder and file. However, to import a backup from Signal you must use a matching or newer version of Molly.
 
 For older releases of Android, you might need to rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation. These are the locations within internal storage where backups are written by default:
 - `Signal/Backups/Signal-year-month-date-time.backup`
