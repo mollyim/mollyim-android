@@ -20,7 +20,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.media.MediaDataSource;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -595,6 +594,20 @@ public class AttachmentTable extends DatabaseTable {
     return new DataUsageResult(quoteRows);
   }
 
+  /**
+   * Check if data file is in use by another attachment row with a different hash. Rows with the same data and has
+   * will be fixed in a later call to {@link #updateAttachmentAndMatchingHashes(SQLiteDatabase, AttachmentId, String, ContentValues)}.
+   */
+  private boolean isAttachmentFileUsedByOtherAttachments(@Nullable AttachmentId attachmentId, @NonNull DataInfo dataInfo) {
+    if (attachmentId == null) {
+      return false;
+    }
+
+    return SQLiteDatabaseExtensionsKt.exists(getReadableDatabase(), TABLE_NAME)
+                                     .where(DATA + " = ? AND " + DATA_HASH + " != ?", dataInfo.file.getAbsolutePath(), dataInfo.hash)
+                                     .run();
+  }
+
   public void insertAttachmentsForPlaceholder(long mmsId, @NonNull AttachmentId attachmentId, @NonNull InputStream inputStream)
       throws MmsException
   {
@@ -602,32 +615,40 @@ public class AttachmentTable extends DatabaseTable {
     SQLiteDatabase     database     = databaseHelper.getSignalWritableDatabase();
     ContentValues      values       = new ContentValues();
     DataInfo           oldInfo      = getAttachmentDataFileInfo(attachmentId, DATA);
-    DataInfo           dataInfo     = setAttachmentData(inputStream, attachmentId);
+    DataInfo           dataInfo     = storeAttachmentStream(inputStream);
     File               transferFile = getTransferFile(databaseHelper.getSignalReadableDatabase(), attachmentId);
+    boolean            updated      = false;
 
-    if (oldInfo != null) {
-      updateAttachmentDataHash(database, oldInfo.hash, dataInfo);
+    database.beginTransaction();
+    try {
+      dataInfo = deduplicateAttachment(dataInfo, attachmentId);
+      if (oldInfo != null) {
+        updateAttachmentDataHash(database, oldInfo.hash, dataInfo);
+      }
+
+      values.put(DATA, dataInfo.file.getAbsolutePath());
+      values.put(SIZE, dataInfo.length);
+      values.put(DATA_RANDOM, dataInfo.random);
+      values.put(DATA_HASH, dataInfo.hash);
+
+      String visualHashString = getVisualHashStringOrNull(placeholder);
+      if (visualHashString != null) {
+        values.put(VISUAL_HASH, visualHashString);
+      }
+
+      values.put(TRANSFER_STATE, TRANSFER_PROGRESS_DONE);
+      values.put(TRANSFER_FILE, (String) null);
+
+      values.put(TRANSFORM_PROPERTIES, TransformProperties.forSkipTransform().serialize());
+
+      updated = database.update(TABLE_NAME, values, PART_ID_WHERE, attachmentId.toStrings()) > 0;
+
+      database.setTransactionSuccessful();
+    } finally {
+      database.endTransaction();
     }
 
-    values.put(DATA, dataInfo.file.getAbsolutePath());
-    values.put(SIZE, dataInfo.length);
-    values.put(DATA_RANDOM, dataInfo.random);
-    values.put(DATA_HASH, dataInfo.hash);
-
-    String visualHashString = getVisualHashStringOrNull(placeholder);
-    if (visualHashString != null) {
-      values.put(VISUAL_HASH, visualHashString);
-    }
-
-    values.put(TRANSFER_STATE, TRANSFER_PROGRESS_DONE);
-    values.put(TRANSFER_FILE, (String)null);
-
-    values.put(TRANSFORM_PROPERTIES, TransformProperties.forSkipTransform().serialize());
-
-    if (database.update(TABLE_NAME, values, PART_ID_WHERE, attachmentId.toStrings()) == 0) {
-      //noinspection ResultOfMethodCallIgnored
-      dataInfo.file.delete();
-    } else {
+    if (updated) {
       long threadId = SignalDatabase.messages().getThreadIdForMessage(mmsId);
 
       if (!SignalDatabase.messages().isStory(mmsId)) {
@@ -637,11 +658,16 @@ public class AttachmentTable extends DatabaseTable {
       notifyConversationListeners(threadId);
       notifyConversationListListeners();
       notifyAttachmentListeners();
+    } else {
+      if (!dataInfo.file.delete()) {
+        Log.w(TAG, "Failed to delete unused attachment");
+      }
     }
 
     if (transferFile != null) {
-      //noinspection ResultOfMethodCallIgnored
-      transferFile.delete();
+      if (!transferFile.delete())  {
+        Log.w(TAG, "Unable to delete transfer file.");
+      }
     }
 
     if (placeholder != null && MediaUtil.isAudio(placeholder)) {
@@ -844,24 +870,32 @@ public class AttachmentTable extends DatabaseTable {
       }
     }
 
-    DataInfo dataInfo = setAttachmentData(destination,
-                                          mediaStream.getStream(),
-                                          databaseAttachment.getAttachmentId());
+    DataInfo dataInfo = storeAttachmentStream(destination, mediaStream.getStream());
 
-    ContentValues contentValues = new ContentValues();
-    contentValues.put(SIZE, dataInfo.length);
-    contentValues.put(CONTENT_TYPE, mediaStream.getMimeType());
-    contentValues.put(WIDTH, mediaStream.getWidth());
-    contentValues.put(HEIGHT, mediaStream.getHeight());
-    contentValues.put(DATA, dataInfo.file.getAbsolutePath());
-    contentValues.put(DATA_RANDOM, dataInfo.random);
-    contentValues.put(DATA_HASH, dataInfo.hash);
+    database.beginTransaction();
+    try {
+      dataInfo = deduplicateAttachment(dataInfo, databaseAttachment.getAttachmentId());
 
-    int updateCount = updateAttachmentAndMatchingHashes(database,
-                                                        databaseAttachment.getAttachmentId(),
-                                                        isSingleUseOfData ? dataInfo.hash : oldDataInfo.hash,
-                                                        contentValues);
-    Log.i(TAG, "[updateAttachmentData] Updated " + updateCount + " rows.");
+      ContentValues contentValues = new ContentValues();
+      contentValues.put(SIZE, dataInfo.length);
+      contentValues.put(CONTENT_TYPE, mediaStream.getMimeType());
+      contentValues.put(WIDTH, mediaStream.getWidth());
+      contentValues.put(HEIGHT, mediaStream.getHeight());
+      contentValues.put(DATA, dataInfo.file.getAbsolutePath());
+      contentValues.put(DATA_RANDOM, dataInfo.random);
+      contentValues.put(DATA_HASH, dataInfo.hash);
+
+      int updateCount = updateAttachmentAndMatchingHashes(database,
+                                                          databaseAttachment.getAttachmentId(),
+                                                          isSingleUseOfData ? dataInfo.hash : oldDataInfo.hash,
+                                                          contentValues);
+
+      Log.i(TAG, "[updateAttachmentData] Updated " + updateCount + " rows.");
+
+      database.setTransactionSuccessful();
+    } finally {
+      database.endTransaction();
+    }
   }
 
   /**
@@ -1066,25 +1100,9 @@ public class AttachmentTable extends DatabaseTable {
 
   }
 
-  private @NonNull DataInfo setAttachmentData(@NonNull Uri uri,
-                                              @Nullable AttachmentId attachmentId)
-      throws MmsException
-  {
+  private @NonNull DataInfo storeAttachmentStream(@NonNull InputStream in) throws MmsException {
     try {
-      InputStream inputStream = PartAuthority.getAttachmentStream(context, uri);
-      return setAttachmentData(inputStream, attachmentId);
-    } catch (IOException e) {
-      throw new MmsException(e);
-    }
-  }
-
-  private @NonNull DataInfo setAttachmentData(@NonNull InputStream in,
-                                              @Nullable AttachmentId attachmentId)
-      throws MmsException
-  {
-    try {
-      File dataFile = newFile();
-      return setAttachmentData(dataFile, in, attachmentId);
+      return storeAttachmentStream(newFile(), in);
     } catch (IOException e) {
       throw new MmsException(e);
     }
@@ -1104,11 +1122,11 @@ public class AttachmentTable extends DatabaseTable {
     return PartFileProtector.protect(() -> File.createTempFile("part", ".mms", partsDirectory));
   }
 
-  private @NonNull DataInfo setAttachmentData(@NonNull File destination,
-                                              @NonNull InputStream in,
-                                              @Nullable AttachmentId attachmentId)
-      throws MmsException
-  {
+  /**
+   * Reads the entire stream and saves to disk. If you need to deduplicate attachments, call {@link #deduplicateAttachment(DataInfo, AttachmentId)}
+   * afterwards and use the {@link DataInfo} returned by it instead.
+   */
+  private @NonNull DataInfo storeAttachmentStream(@NonNull File destination, @NonNull InputStream in) throws MmsException {
     try {
       File                       tempFile          = newFile();
       MessageDigest              messageDigest     = MessageDigest.getInstance("SHA-256");
@@ -1123,30 +1141,37 @@ public class AttachmentTable extends DatabaseTable {
         throw new IllegalStateException("Couldn't rename " + tempFile.getPath() + " to " + destination.getPath());
       }
 
-      SQLiteDatabase db = databaseHelper.getSignalWritableDatabase();
-
-      db.beginTransaction();
-      try {
-        Optional<DataInfo> sharedDataInfo = findDuplicateDataFileInfo(db, hash, attachmentId);
-        if (sharedDataInfo.isPresent()) {
-          Log.i(TAG, "[setAttachmentData] Duplicate data file found! " + sharedDataInfo.get().file.getAbsolutePath());
-          if (!destination.equals(sharedDataInfo.get().file) && destination.delete()) {
-            Log.i(TAG, "[setAttachmentData] Deleted original file. " + destination);
-          }
-          db.setTransactionSuccessful();
-          return sharedDataInfo.get();
-        } else {
-          Log.i(TAG, "[setAttachmentData] No matching attachment data found. " + destination.getAbsolutePath());
-          db.setTransactionSuccessful();
-        }
-      } finally {
-        db.endTransaction();
-      }
-
       return new DataInfo(destination, length, out.first, hash);
     } catch (IOException | NoSuchAlgorithmException e) {
       throw new MmsException(e);
     }
+  }
+
+  private @NonNull DataInfo deduplicateAttachment(@NonNull DataInfo dataInfo, @Nullable AttachmentId attachmentId) throws MmsException {
+    SQLiteDatabase db = databaseHelper.getSignalWritableDatabase();
+
+    if (!db.inTransaction()) {
+      throw new IllegalStateException("Must be in a transaction!");
+    }
+
+    Optional<DataInfo> sharedDataInfo = findDuplicateDataFileInfo(db, dataInfo.hash, attachmentId);
+    if (sharedDataInfo.isPresent()) {
+      Log.i(TAG, "[setAttachmentData] Duplicate data file found! " + sharedDataInfo.get().file.getAbsolutePath());
+      if (!dataInfo.file.equals(sharedDataInfo.get().file)) {
+        if (isAttachmentFileUsedByOtherAttachments(attachmentId, dataInfo)) {
+          Log.i(TAG, "[setAttachmentData] Original file still in use by another attachment with a different hash.");
+        } else if (dataInfo.file.delete()) {
+          Log.i(TAG, "[setAttachmentData] Deleted original file. " + dataInfo.file);
+        } else {
+          Log.w(TAG, "[setAttachmentData] Original file could not be deleted.");
+        }
+      }
+      return sharedDataInfo.get();
+    } else {
+      Log.i(TAG, "[setAttachmentData] No matching attachment data found. " + dataInfo.file.getAbsolutePath());
+    }
+
+    return dataInfo;
   }
 
   private static @NonNull Optional<DataInfo> findDuplicateDataFileInfo(@NonNull SQLiteDatabase database,
@@ -1313,8 +1338,9 @@ public class AttachmentTable extends DatabaseTable {
       long           uniqueId        = System.currentTimeMillis();
 
       if (attachment.getUri() != null) {
-        dataInfo = setAttachmentData(attachment.getUri(), null);
-        Log.d(TAG, "Wrote part to file: " + dataInfo.file.getAbsolutePath());
+        DataInfo storeDataInfo = storeAttachmentStream(PartAuthority.getAttachmentStream(context, attachment.getUri()));
+        Log.d(TAG, "Wrote part to file: " + storeDataInfo.file.getAbsolutePath());
+        dataInfo = deduplicateAttachment(storeDataInfo, attachmentId);
       }
 
       Attachment template = attachment;
@@ -1389,6 +1415,8 @@ public class AttachmentTable extends DatabaseTable {
       notifyPacks  = attachment.isSticker() && !hasStickerAttachments();
 
       database.setTransactionSuccessful();
+    } catch (IOException e) {
+      throw new MmsException(e);
     } finally {
       database.endTransaction();
     }
@@ -1460,10 +1488,10 @@ public class AttachmentTable extends DatabaseTable {
 
   @VisibleForTesting
   static class DataInfo {
-    private final File   file;
-    private final long   length;
-    private final byte[] random;
-    private final String hash;
+    final File   file;
+    final long   length;
+    final byte[] random;
+    final String hash;
 
     private DataInfo(File file, long length, byte[] random, String hash) {
       this.file   = file;
@@ -1472,7 +1500,8 @@ public class AttachmentTable extends DatabaseTable {
       this.hash   = hash;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       final DataInfo dataInfo = (DataInfo) o;
@@ -1482,7 +1511,8 @@ public class AttachmentTable extends DatabaseTable {
              Objects.equals(hash, dataInfo.hash);
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
       int result = Objects.hash(file, length, hash);
       result = 31 * result + Arrays.hashCode(random);
       return result;

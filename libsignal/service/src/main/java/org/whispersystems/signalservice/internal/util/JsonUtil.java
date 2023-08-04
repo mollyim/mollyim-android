@@ -22,6 +22,7 @@ import com.google.protobuf.ByteString;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.InvalidKeyException;
 import org.signal.libsignal.protocol.logging.Log;
+import org.whispersystems.signalservice.api.kbs.MasterKey;
 import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.exceptions.MalformedResponseException;
@@ -154,6 +155,20 @@ public class JsonUtil {
     @Override
     public ServiceId deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
       return ServiceId.parseOrNull(p.getValueAsString());
+    }
+  }
+
+  public static class MasterKeySerializer extends JsonSerializer<MasterKey> {
+    @Override
+    public void serialize(MasterKey value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+      gen.writeString(Base64.encodeBytes(value.serialize()));
+    }
+  }
+
+  public static class MasterKeyDeserializer extends JsonDeserializer<MasterKey> {
+    @Override
+    public MasterKey deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      return new MasterKey(Base64.decode(p.getValueAsString()));
     }
   }
 }

@@ -42,7 +42,6 @@ import org.thoughtcrime.securesms.megaphone.Megaphones
 import org.thoughtcrime.securesms.payments.DataExportUtil
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.ConversationUtil
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import java.util.Optional
@@ -552,30 +551,28 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         }
       )
 
-      if (FeatureFlags.chatFilters()) {
-        dividerPref()
-        sectionHeaderPref(DSLSettingsText.from("Chat Filters"))
-        clickPref(
-          title = DSLSettingsText.from("Reset pull to refresh tip count"),
-          onClick = {
-            SignalStore.uiHints().resetNeverDisplayPullToRefreshCount()
-          }
-        )
-      }
+      dividerPref()
+      sectionHeaderPref(DSLSettingsText.from("Chat Filters"))
+      clickPref(
+        title = DSLSettingsText.from("Reset pull to refresh tip count"),
+        onClick = {
+          SignalStore.uiHints().resetNeverDisplayPullToRefreshCount()
+        }
+      )
 
       dividerPref()
       clickPref(
-        title = DSLSettingsText.from("Launch ConversationTestFragment"),
+        title = DSLSettingsText.from("Launch Conversation Test Springboard "),
         onClick = {
-          findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToInternalConversationTestFragment())
+          findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToInternalConversationSpringboardFragment())
         }
       )
 
       switchPref(
-        title = DSLSettingsText.from("Use V2 ConversationFragment"),
-        isChecked = state.useConversationFragmentV2,
+        title = DSLSettingsText.from("Use V2 ConversationItem"),
+        isChecked = state.useConversationItemV2,
         onClick = {
-          viewModel.setUseConversationFragmentV2(!state.useConversationFragmentV2)
+          viewModel.setUseConversationItemV2(!state.useConversationItemV2)
         }
       )
     }

@@ -31,9 +31,9 @@ public class SmsSendtoActivity extends PassphraseRequiredActivity {
 
     if (uri != null && "content".equals(uri.getScheme())) {
       Recipient recipient = Recipient.external(this, getDestinationForSyncAdapter(uri));
-      long      threadId  = SignalDatabase.threads().getThreadIdIfExistsFor(recipient.getId());
+      long      threadId  = SignalDatabase.threads().getOrCreateThreadIdFor(recipient);
 
-      nextIntent = ConversationIntents.createBuilder(this, recipient.getId(), threadId)
+      nextIntent = ConversationIntents.createBuilderSync(this, recipient.getId(), threadId)
                                       .withDraftText("")
                                       .build();
     } else {

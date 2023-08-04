@@ -106,6 +106,10 @@
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">メッセージを確認しています…</string>
 
+    <!-- Fcm notifications -->
+    <!-- Notification we show when there may be messages for you, but we cannot connect to the server to check -->
+    <string name="FcmFetchManager__you_may_have_messages">新着メッセージがあるかもしれません</string>
+
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">ブロック中のユーザー</string>
     <string name="BlockedUsersActivity__add_blocked_user">ブロックするユーザーを追加</string>
@@ -2069,6 +2073,14 @@
     <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">カメラへのアクセス許可がないとQRコードをスキャンできません</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s の安全番号を表示するには、初めにメッセージの交換が必要です。</string>
+    <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_message">相手との間に安全番号を作成するには、メッセージ交換をする必要があります。</string>
+    <!-- Confirmation option for dialog explaining to user they must exchange messages first to create a safety number  -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_ok">OK</string>
+    <!-- Learn more option for dialog explaining to user they must exchange messages first to create a safety number  -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_learn_more">詳しく見る</string>
+    <!-- Confirmation button on scan result dialogs -->
+    <string name="VerifyDisplayFragment__scan_result_dialog_ok">OK</string>
 
     <!-- ViewOnceMessageActivity -->
   <!-- Removed by excludeNonTranslatables <string name="ViewOnceMessageActivity_video_duration" translatable="false">%1$02d:%2$02d</string> -->
@@ -2188,6 +2200,8 @@
     <string name="NotificationChannel_call_status">通話状態</string>
     <!-- Notification channel name for occasional alerts to the user. Will appear in the system notification settings as the title of this notification channel. -->
     <string name="NotificationChannel_critical_app_alerts">重要なアプリのアラート</string>
+    <!-- Notification channel name for other notifications related to messages. Will appear in the system notification settings as the title of this notification channel. -->
+    <string name="NotificationChannel_additional_message_notifications">その他のメッセージ通知</string>
 
     <!-- ProfileEditNameFragment -->
 
@@ -2618,12 +2632,25 @@
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment__to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%1$s とのエンドツーエンドの暗号化を検証するには、上記の番号が相手の端末のものと一致するか確認してください。相手の端末上のコードをスキャンするか、あなたのコードをスキャンしてもらうことでも可能です。<a href=\"https://signal.org/redirect/safety-numbers\">詳細</a>]]></string>
+    <!-- Explanation of how to verify the safety numbers. %s is replaced with the name of the other recipient -->
+    <string name="verify_display_fragment__pnp_verify_safety_numbers_explanation_with_s">%1$sとのやりとりがエンドツーエンドで暗号化されているかを検証するには、お互いの端末で、上部のカラーカード（色がついた枠内）の数字が一致するかを確認してください。数字が一致しない場合は、スワイプして別の安全番号を表示させてください。一致する数字は一つだけでかまいません。</string>
     <string name="verify_display_fragment__tap_to_scan">タップしてスキャンする</string>
     <string name="verify_display_fragment__successful_match">一致しました</string>
     <string name="verify_display_fragment__failed_to_verify_safety_number">安全番号を検証できませんでした</string>
     <string name="verify_display_fragment__loading">読み込んでいます…</string>
     <string name="verify_display_fragment__mark_as_verified">検証済みにする</string>
     <string name="verify_display_fragment__clear_verification">未検証にする</string>
+    <!-- Banner at top of safety numbers screen explaining that we\'re updating how safety numbers work. -->
+    <string name="verify_display_fragment__safety_numbers_are_updating_banner_no_learn_more">安全番号を更新中です。</string>
+
+    <!-- Title for dialog explaining for how safety numbers are transitioning to support usernames -->
+    <string name="PnpSafetyNumberEducationDialog__title">安全番号の変更</string>
+    <!-- Message for dialog explaining for how safety numbers are transitioning to support usernames -->
+    <string name="PnpSafetyNumberEducationDialog__body">Signal のプライバシー機能を以後も有効にするために、安全番号は移行期間中に更新されます。\n\n安全番号を検証するために、カラーカード（色がついた枠内）の数字が一致するか相手の端末を確認してください。数字が一致しない場合は、スワイプして別の安全番号を表示させてください。一致する数字は一つだけでかまいません。</string>
+    <!-- Button for more information about the safety number changes. Takes user to support article -->
+    <string name="PnpSafetyNumberEducationDialog__help">お困りですか？</string>
+    <!-- Confirmation button for educating users about new safety number changes -->
+    <string name="PnpSafetyNumberEducationDialog__confirm">わかりました</string>
 
     <!-- verify_identity -->
     <string name="verify_identity__share_safety_number">安全番号を共有する</string>
@@ -5769,7 +5796,7 @@
     <!-- Title for screen describing that sms support is going to be removed soon -->
     <string name="SmsRemoval_title_going_away">SMSサポートの終了</string>
     <!-- Bullet point message shown on describing screen as first bullet why sms is being removed, placeholder with be date of removal (e.g., March 21st) -->
-    <string name="SmsRemoval_info_bullet_1_s">SignalアプリのSMSメッセージのサポートは%1$sに終了します。</string>
+    <string name="SmsRemoval_info_bullet_1">SignalアプリのSMSメッセージは、近日中にサポートが終了します。</string>
     <!-- Bullet point message shown on describing screen as second bullet why sms is being removed -->
     <string name="SmsRemoval_info_bullet_2">SMSメッセージはSignalのメッセージとは異なります。<b>暗号化されたSignalメッセージへの影響はなく、引き続きご使用になれます。</b></string>
     <!-- Bullet point message shown on describing screen as third bullet why sms is being removed -->

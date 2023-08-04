@@ -21,9 +21,11 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.conversation.AttachmentKeyboard
 import org.thoughtcrime.securesms.conversation.AttachmentKeyboardButton
 import org.thoughtcrime.securesms.conversation.v2.ConversationViewModel
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mediasend.Media
 import org.thoughtcrime.securesms.permissions.Permissions
-import org.thoughtcrime.securesms.util.ViewModelFactory
+import org.thoughtcrime.securesms.recipients.Recipient
+import java.util.function.Predicate
 
 /**
  * Fragment wrapped version of [AttachmentKeyboard] to help encapsulate logic the view
@@ -37,22 +39,26 @@ class AttachmentKeyboardFragment : LoggingFragment(R.layout.attachment_keyboard_
     const val BUTTON_RESULT = "Button"
   }
 
-  private val viewModel: AttachmentKeyboardViewModel by viewModels(
-    factoryProducer = ViewModelFactory.factoryProducer { AttachmentKeyboardViewModel() }
-  )
+  private val viewModel: AttachmentKeyboardViewModel by viewModels()
 
   private lateinit var conversationViewModel: ConversationViewModel
+  private lateinit var attachmentKeyboardView: AttachmentKeyboard
 
   private val lifecycleDisposable = LifecycleDisposable()
+  private val removePaymentFilter: Predicate<AttachmentKeyboardButton> = Predicate { button -> button != AttachmentKeyboardButton.PAYMENT }
 
   @Suppress("ReplaceGetOrSet")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     lifecycleDisposable.bindTo(viewLifecycleOwner)
 
-    val attachmentKeyboardView = view.findViewById<AttachmentKeyboard>(R.id.attachment_keyboard)
-
-    attachmentKeyboardView.setCallback(this)
+    attachmentKeyboardView = view.findViewById(R.id.attachment_keyboard)
+    attachmentKeyboardView.apply {
+      setCallback(this@AttachmentKeyboardFragment)
+      if (!SignalStore.paymentsValues().paymentsAvailability.isSendAllowed) {
+        filterAttachmentKeyboardButtons(removePaymentFilter)
+      }
+    }
 
     viewModel.getRecentMedia()
       .subscribeBy {
@@ -61,11 +67,18 @@ class AttachmentKeyboardFragment : LoggingFragment(R.layout.attachment_keyboard_
       .addTo(lifecycleDisposable)
 
     conversationViewModel = ViewModelProvider(requireParentFragment()).get(ConversationViewModel::class.java)
+
+    val snapshot = conversationViewModel.recipientSnapshot
+    if (snapshot != null) {
+      updatePaymentsAvailable(snapshot)
+    }
+
     conversationViewModel
       .recipient
       .observeOn(AndroidSchedulers.mainThread())
       .subscribeBy {
         attachmentKeyboardView.setWallpaperEnabled(it.hasWallpaper())
+        updatePaymentsAvailable(it)
       }
       .addTo(lifecycleDisposable)
   }
@@ -84,5 +97,19 @@ class AttachmentKeyboardFragment : LoggingFragment(R.layout.attachment_keyboard_
       .onAllGranted { viewModel.refreshRecentMedia() }
       .withPermanentDenialDialog(getString(R.string.AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio))
       .execute()
+  }
+
+  private fun updatePaymentsAvailable(recipient: Recipient) {
+    val paymentsValues = SignalStore.paymentsValues()
+    if (paymentsValues.paymentsAvailability.isSendAllowed &&
+      !recipient.isSelf &&
+      !recipient.isGroup &&
+      recipient.isRegistered &&
+      !recipient.isForceSmsSelection
+    ) {
+      attachmentKeyboardView.filterAttachmentKeyboardButtons(null)
+    } else {
+      attachmentKeyboardView.filterAttachmentKeyboardButtons(removePaymentFilter)
+    }
   }
 }

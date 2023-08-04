@@ -30,7 +30,7 @@ class InMemoryLogger : Log.Logger() {
     latch.await()
   }
 
-  fun clear() {
+  override fun clear() {
     val latch = CountDownLatch(1)
     executor.execute {
       predicates.clear()

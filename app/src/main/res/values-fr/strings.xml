@@ -106,6 +106,10 @@
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Vérification de la présence de messages…</string>
 
+    <!-- Fcm notifications -->
+    <!-- Notification we show when there may be messages for you, but we cannot connect to the server to check -->
+    <string name="FcmFetchManager__you_may_have_messages">Vous pourriez avoir de nouveaux messages</string>
+
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Utilisateurs bloqués</string>
     <string name="BlockedUsersActivity__add_blocked_user">Ajouter un utilisateur bloqué</string>
@@ -2136,6 +2140,14 @@
     <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly a besoin de l’autorisation Appareil photo afin de lire un code QR, mais elle a été refusée définitivement. Veuillez accéder aux paramètres de l’appli, sélectionner Autorisations et activer Appareil photo.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Impossible de lire le code QR sans l’autorisation Appareil photo</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Vous devez d’abord échanger des messages afin d’afficher le numéro de sécurité de %1$s.</string>
+    <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_message">Un numéro de sécurité sera créé pour cette personne après un premier échange de messages.</string>
+    <!-- Confirmation option for dialog explaining to user they must exchange messages first to create a safety number  -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_ok">OK</string>
+    <!-- Learn more option for dialog explaining to user they must exchange messages first to create a safety number  -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_learn_more">En savoir plus</string>
+    <!-- Confirmation button on scan result dialogs -->
+    <string name="VerifyDisplayFragment__scan_result_dialog_ok">OK</string>
 
     <!-- ViewOnceMessageActivity -->
   <!-- Removed by excludeNonTranslatables <string name="ViewOnceMessageActivity_video_duration" translatable="false">%1$02d:%2$02d</string> -->
@@ -2257,6 +2269,8 @@
     <string name="NotificationChannel_call_status">État de l’appel</string>
     <!-- Notification channel name for occasional alerts to the user. Will appear in the system notification settings as the title of this notification channel. -->
     <string name="NotificationChannel_critical_app_alerts">Alertes d’applications critiques</string>
+    <!-- Notification channel name for other notifications related to messages. Will appear in the system notification settings as the title of this notification channel. -->
+    <string name="NotificationChannel_additional_message_notifications">Notifications supplémentaires de messages</string>
 
     <!-- ProfileEditNameFragment -->
 
@@ -2698,12 +2712,25 @@
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment__to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Pour confirmer la sécurité de votre chiffrement de bout en bout avec %1$s, comparez les chiffres ci-dessous avec ceux de son appareil. Vous pouvez aussi lire le code sur son téléphone. <a href=\"https://signal.org/redirect/safety-numbers\">En apprendre davantage.</a>]]></string>
+    <!-- Explanation of how to verify the safety numbers. %s is replaced with the name of the other recipient -->
+    <string name="verify_display_fragment__pnp_verify_safety_numbers_explanation_with_s">Pour vérifier le cryptage de bout en bout avec %1$s, faites correspondre la carte de couleur ci-dessus avec leur appareil et comparez les chiffres. Si ces numéros ne correspondent pas, passez à l\'autre paire de numéros de sécurité. Une seule paire doit être associée.</string>
     <string name="verify_display_fragment__tap_to_scan">Touchez pour lire</string>
     <string name="verify_display_fragment__successful_match">Correspondance effective</string>
     <string name="verify_display_fragment__failed_to_verify_safety_number">Échec de la confirmation du numéro de sécurité.</string>
     <string name="verify_display_fragment__loading">Chargement…</string>
     <string name="verify_display_fragment__mark_as_verified">Marquer comme confirmé</string>
     <string name="verify_display_fragment__clear_verification">Annuler la confirmation</string>
+    <!-- Banner at top of safety numbers screen explaining that we\'re updating how safety numbers work. -->
+    <string name="verify_display_fragment__safety_numbers_are_updating_banner_no_learn_more">Les numéros de sécurité sont mis à jour.</string>
+
+    <!-- Title for dialog explaining for how safety numbers are transitioning to support usernames -->
+    <string name="PnpSafetyNumberEducationDialog__title">Modifications des numéros de sécurité</string>
+    <!-- Message for dialog explaining for how safety numbers are transitioning to support usernames -->
+    <string name="PnpSafetyNumberEducationDialog__body">Les numéros de sécurité sont mis à jour au cours d\'une période de transition afin d\'activer les prochaines fonctions de confidentialité de Signal.\n\nPour vérifier les numéros de sécurité, faites correspondre la carte de couleur avec l\'appareil de votre contact. Si ces numéros ne correspondent pas, passez à l\'autre paire de numéros de sécurité. Une seule paire doit être associée.</string>
+    <!-- Button for more information about the safety number changes. Takes user to support article -->
+    <string name="PnpSafetyNumberEducationDialog__help">Besoin d’aide ?</string>
+    <!-- Confirmation button for educating users about new safety number changes -->
+    <string name="PnpSafetyNumberEducationDialog__confirm">Compris</string>
 
     <!-- verify_identity -->
     <string name="verify_identity__share_safety_number">Partager le numéro de sécurité</string>
@@ -5892,7 +5919,7 @@
     <!-- Title for screen describing that sms support is going to be removed soon -->
     <string name="SmsRemoval_title_going_away">Fin de la prise en charge des SMS</string>
     <!-- Bullet point message shown on describing screen as first bullet why sms is being removed, placeholder with be date of removal (e.g., March 21st) -->
-    <string name="SmsRemoval_info_bullet_1_s">Les SMS ne seront plus pris en charge dans l’appli Signal à partir du %1$s.</string>
+    <string name="SmsRemoval_info_bullet_1">Les SMS ne seront bientôt plus pris en charge dans l\'appli Signal.</string>
     <!-- Bullet point message shown on describing screen as second bullet why sms is being removed -->
     <string name="SmsRemoval_info_bullet_2">Les messages SMS sont différents des messages Signal. <b>Cela n\'affecte pas la messagerie cryptée Signal qui continuera à fonctionner.</b></string>
     <!-- Bullet point message shown on describing screen as third bullet why sms is being removed -->

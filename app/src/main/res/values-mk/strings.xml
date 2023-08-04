@@ -106,6 +106,10 @@
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Проверувам пораки…</string>
 
+    <!-- Fcm notifications -->
+    <!-- Notification we show when there may be messages for you, but we cannot connect to the server to check -->
+    <string name="FcmFetchManager__you_may_have_messages">Можеби имате нови пораки</string>
+
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Блокирани корисници</string>
     <string name="BlockedUsersActivity__add_blocked_user">Додајте блокиран корисник</string>
@@ -2136,6 +2140,14 @@
     <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly има потреба од дозвола до камерата за да може да го скенира QR кодот. Оваа дозвола е трајно одбиена. Ве молиме продолжете во поставувања, изберете „Дозволи“ и вклучете „Камера“.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Не може да се скенира QR кодот без дозвола до камерата</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Мора да размените пораки за да можете да го видите безбедносниот број на %1$s.</string>
+    <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_message">Ќе се создаде безбедносен број за оваа личност откако ќе размените пораки.</string>
+    <!-- Confirmation option for dialog explaining to user they must exchange messages first to create a safety number  -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_ok">Во ред</string>
+    <!-- Learn more option for dialog explaining to user they must exchange messages first to create a safety number  -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_learn_more">Дознајте повеќе</string>
+    <!-- Confirmation button on scan result dialogs -->
+    <string name="VerifyDisplayFragment__scan_result_dialog_ok">Во ред</string>
 
     <!-- ViewOnceMessageActivity -->
   <!-- Removed by excludeNonTranslatables <string name="ViewOnceMessageActivity_video_duration" translatable="false">%1$02d:%2$02d</string> -->
@@ -2257,6 +2269,8 @@
     <string name="NotificationChannel_call_status">Статус на повик</string>
     <!-- Notification channel name for occasional alerts to the user. Will appear in the system notification settings as the title of this notification channel. -->
     <string name="NotificationChannel_critical_app_alerts">Критични известувања за апликацијата</string>
+    <!-- Notification channel name for other notifications related to messages. Will appear in the system notification settings as the title of this notification channel. -->
+    <string name="NotificationChannel_additional_message_notifications">Дополнителни известувања за пораки</string>
 
     <!-- ProfileEditNameFragment -->
 
@@ -2698,12 +2712,25 @@
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment__to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[За да ја потврдите безбедноста на Вашето шифрирање од-крај-до-крај со %1$s, споредете ги горенаведените броеви прикажани на уредот на соговорникот. Можете исто така да го скенирате кодот прикажан на телефонот на соговорникот. <a href=\"https://signal.org/redirect/safety-numbers\">Дознајте повеќе.</a>]]></string>
+    <!-- Explanation of how to verify the safety numbers. %s is replaced with the name of the other recipient -->
+    <string name="verify_display_fragment__pnp_verify_safety_numbers_explanation_with_s">За да ја потврдите целосната шифрираност со %1$s, спојте ја картичката со боја погоре со уредот на %1$s и споредете ги бројките. Ако не се совпаѓаат, повлечете и обидете се со друг пар безбедносни бројки. Само еден пар треба да се совпаѓа.</string>
     <string name="verify_display_fragment__tap_to_scan">Допри да скенираш</string>
     <string name="verify_display_fragment__successful_match">Успешно совпаѓање</string>
     <string name="verify_display_fragment__failed_to_verify_safety_number">Неуспешна проверка на безбедносниот број</string>
     <string name="verify_display_fragment__loading">Се вчитува…</string>
     <string name="verify_display_fragment__mark_as_verified">Обележи како проверено</string>
     <string name="verify_display_fragment__clear_verification">Отстрани проверка</string>
+    <!-- Banner at top of safety numbers screen explaining that we\'re updating how safety numbers work. -->
+    <string name="verify_display_fragment__safety_numbers_are_updating_banner_no_learn_more">Се ажурира начинот на кој функционираат безбедносните бројки.</string>
+
+    <!-- Title for dialog explaining for how safety numbers are transitioning to support usernames -->
+    <string name="PnpSafetyNumberEducationDialog__title">Промени на безбедносните броеви</string>
+    <!-- Message for dialog explaining for how safety numbers are transitioning to support usernames -->
+    <string name="PnpSafetyNumberEducationDialog__body">Се ажурира начинот на кој функционираат безбедносните бројки во текот на преоден период за да се овозможат претстојните функции за приватност на Signal.\n\nЗа да ги потврдите безбедносните броеви, спојте ја картичката со боја со уредот на вашиот контакт. Ако не се совпаѓаат, повлечете и обидете се со друг пар безбедносни бројки. Само еден пар треба да се совпаѓа.</string>
+    <!-- Button for more information about the safety number changes. Takes user to support article -->
+    <string name="PnpSafetyNumberEducationDialog__help">Потребна Ви е помош?</string>
+    <!-- Confirmation button for educating users about new safety number changes -->
+    <string name="PnpSafetyNumberEducationDialog__confirm">Во ред</string>
 
     <!-- verify_identity -->
     <string name="verify_identity__share_safety_number">Сподели  безбедносен број</string>
@@ -5892,7 +5919,7 @@
     <!-- Title for screen describing that sms support is going to be removed soon -->
     <string name="SmsRemoval_title_going_away">SMS поддршката ќе биде отстранета</string>
     <!-- Bullet point message shown on describing screen as first bullet why sms is being removed, placeholder with be date of removal (e.g., March 21st) -->
-    <string name="SmsRemoval_info_bullet_1_s">Од %1$s, повеќе нема да се поддржува допишување со SMS пораки преку Signal апликацијата.</string>
+    <string name="SmsRemoval_info_bullet_1">Повеќе нема да се поддржува допишување со SMS пораки преку Signal апликацијата.</string>
     <!-- Bullet point message shown on describing screen as second bullet why sms is being removed -->
     <string name="SmsRemoval_info_bullet_2">SMS пораките се различни од Signal пораките. <b>Ова не влијае на шифрираното допишување на Signal, што ќе продолжи да функционира.</b></string>
     <!-- Bullet point message shown on describing screen as third bullet why sms is being removed -->

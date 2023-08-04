@@ -58,8 +58,8 @@ import static org.whispersystems.signalservice.internal.websocket.WebSocketProto
 
 public class WebSocketConnection extends WebSocketListener {
 
-  private static final String TAG                       = WebSocketConnection.class.getSimpleName();
-  public  static final int    KEEPALIVE_TIMEOUT_SECONDS = 30;
+  private static final String TAG                         = WebSocketConnection.class.getSimpleName();
+  public  static final int    KEEPALIVE_FREQUENCY_SECONDS = 30;
 
   private final LinkedList<WebSocketRequestMessage> incomingRequests = new LinkedList<>();
   private final Map<Long, OutgoingRequest>          outgoingRequests = new HashMap<>();
@@ -148,8 +148,8 @@ public class WebSocketConnection extends WebSocketListener {
                                                                      .sslSocketFactory(new Tls12SocketFactory(sslSocketFactory.first()),
                                                                                        sslSocketFactory.second())
                                                                      .connectionSpecs(serviceUrl.getConnectionSpecs().orElse(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
-                                                                     .readTimeout(KEEPALIVE_TIMEOUT_SECONDS + 10, TimeUnit.SECONDS)
-                                                                     .connectTimeout(KEEPALIVE_TIMEOUT_SECONDS + 10, TimeUnit.SECONDS);
+                                                                     .readTimeout(KEEPALIVE_FREQUENCY_SECONDS + 10, TimeUnit.SECONDS)
+                                                                     .connectTimeout(KEEPALIVE_FREQUENCY_SECONDS + 10, TimeUnit.SECONDS);
 
       for (Interceptor interceptor : interceptors) {
         clientBuilder.addInterceptor(interceptor);
