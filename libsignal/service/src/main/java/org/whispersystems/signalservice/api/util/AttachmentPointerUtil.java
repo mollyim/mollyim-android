@@ -45,6 +45,10 @@ public final class AttachmentPointerUtil {
                                                                                                  .setSize(attachment.getSize().get())
                                                                                                  .setUploadTimestamp(attachment.getUploadTimestamp());
 
+    if (attachment.getIncrementalDigest().isPresent()) {
+      builder.setIncrementalDigest(ByteString.copyFrom(attachment.getIncrementalDigest().get()));
+    }
+
     if (attachment.getRemoteId().getV2().isPresent()) {
       builder.setCdnId(attachment.getRemoteId().getV2().get());
     }

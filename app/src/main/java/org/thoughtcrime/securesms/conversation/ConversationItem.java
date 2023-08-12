@@ -37,7 +37,6 @@ import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
-import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -53,12 +52,10 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
-import androidx.core.text.util.LinkifyCompat;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.annimon.stream.Stream;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
@@ -93,6 +90,8 @@ import org.thoughtcrime.securesms.conversation.colors.Colorizer;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectCollection;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
 import org.thoughtcrime.securesms.conversation.ui.payment.PaymentMessageView;
+import org.thoughtcrime.securesms.conversation.v2.items.InteractiveConversationElement;
+import org.thoughtcrime.securesms.conversation.v2.items.V2ConversationBodyUtil;
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.database.MediaTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -127,7 +126,6 @@ import org.thoughtcrime.securesms.revealable.ViewOnceMessageView;
 import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.InterceptableLongClickCopyLinkSpan;
-import org.thoughtcrime.securesms.util.LinkUtil;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.PlaceholderURLSpan;
@@ -152,8 +150,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import static org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.MONERO_TX_PATTERN;
-
 /**
  * A view that displays an individual conversation item within a conversation
  * thread.  Used by ComposeMessageActivity's ListActivity via a ConversationAdapter.
@@ -162,7 +158,8 @@ import static org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.MONERO_TX_P
  */
 
 public final class ConversationItem extends RelativeLayout implements BindableConversationItem,
-                                                                      RecipientForeverObserver
+                                                                      RecipientForeverObserver,
+                                                                      InteractiveConversationElement
 {
   private static final String TAG = Log.tag(ConversationItem.class);
 
@@ -250,6 +247,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   private boolean            hasWallpaper;
   private float              lastYDownRelativeToThis;
   private ProjectionList     colorizerProjections = new ProjectionList(3);
+  private boolean            isBound = false;
 
   private final Runnable shrinkBubble = new Runnable() {
     @Override
@@ -354,8 +352,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
                    @NonNull Colorizer colorizer,
                    @NonNull ConversationItemDisplayMode displayMode)
   {
-    if (this.author != null) this.author.removeForeverObserver(this);
-    if (this.conversationRecipient != null) this.conversationRecipient.removeForeverObserver(this);
+    unbind();
 
     lastYDownRelativeToThis = 0;
 
@@ -375,9 +372,6 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     this.colorizer             = colorizer;
     this.displayMode           = displayMode;
     this.previousMessage       = previousMessageRecord;
-
-    this.author.observeForever(this);
-    this.conversationRecipient.observeForever(this);
 
     setGutterSizes(messageRecord, groupThread);
     setMessageShape(messageRecord, previousMessageRecord, nextMessageRecord, groupThread);
@@ -401,6 +395,10 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     if (audioViewStub.resolved()) {
       audioViewStub.get().setOnLongClickListener(passthroughClickListener);
     }
+
+    isBound = true;
+    this.author.observeForever(this);
+    this.conversationRecipient.observeForever(this);
   }
 
   @Override
@@ -618,6 +616,10 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
 
   @Override
   public void onRecipientChanged(@NonNull Recipient modified) {
+    if (!isBound) {
+      return;
+    }
+
     if (conversationRecipient.getId().equals(modified.getId())) {
       setBubbleState(messageRecord, modified, modified.hasWallpaper(), colorizer);
 
@@ -672,15 +674,20 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
 
   @Override
   public void unbind() {
+    isBound = false;
+
     if (author != null) {
       author.removeForeverObserver(this);
     }
+
     if (conversationRecipient != null) {
       conversationRecipient.removeForeverObserver(this);
     }
 
     bodyBubble.setVideoPlayerProjection(null);
     bodyBubble.setQuoteViewProjection(null);
+
+    glideRequests = null;
   }
 
   @Override
@@ -1480,7 +1487,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   private void linkifyMessageBody(@NonNull Spannable messageBody,
                                   boolean shouldLinkifyAllLinks)
   {
-    linkifyUrlLinks(messageBody, shouldLinkifyAllLinks, urlClickListener);
+    V2ConversationBodyUtil.linkifyUrlLinks(messageBody, shouldLinkifyAllLinks, urlClickListener);
 
     if (conversationMessage.hasStyleLinks()) {
       for (PlaceholderURLSpan placeholder : messageBody.getSpans(0, messageBody.length(), PlaceholderURLSpan.class)) {
@@ -1500,33 +1507,6 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       messageBody.setSpan(new MentionClickableSpan(RecipientId.from(annotation.getValue())), messageBody.getSpanStart(annotation), messageBody.getSpanEnd(annotation), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
   }
-
-  @VisibleForTesting
-  static void linkifyUrlLinks(@NonNull Spannable messageBody, boolean shouldLinkifyAllLinks, @NonNull UrlClickHandler urlClickHandler) {
-    int     linkPattern = Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES | Linkify.PHONE_NUMBERS;
-    boolean hasLinks    = LinkifyCompat.addLinks(messageBody, shouldLinkifyAllLinks ? linkPattern : 0);
-
-    if (shouldLinkifyAllLinks) {
-      hasLinks |= LinkifyCompat.addLinks(messageBody, MONERO_TX_PATTERN, "monero");
-    }
-
-    if (hasLinks) {
-      Stream.of(messageBody.getSpans(0, messageBody.length(), URLSpan.class))
-            .filterNot(url -> LinkUtil.isLegalUrl(url.getURL()))
-            .forEach(messageBody::removeSpan);
-
-      URLSpan[] urlSpans = messageBody.getSpans(0, messageBody.length(), URLSpan.class);
-
-      for (URLSpan urlSpan : urlSpans) {
-        int     start = messageBody.getSpanStart(urlSpan);
-        int     end   = messageBody.getSpanEnd(urlSpan);
-        URLSpan span  = new InterceptableLongClickCopyLinkSpan(urlSpan.getURL(), urlClickHandler);
-        messageBody.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        messageBody.removeSpan(urlSpan);
-      }
-    }
-  }
-
   private void setStatusIcons(MessageRecord messageRecord, boolean hasWallpaper) {
     bodyText.setCompoundDrawablesWithIntrinsicBounds(0, 0, messageRecord.isKeyExchange() ? R.drawable.ic_menu_login : 0, 0);
 
@@ -2092,10 +2072,12 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     return getSnapshotProjections(coordinateRoot, true, true);
   }
 
+  @Override
   public @NonNull ProjectionList getSnapshotProjections(@NonNull ViewGroup coordinateRoot, boolean clipOutMedia) {
     return getSnapshotProjections(coordinateRoot, clipOutMedia, true);
   }
 
+  @Override
   public @NonNull ProjectionList getSnapshotProjections(@NonNull ViewGroup coordinateRoot, boolean clipOutMedia, boolean outgoingOnly) {
     colorizerProjections.clear();
 
@@ -2194,6 +2176,45 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
     } else {
       return bodyBubble;
     }
+  }
+
+  @Override
+  public @Nullable View getQuotedIndicatorView() {
+    return quotedIndicator;
+  }
+
+  @Override
+  public @NonNull View getReplyView() {
+    return reply;
+  }
+
+  @Override
+  public @Nullable View getContactPhotoHolderView() {
+    return contactPhotoHolder;
+  }
+
+  @Override
+  public @Nullable View getBadgeImageView() {
+    return badgeImageView;
+  }
+
+  @NonNull @Override public List<View> getBubbleViews() {
+    return Collections.singletonList(bodyBubble);
+  }
+
+  @Override
+  public int getAdapterPosition(@NonNull RecyclerView recyclerView) {
+    return recyclerView.getChildAdapterPosition(this);
+  }
+
+  @Override
+  public @NonNull ViewGroup getRoot() {
+    return this;
+  }
+
+  @Override
+  public @NonNull View getBubbleView() {
+    return bodyBubble;
   }
 
   private class SharedContactEventListener implements SharedContactView.EventListener {

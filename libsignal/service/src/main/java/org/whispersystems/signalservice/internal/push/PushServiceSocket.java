@@ -297,7 +297,7 @@ public class PushServiceSocket {
 
   private static final String REPORT_SPAM = "/v1/messages/report/%s/%s";
 
-  private static final String BACKUP_AUTH_CHECK = "/v1/backup/auth/check";
+  private static final String BACKUP_AUTH_CHECK = "/v2/backup/auth/check";
 
   private static final String CALL_LINK_CREATION_AUTH = "/v1/call-link/create-auth";
   private static final String SERVER_DELIVERED_TIMESTAMP_HEADER = "X-Signal-Timestamp";
@@ -380,7 +380,7 @@ public class PushServiceSocket {
 
     body.put("client", androidSmsRetriever ? "android-2021-03" : "android");
 
-    try (Response response = makeServiceRequest(path, "POST", jsonRequestBody(JsonUtil.toJson(body)), headers, new RegistrationSessionResponseHandler(), Optional.empty(), false)) {
+    try (Response response = makeServiceRequest(path, "POST", jsonRequestBody(JsonUtil.toJson(body)), headers, new RegistrationCodeRequestResponseHandler(), Optional.empty(), false)) {
       return parseSessionMetadataResponse(response);
     }
   }
@@ -389,7 +389,7 @@ public class PushServiceSocket {
     String path = String.format(VERIFICATION_CODE_PATH, sessionId);
     Map<String, String> body =  new HashMap<>();
     body.put("code", verificationCode);
-    try (Response response = makeServiceRequest(path, "PUT", jsonRequestBody(JsonUtil.toJson(body)), NO_HEADERS, new RegistrationCodeRequestResponseHandler(), Optional.empty(), false)) {
+    try (Response response = makeServiceRequest(path, "PUT", jsonRequestBody(JsonUtil.toJson(body)), NO_HEADERS, new RegistrationCodeSubmissionResponseHandler(), Optional.empty(), false)) {
       return parseSessionMetadataResponse(response);
     }
   }
@@ -488,10 +488,6 @@ public class PushServiceSocket {
   public void setAccountAttributes(@Nonnull AccountAttributes accountAttributes)
       throws IOException
   {
-    if (accountAttributes.getRegistrationLock() != null && accountAttributes.getPin() != null) {
-      throw new AssertionError("Pin should be null if registrationLock is set.");
-    }
-
     makeServiceRequest(SET_ACCOUNT_ATTRIBUTES, "PUT", JsonUtil.toJson(accountAttributes));
   }
 
@@ -990,6 +986,18 @@ public class PushServiceSocket {
         .onErrorReturn(ServiceResponse::forUnknownError);
   }
 
+  private Single<ServiceResponse<BackupAuthCheckResponse>> createBackupAuthCheckSingle(@Nonnull String path,
+                                                                                       @Nonnull BackupAuthCheckRequest request,
+                                                                                       @Nonnull ResponseMapper<BackupAuthCheckResponse> responseMapper)
+  {
+    return Single.fromCallable(() -> {
+      try (Response response = getServiceConnection(path, "POST", jsonRequestBody(JsonUtil.toJson(request)), Collections.emptyMap(), Optional.empty(), false)) {
+        String body = response.body() != null ? readBodyString(response.body()): "";
+        return responseMapper.map(response.code(), body, response::header, false);
+      }
+    });
+  }
+
   /**
    * GET /v1/accounts/username_hash/{usernameHash}
    *
@@ -1236,8 +1244,8 @@ public class PushServiceSocket {
     return getCredentials(DIRECTORY_AUTH_PATH);
   }
 
-  public String getKeyBackupServiceAuthorization() throws IOException {
-    return getCredentials(KBS_AUTH_PATH);
+  public AuthCredentials getKeyBackupServiceAuthorization() throws IOException {
+    return getAuthCredentials(KBS_AUTH_PATH);
   }
 
   public AuthCredentials getPaymentsAuthorization() throws IOException {
@@ -1822,13 +1830,12 @@ public class PushServiceSocket {
       case 417:
         throw new ExpectationFailedException();
       case 423:
-        RegistrationLockFailure accountLockFailure      = readResponseJson(response, RegistrationLockFailure.class);
-        AuthCredentials         credentials             = accountLockFailure.backupCredentials;
-        String                  basicStorageCredentials = credentials != null ? credentials.asBasic() : null;
+        RegistrationLockFailure accountLockFailure = readResponseJson(response, RegistrationLockFailure.class);
 
         throw new LockedException(accountLockFailure.length,
                                   accountLockFailure.timeRemaining,
-                                  basicStorageCredentials);
+                                  accountLockFailure.svr1Credentials,
+                                  accountLockFailure.svr2Credentials);
       case 428:
         ProofRequiredResponse proofRequiredResponse = readResponseJson(response, ProofRequiredResponse.class);
         String                retryAfterRaw = response.header("Retry-After");
@@ -2330,8 +2337,11 @@ public class PushServiceSocket {
     @JsonProperty
     public long timeRemaining;
 
+    @JsonProperty("backupCredentials")
+    public AuthCredentials svr1Credentials;
+
     @JsonProperty
-    public AuthCredentials backupCredentials;
+    public AuthCredentials svr2Credentials;
   }
 
   private static class ConnectionHolder {
@@ -2577,6 +2587,44 @@ public class PushServiceSocket {
     @Override
     public void handle(int responseCode, ResponseBody body) throws NonSuccessfulResponseCodeException, PushNetworkException {
 
+      if (responseCode == 403) {
+        throw new IncorrectRegistrationRecoveryPasswordException();
+      } else if (responseCode == 404) {
+        throw new NoSuchSessionException();
+      } else if (responseCode == 409) {
+        RegistrationSessionMetadataJson response;
+        try {
+          response = JsonUtil.fromJson(body.string(), RegistrationSessionMetadataJson.class);
+        } catch (IOException e) {
+          Log.e(TAG, "Unable to read response body.", e);
+          throw new NonSuccessfulResponseCodeException(409);
+        }
+        if (response.pushChallengedRequired()) {
+          throw new PushChallengeRequiredException();
+        } else if (response.captchaRequired()) {
+          throw new CaptchaRequiredException();
+        } else {
+          throw new HttpConflictException();
+        }
+      } else if (responseCode == 502) {
+        VerificationCodeFailureResponseBody response;
+        try {
+          response = JsonUtil.fromJson(body.string(), VerificationCodeFailureResponseBody.class);
+        } catch (IOException e) {
+          Log.e(TAG, "Unable to read response body.", e);
+          throw new NonSuccessfulResponseCodeException(responseCode);
+        }
+        throw new ExternalServiceFailureException(response.getPermanentFailure(), response.getReason());
+      }
+    }
+  }
+
+
+  private static class RegistrationCodeRequestResponseHandler implements ResponseCodeHandler {
+
+    @Override
+    public void handle(int responseCode, ResponseBody body) throws NonSuccessfulResponseCodeException, PushNetworkException {
+
       if (responseCode == 400) {
         throw new MalformedRequestException();
       } else if (responseCode == 403) {
@@ -2644,7 +2692,7 @@ public class PushServiceSocket {
     }
   }
 
-  private static class RegistrationCodeRequestResponseHandler implements ResponseCodeHandler {
+  private static class RegistrationCodeSubmissionResponseHandler implements ResponseCodeHandler {
     @Override
     public void handle(int responseCode, ResponseBody body) throws NonSuccessfulResponseCodeException, PushNetworkException {
 

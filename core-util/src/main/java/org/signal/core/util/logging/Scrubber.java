@@ -164,7 +164,6 @@ public final class Scrubber {
                        TOP_100_TLDS.contains(matcher.group(2).toLowerCase(Locale.US)) &&
                        !match.endsWith("molly.app") &&
                        !match.endsWith("molly.im") &&
-                       !match.endsWith("whispersystems.org") &&
                        !match.endsWith("signal.org")) {
                      output.append(DOMAIN_CENSOR)
                            .append(matcher.group(2));

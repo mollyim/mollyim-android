@@ -20,7 +20,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.hardware.Camera;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -58,7 +57,6 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
@@ -105,7 +103,6 @@ import org.thoughtcrime.securesms.ShortcutLauncherActivity;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.TombstoneAttachment;
 import org.thoughtcrime.securesms.audio.AudioRecorder;
-import org.thoughtcrime.securesms.audio.BluetoothVoiceNoteUtil;
 import org.thoughtcrime.securesms.components.AnimatingToggle;
 import org.thoughtcrime.securesms.components.ComposeText;
 import org.thoughtcrime.securesms.components.ConversationSearchBottomBar;
@@ -290,7 +287,6 @@ import org.thoughtcrime.securesms.util.views.Stub;
 import org.thoughtcrime.securesms.verify.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperDimLevelUtil;
-import org.thoughtcrime.securesms.webrtc.audio.AudioManagerCompat;
 import org.whispersystems.signalservice.api.SignalSessionLock;
 
 import java.io.IOException;
@@ -405,7 +401,6 @@ public class ConversationParentFragment extends Fragment
   private   View                         navigationBarBackground;
 
   private AttachmentManager      attachmentManager;
-  private BluetoothVoiceNoteUtil bluetoothVoiceNoteUtil;
   private AudioRecorder          audioRecorder;
 
   private   RecordingSession         recordingSession;
@@ -475,6 +470,12 @@ public class ConversationParentFragment extends Fragment
   }
 
   @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    SignalLocalMetrics.ConversationOpen.start();
+  }
+
+  @Override
   public @NonNull View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     return inflater.inflate(R.layout.conversation_activity, container, false);
   }
@@ -503,7 +504,6 @@ public class ConversationParentFragment extends Fragment
 
     voiceNoteMediaController = new VoiceNoteMediaController(requireActivity(), true);
     voiceRecorderWakeLock    = new VoiceRecorderWakeLock(requireActivity());
-    bluetoothVoiceNoteUtil   = BluetoothVoiceNoteUtil.Companion.create(requireContext(), this::onBluetoothConnectionAttempt, this::onBluetoothPermissionDenied);
 
     // TODO [alex] LargeScreenSupport -- Should be removed once we move to multi-pane layout.
     new FullscreenHelper(requireActivity()).showSystemUI();
@@ -654,7 +654,6 @@ public class ConversationParentFragment extends Fragment
   public void onDestroy() {
     if (securityUpdateReceiver != null) requireActivity().unregisterReceiver(securityUpdateReceiver);
     if (pinnedShortcutReceiver != null) requireActivity().unregisterReceiver(pinnedShortcutReceiver);
-    if (bluetoothVoiceNoteUtil != null) bluetoothVoiceNoteUtil.destroy();
     super.onDestroy();
   }
 
@@ -707,7 +706,7 @@ public class ConversationParentFragment extends Fragment
     case ADD_CONTACT:
       SimpleTask.run(() -> {
         try {
-          ContactDiscovery.refresh(requireContext(), recipient.get(), false);
+          ContactDiscovery.refresh(requireContext(), recipient.get(), false, TimeUnit.SECONDS.toMillis(10));
         } catch (IOException e) {
           Log.w(TAG, "Failed to refresh user after adding to contacts.");
         }
@@ -1669,7 +1668,7 @@ public class ConversationParentFragment extends Fragment
       reminderView.get().showReminder(new ExpiredBuildReminder(context));
       reminderView.get().setOnActionClickListener(this::handleReminderAction);
     } else if (UnauthorizedReminder.isEligible(context)) {
-      reminderView.get().showReminder(new UnauthorizedReminder(context));
+      reminderView.get().showReminder(new UnauthorizedReminder());
       reminderView.get().setOnActionClickListener(this::handleReminderAction);
     } else if (ServiceOutageReminder.isEligible(context)) {
       ApplicationDependencies.getJobManager().add(new ServiceOutageDetectionJob());
@@ -1892,13 +1891,6 @@ public class ConversationParentFragment extends Fragment
     composeText.setOnClickListener(composeKeyPressedListener);
     composeText.setOnFocusChangeListener(composeKeyPressedListener);
 
-    if (Camera.getNumberOfCameras() > 0) {
-      quickCameraToggle.setVisibility(View.VISIBLE);
-      quickCameraToggle.setOnClickListener(new QuickCameraToggleListener());
-    } else {
-      quickCameraToggle.setVisibility(View.GONE);
-    }
-
     searchNav.setEventListener(this);
 
     inlineAttachmentButton.setOnClickListener(v -> handleAddAttachment());
@@ -1918,7 +1910,7 @@ public class ConversationParentFragment extends Fragment
 
     voiceNoteMediaController.getVoiceNotePlaybackState().observe(getViewLifecycleOwner(), inputPanel.getPlaybackStateObserver());
 
-    material3OnScrollHelper = new Material3OnScrollHelper(requireActivity(), Collections.singletonList(toolbarBackground), Collections.emptyList()) {
+    material3OnScrollHelper = new Material3OnScrollHelper(requireActivity(), Collections.singletonList(toolbarBackground), Collections.emptyList(), getViewLifecycleOwner()) {
       @Override
       public @NonNull ColorSet getActiveColorSet() {
         return new ColorSet(getActiveToolbarColor(wallpaper.getDrawable() != null));
@@ -2018,7 +2010,7 @@ public class ConversationParentFragment extends Fragment
   }
 
   protected void initializeActionBar() {
-    toolbar.addMenuProvider(new ConversationOptionsMenu.Provider(this, disposables));
+    toolbar.addMenuProvider(new ConversationOptionsMenu.Provider(this, disposables, true));
     invalidateOptionsMenu();
     toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_back_button);
     if (isInBubble()) {
@@ -3118,22 +3110,7 @@ public class ConversationParentFragment extends Fragment
 
   @Override
   public void onRecorderStarted() {
-    final AudioManagerCompat audioManager = ApplicationDependencies.getAndroidCallAudioManager();
-    if (audioManager.isBluetoothHeadsetAvailable()) {
-      connectToBluetoothAndBeginRecording();
-    } else {
-      Log.d(TAG, "Recording from phone mic because no bluetooth devices were available.");
-      beginRecording();
-    }
-  }
-
-  private void connectToBluetoothAndBeginRecording() {
-      if (bluetoothVoiceNoteUtil != null) {
-        Log.d(TAG, "Initiating Bluetooth SCO connection...");
-        bluetoothVoiceNoteUtil.connectBluetoothScoConnection();
-      } else {
-        Log.e(TAG, "Unable to instantiate BluetoothVoiceNoteUtil.");
-      }
+    beginRecording();
   }
 
   private Unit onBluetoothConnectionAttempt(Boolean success) {
@@ -3174,7 +3151,6 @@ public class ConversationParentFragment extends Fragment
 
   @Override
   public void onRecorderFinished() {
-    bluetoothVoiceNoteUtil.disconnectBluetoothScoConnection();
     voiceRecorderWakeLock.release();
     updateToggleButtonState();
 
@@ -3194,7 +3170,6 @@ public class ConversationParentFragment extends Fragment
 
   @Override
   public void onRecorderCanceled(boolean byUser) {
-    bluetoothVoiceNoteUtil.disconnectBluetoothScoConnection();
     voiceRecorderWakeLock.release();
     updateToggleButtonState();
 
@@ -3598,24 +3573,6 @@ public class ConversationParentFragment extends Fragment
     }
   }
 
-  private class QuickCameraToggleListener implements OnClickListener {
-    @Override
-    public void onClick(View v) {
-      Permissions.with(ConversationParentFragment.this)
-                 .request(Manifest.permission.CAMERA)
-                 .ifNecessary()
-                 .withRationaleDialog(getString(R.string.ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera), R.drawable.ic_camera_24)
-                 .withPermanentDenialDialog(getString(R.string.ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video))
-                 .onAllGranted(() -> {
-                   composeText.clearFocus();
-                   startActivityForResult(MediaSelectionActivity.camera(requireActivity(), sendButton.getSelectedSendType(), recipient.getId(), inputPanel.getQuote().isPresent()), MEDIA_SENDER);
-                   requireActivity().overridePendingTransition(R.anim.camera_slide_from_bottom, R.anim.stationary);
-                 })
-                 .onAnyDenied(() -> Toast.makeText(requireContext(), R.string.ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video, Toast.LENGTH_LONG).show())
-                 .execute();
-    }
-  }
-
   private class SendButtonListener implements OnClickListener, TextView.OnEditorActionListener {
     @Override
     public void onClick(View v) {
@@ -3688,7 +3645,11 @@ public class ConversationParentFragment extends Fragment
         composeText.postDelayed(ConversationParentFragment.this::updateToggleButtonState, 50);
       }
 
-      stickerViewModel.onInputTextUpdated(s.toString());
+      if (!inputPanel.inEditMessageMode()) {
+        stickerViewModel.onInputTextUpdated(s.toString());
+      } else {
+        stickerViewModel.onInputTextUpdated("");
+      }
     }
 
     @Override
@@ -4091,6 +4052,7 @@ public class ConversationParentFragment extends Fragment
     previousPages = keyboardPagerViewModel.pages().getValue();
     keyboardPagerViewModel.setOnlyPage(KeyboardPage.EMOJI);
     onKeyboardChanged(KeyboardPage.EMOJI);
+    stickerViewModel.onInputTextUpdated("");
   }
 
   @Override
@@ -4101,6 +4063,22 @@ public class ConversationParentFragment extends Fragment
       keyboardPagerViewModel.setPages(previousPages);
       previousPages = null;
     }
+  }
+
+  @Override
+  public void onQuickCameraToggleClicked() {
+    Permissions.with(ConversationParentFragment.this)
+               .request(Manifest.permission.CAMERA)
+               .ifNecessary()
+               .withRationaleDialog(getString(R.string.ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera), R.drawable.ic_camera_24)
+               .withPermanentDenialDialog(getString(R.string.ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video))
+               .onAllGranted(() -> {
+                 composeText.clearFocus();
+                 startActivityForResult(MediaSelectionActivity.camera(requireActivity(), sendButton.getSelectedSendType(), recipient.getId(), inputPanel.getQuote().isPresent()), MEDIA_SENDER);
+                 requireActivity().overridePendingTransition(R.anim.camera_slide_from_bottom, R.anim.stationary);
+               })
+               .onAnyDenied(() -> Toast.makeText(requireContext(), R.string.ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video, Toast.LENGTH_LONG).show())
+               .execute();
   }
 
   @Override
@@ -4248,7 +4226,7 @@ public class ConversationParentFragment extends Fragment
     public void onClicked(final List<IdentityRecord> unverifiedIdentities) {
       Log.i(TAG, "onClicked: " + unverifiedIdentities.size());
       if (unverifiedIdentities.size() == 1) {
-        startActivity(VerifyIdentityActivity.newIntent(requireContext(), unverifiedIdentities.get(0), false));
+        VerifyIdentityActivity.startOrShowExchangeMessagesDialog(requireContext(), unverifiedIdentities.get(0), false);
       } else {
         String[] unverifiedNames = new String[unverifiedIdentities.size()];
 
@@ -4260,7 +4238,7 @@ public class ConversationParentFragment extends Fragment
         builder.setIcon(R.drawable.ic_warning);
         builder.setTitle(R.string.ConversationFragment__no_longer_verified);
         builder.setItems(unverifiedNames, (dialog, which) -> {
-          startActivity(VerifyIdentityActivity.newIntent(requireContext(), unverifiedIdentities.get(which), false));
+          VerifyIdentityActivity.startOrShowExchangeMessagesDialog(requireContext(), unverifiedIdentities.get(which), false);
         });
         builder.show();
       }
@@ -4291,7 +4269,7 @@ public class ConversationParentFragment extends Fragment
     @Override
     public void onNavigateToMessage(long threadId, @NonNull RecipientId threadRecipientId, @NonNull RecipientId senderId, long messageTimestamp, long messagePositionInThread) {
       if (threadId != ConversationParentFragment.this.threadId) {
-        startActivity(ConversationIntents.createBuilder(requireActivity(), threadRecipientId, threadId)
+        startActivity(ConversationIntents.createBuilderSync(requireActivity(), threadRecipientId, threadId)
                                          .withStartingPosition((int) messagePositionInThread)
                                          .build());
       } else {

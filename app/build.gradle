@@ -56,8 +56,8 @@ ext {
     MAPS_API_KEY = getEnv('CI_MAPS_API_KEY') ?: mapsApiKey
 }
 
-def canonicalVersionCode = 1289
-def canonicalVersionName = "6.25.5"
+def canonicalVersionCode = 1304
+def canonicalVersionName = "6.27.10"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -234,7 +234,7 @@ android {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
         }
 
-        resConfigs autoResConfig()
+        resourceConfigurations += []
 
         bundle {
             language {

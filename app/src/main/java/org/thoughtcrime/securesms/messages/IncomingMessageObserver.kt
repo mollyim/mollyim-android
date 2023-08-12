@@ -301,10 +301,12 @@ class IncomingMessageObserver(private val context: Application) {
   }
 
   private fun processMessage(bufferedProtocolStore: BufferedProtocolStore, envelope: SignalServiceProtos.Envelope, serverDeliveredTimestamp: Long): List<FollowUpOperation> {
+    val localReceiveMetric = SignalLocalMetrics.MessageReceive.start()
     val result = MessageDecryptor.decrypt(context, bufferedProtocolStore, envelope, serverDeliveredTimestamp)
+    localReceiveMetric.onEnvelopeDecrypted()
     when (result) {
       is MessageDecryptor.Result.Success -> {
-        val job = PushProcessMessageJobV2.processOrDefer(messageContentProcessor, result)
+        val job = PushProcessMessageJobV2.processOrDefer(messageContentProcessor, result, localReceiveMetric)
         if (job != null) {
           return result.followUpOperations + FollowUpOperation { job }
         }
@@ -332,12 +334,12 @@ class IncomingMessageObserver(private val context: Application) {
   }
 
   private fun processReceipt(envelope: SignalServiceProtos.Envelope) {
-    if (!UuidUtil.isUuid(envelope.sourceUuid)) {
+    if (!UuidUtil.isUuid(envelope.sourceServiceId)) {
       Log.w(TAG, "Invalid envelope source UUID!")
       return
     }
 
-    val senderId = RecipientId.from(ServiceId.parseOrThrow(envelope.sourceUuid))
+    val senderId = RecipientId.from(ServiceId.parseOrThrow(envelope.sourceServiceId))
 
     Log.i(TAG, "Received server receipt. Sender: $senderId, Device: ${envelope.sourceDevice}, Timestamp: ${envelope.timestamp}")
     SignalDatabase.messages.incrementDeliveryReceiptCount(envelope.timestamp, senderId, System.currentTimeMillis())

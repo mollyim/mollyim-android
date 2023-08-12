@@ -29,6 +29,7 @@ import org.thoughtcrime.securesms.util.BubbleUtil;
 import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.whispersystems.signalservice.api.push.ServiceId;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -109,6 +110,13 @@ public class ConversationRepository {
       messageRequestData = new ConversationData.MessageRequestData(isMessageRequestAccepted, isConversationHidden, recipientIsKnownOrHasGroupsInCommon, isGroup);
     }
 
+    List<ServiceId> groupMemberAcis;
+    if (conversationRecipient.isPushV2Group()) {
+      groupMemberAcis = conversationRecipient.getParticipantAcis();
+    } else {
+      groupMemberAcis = Collections.emptyList();
+    }
+
     if (SignalStore.settings().getUniversalExpireTimer() != 0 &&
         conversationRecipient.getExpiresInSeconds() == 0 &&
         !conversationRecipient.isGroup() &&
@@ -118,7 +126,7 @@ public class ConversationRepository {
       showUniversalExpireTimerUpdate = true;
     }
 
-    return new ConversationData(conversationRecipient, threadId, lastSeen, lastSeenPosition, lastScrolledPosition, jumpToPosition, threadSize, messageRequestData, showUniversalExpireTimerUpdate);
+    return new ConversationData(conversationRecipient, threadId, lastSeen, lastSeenPosition, lastScrolledPosition, jumpToPosition, threadSize, messageRequestData, showUniversalExpireTimerUpdate, metadata.getUnreadCount(), groupMemberAcis);
   }
 
   public void markGiftBadgeRevealed(long messageId) {

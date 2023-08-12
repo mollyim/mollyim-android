@@ -106,6 +106,10 @@
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">正在检查消息…</string>
 
+    <!-- Fcm notifications -->
+    <!-- Notification we show when there may be messages for you, but we cannot connect to the server to check -->
+    <string name="FcmFetchManager__you_may_have_messages">您有新的消息</string>
+
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">已屏蔽的用户</string>
     <string name="BlockedUsersActivity__add_blocked_user">添加屏蔽用户</string>
@@ -2069,6 +2073,14 @@
     <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly 需“相机”权限，来扫描二维码，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“相机”。</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">没有“相机”权限，无法扫描二维码</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">为了查看 %1$s 的安全码，必须首先交换消息。</string>
+    <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_message">对方与您互发消息后，系统将会针对其生成一个安全码。</string>
+    <!-- Confirmation option for dialog explaining to user they must exchange messages first to create a safety number  -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_ok">好</string>
+    <!-- Learn more option for dialog explaining to user they must exchange messages first to create a safety number  -->
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_learn_more">了解详情</string>
+    <!-- Confirmation button on scan result dialogs -->
+    <string name="VerifyDisplayFragment__scan_result_dialog_ok">好</string>
 
     <!-- ViewOnceMessageActivity -->
   <!-- Removed by excludeNonTranslatables <string name="ViewOnceMessageActivity_video_duration" translatable="false">%1$02d:%2$02d</string> -->
@@ -2188,6 +2200,8 @@
     <string name="NotificationChannel_call_status">通话状态</string>
     <!-- Notification channel name for occasional alerts to the user. Will appear in the system notification settings as the title of this notification channel. -->
     <string name="NotificationChannel_critical_app_alerts">重要应用警报</string>
+    <!-- Notification channel name for other notifications related to messages. Will appear in the system notification settings as the title of this notification channel. -->
+    <string name="NotificationChannel_additional_message_notifications">其他消息通知</string>
 
     <!-- ProfileEditNameFragment -->
 
@@ -2618,12 +2632,25 @@
 
     <!-- verify_display_fragment -->
     <string name="verify_display_fragment__to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[如要验证您与%1$s的端对端加密安全性，请将上方的数字与对方的设备比对。您还可以扫描对方手机上的二维码。<a href=\"https://signal.org/redirect/safety-numbers\">了解详情。</a>]]></string>
+    <!-- Explanation of how to verify the safety numbers. %s is replaced with the name of the other recipient -->
+    <string name="verify_display_fragment__pnp_verify_safety_numbers_explanation_with_s">如要验证您与%1$s的端对端加密安全性，请将上方的色卡与对方的设备匹配，并比对安全码。如果二者不匹配，请滑动并尝试另一对安全码。验证仅需匹配一对安全码。</string>
     <string name="verify_display_fragment__tap_to_scan">点击扫描</string>
     <string name="verify_display_fragment__successful_match">成功匹配</string>
     <string name="verify_display_fragment__failed_to_verify_safety_number">验证安全码失败</string>
     <string name="verify_display_fragment__loading">正在加载…</string>
     <string name="verify_display_fragment__mark_as_verified">标记为已验证</string>
     <string name="verify_display_fragment__clear_verification">清除验证</string>
+    <!-- Banner at top of safety numbers screen explaining that we\'re updating how safety numbers work. -->
+    <string name="verify_display_fragment__safety_numbers_are_updating_banner_no_learn_more">安全码正在更新中。</string>
+
+    <!-- Title for dialog explaining for how safety numbers are transitioning to support usernames -->
+    <string name="PnpSafetyNumberEducationDialog__title">关于安全码的变更</string>
+    <!-- Message for dialog explaining for how safety numbers are transitioning to support usernames -->
+    <string name="PnpSafetyNumberEducationDialog__body">安全码将在过渡期内更新，以启用 Signal 即将推出的隐私功能。\n\n如要验证安全码，请将色卡与联系人的设备匹配。如果二者不匹配，请滑动并尝试另一对安全码。验证仅需匹配一对安全码。</string>
+    <!-- Button for more information about the safety number changes. Takes user to support article -->
+    <string name="PnpSafetyNumberEducationDialog__help">需要协助？</string>
+    <!-- Confirmation button for educating users about new safety number changes -->
+    <string name="PnpSafetyNumberEducationDialog__confirm">知道了</string>
 
     <!-- verify_identity -->
     <string name="verify_identity__share_safety_number">分享安全码</string>
@@ -5769,7 +5796,7 @@
     <!-- Title for screen describing that sms support is going to be removed soon -->
     <string name="SmsRemoval_title_going_away">短信服务即将结束</string>
     <!-- Bullet point message shown on describing screen as first bullet why sms is being removed, placeholder with be date of removal (e.g., March 21st) -->
-    <string name="SmsRemoval_info_bullet_1_s">Signal 应用将于 %1$s停止支持短信消息服务。</string>
+    <string name="SmsRemoval_info_bullet_1">Signal 应用即将下线短信聊天服务。</string>
     <!-- Bullet point message shown on describing screen as second bullet why sms is being removed -->
     <string name="SmsRemoval_info_bullet_2">短信消息与 Signal 消息不一样。<b>这不会影响加密的 Signal 消息服务。此服务仍然可用。</b></string>
     <!-- Bullet point message shown on describing screen as third bullet why sms is being removed -->

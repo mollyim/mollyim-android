@@ -3200,6 +3200,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         return@withinTransaction kotlin.Pair(-1L, null)
       }
 
+      threads.markAsActiveEarly(threadId)
       SignalDatabase.mentions.insert(threadId, messageId, mentions)
 
       val insertedAttachments = SignalDatabase.attachments.insertAttachmentsForMessage(messageId, allAttachments, quoteAttachments)
@@ -3291,6 +3292,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     }
 
     threadIds.forEach {
+      threads.updateReadState(it)
       threads.update(
         threadId = it,
         unarchive = false,
@@ -3574,7 +3576,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   fun deleteAbandonedMessages(): Int {
     val deletes = writableDatabase
       .delete(TABLE_NAME)
-      .where("$THREAD_ID NOT IN (SELECT _id FROM ${ThreadTable.TABLE_NAME})")
+      .where("$THREAD_ID NOT IN (SELECT _id FROM ${ThreadTable.TABLE_NAME} WHERE ${ThreadTable.ACTIVE} = 1)")
       .run()
 
     if (deletes > 0) {
@@ -4541,7 +4543,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   fun setTimestampReadFromSyncMessageProto(readMessages: List<SyncMessage.Read>, proposedExpireStarted: Long, threadToLatestRead: MutableMap<Long, Long>): Collection<SyncMessageId> {
-    val reads: List<ReadMessage> = readMessages.map { r -> ReadMessage(ServiceId.parseOrThrow(r.senderUuid), r.timestamp) }
+    val reads: List<ReadMessage> = readMessages.map { r -> ReadMessage(ServiceId.parseOrThrow(r.senderAci), r.timestamp) }
 
     return setTimestampReadFromSyncMessage(reads, proposedExpireStarted, threadToLatestRead)
   }
