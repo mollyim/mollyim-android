@@ -284,12 +284,6 @@ open class MessageContentProcessorV2(private val context: Context) {
         null
       }
     }
-
-    private fun resetRecipientToPush(recipient: Recipient) {
-      if (recipient.isForceSmsSelection) {
-        SignalDatabase.recipients.setForceSmsSelection(recipient.id, false)
-      }
-    }
   }
 
   /**
@@ -424,8 +418,6 @@ open class MessageContentProcessorV2(private val context: Context) {
         warn(envelope.timestamp, "Got unrecognized message!")
       }
     }
-
-    resetRecipientToPush(senderRecipient)
 
     if (pending != null) {
       warn(envelope.timestamp, "Pending retry was processed. Deleting.")
@@ -569,7 +561,7 @@ open class MessageContentProcessorV2(private val context: Context) {
       ratchetKeyMatches(requester, metadata.sourceDeviceId, decryptionErrorMessage.ratchetKey.get())
     ) {
       warn(envelope.timestamp, "[RetryReceipt-I] Ratchet key matches. Archiving the session.")
-      ApplicationDependencies.getProtocolStore().aci().sessions().archiveSession(requester.id, metadata.sourceDeviceId)
+      ApplicationDependencies.getProtocolStore().aci().sessions().archiveSession(requester.requireServiceId(), metadata.sourceDeviceId)
       archivedSession = true
     }
 
@@ -604,7 +596,7 @@ open class MessageContentProcessorV2(private val context: Context) {
   }
 
   private fun ratchetKeyMatches(recipient: Recipient, deviceId: Int, ratchetKey: ECPublicKey): Boolean {
-    val address = recipient.resolve().requireServiceId().toProtocolAddress(deviceId)
+    val address = recipient.resolve().requireAci().toProtocolAddress(deviceId)
     val session = ApplicationDependencies.getProtocolStore().aci().loadSession(address)
     return session.currentRatchetKeyMatches(ratchetKey)
   }

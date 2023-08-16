@@ -27,7 +27,7 @@ import org.thoughtcrime.securesms.registration.viewmodel.BaseRegistrationViewMod
 import org.thoughtcrime.securesms.registration.viewmodel.NumberViewState
 import org.thoughtcrime.securesms.registration.viewmodel.SvrAuthCredentialSet
 import org.thoughtcrime.securesms.util.DefaultValueLiveData
-import org.whispersystems.signalservice.api.push.PNI
+import org.whispersystems.signalservice.api.push.ServiceId.PNI
 import org.whispersystems.signalservice.api.push.exceptions.IncorrectCodeException
 import org.whispersystems.signalservice.internal.ServiceResponse
 import java.util.Objects
@@ -184,7 +184,7 @@ class ChangeNumberViewModel(
 
   @WorkerThread
   override fun onVerifySuccess(processor: VerifyResponseProcessor): Single<VerifyResponseProcessor> {
-    return changeNumberRepository.changeLocalNumber(number.e164Number, PNI.parseOrThrow(processor.result.verifyAccountResponse.pni))
+    return changeNumberRepository.changeLocalNumber(number.e164Number, PNI.parseUnPrefixedOrThrow(processor.result.verifyAccountResponse.pni))
       .map { processor }
       .onErrorReturn { t ->
         Log.w(TAG, "Error attempting to change local number", t)
@@ -193,7 +193,7 @@ class ChangeNumberViewModel(
   }
 
   override fun onVerifySuccessWithRegistrationLock(processor: VerifyResponseWithRegistrationLockProcessor, pin: String): Single<VerifyResponseWithRegistrationLockProcessor> {
-    return changeNumberRepository.changeLocalNumber(number.e164Number, PNI.parseOrThrow(processor.result.verifyAccountResponse.pni))
+    return changeNumberRepository.changeLocalNumber(number.e164Number, PNI.parseUnPrefixedOrThrow(processor.result.verifyAccountResponse.pni))
       .map { processor }
       .onErrorReturn { t ->
         Log.w(TAG, "Error attempting to change local number", t)

@@ -14,7 +14,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
-import org.whispersystems.signalservice.api.push.ACI
+import org.whispersystems.signalservice.api.push.ServiceId
 import java.io.IOException
 
 object V190_UpdatePendingSelfDataMigration : SignalDatabaseMigration {
@@ -106,12 +106,12 @@ object V190_UpdatePendingSelfDataMigration : SignalDatabaseMigration {
     return idByE164
   }
 
-  private fun getLocalAci(context: Application): ACI? {
+  private fun getLocalAci(context: Application): ServiceId.ACI? {
     if (KeyValueDatabase.exists(context)) {
       val keyValueDatabase = KeyValueDatabase.getInstance(context).readableDatabase
       keyValueDatabase.query("key_value", arrayOf("value"), "key = ?", SqlUtil.buildArgs("account.1.aci"), null, null, null).use { cursor ->
         return if (cursor.moveToFirst()) {
-          ACI.parseOrNull(cursor.requireString("value"))
+          ServiceId.ACI.parseOrNull(cursor.requireString("value"))
         } else {
           Log.w(TAG, "ACI not present in KV database!")
           null
@@ -119,7 +119,7 @@ object V190_UpdatePendingSelfDataMigration : SignalDatabaseMigration {
       }
     } else {
       Log.w(TAG, "Pre-KV database -- searching for ACI in shared prefs.")
-      return ACI.parseOrNull(SecurePreferenceManager.getSecurePreferences(context).getString("pref_local_uuid", null))
+      return ServiceId.ACI.parseOrNull(SecurePreferenceManager.getSecurePreferences(context).getString("pref_local_uuid", null))
     }
   }
 

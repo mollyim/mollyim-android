@@ -85,15 +85,15 @@ class GroupChangeData(private val revision: Int, private val groupOperations: Gr
     }
 
   fun source(serviceId: ServiceId) {
-    actionsBuilder.sourceUuid = groupOperations.encryptUuid(serviceId.uuid())
+    actionsBuilder.sourceUuid = groupOperations.encryptServiceId(serviceId)
   }
 
   fun deleteMember(serviceId: ServiceId) {
-    actionsBuilder.addDeleteMembers(GroupChange.Actions.DeleteMemberAction.newBuilder().setDeletedUserId(groupOperations.encryptUuid(serviceId.uuid())))
+    actionsBuilder.addDeleteMembers(GroupChange.Actions.DeleteMemberAction.newBuilder().setDeletedUserId(groupOperations.encryptServiceId(serviceId)))
   }
 
   fun modifyRole(serviceId: ServiceId, role: Member.Role) {
-    actionsBuilder.addModifyMemberRoles(GroupChange.Actions.ModifyMemberRoleAction.newBuilder().setUserId(groupOperations.encryptUuid(serviceId.uuid())).setRole(role))
+    actionsBuilder.addModifyMemberRoles(GroupChange.Actions.ModifyMemberRoleAction.newBuilder().setUserId(groupOperations.encryptServiceId(serviceId)).setRole(role))
   }
 }
 

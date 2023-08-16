@@ -26,8 +26,8 @@ import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
-import org.whispersystems.signalservice.api.push.PNI;
-import org.whispersystems.signalservice.api.push.ServiceId;
+import org.whispersystems.signalservice.api.push.ServiceId.ACI;
+import org.whispersystems.signalservice.api.push.ServiceId.PNI;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -36,7 +36,7 @@ import java.util.Optional;
 
 public class RecipientDetails {
 
-  final ServiceId                    serviceId;
+  final ACI                          aci;
   final PNI                          pni;
   final String                       username;
   final String                       e164;
@@ -58,7 +58,6 @@ public class RecipientDetails {
   final int                          expireMessages;
   final List<RecipientId>            participantIds;
   final ProfileName                  profileName;
-  final Optional<Integer>            defaultSubscriptionId;
   final RegisteredState              registered;
   final byte[]                       profileKey;
   final ExpiringProfileKeyCredential expiringProfileKeyCredential;
@@ -72,9 +71,7 @@ public class RecipientDetails {
   final boolean                      isSelf;
   final String                       notificationChannel;
   final UnidentifiedAccessMode       unidentifiedAccessMode;
-  final boolean                      forceSmsSelection;
   final RecipientRecord.Capabilities capabilities;
-  final InsightsBannerTier           insightsBannerTier;
   final byte[]                       storageId;
   final MentionSetting               mentionSetting;
   final ChatWallpaper                wallpaper;
@@ -108,7 +105,7 @@ public class RecipientDetails {
     this.systemContactPhoto           = Util.uri(record.getSystemContactPhotoUri());
     this.customLabel                  = record.getSystemPhoneLabel();
     this.contactUri                   = Util.uri(record.getSystemContactUri());
-    this.serviceId                    = record.getServiceId();
+    this.aci                          = record.getAci();
     this.pni                          = record.getPni();
     this.username                     = record.getUsername();
     this.e164                         = record.getE164();
@@ -125,7 +122,6 @@ public class RecipientDetails {
     this.participantIds               = participantIds == null ? new LinkedList<>() : participantIds;
     this.isActiveGroup                = isActiveGroup;
     this.profileName                  = record.getProfileName();
-    this.defaultSubscriptionId        = record.getDefaultSubscriptionId();
     this.registered                   = registeredState;
     this.profileKey                   = record.getProfileKey();
     this.expiringProfileKeyCredential = record.getExpiringProfileKeyCredential();
@@ -138,9 +134,7 @@ public class RecipientDetails {
     this.isSelf                       = isSelf;
     this.notificationChannel          = record.getNotificationChannel();
     this.unidentifiedAccessMode       = record.getUnidentifiedAccessMode();
-    this.forceSmsSelection            = record.isForceSmsSelection();
     this.capabilities                 = record.getCapabilities();
-    this.insightsBannerTier           = record.getInsightsBannerTier();
     this.storageId                    = record.getStorageId();
     this.mentionSetting               = record.getMentionSetting();
     this.wallpaper                    = record.getWallpaper();
@@ -165,7 +159,7 @@ public class RecipientDetails {
     this.systemContactPhoto           = null;
     this.customLabel                  = null;
     this.contactUri                   = null;
-    this.serviceId                    = null;
+    this.aci                          = null;
     this.pni                          = null;
     this.username                     = null;
     this.e164                         = null;
@@ -181,8 +175,6 @@ public class RecipientDetails {
     this.expireMessages               = 0;
     this.participantIds               = new LinkedList<>();
     this.profileName                  = ProfileName.EMPTY;
-    this.insightsBannerTier           = InsightsBannerTier.TIER_TWO;
-    this.defaultSubscriptionId        = Optional.empty();
     this.registered                   = RegisteredState.UNKNOWN;
     this.profileKey                   = null;
     this.expiringProfileKeyCredential = null;
@@ -195,7 +187,6 @@ public class RecipientDetails {
     this.isSelf                       = false;
     this.notificationChannel          = null;
     this.unidentifiedAccessMode       = UnidentifiedAccessMode.UNKNOWN;
-    this.forceSmsSelection            = false;
     this.groupName                    = null;
     this.capabilities                 = RecipientRecord.Capabilities.UNKNOWN;
     this.storageId                    = null;
@@ -220,7 +211,7 @@ public class RecipientDetails {
   public static @NonNull RecipientDetails forIndividual(@NonNull Context context, @NonNull RecipientRecord settings) {
     boolean systemContact    = !settings.getSystemProfileName().isEmpty();
     boolean isSelf           = (settings.getE164() != null && settings.getE164().equals(SignalStore.account().getE164())) ||
-                               (settings.getServiceId() != null && settings.getServiceId().equals(SignalStore.account().getAci()));
+                               (settings.getAci() != null && settings.getAci().equals(SignalStore.account().getAci()));
     boolean isReleaseChannel = settings.getId().equals(SignalStore.releaseChannelValues().getReleaseChannelRecipientId());
 
     RegisteredState registeredState = settings.getRegistered();

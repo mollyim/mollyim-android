@@ -17,7 +17,7 @@ import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 import org.thoughtcrime.securesms.util.DynamicTheme
-import org.whispersystems.signalservice.api.push.PNI
+import org.whispersystems.signalservice.api.push.ServiceId.PNI
 import java.util.Objects
 
 private val TAG: String = Log.tag(ChangeNumberLockActivity::class.java)
@@ -60,7 +60,7 @@ class ChangeNumberLockActivity : PassphraseRequiredActivity() {
           Log.i(TAG, "Local (${SignalStore.account().e164}) and remote (${whoAmI.number}) numbers do not match, updating local.")
           Single
             .just(true)
-            .flatMap { changeNumberRepository.changeLocalNumber(whoAmI.number, PNI.parseOrThrow(whoAmI.pni)) }
+            .flatMap { changeNumberRepository.changeLocalNumber(whoAmI.number, PNI.parseUnPrefixedOrThrow(whoAmI.pni)) }
             .compose(ChangeNumberRepository::acquireReleaseChangeNumberLock)
             .map { true }
         }
