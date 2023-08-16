@@ -242,6 +242,10 @@
     <string name="CommunicationActions_carrier_charges_may_apply">Ekstra omkostninger til dit teleselskab kan forekomme. Nummeret du ringer til, er ikke et registreret Signal-nummer. Opkaldet vil ske via dit teleselskab og ikke over internettet.</string>
     <string name="CommunicationActions_cant_join_call">Kan ikke deltage i opkald</string>
     <string name="CommunicationActions_this_call_link_is_no_longer_valid">Opkaldslinket er ikke længere gyldigt.</string>
+    <!-- Title on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_invalid_link">Ugyldigt link</string>
+    <!-- Message on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_this_is_not_a_valid_call_link">Dette er ikke et gyldigt opkaldslink. Sørg for, at hele linket er intakt og korrekt, inden du prøver at deltage.</string>
 
     <!-- ConfirmIdentityDialog -->
 
@@ -900,6 +904,11 @@
         <item quantity="one">%1$d medlem</item>
         <item quantity="other">%1$d medlemmer</item>
     </plurals>
+
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title">Vi har bemærket, at notifikationerne er forsinkede. Indsend fejlretningslog?</string>
+    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__message">Fejlretningslogs hjælper os med at diagnosticere og fikse problemet, og de indeholder ikke identificerende oplysninger.</string>
 
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">Afventende gruppeinvitationer</string>
@@ -1727,6 +1736,48 @@
     <string name="WebRtcCallActivity__open_settings">Åbn indstillinger</string>
     <!-- Negative action for bluetooth warning dialog to dismiss dialog -->
     <string name="WebRtcCallActivity__not_now">Ikke nu</string>
+    <!-- Title for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__approve_d_requests">
+        <item quantity="one">Godkend %1$d anmodning?</item>
+        <item quantity="other">Godkend %1$d anmodninger?</item>
+    </plurals>
+    <!-- Positive action for call link approve all dialog -->
+    <string name="WebRtcCallActivity__approve_all">Godkend alle</string>
+    <!-- Message for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_be_added_to_the_call">
+        <item quantity="one">%1$d person vil blive føjet til opkaldet.</item>
+        <item quantity="other">%1$d personer vil blive føjet til opkaldet.</item>
+    </plurals>
+    <!-- Title for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__deny_d_requests">
+        <item quantity="one">Afvis %1$d anmodning?</item>
+        <item quantity="other">Afvis %1$d anmodninger?</item>
+    </plurals>
+    <!-- Message for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_not_be_added_to_the_call">
+        <item quantity="one">%1$d person vil ikke blive føjet til opkaldet.</item>
+        <item quantity="other">%1$d personer vil ikke blive føjet til opkaldet.</item>
+    </plurals>
+    <!-- Positive action for call link deny all dialog -->
+    <string name="WebRtcCallActivity__deny_all">Afvis alle</string>
+    <!-- Displayed in call status when users are pending -->
+    <plurals name="WebRtcCallActivity__d_people_waiting">
+        <item quantity="one">%1$d person venter</item>
+        <item quantity="other">%1$d personer venter</item>
+    </plurals>
+    <!-- Displayed in call status during call link when no users are pending -->
+    <plurals name="WebRtcCallActivity__d_people">
+        <item quantity="one">%1$d person</item>
+        <item quantity="other">%1$d personer</item>
+    </plurals>
+    <!-- Title of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__join_request_denied">Anmodning om deltagelse blev afvist</string>
+    <!-- Message of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">Din anmodning om at deltage i dette opkald er blevet afvist.</string>
+    <!-- Title of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__removed_from_call">Fjernet fra opkald</string>
+    <!-- Message of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Nogen har fjernet dig fra opkaldet.</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal-opkald</string>
@@ -1739,6 +1790,12 @@
     <string name="WebRtcCallView__reconnecting">Genopretter forbindelse…</string>
     <string name="WebRtcCallView__joining">Forbinder…</string>
     <string name="WebRtcCallView__disconnected">Afbrudt</string>
+    <!-- Utilized in the lobby before joining a call link -->
+    <string name="WebRtcCallView__signal_call_link">Signal-opkaldslink</string>
+    <!-- Warning displayed when entering a call via a link -->
+    <string name="WebRtcCallView__anyone_who_joins">Alle, der deltager i dette opkald via linket, vil se dit navn, billede og telefonnummer.</string>
+    <!-- Displayed on the call screen as the status when waiting to be let into a call link by an admin -->
+    <string name="WebRtcCallView__waiting_to_be_let_in">Venter på at blive lukket ind…</string>
 
     <string name="WebRtcCallView__signal_will_ring_s">Signal vil ringe til %1$s</string>
     <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal vil ringe til %1$s og %2$s</string>
@@ -2814,6 +2871,14 @@
         <item>Donationer og badges</item>
         <item>Sms-eksport</item>
     </string-array>
+    <!-- Subject of email when submitting debug logs to help debug slow notifications -->
+    <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Indsendelse af fejlretningslog fra Signal Android</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Langsomme notifikationer</string>
+    <!-- Action to submit logs and take user to send an e-mail -->
+    <string name="DebugLogsPromptDialogFragment__submit">Send</string>
+    <!-- Action to decline to submit logs -->
+    <string name="DebugLogsPromptDialogFragment__no_thanks">Nej tak</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Denne besked</string>
@@ -5976,6 +6041,10 @@
     <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
     <!-- Status text on call links -->
     <string name="CallLogAdapter__call_link">Opkaldslink</string>
+    <!-- Accessibility description for the video call button -->
+    <string name="CallLogAdapter__start_a_video_call">Foretag et videoopkald</string>
+    <!-- Accessibility description for the voice call button -->
+    <string name="CallLogAdapter__start_a_voice_call">Start et stemmeopkald</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -6086,6 +6155,16 @@
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Del et link til et Signal-opkald</string>
 
+    <!-- CallLinkInfoSheet -->
+    <!-- Sheet title -->
+    <string name="CallLinkInfoSheet__call_info">Opkaldsoplysninger</string>
+    <!-- Dialog title for removing or blocking participants -->
+    <string name="CallLinkInfoSheet__remove_s_from_the_call">Fjern %1$s fra dette opkald?</string>
+    <!-- Dialog action to remove participant from the call -->
+    <string name="CallLinkInfoSheet__remove">Fjern</string>
+    <!-- Dialog action to block participant from the call -->
+    <string name="CallLinkInfoSheet__block_from_call">Bloker fra opkald</string>
+
     <!-- CreateCallLinkBottomSheetDialogFragment -->
     <!-- Fragment title -->
     <string name="CreateCallLinkBottomSheetDialogFragment__create_call_link">Opret opkaldslink</string>
@@ -6185,6 +6264,27 @@
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">Oplevede en netværksfejl. Prøv igen.</string>
 
+    <!-- PendingParticipantsView -->
+    <!-- Displayed in the popup card when a remote user attempts to join a call link -->
+    <string name="PendingParticipantsView__would_like_to_join">Vil gerne deltage…</string>
+    <!-- Displayed in a button on the popup card denoting that there are other pending requests to join a call link -->
+    <plurals name="PendingParticipantsView__plus_d_requests">
+        <item quantity="one">+%1$d anmodning</item>
+        <item quantity="other">+%1$d anmodninger</item>
+    </plurals>
+
+    <!-- PendingParticipantsBottomSheet -->
+    <!-- Title of the bottom sheet displaying requests to join the call link -->
+    <string name="PendingParticipantsBottomSheet__requests_to_join_this_call">Anmoder om at deltage i dette opkald</string>
+    <!-- Subtitle of the bottom sheet denoting the total number of people waiting -->
+    <plurals name="PendingParticipantsBottomSheet__d_people_waiting">
+        <item quantity="one">%1$d person venter</item>
+        <item quantity="other">%1$d personer venter</item>
+    </plurals>
+    <!-- Content description for rejecting a user -->
+    <string name="PendingParticipantsBottomSheet__reject">Afvis</string>
+    <!-- Content desccription for confirming a user -->
+    <string name="PendingParticipantsBottomSheet__approve">Godkend</string>
 
     <!-- EOF -->
 </resources>

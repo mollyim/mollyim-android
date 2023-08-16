@@ -115,7 +115,6 @@ internal object ConversationOptionsMenu {
           if (hasActiveGroupCall) {
             hideMenuItem(menu, R.id.menu_video_secure)
           }
-          callback.showGroupCallingTooltip()
         }
         menuInflater.inflate(R.menu.conversation_group_options, menu)
         if (!recipient.isPushGroup) {
@@ -299,7 +298,6 @@ internal object ConversationOptionsMenu {
     fun handleGoHome()
     fun showExpiring(recipient: Recipient)
     fun clearExpiring()
-    fun showGroupCallingTooltip()
     fun handleFormatText(@IdRes id: Int)
   }
 }

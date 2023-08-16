@@ -1,13 +1,11 @@
 package org.thoughtcrime.securesms.conversation
 
-import android.Manifest
 import android.content.Context
 import android.os.Parcelable
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
-import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.util.CharacterCalculator
 import org.thoughtcrime.securesms.util.PushCharacterCalculator
@@ -46,10 +44,6 @@ sealed class MessageSendType(
     return characterCalculator.calculateCharacters(body)
   }
 
-  fun getSimSubscriptionIdOr(fallback: Int): Int {
-    return simSubscriptionId ?: fallback
-  }
-
   open fun getTitle(context: Context): String {
     return context.getString(titleRes)
   }
@@ -73,21 +67,14 @@ sealed class MessageSendType(
   }
 
   companion object {
-
-    private val TAG = Log.tag(MessageSendType::class.java)
-
-    /**
-     * Returns a list of all available [MessageSendType]s. Requires [Manifest.permission.READ_PHONE_STATE] in order to get available
-     * SMS options.
-     */
     @JvmStatic
-    fun getAllAvailable(context: Context): List<MessageSendType> {
+    fun getAllAvailable(): List<MessageSendType> {
       return listOf(SignalMessageSendType)
     }
 
     @JvmStatic
-    fun getFirstForTransport(context: Context, transportType: TransportType): MessageSendType {
-      return getAllAvailable(context).firstOrNull { it.transportType == transportType } ?: throw IllegalArgumentException("No options available for desired type $transportType!")
+    fun getFirstForTransport(transportType: TransportType): MessageSendType {
+      return getAllAvailable().firstOrNull { it.transportType == transportType } ?: throw IllegalArgumentException("No options available for desired type $transportType!")
     }
   }
 }

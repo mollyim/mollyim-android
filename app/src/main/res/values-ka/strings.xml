@@ -242,6 +242,10 @@
     <string name="CommunicationActions_carrier_charges_may_apply">ოპერატორის საფასური შეიძლება იქნას დარიცხული. ნომერი, რომლზეც რეკავ, არ არის Signal-ში რეგისტრირებული. ეს ზარი იქნება განხორციელებული შენი ოპრატორის მეშვეობით, და არა ინტერნეტით.</string>
     <string name="CommunicationActions_cant_join_call">ზარზე შესვლა ვერ მოხერხდა</string>
     <string name="CommunicationActions_this_call_link_is_no_longer_valid">ზარის ეს ბმული ვალიდური აღარაა.</string>
+    <!-- Title on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_invalid_link">არასწორი ბმული</string>
+    <!-- Message on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_this_is_not_a_valid_call_link">ეს ზარის ვალიდური ბმული არაა. შესვლის მცდელობამდე დარწმუნდი, რომ მთლიანი ბმული სწორი და ხელუხლებელია.</string>
 
     <!-- ConfirmIdentityDialog -->
 
@@ -900,6 +904,11 @@
         <item quantity="one">%1$d წევრი</item>
         <item quantity="other">%1$d წევრი</item>
     </plurals>
+
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title">შევამჩნიეთ, რომ შეტყობინებები აგვიანებს. ატვირთოთ გამართვის ჟურნალი?</string>
+    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__message">გამართვის ჟურნალები გვეხმარება პრობლემის დიაგნოსტიკასა და გამოსწორებაში და არ შეიცავს საიდენტიფიკაციო ინფორმაციას.</string>
 
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">განსახილველი ჯგუფის მოსაწვევები</string>
@@ -1727,6 +1736,48 @@
     <string name="WebRtcCallActivity__open_settings">პარამეტრებში შესვლა</string>
     <!-- Negative action for bluetooth warning dialog to dismiss dialog -->
     <string name="WebRtcCallActivity__not_now">ახლა არა</string>
+    <!-- Title for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__approve_d_requests">
+        <item quantity="one">გსურს %1$d მოთხოვნა დაადასტურო?</item>
+        <item quantity="other">გსურს %1$d მოთხოვნა დაადასტურო?</item>
+    </plurals>
+    <!-- Positive action for call link approve all dialog -->
+    <string name="WebRtcCallActivity__approve_all">ყველას დადასტურება</string>
+    <!-- Message for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_be_added_to_the_call">
+        <item quantity="one">ზარს დაემატება %1$d ადამიანი.</item>
+        <item quantity="other">ზარს დაემატება %1$d ადამიანი.</item>
+    </plurals>
+    <!-- Title for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__deny_d_requests">
+        <item quantity="one">ვუარჰყოთ %1$d მოთხოვნა?</item>
+        <item quantity="other">ვუარჰყოთ %1$d მოთხოვნა?</item>
+    </plurals>
+    <!-- Message for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_not_be_added_to_the_call">
+        <item quantity="one">ზარს არ დაემატება %1$d ადამიანი.</item>
+        <item quantity="other">ზარს არ დაემატება %1$d ადამიანი.</item>
+    </plurals>
+    <!-- Positive action for call link deny all dialog -->
+    <string name="WebRtcCallActivity__deny_all">ყველას უარყოფა</string>
+    <!-- Displayed in call status when users are pending -->
+    <plurals name="WebRtcCallActivity__d_people_waiting">
+        <item quantity="one">ელოდება %1$d ადამიანი</item>
+        <item quantity="other">ელოდება %1$d ადამიანი</item>
+    </plurals>
+    <!-- Displayed in call status during call link when no users are pending -->
+    <plurals name="WebRtcCallActivity__d_people">
+        <item quantity="one">%1$d ადამიანი</item>
+        <item quantity="other">%1$d ადამიანი</item>
+    </plurals>
+    <!-- Title of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__join_request_denied">დამატების თხოვნა უარყოფილია</string>
+    <!-- Message of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">შენი ამ ზარზე დამატების მოთხოვნა უარყოფილია.</string>
+    <!-- Title of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__removed_from_call">ზარიდან გაითიშა</string>
+    <!-- Message of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">ვიღაცამ ზარიდან გაგთიშა.</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal-ის ზარი</string>
@@ -1739,6 +1790,12 @@
     <string name="WebRtcCallView__reconnecting">ხელახლა დაკავშირება…</string>
     <string name="WebRtcCallView__joining">დაკავშირება…</string>
     <string name="WebRtcCallView__disconnected">Disconnected</string>
+    <!-- Utilized in the lobby before joining a call link -->
+    <string name="WebRtcCallView__signal_call_link">Signal-ის ზარის ბმული</string>
+    <!-- Warning displayed when entering a call via a link -->
+    <string name="WebRtcCallView__anyone_who_joins">ვინც ამ ზარზე ბმულის საშუალებით შევა, შენს სახელს, ფოტოსა და ტელეფონის ნომერს დაინახავს.</string>
+    <!-- Displayed on the call screen as the status when waiting to be let into a call link by an admin -->
+    <string name="WebRtcCallView__waiting_to_be_let_in">ელოდება შეშვებას…</string>
 
     <string name="WebRtcCallView__signal_will_ring_s">Signal-ი დარეკავს %1$s</string>
     <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal-ი %1$s-სა და %2$s-ს დაურეკავს</string>
@@ -2814,6 +2871,14 @@
         <item>დონაციები &amp; ემბლემები</item>
         <item>SMS ექსპორტირება</item>
     </string-array>
+    <!-- Subject of email when submitting debug logs to help debug slow notifications -->
+    <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android-ის გამართვის ჟურნალის ატვირთვა</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">შეტყობინებების ჩვენება</string>
+    <!-- Action to submit logs and take user to send an e-mail -->
+    <string name="DebugLogsPromptDialogFragment__submit">Submit</string>
+    <!-- Action to decline to submit logs -->
+    <string name="DebugLogsPromptDialogFragment__no_thanks">არა, მადლობა</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">ეს შეტყობინება</string>
@@ -5976,6 +6041,10 @@
     <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
     <!-- Status text on call links -->
     <string name="CallLogAdapter__call_link">ზარის ბმული</string>
+    <!-- Accessibility description for the video call button -->
+    <string name="CallLogAdapter__start_a_video_call">ვიდეო ზარის დაწყება</string>
+    <!-- Accessibility description for the voice call button -->
+    <string name="CallLogAdapter__start_a_voice_call">ხმოვანი ზარის დაწყება</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -6086,6 +6155,16 @@
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Signal-ის ზარის ბმულის გაზიარება</string>
 
+    <!-- CallLinkInfoSheet -->
+    <!-- Sheet title -->
+    <string name="CallLinkInfoSheet__call_info">ინფორმაცია ზარზე</string>
+    <!-- Dialog title for removing or blocking participants -->
+    <string name="CallLinkInfoSheet__remove_s_from_the_call">გავთიშოთ %1$s ზარიდან?</string>
+    <!-- Dialog action to remove participant from the call -->
+    <string name="CallLinkInfoSheet__remove">წაშლა</string>
+    <!-- Dialog action to block participant from the call -->
+    <string name="CallLinkInfoSheet__block_from_call">ზარიდან დაბლოკვა</string>
+
     <!-- CreateCallLinkBottomSheetDialogFragment -->
     <!-- Fragment title -->
     <string name="CreateCallLinkBottomSheetDialogFragment__create_call_link">ზარის ბმულის შექმნა</string>
@@ -6185,6 +6264,27 @@
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">მოხდა ინტერნეტის ხარვეზი. გთხოვთ, თავიდან სცადო.</string>
 
+    <!-- PendingParticipantsView -->
+    <!-- Displayed in the popup card when a remote user attempts to join a call link -->
+    <string name="PendingParticipantsView__would_like_to_join">სურს დაემატოს…</string>
+    <!-- Displayed in a button on the popup card denoting that there are other pending requests to join a call link -->
+    <plurals name="PendingParticipantsView__plus_d_requests">
+        <item quantity="one">+%1$d მოთხოვნა</item>
+        <item quantity="other">+%1$d მოთხოვნა</item>
+    </plurals>
+
+    <!-- PendingParticipantsBottomSheet -->
+    <!-- Title of the bottom sheet displaying requests to join the call link -->
+    <string name="PendingParticipantsBottomSheet__requests_to_join_this_call">ამ ზარზე დამატების მოთხოვნები</string>
+    <!-- Subtitle of the bottom sheet denoting the total number of people waiting -->
+    <plurals name="PendingParticipantsBottomSheet__d_people_waiting">
+        <item quantity="one">ელოდება %1$d ადამიანი</item>
+        <item quantity="other">ელოდება %1$d ადამიანი</item>
+    </plurals>
+    <!-- Content description for rejecting a user -->
+    <string name="PendingParticipantsBottomSheet__reject">უარყოფა</string>
+    <!-- Content desccription for confirming a user -->
+    <string name="PendingParticipantsBottomSheet__approve">დადასტურება</string>
 
     <!-- EOF -->
 </resources>

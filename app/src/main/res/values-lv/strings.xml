@@ -243,6 +243,10 @@
     <string name="CommunicationActions_carrier_charges_may_apply">Var tikt piemēroti mobilā tīkla operatora maksas. Numuram, uz kuru zvanāt, nav instalēta Signal aplikācija. Tādēļ šis zvans tiks veikts izmantojot jūsu mobilo sakaru operatoru, nevis internetu.</string>
     <string name="CommunicationActions_cant_join_call">Nevar pievienoties grupai</string>
     <string name="CommunicationActions_this_call_link_is_no_longer_valid">Šī zvana saite vairs nav derīga.</string>
+    <!-- Title on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_invalid_link">Nederīga saite</string>
+    <!-- Message on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_this_is_not_a_valid_call_link">Šī nav derīga zvana saite. Pirms mēģināt pievienoties, pārliecinieties, ka saite nav bojāta un ir pareiza.</string>
 
     <!-- ConfirmIdentityDialog -->
 
@@ -930,6 +934,11 @@
         <item quantity="one">%1$d dalībnieks</item>
         <item quantity="other">%1$d dalībnieki</item>
     </plurals>
+
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title">Mēs pamanījām, ka paziņojumu parādīšana ir aizkavēta. Vai nosūtīt atkļūdošanas žurnālu?</string>
+    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__message">Atkļūdošanas žurnāli palīdz mums diagnosticēt un novērst problēmu, un tie nesatur identificējošu informāciju.</string>
 
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">Neapstiprinātie grupu ielūgumi</string>
@@ -1787,6 +1796,54 @@
     <string name="WebRtcCallActivity__open_settings">Atvērt iestatījumus</string>
     <!-- Negative action for bluetooth warning dialog to dismiss dialog -->
     <string name="WebRtcCallActivity__not_now">Ne tagad</string>
+    <!-- Title for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__approve_d_requests">
+        <item quantity="zero">Vai apstiprināt %1$d pieprasījumus?</item>
+        <item quantity="one">Vai apstiprināt %1$d pieprasījumu?</item>
+        <item quantity="other">Vai apstiprināt %1$d pieprasījumus?</item>
+    </plurals>
+    <!-- Positive action for call link approve all dialog -->
+    <string name="WebRtcCallActivity__approve_all">Apstiprināt visus</string>
+    <!-- Message for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_be_added_to_the_call">
+        <item quantity="zero">%1$d personas tiks pievienotas zvanam.</item>
+        <item quantity="one">%1$d persona tiks pievienota zvanam.</item>
+        <item quantity="other">%1$d personas tiks pievienotas zvanam.</item>
+    </plurals>
+    <!-- Title for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__deny_d_requests">
+        <item quantity="zero">Vai noraidīt %1$d pieprasījumus?</item>
+        <item quantity="one">Vai noraidīt %1$d pieprasījumu?</item>
+        <item quantity="other">Vai noraidīt %1$d pieprasījumus?</item>
+    </plurals>
+    <!-- Message for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_not_be_added_to_the_call">
+        <item quantity="zero">%1$d personas netiks pievienotas zvanam.</item>
+        <item quantity="one">%1$d persona netiks pievienota zvanam.</item>
+        <item quantity="other">%1$d personas netiks pievienotas zvanam.</item>
+    </plurals>
+    <!-- Positive action for call link deny all dialog -->
+    <string name="WebRtcCallActivity__deny_all">Noraidīt visus</string>
+    <!-- Displayed in call status when users are pending -->
+    <plurals name="WebRtcCallActivity__d_people_waiting">
+        <item quantity="zero">%1$d personas gaida</item>
+        <item quantity="one">%1$d persona gaida</item>
+        <item quantity="other">%1$d personas gaida</item>
+    </plurals>
+    <!-- Displayed in call status during call link when no users are pending -->
+    <plurals name="WebRtcCallActivity__d_people">
+        <item quantity="zero">%1$d cilvēki</item>
+        <item quantity="one">%1$d cilvēks</item>
+        <item quantity="other">%1$d cilvēki</item>
+    </plurals>
+    <!-- Title of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__join_request_denied">Pievienošanās pieprasījums noraidīts</string>
+    <!-- Message of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">Jūsu pieprasījums pievienoties šim zvanam tika noraidīts.</string>
+    <!-- Title of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__removed_from_call">Noņemts no zvana</string>
+    <!-- Message of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Kāds jūs noņēma no zvana.</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal zvans</string>
@@ -1799,6 +1856,12 @@
     <string name="WebRtcCallView__reconnecting">Savienojas vēlreiz…</string>
     <string name="WebRtcCallView__joining">Pievienojos…</string>
     <string name="WebRtcCallView__disconnected">Atvienots</string>
+    <!-- Utilized in the lobby before joining a call link -->
+    <string name="WebRtcCallView__signal_call_link">Signal zvana saite</string>
+    <!-- Warning displayed when entering a call via a link -->
+    <string name="WebRtcCallView__anyone_who_joins">Ikviens, kurš pievienosies šim zvanam, izmantojot saiti, redzēs jūsu vārdu, attēlu un tālruņa numuru.</string>
+    <!-- Displayed on the call screen as the status when waiting to be let into a call link by an admin -->
+    <string name="WebRtcCallView__waiting_to_be_let_in">Gaida pievienošanu…</string>
 
     <string name="WebRtcCallView__signal_will_ring_s">Signal zvanīs %1$s</string>
     <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal zvanīs %1$s un %2$s</string>
@@ -2843,7 +2906,7 @@
     <string name="message_details_recipient_header__read_by">Izlasījis</string>
     <string name="message_details_recipient_header__not_sent">Nav nosūtīts</string>
     <string name="message_details_recipient_header__viewed">Skatīja</string>
-    <string name="message_details_recipient_header__skipped">Izlaista</string>
+    <string name="message_details_recipient_header__skipped">Nav piegādāta</string>
 
     <!-- message_Details_recipient -->
     <string name="message_details_recipient__failed_to_send">Neizdevās nosūtīt</string>
@@ -2895,6 +2958,14 @@
         <item>Ziedojumi un nozīmītes</item>
         <item>SMS eksportēšana</item>
     </string-array>
+    <!-- Subject of email when submitting debug logs to help debug slow notifications -->
+    <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android atkļūdošanas žurnāla nosūtīšana</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Lēni paziņojumi</string>
+    <!-- Action to submit logs and take user to send an e-mail -->
+    <string name="DebugLogsPromptDialogFragment__submit">Iesniegt</string>
+    <!-- Action to decline to submit logs -->
+    <string name="DebugLogsPromptDialogFragment__no_thanks">Nē, paldies</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Šī ziņa</string>
@@ -6100,6 +6171,10 @@
     <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
     <!-- Status text on call links -->
     <string name="CallLogAdapter__call_link">Zvana saite</string>
+    <!-- Accessibility description for the video call button -->
+    <string name="CallLogAdapter__start_a_video_call">Sākt videozvanu</string>
+    <!-- Accessibility description for the voice call button -->
+    <string name="CallLogAdapter__start_a_voice_call">Sākt balss zvanu</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -6213,6 +6288,16 @@
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Kopīgot Signal audiozvana saiti</string>
 
+    <!-- CallLinkInfoSheet -->
+    <!-- Sheet title -->
+    <string name="CallLinkInfoSheet__call_info">Zvana informācija</string>
+    <!-- Dialog title for removing or blocking participants -->
+    <string name="CallLinkInfoSheet__remove_s_from_the_call">Vai noņemt %1$s no šī zvana?</string>
+    <!-- Dialog action to remove participant from the call -->
+    <string name="CallLinkInfoSheet__remove">Noņemt</string>
+    <!-- Dialog action to block participant from the call -->
+    <string name="CallLinkInfoSheet__block_from_call">Bloķēt piekļuvi zvanam</string>
+
     <!-- CreateCallLinkBottomSheetDialogFragment -->
     <!-- Fragment title -->
     <string name="CreateCallLinkBottomSheetDialogFragment__create_call_link">Izveidot audiozvana saiti</string>
@@ -6312,6 +6397,29 @@
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">Radās tīkla kļūda. Lūdzu, mēģiniet vēlreiz.</string>
 
+    <!-- PendingParticipantsView -->
+    <!-- Displayed in the popup card when a remote user attempts to join a call link -->
+    <string name="PendingParticipantsView__would_like_to_join">Vēlas pievienoties…</string>
+    <!-- Displayed in a button on the popup card denoting that there are other pending requests to join a call link -->
+    <plurals name="PendingParticipantsView__plus_d_requests">
+        <item quantity="zero">+%1$d pieprasījumu</item>
+        <item quantity="one">+%1$d pieprasījums</item>
+        <item quantity="other">+%1$d pieprasījumi</item>
+    </plurals>
+
+    <!-- PendingParticipantsBottomSheet -->
+    <!-- Title of the bottom sheet displaying requests to join the call link -->
+    <string name="PendingParticipantsBottomSheet__requests_to_join_this_call">Pieprasījumi pievienoties šim zvanam</string>
+    <!-- Subtitle of the bottom sheet denoting the total number of people waiting -->
+    <plurals name="PendingParticipantsBottomSheet__d_people_waiting">
+        <item quantity="zero">%1$d personas gaida</item>
+        <item quantity="one">%1$d persona gaida</item>
+        <item quantity="other">%1$d personas gaida</item>
+    </plurals>
+    <!-- Content description for rejecting a user -->
+    <string name="PendingParticipantsBottomSheet__reject">Noraidīt</string>
+    <!-- Content desccription for confirming a user -->
+    <string name="PendingParticipantsBottomSheet__approve">Apstiprināt</string>
 
     <!-- EOF -->
 </resources>

@@ -32,9 +32,10 @@ public class FcmReceiveService extends FirebaseMessagingService {
     }
 
     Log.i(TAG, String.format(Locale.US,
-                             "onMessageReceived() ID: %s, Delay: %d, Priority: %d, Original Priority: %d, Network: %s",
+                             "onMessageReceived() ID: %s, Delay: %d (Server offset: %d), Priority: %d, Original Priority: %d, Network: %s",
                              remoteMessage.getMessageId(),
                              (System.currentTimeMillis() - remoteMessage.getSentTime()),
+                             SignalStore.misc().getLastKnownServerTimeOffset(),
                              remoteMessage.getPriority(),
                              remoteMessage.getOriginalPriority(),
                              NetworkUtil.getNetworkStatus(this)));
