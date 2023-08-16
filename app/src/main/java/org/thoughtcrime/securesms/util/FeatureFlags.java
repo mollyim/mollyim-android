@@ -18,7 +18,6 @@ import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.messageprocessingalarm.MessageProcessReceiver;
-import org.thoughtcrime.securesms.notifications.Configuration;
 import org.whispersystems.signalservice.api.RemoteConfigResult;
 
 import java.io.IOException;
@@ -595,13 +594,6 @@ public final class FeatureFlags {
     }
   }
 
-  public static String promptForDelayedNotificationLogs() {
-    return getString(PROMPT_FOR_NOTIFICATION_LOGS, "*");
-  }
-
-  public static String delayedNotificationsPromptConfig() {
-    return getString(PROMPT_FOR_NOTIFICATION_CONFIG, "");
-  }
   /** Only for rendering debug info. */
   public static synchronized @NonNull Map<String, Object> getMemoryValues() {
     return new TreeMap<>(REMOTE_VALUES);
