@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.messages
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.app.Service
 import android.content.Context
@@ -17,16 +16,12 @@ import org.thoughtcrime.securesms.crypto.ReentrantSessionLock
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.groups.GroupsV2ProcessingLock
-import org.thoughtcrime.securesms.jobmanager.Job
-import org.thoughtcrime.securesms.jobmanager.JobTracker
-import org.thoughtcrime.securesms.jobmanager.JobTracker.JobListener
 import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil
 import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil.startWhenCapable
-import org.thoughtcrime.securesms.jobs.PushDecryptMessageJob
+import org.thoughtcrime.securesms.jobs.PushProcessMessageErrorJob
 import org.thoughtcrime.securesms.jobs.PushProcessMessageJob
-import org.thoughtcrime.securesms.jobs.PushProcessMessageJobV2
 import org.thoughtcrime.securesms.jobs.UnableToStartException
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messages.MessageDecryptor.FollowUpOperation
@@ -41,7 +36,6 @@ import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import org.whispersystems.signalservice.api.websocket.WebSocketUnavailableException
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos
-import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
@@ -98,7 +92,7 @@ class IncomingMessageObserver(private val context: Application) {
     }
   }
 
-  private val messageContentProcessor = MessageContentProcessorV2(context)
+  private val messageContentProcessor = MessageContentProcessor(context)
 
   private var foregroundServiceStartPending = AtomicBoolean(true)
 
@@ -145,19 +139,6 @@ class IncomingMessageObserver(private val context: Application) {
     decryptionDrainedListeners.remove(listener)
   }
 
-  fun notifyDecryptionsDrained() {
-    if (ApplicationDependencies.getJobManager().isQueueEmpty(PushDecryptMessageJob.QUEUE)) {
-      Log.i(TAG, "Queue was empty when notified. Signaling change.")
-      connectionNecessarySemaphore.release()
-    } else {
-      Log.i(TAG, "Queue still had items when notified. Registering listener to signal change.")
-      ApplicationDependencies.getJobManager().addListener(
-        { it.parameters.queue == PushDecryptMessageJob.QUEUE },
-        DecryptionDrainedQueueListener()
-      )
-    }
-  }
-
   private fun onAppForegrounded() {
     lock.withLock {
       appVisible = true
@@ -181,7 +162,7 @@ class IncomingMessageObserver(private val context: Application) {
     }
 
     val timeIdle: Long
-    val keepAliveEntries: Set<Map.Entry<String, Long>>
+    val keepAliveEntries: Set<Pair<String, Long>>
     val appVisibleSnapshot: Boolean
 
     lock.withLock {
@@ -194,7 +175,7 @@ class IncomingMessageObserver(private val context: Application) {
         Log.d(TAG, "Removed old keep web socket open requests.")
       }
 
-      keepAliveEntries = keepAliveTokens.entries.toImmutableSet()
+      keepAliveEntries = keepAliveTokens.entries.map { it.key to it.value }.toImmutableSet()
     }
 
     val registered = SignalStore.account().isRegistered
@@ -202,7 +183,6 @@ class IncomingMessageObserver(private val context: Application) {
     val hasNetwork = NetworkConstraint.isMet(context)
     val hasProxy = ApplicationDependencies.getNetworkManager().isProxyEnabled
     val forceWebsocket = SignalStore.internalValues().isWebsocketModeForced
-    val decryptQueueEmpty = ApplicationDependencies.getJobManager().isQueueEmpty(PushDecryptMessageJob.QUEUE)
 
     if (!fcmEnabled || forceWebsocket) {
       // MOLLY: Try to start the foreground service only once
@@ -225,12 +205,11 @@ class IncomingMessageObserver(private val context: Application) {
     val lastInteractionString = if (appVisibleSnapshot) "N/A" else timeIdle.toString() + " ms (" + (if (timeIdle < maxBackgroundTime) "within limit" else "over limit") + ")"
     val conclusion = registered &&
       (appVisibleSnapshot || timeIdle < maxBackgroundTime || !fcmEnabled || keepAliveEntries.isNotEmpty()) &&
-      hasNetwork &&
-      decryptQueueEmpty
+      hasNetwork
 
     val needsConnectionString = if (conclusion) "Needs Connection" else "Does Not Need Connection"
 
-    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, FCM: $fcmEnabled, Stay open requests: $keepAliveEntries, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket, Decrypt Queue Empty: $decryptQueueEmpty")
+    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, FCM: $fcmEnabled, Stay open requests: $keepAliveEntries, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket")
     return conclusion
   }
 
@@ -308,18 +287,16 @@ class IncomingMessageObserver(private val context: Application) {
     SignalLocalMetrics.MessageLatency.onMessageReceived(envelope.serverTimestamp, serverDeliveredTimestamp, envelope.urgent)
     when (result) {
       is MessageDecryptor.Result.Success -> {
-        val job = PushProcessMessageJobV2.processOrDefer(messageContentProcessor, result, localReceiveMetric)
+        val job = PushProcessMessageJob.processOrDefer(messageContentProcessor, result, localReceiveMetric)
         if (job != null) {
           return result.followUpOperations + FollowUpOperation { job }
         }
       }
       is MessageDecryptor.Result.Error -> {
         return result.followUpOperations + FollowUpOperation {
-          PushProcessMessageJob(
+          PushProcessMessageErrorJob(
             result.toMessageState(),
-            null,
             result.errorMetadata.toExceptionMetadata(),
-            -1,
             result.envelope.timestamp
           )
         }
@@ -348,19 +325,19 @@ class IncomingMessageObserver(private val context: Application) {
     SignalDatabase.messageLog.deleteEntryForRecipient(envelope.timestamp, senderId, envelope.sourceDevice)
   }
 
-  private fun MessageDecryptor.Result.toMessageState(): MessageContentProcessor.MessageState {
+  private fun MessageDecryptor.Result.toMessageState(): MessageState {
     return when (this) {
-      is MessageDecryptor.Result.DecryptionError -> MessageContentProcessor.MessageState.DECRYPTION_ERROR
-      is MessageDecryptor.Result.Ignore -> MessageContentProcessor.MessageState.NOOP
-      is MessageDecryptor.Result.InvalidVersion -> MessageContentProcessor.MessageState.INVALID_VERSION
-      is MessageDecryptor.Result.LegacyMessage -> MessageContentProcessor.MessageState.LEGACY_MESSAGE
-      is MessageDecryptor.Result.Success -> MessageContentProcessor.MessageState.DECRYPTED_OK
-      is MessageDecryptor.Result.UnsupportedDataMessage -> MessageContentProcessor.MessageState.UNSUPPORTED_DATA_MESSAGE
+      is MessageDecryptor.Result.DecryptionError -> MessageState.DECRYPTION_ERROR
+      is MessageDecryptor.Result.Ignore -> MessageState.NOOP
+      is MessageDecryptor.Result.InvalidVersion -> MessageState.INVALID_VERSION
+      is MessageDecryptor.Result.LegacyMessage -> MessageState.LEGACY_MESSAGE
+      is MessageDecryptor.Result.Success -> MessageState.DECRYPTED_OK
+      is MessageDecryptor.Result.UnsupportedDataMessage -> MessageState.UNSUPPORTED_DATA_MESSAGE
     }
   }
 
-  private fun MessageDecryptor.ErrorMetadata.toExceptionMetadata(): MessageContentProcessor.ExceptionMetadata {
-    return MessageContentProcessor.ExceptionMetadata(
+  private fun MessageDecryptor.ErrorMetadata.toExceptionMetadata(): ExceptionMetadata {
+    return ExceptionMetadata(
       this.sender,
       this.senderDevice,
       this.groupId
@@ -466,21 +443,6 @@ class IncomingMessageObserver(private val context: Application) {
 
     override fun uncaughtException(t: Thread, e: Throwable) {
       Log.w(TAG, "Uncaught exception in message thread!", e)
-    }
-  }
-
-  private inner class DecryptionDrainedQueueListener : JobListener {
-    @SuppressLint("WrongThread")
-    override fun onStateChanged(job: Job, jobState: JobTracker.JobState) {
-      if (jobState.isComplete) {
-        if (ApplicationDependencies.getJobManager().isQueueEmpty(PushDecryptMessageJob.QUEUE)) {
-          Log.i(TAG, "Queue is now empty. Signaling change.")
-          connectionNecessarySemaphore.release()
-          ApplicationDependencies.getJobManager().removeListener(this)
-        } else {
-          Log.i(TAG, "Item finished in queue, but it's still not empty. Waiting to signal change.")
-        }
-      }
     }
   }
 

@@ -17,7 +17,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.messageprocessingalarm.MessageProcessReceiver;
+import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchReceiver;
 import org.whispersystems.signalservice.api.RemoteConfigResult;
 
 import java.io.IOException;
@@ -101,7 +101,7 @@ public final class FeatureFlags {
   private static final String PAYPAL_RECURRING_DONATIONS        = "android.recurringPayPalDonations.3";
   private static final String ANY_ADDRESS_PORTS_KILL_SWITCH     = "android.calling.fieldTrial.anyAddressPortsKillSwitch";
   private static final String AD_HOC_CALLING                    = "android.calling.ad.hoc.2";
-  private static final String EDIT_MESSAGE_SEND                 = "android.editMessage.send.7";
+  private static final String EDIT_MESSAGE_SEND                 = "android.editMessage.send.8";
   private static final String MAX_ATTACHMENT_COUNT              = "android.attachments.maxCount";
   private static final String MAX_ATTACHMENT_RECEIVE_SIZE_BYTES = "global.attachments.maxReceiveBytes";
   private static final String MAX_ATTACHMENT_SIZE_BYTES         = "global.attachments.maxBytes";
@@ -111,6 +111,8 @@ public final class FeatureFlags {
   private static final String SAFETY_NUMBER_ACI                 = "global.safetyNumberAci";
   public  static final String PROMPT_FOR_NOTIFICATION_LOGS      = "android.logs.promptNotifications";
   private static final String PROMPT_FOR_NOTIFICATION_CONFIG    = "android.logs.promptNotificationsConfig";
+  public  static final String PROMPT_BATTERY_SAVER              = "android.promptBatterySaver";
+  public  static final String USERNAMES                         = "android.usernames";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -172,7 +174,9 @@ public final class FeatureFlags {
       SAFETY_NUMBER_ACI,
       FCM_MAY_HAVE_MESSAGES_KILL_SWITCH,
       PROMPT_FOR_NOTIFICATION_LOGS,
-      PROMPT_FOR_NOTIFICATION_CONFIG
+      PROMPT_FOR_NOTIFICATION_CONFIG,
+      PROMPT_BATTERY_SAVER,
+      USERNAMES
   );
 
   @VisibleForTesting
@@ -243,7 +247,9 @@ public final class FeatureFlags {
       SAFETY_NUMBER_ACI,
       FCM_MAY_HAVE_MESSAGES_KILL_SWITCH,
       PROMPT_FOR_NOTIFICATION_LOGS,
-      PROMPT_FOR_NOTIFICATION_CONFIG
+      PROMPT_FOR_NOTIFICATION_CONFIG,
+      PROMPT_BATTERY_SAVER,
+      USERNAMES
   );
 
   /**
@@ -268,7 +274,7 @@ public final class FeatureFlags {
    * desired test state.
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
-    put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> MessageProcessReceiver.startOrUpdateAlarm(ApplicationDependencies.getApplication()));
+    put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> RoutineMessageFetchReceiver.startOrUpdateAlarm(ApplicationDependencies.getApplication()));
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -324,8 +330,7 @@ public final class FeatureFlags {
 
   /** Creating usernames, sending messages by username. */
   public static synchronized boolean usernames() {
-    // For now these features are paired, but leaving the separate method in case we decide to separate in the future.
-    return phoneNumberPrivacy();
+    return getBoolean(USERNAMES, false) || phoneNumberPrivacy();
   }
 
   /**

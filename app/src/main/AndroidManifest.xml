@@ -581,7 +581,7 @@
     <activity android:name=".conversation.v2.ConversationActivity"
               android:windowSoftInputMode="stateUnchanged"
               android:launchMode="singleTask"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|screenLayout|screenSize"
               android:parentActivityName=".MainActivity"
               android:exported="false">
         <meta-data
@@ -1052,9 +1052,11 @@
 
     <service
         android:name=".components.voice.VoiceNotePlaybackService"
+        android:foregroundServiceType="mediaPlayback"
         android:exported="true">
         <intent-filter>
             <action android:name="android.media.browse.MediaBrowserService" />
+            <action android:name="androidx.media3.session.MediaSessionService"/>
         </intent-filter>
     </service>
 
@@ -1191,7 +1193,7 @@
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".messageprocessingalarm.MessageProcessReceiver" android:exported="false">
+    <receiver android:name=".messageprocessingalarm.RoutineMessageFetchReceiver" android:exported="false">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED" />
             <action android:name="org.thoughtcrime.securesms.action.PROCESS_MESSAGES" />

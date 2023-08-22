@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.conversationlist.RelinkDevicesReminderBottomSheetFragment;
@@ -40,6 +41,8 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
 
   private VoiceNoteMediaController      mediaController;
   private ConversationListTabsViewModel conversationListTabsViewModel;
+
+  private final LifecycleDisposable lifecycleDisposable = new LifecycleDisposable();
 
   private boolean onFirstRender = false;
 
@@ -74,6 +77,7 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
           }
         });
 
+    lifecycleDisposable.bindTo(this);
 
     mediaController = new VoiceNoteMediaController(this, true);
 

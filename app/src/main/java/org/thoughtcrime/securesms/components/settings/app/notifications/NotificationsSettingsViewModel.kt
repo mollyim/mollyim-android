@@ -104,7 +104,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
       inChatSoundsEnabled = SignalStore.settings().isMessageNotificationsInChatSoundsEnabled,
       repeatAlerts = SignalStore.settings().messageNotificationsRepeatAlerts,
       messagePrivacy = SignalStore.settings().messageNotificationsPrivacy.toString(),
-      priority = TextSecurePreferences.getNotificationPriority(ApplicationDependencies.getApplication())
+      priority = TextSecurePreferences.getNotificationPriority(ApplicationDependencies.getApplication()),
     ),
     callNotificationsState = CallNotificationsState(
       notificationsEnabled = SignalStore.settings().isCallNotificationsEnabled,
