@@ -241,6 +241,10 @@
     <string name="CommunicationActions_carrier_charges_may_apply">كەزمە ھەققى ئېلىنىشى مۇمكىن. سىز چاقىرىۋاتقان نومۇر Signal غا تىزىملاتمىغان. شۇڭا بۇ تېلېفون ئىنتېرنېت ئارقىلىق ئەمەس، كۆچمە خەۋەرلىشىش شىركىتىڭىز ئارقىلىق ئورۇنلاشتۇرۇلىدۇ.</string>
     <string name="CommunicationActions_cant_join_call">چاقىرىققا قوشۇلالمىدى</string>
     <string name="CommunicationActions_this_call_link_is_no_longer_valid">بۇ چاقىرىق ئۇلانمىسى ئىناۋەتسىز.</string>
+    <!-- Title on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_invalid_link">ئىناۋەتسىز ئۇلانما</string>
+    <!-- Message on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_this_is_not_a_valid_call_link">بۇ ئىناۋەتلىك چاقىرىق ئۇلىنىشى ئەمەس. توپقا قوشۇلۇشتىن بۇرۇن پۈتۈن ئۇلانمىنىڭ بىخەتەر ۋە توغرا ئىكەنلىكىنى جەزملەشتۈرۈڭ.</string>
 
     <!-- ConfirmIdentityDialog -->
 
@@ -870,6 +874,11 @@
     <plurals name="LinkPreviewRepository_d_members">
         <item quantity="other">%1$d ئەزا</item>
     </plurals>
+
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title">ئۇقتۇرۇشلارنىڭ كېچىكتۈرۈلگەنلىكىنى بايقىدۇق. خاتالىق خاتىرىسىنى يوللامسىز؟</string>
+    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__message">خاتالىق خاتىرىلىرى بىزنىڭ مەسىلىگە دىئاگنوز قويۇشىمىز ۋە ھەل قىلىشىمىزغا ياردەم بېرىدۇ ، ۋە تونىتىش ئۇچۇرلىرىنى ئۆز ئىچىگە ئالمايدۇ.</string>
 
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">كۈتۈۋاتقان گۇرۇپپا تەكلىپلىرى</string>
@@ -1667,6 +1676,42 @@
     <string name="WebRtcCallActivity__open_settings">تەڭشەكلەرنى ئېچىڭ</string>
     <!-- Negative action for bluetooth warning dialog to dismiss dialog -->
     <string name="WebRtcCallActivity__not_now">ھازىر ئەمەس</string>
+    <!-- Title for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__approve_d_requests">
+        <item quantity="other">%1$dنىڭ تەلەپلىرىنى تەستىقلامسىز؟</item>
+    </plurals>
+    <!-- Positive action for call link approve all dialog -->
+    <string name="WebRtcCallActivity__approve_all">ھەممىنى تەستىقلاڭ</string>
+    <!-- Message for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_be_added_to_the_call">
+        <item quantity="other">%1$d كىشى بۇ بۇ چاقىرىققا قېتىلىدۇ.</item>
+    </plurals>
+    <!-- Title for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__deny_d_requests">
+        <item quantity="other">%1$dنىڭ تەلىپىنى رەت قىلامسىز؟</item>
+    </plurals>
+    <!-- Message for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_not_be_added_to_the_call">
+        <item quantity="other">%1$d كىشى بۇ چاقىرىققا ئېلىنمايدۇ.</item>
+    </plurals>
+    <!-- Positive action for call link deny all dialog -->
+    <string name="WebRtcCallActivity__deny_all">ھەممىنى رەت قىلىڭ</string>
+    <!-- Displayed in call status when users are pending -->
+    <plurals name="WebRtcCallActivity__d_people_waiting">
+        <item quantity="other">%1$d كىشى ساقلاۋاتىدۇ</item>
+    </plurals>
+    <!-- Displayed in call status during call link when no users are pending -->
+    <plurals name="WebRtcCallActivity__d_people">
+        <item quantity="other">%1$d كىشى</item>
+    </plurals>
+    <!-- Title of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__join_request_denied">قېتىلىش تەلىپى رەت قىلىندى</string>
+    <!-- Message of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">بۇ توپقا قېتىلىش تەلىپىڭىز رەت قىلىدىندى.</string>
+    <!-- Title of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__removed_from_call">چاقىرىقتىن چىقىرىۋېتىلدى.</string>
+    <!-- Message of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">بىرەيلەن سىزنى چاقىرىقتىن چىقىرىۋەتتى.</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">‫Signal چاقىرىقى</string>
@@ -1679,6 +1724,12 @@
     <string name="WebRtcCallView__reconnecting">قايتا ئۇلىنىۋاتىدۇ…</string>
     <string name="WebRtcCallView__joining">قېتىلىۋتىدۇ…</string>
     <string name="WebRtcCallView__disconnected">ئۈزۈلدى</string>
+    <!-- Utilized in the lobby before joining a call link -->
+    <string name="WebRtcCallView__signal_call_link">سىگنال چاقىرىق ئۇلىنىشى</string>
+    <!-- Warning displayed when entering a call via a link -->
+    <string name="WebRtcCallView__anyone_who_joins">بۇ ئۇلىنىش ئارقىلىق توپقا قېتىلغانلار سىزنىڭ ئىسمىڭىز، رەسىمىڭىز ۋە تېلېفون نومۇرىڭىزنى كۆرەلەيدۇ.</string>
+    <!-- Displayed on the call screen as the status when waiting to be let into a call link by an admin -->
+    <string name="WebRtcCallView__waiting_to_be_let_in">قېتىلىشنى كۈتىۋاتىدۇ…</string>
 
     <string name="WebRtcCallView__signal_will_ring_s">Signal %1$s نى چاقىرىدۇ</string>
     <string name="WebRtcCallView__signal_will_ring_s_and_s">‏Signal %1$s بىلەن %2$s نى چاقىرىدۇ</string>
@@ -2733,6 +2784,14 @@
         <item>ئىئانە ۋە ئىزنەك</item>
         <item>SMS نى چىقىرىش</item>
     </string-array>
+    <!-- Subject of email when submitting debug logs to help debug slow notifications -->
+    <string name="DebugLogsPromptDialogFragment__signal_android_support_request">سىگنال ئاندىرويىد خاتالىق خاتىرىسىنى يوللاش</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">ئاستا ئۇقتۇرۇش</string>
+    <!-- Action to submit logs and take user to send an e-mail -->
+    <string name="DebugLogsPromptDialogFragment__submit">تاپشۇر</string>
+    <!-- Action to decline to submit logs -->
+    <string name="DebugLogsPromptDialogFragment__no_thanks">ياق، رەھمەت</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">بۇ ئۇچۇر</string>
@@ -5852,6 +5911,10 @@
     <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
     <!-- Status text on call links -->
     <string name="CallLogAdapter__call_link">چاقىرىق ئۇلانمىسى</string>
+    <!-- Accessibility description for the video call button -->
+    <string name="CallLogAdapter__start_a_video_call">ۋىدېيولۇق چاقىرىق قىلىش</string>
+    <!-- Accessibility description for the voice call button -->
+    <string name="CallLogAdapter__start_a_voice_call">ئاۋازلىق چاقىرىقنى باشلىتىڭ</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -5959,6 +6022,16 @@
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Signal چاقىرىقى ئۈچۈن ئۇلانما ئورتاقلىشىش</string>
 
+    <!-- CallLinkInfoSheet -->
+    <!-- Sheet title -->
+    <string name="CallLinkInfoSheet__call_info">چاقىرىق ئۇچۇرلىرى</string>
+    <!-- Dialog title for removing or blocking participants -->
+    <string name="CallLinkInfoSheet__remove_s_from_the_call">%1$s نى بۇ چاقىرىقتىن چىقىرىۋېتەمسىز؟</string>
+    <!-- Dialog action to remove participant from the call -->
+    <string name="CallLinkInfoSheet__remove">چىقىرىۋەت</string>
+    <!-- Dialog action to block participant from the call -->
+    <string name="CallLinkInfoSheet__block_from_call">چاقىرىقتىن چەكلەش</string>
+
     <!-- CreateCallLinkBottomSheetDialogFragment -->
     <!-- Fragment title -->
     <string name="CreateCallLinkBottomSheetDialogFragment__create_call_link">چاقىرىق ئۇلانمىسى قۇرۇش</string>
@@ -6058,6 +6131,25 @@
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">تور خاتالىقى كۆرۈلدى. قايتا سىناڭ.</string>
 
+    <!-- PendingParticipantsView -->
+    <!-- Displayed in the popup card when a remote user attempts to join a call link -->
+    <string name="PendingParticipantsView__would_like_to_join">…گە قېتىلىشنى خالامسىز؟</string>
+    <!-- Displayed in a button on the popup card denoting that there are other pending requests to join a call link -->
+    <plurals name="PendingParticipantsView__plus_d_requests">
+        <item quantity="other">+%1$d تەلەپ قىلىۋاتىدۇ</item>
+    </plurals>
+
+    <!-- PendingParticipantsBottomSheet -->
+    <!-- Title of the bottom sheet displaying requests to join the call link -->
+    <string name="PendingParticipantsBottomSheet__requests_to_join_this_call">بۇ چاقىرىققا قېتىلىشنى تەلەپ قىلىۋاتىدۇ</string>
+    <!-- Subtitle of the bottom sheet denoting the total number of people waiting -->
+    <plurals name="PendingParticipantsBottomSheet__d_people_waiting">
+        <item quantity="other">%1$d كىشى ساقلاۋاتىدۇ</item>
+    </plurals>
+    <!-- Content description for rejecting a user -->
+    <string name="PendingParticipantsBottomSheet__reject">رەت قىل</string>
+    <!-- Content desccription for confirming a user -->
+    <string name="PendingParticipantsBottomSheet__approve">تەستىقلا</string>
 
     <!-- EOF -->
 </resources>

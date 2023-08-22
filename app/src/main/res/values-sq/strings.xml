@@ -242,6 +242,10 @@
     <string name="CommunicationActions_carrier_charges_may_apply">Mund të aplikohen tarifa nga operatori. Numri që po telefononi nuk është i regjistruar në Signal. Kjo telefonatë do të kryhet përmes operatorit celular, jo përmes internetit.</string>
     <string name="CommunicationActions_cant_join_call">Nuk mund t\'i bashkohesh thirrjes</string>
     <string name="CommunicationActions_this_call_link_is_no_longer_valid">Kjo lidhje telefonate nuk është më e vlefshme.</string>
+    <!-- Title on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_invalid_link">Lidhje e Pavlefshme</string>
+    <!-- Message on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_this_is_not_a_valid_call_link">Kjo nuk është një lidhje e vlefshme telefonate. Sigurohu që e gjithë lidhja të jetë e paprekur dhe e saktë para se të përpiqesh t\'i bashkohesh.</string>
 
     <!-- ConfirmIdentityDialog -->
 
@@ -900,6 +904,11 @@
         <item quantity="one">%1$d anëtar</item>
         <item quantity="other">%1$d anëtarë</item>
     </plurals>
+
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title">Kemi vënë re se njoftimet janë vonuar. Të paraqitet regjistri i korrigjimit?</string>
+    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__message">Regjistrat e korrigjimit të gabimeve na ndihmojnë të diagnostikojmë dhe rregullojmë problemin dhe nuk përmbajnë informacion identifikues.</string>
 
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">Ftesa për në grupe pezull</string>
@@ -1727,6 +1736,48 @@
     <string name="WebRtcCallActivity__open_settings">Hap cilësimet</string>
     <!-- Negative action for bluetooth warning dialog to dismiss dialog -->
     <string name="WebRtcCallActivity__not_now">Jo tani</string>
+    <!-- Title for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__approve_d_requests">
+        <item quantity="one">Të miratohet %1$d kërkesë?</item>
+        <item quantity="other">Të miratohen %1$d kërkesat?</item>
+    </plurals>
+    <!-- Positive action for call link approve all dialog -->
+    <string name="WebRtcCallActivity__approve_all">Mirato të gjitha</string>
+    <!-- Message for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_be_added_to_the_call">
+        <item quantity="one">%1$d person do t\'i shtohet telefonatës.</item>
+        <item quantity="other">%1$d persona do t\'i shtohen telefonatës.</item>
+    </plurals>
+    <!-- Title for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__deny_d_requests">
+        <item quantity="one">Të refuzohet %1$d kërkesa?</item>
+        <item quantity="other">Të refuzohen %1$d kërkesat?</item>
+    </plurals>
+    <!-- Message for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_not_be_added_to_the_call">
+        <item quantity="one">%1$d person do t\'i shtohet telefonatës.</item>
+        <item quantity="other">%1$d persona do t\'i shtohen telefonatës.</item>
+    </plurals>
+    <!-- Positive action for call link deny all dialog -->
+    <string name="WebRtcCallActivity__deny_all">Refuzo të gjitha</string>
+    <!-- Displayed in call status when users are pending -->
+    <plurals name="WebRtcCallActivity__d_people_waiting">
+        <item quantity="one">%1$d person në pritje</item>
+        <item quantity="other">%1$d persona në pritje</item>
+    </plurals>
+    <!-- Displayed in call status during call link when no users are pending -->
+    <plurals name="WebRtcCallActivity__d_people">
+        <item quantity="one">%1$d person</item>
+        <item quantity="other">%1$d persona</item>
+    </plurals>
+    <!-- Title of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__join_request_denied">Kërkesa për bashkim u refuzua</string>
+    <!-- Message of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">Kërkesa jote për t\'iu bashkuar kësaj telefonatë është refuzuar.</string>
+    <!-- Title of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__removed_from_call">U hoq nga telefonata</string>
+    <!-- Message of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Dikush të ka hequr nga telefonata.</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Thirrje Signal</string>
@@ -1739,6 +1790,12 @@
     <string name="WebRtcCallView__reconnecting">Po rilidhet…</string>
     <string name="WebRtcCallView__joining">Po hyhet…</string>
     <string name="WebRtcCallView__disconnected">I shkëputur</string>
+    <!-- Utilized in the lobby before joining a call link -->
+    <string name="WebRtcCallView__signal_call_link">Lidhja e thirrjes në Signal</string>
+    <!-- Warning displayed when entering a call via a link -->
+    <string name="WebRtcCallView__anyone_who_joins">Kushdo që i bashkohet kësaj telefonate nëpërmjet lidhjes do të shohë emrin, fotografinë dhe numrin tënd të telefonit.</string>
+    <!-- Displayed on the call screen as the status when waiting to be let into a call link by an admin -->
+    <string name="WebRtcCallView__waiting_to_be_let_in">Në pritje për të hyrë…</string>
 
     <string name="WebRtcCallView__signal_will_ring_s">Signal-i do t\\’i bjerë ziles për %1$s</string>
     <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal-i do t\\’i bjerë ziles për %1$s dhe %2$s</string>
@@ -2814,6 +2871,14 @@
         <item>Dhurime &amp; Distinktive</item>
         <item>Eksporto SMS-të</item>
     </string-array>
+    <!-- Subject of email when submitting debug logs to help debug slow notifications -->
+    <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Paraqitja e regjistrit të korrigjimit në Android Signal</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Njoftimet e ngadalësuara</string>
+    <!-- Action to submit logs and take user to send an e-mail -->
+    <string name="DebugLogsPromptDialogFragment__submit">Parashtroje</string>
+    <!-- Action to decline to submit logs -->
+    <string name="DebugLogsPromptDialogFragment__no_thanks">Jo, faleminderit</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Këtë Mesazh</string>
@@ -5976,6 +6041,10 @@
     <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
     <!-- Status text on call links -->
     <string name="CallLogAdapter__call_link">Lidhja e thirrjes</string>
+    <!-- Accessibility description for the video call button -->
+    <string name="CallLogAdapter__start_a_video_call">Nisni një thirrje video</string>
+    <!-- Accessibility description for the voice call button -->
+    <string name="CallLogAdapter__start_a_voice_call">Fillo thirrjen zanore</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -6086,6 +6155,16 @@
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Ndaj një lidhje për një thirrje në Signal</string>
 
+    <!-- CallLinkInfoSheet -->
+    <!-- Sheet title -->
+    <string name="CallLinkInfoSheet__call_info">Të dhënat e thirrjes</string>
+    <!-- Dialog title for removing or blocking participants -->
+    <string name="CallLinkInfoSheet__remove_s_from_the_call">Të hiqet %1$s nga telefonata?</string>
+    <!-- Dialog action to remove participant from the call -->
+    <string name="CallLinkInfoSheet__remove">Hiqe</string>
+    <!-- Dialog action to block participant from the call -->
+    <string name="CallLinkInfoSheet__block_from_call">Bllokoje nga telefonata</string>
+
     <!-- CreateCallLinkBottomSheetDialogFragment -->
     <!-- Fragment title -->
     <string name="CreateCallLinkBottomSheetDialogFragment__create_call_link">Krijo lidhjen e thirrjes</string>
@@ -6185,6 +6264,27 @@
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">Ndodhi një gabim në rrjet. Të lutem, provoje sërish.</string>
 
+    <!-- PendingParticipantsView -->
+    <!-- Displayed in the popup card when a remote user attempts to join a call link -->
+    <string name="PendingParticipantsView__would_like_to_join">Dëshiron t\'i bashkohesh…</string>
+    <!-- Displayed in a button on the popup card denoting that there are other pending requests to join a call link -->
+    <plurals name="PendingParticipantsView__plus_d_requests">
+        <item quantity="one">+%1$d kërkesë</item>
+        <item quantity="other">+%1$d kërkesa</item>
+    </plurals>
+
+    <!-- PendingParticipantsBottomSheet -->
+    <!-- Title of the bottom sheet displaying requests to join the call link -->
+    <string name="PendingParticipantsBottomSheet__requests_to_join_this_call">Kërkesat për t\'iu bashkuar kësaj telefonate</string>
+    <!-- Subtitle of the bottom sheet denoting the total number of people waiting -->
+    <plurals name="PendingParticipantsBottomSheet__d_people_waiting">
+        <item quantity="one">%1$d person në pritje</item>
+        <item quantity="other">%1$d persona në pritje</item>
+    </plurals>
+    <!-- Content description for rejecting a user -->
+    <string name="PendingParticipantsBottomSheet__reject">Mos e Prano</string>
+    <!-- Content desccription for confirming a user -->
+    <string name="PendingParticipantsBottomSheet__approve">Miratoje</string>
 
     <!-- EOF -->
 </resources>

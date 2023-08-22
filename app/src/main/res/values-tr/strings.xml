@@ -242,6 +242,10 @@
     <string name="CommunicationActions_carrier_charges_may_apply">Operatör tarifelendirmesine tabii tutulabilir. Aramaya çalıştığınız numara Signal\'e kayıtlı değil. Bu arama internet üzerinden değil telefon operatörünüz tarafından gerçekleştirilecektir.</string>
     <string name="CommunicationActions_cant_join_call">Aramaya katılamıyor</string>
     <string name="CommunicationActions_this_call_link_is_no_longer_valid">Bu arama bağlantısı artık geçerli değil.</string>
+    <!-- Title on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_invalid_link">Geçersiz Bağlantı</string>
+    <!-- Message on dialog when call link url cannot be parsed -->
+    <string name="CommunicationActions_this_is_not_a_valid_call_link">Bu, geçerli bir arama bağlantısı değil. Katılmayı denemeden önce tüm bağlantının tam ve doğru olduğundan emin ol.</string>
 
     <!-- ConfirmIdentityDialog -->
 
@@ -900,6 +904,11 @@
         <item quantity="one">%1$d üye</item>
         <item quantity="other">%1$d üye</item>
     </plurals>
+
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title">Bildirimlerin geciktiğini fark ettik. Hata ayıklama günlüğü gönderilsin mi?</string>
+    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__message">Hata ayıklama günlükleri, sorunu teşhis etmemize ve düzeltmemize yardımcı olur ve tanımlayıcı bilgiler içermezler.</string>
 
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">Beklemedeki grup davetleri</string>
@@ -1727,6 +1736,48 @@
     <string name="WebRtcCallActivity__open_settings">Ayarları aç</string>
     <!-- Negative action for bluetooth warning dialog to dismiss dialog -->
     <string name="WebRtcCallActivity__not_now">Şimdi değil</string>
+    <!-- Title for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__approve_d_requests">
+        <item quantity="one">%1$d istek onaylansın mı?</item>
+        <item quantity="other">%1$d istek onaylansın mı?</item>
+    </plurals>
+    <!-- Positive action for call link approve all dialog -->
+    <string name="WebRtcCallActivity__approve_all">Tümünü onayla</string>
+    <!-- Message for dialog to approve all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_be_added_to_the_call">
+        <item quantity="one">Aramaya %1$d kişi eklenecek.</item>
+        <item quantity="other">Aramaya %1$d kişi eklenecek.</item>
+    </plurals>
+    <!-- Title for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__deny_d_requests">
+        <item quantity="one">%1$d istek reddedilsin mi?</item>
+        <item quantity="other">%1$d istek reddedilsin mi?</item>
+    </plurals>
+    <!-- Message for dialog to deny all requests -->
+    <plurals name="WebRtcCallActivity__d_people_will_not_be_added_to_the_call">
+        <item quantity="one">%1$d kişi aramaya eklenmeyecek.</item>
+        <item quantity="other">%1$d kişi aramaya eklenmeyecek.</item>
+    </plurals>
+    <!-- Positive action for call link deny all dialog -->
+    <string name="WebRtcCallActivity__deny_all">Tümünü reddet</string>
+    <!-- Displayed in call status when users are pending -->
+    <plurals name="WebRtcCallActivity__d_people_waiting">
+        <item quantity="one">%1$d kişi bekliyor</item>
+        <item quantity="other">%1$d kişi bekliyor</item>
+    </plurals>
+    <!-- Displayed in call status during call link when no users are pending -->
+    <plurals name="WebRtcCallActivity__d_people">
+        <item quantity="one">%1$d kişi</item>
+        <item quantity="other">%1$d kişi</item>
+    </plurals>
+    <!-- Title of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__join_request_denied">Katılma isteği reddedildi</string>
+    <!-- Message of dialog displayed when a user\'s join request is denied for call link entry -->
+    <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">Bu aramaya katılma isteğin reddedildi.</string>
+    <!-- Title of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__removed_from_call">Aramadan çıkarıldı</string>
+    <!-- Message of dialog displayed when a user is removed from a call link -->
+    <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Birisi seni aramadan çıkardı.</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal Araması</string>
@@ -1739,6 +1790,12 @@
     <string name="WebRtcCallView__reconnecting">Yeniden bağlanıyor…</string>
     <string name="WebRtcCallView__joining">Katılınıyor…</string>
     <string name="WebRtcCallView__disconnected">Bağlantı yok</string>
+    <!-- Utilized in the lobby before joining a call link -->
+    <string name="WebRtcCallView__signal_call_link">Signal arama bağlantısı</string>
+    <!-- Warning displayed when entering a call via a link -->
+    <string name="WebRtcCallView__anyone_who_joins">Bu aramaya bağlantı aracılığıyla katılan herkes adını, fotoğrafını ve telefon numaranı görecektir.</string>
+    <!-- Displayed on the call screen as the status when waiting to be let into a call link by an admin -->
+    <string name="WebRtcCallView__waiting_to_be_let_in">İçeri alınmayı bekliyor…</string>
 
     <string name="WebRtcCallView__signal_will_ring_s">Signal %1$s kişisini arayacak</string>
     <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal %1$s ve %2$s kişilerini arayacak</string>
@@ -2814,6 +2871,14 @@
         <item>Bağışlar &amp; Rozetler</item>
         <item>SMS ile Dışa Aktarma</item>
     </string-array>
+    <!-- Subject of email when submitting debug logs to help debug slow notifications -->
+    <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android Hata Ayıklama Günlüğü Gönderimi</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Yavaş bildirimler</string>
+    <!-- Action to submit logs and take user to send an e-mail -->
+    <string name="DebugLogsPromptDialogFragment__submit">Gönder</string>
+    <!-- Action to decline to submit logs -->
+    <string name="DebugLogsPromptDialogFragment__no_thanks">Hayır teşekkürler</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Bu İleti</string>
@@ -5976,6 +6041,10 @@
     <string name="CallLogAdapter__d_s">(%1$d) %2$s</string>
     <!-- Status text on call links -->
     <string name="CallLogAdapter__call_link">Arama bağlantısı</string>
+    <!-- Accessibility description for the video call button -->
+    <string name="CallLogAdapter__start_a_video_call">Bir görüntülü arama başlat</string>
+    <!-- Accessibility description for the voice call button -->
+    <string name="CallLogAdapter__start_a_voice_call">Sesli arama başlat</string>
 
     <!-- Call Log context menu -->
     <!-- Displayed as a context menu item to start a video call -->
@@ -6086,6 +6155,16 @@
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Signal araması için bağlantı paylaş</string>
 
+    <!-- CallLinkInfoSheet -->
+    <!-- Sheet title -->
+    <string name="CallLinkInfoSheet__call_info">Arama bilgileri</string>
+    <!-- Dialog title for removing or blocking participants -->
+    <string name="CallLinkInfoSheet__remove_s_from_the_call">%1$s aramadan çıkarılsın mı?</string>
+    <!-- Dialog action to remove participant from the call -->
+    <string name="CallLinkInfoSheet__remove">Kaldır</string>
+    <!-- Dialog action to block participant from the call -->
+    <string name="CallLinkInfoSheet__block_from_call">Aramasını engelle</string>
+
     <!-- CreateCallLinkBottomSheetDialogFragment -->
     <!-- Fragment title -->
     <string name="CreateCallLinkBottomSheetDialogFragment__create_call_link">Arama bağlantısı oluştur</string>
@@ -6185,6 +6264,27 @@
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">Bir ağ hatası yaşandı. Lütfen tekrar dene.</string>
 
+    <!-- PendingParticipantsView -->
+    <!-- Displayed in the popup card when a remote user attempts to join a call link -->
+    <string name="PendingParticipantsView__would_like_to_join">Katılmak istiyor…</string>
+    <!-- Displayed in a button on the popup card denoting that there are other pending requests to join a call link -->
+    <plurals name="PendingParticipantsView__plus_d_requests">
+        <item quantity="one">+%1$d istek</item>
+        <item quantity="other">+%1$d istek</item>
+    </plurals>
+
+    <!-- PendingParticipantsBottomSheet -->
+    <!-- Title of the bottom sheet displaying requests to join the call link -->
+    <string name="PendingParticipantsBottomSheet__requests_to_join_this_call">Bu aramaya katılma istekleri</string>
+    <!-- Subtitle of the bottom sheet denoting the total number of people waiting -->
+    <plurals name="PendingParticipantsBottomSheet__d_people_waiting">
+        <item quantity="one">%1$d kişi bekliyor</item>
+        <item quantity="other">%1$d kişi bekliyor</item>
+    </plurals>
+    <!-- Content description for rejecting a user -->
+    <string name="PendingParticipantsBottomSheet__reject">Reddet</string>
+    <!-- Content desccription for confirming a user -->
+    <string name="PendingParticipantsBottomSheet__approve">Onayla</string>
 
     <!-- EOF -->
 </resources>

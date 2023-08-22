@@ -820,7 +820,7 @@ class ConversationFragment :
       .conversationThreadState
       .subscribeOn(Schedulers.io())
       .doOnSuccess { state ->
-        adapter.setMessageRequestIsAccepted(state.meta.messageRequestData.isMessageRequestAccepted)
+        updateMessageRequestAcceptedState(state.meta.messageRequestData.isMessageRequestAccepted)
         SignalLocalMetrics.ConversationOpen.onDataLoaded()
         conversationItemDecorations.setFirstUnreadCount(state.meta.unreadCount)
         colorizer.onGroupMembershipChanged(state.meta.groupMemberAcis)
@@ -905,7 +905,6 @@ class ConversationFragment :
       setOnClickListener(sendButtonListener)
       setScheduledSendListener(sendButtonListener)
       isEnabled = true
-      sendButton.triggerSelectedChangedEvent()
     }
 
     sendEditButton.setOnClickListener { handleSendEditMessage() }
@@ -1106,7 +1105,7 @@ class ConversationFragment :
     var inputDisabled = true
     when {
       inputReadyState.isClientExpired || inputReadyState.isUnauthorized -> disabledInputView.showAsExpiredOrUnauthorized(inputReadyState.isClientExpired, inputReadyState.isUnauthorized)
-      inputReadyState.messageRequestState != MessageRequestState.NONE -> disabledInputView.showAsMessageRequest(inputReadyState.conversationRecipient, inputReadyState.messageRequestState)
+      inputReadyState.messageRequestState != MessageRequestState.NONE && inputReadyState.messageRequestState != MessageRequestState.NONE_HIDDEN -> disabledInputView.showAsMessageRequest(inputReadyState.conversationRecipient, inputReadyState.messageRequestState)
       inputReadyState.isActiveGroup == false -> disabledInputView.showAsNoLongerAMember()
       inputReadyState.isRequestingMember == true -> disabledInputView.showAsRequestingMember()
       inputReadyState.isAnnouncementGroup == true && inputReadyState.isAdmin == false -> disabledInputView.showAsAnnouncementGroupAdminsOnly()
@@ -1203,7 +1202,17 @@ class ConversationFragment :
     presentChatColors(recipient.chatColors)
     invalidateOptionsMenu()
 
-    adapter.setMessageRequestIsAccepted(!viewModel.hasMessageRequestState)
+    updateMessageRequestAcceptedState(!viewModel.hasMessageRequestState)
+  }
+
+  private fun updateMessageRequestAcceptedState(isMessageRequestAccepted: Boolean) {
+    if (binding.conversationItemRecycler.isInLayout) {
+      binding.conversationItemRecycler.doAfterNextLayout {
+        adapter.setMessageRequestIsAccepted(isMessageRequestAccepted)
+      }
+    } else {
+      adapter.setMessageRequestIsAccepted(isMessageRequestAccepted)
+    }
   }
 
   private fun invalidateOptionsMenu() {
@@ -2365,7 +2374,7 @@ class ConversationFragment :
 
   private inner class DataObserver : RecyclerView.AdapterDataObserver() {
     override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-      if (positionStart == 0 && itemCount == 1 && shouldScrollToBottom()) {
+      if (positionStart == 0 && shouldScrollToBottom()) {
         layoutManager.scrollToPositionWithOffset(0, 0)
         scrollListener?.onScrolled(binding.conversationItemRecycler, 0, 0)
       }
@@ -3137,10 +3146,6 @@ class ConversationFragment :
 
     override fun showExpiring(recipient: Recipient) = Unit
     override fun clearExpiring() = Unit
-
-    override fun showGroupCallingTooltip() {
-      conversationTooltips.displayGroupCallingTooltip(requireView().findViewById(R.id.menu_video_secure))
-    }
 
     override fun handleFormatText(id: Int) {
       composeText.handleFormatText(id)

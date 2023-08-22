@@ -14,6 +14,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.service.DelayedNotificationController;
 import org.thoughtcrime.securesms.service.GenericForegroundService;
+import org.thoughtcrime.securesms.util.PowerManagerCompat;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.WakeLockUtil;
@@ -69,7 +70,7 @@ public class BackgroundMessageRetriever {
 
           long         startTime    = System.currentTimeMillis();
           PowerManager powerManager = ServiceUtil.getPowerManager(context);
-          boolean      doze         = powerManager.isDeviceIdleMode();
+          boolean      doze         = PowerManagerCompat.isDeviceIdleMode(powerManager);
           boolean      network      = new NetworkConstraint.Factory(ApplicationContext.getInstance()).create().isMet();
 
           if (doze || !network) {
