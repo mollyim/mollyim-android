@@ -40,6 +40,7 @@ import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.toDecryptionEr
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.sms.IncomingEncryptedMessage
 import org.thoughtcrime.securesms.sms.IncomingTextMessage
 import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
@@ -57,6 +58,7 @@ import org.whispersystems.signalservice.internal.push.SignalServiceProtos.Envelo
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.TypingMessage
 import java.io.IOException
 import java.util.Optional
+
 
 open class MessageContentProcessor(private val context: Context) {
 
@@ -143,14 +145,15 @@ open class MessageContentProcessor(private val context: Context) {
     }
 
     @Throws(BadGroupIdException::class)
-    private fun shouldIgnore(content: Content, senderRecipient: Recipient, threadRecipient: Recipient): Boolean {
+    private fun shouldIgnore(content: Content, recipient: Recipient, threadRecipient: Recipient): Boolean {
+      // MOLLY: Call shouldBlockSender(recipient) instead of senderRecipient.isBlocked()
       if (content.hasDataMessage()) {
         val message = content.dataMessage
         return if (threadRecipient.isGroup && threadRecipient.isBlocked) {
           true
         } else if (threadRecipient.isGroup) {
           if (threadRecipient.isUnknownGroup) {
-            return senderRecipient.isBlocked
+            return shouldBlockSender(recipient)
           }
 
           val isTextMessage = message.hasBody()
@@ -160,14 +163,14 @@ open class MessageContentProcessor(private val context: Context) {
           val isContentMessage = !isGv2Update && !isExpireMessage && (isTextMessage || isMediaMessage)
           val isGroupActive = threadRecipient.isActiveGroup
 
-          isContentMessage && !isGroupActive || senderRecipient.isBlocked && !isGv2Update
+          isContentMessage && !isGroupActive || shouldBlockSender(recipient) && !isGv2Update
         } else {
-          senderRecipient.isBlocked
+          shouldBlockSender(recipient)
         }
       } else if (content.hasCallMessage()) {
-        return senderRecipient.isBlocked
+        return shouldBlockSender(recipient)
       } else if (content.hasTypingMessage()) {
-        if (senderRecipient.isBlocked) {
+        if (shouldBlockSender(recipient)) {
           return true
         }
 
@@ -178,18 +181,27 @@ open class MessageContentProcessor(private val context: Context) {
             true
           } else {
             val groupRecord = SignalDatabase.groups.getGroup(groupId)
-            groupRecord.isPresent && groupRecord.get().isAnnouncementGroup && !groupRecord.get().admins.contains(senderRecipient)
+            groupRecord.isPresent && groupRecord.get().isAnnouncementGroup && !groupRecord.get().admins.contains(recipient)
           }
         }
       } else if (content.hasStoryMessage()) {
         return if (threadRecipient.isGroup && threadRecipient.isBlocked) {
           true
         } else {
-          senderRecipient.isBlocked
+          shouldBlockSender(recipient)
         }
       }
       return false
     }
+
+    private fun shouldBlockSender(senderRecipient: Recipient): Boolean =
+      senderRecipient.isBlocked || when {
+        senderRecipient.isSystemContact -> false
+        senderRecipient.isProfileSharing -> false
+        !TextSecurePreferences.isBlockUnknownEnabled(ApplicationDependencies.getApplication()) -> false
+        RecipientUtil.isProfileSharedViaGroup(senderRecipient) -> false
+        else -> true
+      }
 
     @Throws(BadGroupIdException::class)
     private fun handlePendingRetry(pending: PendingRetryReceiptModel?, timestamp: Long, destination: Recipient): Long {
