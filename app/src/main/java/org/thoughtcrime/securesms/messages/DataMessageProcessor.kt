@@ -790,37 +790,8 @@ object DataMessageProcessor {
 
     notifyTypingStoppedFromIncomingMessage(context, senderRecipient, threadRecipientId, metadata.sourceDeviceId)
 
-    val token = ReceiptCredentialPresentation(message.giftBadge.receiptCredentialPresentation.toByteArray()).serialize()
-    val giftBadge = GiftBadge.newBuilder()
-      .setRedemptionToken(ByteString.copyFrom(token))
-      .setRedemptionState(GiftBadge.RedemptionState.PENDING)
-      .build()
-
-    val insertResult: InsertResult? = try {
-      val mediaMessage = IncomingMediaMessage(
-        from = senderRecipient.id,
-        sentTimeMillis = envelope.timestamp,
-        serverTimeMillis = envelope.serverTimestamp,
-        receivedTimeMillis = receivedTime,
-        expiresIn = message.expireTimer.seconds.inWholeMilliseconds,
-        isUnidentified = metadata.sealedSender,
-        body = Base64.encodeBytes(giftBadge.toByteArray()),
-        serverGuid = envelope.serverGuid,
-        giftBadge = giftBadge
-      )
-
-      SignalDatabase.messages.insertSecureDecryptedMessageInbox(mediaMessage, -1).orNull()
-    } catch (e: MmsException) {
-      throw StorageFailedException(e, metadata.sourceServiceId.toString(), metadata.sourceDeviceId)
-    }
-
-    return if (insertResult != null) {
-      ApplicationDependencies.getMessageNotifier().updateNotification(context, ConversationId.forConversation(insertResult.threadId))
-      TrimThreadJob.enqueueAsync(insertResult.threadId)
-      MessageId(insertResult.messageId)
-    } else {
-      null
-    }
+    warn(envelope.timestamp, "Dropping unsupported gift badge message.")
+    return null
   }
 
   @Throws(StorageFailedException::class)
