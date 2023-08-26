@@ -55,10 +55,9 @@ import org.thoughtcrime.securesms.jobs.SendDeliveryReceiptJob
 import org.thoughtcrime.securesms.jobs.TrimThreadJob
 import org.thoughtcrime.securesms.linkpreview.LinkPreview
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil
-import org.thoughtcrime.securesms.messages.MessageContentProcessor.StorageFailedException
-import org.thoughtcrime.securesms.messages.MessageContentProcessorV2.Companion.debug
-import org.thoughtcrime.securesms.messages.MessageContentProcessorV2.Companion.log
-import org.thoughtcrime.securesms.messages.MessageContentProcessorV2.Companion.warn
+import org.thoughtcrime.securesms.messages.MessageContentProcessor.Companion.debug
+import org.thoughtcrime.securesms.messages.MessageContentProcessor.Companion.log
+import org.thoughtcrime.securesms.messages.MessageContentProcessor.Companion.warn
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.groupMasterKey
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.hasGroupContext
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.hasRemoteDelete
@@ -129,10 +128,10 @@ object DataMessageProcessor {
     val groupSecretParams = if (message.hasGroupContext) GroupSecretParams.deriveFromMasterKey(message.groupV2.groupMasterKey) else null
     val groupId: GroupId.V2? = if (groupSecretParams != null) GroupId.v2(groupSecretParams.publicParams.groupIdentifier) else null
 
-    var groupProcessResult: MessageContentProcessorV2.Gv2PreProcessResult? = null
+    var groupProcessResult: MessageContentProcessor.Gv2PreProcessResult? = null
     if (groupId != null) {
-      groupProcessResult = MessageContentProcessorV2.handleGv2PreProcessing(context, envelope.timestamp, content, metadata, groupId, message.groupV2, senderRecipient, groupSecretParams)
-      if (groupProcessResult == MessageContentProcessorV2.Gv2PreProcessResult.IGNORE) {
+      groupProcessResult = MessageContentProcessor.handleGv2PreProcessing(context, envelope.timestamp, content, metadata, groupId, message.groupV2, senderRecipient, groupSecretParams)
+      if (groupProcessResult == MessageContentProcessor.Gv2PreProcessResult.IGNORE) {
         return
       }
       localMetrics?.onGv2Processed()
@@ -158,7 +157,7 @@ object DataMessageProcessor {
 
     if (groupId != null) {
       val unknownGroup = when (groupProcessResult) {
-        MessageContentProcessorV2.Gv2PreProcessResult.GROUP_UP_TO_DATE -> threadRecipient.isUnknownGroup
+        MessageContentProcessor.Gv2PreProcessResult.GROUP_UP_TO_DATE -> threadRecipient.isUnknownGroup
         else -> SignalDatabase.groups.isUnknownGroup(groupId)
       }
       if (unknownGroup) {
@@ -178,17 +177,17 @@ object DataMessageProcessor {
       SignalExecutors.BOUNDED.execute { ApplicationDependencies.getJobManager().add(SendDeliveryReceiptJob(senderRecipient.id, message.timestamp, messageId)) }
     } else if (!metadata.sealedSender) {
       if (RecipientUtil.shouldHaveProfileKey(threadRecipient)) {
-        Log.w(MessageContentProcessorV2.TAG, "Received an unsealed sender message from " + senderRecipient.id + ", but they should already have our profile key. Correcting.")
+        Log.w(MessageContentProcessor.TAG, "Received an unsealed sender message from " + senderRecipient.id + ", but they should already have our profile key. Correcting.")
 
         if (groupId != null) {
-          Log.i(MessageContentProcessorV2.TAG, "Message was to a GV2 group. Ensuring our group profile keys are up to date.")
+          Log.i(MessageContentProcessor.TAG, "Message was to a GV2 group. Ensuring our group profile keys are up to date.")
           ApplicationDependencies
             .getJobManager()
             .startChain(RefreshAttributesJob(false))
             .then(GroupV2UpdateSelfProfileKeyJob.withQueueLimits(groupId))
             .enqueue()
         } else if (!threadRecipient.isGroup) {
-          Log.i(MessageContentProcessorV2.TAG, "Message was to a 1:1. Ensuring this user has our profile key.")
+          Log.i(MessageContentProcessor.TAG, "Message was to a 1:1. Ensuring this user has our profile key.")
           val profileSendJob = ProfileKeySendJob.create(SignalDatabase.threads.getOrCreateThreadIdFor(threadRecipient), true)
           if (profileSendJob != null) {
             ApplicationDependencies
@@ -791,37 +790,8 @@ object DataMessageProcessor {
 
     notifyTypingStoppedFromIncomingMessage(context, senderRecipient, threadRecipientId, metadata.sourceDeviceId)
 
-    val token = ReceiptCredentialPresentation(message.giftBadge.receiptCredentialPresentation.toByteArray()).serialize()
-    val giftBadge = GiftBadge.newBuilder()
-      .setRedemptionToken(ByteString.copyFrom(token))
-      .setRedemptionState(GiftBadge.RedemptionState.PENDING)
-      .build()
-
-    val insertResult: InsertResult? = try {
-      val mediaMessage = IncomingMediaMessage(
-        from = senderRecipient.id,
-        sentTimeMillis = envelope.timestamp,
-        serverTimeMillis = envelope.serverTimestamp,
-        receivedTimeMillis = receivedTime,
-        expiresIn = message.expireTimer.seconds.inWholeMilliseconds,
-        isUnidentified = metadata.sealedSender,
-        body = Base64.encodeBytes(giftBadge.toByteArray()),
-        serverGuid = envelope.serverGuid,
-        giftBadge = giftBadge
-      )
-
-      SignalDatabase.messages.insertSecureDecryptedMessageInbox(mediaMessage, -1).orNull()
-    } catch (e: MmsException) {
-      throw StorageFailedException(e, metadata.sourceServiceId.toString(), metadata.sourceDeviceId)
-    }
-
-    return if (insertResult != null) {
-      ApplicationDependencies.getMessageNotifier().updateNotification(context, ConversationId.forConversation(insertResult.threadId))
-      TrimThreadJob.enqueueAsync(insertResult.threadId)
-      MessageId(insertResult.messageId)
-    } else {
-      null
-    }
+    warn(envelope.timestamp, "Dropping unsupported gift badge message.")
+    return null
   }
 
   @Throws(StorageFailedException::class)

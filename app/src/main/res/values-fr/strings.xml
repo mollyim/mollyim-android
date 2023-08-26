@@ -910,6 +910,16 @@
     <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__message">Les journaux de débogage nous aident à diagnostiquer et résoudre les problèmes. Ils ne contiennent aucune information d’identification.</string>
 
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptBatterySaverBottomSheet__title">L’envoi des notifications peut être retardé en raison de l’optimisation de la batterie.</string>
+    <!-- Message explaining that battery saver may delay notifications -->
+    <string name="PromptBatterySaverBottomSheet__message">Vous pouvez désactiver l’optimisation de la batterie pour Molly afin de garantir que les notifications de messages ne seront pas retardées.</string>
+
+    <!-- Button to continue to try and disable battery saver -->
+    <string name="PromptBatterySaverBottomSheet__continue">Poursuivre</string>
+    <!-- Button to dismiss battery saver dialog prompt-->
+    <string name="PromptBatterySaverBottomSheet__dismiss">Fermer</string>
+
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">Invitations au groupe en attente</string>
     <string name="PendingMembersActivity_requests">Demandes</string>
@@ -3101,6 +3111,8 @@
     <string name="preferences_notifications__ringtone">Sonnerie</string>
     <string name="preferences_chats__message_text_size">Taille de police des messages</string>
     <string name="preferences_notifications__priority">Priorité</string>
+    <!-- Option in settings to trouble shoot delayed notifications -->
+    <string name="preferences_notifications__troubleshoot">Notifications retardées</string>
     <!-- Heading for the \'censorship circumvention\' section of privacy preferences -->
     <string name="preferences_communication__category_censorship_circumvention">Contournement de la censure</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
@@ -6154,6 +6166,8 @@
     <string name="CreateCallLink__create_a_call_link">Créer un lien d’appel</string>
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Partager le lien d’un appel Signal</string>
+    <!-- Text inserted when sharing a call link within Signal. Placeholder is a call link url. -->
+    <string name="CreateCallLink__use_this_link_to_join_a_signal_call">Utilisez ce lien pour rejoindre un appel Signal : %1$s</string>
 
     <!-- CallLinkInfoSheet -->
     <!-- Sheet title -->

@@ -54,6 +54,10 @@ public class FcmReceiveService extends FirebaseMessagingService {
 
   @Override
   public void onDeletedMessages() {
+    if (KeyCachingService.isLocked()) {
+      return;
+    }
+
     Log.w(TAG, "onDeleteMessages() -- Messages may have been dropped. Doing a normal message fetch.");
     handleReceivedNotification(ApplicationDependencies.getApplication(), null);
   }
@@ -61,6 +65,10 @@ public class FcmReceiveService extends FirebaseMessagingService {
   @Override
   public void onNewToken(String token) {
     Log.i(TAG, "onNewToken()");
+
+    if (KeyCachingService.isLocked()) {
+      return;
+    }
 
     if (!SignalStore.account().isRegistered()) {
       Log.i(TAG, "Got a new FCM token, but the user isn't registered.");

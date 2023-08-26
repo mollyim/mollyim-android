@@ -61,21 +61,6 @@ class RecipientTableTest_getAndPossiblyMerge {
   }
 
   @Test
-  fun single() {
-    test("merge, e164 + pni reassigned, aci abandoned") {
-      given(E164_A, PNI_A, ACI_A)
-      given(E164_B, PNI_B, ACI_B)
-
-      process(E164_A, PNI_A, ACI_B)
-
-      expect(null, null, ACI_A)
-      expect(E164_A, PNI_A, ACI_B)
-
-      expectChangeNumberEvent()
-    }
-  }
-
-  @Test
   fun allNonMergeTests() {
     test("e164-only insert") {
       val id = process(E164_A, null, null)
@@ -85,7 +70,7 @@ class RecipientTableTest_getAndPossiblyMerge {
       assertEquals(RecipientTable.RegisteredState.UNKNOWN, record.registered)
     }
 
-    test("pni-only insert", exception = IllegalArgumentException::class.java) {
+    test("pni-only insert") {
       val id = process(null, PNI_A, null)
       expect(null, PNI_A, null)
 
@@ -102,18 +87,27 @@ class RecipientTableTest_getAndPossiblyMerge {
     }
 
     test("e164+pni insert") {
-      process(E164_A, PNI_A, null)
+      val id = process(E164_A, PNI_A, null)
       expect(E164_A, PNI_A, null)
+
+      val record = SignalDatabase.recipients.getRecord(id)
+      assertEquals(RecipientTable.RegisteredState.REGISTERED, record.registered)
     }
 
     test("e164+aci insert") {
-      process(E164_A, null, ACI_A)
+      val id = process(E164_A, null, ACI_A)
       expect(E164_A, null, ACI_A)
+
+      val record = SignalDatabase.recipients.getRecord(id)
+      assertEquals(RecipientTable.RegisteredState.REGISTERED, record.registered)
     }
 
     test("e164+pni+aci insert") {
-      process(E164_A, PNI_A, ACI_A)
+      val id = process(E164_A, PNI_A, ACI_A)
       expect(E164_A, PNI_A, ACI_A)
+
+      val record = SignalDatabase.recipients.getRecord(id)
+      assertEquals(RecipientTable.RegisteredState.REGISTERED, record.registered)
     }
   }
 
@@ -124,14 +118,19 @@ class RecipientTableTest_getAndPossiblyMerge {
       expect(E164_A, null, null)
     }
 
-    test("no match, e164 and pni") {
-      process(E164_A, PNI_A, null)
-      expect(E164_A, PNI_A, null)
+    test("no match, pni-only") {
+      process(null, PNI_A, null)
+      expect(null, PNI_A, null)
     }
 
     test("no match, aci-only") {
       process(null, null, ACI_A)
       expect(null, null, ACI_A)
+    }
+
+    test("no match, e164 and pni") {
+      process(E164_A, PNI_A, null)
+      expect(E164_A, PNI_A, null)
     }
 
     test("no match, e164 and aci") {
@@ -410,7 +409,7 @@ class RecipientTableTest_getAndPossiblyMerge {
       expectChangeNumberEvent()
     }
 
-    test("steal, e164 & pni+e164, no aci provided") {
+    test("steal, e164 & pni+e164, no aci provided, pni session exists") {
       val id1 = given(E164_A, null, null)
       val id2 = given(E164_B, PNI_A, null, pniSession = true)
 
@@ -423,6 +422,16 @@ class RecipientTableTest_getAndPossiblyMerge {
       expectSessionSwitchoverEvent(id2, E164_B)
     }
 
+    test("steal, e164 & pni+e164, no aci provided, no pni session") {
+      given(E164_A, null, null)
+      given(E164_B, PNI_A, null)
+
+      process(E164_A, PNI_A, null)
+
+      expect(E164_A, PNI_A, null)
+      expect(E164_B, null, null)
+    }
+
     test("steal, e164+pni+aci & e164+aci, no pni provided, change number") {
       given(E164_A, PNI_A, ACI_A)
       given(E164_B, null, ACI_B)
@@ -433,6 +442,64 @@ class RecipientTableTest_getAndPossiblyMerge {
       expect(E164_A, null, ACI_B)
 
       expectChangeNumberEvent()
+    }
+
+    test("steal, e164+aci & aci, no pni provided, existing aci session") {
+      given(E164_A, null, ACI_A, aciSession = true)
+      given(null, null, ACI_B)
+
+      process(E164_A, null, ACI_B)
+
+      expect(null, null, ACI_A)
+      expect(E164_A, null, ACI_B)
+
+      expectNoSessionSwitchoverEvent()
+    }
+
+    test("steal, e164+pni+aci & aci, no pni provided, existing aci session") {
+      given(E164_A, PNI_A, ACI_A, aciSession = true)
+      given(null, null, ACI_B)
+
+      process(E164_A, null, ACI_B)
+
+      expect(null, PNI_A, ACI_A)
+      expect(E164_A, null, ACI_B)
+
+      expectNoSessionSwitchoverEvent()
+    }
+
+    test("steal, e164+pni+aci & aci, no pni provided, existing pni session") {
+      given(E164_A, PNI_A, ACI_A, pniSession = true)
+      given(null, null, ACI_B)
+
+      process(E164_A, null, ACI_B)
+
+      expect(null, PNI_A, ACI_A)
+      expect(E164_A, null, ACI_B)
+
+      expectNoSessionSwitchoverEvent()
+    }
+
+    test("steal, e164+pni & aci, no pni provided, no pni session") {
+      given(E164_A, PNI_A, null)
+      given(null, null, ACI_A)
+
+      process(E164_A, null, ACI_A)
+
+      expect(null, PNI_A, null)
+      expect(E164_A, null, ACI_A)
+    }
+
+    test("steal, e164+pni & aci, no pni provided, pni session") {
+      given(E164_A, PNI_A, null, pniSession = true)
+      given(null, null, ACI_A)
+
+      process(E164_A, null, ACI_A)
+
+      expect(null, PNI_A, null)
+      expect(E164_A, null, ACI_A)
+
+      expectNoSessionSwitchoverEvent()
     }
 
     test("merge, e164 & pni & aci, all provided") {
@@ -690,6 +757,22 @@ class RecipientTableTest_getAndPossiblyMerge {
       process(E164_A, null, ACI_SELF, changeSelf = true)
       expect(E164_A, null, ACI_SELF)
     }
+
+    test("local user, local e164+aci provided, changeSelf=false, leave pni alone") {
+      given(E164_SELF, PNI_SELF, ACI_SELF)
+
+      process(E164_SELF, PNI_A, ACI_A)
+
+      expect(E164_SELF, PNI_SELF, ACI_SELF)
+    }
+
+    test("local user, local e164+aci provided, changeSelf=false, leave pni alone") {
+      given(E164_SELF, PNI_A, ACI_SELF)
+
+      process(E164_SELF, PNI_SELF, ACI_A)
+
+      expect(E164_SELF, PNI_A, ACI_SELF)
+    }
   }
 
   /**
@@ -942,7 +1025,8 @@ class RecipientTableTest_getAndPossiblyMerge {
       pni: PNI?,
       aci: ACI?,
       createThread: Boolean = true,
-      pniSession: Boolean = false
+      pniSession: Boolean = false,
+      aciSession: Boolean = false
     ): RecipientId {
       val id = insert(e164, pni, aci)
       generatedIds += id
@@ -958,6 +1042,14 @@ class RecipientTableTest_getAndPossiblyMerge {
         }
 
         SignalDatabase.sessions.store(pni, SignalProtocolAddress(pni.toString(), 1), SessionRecord())
+      }
+
+      if (aciSession) {
+        if (aci == null) {
+          throw IllegalArgumentException("aciSession = true but aci is null!")
+        }
+
+        SignalDatabase.sessions.store(aci, SignalProtocolAddress(aci.toString(), 1), SessionRecord())
       }
 
       if (aci != null) {

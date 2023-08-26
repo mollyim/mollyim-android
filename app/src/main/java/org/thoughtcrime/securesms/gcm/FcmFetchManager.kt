@@ -13,8 +13,8 @@ import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
-import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob
-import org.thoughtcrime.securesms.messages.WebSocketStrategy
+import org.thoughtcrime.securesms.jobs.MessageFetchJob
+import org.thoughtcrime.securesms.messages.WebSocketDrainer
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.util.FeatureFlags
@@ -140,7 +140,7 @@ object FcmFetchManager {
 
   @JvmStatic
   fun retrieveMessages(context: Context): Boolean {
-    val success = ApplicationDependencies.getBackgroundMessageRetriever().retrieveMessages(context, WebSocketStrategy(WEBSOCKET_DRAIN_TIMEOUT))
+    val success = WebSocketDrainer.blockUntilDrainedAndProcessed(WEBSOCKET_DRAIN_TIMEOUT)
 
     if (success) {
       Log.i(TAG, "Successfully retrieved messages.")
@@ -150,7 +150,7 @@ object FcmFetchManager {
         FcmJobService.schedule(context)
       } else {
         Log.w(TAG, "[API ${Build.VERSION.SDK_INT}] Failed to retrieve messages. Scheduling on JobManager (API " + Build.VERSION.SDK_INT + ").")
-        ApplicationDependencies.getJobManager().add(PushNotificationReceiveJob())
+        ApplicationDependencies.getJobManager().add(MessageFetchJob())
       }
     }
 

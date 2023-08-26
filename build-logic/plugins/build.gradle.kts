@@ -1,15 +1,20 @@
+import org.gradle.kotlin.dsl.extra
+
 plugins {
   `kotlin-dsl`
   id("groovy-gradle-plugin")
 }
 
+val signalJavaVersion: JavaVersion by rootProject.extra
+val signalKotlinJvmTarget: String by rootProject.extra
+
 java {
-  sourceCompatibility = JavaVersion.VERSION_11
-  targetCompatibility = JavaVersion.VERSION_11
+  sourceCompatibility = signalJavaVersion
+  targetCompatibility = signalJavaVersion
 }
 
 kotlinDslPluginOptions {
-  jvmTarget.set("11")
+  jvmTarget.set(signalKotlinJvmTarget)
 }
 
 dependencies {

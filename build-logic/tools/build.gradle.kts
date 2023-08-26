@@ -3,9 +3,11 @@ plugins {
   id("java-library")
 }
 
+val signalJavaVersion: JavaVersion by rootProject.extra
+
 java {
-  sourceCompatibility = JavaVersion.VERSION_11
-  targetCompatibility = JavaVersion.VERSION_11
+  sourceCompatibility = signalJavaVersion
+  targetCompatibility = signalJavaVersion
 }
 
 dependencies {

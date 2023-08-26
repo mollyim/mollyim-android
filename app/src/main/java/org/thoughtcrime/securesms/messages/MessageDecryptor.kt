@@ -138,7 +138,7 @@ object MessageDecryptor {
         return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
       }
 
-      Log.d(TAG, "${logPrefix(envelope, cipherResult)} Successfully decrypted the envelope (GUID ${envelope.serverGuid}). Delivery latency: ${serverDeliveredTimestamp - envelope.serverTimestamp} ms")
+      Log.d(TAG, "${logPrefix(envelope, cipherResult)} Successfully decrypted the envelope (GUID ${envelope.serverGuid}). Delivery latency: ${serverDeliveredTimestamp - envelope.serverTimestamp} ms, Urgent: ${envelope.urgent}")
 
       val validationResult: EnvelopeContentValidator.Result = EnvelopeContentValidator.validate(envelope, cipherResult.content)
 
@@ -261,10 +261,25 @@ object MessageDecryptor {
     followUpOperations: MutableList<FollowUpOperation>,
     protocolException: ProtocolException
   ): Result {
+    if (ServiceId.parseOrNull(envelope.destinationServiceId) == SignalStore.account().pni) {
+      Log.w(TAG, "${logPrefix(envelope)} Decryption error for message sent to our PNI! Ignoring.")
+      return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations)
+    }
+
     val contentHint: ContentHint = ContentHint.fromType(protocolException.contentHint)
     val senderDevice: Int = protocolException.senderDevice
     val receivedTimestamp: Long = System.currentTimeMillis()
     val sender: Recipient = Recipient.external(context, protocolException.sender)
+
+    if (sender.isSelf) {
+      Log.w(TAG, "${logPrefix(envelope)} Decryption error for a sync message! Enqueuing a session reset job.")
+
+      followUpOperations += FollowUpOperation {
+        AutomaticSessionResetJob(sender.id, senderDevice, envelope.timestamp)
+      }
+
+      return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations)
+    }
 
     followUpOperations += FollowUpOperation {
       buildSendRetryReceiptJob(envelope, protocolException, sender)

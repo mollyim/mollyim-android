@@ -910,6 +910,16 @@
     <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__message">ಡೀಬಗ್ ಲಾಗ್‌ಗಳು ಸಮಸ್ಯೆಯನ್ನು ನಿರ್ಣಯಿಸಲು ಮತ್ತು ಸರಿಪಡಿಸಲು ನೆರವಾಗುತ್ತವೆ ಮತ್ತು ಗುರುತಿಸುವ ಮಾಹಿತಿಯನ್ನು ಹೊಂದಿಲ್ಲ.</string>
 
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptBatterySaverBottomSheet__title">ಬ್ಯಾಟರಿ ಆಪ್ಟಿಮೈಸೇಶನ್‌ನಿಂದಾಗಿ ಅಧಿಸೂಚನೆಗಳು ವಿಳಂಬಗೊಳ್ಳಬಹುದು</string>
+    <!-- Message explaining that battery saver may delay notifications -->
+    <string name="PromptBatterySaverBottomSheet__message">ಮೆಸೇಜ್ ಅಧಿಸೂಚನೆಗಳು ವಿಳಂಬಗೊಳ್ಳದಂತೆ ಖಾತ್ರಿಪಡಿಸಲು ನೀವು Molly ಗೆ ಬ್ಯಾಟರಿ ಆಪ್ಟಿಮೈಸೇಶನ್ ಅನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬಹುದು.</string>
+
+    <!-- Button to continue to try and disable battery saver -->
+    <string name="PromptBatterySaverBottomSheet__continue">ಮುಂದುವರಿಸಿ</string>
+    <!-- Button to dismiss battery saver dialog prompt-->
+    <string name="PromptBatterySaverBottomSheet__dismiss">ವಜಾಗೊಳಿಸಿ</string>
+
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">ಬಾಕಿ ಉಳಿದಿರುವ ಗುಂಪು ಆಹ್ವಾನಗಳು</string>
     <string name="PendingMembersActivity_requests">ಕೋರಿಕೆಗಳು</string>
@@ -3101,6 +3111,8 @@
     <string name="preferences_notifications__ringtone">ರಿಂಗ್ಟೋನ್</string>
     <string name="preferences_chats__message_text_size">ಸಂದೇಶ ಫಾಂಟ್ ಗಾತ್ರ</string>
     <string name="preferences_notifications__priority">ಆದ್ಯತೆ</string>
+    <!-- Option in settings to trouble shoot delayed notifications -->
+    <string name="preferences_notifications__troubleshoot">ಅಧಿಸೂಚನೆಗಳ ಸಮಸ್ಯೆ ಪರಿಹರಿಸಿ</string>
     <!-- Heading for the \'censorship circumvention\' section of privacy preferences -->
     <string name="preferences_communication__category_censorship_circumvention">ಸೆನ್ಸಾರ್‌‌ಶಿಪ್ ದಾಟಿಹೋಗುವುದು</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
@@ -6154,6 +6166,8 @@
     <string name="CreateCallLink__create_a_call_link">ಒಂದು ಕರೆ ಲಿಂಕ್ ರಚಿಸಿ</string>
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Signal ಕರೆಗಾಗಿ ಲಿಂಕ್ ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <!-- Text inserted when sharing a call link within Signal. Placeholder is a call link url. -->
+    <string name="CreateCallLink__use_this_link_to_join_a_signal_call">Signal ಕರೆಗೆ ಸೇರಲು ಈ ಲಿಂಕ್ ಅನ್ನು ಬಳಸಿ: %1$s</string>
 
     <!-- CallLinkInfoSheet -->
     <!-- Sheet title -->

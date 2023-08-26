@@ -19,7 +19,6 @@ import org.thoughtcrime.securesms.components.settings.app.changenumber.ChangeNum
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceTransferActivity;
-import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrationActivity;
@@ -53,7 +52,6 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   private static final int STATE_TRANSFER_LOCKED     = 9;
   private static final int STATE_CHANGE_NUMBER_LOCK  = 10;
 
-  private SignalServiceNetworkAccess networkAccess;
   private BroadcastReceiver          clearKeyReceiver;
 
   @Override
@@ -64,10 +62,6 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
 
     final boolean locked = KeyCachingService.isLocked();
     routeApplicationState(locked);
-
-    if (!locked) {
-      networkAccess = new SignalServiceNetworkAccess(this);
-    }
 
     if (!isFinishing()) {
       super.onCreate(savedInstanceState);
@@ -83,15 +77,6 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
 
   protected void onPreCreate() {}
   protected void onCreate(Bundle savedInstanceState, boolean ready) {}
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-
-    if (networkAccess != null && networkAccess.isCensored()) {
-      ApplicationDependencies.getJobManager().add(new PushNotificationReceiveJob());
-    }
-  }
 
   @Override
   protected void onDestroy() {

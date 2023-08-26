@@ -910,6 +910,16 @@
     <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__message">Foutopsporingslogs helpen ons het probleem te diagnosticeren en op te lossen, en bevatten geen identificerende informatie.</string>
 
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptBatterySaverBottomSheet__title">Meldingen zijn mogelijk vertraagd vanwege batterij-optimalisaties</string>
+    <!-- Message explaining that battery saver may delay notifications -->
+    <string name="PromptBatterySaverBottomSheet__message">Je kunt batterij-optimalisaties uitschakelen zodat Molly ervoor kan zorgen dat berichtmeldingen niet worden vertraagd.</string>
+
+    <!-- Button to continue to try and disable battery saver -->
+    <string name="PromptBatterySaverBottomSheet__continue">Doorgaan</string>
+    <!-- Button to dismiss battery saver dialog prompt-->
+    <string name="PromptBatterySaverBottomSheet__dismiss">Sluiten</string>
+
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">Uitnodigingen in afwachting</string>
     <string name="PendingMembersActivity_requests">Verzoeken</string>
@@ -3101,6 +3111,8 @@
     <string name="preferences_notifications__ringtone">Oproepgeluid</string>
     <string name="preferences_chats__message_text_size">Tekstgrootte voor berichten</string>
     <string name="preferences_notifications__priority">Dringendheid instellen</string>
+    <!-- Option in settings to trouble shoot delayed notifications -->
+    <string name="preferences_notifications__troubleshoot">Notificatieproblemen oplossen</string>
     <!-- Heading for the \'censorship circumvention\' section of privacy preferences -->
     <string name="preferences_communication__category_censorship_circumvention">Censuuromzeiling</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
@@ -5674,7 +5686,7 @@
     <!-- Preference summary to turn off stories -->
     <string name="StoriesPrivacySettingsFragment__if_you_opt_out">Als je verhalen uitschakelt, kun je niet langer verhalen delen of bekijken.</string>
     <!-- Preference title to turn on stories -->
-    <string name="StoriesPrivacySettingsFragment__turn_on_stories">Zet verhalen aan</string>
+    <string name="StoriesPrivacySettingsFragment__turn_on_stories">Verhalen aanzetten</string>
     <!-- Preference summary to turn on stories -->
     <string name="StoriesPrivacySettingsFragment__share_and_view">Deel en bekijk verhalen van anderen. Verhalen verdwijnen automatisch na 24 uur.</string>
     <!-- Dialog title to turn off stories -->
@@ -6154,6 +6166,8 @@
     <string name="CreateCallLink__create_a_call_link">Oproeplink maken</string>
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Deel een link voor een Signal-oproep</string>
+    <!-- Text inserted when sharing a call link within Signal. Placeholder is a call link url. -->
+    <string name="CreateCallLink__use_this_link_to_join_a_signal_call">Gebruik deze link om deel te nemen aan een Signal-oproep: %1$s</string>
 
     <!-- CallLinkInfoSheet -->
     <!-- Sheet title -->

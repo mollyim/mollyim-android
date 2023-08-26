@@ -880,6 +880,16 @@
     <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__message">Log nyahpepijat membantu kami mendiagnosis dan membetulkan isu tersebut dan tidak mengandungi maklumat pengenalpastian.</string>
 
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptBatterySaverBottomSheet__title">Pemberitahuan mungkin ditangguhkan kerana pengoptimuman bateri</string>
+    <!-- Message explaining that battery saver may delay notifications -->
+    <string name="PromptBatterySaverBottomSheet__message">Anda boleh nyahdayakan pengoptimuman bateri untuk Molly bagi memastikan pemberitahuan mesej tidak akan ditangguhkan.</string>
+
+    <!-- Button to continue to try and disable battery saver -->
+    <string name="PromptBatterySaverBottomSheet__continue">Teruskan</string>
+    <!-- Button to dismiss battery saver dialog prompt-->
+    <string name="PromptBatterySaverBottomSheet__dismiss">Tolak</string>
+
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">Jemputan kumpulan belum selesai</string>
     <string name="PendingMembersActivity_requests">Permintaan</string>
@@ -3012,6 +3022,8 @@
     <string name="preferences_notifications__ringtone">Nada dering</string>
     <string name="preferences_chats__message_text_size">Saiz huruf mesej</string>
     <string name="preferences_notifications__priority">Keutamaan</string>
+    <!-- Option in settings to trouble shoot delayed notifications -->
+    <string name="preferences_notifications__troubleshoot">Pemberitahuan Menyelesaikan Masalah</string>
     <!-- Heading for the \'censorship circumvention\' section of privacy preferences -->
     <string name="preferences_communication__category_censorship_circumvention">Penapisan pemintasan</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
@@ -6021,6 +6033,8 @@
     <string name="CreateCallLink__create_a_call_link">Cipta Pautan Panggilan</string>
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Kongsi pautan untuk panggilan Signal</string>
+    <!-- Text inserted when sharing a call link within Signal. Placeholder is a call link url. -->
+    <string name="CreateCallLink__use_this_link_to_join_a_signal_call">Gunakan pautan ini untuk menyertai Panggilan Signal: %1$s</string>
 
     <!-- CallLinkInfoSheet -->
     <!-- Sheet title -->
