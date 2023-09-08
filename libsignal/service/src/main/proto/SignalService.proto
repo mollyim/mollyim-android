@@ -34,7 +34,7 @@ message Envelope {
   optional string serverGuid           = 9;
   optional uint64 serverTimestamp      = 10;
   optional bool   urgent               = 14 [default = true];
-  reserved      /*updatedPni*/           15; // Not used presently, may be used in the future
+  optional string updatedPni           = 15; // Used by linked device if primary device changes phone number
   optional bool   story                = 16;
   optional bytes  reporting_token      = 17;
   // NEXT ID: 18

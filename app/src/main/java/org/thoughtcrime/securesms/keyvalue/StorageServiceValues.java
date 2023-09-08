@@ -66,6 +66,10 @@ public class StorageServiceValues extends SignalStoreValues {
     }
   }
 
+  public synchronized boolean hasStorageKeyFromPrimary() {
+    return SignalStore.account().isLinkedDevice() && getStore().containsKey(SYNC_STORAGE_KEY);
+  }
+
   public synchronized void setStorageKeyFromPrimary(@NonNull StorageKey storageKey) {
     Preconditions.checkState(SignalStore.account().isLinkedDevice(), "Can only set storage key directly on linked devices");
     putBlob(SYNC_STORAGE_KEY, storageKey.serialize());

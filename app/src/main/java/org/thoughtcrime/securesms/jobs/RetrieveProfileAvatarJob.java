@@ -83,6 +83,7 @@ public class RetrieveProfileAvatarJob extends BaseJob {
 
     if (profileAvatar != null && profileAvatar.equals(recipient.resolve().getProfileAvatar())) {
       Log.w(TAG, "Already retrieved profile avatar: " + profileAvatar);
+      SignalStore.registrationValues().clearNeedDownloadProfileAvatar();
       return;
     }
 
@@ -93,6 +94,7 @@ public class RetrieveProfileAvatarJob extends BaseJob {
         database.setProfileAvatar(recipient.getId(), profileAvatar);
       }
 
+      SignalStore.registrationValues().clearNeedDownloadProfileAvatar();
       return;
     }
 
@@ -122,6 +124,7 @@ public class RetrieveProfileAvatarJob extends BaseJob {
     }
 
     database.setProfileAvatar(recipient.getId(), profileAvatar);
+    SignalStore.registrationValues().clearNeedDownloadProfileAvatar();
   }
 
   @Override

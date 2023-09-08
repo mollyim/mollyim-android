@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:viewBindingIgnore="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".registration.fragments.LinkDeviceFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/verify_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:textAppearance="@style/Signal.Text.HeadlineMedium"
+            android:text="@string/RegistrationActivity_scan_this_qr_using_your_primary_device" />
+
+        <ProgressBar
+            android:id="@+id/linking_loading_spinner"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center" />
+
+        <org.thoughtcrime.securesms.components.qr.QrView
+            android:id="@+id/linking_qr_image"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            app:qr_background_color="@color/white"
+            app:qr_foreground_color="@color/black" />
+
+        <TextView
+            android:id="@+id/linking_text_code"
+            android:visibility="gone"
+            style="@style/Signal.Text.Body.Registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:fontFamily="serif-monospace" />
+
+        <TextView
+            android:id="@+id/linking_error"
+            android:visibility="gone"
+            style="@style/Signal.Text.Body.Registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/RegistrationActivity_link_error" />
+
+        <TextView
+            android:id="@+id/linking_timeout"
+            android:visibility="gone"
+            style="@style/Signal.Text.Body.Registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/RegistrationActivity_link_timeout" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/link_retry_button"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/RegistrationActivity_link_retry"
+            style="@style/Signal.Widget.Button.Large.Primary" />
+
+    </LinearLayout>
+
+</ScrollView>

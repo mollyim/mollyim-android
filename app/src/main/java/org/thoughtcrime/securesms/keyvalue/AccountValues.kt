@@ -329,8 +329,11 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   val deviceName: String?
     get() = getString(KEY_DEVICE_NAME, null)
 
-  fun setDeviceName(deviceName: String) {
-    putString(KEY_DEVICE_NAME, deviceName)
+  fun setDeviceName(deviceName: String?) {
+    if (deviceName == null)
+      remove(KEY_DEVICE_NAME)
+    else
+      putString(KEY_DEVICE_NAME, deviceName)
   }
 
   var deviceId: Int by integerValue(KEY_DEVICE_ID, SignalServiceAddress.DEFAULT_DEVICE_ID)

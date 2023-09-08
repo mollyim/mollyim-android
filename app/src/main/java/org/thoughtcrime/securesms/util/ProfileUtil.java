@@ -305,6 +305,11 @@ public final class ProfileUtil {
                                     @NonNull List<Badge> badges)
       throws IOException
   {
+    if (SignalStore.registrationValues().needDownloadProfileOrAvatar()) {
+      // Prevent uploading an empty profile after linking a device, but before having a chance to pull the existing profile from the primary device
+      Log.w(TAG, "Profile download pending. Skipping profile upload.");
+      return;
+    }
     List<String> badgeIds = badges.stream()
                                   .filter(Badge::getVisible)
                                   .map(Badge::getId)

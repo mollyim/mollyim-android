@@ -54,7 +54,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
       @Suppress("DEPRECATION")
       clickPref(
         title = DSLSettingsText.from(if (state.hasPin) R.string.preferences_app_protection__change_your_pin else R.string.preferences_app_protection__create_a_pin),
-        isEnabled = state.isDeprecatedOrUnregistered(),
+        isEnabled = state.isDeprecatedOrUnregistered() && SignalStore.account().isPrimaryDevice,
         onClick = {
           if (state.hasPin) {
             startActivityForResult(CreateSvrPinActivity.getIntentForPinChangeFromSettings(requireContext()), CreateSvrPinActivity.REQUEST_NEW_PIN)
@@ -67,8 +67,8 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
       switchPref(
         title = DSLSettingsText.from(R.string.preferences_app_protection__pin_reminders),
         summary = DSLSettingsText.from(R.string.AccountSettingsFragment__youll_be_asked_less_frequently),
-        isChecked = state.hasPin && state.pinRemindersEnabled,
-        isEnabled = state.hasPin && state.isDeprecatedOrUnregistered(),
+        isChecked = state.hasPin && state.pinRemindersEnabled && SignalStore.account().isPrimaryDevice,
+        isEnabled = state.hasPin && state.isDeprecatedOrUnregistered() && SignalStore.account().isPrimaryDevice,
         onClick = {
           setPinRemindersEnabled(!state.pinRemindersEnabled)
         }
@@ -77,8 +77,8 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
       switchPref(
         title = DSLSettingsText.from(R.string.preferences_app_protection__registration_lock),
         summary = DSLSettingsText.from(R.string.AccountSettingsFragment__require_your_signal_pin),
-        isChecked = state.registrationLockEnabled,
-        isEnabled = state.hasPin && state.isDeprecatedOrUnregistered(),
+        isChecked = state.registrationLockEnabled && SignalStore.account().isPrimaryDevice,
+        isEnabled = state.hasPin && state.isDeprecatedOrUnregistered() && SignalStore.account().isPrimaryDevice,
         onClick = {
           setRegistrationLockEnabled(!state.registrationLockEnabled)
         }
@@ -86,11 +86,17 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
 
       clickPref(
         title = DSLSettingsText.from(R.string.preferences__advanced_pin_settings),
-        isEnabled = state.isDeprecatedOrUnregistered(),
+        isEnabled = state.isDeprecatedOrUnregistered() && SignalStore.account().isPrimaryDevice,
         onClick = {
           Navigation.findNavController(requireView()).safeNavigate(R.id.action_accountSettingsFragment_to_advancedPinSettingsActivity)
         }
       )
+
+      if (SignalStore.account().isLinkedDevice) {
+        textPref(
+          summary = DSLSettingsText.from(R.string.preferences__primary_only)
+        )
+      }
 
       dividerPref()
 
@@ -99,7 +105,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
       if (SignalStore.account().isRegistered) {
         clickPref(
           title = DSLSettingsText.from(R.string.AccountSettingsFragment__change_phone_number),
-          isEnabled = state.isDeprecatedOrUnregistered(),
+          isEnabled = state.isDeprecatedOrUnregistered() && SignalStore.account().isPrimaryDevice,
           onClick = {
             Navigation.findNavController(requireView()).safeNavigate(R.id.action_accountSettingsFragment_to_changePhoneNumberFragment)
           }

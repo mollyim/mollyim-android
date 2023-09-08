@@ -709,7 +709,10 @@
     <string name="DeviceListActivity_network_failed">Network failed!</string>
 
     <!-- DeviceListItem -->
-    <string name="DeviceListItem_unnamed_device">Unnamed device</string>
+    <string name="DeviceListItem_device_d">Device #%d</string>
+    <string name="DeviceListItem_primary">Primary</string>
+    <string name="DeviceListItem_this_device">This device</string>
+    <string name="DeviceListItem_registered_s">Registered %s</string>
     <string name="DeviceListItem_linked_s">Linked %s</string>
     <string name="DeviceListItem_last_active_s">Last active %s</string>
     <string name="DeviceListItem_today">Today</string>
@@ -1926,6 +1929,16 @@
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">Contact Support</string>
 
+    <string name="RegistrationActivity_link_device">Link to existing device</string>
+    <string name="RegistrationActivity_device_name_description">Device name</string>
+    <string name="RegistrationActivity_link">Link</string>
+    <string name="RegistrationActivity_enter_a_name_for_this_device">Enter a name for this device</string>
+    <string name="RegistrationActivity_scan_this_qr_using_your_primary_device">Scan this QR code using your primary device</string>
+    <string name="RegistrationActivity_copied_to_clipboard">Copied to clipboard</string>
+    <string name="RegistrationActivity_link_error">An error has occurred while trying to link the device. Check your network connectivity, and retry</string>
+    <string name="RegistrationActivity_link_timeout">Timed out waiting for the primary device. Ready your device to scan the QR code, then try again</string>
+    <string name="RegistrationActivity_link_retry">Retry linking</string>
+
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Turn on Registration Lock?</string>
     <string name="RegistrationLockV2Dialog_turn_off_registration_lock">Turn off Registration Lock?</string>
@@ -2544,7 +2557,6 @@
     <string name="device_link_fragment__link_device">Link device</string>
 
     <!-- device_list_fragment -->
-    <string name="device_list_fragment__no_devices_linked">No devices linked</string>
     <string name="device_list_fragment__link_new_device">Link new device</string>
 
     <!-- expiration -->
@@ -2952,6 +2964,7 @@
     <string name="preferences__request_keyboard_to_disable">Request keyboard to disable personalized learning.</string>
     <string name="preferences__this_setting_is_not_a_guarantee">This setting is not a guarantee, and your keyboard may ignore it.</string>
     <string name="preferences__incognito_keyboard_learn_more" translatable="false">https://support.signal.org/hc/articles/360055276112</string>
+    <string name="preferences__primary_only">This setting cannot be changed from a linked device</string>
     <string name="preferences_chats__when_using_mobile_data">When using mobile data</string>
     <string name="preferences_chats__when_using_wifi">When using Wi-Fi</string>
     <string name="preferences_chats__when_roaming">When roaming</string>

@@ -41,6 +41,9 @@ public class SignalServiceEnvelopeEntity {
   private Boolean urgent;
 
   @JsonProperty
+  private String updatedPni;
+
+  @JsonProperty
   private Boolean story;
 
   @JsonProperty
@@ -98,6 +101,10 @@ public class SignalServiceEnvelopeEntity {
 
   public boolean isUrgent() {
     return urgent == null || urgent;
+  }
+
+  public String getUpdatedPni() {
+    return updatedPni;
   }
 
   public boolean isStory() {

@@ -35,12 +35,18 @@ class PrivacySettingsViewModel(
   }
 
   fun setReadReceiptsEnabled(enabled: Boolean) {
+    if (SignalStore.account().isLinkedDevice) {
+      return
+    }
     sharedPreferences.edit().putBoolean(TextSecurePreferences.READ_RECEIPTS_PREF, enabled).apply()
     repository.syncReadReceiptState()
     refresh()
   }
 
   fun setTypingIndicatorsEnabled(enabled: Boolean) {
+    if (SignalStore.account().isLinkedDevice) {
+      return
+    }
     sharedPreferences.edit().putBoolean(TextSecurePreferences.TYPING_INDICATORS, enabled).apply()
     repository.syncTypingIndicatorsState()
     refresh()
