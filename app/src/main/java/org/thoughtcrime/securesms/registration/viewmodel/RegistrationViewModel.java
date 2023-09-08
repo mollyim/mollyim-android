@@ -19,6 +19,8 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.pin.SvrWrongPinException;
 import org.thoughtcrime.securesms.pin.SvrRepository;
 import org.thoughtcrime.securesms.registration.LinkDeviceRepository;
+import org.thoughtcrime.securesms.registration.LinkDeviceRepository.LinkDeviceProgressProcessor;
+import org.thoughtcrime.securesms.registration.LinkDeviceRepository.NewDeviceRegistrationReturnProcessor;
 import org.thoughtcrime.securesms.registration.RegistrationData;
 import org.thoughtcrime.securesms.registration.RegistrationRepository;
 import org.thoughtcrime.securesms.registration.RegistrationSessionProcessor;
@@ -75,7 +77,7 @@ public final class RegistrationViewModel extends BaseRegistrationViewModel {
     super(savedStateHandle, verifyAccountRepository, Util.getSecret(18));
 
     this.registrationRepository = registrationRepository;
-    this.linkDeviceRepository = linkDeviceRepository;
+    this.linkDeviceRepository   = linkDeviceRepository;
 
     setInitialDefaultValue(STATE_RESTORE_FLOW_SHOWN, false);
     setInitialDefaultValue(STATE_BACKUP_COMPLETED, false);
@@ -160,11 +162,11 @@ public final class RegistrationViewModel extends BaseRegistrationViewModel {
     this.autoShowSmsConfirmDialog = autoShowSmsConfirmDialog;
   }
 
-  public Single<LinkDeviceRepository.LinkDeviceProgressProcessor> requestDeviceLinkCode() {
+  public Single<LinkDeviceProgressProcessor> requestDeviceLinkCode() {
     return linkDeviceRepository.requestDeviceLinkCode(getRegistrationData(), getDeviceName());
   }
 
-  public Single<LinkDeviceRepository.NewDeviceRegistrationReturnProcessor> attemptDeviceLink(LinkDeviceRepository.LinkDeviceProgress progress) {
+  public Single<NewDeviceRegistrationReturnProcessor> attemptDeviceLink(LinkDeviceRepository.LinkDeviceProgress progress) {
     return linkDeviceRepository.attemptDeviceLink(progress)
                                .flatMap(processor -> {
                                  if (processor.hasResult()) {

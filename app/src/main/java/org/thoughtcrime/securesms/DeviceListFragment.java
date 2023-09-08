@@ -20,8 +20,6 @@ import androidx.fragment.app.ListFragment;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
-import com.annimon.stream.Stream;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -108,7 +106,7 @@ public class DeviceListFragment extends ListFragment
 
     setListAdapter(new DeviceListAdapter(getActivity(), R.layout.device_list_item_view, data, locale, SignalStore.account().getDeviceId()));
 
-    boolean hasLinkedDevices = Stream.of(data).noneMatch(d -> d.getId() != SignalServiceAddress.DEFAULT_DEVICE_ID);
+    boolean hasLinkedDevices = data.stream().noneMatch(d -> d.getId() != SignalServiceAddress.DEFAULT_DEVICE_ID);
     TextSecurePreferences.setMultiDevice(getActivity(), SignalStore.account().isLinkedDevice() || hasLinkedDevices);
     SignalStore.misc().setHasLinkedDevices(hasLinkedDevices);
   }
@@ -122,16 +120,16 @@ public class DeviceListFragment extends ListFragment
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     final String deviceName = ((DeviceListItem)view).getDeviceName();
     final long   deviceId   = ((DeviceListItem)view).getDeviceId();
-    if (deviceId == SignalServiceAddress.DEFAULT_DEVICE_ID || deviceId == SignalStore.account().getDeviceId()) {
-      // Sanity check
-      return;
-    }
 
     AlertDialog.Builder builder = new MaterialAlertDialogBuilder(requireActivity());
     builder.setTitle(getString(R.string.DeviceListActivity_unlink_s, deviceName));
     builder.setMessage(R.string.DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive);
     builder.setNegativeButton(android.R.string.cancel, null);
-    builder.setPositiveButton(android.R.string.ok, (dialog, which) -> handleDisconnectDevice(deviceId));
+    builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+      if (deviceId != SignalServiceAddress.DEFAULT_DEVICE_ID && deviceId != SignalStore.account().getDeviceId()) {
+        handleDisconnectDevice(deviceId);
+      }
+    });
     builder.show();
   }
 

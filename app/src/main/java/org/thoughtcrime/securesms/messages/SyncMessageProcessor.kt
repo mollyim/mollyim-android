@@ -133,6 +133,7 @@ import java.util.Optional
 import java.util.UUID
 import kotlin.time.Duration.Companion.seconds
 
+
 object SyncMessageProcessor {
 
   fun process(
@@ -160,10 +161,10 @@ object SyncMessageProcessor {
       syncMessage.hasOutgoingPayment() -> handleSynchronizeOutgoingPayment(syncMessage.outgoingPayment, envelope.timestamp)
       syncMessage.hasKeys() && syncMessage.keys.hasStorageService() -> handleSynchronizeKeys(syncMessage.keys.storageService, envelope.timestamp)
       syncMessage.hasContacts() -> handleSynchronizeContacts(syncMessage.contacts, envelope.timestamp)
+      syncMessage.hasPniChangeNumber() -> handleSynchronizePniChangeNumber(syncMessage.pniChangeNumber, envelope.updatedPni, envelope.timestamp)
       syncMessage.hasCallEvent() -> handleSynchronizeCallEvent(syncMessage.callEvent, envelope.timestamp)
       syncMessage.hasCallLinkUpdate() -> handleSynchronizeCallLink(syncMessage.callLinkUpdate, envelope.timestamp)
       syncMessage.hasCallLogEvent() -> handleSynchronizeCallLogEvent(syncMessage.callLogEvent, envelope.timestamp)
-      syncMessage.hasPniChangeNumber() -> handleSynchronizePniChangeNumber(syncMessage.pniChangeNumber, envelope.updatedPni, envelope.timestamp)
       else -> warn(envelope.timestamp, "Contains no known sync types...")
     }
   }

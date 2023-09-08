@@ -17,9 +17,9 @@ import org.whispersystems.signalservice.internal.push.ProvisionMessage;
 import org.whispersystems.signalservice.internal.util.Util;
 
 import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
+import java.security.GeneralSecurityException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -103,7 +103,7 @@ public class PrimaryProvisioningCipher {
 
   private void verifyMac(byte[] key, byte[] message, byte[] theirMac) {
     byte[] ourMac = getMac(key, message);
-    if (!Arrays.equals(ourMac, theirMac)) {
+    if (!MessageDigest.isEqual(ourMac, theirMac)) {
       throw new RuntimeException("Invalid MAC on provision message!");
     }
   }
@@ -113,9 +113,8 @@ public class PrimaryProvisioningCipher {
       Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
       cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
       return cipher.doFinal(ciphertext);
-    } catch (java.security.InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
+    } catch (GeneralSecurityException e) {
       throw new AssertionError(e);
     }
   }
-
 }

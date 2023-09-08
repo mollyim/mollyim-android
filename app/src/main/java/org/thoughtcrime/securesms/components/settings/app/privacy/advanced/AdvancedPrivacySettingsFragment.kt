@@ -183,16 +183,10 @@ class AdvancedPrivacySettingsFragment : DSLSettingsFragment(R.string.preferences
             .append(statusIcon)
         ),
         summary = DSLSettingsText.from(R.string.AdvancedPrivacySettingsFragment__show_an_icon),
-        isChecked = state.showSealedSenderStatusIcon,
-        isEnabled = SignalStore.account().isPrimaryDevice
+        isEnabled = SignalStore.account().isPrimaryDevice,
+        isChecked = state.showSealedSenderStatusIcon
       ) {
         viewModel.setShowStatusIconForSealedSender(!state.showSealedSenderStatusIcon)
-      }
-
-      if (SignalStore.account().isLinkedDevice) {
-        textPref(
-          summary = DSLSettingsText.from(R.string.preferences__primary_only)
-        )
       }
 
       switchPref(

@@ -206,12 +206,6 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         }
       )
 
-      if (SignalStore.account().isLinkedDevice) {
-        textPref(
-          summary = DSLSettingsText.from(R.string.preferences__primary_only)
-        )
-      }
-
       dividerPref()
 
       sectionHeaderPref(R.string.PrivacySettingsFragment__disappearing_messages)

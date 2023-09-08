@@ -13,13 +13,9 @@ import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
-import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
-import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
 import org.whispersystems.signalservice.api.push.ServiceId.ACI;
 import org.whispersystems.signalservice.api.push.ServiceId.PNI;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-import org.whispersystems.signalservice.internal.util.DynamicCredentialsProvider;
-import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 
 public class AccountManagerFactory {
 
@@ -108,12 +104,14 @@ public class AccountManagerFactory {
   {
     // Limitation - We cannot detect the need to use a censored configuration for the link process, because the number (and hence country code) is unknown.
     // Perhaps offer a UI to select just the country, and obtain censorship configuration that way?
-    SignalServiceConfiguration configuration = ApplicationDependencies.getSignalServiceNetworkAccess().getConfiguration(null);
-    return new SignalServiceAccountManager(configuration,
-                                           new DynamicCredentialsProvider(null, null, null, password, SignalServiceAddress.DEFAULT_DEVICE_ID),
+    return new SignalServiceAccountManager(ApplicationDependencies.getSignalServiceNetworkAccess().getConfiguration(null),
+                                           null,
+                                           null,
+                                           null,
+                                           SignalServiceAddress.DEFAULT_DEVICE_ID,
+                                           password,
                                            BuildConfig.SIGNAL_AGENT,
-                                           new GroupsV2Operations(ClientZkOperations.create(configuration), FeatureFlags.groupLimits().getHardLimit()),
-                                           FeatureFlags.okHttpAutomaticRetry());
+                                           FeatureFlags.okHttpAutomaticRetry(),
+                                           FeatureFlags.groupLimits().getHardLimit());
   }
-
 }

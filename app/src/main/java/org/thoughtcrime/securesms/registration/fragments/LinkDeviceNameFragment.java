@@ -24,8 +24,6 @@ public final class LinkDeviceNameFragment extends LoggingFragment {
 
   private static final String TAG = Log.tag(LinkDeviceNameFragment.class);
 
-  private LabeledEditText       deviceName;
-  private View                  linkDevice;
   private RegistrationViewModel viewModel;
 
   private final LifecycleDisposable disposables = new LifecycleDisposable();
@@ -39,8 +37,8 @@ public final class LinkDeviceNameFragment extends LoggingFragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    deviceName = view.findViewById(R.id.device_name);
-    linkDevice = view.findViewById(R.id.link_button);
+    LabeledEditText deviceName = view.findViewById(R.id.device_name);
+    View            linkDevice = view.findViewById(R.id.link_button);
 
     disposables.bindTo(getViewLifecycleOwner().getLifecycle());
     viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);

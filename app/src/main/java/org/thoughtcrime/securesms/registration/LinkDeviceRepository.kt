@@ -8,6 +8,7 @@ import org.signal.libsignal.protocol.IdentityKeyPair
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
 import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
+import org.whispersystems.signalservice.api.SignalServiceAccountManager.NewDeviceRegistrationReturn
 import org.whispersystems.signalservice.api.util.DeviceNameUtil
 import org.whispersystems.signalservice.internal.ServiceResponse
 import org.whispersystems.signalservice.internal.ServiceResponseProcessor
@@ -94,14 +95,16 @@ class LinkDeviceRepository(private val context: Application) {
       return NewDeviceRegistrationReturnProcessor(ServiceResponse.coerceError(response))
     }
   }
+
   class LinkDeviceResponseProcessor(response: ServiceResponse<LinkDeviceResponse>) : ServiceResponseProcessor<LinkDeviceResponse>(response) {
     fun asNewDeviceRegistrationReturnProcessor(): NewDeviceRegistrationReturnProcessor {
       return NewDeviceRegistrationReturnProcessor(ServiceResponse.coerceError(response))
     }
   }
-  class NewDeviceRegistrationReturnProcessor(response: ServiceResponse<SignalServiceAccountManager.NewDeviceRegistrationReturn>) : ServiceResponseProcessor<SignalServiceAccountManager.NewDeviceRegistrationReturn>(response)
 
-  data class LinkDeviceResponse(val newDeviceRegistrationResponse: SignalServiceAccountManager.NewDeviceRegistrationReturn, val deviceId: Int)
+  class NewDeviceRegistrationReturnProcessor(response: ServiceResponse<NewDeviceRegistrationReturn>) : ServiceResponseProcessor<NewDeviceRegistrationReturn>(response)
+
+  data class LinkDeviceResponse(val newDeviceRegistrationResponse: NewDeviceRegistrationReturn, val deviceId: Int)
 
   interface LinkDeviceProgress {
     val deviceLinkCode: String

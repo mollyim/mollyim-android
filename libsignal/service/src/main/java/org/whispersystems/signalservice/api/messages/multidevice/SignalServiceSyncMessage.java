@@ -7,7 +7,6 @@
 package org.whispersystems.signalservice.api.messages.multidevice;
 
 
-import org.whispersystems.signalservice.internal.push.SignalServiceProtos;
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage.CallEvent;
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage.CallLinkUpdate;
 import org.whispersystems.signalservice.internal.push.SignalServiceProtos.SyncMessage.CallLogEvent;

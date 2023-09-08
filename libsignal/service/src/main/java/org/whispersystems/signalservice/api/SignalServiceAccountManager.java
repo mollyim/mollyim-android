@@ -84,7 +84,6 @@ import org.whispersystems.signalservice.internal.storage.protos.StorageItem;
 import org.whispersystems.signalservice.internal.storage.protos.StorageItems;
 import org.whispersystems.signalservice.internal.storage.protos.StorageManifest;
 import org.whispersystems.signalservice.internal.storage.protos.WriteOperation;
-import org.whispersystems.signalservice.internal.util.DynamicCredentialsProvider;
 import org.whispersystems.signalservice.internal.util.StaticCredentialsProvider;
 import org.whispersystems.signalservice.internal.util.Util;
 import org.whispersystems.signalservice.internal.websocket.DefaultResponseMapper;
@@ -677,12 +676,11 @@ public class SignalServiceAccountManager {
     final ACI    aci    = ACI.parseOrNull(msg.aci);
     final PNI    pni    = PNI.parseOrNull(msg.pni);
 
-    if (credentials instanceof DynamicCredentialsProvider) {
-      ((DynamicCredentialsProvider) credentials).setE164(number);
+    if (credentials instanceof StaticCredentialsProvider) {
+      // Not setting ACI or PNI here, as that causes a 400 Bad Request
+      // when calling the finishNewDeviceRegistration endpoint.
+      ((StaticCredentialsProvider) credentials).setE164(number);
     }
-    // Not setting Uuid here, as that causes a 400 Bad Request
-    // when calling the finishNewDeviceRegistration endpoint
-    // credentialsProvider.setUuid(uuid);
 
     final IdentityKeyPair aciIdentity = getIdentityKeyPair(msg.aciIdentityKeyPublic.toByteArray(), msg.aciIdentityKeyPrivate.toByteArray());
     final IdentityKeyPair pniIdentity = msg.pniIdentityKeyPublic != null && msg.pniIdentityKeyPrivate != null
@@ -734,8 +732,8 @@ public class SignalServiceAccountManager {
    */
   public int finishNewDeviceRegistration(String provisioningCode, ConfirmCodeMessage confirmCodeMessage) throws IOException {
     int deviceId = this.pushServiceSocket.finishNewDeviceRegistration(provisioningCode, confirmCodeMessage);
-    if (credentials instanceof DynamicCredentialsProvider) {
-      ((DynamicCredentialsProvider) credentials).setDeviceId(deviceId);
+    if (credentials instanceof StaticCredentialsProvider) {
+      ((StaticCredentialsProvider) credentials).setDeviceId(deviceId);
     }
     return deviceId;
   }

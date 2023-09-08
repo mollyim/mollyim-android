@@ -40,12 +40,6 @@ class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__ch
         }
       )
 
-      if (SignalStore.account().isLinkedDevice) {
-        textPref(
-          summary = DSLSettingsText.from(R.string.preferences__primary_only)
-        )
-      }
-
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__pref_use_address_book_photos),
         summary = DSLSettingsText.from(R.string.preferences__display_contact_photos_from_your_address_book_if_available),

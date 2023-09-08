@@ -63,9 +63,6 @@ class AdvancedPrivacySettingsViewModel(
   }
 
   fun setShowStatusIconForSealedSender(enabled: Boolean) {
-    if (SignalStore.account().isLinkedDevice) {
-      return
-    }
     sharedPreferences.edit().putBoolean(TextSecurePreferences.SHOW_UNIDENTIFIED_DELIVERY_INDICATORS, enabled).apply()
     repository.syncShowSealedSenderIconState()
     refresh()

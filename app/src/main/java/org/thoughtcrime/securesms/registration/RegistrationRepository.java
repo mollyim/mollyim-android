@@ -126,9 +126,9 @@ public final class RegistrationRepository {
   }
 
   public Single<ServiceResponse<NewDeviceRegistrationReturn>> registerAccountFromPrimaryDevice(@NonNull RegistrationData registrationData,
-                                                                                                                           @NonNull NewDeviceRegistrationReturn response,
-                                                                                                                           int deviceId,
-                                                                                                                           String deviceName)
+                                                                                               @NonNull NewDeviceRegistrationReturn response,
+                                                                                               int deviceId,
+                                                                                               String deviceName)
   {
     return Single.<ServiceResponse<NewDeviceRegistrationReturn>>fromCallable(() -> {
       try {

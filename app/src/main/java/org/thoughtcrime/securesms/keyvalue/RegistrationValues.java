@@ -9,9 +9,9 @@ import java.util.List;
 
 public final class RegistrationValues extends SignalStoreValues {
 
-  private static final String REGISTRATION_COMPLETE        = "registration.complete";
-  private static final String PIN_REQUIRED                 = "registration.pin_required";
-  private static final String HAS_UPLOADED_PROFILE         = "registration.has_uploaded_profile";
+  private static final String REGISTRATION_COMPLETE = "registration.complete";
+  private static final String PIN_REQUIRED          = "registration.pin_required";
+  private static final String HAS_UPLOADED_PROFILE  = "registration.has_uploaded_profile";
   private static final String SESSION_E164          = "registration.session_e164";
   private static final String SESSION_ID            = "registration.session_id";
   private static final String NEED_DOWNLOAD_PROFILE        = "registration.need_download_profile";
