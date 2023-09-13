@@ -170,7 +170,7 @@ public class StorageSyncJob extends BaseJob {
 
   @Override
   protected void onRun() throws IOException, RetryLaterException, UntrustedIdentityException {
-    if (!SignalStore.svr().hasPin() && !SignalStore.svr().hasOptedOut()) {
+    if (!SignalStore.svr().hasPin() && !SignalStore.svr().hasOptedOut() && !SignalStore.storageService().hasStorageKeyFromPrimary()) {
       Log.i(TAG, "Doesn't have a PIN. Skipping.");
       return;
     }

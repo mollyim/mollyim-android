@@ -198,14 +198,13 @@ public class CallNotificationBuilder {
     intent.setAction(launchCallScreenIntentState.action);
 
     if (launchCallScreenIntentState == LaunchCallScreenIntentState.CONTENT) {
+      // MOLLY: Set a non-empty action to clear any pending action held by the screen lock
+      intent.setAction(WebRtcCallActivity.NO_ACTION);
       intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     }
 
     intent.putExtra(WebRtcCallActivity.EXTRA_STARTED_FROM_FULLSCREEN, launchCallScreenIntentState == LaunchCallScreenIntentState.CONTENT);
     intent.putExtra(WebRtcCallActivity.EXTRA_ENABLE_VIDEO_IF_AVAILABLE, false);
-
-    // MOLLY: Set a non-empty action to clear any pending action held by the screen lock
-    intent.setAction(WebRtcCallActivity.NO_ACTION);
 
     return PendingIntent.getActivity(context, launchCallScreenIntentState.requestCode, intent, PendingIntentFlags.updateCurrent());
   }

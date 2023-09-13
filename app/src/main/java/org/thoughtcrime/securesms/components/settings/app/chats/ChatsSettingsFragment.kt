@@ -7,6 +7,7 @@ import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -33,6 +34,7 @@ class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__ch
         title = DSLSettingsText.from(R.string.preferences__generate_link_previews),
         summary = DSLSettingsText.from(R.string.preferences__retrieve_link_previews_from_websites_for_messages),
         isChecked = state.generateLinkPreviews,
+        isEnabled = SignalStore.account().isPrimaryDevice,
         onClick = {
           viewModel.setGenerateLinkPreviewsEnabled(!state.generateLinkPreviews)
         }

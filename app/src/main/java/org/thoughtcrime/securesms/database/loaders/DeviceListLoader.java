@@ -21,7 +21,6 @@ import org.thoughtcrime.securesms.util.AsyncLoader;
 import org.thoughtcrime.securesms.util.Base64;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo;
-import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -53,7 +52,6 @@ public class DeviceListLoader extends AsyncLoader<List<Device>> {
   public List<Device> loadInBackground() {
     try {
       List<Device> devices = Stream.of(accountManager.getDevices())
-                                   .filter(d -> d.getId() != SignalServiceAddress.DEFAULT_DEVICE_ID)
                                    .map(this::mapToDevice)
                                    .toList();
 

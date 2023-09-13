@@ -51,46 +51,52 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
     return configure {
       sectionHeaderPref(R.string.preferences_app_protection__signal_pin)
 
-      @Suppress("DEPRECATION")
-      clickPref(
-        title = DSLSettingsText.from(if (state.hasPin) R.string.preferences_app_protection__change_your_pin else R.string.preferences_app_protection__create_a_pin),
-        isEnabled = state.isDeprecatedOrUnregistered(),
-        onClick = {
-          if (state.hasPin) {
-            startActivityForResult(CreateSvrPinActivity.getIntentForPinChangeFromSettings(requireContext()), CreateSvrPinActivity.REQUEST_NEW_PIN)
-          } else {
-            startActivityForResult(CreateSvrPinActivity.getIntentForPinCreate(requireContext()), CreateSvrPinActivity.REQUEST_NEW_PIN)
+      if (state.isLinkedDevice) {
+        textPref(
+          summary = DSLSettingsText.from(R.string.AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device)
+        )
+      } else {
+        @Suppress("DEPRECATION")
+        clickPref(
+          title = DSLSettingsText.from(if (state.hasPin) R.string.preferences_app_protection__change_your_pin else R.string.preferences_app_protection__create_a_pin),
+          isEnabled = state.isDeprecatedOrUnregistered(),
+          onClick = {
+            if (state.hasPin) {
+              startActivityForResult(CreateSvrPinActivity.getIntentForPinChangeFromSettings(requireContext()), CreateSvrPinActivity.REQUEST_NEW_PIN)
+            } else {
+              startActivityForResult(CreateSvrPinActivity.getIntentForPinCreate(requireContext()), CreateSvrPinActivity.REQUEST_NEW_PIN)
+            }
           }
-        }
-      )
+        )
 
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences_app_protection__pin_reminders),
-        summary = DSLSettingsText.from(R.string.AccountSettingsFragment__youll_be_asked_less_frequently),
-        isChecked = state.hasPin && state.pinRemindersEnabled,
-        isEnabled = state.hasPin && state.isDeprecatedOrUnregistered(),
-        onClick = {
-          setPinRemindersEnabled(!state.pinRemindersEnabled)
-        }
-      )
+        switchPref(
+          title = DSLSettingsText.from(R.string.preferences_app_protection__pin_reminders),
+          summary = DSLSettingsText.from(R.string.AccountSettingsFragment__youll_be_asked_less_frequently),
+          isChecked = state.hasPin && state.pinRemindersEnabled,
+          isEnabled = state.hasPin && state.isDeprecatedOrUnregistered(),
+          onClick = {
+            setPinRemindersEnabled(!state.pinRemindersEnabled)
+          }
+        )
 
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences_app_protection__registration_lock),
-        summary = DSLSettingsText.from(R.string.AccountSettingsFragment__require_your_signal_pin),
-        isChecked = state.registrationLockEnabled,
-        isEnabled = state.hasPin && state.isDeprecatedOrUnregistered(),
-        onClick = {
-          setRegistrationLockEnabled(!state.registrationLockEnabled)
-        }
-      )
+        switchPref(
+          title = DSLSettingsText.from(R.string.preferences_app_protection__registration_lock),
+          summary = DSLSettingsText.from(R.string.AccountSettingsFragment__require_your_signal_pin),
+          isChecked = state.registrationLockEnabled,
+          isEnabled = state.hasPin && state.isDeprecatedOrUnregistered(),
+          onClick = {
+            setRegistrationLockEnabled(!state.registrationLockEnabled)
+          }
+        )
 
-      clickPref(
-        title = DSLSettingsText.from(R.string.preferences__advanced_pin_settings),
-        isEnabled = state.isDeprecatedOrUnregistered(),
-        onClick = {
-          Navigation.findNavController(requireView()).safeNavigate(R.id.action_accountSettingsFragment_to_advancedPinSettingsActivity)
-        }
-      )
+        clickPref(
+          title = DSLSettingsText.from(R.string.preferences__advanced_pin_settings),
+          isEnabled = state.isDeprecatedOrUnregistered(),
+          onClick = {
+            Navigation.findNavController(requireView()).safeNavigate(R.id.action_accountSettingsFragment_to_advancedPinSettingsActivity)
+          }
+        )
+      }
 
       dividerPref()
 
@@ -99,7 +105,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
       if (SignalStore.account().isRegistered) {
         clickPref(
           title = DSLSettingsText.from(R.string.AccountSettingsFragment__change_phone_number),
-          isEnabled = state.isDeprecatedOrUnregistered(),
+          isEnabled = state.isDeprecatedOrUnregistered() && !state.isLinkedDevice,
           onClick = {
             Navigation.findNavController(requireView()).safeNavigate(R.id.action_accountSettingsFragment_to_changePhoneNumberFragment)
           }

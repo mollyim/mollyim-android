@@ -31,6 +31,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.task.ProgressDialogAsyncTask;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
+import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +46,6 @@ public class DeviceListFragment extends ListFragment
 
   private SignalServiceAccountManager accountManager;
   private Locale                      locale;
-  private View                        empty;
   private View                        progressContainer;
   private FloatingActionButton        addDeviceButton;
   private Button.OnClickListener      addDeviceButtonListener;
@@ -66,10 +66,13 @@ public class DeviceListFragment extends ListFragment
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
     View view = inflater.inflate(R.layout.device_list_fragment, container, false);
 
-    this.empty             = view.findViewById(R.id.empty);
     this.progressContainer = view.findViewById(R.id.progress_container);
     this.addDeviceButton   = view.findViewById(R.id.add_device);
-    this.addDeviceButton.setOnClickListener(this);
+    if (SignalStore.account().isPrimaryDevice()) {
+      this.addDeviceButton.setOnClickListener(this);
+    } else {
+      this.addDeviceButton.setVisibility(View.GONE);
+    }
 
     return view;
   }
@@ -87,7 +90,6 @@ public class DeviceListFragment extends ListFragment
 
   @Override
   public @NonNull Loader<List<Device>> onCreateLoader(int id, Bundle args) {
-    empty.setVisibility(View.GONE);
     progressContainer.setVisibility(View.VISIBLE);
 
     return new DeviceListLoader(getActivity(), accountManager);
@@ -102,16 +104,11 @@ public class DeviceListFragment extends ListFragment
       return;
     }
 
-    setListAdapter(new DeviceListAdapter(getActivity(), R.layout.device_list_item_view, data, locale));
+    setListAdapter(new DeviceListAdapter(getActivity(), R.layout.device_list_item_view, data, locale, SignalStore.account().getDeviceId()));
 
-    if (data.isEmpty()) {
-      empty.setVisibility(View.VISIBLE);
-      TextSecurePreferences.setMultiDevice(getActivity(), false);
-      SignalStore.misc().setHasLinkedDevices(false);
-    } else {
-      SignalStore.misc().setHasLinkedDevices(true);
-      empty.setVisibility(View.GONE);
-    }
+    boolean hasLinkedDevices = data.stream().noneMatch(d -> d.getId() != SignalServiceAddress.DEFAULT_DEVICE_ID);
+    TextSecurePreferences.setMultiDevice(getActivity(), SignalStore.account().isLinkedDevice() || hasLinkedDevices);
+    SignalStore.misc().setHasLinkedDevices(hasLinkedDevices);
   }
 
   @Override
@@ -128,7 +125,11 @@ public class DeviceListFragment extends ListFragment
     builder.setTitle(getString(R.string.DeviceListActivity_unlink_s, deviceName));
     builder.setMessage(R.string.DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive);
     builder.setNegativeButton(android.R.string.cancel, null);
-    builder.setPositiveButton(android.R.string.ok, (dialog, which) -> handleDisconnectDevice(deviceId));
+    builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+      if (deviceId != SignalServiceAddress.DEFAULT_DEVICE_ID && deviceId != SignalStore.account().getDeviceId()) {
+        handleDisconnectDevice(deviceId);
+      }
+    });
     builder.show();
   }
 
@@ -182,11 +183,13 @@ public class DeviceListFragment extends ListFragment
 
     private final int    resource;
     private final Locale locale;
+    private final long   thisDeviceId;
 
-    public DeviceListAdapter(Context context, int resource, List<Device> objects, Locale locale) {
+    public DeviceListAdapter(Context context, int resource, List<Device> objects, Locale locale, long thisDeviceId) {
       super(context, resource, objects);
       this.resource = resource;
       this.locale = locale;
+      this.thisDeviceId = thisDeviceId;
     }
 
     @Override
@@ -195,9 +198,15 @@ public class DeviceListFragment extends ListFragment
         convertView = ((Activity)getContext()).getLayoutInflater().inflate(resource, parent, false);
       }
 
-      ((DeviceListItem)convertView).set(getItem(position), locale);
+      ((DeviceListItem)convertView).set(getItem(position), locale, thisDeviceId);
 
       return convertView;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+      long deviceId = getItem(position).getId();
+      return deviceId != SignalServiceAddress.DEFAULT_DEVICE_ID && deviceId != thisDeviceId;
     }
   }
 }

@@ -491,6 +491,13 @@ public class PushServiceSocket {
     makeServiceRequest(SET_ACCOUNT_ATTRIBUTES, "PUT", JsonUtil.toJson(accountAttributes));
   }
 
+  public int finishNewDeviceRegistration(String code, ConfirmCodeMessage confirmCodeMessage) throws IOException {
+    String json = JsonUtil.toJson(confirmCodeMessage);
+    String responseText = makeServiceRequest(String.format(DEVICE_PATH, code), "PUT", json);
+    DeviceId response = JsonUtil.fromJson(responseText, DeviceId.class);
+    return response.getDeviceId();
+  }
+
   public String getNewDeviceVerificationCode() throws IOException {
     String responseText = makeServiceRequest(PROVISIONING_CODE_PATH, "GET", null);
     return JsonUtil.fromJson(responseText, DeviceCode.class).getVerificationCode();

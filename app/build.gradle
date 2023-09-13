@@ -39,6 +39,10 @@ wire {
     sourcePath {
         srcDir 'src/main/protowire'
     }
+
+    protoPath {
+        srcDir "${project.rootDir}/libsignal/service/src/main/protowire"
+    }
 }
 
 def getEnv(String name) {
@@ -55,8 +59,8 @@ ext {
     MAPS_API_KEY = getEnv('CI_MAPS_API_KEY') ?: mapsApiKey
 }
 
-def canonicalVersionCode = 1319
-def canonicalVersionName = "6.30.4"
+def canonicalVersionCode = 1322
+def canonicalVersionName = "6.31.2"
 def mollyRevision = 0
 
 def postFixSize = 100

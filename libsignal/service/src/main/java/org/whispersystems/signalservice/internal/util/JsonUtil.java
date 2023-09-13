@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.google.protobuf.ByteString;
 
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.InvalidKeyException;
@@ -33,6 +32,8 @@ import java.io.IOException;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
+
+import okio.ByteString;
 
 @SuppressWarnings("unused")
 public class JsonUtil {
@@ -55,7 +56,7 @@ public class JsonUtil {
   }
 
   public static @Nonnull ByteString toJsonByteString(@Nonnull Object object) {
-    return ByteString.copyFrom(toJson(object).getBytes());
+    return ByteString.of(toJson(object).getBytes());
   }
 
   public static <T> T fromJson(String json, Class<T> clazz)

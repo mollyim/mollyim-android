@@ -50,8 +50,10 @@ class RegistrationCompleteFragment : LoggingFragment() {
     } else {
       val isProfileNameEmpty = Recipient.self().profileName.isEmpty
       val isAvatarEmpty = !AvatarHelper.hasAvatar(activity, Recipient.self().id)
-      val needsProfile = isProfileNameEmpty || isAvatarEmpty
-      val needsPin = !SignalStore.svr().hasPin() && !viewModel.isReregister
+      // MOLLY: If this is a link, and not a new registration, give the device a chance to sync the info from main before force-changing it.
+      val isLinkedDevice = SignalStore.account().isLinkedDevice
+      val needsProfile = if (isLinkedDevice) false else isProfileNameEmpty || isAvatarEmpty
+      val needsPin = if (isLinkedDevice) false else !SignalStore.svr().hasPin() && !viewModel.isReregister
 
       Log.i(TAG, "Pin restore flow not required. Profile name: $isProfileNameEmpty | Profile avatar: $isAvatarEmpty | Needs PIN: $needsPin")
 

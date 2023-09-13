@@ -93,4 +93,18 @@
     <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">You will be notified when updates are available</string>
     <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s is not registered with Signal</string>
     <string name="TimeDurationPickerDialog_single_letter_second_abbreviation">s</string>
+    <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">PIN settings cannot be changed from a linked device</string>
+    <string name="DeviceListItem_device_d">Device #%d</string>
+    <string name="DeviceListItem_primary">Primary</string>
+    <string name="DeviceListItem_this_device">This device</string>
+    <string name="DeviceListItem_registered_s">Registered %s</string>
+    <string name="RegistrationActivity_link_device">Link to existing device</string>
+    <string name="RegistrationActivity_device_name_description">Device name</string>
+    <string name="RegistrationActivity_link">Link</string>
+    <string name="RegistrationActivity_enter_a_name_for_this_device">Enter a name for this device</string>
+    <string name="RegistrationActivity_scan_this_qr_using_your_primary_device">Scan this QR code using your primary device</string>
+    <string name="RegistrationActivity_copied_to_clipboard">Copied to clipboard</string>
+    <string name="RegistrationActivity_link_error">An error has occurred while trying to link the device. Check your network connectivity, and retry</string>
+    <string name="RegistrationActivity_link_timeout">Timed out waiting for the primary device. Ready your device to scan the QR code, then try again</string>
+    <string name="RegistrationActivity_link_retry">Retry linking</string>
 </resources>

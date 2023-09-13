@@ -1,7 +1,7 @@
 FROM eclipse-temurin:17.0.7_7-sdk-jammy@sha256:ab4bbe391a42adc8e590d0c54b3ca7903cbc3b62a3e3b23ac8dce94ebfef6b9e AS builder
 
-ARG ANDROID_SDK_DIST=commandlinetools-linux-9477386_latest.zip
-ARG ANDROID_SDK_SHA256=bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0
+ARG ANDROID_SDK_DIST=commandlinetools-linux-10406996_latest.zip
+ARG ANDROID_SDK_SHA256=8919e8752979db73d8321e9babe2caedcc393750817c1a5f56c128ec442fb540
 
 ENV ANDROID_HOME=/opt/android-sdk-linux
 
@@ -22,8 +22,8 @@ RUN yes | sdkmanager --licenses
 
 RUN sdkmanager "platform-tools"
 
-ARG ANDROID_API_LEVEL=33
-ARG ANDROID_BUILD_TOOLS_VERSION=32.0.0
+ARG ANDROID_API_LEVEL=34
+ARG ANDROID_BUILD_TOOLS_VERSION=34.0.0
 
 RUN sdkmanager "platforms;android-${ANDROID_API_LEVEL}"
 RUN sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"

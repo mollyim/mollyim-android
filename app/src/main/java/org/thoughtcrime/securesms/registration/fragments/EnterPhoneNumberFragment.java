@@ -75,6 +75,7 @@ public final class EnterPhoneNumberFragment extends LoggingFragment implements R
   private TextInputLayout                countryCode;
   private TextInputLayout                number;
   private CircularProgressMaterialButton register;
+  private View                           linkDevice;
   private View                           cancel;
   private ScrollView                     scrollView;
   private RegistrationViewModel          viewModel;
@@ -103,12 +104,14 @@ public final class EnterPhoneNumberFragment extends LoggingFragment implements R
     cancel      = view.findViewById(R.id.cancel_button);
     scrollView  = view.findViewById(R.id.scroll_view);
     register    = view.findViewById(R.id.registerButton);
+    linkDevice  = view.findViewById(R.id.link_button);
 
     RegistrationNumberInputController controller = new RegistrationNumberInputController(requireContext(),
                                                                                          this,
                                                                                          Objects.requireNonNull(number.getEditText()),
                                                                                          countryCode);
     register.setOnClickListener(v -> handleRegister(requireContext()));
+    linkDevice.setOnClickListener(v -> SafeNavigation.safeNavigate(Navigation.findNavController(v), EnterPhoneNumberFragmentDirections.actionLinkDevice()));
 
     disposables.bindTo(getViewLifecycleOwner().getLifecycle());
     viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
