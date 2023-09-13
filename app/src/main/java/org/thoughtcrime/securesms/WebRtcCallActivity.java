@@ -325,7 +325,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   @Override
   protected void onAuthenticationCancel() {
-    onBackPressed();
+    super.onBackPressed();
   }
 
   private boolean enterPipModeIfPossible() {
