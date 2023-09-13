@@ -87,7 +87,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Emoji Version     : ").append(locked ? "Unknown" : getEmojiVersionString(context)).append("\n");
     builder.append("RenderBigEmoji    : ").append(FontUtil.canRenderEmojiAtFontSize(1024)).append("\n");
     builder.append("DontKeepActivities: ").append(getDontKeepActivities(context)).append("\n");
-    builder.append("Server Time Offset: ").append(locked ? "Unknown" : SignalStore.misc().getLastKnownServerTimeOffset()).append(" ms (last updated: ").append(SignalStore.misc().getLastKnownServerTimeOffsetUpdateTime()).append(")").append("\n");
+    builder.append("Server Time Offset: ").append(locked ? "Unknown" : getLastKnownServerTimeOffset()).append("\n");
     builder.append("Telecom           : ").append(locked ? "Unknown" : AndroidTelecomUtil.getTelecomSupported()).append("\n");
     builder.append("User-Agent        : ").append(StandardUserAgentInterceptor.USER_AGENT).append("\n");
     builder.append("App               : ");
@@ -108,6 +108,10 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Package           : ").append(BuildConfig.APPLICATION_ID).append(" (").append(getSigningString(context)).append(")");
 
     return builder;
+  }
+
+  private static @NonNull String getLastKnownServerTimeOffset() {
+    return SignalStore.misc().getLastKnownServerTimeOffset() + " ms (last updated: " + SignalStore.misc().getLastKnownServerTimeOffsetUpdateTime() + ")";
   }
 
   private static @NonNull String getMemoryUsage() {
