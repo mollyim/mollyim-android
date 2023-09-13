@@ -138,6 +138,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
    * [currentState] or default to false.
    */
   private fun getState(currentState: NotificationsSettingsState? = null, calculateSlowNotifications: Boolean = false): NotificationsSettingsState = NotificationsSettingsState(
+    isLinkedDevice = SignalStore.account().isLinkedDevice,
     messageNotificationsState = MessageNotificationsState(
       notificationsEnabled = SignalStore.settings().isMessageNotificationsEnabled && canEnableNotifications(),
       canEnableNotifications = canEnableNotifications(),

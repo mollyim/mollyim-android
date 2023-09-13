@@ -290,27 +290,29 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         }
       )
 
-      dividerPref()
+      if (!state.isLinkedDevice) {
+        dividerPref()
 
-      sectionHeaderPref(R.string.NotificationsSettingsFragment__pushStrategy)
+        sectionHeaderPref(R.string.NotificationsSettingsFragment__pushStrategy)
 
-      radioListPref(
-        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__deliveryMethod),
-        listItems = notificationMethodLabels,
-        selected = notificationMethodValues.indexOf(state.notificationDeliveryMethod),
-        onSelected = {
-          viewModel.setNotificationDeliveryMethod(notificationMethodValues[it])
-        }
-      )
+        radioListPref(
+          title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__deliveryMethod),
+          listItems = notificationMethodLabels,
+          selected = notificationMethodValues.indexOf(state.notificationDeliveryMethod),
+          onSelected = {
+            viewModel.setNotificationDeliveryMethod(notificationMethodValues[it])
+          }
+        )
 
-      clickPref(
-        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__unifiedpush),
-        summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__unifiedpushDescription),
-        isEnabled = state.notificationDeliveryMethod == NotificationDeliveryMethod.UNIFIEDPUSH,
-        onClick = {
-          findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_unifiedPushFragment)
-        }
-      )
+        clickPref(
+          title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__unifiedpush),
+          summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__unifiedpushDescription),
+          isEnabled = state.notificationDeliveryMethod == NotificationDeliveryMethod.UNIFIEDPUSH,
+          onClick = {
+            findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_unifiedPushFragment)
+          }
+        )
+      }
     }
   }
 
