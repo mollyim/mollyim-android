@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17.0.7_7-sdk-jammy@sha256:ab4bbe391a42adc8e590d0c54b3ca7903cbc3b62a3e3b23ac8dce94ebfef6b9e AS builder
+FROM docker.io/eclipse-temurin:17.0.7_7-sdk-jammy@sha256:ab4bbe391a42adc8e590d0c54b3ca7903cbc3b62a3e3b23ac8dce94ebfef6b9e AS builder
 
 ARG ANDROID_SDK_DIST=commandlinetools-linux-10406996_latest.zip
 ARG ANDROID_SDK_SHA256=8919e8752979db73d8321e9babe2caedcc393750817c1a5f56c128ec442fb540
