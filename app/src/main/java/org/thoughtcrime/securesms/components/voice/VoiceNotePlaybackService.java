@@ -67,6 +67,7 @@ public class VoiceNotePlaybackService extends MediaSessionService {
     super.onCreate();
 
     if (KeyCachingService.isLocked()) {
+      Log.d(TAG, "Unbinding VoiceNotePlaybackService. App is locked.");
       stopSelf();
       return;
     }
@@ -92,14 +93,16 @@ public class VoiceNotePlaybackService extends MediaSessionService {
 
   @Override
   public void onDestroy() {
-    if (mediaSession == null) return;
-    player.release();
-    mediaSession.release();
-    mediaSession = null;
+    if (mediaSession != null) {
+      player.release();
+      mediaSession.release();
+      mediaSession = null;
+    }
     clearListener();
-    mediaSession = null;
     super.onDestroy();
-    keyClearedReceiver.unregister();
+    if (keyClearedReceiver != null) {
+      keyClearedReceiver.unregister();
+    }
   }
 
   @Nullable
