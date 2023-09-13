@@ -329,6 +329,7 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__deliveryMethod),
         listItems = notificationMethodLabels,
         selected = notificationMethodValues.indexOf(state.notificationDeliveryMethod),
+        isEnabled = !state.isLinkedDevice,
         onSelected = {
           viewModel.setNotificationDeliveryMethod(notificationMethodValues[it])
         }
