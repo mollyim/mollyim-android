@@ -38,7 +38,7 @@ SHA-256: 6aa80fdf4a8cc13737cfb434fc0cde486f09cf8fcda21a67bea5ee1ca2700886
 SHA-1: 49ce310cdd0c09c8c34eb31a8005c6bf13f5a4f1
 ```
 
-Pre-releases are also available to download for development or beta testing.
+To explore latest experimental features, consider **Molly Insider**, our dedicated app for beta testing. Find out more here: [Molly Insider on GitHub](https://github.com/mollyim/mollyim-insider-android).
 
 ## Features
 
@@ -47,6 +47,7 @@ Molly has unique features compared to Signal:
 - **Data encryption at rest** - Protect the database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
 - **Secure RAM wiper** - Securely shred sensitive data from device memory
 - **Automatic lock** - Lock the app automatically under certain conditions
+- **Multi-device support** -- Link multiple devices, including Android tablets, to a single account
 - **Block unknown contacts** - Block messages and calls from unknown senders for security and anti-spam
 - **Contact deletion** - Allows you to delete contacts and stop sharing your profile
 - **Disappearing call history** - Clear call notifications together with expiring messages
