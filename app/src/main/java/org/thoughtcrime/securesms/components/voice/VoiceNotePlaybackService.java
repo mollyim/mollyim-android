@@ -61,21 +61,16 @@ public class VoiceNotePlaybackService extends MediaSessionService {
 
   private MediaSession                         mediaSession;
   private VoiceNotePlayer                      player;
+  private VoiceNotePlayerEventListener         playerEventListener;
   private KeyClearedReceiver                   keyClearedReceiver;
   private VoiceNotePlayerCallback              voiceNotePlayerCallback;
 
   @Override
   public void onCreate() {
     super.onCreate();
-
-    if (KeyCachingService.isLocked()) {
-      Log.d(TAG, "Unbinding VoiceNotePlaybackService. App is locked.");
-      stopSelf();
-      return;
-    }
-
     player = new VoiceNotePlayer(this);
-    player.addListener(new VoiceNotePlayerEventListener());
+    playerEventListener = new VoiceNotePlayerEventListener();
+    player.addListener(playerEventListener);
 
     voiceNotePlayerCallback = new VoiceNotePlayerCallback(this, player);
     mediaSession            = buildMediaSession(false);
@@ -102,16 +97,15 @@ public class VoiceNotePlaybackService extends MediaSessionService {
 
   @Override
   public void onDestroy() {
+    player.removeListener(playerEventListener);
     if (mediaSession != null) {
+      keyClearedReceiver.unregister();
       player.release();
       mediaSession.release();
       mediaSession = null;
+      clearListener();
     }
-    clearListener();
     super.onDestroy();
-    if (keyClearedReceiver != null) {
-      keyClearedReceiver.unregister();
-    }
   }
 
   @Nullable
@@ -218,6 +212,10 @@ public class VoiceNotePlaybackService extends MediaSessionService {
    * @return the built MediaSession, or null if the session cannot be built.
    */
   private @Nullable MediaSession buildMediaSession(boolean isRetry) {
+    if (KeyCachingService.isLocked()) {
+      Log.i(TAG, "Refuse to create media session when app is locked.");
+      return null;
+    }
     try {
       return new MediaSession.Builder(this, player).setCallback(voiceNotePlayerCallback).setId(SESSION_ID).build();
     } catch (IllegalStateException e) {
