@@ -17,6 +17,7 @@ public class SocksProxy {
   public static final String LOCAL_HOST = "localhost";
 
   private final String host;
+
   private final int port;
 
   public SocksProxy() {
@@ -41,7 +42,7 @@ public class SocksProxy {
     String url = null;
     try {
       url = new URI("socks", null, host, port, null, null, null).toString();
-    } catch (URISyntaxException ignored) { }
+    } catch (URISyntaxException ignored) {}
     return url;
   }
 
@@ -50,7 +51,7 @@ public class SocksProxy {
     InetSocketAddress address = null;
     try {
       address = InetSocketAddress.createUnresolved(host, port);
-    } catch (IllegalArgumentException ignored) { }
+    } catch (IllegalArgumentException ignored) {}
     return address;
   }
 
@@ -70,6 +71,12 @@ public class SocksProxy {
     return !(port < 0 || port > 0xFFFF);
   }
 
+  /**
+   * Creates a SOCKS proxy with the configured socket address.
+   *
+   * @return A SOCKS proxy instance, or null if the address is invalid.
+   */
+  @Nullable
   public Proxy makeProxy() {
     InetSocketAddress address = getSocketAddress();
     return address != null ? new Proxy(Proxy.Type.SOCKS, address) : null;

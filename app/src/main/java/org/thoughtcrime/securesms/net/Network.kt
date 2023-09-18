@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.net
 
 import okhttp3.Dns
 import java.io.IOException
+import java.net.InetSocketAddress
 import java.net.Proxy
 import java.net.ProxySelector
 import java.net.SocketAddress
@@ -19,16 +20,38 @@ object Network {
   @JvmStatic
   val socketFactory: SocketFactory = ProxySocketFactory {
     throwIfDisabled()
-    proxy ?: throw IOException("Proxy address not available yet")
+    proxy.also {
+      if (it == DUMMY_PROXY) {
+        throw IOException("Proxy socket address not available yet")
+      }
+    }
   }
 
   @JvmStatic
   var socksProxy: SocksProxy? = null
 
+  /**
+   * A SOCKS [Proxy] instance pointing to the "discard" service on localhost (port 9),
+   * effectively a black hole for outgoing network traffic.
+   */
+  @JvmStatic
+  val DUMMY_PROXY = Proxy(Proxy.Type.SOCKS, InetSocketAddress.createUnresolved("localhost", 9))
+
+  /**
+   * Retrieves the current proxy configuration.
+   *
+   * It checks if a proxy is configured and attempts to create a [Proxy] instance
+   * using the specified socket address. If the address is invalid or unavailable,
+   * it defaults to [DUMMY_PROXY] to prevent IP leaks.
+   *
+   * If no proxy is configured, it returns [Proxy.NO_PROXY] to indicate direct
+   * connection without a proxy.
+   */
   @JvmStatic
   val proxy
-    get(): Proxy? {
-      return socksProxy?.makeProxy() ?: Proxy.NO_PROXY
+    get(): Proxy {
+      val currentSocksProxy = socksProxy ?: return Proxy.NO_PROXY
+      return currentSocksProxy.makeProxy() ?: DUMMY_PROXY
     }
 
   @JvmStatic

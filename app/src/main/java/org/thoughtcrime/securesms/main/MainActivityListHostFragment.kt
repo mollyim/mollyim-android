@@ -34,6 +34,7 @@ import org.thoughtcrime.securesms.components.settings.app.notifications.manual.N
 import org.thoughtcrime.securesms.conversationlist.ConversationListFragment
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.net.Network
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfiles
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -291,7 +292,12 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
       when (state) {
         WebSocketConnectionState.CONNECTING, WebSocketConnectionState.DISCONNECTING, WebSocketConnectionState.DISCONNECTED -> proxyStatus.setImageResource(R.drawable.ic_proxy_connecting_24)
         WebSocketConnectionState.CONNECTED -> proxyStatus.setImageResource(R.drawable.ic_proxy_connected_24)
-        WebSocketConnectionState.AUTHENTICATION_FAILED, WebSocketConnectionState.FAILED -> proxyStatus.setImageResource(R.drawable.ic_proxy_failed_24)
+        WebSocketConnectionState.AUTHENTICATION_FAILED -> proxyStatus.setImageResource(R.drawable.ic_proxy_failed_24)
+        WebSocketConnectionState.FAILED -> {
+          val proxyPending = Network.proxy == Network.DUMMY_PROXY
+          if (proxyPending) proxyStatus.setImageResource(R.drawable.ic_proxy_connecting_24)
+          else proxyStatus.setImageResource(R.drawable.ic_proxy_failed_24)
+        }
         else -> proxyStatus.visibility = View.GONE
       }
     } else {

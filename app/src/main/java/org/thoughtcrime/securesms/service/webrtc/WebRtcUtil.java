@@ -120,14 +120,15 @@ public final class WebRtcUtil {
 
   public static PeerConnection.ProxyInfo getProxyInfo() {
     Proxy proxy = Network.getProxy();
-
-    if (proxy == null || proxy.type() != Proxy.Type.SOCKS || proxy.address() == null) {
+    if (proxy == Proxy.NO_PROXY) {
       return null;
+    } else if (proxy.type() == Proxy.Type.SOCKS) {
+      InetSocketAddress address = (InetSocketAddress) proxy.address();
+      return PeerConnection.ProxyInfo.builder(address.getHostString(), address.getPort())
+                                     .setProxyType(PeerConnection.ProxyType.PROXY_SOCKS5)
+                                     .createProxyInfo();
+    } else {
+      throw new AssertionError("Unsupported proxy type");
     }
-
-    InetSocketAddress address = (InetSocketAddress) proxy.address();
-    return PeerConnection.ProxyInfo.builder(address.getHostString(), address.getPort())
-                                   .setProxyType(PeerConnection.ProxyType.PROXY_SOCKS5)
-                                   .createProxyInfo();
   }
 }

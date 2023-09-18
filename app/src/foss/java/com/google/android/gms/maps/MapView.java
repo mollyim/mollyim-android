@@ -69,7 +69,7 @@ public class MapView extends org.osmdroid.views.MapView {
     final IConfigurationProvider config = Configuration.getInstance();
     config.setDebugMode(BuildConfig.DEBUG);
     config.setUserAgentValue(userAgent);
-    if (proxy != null) {
+    if (proxy != Proxy.NO_PROXY) {
       config.setHttpProxy(proxy);
     }
 
