@@ -282,6 +282,7 @@ public final class EnterPhoneNumberFragment extends LoggingFragment implements R
 
   private void enterInProgressUiState() {
     register.setSpinning();
+    linkDevice.setEnabled(false);
     countryCode.setEnabled(false);
     number.setEnabled(false);
     cancel.setVisibility(View.GONE);
@@ -289,6 +290,7 @@ public final class EnterPhoneNumberFragment extends LoggingFragment implements R
 
   private void exitInProgressUiState() {
     register.cancelSpinning();
+    linkDevice.setEnabled(true);
     countryCode.setEnabled(true);
     number.setEnabled(true);
     if (viewModel.isReregister()) {

@@ -112,8 +112,8 @@
             android:text="@android:string/cancel"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/registerButton"
-            app:layout_constraintEnd_toEndOf="@id/registerButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />
 
         <org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton
@@ -131,18 +131,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/link_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/RegistrationActivity_link_device"
             style="@style/Signal.Widget.Button.Large.Secondary"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:text="@string/RegistrationActivity_link_device"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintTop_toTopOf="@+id/registerButton"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
