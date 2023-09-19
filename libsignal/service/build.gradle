@@ -28,6 +28,12 @@ configurations {
     ideaTestFixturesImplementation { extendsFrom testFixturesImplementation; canBeConsumed false; canBeResolved true }
 }
 
+afterEvaluate {
+    tasks.named('sourcesJar') {
+        dependsOn tasks.named('generateMainProtos')
+    }
+}
+
 dependencies {
     implementation libs.google.protobuf.javalite
     api libs.google.libphonenumber
