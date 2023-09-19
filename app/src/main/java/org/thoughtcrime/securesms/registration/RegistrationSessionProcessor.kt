@@ -201,8 +201,12 @@ sealed class RegistrationSessionProcessor(response: ServiceResponse<Registration
     return error is MustRequestNewCodeException
   }
 
-  fun externalServiceFailure(): Boolean {
-    return error is ExternalServiceFailureException
+  fun externalServiceUnavailable(): Boolean {
+    return error is ExternalServiceFailureException && (error as ExternalServiceFailureException).unavailable
+  }
+
+  fun externalServiceRejected(): Boolean {
+    return error is ExternalServiceFailureException && (error as ExternalServiceFailureException).rejected
   }
 
   fun invalidTransportModeFailure(): Boolean {
