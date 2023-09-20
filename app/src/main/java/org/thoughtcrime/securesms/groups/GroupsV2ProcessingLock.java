@@ -24,16 +24,6 @@ public final class GroupsV2ProcessingLock {
 
   @WorkerThread
   public static Closeable acquireGroupProcessingLock() throws GroupChangeBusyException {
-    if (FeatureFlags.internalUser()) {
-      if (!lock.isHeldByCurrentThread()) {
-        if (SignalDatabase.inTransaction()) {
-          throw new AssertionError("Tried to acquire the group lock inside of a database transaction!");
-        }
-        if (ReentrantSessionLock.INSTANCE.isHeldByCurrentThread()) {
-          throw new AssertionError("Tried to acquire the group lock inside of the ReentrantSessionLock!!");
-        }
-      }
-    }
     return acquireGroupProcessingLock(5000);
   }
 
