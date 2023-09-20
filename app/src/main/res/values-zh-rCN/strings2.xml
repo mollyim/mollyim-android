@@ -88,4 +88,19 @@
     <string name="EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them">Molly 可以定期检查新版本并请求安装。</string>
     <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s 未注册 Signal</string>
     <string name="TimeDurationPickerDialog_single_letter_second_abbreviation">秒</string>
+    <string name="RegistrationActivity_device_name_description">设备名</string>
+    <string name="DeviceListItem_primary">主设备</string>
+    <string name="RegistrationActivity_link_device">链接到现有设备</string>
+    <string name="DeviceListItem_registered_s">已注册 %s</string>
+    <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">无法从链接的设备更改 PIN 设置</string>
+    <string name="RegistrationActivity_link_error">尝试链接到设备时出错。请检查你的网络连接性并重试</string>
+    <string name="DeviceListItem_device_d">设备 #%d</string>
+    <string name="RegistrationActivity_scan_this_qr_using_your_primary_device">使用你的主设备扫描此二维码</string>
+    <string name="RegistrationActivity_link">链接</string>
+    <string name="RegistrationActivity_link_retry">重试链接</string>
+    <string name="RegistrationActivity_link_timeout">主设备等待超时，请准备好你扫描二维码的设备并重试</string>
+    <string name="RegistrationActivity_enter_a_name_for_this_device">输入此设备的名称</string>
+    <string name="RegistrationActivity_copied_to_clipboard">已复制到剪贴板</string>
+    <string name="DeviceListItem_this_device">此设备</string>
+    <string name="RegistrationActivity_provider_declined">供应商可能出于欺诈防范规则拒绝给你发送验证码。</string>
 </resources>

@@ -65,7 +65,7 @@
     <string name="HelpSettingsFragment__molly_im_website">Sito web Molly.im</string>
     <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Se il tuo dispositivo non può scansionare il codice QR, puoi inserire manualmente il collegamento codificato nel codice QR.</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Eliminare e disabilitare il registro di debug\?</string>
-    <string name="DeviceAddFragment__link_without_scanning">Collega senza scansione</string>
+    <string name="DeviceAddFragment__link_without_scanning">Associa senza scansione</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly ha bisogno delle autorizzazioni per i contatti e i media per aiutarti a trovare i tuoi amici e inviare messaggi. I contatti vengono caricati utilizzando la funzione di scoperta privata dei contatti di Signal, il che significa che sono crittografati dall\'inizio alla fine e non sono mai visibili al servizio Signal.</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly ha bisogno dell\'autorizzazione dei contatti per aiutarti a trovare gli amici. I tuoi contatti sono caricati utilizzando Signal\'individuazione dei contatti privati, il che significa che sono crittografati dall\'inizio alla fine e mai visibili al servizio Signal.</string>
     <string name="DozeReminder_optimize_for_timely_notifications">Ottimizza per notifiche tempestive</string>
@@ -77,11 +77,11 @@
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Blocca l\'accesso di Molly con l\'impronta digitale o il riconoscimento del volto</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Nessuna funzione biometrica disponibile su questo dispositivo</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Prima di tutto, imposta la biometria nelle impostazioni Android</string>
-    <string name="BioTextPreference_no_linked_devices">Nessun dispositivo collegato</string>
+    <string name="BioTextPreference_no_linked_devices">Nessun dispositivo associato</string>
     <plurals name="BioTextPreference_n_linked_devices">
-        <item quantity="one">%d dispositivo collegato</item>
-        <item quantity="many">%d dispositivi collegati</item>
-        <item quantity="other">%d dispositivi collegati</item>
+        <item quantity="one">%d dispositivo associato</item>
+        <item quantity="many">%d dispositivi associati</item>
+        <item quantity="other">%d dispositivi associati</item>
     </plurals>
     <string name="Megaphones_turn_on_stories">Attiva le storie</string>
     <string name="EnableAppUpdatesMegaphone_check_for_updates">Controlla gli aggiornamenti</string>
@@ -90,4 +90,18 @@
     <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">Sarai avvisato/avvisata quando saranno disponibili gli aggiornamenti</string>
     <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s non è registrato/a con Signal</string>
     <string name="TimeDurationPickerDialog_single_letter_second_abbreviation">s</string>
+    <string name="RegistrationActivity_device_name_description">Nome del dispositivo</string>
+    <string name="DeviceListItem_primary">Principale</string>
+    <string name="RegistrationActivity_link_device">Associa con un dispositivo esistente</string>
+    <string name="DeviceListItem_registered_s">Registrato %s</string>
+    <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">Le impostazioni del codice personale non possono essere modificate da un dispositivo associato</string>
+    <string name="RegistrationActivity_link_error">Si è verificato un errore durante il collegamento. Controllare la connessione di rete e riprovare</string>
+    <string name="DeviceListItem_device_d">Dispositivo nº %d</string>
+    <string name="RegistrationActivity_scan_this_qr_using_your_primary_device">Scansiona questo codice QR usando il dispositivo principale</string>
+    <string name="RegistrationActivity_link">Associa</string>
+    <string name="RegistrationActivity_link_retry">Riprova il collegamento</string>
+    <string name="RegistrationActivity_link_timeout">Il tempo di attesa del dispositivo principale è scaduto. Prepara il dispositivo per la scansione del codice QR e poi riprova</string>
+    <string name="RegistrationActivity_enter_a_name_for_this_device">Inserisci un nome per questo dispositivo</string>
+    <string name="RegistrationActivity_copied_to_clipboard">Copiato negli appunti</string>
+    <string name="DeviceListItem_this_device">Questo dispositivo</string>
 </resources>
