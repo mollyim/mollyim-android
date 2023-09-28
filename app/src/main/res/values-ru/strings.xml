@@ -479,7 +479,7 @@
     <string name="ConversationFragment_failed_to_open_message">Не удалось открыть сообщение</string>
     <string name="ConversationFragment_you_can_swipe_to_the_right_reply">Вы можете провести вправо по любому сообщению, чтобы быстро ответить</string>
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Вы можете провести влево по любому сообщению, чтобы быстро ответить</string>
-    <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Исходящие одноразовые медиафайлы автоматически удаляются после того, как они были отправлены</string>
+    <string name="ConversationFragment_view_once_media_is_deleted_after_sending">Одноразовое медиасообщение удалено после отправки</string>
     <string name="ConversationFragment_you_already_viewed_this_message">Вы уже просмотрели это сообщение</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Вы можете добавлять заметки для себя в этом чате. Если у вашей учётной записи есть привязанные устройства, то новые заметки будут синхронизированы.</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d участников группы имеют одинаковое имя.</string>
@@ -930,8 +930,10 @@
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title">Мы заметили, что уведомления приходят с задержкой. Отправить журналы отладки?</string>
-    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Журналы отладки помогают нам диагностировать и устранять проблему и не содержат идентифицирующей информации.</string>
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Возникла проблема в Molly. Отправить журналы отладки?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Уведомления могут приходить с задержкой в связи с оптимизацией работы батареи</string>
@@ -2395,6 +2397,18 @@
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Отключить уведомления «Контакт присоединился к Signal»? Вы можете заново включить их в Signal &gt; Настройки &gt; Уведомления.</string>
 
+    <!-- TurnOnNotificationsBottomSheet -->
+    <!-- Title for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__turn_on_notifications">Включите уведомления</string>
+    <!-- Subtitle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__to_receive_notifications">Чтобы получать уведомления о новых сообщениях:</string>
+    <!-- Sheet step 1  for sheet explaining how to turn on app notifications-->
+    <string name="TurnOnNotificationsBottomSheet__1_tap_settings_below">1. Нажмите «Настройки» ниже</string>
+    <!-- Sheet step 2 with placeholder which will be replaced with an image of a toggle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__2_s_turn_on_notifications">2. %1$s Включите уведомления</string>
+    <!-- Label for button at the bottom of the sheet which opens system app notification settings for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__settings">Настройки</string>
+
     <!-- Notification Channels -->
     <string name="NotificationChannel_channel_messages">Сообщения</string>
     <string name="NotificationChannel_calls">Звонки</string>
@@ -2937,7 +2951,7 @@
     <string name="HelpFragment__could_not_upload_logs">Не удалось отправить журналы</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Пожалуйста, пишите как можно подробнее, чтобы помочь нам понять проблему.</string>
     <string-array name="HelpFragment__categories_5">
-        <item>\\-\\- Пожалуйста, выберите вариант \\-\\-</item>
+        <item>Пожалуйста, выберите вариант</item>
         <item>Что-то не работает</item>
         <item>Запросить новые функции</item>
         <item>Вопрос</item>
@@ -2951,6 +2965,8 @@
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Отправка журнала отладки Signal Android</string>
     <!-- Category to organize the support email sent -->
     <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Уведомления приходят с задержкой</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__crash_category">Сбой</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Отправить</string>
     <!-- Action to decline to submit logs -->
@@ -3078,7 +3094,6 @@
     <string name="preferences__payments">Платежи</string>
     <!-- Privacy settings payments section description -->
     <string name="preferences__payment_lock">Блокировка платежей</string>
-    <string name="preferences__payments_beta">Платежи (бета)</string>
     <string name="preferences__conversation_length_limit">Макс. число сообщений в чате</string>
     <string name="preferences__keep_messages">Хранить сообщения</string>
     <string name="preferences__clear_message_history">Очистить историю сообщений</string>
@@ -3234,7 +3249,8 @@
     <string name="PaymentsAllActivityFragment__sent">Отправленные</string>
     <string name="PaymentsAllActivityFragment__received">Полученные</string>
 
-    <string name="PaymentsHomeFragment__introducing_payments">Новая функция: платежи (бета)</string>
+    <!-- Displayed on a welcome screen for payments -->
+    <string name="PaymentsHomeFragment_introducing_payments">Новая функция: платежи</string>
     <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Используйте Molly, чтобы отправлять и получать MobileCoin — новую цифр. валюту c акцентом на конфиденциальность. Активируйте, чтобы начать.</string>
     <string name="PaymentsHomeFragment__activate_payments">Активировать платежи</string>
     <string name="PaymentsHomeFragment__activating_payments">Активируем платежи…</string>
@@ -3268,8 +3284,9 @@
     <string name="PaymentsHomeFragment__payments_deactivated">Платежи деактивированы.</string>
     <string name="PaymentsHomeFragment__payment_failed">Платёж не удался</string>
     <string name="PaymentsHomeFragment__details">Подробнее</string>
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate </string>
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Вы можете использовать Molly, чтобы отправлять и получать MobileCoin. Все платежи регламентируются Условиями использования MobileCoins и MobileCoin Wallet. Это бета-функция, так что вы можете столкнуться с некоторыми проблемами, и платежи или средства, которые вы можете потерять, невозможно будет восстановить. </string> -->
+  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
+    <!-- Displayed as a description in a dialog when the user tries to activate payments -->
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Вы можете использовать Signal, чтобы отправлять и получать MobileCoin. Все платежи регламентируются Условиями использования MobileCoins и MobileCoin Wallet. Вы можете столкнуться с некоторыми проблемами, и платежи или средства, которые вы можете потерять, невозможно будет восстановить. </string>
     <string name="PaymentsHomeFragment__activate">Активировать</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Просмотреть Условия MobileCoin</string>
     <string name="PaymentsHomeFragment__payments_not_available">Платежи в Molly больше не доступны. Вы можете перевести средства на биржу, но больше не можете отправлять или получать платежи или пополнять баланс.</string>
@@ -3291,6 +3308,32 @@
     <string name="PaymentsHomeFragment__cancel">Отменить</string>
     <!-- Alert dialog button to update now -->
     <string name="PaymentsHomeFragment__update_now">Обновиться</string>
+
+    <!-- GrantPermissionsFragment -->
+    <!-- Displayed as a text-only action button at the bottom start of the screen -->
+    <string name="GrantPermissionsFragment__not_now">Не сейчас</string>
+    <!-- Displayed as an action button at the bottom end of the screen -->
+    <string name="GrantPermissionsFragment__next">Далее</string>
+    <!-- Displayed as a title at the top of the screen -->
+    <string name="GrantPermissionsFragment__allow_permissions">Включите разрешения</string>
+    <!-- Displayed as a subtitle at the top of the screen -->
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Чтобы вы могли отправлять сообщения тем, кого знаете, Molly будет запрашивать эти разрешения. </string>
+    <!-- Notifications permission row title -->
+    <string name="GrantPermissionsFragment__notifications">Уведомления</string>
+    <!-- Notifications permission row description -->
+    <string name="GrantPermissionsFragment__get_notified_when">Получать уведомления о новых сообщениях.</string>
+    <!-- Contacts permission row title -->
+    <string name="GrantPermissionsFragment__contacts">Контакты</string>
+    <!-- Contacts permission row description -->
+    <string name="GrantPermissionsFragment__find_people_you_know">Найдите людей, которых вы знаете. Ваши контакты зашифрованы и не видны Molly.</string>
+    <!-- Phone calls permission row title -->
+    <string name="GrantPermissionsFragment__phone_calls">Телефонные звонки</string>
+    <!-- Phone calls permission row description -->
+    <string name="GrantPermissionsFragment__make_registering_easier">Упростить регистрацию и включить дополнительные функции звонков.</string>
+    <!-- Storage permission row title -->
+    <string name="GrantPermissionsFragment__storage">Хранилище</string>
+    <!-- Storage permission row description -->
+    <string name="GrantPermissionsFragment__send_photos_videos_and_files">Отправляйте фото, видео и файлы со своего устройства.</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -4230,7 +4273,7 @@
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">Всё получилось! Теперь сохраните свою фразу для восстановления — ключ из 24 слов, который вы сможете использовать для восстановления информации.</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
-    <string name="PaymentsRecoveryStartFragment__time_to_save">Теперь сохраните свою фразу для восстановления — ключ из 24 слов, который вы сможете использовать для восстановления информации. Узнать больше</string>
+    <string name="PaymentsRecoveryStartFragment__time_to_save">Теперь сохраните свою фразу для восстановления — ключ из 24 слов, который вы сможете использовать для восстановления информации.</string>
     <string name="PaymentsRecoveryStartFragment__your_recovery_phrase_is_a">Ваша фраза восстановления — это уникальная фраза, состоящая из %1$d слов. Она понадобится вам, чтобы восстановить свой баланс.</string>
     <string name="PaymentsRecoveryStartFragment__start">Начать</string>
     <string name="PaymentsRecoveryStartFragment__enter_manually">Ввести вручную</string>
@@ -5204,6 +5247,10 @@
 
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Не удалось открыть приложение для выбора мелодии.</string>
+    <!-- Banner title when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__to_enable_notifications">Чтобы включить уведомления, Molly должен получить разрешение на их отображение.</string>
+    <!-- Banner action when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__turn_on">Включить</string>
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Обновления и новости Signal</string>
@@ -6235,6 +6282,8 @@
     <string name="CallLogFragment__no_calls">Нет звонков.</string>
     <!-- Shown during empty state -->
     <string name="CallLogFragment__get_started_by_calling_a_friend">Начните со звонка другу.</string>
+    <!-- Displayed as a message in a dialog when deleting multiple items -->
+    <string name="CallLogFragment__call_links_youve_created">Созданные вами ссылки на звонки больше не будут действовать для тех, у кого они есть.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -6296,8 +6345,10 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__signal_call">Звонок Signal</string>
     <!-- Displayed on a small button to allow user to instantly join call -->
     <string name="CreateCallLinkBottomSheetDialogFragment__join">Войти</string>
-    <!-- Option to open a full screen dialog to enter a call name -->
+    <!-- Option to open a full screen dialog to add a call name -->
     <string name="CreateCallLinkBottomSheetDialogFragment__add_call_name">Добавить имя звонка</string>
+    <!-- Option to open a full screen dialog to edit a call name -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__edit_call_name">Изменить имя звонка</string>
     <!-- Toggle to require approval for all members before joining -->
     <string name="CreateCallLinkBottomSheetDialogFragment__approve_all_members">Одобрить всех участников</string>
     <!-- Row label to share the link via Signal -->
@@ -6312,6 +6363,12 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__failed_to_open_share_sheet">Невозможно поделиться ссылкой на звонок.</string>
     <!-- Displayed when we copy the call link to the clipboard -->
     <string name="CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard">Скопировано в буфер обмена</string>
+
+    <!-- CallLinkIncomingRequestSheet -->
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__approve_entry">Принять запрос</string>
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__deny_entry">Отклонить запрос</string>
 
     <!-- EditCallLinkNameDialogFragment -->
     <!-- App bar title for editing a call name -->
@@ -6332,9 +6389,9 @@
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">История изменений</string>
     <!-- Title of dialog shown alerting user that edit message is in beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_title">Только для бета-версии Signal</string>
+    <string name="SendingEditMessageBetaOnlyDialog_title">Редактировать сообщение</string>
     <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
-    <string name="SendingEditMessageBetaOnlyDialog_body">Редактирование сообщений доступно только для пользователей бета-версии Signal. Если вы отредактируете сообщение, то оно будет доступно только тем, кто пользуется последней бета-версией Signal.</string>
+    <string name="SendingEditMessageBetaOnlyDialog_body">Если вы отредактируете сообщение, это увидят только те, кто пользуется последними версиями Signal. Они увидят, что вы отредактировали сообщение.</string>
     <!-- Button to cancel sending edit message as it is beta only -->
     <string name="SendingEditMessageBetaOnlyDialog_cancel">Отменить</string>
     <!-- Button to continue sending edit message despite it being beta only -->
@@ -6369,6 +6426,16 @@
     <string name="UsernameLinkSettings_username_copied_toast">Имя пользователя скопировано</string>
     <!-- Content of a toast that will show after the username link is copied to the clipboard -->
     <string name="UsernameLinkSettings_link_copied_toast">Ссылка скопирована</string>
+    <!-- Content of a text field that is shown when the user has not yet set a username link -->
+    <string name="UsernameLinkSettings_link_not_set_label">Ссылка не установлена</string>
+    <!-- Content of a text field that is shown when the user is actively resetting the username link and waiting for the operation to finish -->
+    <string name="UsernameLinkSettings_resetting_link_label">Сброс ссылки…</string>
+    <!-- Title of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_title">Сбросить QR-код?</string>
+    <!-- Body of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_body">При сбросе QR-кода ваш существующий QR-код и ссылка перестанут работать.</string>
+    <!-- Label for the confirmation button on a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_confirm_button">Сбросить</string>
     <!-- Button label for a button that will reset your username and give you a new link -->
     <string name="UsernameLinkSettings_reset_button_label">Сбросить</string>
     <!-- Button label for a button that indicates that the user is done changing the current setting -->
@@ -6385,8 +6452,14 @@
     <string name="UsernameLinkSettings_qr_result_invalid">QR-код был недействителен.</string>
     <!-- Body of a dialog that is displayed when the username we looked up could not be found. -->
     <string name="UsernameLinkSettings_qr_result_not_found">Пользователь с именем %1$s не найден.</string>
+    <!-- Body of a dialog that is displayed when the username we looked up could not be found and we also could not parse the username. -->
+    <string name="UsernameLinkSettings_qr_result_not_found_no_username">Этот пользователь не найден.</string>
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">Произошла ошибка сети. Пожалуйста, попробуйте ещё раз.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because you had no internet. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_unavailable">У вас нет доступа к сети. Ваша ссылка не была сброшена. Попробуйте ещё раз позже.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because of a transient network issue. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_error">Произошла ошибка сети при попытке сбросить ссылку. Попробуйте ещё раз позже.</string>
 
     <!-- PendingParticipantsView -->
     <!-- Displayed in the popup card when a remote user attempts to join a call link -->
@@ -6411,7 +6484,7 @@
     </plurals>
     <!-- Content description for rejecting a user -->
     <string name="PendingParticipantsBottomSheet__reject">Отклонить</string>
-    <!-- Content desccription for confirming a user -->
+    <!-- Content description for confirming a user -->
     <string name="PendingParticipantsBottomSheet__approve">Принять</string>
 
     <!-- EOF -->

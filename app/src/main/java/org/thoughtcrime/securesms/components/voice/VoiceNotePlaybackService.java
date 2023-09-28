@@ -118,17 +118,9 @@ public class VoiceNotePlaybackService extends MediaSessionService {
     private int previousPlaybackState = player.getPlaybackState();
 
     @Override
-    public void onPlayWhenReadyChanged(boolean playWhenReady, int reason) {
-      onPlaybackStateChanged(playWhenReady, player.getPlaybackState());
-    }
-
-    @Override
     public void onPlaybackStateChanged(int playbackState) {
-      onPlaybackStateChanged(player.getPlayWhenReady(), playbackState);
-    }
-
-    private void onPlaybackStateChanged(boolean playWhenReady, int playbackState) {
-     Log.d(TAG, "playWhenReady: " + playWhenReady + "\nplaybackState: " + playbackState);
+      Log.d(TAG, "[onPlaybackStateChanged] playbackState: " + playbackState);
+      boolean playWhenReady = player.getPlayWhenReady();
       switch (playbackState) {
         case Player.STATE_BUFFERING:
         case Player.STATE_READY:
@@ -151,8 +143,8 @@ public class VoiceNotePlaybackService extends MediaSessionService {
 
     @Override
     public void onPositionDiscontinuity(@NonNull Player.PositionInfo oldPosition, @NonNull Player.PositionInfo newPosition, int reason) {
-      int currentWindowIndex = newPosition.windowIndex;
-      if (currentWindowIndex == C.INDEX_UNSET) {
+      int mediaItemIndex = newPosition.mediaItemIndex;
+      if (mediaItemIndex == C.INDEX_UNSET) {
         return;
       }
 
@@ -163,7 +155,7 @@ public class VoiceNotePlaybackService extends MediaSessionService {
           Log.d(TAG, "onPositionDiscontinuity: current window uri: " + currentMediaItem.playbackProperties.uri);
         }
 
-        PlaybackParameters playbackParameters = getPlaybackParametersForWindowPosition(currentWindowIndex);
+        PlaybackParameters playbackParameters = getPlaybackParametersForWindowPosition(mediaItemIndex);
 
         final float speed = playbackParameters != null ? playbackParameters.speed : 1f;
         if (speed != player.getPlaybackParameters().speed) {
@@ -171,15 +163,17 @@ public class VoiceNotePlaybackService extends MediaSessionService {
           if (playbackParameters != null) {
             player.setPlaybackParameters(playbackParameters);
           }
-          player.seekTo(currentWindowIndex, 1);
+          player.seekTo(mediaItemIndex, 1);
           player.setPlayWhenReady(true);
         }
+      } else if (reason == Player.DISCONTINUITY_REASON_SEEK) {
+        player.setPlayWhenReady(true);
       }
 
-      boolean isWithinThreshold = currentWindowIndex < LOAD_MORE_THRESHOLD ||
-                                  currentWindowIndex + LOAD_MORE_THRESHOLD >= player.getMediaItemCount();
+      boolean isWithinThreshold = mediaItemIndex < LOAD_MORE_THRESHOLD ||
+                                  mediaItemIndex + LOAD_MORE_THRESHOLD >= player.getMediaItemCount();
 
-      if (isWithinThreshold && currentWindowIndex % 2 == 0) {
+      if (isWithinThreshold && mediaItemIndex % 2 == 0) {
         voiceNotePlayerCallback.loadMoreVoiceNotes();
       }
     }
@@ -216,6 +210,7 @@ public class VoiceNotePlaybackService extends MediaSessionService {
       Log.i(TAG, "Refuse to create media session when app is locked.");
       return null;
     }
+
     try {
       return new MediaSession.Builder(this, player).setCallback(voiceNotePlayerCallback).setId(SESSION_ID).build();
     } catch (IllegalStateException e) {

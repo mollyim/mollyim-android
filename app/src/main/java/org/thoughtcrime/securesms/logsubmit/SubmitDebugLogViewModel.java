@@ -59,7 +59,7 @@ public class SubmitDebugLogViewModel extends ViewModel {
 
       try {
         Log.blockUntilAllWritesFinished();
-        LogDatabase.getInstance(ApplicationDependencies.getApplication()).trimToSize();
+        LogDatabase.getInstance(ApplicationDependencies.getApplication()).logs().trimToSize();
 
         dataSource = new LogDataSource(ApplicationDependencies.getApplication(), staticLines, firstViewTime);
       } catch (IllegalStateException e) {

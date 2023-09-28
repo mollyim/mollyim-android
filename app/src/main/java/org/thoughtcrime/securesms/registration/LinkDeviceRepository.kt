@@ -7,9 +7,9 @@ import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
 import org.thoughtcrime.securesms.push.AccountManagerFactory
+import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
 import org.whispersystems.signalservice.api.SignalServiceAccountManager.NewDeviceRegistrationReturn
-import org.whispersystems.signalservice.api.util.DeviceNameUtil
 import org.whispersystems.signalservice.internal.ServiceResponse
 import org.whispersystems.signalservice.internal.ServiceResponseProcessor
 import org.whispersystems.signalservice.internal.push.ConfirmCodeMessage
@@ -67,7 +67,7 @@ class LinkDeviceRepository(private val context: Application) {
     return Single.fromCallable<ServiceResponse<LinkDeviceResponse>> {
       try {
         val ret = accountManager.getNewDeviceRegistration(tempIdentityKey)
-        val encryptedDeviceName = deviceName?.let { DeviceNameUtil.encryptDeviceName(it, ret.aciIdentity.privateKey) }
+        val encryptedDeviceName = deviceName?.let { DeviceNameCipher.encryptDeviceName(it.toByteArray(), ret.aciIdentity) }
         val deviceId = accountManager.finishNewDeviceRegistration(
           ret.provisioningCode,
           ConfirmCodeMessage(
@@ -75,7 +75,7 @@ class LinkDeviceRepository(private val context: Application) {
             true,
             registrationData.registrationId,
             registrationData.pniRegistrationId,
-            encryptedDeviceName,
+            Base64.encodeBytes(encryptedDeviceName),
             null
           )
         )

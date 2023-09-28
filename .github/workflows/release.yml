@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: read
+
 env:
   HAVE_RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE != '' }}
 

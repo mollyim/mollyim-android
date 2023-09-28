@@ -72,7 +72,7 @@ class PersistentLogger(
   }
 
   override fun clear() {
-    logDatabase.deleteLogs()
+    logDatabase.logs.deleteLogs()
   }
 
   private fun write(level: String, tag: String?, message: String?, t: Throwable?, keepLonger: Boolean) {
@@ -116,7 +116,7 @@ class PersistentLogger(
     override fun run() {
       while (true) {
         requests.blockForRequests(buffer)
-        db.insert(buffer.flatMap { requestToEntries(it) }, System.currentTimeMillis())
+        db.logs.insert(buffer.flatMap { requestToEntries(it) }, System.currentTimeMillis())
         buffer.clear()
         requests.notifyFlushed()
       }

@@ -44,6 +44,14 @@ android {
   kotlinOptions {
     jvmTarget = signalKotlinJvmTarget
   }
+
+  buildFeatures {
+    compose = true
+  }
+
+  composeOptions {
+    kotlinCompilerExtensionVersion = "1.4.4"
+  }
 }
 
 dependencies {
