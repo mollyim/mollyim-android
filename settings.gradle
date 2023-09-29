@@ -37,6 +37,12 @@ dependencyResolutionManagement {
             }
         }
         maven {
+            url "https://raw.githubusercontent.com/mollyim/maven/master/glide-webp-decoder/releases/"
+            content {
+                includeModule 'im.molly', 'glide-webp-decoder'
+            }
+        }
+        maven {
             url "https://dl.cloudsmith.io/qxAgwaeEE1vN8aLU/mobilecoin/mobilecoin/maven/"
         }
     }

@@ -516,6 +516,7 @@ dependencies {
 
     implementation libs.gosimple.nbvcxz
     implementation libs.molly.native.utils
+    implementation libs.molly.glide.webp.decoder
 
     spinnerImplementation project(":spinner")
 
