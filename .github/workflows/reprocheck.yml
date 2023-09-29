@@ -15,7 +15,7 @@ on:
       - published
 
 permissions:
-  contents: read
+  contents: read # to fetch code (actions/checkout)
 
 env:
   TAG_NAME: "${{ github.event.inputs.tag_name || github.event.release.tag_name }}"
