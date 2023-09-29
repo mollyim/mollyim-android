@@ -461,7 +461,7 @@
     <string name="ConversationFragment_failed_to_open_message">Nabigong buksan ang mensahe</string>
     <string name="ConversationFragment_you_can_swipe_to_the_right_reply">Maaari kang mag-swipe pakanan sa alinmang mensahe upang mabilisang makatugon</string>
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Maaari kang mag-swipe pakaliwa sa alinmang mensahe upang mabilisang makatugon</string>
-    <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Ang mga papalabas na view-once na media file ay awtomatikong matatanggal matapos ipadala ang mga ito</string>
+    <string name="ConversationFragment_view_once_media_is_deleted_after_sending">Ang view-once media ay mabubura pagkatapos itong ma-send</string>
     <string name="ConversationFragment_you_already_viewed_this_message">Nakita mo na ang message na ito</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Pwede kang maglagay ng notes para sa sarili mo sa chat na ito.\nKung may linked devices ang account mo, masi-sync ang bagong notes.</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d na group members ay may parehong pangalan.</string>
@@ -870,8 +870,10 @@
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title">Napansin naming delayed ang notifications. Gusto mo bang mag-submit ng debug log?</string>
-    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Ang debug logs ay makatutulong sa amin para ma-diagnose at maayos ang issue, at wala itong laman na identifying information.</string>
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Nagkaroon ng problema ang Molly. Gusto mo bang mag-submit ng debug log?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Maaaring delayed ang notifications dahil sa battery optimizations</string>
@@ -2243,6 +2245,18 @@
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Gusto mo bang i-turn off ang contact joined Signal notifications? Pwede mong i-enable ito ulit sa Signal &gt; Settings &gt; Notifications.</string>
 
+    <!-- TurnOnNotificationsBottomSheet -->
+    <!-- Title for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__turn_on_notifications">I-on ang notifications</string>
+    <!-- Subtitle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__to_receive_notifications">Para makatanggap ng notifications sa bagong messages:</string>
+    <!-- Sheet step 1  for sheet explaining how to turn on app notifications-->
+    <string name="TurnOnNotificationsBottomSheet__1_tap_settings_below">1. I-tap ang “Settings” sa baba</string>
+    <!-- Sheet step 2 with placeholder which will be replaced with an image of a toggle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__2_s_turn_on_notifications">2. %1$s I-on ang notifications</string>
+    <!-- Label for button at the bottom of the sheet which opens system app notification settings for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__settings">Settings</string>
+
     <!-- Notification Channels -->
     <string name="NotificationChannel_channel_messages">Mga Mensahe</string>
     <string name="NotificationChannel_calls">Mga Tawag</string>
@@ -2763,7 +2777,7 @@
     <string name="HelpFragment__could_not_upload_logs">Hindi mai-upload ang mga log</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Pakiusap na hangga\'t maaari ay ipaliwanag ng mabuti upang matulungan kaming maunawaan ang isyu.</string>
     <string-array name="HelpFragment__categories_5">
-        <item>\\-\\- Pumili ng option \\-\\-</item>
+        <item>Pumili ng option</item>
         <item>Something\'s Not Working</item>
         <item>Feature Request</item>
         <item>Question</item>
@@ -2777,6 +2791,8 @@
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android Debug Log Submission</string>
     <!-- Category to organize the support email sent -->
     <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Delayed ang notifications</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__crash_category">Crash</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Isumite</string>
     <!-- Action to decline to submit logs -->
@@ -2902,7 +2918,6 @@
     <string name="preferences__payments">Payments</string>
     <!-- Privacy settings payments section description -->
     <string name="preferences__payment_lock">Seguridad sa pagbayad</string>
-    <string name="preferences__payments_beta">Payments (Beta)</string>
     <string name="preferences__conversation_length_limit">Chat length limit</string>
     <string name="preferences__keep_messages">Keep messages</string>
     <string name="preferences__clear_message_history">I-clear ang message history</string>
@@ -3056,7 +3071,8 @@
     <string name="PaymentsAllActivityFragment__sent">Naipadala na</string>
     <string name="PaymentsAllActivityFragment__received">Natanggap na</string>
 
-    <string name="PaymentsHomeFragment__introducing_payments">Introducing payments (Beta)</string>
+    <!-- Displayed on a welcome screen for payments -->
+    <string name="PaymentsHomeFragment_introducing_payments">Ipinakikilala ang payments</string>
     <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Gamitin ang Molly para mag-send at mag-receive ng MobileCoin, isang privacy-focused digital currency. I-activate para magsimula.</string>
     <string name="PaymentsHomeFragment__activate_payments">I-activate ang Payments</string>
     <string name="PaymentsHomeFragment__activating_payments">Activating payments…</string>
@@ -3090,8 +3106,9 @@
     <string name="PaymentsHomeFragment__payments_deactivated">Deactivated na ang payments.</string>
     <string name="PaymentsHomeFragment__payment_failed">Payment failed</string>
     <string name="PaymentsHomeFragment__details">Mga Detalye</string>
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate </string>
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Pwede mong gamitin ang Molly para maka-send at maka-receive ng MobileCoin. All payments are subject to the Terms of Use for MobileCoins and the MobileCoin Wallet. Ito\'y isang beta feature kaya maaari kang maka-encounter ng issues at ang payments o balances na mawawala sa\'yo ay hindi mare-recover. </string> -->
+  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
+    <!-- Displayed as a description in a dialog when the user tries to activate payments -->
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Pwede mong gamitin ang Signal para mag-send at mag-receive ng MobileCoin. Ang lahat ng payments ay napapailalim sa Terms of Use para sa MobileCoins at sa MobileCoin Wallet. Maaari kang maka-encounter ng ilang issues at ang payments o balances na nawala sa\'yo ay maaaring hindi na ma-recover. </string>
     <string name="PaymentsHomeFragment__activate">I-activate</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">View MobileCoin terms</string>
     <string name="PaymentsHomeFragment__payments_not_available">Ang Payments sa Molly ay hindi na available. Pwede ka pa ring mag-transfer ng funds sa isang exchange pero hindi ka na pwedeng mag-send o mag-receive ng payments. Hindi ka na rin pwedeng mag-add ng funds.</string>
@@ -3113,6 +3130,32 @@
     <string name="PaymentsHomeFragment__cancel">Kanselahin</string>
     <!-- Alert dialog button to update now -->
     <string name="PaymentsHomeFragment__update_now">I-update na</string>
+
+    <!-- GrantPermissionsFragment -->
+    <!-- Displayed as a text-only action button at the bottom start of the screen -->
+    <string name="GrantPermissionsFragment__not_now">Hindi na muna</string>
+    <!-- Displayed as an action button at the bottom end of the screen -->
+    <string name="GrantPermissionsFragment__next">Susunod</string>
+    <!-- Displayed as a title at the top of the screen -->
+    <string name="GrantPermissionsFragment__allow_permissions">Magbigay ng pahintulot</string>
+    <!-- Displayed as a subtitle at the top of the screen -->
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Para matulungan kang i-message ang mga taong kilala mo, hihingi ng pahinuntulot ang Molly. </string>
+    <!-- Notifications permission row title -->
+    <string name="GrantPermissionsFragment__notifications">Notifications</string>
+    <!-- Notifications permission row description -->
+    <string name="GrantPermissionsFragment__get_notified_when">Ma-notify kapag may bagong messages na dumating.</string>
+    <!-- Contacts permission row title -->
+    <string name="GrantPermissionsFragment__contacts">Contacts</string>
+    <!-- Contacts permission row description -->
+    <string name="GrantPermissionsFragment__find_people_you_know">Hanapin ang mga taong kilala mo. Encrypted ang contacts mo at hindi ito makikita ng Molly service.</string>
+    <!-- Phone calls permission row title -->
+    <string name="GrantPermissionsFragment__phone_calls">Phone calls</string>
+    <!-- Phone calls permission row description -->
+    <string name="GrantPermissionsFragment__make_registering_easier">Mas padaliin ang pag-register at i-enable ang additional calling features.</string>
+    <!-- Storage permission row title -->
+    <string name="GrantPermissionsFragment__storage">Storage</string>
+    <!-- Storage permission row description -->
+    <string name="GrantPermissionsFragment__send_photos_videos_and_files">Mag-send ng photos, videos, at files mula sa device mo.</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -4026,7 +4069,7 @@
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">May balance ka! Oras na para i-save ang iyong recovery phrase—isang 24-word key na magagamit mo para ma-restore ang iyong balance.</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
-    <string name="PaymentsRecoveryStartFragment__time_to_save">Oras na para i-save ang iyong recovery phrase—isang 24-word key na magagamit mo para ma-restore ang iyong balance. Matuto pa</string>
+    <string name="PaymentsRecoveryStartFragment__time_to_save">Oras na para i-save ang iyong recovery phrase—isang 24-word key na magagamit mo para ma-restore ang iyong balance.</string>
     <string name="PaymentsRecoveryStartFragment__your_recovery_phrase_is_a">Ang iyong recovery phrase ay isang %1$d-word phrase na unique sa\'yo. Gamitin ang phrase na ito para ma-restore ang balance mo.</string>
     <string name="PaymentsRecoveryStartFragment__start">Start</string>
     <string name="PaymentsRecoveryStartFragment__enter_manually">Enter manually</string>
@@ -4988,6 +5031,10 @@
 
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Failed to open picker.</string>
+    <!-- Banner title when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__to_enable_notifications">Para i-enable ang notifications, kailangan ng Molly ang iyong pahintulot para i-display ito.</string>
+    <!-- Banner action when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__turn_on">I-on</string>
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Signal Release Notes &amp; News</string>
@@ -5969,6 +6016,8 @@
     <string name="CallLogFragment__no_calls">Walang calls.</string>
     <!-- Shown during empty state -->
     <string name="CallLogFragment__get_started_by_calling_a_friend">Magsimula sa pamamagitan ng pagtawag sa kaibigan mo.</string>
+    <!-- Displayed as a message in a dialog when deleting multiple items -->
+    <string name="CallLogFragment__call_links_youve_created">Hindi na gagana ang call links na ginawa mo para sa mga taong meron na nito.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -6030,8 +6079,10 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__signal_call">Signal call</string>
     <!-- Displayed on a small button to allow user to instantly join call -->
     <string name="CreateCallLinkBottomSheetDialogFragment__join">Sumali</string>
-    <!-- Option to open a full screen dialog to enter a call name -->
+    <!-- Option to open a full screen dialog to add a call name -->
     <string name="CreateCallLinkBottomSheetDialogFragment__add_call_name">Maglagay ng pangalan ng call</string>
+    <!-- Option to open a full screen dialog to edit a call name -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__edit_call_name">I-edit ang pangalan ng call</string>
     <!-- Toggle to require approval for all members before joining -->
     <string name="CreateCallLinkBottomSheetDialogFragment__approve_all_members">I-approve ang lahat ng members</string>
     <!-- Row label to share the link via Signal -->
@@ -6046,6 +6097,12 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__failed_to_open_share_sheet">Hindi ma-share ang call link.</string>
     <!-- Displayed when we copy the call link to the clipboard -->
     <string name="CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard">Kinopya sa clipboard</string>
+
+    <!-- CallLinkIncomingRequestSheet -->
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__approve_entry">Aprubahan ang pagsali</string>
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__deny_entry">Tanggihan ang pagsali</string>
 
     <!-- EditCallLinkNameDialogFragment -->
     <!-- App bar title for editing a call name -->
@@ -6066,9 +6123,9 @@
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">History ng edits</string>
     <!-- Title of dialog shown alerting user that edit message is in beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_title">Sa Signal beta lang</string>
+    <string name="SendingEditMessageBetaOnlyDialog_title">I-edit ang Message</string>
     <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
-    <string name="SendingEditMessageBetaOnlyDialog_body">Available lang sa Signal beta users ang pag-edit ng messages. Kung mag-edit ka ng message, ang mga taong may latest version lang ng Signal beta ang makakakita nito.</string>
+    <string name="SendingEditMessageBetaOnlyDialog_body">Kung mag-edit ka ng message, ang mga taong may latest versions lang ng Signal ang makakakita nito. Makikita nilang nag-edit ka ng message.</string>
     <!-- Button to cancel sending edit message as it is beta only -->
     <string name="SendingEditMessageBetaOnlyDialog_cancel">I-cancel</string>
     <!-- Button to continue sending edit message despite it being beta only -->
@@ -6103,6 +6160,16 @@
     <string name="UsernameLinkSettings_username_copied_toast">Nakopya na ang username</string>
     <!-- Content of a toast that will show after the username link is copied to the clipboard -->
     <string name="UsernameLinkSettings_link_copied_toast">Nakopya na ang link</string>
+    <!-- Content of a text field that is shown when the user has not yet set a username link -->
+    <string name="UsernameLinkSettings_link_not_set_label">Wala pang naka-set na username link</string>
+    <!-- Content of a text field that is shown when the user is actively resetting the username link and waiting for the operation to finish -->
+    <string name="UsernameLinkSettings_resetting_link_label">Nire-reset ang link…</string>
+    <!-- Title of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_title">Gusto mo bang i-reset ang QR code?</string>
+    <!-- Body of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_body">Kapag ni-reset mo ang iyong QR code, hindi na gagana ang existing QR code at link mo.</string>
+    <!-- Label for the confirmation button on a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_confirm_button">I-reset</string>
     <!-- Button label for a button that will reset your username and give you a new link -->
     <string name="UsernameLinkSettings_reset_button_label">I-reset</string>
     <!-- Button label for a button that indicates that the user is done changing the current setting -->
@@ -6119,8 +6186,14 @@
     <string name="UsernameLinkSettings_qr_result_invalid">Invalid ang QR code.</string>
     <!-- Body of a dialog that is displayed when the username we looked up could not be found. -->
     <string name="UsernameLinkSettings_qr_result_not_found">Hindi makita ang user na may username na %1$s.</string>
+    <!-- Body of a dialog that is displayed when the username we looked up could not be found and we also could not parse the username. -->
+    <string name="UsernameLinkSettings_qr_result_not_found_no_username">Hindi mahanap ang user na ito.</string>
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">Nagkaroon ng network error. Paki subukan ulit.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because you had no internet. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_unavailable">Wala kang network access. Hindi na-reset ang link mo. Subukan ulit mamaya.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because of a transient network issue. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_error">Nagkaroon ng network error habang sinusubukang i-reset ang link mo. Subukan ulit mamaya.</string>
 
     <!-- PendingParticipantsView -->
     <!-- Displayed in the popup card when a remote user attempts to join a call link -->
@@ -6141,7 +6214,7 @@
     </plurals>
     <!-- Content description for rejecting a user -->
     <string name="PendingParticipantsBottomSheet__reject">Tanggihan</string>
-    <!-- Content desccription for confirming a user -->
+    <!-- Content description for confirming a user -->
     <string name="PendingParticipantsBottomSheet__approve">Approve</string>
 
     <!-- EOF -->

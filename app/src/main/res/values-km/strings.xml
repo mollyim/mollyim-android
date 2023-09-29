@@ -452,7 +452,7 @@
     <string name="ConversationFragment_failed_to_open_message">បរាជ័យក្នុងការបើកសារ</string>
     <string name="ConversationFragment_you_can_swipe_to_the_right_reply">អ្នកអាចអូសទៅស្តាំលើសារណាមួយ ដើម្បីឆ្លើយតបរហ័ស</string>
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">អ្នកអាចអូសទៅឆ្វេងលើសារណាមួយ ដើម្បីឆ្លើយតបរហ័ស</string>
-    <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">ឯកសារមេឌៀមើលបានតែម្តងដែលផ្ញើចេញទៅ នឹងត្រូវលុបចោលដោយស្វ័យប្រវត្តិបន្ទាប់ពីបានផ្ញើចេញ</string>
+    <string name="ConversationFragment_view_once_media_is_deleted_after_sending">មេឌៀដែលមើលបានតែម្តងត្រូវបានលុបបន្ទាប់ពីផ្ញើ</string>
     <string name="ConversationFragment_you_already_viewed_this_message">អ្នកបានបើកមើលសារនេះរួចហើយ</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">អ្នកអាចកត់ត្រាសម្រាប់ខ្លួនឯងនៅក្នុងការជជែកនេះ។ បើគណនីរបស់អ្នកបានភ្ជាប់ទៅឧបករណ៍ណាមួយ កំណត់សម្គាល់ថ្មីៗនឹងត្រូវបានធ្វើសមកាលកម្ម។</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d សមាជិកក្រុមមានឈ្មោះដូចគ្នា។</string>
@@ -840,8 +840,10 @@
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title">យើងបានកត់សម្គាល់ថាការជូនដំណឹងត្រូវបានពន្យារពេល។ ដាក់បញ្ជូនកំណត់ហេតុបញ្ហា?</string>
-    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">កំណត់ហេតុបញ្ហាជួយឲ្យយើងវិភាគ និងដោះស្រាយបញ្ហានេះ ហើយមិនមានព័ត៌មានកំណត់អត្តសញ្ញាណទេ។</string>
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly បានជួបប្រទះបញ្ហាមួយ។ ដាក់បញ្ជូនកំណត់ហេតុបំបាត់បញ្ហា?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">ការជូនដំណឹងអាចនឹងពន្យារពេល ដោយសារការបង្កើនប្រសិទ្ធភាពថ្ម</string>
@@ -2167,6 +2169,18 @@
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">បិទសារជូនដំណឹងលេខទំនាក់ទំនងចូលរួម Signal? អ្នកអាចបើកវាម្តងទៀតក្នុង Signal &gt; ការកំណត់ &gt; សារជូនដំណឹង។</string>
 
+    <!-- TurnOnNotificationsBottomSheet -->
+    <!-- Title for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__turn_on_notifications">បើកការជូនដំណឹង</string>
+    <!-- Subtitle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__to_receive_notifications">ដើម្បីទទួលការជូនដំណឹងសម្រាប់សារថ្មីៗ៖</string>
+    <!-- Sheet step 1  for sheet explaining how to turn on app notifications-->
+    <string name="TurnOnNotificationsBottomSheet__1_tap_settings_below">1. ចុច “ការកំណត់” ខាងក្រោម</string>
+    <!-- Sheet step 2 with placeholder which will be replaced with an image of a toggle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__2_s_turn_on_notifications">2. %1$s បើកការជូនដំណឹង</string>
+    <!-- Label for button at the bottom of the sheet which opens system app notification settings for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__settings">ការកំណត់</string>
+
     <!-- Notification Channels -->
     <string name="NotificationChannel_channel_messages">សារ</string>
     <string name="NotificationChannel_calls">ការហៅ</string>
@@ -2676,7 +2690,7 @@
     <string name="HelpFragment__could_not_upload_logs">មិនអាចបញ្ជូនកំណត់ត្រា</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">សូមពន្យល់តាមដែលអាចធ្វើទៅបានដើម្បីជួយយើងឱ្យយល់ពីបញ្ហា។</string>
     <string-array name="HelpFragment__categories_5">
-        <item>\\-\\- សូមជ្រើសរើសជម្រើសមួយ \\-\\-</item>
+        <item>សូមជ្រើសរើសជម្រើសមួយ</item>
         <item>អ្វីមួយមិនដំណើរការ</item>
         <item>ការស្នើសុំមុខងារ</item>
         <item>សំណួរ</item>
@@ -2690,6 +2704,8 @@
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">ការដាក់បញ្ជូនកំណត់ហេតុបញ្ហា Signal Android</string>
     <!-- Category to organize the support email sent -->
     <string name="DebugLogsPromptDialogFragment__slow_notifications_category">ការជូនដំណឹងយឺត</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__crash_category">គាំង</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">បញ្ជូន</string>
     <!-- Action to decline to submit logs -->
@@ -2814,7 +2830,6 @@
     <string name="preferences__payments">ការទូទាត់</string>
     <!-- Privacy settings payments section description -->
     <string name="preferences__payment_lock">មុខងារចាក់សោការបង់ប្រាក់</string>
-    <string name="preferences__payments_beta">ការទូទាត់ (បេតា)</string>
     <string name="preferences__conversation_length_limit">ដែនកំណត់ការជជែក</string>
     <string name="preferences__keep_messages">រក្សាសារ</string>
     <string name="preferences__clear_message_history">លុបប្រវត្តិសារ</string>
@@ -2967,7 +2982,8 @@
     <string name="PaymentsAllActivityFragment__sent">បានផ្ញើ</string>
     <string name="PaymentsAllActivityFragment__received">បានទទួល</string>
 
-    <string name="PaymentsHomeFragment__introducing_payments">សូមណែនាំការទូទាត់ (សាកល្បង)</string>
+    <!-- Displayed on a welcome screen for payments -->
+    <string name="PaymentsHomeFragment_introducing_payments">សូមណែនាំអំពីការបង់ប្រាក់</string>
     <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">ប្រើប្រាស់ Molly ដើម្បីផ្ញើ និងទទួល MobileCoin ដែលជារូបិយបណ្ណឌីជីថលថ្មីមួយផ្តោតលើឯកជនភាព។ បើកដំណើរការ ដើម្បីចាប់ផ្តើម។</string>
     <string name="PaymentsHomeFragment__activate_payments">បើកដំណើរការការទូទាត់</string>
     <string name="PaymentsHomeFragment__activating_payments">កំពុងបើកដំណើរការ ការទូទាត់…</string>
@@ -3001,8 +3017,9 @@
     <string name="PaymentsHomeFragment__payments_deactivated">ការទូទាត់ បានបិទដំណើរការ។</string>
     <string name="PaymentsHomeFragment__payment_failed">ការទូទាត់បរាជ័យ</string>
     <string name="PaymentsHomeFragment__details">លម្អិត</string>
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate </string>
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send">អ្នកអាចប្រើប្រាស់ Molly ដើម្បីផ្ញើ និងទទួលMobileCoin។ ការទូទាត់ទាំងអស់គឺស្ថិតនៅក្រោមលក្ខខណ្ឌនៃការប្រើប្រាស់សម្រាប់MobileCoin និង MobileCoin Wallet។ នេះជាមុខងារបេតា ដូចនេះ អ្នកអាចជួបប្រទះបញ្ហាមួយចំនួន និងការទូទាត់ ឬសមតុល្យអាចបាត់បង់ មិនអាចស្តារឡើងវិញទេ។ </string> -->
+  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
+    <!-- Displayed as a description in a dialog when the user tries to activate payments -->
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">អ្នកអាចប្រើ Signal ដើម្បីផ្ញើ និងទទួល MobileCoin។ ការបង់ប្រាក់ទាំងអស់ត្រូវអនុវត្តតាមលក្ខខណ្ឌប្រើប្រាស់សម្រាប់ MobileCoins និង MobileCoin Wallet។ អ្នកអាចនឹងជួបប្រទះបញ្ហាមួយចំនួន ហើយការបង់ប្រាក់ ឬសមតុល្យដែលអ្នកអាចនឹងបាត់បង់ មិនអាចស្តារមកវិញបានទេ។ </string>
     <string name="PaymentsHomeFragment__activate">ធ្វើឱ្យសកម្ម</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">មើលលក្ខខណ្ឌ MobileCoin</string>
     <string name="PaymentsHomeFragment__payments_not_available">ការទូទាត់នៅក្នុង Molly លែងមានហើយ។ អ្នកនៅតែអាចផ្ទេរប្រាក់ទៅកន្លែងប្តូរប្រាក់បាន ប៉ុន្តែអ្នកមិនអាចផ្ញើ និងទទួលការទូទាត់ ឬបន្ថែមថវិកាបានទេ។</string>
@@ -3024,6 +3041,32 @@
     <string name="PaymentsHomeFragment__cancel">បោះបង់</string>
     <!-- Alert dialog button to update now -->
     <string name="PaymentsHomeFragment__update_now">ធ្វើបច្ចុប្បន្នភាពឥឡូវនេះ</string>
+
+    <!-- GrantPermissionsFragment -->
+    <!-- Displayed as a text-only action button at the bottom start of the screen -->
+    <string name="GrantPermissionsFragment__not_now">ឥឡូវកុំទាន់</string>
+    <!-- Displayed as an action button at the bottom end of the screen -->
+    <string name="GrantPermissionsFragment__next">បន្ទាប់</string>
+    <!-- Displayed as a title at the top of the screen -->
+    <string name="GrantPermissionsFragment__allow_permissions">បើកការអនុញ្ញាត</string>
+    <!-- Displayed as a subtitle at the top of the screen -->
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">ដើម្បីជួយអ្នកក្នុងការផ្ញើសារទៅកាន់មនុស្សដែលអ្នកស្គាល់ Molly នឹងស្នើសុំការអនុញ្ញាតទាំងនេះ។ </string>
+    <!-- Notifications permission row title -->
+    <string name="GrantPermissionsFragment__notifications">ការជូនដំណឹង</string>
+    <!-- Notifications permission row description -->
+    <string name="GrantPermissionsFragment__get_notified_when">ទទួលបានការជូនដំណឹងនៅពេលសារថ្មីៗមកដល់។</string>
+    <!-- Contacts permission row title -->
+    <string name="GrantPermissionsFragment__contacts">បញ្ជីទំនាក់ទំនង</string>
+    <!-- Contacts permission row description -->
+    <string name="GrantPermissionsFragment__find_people_you_know">ស្វែងរកមនុស្សដែលអ្នកស្គាល់។ បញ្ជីទំនាក់ទំនងរបស់អ្នកត្រូវបានអ៊ីនគ្រីប និងមិនអាចមើលឃើញដោយសេវាកម្ម Molly បានទេ។</string>
+    <!-- Phone calls permission row title -->
+    <string name="GrantPermissionsFragment__phone_calls">ការហៅទូរសព្ទ</string>
+    <!-- Phone calls permission row description -->
+    <string name="GrantPermissionsFragment__make_registering_easier">ធ្វើឲ្យការចុះឈ្មោះកាន់តែងាយស្រួល និងបើកមុខងារហៅទូរសព្ទបន្ថែម។</string>
+    <!-- Storage permission row title -->
+    <string name="GrantPermissionsFragment__storage">ការផ្ទុក</string>
+    <!-- Storage permission row description -->
+    <string name="GrantPermissionsFragment__send_photos_videos_and_files">ផ្ញើរូបថត វីដេអូ និងឯកសារពីឧបករណ៍របស់អ្នក។</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -3924,7 +3967,7 @@
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">អ្នកមានសមតុល្យ! ដល់ពេលដែលត្រូវរក្សាទុកឃ្លាសម្រាប់ស្តាររបស់អ្នកហើយ—គន្លឹះដែលមាន 24 ពាក្យដែលអ្នកអាចប្រើដើម្បីស្ដារសមតុល្យរបស់អ្នក។</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
-    <string name="PaymentsRecoveryStartFragment__time_to_save">ដល់ពេលដែលត្រូវរក្សាទុកឃ្លាសម្រាប់ស្តាររបស់អ្នកហើយ—គន្លឹះដែលមាន 24 ពាក្យដែលអ្នកអាចប្រើដើម្បីស្ដារសមតុល្យរបស់អ្នក។ ស្វែងយល់បន្ថែម</string>
+    <string name="PaymentsRecoveryStartFragment__time_to_save">ដល់ពេលដែលត្រូវរក្សាទុកឃ្លាសម្រាប់ស្តាររបស់អ្នកហើយ—គន្លឹះដែលមាន 24 ពាក្យដែលអ្នកអាចប្រើដើម្បីស្ដារសមតុល្យរបស់អ្នក។</string>
     <string name="PaymentsRecoveryStartFragment__your_recovery_phrase_is_a">ឃ្លាសង្គ្រោះរបស់អ្នក គឺជា%1$dពាក្យដែលប្លែកសម្រាប់អ្នក។ សូមប្រើឃ្លានេះសម្រាប់ទាញយកសមតុលអ្នកមកវិញ។</string>
     <string name="PaymentsRecoveryStartFragment__start">ចាប់ផ្ដើម</string>
     <string name="PaymentsRecoveryStartFragment__enter_manually">បញ្ជូលដោយខ្លួនឯង</string>
@@ -4880,6 +4923,10 @@
 
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">បរាជ័យក្នុងការបើកសារ</string>
+    <!-- Banner title when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__to_enable_notifications">ដើម្បីបើកការជូនដំណឹង Molly ត្រូវការការអនុញ្ញាតដើម្បីបង្ហាញពួកវា។</string>
+    <!-- Banner action when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__turn_on">បើក</string>
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">កំណត់សម្គាល់ការចេញផ្សាយ &amp; និងព័ត៌មានរបស់ Signal</string>
@@ -5836,6 +5883,8 @@
     <string name="CallLogFragment__no_calls">មិនមានការហៅទេ។</string>
     <!-- Shown during empty state -->
     <string name="CallLogFragment__get_started_by_calling_a_friend">ចាប់ផ្តើមដោយហៅមិត្តភក្តិម្នាក់។</string>
+    <!-- Displayed as a message in a dialog when deleting multiple items -->
+    <string name="CallLogFragment__call_links_youve_created">តំណសម្រាប់ការហៅដែលអ្នកបានបង្កើតឡើងនឹងលែងដំណើរការសម្រាប់អ្នកទាំងឡាយដែលមានពួកវាទៀតហើយ។</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -5897,8 +5946,10 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__signal_call">ការហៅតាម Signal</string>
     <!-- Displayed on a small button to allow user to instantly join call -->
     <string name="CreateCallLinkBottomSheetDialogFragment__join">ចូលរួម</string>
-    <!-- Option to open a full screen dialog to enter a call name -->
+    <!-- Option to open a full screen dialog to add a call name -->
     <string name="CreateCallLinkBottomSheetDialogFragment__add_call_name">ដាក់ឈ្មោះសម្រាប់ការហៅ</string>
+    <!-- Option to open a full screen dialog to edit a call name -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__edit_call_name">កែឈ្មោះសម្រាប់ការហៅ</string>
     <!-- Toggle to require approval for all members before joining -->
     <string name="CreateCallLinkBottomSheetDialogFragment__approve_all_members">អនុញ្ញាតសមាជិកទាំងអស់</string>
     <!-- Row label to share the link via Signal -->
@@ -5913,6 +5964,12 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__failed_to_open_share_sheet">មិនអាចចែករំលែកតំណសម្រាប់ការហៅបានទេ។</string>
     <!-- Displayed when we copy the call link to the clipboard -->
     <string name="CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard">បានចម្លងទៅឃ្លីបបត</string>
+
+    <!-- CallLinkIncomingRequestSheet -->
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__approve_entry">អនុញ្ញាតឲ្យចូល</string>
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__deny_entry">បដិសេធមិនឲ្យចូល</string>
 
     <!-- EditCallLinkNameDialogFragment -->
     <!-- App bar title for editing a call name -->
@@ -5933,9 +5990,9 @@
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">ប្រវត្តិកែ</string>
     <!-- Title of dialog shown alerting user that edit message is in beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_title">សម្រាប់តែ Signal បេតាប៉ុណ្ណោះ</string>
+    <string name="SendingEditMessageBetaOnlyDialog_title">កែសារ</string>
     <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
-    <string name="SendingEditMessageBetaOnlyDialog_body">ការកែសារមានសម្រាប់តែអ្នកប្រើ Signal បេតាប៉ុណ្ណោះ។ ប្រសិនបើអ្នកកែសារ មានតែអ្នកដែលមានកំណែចុងក្រោយបំផុតនៃ Signal បេតាប៉ុណ្ណោះទើបអាចមើលវាឃើញ។</string>
+    <string name="SendingEditMessageBetaOnlyDialog_body">ប្រសិនបើអ្នកកែសារ មានតែអ្នកដែលមានកំណែចុងក្រោយបំផុតនៃ Signal ប៉ុណ្ណោះទើបអាចមើលវាឃើញ។ ពួកគេនឹងអាចមើលឃើញថាអ្នកបានកែសារ។</string>
     <!-- Button to cancel sending edit message as it is beta only -->
     <string name="SendingEditMessageBetaOnlyDialog_cancel">បោះបង់</string>
     <!-- Button to continue sending edit message despite it being beta only -->
@@ -5970,6 +6027,16 @@
     <string name="UsernameLinkSettings_username_copied_toast">បានចម្លងឈ្មោះអ្នកប្រើ</string>
     <!-- Content of a toast that will show after the username link is copied to the clipboard -->
     <string name="UsernameLinkSettings_link_copied_toast">បានចម្លងតំណ</string>
+    <!-- Content of a text field that is shown when the user has not yet set a username link -->
+    <string name="UsernameLinkSettings_link_not_set_label">តំណមិនត្រូវបានកំណត់ទេ</string>
+    <!-- Content of a text field that is shown when the user is actively resetting the username link and waiting for the operation to finish -->
+    <string name="UsernameLinkSettings_resetting_link_label">កំណត់តំណឡើងវិញ…</string>
+    <!-- Title of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_title">កំណត់កូដ QR ឡើងវិញឬ?</string>
+    <!-- Body of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_body">ប្រសិនបើអ្នកកំណត់កូដ QR របស់អ្នកឡើងវិញ កូដ QR និងតំណដែលមានស្រាប់របស់អ្នកនឹងមិនដំណើរការទៀតទេ។</string>
+    <!-- Label for the confirmation button on a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_confirm_button">កំណត់ឡើងវិញ</string>
     <!-- Button label for a button that will reset your username and give you a new link -->
     <string name="UsernameLinkSettings_reset_button_label">កំណត់ឡើងវិញ</string>
     <!-- Button label for a button that indicates that the user is done changing the current setting -->
@@ -5986,8 +6053,14 @@
     <string name="UsernameLinkSettings_qr_result_invalid">កូដ QR មិនត្រឹមត្រូវទេ។</string>
     <!-- Body of a dialog that is displayed when the username we looked up could not be found. -->
     <string name="UsernameLinkSettings_qr_result_not_found">រកមិនឃើញអ្នកប្រើដែលមានឈ្មោះ %1$s ទេ។</string>
+    <!-- Body of a dialog that is displayed when the username we looked up could not be found and we also could not parse the username. -->
+    <string name="UsernameLinkSettings_qr_result_not_found_no_username">រកមិនឃើញអ្នកប្រើនេះទេ។</string>
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">បានជួបប្រទះបញ្ហាបណ្តាញ។ សូមព្យាយាមម្តងទៀត។</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because you had no internet. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_unavailable">អ្នកមិនមានសិទ្ធិចូលប្រើបណ្តាញទេ។ តំណរបស់អ្នកមិនត្រូវបានកំណត់ឡើងវិញទេ។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because of a transient network issue. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_error">បញ្ហាបណ្តាញមួយបានកើតឡើង ខណៈពេលព្យាយាមកំណត់តំណរបស់អ្នកឡើងវិញ។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។</string>
 
     <!-- PendingParticipantsView -->
     <!-- Displayed in the popup card when a remote user attempts to join a call link -->
@@ -6006,7 +6079,7 @@
     </plurals>
     <!-- Content description for rejecting a user -->
     <string name="PendingParticipantsBottomSheet__reject">ច្រានចោល</string>
-    <!-- Content desccription for confirming a user -->
+    <!-- Content description for confirming a user -->
     <string name="PendingParticipantsBottomSheet__approve">អនុញាតិ</string>
 
     <!-- EOF -->

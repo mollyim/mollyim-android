@@ -39,7 +39,7 @@ class SignalInstrumentationApplicationContext : ApplicationContext() {
 
     SignalExecutors.UNBOUNDED.execute {
       Log.blockUntilAllWritesFinished()
-      LogDatabase.getInstance(this).trimToSize()
+      LogDatabase.getInstance(this).logs.trimToSize()
     }
   }
 }

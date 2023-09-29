@@ -479,7 +479,7 @@
     <string name="ConversationFragment_failed_to_open_message">Odpiranje sporočila ni uspelo</string>
     <string name="ConversationFragment_you_can_swipe_to_the_right_reply">Za hiter odgovor na sporočilo podrsajte na desno</string>
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Za hiter odgovor na sporočilo podrsajte na levo</string>
-    <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Poslane medijske datoteke za enkraten ogled so avtomatično odstranjene s seznama</string>
+    <string name="ConversationFragment_view_once_media_is_deleted_after_sending">Mediji za enkratni ogled se po pošiljanju izbrišejo</string>
     <string name="ConversationFragment_you_already_viewed_this_message">To sporočilo ste že videli</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Klepetu je mogoče dodajati opombe, ki so vidne samo vam.\nČe je vaš račun povezan z drugimi napravami, se bodo te opombe sinhronizirale.</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d članov_ic skupine ima enako ime.</string>
@@ -930,8 +930,10 @@
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title">Opazili smo, da obvestila zamujajo. Želite poslati sistemsko zabeležbo?</string>
-    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Sistemske zabeležbe nam pomagajo diagnosticirati in odpraviti težavo ter ne vsebujejo identifikacijskih podatkov.</string>
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly je naletel na težavo. Želite poslati sistemsko zabeležbo?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Obvestila so lahko zakasnjena zaradi optimizacije baterije</string>
@@ -2395,6 +2397,18 @@
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Želite izklopiti obvestila o novih članih Signalove skupine? Kasneje jih lahko spet vklopite v Signal &gt; Nastavitve &gt; Obvestila.</string>
 
+    <!-- TurnOnNotificationsBottomSheet -->
+    <!-- Title for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__turn_on_notifications">Vklopite obvestila</string>
+    <!-- Subtitle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__to_receive_notifications">Za prejemanje obvestil o novih sporočilih:</string>
+    <!-- Sheet step 1  for sheet explaining how to turn on app notifications-->
+    <string name="TurnOnNotificationsBottomSheet__1_tap_settings_below">1. Tapnite »Nastavitve« spodaj</string>
+    <!-- Sheet step 2 with placeholder which will be replaced with an image of a toggle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__2_s_turn_on_notifications">2. %1$s Vklopite obvestila</string>
+    <!-- Label for button at the bottom of the sheet which opens system app notification settings for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__settings">Nastavitve</string>
+
     <!-- Notification Channels -->
     <string name="NotificationChannel_channel_messages">Sporočila</string>
     <string name="NotificationChannel_calls">Klici</string>
@@ -2937,7 +2951,7 @@
     <string name="HelpFragment__could_not_upload_logs">Sistemska zabeležba ni bila prenešena</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Pri opisu napake bodite čim bolj natančni, da bomo lažje razumeli za kaj gre.</string>
     <string-array name="HelpFragment__categories_5">
-        <item>\\-\\- Prosimo izberite opcijo \\-\\-</item>
+        <item>Izberite možnost</item>
         <item>Nekaj ne deluje</item>
         <item>Predlog za novo funkcijo</item>
         <item>Vprašanje</item>
@@ -2951,6 +2965,8 @@
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signalova sistemska zabeležba v sistemu Android</string>
     <!-- Category to organize the support email sent -->
     <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Počasna obvestila</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__crash_category">Zrušitev</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Oddaj</string>
     <!-- Action to decline to submit logs -->
@@ -3078,7 +3094,6 @@
     <string name="preferences__payments">Plačila</string>
     <!-- Privacy settings payments section description -->
     <string name="preferences__payment_lock">Potrjevanje plačila</string>
-    <string name="preferences__payments_beta">Plačila (Beta)</string>
     <string name="preferences__conversation_length_limit">Omejitev dolžine klepeta</string>
     <string name="preferences__keep_messages">Hramba sporočil</string>
     <string name="preferences__clear_message_history">Izbriši zgodovino pogovorov</string>
@@ -3234,7 +3249,8 @@
     <string name="PaymentsAllActivityFragment__sent">Poslano:</string>
     <string name="PaymentsAllActivityFragment__received">Prejeto</string>
 
-    <string name="PaymentsHomeFragment__introducing_payments">Predstavljamo vam Plačila (Beta)</string>
+    <!-- Displayed on a welcome screen for payments -->
+    <string name="PaymentsHomeFragment_introducing_payments">Predstavljamo plačila</string>
     <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Uporabljajte Molly za pošiljanje in prejemanje nove digitalne valute MobileCoin, ki daje poudarek zasebnosti. Aktivirajte in začnite.</string>
     <string name="PaymentsHomeFragment__activate_payments">Vklopi Plačila</string>
     <string name="PaymentsHomeFragment__activating_payments">Vklapljanje Plačil …</string>
@@ -3268,8 +3284,9 @@
     <string name="PaymentsHomeFragment__payments_deactivated">Plačila so deaktivirana.</string>
     <string name="PaymentsHomeFragment__payment_failed">Plačilo ni uspelo</string>
     <string name="PaymentsHomeFragment__details">Podrobnosti</string>
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate </string>
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Molly lahko uporabljate za pošiljanje in prejem MobileCoinov. Vsa plačila so izvedena v skladu s Pogoji uporabe za MobileCoin in MobileCoin Wallet. Storitev v okviru Mollya je trenutno v fazi \'beta\', zato lahko občasno prihaja do težav, izgubljena plačila in stanja na računu pa ne bodo mogla biti obnovljena. </string> -->
+  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
+    <!-- Displayed as a description in a dialog when the user tries to activate payments -->
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Signal lahko uporabljate za pošiljanje in prejemanje MobileCoinov. Vsa plačila so izvedena v skladu s Pogoji uporabe za MobileCoin in MobileCoin Wallet. Morda boste naleteli na nekatere težave, plačil ali stanja, ki jih boste morda izgubili, pa ne bo mogoče povrniti. </string>
     <string name="PaymentsHomeFragment__activate">Aktiviraj</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Pogoji MobileCoin</string>
     <string name="PaymentsHomeFragment__payments_not_available">Plačila v Mollyu niso več na voljo. Še vedno lahko prenesete sredstva v menjalnico, ne morete pa več pošiljati in prejemati plačil ali dodajati sredstev.</string>
@@ -3291,6 +3308,32 @@
     <string name="PaymentsHomeFragment__cancel">Prekliči</string>
     <!-- Alert dialog button to update now -->
     <string name="PaymentsHomeFragment__update_now">Posodobi zdaj</string>
+
+    <!-- GrantPermissionsFragment -->
+    <!-- Displayed as a text-only action button at the bottom start of the screen -->
+    <string name="GrantPermissionsFragment__not_now">Ne zdaj</string>
+    <!-- Displayed as an action button at the bottom end of the screen -->
+    <string name="GrantPermissionsFragment__next">Naprej</string>
+    <!-- Displayed as a title at the top of the screen -->
+    <string name="GrantPermissionsFragment__allow_permissions">Odobri dovoljenja</string>
+    <!-- Displayed as a subtitle at the top of the screen -->
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Za pomoč pri pošiljanju sporočil ljudem, ki jih poznate, bo Molly zahteval ta dovoljenja. </string>
+    <!-- Notifications permission row title -->
+    <string name="GrantPermissionsFragment__notifications">Obvestila</string>
+    <!-- Notifications permission row description -->
+    <string name="GrantPermissionsFragment__get_notified_when">Prejmite obvestilo, ko prispejo nova sporočila.</string>
+    <!-- Contacts permission row title -->
+    <string name="GrantPermissionsFragment__contacts">Stiki</string>
+    <!-- Contacts permission row description -->
+    <string name="GrantPermissionsFragment__find_people_you_know">Poiščite ljudi, ki jih poznate. Vaši stiki so šifrirani in niso vidni storitvi Molly.</string>
+    <!-- Phone calls permission row title -->
+    <string name="GrantPermissionsFragment__phone_calls">Telefonski klici</string>
+    <!-- Phone calls permission row description -->
+    <string name="GrantPermissionsFragment__make_registering_easier">Poenostavite registracijo in omogočite dodatne funkcije klicanja.</string>
+    <!-- Storage permission row title -->
+    <string name="GrantPermissionsFragment__storage">Pomnilnik</string>
+    <!-- Storage permission row description -->
+    <string name="GrantPermissionsFragment__send_photos_videos_and_files">Pošiljajte fotografije, videoposnetke in datoteke iz svoje naprave.</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -4230,7 +4273,7 @@
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">Imate ravnotežje! Čas je, da shranite obnovitveno frazo — 24-besedni ključ, s katerim lahko obnovite ravnovesje.</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
-    <string name="PaymentsRecoveryStartFragment__time_to_save">Čas je, da shranite obnovitveno frazo — 24-besedni ključ, s katerim lahko obnovite ravnovesje. Preberite več</string>
+    <string name="PaymentsRecoveryStartFragment__time_to_save">Čas je, da shranite obnovitveno frazo—24-besedni ključ, s katerim lahko obnovite ravnovesje.</string>
     <string name="PaymentsRecoveryStartFragment__your_recovery_phrase_is_a">Vaša obnovitvena fraza je %1$d-besedna fraza, ki je zgolj vaša. Uporabite jo za obnovitev stanja na računu.</string>
     <string name="PaymentsRecoveryStartFragment__start">Začni</string>
     <string name="PaymentsRecoveryStartFragment__enter_manually">Ročen vnos</string>
@@ -5204,6 +5247,10 @@
 
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Odpiranje izbirnika ni uspelo.</string>
+    <!-- Banner title when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__to_enable_notifications">Če želite omogočiti obvestila, potrebuje Molly dovoljenje za njihov prikaz.</string>
+    <!-- Banner action when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__turn_on">Vklopi</string>
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Signalove novosti &amp; novice</string>
@@ -6235,6 +6282,8 @@
     <string name="CallLogFragment__no_calls">Brez klicev.</string>
     <!-- Shown during empty state -->
     <string name="CallLogFragment__get_started_by_calling_a_friend">Začnite tako, da pokličete prijatelja_ico.</string>
+    <!-- Displayed as a message in a dialog when deleting multiple items -->
+    <string name="CallLogFragment__call_links_youve_created">Klicne povezave, ki ste jih ustvarili, ne bodo več delovale za ljudi, ki jih imajo.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -6296,8 +6345,10 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__signal_call">Klic Signal</string>
     <!-- Displayed on a small button to allow user to instantly join call -->
     <string name="CreateCallLinkBottomSheetDialogFragment__join">Pridruži se</string>
-    <!-- Option to open a full screen dialog to enter a call name -->
+    <!-- Option to open a full screen dialog to add a call name -->
     <string name="CreateCallLinkBottomSheetDialogFragment__add_call_name">Dodaj ime klica</string>
+    <!-- Option to open a full screen dialog to edit a call name -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__edit_call_name">Uredi ime klica</string>
     <!-- Toggle to require approval for all members before joining -->
     <string name="CreateCallLinkBottomSheetDialogFragment__approve_all_members">Odobritev vseh članov_ic</string>
     <!-- Row label to share the link via Signal -->
@@ -6312,6 +6363,12 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__failed_to_open_share_sheet">Povezave za klic ni mogoče deliti.</string>
     <!-- Displayed when we copy the call link to the clipboard -->
     <string name="CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard">Kopirano v odložišče</string>
+
+    <!-- CallLinkIncomingRequestSheet -->
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__approve_entry">Odobri vnos</string>
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__deny_entry">Zavrni vnos</string>
 
     <!-- EditCallLinkNameDialogFragment -->
     <!-- App bar title for editing a call name -->
@@ -6332,9 +6389,9 @@
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Zgodovina urejanja</string>
     <!-- Title of dialog shown alerting user that edit message is in beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_title">Samo Signal beta</string>
+    <string name="SendingEditMessageBetaOnlyDialog_title">Uredi sporočilo</string>
     <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
-    <string name="SendingEditMessageBetaOnlyDialog_body">Urejanje sporočil je na voljo samo uporabnikom Signala beta. Če uredite sporočilo, bo vidno samo ljudem, ki uporabljajo najnovejšo različico Signala beta.</string>
+    <string name="SendingEditMessageBetaOnlyDialog_body">Če uredite sporočilo, bo vidno samo ljudem, ki uporabljajo najnovejše različice Signala. Videli bodo lahko, da ste uredili sporočilo.</string>
     <!-- Button to cancel sending edit message as it is beta only -->
     <string name="SendingEditMessageBetaOnlyDialog_cancel">Prekliči</string>
     <!-- Button to continue sending edit message despite it being beta only -->
@@ -6369,6 +6426,16 @@
     <string name="UsernameLinkSettings_username_copied_toast">Uporabniško ime je kopirano</string>
     <!-- Content of a toast that will show after the username link is copied to the clipboard -->
     <string name="UsernameLinkSettings_link_copied_toast">Povezava je kopirana</string>
+    <!-- Content of a text field that is shown when the user has not yet set a username link -->
+    <string name="UsernameLinkSettings_link_not_set_label">Povezava ni nastavljena</string>
+    <!-- Content of a text field that is shown when the user is actively resetting the username link and waiting for the operation to finish -->
+    <string name="UsernameLinkSettings_resetting_link_label">Ponastavitev povezave …</string>
+    <!-- Title of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_title">Želite ponastaviti QR kodo?</string>
+    <!-- Body of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_body">Če ponastavite svojo QR kodo, vaša obstoječa QR koda in povezava ne bosta več delovali.</string>
+    <!-- Label for the confirmation button on a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_confirm_button">Ponastavi</string>
     <!-- Button label for a button that will reset your username and give you a new link -->
     <string name="UsernameLinkSettings_reset_button_label">Ponastavi</string>
     <!-- Button label for a button that indicates that the user is done changing the current setting -->
@@ -6385,8 +6452,14 @@
     <string name="UsernameLinkSettings_qr_result_invalid">QR koda je bila neveljavna.</string>
     <!-- Body of a dialog that is displayed when the username we looked up could not be found. -->
     <string name="UsernameLinkSettings_qr_result_not_found">Uporabnika_ce z uporabniškim imenom %1$s ni bilo mogoče najti.</string>
+    <!-- Body of a dialog that is displayed when the username we looked up could not be found and we also could not parse the username. -->
+    <string name="UsernameLinkSettings_qr_result_not_found_no_username">Tega uporabnika ni bilo mogoče najti.</string>
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">Prišlo je do omrežne napake. Prosimo, poskusite znova.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because you had no internet. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_unavailable">Nimate dostopa do omrežja. Vaša povezava ni bila ponastavljena. Poskusite znova kasneje.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because of a transient network issue. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_error">Med poskusom ponastavitve povezave je prišlo do omrežne napake. Poskusite znova kasneje.</string>
 
     <!-- PendingParticipantsView -->
     <!-- Displayed in the popup card when a remote user attempts to join a call link -->
@@ -6411,7 +6484,7 @@
     </plurals>
     <!-- Content description for rejecting a user -->
     <string name="PendingParticipantsBottomSheet__reject">Zavrni</string>
-    <!-- Content desccription for confirming a user -->
+    <!-- Content description for confirming a user -->
     <string name="PendingParticipantsBottomSheet__approve">Potrdi</string>
 
     <!-- EOF -->

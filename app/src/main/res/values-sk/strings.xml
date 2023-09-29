@@ -479,7 +479,7 @@
     <string name="ConversationFragment_failed_to_open_message">Nepodarilo sa otvoriť správu</string>
     <string name="ConversationFragment_you_can_swipe_to_the_right_reply">Pre rýchlu odpoveď môžete na akejkoľvek správe prejsť prstom doprava</string>
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Pre rýchlu odpoveď môžete na akejkoľvek správe prejsť prstom doľava</string>
-    <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Odchádzajúce mediálne súbory na jedno zobrazenie sa po odoslaní automaticky odstránia</string>
+    <string name="ConversationFragment_view_once_media_is_deleted_after_sending">Médiá na jedno pozretie sa po odoslaní vymažú</string>
     <string name="ConversationFragment_you_already_viewed_this_message">Túto správu ste si už prečítali</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">V tomto čete si môžete pridávať poznámky.\nAk máte vo svojom účte nejaké prepojené zariadenia, nové poznámky sa budú synchronizovať.</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d členovia skupiny majú rovnaké meno.</string>
@@ -930,8 +930,10 @@
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title">Všimli sme si, že upozornenia prichádzajú oneskorene. Odoslať denník ladenia?</string>
-    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Denníky ladenia nám pomáhajú určiť a odstrániť problém a neobsahujú identifikačné údaje.</string>
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly narazil na problém. Odoslať denník ladenia?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Upozornenia môžu byť oneskorené z dôvodu optimalizácie batérie</string>
@@ -2395,6 +2397,18 @@
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Vypnúť upozornenia na to, že kontakt začal používať Signal? Môžete ich znova zapnúť v Signal &gt; Nastavenia &gt; Upozornenia.</string>
 
+    <!-- TurnOnNotificationsBottomSheet -->
+    <!-- Title for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__turn_on_notifications">Zapnite upozornenia</string>
+    <!-- Subtitle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__to_receive_notifications">Pre prijímanie upozornení na nové správy:</string>
+    <!-- Sheet step 1  for sheet explaining how to turn on app notifications-->
+    <string name="TurnOnNotificationsBottomSheet__1_tap_settings_below">1. Ťuknite na “Nastavenia” nižšie</string>
+    <!-- Sheet step 2 with placeholder which will be replaced with an image of a toggle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__2_s_turn_on_notifications">2. %1$s Zapnúť upozornenia</string>
+    <!-- Label for button at the bottom of the sheet which opens system app notification settings for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__settings">Nastavenia</string>
+
     <!-- Notification Channels -->
     <string name="NotificationChannel_channel_messages">Správy</string>
     <string name="NotificationChannel_calls">Volania</string>
@@ -2937,7 +2951,7 @@
     <string name="HelpFragment__could_not_upload_logs">Nepodarilo sa nahrať denníky</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Prosíme, čo najpodrobnejšie popíšte situáciu a pomôžte nám tak porozumieť vášmu problému.</string>
     <string-array name="HelpFragment__categories_5">
-        <item>\\-\\- Vyberte možnosť \\-\\-</item>
+        <item>Vyberte možnosť</item>
         <item>Vyskytla sa chyba</item>
         <item>Požiadavka na funkciu</item>
         <item>Otázka</item>
@@ -2951,6 +2965,8 @@
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Odoslanie denníka ladenia Signal Android</string>
     <!-- Category to organize the support email sent -->
     <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Pomalé upozornenia</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__crash_category">Zlyhanie</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Potvrdiť</string>
     <!-- Action to decline to submit logs -->
@@ -3078,7 +3094,6 @@
     <string name="preferences__payments">Platby</string>
     <!-- Privacy settings payments section description -->
     <string name="preferences__payment_lock">Platobný zámok</string>
-    <string name="preferences__payments_beta">Platby (Beta)</string>
     <string name="preferences__conversation_length_limit">Obmedzenie dĺžky četu</string>
     <string name="preferences__keep_messages">Ponechať správy</string>
     <string name="preferences__clear_message_history">Vymazať históriu správ</string>
@@ -3234,7 +3249,8 @@
     <string name="PaymentsAllActivityFragment__sent">Odoslaná</string>
     <string name="PaymentsAllActivityFragment__received">Prijatá</string>
 
-    <string name="PaymentsHomeFragment__introducing_payments">Predstavujeme platby (Beta)</string>
+    <!-- Displayed on a welcome screen for payments -->
+    <string name="PaymentsHomeFragment_introducing_payments">Predstavujeme platby</string>
     <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Pomocou Mollyu môžete odosielať a prijímať MobileCoin, novú digitálnu menu zameranú na súkromie. Ak chcete začať, spustite aktiváciu.</string>
     <string name="PaymentsHomeFragment__activate_payments">Aktivovať platby</string>
     <string name="PaymentsHomeFragment__activating_payments">Aktivujú sa platby…</string>
@@ -3268,8 +3284,9 @@
     <string name="PaymentsHomeFragment__payments_deactivated">Platby sú deaktivované.</string>
     <string name="PaymentsHomeFragment__payment_failed">Platba zlyhala</string>
     <string name="PaymentsHomeFragment__details">Podrobnosti</string>
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate </string>
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Pomocou Molly môžete odosielať a prijímať MobileCoiny. Všetky platby podliehajú Podmienkam používania pre MobileCoins a MobileCoin Wallet. Toto je funkcia beta verzie, takže sa môžete stretnúť s určitými problémami a platby, alebo zostatky, ktoré môžete stratiť, nie je možné obnoviť. </string> -->
+  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
+    <!-- Displayed as a description in a dialog when the user tries to activate payments -->
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Signal môžete používať na posielanie a prijímanie MobileCoinu. Všetky platby podliehajú podmienkam používania MobileCoinov a peňaženky MobileCoin. Môžu sa vyskytnúť určité problémy a platby alebo zostatky, ktoré sa prípadne stratia, nie je možné obnoviť. </string>
     <string name="PaymentsHomeFragment__activate">Aktivovať</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Zobraziť podmienky MobileCoin</string>
     <string name="PaymentsHomeFragment__payments_not_available">Platby v službe Molly už nie sú k dispozícii. Stále môžete prevádzať prostriedky na burzu, ale už nemôžete posielať a prijímať platby ani pridávať prostriedky.</string>
@@ -3291,6 +3308,32 @@
     <string name="PaymentsHomeFragment__cancel">Zrušiť</string>
     <!-- Alert dialog button to update now -->
     <string name="PaymentsHomeFragment__update_now">Aktualizovať teraz</string>
+
+    <!-- GrantPermissionsFragment -->
+    <!-- Displayed as a text-only action button at the bottom start of the screen -->
+    <string name="GrantPermissionsFragment__not_now">Teraz nie</string>
+    <!-- Displayed as an action button at the bottom end of the screen -->
+    <string name="GrantPermissionsFragment__next">Ďalej</string>
+    <!-- Displayed as a title at the top of the screen -->
+    <string name="GrantPermissionsFragment__allow_permissions">Nastaviť povolenia</string>
+    <!-- Displayed as a subtitle at the top of the screen -->
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Molly si vyžiada tieto povolenia, aby vám pomohol posielať správy ľuďom, ktorých poznáte. </string>
+    <!-- Notifications permission row title -->
+    <string name="GrantPermissionsFragment__notifications">Upozornenia</string>
+    <!-- Notifications permission row description -->
+    <string name="GrantPermissionsFragment__get_notified_when">Dostávajte upozornenia na nové správy.</string>
+    <!-- Contacts permission row title -->
+    <string name="GrantPermissionsFragment__contacts">Kontakty</string>
+    <!-- Contacts permission row description -->
+    <string name="GrantPermissionsFragment__find_people_you_know">Nájdite ľudí, ktorých poznáte. Vaše kontakty sú šifrované a nie sú viditeľné pre službu Molly.</string>
+    <!-- Phone calls permission row title -->
+    <string name="GrantPermissionsFragment__phone_calls">Hovory</string>
+    <!-- Phone calls permission row description -->
+    <string name="GrantPermissionsFragment__make_registering_easier">Uľahčite si registráciu a povoľte ďalšie funkcie volania.</string>
+    <!-- Storage permission row title -->
+    <string name="GrantPermissionsFragment__storage">Úložisko</string>
+    <!-- Storage permission row description -->
+    <string name="GrantPermissionsFragment__send_photos_videos_and_files">Posielajte fotografie, videá a súbory zo svojho zariadenia.</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -4230,7 +4273,7 @@
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">Máte zostatok! Je čas uložiť si frázu na obnovenie—24-slovný kľúč, ktorý môžete použiť na obnovenie zostatku.</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
-    <string name="PaymentsRecoveryStartFragment__time_to_save">Je čas uložiť si frázu na obnovenie—24-slovný kľúč, ktorý môžete použiť na obnovenie zostatku. Zistiť viac</string>
+    <string name="PaymentsRecoveryStartFragment__time_to_save">Je čas uložiť si frázu na obnovenie—24-slovný kľúč, ktorý môžete použiť na obnovenie zostatku.</string>
     <string name="PaymentsRecoveryStartFragment__your_recovery_phrase_is_a">Vaša fráza na obnovenie je jedinečná s %1$d-slovami. Pomocou tejto frázy obnovíte zostatok.</string>
     <string name="PaymentsRecoveryStartFragment__start">Štart</string>
     <string name="PaymentsRecoveryStartFragment__enter_manually">Zadať manuálne</string>
@@ -5204,6 +5247,10 @@
 
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Výber sa nepodarilo otvoriť.</string>
+    <!-- Banner title when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__to_enable_notifications">Ak chcete povoliť upozornenia, Molly potrebuje povolenie na ich zobrazenie.</string>
+    <!-- Banner action when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__turn_on">Zapnúť</string>
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Poznámky k vydaniu Signal &amp; Novinky</string>
@@ -6235,6 +6282,8 @@
     <string name="CallLogFragment__no_calls">Žiadne hovory.</string>
     <!-- Shown during empty state -->
     <string name="CallLogFragment__get_started_by_calling_a_friend">Začnite zavolaním známemu.</string>
+    <!-- Displayed as a message in a dialog when deleting multiple items -->
+    <string name="CallLogFragment__call_links_youve_created">Odkazy na hovor, ktoré ste vytvorili, už nebudú fungovať ľuďom, ktorí ich dostali.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -6296,8 +6345,10 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__signal_call">Signal hovor</string>
     <!-- Displayed on a small button to allow user to instantly join call -->
     <string name="CreateCallLinkBottomSheetDialogFragment__join">Pridať sa</string>
-    <!-- Option to open a full screen dialog to enter a call name -->
+    <!-- Option to open a full screen dialog to add a call name -->
     <string name="CreateCallLinkBottomSheetDialogFragment__add_call_name">Pridať názov hovoru</string>
+    <!-- Option to open a full screen dialog to edit a call name -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__edit_call_name">Upraviť názov hovoru</string>
     <!-- Toggle to require approval for all members before joining -->
     <string name="CreateCallLinkBottomSheetDialogFragment__approve_all_members">Schváliť všetkých členov</string>
     <!-- Row label to share the link via Signal -->
@@ -6312,6 +6363,12 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__failed_to_open_share_sheet">Nie je možné zdieľať odkaz na hovor.</string>
     <!-- Displayed when we copy the call link to the clipboard -->
     <string name="CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard">Skopírované do schránky</string>
+
+    <!-- CallLinkIncomingRequestSheet -->
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__approve_entry">Povoliť vstup</string>
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__deny_entry">Zakázať vstup</string>
 
     <!-- EditCallLinkNameDialogFragment -->
     <!-- App bar title for editing a call name -->
@@ -6332,9 +6389,9 @@
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">História úprav</string>
     <!-- Title of dialog shown alerting user that edit message is in beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_title">Len Signal beta</string>
+    <string name="SendingEditMessageBetaOnlyDialog_title">Upraviť správu</string>
     <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
-    <string name="SendingEditMessageBetaOnlyDialog_body">Úprava správ je k dispozícii iba pre používateľov beta verzie Signalu. Ak upravíte správu, zobrazí sa iba ľuďom, ktorí používajú najnovšiu beta verziu Signalu.</string>
+    <string name="SendingEditMessageBetaOnlyDialog_body">Ak upravíte správu, zobrazí sa iba ľuďom, ktorí používajú najnovšie verzie Signalu. Uvidia, že ste upravili správu.</string>
     <!-- Button to cancel sending edit message as it is beta only -->
     <string name="SendingEditMessageBetaOnlyDialog_cancel">Zrušiť</string>
     <!-- Button to continue sending edit message despite it being beta only -->
@@ -6369,6 +6426,16 @@
     <string name="UsernameLinkSettings_username_copied_toast">Používateľské meno bolo skopírované</string>
     <!-- Content of a toast that will show after the username link is copied to the clipboard -->
     <string name="UsernameLinkSettings_link_copied_toast">Odkaz skopírovaný</string>
+    <!-- Content of a text field that is shown when the user has not yet set a username link -->
+    <string name="UsernameLinkSettings_link_not_set_label">Odkaz nie je nastavený</string>
+    <!-- Content of a text field that is shown when the user is actively resetting the username link and waiting for the operation to finish -->
+    <string name="UsernameLinkSettings_resetting_link_label">Resetuje sa odkaz…</string>
+    <!-- Title of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_title">Resetovať QR kód?</string>
+    <!-- Body of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_body">Ak resetujete svoj QR kód, váš existujúci QR kód a odkaz už nebudú fungovať.</string>
+    <!-- Label for the confirmation button on a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_confirm_button">Resetovať</string>
     <!-- Button label for a button that will reset your username and give you a new link -->
     <string name="UsernameLinkSettings_reset_button_label">Resetovať</string>
     <!-- Button label for a button that indicates that the user is done changing the current setting -->
@@ -6385,8 +6452,14 @@
     <string name="UsernameLinkSettings_qr_result_invalid">QR kód je neplatný.</string>
     <!-- Body of a dialog that is displayed when the username we looked up could not be found. -->
     <string name="UsernameLinkSettings_qr_result_not_found">Používateľa s používateľským menom %1$s sa nepodarilo nájsť.</string>
+    <!-- Body of a dialog that is displayed when the username we looked up could not be found and we also could not parse the username. -->
+    <string name="UsernameLinkSettings_qr_result_not_found_no_username">Tohto používateľa sa nepodarilo nájsť.</string>
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">Vyskytla sa chyba siete. Skúste to znova.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because you had no internet. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_unavailable">Nemáte prístup k sieti. Váš odkaz nebol zresetovaný. Skúste to znova neskôr.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because of a transient network issue. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_error">Pri pokuse o resetovanie vášho odkazu sa vyskytla chyba siete. Skúste to znova neskôr.</string>
 
     <!-- PendingParticipantsView -->
     <!-- Displayed in the popup card when a remote user attempts to join a call link -->
@@ -6411,7 +6484,7 @@
     </plurals>
     <!-- Content description for rejecting a user -->
     <string name="PendingParticipantsBottomSheet__reject">Odmietnuť</string>
-    <!-- Content desccription for confirming a user -->
+    <!-- Content description for confirming a user -->
     <string name="PendingParticipantsBottomSheet__approve">Prijať</string>
 
     <!-- EOF -->

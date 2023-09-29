@@ -31,7 +31,10 @@ class V2ConversationItemShape(
     private val clusterTimeout = 3.minutes
   }
 
-  var corners: Projection.Corners = Projection.Corners(bigRadius)
+  var cornersLTR: Projection.Corners = Projection.Corners(bigRadius)
+    private set
+
+  var cornersRTL: Projection.Corners = Projection.Corners(bigRadius)
     private set
 
   /**
@@ -39,7 +42,6 @@ class V2ConversationItemShape(
    * updates the class state.
    */
   fun setMessageShape(
-    isLtr: Boolean,
     currentMessage: MessageRecord,
     isGroupThread: Boolean,
     adapterPosition: Int
@@ -48,44 +50,41 @@ class V2ConversationItemShape(
     val previousMessage: MessageRecord? = conversationContext.getPreviousMessage(adapterPosition)
 
     if (isSingularMessage(currentMessage, previousMessage, nextMessage, isGroupThread)) {
-      setBodyBubbleCorners(isLtr, bigRadius, bigRadius, bigRadius, bigRadius)
+      setBodyBubbleCorners(bigRadius, bigRadius, bigRadius, bigRadius)
       return MessageShape.SINGLE
     } else if (isStartOfMessageCluster(currentMessage, previousMessage, isGroupThread)) {
       val bottomEnd = if (currentMessage.isOutgoing) smallRadius else bigRadius
       val bottomStart = if (currentMessage.isOutgoing) bigRadius else smallRadius
-      setBodyBubbleCorners(isLtr, bigRadius, bigRadius, bottomEnd, bottomStart)
+      setBodyBubbleCorners(bigRadius, bigRadius, bottomEnd, bottomStart)
       return MessageShape.START
     } else if (isEndOfMessageCluster(currentMessage, nextMessage)) {
       val topStart = if (currentMessage.isOutgoing) bigRadius else smallRadius
       val topEnd = if (currentMessage.isOutgoing) smallRadius else bigRadius
-      setBodyBubbleCorners(isLtr, topStart, topEnd, bigRadius, bigRadius)
+      setBodyBubbleCorners(topStart, topEnd, bigRadius, bigRadius)
       return MessageShape.END
     } else {
       val start = if (currentMessage.isOutgoing) bigRadius else smallRadius
       val end = if (currentMessage.isOutgoing) smallRadius else bigRadius
-      setBodyBubbleCorners(isLtr, start, end, end, start)
+      setBodyBubbleCorners(start, end, end, start)
       return MessageShape.MIDDLE
     }
   }
 
   private fun setBodyBubbleCorners(
-    isLtr: Boolean,
     topStart: Float,
     topEnd: Float,
     bottomEnd: Float,
     bottomStart: Float
   ) {
     val newCorners = Projection.Corners(
-      if (isLtr) topStart else topEnd,
-      if (isLtr) topEnd else topStart,
-      if (isLtr) bottomEnd else bottomStart,
-      if (isLtr) bottomStart else bottomEnd
+      topStart,
+      topEnd,
+      bottomEnd,
+      bottomStart
     )
-    if (corners == newCorners) {
-      return
-    }
 
-    corners = newCorners
+    cornersLTR = newCorners
+    cornersRTL = Projection.Corners(newCorners.toRelativeRadii(false))
   }
 
   private fun isSingularMessage(
@@ -162,6 +161,9 @@ class V2ConversationItemShape(
     /**
      * This message is in the middle of a cluster
      */
-    MIDDLE(collapsedSpacing, collapsedSpacing)
+    MIDDLE(collapsedSpacing, collapsedSpacing);
+
+    val isStartingShape: Boolean get() = this == SINGLE || this == START
+    val isEndingShape: Boolean get() = this == SINGLE || this == END
   }
 }

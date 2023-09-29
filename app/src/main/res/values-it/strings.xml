@@ -461,7 +461,7 @@
     <string name="ConversationFragment_failed_to_open_message">Apertura messaggio fallita</string>
     <string name="ConversationFragment_you_can_swipe_to_the_right_reply">Puoi scorrere verso destra su qualsiasi messaggio per rispondere rapidamente</string>
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Puoi scorrere verso sinistra su qualsiasi messaggio per rispondere rapidamente</string>
-    <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">I file multimediali in uscita visualizzabili una volta sono automaticamente rimossi dopo l\'invio</string>
+    <string name="ConversationFragment_view_once_media_is_deleted_after_sending">I media visibili solo una volta vengono eliminati dopo l\'invio</string>
     <string name="ConversationFragment_you_already_viewed_this_message">Hai già visualizzato questo messaggio</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">In questa chat, puoi aggiungere delle note per te. Se il tuo account ha dei dispositivi collegati, le nuove note verranno sincronizzate.</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d membri del gruppo hanno lo stesso nome.</string>
@@ -870,8 +870,10 @@
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title">Abbiamo notato un rallentamento nella consegna delle notifiche. Vuoi inviarci un log di debug per questo problema?</string>
-    <!-- Message for dialog asking user to submit logs for debugging slow notification issues -->
+    <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">I log di debug ci aiutano a individuare e risolvere il problema. Non preoccuparti, non contengono informazioni identificative o personali.</string>
+    <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly ha riscontrato un problema. Vuoi inviarci un log di debug?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Le notifiche potrebbero subire un rallentamento per via dell\'ottimizzazione della batteria</string>
@@ -2243,6 +2245,18 @@
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Disattivare le notifiche quando un contatto si unisce a Signal? Puoi attivarle di nuovo in Signal &gt; Impostazioni &gt; Notifiche.</string>
 
+    <!-- TurnOnNotificationsBottomSheet -->
+    <!-- Title for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__turn_on_notifications">Attiva le notifiche</string>
+    <!-- Subtitle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__to_receive_notifications">Per ricevere notifiche per i nuovi messaggi:</string>
+    <!-- Sheet step 1  for sheet explaining how to turn on app notifications-->
+    <string name="TurnOnNotificationsBottomSheet__1_tap_settings_below">1. Tocca “Impostazioni” qui sotto</string>
+    <!-- Sheet step 2 with placeholder which will be replaced with an image of a toggle  for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__2_s_turn_on_notifications">2. %1$s Attiva le notifiche</string>
+    <!-- Label for button at the bottom of the sheet which opens system app notification settings for sheet explaining how to turn on app notifications -->
+    <string name="TurnOnNotificationsBottomSheet__settings">Impostazioni</string>
+
     <!-- Notification Channels -->
     <string name="NotificationChannel_channel_messages">Messaggi</string>
     <string name="NotificationChannel_calls">Chiamate</string>
@@ -2763,7 +2777,7 @@
     <string name="HelpFragment__could_not_upload_logs">Impossibile inviare i log</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Sii il più descrittivo possibile per aiutarci a capire il problema.</string>
     <string-array name="HelpFragment__categories_5">
-        <item>\\-\\- Scegli un\'opzione \\-\\-</item>
+        <item>Scegli un\'opzione</item>
         <item>Qualcosa non funziona correttamente</item>
         <item>Richiesta di una nuova funzione per l\'app</item>
         <item>Ho una domanda</item>
@@ -2777,6 +2791,8 @@
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Invio log di debug per Signal Android</string>
     <!-- Category to organize the support email sent -->
     <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Notifiche in ritardo</string>
+    <!-- Category to organize the support email sent -->
+    <string name="DebugLogsPromptDialogFragment__crash_category">Crash</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Invia</string>
     <!-- Action to decline to submit logs -->
@@ -2902,7 +2918,6 @@
     <string name="preferences__payments">Pagamenti</string>
     <!-- Privacy settings payments section description -->
     <string name="preferences__payment_lock">Pagamento sicuro</string>
-    <string name="preferences__payments_beta">Pagamenti (Beta)</string>
     <string name="preferences__conversation_length_limit">Numero massimo di messaggi in chat</string>
     <string name="preferences__keep_messages">Conserva i messaggi</string>
     <string name="preferences__clear_message_history">Cancella la cronologia dei messaggi</string>
@@ -3056,7 +3071,8 @@
     <string name="PaymentsAllActivityFragment__sent">Inviati</string>
     <string name="PaymentsAllActivityFragment__received">Ricevuti</string>
 
-    <string name="PaymentsHomeFragment__introducing_payments">Ti presentiamo i pagamenti (Beta)</string>
+    <!-- Displayed on a welcome screen for payments -->
+    <string name="PaymentsHomeFragment_introducing_payments">Ecco i pagamenti su Signal</string>
     <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Usa Molly per inviare e ricevere MobileCoin, una nuova valuta digitale incentrata sulla privacy. Attiva per integrare questa funzione.</string>
     <string name="PaymentsHomeFragment__activate_payments">Attiva pagamenti</string>
     <string name="PaymentsHomeFragment__activating_payments">Attivazione pagamenti…</string>
@@ -3090,8 +3106,9 @@
     <string name="PaymentsHomeFragment__payments_deactivated">Pagamenti disattivati.</string>
     <string name="PaymentsHomeFragment__payment_failed">Pagamento fallito</string>
     <string name="PaymentsHomeFragment__details">Dettagli</string>
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate </string>
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Puoi utilizzare Molly per inviare e ricevere MobileCoin. Tutti i pagamenti sono soggetti ai Termini di utilizzo dei MobileCoin e di MobileCoin Wallet. Questa è una funzione beta, quindi potresti riscontrare alcuni problemi e pagamenti o saldi che potresti perdere non possono essere recuperati. </string> -->
+  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
+    <!-- Displayed as a description in a dialog when the user tries to activate payments -->
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Puoi usare Signal per inviare e ricevere i MobileCoin. Tutti i pagamenti sono soggetti ai Termini di Utilizzo dei MobileCoin e del MobileCoin Wallet. Ricorda che potresti riscontrare alcuni problemi. Inoltre, in caso di perdite nei pagamenti o nei saldi dei Wallet, potrebbe non essere possibile recuperare la somma persa. </string>
     <string name="PaymentsHomeFragment__activate">Attiva</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Visualizza i termini di MobileCoin</string>
     <string name="PaymentsHomeFragment__payments_not_available">I pagamenti in Molly non sono più disponibili. Puoi ancora trasferire i fondi a un exchange ma non puoi più inviare e ricevere pagamenti o aggiungere fondi.</string>
@@ -3113,6 +3130,32 @@
     <string name="PaymentsHomeFragment__cancel">Annulla</string>
     <!-- Alert dialog button to update now -->
     <string name="PaymentsHomeFragment__update_now">Aggiorna ora</string>
+
+    <!-- GrantPermissionsFragment -->
+    <!-- Displayed as a text-only action button at the bottom start of the screen -->
+    <string name="GrantPermissionsFragment__not_now">Non ora</string>
+    <!-- Displayed as an action button at the bottom end of the screen -->
+    <string name="GrantPermissionsFragment__next">Avanti</string>
+    <!-- Displayed as a title at the top of the screen -->
+    <string name="GrantPermissionsFragment__allow_permissions">Consenti permessi</string>
+    <!-- Displayed as a subtitle at the top of the screen -->
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Per aiutarti a usare Molly al meglio, abbiamo bisogno della tua autorizzazione per quanto segue. </string>
+    <!-- Notifications permission row title -->
+    <string name="GrantPermissionsFragment__notifications">Notifiche</string>
+    <!-- Notifications permission row description -->
+    <string name="GrantPermissionsFragment__get_notified_when">Ricevi le notifiche per i nuovi messaggi.</string>
+    <!-- Contacts permission row title -->
+    <string name="GrantPermissionsFragment__contacts">Contatti</string>
+    <!-- Contacts permission row description -->
+    <string name="GrantPermissionsFragment__find_people_you_know">Trova le persone che conosci. I tuoi contatti vengono protetti con crittografia e non sono visibili da noi di Molly.</string>
+    <!-- Phone calls permission row title -->
+    <string name="GrantPermissionsFragment__phone_calls">Chiamate</string>
+    <!-- Phone calls permission row description -->
+    <string name="GrantPermissionsFragment__make_registering_easier">Semplifica il processo d\'iscrizione a Signal e concedi i permessi per le funzioni di chiamata.</string>
+    <!-- Storage permission row title -->
+    <string name="GrantPermissionsFragment__storage">Spazio di archiviazione</string>
+    <!-- Storage permission row description -->
+    <string name="GrantPermissionsFragment__send_photos_videos_and_files">Invia foto, video e file dal tuo dispositivo.</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -4026,7 +4069,7 @@
     <!-- Description in save recovery phrase screen which shows up when user has non zero balance -->
     <string name="PaymentsRecoveryStartFragment__got_balance">Hai un saldo! Ora devi salvare la tua frase di recupero: una chiave di sicurezza lunga 24 parole per ripristinare il tuo saldo.</string>
     <!-- Description in save recovery phrase screen which shows up when user navigates from info card -->
-    <string name="PaymentsRecoveryStartFragment__time_to_save">Ora devi salvare la tua frase di recupero: una chiave di sicurezza lunga 24 parole per ripristinare il tuo saldo. Scopri di più</string>
+    <string name="PaymentsRecoveryStartFragment__time_to_save">Ora devi salvare la tua frase di recupero: una chiave di sicurezza lunga 24 parole per ripristinare il tuo saldo.</string>
     <string name="PaymentsRecoveryStartFragment__your_recovery_phrase_is_a">La tua frase di recupero è una frase di %1$d parole unica per te. Usa questa frase per ripristinare il tuo saldo.</string>
     <string name="PaymentsRecoveryStartFragment__start">Inizia</string>
     <string name="PaymentsRecoveryStartFragment__enter_manually">Inserisci manualmente</string>
@@ -4988,6 +5031,10 @@
 
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Impossibile aprire il menu di selezione.</string>
+    <!-- Banner title when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__to_enable_notifications">Per attivare le notifiche, Molly ha bisogno della tua autorizzazione per mostrarle.</string>
+    <!-- Banner action when notification permission is disabled -->
+    <string name="NotificationSettingsFragment__turn_on">Attiva</string>
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Note di rilascio e notizie di Signal</string>
@@ -5969,6 +6016,8 @@
     <string name="CallLogFragment__no_calls">Nessuna chiamata.</string>
     <!-- Shown during empty state -->
     <string name="CallLogFragment__get_started_by_calling_a_friend">Inizia chiamando un tuo amico o amica.</string>
+    <!-- Displayed as a message in a dialog when deleting multiple items -->
+    <string name="CallLogFragment__call_links_youve_created">Le persone che hanno ricevuto i link delle chiamate in questione non potranno più usarli.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -6030,8 +6079,10 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__signal_call">Chiamata Signal</string>
     <!-- Displayed on a small button to allow user to instantly join call -->
     <string name="CreateCallLinkBottomSheetDialogFragment__join">Unisciti</string>
-    <!-- Option to open a full screen dialog to enter a call name -->
+    <!-- Option to open a full screen dialog to add a call name -->
     <string name="CreateCallLinkBottomSheetDialogFragment__add_call_name">Aggiungi nome chiamata</string>
+    <!-- Option to open a full screen dialog to edit a call name -->
+    <string name="CreateCallLinkBottomSheetDialogFragment__edit_call_name">Modifica nome chiamata</string>
     <!-- Toggle to require approval for all members before joining -->
     <string name="CreateCallLinkBottomSheetDialogFragment__approve_all_members">Approva tutti gli utenti</string>
     <!-- Row label to share the link via Signal -->
@@ -6046,6 +6097,12 @@
     <string name="CreateCallLinkBottomSheetDialogFragment__failed_to_open_share_sheet">Impossibile condividere il link della chiamata.</string>
     <!-- Displayed when we copy the call link to the clipboard -->
     <string name="CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard">Copiato negli appunti</string>
+
+    <!-- CallLinkIncomingRequestSheet -->
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__approve_entry">Accetta richiesta</string>
+    <!-- Displayed as line item in sheet for approving or denying a single user -->
+    <string name="CallLinkIncomingRequestSheet__deny_entry">Rifiuta richiesta</string>
 
     <!-- EditCallLinkNameDialogFragment -->
     <!-- App bar title for editing a call name -->
@@ -6066,9 +6123,9 @@
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Cronologia delle modifiche</string>
     <!-- Title of dialog shown alerting user that edit message is in beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_title">Solo per la beta di Signal</string>
+    <string name="SendingEditMessageBetaOnlyDialog_title">Modifica messaggio</string>
     <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
-    <string name="SendingEditMessageBetaOnlyDialog_body">La funzione di modifica dei messaggi è disponibile solo agli utenti della beta di Signal. Se modifichi un messaggio, la modifica sarà visibile solamente alle persone che stanno usando la versione più recente della beta di Signal.</string>
+    <string name="SendingEditMessageBetaOnlyDialog_body">Se modifichi un messaggio, la modifica sarà visibile solamente alle persone che usano la versione più recente di Signal. Potranno quindi vedere che hai effettuato una modifica.</string>
     <!-- Button to cancel sending edit message as it is beta only -->
     <string name="SendingEditMessageBetaOnlyDialog_cancel">Annulla</string>
     <!-- Button to continue sending edit message despite it being beta only -->
@@ -6103,6 +6160,16 @@
     <string name="UsernameLinkSettings_username_copied_toast">Nome utente copiato</string>
     <!-- Content of a toast that will show after the username link is copied to the clipboard -->
     <string name="UsernameLinkSettings_link_copied_toast">Link copiato</string>
+    <!-- Content of a text field that is shown when the user has not yet set a username link -->
+    <string name="UsernameLinkSettings_link_not_set_label">Link non ancora stabilito</string>
+    <!-- Content of a text field that is shown when the user is actively resetting the username link and waiting for the operation to finish -->
+    <string name="UsernameLinkSettings_resetting_link_label">Reset del link in corso…</string>
+    <!-- Title of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_title">Vuoi resettare il tuo codice QR?</string>
+    <!-- Body of a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_body">Se fai il reset del tuo codice QR, il codice QR e il link attuali smetteranno di funzionare.</string>
+    <!-- Label for the confirmation button on a dialog prompting the user to confirm whether they would like to reset their username link and QR code -->
+    <string name="UsernameLinkSettings_reset_link_dialog_confirm_button">Resetta</string>
     <!-- Button label for a button that will reset your username and give you a new link -->
     <string name="UsernameLinkSettings_reset_button_label">Resetta</string>
     <!-- Button label for a button that indicates that the user is done changing the current setting -->
@@ -6119,8 +6186,14 @@
     <string name="UsernameLinkSettings_qr_result_invalid">Il codice QR non era valido.</string>
     <!-- Body of a dialog that is displayed when the username we looked up could not be found. -->
     <string name="UsernameLinkSettings_qr_result_not_found">Non è stato possibile trovare un utente con il nome %1$s.</string>
+    <!-- Body of a dialog that is displayed when the username we looked up could not be found and we also could not parse the username. -->
+    <string name="UsernameLinkSettings_qr_result_not_found_no_username">Non è stato possibile trovare questo utente.</string>
     <!-- Body of a dialog that is displayed when we experienced a network error when looking up a username. -->
     <string name="UsernameLinkSettings_qr_result_network_error">Si è verificato un errore di rete. Riprova.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because you had no internet. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_unavailable">Non hai accesso a Internet. Il tuo link non è stato resettato. Riprova più tardi.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because of a transient network issue. -->
+    <string name="UsernameLinkSettings_reset_link_result_network_error">Si è verificato un errore con la connessione durante il reset del tuo link. Riprova più tardi.</string>
 
     <!-- PendingParticipantsView -->
     <!-- Displayed in the popup card when a remote user attempts to join a call link -->
@@ -6141,7 +6214,7 @@
     </plurals>
     <!-- Content description for rejecting a user -->
     <string name="PendingParticipantsBottomSheet__reject">Rifiuta</string>
-    <!-- Content desccription for confirming a user -->
+    <!-- Content description for confirming a user -->
     <string name="PendingParticipantsBottomSheet__approve">Approva</string>
 
     <!-- EOF -->
