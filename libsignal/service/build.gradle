@@ -27,6 +27,12 @@ configurations {
     ideaTestFixturesImplementation { extendsFrom testFixturesImplementation; canBeConsumed false; canBeResolved true }
 }
 
+afterEvaluate {
+    tasks.named('sourcesJar') {
+        dependsOn tasks.named('generateMainProtos')
+    }
+}
+
 dependencies {
     api libs.google.libphonenumber
     api libs.jackson.core
