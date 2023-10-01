@@ -72,6 +72,9 @@ dependencies {
   implementation(libs.material.material)
   implementation(libs.androidx.constraintlayout)
   implementation(libs.kotlin.stdlib.jdk8)
+  implementation(libs.androidx.activity.compose)
+  implementation(platform(libs.androidx.compose.bom))
+  implementation(libs.androidx.compose.material3)
 
   testImplementation(testLibs.junit.junit)
   testImplementation(testLibs.mockito.core)

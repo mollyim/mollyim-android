@@ -62,6 +62,8 @@ import org.thoughtcrime.securesms.database.helpers.migration.V203_PreKeyStaleTim
 import org.thoughtcrime.securesms.database.helpers.migration.V204_GroupForeignKeyMigration
 import org.thoughtcrime.securesms.database.helpers.migration.V205_DropPushTable
 import org.thoughtcrime.securesms.database.helpers.migration.V206_AddConversationCountIndex
+import org.thoughtcrime.securesms.database.helpers.migration.V207_AddChunkSizeColumn
+import org.thoughtcrime.securesms.database.helpers.migration.V209_ClearRecipientPniFromAciColumn
 
 /**
  * Contains all of the database migrations for [SignalDatabase]. Broken into a separate file for cleanliness.
@@ -70,7 +72,7 @@ object SignalDatabaseMigrations {
 
   val TAG: String = Log.tag(SignalDatabaseMigrations.javaClass)
 
-  const val DATABASE_VERSION = 206
+  const val DATABASE_VERSION = 209
 
   @JvmStatic
   fun migrate(context: Application, db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -305,6 +307,18 @@ object SignalDatabaseMigrations {
 
     if (oldVersion < 206) {
       V206_AddConversationCountIndex.migrate(context, db, oldVersion, newVersion)
+    }
+
+    if (oldVersion < 207) {
+      V207_AddChunkSizeColumn.migrate(context, db, oldVersion, newVersion)
+    }
+
+    if (oldVersion < 208) {
+      // Bad migration that only manipulated data and did not change schema, replaced by 209
+    }
+
+    if (oldVersion < 209) {
+      V209_ClearRecipientPniFromAciColumn.migrate(context, db, oldVersion, newVersion)
     }
   }
 
