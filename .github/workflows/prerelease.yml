@@ -11,7 +11,7 @@ env:
 jobs:
   build:
     name: Build
-    if: "github.event.base_ref != 'refs/heads/main'"
+    if: "github.event.base_ref != 'refs/heads/main' && github.event.base_ref != 'refs/heads/upstream'"
     runs-on: ubuntu-22.04
     env:
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
