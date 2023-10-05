@@ -30,6 +30,7 @@ configurations {
 afterEvaluate {
     tasks.named('sourcesJar') {
         dependsOn tasks.named('generateMainProtos')
+        duplicatesStrategy DuplicatesStrategy.INCLUDE
     }
 }
 
