@@ -89,4 +89,19 @@
     <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">Je krijgt een bericht wanneer er updates beschikbaar zijn</string>
     <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s is niet geregistreerd bij Signal</string>
     <string name="TimeDurationPickerDialog_single_letter_second_abbreviation">s</string>
+    <string name="RegistrationActivity_device_name_description">Apparaat naam</string>
+    <string name="DeviceListItem_primary">Primair</string>
+    <string name="RegistrationActivity_link_device">Linken aan bestaand apparaat</string>
+    <string name="DeviceListItem_registered_s">Geregistreerd %s</string>
+    <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">PIN instellingen kunnen vanaf een gelinkt apparaat niet gewijzigd worden</string>
+    <string name="RegistrationActivity_link_error">Er is een fout opgetreden bij het linken van een apparaat. Controleer de netwerk verbinding en probeer het nog eens</string>
+    <string name="DeviceListItem_device_d">Apparaat #%d</string>
+    <string name="RegistrationActivity_scan_this_qr_using_your_primary_device">Scan deze QR code met het primaire apparaat</string>
+    <string name="RegistrationActivity_link">Link</string>
+    <string name="RegistrationActivity_provider_declined">De provider wil geen verificatie code sturen, waarschijnlijk i.v.m.regels over fraude preventie.</string>
+    <string name="RegistrationActivity_link_retry">Linken opnieuw proberen</string>
+    <string name="RegistrationActivity_link_timeout">Timeout bij het wachten op het primaire apparaat. Maak je apparaat klaar om de QR code te scannen en probeer het nog eens</string>
+    <string name="RegistrationActivity_enter_a_name_for_this_device">Geef een naam voor dit apparaat</string>
+    <string name="RegistrationActivity_copied_to_clipboard">Naar klembord gecopieerd</string>
+    <string name="DeviceListItem_this_device">Dit apparaat</string>
 </resources>
