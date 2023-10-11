@@ -1,8 +1,11 @@
 package org.thoughtcrime.securesms.attachments;
 
 import android.net.Uri;
+import android.os.Parcel;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.os.ParcelCompat;
 
 import org.thoughtcrime.securesms.audio.AudioHash;
 import org.thoughtcrime.securesms.blurhash.BlurHash;
@@ -10,6 +13,7 @@ import org.thoughtcrime.securesms.database.AttachmentTable.TransformProperties;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
 import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.ParcelUtil;
 
 import java.util.Comparator;
 
@@ -35,6 +39,7 @@ public class DatabaseAttachment extends Attachment {
                             String relay,
                             byte[] digest,
                             byte[] incrementalDigest,
+                            int incrementalMacChunkSize,
                             String fastPreflightId,
                             boolean voiceNote,
                             boolean borderless,
@@ -50,12 +55,31 @@ public class DatabaseAttachment extends Attachment {
                             int displayOrder,
                             long uploadTimestamp)
   {
-    super(contentType, transferProgress, size, fileName, cdnNumber, location, key, relay, digest, incrementalDigest, fastPreflightId, voiceNote, borderless, videoGif, width, height, quote, uploadTimestamp, caption, stickerLocator, blurHash, audioHash, transformProperties);
+    super(contentType, transferProgress, size, fileName, cdnNumber, location, key, relay, digest, incrementalDigest, fastPreflightId, voiceNote, borderless, videoGif, width, height, incrementalMacChunkSize, quote, uploadTimestamp, caption, stickerLocator, blurHash, audioHash, transformProperties);
     this.attachmentId = attachmentId;
     this.hasData      = hasData;
     this.hasThumbnail = hasThumbnail;
     this.mmsId        = mmsId;
     this.displayOrder = displayOrder;
+  }
+
+  protected DatabaseAttachment(Parcel in) {
+    super(in);
+    this.attachmentId = ParcelCompat.readParcelable(in, AttachmentId.class.getClassLoader(), AttachmentId.class);
+    this.hasData      = ParcelUtil.readBoolean(in);
+    this.hasThumbnail = ParcelUtil.readBoolean(in);
+    this.mmsId        = in.readLong();
+    this.displayOrder = in.readInt();
+  }
+
+  @Override
+  public void writeToParcel(@NonNull Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeParcelable(attachmentId, 0);
+    ParcelUtil.writeBoolean(dest, hasData);
+    ParcelUtil.writeBoolean(dest, hasThumbnail);
+    dest.writeLong(mmsId);
+    dest.writeInt(displayOrder);
   }
 
   @Override

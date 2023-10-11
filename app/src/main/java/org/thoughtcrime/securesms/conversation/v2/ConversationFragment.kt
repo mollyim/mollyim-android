@@ -307,6 +307,7 @@ import org.thoughtcrime.securesms.util.getRecordQuoteType
 import org.thoughtcrime.securesms.util.hasAudio
 import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.thoughtcrime.securesms.util.isValidReactionTarget
+import org.thoughtcrime.securesms.util.savedStateViewModel
 import org.thoughtcrime.securesms.util.viewModel
 import org.thoughtcrime.securesms.util.views.Stub
 import org.thoughtcrime.securesms.util.visible
@@ -398,10 +399,8 @@ class ConversationFragment :
     )
   }
 
-  private val linkPreviewViewModel: LinkPreviewViewModelV2 by viewModel {
-    LinkPreviewViewModelV2(
-      enablePlaceholder = false
-    )
+  private val linkPreviewViewModel: LinkPreviewViewModelV2 by savedStateViewModel {
+    LinkPreviewViewModelV2(it, enablePlaceholder = false)
   }
 
   private val groupCallViewModel: ConversationGroupCallViewModel by viewModel {
@@ -623,6 +622,8 @@ class ConversationFragment :
         }
       ).addTo(disposables)
     }
+
+    conversationGroupViewModel.updateGroupStateIfNeeded()
 
     ConversationUtil.refreshRecipientShortcuts()
 
