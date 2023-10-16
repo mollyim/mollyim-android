@@ -16,6 +16,7 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val MOLLYSOCKET_INTERNAL_ERROR = "unifiedpush.mollysocket.internal_error"
     private const val UNIFIEDPUSH_ENDPOINT = "unifiedpush.endpoint"
     private const val UNIFIEDPUSH_ENABLED = "unifiedpush.enabled"
+    private const val UNIFIEDPUSH_PENDING = "unifiedpush.pending"
     private const val UNIFIEDPUSH_AIR_GAPED = "unifiedpush.air_gaped"
   }
 
@@ -45,7 +46,7 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
 
   var endpoint: String? by stringValue(UNIFIEDPUSH_ENDPOINT, null)
 
-  var enabled: Boolean by booleanValue(UNIFIEDPUSH_ENABLED, false)
+  var pending: Boolean by booleanValue(UNIFIEDPUSH_PENDING, false)
 
   var airGaped: Boolean by booleanValue(UNIFIEDPUSH_AIR_GAPED, false)
 
@@ -61,12 +62,14 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
 
   val status: UnifiedPushStatus
     get() = when {
-      !SignalStore.unifiedpush.enabled -> UnifiedPushStatus.DISABLED
+      SignalStore.settings.notificationDeliveryMethod != SettingsValues.NotificationDeliveryMethod.UNIFIEDPUSH -> UnifiedPushStatus.DISABLED
+      SignalStore.unifiedpush.pending -> UnifiedPushStatus.PENDING
       SignalStore.unifiedpush.device == null -> UnifiedPushStatus.LINK_DEVICE_ERROR
       SignalStore.unifiedpush.endpoint == null -> UnifiedPushStatus.MISSING_ENDPOINT
       SignalStore.unifiedpush.airGaped -> UnifiedPushStatus.AIR_GAPED
       SignalStore.unifiedpush.mollySocketUrl.isNullOrBlank() ||
         !SignalStore.unifiedpush.mollySocketFound -> UnifiedPushStatus.SERVER_NOT_FOUND_AT_URL
+      SignalStore.unifiedpush.mollySocketInternalError -> UnifiedPushStatus.INTERNAL_ERROR
       SignalStore.unifiedpush.forbiddenUuid -> UnifiedPushStatus.FORBIDDEN_UUID
       SignalStore.unifiedpush.forbiddenEndpoint -> UnifiedPushStatus.FORBIDDEN_ENDPOINT
       else -> UnifiedPushStatus.OK

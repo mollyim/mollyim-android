@@ -6,11 +6,12 @@ import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import org.thoughtcrime.securesms.dependencies.AppDependencies
+import im.molly.unifiedpush.jobs.UnifiedPushRefreshJob
 
 import im.molly.unifiedpush.util.UnifiedPushHelper
 import org.signal.core.util.concurrent.SignalExecutors
 import org.thoughtcrime.securesms.ApplicationContext
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig
@@ -118,23 +119,24 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
 
   fun setNotificationDeliveryMethod(method: NotificationDeliveryMethod) {
     SignalStore.settings.notificationDeliveryMethod = method
-    SignalStore.unifiedpush.enabled = method == NotificationDeliveryMethod.UNIFIEDPUSH
     SignalStore.internal.isWebsocketModeForced = method == NotificationDeliveryMethod.WEBSOCKET
     val context = ApplicationContext.getInstance()
     if (method == NotificationDeliveryMethod.UNIFIEDPUSH) {
+      SignalStore.unifiedpush.pending = true
       UnifiedPush.getDistributors(context).getOrNull(0)?.let {
         refresh()
         EXECUTOR.enqueue {
           UnifiedPush.saveDistributor(context, it)
           UnifiedPush.registerApp(context)
           UnifiedPushHelper.initializeMollySocketLinkedDevice(context)
+          AppDependencies.jobManager.add(UnifiedPushRefreshJob())
         }
         // Do not enable if there is no distributor
       } ?: return
     } else {
       UnifiedPush.unregisterApp(context)
       SignalStore.unifiedpush.airGaped = false
-      SignalStore.unifiedpush.mollySocketUrl = null
+      AppDependencies.jobManager.add(UnifiedPushRefreshJob())
     }
     refresh()
   }

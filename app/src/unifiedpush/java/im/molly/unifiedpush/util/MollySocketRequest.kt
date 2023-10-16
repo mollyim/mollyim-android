@@ -97,7 +97,7 @@ object MollySocketRequest {
         return resp.mollySocket.status ?: RegistrationStatus.INTERNAL_ERROR
       }
     } catch (e: Exception) {
-      Log.d(TAG, "Exception: $e")
+      Log.w(TAG, "Exception: $e", Throwable())
       return RegistrationStatus.INTERNAL_ERROR
     }
   }
