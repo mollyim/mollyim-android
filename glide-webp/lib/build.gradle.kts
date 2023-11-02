@@ -10,6 +10,10 @@ plugins {
 
 android {
   namespace = "org.signal.glide.webp"
+
+  defaultConfig {
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 }
 
 dependencies {
@@ -18,4 +22,11 @@ dependencies {
   implementation(libs.glide.glide)
   implementation(libs.molly.glide.webp.decoder)
   kapt(libs.glide.compiler)
+
+  androidTestImplementation(testLibs.androidx.test.core)
+  androidTestImplementation(testLibs.androidx.test.core.ktx)
+  androidTestImplementation(testLibs.androidx.test.ext.junit)
+  androidTestImplementation(testLibs.androidx.test.ext.junit.ktx)
+  androidTestImplementation(testLibs.androidx.test.monitor)
+  androidTestImplementation(testLibs.androidx.test.runner)
 }

@@ -6,10 +6,10 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.signal.core.util.Base64;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.LRUCache;
-import org.whispersystems.util.Base64;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -452,7 +452,7 @@ public class EncryptedPreferences implements SharedPreferences {
   }
 
   static private String encrypt(String key, byte[] value, MasterCipher masterCipher) {
-    return Base64.encodeBytes(masterCipher.encrypt(value, key.getBytes(UTF_8)));
+    return Base64.encodeWithPadding(masterCipher.encrypt(value, key.getBytes(UTF_8)));
   }
 
   static private byte[] decrypt(String key, String encryptedValue, MasterCipher masterCipher) {

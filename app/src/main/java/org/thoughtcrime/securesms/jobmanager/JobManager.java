@@ -56,7 +56,7 @@ public class JobManager implements ConstraintObserver.Notifier {
   @GuardedBy("emptyQueueListeners")
   private final Set<EmptyQueueListener> emptyQueueListeners = new CopyOnWriteArraySet<>();
 
-  private volatile boolean initialized;
+  private volatile boolean initialized = false;
 
   public JobManager(@NonNull Application application, @NonNull Configuration configuration) {
     this.application   = application;
@@ -75,6 +75,7 @@ public class JobManager implements ConstraintObserver.Notifier {
 
     executor.execute(() -> {
       synchronized (this) {
+        Log.d(TAG, "Starting initialization: " + Thread.currentThread());
         JobStorage jobStorage = configuration.getJobStorage();
         jobStorage.init();
 
@@ -93,6 +94,10 @@ public class JobManager implements ConstraintObserver.Notifier {
 
         initialized = true;
         notifyAll();
+
+        jobController.wakeUp();
+
+        Log.d(TAG, "Initialized");
       }
     });
   }
@@ -360,6 +365,11 @@ public class JobManager implements ConstraintObserver.Notifier {
 
   @Override
   public void onConstraintMet(@NonNull String reason) {
+    if (!initialized) {
+      Log.d(TAG, "Ignoring early onConstraintMet(" + reason + ")");
+      return;
+    }
+
     Log.i(TAG, "onConstraintMet(" + reason + ")");
     wakeUp();
   }
@@ -520,6 +530,18 @@ public class JobManager implements ConstraintObserver.Notifier {
       if (!jobs.isEmpty()) {
         this.jobs.add(new ArrayList<>(jobs));
       }
+      return this;
+    }
+
+    public Chain after(@NonNull Job job) {
+      return after(Collections.singletonList(job));
+    }
+
+    public Chain after(@NonNull List<? extends Job> jobs) {
+      if (!jobs.isEmpty()) {
+        this.jobs.add(0, new ArrayList<>(jobs));
+      }
+
       return this;
     }
 

@@ -97,7 +97,8 @@ task qa {
             ':app:testProdGmsWebsiteReleaseUnitTest',
             ':app:lintProdGmsWebsiteRelease',
             ':app:assembleProdFossWebsiteRelease',
-            ':app:compileProdGmsWebsiteInstrumentationAndroidTestSources'
+            ':app:compileProdGmsWebsiteInstrumentationAndroidTestSources',
+            ':core-util-jvm:test'
     ]
 }
 

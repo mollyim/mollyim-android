@@ -2,15 +2,19 @@ package org.thoughtcrime.securesms.service;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class ExpiringMessageManager {
 
@@ -43,6 +47,17 @@ public class ExpiringMessageManager {
 
     synchronized (expiringMessageReferences) {
       expiringMessageReferences.add(new ExpiringMessageReference(id, expiresAtMillis));
+      expiringMessageReferences.notifyAll();
+    }
+  }
+
+  public void scheduleDeletion(@NonNull List<MessageTable.ExpirationInfo> expirationInfos) {
+    List<ExpiringMessageReference> references = expirationInfos.stream()
+                                                               .map(info -> new ExpiringMessageReference(info.getId(), info.getExpireStarted() + info.getExpiresIn()))
+                                                               .toList();
+
+    synchronized (expiringMessageReferences) {
+      expiringMessageReferences.addAll(references);
       expiringMessageReferences.notifyAll();
     }
   }

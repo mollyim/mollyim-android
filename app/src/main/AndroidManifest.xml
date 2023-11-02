@@ -222,6 +222,7 @@
 
     <activity-alias android:name=".RoutingActivity"
                     android:targetActivity=".MainActivity"
+                    android:resizeableActivity="true"
                     android:exported="true">
 
         <intent-filter>
@@ -589,6 +590,7 @@
               android:launchMode="singleTask"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:parentActivityName=".MainActivity"
+              android:resizeableActivity="true"
               android:exported="false">
         <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -967,6 +969,7 @@
     <activity android:name=".MainActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+              android:resizeableActivity="true"
               android:exported="false"/>
 
     <activity android:name=".pin.PinRestoreActivity"

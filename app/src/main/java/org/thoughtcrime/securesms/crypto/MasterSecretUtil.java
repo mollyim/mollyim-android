@@ -32,7 +32,7 @@ import org.signal.libsignal.protocol.ecc.Curve;
 import org.signal.libsignal.protocol.ecc.ECKeyPair;
 import org.signal.libsignal.protocol.ecc.ECPrivateKey;
 import org.signal.libsignal.protocol.ecc.ECPublicKey;
-import org.thoughtcrime.securesms.util.Base64;
+import org.signal.core.util.Base64;
 import org.thoughtcrime.securesms.util.Util;
 
 import java.io.IOException;
@@ -92,7 +92,7 @@ public class MasterSecretUtil {
 
       byte[] passphraseSalt = generateSalt();
 
-      prefs.putString("passphrase_salt", Base64.encodeBytes(passphraseSalt));
+      prefs.putString("passphrase_salt", Base64.encodeWithPadding(passphraseSalt));
       prefs.putString("kdf_parameters", kdf.getParameters());
       prefs.putLong("kdf_elapsed", kdf.getElapsedTimeMillis());
 
@@ -107,8 +107,8 @@ public class MasterSecretUtil {
     Arrays.fill(combinedSecrets, (byte) 0);
     secretKey.destroy();
 
-    prefs.putString("encryption_iv", Base64.encodeBytes(encryptionIV));
-    prefs.putString("master_secret", Base64.encodeBytes(encryptedMasterSecret));
+    prefs.putString("encryption_iv", Base64.encodeWithPadding(encryptionIV));
+    prefs.putString("master_secret", Base64.encodeWithPadding(encryptedMasterSecret));
     prefs.putBoolean("passphrase_initialized", true);
     prefs.putBoolean("keystore_initialized", keyStoreAlias != null);
     prefs.putString("keystore_alias", keyStoreAlias);
@@ -213,8 +213,8 @@ public class MasterSecretUtil {
     ECKeyPair    keyPair      = Curve.generateKeyPair();
 
     if (!getSharedPreferences(context).edit()
-        .putString(ASYMMETRIC_LOCAL_PUBLIC_DJB, Base64.encodeBytes(masterCipher.encryptPublicKey(keyPair.getPublicKey())))
-        .putString(ASYMMETRIC_LOCAL_PRIVATE_DJB, Base64.encodeBytes(masterCipher.encryptPrivateKey(keyPair.getPrivateKey())))
+        .putString(ASYMMETRIC_LOCAL_PUBLIC_DJB, Base64.encodeWithPadding(masterCipher.encryptPublicKey(keyPair.getPublicKey())))
+        .putString(ASYMMETRIC_LOCAL_PRIVATE_DJB, Base64.encodeWithPadding(masterCipher.encryptPrivateKey(keyPair.getPrivateKey())))
         .commit()) {
       throw new AssertionError("failed to save preferences in MasterSecretUtil");
     }

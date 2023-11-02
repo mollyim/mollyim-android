@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.registration
 import android.app.Application
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
@@ -13,7 +14,6 @@ import org.whispersystems.signalservice.api.SignalServiceAccountManager.NewDevic
 import org.whispersystems.signalservice.internal.ServiceResponse
 import org.whispersystems.signalservice.internal.ServiceResponseProcessor
 import org.whispersystems.signalservice.internal.push.ConfirmCodeMessage
-import org.whispersystems.util.Base64
 import java.io.IOException
 import java.net.URLEncoder
 
@@ -41,7 +41,7 @@ class LinkDeviceRepository(private val context: Application) {
             "sgnl://linkdevice?uuid=" +
               URLEncoder.encode(accountManager.newDeviceUuid, "utf-8") +
               "&pub_key=" +
-              URLEncoder.encode(Base64.encodeBytesWithoutPadding(tempIdentityKey.publicKey.publicKey.serialize()), "utf-8"),
+              URLEncoder.encode(Base64.encodeWithoutPadding(tempIdentityKey.publicKey.publicKey.serialize()), "utf-8"),
             tempIdentityKey,
             accountManager,
             registrationData,
@@ -75,7 +75,7 @@ class LinkDeviceRepository(private val context: Application) {
             true,
             registrationData.registrationId,
             registrationData.pniRegistrationId,
-            Base64.encodeBytes(encryptedDeviceName),
+            encryptedDeviceName?.let { Base64.encodeWithPadding(it) },
             null
           )
         )
