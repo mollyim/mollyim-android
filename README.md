@@ -55,6 +55,10 @@ Molly has unique features compared to Signal:
 - **Custom backup scheduling** - Choose between a daily or weekly interval and the number of backups to retain
 - **SOCKS proxy and Tor support** - Tunnel app network traffic via proxy and Orbot
 
+For the [UnifiedPush](https://github.com/mollyim/mollyim-android-unifiedpush) version of Molly, the following features are additionally available:
+
+- **UnifiedPush support**: Receive push notifications through the UnifiedPush protocol
+
 Besides that, you will find all the features of Signal plus some minor tweaks and improvements. As with Signal, SMS is not supported.  
 
 ## Free and Open-Source
