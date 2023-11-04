@@ -8,21 +8,56 @@ package org.signal.core.util.logging
 object Log {
   private val NOOP_LOGGER: Logger = NoopLogger()
   private var internalCheck: InternalCheck? = null
-  private var logger: Logger = NoopLogger()
+  private var initializedLogger: Logger = NoopLogger()
+  private var activeLogger: Logger = NoopLogger()
 
   /**
    * @param internalCheck A checker that will indicate if this is an internal user
+   * @param enableLogging Flag indicating whether logging should be enabled or not.
+   * @param alwaysRedact Flag indicating if messages should be redacted before logging.
    * @param loggers A list of loggers that will be given every log statement.
    */
   @JvmStatic
-  fun initialize(internalCheck: InternalCheck?, vararg loggers: Logger) {
+  fun initialize(internalCheck: InternalCheck?, enableLogging: Boolean, alwaysRedact: Boolean, vararg loggers: Logger) {
     Log.internalCheck = internalCheck
-    logger = CompoundLogger(loggers.toList())
+    Log.alwaysRedact = alwaysRedact
+    initializedLogger = CompoundLogger(loggers.toList())
+    if (enableLogging) {
+      activeLogger = initializedLogger
+    }
+  }
+
+  @JvmStatic
+  fun initialize(internalCheck: InternalCheck?, vararg loggers: Logger) {
+    initialize({ false }, enableLogging = true, alwaysRedact = false, *loggers)
   }
 
   @JvmStatic
   fun initialize(vararg loggers: Logger) {
     initialize({ false }, *loggers)
+  }
+
+  @JvmStatic
+  fun setLogging(enabled: Boolean) {
+    activeLogger = if (enabled) initializedLogger else NOOP_LOGGER
+  }
+
+  @JvmStatic
+  fun wipeLogs() {
+    initializedLogger.run {
+      flush()
+      clear()
+    }
+  }
+
+  var alwaysRedact: Boolean = false
+
+  private fun redact(message: String?): String? {
+    return if (alwaysRedact && !message.isNullOrEmpty()) {
+      Scrubber.scrub(message).toString()
+    } else {
+      message
+    }
   }
 
   @JvmStatic
@@ -38,7 +73,7 @@ object Log {
   fun v(tag: String, message: String?, keepLonger: Boolean) = v(tag, message, null, keepLonger)
 
   @JvmStatic
-  fun v(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = logger.v(tag, message, t, keepLonger)
+  fun v(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = activeLogger.v(tag, redact(message), t, keepLonger)
 
   @JvmStatic
   fun d(tag: String, message: String) = d(tag, message, null)
@@ -53,7 +88,7 @@ object Log {
   fun d(tag: String, message: String?, keepLonger: Boolean) = d(tag, message, null, keepLonger)
 
   @JvmStatic
-  fun d(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = logger.d(tag, message, t, keepLonger)
+  fun d(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = activeLogger.d(tag, redact(message), t, keepLonger)
 
   @JvmStatic
   fun i(tag: String, message: String) = i(tag, message, null)
@@ -68,7 +103,7 @@ object Log {
   fun i(tag: String, message: String?, keepLonger: Boolean) = i(tag, message, null, keepLonger)
 
   @JvmStatic
-  fun i(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = logger.i(tag, message, t, keepLonger)
+  fun i(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = activeLogger.i(tag, redact(message), t, keepLonger)
 
   @JvmStatic
   fun w(tag: String, message: String) = w(tag, message, null)
@@ -80,11 +115,11 @@ object Log {
   fun w(tag: String, message: String?, t: Throwable? = null) = w(tag, message, t, false)
 
   @JvmStatic
-  fun w(tag: String, message: String?, keepLonger: Boolean) = logger.w(tag, message, keepLonger)
+  fun w(tag: String, message: String?, keepLonger: Boolean) = activeLogger.w(tag, redact(message), keepLonger)
 
   @JvmStatic
   fun w(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
-    logger.w(tag, message, t, keepLonger)
+    activeLogger.w(tag, redact(message), t, keepLonger)
   }
 
   @JvmStatic
@@ -100,7 +135,7 @@ object Log {
   fun e(tag: String, message: String?, keepLonger: Boolean) = e(tag, message, null, keepLonger)
 
   @JvmStatic
-  fun e(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = logger.e(tag, message, t, keepLonger)
+  fun e(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = activeLogger.e(tag, redact(message), t, keepLonger)
 
   @JvmStatic
   fun tag(clazz: Class<*>): String {
@@ -122,7 +157,7 @@ object Log {
   @JvmStatic
   fun internal(): Logger {
     return if (internalCheck!!.isInternal()) {
-      logger
+      activeLogger
     } else {
       NOOP_LOGGER
     }
@@ -130,7 +165,7 @@ object Log {
 
   @JvmStatic
   fun blockUntilAllWritesFinished() {
-    logger.flush()
+    activeLogger.flush()
   }
 
   abstract class Logger {
@@ -140,6 +175,7 @@ object Log {
     abstract fun w(tag: String, message: String?, t: Throwable?, keepLonger: Boolean)
     abstract fun e(tag: String, message: String?, t: Throwable?, keepLonger: Boolean)
     abstract fun flush()
+    abstract fun clear()
 
     fun v(tag: String, message: String?) = v(tag, message, null)
     fun v(tag: String, message: String?, t: Throwable?) = v(tag, message, t, false)

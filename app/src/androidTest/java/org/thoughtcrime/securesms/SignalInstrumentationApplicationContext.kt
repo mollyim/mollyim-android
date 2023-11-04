@@ -31,7 +31,7 @@ class SignalInstrumentationApplicationContext : ApplicationContext() {
   }
 
   override fun initializeLogging() {
-    Log.initialize({ true }, AndroidLogger(), PersistentLogger(this), inMemoryLogger)
+    Log.initialize({ true }, AndroidLogger, PersistentLogger(this), inMemoryLogger)
 
     SignalProtocolLoggerProvider.setProvider(CustomSignalProtocolLogger())
 

@@ -157,7 +157,8 @@ class PersistentLogger(
     }
 
     fun formatBody(threadString: String, date: Date, level: String, tag: String, message: String?): String {
-      return "[${BuildConfig.VERSION_NAME}] [$threadString] ${dateFormat.format(date)} $level $tag: ${Scrubber.scrub(message ?: "")}"
+      val redacted = if (Log.alwaysRedact) message ?: "" else Scrubber.scrub(message ?: "")
+      return "[${BuildConfig.VERSION_NAME}] [$threadString] ${dateFormat.format(date)} $level $tag: $redacted"
     }
   }
 

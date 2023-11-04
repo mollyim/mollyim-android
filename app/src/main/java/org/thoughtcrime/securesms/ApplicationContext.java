@@ -36,6 +36,7 @@ import org.signal.aesgcmprovider.AesGcmProvider;
 import org.signal.core.util.MemoryTracker;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.logging.AndroidLogger;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.tracing.Tracer;
 import org.signal.glide.SignalGlideCodecs;
@@ -352,9 +353,9 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   @VisibleForTesting
   protected void initializeLogging() {
-    Log.setInternalCheck(FeatureFlags::internalUser);
-    Log.setPersistentLogger(new PersistentLogger(this));
-    Log.setLogging(TextSecurePreferences.isLogEnabled(this));
+    boolean enableLogging = TextSecurePreferences.isLogEnabled(this);
+    boolean alwaysRedact = !BuildConfig.DEBUG;
+    Log.initialize(FeatureFlags::internalUser, enableLogging, alwaysRedact, AndroidLogger.INSTANCE, new PersistentLogger(this));
 
     SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
 

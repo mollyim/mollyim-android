@@ -15,4 +15,5 @@ internal class NoopLogger : Log.Logger() {
   override fun w(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = Unit
   override fun e(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = Unit
   override fun flush() = Unit
+  override fun clear() = Unit
 }
