@@ -17,6 +17,7 @@ import org.signal.core.util.SetUtil;
 import org.signal.core.util.TranslationDetection;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.database.model.MegaphoneRecord;
 import org.thoughtcrime.securesms.database.model.RemoteMegaphoneRecord;
@@ -34,7 +35,6 @@ import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LocaleFeatureFlags;
@@ -266,7 +266,7 @@ public final class Megaphones {
         .setBody(R.string.EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them)
         .setActionButton(R.string.EnableAppUpdatesMegaphone_check_for_updates, (megaphone, listener) -> {
           TextSecurePreferences.setUpdateApkEnabled(context, true);
-          UpdateApkRefreshListener.scheduleIfAllowed(context);
+          ApkUpdateRefreshListener.scheduleIfAllowed(context);
           listener.onMegaphoneCompleted(Event.ENABLE_APP_UPDATES);
           listener.onMegaphoneToastRequested(context.getString(R.string.EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available));
         })

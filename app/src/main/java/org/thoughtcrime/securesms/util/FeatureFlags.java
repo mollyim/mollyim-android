@@ -370,7 +370,7 @@ public final class FeatureFlags {
   }
 
   public static boolean selfUpdater() {
-    return BuildConfig.ALLOW_INSTALL_SELF_UPDATES;
+    return BuildConfig.MANAGES_MOLLY_UPDATES;
   }
 
   /** Whether or not to use the UUID in verification codes. */

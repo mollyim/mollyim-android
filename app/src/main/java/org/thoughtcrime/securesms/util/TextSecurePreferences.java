@@ -19,6 +19,7 @@ import org.signal.core.util.logging.Log;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.backup.proto.SharedPreference;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -33,7 +34,6 @@ import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPrefere
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity;
-import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -350,7 +350,7 @@ public class TextSecurePreferences {
     }
 
     if (isUpdateApkEnabled(context)) {
-      UpdateApkRefreshListener.scheduleIfAllowed(context);
+      ApkUpdateRefreshListener.scheduleIfAllowed(context);
     }
   }
 

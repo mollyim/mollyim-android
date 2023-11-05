@@ -286,12 +286,12 @@ android {
         website {
             dimension 'distribution'
             isDefault true
-            buildConfigField "boolean", "ALLOW_INSTALL_SELF_UPDATES", "true"
+            buildConfigField "boolean", "MANAGES_MOLLY_UPDATES", "true"
         }
 
         store {
             dimension 'distribution'
-            buildConfigField "boolean", "ALLOW_INSTALL_SELF_UPDATES", "false"
+            buildConfigField "boolean", "MANAGES_MOLLY_UPDATES", "false"
         }
 
         gms {

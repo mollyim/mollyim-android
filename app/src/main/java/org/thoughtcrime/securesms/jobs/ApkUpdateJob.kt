@@ -16,12 +16,16 @@ import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireString
 import org.thoughtcrime.securesms.BuildConfig
+import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateDownloadManagerReceiver
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.net.Network
+import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.FileUtils
 import org.thoughtcrime.securesms.util.JsonUtils
+import org.thoughtcrime.securesms.util.TextSecurePreferences
 import java.io.FileInputStream
 import java.io.IOException
 import java.security.MessageDigest
@@ -55,27 +59,43 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
 
   @Throws(IOException::class)
   public override fun onRun() {
-    if (!BuildConfig.MANAGES_APP_UPDATES) {
-      Log.w(TAG, "Not an app-updating build! Exiting.")
+    if (!FeatureFlags.selfUpdater() || !TextSecurePreferences.isUpdateApkEnabled(context)) {
+      Log.i(TAG, "In-app updater disabled! Exiting.")
       return
     }
 
-    Log.i(TAG, "Checking for APK update...")
+    val includeBeta = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(context)
 
-    val client = OkHttpClient()
-    val request = Request.Builder().url("${BuildConfig.APK_UPDATE_URL}/latest.json").build()
+    Log.i(TAG, "Checking for APK update [stable" + (if (includeBeta) ", beta" else "") + "]...")
 
-    val rawUpdateDescriptor: String = client.newCall(request).execute().use { response ->
+    val client = OkHttpClient().newBuilder()
+      .socketFactory(Network.socketFactory)
+      .proxySelector(Network.proxySelectorForSocks)
+      .dns(Network.dns)
+      .build()
+
+    val request = Request.Builder().url("${BuildConfig.FDROID_UPDATE_URL}/index-v1.json").build()
+
+    val responseBody: String = client.newCall(request).execute().use { response ->
       if (!response.isSuccessful || response.body() == null) {
-        throw IOException("Failed to read update descriptor")
+        throw IOException("Failed to fetch updates from fdroid repo")
       }
       response.body()!!.string()
     }
 
-    val updateDescriptor: UpdateDescriptor = JsonUtils.fromJson(rawUpdateDescriptor, UpdateDescriptor::class.java)
+    val repoIndex: RepoIndex = JsonUtils.fromJson(responseBody, RepoIndex::class.java)
 
-    if (updateDescriptor.versionCode <= 0 || updateDescriptor.versionName == null || updateDescriptor.url == null || updateDescriptor.digest == null) {
-      Log.w(TAG, "Invalid update descriptor! $updateDescriptor")
+    val app = repoIndex.apps.firstOrNull { it.packageName == BuildConfig.APPLICATION_ID }
+
+    val updates = repoIndex.packages.updates ?: return
+    val updateDescriptor = if (includeBeta) {
+      updates.maxByOrNull { it.versionCode }
+    } else {
+      updates.firstOrNull { it.versionCode == app?.suggestedVersionCode }
+    }
+
+    if (updateDescriptor == null) {
+      Log.w(TAG, "Invalid update descriptor!")
       return
     } else {
       Log.i(TAG, "Got descriptor: $updateDescriptor")
@@ -112,7 +132,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     return packageInfo.versionCode
   }
 
-  private fun getDownloadStatus(uri: String, remoteDigest: ByteArray): DownloadStatus {
+  private fun getDownloadStatus(uri: Uri, remoteDigest: ByteArray): DownloadStatus {
     val pendingDownloadId: Long = SignalStore.apkUpdate().downloadId
     val pendingDigest: ByteArray? = SignalStore.apkUpdate().digest
 
@@ -131,7 +151,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
       val jobRemoteUri = cursor.requireString(DownloadManager.COLUMN_URI)
       val downloadId = cursor.requireLong(DownloadManager.COLUMN_ID)
 
-      if (jobRemoteUri == uri && downloadId == pendingDownloadId) {
+      if (jobRemoteUri == uri.toString() && downloadId == pendingDownloadId) {
         return if (jobStatus == DownloadManager.STATUS_SUCCESSFUL) {
           val digest = getDigestForDownloadId(downloadId)
           if (digest != null && MessageDigest.isEqual(digest, remoteDigest)) {
@@ -150,14 +170,14 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     return DownloadStatus(DownloadStatus.Status.MISSING, -1)
   }
 
-  private fun handleDownloadStart(uri: String?, versionName: String?, digest: ByteArray) {
+  private fun handleDownloadStart(uri: Uri, versionName: String?, digest: ByteArray) {
     deleteExistingDownloadedApks(context)
 
-    val downloadRequest = DownloadManager.Request(Uri.parse(uri)).apply {
+    val downloadRequest = DownloadManager.Request(uri).apply {
       setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
-      setTitle("Downloading Signal update")
-      setDescription("Downloading Signal $versionName")
-      setDestinationInExternalFilesDir(context, null, "signal-update.apk")
+      setTitle("Downloading ${R.string.app_name} update")
+      setDescription("Downloading ${R.string.app_name} $versionName")
+      setDestinationInExternalFilesDir(context, null, "molly-update.apk")
       setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN)
     }
 
@@ -192,7 +212,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     }
 
     for (file in directory.listFiles() ?: emptyArray()) {
-      if (file.name.startsWith("signal-update")) {
+      if (file.name.startsWith("molly-update")) {
         if (file.delete()) {
           Log.d(TAG, "Deleted " + file.name)
         }
@@ -200,19 +220,28 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     }
   }
 
-  private data class UpdateDescriptor(
-    @JsonProperty
-    val versionCode: Int = 0,
+  private data class RepoIndex(
+    @JsonProperty val apps: List<App>,
+    @JsonProperty val packages: Packages,
+  ) {
+    data class App(
+      @JsonProperty val packageName: String,
+      @JsonProperty val suggestedVersionCode: Int,
+    )
 
-    @JsonProperty
-    val versionName: String? = null,
+    data class Packages(
+      @JsonProperty(BuildConfig.APPLICATION_ID) val updates: List<UpdateDescriptor>?,
+    )
+  }
 
-    @JsonProperty
-    val url: String? = null,
-
-    @JsonProperty("sha256sum")
-    val digest: String? = null
-  )
+  data class UpdateDescriptor(
+    @JsonProperty val versionCode: Int,
+    @JsonProperty val versionName: String,
+    @JsonProperty val apkName: String,
+    @JsonProperty("hash") val digest: String,
+  ) {
+    val url: Uri = Uri.parse(BuildConfig.FDROID_UPDATE_URL).buildUpon().appendPath(apkName).build()
+  }
 
   private class DownloadStatus(val status: Status, val downloadId: Long) {
     enum class Status {

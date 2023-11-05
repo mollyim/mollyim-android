@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.apkupdate.ApkUpdateNotifications
+import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
-import org.thoughtcrime.securesms.jobs.UpdateApkJob
-import org.thoughtcrime.securesms.service.UpdateApkReadyListener
-import org.thoughtcrime.securesms.service.UpdateApkRefreshListener
+import org.thoughtcrime.securesms.jobs.ApkUpdateJob
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.livedata.Store
 
@@ -29,14 +29,14 @@ class HelpSettingsViewModel : ViewModel() {
 
   fun setIncludeBetaEnabled(enabled: Boolean) {
     TextSecurePreferences.setUpdateApkIncludeBetaEnabled(application, enabled)
-    UpdateApkReadyListener.clearNotification(application)
+    ApkUpdateNotifications.clearInstallPrompt(application)
     checkForUpdates()
     refreshState()
   }
 
   private fun checkForUpdates() {
-    UpdateApkRefreshListener.scheduleIfAllowed(application)
-    ApplicationDependencies.getJobManager().add(UpdateApkJob())
+    ApkUpdateRefreshListener.scheduleIfAllowed(application)
+    ApplicationDependencies.getJobManager().add(ApkUpdateJob())
   }
 
   fun setLogEnabled(enabled: Boolean) {
@@ -48,7 +48,7 @@ class HelpSettingsViewModel : ViewModel() {
     refreshState()
   }
 
-  fun refreshState() {
+  private fun refreshState() {
     store.update { getCurrentState() }
   }
 

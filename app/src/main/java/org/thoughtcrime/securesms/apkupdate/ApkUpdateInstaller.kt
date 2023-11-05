@@ -17,6 +17,7 @@ import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.FileUtils
+import org.thoughtcrime.securesms.util.TextSecurePreferences
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
@@ -56,8 +57,8 @@ object ApkUpdateInstaller {
       return
     }
 
-    if (!userInitiated && !shouldAutoUpdate()) {
-      Log.w(TAG, "Not user-initiated and not eligible for auto-update. Prompting. (API=${Build.VERSION.SDK_INT}, Foreground=${ApplicationDependencies.getAppForegroundObserver().isForegrounded}, AutoUpdate=${SignalStore.apkUpdate().autoUpdate})")
+    if (!userInitiated && !shouldAutoUpdate(context)) {
+      Log.w(TAG, "Not user-initiated and not eligible for auto-update.")
       ApkUpdateNotifications.showInstallPrompt(context, downloadId)
       return
     }
@@ -150,9 +151,10 @@ object ApkUpdateInstaller {
     }
   }
 
-  private fun shouldAutoUpdate(): Boolean {
-    // TODO Auto-updates temporarily disabled. Once we have designs for allowing users to opt-out of auto-updates, we can re-enable this
-    return false
-//    return Build.VERSION.SDK_INT >= 31 && SignalStore.apkUpdate().autoUpdate && !ApplicationDependencies.getAppForegroundObserver().isForegrounded
+  private fun shouldAutoUpdate(context: Context): Boolean {
+    return Build.VERSION.SDK_INT >= 31 &&
+      !ApplicationDependencies.getAppForegroundObserver().isForegrounded &&
+      !TextSecurePreferences.isPassphraseLockEnabled(context) &&
+      TextSecurePreferences.isUpdateApkEnabled(context)
   }
 }

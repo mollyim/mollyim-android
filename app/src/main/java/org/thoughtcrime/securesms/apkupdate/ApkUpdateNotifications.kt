@@ -15,9 +15,11 @@ import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.notifications.NotificationCancellationHelper
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.util.ServiceUtil
+
 
 object ApkUpdateNotifications {
 
@@ -50,6 +52,10 @@ object ApkUpdateNotifications {
       .build()
 
     ServiceUtil.getNotificationManager(context).notify(NotificationIds.APK_UPDATE_PROMPT_INSTALL, notification)
+  }
+
+  fun clearInstallPrompt(context: Context) {
+    NotificationCancellationHelper.cancelLegacy(context, NotificationIds.APK_UPDATE_PROMPT_INSTALL)
   }
 
   fun showInstallFailed(context: Context, reason: FailureReason) {
