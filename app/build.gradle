@@ -72,7 +72,7 @@ android {
     buildToolsVersion = signalBuildToolsVersion
     compileSdkVersion = signalCompileSdkVersion
 
-    flavorDimensions 'environment', 'license', 'distribution'
+    flavorDimensions = ['environment', 'license', 'distribution']
     useLibrary 'org.apache.http.legacy'
     testBuildType 'instrumentation'
 
@@ -171,11 +171,8 @@ android {
         buildConfigField "int", "SIGNAL_CANONICAL_VERSION_CODE", "$canonicalVersionCode"
         buildConfigField "String", "BACKUP_FILENAME", "\"" + BASE_APP_FILENAME.toLowerCase() + "\""
         buildConfigField "boolean", "FORCE_INTERNAL_USER_FLAG", "$FORCE_INTERNAL_USER_FLAG"
-        buildConfigField "boolean", "USE_OSM", "false"
 
         vectorDrawables.useSupportLibrary = true
-
-        manifestPlaceholders = [mapsApiKey:MAPS_API_KEY]
 
         buildConfigField "long", "BUILD_TIMESTAMP", "${getBuildTimestamp()}L"
         buildConfigField "String", "GIT_HASH", "\"${getCommitHashOrNull()}\""
@@ -206,15 +203,12 @@ android {
         buildConfigField "String", "GIPHY_API_KEY", "\"3o6ZsYH6U6Eri53TXy\""
         buildConfigField "String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/registration/generate.html\""
         buildConfigField "String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/challenge/generate.html\""
-
-        // MOLLY: Rely on the built-in variables FLAVOR and BUILD_TYPE instead
-        // buildConfigField "String", "BUILD_DISTRIBUTION_TYPE", "\"unset\""
-        // buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"unset\""
-        // buildConfigField "String", "BUILD_VARIANT_TYPE", "\"unset\""
+        // MOLLY: Rely on the built-in variables FLAVOR and BUILD_TYPE instead of BUILD_*_TYPE
         buildConfigField "String", "BADGE_STATIC_ROOT", "\"https://updates2.signal.org/static/badges/\""
         buildConfigField "boolean", "TRACING_ENABLED", "false"
 
         ndk {
+            //noinspection ChromeOsAbiSupport
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
         }
 
@@ -303,7 +297,9 @@ android {
         gms {
             dimension 'license'
             isDefault true
+            manifestPlaceholders = [mapsApiKey:MAPS_API_KEY]
             buildConfigField "boolean", "USE_PLAY_SERVICES", "true"
+            buildConfigField "boolean", "USE_OSM", "false"
             buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
         }
 
@@ -353,14 +349,14 @@ android {
         disable 'LintError'
     }
 
-    android.applicationVariants.all { variant ->
+    android.applicationVariants.configureEach { variant ->
         def isStaging = variant.productFlavors*.name.contains("staging")
         def hasSigningConfig = buildType.signingConfig || variant.signingConfig
 
         variant.resValue 'string', 'app_name', BASE_APP_TITLE + (isStaging ? " Staging" : "")
         variant.resValue "string", 'package_name', variant.applicationId
 
-        variant.outputs.all {
+        variant.outputs.configureEach {
             def flavors = "-${variant.baseName}" - ~/-prod/ - ~/-(foss|gms)/ - ~/-website/ - ~/-release/
             def unsigned = hasSigningConfig ? "" : "-unsigned"
             outputFileName = "${BASE_APP_FILENAME}${flavors}${unsigned}-${versionName}.apk"
@@ -371,14 +367,6 @@ android {
         def matches = variant.name =~ BUILD_VARIANTS
         if (!(selectableVariants.contains(variant.name) && matches)) {
             setIgnore(true)
-        }
-    }
-
-    android.buildTypes.each {
-        if (it.name != 'release') {
-            sourceSets.findByName(it.name).java.srcDirs += "$projectDir/src/debug/java"
-        } else {
-            sourceSets.findByName(it.name).java.srcDirs += "$projectDir/src/release/java"
         }
     }
 }
@@ -437,8 +425,6 @@ dependencies {
     gmsImplementation libs.google.play.services.maps
     gmsImplementation libs.google.play.services.auth
 
-    fossImplementation 'org.osmdroid:osmdroid-android:6.1.16'
-
     implementation libs.bundles.media3
 
     implementation libs.conscrypt.android
@@ -451,8 +437,6 @@ dependencies {
     implementation project(':video')
     implementation project(':device-transfer')
     implementation project(':image-editor')
-    fossImplementation project(':libfakegms')
-    implementation project(":libnetcipher")
     implementation project(':contacts')
     implementation project(':qr')
     implementation project(':sticky-header-grid')
@@ -462,12 +446,6 @@ dependencies {
     implementation libs.libsignal.android
 
     implementation libs.mobilecoin
-
-    implementation(libs.molly.argon2) {
-        artifact {
-            type = "aar"
-        }
-    }
 
     implementation libs.molly.ringrtc
 
@@ -502,9 +480,19 @@ dependencies {
     implementation libs.kotlinx.collections.immutable
     implementation libs.accompanist.permissions
 
+    implementation(libs.molly.argon2) {
+        artifact {
+            type = "aar"
+        }
+    }
+
+    implementation project(":libnetcipher")
     implementation libs.gosimple.nbvcxz
     implementation libs.molly.native.utils
     implementation libs.molly.glide.webp.decoder
+
+    fossImplementation 'org.osmdroid:osmdroid-android:6.1.16'
+    fossImplementation project(':libfakegms')
 
     spinnerImplementation project(":spinner")
 
@@ -579,7 +567,7 @@ static def getBuildTimestamp() {
     }
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     testLogging {
         events "failed"
         exceptionFormat "full"
