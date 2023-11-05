@@ -54,7 +54,7 @@ public class ExpiringMessageManager {
   public void scheduleDeletion(@NonNull List<MessageTable.ExpirationInfo> expirationInfos) {
     List<ExpiringMessageReference> references = expirationInfos.stream()
                                                                .map(info -> new ExpiringMessageReference(info.getId(), info.getExpireStarted() + info.getExpiresIn()))
-                                                               .toList();
+                                                               .collect(Collectors.toList());
 
     synchronized (expiringMessageReferences) {
       expiringMessageReferences.addAll(references);
