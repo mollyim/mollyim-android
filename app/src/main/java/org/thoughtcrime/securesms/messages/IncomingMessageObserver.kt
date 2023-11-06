@@ -188,7 +188,7 @@ class IncomingMessageObserver(private val context: Application) {
     val hasProxy = ApplicationDependencies.getNetworkManager().isProxyEnabled
     val forceWebsocket = SignalStore.internalValues().isWebsocketModeForced
 
-    if (!fcmEnabled || forceWebsocket) {
+    if (registered && (!fcmEnabled || forceWebsocket)) {
       // MOLLY: Try to start the foreground service only once
       if (foregroundServiceStartPending.getAndSet(false)) {
         try {
