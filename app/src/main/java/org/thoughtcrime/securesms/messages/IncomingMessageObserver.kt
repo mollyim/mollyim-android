@@ -451,6 +451,10 @@ class IncomingMessageObserver(private val context: Application) {
         Log.i(TAG, "Looping...")
       }
       Log.w(TAG, "Terminated! (${this.hashCode()})")
+
+      // MOLLY: Ensure services are stopped normally
+      ForegroundService.stop(context)
+      BackgroundService.stop(context)
     }
 
     override fun uncaughtException(t: Thread, e: Throwable) {

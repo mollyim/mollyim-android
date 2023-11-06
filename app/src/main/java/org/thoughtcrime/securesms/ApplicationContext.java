@@ -409,7 +409,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   public void finalizeMessageRetrieval() {
-    IncomingMessageObserver.ForegroundService.Companion.stop(this);
     ApplicationDependencies.closeConnections();
   }
 
