@@ -153,6 +153,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   @Override
   public void onCreate() {
+    initializeLogging(true);
     Log.i(TAG, "onCreate()");
 
     super.onCreate();
@@ -183,7 +184,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                                                   AttachmentSecretProvider.getInstance(this).getOrCreateAttachmentSecret());
                             })
                             .addBlocking("logging", () -> {
-                              initializeLogging();
+                              initializeLogging(false);
                               Log.i(TAG, "onCreateUnlock()");
                             })
                             .addBlocking("security-provider", this::initializeSecurityProvider)
@@ -352,18 +353,22 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   @VisibleForTesting
-  protected void initializeLogging() {
-    boolean enableLogging = TextSecurePreferences.isLogEnabled(this);
-    boolean alwaysRedact = !BuildConfig.DEBUG;
-    Log.initialize(FeatureFlags::internalUser, enableLogging, alwaysRedact, AndroidLogger.INSTANCE, new PersistentLogger(this));
+  protected void initializeLogging(boolean locked) {
+    if (locked) {
+      Log.initialize(AndroidLogger.INSTANCE);
+    } else {
+      boolean enableLogging = TextSecurePreferences.isLogEnabled(this);
+      boolean alwaysRedact  = !BuildConfig.DEBUG;
+      Log.configure(FeatureFlags::internalUser, enableLogging, alwaysRedact, AndroidLogger.INSTANCE, new PersistentLogger(this));
 
-    SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
+      SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
 
-    SignalExecutors.UNBOUNDED.execute(() -> {
-      Log.blockUntilAllWritesFinished();
-      LogDatabase.getInstance(this).logs().trimToSize();
-      LogDatabase.getInstance(this).crashes().trimToSize();
-    });
+      SignalExecutors.UNBOUNDED.execute(() -> {
+        Log.blockUntilAllWritesFinished();
+        LogDatabase.getInstance(this).logs().trimToSize();
+        LogDatabase.getInstance(this).crashes().trimToSize();
+      });
+    }
   }
 
   private void initializeCrashHandling() {

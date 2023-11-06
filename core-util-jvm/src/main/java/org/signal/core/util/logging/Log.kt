@@ -18,18 +18,16 @@ object Log {
    * @param loggers A list of loggers that will be given every log statement.
    */
   @JvmStatic
-  fun initialize(internalCheck: InternalCheck?, enableLogging: Boolean, alwaysRedact: Boolean, vararg loggers: Logger) {
+  fun configure(internalCheck: InternalCheck?, enableLogging: Boolean, alwaysRedact: Boolean, vararg loggers: Logger) {
     Log.internalCheck = internalCheck
     Log.alwaysRedact = alwaysRedact
     initializedLogger = CompoundLogger(loggers.toList())
-    if (enableLogging) {
-      activeLogger = initializedLogger
-    }
+    setLogging(enableLogging)
   }
 
   @JvmStatic
   fun initialize(internalCheck: InternalCheck?, vararg loggers: Logger) {
-    initialize({ false }, enableLogging = true, alwaysRedact = false, *loggers)
+    configure(internalCheck, enableLogging = true, alwaysRedact = false, *loggers)
   }
 
   @JvmStatic
