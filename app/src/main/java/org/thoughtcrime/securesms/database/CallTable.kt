@@ -131,13 +131,13 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         .run()
         .readToSingleObject(Call.Deserializer)
 
-      if (call != null) {
+      if (call?.messageId != null) {
         Log.i(TAG, "Updated call: $callId event: $event")
 
         val unread = MessageTypes.isMissedCall(call.messageType)
         val expiresIn = Recipient.resolved(call.peer).expiresInMillis
 
-        SignalDatabase.messages.updateCallLog(call.messageId!!, call.messageType, unread)
+        SignalDatabase.messages.updateCallLog(call.messageId, call.messageType, unread)
 
         if (!unread && expiresIn > 0) {
           val timestampOrNow = timestamp ?: System.currentTimeMillis()
