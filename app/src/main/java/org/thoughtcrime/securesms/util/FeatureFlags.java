@@ -558,7 +558,7 @@ public final class FeatureFlags {
    * Here be dragons.
    */
   public static boolean hideContacts() {
-    return getBoolean(HIDE_CONTACTS, false);
+    return false;
   }
 
   /** Whether client supports sending a request to another to activate payments */
