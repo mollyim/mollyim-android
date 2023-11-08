@@ -188,7 +188,7 @@ class IncomingMessageObserver(private val context: Application) {
     val hasProxy = ApplicationDependencies.getNetworkManager().isProxyEnabled
     val forceWebsocket = SignalStore.internalValues().isWebsocketModeForced
 
-    if (!fcmEnabled || forceWebsocket) {
+    if (registered && (!fcmEnabled || forceWebsocket)) {
       // MOLLY: Try to start the foreground service only once
       if (foregroundServiceStartPending.getAndSet(false)) {
         try {
@@ -451,6 +451,10 @@ class IncomingMessageObserver(private val context: Application) {
         Log.i(TAG, "Looping...")
       }
       Log.w(TAG, "Terminated! (${this.hashCode()})")
+
+      // MOLLY: Ensure services are stopped normally
+      ForegroundService.stop(context)
+      BackgroundService.stop(context)
     }
 
     override fun uncaughtException(t: Thread, e: Throwable) {

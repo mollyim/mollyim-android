@@ -2,15 +2,12 @@ package org.thoughtcrime.securesms.preferences;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.text.method.LinkMovementMethod;
-import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -292,16 +289,14 @@ public class BackupsPreferenceFragment extends Fragment {
     new MaterialAlertDialogBuilder(requireContext())
         .setTitle(R.string.BackupsPreferenceFragment__change_schedule)
         .setItems(R.array.backup_intervals, (dialog, which) -> {
-          Context context = requireContext();
-
           if (which == 1) {
-            TextSecurePreferences.setBackupInternal(context, TimeUnit.DAYS.toMillis(7));
+            TextSecurePreferences.setBackupInternal(requireContext(), TimeUnit.DAYS.toMillis(7));
           } else {
-            TextSecurePreferences.setBackupInternal(context, TimeUnit.DAYS.toMillis(1));
+            TextSecurePreferences.setBackupInternal(requireContext(), TimeUnit.DAYS.toMillis(1));
           }
 
-          LocalBackupListener.setNextBackupTimeToIntervalFromNow(context);
-          LocalBackupListener.schedule(context);
+          LocalBackupListener.setNextBackupTimeToIntervalFromNow(requireContext());
+          LocalBackupListener.schedule(requireContext());
           setScheduleSummary();
         })
         .create()

@@ -30,8 +30,8 @@ class SignalInstrumentationApplicationContext : ApplicationContext() {
     ApplicationDependencies.getDeadlockDetector().start()
   }
 
-  override fun initializeLogging() {
-    Log.initialize({ true }, AndroidLogger(), PersistentLogger(this), inMemoryLogger)
+  override fun initializeLogging(locked: Boolean) {
+    Log.initialize({ true }, AndroidLogger, PersistentLogger(this), inMemoryLogger)
 
     SignalProtocolLoggerProvider.setProvider(CustomSignalProtocolLogger())
 

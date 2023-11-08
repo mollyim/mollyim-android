@@ -19,6 +19,7 @@ import org.signal.core.util.logging.Log;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.backup.proto.SharedPreference;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -33,7 +34,6 @@ import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPrefere
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity;
-import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,8 +67,6 @@ public class TextSecurePreferences {
   public  static final String UPDATE_APK_ENABLED               = "pref_update_apk_enabled";
   public  static final String UPDATE_APK_INCLUDE_BETA          = "pref_update_apk_include_beta";
   private static final String UPDATE_APK_REFRESH_TIME_PREF     = "pref_update_apk_refresh_time";
-  private static final String UPDATE_APK_DOWNLOAD_ID           = "pref_update_apk_download_id";
-  private static final String UPDATE_APK_DIGEST                = "pref_update_apk_digest";
   private static final String SIGNED_PREKEY_ROTATION_TIME_PREF = "pref_signed_pre_key_rotation_time";
 
   private static final String IN_THREAD_NOTIFICATION_PREF      = "pref_key_inthread_notifications";
@@ -352,7 +350,7 @@ public class TextSecurePreferences {
     }
 
     if (isUpdateApkEnabled(context)) {
-      UpdateApkRefreshListener.scheduleIfAllowed(context);
+      ApkUpdateRefreshListener.scheduleIfAllowed(context);
     }
   }
 
@@ -699,22 +697,6 @@ public class TextSecurePreferences {
 
   public static void setUpdateApkRefreshTime(Context context, long value) {
     setLongPreference(context, UPDATE_APK_REFRESH_TIME_PREF, value);
-  }
-
-  public static void setUpdateApkDownloadId(Context context, long value) {
-    setLongPreference(context, UPDATE_APK_DOWNLOAD_ID, value);
-  }
-
-  public static long getUpdateApkDownloadId(Context context) {
-    return getLongPreference(context, UPDATE_APK_DOWNLOAD_ID, -1);
-  }
-
-  public static void setUpdateApkDigest(Context context, String value) {
-    setStringPreference(context, UPDATE_APK_DIGEST, value);
-  }
-
-  public static String getUpdateApkDigest(Context context) {
-    return getStringPreference(context, UPDATE_APK_DIGEST, null);
   }
 
   public static boolean isUpdateApkEnabled(@NonNull Context context) {

@@ -4,11 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.annimon.stream.Stream;
 
@@ -17,6 +17,7 @@ import org.signal.core.util.SetUtil;
 import org.signal.core.util.TranslationDetection;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.database.model.MegaphoneRecord;
 import org.thoughtcrime.securesms.database.model.RemoteMegaphoneRecord;
@@ -34,7 +35,6 @@ import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LocaleFeatureFlags;
@@ -110,6 +110,7 @@ public final class Megaphones {
       put(Event.PINS_FOR_ALL, new PinsForAllSchedule());
       put(Event.CLIENT_DEPRECATED, SignalStore.misc().isClientDeprecated() ? ALWAYS : NEVER);
       put(Event.NOTIFICATIONS, shouldShowNotificationsMegaphone(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(30)) : NEVER);
+      put(Event.GRANT_FULL_SCREEN_INTENT, shouldShowGrantFullScreenIntentPermission(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(3)) : NEVER);
       put(Event.BACKUP_SCHEDULE_PERMISSION, shouldShowBackupSchedulePermissionMegaphone(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(3)) : NEVER);
       put(Event.ONBOARDING, shouldShowOnboardingMegaphone(context) ? ALWAYS : NEVER);
       put(Event.TURN_OFF_CENSORSHIP_CIRCUMVENTION, shouldShowTurnOffCircumventionMegaphone() ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(7)) : NEVER);
@@ -150,6 +151,8 @@ public final class Megaphones {
         return buildBackupPermissionMegaphone(context);
       case SET_UP_YOUR_USERNAME:
         return buildSetUpYourUsernameMegaphone(context);
+      case GRANT_FULL_SCREEN_INTENT:
+        return buildGrantFullScreenIntentPermission(context);
 
       default:
         throw new IllegalArgumentException("Event not handled!");
@@ -232,7 +235,7 @@ public final class Megaphones {
         .setImage(R.drawable.megaphone_notifications_64)
         .setActionButton(R.string.NotificationsMegaphone_turn_on, (megaphone, controller) -> {
           if (Build.VERSION.SDK_INT >= 26) {
-            controller.onMegaphoneDialogFragmentRequested(new TurnOnNotificationsBottomSheet());
+            controller.onMegaphoneDialogFragmentRequested(TurnOnNotificationsBottomSheet.turnOnSystemNotificationsFragment(context));
           } else {
             controller.onMegaphoneNavigationRequested(AppSettingsActivity.notifications(context));
           }
@@ -263,7 +266,7 @@ public final class Megaphones {
         .setBody(R.string.EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them)
         .setActionButton(R.string.EnableAppUpdatesMegaphone_check_for_updates, (megaphone, listener) -> {
           TextSecurePreferences.setUpdateApkEnabled(context, true);
-          UpdateApkRefreshListener.scheduleIfAllowed(context);
+          ApkUpdateRefreshListener.scheduleIfAllowed(context);
           listener.onMegaphoneCompleted(Event.ENABLE_APP_UPDATES);
           listener.onMegaphoneToastRequested(context.getString(R.string.EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available));
         })
@@ -374,6 +377,20 @@ public final class Megaphones {
         .build();
   }
 
+  public static @NonNull Megaphone buildGrantFullScreenIntentPermission(@NonNull Context context) {
+    return new Megaphone.Builder(Event.GRANT_FULL_SCREEN_INTENT, Megaphone.Style.BASIC)
+        .setTitle(R.string.GrantFullScreenIntentPermission_megaphone_title)
+        .setBody(R.string.GrantFullScreenIntentPermission_megaphone_body)
+        .setImage(R.drawable.calling_64)
+        .setActionButton(R.string.GrantFullScreenIntentPermission_megaphone_turn_on, (megaphone, controller) -> {
+          controller.onMegaphoneDialogFragmentRequested(TurnOnNotificationsBottomSheet.turnOnFullScreenIntentFragment(context));
+        })
+        .setSecondaryButton(R.string.SetUpYourUsername__not_now, (megaphone, controller) -> {
+          controller.onMegaphoneCompleted(Event.GRANT_FULL_SCREEN_INTENT);
+        })
+        .build();
+  }
+
   private static boolean shouldShowDonateMegaphone(@NonNull Context context, @NonNull Event event, @NonNull Map<Event, MegaphoneRecord> records) {
     long timeSinceLastDonatePrompt = timeSinceLastDonatePrompt(event, records);
 
@@ -442,6 +459,10 @@ public final class Megaphones {
            (System.currentTimeMillis() - phoneNumberDiscoveryDisabledAt) >= TimeUnit.DAYS.toMillis(3);
   }
 
+  private static boolean shouldShowGrantFullScreenIntentPermission(@NonNull Context context) {
+    return Build.VERSION.SDK_INT >= 34 && !NotificationManagerCompat.from(context).canUseFullScreenIntent();
+  }
+
   @WorkerThread
   private static boolean shouldShowRemoteMegaphone(@NonNull Map<Event, MegaphoneRecord> records) {
     boolean canShowLocalDonate = timeSinceLastDonatePrompt(Event.REMOTE_MEGAPHONE, records) > MIN_TIME_BETWEEN_DONATE_MEGAPHONES;
@@ -482,7 +503,8 @@ public final class Megaphones {
     TURN_OFF_CENSORSHIP_CIRCUMVENTION("turn_off_censorship_circumvention"),
     REMOTE_MEGAPHONE("remote_megaphone"),
     BACKUP_SCHEDULE_PERMISSION("backup_schedule_permission"),
-    SET_UP_YOUR_USERNAME("set_up_your_username");
+    SET_UP_YOUR_USERNAME("set_up_your_username"),
+    GRANT_FULL_SCREEN_INTENT("grant_full_screen_intent");
 
     private final String key;
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright 2023 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 package org.thoughtcrime.securesms.jobs;
 
 import android.content.Context;
@@ -55,7 +60,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
-import org.thoughtcrime.securesms.util.Base64;
+import org.signal.core.util.Base64;
 import org.thoughtcrime.securesms.util.BitmapDecodingException;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.ImageCompressionUtil;
@@ -200,7 +205,17 @@ public abstract class PushSendJob extends SendJob {
                                     .withWidth(attachment.getWidth())
                                     .withHeight(attachment.getHeight())
                                     .withCaption(attachment.getCaption())
-                                    .withListener((total, progress) -> EventBus.getDefault().postSticky(new PartProgressEvent(attachment, PartProgressEvent.Type.NETWORK, total, progress)))
+                                    .withListener(new SignalServiceAttachment.ProgressListener() {
+                                      @Override
+                                      public void onAttachmentProgress(long total, long progress) {
+                                        EventBus.getDefault().postSticky(new PartProgressEvent(attachment, PartProgressEvent.Type.NETWORK, total, progress));
+                                      }
+
+                                      @Override
+                                      public boolean shouldCancel() {
+                                        return isCanceled();
+                                      }
+                                    })
                                     .build();
     } catch (IOException ioe) {
       Log.w(TAG, "Couldn't open attachment", ioe);

@@ -47,23 +47,23 @@ class PersistentLogger(
     }.start()
   }
 
-  override fun v(tag: String?, message: String?, t: Throwable?, keepLonger: Boolean) {
+  override fun v(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
     write(LOG_V, tag, message, t, keepLonger)
   }
 
-  override fun d(tag: String?, message: String?, t: Throwable?, keepLonger: Boolean) {
+  override fun d(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
     write(LOG_D, tag, message, t, keepLonger)
   }
 
-  override fun i(tag: String?, message: String?, t: Throwable?, keepLonger: Boolean) {
+  override fun i(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
     write(LOG_I, tag, message, t, keepLonger)
   }
 
-  override fun w(tag: String?, message: String?, t: Throwable?, keepLonger: Boolean) {
+  override fun w(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
     write(LOG_W, tag, message, t, keepLonger)
   }
 
-  override fun e(tag: String?, message: String?, t: Throwable?, keepLonger: Boolean) {
+  override fun e(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
     write(LOG_E, tag, message, t, keepLonger)
   }
 
@@ -157,7 +157,8 @@ class PersistentLogger(
     }
 
     fun formatBody(threadString: String, date: Date, level: String, tag: String, message: String?): String {
-      return "[${BuildConfig.VERSION_NAME}] [$threadString] ${dateFormat.format(date)} $level $tag: ${Scrubber.scrub(message ?: "")}"
+      val redacted = if (Log.alwaysRedact) message ?: "" else Scrubber.scrub(message ?: "")
+      return "[${BuildConfig.VERSION_NAME}] [$threadString] ${dateFormat.format(date)} $level $tag: $redacted"
     }
   }
 

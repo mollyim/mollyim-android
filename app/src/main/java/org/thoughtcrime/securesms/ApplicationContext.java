@@ -36,11 +36,13 @@ import org.signal.aesgcmprovider.AesGcmProvider;
 import org.signal.core.util.MemoryTracker;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.logging.AndroidLogger;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.tracing.Tracer;
 import org.signal.glide.SignalGlideCodecs;
 import org.signal.libsignal.protocol.logging.SignalProtocolLoggerProvider;
 import org.signal.ringrtc.CallManager;
+import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.avatar.AvatarPickerStorage;
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider;
@@ -77,7 +79,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.PersistentLogger;
 import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchReceiver;
-import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.mms.SignalGlideComponents;
@@ -94,7 +95,6 @@ import org.thoughtcrime.securesms.service.LocalBackupListener;
 import org.thoughtcrime.securesms.service.WipeMemoryService;
 import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
-import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
 import org.thoughtcrime.securesms.service.webrtc.WebRtcCallService;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
@@ -151,6 +151,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   @Override
   public void onCreate() {
+    initializeLogging(true);
     Log.i(TAG, "onCreate()");
 
     super.onCreate();
@@ -181,7 +182,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                                                   AttachmentSecretProvider.getInstance(this).getOrCreateAttachmentSecret());
                             })
                             .addBlocking("logging", () -> {
-                              initializeLogging();
+                              initializeLogging(false);
                               Log.i(TAG, "onCreateUnlock()");
                             })
                             .addBlocking("security-provider", this::initializeSecurityProvider)
@@ -350,18 +351,22 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   @VisibleForTesting
-  protected void initializeLogging() {
-    Log.setInternalCheck(FeatureFlags::internalUser);
-    Log.setPersistentLogger(new PersistentLogger(this));
-    Log.setLogging(TextSecurePreferences.isLogEnabled(this));
+  protected void initializeLogging(boolean locked) {
+    if (locked) {
+      Log.initialize(AndroidLogger.INSTANCE);
+    } else {
+      boolean enableLogging = TextSecurePreferences.isLogEnabled(this);
+      boolean alwaysRedact  = !BuildConfig.DEBUG;
+      Log.configure(FeatureFlags::internalUser, enableLogging, alwaysRedact, AndroidLogger.INSTANCE, new PersistentLogger(this));
 
-    SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
+      SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
 
-    SignalExecutors.UNBOUNDED.execute(() -> {
-      Log.blockUntilAllWritesFinished();
-      LogDatabase.getInstance(this).logs().trimToSize();
-      LogDatabase.getInstance(this).crashes().trimToSize();
-    });
+      SignalExecutors.UNBOUNDED.execute(() -> {
+        Log.blockUntilAllWritesFinished();
+        LogDatabase.getInstance(this).logs().trimToSize();
+        LogDatabase.getInstance(this).crashes().trimToSize();
+      });
+    }
   }
 
   private void initializeCrashHandling() {
@@ -402,7 +407,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   public void finalizeMessageRetrieval() {
-    IncomingMessageObserver.ForegroundService.Companion.stop(this);
     ApplicationDependencies.closeConnections();
   }
 
@@ -531,7 +535,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     RoutineMessageFetchReceiver.startOrUpdateAlarm(this);
 
     if (TextSecurePreferences.isUpdateApkEnabled(this)) {
-      UpdateApkRefreshListener.scheduleIfAllowed(this);
+      ApkUpdateRefreshListener.scheduleIfAllowed(this);
     }
   }
 

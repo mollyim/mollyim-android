@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import org.signal.core.util.logging.Log;
+import org.signal.core.util.logging.AndroidLogger;
 
 public class LogSectionLogcat implements LogSection {
 
@@ -15,7 +15,7 @@ public class LogSectionLogcat implements LogSection {
 
   @Override
   public @NonNull CharSequence getContent(@NonNull Context context) {
-    CharSequence logs = Log.getAndroidLogger().getLogcatDump();
+    CharSequence logs = AndroidLogger.getLogcatDump();
     return logs != null ? logs : "Failed to get logcat dump";
   }
 }

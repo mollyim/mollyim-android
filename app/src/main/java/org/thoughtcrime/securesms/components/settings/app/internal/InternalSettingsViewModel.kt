@@ -130,7 +130,7 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     disableStorageService = SignalStore.internalValues().storageServiceDisabled(),
     canClearOnboardingState = SignalStore.storyValues().hasDownloadedOnboardingStory && Stories.isFeatureEnabled(),
     pnpInitialized = SignalStore.misc().hasPniInitializedDevices(),
-    useConversationItemV2ForMedia = SignalStore.internalValues().useConversationItemV2Media()
+    useConversationItemV2ForMedia = SignalStore.internalValues().useConversationItemV2Media(),
   )
 
   fun onClearOnboardingState() {

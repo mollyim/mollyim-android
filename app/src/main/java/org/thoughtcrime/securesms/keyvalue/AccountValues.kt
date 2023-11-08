@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.keyvalue
 
 import androidx.annotation.VisibleForTesting
+import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.IdentityKeyPair
@@ -14,7 +15,6 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.Base64
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.push.ServiceId.ACI
