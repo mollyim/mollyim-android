@@ -5,10 +5,10 @@
 
 package org.thoughtcrime.securesms.apkupdate
 
-import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import org.signal.core.util.PendingIntentFlags
@@ -30,15 +30,12 @@ object ApkUpdateNotifications {
    * Note: This is an 'ongoing' notification (i.e. not-user dismissable) and never dismissed programatically. This is because the act of installing the APK
    * will dismiss it for us.
    */
-  @SuppressLint("LaunchActivityFromNotification")
-  fun showInstallPrompt(context: Context, downloadId: Long) {
-    val pendingIntent = PendingIntent.getBroadcast(
+  fun showInstallPrompt(context: Context, uri: Uri) {
+    // MOLLY: Use legacy install method until LaunchActivityFromNotification is fixed
+    val pendingIntent = PendingIntent.getActivity(
       context,
-      1,
-      Intent(context, ApkUpdateNotificationReceiver::class.java).apply {
-        action = ApkUpdateNotificationReceiver.ACTION_INITIATE_INSTALL
-        putExtra(ApkUpdateNotificationReceiver.EXTRA_DOWNLOAD_ID, downloadId)
-      },
+      0,
+      Intent(Intent.ACTION_INSTALL_PACKAGE).setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION).setData(uri),
       PendingIntentFlags.immutable()
     )
 
@@ -48,6 +45,8 @@ object ApkUpdateNotifications {
       .setContentText(context.getString(R.string.ApkUpdateNotifications_prompt_install_body))
       .setSmallIcon(R.drawable.ic_notification)
       .setColor(ContextCompat.getColor(context, R.color.core_ultramarine))
+      .setPriority(NotificationCompat.PRIORITY_HIGH)
+      .setCategory(NotificationCompat.CATEGORY_REMINDER)
       .setContentIntent(pendingIntent)
       .build()
 

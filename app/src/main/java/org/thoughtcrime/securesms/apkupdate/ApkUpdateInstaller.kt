@@ -5,22 +5,14 @@
 
 package org.thoughtcrime.securesms.apkupdate
 
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageInstaller
-import android.os.Build
-import org.signal.core.util.PendingIntentFlags
-import org.signal.core.util.StreamUtil
+import android.net.Uri
 import org.signal.core.util.getDownloadManager
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.FileUtils
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import java.io.FileInputStream
 import java.io.IOException
-import java.io.InputStream
 import java.security.MessageDigest
 
 object ApkUpdateInstaller {
@@ -57,82 +49,18 @@ object ApkUpdateInstaller {
       return
     }
 
-    if (!userInitiated && !shouldAutoUpdate(context)) {
-      Log.w(TAG, "Not user-initiated and not eligible for auto-update.")
-      ApkUpdateNotifications.showInstallPrompt(context, downloadId)
+    val apkUri = getDownloadedApkUri(context, downloadId)
+    if (apkUri == null) {
+      Log.w(TAG, "Could not get download APK URI!")
       return
     }
 
-    try {
-      installApk(context, downloadId, userInitiated)
-    } catch (e: IOException) {
-      Log.w(TAG, "Hit IOException when trying to install APK!", e)
-      SignalStore.apkUpdate().clearDownloadAttributes()
-      ApkUpdateNotifications.showInstallFailed(context, ApkUpdateNotifications.FailureReason.UNKNOWN)
-    } catch (e: SecurityException) {
-      Log.w(TAG, "Hit SecurityException when trying to install APK!", e)
-      SignalStore.apkUpdate().clearDownloadAttributes()
-      ApkUpdateNotifications.showInstallFailed(context, ApkUpdateNotifications.FailureReason.UNKNOWN)
-    }
+    ApkUpdateNotifications.showInstallPrompt(context, apkUri)
   }
 
-  @Throws(IOException::class, SecurityException::class)
-  private fun installApk(context: Context, downloadId: Long, userInitiated: Boolean) {
-    val apkInputStream: InputStream? = getDownloadedApkInputStream(context, downloadId)
-    if (apkInputStream == null) {
-      Log.w(TAG, "Could not open download APK input stream!")
-      return
-    }
-
-    Log.d(TAG, "Beginning APK install...")
-    val packageInstaller: PackageInstaller = context.packageManager.packageInstaller
-
-    Log.d(TAG, "Clearing inactive sessions...")
-    packageInstaller.mySessions
-      .filter { session -> !session.isActive }
-      .forEach { session ->
-        try {
-          packageInstaller.abandonSession(session.sessionId)
-        } catch (e: SecurityException) {
-          Log.w(TAG, "Failed to abandon inactive session!", e)
-        }
-      }
-
-    val sessionParams = PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL).apply {
-      // At this point, we always want to set this if possible, since we've already prompted the user with our own notification when necessary.
-      // This lets us skip the system-generated notification.
-      if (Build.VERSION.SDK_INT >= 31) {
-        setRequireUserAction(PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED)
-      }
-    }
-
-    Log.d(TAG, "Creating install session...")
-    val sessionId: Int = packageInstaller.createSession(sessionParams)
-    val session: PackageInstaller.Session = packageInstaller.openSession(sessionId)
-
-    Log.d(TAG, "Writing APK data...")
-    session.use { activeSession ->
-      val sessionOutputStream = activeSession.openWrite(context.packageName, 0, -1)
-      StreamUtil.copy(apkInputStream, sessionOutputStream)
-    }
-
-    val installerPendingIntent = PendingIntent.getBroadcast(
-      context,
-      sessionId,
-      Intent(context, ApkUpdatePackageInstallerReceiver::class.java).apply {
-        putExtra(ApkUpdatePackageInstallerReceiver.EXTRA_USER_INITIATED, userInitiated)
-        putExtra(ApkUpdatePackageInstallerReceiver.EXTRA_DOWNLOAD_ID, downloadId)
-      },
-      PendingIntentFlags.mutable() or PendingIntentFlags.updateCurrent()
-    )
-
-    Log.d(TAG, "Committing session...")
-    session.commit(installerPendingIntent.intentSender)
-  }
-
-  private fun getDownloadedApkInputStream(context: Context, downloadId: Long): InputStream? {
+  private fun getDownloadedApkUri(context: Context, downloadId: Long): Uri? {
     return try {
-      FileInputStream(context.getDownloadManager().openDownloadedFile(downloadId).fileDescriptor)
+      context.getDownloadManager().getUriForDownloadedFile(downloadId)
     } catch (e: IOException) {
       Log.w(TAG, e)
       null
@@ -149,12 +77,5 @@ object ApkUpdateInstaller {
       Log.w(TAG, e)
       false
     }
-  }
-
-  private fun shouldAutoUpdate(context: Context): Boolean {
-    return Build.VERSION.SDK_INT >= 31 &&
-      !ApplicationDependencies.getAppForegroundObserver().isForegrounded &&
-      !TextSecurePreferences.isPassphraseLockEnabled(context) &&
-      TextSecurePreferences.isUpdateApkEnabled(context)
   }
 }
