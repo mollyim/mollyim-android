@@ -30,6 +30,8 @@ import java.io.FileInputStream
 import java.io.IOException
 import java.security.MessageDigest
 
+private const val FDROID_PACKAGE_NAME = BuildConfig.APPLICATION_ID
+
 /**
  * Designed to be a periodic job that checks for new app updates when the user is running a build that
  * is distributed outside of the play store (like our website build).
@@ -78,30 +80,32 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
 
     val responseBody: String = client.newCall(request).execute().use { response ->
       if (!response.isSuccessful || response.body() == null) {
-        throw IOException("Failed to fetch updates from fdroid repo")
+        throw IOException("Failed to download F-droid repo index: " + response.message())
       }
       response.body()!!.string()
     }
 
     val repoIndex: RepoIndex = JsonUtils.fromJson(responseBody, RepoIndex::class.java)
 
-    val app = repoIndex.apps.firstOrNull { it.packageName == BuildConfig.APPLICATION_ID }
-
-    val updates = repoIndex.packages.updates ?: return
+    val app = repoIndex.apps.firstOrNull { it.packageName == FDROID_PACKAGE_NAME }
     val updateDescriptor = if (includeBeta) {
-      updates.maxByOrNull { it.versionCode }
+      repoIndex.packages.updates?.maxByOrNull { it.versionCode }
     } else {
-      updates.firstOrNull { it.versionCode == app?.suggestedVersionCode }
+      repoIndex.packages.updates?.firstOrNull { it.versionCode == app?.suggestedVersionCode }
     }
 
-    if (updateDescriptor == null) {
-      Log.w(TAG, "Invalid update descriptor!")
+    if (app == null) {
+      Log.w(TAG, "No updates for package $FDROID_PACKAGE_NAME")
+      return
+    } else if (updateDescriptor == null) {
+      Log.w(TAG, "Invalid update descriptor! $repoIndex")
       return
     } else {
       Log.i(TAG, "Got descriptor: $updateDescriptor")
     }
 
-    if (updateDescriptor.versionCode > getCurrentAppVersionCode()) {
+    val currentVersionCode = getCurrentAppVersionCode()
+    if (updateDescriptor.versionCode > currentVersionCode) {
       val digest: ByteArray = Hex.fromStringCondensed(updateDescriptor.digest)
       val downloadStatus: DownloadStatus = getDownloadStatus(updateDescriptor.url, digest)
 
@@ -114,6 +118,8 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
         Log.i(TAG, "Download status missing, starting download...")
         handleDownloadStart(updateDescriptor.url, updateDescriptor.versionName, digest)
       }
+    } else {
+      Log.i(TAG, "No update needed. Current version ($currentVersionCode) is up to date.")
     }
   }
 
@@ -221,23 +227,23 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
   }
 
   private data class RepoIndex(
-    @JsonProperty val apps: List<App>,
-    @JsonProperty val packages: Packages,
+    @JsonProperty("apps") val apps: List<App>,
+    @JsonProperty("packages") val packages: Packages,
   ) {
     data class App(
-      @JsonProperty val packageName: String,
-      @JsonProperty val suggestedVersionCode: Int,
+      @JsonProperty("packageName") val packageName: String,
+      @JsonProperty("suggestedVersionCode") val suggestedVersionCode: Int,
     )
 
     data class Packages(
-      @JsonProperty(BuildConfig.APPLICATION_ID) val updates: List<UpdateDescriptor>?,
+      @JsonProperty(FDROID_PACKAGE_NAME) val updates: List<UpdateDescriptor>?,
     )
   }
 
   data class UpdateDescriptor(
-    @JsonProperty val versionCode: Int,
-    @JsonProperty val versionName: String,
-    @JsonProperty val apkName: String,
+    @JsonProperty("versionCode") val versionCode: Int,
+    @JsonProperty("versionName") val versionName: String,
+    @JsonProperty("apkName") val apkName: String,
     @JsonProperty("hash") val digest: String,
   ) {
     val url: Uri = Uri.parse(BuildConfig.FDROID_UPDATE_URL).buildUpon().appendPath(apkName).build()
