@@ -71,6 +71,7 @@ object ApkUpdateNotifications {
       .setSmallIcon(R.drawable.ic_notification)
       .setColor(ContextCompat.getColor(context, R.color.core_ultramarine))
       .setContentIntent(pendingIntent)
+      .setAutoCancel(true)
       .build()
 
     ServiceUtil.getNotificationManager(context).notify(NotificationIds.APK_UPDATE_FAILED_INSTALL, notification)

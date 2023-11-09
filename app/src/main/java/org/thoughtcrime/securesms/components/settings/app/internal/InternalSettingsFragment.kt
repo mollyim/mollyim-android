@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.database.JobDatabase
 import org.thoughtcrime.securesms.database.LocalMetricsDatabase
 import org.thoughtcrime.securesms.database.LogDatabase
 import org.thoughtcrime.securesms.database.MegaphoneDatabase
@@ -160,6 +161,17 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       )
 
       clickPref(
+        title = DSLSettingsText.from("Clear all logs"),
+        onClick = {
+          SimpleTask.run({
+            LogDatabase.getInstance(requireActivity().application).logs.clearAll()
+          }) {
+            Toast.makeText(requireContext(), "Cleared all logs", Toast.LENGTH_SHORT).show()
+          }
+        }
+      )
+
+      clickPref(
         title = DSLSettingsText.from("Clear keep longer logs"),
         onClick = {
           clearKeepLongerLogs()
@@ -167,9 +179,43 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       )
 
       clickPref(
+        title = DSLSettingsText.from("Clear all crashes"),
+        onClick = {
+          SimpleTask.run({
+            LogDatabase.getInstance(requireActivity().application).crashes.clear()
+          }) {
+            Toast.makeText(requireContext(), "Cleared crashes", Toast.LENGTH_SHORT).show()
+          }
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from("Clear all ANRs"),
+        onClick = {
+          SimpleTask.run({
+            LogDatabase.getInstance(requireActivity().application).anrs.clear()
+          }) {
+            Toast.makeText(requireContext(), "Cleared ANRs", Toast.LENGTH_SHORT).show()
+          }
+        }
+      )
+
+      clickPref(
         title = DSLSettingsText.from("Log dump PreKey ServiceId-KeyIds"),
         onClick = {
           logPreKeyIds()
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from("Retry all jobs now"),
+        summary = DSLSettingsText.from("Clear backoff intervals, app will restart"),
+        onClick = {
+          SimpleTask.run({
+            JobDatabase.getInstance(ApplicationDependencies.getApplication()).debugResetBackoffInterval()
+          }) {
+            AppUtil.restart(requireContext())
+          }
         }
       )
 
