@@ -72,7 +72,9 @@ class PersistentLogger(
   }
 
   override fun clear() {
-    logDatabase.logs.deleteLogs()
+    logDatabase.logs.clearAll()
+    logDatabase.crashes.clear()
+    logDatabase.anrs.clear()
   }
 
   private fun write(level: String, tag: String?, message: String?, t: Throwable?, keepLonger: Boolean) {

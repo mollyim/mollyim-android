@@ -214,7 +214,11 @@ class SwitchPreferenceViewHolder(itemView: View) : PreferenceViewHolder<SwitchPr
     switchWidget.isChecked = model.isChecked
     switchWidget.isEnabled = model.isEnabled
 
-    switchWidget.setOnCheckedChangeListener { _, _ ->
+    switchWidget.setOnCheckedChangeListener { _, isChecked ->
+      if (!model.onToggle(isChecked)) {
+        // MOLLY: Set the toggle button back to the previous state
+        switchWidget.toggle()
+      }
       model.onClick()
     }
 
