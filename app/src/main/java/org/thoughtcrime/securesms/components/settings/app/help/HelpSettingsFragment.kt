@@ -73,8 +73,7 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__enable_debug_log),
         isChecked = state.logEnabled,
-        onClick = {
-          if (state.logEnabled) {
+        onToggle = { isChecked -> if (!isChecked) {
             MaterialAlertDialogBuilder(requireContext())
               .setMessage(R.string.HelpSettingsFragment_disable_and_delete_debug_log)
               .setPositiveButton(android.R.string.ok) { dialog, _ ->
@@ -83,8 +82,10 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
               }
               .setNegativeButton(android.R.string.cancel, null)
               .show()
+            false
           } else {
             viewModel.setLogEnabled(true)
+            true
           }
         }
       )

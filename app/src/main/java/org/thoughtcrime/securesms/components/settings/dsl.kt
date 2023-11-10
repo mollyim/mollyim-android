@@ -81,9 +81,10 @@ class DSLConfiguration {
     icon: DSLSettingsIcon? = null,
     isEnabled: Boolean = true,
     isChecked: Boolean,
-    onClick: () -> Unit
+    onToggle: (Boolean) -> Boolean = { true },
+    onClick: () -> Unit = { },
   ) {
-    val preference = SwitchPreference(title, summary, icon, isEnabled, isChecked, onClick)
+    val preference = SwitchPreference(title, summary, icon, isEnabled, isChecked, onToggle, onClick)
     children.add(preference)
   }
 
@@ -300,6 +301,7 @@ class SwitchPreference(
   override val icon: DSLSettingsIcon? = null,
   override val isEnabled: Boolean,
   val isChecked: Boolean,
+  val onToggle: (Boolean) -> Boolean,
   val onClick: () -> Unit
 ) : PreferenceModel<SwitchPreference>() {
 

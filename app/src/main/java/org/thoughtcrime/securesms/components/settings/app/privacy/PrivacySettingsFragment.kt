@@ -90,17 +90,16 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         title = DSLSettingsText.from(R.string.preferences__passphrase_lock),
         summary = DSLSettingsText.from(R.string.preferences__protect_molly_database_with_a_passphrase),
         isChecked = state.passphraseLock,
-        onClick = {
-          val enabled = !state.passphraseLock
-          val mode = if (enabled) ChangePassphraseDialogFragment.MODE_ENABLE else ChangePassphraseDialogFragment.MODE_DISABLE
-
+        onToggle = { isChecked ->
+          val mode = if (isChecked) ChangePassphraseDialogFragment.MODE_ENABLE else ChangePassphraseDialogFragment.MODE_DISABLE
           val dialog = ChangePassphraseDialogFragment.newInstance(mode)
           dialog.setMasterSecretChangedListener { masterSecret ->
-            viewModel.setPassphraseLockEnabled(enabled)
+            viewModel.setPassphraseLockEnabled(isChecked)
             (activity as PassphraseActivity).setMasterSecret(masterSecret)
             ConversationUtil.refreshRecipientShortcuts()
           }
           dialog.show(parentFragmentManager, "ChangePassphraseDialogFragment")
+          false
         }
       )
 
