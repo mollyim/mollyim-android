@@ -28,6 +28,10 @@ public class FcmReceiveService extends FirebaseMessagingService {
   @Override
   public void onMessageReceived(RemoteMessage remoteMessage) {
     if (KeyCachingService.isLocked()) {
+      if (remoteMessage != null && remoteMessage.getPriority() == RemoteMessage.PRIORITY_HIGH) {
+        Log.d(TAG, "New urgent message received while the db is locked");
+        FcmFetchManager.postMayHaveMessagesNotification(this);
+      }
       return;
     }
 

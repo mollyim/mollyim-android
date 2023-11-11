@@ -70,12 +70,13 @@ object FcmFetchManager {
     }
   }
 
-  private fun postMayHaveMessagesNotification(context: Context) {
+  @JvmStatic
+  fun postMayHaveMessagesNotification(context: Context) {
     if (FeatureFlags.fcmMayHaveMessagesNotificationKillSwitch()) {
       Log.w(TAG, "May have messages notification kill switch")
       return
     }
-    val mayHaveMessagesNotification: Notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().ADDITIONAL_MESSAGE_NOTIFICATIONS)
+    val mayHaveMessagesNotification: Notification = NotificationCompat.Builder(context, NotificationChannels.ADDITIONAL_MESSAGE_NOTIFICATIONS)
       .setSmallIcon(R.drawable.ic_notification)
       .setContentTitle(context.getString(R.string.FcmFetchManager__you_may_have_messages))
       .setCategory(NotificationCompat.CATEGORY_MESSAGE)
