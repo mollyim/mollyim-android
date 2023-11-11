@@ -12,7 +12,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -115,9 +116,9 @@
                     android:id="@+id/manage_profile_name_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/manage_profile_name_subtitle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/manage_profile_name"
                     app:srcCompat="@drawable/symbol_person_24"
                     app:tint="@color/signal_text_primary" />
 
@@ -128,21 +129,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:textAlignment="viewStart"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/manage_profile_name_icon"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="Peter Parker" />
 
-                <TextView
-                    android:id="@+id/manage_profile_name_subtitle"
-                    style="@style/Signal.Text.Preview"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ManageProfileFragment_your_name"
-                    android:textColor="@color/signal_text_secondary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/manage_profile_name"
-                    app:layout_constraintTop_toBottomOf="@id/manage_profile_name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -151,18 +143,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
-                android:minHeight="72dp"
                 android:paddingStart="@dimen/dsl_settings_gutter"
-                android:paddingEnd="@dimen/safety_number_recipient_row_item_gutter"
+                android:paddingEnd="@dimen/dsl_settings_gutter"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 app:layout_constraintTop_toBottomOf="@id/manage_profile_name_container">
 
                 <ImageView
                     android:id="@+id/manage_profile_username_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/manage_profile_username_subtitle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/manage_profile_username"
                     app:srcCompat="@drawable/symbol_at_24"
                     app:tint="@color/signal_text_primary" />
 
@@ -173,40 +166,72 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:textAlignment="viewStart"
-                    app:layout_constraintBottom_toTopOf="@id/manage_profile_username_subtitle"
-                    app:layout_constraintEnd_toStartOf="@id/manage_profile_username_share"
-                    app:layout_constraintStart_toEndOf="@id/manage_profile_username_icon"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:layout_goneMarginEnd="48dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/manage_profile_username_icon"
+                    app:layout_constraintEnd_toEndOf="@id/username_error_indicator"
                     tools:text="\@spiderman" />
 
-                <TextView
-                    android:id="@+id/manage_profile_username_subtitle"
-                    style="@style/Signal.Text.Preview"
+                <ImageView
+                    android:id="@+id/username_error_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/symbol_error_circle_24"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:tint="@color/signal_alert_primary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/username_link_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:paddingStart="@dimen/dsl_settings_gutter"
+                android:paddingEnd="@dimen/dsl_settings_gutter"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                app:layout_constraintTop_toBottomOf="@id/manage_profile_username_container">
+
+                <ImageView
+                    android:id="@+id/username_link_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/symbol_qrcode_24"
+                    app:tint="@color/signal_text_primary" />
+
+                <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+                    android:id="@+id/username_link_text"
+                    style="@style/Signal.Text.Body"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:text="@string/ManageProfileFragment_your_username"
-                    android:textColor="@color/signal_text_secondary"
+                    android:layout_marginStart="24dp"
+                    android:textAlignment="viewStart"
+                    android:text="@string/ManageProfileFragment_link_setting_text"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/manage_profile_username_share"
-                    app:layout_constraintStart_toStartOf="@id/manage_profile_username"
-                    app:layout_constraintTop_toBottomOf="@id/manage_profile_username"
+                    app:layout_constraintStart_toEndOf="@id/username_link_icon"
+                    app:layout_constraintEnd_toStartOf="@id/link_error_indicator"
                     app:layout_goneMarginEnd="48dp" />
 
                 <ImageView
-                    android:id="@+id/manage_profile_username_share"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="4dp"
-                    android:background="?selectableItemBackground"
-                    android:scaleType="centerInside"
+                    android:id="@+id/link_error_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/symbol_error_circle_24"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:tint="@color/signal_alert_primary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/symbol_share_android_24"
-                    app:tint="@color/signal_colorOnSurface" />
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -219,16 +244,16 @@
                 android:paddingTop="16dp"
                 android:paddingEnd="@dimen/dsl_settings_gutter"
                 android:paddingBottom="16dp"
-                app:layout_constraintTop_toBottomOf="@id/manage_profile_username_container">
+                app:layout_constraintTop_toBottomOf="@id/username_link_container">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/manage_profile_about_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="@id/manage_profile_about_subtitle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/manage_profile_about"
                     app:srcCompat="@drawable/symbol_edit_24"
                     app:tint="@color/signal_text_primary" />
 
@@ -240,21 +265,11 @@
                     android:layout_marginStart="24dp"
                     android:textAlignment="viewStart"
                     app:emoji_forceCustom="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/manage_profile_about_icon"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="Photographer for the Daily Bugle" />
-
-                <TextView
-                    android:id="@+id/manage_profile_about_subtitle"
-                    style="@style/Signal.Text.Preview"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ManageProfileFragment_write_a_few_words_about_yourself"
-                    android:textColor="@color/signal_text_secondary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/manage_profile_about"
-                    app:layout_constraintTop_toBottomOf="@id/manage_profile_about" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -312,6 +327,98 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/manage_profile_badges_container"
                 app:layout_constraintVertical_bias="1.0" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/username_link_tooltip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:clickable="true"
+                android:visibility="gone"
+                android:background="@color/transparent"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                tools:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/username_link_container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <FrameLayout
+                    android:id="@+id/tooltip_arrow_top"
+                    android:layout_width="19dp"
+                    android:layout_height="14dp"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/ic_tooltip_arrow_up"
+                    android:backgroundTint="@color/signal_colorPrimaryContainer" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="9dp"
+                    android:background="@drawable/tooltip_background"
+                    android:backgroundTint="@color/signal_colorPrimaryContainer"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tooltip_description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/tooltip_share_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/symbol_share_android_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tooltip_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="34dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/ManageProfileFragment__link_tooltip_title"
+                    android:textAppearance="@style/Signal.Text.Body"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/signal_colorOnPrimaryContainer"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tooltip_share_icon"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tooltip_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="14dp"
+                    android:text="@string/ManageProfileFragment__link_tooltip_body"
+                    android:textColor="@color/signal_colorOnSurfaceVariant"
+                    android:textAppearance="@style/Signal.Text.Preview"
+                    android:lineHeight="20sp"
+                    app:layout_constraintTop_toBottomOf="@id/tooltip_title"
+                    app:layout_constraintStart_toStartOf="@id/tooltip_title"
+                    app:layout_constraintEnd_toEndOf="@id/tooltip_title"/>
+
+                <ImageView
+                    android:id="@+id/link_tooltip_close_button"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/symbol_x_24"
+                    android:foreground="?selectableItemBackgroundBorderless"
+                    app:tint="@color/signal_colorOnSurfaceVariant"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

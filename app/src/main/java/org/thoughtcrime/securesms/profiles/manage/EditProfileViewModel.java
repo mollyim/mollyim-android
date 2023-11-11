@@ -16,6 +16,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.badges.models.Badge;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.ProfileName;
@@ -37,9 +38,9 @@ import java.util.Optional;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 
-class ManageProfileViewModel extends ViewModel {
+class EditProfileViewModel extends ViewModel {
 
-  private static final String TAG = Log.tag(ManageProfileViewModel.class);
+  private static final String TAG = Log.tag(EditProfileViewModel.class);
 
   private final MutableLiveData<InternalAvatarState> internalAvatarState;
   private final MutableLiveData<ProfileName>         profileName;
@@ -49,21 +50,19 @@ class ManageProfileViewModel extends ViewModel {
   private final LiveData<AvatarState>                avatarState;
   private final SingleLiveEvent<Event>               events;
   private final RecipientForeverObserver             observer;
-  private final ManageProfileRepository              repository;
-  private final UsernameRepository                   usernameEditRepository;
+  private final EditProfileRepository                repository;
   private final MutableLiveData<Optional<Badge>>     badge;
 
   private byte[] previousAvatar;
 
-  public ManageProfileViewModel() {
+  public EditProfileViewModel() {
     this.internalAvatarState    = new MutableLiveData<>();
     this.profileName            = new MutableLiveData<>();
     this.username               = new MutableLiveData<>();
     this.about                  = new MutableLiveData<>();
     this.aboutEmoji             = new MutableLiveData<>();
     this.events                 = new SingleLiveEvent<>();
-    this.repository             = new ManageProfileRepository();
-    this.usernameEditRepository = new UsernameRepository();
+    this.repository             = new EditProfileRepository();
     this.badge                  = new DefaultValueLiveData<>(Optional.empty());
     this.observer               = this::onRecipientChanged;
     this.avatarState            = LiveDataUtil.combineLatest(Recipient.self().live().getLiveData(), internalAvatarState, (self, state) -> new AvatarState(state, self));
@@ -105,7 +104,7 @@ class ManageProfileViewModel extends ViewModel {
   }
 
   public Single<UsernameRepository.UsernameDeleteResult> deleteUsername() {
-    return usernameEditRepository.deleteUsername().observeOn(AndroidSchedulers.mainThread());
+    return UsernameRepository.deleteUsername().observeOn(AndroidSchedulers.mainThread());
   }
 
   public boolean shouldShowUsername() {
@@ -163,7 +162,7 @@ class ManageProfileViewModel extends ViewModel {
 
   private void onRecipientChanged(@NonNull Recipient recipient) {
     profileName.postValue(recipient.getProfileName());
-    username.postValue(recipient.getUsername().orElse(null));
+    username.postValue(SignalStore.account().getUsername());
     about.postValue(recipient.getAbout());
     aboutEmoji.postValue(recipient.getAboutEmoji());
     badge.postValue(Optional.ofNullable(recipient.getFeaturedBadge()));
@@ -281,7 +280,7 @@ class ManageProfileViewModel extends ViewModel {
   static class Factory extends ViewModelProvider.NewInstanceFactory {
     @Override
     public @NonNull <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-      return Objects.requireNonNull(modelClass.cast(new ManageProfileViewModel()));
+      return Objects.requireNonNull(modelClass.cast(new EditProfileViewModel()));
     }
   }
 

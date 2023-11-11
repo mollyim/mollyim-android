@@ -1075,7 +1075,7 @@ public class PushServiceSocket {
       byte[] randomness = new byte[32];
       random.nextBytes(randomness);
 
-      byte[]                 proof                  = Username.generateProof(username, randomness);
+      byte[]                 proof                  = new Username(username).generateProofWithRandomness(randomness);
       ConfirmUsernameRequest confirmUsernameRequest = new ConfirmUsernameRequest(reserveUsernameResponse.getUsernameHash(),
                                                                                  Base64.encodeUrlSafeWithoutPadding(proof));
 
@@ -1967,9 +1967,17 @@ public class PushServiceSocket {
                                       boolean doNotAddAuthenticationOrUnidentifiedAccessKey)
       throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
-    Response response = getServiceConnection(urlFragment, method, body, headers, unidentifiedAccessKey, doNotAddAuthenticationOrUnidentifiedAccessKey);
-    responseCodeHandler.handle(response.code(), response.body());
-    return validateServiceResponse(response);
+    Response response = null;
+    try {
+      response = getServiceConnection(urlFragment, method, body, headers, unidentifiedAccessKey, doNotAddAuthenticationOrUnidentifiedAccessKey);
+      responseCodeHandler.handle(response.code(), response.body());
+      return validateServiceResponse(response);
+    } catch (Exception e) {
+      if (response != null && response.body() != null) {
+        response.body().close();
+      }
+      throw e;
+    }
   }
 
   private Response validateServiceResponse(Response response)

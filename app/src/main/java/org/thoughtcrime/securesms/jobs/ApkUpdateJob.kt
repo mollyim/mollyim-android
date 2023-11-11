@@ -67,8 +67,9 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     }
 
     val includeBeta = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(context)
+    val url = "${BuildConfig.FDROID_UPDATE_URL}/index-v1.json"
 
-    Log.i(TAG, "Checking for APK update [stable" + (if (includeBeta) ", beta" else "") + "]...")
+    Log.i(TAG, "Checking for APK update [stable" + (if (includeBeta) ", beta" else "") + "] at $url")
 
     val client = OkHttpClient().newBuilder()
       .socketFactory(Network.socketFactory)
@@ -76,7 +77,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
       .dns(Network.dns)
       .build()
 
-    val request = Request.Builder().url("${BuildConfig.FDROID_UPDATE_URL}/index-v1.json").build()
+    val request = Request.Builder().url(url).build()
 
     val responseBody: String = client.newCall(request).execute().use { response ->
       if (!response.isSuccessful || response.body() == null) {
@@ -101,7 +102,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
       Log.w(TAG, "Invalid update descriptor! $repoIndex")
       return
     } else {
-      Log.i(TAG, "Got descriptor: $updateDescriptor")
+      Log.d(TAG, "Got descriptor: $updateDescriptor")
     }
 
     val currentVersionCode = getCurrentAppVersionCode()
