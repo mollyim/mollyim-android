@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.fonts
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.signal.core.util.logging.Log
@@ -14,7 +13,7 @@ import java.io.File
  *
  * @param scripts A collection of supported scripts
  */
-data class FontManifest @JsonCreator constructor(
+data class FontManifest(
   @JsonProperty("scripts") val scripts: FontScripts
 ) {
   /**
@@ -27,7 +26,7 @@ data class FontManifest @JsonCreator constructor(
    * @param chineseTraditional Hant Script Fonts
    * @param chineseSimplified Hans Script Fonts
    */
-  data class FontScripts @JsonCreator constructor(
+  data class FontScripts(
     @JsonProperty("latin-extended") val latinExtended: FontScript?,
     @JsonProperty("cyrillic-extended") val cyrillicExtended: FontScript?,
     @JsonProperty("devanagari") val devanagari: FontScript?,
@@ -41,7 +40,7 @@ data class FontManifest @JsonCreator constructor(
   /**
    * A collection of fonts for a specific script
    */
-  data class FontScript @JsonCreator constructor(
+  data class FontScript(
     @JsonProperty("regular") val regular: String?,
     @JsonProperty("bold") val bold: String?,
     @JsonProperty("serif") val serif: String?,

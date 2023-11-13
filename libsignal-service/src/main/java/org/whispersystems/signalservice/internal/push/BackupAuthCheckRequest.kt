@@ -1,6 +1,7 @@
 package org.whispersystems.signalservice.internal.push
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 import okio.ByteString.Companion.encode
 import org.whispersystems.signalservice.internal.ServiceResponse
 import org.whispersystems.signalservice.internal.ServiceResponseProcessor
@@ -12,15 +13,15 @@ import java.nio.charset.StandardCharsets
  */
 @Suppress("unused")
 class BackupAuthCheckRequest @JsonCreator constructor(
-  val number: String?,
-  val passwords: List<String>
+  @JsonProperty("number") val number: String?,
+  @JsonProperty("passwords") val passwords: List<String>
 )
 
 /**
  * Verify KBS auth credentials JSON response.
  */
 data class BackupAuthCheckResponse @JsonCreator constructor(
-  private val matches: Map<String, Map<String, Any>>
+  @JsonProperty("matches") private val matches: Map<String, Map<String, Any>>
 ) {
   private val actualMatches = matches["matches"] ?: emptyMap()
 

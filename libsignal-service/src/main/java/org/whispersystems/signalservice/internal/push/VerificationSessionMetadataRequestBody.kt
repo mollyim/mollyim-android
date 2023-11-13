@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class VerificationSessionMetadataRequestBody(
-  @JsonProperty val number: String,
-  @JsonProperty val pushToken: String?,
-  @JsonProperty val mcc: String?,
-  @JsonProperty val mnc: String?
+  @JsonProperty("number") val number: String,
+  @JsonProperty("pushToken") val pushToken: String?,
+  @JsonProperty("mcc") val mcc: String?,
+  @JsonProperty("mnc") val mnc: String?
 ) {
-  @JsonProperty
+  @JsonProperty("pushTokenType")
   val pushTokenType: String? = if (pushToken != null) "fcm" else null
 }

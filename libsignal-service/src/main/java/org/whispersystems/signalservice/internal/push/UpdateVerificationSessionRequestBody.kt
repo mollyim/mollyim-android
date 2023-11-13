@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class UpdateVerificationSessionRequestBody(
-  @JsonProperty val captcha: String?,
-  @JsonProperty val pushToken: String?,
-  @JsonProperty val pushChallenge: String?,
-  @JsonProperty val mcc: String?,
-  @JsonProperty val mnc: String?
+  @JsonProperty("captcha") val captcha: String?,
+  @JsonProperty("pushToken") val pushToken: String?,
+  @JsonProperty("pushChallenge") val pushChallenge: String?,
+  @JsonProperty("mcc") val mcc: String?,
+  @JsonProperty("mnc") val mnc: String?
 ) {
-  @JsonProperty
+  @JsonProperty("pushTokenType")
   val pushTokenType: String? = if (pushToken != null) "fcm" else null
 }

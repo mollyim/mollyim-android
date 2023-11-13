@@ -5,25 +5,24 @@
  */
 package org.whispersystems.signalservice.api.account
 
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class AccountAttributes @JsonCreator constructor(
-  @JsonProperty val signalingKey: String?,
-  @JsonProperty val registrationId: Int,
-  @JsonProperty val voice: Boolean,
-  @JsonProperty val video: Boolean,
-  @JsonProperty val fetchesMessages: Boolean,
-  @JsonProperty val registrationLock: String?,
-  @JsonProperty val unidentifiedAccessKey: ByteArray?,
-  @JsonProperty val unrestrictedUnidentifiedAccess: Boolean,
-  @JsonProperty val discoverableByPhoneNumber: Boolean,
-  @JsonProperty val capabilities: Capabilities?,
-  @JsonProperty val name: String?,
-  @JsonProperty val pniRegistrationId: Int,
-  @JsonProperty val recoveryPassword: String?
+class AccountAttributes(
+  @JsonProperty("signalingKey") val signalingKey: String?,
+  @JsonProperty("registrationId") val registrationId: Int,
+  @JsonProperty("voice") val voice: Boolean,
+  @JsonProperty("video") val video: Boolean,
+  @JsonProperty("fetchesMessages") val fetchesMessages: Boolean,
+  @JsonProperty("registrationLock") val registrationLock: String?,
+  @JsonProperty("unidentifiedAccessKey") val unidentifiedAccessKey: ByteArray?,
+  @JsonProperty("unrestrictedUnidentifiedAccess") val unrestrictedUnidentifiedAccess: Boolean,
+  @JsonProperty("discoverableByPhoneNumber") val discoverableByPhoneNumber: Boolean,
+  @JsonProperty("capabilities") val capabilities: Capabilities?,
+  @JsonProperty("name") val name: String?,
+  @JsonProperty("pniRegistrationId") val pniRegistrationId: Int,
+  @JsonProperty("recoveryPassword") val recoveryPassword: String?
 ) {
   constructor(
     signalingKey: String?,
@@ -53,14 +52,14 @@ class AccountAttributes @JsonCreator constructor(
     recoveryPassword = recoveryPassword
   )
 
-  data class Capabilities @JsonCreator constructor(
-    @JsonProperty val storage: Boolean,
-    @JsonProperty val senderKey: Boolean,
-    @JsonProperty val announcementGroup: Boolean,
-    @JsonProperty val changeNumber: Boolean,
-    @JsonProperty val stories: Boolean,
-    @JsonProperty val giftBadges: Boolean,
-    @JsonProperty val pni: Boolean,
-    @JsonProperty val paymentActivation: Boolean
+  data class Capabilities(
+    @JsonProperty("storage") val storage: Boolean,
+    @JsonProperty("senderKey") val senderKey: Boolean,
+    @JsonProperty("announcementGroup") val announcementGroup: Boolean,
+    @JsonProperty("changeNumber") val changeNumber: Boolean,
+    @JsonProperty("stories") val stories: Boolean,
+    @JsonProperty("giftBadges") val giftBadges: Boolean,
+    @JsonProperty("pni") val pni: Boolean,
+    @JsonProperty("paymentActivation") val paymentActivation: Boolean
   )
 }
