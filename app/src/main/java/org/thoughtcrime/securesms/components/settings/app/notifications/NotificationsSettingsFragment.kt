@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
@@ -275,6 +276,25 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
       dividerPref()
 
       sectionHeaderPref(R.string.NotificationsSettingsFragment__notify_when)
+
+      switchPref(
+        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__new_activity_while_locked),
+        summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked),
+        isChecked = state.notifyWhileLocked,
+        onToggle = { isChecked ->
+          if (isChecked && !state.canEnableNotifyWhileLocked) {
+            MaterialAlertDialogBuilder(requireContext())
+              .setTitle(R.string.NotificationsSettingsFragment__push_notifications_unavailable)
+              .setMessage(R.string.NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush)
+              .setPositiveButton(android.R.string.ok, null)
+              .show()
+            false
+          } else {
+            viewModel.setNotifyWhileLocked(isChecked)
+            true
+          }
+        }
+      )
 
       switchPref(
         title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__contact_joins_signal),

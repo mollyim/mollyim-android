@@ -73,10 +73,13 @@ object FcmFetchManager {
 
   @JvmStatic
   fun postMayHaveMessagesNotification(context: Context) {
-    if (FeatureFlags.fcmMayHaveMessagesNotificationKillSwitch()) {
-      Log.w(TAG, "May have messages notification kill switch")
+    val notificationManager = NotificationManagerCompat.from(context)
+
+    if (notificationManager.getNotificationChannel(NotificationChannels.ADDITIONAL_MESSAGE_NOTIFICATIONS) == null) {
+      Log.e(TAG, "Notification channel for MAY_HAVE_MESSAGES_NOTIFICATION does not exist.")
       return
     }
+
     val mayHaveMessagesNotification: Notification = NotificationCompat.Builder(context, NotificationChannels.ADDITIONAL_MESSAGE_NOTIFICATIONS)
       .setSmallIcon(R.drawable.ic_notification)
       .setColor(ContextCompat.getColor(context, R.color.core_ultramarine))
@@ -87,7 +90,7 @@ object FcmFetchManager {
       .setOnlyAlertOnce(true)
       .build()
 
-    NotificationManagerCompat.from(context)
+    notificationManager
       .notify(NotificationIds.MAY_HAVE_MESSAGES_NOTIFICATION_ID, mayHaveMessagesNotification)
   }
 

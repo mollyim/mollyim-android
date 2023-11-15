@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.components.settings.app.notifications
 
+import android.app.Application
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
@@ -16,6 +17,8 @@ import org.thoughtcrime.securesms.util.livedata.Store
 class NotificationsSettingsViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 
   private val store = Store(getState())
+
+  private val application: Application = ApplicationDependencies.getApplication()
 
   val state: LiveData<NotificationsSettingsState> = store.stateLiveData
 
@@ -96,6 +99,11 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     refresh()
   }
 
+  fun setNotifyWhileLocked(enabled: Boolean) {
+    TextSecurePreferences.setPassphraseLockNotificationsEnabled(application, enabled)
+    refresh()
+  }
+
   fun setNotifyWhenContactJoinsSignal(enabled: Boolean) {
     SignalStore.settings().isNotifyWhenContactJoinsSignal = enabled
     refresh()
@@ -117,7 +125,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
       inChatSoundsEnabled = SignalStore.settings().isMessageNotificationsInChatSoundsEnabled,
       repeatAlerts = SignalStore.settings().messageNotificationsRepeatAlerts,
       messagePrivacy = SignalStore.settings().messageNotificationsPrivacy.toString(),
-      priority = TextSecurePreferences.getNotificationPriority(ApplicationDependencies.getApplication()),
+      priority = TextSecurePreferences.getNotificationPriority(application),
     ),
     callNotificationsState = CallNotificationsState(
       notificationsEnabled = SignalStore.settings().isCallNotificationsEnabled && canEnableNotifications(),
@@ -125,6 +133,8 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
       ringtone = SignalStore.settings().callRingtone,
       vibrateEnabled = SignalStore.settings().isCallVibrateEnabled
     ),
+    notifyWhileLocked = TextSecurePreferences.isPassphraseLockNotificationsEnabled(application) && SignalStore.account().pushAvailable,
+    canEnableNotifyWhileLocked = SignalStore.account().pushAvailable,
     notifyWhenContactJoinsSignal = SignalStore.settings().isNotifyWhenContactJoinsSignal
   )
 

@@ -569,13 +569,6 @@ public final class FeatureFlags {
     return getBoolean(ANY_ADDRESS_PORTS_KILL_SWITCH, false);
   }
 
-  /**
-   * Enable/disable for notification when we cannot fetch messages despite receiving an urgent push.
-   */
-  public static boolean fcmMayHaveMessagesNotificationKillSwitch() {
-    return getBoolean(FCM_MAY_HAVE_MESSAGES_KILL_SWITCH, false);
-  }
-
   public static boolean editMessageSending() {
     return getBoolean(EDIT_MESSAGE_SEND, false);
   }

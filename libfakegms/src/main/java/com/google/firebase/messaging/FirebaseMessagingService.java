@@ -14,11 +14,11 @@ public abstract class FirebaseMessagingService extends Service {
     return null;
   }
 
-  public abstract void onMessageReceived(RemoteMessage remoteMessage);
+  public abstract void onMessageReceived(@NonNull RemoteMessage remoteMessage);
 
   public abstract void onDeletedMessages();
 
-  public abstract void onNewToken(String token);
+  public abstract void onNewToken(@NonNull String token);
 
   public abstract void onMessageSent(@NonNull String s);
 
