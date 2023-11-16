@@ -9,8 +9,11 @@ import im.molly.unifiedpush.util.UnifiedPushNotificationBuilder
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.gcm.FcmFetchManager
 import org.thoughtcrime.securesms.gcm.FcmReceiveService
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.service.KeyCachingService
+import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
 import org.unifiedpush.android.connector.MessagingReceiver
 
@@ -39,6 +42,16 @@ class UnifiedPushReceiver : MessagingReceiver() {
   }
 
   override fun onMessage(context: Context, message: ByteArray, instance: String) {
+    if (KeyCachingService.isLocked()) {
+      // We look directly in the message to avoid its deserialization
+      if (message.toString(Charsets.UTF_8).contains("\"urgent\":true") &&
+        TextSecurePreferences.isPassphraseLockNotificationsEnabled(context)) {
+        Log.d(TAG, "New urgent message received while app is locked.")
+        FcmFetchManager.postMayHaveMessagesNotification(context)
+      }
+      return
+    }
+
     if (SignalStore.account.isRegistered && UnifiedPushHelper.isUnifiedPushAvailable()) {
       Log.d(TAG, "New message")
       EXECUTOR.enqueue {
