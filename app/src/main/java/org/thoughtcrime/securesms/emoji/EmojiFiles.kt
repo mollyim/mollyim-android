@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.emoji
 
 import android.content.Context
 import android.net.Uri
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
@@ -135,7 +134,7 @@ object EmojiFiles {
     }
   }
 
-  class Version @JsonCreator constructor(@JsonProperty("version") val version: Int, @JsonProperty("uuid") val uuid: UUID, @JsonProperty("density") val density: String) {
+  class Version(@JsonProperty("version") val version: Int, @JsonProperty("uuid") val uuid: UUID, @JsonProperty("density") val density: String) {
 
     fun getFile(context: Context, uuid: UUID): File = File(getDirectory(context), uuid.toString())
 
@@ -211,14 +210,14 @@ object EmojiFiles {
     }
   }
 
-  class Name @JsonCreator constructor(@JsonProperty("name") val name: String, @JsonProperty("uuid") val uuid: UUID) {
+  class Name(@JsonProperty("name") val name: String, @JsonProperty("uuid") val uuid: UUID) {
     companion object {
       @JvmStatic
       fun forEmojiDataJson(): Name = Name(EMOJI_JSON, UUID.randomUUID())
     }
   }
 
-  class NameCollection @JsonCreator constructor(@JsonProperty("versionUuid") val versionUuid: UUID, @JsonProperty("names") val names: List<Name>) {
+  class NameCollection(@JsonProperty("versionUuid") val versionUuid: UUID, @JsonProperty("names") val names: List<Name>) {
     companion object {
 
       private val objectMapper = ObjectMapper()
@@ -258,7 +257,7 @@ object EmojiFiles {
     fun getUUIDForName(name: String): UUID? = names.firstOrNull { it.name == name }?.uuid
   }
 
-  class JumboCollection @JsonCreator constructor(@JsonProperty("versionUuid") val versionUuid: UUID, @JsonProperty("names") val names: List<Name>) {
+  class JumboCollection(@JsonProperty("versionUuid") val versionUuid: UUID, @JsonProperty("names") val names: List<Name>) {
     companion object {
 
       private val objectMapper = ObjectMapper()

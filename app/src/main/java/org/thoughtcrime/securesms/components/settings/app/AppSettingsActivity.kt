@@ -54,6 +54,7 @@ class AppSettingsActivity : DSLSettingsActivity() {
         )
         StartLocation.PRIVACY -> AppSettingsFragmentDirections.actionDirectToPrivacy()
         StartLocation.LINKED_DEVICES -> AppSettingsFragmentDirections.actionDirectToDevices()
+        StartLocation.USERNAME_LINK -> AppSettingsFragmentDirections.actionDirectToUsernameLinkSettings()
       }
     }
 
@@ -167,6 +168,9 @@ class AppSettingsActivity : DSLSettingsActivity() {
     @JvmStatic
     fun linkedDevices(context: Context): Intent = getIntentForStartLocation(context, StartLocation.LINKED_DEVICES)
 
+    @JvmStatic
+    fun usernameLinkSettings(context: Context): Intent = getIntentForStartLocation(context, StartLocation.USERNAME_LINK)
+
     private fun getIntentForStartLocation(context: Context, startLocation: StartLocation): Intent {
       return Intent(context, AppSettingsActivity::class.java)
         .putExtra(ARG_NAV_GRAPH, R.navigation.app_settings)
@@ -188,7 +192,8 @@ class AppSettingsActivity : DSLSettingsActivity() {
     CREATE_NOTIFICATION_PROFILE(10),
     NOTIFICATION_PROFILE_DETAILS(11),
     PRIVACY(12),
-    LINKED_DEVICES(13);
+    LINKED_DEVICES(13),
+    USERNAME_LINK(14);
 
     companion object {
       fun fromCode(code: Int?): StartLocation {

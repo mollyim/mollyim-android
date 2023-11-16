@@ -7,16 +7,16 @@ import org.whispersystems.signalservice.api.push.SignedPreKeyEntity
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class RegistrationSessionRequestBody(
-  @JsonProperty val sessionId: String? = null,
-  @JsonProperty val recoveryPassword: String? = null,
-  @JsonProperty val accountAttributes: AccountAttributes,
-  @JsonProperty val aciIdentityKey: String,
-  @JsonProperty val pniIdentityKey: String,
-  @JsonProperty val aciSignedPreKey: SignedPreKeyEntity,
-  @JsonProperty val pniSignedPreKey: SignedPreKeyEntity,
-  @JsonProperty val aciPqLastResortPreKey: KyberPreKeyEntity,
-  @JsonProperty val pniPqLastResortPreKey: KyberPreKeyEntity,
-  @JsonProperty val gcmToken: GcmRegistrationId?,
-  @JsonProperty val skipDeviceTransfer: Boolean,
-  @JsonProperty val requireAtomic: Boolean = true
+  @JsonProperty("sessionId") val sessionId: String? = null,
+  @JsonProperty("recoveryPassword") val recoveryPassword: String? = null,
+  @JsonProperty("accountAttributes") val accountAttributes: AccountAttributes,
+  @JsonProperty("aciIdentityKey") val aciIdentityKey: String,
+  @JsonProperty("pniIdentityKey") val pniIdentityKey: String,
+  @JsonProperty("aciSignedPreKey") val aciSignedPreKey: SignedPreKeyEntity,
+  @JsonProperty("pniSignedPreKey") val pniSignedPreKey: SignedPreKeyEntity,
+  @JsonProperty("aciPqLastResortPreKey") val aciPqLastResortPreKey: KyberPreKeyEntity,
+  @JsonProperty("pniPqLastResortPreKey") val pniPqLastResortPreKey: KyberPreKeyEntity,
+  @JsonProperty("gcmToken") val gcmToken: GcmRegistrationId?,
+  @JsonProperty("skipDeviceTransfer") val skipDeviceTransfer: Boolean,
+  @JsonProperty("requireAtomic") val requireAtomic: Boolean = true
 )
