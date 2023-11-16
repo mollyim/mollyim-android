@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import org.signal.core.util.PendingIntentFlags.mutable
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
@@ -78,6 +79,7 @@ object FcmFetchManager {
     }
     val mayHaveMessagesNotification: Notification = NotificationCompat.Builder(context, NotificationChannels.ADDITIONAL_MESSAGE_NOTIFICATIONS)
       .setSmallIcon(R.drawable.ic_notification)
+      .setColor(ContextCompat.getColor(context, R.color.core_ultramarine))
       .setContentTitle(context.getString(R.string.FcmFetchManager__you_may_have_messages))
       .setCategory(NotificationCompat.CATEGORY_MESSAGE)
       .setContentIntent(PendingIntent.getActivity(context, 0, MainActivity.clearTop(context), mutable()))
