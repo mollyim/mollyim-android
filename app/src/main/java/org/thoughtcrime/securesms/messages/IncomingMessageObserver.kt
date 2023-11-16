@@ -184,11 +184,12 @@ class IncomingMessageObserver(private val context: Application) {
 
     val registered = SignalStore.account().isRegistered
     val fcmEnabled = SignalStore.account().fcmEnabled
+    val pushAvailable = SignalStore.account().pushAvailable
     val hasNetwork = NetworkConstraint.isMet(context)
     val hasProxy = ApplicationDependencies.getNetworkManager().isProxyEnabled
     val forceWebsocket = SignalStore.internalValues().isWebsocketModeForced
 
-    if (registered && (!fcmEnabled || forceWebsocket)) {
+    if (registered && (!pushAvailable || forceWebsocket)) {
       // MOLLY: Try to start the foreground service only once
       if (foregroundServiceStartPending.getAndSet(false)) {
         try {
@@ -208,12 +209,13 @@ class IncomingMessageObserver(private val context: Application) {
 
     val lastInteractionString = if (appVisibleSnapshot) "N/A" else timeIdle.toString() + " ms (" + (if (timeIdle < maxBackgroundTime) "within limit" else "over limit") + ")"
     val conclusion = registered &&
-      (appVisibleSnapshot || timeIdle < maxBackgroundTime || !fcmEnabled || keepAliveEntries.isNotEmpty()) &&
+      (appVisibleSnapshot || timeIdle < maxBackgroundTime || !pushAvailable || keepAliveEntries.isNotEmpty()) &&
       hasNetwork
 
     val needsConnectionString = if (conclusion) "Needs Connection" else "Does Not Need Connection"
 
-    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, FCM: $fcmEnabled, Stay open requests: $keepAliveEntries, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket")
+    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, FCM: $fcmEnabled, Stay open requests: $keepAliveEntries, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket" +
+      "PushAvailable: $pushAvailable")
     return conclusion
   }
 

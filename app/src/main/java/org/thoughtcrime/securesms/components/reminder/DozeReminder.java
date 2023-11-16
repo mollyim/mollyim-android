@@ -32,7 +32,7 @@ public class DozeReminder extends Reminder {
   }
 
   public static boolean isEligible(Context context) {
-    return !SignalStore.account().isFcmEnabled()                   &&
+    return !SignalStore.account().isPushAvailable()                   &&
            !TextSecurePreferences.hasPromptedOptimizeDoze(context) &&
            !((PowerManager)context.getSystemService(Context.POWER_SERVICE)).isIgnoringBatteryOptimizations(context.getPackageName());
   }
