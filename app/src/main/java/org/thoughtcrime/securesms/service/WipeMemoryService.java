@@ -5,7 +5,6 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.PowerManager;
 
 import androidx.annotation.Nullable;
@@ -16,8 +15,8 @@ import org.signal.core.util.PendingIntentFlags;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.gcm.FcmFetchManager;
 import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil;
-import org.thoughtcrime.securesms.jobs.UnableToStartException;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.WakeLockUtil;
@@ -64,20 +63,8 @@ public class WipeMemoryService extends IntentService {
 
   public static void run(Context context, boolean restartApp) {
     restart = restartApp;
-    startForegroundService(context);
-  }
-
-  private static void startForegroundService(Context context) {
     Intent intent = new Intent(context, WipeMemoryService.class);
-    if (Build.VERSION.SDK_INT >= 26) {
-      try {
-        ForegroundServiceUtil.startWhenCapable(context, intent);
-      } catch (UnableToStartException e) {
-        Log.e(TAG, "Unable to start foreground service", e);
-      }
-    } else {
-      context.startService(intent);
-    }
+    ForegroundServiceUtil.startWhenCapableOrThrow(context, intent);
   }
 
   public WipeMemoryService() {
