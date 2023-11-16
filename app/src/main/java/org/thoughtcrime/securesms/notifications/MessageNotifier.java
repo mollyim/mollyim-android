@@ -29,7 +29,7 @@ public interface MessageNotifier {
   void updateNotification(@NonNull Context context, @NonNull ConversationId conversationId, @NonNull BubbleUtil.BubbleState defaultBubbleState);
   void updateNotification(@NonNull Context context, @NonNull ConversationId conversationId, boolean signal);
   void updateNotification(@NonNull Context context, @Nullable ConversationId conversationId, boolean signal, int reminderCount, @NonNull BubbleUtil.BubbleState defaultBubbleState);
-  void clearNotifications(@NonNull Context context);
+  boolean clearNotifications(@NonNull Context context);
   void clearReminder(@NonNull Context context);
   void addStickyThread(@NonNull ConversationId conversationId, long earliestTimestamp);
   void removeStickyThread(@NonNull ConversationId conversationId);

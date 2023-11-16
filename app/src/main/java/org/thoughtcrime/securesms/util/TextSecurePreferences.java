@@ -47,7 +47,6 @@ public class TextSecurePreferences {
 
   private static final String TAG = Log.tag(TextSecurePreferences.class);
 
-  public  static final String CHANGE_PASSPHRASE_PREF           = "pref_change_passphrase";
   public  static final String THEME_PREF                       = "pref_theme";
   public  static final String LANGUAGE_PREF                    = "pref_language";
 
@@ -109,10 +108,11 @@ public class TextSecurePreferences {
 
   public static final String TRANSFER = "pref_transfer";
 
-  public  static final String PASSPHRASE_LOCK         = "pref_passphrase_lock";
-  public  static final String PASSPHRASE_LOCK_TIMEOUT = "pref_passphrase_lock_timeout";
-  public  static final String PASSPHRASE_LOCK_TRIGGER = "pref_passphrase_lock_trigger";
-  public  static final String BIOMETRIC_SCREEN_LOCK   = "pref_biometric_screen_lock";
+  public  static final String PASSPHRASE_LOCK               = "pref_passphrase_lock";
+  public  static final String PASSPHRASE_LOCK_TIMEOUT       = "pref_passphrase_lock_timeout";
+  public  static final String PASSPHRASE_LOCK_TRIGGER       = "pref_passphrase_lock_trigger";
+  public  static final String PASSPHRASE_LOCK_NOTIFICATIONS = "pref_passphrase_lock_notifications";
+  public  static final String BIOMETRIC_SCREEN_LOCK         = "pref_biometric_screen_lock";
 
   private static final String NETWORK_CONFIG_SEEN = "pref_network_config_seen";
 
@@ -220,6 +220,7 @@ public class TextSecurePreferences {
       UPDATE_APK_INCLUDE_BETA,
       BLOCK_UNKNOWN,
       BIOMETRIC_SCREEN_LOCK,
+      PASSPHRASE_LOCK_NOTIFICATIONS,
   };
 
   private static final String[] stringSetPreferencesToBackupMolly = {PASSPHRASE_LOCK_TRIGGER};
@@ -370,6 +371,14 @@ public class TextSecurePreferences {
 
   public static long getPassphraseLockTimeout(@NonNull Context context) {
     return getLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, 0);
+  }
+
+  public static boolean isPassphraseLockNotificationsEnabled(@NonNull Context context) {
+    return getBooleanPreference(context, PASSPHRASE_LOCK_NOTIFICATIONS, true);
+  }
+
+  public static void setPassphraseLockNotificationsEnabled(@NonNull Context context, boolean value) {
+    setBooleanPreference(context, PASSPHRASE_LOCK_NOTIFICATIONS, value);
   }
 
   public static void setHasSeenNetworkConfig(Context context, boolean value) {

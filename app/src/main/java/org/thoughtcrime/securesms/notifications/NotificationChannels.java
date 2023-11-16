@@ -80,7 +80,7 @@ public class NotificationChannels {
   public final String BACKGROUND                       = "background_connection";
   public final String CALL_STATUS                      = "call_status";
   public final String APP_ALERTS                       = "app_alerts";
-  public final String ADDITIONAL_MESSAGE_NOTIFICATIONS = "additional_message_notifications";
+  public static String ADDITIONAL_MESSAGE_NOTIFICATIONS = "additional_message_notifications";
 
   private static volatile NotificationChannels instance;
 

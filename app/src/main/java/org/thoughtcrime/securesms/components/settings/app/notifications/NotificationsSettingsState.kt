@@ -5,6 +5,8 @@ import android.net.Uri
 data class NotificationsSettingsState(
   val messageNotificationsState: MessageNotificationsState,
   val callNotificationsState: CallNotificationsState,
+  val notifyWhileLocked: Boolean,
+  val canEnableNotifyWhileLocked: Boolean,
   val notifyWhenContactJoinsSignal: Boolean
 )
 

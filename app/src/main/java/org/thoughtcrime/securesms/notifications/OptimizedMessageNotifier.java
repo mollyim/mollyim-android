@@ -122,8 +122,8 @@ public class OptimizedMessageNotifier implements MessageNotifier {
   }
 
   @Override
-  public void clearNotifications(@NonNull Context context) {
-    getNotifier().clearNotifications(context);
+  public boolean clearNotifications(@NonNull Context context) {
+    return getNotifier().clearNotifications(context);
   }
 
   @Override

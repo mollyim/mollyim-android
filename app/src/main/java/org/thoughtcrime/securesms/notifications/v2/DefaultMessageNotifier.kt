@@ -241,18 +241,22 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 
     if (Build.VERSION.SDK_INT >= 24) {
       val ids = state.conversations.filter { it.thread != visibleThread }.map { it.notificationId } + stickyThreads.map { (_, stickyThread) -> stickyThread.notificationId }
-      val notShown = ids - ServiceUtil.getNotificationManager(context).getDisplayedNotificationIds().getOrDefault(emptySet())
+      val notShown = ids - getDisplayedNotificationIds(context)
       if (notShown.isNotEmpty()) {
         Log.e(TAG, "Notifications should be showing but are not for ${notShown.size} threads")
       }
     }
   }
 
-  override fun clearNotifications(context: Context) {
-    NotificationCancellationHelper.cancelAllMessageNotifications(context, stickyThreads.map { it.value.notificationId }.toSet())
+  override fun clearNotifications(context: Context): Boolean {
+    val activeNotifications = getDisplayedNotificationIds(context)
+    NotificationCancellationHelper.cancelAllMessageNotifications(context)
     updateBadge(context, 0)
     clearReminderInternal(context)
+    return activeNotifications.isNotEmpty()
   }
+
+  private fun getDisplayedNotificationIds(context: Context) = ServiceUtil.getNotificationManager(context).getDisplayedNotificationIds().getOrDefault(emptySet())
 
   override fun clearReminder(context: Context) {
     // Intentionally left blank

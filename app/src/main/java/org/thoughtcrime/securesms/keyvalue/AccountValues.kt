@@ -292,6 +292,10 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   @get:JvmName("isFcmEnabled")
   var fcmEnabled: Boolean by booleanValue(KEY_FCM_ENABLED, false)
 
+  @get:JvmName("isPushAvailable")
+  val pushAvailable: Boolean
+    get() = fcmEnabled
+
   /** The FCM token, which allows the server to send us FCM messages. */
   var fcmToken: String?
     get() {

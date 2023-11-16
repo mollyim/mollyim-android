@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import org.signal.core.util.PendingIntentFlags.mutable
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
@@ -70,13 +71,18 @@ object FcmFetchManager {
     }
   }
 
-  private fun postMayHaveMessagesNotification(context: Context) {
-    if (FeatureFlags.fcmMayHaveMessagesNotificationKillSwitch()) {
-      Log.w(TAG, "May have messages notification kill switch")
+  @JvmStatic
+  fun postMayHaveMessagesNotification(context: Context) {
+    val notificationManager = NotificationManagerCompat.from(context)
+
+    if (notificationManager.getNotificationChannel(NotificationChannels.ADDITIONAL_MESSAGE_NOTIFICATIONS) == null) {
+      Log.e(TAG, "Notification channel for MAY_HAVE_MESSAGES_NOTIFICATION does not exist.")
       return
     }
-    val mayHaveMessagesNotification: Notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().ADDITIONAL_MESSAGE_NOTIFICATIONS)
+
+    val mayHaveMessagesNotification: Notification = NotificationCompat.Builder(context, NotificationChannels.ADDITIONAL_MESSAGE_NOTIFICATIONS)
       .setSmallIcon(R.drawable.ic_notification)
+      .setColor(ContextCompat.getColor(context, R.color.core_ultramarine))
       .setContentTitle(context.getString(R.string.FcmFetchManager__you_may_have_messages))
       .setCategory(NotificationCompat.CATEGORY_MESSAGE)
       .setContentIntent(PendingIntent.getActivity(context, 0, MainActivity.clearTop(context), mutable()))
@@ -84,7 +90,7 @@ object FcmFetchManager {
       .setOnlyAlertOnce(true)
       .build()
 
-    NotificationManagerCompat.from(context)
+    notificationManager
       .notify(NotificationIds.MAY_HAVE_MESSAGES_NOTIFICATION_ID, mayHaveMessagesNotification)
   }
 

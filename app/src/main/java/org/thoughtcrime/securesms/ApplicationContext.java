@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
+import androidx.core.content.ContextCompat;
 import androidx.multidex.MultiDexApplication;
 
 import com.google.android.gms.security.ProviderInstaller;
@@ -84,6 +85,7 @@ import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.mms.SignalGlideComponents;
 import org.thoughtcrime.securesms.mms.SignalGlideModule;
 import org.thoughtcrime.securesms.net.NetworkManager;
+import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.ratelimit.RateLimitUtil;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -310,7 +312,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   @MainThread
-  public void onLock() {
+  public void onLock(boolean keyExpired) {
     Log.i(TAG, "onLock()");
 
     stopService(new Intent(this, WebRtcCallService.class));
@@ -318,6 +320,16 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     finalizeExpiringMessageManager();
     finalizeMessageRetrieval();
     unregisterKeyEventReceiver();
+
+    MessageNotifier messageNotifier = ApplicationDependencies.getMessageNotifier();
+    messageNotifier.cancelDelayedNotifications();
+    boolean hadActiveNotifications = messageNotifier.clearNotifications(this);
+
+    if (hadActiveNotifications && keyExpired && SignalStore.account().isPushAvailable() &&
+        TextSecurePreferences.isPassphraseLockNotificationsEnabled(this) ) {
+      Log.d(TAG, "Replacing active notifications with may-have-messages notification");
+      FcmFetchManager.postMayHaveMessagesNotification(this);
+    }
 
     ThreadUtil.runOnMainDelayed(() -> {
       ApplicationDependencies.getJobManager().shutdown(TimeUnit.SECONDS.toMillis(10));
@@ -628,15 +640,15 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   private final BroadcastReceiver keyEventReceiver = new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
-      onLock();
+      boolean keyExpired = intent.getBooleanExtra(KeyCachingService.EXTRA_KEY_EXPIRED, false);
+      onLock(keyExpired);
     }
   };
 
   private void registerKeyEventReceiver() {
     IntentFilter filter = new IntentFilter();
     filter.addAction(KeyCachingService.CLEAR_KEY_EVENT);
-
-    registerReceiver(keyEventReceiver, filter, KeyCachingService.KEY_PERMISSION, null);
+    ContextCompat.registerReceiver(this, keyEventReceiver, filter, KeyCachingService.KEY_PERMISSION, null, ContextCompat.RECEIVER_NOT_EXPORTED);
   }
 
   private void unregisterKeyEventReceiver() {

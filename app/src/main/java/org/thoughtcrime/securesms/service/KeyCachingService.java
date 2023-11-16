@@ -40,7 +40,6 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
-import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.ServiceUtil;
@@ -65,6 +64,8 @@ public class KeyCachingService extends Service {
   private static final String PASSPHRASE_EXPIRED_EVENT = BuildConfig.APPLICATION_ID + ".service.action.PASSPHRASE_EXPIRED_EVENT";
   public  static final String CLEAR_KEY_ACTION         = BuildConfig.APPLICATION_ID + ".service.action.CLEAR_KEY";
   public  static final String LOCALE_CHANGE_EVENT      = BuildConfig.APPLICATION_ID + ".service.action.LOCALE_CHANGE_EVENT";
+
+  public static final String EXTRA_KEY_EXPIRED = "extra.key_expired";
 
   private DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
@@ -110,9 +111,9 @@ public class KeyCachingService extends Service {
 
     if (intent.getAction() != null) {
       switch (intent.getAction()) {
-        case CLEAR_KEY_ACTION:         handleClearKey();        break;
-        case PASSPHRASE_EXPIRED_EVENT: handleClearKey();        break;
-        case LOCALE_CHANGE_EVENT:      handleLocaleChanged();   break;
+        case CLEAR_KEY_ACTION -> handleClearKey(false);
+        case PASSPHRASE_EXPIRED_EVENT -> handleClearKey(true);
+        case LOCALE_CHANGE_EVENT -> handleLocaleChanged();
       }
     } else {
       handleCacheKey();
@@ -165,8 +166,8 @@ public class KeyCachingService extends Service {
     });
   }
 
-  private void handleClearKey() {
-    Log.i(TAG, "handleClearKey");
+  private void handleClearKey(boolean keyExpired) {
+    Log.d(TAG, "handleClearKey() keyExpired: " + keyExpired);
 
     cancelTimeout();
 
@@ -178,13 +179,12 @@ public class KeyCachingService extends Service {
 
     KeyCachingService.locking = true;
 
-    sendPackageBroadcast(CLEAR_KEY_EVENT);
+    Log.i(TAG, "Broadcasting " + CLEAR_KEY_EVENT);
 
-    SignalExecutors.BOUNDED.execute(() -> {
-      MessageNotifier messageNotifier = ApplicationDependencies.getMessageNotifier();
-      messageNotifier.cancelDelayedNotifications();
-      messageNotifier.clearNotifications(KeyCachingService.this);
-    });
+    Intent intent = new Intent(CLEAR_KEY_EVENT);
+    intent.putExtra(EXTRA_KEY_EXPIRED, keyExpired);
+    intent.setPackage(getPackageName());
+    sendBroadcast(intent, KEY_PERMISSION);
   }
 
   private void handleLocaleChanged() {
@@ -252,18 +252,9 @@ public class KeyCachingService extends Service {
     startForeground(SERVICE_RUNNING_ID, builder.build());
   }
 
-  private void sendPackageBroadcast(String action) {
-    Log.i(TAG, "Broadcasting " + action);
-
-    Intent intent = new Intent(action);
-    intent.setPackage(getApplicationContext().getPackageName());
-
-    sendBroadcast(intent, KEY_PERMISSION);
-  }
-
   private PendingIntent buildLockIntent() {
     Intent intent = new Intent(this, KeyCachingService.class);
-    intent.setAction(PASSPHRASE_EXPIRED_EVENT);
+    intent.setAction(CLEAR_KEY_ACTION);
     return PendingIntent.getService(getApplicationContext(), 0, intent, getPendingIntentFlags());
   }
 

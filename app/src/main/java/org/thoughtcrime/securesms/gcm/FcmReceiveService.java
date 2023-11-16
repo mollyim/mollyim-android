@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.registration.PushChallengeRequest;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.NetworkUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.Locale;
 
@@ -26,8 +27,13 @@ public class FcmReceiveService extends FirebaseMessagingService {
   private static final String TAG = Log.tag(FcmReceiveService.class);
 
   @Override
-  public void onMessageReceived(RemoteMessage remoteMessage) {
+  public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
     if (KeyCachingService.isLocked()) {
+      if (remoteMessage.getPriority() == RemoteMessage.PRIORITY_HIGH &&
+          TextSecurePreferences.isPassphraseLockNotificationsEnabled(this)) {
+        Log.d(TAG, "New urgent message received while app is locked.");
+        FcmFetchManager.postMayHaveMessagesNotification(this);
+      }
       return;
     }
 
@@ -63,7 +69,7 @@ public class FcmReceiveService extends FirebaseMessagingService {
   }
 
   @Override
-  public void onNewToken(String token) {
+  public void onNewToken(@NonNull String token) {
     Log.i(TAG, "onNewToken()");
 
     if (KeyCachingService.isLocked()) {
