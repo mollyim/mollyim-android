@@ -103,4 +103,8 @@
     <string name="RegistrationActivity_copied_to_clipboard">已复制到剪贴板</string>
     <string name="DeviceListItem_this_device">此设备</string>
     <string name="RegistrationActivity_provider_declined">供应商可能出于欺诈防范规则拒绝给你发送验证码。</string>
+    <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">抱歉，此功能需要通过 FCM 或 UnifiedPush 传送推送通知，而 FCM 和 UnifiedPush 目前均不可用。</string>
+    <string name="NotificationsSettingsFragment__new_activity_while_locked">锁定期间有新活动</string>
+    <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">在应用锁定时接收消息或未接来电的通知。</string>
+    <string name="NotificationsSettingsFragment__push_notifications_unavailable">推送通知不可用</string>
 </resources>
