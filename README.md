@@ -55,7 +55,7 @@ Molly has unique features compared to Signal:
 - **Custom backup scheduling** - Choose between a daily or weekly interval and the number of backups to retain
 - **SOCKS proxy and Tor support** - Tunnel app network traffic via proxy and Orbot
 
-For the [UnifiedPush](https://github.com/mollyim/mollyim-android-unifiedpush) version of Molly, the following features are additionally available:
+For the [UnifiedPush](#unifiedpush) version of Molly, the following features are additionally available:
 
 - **UnifiedPush support**: Receive push notifications through the UnifiedPush protocol
 
@@ -67,12 +67,23 @@ Molly is open-source just like Signal. But Signal uses Google's proprietary soft
 
 To support a 100% free and auditable app, Molly comes in two flavors: one with proprietary blobs like Signal and one without. They are called Molly and Molly-FOSS, respectively. You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
 
+### UnifiedPush
+
+[Molly-UP](https://github.com/mollyim/mollyim-android-unifiedpush) is a separate app based on Molly-FOSS. It incorporates the ability to receive notifications through a UnifiedPush provider.
+
+> [!IMPORTANT]
+> Molly-UP **requires** an instance of [mollysocket](https://github.com/mollyim/mollysocket) to work with a UnifiedPush provider. This can be done on a machine you control.
+
+If Molly-UP is set up as a secondary linked device, UnifiedPush notifications will not be available.
+
+### Dependency Comparison
+
 This table lists the current status of the dependencies:
 
-| Feature                               | Molly-FOSS      | Molly                | Signal               |
-| ------------------------------------- | --------------- | -------------------- | -------------------- |
-| Push notifications <sup>(1) (2)</sup> | ✔️ Websocket     | ⚠️ FCM<br>✔️ Websocket | ⚠️ FCM<br>✔️ Websocket |
-| Location provider                     | ✔️ OpenStreetMap | ⚠️ Google Maps        | ⚠️️️ Google Maps        |
+| Feature                               | Molly-FOSS       | Molly-UP        | Molly                | Signal               |
+| ------------------------------------- | ---------------- | --------------- | -------------------- | -------------------- |
+| Push notifications <sup>(1) (2)</sup> | ✔ Websocket | ✔ UnifiedPush<br>✔ Websocket | ⚠ FCM<br>✔ Websocket | ⚠ FCM<br>✔ Websocket |
+| Location provider                     | ✔ OpenStreetMap | ✔ OpenStreetMap | ⚠ Google Maps        | ⚠ Google Maps        |
 
 <sup>(1)</sup> You may need to disable the system battery optimizations to receive Websocket-based push notifications in background.<br>
 <sup>(2)</sup> If you are running a custom operating system and the app fails to register with Play Services (FCM) try the FOSS flavor.
