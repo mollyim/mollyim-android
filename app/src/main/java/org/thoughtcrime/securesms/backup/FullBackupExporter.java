@@ -450,6 +450,16 @@ public class FullBackupExporter extends FullBackupBase {
     String data   = cursor.getString(cursor.getColumnIndexOrThrow(AttachmentTable.DATA));
     byte[] random = cursor.getBlob(cursor.getColumnIndexOrThrow(AttachmentTable.DATA_RANDOM));
 
+    if (!TextUtils.isEmpty(data)) {
+      long fileLength = new File(data).length();
+      long dbLength   = size;
+
+      if (size <= 0 || fileLength != dbLength) {
+        size = calculateVeryOldStreamLength(attachmentSecret, random, data);
+        Log.w(TAG, "Needed size calculation! Manual: " + size + " File: " + fileLength + "  DB: " + dbLength + " ID: " + new AttachmentId(rowId, uniqueId));
+      }
+    }
+
     EventBus.getDefault().post(new BackupEvent(BackupEvent.Type.PROGRESS, ++count, estimatedCount));
     if (!TextUtils.isEmpty(data) && size > 0) {
       try (InputStream inputStream = openAttachmentStream(attachmentSecret, random, data)) {
@@ -485,6 +495,27 @@ public class FullBackupExporter extends FullBackupBase {
     }
 
     return count;
+  }
+
+  private static long calculateVeryOldStreamLength(@NonNull AttachmentSecret attachmentSecret, @Nullable byte[] random, @NonNull String data) {
+    long result = 0;
+
+    try (InputStream inputStream = openAttachmentStream(attachmentSecret, random, data)) {
+      int    read;
+      byte[] buffer = new byte[8192];
+
+      while ((read = inputStream.read(buffer, 0, buffer.length)) != -1) {
+        result += read;
+      }
+    } catch (FileNotFoundException e) {
+      Log.w(TAG, "Missing attachment for size calculation", e);
+      return 0;
+    } catch (IOException e) {
+      Log.w(TAG, "Failed to determine stream length", e);
+      return 0;
+    }
+
+    return result;
   }
 
   private static InputStream openAttachmentStream(@NonNull AttachmentSecret attachmentSecret, @Nullable byte[] random, @NonNull String data) throws IOException {
