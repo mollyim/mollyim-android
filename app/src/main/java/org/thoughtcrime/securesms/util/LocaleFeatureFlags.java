@@ -10,9 +10,12 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.mms.PushMediaConstraints;
 import org.thoughtcrime.securesms.recipients.Recipient;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Provide access to locale specific values within feature flags following the locale CSV-Colon format.
@@ -26,13 +29,6 @@ public final class LocaleFeatureFlags {
   private static final String COUNTRY_WILDCARD = "*";
   private static final int    NOT_FOUND        = -1;
 
-  /**
-   * In donate megaphone group for given country code
-   */
-  public static boolean isInDonateMegaphone() {
-    return isEnabled(FeatureFlags.DONATE_MEGAPHONE, FeatureFlags.donateMegaphone());
-  }
-
   public static @NonNull Optional<PushMediaConstraints.MediaConfig> getMediaQualityLevel() {
     Map<String, Integer> countryValues = parseCountryValues(FeatureFlags.getMediaQualityLevels(), NOT_FOUND);
     int                  level         = getCountryValue(countryValues, Recipient.self().getE164().orElse(""), NOT_FOUND);
@@ -41,7 +37,29 @@ public final class LocaleFeatureFlags {
   }
 
   public static boolean shouldShowReleaseNote(@NonNull String releaseNoteUuid, @NonNull String countries) {
-    return isEnabled(releaseNoteUuid, countries);
+    return isEnabledPartsPerMillion(releaseNoteUuid, countries);
+  }
+
+  /**
+   * Parses a comma-separated list of country codes and area codes to check if self's e164 starts with
+   * one of them. For example, "33,1555" will return turn for e164's that start with 33 or look like 1-555-xxx-xxx.
+   */
+  private static boolean isEnabledE164Start(@NonNull String serialized) {
+    Recipient self = Recipient.self();
+
+    if (self.getE164().isEmpty()) {
+      return false;
+    }
+
+    return isEnabledE164Start(serialized, self.getE164().get());
+  }
+
+  @VisibleForTesting
+  static boolean isEnabledE164Start(@NonNull String serialized, @NonNull String e164) {
+    List<String> countryAndAreaCodes = Arrays.stream(serialized.split(",")).map(s -> s.trim().replaceAll("\\s", "")).collect(Collectors.toList());
+    String       e164Numbers         = e164.replaceAll("\\D", "");
+
+    return countryAndAreaCodes.stream().anyMatch(e164Numbers::startsWith);
   }
 
   /**
@@ -51,7 +69,7 @@ public final class LocaleFeatureFlags {
    * in the list. For example, "1:20000,*:40000" would mean 2% of the NANPA phone numbers and 4% of the rest of
    * the world should see the megaphone.
    */
-  private static boolean isEnabled(@NonNull String flag, @NonNull String serialized) {
+  private static boolean isEnabledPartsPerMillion(@NonNull String flag, @NonNull String serialized) {
     Map<String, Integer> countryCodeValues = parseCountryValues(serialized, 0);
     Recipient            self              = Recipient.self();
 
@@ -59,7 +77,6 @@ public final class LocaleFeatureFlags {
       return false;
     }
 
-    // MOLLY: FeatureFlags.donateMegaphone() expects 1 million buckets
     long countEnabled      = getCountryValue(countryCodeValues, self.getE164().orElse(""), 0);
     long currentUserBucket = BucketingUtil.bucket(flag, self.requireAci().getRawUuid(), 1_000_000);
 

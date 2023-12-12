@@ -519,6 +519,13 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         }
       )
 
+      clickPref(
+        title = DSLSettingsText.from("Add remote donate megaphone"),
+        onClick = {
+          viewModel.addRemoteDonateMegaphone()
+        }
+      )
+
       dividerPref()
 
       sectionHeaderPref(DSLSettingsText.from("CDS"))
@@ -632,6 +639,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
               SignalStore.account().username = random
               SignalDatabase.recipients.setUsername(Recipient.self().id, random)
+              StorageSyncHelper.scheduleSyncForDataChange()
 
               Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
             }
@@ -652,6 +660,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
                 entropy = Util.getSecretBytes(32),
                 serverId = SignalStore.account().usernameLink?.serverId ?: UUID.randomUUID()
               )
+              StorageSyncHelper.scheduleSyncForDataChange()
               Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton(android.R.string.cancel) { d, _ -> d.dismiss() }

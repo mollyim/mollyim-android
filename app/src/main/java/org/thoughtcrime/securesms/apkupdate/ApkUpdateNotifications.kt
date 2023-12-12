@@ -31,6 +31,8 @@ object ApkUpdateNotifications {
    * will dismiss it for us.
    */
   fun showInstallPrompt(context: Context, uri: Uri) {
+    ServiceUtil.getNotificationManager(context).cancel(NotificationIds.APK_UPDATE_FAILED_INSTALL)
+
     // MOLLY: Use legacy install method until LaunchActivityFromNotification is fixed
     val pendingIntent = PendingIntent.getActivity(
       context,
@@ -53,11 +55,15 @@ object ApkUpdateNotifications {
     ServiceUtil.getNotificationManager(context).notify(NotificationIds.APK_UPDATE_PROMPT_INSTALL, notification)
   }
 
-  fun clearInstallPrompt(context: Context) {
-    NotificationCancellationHelper.cancelLegacy(context, NotificationIds.APK_UPDATE_PROMPT_INSTALL)
+  fun dismissInstallPrompt(context: Context) {
+    Log.d(TAG, "Dismissing install prompt.")
+    ServiceUtil.getNotificationManager(context).cancel(NotificationIds.APK_UPDATE_PROMPT_INSTALL)
   }
 
   fun showInstallFailed(context: Context, reason: FailureReason) {
+    Log.d(TAG, "Showing failed notification. Reason: $reason")
+    ServiceUtil.getNotificationManager(context).cancel(NotificationIds.APK_UPDATE_PROMPT_INSTALL)
+
     val pendingIntent = PendingIntent.getActivity(
       context,
       0,
