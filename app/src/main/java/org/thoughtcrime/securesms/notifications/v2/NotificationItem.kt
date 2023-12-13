@@ -267,13 +267,15 @@ class MessageNotification(threadRecipient: Recipient, record: MessageRecord) : N
   }
 
   override fun getThumbnailInfo(context: Context): ThumbnailInfo {
-    if (thumbnailInfo.needsShrinking) {
-      if (SignalStore.settings().messageNotificationsPrivacy.isDisplayMessage && !KeyCachingService.isLocked()) {
+    return if (SignalStore.settings().messageNotificationsPrivacy.isDisplayMessage && !KeyCachingService.isLocked()) {
+      if (thumbnailInfo.needsShrinking) {
         thumbnailInfo = NotificationThumbnails.get(context, this)
       }
-    }
 
-    return thumbnailInfo
+      thumbnailInfo
+    } else {
+      ThumbnailInfo.NONE
+    }
   }
 
   override fun canReply(context: Context): Boolean {

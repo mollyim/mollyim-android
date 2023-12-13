@@ -15,7 +15,7 @@ public class RecipientIdFollowUpJobMigration extends JobMigration {
   }
 
   @Override
-  protected @NonNull JobData migrate(@NonNull JobData jobData) {
+  public @NonNull JobData migrate(@NonNull JobData jobData) {
     return jobData;
   }
 }

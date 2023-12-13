@@ -16,7 +16,6 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.database.ThreadTable
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 
@@ -117,14 +116,6 @@ internal object ConversationOptionsMenu {
           }
         }
         menuInflater.inflate(R.menu.conversation_group_options, menu)
-        if (!recipient.isPushGroup) {
-          menuInflater.inflate(R.menu.conversation_mms_group_options, menu)
-          if (distributionType == ThreadTable.DistributionTypes.BROADCAST) {
-            menu.findItem(R.id.menu_distribution_broadcast).isChecked = true
-          } else {
-            menu.findItem(R.id.menu_distribution_conversation).isChecked = true
-          }
-        }
         menuInflater.inflate(R.menu.conversation_active_group_options, menu)
       }
 
@@ -214,8 +205,6 @@ internal object ConversationOptionsMenu {
         R.id.menu_search -> callback.handleSearch()
         R.id.menu_add_to_contacts -> callback.handleAddToContacts()
         R.id.menu_group_recipients -> callback.handleDisplayGroupRecipients()
-        R.id.menu_distribution_broadcast -> callback.handleDistributionBroadcastEnabled(menuItem)
-        R.id.menu_distribution_conversation -> callback.handleDistributionConversationEnabled(menuItem)
         R.id.menu_group_settings -> callback.handleManageGroup()
         R.id.menu_leave -> callback.handleLeavePushGroup()
         R.id.menu_invite -> callback.handleInviteLink()
@@ -281,8 +270,6 @@ internal object ConversationOptionsMenu {
     fun handleSearch()
     fun handleAddToContacts()
     fun handleDisplayGroupRecipients()
-    fun handleDistributionBroadcastEnabled(menuItem: MenuItem)
-    fun handleDistributionConversationEnabled(menuItem: MenuItem)
     fun handleManageGroup()
     fun handleLeavePushGroup()
     fun handleInviteLink()

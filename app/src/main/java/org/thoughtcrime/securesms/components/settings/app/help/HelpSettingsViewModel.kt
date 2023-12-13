@@ -29,7 +29,7 @@ class HelpSettingsViewModel : ViewModel() {
 
   fun setIncludeBetaEnabled(enabled: Boolean) {
     TextSecurePreferences.setUpdateApkIncludeBetaEnabled(application, enabled)
-    ApkUpdateNotifications.clearInstallPrompt(application)
+    ApkUpdateNotifications.dismissInstallPrompt(application)
     checkForUpdates()
     refreshState()
   }

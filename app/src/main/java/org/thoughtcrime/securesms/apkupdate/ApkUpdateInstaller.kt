@@ -9,6 +9,8 @@ import android.content.Context
 import android.net.Uri
 import org.signal.core.util.getDownloadManager
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.jobs.ApkUpdateJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.FileUtils
 import java.io.FileInputStream
@@ -30,7 +32,9 @@ object ApkUpdateInstaller {
    */
   fun installOrPromptForInstall(context: Context, downloadId: Long, userInitiated: Boolean) {
     if (downloadId != SignalStore.apkUpdate().downloadId) {
-      Log.w(TAG, "DownloadId doesn't match the one we're waiting for! We likely have newer data. Ignoring.")
+      Log.w(TAG, "DownloadId doesn't match the one we're waiting for (current: $downloadId, expected: ${SignalStore.apkUpdate().downloadId})! We likely have newer data. Ignoring.")
+      ApkUpdateNotifications.dismissInstallPrompt(context)
+      ApplicationDependencies.getJobManager().add(ApkUpdateJob())
       return
     }
 

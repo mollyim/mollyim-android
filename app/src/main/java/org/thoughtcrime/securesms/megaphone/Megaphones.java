@@ -37,7 +37,6 @@ import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.FeatureFlags;
-import org.thoughtcrime.securesms.util.LocaleFeatureFlags;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.VersionTracker;
@@ -395,8 +394,7 @@ public final class Megaphones {
     long timeSinceLastDonatePrompt = timeSinceLastDonatePrompt(event, records);
 
     return timeSinceLastDonatePrompt > MIN_TIME_BETWEEN_DONATE_MEGAPHONES &&
-           VersionTracker.getDaysSinceFirstInstalled(context) >= 7 &&
-           LocaleFeatureFlags.isInDonateMegaphone();
+           VersionTracker.getDaysSinceFirstInstalled(context) >= 7;
   }
 
   private static boolean shouldShowOnboardingMegaphone(@NonNull Context context) {

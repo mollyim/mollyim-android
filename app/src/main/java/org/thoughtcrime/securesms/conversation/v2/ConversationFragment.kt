@@ -187,7 +187,6 @@ import org.thoughtcrime.securesms.conversation.v2.keyboard.AttachmentKeyboardFra
 import org.thoughtcrime.securesms.database.DraftTable
 import org.thoughtcrime.securesms.database.model.IdentityRecord
 import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord
-import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord
 import org.thoughtcrime.securesms.database.model.Mention
 import org.thoughtcrime.securesms.database.model.MessageId
 import org.thoughtcrime.securesms.database.model.MessageRecord
@@ -213,7 +212,6 @@ import org.thoughtcrime.securesms.groups.ui.invitesandrequests.ManagePendingAndR
 import org.thoughtcrime.securesms.groups.ui.invitesandrequests.invite.GroupLinkInviteFriendsBottomSheetDialogFragment
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupDescriptionDialog
 import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationInfoBottomSheetDialogFragment
-import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationInitiationBottomSheetDialogFragment
 import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationSuggestionsDialog
 import org.thoughtcrime.securesms.groups.v2.GroupBlockJoinRequestResult
 import org.thoughtcrime.securesms.invites.InviteActions
@@ -286,7 +284,6 @@ import org.thoughtcrime.securesms.util.Debouncer
 import org.thoughtcrime.securesms.util.DeleteDialog
 import org.thoughtcrime.securesms.util.Dialogs
 import org.thoughtcrime.securesms.util.DrawableUtil
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
@@ -626,8 +623,6 @@ class ConversationFragment :
 
     conversationGroupViewModel.updateGroupStateIfNeeded()
 
-    ConversationUtil.refreshRecipientShortcuts()
-
     if (SignalStore.rateLimit().needsRecaptcha()) {
       RecaptchaProofBottomSheetFragment.show(childFragmentManager)
     }
@@ -635,6 +630,8 @@ class ConversationFragment :
 
   override fun onPause() {
     super.onPause()
+
+    ConversationUtil.refreshRecipientShortcuts()
 
     if (!args.conversationScreenType.isInBubble) {
       ApplicationDependencies.getMessageNotifier().clearVisibleThread()
@@ -1475,12 +1472,6 @@ class ConversationFragment :
   }
 
   private fun handleSendEditMessage() {
-    if (!FeatureFlags.editMessageSending()) {
-      Log.w(TAG, "Edit message sending disabled, forcing exit of edit mode")
-      inputPanel.exitEditMessageMode()
-      return
-    }
-
     if (!inputPanel.inEditMessageMode()) {
       Log.w(TAG, "Not in edit message mode, unknown state, forcing re-exit")
       inputPanel.exitEditMessageMode()
@@ -1950,7 +1941,7 @@ class ConversationFragment :
       )
     }
 
-    if (menuState.shouldShowEditAction() && FeatureFlags.editMessageSending()) {
+    if (menuState.shouldShowEditAction()) {
       items.add(
         ActionItem(R.drawable.symbol_edit_24, resources.getString(R.string.conversation_selection__menu_edit)) {
           handleEditMessage(getSelectedConversationMessage())
@@ -1970,7 +1961,7 @@ class ConversationFragment :
     if (menuState.shouldShowSaveAttachmentAction()) {
       items.add(
         ActionItem(R.drawable.symbol_save_android_24, getResources().getString(R.string.conversation_selection__menu_save)) {
-          handleSaveAttachment(getSelectedConversationMessage().messageRecord as MediaMmsMessageRecord)
+          handleSaveAttachment(getSelectedConversationMessage().messageRecord as MmsMessageRecord)
           actionMode?.finish()
         }
       )
@@ -2111,10 +2102,6 @@ class ConversationFragment :
   }
 
   private fun handleEditMessage(conversationMessage: ConversationMessage) {
-    if (!FeatureFlags.editMessageSending()) {
-      return
-    }
-
     if (isSearchRequested) {
       searchMenuItem?.collapseActionView()
     }
@@ -2134,7 +2121,7 @@ class ConversationFragment :
     }
   }
 
-  private fun handleSaveAttachment(record: MediaMmsMessageRecord) {
+  private fun handleSaveAttachment(record: MmsMessageRecord) {
     if (record.isViewOnce) {
       error("Cannot save a view-once message")
     }
@@ -2187,7 +2174,7 @@ class ConversationFragment :
   }
 
   private fun handleViewPaymentDetails(conversationMessage: ConversationMessage) {
-    val record: MediaMmsMessageRecord = conversationMessage.messageRecord as? MediaMmsMessageRecord ?: return
+    val record: MmsMessageRecord = conversationMessage.messageRecord as? MmsMessageRecord ?: return
     val payment = record.payment ?: return
     if (record.isPaymentNotification) {
       startActivity(PaymentsActivity.navigateToPaymentDetails(requireContext(), payment.uuid))
@@ -2874,9 +2861,11 @@ class ConversationFragment :
               }
 
               override fun onHide() {
-                if (lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
-                  binding.conversationItemRecycler.suppressLayout(false)
+                if (!lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
+                  return
                 }
+
+                binding.conversationItemRecycler.suppressLayout(false)
                 if (selectedConversationModel.audioUri != null) {
                   getVoiceNoteMediaController().resumePlayback(selectedConversationModel.audioUri, messageRecord.getId())
                 }
@@ -3093,10 +3082,6 @@ class ConversationFragment :
       GroupMembersDialog(requireActivity(), recipientSnapshot).display()
     }
 
-    override fun handleDistributionBroadcastEnabled(menuItem: MenuItem) = error("This fragment does not support this action.")
-
-    override fun handleDistributionConversationEnabled(menuItem: MenuItem) = error("This fragment does not support this action.")
-
     override fun handleManageGroup() {
       val recipient = viewModel.recipientSnapshot ?: return
       val intent = ConversationSettingsActivity.forGroup(requireContext(), recipient.requireGroupId())
@@ -3234,7 +3219,7 @@ class ConversationFragment :
         ConversationReactionOverlay.Action.EDIT -> handleEditMessage(conversationMessage)
         ConversationReactionOverlay.Action.FORWARD -> handleForwardMessageParts(conversationMessage.multiselectCollection.toSet())
         ConversationReactionOverlay.Action.RESEND -> handleResend(conversationMessage)
-        ConversationReactionOverlay.Action.DOWNLOAD -> handleSaveAttachment(conversationMessage.messageRecord as MediaMmsMessageRecord)
+        ConversationReactionOverlay.Action.DOWNLOAD -> handleSaveAttachment(conversationMessage.messageRecord as MmsMessageRecord)
         ConversationReactionOverlay.Action.COPY -> handleCopyMessage(conversationMessage.multiselectCollection.toSet())
         ConversationReactionOverlay.Action.MULTISELECT -> handleEnterMultiselect(conversationMessage)
         ConversationReactionOverlay.Action.PAYMENT_DETAILS -> handleViewPaymentDetails(conversationMessage)
@@ -3559,16 +3544,6 @@ class ConversationFragment :
           .onUnblock()
           .subscribeWithShowProgress("unblock")
       }
-    }
-
-    override fun onGroupV1MigrationClicked() {
-      val recipient = viewModel.recipientSnapshot
-      if (recipient == null) {
-        Log.w(TAG, "[onGroupV1MigrationClicked] No recipient!")
-        return
-      }
-
-      GroupsV1MigrationInitiationBottomSheetDialogFragment.showForInitiation(childFragmentManager, recipient.id)
     }
 
     override fun onInviteToSignal(recipient: Recipient) {
