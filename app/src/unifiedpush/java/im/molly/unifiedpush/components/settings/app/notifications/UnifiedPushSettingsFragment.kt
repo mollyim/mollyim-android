@@ -100,7 +100,7 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationsSe
   private fun getServerParameters(state: UnifiedPushSettingsState): String {
     val device = state.device ?: return getString(R.string.UnifiedPushSettingsFragment__no_device)
     val endpoint = state.endpoint ?: return getString(R.string.UnifiedPushSettingsFragment__no_endpoint)
-    return "connection add ${device.uuid} ${device.deviceId} ${device.password} $endpoint websocket"
+    return "connection add ${device.uuid} ${device.deviceId} ${device.password} $endpoint"
   }
 
   private fun urlDialog(state: UnifiedPushSettingsState) {
