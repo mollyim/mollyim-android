@@ -66,7 +66,6 @@ import org.whispersystems.signalservice.internal.push.BackupAuthCheckRequest;
 import org.whispersystems.signalservice.internal.push.BackupAuthCheckResponse;
 import org.whispersystems.signalservice.internal.push.CdsiAuthResponse;
 import org.whispersystems.signalservice.internal.push.OneTimePreKeyCounts;
-import org.whispersystems.signalservice.internal.push.ConfirmCodeMessage;
 import org.whispersystems.signalservice.internal.push.PaymentAddress;
 import org.whispersystems.signalservice.internal.push.ProfileAvatarData;
 import org.whispersystems.signalservice.internal.push.ProvisionMessage;
@@ -659,7 +658,7 @@ public class SignalServiceAccountManager {
    * @param tempIdentity A temporary identity. Must be the same as the one given to the already verified device.
    * @return Contains the account's permanent IdentityKeyPair and it's number along with the provisioning code required to finish the registration.
    */
-  public NewDeviceRegistrationReturn getNewDeviceRegistration(IdentityKeyPair tempIdentity) throws TimeoutException, IOException {
+  public ProvisionDecryptResult getNewDeviceRegistration(IdentityKeyPair tempIdentity) throws TimeoutException, IOException {
     ProvisionMessage msg = provisioningSocket.getProvisioningMessage(tempIdentity);
 
     final String number = msg.number;
@@ -684,15 +683,17 @@ public class SignalServiceAccountManager {
       throw new IOException("Failed to decrypt profile key", e);
     }
 
-    final String  provisioningCode = msg.provisioningCode;
-    final boolean readReceipts     = msg.readReceipts != null && msg.readReceipts;
+    final boolean readReceipts = msg.readReceipts != null && msg.readReceipts;
 
-    return new NewDeviceRegistrationReturn(
-        provisioningCode,
+    final MasterKey masterKey = (msg.masterKey != null) ? new MasterKey(msg.masterKey.toByteArray()) : null;
+
+    return new ProvisionDecryptResult(
+        msg.provisioningCode,
         aciIdentity, pniIdentity,
         number, aci, pni,
         profileKey,
-        readReceipts
+        readReceipts,
+        masterKey
     );
   }
 
@@ -720,8 +721,13 @@ public class SignalServiceAccountManager {
    * @param provisioningCode The provisioning code from the getNewDeviceRegistration method
    * @return The deviceId given by the server.
    */
-  public int finishNewDeviceRegistration(String provisioningCode, ConfirmCodeMessage confirmCodeMessage) throws IOException {
-    int deviceId = this.pushServiceSocket.finishNewDeviceRegistration(provisioningCode, confirmCodeMessage);
+  public int finishNewDeviceRegistration(String provisioningCode,
+                                         AccountAttributes attributes,
+                                         PreKeyCollection aciPreKeys, PreKeyCollection pniPreKeys,
+                                         @Nullable String fcmToken)
+      throws IOException
+  {
+    int deviceId = this.pushServiceSocket.finishNewDeviceRegistration(provisioningCode, attributes, aciPreKeys, pniPreKeys, fcmToken);
     if (credentials instanceof StaticCredentialsProvider) {
       ((StaticCredentialsProvider) credentials).setDeviceId(deviceId);
     }
@@ -929,7 +935,7 @@ public class SignalServiceAccountManager {
   /**
    * Helper class for holding the returns of getNewDeviceRegistration()
    */
-  public static class NewDeviceRegistrationReturn {
+  public static class ProvisionDecryptResult {
     private final String          provisioningCode;
     private final IdentityKeyPair aciIdentity;
     private final IdentityKeyPair pniIdentity;
@@ -938,8 +944,9 @@ public class SignalServiceAccountManager {
     private final PNI             pni;
     private final ProfileKey      profileKey;
     private final boolean         readReceipts;
+    private final MasterKey       masterKey;
 
-    NewDeviceRegistrationReturn(String provisioningCode, IdentityKeyPair aciIdentity, IdentityKeyPair pniIdentity, String number, ACI aci, PNI pni, ProfileKey profileKey, boolean readReceipts) {
+    ProvisionDecryptResult(String provisioningCode, IdentityKeyPair aciIdentity, IdentityKeyPair pniIdentity, String number, ACI aci, PNI pni, ProfileKey profileKey, boolean readReceipts, MasterKey masterKey) {
       this.provisioningCode = provisioningCode;
       this.aciIdentity      = aciIdentity;
       this.pniIdentity      = pniIdentity;
@@ -948,6 +955,7 @@ public class SignalServiceAccountManager {
       this.pni              = pni;
       this.profileKey       = profileKey;
       this.readReceipts     = readReceipts;
+      this.masterKey        = masterKey;
     }
 
     /**
@@ -998,6 +1006,10 @@ public class SignalServiceAccountManager {
      */
     public boolean isReadReceipts() {
       return readReceipts;
+    }
+
+    public MasterKey getMasterKey() {
+      return masterKey;
     }
   }
 

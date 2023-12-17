@@ -170,7 +170,7 @@ public final class RegistrationViewModel extends BaseRegistrationViewModel {
     return linkDeviceRepository.attemptDeviceLink(progress)
                                .flatMap(processor -> {
                                  if (processor.hasResult()) {
-                                   return registrationRepository.registerAccountFromPrimaryDevice(getRegistrationData(), processor.getResult().getNewDeviceRegistrationResponse(), processor.getResult().getDeviceId(), getDeviceName())
+                                   return registrationRepository.registerAccountFromPrimaryDevice(getRegistrationData(), processor.getResult())
                                                                 .map(LinkDeviceRepository.NewDeviceRegistrationReturnProcessor::new);
                                  }
                                  return Single.just(processor.asNewDeviceRegistrationReturnProcessor());

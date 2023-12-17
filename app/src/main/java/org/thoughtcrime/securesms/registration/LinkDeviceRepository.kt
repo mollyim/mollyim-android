@@ -6,14 +6,17 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKeyPair
+import org.thoughtcrime.securesms.AppCapabilities
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
+import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
-import org.whispersystems.signalservice.api.SignalServiceAccountManager.NewDeviceRegistrationReturn
+import org.whispersystems.signalservice.api.account.AccountAttributes
+import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess
 import org.whispersystems.signalservice.internal.ServiceResponse
 import org.whispersystems.signalservice.internal.ServiceResponseProcessor
-import org.whispersystems.signalservice.internal.push.ConfirmCodeMessage
 import java.io.IOException
 import java.net.URLEncoder
 
@@ -67,19 +70,39 @@ class LinkDeviceRepository(private val context: Application) {
     return Single.fromCallable<ServiceResponse<LinkDeviceResponse>> {
       try {
         val ret = accountManager.getNewDeviceRegistration(tempIdentityKey)
+
+        val universalUnidentifiedAccess: Boolean = TextSecurePreferences.isUniversalUnidentifiedAccess(context)
+        val unidentifiedAccessKey: ByteArray = UnidentifiedAccess.deriveAccessKeyFrom(registrationData.profileKey)
+
+        val registrationLock: String? = ret.masterKey?.deriveRegistrationLock()
+
         val encryptedDeviceName = deviceName?.let { DeviceNameCipher.encryptDeviceName(it.toByteArray(), ret.aciIdentity) }
+
+        val accountAttributes = AccountAttributes(
+          signalingKey = null,
+          registrationId = registrationData.registrationId,
+          fetchesMessages = registrationData.isNotFcm,
+          registrationLock = registrationLock,
+          unidentifiedAccessKey = unidentifiedAccessKey,
+          unrestrictedUnidentifiedAccess = universalUnidentifiedAccess,
+          capabilities = AppCapabilities.getCapabilities(true),
+          discoverableByPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberListingMode.isDiscoverable,
+          name = encryptedDeviceName?.let { Base64.encodeWithPadding(it) },
+          pniRegistrationId = registrationData.pniRegistrationId,
+          recoveryPassword = registrationData.recoveryPassword
+        )
+
+        val aciPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.aciIdentity, SignalStore.account().aciPreKeys)
+        val pniPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.pniIdentity, SignalStore.account().pniPreKeys)
+
         val deviceId = accountManager.finishNewDeviceRegistration(
           ret.provisioningCode,
-          ConfirmCodeMessage(
-            false,
-            true,
-            registrationData.registrationId,
-            registrationData.pniRegistrationId,
-            encryptedDeviceName?.let { Base64.encodeWithPadding(it) },
-            null
-          )
+          accountAttributes,
+          aciPreKeyCollection, pniPreKeyCollection,
+          registrationData.fcmToken
         )
-        ServiceResponse.forResult(LinkDeviceResponse(ret, deviceId), 200, null)
+
+        ServiceResponse.forResult(LinkDeviceResponse(deviceName, ret, deviceId, aciPreKeyCollection, pniPreKeyCollection), 200, null)
       } catch (e: IOException) {
         ServiceResponse.forExecutionError(e)
       }
@@ -102,9 +125,7 @@ class LinkDeviceRepository(private val context: Application) {
     }
   }
 
-  class NewDeviceRegistrationReturnProcessor(response: ServiceResponse<NewDeviceRegistrationReturn>) : ServiceResponseProcessor<NewDeviceRegistrationReturn>(response)
-
-  data class LinkDeviceResponse(val newDeviceRegistrationResponse: NewDeviceRegistrationReturn, val deviceId: Int)
+  class NewDeviceRegistrationReturnProcessor(response: ServiceResponse<LinkDeviceResponse>) : ServiceResponseProcessor<LinkDeviceResponse>(response)
 
   interface LinkDeviceProgress {
     val deviceLinkCode: String

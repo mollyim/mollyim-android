@@ -120,6 +120,7 @@ import org.whispersystems.signalservice.internal.push.exceptions.GroupPatchNotAc
 import org.whispersystems.signalservice.internal.push.exceptions.GroupStaleDevicesException;
 import org.whispersystems.signalservice.internal.push.exceptions.InvalidUnidentifiedAccessHeaderException;
 import org.whispersystems.signalservice.internal.push.exceptions.MismatchedDevicesException;
+import org.whispersystems.signalservice.internal.push.exceptions.MissingCapabilitiesException;
 import org.whispersystems.signalservice.internal.push.exceptions.NotInGroupException;
 import org.whispersystems.signalservice.internal.push.exceptions.PaymentsRegionException;
 import org.whispersystems.signalservice.internal.push.exceptions.StaleDevicesException;
@@ -232,6 +233,7 @@ public class PushServiceSocket {
   private static final String PROVISIONING_CODE_PATH    = "/v1/devices/provisioning/code";
   private static final String PROVISIONING_MESSAGE_PATH = "/v1/provisioning/%s";
   private static final String DEVICE_PATH               = "/v1/devices/%s";
+  private static final String DEVICE_LINK_PATH          = "/v1/devices/link";
 
   private static final String DIRECTORY_AUTH_PATH       = "/v1/directory/auth";
   private static final String MESSAGE_PATH              = "/v1/messages/%s";
@@ -493,12 +495,46 @@ public class PushServiceSocket {
     makeServiceRequest(SET_ACCOUNT_ATTRIBUTES, "PUT", JsonUtil.toJson(accountAttributes));
   }
 
-  public int finishNewDeviceRegistration(String code, ConfirmCodeMessage confirmCodeMessage) throws IOException {
-    String json = JsonUtil.toJson(confirmCodeMessage);
-    String responseText = makeServiceRequest(String.format(DEVICE_PATH, code), "PUT", json);
-    DeviceId response = JsonUtil.fromJson(responseText, DeviceId.class);
+  public int finishNewDeviceRegistration(String provisioningCode,
+                                         AccountAttributes attributes,
+                                         PreKeyCollection aciPreKeys, PreKeyCollection pniPreKeys,
+                                         @Nullable String fcmToken)
+      throws IOException
+  {
+    GcmRegistrationId gcmRegistrationId;
+    if (attributes.getFetchesMessages()) {
+      gcmRegistrationId = null;
+    } else {
+      gcmRegistrationId = new GcmRegistrationId(fcmToken, true);
+    }
+
+    final SignedPreKeyEntity aciSignedPreKey = new SignedPreKeyEntity(Objects.requireNonNull(aciPreKeys.getSignedPreKey()).getId(),
+                                                                      aciPreKeys.getSignedPreKey().getKeyPair().getPublicKey(),
+                                                                      aciPreKeys.getSignedPreKey().getSignature());
+    final SignedPreKeyEntity pniSignedPreKey = new SignedPreKeyEntity(Objects.requireNonNull(pniPreKeys.getSignedPreKey()).getId(),
+                                                                      pniPreKeys.getSignedPreKey().getKeyPair().getPublicKey(),
+                                                                      pniPreKeys.getSignedPreKey().getSignature());
+    final KyberPreKeyEntity aciLastResortKyberPreKey = new KyberPreKeyEntity(Objects.requireNonNull(aciPreKeys.getLastResortKyberPreKey()).getId(),
+                                                                             aciPreKeys.getLastResortKyberPreKey().getKeyPair().getPublicKey(),
+                                                                             aciPreKeys.getLastResortKyberPreKey().getSignature());
+    final KyberPreKeyEntity pniLastResortKyberPreKey = new KyberPreKeyEntity(Objects.requireNonNull(pniPreKeys.getLastResortKyberPreKey()).getId(),
+                                                                             pniPreKeys.getLastResortKyberPreKey().getKeyPair().getPublicKey(),
+                                                                             pniPreKeys.getLastResortKyberPreKey().getSignature());
+
+    LinkDeviceRequest linkDeviceRequest = new LinkDeviceRequest(
+        provisioningCode, attributes,
+        aciSignedPreKey, pniSignedPreKey, aciLastResortKyberPreKey, pniLastResortKyberPreKey,
+        gcmRegistrationId
+    );
+    String   json         = JsonUtil.toJson(linkDeviceRequest);
+    String   responseText = makeServiceRequest(DEVICE_LINK_PATH, "PUT", json, NO_HEADERS, NEW_DEVICE_PUT_RESPONSE_HANDLER, Optional.empty());
+    DeviceId response     = JsonUtil.fromJson(responseText, DeviceId.class);
     return response.getDeviceId();
   }
+
+  private static final ResponseCodeHandler NEW_DEVICE_PUT_RESPONSE_HANDLER = (responseCode, body) -> {
+    if (responseCode == 409) throw new MissingCapabilitiesException();
+  };
 
   public String getNewDeviceVerificationCode() throws IOException {
     String responseText = makeServiceRequest(PROVISIONING_CODE_PATH, "GET", null);

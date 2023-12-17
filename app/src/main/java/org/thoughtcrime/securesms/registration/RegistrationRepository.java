@@ -39,7 +39,6 @@ import org.thoughtcrime.securesms.service.DirectoryRefreshListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
-import org.whispersystems.signalservice.api.SignalServiceAccountManager.NewDeviceRegistrationReturn;
 import org.whispersystems.signalservice.api.account.PreKeyCollection;
 import org.whispersystems.signalservice.api.account.PreKeyUpload;
 import org.whispersystems.signalservice.api.kbs.MasterKey;
@@ -125,31 +124,35 @@ public final class RegistrationRepository {
     }).subscribeOn(Schedulers.io());
   }
 
-  public Single<ServiceResponse<NewDeviceRegistrationReturn>> registerAccountFromPrimaryDevice(@NonNull RegistrationData registrationData,
-                                                                                               @NonNull NewDeviceRegistrationReturn response,
-                                                                                               int deviceId,
-                                                                                               String deviceName)
+  public Single<ServiceResponse<LinkDeviceResponse>> registerAccountFromPrimaryDevice(@NonNull RegistrationData registrationData,
+                                                                                      @NonNull LinkDeviceResponse response)
   {
-    return Single.<ServiceResponse<NewDeviceRegistrationReturn>>fromCallable(() -> {
+    return Single.<ServiceResponse<LinkDeviceResponse>>fromCallable(() -> {
       try {
         // We have to set the deviceId before setting the identity keys, or they will throw for not being a linked device
         // But we also have to set the identity keys before calling registerAccountInternal, otherwise it will generate new ones when creating the prekeys
-        SignalStore.account().setDeviceId(deviceId);
-        SignalStore.account().setAciIdentityKeysFromPrimaryDevice(response.getAciIdentity());
-        SignalStore.account().setPniIdentityKeyAfterChangeNumber(response.getPniIdentity());
+        SignalStore.account().setDeviceId(response.getDeviceId());
+        SignalStore.account().setAciIdentityKeysFromPrimaryDevice(response.getProvisionData().getAciIdentity());
+        SignalStore.account().setPniIdentityKeyAfterChangeNumber(response.getProvisionData().getPniIdentity());
         SignalStore.registrationValues().markNeedDownloadProfileAndAvatar();
         registerAccountInternal(new RegistrationData(registrationData.getCode(),
-                                                     response.getNumber(),
+                                                     response.getProvisionData().getNumber(),
                                                      registrationData.getPassword(),
                                                      registrationData.getRegistrationId(),
-                                                     response.getProfileKey() == null ? ProfileKeyUtil.createNew() : response.getProfileKey(),
+                                                     response.getProvisionData().getProfileKey() == null ? ProfileKeyUtil.createNew() : response.getProvisionData().getProfileKey(),
                                                      registrationData.getFcmToken(),
                                                      registrationData.getPniRegistrationId(),
                                                      registrationData.getRecoveryPassword()),
-                                response.getAci(), response.getPni(),
-                                generateSignedAndLastResortPreKeys(response.getAciIdentity(), SignalStore.account().aciPreKeys()),
-                                generateSignedAndLastResortPreKeys(response.getPniIdentity(), SignalStore.account().pniPreKeys()),
-                                false, deviceId, deviceName, null, null, false);
+                                response.getProvisionData().getAci(),
+                                response.getProvisionData().getPni(),
+                                response.getAciPreKeys(),
+                                response.getPniPreKeys(),
+                                false,
+                                response.getDeviceId(),
+                                response.getDeviceName(),
+                                null,
+                                null,
+                                false);
 
         JobManager jobManager = ApplicationDependencies.getJobManager();
         jobManager.add(new RotateCertificateJob());
@@ -163,29 +166,6 @@ public final class RegistrationRepository {
         return ServiceResponse.forUnknownError(e);
       }
     }).subscribeOn(Schedulers.io());
-  }
-
-  @WorkerThread
-  private void registerAccountInternal(@NonNull RegistrationData registrationData,
-                                       @NonNull VerifyResponse response,
-                                       boolean setRegistrationLockEnabled)
-      throws IOException
-  {
-    SignalStore.registrationValues().clearNeedDownloadProfile();
-    SignalStore.registrationValues().clearNeedDownloadProfileAvatar();
-    registerAccountInternal(
-        registrationData,
-        ACI.parseOrThrow(response.getVerifyAccountResponse().getUuid()),
-        PNI.parseOrThrow(response.getVerifyAccountResponse().getPni()),
-        response.getAciPreKeyCollection(),
-        response.getPniPreKeyCollection(),
-        response.getVerifyAccountResponse().isStorageCapable(),
-        SignalServiceAddress.DEFAULT_DEVICE_ID,
-        null,
-        response.getMasterKey(),
-        response.getPin(),
-        setRegistrationLockEnabled
-    );
   }
 
   @WorkerThread
@@ -245,23 +225,6 @@ public final class RegistrationRepository {
     saveOwnIdentityKey(selfId, pni, pniProtocolStore, now);
 
     SignalStore.account().setServicePassword(registrationData.getPassword());
-
-    if (deviceId != SignalServiceAddress.DEFAULT_DEVICE_ID) {
-      SignalServiceAccountManager accountManager = ApplicationDependencies.getSignalServiceAccountManager();
-      accountManager.setPreKeys(
-          new PreKeyUpload(ServiceIdType.ACI,
-                           aciPreKeyCollection.getIdentityKey(),
-                           aciPreKeyCollection.getSignedPreKey(),
-                           PreKeyUtil.generateAndStoreOneTimeEcPreKeys(aciProtocolStore, aciMetadataStore),
-                           null, null));
-      accountManager.setPreKeys(
-          new PreKeyUpload(ServiceIdType.PNI,
-                           pniPreKeyCollection.getIdentityKey(),
-                           pniPreKeyCollection.getSignedPreKey(),
-                           PreKeyUtil.generateAndStoreOneTimeEcPreKeys(pniProtocolStore, pniMetadataStore),
-                           null, null));
-    }
-
     SignalStore.account().setRegistered(true);
     TextSecurePreferences.setPromptedPushRegistration(context, true);
     TextSecurePreferences.setUnauthorizedReceived(context, false);
@@ -272,6 +235,29 @@ public final class RegistrationRepository {
     ApplicationDependencies.closeConnections();
     ApplicationDependencies.getIncomingMessageObserver();
     PreKeysSyncJob.enqueue();
+  }
+
+  @WorkerThread
+  private void registerAccountInternal(@NonNull RegistrationData registrationData,
+                                       @NonNull VerifyResponse response,
+                                       boolean setRegistrationLockEnabled)
+      throws IOException
+  {
+    SignalStore.registrationValues().clearNeedDownloadProfile();
+    SignalStore.registrationValues().clearNeedDownloadProfileAvatar();
+    registerAccountInternal(
+        registrationData,
+        ACI.parseOrThrow(response.getVerifyAccountResponse().getUuid()),
+        PNI.parseOrThrow(response.getVerifyAccountResponse().getPni()),
+        response.getAciPreKeyCollection(),
+        response.getPniPreKeyCollection(),
+        response.getVerifyAccountResponse().isStorageCapable(),
+        SignalServiceAddress.DEFAULT_DEVICE_ID,
+        null,
+        response.getMasterKey(),
+        response.getPin(),
+        setRegistrationLockEnabled
+    );
   }
 
   public static PreKeyCollection generateSignedAndLastResortPreKeys(IdentityKeyPair identity, PreKeyMetadataStore metadataStore) {
