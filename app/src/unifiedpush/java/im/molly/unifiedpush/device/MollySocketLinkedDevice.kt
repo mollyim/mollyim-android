@@ -2,21 +2,21 @@ package im.molly.unifiedpush.device
 
 import android.content.Context
 import im.molly.unifiedpush.model.MollyDevice
+import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.util.KeyHelper
 import org.thoughtcrime.securesms.AppCapabilities
-import org.thoughtcrime.securesms.crypto.PreKeyUtil
 import org.thoughtcrime.securesms.database.loaders.DeviceListLoader
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.devicelist.Device
+import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.push.AccountManagerFactory
+import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.Util
-import org.whispersystems.signalservice.api.account.PreKeyUpload
-import org.whispersystems.signalservice.api.messages.multidevice.VerifyDeviceResponse
-import org.whispersystems.signalservice.api.push.ServiceIdType
+import org.whispersystems.signalservice.api.account.AccountAttributes
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import java.io.IOException
 import java.nio.charset.Charset
@@ -64,13 +64,12 @@ class MollySocketLinkedDevice(val context: Context) {
       val number = SignalStore.account.e164 ?: return
       val password = Util.getSecret(18)
 
-      val verifyDeviceResponse = verifyNewDevice(number, password)
+      val deviceId = verifyNewDevice(number, password)
       TextSecurePreferences.setMultiDevice(context, true)
 
-      generateAndRegisterPreKeys(number, verifyDeviceResponse.deviceId, password)
       SignalStore.unifiedpush.device = MollyDevice(
-        uuid = verifyDeviceResponse.uuid.toString(),
-        deviceId = verifyDeviceResponse.deviceId,
+        uuid = SignalStore.account.aci.toString(),
+        deviceId = deviceId,
         password = password
       )
     } catch (e: IOException) {
@@ -79,7 +78,7 @@ class MollySocketLinkedDevice(val context: Context) {
   }
 
   @Throws(IOException::class)
-  private fun verifyNewDevice(number: String, password: String): VerifyDeviceResponse {
+  private fun verifyNewDevice(number: String, password: String): Int {
     val verificationCode = AppDependencies.signalServiceAccountManager
       .newDeviceVerificationCode
     val registrationId = KeyHelper.generateRegistrationId(false)
@@ -87,46 +86,31 @@ class MollySocketLinkedDevice(val context: Context) {
       DEVICE_NAME.toByteArray(Charset.forName("UTF-8")),
       SignalStore.account.aciIdentityKey
     )
+    val accountManager = AccountManagerFactory.getInstance().createUnauthenticated(context, number, SignalServiceAddress.DEFAULT_DEVICE_ID, password)
 
-    return AccountManagerFactory.getInstance().createUnauthenticated(context, number, SignalServiceAddress.DEFAULT_DEVICE_ID, password)
-      .verifySecondaryDevice(
+    val accountAttributes = AccountAttributes(
+      signalingKey = null,
+      registrationId = registrationId,
+      fetchesMessages = true,
+      registrationLock = null,
+      unidentifiedAccessKey = null,
+      unrestrictedUnidentifiedAccess = true,
+      capabilities = AppCapabilities.getCapabilities(true),
+      discoverableByPhoneNumber =
+        SignalStore.phoneNumberPrivacy.phoneNumberDiscoverabilityMode == PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.DISCOVERABLE,
+      name = Base64.encodeWithPadding(encryptedDeviceName),
+      pniRegistrationId = SignalStore.account.pniRegistrationId,
+      recoveryPassword = null
+    )
+
+    val aciPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(SignalStore.account.aciIdentityKey, SignalStore.account.aciPreKeys)
+    val pniPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(SignalStore.account.pniIdentityKey, SignalStore.account.pniPreKeys)
+
+    return accountManager.finishNewDeviceRegistration(
         verificationCode,
-        registrationId,
-        true,
-        "".toByteArray(),
-        true,
-        AppCapabilities.getCapabilities(true),
-        false,
-        encryptedDeviceName,
-        SignalStore.account.pniRegistrationId
+        accountAttributes,
+        aciPreKeyCollection, pniPreKeyCollection,
+        null
       )
-  }
-
-  @Throws(IOException::class)
-  private fun generateAndRegisterPreKeys(number: String, deviceId: Int, password: String): Boolean? {
-    val protocolStore = AppDependencies.protocolStore.aci()
-    val accountManager = AccountManagerFactory.getInstance().createAuthenticated(
-      context,
-      SignalStore.account.aci ?: return null,
-      SignalStore.account.pni ?: return null,
-      number,
-      deviceId,
-      password
-    )
-    val metadataStore = SignalStore.account.aciPreKeys
-    val signedPreKey = PreKeyUtil.generateAndStoreSignedPreKey(protocolStore, metadataStore)
-    val oneTimePreKeys = PreKeyUtil.generateAndStoreOneTimeEcPreKeys(protocolStore, metadataStore)
-    accountManager.setPreKeys(
-      PreKeyUpload(
-        serviceIdType = ServiceIdType.ACI,
-        signedPreKey = signedPreKey,
-        oneTimeEcPreKeys = oneTimePreKeys,
-        lastResortKyberPreKey = null,
-        oneTimeKyberPreKeys = null
-      )
-    )
-    metadataStore.activeSignedPreKeyId = signedPreKey.id
-    metadataStore.isSignedPreKeyRegistered = true
-    return true
   }
 }
