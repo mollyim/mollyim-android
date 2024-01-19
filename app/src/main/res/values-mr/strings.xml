@@ -323,8 +323,12 @@
     <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">प्रतिमा डाउनलोड करु शकत नाही. आपणाला तो पुन्हा पाठवण्याची गरज आहे.</string>
     <!-- Dialog error message shown when user can\'t download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
     <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">व्हिडिओ डाउनलोड करु शकत नाही. आपणाला तो पुन्हा पाठवण्याची गरज आहे.</string>
-    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp will go from \'11m\' to \'edited 11m\' -->
-    <string name="ConversationItem_edited_timestamp_footer">संपादित केलेले %1$s</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp represents a message that has been edited within the last minute. -->
+    <string name="ConversationItem_edited_now_timestamp_footer">आत्ता संपादित केलेले</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit has occurred between 1-59 minutes ago. -->
+    <string name="ConversationItem_edited_relative_timestamp_footer">%1$s संपादित केलेले</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit occurred at least 1 hour ago. -->
+    <string name="ConversationItem_edited_absolute_timestamp_footer">%1$s संपादित केलेले</string>
     <!-- Displayed if the link preview in the conversation item is for a call link call -->
     <string name="ConversationItem__join_call">कॉलमध्ये सामील व्हा</string>
 
@@ -358,6 +362,8 @@
     <string name="ConversationActivity_transport_insecure_mms">असुरक्षित MMS</string>
     <!-- A title for the option to send an SMS with a placeholder to put the name of their SIM card -->
     <string name="ConversationActivity_transport_signal">Signal संदेश</string>
+    <!-- The content description for button to send a message in a conversation -->
+    <string name="ConversationActivity_send_message_content_description">संदेश पाठवा</string>
     <string name="ConversationActivity_lets_switch_to_signal">Molly %1$s वर स्विच करूया</string>
     <string name="ConversationActivity_specify_recipient">कृपया एक संपर्क निवडा</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">संलग्नचा आकार आपण पाठवत असलेल्या संदेशाच्या प्रकारासाठीच्या मर्यादेपेक्षा जास्त आहे</string>
@@ -1277,6 +1283,10 @@
     <string name="MessageRecord_missed_voice_call">चूकवलेला व्हाईस कॉल</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_missed_video_call">चूकवलेला व्हिडिओ कॉल</string>
+    <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
+    <string name="MessageRecord_missed_voice_call_notification_profile">Missed voice call while notification profile on</string>
+    <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
+    <string name="MessageRecord_missed_video_call_notification_profile">Missed video call while notification profile on</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
     <string name="MessageRecord_you_declined_a_voice_call">आपण व्हाईस कॉलला नकार दिला</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
@@ -1828,6 +1838,8 @@
     <string name="WebRtcCallView__toggle_camera">कॅमेरा टॉगल करा</string>
     <!-- Toggle content description for toggling mute state  -->
     <string name="WebRtcCallView__toggle_mute">म्यूट टॉगल करा</string>
+    <!-- Content description for additional actions menu button -->
+    <string name="WebRtcCallView__additional_actions">अतिरिक्त क्रिया</string>
     <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">कॉल संपवा</string>
 
@@ -1844,10 +1856,68 @@
     <!-- A text description of the earpiece icon, used for accessibility. -->
     <string name="WebRtcAudioOutputBottomSheet__earpiece_icon_content_description">डिव्हाईसच्या ईअरपीसचे प्रतिनिधित्व करणारे चिन्ह.</string>
 
+    <!-- A clickable button to "raise your hand" in a group call to signify you have something to say -->
+    <string name="CallOverflowPopupWindow__raise_hand">हात वर करा</string>
+    <!-- A description of a clickable image representing a raised hand -->
+    <string name="CallOverflowPopupWindow__raise_hand_illustration_content_description">हात वर करा</string>
+    <!-- A dialog prompt to confirm you want to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_your_hand">आपल्याला हात खाली करायचा आहे?</string>
+    <!-- A dialog button to confirm you would like to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_hand">हात खाली घ्या</string>
+    <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
+    <string name="CallOverflowPopupWindow__cancel">रद्द करा</string>
+    <!-- A notification to the user that they successfully raised their hand -->
+    <string name="CallOverflowPopupWindow__you_raised_your_hand">आपण आपला हात वर केला आहे</string>
+    <!-- A button to take you to a list of participants with raised hands -->
+    <string name="CallOverflowPopupWindow__view">बघा</string>
+
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
+    <plurals name="CallOverflowPopupWindow__raised_a_hand">
+        <item quantity="one">%1$s ने हात वर केला आहे</item>
+        <item quantity="other">%1$s + %2$d नी हात वर केला आहे</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
+    <plurals name="CallRaiseHandSnackbar_raised_hands">
+        <item quantity="one">%1$s</item>
+        <item quantity="other">%1$s +%2$d</item>
+    </plurals>
+
+    <!-- An accessibility label for screen readers on a view that can be expanded -->
+    <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">वर केलेल्या हाताचा दृश्य विस्तार करा</string>
+
+    <!-- AboutSheet -->
+    <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
+    <string name="AboutSheet__signal_connection">Signal कनेक्शन</string>
+    <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
+    <string name="AboutSheet__s_is_in_your_system_contacts">%1$s आपल्या सिस्टिम संपर्कामध्ये आहेत</string>
+    <!-- Notice in a row when user has no groups in common -->
+    <string name="AboutSheet__you_have_no_groups_in_common">आपल्याकडे कोणताही सामायिक गट नाही</string>
+    <!-- Notice when a user is not a connection to review requests carefully -->
+    <string name="AboutSheet__review_requests_carefully">विनंत्यांचे काळजीपूर्वक पुनरावलोकन करा</string>
+    <!-- Text used when user has groups in common. Placeholder is the count -->
+    <string name="AboutSheet__d_groups_in_common">सामान्यत: %1$d गट</string>
+    <!-- Text displayed in title for external recipients -->
+    <string name="AboutSheet__about">आपल्याबद्दल</string>
+    <!-- Text displayed in title for you -->
+    <string name="AboutSheet__you">आपण</string>
+
     <!-- CallParticipantsListDialog -->
-    <plurals name="CallParticipantsListDialog_in_this_call_d_people">
-        <item quantity="one">या कॉलमध्ये · %1$d व्यक्ती</item>
-        <item quantity="other">या कॉलमध्ये · %1$d व्यक्ती</item>
+    <plurals name="CallParticipantsListDialog_in_this_call">
+        <item quantity="one">(%1$d)या कॉलमध्ये</item>
+        <item quantity="other">(%1$d)या कॉल्समध्ये</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_ring">
+        <item quantity="one">(%1$d)ला Signal रिंग करेल</item>
+        <item quantity="other">(%1$d) ला Signal रिंग करेल</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_notify">
+        <item quantity="one">(%1$d)ला Signal सूचित करेल</item>
+        <item quantity="other">(%1$d)ना Signal सूचित करेल</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__raised_hands">
+        <item quantity="one">(%1$d) ने हात वर केला</item>
+        <item quantity="other">(%1$d) नी हात वर केला</item>
     </plurals>
 
     <!-- CallParticipantView -->
@@ -1960,6 +2030,12 @@
     <string name="RevealableMessageView_view_video">व्हिडिओ बघा</string>
     <string name="RevealableMessageView_viewed">बघितले</string>
     <string name="RevealableMessageView_media">मिडिया</string>
+
+    <!-- ReviewBannerView -->
+    <!-- ReviewBannerView text when a name conflict has been found -->
+    <string name="ReviewBannerView__name_conflict_found">नावात गोंधळ आढळला</string>
+    <!-- Button label to view name conflicts -->
+    <string name="ReviewBannerView__view">बघा</string>
 
     <!-- Search -->
     <string name="SearchFragment_no_results">\'%1$s\' करिता कुठलेही परिणाम नाहीत</string>
@@ -2127,6 +2203,8 @@
     <string name="UnverifiedSendDialog_send">पाठवा</string>
 
     <!-- UsernameEditFragment -->
+    <!-- Placeholder text for custom discriminator -->
+    <string name="UsernameEditFragment__00">00</string>
     <!-- Toolbar title when entering from registration -->
     <string name="UsernameEditFragment__add_a_username">वापरकर्तानाव जोडा</string>
     <!-- Instructional text at the top of the username edit screen -->
@@ -2149,6 +2227,12 @@
     <string name="UsernameEditFragment__skip">वगळा</string>
     <!-- Content description for done button -->
     <string name="UsernameEditFragment__done">ठीक</string>
+    <!-- Displayed when the chosen discriminator is not available for the given nickname -->
+    <string name="UsernameEditFragment__this_username_is_not_available_try_another_number">This username is not available, try another number.</string>
+    <!-- Displayed when the chosen discriminator is too short -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Invalid username, enter a minimum of %1$d digits.</string>
+    <!-- Displayed when the chosen discriminator is too long -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Invalid username, enter a maximum of %1$d digits.</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%1$d संपर्क Signal वर आहे!</item>
@@ -2346,6 +2430,10 @@
     </plurals>
     <!-- Status update label used while the device is transcoding video as a prerequisite to uploading -->
     <string name="TransferControlView__processing">प्रक्रिया करत आहे…</string>
+    <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
+    <string name="TransferControlView__download_progress">%1$1.1f MB/%2$2.1f MB</string>
+    <!-- Attachment file size label for not-yet-downloaded images and video. Will take the form of "1.0 MB" -->
+    <string name="TransferControlView__filesize">%1$1.1f MB</string>
 
 
     <!-- UnauthorizedReminder -->
@@ -2370,6 +2458,8 @@
     <string name="WebRtcCallActivity__answered_on_a_linked_device">लिंक केलेल्या डिव्हाईसवर उत्तर दिले.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">लिंक केलेल्या डिव्हाईसवर नकार दिला.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">लिंक केलेल्या डिव्हाईसवर व्यस्त.</string>
+    <!-- Tooltip message shown first time user is in a video call after switch camera button moved -->
+    <string name="WebRtcCallActivity__flip_camera_tooltip">फ्लिप कॅमेरा या ठिकाणी हलवण्यात आले आहे, त्याला वापरून पाहण्यासाठी आपल्या व्हिडीओवर टॅप करा</string>
 
     <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">कुणीतरी कॉलमध्ये सामील झाले आहे ज्यांचा सुरक्षितता नंबर बदलला आहे.</string>
 
@@ -3925,14 +4015,16 @@
     <string name="ReviewCardDialogFragment__failed_to_remove_group_member">ग्रुप सदस्य काढून टाकण्यात अयशस्वी.</string>
 
     <!-- ReviewCard -->
-    <string name="ReviewCard__member">सदस्य</string>
     <string name="ReviewCard__request">विनंती</string>
     <string name="ReviewCard__your_contact">आपला संपर्क</string>
     <string name="ReviewCard__remove_from_group">ग्रुपमधून काढून टाका</string>
     <string name="ReviewCard__update_contact">संपर्क अद्यतनित करा</string>
     <string name="ReviewCard__block">अवरोधित करा</string>
     <string name="ReviewCard__delete">हटवा</string>
-    <string name="ReviewCard__recently_changed">अलीकडे त्यांनी %1$s वरून %2$s ला नाव बदलले आहे</string>
+    <!-- Displayed when a recent name change has occurred. First placeholder is new short name, second is previous name, third is new name. -->
+    <string name="ReviewCard__s_recently_changed">%1$s नी अलिकडेच त्यांचे प्रोफाइन नाव %2$s वरून %3$s ला बदलले</string>
+    <!-- Displayed when a review user is in your system contacts. Placeholder is short name. -->
+    <string name="ReviewCard__s_is_in_your_system_contacts">%1$s आपल्या सिस्टिम संपर्कामध्ये आहेत</string>
 
     <!-- CallParticipantsListUpdatePopupWindow -->
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s सामील झाले</string>
@@ -4988,6 +5080,12 @@
     <string name="AddAllowedMembers__add_people_and_groups_you_want_notifications_and_calls_from_when_this_profile_is_on">हे प्रोफाइल चालू असताना ज्यांच्याकडून आपल्याला सूचना आणि कॉल हवे आहे असे लोक आणि गट जोडा</string>
     <!-- Button text that launches the contact picker to select from -->
     <string name="AddAllowedMembers__add_people_or_groups">लोक किंवा गट जोडा</string>
+    <!-- Title for exceptions section of add people to notification profile screen in create flow -->
+    <string name="AddAllowedMembers__exceptions">अपवाद</string>
+    <!-- List preference to toggle that allows calls through the notification profile during create flow -->
+    <string name="AddAllowedMembers__allow_all_calls">सर्व कॉल्सना परवानगी द्या</string>
+    <!-- List preference to toggle that allows mentions through the notification profile during create flow -->
+    <string name="AddAllowedMembers__notify_for_all_mentions">सर्व उल्लेखांसाठी सूचित करा</string>
 
     <!-- Call to action button on contact picker for adding to profile -->
     <string name="SelectRecipientsFragment__add">जोडा</string>
@@ -5602,8 +5700,8 @@
     <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">सर्व कनेक्शन्सचे पुनरावलोकन करण्यात आले आहे, पुढे सुरू ठेवण्यासाठी टॅप करा.</string>
     <!-- Message of safety number changes bottom sheet when not showing individual records -->
     <plurals name="SafetyNumberBottomSheetFragment__you_have_d_connections_plural">
-        <item quantity="one">आपल्याकडे %1$d कनेक्शन आहे ज्यांनी Signal पुन्हा स्थापना केले किंवा डिव्हाइसेस बदलली असण्याची शक्यता आहे. आपण आपली स्टोरी त्यांच्यासोबत शेअर करण्यापूर्वी त्यांच्या सुरक्षा क्रमांकाचे पुनवरालोकन करा किंवा तुमच्या स्टोरीमधून ते काढून टाकण्याचे विचारात घ्या.</item>
-        <item quantity="other">आपल्याकडे %1$d कनेक्शन्स आहेत ज्यांनी Signal पुन्हा स्थापना केले किंवा डिव्हायसेस बदलले असण्याची शक्यता आहे. आपण आपली स्टोरी त्यांच्यासोबत शेअर करण्यापूर्वी त्यांच्या सुरक्षा क्रमांकाचे पुनवरालोकन करा किंवा तुमच्या स्टोरीमधून ते काढून टाकण्याचे विचारात घ्या.</item>
+        <item quantity="one">%1$d connection may have reinstalled Signal or changed devices. You may review their safety number or continue with the send.</item>
+        <item quantity="other">%1$d connections may have reinstalled Signal or changed devices. You may review their safety numbers or continue with the send.</item>
     </plurals>
     <!-- Menu action to launch safety number verification screen -->
     <string name="SafetyNumberBottomSheetFragment__verify_safety_number">सुरक्षितता नंबर सत्यापित करा</string>
@@ -5961,12 +6059,18 @@
     <string name="BankTransferDetailsFragment__iban_country_code_is_not_supported">IBAN देश कोड समर्थित नाही</string>
     <!-- Error label for IBAN field when number is invalid -->
     <string name="BankTransferDetailsFragment__invalid_iban">अवैध IBAN</string>
+    <!-- Error label for name field when name is not at least two characters long -->
+    <string name="BankTransferDetailsFragment__minimum_2_characters">किमान 2 वर्ण</string>
+    <!-- Error label for email field when email is not valid -->
+    <string name="BankTransferDetailsFragment__invalid_email_address">अवैध ईमेल पत्ता</string>
 
     <!-- IdealTransferDetailsFragment -->
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank">आपल्या बँकेचे नाव आणि ईमेल प्रविष्ट करा. Stripe हा ईमेल आपणाला आपल्या देणगीबद्दल अद्यतने पाठवण्यास वापरते. %1$s</string>
+    <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
+    <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">आपला बँक तपशील प्रविष्ट करा. Signal आपली वैयक्तिक माहिती संकलित किंवा संग्रहित करत नाही. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
     <string name="IdealTransferDetailsFragment__learn_more">अधिक जाणून घ्या</string>
     <!-- Hint label for text entry box for name on bank account -->
@@ -6152,6 +6256,8 @@
     <string name="CallLogAdapter__outgoing">बाहेर जाणारे</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">मिस्ड</string>
+    <!-- Displayed for missed calls declined by notification profile -->
+    <string name="CallLogAdapter__missed_notification_profile">Missed while notification profile on</string>
     <!-- Displayed on Group Call button if user is not in the call -->
     <string name="CallLogAdapter__join">सामील व्हा</string>
     <!-- Displayed on Group Call button if user is in the call -->
@@ -6259,6 +6365,8 @@
     <string name="CallPreference__group_call">गट कॉल</string>
     <!-- Missed group call in call info -->
     <string name="CallPreference__missed_group_call">चुकलेले ग्रुप कॉल</string>
+    <!-- Missed group call while notification profile on in call info -->
+    <string name="CallPreference__missed_group_call_notification_profile">Missed group call while notification profile on</string>
     <!-- Incoming group call in call info -->
     <string name="CallPreference__incoming_group_call">येणारे ग्रुप कॉल</string>
     <!-- Outgoing group call in call info -->

@@ -39,6 +39,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientExporter;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
+import org.thoughtcrime.securesms.recipients.ui.about.AboutSheet;
 import org.thoughtcrime.securesms.util.BottomSheetUtil;
 import org.thoughtcrime.securesms.util.ContextUtil;
 import org.thoughtcrime.securesms.util.DrawableUtil;
@@ -191,7 +192,13 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
       } else if (recipient.showVerified()) {
         SpanUtil.appendCenteredImageSpan(nameBuilder, ContextUtil.requireDrawable(requireContext(), R.drawable.ic_official_28), 28, 28);
       }
+
+      SpanUtil.appendCenteredImageSpan(nameBuilder, ContextUtil.requireDrawable(requireContext(), R.drawable.symbol_chevron_right_24_color_on_secondary_container), 24, 24);
       fullName.setText(nameBuilder);
+      fullName.setOnClickListener(v -> {
+        dismiss();
+        AboutSheet.create(recipient).show(getParentFragmentManager(), null);
+      });
 
       String aboutText = recipient.getCombinedAboutAndEmoji();
       if (recipient.isReleaseNotes()) {
@@ -205,7 +212,7 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
         about.setVisibility(View.GONE);
       }
 
-      String usernameNumberString = recipient.hasAUserSetDisplayName(requireContext()) && !recipient.isSelf()
+      String usernameNumberString = recipient.hasAUserSetDisplayName(requireContext()) && !recipient.isSelf() && recipient.shouldShowE164()
                                     ? recipient.getSmsAddress().map(PhoneNumberFormatter::prettyPrint).orElse("").trim()
                                     : "";
       usernameNumber.setText(usernameNumberString);

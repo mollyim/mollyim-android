@@ -79,6 +79,7 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientExporter
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.RecipientUtil
+import org.thoughtcrime.securesms.recipients.ui.about.AboutSheet
 import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.stories.StoryViewerArgs
@@ -331,7 +332,10 @@ class ConversationSettingsFragment : DSLSettingsFragment(
         customPref(
           BioTextPreference.RecipientModel(
             recipient = state.recipient,
-            linkedDevices = RecipientUtil.getSubDeviceCount(requireContext(), state.recipient).orElse(null)
+            linkedDevices = RecipientUtil.getSubDeviceCount(requireContext(), state.recipient).orElse(null),
+            onHeadlineClickListener = {
+              AboutSheet.create(state.recipient).show(parentFragmentManager, null)
+            }
           )
         )
       }

@@ -1,5 +1,7 @@
 package org.whispersystems.signalservice.api.crypto;
 
+import org.signal.libsignal.internal.Native;
+import org.signal.libsignal.internal.NativeHandleGuard;
 import org.signal.libsignal.metadata.InvalidMetadataMessageException;
 import org.signal.libsignal.metadata.InvalidMetadataVersionException;
 import org.signal.libsignal.metadata.ProtocolDuplicateMessageException;
@@ -19,9 +21,14 @@ import org.signal.libsignal.protocol.InvalidRegistrationIdException;
 import org.signal.libsignal.protocol.NoSessionException;
 import org.signal.libsignal.protocol.SignalProtocolAddress;
 import org.signal.libsignal.protocol.UntrustedIdentityException;
+import org.signal.libsignal.protocol.state.SessionRecord;
+import org.signal.libsignal.protocol.state.SignalProtocolStore;
 import org.whispersystems.signalservice.api.SignalSessionLock;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * A thread-safe wrapper around {@link SealedSessionCipher}.
@@ -44,11 +51,12 @@ public class SignalSealedSessionCipher {
     }
   }
 
-  public byte[] multiRecipientEncrypt(List<SignalProtocolAddress> recipients, UnidentifiedSenderMessageContent content)
+  public byte[] multiRecipientEncrypt(List<SignalProtocolAddress> recipients, Map<SignalProtocolAddress, SessionRecord> sessionMap, UnidentifiedSenderMessageContent content)
       throws InvalidKeyException, UntrustedIdentityException, NoSessionException, InvalidRegistrationIdException
   {
     try (SignalSessionLock.Lock unused = lock.acquire()) {
-      return cipher.multiRecipientEncrypt(recipients, content);
+      List<SessionRecord> recipientSessions = recipients.stream().map(sessionMap::get).collect(Collectors.toList());
+      return cipher.multiRecipientEncrypt(recipients, recipientSessions, content);
     }
   }
 

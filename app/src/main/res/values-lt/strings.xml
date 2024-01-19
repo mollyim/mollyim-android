@@ -325,8 +325,12 @@
     <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">Nepavyksta atsisiųsti vaizdo. Turėsi dar kartą ją išsiųsti.</string>
     <!-- Dialog error message shown when user can\'t download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
     <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">Nepavyksta atsisiųsti vaizdo įrašo. Turėsi dar kartą ją išsiųsti.</string>
-    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp will go from \'11m\' to \'edited 11m\' -->
-    <string name="ConversationItem_edited_timestamp_footer">Redaguota %1$s</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp represents a message that has been edited within the last minute. -->
+    <string name="ConversationItem_edited_now_timestamp_footer">Redaguota dabar</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit has occurred between 1-59 minutes ago. -->
+    <string name="ConversationItem_edited_relative_timestamp_footer">Redaguota %1$s</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit occurred at least 1 hour ago. -->
+    <string name="ConversationItem_edited_absolute_timestamp_footer">Redaguota %1$s</string>
     <!-- Displayed if the link preview in the conversation item is for a call link call -->
     <string name="ConversationItem__join_call">Prisijungti prie skambučio</string>
 
@@ -364,6 +368,8 @@
     <string name="ConversationActivity_transport_insecure_mms">Nesaugi MMS</string>
     <!-- A title for the option to send an SMS with a placeholder to put the name of their SIM card -->
     <string name="ConversationActivity_transport_signal">Signal žinutė</string>
+    <!-- The content description for button to send a message in a conversation -->
+    <string name="ConversationActivity_send_message_content_description">Siųsti žinutę</string>
     <string name="ConversationActivity_lets_switch_to_signal">Bendraukime per Molly %1$s</string>
     <string name="ConversationActivity_specify_recipient">Pasirinkite adresatą</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Priedas viršija jūsų siunčiamos žinutės tipui leidžiamą dydį.</string>
@@ -1365,6 +1371,10 @@
     <string name="MessageRecord_missed_voice_call">Praleistas balso skambutis</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_missed_video_call">Praleistas vaizdo skambutis</string>
+    <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
+    <string name="MessageRecord_missed_voice_call_notification_profile">Missed voice call while notification profile on</string>
+    <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
+    <string name="MessageRecord_missed_video_call_notification_profile">Missed video call while notification profile on</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
     <string name="MessageRecord_you_declined_a_voice_call">Tu atmetei balso skambutį</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
@@ -1970,6 +1980,8 @@
     <string name="WebRtcCallView__toggle_camera">Perjungti kamerą</string>
     <!-- Toggle content description for toggling mute state  -->
     <string name="WebRtcCallView__toggle_mute">Perjungti nutildymą</string>
+    <!-- Content description for additional actions menu button -->
+    <string name="WebRtcCallView__additional_actions">Papildomi veiksmai</string>
     <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">Baigti skambutį</string>
 
@@ -1986,12 +1998,80 @@
     <!-- A text description of the earpiece icon, used for accessibility. -->
     <string name="WebRtcAudioOutputBottomSheet__earpiece_icon_content_description">Piktograma, vaizduojanti įrenginio ausinę.</string>
 
+    <!-- A clickable button to "raise your hand" in a group call to signify you have something to say -->
+    <string name="CallOverflowPopupWindow__raise_hand">Pakelti ranką</string>
+    <!-- A description of a clickable image representing a raised hand -->
+    <string name="CallOverflowPopupWindow__raise_hand_illustration_content_description">Pakelti ranką</string>
+    <!-- A dialog prompt to confirm you want to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_your_hand">Nuleisti ranką?</string>
+    <!-- A dialog button to confirm you would like to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_hand">Nuleisti ranką</string>
+    <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
+    <string name="CallOverflowPopupWindow__cancel">Atšaukti</string>
+    <!-- A notification to the user that they successfully raised their hand -->
+    <string name="CallOverflowPopupWindow__you_raised_your_hand">Pakėlėte ranką</string>
+    <!-- A button to take you to a list of participants with raised hands -->
+    <string name="CallOverflowPopupWindow__view">Rodyti</string>
+
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
+    <plurals name="CallOverflowPopupWindow__raised_a_hand">
+        <item quantity="one">Rankas pakėlė %1$s</item>
+        <item quantity="few">Rankas pakėlė %1$s + %2$d</item>
+        <item quantity="many">Rankas pakėlė %1$s + %2$d</item>
+        <item quantity="other">Rankas pakėlė %1$s + %2$d</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
+    <plurals name="CallRaiseHandSnackbar_raised_hands">
+        <item quantity="one">%1$s</item>
+        <item quantity="few">%1$s + %2$d</item>
+        <item quantity="many">%1$s + %2$d</item>
+        <item quantity="other">%1$s + %2$d</item>
+    </plurals>
+
+    <!-- An accessibility label for screen readers on a view that can be expanded -->
+    <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Išplėsti pakeltos rankos rodinį</string>
+
+    <!-- AboutSheet -->
+    <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
+    <string name="AboutSheet__signal_connection">„Signal“ ryšys</string>
+    <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
+    <string name="AboutSheet__s_is_in_your_system_contacts">%1$s yra jūsų sistemos kontaktuose</string>
+    <!-- Notice in a row when user has no groups in common -->
+    <string name="AboutSheet__you_have_no_groups_in_common">Neturi bendrų grupių</string>
+    <!-- Notice when a user is not a connection to review requests carefully -->
+    <string name="AboutSheet__review_requests_carefully">Atidžiai peržiūrėkite prašymus</string>
+    <!-- Text used when user has groups in common. Placeholder is the count -->
+    <string name="AboutSheet__d_groups_in_common">Bendrų grupių: %1$d</string>
+    <!-- Text displayed in title for external recipients -->
+    <string name="AboutSheet__about">Apie</string>
+    <!-- Text displayed in title for you -->
+    <string name="AboutSheet__you">Jūs</string>
+
     <!-- CallParticipantsListDialog -->
-    <plurals name="CallParticipantsListDialog_in_this_call_d_people">
-        <item quantity="one">Šiame skambutyje · %1$d žmogus</item>
-        <item quantity="few">Šiame skambutyje · %1$d žmonės</item>
-        <item quantity="many">Šiame skambutyje · %1$d žmonių</item>
-        <item quantity="other">Šiame skambutyje · %1$d žmogus</item>
+    <plurals name="CallParticipantsListDialog_in_this_call">
+        <item quantity="one">Šiame skambutyje (%1$d)</item>
+        <item quantity="few">Šiame skambutyje (%1$d)</item>
+        <item quantity="many">Šiame skambutyje (%1$d)</item>
+        <item quantity="other">Šiame skambutyje (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_ring">
+        <item quantity="one">„Signal“ paskambins (%1$d)</item>
+        <item quantity="few">„Signal“ paskambins (%1$d)</item>
+        <item quantity="many">„Signal“ paskambins (%1$d)</item>
+        <item quantity="other">„Signal“ paskambins (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_notify">
+        <item quantity="one">„Signal“ praneš (%1$d)</item>
+        <item quantity="few">„Signal“ praneš (%1$d)</item>
+        <item quantity="many">„Signal“ praneš (%1$d)</item>
+        <item quantity="other">„Signal“ praneš (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__raised_hands">
+        <item quantity="one">Pakelta ranka (%1$d)</item>
+        <item quantity="few">Pakeltos rankos (%1$d)</item>
+        <item quantity="many">Pakelta rankų (%1$d)</item>
+        <item quantity="other">Pakelta rankų (%1$d)</item>
     </plurals>
 
     <!-- CallParticipantView -->
@@ -2106,6 +2186,12 @@
     <string name="RevealableMessageView_view_video">Rodyti vaizdo įrašą</string>
     <string name="RevealableMessageView_viewed">Peržiūrėta</string>
     <string name="RevealableMessageView_media">Medija</string>
+
+    <!-- ReviewBannerView -->
+    <!-- ReviewBannerView text when a name conflict has been found -->
+    <string name="ReviewBannerView__name_conflict_found">Rastas vardų konfliktas</string>
+    <!-- Button label to view name conflicts -->
+    <string name="ReviewBannerView__view">Rodyti</string>
 
     <!-- Search -->
     <string name="SearchFragment_no_results">Nerasta jokių rezultatų, atitinkančių „%1$s“</string>
@@ -2273,6 +2359,8 @@
     <string name="UnverifiedSendDialog_send">Siųsti</string>
 
     <!-- UsernameEditFragment -->
+    <!-- Placeholder text for custom discriminator -->
+    <string name="UsernameEditFragment__00">00</string>
     <!-- Toolbar title when entering from registration -->
     <string name="UsernameEditFragment__add_a_username">Pridėti naudotojo vardą</string>
     <!-- Instructional text at the top of the username edit screen -->
@@ -2295,6 +2383,12 @@
     <string name="UsernameEditFragment__skip">Praleisti</string>
     <!-- Content description for done button -->
     <string name="UsernameEditFragment__done">Atlikta</string>
+    <!-- Displayed when the chosen discriminator is not available for the given nickname -->
+    <string name="UsernameEditFragment__this_username_is_not_available_try_another_number">This username is not available, try another number.</string>
+    <!-- Displayed when the chosen discriminator is too short -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Invalid username, enter a minimum of %1$d digits.</string>
+    <!-- Displayed when the chosen discriminator is too long -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Invalid username, enter a maximum of %1$d digits.</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%1$d adresatas naudoja Signal!</item>
@@ -2500,6 +2594,10 @@
     </plurals>
     <!-- Status update label used while the device is transcoding video as a prerequisite to uploading -->
     <string name="TransferControlView__processing">Apdorojama…</string>
+    <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
+    <string name="TransferControlView__download_progress">%1$1.1f MB/%2$2.1f MB</string>
+    <!-- Attachment file size label for not-yet-downloaded images and video. Will take the form of "1.0 MB" -->
+    <string name="TransferControlView__filesize">%1$1.1f MB</string>
 
 
     <!-- UnauthorizedReminder -->
@@ -2524,6 +2622,8 @@
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Atsiliepta susietame įrenginyje.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Atmesta susietame įrenginyje.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Užimta susietame įrenginyje.</string>
+    <!-- Tooltip message shown first time user is in a video call after switch camera button moved -->
+    <string name="WebRtcCallActivity__flip_camera_tooltip">Funkcija „Apversti kamerą“ perkelta čia – palieskite savo vaizdą, kad išbandytumėte</string>
 
     <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">Prie šio skambučio prisijungė kažkas su pasikeitusiu saugumo numeriu.</string>
 
@@ -4127,14 +4227,16 @@
     <string name="ReviewCardDialogFragment__failed_to_remove_group_member">Nepavyko pašalinti grupės nario.</string>
 
     <!-- ReviewCard -->
-    <string name="ReviewCard__member">Narys</string>
     <string name="ReviewCard__request">Prašyti</string>
     <string name="ReviewCard__your_contact">Jūsų adresatas</string>
     <string name="ReviewCard__remove_from_group">Šalinti iš grupės</string>
     <string name="ReviewCard__update_contact">Atnaujinti adresatą</string>
     <string name="ReviewCard__block">Užblokuoti</string>
     <string name="ReviewCard__delete">Ištrinti</string>
-    <string name="ReviewCard__recently_changed">Neseniai pasikeitė profilio vardą iš %1$s į %2$s</string>
+    <!-- Displayed when a recent name change has occurred. First placeholder is new short name, second is previous name, third is new name. -->
+    <string name="ReviewCard__s_recently_changed">%1$s neseniai pasikeitė profilio vardą iš %2$s į %3$s</string>
+    <!-- Displayed when a review user is in your system contacts. Placeholder is short name. -->
+    <string name="ReviewCard__s_is_in_your_system_contacts">%1$s yra jūsų sistemos kontaktuose</string>
 
     <!-- CallParticipantsListUpdatePopupWindow -->
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">Prisijungė %1$s</string>
@@ -5208,6 +5310,12 @@
     <string name="AddAllowedMembers__add_people_and_groups_you_want_notifications_and_calls_from_when_this_profile_is_on">Pridėkite žmones ir grupes iš kurių, įjungus šį profilį, norite gauti pranešimus ir skambučius</string>
     <!-- Button text that launches the contact picker to select from -->
     <string name="AddAllowedMembers__add_people_or_groups">Pridėti žmones ar grupes</string>
+    <!-- Title for exceptions section of add people to notification profile screen in create flow -->
+    <string name="AddAllowedMembers__exceptions">Išimtys</string>
+    <!-- List preference to toggle that allows calls through the notification profile during create flow -->
+    <string name="AddAllowedMembers__allow_all_calls">Leisti visus skambučius</string>
+    <!-- List preference to toggle that allows mentions through the notification profile during create flow -->
+    <string name="AddAllowedMembers__notify_for_all_mentions">Pranešti apie visus paminėjimus</string>
 
     <!-- Call to action button on contact picker for adding to profile -->
     <string name="SelectRecipientsFragment__add">Pridėti</string>
@@ -5856,10 +5964,10 @@
     <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">Visi kontaktai peržiūrėti; bakstelėkite „Siųsti“, jei norite tęsti.</string>
     <!-- Message of safety number changes bottom sheet when not showing individual records -->
     <plurals name="SafetyNumberBottomSheetFragment__you_have_d_connections_plural">
-        <item quantity="one">Turi %1$d kontaktą, kuris galbūt iš naujo įdiegė „Signal“ arba pakeitė įrenginį. Prieš savo istorijos bendrinimą peržiūrėk jo saugumo numerius ir arba apsvarstyk galimybę pašalinti iš savo istorijos.</item>
-        <item quantity="few">Turi %1$d kontaktus, kurie galbūt iš naujo įdiegė „Signal“ arba pakeitė įrenginius. Prieš savo istorijos bendrinimą peržiūrėk jų saugumo numerius ir arba apsvarstyk galimybę pašalinti iš savo istorijos.</item>
-        <item quantity="many">Turi %1$d kontakto, kurie galbūt iš naujo įdiegė „Signal“ arba pakeitė įrenginius. Prieš savo istorijos bendrinimą peržiūrėk jų saugumo numerius ir arba apsvarstyk galimybę pašalinti iš savo istorijos.</item>
-        <item quantity="other">Turi %1$d kontaktų, kurie galbūt iš naujo įdiegė „Signal“ arba pakeitė įrenginius. Prieš savo istorijos bendrinimą peržiūrėk jų saugumo numerius ir arba apsvarstyk galimybę pašalinti iš savo istorijos.</item>
+        <item quantity="one">%1$d connection may have reinstalled Signal or changed devices. You may review their safety number or continue with the send.</item>
+        <item quantity="few">%1$d connections may have reinstalled Signal or changed devices. You may review their safety numbers or continue with the send.</item>
+        <item quantity="many">%1$d connections may have reinstalled Signal or changed devices. You may review their safety numbers or continue with the send.</item>
+        <item quantity="other">%1$d connections may have reinstalled Signal or changed devices. You may review their safety numbers or continue with the send.</item>
     </plurals>
     <!-- Menu action to launch safety number verification screen -->
     <string name="SafetyNumberBottomSheetFragment__verify_safety_number">Patvirtinti saugumo numerį</string>
@@ -6225,12 +6333,18 @@
     <string name="BankTransferDetailsFragment__iban_country_code_is_not_supported">IBAN šalies kodas nepalaikomas</string>
     <!-- Error label for IBAN field when number is invalid -->
     <string name="BankTransferDetailsFragment__invalid_iban">Neteisingas IBAN</string>
+    <!-- Error label for name field when name is not at least two characters long -->
+    <string name="BankTransferDetailsFragment__minimum_2_characters">Reikia bent 2 simbolių</string>
+    <!-- Error label for email field when email is not valid -->
+    <string name="BankTransferDetailsFragment__invalid_email_address">Netinkamas el. pašto adresas</string>
 
     <!-- IdealTransferDetailsFragment -->
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank">Įvesk savo banko duomenis, vardą ir el. pašto adresą. „Stripe“ šiuo el. pašto adresu siųs naujienas apie skirtą paramą. %1$s</string>
+    <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
+    <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Įveskite savo banko duomenis. Jūsų asmeninės informacijos „Signal“ nerenka ir nekaupia. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
     <string name="IdealTransferDetailsFragment__learn_more">Sužinoti daugiau</string>
     <!-- Hint label for text entry box for name on bank account -->
@@ -6418,6 +6532,8 @@
     <string name="CallLogAdapter__outgoing">Išsiunčiamieji</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">Praleisti</string>
+    <!-- Displayed for missed calls declined by notification profile -->
+    <string name="CallLogAdapter__missed_notification_profile">Missed while notification profile on</string>
     <!-- Displayed on Group Call button if user is not in the call -->
     <string name="CallLogAdapter__join">Prisijungti</string>
     <!-- Displayed on Group Call button if user is in the call -->
@@ -6531,6 +6647,8 @@
     <string name="CallPreference__group_call">Grupės skambutis</string>
     <!-- Missed group call in call info -->
     <string name="CallPreference__missed_group_call">Praleistas grupės skambutis</string>
+    <!-- Missed group call while notification profile on in call info -->
+    <string name="CallPreference__missed_group_call_notification_profile">Missed group call while notification profile on</string>
     <!-- Incoming group call in call info -->
     <string name="CallPreference__incoming_group_call">Gaunamasis grupės skambutis</string>
     <!-- Outgoing group call in call info -->

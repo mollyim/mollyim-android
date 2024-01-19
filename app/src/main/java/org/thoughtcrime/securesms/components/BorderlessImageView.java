@@ -9,9 +9,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.CenterInside;
-
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.mms.Slide;
@@ -63,7 +60,7 @@ public class BorderlessImageView extends FrameLayout {
       image.setImageResource(glideRequests, slide, showControls, false);
     } else {
       image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-      image.setImageResource(glideRequests, slide, showControls, false, slide.asAttachment().getWidth(), slide.asAttachment().getHeight());
+      image.setImageResource(glideRequests, slide, showControls, false, slide.asAttachment().width, slide.asAttachment().height);
     }
 
     missingShade.setVisibility(showControls ? View.VISIBLE : View.GONE);
@@ -74,6 +71,6 @@ public class BorderlessImageView extends FrameLayout {
   }
 
   public void setDownloadClickListener(@NonNull SlidesClickedListener listener) {
-    image.setDownloadClickListener(listener);
+    image.setStartTransferClickListener(listener);
   }
 }

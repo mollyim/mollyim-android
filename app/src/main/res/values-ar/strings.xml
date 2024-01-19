@@ -327,8 +327,12 @@
     <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">تعذّر تحميل الصورة. سَتحتاج إلى إرسالها مرة أخرى.</string>
     <!-- Dialog error message shown when user can\'t download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
     <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">تعذّر تحميل الفيديو. سَتحتاج إلى إرساله مرة أخرى.</string>
-    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp will go from \'11m\' to \'edited 11m\' -->
-    <string name="ConversationItem_edited_timestamp_footer">مُعدّلة %1$s</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp represents a message that has been edited within the last minute. -->
+    <string name="ConversationItem_edited_now_timestamp_footer">تم التعديل الآن</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit has occurred between 1-59 minutes ago. -->
+    <string name="ConversationItem_edited_relative_timestamp_footer">مُعدّلة %1$s</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit occurred at least 1 hour ago. -->
+    <string name="ConversationItem_edited_absolute_timestamp_footer">مُعدّلة %1$s</string>
     <!-- Displayed if the link preview in the conversation item is for a call link call -->
     <string name="ConversationItem__join_call">الانضمام للمكالمة</string>
 
@@ -370,6 +374,8 @@
     <string name="ConversationActivity_transport_insecure_mms">رسالة وسائط متعددة غير آمنة</string>
     <!-- A title for the option to send an SMS with a placeholder to put the name of their SIM card -->
     <string name="ConversationActivity_transport_signal">‫رسالة سيجنال</string>
+    <!-- The content description for button to send a message in a conversation -->
+    <string name="ConversationActivity_send_message_content_description">إرسال الرسالة</string>
     <string name="ConversationActivity_lets_switch_to_signal">هيا ننتقل إلى سيجنال %1$s</string>
     <string name="ConversationActivity_specify_recipient">رجاء اختيار جهة اتصال</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">لقد تجاوز حجم المرفق الحد المسموح به لهذا الصنف من الرسائل.</string>
@@ -1453,6 +1459,10 @@
     <string name="MessageRecord_missed_voice_call">مكالمة صوتية فائتة</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_missed_video_call">مكالمة فيديو فائتة</string>
+    <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
+    <string name="MessageRecord_missed_voice_call_notification_profile">Missed voice call while notification profile on</string>
+    <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
+    <string name="MessageRecord_missed_video_call_notification_profile">Missed video call while notification profile on</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
     <string name="MessageRecord_you_declined_a_voice_call">لقد رفضت مكالمة صوتية</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
@@ -2112,6 +2122,8 @@
     <string name="WebRtcCallView__toggle_camera">تبديل الكاميرا</string>
     <!-- Toggle content description for toggling mute state  -->
     <string name="WebRtcCallView__toggle_mute">تبديل الكتم</string>
+    <!-- Content description for additional actions menu button -->
+    <string name="WebRtcCallView__additional_actions">إجراءات إضافية</string>
     <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">إنهاء المُكالمة</string>
 
@@ -2128,14 +2140,92 @@
     <!-- A text description of the earpiece icon, used for accessibility. -->
     <string name="WebRtcAudioOutputBottomSheet__earpiece_icon_content_description">أيقونة تمثل سماعة الجهاز.</string>
 
+    <!-- A clickable button to "raise your hand" in a group call to signify you have something to say -->
+    <string name="CallOverflowPopupWindow__raise_hand">رفع اليد</string>
+    <!-- A description of a clickable image representing a raised hand -->
+    <string name="CallOverflowPopupWindow__raise_hand_illustration_content_description">رفع اليد</string>
+    <!-- A dialog prompt to confirm you want to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_your_hand">تريد خفض يدك؟</string>
+    <!-- A dialog button to confirm you would like to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_hand">اخفض اليد</string>
+    <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
+    <string name="CallOverflowPopupWindow__cancel">إلغاء</string>
+    <!-- A notification to the user that they successfully raised their hand -->
+    <string name="CallOverflowPopupWindow__you_raised_your_hand">لقد رفعت يدك</string>
+    <!-- A button to take you to a list of participants with raised hands -->
+    <string name="CallOverflowPopupWindow__view">إظهار</string>
+
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
+    <plurals name="CallOverflowPopupWindow__raised_a_hand">
+        <item quantity="zero">%1$s + %2$d رفعوا يدًا</item>
+        <item quantity="one">%1$s رفع يده</item>
+        <item quantity="two">%1$s + %2$d رفعا يديهما</item>
+        <item quantity="few">%1$s + %2$d رفعوا أيديهم</item>
+        <item quantity="many">%1$s + %2$d رفعوا أيديهم</item>
+        <item quantity="other">%1$s + %2$d رفعوا أيديهم</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
+    <plurals name="CallRaiseHandSnackbar_raised_hands">
+        <item quantity="zero">%1$s +%2$d</item>
+        <item quantity="one">%1$s</item>
+        <item quantity="two">%1$s +%2$d</item>
+        <item quantity="few">%1$s +%2$d</item>
+        <item quantity="many">%1$s +%2$d</item>
+        <item quantity="other">%1$s +%2$d</item>
+    </plurals>
+
+    <!-- An accessibility label for screen readers on a view that can be expanded -->
+    <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">توسيع عرض رفع اليد</string>
+
+    <!-- AboutSheet -->
+    <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
+    <string name="AboutSheet__signal_connection">جهات اتصال Signal</string>
+    <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
+    <string name="AboutSheet__s_is_in_your_system_contacts">%1$s موجود في جهات اتصالك</string>
+    <!-- Notice in a row when user has no groups in common -->
+    <string name="AboutSheet__you_have_no_groups_in_common">لا توجد مجموعات مُشتركة بينكم</string>
+    <!-- Notice when a user is not a connection to review requests carefully -->
+    <string name="AboutSheet__review_requests_carefully">مراجعة الطلبات بعناية</string>
+    <!-- Text used when user has groups in common. Placeholder is the count -->
+    <string name="AboutSheet__d_groups_in_common">%1$d مجموعات مشتركة</string>
+    <!-- Text displayed in title for external recipients -->
+    <string name="AboutSheet__about">حوْل</string>
+    <!-- Text displayed in title for you -->
+    <string name="AboutSheet__you">أنت</string>
+
     <!-- CallParticipantsListDialog -->
-    <plurals name="CallParticipantsListDialog_in_this_call_d_people">
-        <item quantity="zero">في هذه المكالمة · %1$d شخص</item>
-        <item quantity="one">في هذه المكالمة · %1$d شخص</item>
-        <item quantity="two">في هذه المكالمة · %1$d أشخاص</item>
-        <item quantity="few">في هذه المكالمة · %1$d أشخاص</item>
-        <item quantity="many">في هذه المكالمة · %1$d شخصا</item>
-        <item quantity="other">في هذه المكالمة · %1$d شخص</item>
+    <plurals name="CallParticipantsListDialog_in_this_call">
+        <item quantity="zero">في هذه المكالمة (%1$d)</item>
+        <item quantity="one">في هذه المكالمة (%1$d)</item>
+        <item quantity="two">في هذه المكالمة (%1$d)</item>
+        <item quantity="few">في هذه المكالمة (%1$d)</item>
+        <item quantity="many">في هذه المكالمة (%1$d)</item>
+        <item quantity="other">في هذه المكالمة (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_ring">
+        <item quantity="zero">سيرنّ سيجنال على (%1$d)</item>
+        <item quantity="one">سيرنّ سيجنال على (%1$d)</item>
+        <item quantity="two">سيرنّ سيجنال على (%1$d)</item>
+        <item quantity="few">سيرنّ سيجنال على (%1$d)</item>
+        <item quantity="many">سيرنّ سيجنال على (%1$d)</item>
+        <item quantity="other">سيرنّ سيجنال على (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_notify">
+        <item quantity="zero">سينبّه سيجنال (%1$d)</item>
+        <item quantity="one">سينبّه سيجنال (%1$d)</item>
+        <item quantity="two">سينبّه سيجنال (%1$d)</item>
+        <item quantity="few">سينبّه سيجنال (%1$d)</item>
+        <item quantity="many">سينبّه سيجنال (%1$d)</item>
+        <item quantity="other">سينبّه سيجنال (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__raised_hands">
+        <item quantity="zero">أيادي مرفوعة (%1$d)</item>
+        <item quantity="one">أيادي مرفوعة (%1$d)</item>
+        <item quantity="two">أيادي مرفوعة (%1$d)</item>
+        <item quantity="few">أيادي مرفوعة (%1$d)</item>
+        <item quantity="many">أيادي مرفوعة (%1$d)</item>
+        <item quantity="other">أيادي مرفوعة (%1$d)</item>
     </plurals>
 
     <!-- CallParticipantView -->
@@ -2252,6 +2342,12 @@
     <string name="RevealableMessageView_view_video">مشاهدة الفيديو</string>
     <string name="RevealableMessageView_viewed">تمت المشاهدة</string>
     <string name="RevealableMessageView_media">الوسائط</string>
+
+    <!-- ReviewBannerView -->
+    <!-- ReviewBannerView text when a name conflict has been found -->
+    <string name="ReviewBannerView__name_conflict_found">تم العثور على تضارب أسماء</string>
+    <!-- Button label to view name conflicts -->
+    <string name="ReviewBannerView__view">إظهار</string>
 
     <!-- Search -->
     <string name="SearchFragment_no_results">لم يتم العثور على أي نتيجة لـ \'%1$s\'</string>
@@ -2419,6 +2515,8 @@
     <string name="UnverifiedSendDialog_send">أرسل</string>
 
     <!-- UsernameEditFragment -->
+    <!-- Placeholder text for custom discriminator -->
+    <string name="UsernameEditFragment__00">00</string>
     <!-- Toolbar title when entering from registration -->
     <string name="UsernameEditFragment__add_a_username">إضافة اسم مُستخدم</string>
     <!-- Instructional text at the top of the username edit screen -->
@@ -2441,6 +2539,12 @@
     <string name="UsernameEditFragment__skip">تخطّي</string>
     <!-- Content description for done button -->
     <string name="UsernameEditFragment__done">تمّ</string>
+    <!-- Displayed when the chosen discriminator is not available for the given nickname -->
+    <string name="UsernameEditFragment__this_username_is_not_available_try_another_number">This username is not available, try another number.</string>
+    <!-- Displayed when the chosen discriminator is too short -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Invalid username, enter a minimum of %1$d digits.</string>
+    <!-- Displayed when the chosen discriminator is too long -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Invalid username, enter a maximum of %1$d digits.</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="zero">%1$d جهة اتصال تستخدم سيجنال!‏</item>
@@ -2654,6 +2758,10 @@
     </plurals>
     <!-- Status update label used while the device is transcoding video as a prerequisite to uploading -->
     <string name="TransferControlView__processing">جارٍ المعالجة…</string>
+    <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
+    <string name="TransferControlView__download_progress">%1$1.1f MB/%2$2.1f MB</string>
+    <!-- Attachment file size label for not-yet-downloaded images and video. Will take the form of "1.0 MB" -->
+    <string name="TransferControlView__filesize">%1$1.1f MB</string>
 
 
     <!-- UnauthorizedReminder -->
@@ -2678,6 +2786,8 @@
     <string name="WebRtcCallActivity__answered_on_a_linked_device">أجاب عبر جهاز مرتبط.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">رُفض عبر جهاز مرتبط.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">مشغول في جهاز مرتبط.</string>
+    <!-- Tooltip message shown first time user is in a video call after switch camera button moved -->
+    <string name="WebRtcCallActivity__flip_camera_tooltip">لقد نُقل زر تغيير الكاميرا إلى هنا، انقر على الفيديو الخاص بك لتُجرّبه.</string>
 
     <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">انضم شخص لهذه المكالمة برقم أمان مختلف.</string>
 
@@ -4329,14 +4439,16 @@
     <string name="ReviewCardDialogFragment__failed_to_remove_group_member">فشلت إزالة عضو من المجموعة.</string>
 
     <!-- ReviewCard -->
-    <string name="ReviewCard__member">عضو</string>
     <string name="ReviewCard__request">الطلب</string>
     <string name="ReviewCard__your_contact">جهة اتصالك</string>
     <string name="ReviewCard__remove_from_group">أزل من المجموعة</string>
     <string name="ReviewCard__update_contact">تحديث جهة الاتصال</string>
     <string name="ReviewCard__block">حظر</string>
     <string name="ReviewCard__delete">حذف</string>
-    <string name="ReviewCard__recently_changed">‫تم تغيير اسم الملف الشخصي من %1$s إلى %2$s</string>
+    <!-- Displayed when a recent name change has occurred. First placeholder is new short name, second is previous name, third is new name. -->
+    <string name="ReviewCard__s_recently_changed">غيّر مؤخرًا %1$s اسم حسابه الشخصي من %2$s إلى %3$s</string>
+    <!-- Displayed when a review user is in your system contacts. Placeholder is short name. -->
+    <string name="ReviewCard__s_is_in_your_system_contacts">%1$s موجود في جهات اتصالك</string>
 
     <!-- CallParticipantsListUpdatePopupWindow -->
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">انضم %1$s</string>
@@ -5428,6 +5540,12 @@
     <string name="AddAllowedMembers__add_people_and_groups_you_want_notifications_and_calls_from_when_this_profile_is_on">يُرجى إضافة الأفراد والمجموعات المراد تلقي اﻹشعارات والمكالمات من عندها عندما تكون هيئة إشعارك مُشغَّلة</string>
     <!-- Button text that launches the contact picker to select from -->
     <string name="AddAllowedMembers__add_people_or_groups">إضافة اﻷفراد أو المجموعات</string>
+    <!-- Title for exceptions section of add people to notification profile screen in create flow -->
+    <string name="AddAllowedMembers__exceptions">الاستثناءات</string>
+    <!-- List preference to toggle that allows calls through the notification profile during create flow -->
+    <string name="AddAllowedMembers__allow_all_calls">السماح لجميع المكالمات</string>
+    <!-- List preference to toggle that allows mentions through the notification profile during create flow -->
+    <string name="AddAllowedMembers__notify_for_all_mentions">الإشعار عن كل الإشارات للأفراد</string>
 
     <!-- Call to action button on contact picker for adding to profile -->
     <string name="SelectRecipientsFragment__add">إضافة</string>
@@ -6110,12 +6228,12 @@
     <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">تمت مراجعة كل جهات الاتصال، انقر إرسال للمواصلة.</string>
     <!-- Message of safety number changes bottom sheet when not showing individual records -->
     <plurals name="SafetyNumberBottomSheetFragment__you_have_d_connections_plural">
-        <item quantity="zero">%1$d من جهات اتصالك قد يكون أعاد تثبيت سيجنال أو غيّر جهازه. قبل مشاركة قِصتك معه، يُرجى مراجعة أرقام الأمان الخاصة به أو فكّر في حذفه من قصتك.</item>
-        <item quantity="one">%1$d من جهات اتصالك قد يكون أعاد تثبيت سيجنال أو غيّر جهازه. قبل مشاركة قِصتك معه، يُرجى مراجعة أرقام الأمان الخاصة به أو فكّر في حذفه من قصتك.</item>
-        <item quantity="two">%1$d من جهات اتصالك قد يكونوا أعادو تثبيت سيجنال أو غيّروا أجهزتهم. قبل مشاركة قِصتك معهم، يُرجى مراجعة أرقام الأمان الخاصة بهم أو فكّر في حذفهم من قصتك.</item>
-        <item quantity="few">%1$d من جهات اتصالك قد يكونوا أعادو تثبيت سيجنال أو غيّروا أجهزتهم. قبل مشاركة قِصتك معهم، يُرجى مراجعة أرقام الأمان الخاصة بهم أو فكّر في حذفهم من قصتك.</item>
-        <item quantity="many">%1$d من جهات اتصالك قد يكونوا أعادو تثبيت سيجنال أو غيّروا أجهزتهم. قبل مشاركة قِصتك معهم، يُرجى مراجعة أرقام الأمان الخاصة بهم أو فكّر في حذفهم من قصتك.</item>
-        <item quantity="other">%1$d من جهات اتصالك قد يكونوا أعادو تثبيت سيجنال أو غيّروا أجهزتهم. قبل مشاركة قِصتك معهم، يُرجى مراجعة أرقام الأمان الخاصة بهم أو فكّر في حذفهم من قصتك.</item>
+        <item quantity="zero">%1$d connections may have reinstalled Signal or changed devices. You may review their safety numbers or continue with the send.</item>
+        <item quantity="one">%1$d connection may have reinstalled Signal or changed devices. You may review their safety number or continue with the send.</item>
+        <item quantity="two">%1$d connections may have reinstalled Signal or changed devices. You may review their safety numbers or continue with the send.</item>
+        <item quantity="few">%1$d connections may have reinstalled Signal or changed devices. You may review their safety numbers or continue with the send.</item>
+        <item quantity="many">%1$d connections may have reinstalled Signal or changed devices. You may review their safety numbers or continue with the send.</item>
+        <item quantity="other">%1$d connections may have reinstalled Signal or changed devices. You may review their safety numbers or continue with the send.</item>
     </plurals>
     <!-- Menu action to launch safety number verification screen -->
     <string name="SafetyNumberBottomSheetFragment__verify_safety_number">تحقق من رقم اﻷمان</string>
@@ -6489,12 +6607,18 @@
     <string name="BankTransferDetailsFragment__iban_country_code_is_not_supported">رقم IBAN الخاص ببلدك غير مدعوم</string>
     <!-- Error label for IBAN field when number is invalid -->
     <string name="BankTransferDetailsFragment__invalid_iban">رقم IBAN غير صحيح</string>
+    <!-- Error label for name field when name is not at least two characters long -->
+    <string name="BankTransferDetailsFragment__minimum_2_characters">حرفان كحد أدنى</string>
+    <!-- Error label for email field when email is not valid -->
+    <string name="BankTransferDetailsFragment__invalid_email_address">عنوان بريد إلكتروني غير صحيح</string>
 
     <!-- IdealTransferDetailsFragment -->
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank">يُرجى إدخال معلومات مصرفك واسمك وبريدك الإلكتروني. يستخدم Stripe هذا البريد الإلكتروني لإرسال تحديثات متعلقة بتبرعاتك. %1$s</string>
+    <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
+    <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">أدخل معلومات مصرفك. لا يقوم سيجنال بجمع أو تخزين معلوماتك الشخصية. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
     <string name="IdealTransferDetailsFragment__learn_more">معرفة المزيد</string>
     <!-- Hint label for text entry box for name on bank account -->
@@ -6684,6 +6808,8 @@
     <string name="CallLogAdapter__outgoing">صادرة</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">فائتة</string>
+    <!-- Displayed for missed calls declined by notification profile -->
+    <string name="CallLogAdapter__missed_notification_profile">Missed while notification profile on</string>
     <!-- Displayed on Group Call button if user is not in the call -->
     <string name="CallLogAdapter__join">انضم</string>
     <!-- Displayed on Group Call button if user is in the call -->
@@ -6803,6 +6929,8 @@
     <string name="CallPreference__group_call">المكالمة الجماعية</string>
     <!-- Missed group call in call info -->
     <string name="CallPreference__missed_group_call">مكالمة جماعية فائتة</string>
+    <!-- Missed group call while notification profile on in call info -->
+    <string name="CallPreference__missed_group_call_notification_profile">Missed group call while notification profile on</string>
     <!-- Incoming group call in call info -->
     <string name="CallPreference__incoming_group_call">مكالمة جماعية واردة</string>
     <!-- Outgoing group call in call info -->
