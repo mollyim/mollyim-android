@@ -169,9 +169,11 @@
         android:layout_gravity="right|end"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/compose_bubble"
         app:layout_constraintEnd_toEndOf="@id/compose_bubble"
-        app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements">
+        app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements"
+        tools:visibility="gone">
 
         <ImageButton
             android:id="@+id/quick_camera_toggle"

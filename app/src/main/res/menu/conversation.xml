@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
@@ -19,7 +20,9 @@
 
     <item
         android:id="@+id/menu_add_shortcut"
-        android:title="@string/conversation__menu_add_shortcut" />
+        android:title="@string/conversation__menu_add_shortcut"
+        android:visibility="gone"
+        tools:visibility="gone" />
 
     <item
         android:id="@+id/menu_create_bubble"
@@ -27,8 +30,10 @@
 
     <item
         android:id="@+id/menu_format_text_submenu"
+        android:orderInCategory="9999"
         android:title="@string/conversation__menu_format_text"
-        android:orderInCategory="9999">
+        android:visibility="gone"
+        tools:visibility="gone">
 
         <menu>
             <item

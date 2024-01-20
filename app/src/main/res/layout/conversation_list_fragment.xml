@@ -101,37 +101,41 @@
 
             <org.thoughtcrime.securesms.components.registration.PulsingFloatingActionButton
                 android:id="@+id/camera_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="20dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
                 android:contentDescription="@string/conversation_list_fragment__open_camera_description"
                 android:focusable="true"
+                android:scaleX="0.1"
+                android:scaleY="0.1"
                 android:theme="@style/Widget.Material3.FloatingActionButton.Secondary"
                 android:transitionName="camera_fab"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:backgroundTint="@color/signal_colorSurfaceVariant"
+                app:shapeAppearanceOverlay="@style/Signal.ShapeOverlay.Rounded.Fab"
                 app:srcCompat="@drawable/symbol_camera_24"
                 app:tint="@color/signal_colorOnSurface"
-                app:shapeAppearanceOverlay="@style/Signal.ShapeOverlay.Rounded.Fab"
                 tools:visibility="visible" />
 
             <org.thoughtcrime.securesms.components.registration.PulsingFloatingActionButton
                 android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/conversation_list_fragment__fab_content_description"
                 android:focusable="true"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
                 android:theme="@style/Widget.Material3.FloatingActionButton.Secondary"
                 android:transitionName="new_convo_fab"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:backgroundTint="@color/signal_colorPrimaryContainer"
+                app:shapeAppearanceOverlay="@style/Signal.ShapeOverlay.Rounded.Fab"
                 app:srcCompat="@drawable/symbol_edit_24"
                 app:tint="@color/signal_colorOnSurface"
-                app:shapeAppearanceOverlay="@style/Signal.ShapeOverlay.Rounded.Fab"
                 tools:visibility="visible" />
 
             <ViewStub
@@ -155,6 +159,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

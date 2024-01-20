@@ -100,7 +100,6 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
       binding.callsPill,
       binding.callsTabIcon,
       binding.callsTabContainer,
-      binding.callsTabLabel,
       binding.callsUnreadIndicator,
       binding.callsTabTouchPoint
     ).forEach {
@@ -120,7 +119,6 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
 
     if (SignalStore.settings().useCompactNavigationBar) {
       listOf(
-        binding.callsTabLabel,
         binding.chatsTabLabel,
         binding.storiesTabLabel
       ).forEach {

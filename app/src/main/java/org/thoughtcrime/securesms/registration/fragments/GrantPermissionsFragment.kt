@@ -35,6 +35,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import org.signal.core.ui.Buttons
 import org.signal.core.ui.theme.SignalTheme
+import org.signal.core.util.sp
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.permissions.Permissions
@@ -150,7 +151,7 @@ fun GrantPermissionsScreen(
   Surface {
     Column(
       modifier = Modifier
-        .padding(horizontal = 24.dp)
+        .padding(horizontal = 12.dp)
         .padding(top = 40.dp, bottom = 24.dp)
     ) {
       LazyColumn(
@@ -159,51 +160,7 @@ fun GrantPermissionsScreen(
         item {
           Text(
             text = stringResource(id = R.string.GrantPermissionsFragment__allow_permissions),
-            style = MaterialTheme.typography.headlineMedium
-          )
-        }
-
-        item {
-          Text(
-            text = stringResource(id = R.string.GrantPermissionsFragment__to_help_you_message_people_you_know),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 12.dp, bottom = 41.dp)
-          )
-        }
-
-        if (deviceBuildVersion >= 33) {
-          item {
-            PermissionRow(
-              imageVector = ImageVector.vectorResource(id = R.drawable.permission_notification),
-              title = stringResource(id = R.string.GrantPermissionsFragment__notifications),
-              subtitle = stringResource(id = R.string.GrantPermissionsFragment__get_notified_when)
-            )
-          }
-        }
-
-        item {
-          PermissionRow(
-            imageVector = ImageVector.vectorResource(id = R.drawable.permission_contact),
-            title = stringResource(id = R.string.GrantPermissionsFragment__contacts),
-            subtitle = stringResource(id = R.string.GrantPermissionsFragment__find_people_you_know)
-          )
-        }
-
-        if (deviceBuildVersion < 29 || !isBackupSelectionRequired) {
-          item {
-            PermissionRow(
-              imageVector = ImageVector.vectorResource(id = R.drawable.permission_file),
-              title = stringResource(id = R.string.GrantPermissionsFragment__storage),
-              subtitle = stringResource(id = R.string.GrantPermissionsFragment__send_photos_videos_and_files)
-            )
-          }
-        }
-
-        item {
-          PermissionRow(
-            imageVector = ImageVector.vectorResource(id = R.drawable.permission_phone),
-            title = stringResource(id = R.string.GrantPermissionsFragment__phone_calls),
-            subtitle = stringResource(id = R.string.GrantPermissionsFragment__make_registering_easier)
+            style = MaterialTheme.typography.labelLarge,
           )
         }
       }
@@ -211,7 +168,8 @@ fun GrantPermissionsScreen(
       Row {
         TextButton(onClick = onNotNowClicked) {
           Text(
-            text = stringResource(id = R.string.GrantPermissionsFragment__not_now)
+            text = stringResource(id = R.string.GrantPermissionsFragment__not_now),
+            style = MaterialTheme.typography.labelSmall,
           )
         }
 
@@ -297,7 +255,9 @@ fun NextButton(
     modifier = Modifier.alpha(alpha)
   ) {
     Text(
-      text = stringResource(id = R.string.GrantPermissionsFragment__next)
+      text = stringResource(id = R.string.GrantPermissionsFragment__next),
+      style = MaterialTheme.typography.labelSmall,
+
     )
   }
 }

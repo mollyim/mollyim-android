@@ -17,6 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
@@ -27,6 +28,7 @@
             android:layout_marginTop="32dp"
             android:layoutDirection="ltr"
             android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/verify_subheader">
@@ -83,10 +85,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="24dp"
-            android:text="@string/RegistrationActivity_phone_number"
+            android:layout_marginTop="30dp"
+            android:text="Connect to Device"
             android:textAppearance="@style/Signal.Text.HeadlineMedium"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.52"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
@@ -99,6 +103,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/RegistrationActivity_enter_your_phone_number_to_get_started"
             android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/verify_header"
             tools:layout_editor_absoluteX="0dp" />
 
@@ -107,23 +112,21 @@
             style="@style/Signal.Widget.Button.Large.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:text="@android:string/cancel"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="invisible" />
 
         <org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton
             android:id="@+id/registerButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
+            android:visibility="gone"
             app:circularProgressMaterialButton__label="@string/RegistrationActivity_continue"
             app:layout_constraintBottom_toTopOf="@+id/cancel_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,11 +137,11 @@
             style="@style/Signal.Widget.Button.Large.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
             android:text="@string/RegistrationActivity_link_device"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/registerButton"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/verify_header" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
