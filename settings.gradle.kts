@@ -44,6 +44,10 @@ dependencyResolutionManagement {
     }
     maven {
       url = uri("https://dl.cloudsmith.io/qxAgwaeEE1vN8aLU/mobilecoin/mobilecoin/maven/")
+      content {
+        includeModule("com.mobilecoin", "android-bindings")
+        includeModule("com.mobilecoin", "android-sdk")
+      }
     }
   }
 }
