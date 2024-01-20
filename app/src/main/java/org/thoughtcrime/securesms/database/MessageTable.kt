@@ -3104,7 +3104,10 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   fun deleteExpiringMessage(messageId: Long): Boolean =
     deleteMessage(messageId, isExpiring = true)
 
-  fun deleteMessage(messageId: Long, threadId: Long = getThreadIdForMessage(messageId)): Boolean =
+  fun deleteMessage(messageId: Long): Boolean =
+    deleteMessage(messageId, isExpiring = false)
+
+  private fun deleteMessage(messageId: Long, threadId: Long = getThreadIdForMessage(messageId)): Boolean =
     deleteMessage(messageId, isExpiring = false, threadId)
 
   private fun deleteMessage(messageId: Long, isExpiring: Boolean = false, threadId: Long = getThreadIdForMessage(messageId), notify: Boolean = true, updateThread: Boolean = true): Boolean {

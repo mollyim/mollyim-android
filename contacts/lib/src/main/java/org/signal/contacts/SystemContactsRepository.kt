@@ -234,14 +234,6 @@ object SystemContactsRepository {
     }
   }
 
-  @JvmStatic
-  @Synchronized
-  fun lookupAndDeleteContact(context: Context, contactUri: Uri?): Boolean {
-    val uri = ContactsContract.Contacts.lookupContact(context.contentResolver, contactUri) ?: return false
-    val rowsDeleted = context.contentResolver.delete(uri, null, null)
-    return rowsDeleted > 0
-  }
-
   /**
    * Adds links to message and call using your app to the system contacts.
    * [config] Your configuration object.

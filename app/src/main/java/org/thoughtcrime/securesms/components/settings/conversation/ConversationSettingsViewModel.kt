@@ -100,8 +100,6 @@ sealed class ConversationSettingsViewModel(
 
   abstract fun unblock()
 
-  abstract fun delete(block: Boolean)
-
   abstract fun onAddToGroup()
 
   abstract fun onAddToGroupComplete(selected: List<RecipientId>, onComplete: () -> Unit)
@@ -182,7 +180,6 @@ sealed class ConversationSettingsViewModel(
 
             state.copy(
               specificSettingsState = recipientSettings.copy(
-                canDelete = groupsInCommon.isEmpty(),
                 allGroupsInCommon = groupsInCommon,
                 groupsInCommon = if (!canShowMore) groupsInCommon else groupsInCommon.take(5),
                 canShowMoreGroupsInCommon = canShowMore
@@ -249,10 +246,6 @@ sealed class ConversationSettingsViewModel(
 
     override fun unblock() {
       repository.unblock(recipientId)
-    }
-
-    override fun delete(block: Boolean) {
-      repository.delete(recipientId, block)
     }
   }
 
@@ -466,8 +459,6 @@ sealed class ConversationSettingsViewModel(
     override fun unblock() {
       repository.unblock(groupId)
     }
-
-    override fun delete(block: Boolean) = Unit
   }
 
   class Factory(

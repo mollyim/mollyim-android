@@ -33,7 +33,6 @@ import org.signal.core.util.getParcelableArrayListExtraCompat
 import org.thoughtcrime.securesms.AvatarPreviewActivity
 import org.thoughtcrime.securesms.BlockUnblockDialog
 import org.thoughtcrime.securesms.InviteActivity
-import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.MuteDialog
 import org.thoughtcrime.securesms.PushContactSelectionActivity
 import org.thoughtcrime.securesms.R
@@ -120,18 +119,6 @@ class ConversationSettingsFragment : DSLSettingsFragment(
 
   private val unblockIcon by lazy {
     ContextUtil.requireDrawable(requireContext(), R.drawable.ic_block_tinted_24)
-  }
-
-  private val deleteIcon by lazy {
-    ContextUtil.requireDrawable(requireContext(), R.drawable.ic_trash_24).apply {
-      colorFilter = PorterDuffColorFilter(alertTint, PorterDuff.Mode.SRC_IN)
-    }
-  }
-
-  private val deleteIconDisabled by lazy {
-    ContextUtil.requireDrawable(requireContext(), R.drawable.ic_trash_24).apply {
-      colorFilter = PorterDuffColorFilter(alertDisabledTint, PorterDuff.Mode.SRC_IN)
-    }
   }
 
   private val leaveIcon by lazy {
@@ -804,27 +791,6 @@ class ConversationSettingsFragment : DSLSettingsFragment(
             }
           }
         )
-
-        state.withRecipientSettingsState { recipientState ->
-          clickPref(
-            title = DSLSettingsText.from(R.string.delete, if (recipientState.canDelete) alertTint else alertDisabledTint),
-            icon = DSLSettingsIcon.from(if (recipientState.canDelete) deleteIcon else deleteIconDisabled),
-            isEnabled = recipientState.canDelete,
-            onClick = {
-              BlockUnblockDialog.showDeleteFor(
-                requireContext(), viewLifecycleOwner.lifecycle, state.recipient,
-                {
-                  viewModel.delete(false)
-                  startActivity(Intent(requireContext(), MainActivity::class.java))
-                },
-                {
-                  viewModel.delete(true)
-                  startActivity(Intent(requireContext(), MainActivity::class.java))
-                }
-              )
-            }
-          )
-        }
       }
     }
   }
