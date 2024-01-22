@@ -8,7 +8,6 @@ import androidx.annotation.WorkerThread;
 
 import com.annimon.stream.Stream;
 
-import org.signal.contacts.SystemContactsRepository;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
 import org.thoughtcrime.securesms.database.GroupTable;
@@ -22,15 +21,12 @@ import org.thoughtcrime.securesms.groups.GroupChangeException;
 import org.thoughtcrime.securesms.groups.GroupChangeFailedException;
 import org.thoughtcrime.securesms.groups.GroupManager;
 import org.thoughtcrime.securesms.jobs.MultiDeviceBlockedUpdateJob;
-import org.thoughtcrime.securesms.jobs.MultiDeviceMessageRequestResponseJob;
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.RotateProfileKeyJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.OutgoingMessage;
-import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.exceptions.NotFoundException;
@@ -212,35 +208,6 @@ public class RecipientUtil {
     SignalDatabase.recipients().setProfileSharing(recipient.getId(), true);
     ApplicationDependencies.getJobManager().add(new MultiDeviceBlockedUpdateJob());
     StorageSyncHelper.scheduleSyncForDataChange();
-  }
-
-  @WorkerThread
-  public static void delete(@NonNull Context context, @NonNull Recipient recipient) {
-    Recipient resolved = recipient.resolve();
-
-    ThreadTable threadTable = SignalDatabase.threads();
-    long existingThread = threadTable.getThreadIdIfExistsFor(resolved.getId());
-    if (existingThread > -1) {
-      threadTable.deleteConversation(existingThread);
-      ApplicationDependencies.getMessageNotifier().updateNotification(context);
-    }
-
-    if (recipient.isSystemContact() && recipient.getContactUri() != null) {
-      SystemContactsRepository.lookupAndDeleteContact(context, recipient.getContactUri());
-    }
-
-    SignalDatabase.recipients().clearFieldsForDeletion(resolved.getId());
-    NotificationChannels.getInstance().deleteChannelFor(resolved);
-
-    if (!resolved.isBlocked()) {
-      ApplicationDependencies.getJobManager().startChain(new RefreshOwnProfileJob())
-                                             .then(new RotateProfileKeyJob())
-                                             .enqueue();
-    }
-
-    if (TextSecurePreferences.isMultiDevice(context)) {
-      ApplicationDependencies.getJobManager().add(MultiDeviceMessageRequestResponseJob.forDelete(recipient.getId()));
-    }
   }
 
   @WorkerThread

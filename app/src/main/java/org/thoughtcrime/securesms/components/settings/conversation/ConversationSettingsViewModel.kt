@@ -76,7 +76,7 @@ sealed class ConversationSettingsViewModel(
       if (!cleared) {
         state.copy(
           sharedMedia = mediaRecords,
-          sharedMediaIds = mediaRecords.mapNotNull { it.attachment?.attachmentId?.rowId },
+          sharedMediaIds = mediaRecords.mapNotNull { it.attachment?.attachmentId?.id },
           sharedMediaLoaded = true,
           displayInternalRecipientDetails = repository.isInternalRecipientDetailsEnabled()
         )
@@ -99,8 +99,6 @@ sealed class ConversationSettingsViewModel(
   abstract fun block()
 
   abstract fun unblock()
-
-  abstract fun delete(block: Boolean)
 
   abstract fun onAddToGroup()
 
@@ -182,7 +180,6 @@ sealed class ConversationSettingsViewModel(
 
             state.copy(
               specificSettingsState = recipientSettings.copy(
-                canDelete = groupsInCommon.isEmpty(),
                 allGroupsInCommon = groupsInCommon,
                 groupsInCommon = if (!canShowMore) groupsInCommon else groupsInCommon.take(5),
                 canShowMoreGroupsInCommon = canShowMore
@@ -249,10 +246,6 @@ sealed class ConversationSettingsViewModel(
 
     override fun unblock() {
       repository.unblock(recipientId)
-    }
-
-    override fun delete(block: Boolean) {
-      repository.delete(recipientId, block)
     }
   }
 
@@ -466,8 +459,6 @@ sealed class ConversationSettingsViewModel(
     override fun unblock() {
       repository.unblock(groupId)
     }
-
-    override fun delete(block: Boolean) = Unit
   }
 
   class Factory(

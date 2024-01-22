@@ -508,6 +508,6 @@ private fun Bitmap?.toIconCompat(): IconCompat? {
 private fun ReplyMethod.toLongDescription(): Int {
   return when (this) {
     ReplyMethod.GroupMessage -> R.string.MessageNotifier_reply
-    ReplyMethod.SecureMessage -> R.string.MessageNotifier_signal_message
+    ReplyMethod.SecureMessage -> R.string.NewConversationActivity__message
   }
 }

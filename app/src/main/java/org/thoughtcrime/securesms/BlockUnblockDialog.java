@@ -53,17 +53,6 @@ public final class BlockUnblockDialog {
                    AlertDialog.Builder::show);
   }
 
-  public static void showDeleteFor(@NonNull Context context,
-                                   @NonNull Lifecycle lifecycle,
-                                   @NonNull Recipient recipient,
-                                   @NonNull Runnable onDelete,
-                                   @NonNull Runnable onBlockAndDelete)
-  {
-    SimpleTask.run(lifecycle,
-                   () -> buildDeleteFor(context, recipient, onDelete, onBlockAndDelete),
-                   AlertDialog.Builder::show);
-  }
-
   @WorkerThread
   private static AlertDialog.Builder buildBlockFor(@NonNull Context context,
                                                    @NonNull Recipient recipient,
@@ -143,43 +132,6 @@ public final class BlockUnblockDialog {
       builder.setMessage(recipient.isRegistered() ? R.string.BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other
                                                   : R.string.BlockUnblockDialog_you_will_be_able_to_message_each_other);
       builder.setPositiveButton(R.string.RecipientPreferenceActivity_unblock, ((dialog, which) -> onUnblock.run()));
-      builder.setNegativeButton(android.R.string.cancel, null);
-    }
-
-    return builder;
-  }
-
-  @WorkerThread
-  private static AlertDialog.Builder buildDeleteFor(@NonNull Context context,
-                                                    @NonNull Recipient recipient,
-                                                    @NonNull Runnable onDelete,
-                                                    @NonNull Runnable onBlockAndDelete)
-  {
-    final Recipient resolved = recipient.resolve();
-
-    AlertDialog.Builder builder   = new MaterialAlertDialogBuilder(context);
-    Resources           resources = context.getResources();
-
-    int messageResId = resolved.isSystemContact() ?
-        R.string.BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts :
-        R.string.BlockUnblockDialog_your_chat_history_with_s_will_be_deleted;
-
-    StringBuilder message = new StringBuilder(resources.getString(messageResId, recipient.getDisplayName(context)));
-
-    if (!recipient.isBlocked()) {
-      message.append("\n\n");
-      message.append(resources.getString(R.string.BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages));
-    }
-
-    builder.setTitle(resources.getString(R.string.BlockUnblockDialog_delete_this_contact));
-    builder.setMessage(message);
-
-    if (!resolved.isBlocked()) {
-      builder.setNeutralButton(android.R.string.cancel, null);
-      builder.setNegativeButton(R.string.delete, (d, w) -> onDelete.run());
-      builder.setPositiveButton(R.string.BlockUnblockDialog_block_and_delete, (d, w) -> onBlockAndDelete.run());
-    } else {
-      builder.setPositiveButton(R.string.delete, ((dialog, which) -> onDelete.run()));
       builder.setNegativeButton(android.R.string.cancel, null);
     }
 

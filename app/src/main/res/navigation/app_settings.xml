@@ -542,6 +542,9 @@
         <action
             android:id="@+id/action_internalSettingsFragment_to_internalConversationSpringboardFragment"
             app:destination="@id/internalConversationSpringboardFragment" />
+        <action
+            android:id="@+id/action_internalSettingsFragment_to_internalBackupPlaygroundFragment"
+            app:destination="@id/internalBackupPlaygroundFragment" />
     </fragment>
 
     <fragment
@@ -573,6 +576,11 @@
         android:id="@+id/internalConversationTestFragment"
         android:name="org.thoughtcrime.securesms.components.settings.app.internal.conversation.test.InternalConversationTestFragment"
         android:label="internal_conversation_test_fragment" />
+
+    <fragment
+        android:id="@+id/internalBackupPlaygroundFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.internal.backup.InternalBackupPlaygroundFragment"
+        android:label="internal_backup_playground_fragment" />
 
     <!-- endregion -->
 

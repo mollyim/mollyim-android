@@ -54,7 +54,7 @@ object RemoteMegaphoneRepository {
   private val actions = mapOf(
     ActionId.SNOOZE.id to snooze,
     ActionId.FINISH.id to finish,
-    ActionId.DONATE.id to donate
+    ActionId.DONATE.id to donate,
   )
 
   @WorkerThread

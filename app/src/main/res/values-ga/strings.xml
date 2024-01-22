@@ -75,7 +75,7 @@
     <string name="DraftDatabase_Draft_video_snippet">(físeán)</string>
     <string name="DraftDatabase_Draft_location_snippet">(suíomh)</string>
     <string name="DraftDatabase_Draft_quote_snippet">(freagair)</string>
-    <string name="DraftDatabase_Draft_voice_note">(Teachtaireacht bhéil)</string>
+    <string name="DraftDatabase_Draft_voice_note">(Glórphost)</string>
 
     <!-- AttachmentKeyboard -->
     <string name="AttachmentKeyboard_gallery">Gailearaí</string>
@@ -326,8 +326,12 @@
     <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">Ní féidir an íomhá a íoslódáil. Beidh ort í a sheoladh arís.</string>
     <!-- Dialog error message shown when user can\'t download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
     <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">Ní féidir an físeán a íoslódáil. Beidh ort é a sheoladh arís.</string>
-    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp will go from \'11m\' to \'edited 11m\' -->
-    <string name="ConversationItem_edited_timestamp_footer">Curtha in eagar %1$s</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp represents a message that has been edited within the last minute. -->
+    <string name="ConversationItem_edited_now_timestamp_footer">Curtha in eagar Anois</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit has occurred between 1-59 minutes ago. -->
+    <string name="ConversationItem_edited_relative_timestamp_footer">Curtha in eagar %1$s</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit occurred at least 1 hour ago. -->
+    <string name="ConversationItem_edited_absolute_timestamp_footer">Curtha in eagar %1$s</string>
     <!-- Displayed if the link preview in the conversation item is for a call link call -->
     <string name="ConversationItem__join_call">Téigh isteach sa ghlao</string>
 
@@ -367,6 +371,8 @@
     <string name="ConversationActivity_transport_insecure_mms">MMS easlán</string>
     <!-- A title for the option to send an SMS with a placeholder to put the name of their SIM card -->
     <string name="ConversationActivity_transport_signal">Signal</string>
+    <!-- The content description for button to send a message in a conversation -->
+    <string name="ConversationActivity_send_message_content_description">Seol teachtaireacht</string>
     <string name="ConversationActivity_lets_switch_to_signal">Téimís i muinín Molly %1$s</string>
     <string name="ConversationActivity_specify_recipient">Roghnaigh teagmhálaí</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Tá an ceangaltán ró-mhór don teachtaireacht atá á sheoladh agat.</string>
@@ -1409,6 +1415,10 @@
     <string name="MessageRecord_missed_voice_call">Guthghlao caillte</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_missed_video_call">Físghlao caillte</string>
+    <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
+    <string name="MessageRecord_missed_voice_call_notification_profile">Guthghlao caillte agus an phróifíl fógraí casta uirthi</string>
+    <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
+    <string name="MessageRecord_missed_video_call_notification_profile">Físghlao caillte agus an phróifíl fógraí casta uirthi</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
     <string name="MessageRecord_you_declined_a_voice_call">Dhiúltaigh tú do ghuthghlao</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
@@ -1697,7 +1707,7 @@
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Lig do %1$s teachtaireachtaí a sheoladh chugat? Ní bhfaighidh tú aon teachtaireachtaí go dtí go mbainfidh tú an bac de/di.</string>
     <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Faigh nuashonruithe agus nuacht ó %1$s? Ní bhfaighidh tú aon nuashonruithe go dtí go mbainfidh tú an bac de/di.</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Continue your chat with this group and share your name and photo with its members?</string>
-    <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">This Legacy Group can no longer be used. Create a new group to activate new features like @mentions and admins.</string>
+    <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">Ní féidir an Grúpa Oidhreachta seo a úsáid a thuilleadh. Cruthaigh grúpa nua le gnéithe nua a ghníomhachtú, amhail @tráchtanna agus riarthóirí.</string>
     <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">Ní féidir an seanleagan seo den Ghrúpa a úsáid a thuilleadh toisc go bhfuil sé rómhór. Is í %1$d uasmhéid an ghrúpa.</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">Lean le do chomhrá le %1$s agus comhroinn d\'ainm agus grianghraf leis an duine sin?</string>
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Téigh isteach sa ghrúpa seo agus comhroinn d\'ainm agus grianghraf lena bhaill? Ní bheidh a fhios acu go bhfaca tú na teachtaireachtaí go dtí go nglacfaidh tú.</string>
@@ -2041,6 +2051,8 @@
     <string name="WebRtcCallView__toggle_camera">Scoránaigh ceamara</string>
     <!-- Toggle content description for toggling mute state  -->
     <string name="WebRtcCallView__toggle_mute">Scoránaigh balbhú</string>
+    <!-- Content description for additional actions menu button -->
+    <string name="WebRtcCallView__additional_actions">Gníomhartha breise</string>
     <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">Cuir deireadh leis an nglao</string>
 
@@ -2057,13 +2069,86 @@
     <!-- A text description of the earpiece icon, used for accessibility. -->
     <string name="WebRtcAudioOutputBottomSheet__earpiece_icon_content_description">Deilbhín a léiríonn cluaisín gléis.</string>
 
+    <!-- A clickable button to "raise your hand" in a group call to signify you have something to say -->
+    <string name="CallOverflowPopupWindow__raise_hand">Ardaigh Lámh</string>
+    <!-- A description of a clickable image representing a raised hand -->
+    <string name="CallOverflowPopupWindow__raise_hand_illustration_content_description">Ardaigh Lámh</string>
+    <!-- A dialog prompt to confirm you want to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_your_hand">Ísligh do lámh?</string>
+    <!-- A dialog button to confirm you would like to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_hand">Ísligh Lámh</string>
+    <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
+    <string name="CallOverflowPopupWindow__cancel">Cuir ar ceal</string>
+    <!-- A notification to the user that they successfully raised their hand -->
+    <string name="CallOverflowPopupWindow__you_raised_your_hand">D\'ardaigh tú do lámh</string>
+    <!-- A button to take you to a list of participants with raised hands -->
+    <string name="CallOverflowPopupWindow__view">AMHARC</string>
+
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
+    <plurals name="CallOverflowPopupWindow__raised_a_hand">
+        <item quantity="one">D\'ardaigh %1$s lámh</item>
+        <item quantity="two">D\'ardaigh %1$s + %2$d lámh</item>
+        <item quantity="few">D\'ardaigh %1$s + %2$d lámh</item>
+        <item quantity="many">D\'ardaigh %1$s + %2$d lámh</item>
+        <item quantity="other">D\'ardaigh %1$s + %2$d lámh</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
+    <plurals name="CallRaiseHandSnackbar_raised_hands">
+        <item quantity="one">%1$s</item>
+        <item quantity="two">%1$s + %2$d</item>
+        <item quantity="few">%1$s + %2$d</item>
+        <item quantity="many">%1$s + %2$d</item>
+        <item quantity="other">%1$s + %2$d</item>
+    </plurals>
+
+    <!-- An accessibility label for screen readers on a view that can be expanded -->
+    <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Fairsingigh amharc ar lámha ardaithe</string>
+
+    <!-- AboutSheet -->
+    <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
+    <string name="AboutSheet__signal_connection">Nasc Signal</string>
+    <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
+    <string name="AboutSheet__s_is_in_your_system_contacts">Tá %1$s i dteagmhálaithe do chórais</string>
+    <!-- Notice in a row when user has no groups in common -->
+    <string name="AboutSheet__you_have_no_groups_in_common">Níl aon ghrúpaí i bpáirt agat</string>
+    <!-- Notice when a user is not a connection to review requests carefully -->
+    <string name="AboutSheet__review_requests_carefully">Déan iarratais a athbhreithniú go cúramach</string>
+    <!-- Text used when user has groups in common. Placeholder is the count -->
+    <string name="AboutSheet__d_groups_in_common">%1$d grúpa i bpáirt</string>
+    <!-- Text displayed in title for external recipients -->
+    <string name="AboutSheet__about">Maidir le</string>
+    <!-- Text displayed in title for you -->
+    <string name="AboutSheet__you">Tusa</string>
+
     <!-- CallParticipantsListDialog -->
-    <plurals name="CallParticipantsListDialog_in_this_call_d_people">
-        <item quantity="one">Sa ghlao seo · %1$d duine</item>
-        <item quantity="two">Sa ghlao seo · %1$d dhuine</item>
-        <item quantity="few">Sa ghlao seo · %1$d dhuine</item>
-        <item quantity="many">Sa ghlao seo · %1$d nduine</item>
-        <item quantity="other">Sa ghlao seo · %1$d duine</item>
+    <plurals name="CallParticipantsListDialog_in_this_call">
+        <item quantity="one">Sa ghlao seo (%1$d)</item>
+        <item quantity="two">Sa ghlao seo (%1$d)</item>
+        <item quantity="few">Sa ghlao seo (%1$d)</item>
+        <item quantity="many">Sa ghlao seo (%1$d)</item>
+        <item quantity="other">Sa ghlao seo (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_ring">
+        <item quantity="one">Cuirfidh Signal glao ar (%1$d)</item>
+        <item quantity="two">Cuirfidh Signal glao ar (%1$d)</item>
+        <item quantity="few">Cuirfidh Signal glao ar (%1$d)</item>
+        <item quantity="many">Cuirfidh Signal glao ar (%1$d)</item>
+        <item quantity="other">Cuirfidh Signal glao ar (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_notify">
+        <item quantity="one">Cuirfidh Signal (%1$d) ar an eolas</item>
+        <item quantity="two">Cuirfidh Signal (%1$d) ar an eolas</item>
+        <item quantity="few">Cuirfidh Signal (%1$d) ar an eolas</item>
+        <item quantity="many">Cuirfidh Signal (%1$d) ar an eolas</item>
+        <item quantity="other">Cuirfidh Signal (%1$d) ar an eolas</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__raised_hands">
+        <item quantity="one">Lámh ardaithe (%1$d)</item>
+        <item quantity="two">Lámha ardaithe (%1$d)</item>
+        <item quantity="few">Lámha ardaithe (%1$d)</item>
+        <item quantity="many">Lámha ardaithe (%1$d)</item>
+        <item quantity="other">Lámha ardaithe (%1$d)</item>
     </plurals>
 
     <!-- CallParticipantView -->
@@ -2179,6 +2264,12 @@
     <string name="RevealableMessageView_view_video">Físeán</string>
     <string name="RevealableMessageView_viewed">Feicthe</string>
     <string name="RevealableMessageView_media">Meáin</string>
+
+    <!-- ReviewBannerView -->
+    <!-- ReviewBannerView text when a name conflict has been found -->
+    <string name="ReviewBannerView__name_conflict_found">Coimhlint in ainm aimsithe</string>
+    <!-- Button label to view name conflicts -->
+    <string name="ReviewBannerView__view">AMHARC</string>
 
     <!-- Search -->
     <string name="SearchFragment_no_results">Níor aimsíodh aon torthaí le haghaidh \'%1$s\'</string>
@@ -2306,7 +2397,7 @@
     <string name="ThreadRecord_hidden_recipient">Tá an duine sin folaithe agat, seol teachtaireacht arís le cur ar ais ar do liosta é/í.</string>
     <string name="ThreadRecord_photo">Grianghraf</string>
     <string name="ThreadRecord_gif">GIF</string>
-    <string name="ThreadRecord_voice_message">Teachtaireacht Ghutha</string>
+    <string name="ThreadRecord_voice_message">Glórphost</string>
     <string name="ThreadRecord_file">Comhad</string>
     <string name="ThreadRecord_video">Físeán</string>
     <string name="ThreadRecord_chat_session_refreshed">Chat session refreshed</string>
@@ -2346,6 +2437,8 @@
     <string name="UnverifiedSendDialog_send">Seol</string>
 
     <!-- UsernameEditFragment -->
+    <!-- Placeholder text for custom discriminator -->
+    <string name="UsernameEditFragment__00">00</string>
     <!-- Toolbar title when entering from registration -->
     <string name="UsernameEditFragment__add_a_username">Cuir ainm úsáideora leis</string>
     <!-- Instructional text at the top of the username edit screen -->
@@ -2368,6 +2461,12 @@
     <string name="UsernameEditFragment__skip">Léim thar seo</string>
     <!-- Content description for done button -->
     <string name="UsernameEditFragment__done">Déanta</string>
+    <!-- Displayed when the chosen discriminator is not available for the given nickname -->
+    <string name="UsernameEditFragment__this_username_is_not_available_try_another_number">Níl an t-ainm úsáideora seo ar fáil, triail uimhir eile.</string>
+    <!-- Displayed when the chosen discriminator is too short -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Ainm úsáideora neamhbhailí, cuir isteach íoslíon de %1$d dhigit.</string>
+    <!-- Displayed when the chosen discriminator is too long -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Ainm úsáideora neamhbhailí, cuir isteach uaslíon de %1$d dhigit.</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">Tá %1$d teagmhálaí ar Signal!</item>
@@ -2577,6 +2676,10 @@
     </plurals>
     <!-- Status update label used while the device is transcoding video as a prerequisite to uploading -->
     <string name="TransferControlView__processing">Próiseáil…</string>
+    <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
+    <string name="TransferControlView__download_progress">%1$1.1f MB/%2$2.1f MB</string>
+    <!-- Attachment file size label for not-yet-downloaded images and video. Will take the form of "1.0 MB" -->
+    <string name="TransferControlView__filesize">%1$1.1f MB</string>
 
 
     <!-- UnauthorizedReminder -->
@@ -2601,6 +2704,8 @@
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Freagartha ar ghléas nasctha.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Diúltaithe dó ar ghléas nasctha.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Gnóthach ar ghléas nasctha.</string>
+    <!-- Tooltip message shown first time user is in a video call after switch camera button moved -->
+    <string name="WebRtcCallActivity__flip_camera_tooltip">Bogadh an Smeach-cheamara anseo, tapáil d\'fhíseán lena thriail</string>
 
     <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">Someone has joined this call with a safety number that has changed.</string>
 
@@ -4193,7 +4298,7 @@
     <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Theip ar sheinm an ghlórphoist</string>
 
     <!-- VoiceNoteMediaDescriptionCompatFactory -->
-    <string name="VoiceNoteMediaItemFactory__voice_message">Teachtaireacht bhéil · %1$s</string>
+    <string name="VoiceNoteMediaItemFactory__voice_message">Glórphost · %1$s</string>
     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s chuig %2$s</string>
 
     <!-- StorageUtil -->
@@ -4228,14 +4333,16 @@
     <string name="ReviewCardDialogFragment__failed_to_remove_group_member">Theip ar bhaint baill den ghrúpa.</string>
 
     <!-- ReviewCard -->
-    <string name="ReviewCard__member">Ball</string>
     <string name="ReviewCard__request">Iarratas</string>
     <string name="ReviewCard__your_contact">Do theagmhálaí</string>
     <string name="ReviewCard__remove_from_group">Bain den ghrúpa</string>
     <string name="ReviewCard__update_contact">Nuashonraigh an teagmhálaí</string>
     <string name="ReviewCard__block">Cuir bac</string>
     <string name="ReviewCard__delete">Scrios</string>
-    <string name="ReviewCard__recently_changed">D\'athraigh sé/sí a ainm/hainm próifíle ó %1$s go %2$s.</string>
+    <!-- Displayed when a recent name change has occurred. First placeholder is new short name, second is previous name, third is new name. -->
+    <string name="ReviewCard__s_recently_changed">D\'athraigh %1$s ainm próifíle ó %2$s go %3$s le déanaí</string>
+    <!-- Displayed when a review user is in your system contacts. Placeholder is short name. -->
+    <string name="ReviewCard__s_is_in_your_system_contacts">Tá %1$s i dteagmhálaithe do chórais</string>
 
     <!-- CallParticipantsListUpdatePopupWindow -->
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">Chuaigh %1$s isteach ann</string>
@@ -5318,6 +5425,12 @@
     <string name="AddAllowedMembers__add_people_and_groups_you_want_notifications_and_calls_from_when_this_profile_is_on">Cuir leis daoine agus grúpaí is mian leat fógraí agus glaonna a fháil uathu agus an phróifíl seo air</string>
     <!-- Button text that launches the contact picker to select from -->
     <string name="AddAllowedMembers__add_people_or_groups">Cuir daoine nó grúpaí leis</string>
+    <!-- Title for exceptions section of add people to notification profile screen in create flow -->
+    <string name="AddAllowedMembers__exceptions">Eisceachtaí</string>
+    <!-- List preference to toggle that allows calls through the notification profile during create flow -->
+    <string name="AddAllowedMembers__allow_all_calls">Ceadaigh gach glao</string>
+    <!-- List preference to toggle that allows mentions through the notification profile during create flow -->
+    <string name="AddAllowedMembers__notify_for_all_mentions">Cuir in iúl do gach trácht</string>
 
     <!-- Call to action button on contact picker for adding to profile -->
     <string name="SelectRecipientsFragment__add">Cuir leis</string>
@@ -5983,11 +6096,11 @@
     <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">Rinneadh athbhreithniú ar na teagmhálaithe go léir, tapáil Seol chun leanúint ar aghaidh.</string>
     <!-- Message of safety number changes bottom sheet when not showing individual records -->
     <plurals name="SafetyNumberBottomSheetFragment__you_have_d_connections_plural">
-        <item quantity="one">Tá %1$d teagmhálaí amháin agat a bhfuil seans ann gur athshuiteáil sé/sí Signal nó gur athraigh sé/sí an gléas. Sula gcomhroinneann tú do scéal, déan athbhreithniú ar uimhreacha sábháilteachta an duine sin nó smaoinigh ar an duine sin a bhaint de do scéal.</item>
-        <item quantity="two">Tá %1$d theagmhálaí agat a bhfuil seans ann gur athshuiteáil siad Signal nó gur athraigh siad an gléas. Sula gcomhroinneann tú do scéal, déan athbhreithniú ar uimhreacha sábháilteachta na ndaoine sin nó smaoinigh ar na daoine sin a bhaint de do scéal.</item>
-        <item quantity="few">Tá %1$d theagmhálaí agat a bhfuil seans ann gur athshuiteáil siad Signal nó gur athraigh siad an gléas. Sula gcomhroinneann tú do scéal, déan athbhreithniú ar uimhreacha sábháilteachta na ndaoine sin nó smaoinigh ar na daoine sin a bhaint de do scéal.</item>
-        <item quantity="many">Tá %1$d dteagmhálaí agat a bhfuil seans ann gur athshuiteáil siad Signal nó gur athraigh siad an gléas. Sula gcomhroinneann tú do scéal, déan athbhreithniú ar uimhreacha sábháilteachta na ndaoine sin nó smaoinigh ar na daoine sin a bhaint de do scéal.</item>
-        <item quantity="other">Tá %1$d teagmhálaí agat a bhfuil seans ann gur athshuiteáil siad Signal nó gur athraigh siad an gléas. Sula gcomhroinneann tú do scéal, déan athbhreithniú ar uimhreacha sábháilteachta na ndaoine sin nó smaoinigh ar na daoine sin a bhaint de do scéal.</item>
+        <item quantity="one">Is féidir go ndearna %1$d teagmhálaí Signal a athshuiteáil nó gléas a athrú. Is féidir leat an uimhir sábháilteachta a athbhreithniú nó leanúint leis an seoladh.</item>
+        <item quantity="two">Is féidir go ndearna %1$d theagmhálaí Signal a athshuiteáil nó gléas a athrú. Is féidir leat na huimhreacha sábháilteachta a athbhreithniú nó leanúint leis an seoladh.</item>
+        <item quantity="few">Is féidir go ndearna %1$d theagmhálaí Signal a athshuiteáil nó gléas a athrú. Is féidir leat na huimhreacha sábháilteachta a athbhreithniú nó leanúint leis an seoladh.</item>
+        <item quantity="many">Is féidir go ndearna %1$d dteagmhálaí Signal a athshuiteáil nó gléas a athrú. Is féidir leat na huimhreacha sábháilteachta a athbhreithniú nó leanúint leis an seoladh.</item>
+        <item quantity="other">Is féidir go ndearna %1$d teagmhálaí Signal a athshuiteáil nó gléas a athrú. Is féidir leat na huimhreacha sábháilteachta a athbhreithniú nó leanúint leis an seoladh.</item>
     </plurals>
     <!-- Menu action to launch safety number verification screen -->
     <string name="SafetyNumberBottomSheetFragment__verify_safety_number">Fíordheimhnigh an uimhir shábháilteachta</string>
@@ -6357,12 +6470,18 @@
     <string name="BankTransferDetailsFragment__iban_country_code_is_not_supported">Cód tíortha IBAN gan tacú</string>
     <!-- Error label for IBAN field when number is invalid -->
     <string name="BankTransferDetailsFragment__invalid_iban">IBAN neamhbhailí</string>
+    <!-- Error label for name field when name is not at least two characters long -->
+    <string name="BankTransferDetailsFragment__minimum_2_characters">2 charachtar ar a laghad</string>
+    <!-- Error label for email field when email is not valid -->
+    <string name="BankTransferDetailsFragment__invalid_email_address">Seoladh ríomhphoist neamhbhailí</string>
 
     <!-- IdealTransferDetailsFragment -->
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank">Cuir isteach do bhanc, d\'ainm agus do sheoladh ríomhphoist. Úsáideann Stripe an seoladh ríomhphoist seo le nuashonruithe a sheoladh chugat maidir le do thabhartas. %1$s</string>
+    <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
+    <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Cuir isteach do shonraí bainc. Ní dhéanann Signal d\'fhaisnéis phearsanta a bhailiú ná a stóráil. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
     <string name="IdealTransferDetailsFragment__learn_more">Tuilleadh faisnéise</string>
     <!-- Hint label for text entry box for name on bank account -->
@@ -6551,6 +6670,8 @@
     <string name="CallLogAdapter__outgoing">Amach</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">Caillte</string>
+    <!-- Displayed for missed calls declined by notification profile -->
+    <string name="CallLogAdapter__missed_notification_profile">Caillte agus an phróifíl fógraí casta uirthi</string>
     <!-- Displayed on Group Call button if user is not in the call -->
     <string name="CallLogAdapter__join">Téigh isteach ann</string>
     <!-- Displayed on Group Call button if user is in the call -->
@@ -6667,6 +6788,8 @@
     <string name="CallPreference__group_call">Glao grúpa</string>
     <!-- Missed group call in call info -->
     <string name="CallPreference__missed_group_call">Grúpghlao caillte</string>
+    <!-- Missed group call while notification profile on in call info -->
+    <string name="CallPreference__missed_group_call_notification_profile">Grúpghlao caillte agus an phróifíl fógraí casta uirthi</string>
     <!-- Incoming group call in call info -->
     <string name="CallPreference__incoming_group_call">Grúpghlao isteach</string>
     <!-- Outgoing group call in call info -->

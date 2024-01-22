@@ -58,8 +58,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-
     <!-- So we can add a TextSecure 'Account' -->
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
@@ -105,6 +103,9 @@
 
     <meta-data android:name="android.supports_size_changes"
                android:value="true" />
+
+    <meta-data android:name="com.google.android.gms.car.application"
+               android:resource="@xml/automotive_app_desc" />
 
     <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
     <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
@@ -938,7 +939,7 @@
         android:exported="false"/>
 
     <activity android:name=".contacts.TurnOffContactJoinedNotificationsActivity"
-              android:theme="@style/Theme.AppCompat.Dialog.Alert"
+              android:theme="@style/TextSecure.DialogActivity"
               android:exported="false"/>
 
     <activity android:name=".contactshare.ContactShareEditActivity"
