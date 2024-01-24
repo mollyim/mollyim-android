@@ -58,7 +58,7 @@ val buildVariants = getCiEnv("CI_BUILD_VARIANTS") ?: properties["buildVariants"]
 val forceInternalUserFlag = getCiEnv("CI_FORCE_INTERNAL_USER_FLAG") ?: properties["forceInternalUserFlag"] as String
 val mapsApiKey = getCiEnv("CI_MAPS_API_KEY") ?: properties["mapsApiKey"] as String
 
-fun getCiEnv(name: String): String? = if (ciEnabled) System.getenv(name) else null
+fun getCiEnv(name: String) = if (ciEnabled) System.getenv(name).takeUnless { it.isNullOrBlank() } else null
 
 wire {
   kotlin {
