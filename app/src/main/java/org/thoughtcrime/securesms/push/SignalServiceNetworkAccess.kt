@@ -192,6 +192,12 @@ open class SignalServiceNetworkAccess(context: Context) {
     throw AssertionError(e)
   }
 
+  private val backupServerPublicParams: ByteArray = try {
+    Base64.decode(BuildConfig.BACKUP_SERVER_PUBLIC_PARAMS)
+  } catch (e: IOException) {
+    throw AssertionError(e)
+  }
+
   private val baseGHostConfigs: List<HostConfig> = listOf(
     HostConfig(HTTPS_WWW_GOOGLE_COM, G_HOST, GMAIL_CONNECTION_SPEC),
     HostConfig(HTTPS_ANDROID_CLIENTS_GOOGLE_COM, G_HOST, PLAY_CONNECTION_SPEC),
@@ -217,7 +223,8 @@ open class SignalServiceNetworkAccess(context: Context) {
     proxySelector = Network.proxySelectorForSocks,
     dns = Network.dns,
     zkGroupServerPublicParams = zkGroupServerPublicParams,
-    genericServerPublicParams = genericServerPublicParams
+    genericServerPublicParams = genericServerPublicParams,
+    backupServerPublicParams = backupServerPublicParams
   )
 
   private val censorshipConfiguration: Map<Int, SignalServiceConfiguration> = mapOf(
@@ -270,7 +277,8 @@ open class SignalServiceNetworkAccess(context: Context) {
     proxySelector = Network.proxySelectorForSocks,
     dns = Network.dns,
     zkGroupServerPublicParams = zkGroupServerPublicParams,
-    genericServerPublicParams = genericServerPublicParams
+    genericServerPublicParams = genericServerPublicParams,
+    backupServerPublicParams = backupServerPublicParams
   )
 
   open fun getConfiguration(): SignalServiceConfiguration {
@@ -340,7 +348,8 @@ open class SignalServiceNetworkAccess(context: Context) {
       proxySelector = Network.proxySelectorForSocks,
       dns = Network.dns,
       zkGroupServerPublicParams = zkGroupServerPublicParams,
-      genericServerPublicParams = genericServerPublicParams
+      genericServerPublicParams = genericServerPublicParams,
+      backupServerPublicParams = backupServerPublicParams
     )
   }
 

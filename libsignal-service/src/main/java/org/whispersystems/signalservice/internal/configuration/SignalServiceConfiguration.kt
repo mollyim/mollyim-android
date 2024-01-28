@@ -19,5 +19,6 @@ class SignalServiceConfiguration(
   val proxySelector: ProxySelector,
   val dns: Dns,
   val zkGroupServerPublicParams: ByteArray,
-  val genericServerPublicParams: ByteArray
+  val genericServerPublicParams: ByteArray,
+  val backupServerPublicParams: ByteArray
 )

@@ -323,8 +323,12 @@
     <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">No es pot descarregar la imatge. Hauràs de tornar-la a enviar.</string>
     <!-- Dialog error message shown when user can\'t download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
     <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">No es pot descarregar el vídeo. Hauràs de tornar-lo a enviar.</string>
-    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp will go from \'11m\' to \'edited 11m\' -->
-    <string name="ConversationItem_edited_timestamp_footer">Editat fa %1$s</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp represents a message that has been edited within the last minute. -->
+    <string name="ConversationItem_edited_now_timestamp_footer">Editat ara</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit has occurred between 1-59 minutes ago. -->
+    <string name="ConversationItem_edited_relative_timestamp_footer">Editat fa %1$s</string>
+    <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit occurred at least 1 hour ago. -->
+    <string name="ConversationItem_edited_absolute_timestamp_footer">Editat fa %1$s</string>
     <!-- Displayed if the link preview in the conversation item is for a call link call -->
     <string name="ConversationItem__join_call">Unir-me a la trucada</string>
 
@@ -358,6 +362,8 @@
     <string name="ConversationActivity_transport_insecure_mms">MMS no segur</string>
     <!-- A title for the option to send an SMS with a placeholder to put the name of their SIM card -->
     <string name="ConversationActivity_transport_signal">Missatge del Signal</string>
+    <!-- The content description for button to send a message in a conversation -->
+    <string name="ConversationActivity_send_message_content_description">Envia el missatge</string>
     <string name="ConversationActivity_lets_switch_to_signal">Canviem al Molly, %1$s</string>
     <string name="ConversationActivity_specify_recipient">Trieu un contacte</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">El fitxer adjunt excedeix la mida màxima per a aquest tipus de missatges.</string>
@@ -1189,8 +1195,8 @@
     <string name="MediaOverviewActivity_Selected_description">Seleccionat</string>
     <string name="MediaOverviewActivity_select_all">Selecciona-ho tot</string>
     <plurals name="MediaOverviewActivity_save_plural">
-        <item quantity="one">Desat</item>
-        <item quantity="other">Desats</item>
+        <item quantity="one">Desar canvi</item>
+        <item quantity="other">Desar canvis</item>
     </plurals>
     <plurals name="MediaOverviewActivity_delete_plural">
         <item quantity="one">Suprimit</item>
@@ -1277,6 +1283,10 @@
     <string name="MessageRecord_missed_voice_call">Trucada perduda</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_missed_video_call">Videotrucada perduda</string>
+    <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
+    <string name="MessageRecord_missed_voice_call_notification_profile">Trucada de veu perduda mentre els ajustos de notificació estaven activats</string>
+    <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
+    <string name="MessageRecord_missed_video_call_notification_profile">Videotrucada perduda mentre els ajustos de notificació estaven activats</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
     <string name="MessageRecord_you_declined_a_voice_call">Has rebutjat una trucada</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
@@ -1828,6 +1838,8 @@
     <string name="WebRtcCallView__toggle_camera">Canviar càmera</string>
     <!-- Toggle content description for toggling mute state  -->
     <string name="WebRtcCallView__toggle_mute">Activa o desactiva silenci</string>
+    <!-- Content description for additional actions menu button -->
+    <string name="WebRtcCallView__additional_actions">Accions addicionals</string>
     <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">Penja</string>
 
@@ -1844,10 +1856,68 @@
     <!-- A text description of the earpiece icon, used for accessibility. -->
     <string name="WebRtcAudioOutputBottomSheet__earpiece_icon_content_description">Icona representant auricular d\'un dispositiu.</string>
 
+    <!-- A clickable button to "raise your hand" in a group call to signify you have something to say -->
+    <string name="CallOverflowPopupWindow__raise_hand">Aixecar la mà</string>
+    <!-- A description of a clickable image representing a raised hand -->
+    <string name="CallOverflowPopupWindow__raise_hand_illustration_content_description">Aixecar la mà</string>
+    <!-- A dialog prompt to confirm you want to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_your_hand">Baixar la mà?</string>
+    <!-- A dialog button to confirm you would like to lower your hand -->
+    <string name="CallOverflowPopupWindow__lower_hand">Baixar la mà</string>
+    <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
+    <string name="CallOverflowPopupWindow__cancel">Cancel·lar</string>
+    <!-- A notification to the user that they successfully raised their hand -->
+    <string name="CallOverflowPopupWindow__you_raised_your_hand">Has aixecat la mà</string>
+    <!-- A button to take you to a list of participants with raised hands -->
+    <string name="CallOverflowPopupWindow__view">Vista</string>
+
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
+    <plurals name="CallOverflowPopupWindow__raised_a_hand">
+        <item quantity="one">%1$s ha aixecat la mà</item>
+        <item quantity="other">%1$s + %2$d han aixecat la mà</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
+    <plurals name="CallRaiseHandSnackbar_raised_hands">
+        <item quantity="one">%1$s</item>
+        <item quantity="other">%1$s +%2$d</item>
+    </plurals>
+
+    <!-- An accessibility label for screen readers on a view that can be expanded -->
+    <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Ampliar la vista de mà aixecada</string>
+
+    <!-- AboutSheet -->
+    <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
+    <string name="AboutSheet__signal_connection">Connexió de Signal</string>
+    <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
+    <string name="AboutSheet__s_is_in_your_system_contacts">%1$s és als contactes del teu sistema</string>
+    <!-- Notice in a row when user has no groups in common -->
+    <string name="AboutSheet__you_have_no_groups_in_common">No teniu cap grup en comú</string>
+    <!-- Notice when a user is not a connection to review requests carefully -->
+    <string name="AboutSheet__review_requests_carefully">Reviseu les sol·licituds amb atenció.</string>
+    <!-- Text used when user has groups in common. Placeholder is the count -->
+    <string name="AboutSheet__d_groups_in_common">%1$d grups en comú</string>
+    <!-- Text displayed in title for external recipients -->
+    <string name="AboutSheet__about">Detalls</string>
+    <!-- Text displayed in title for you -->
+    <string name="AboutSheet__you">Vós</string>
+
     <!-- CallParticipantsListDialog -->
-    <plurals name="CallParticipantsListDialog_in_this_call_d_people">
-        <item quantity="one">En aquesta trucada · %1$d persona</item>
-        <item quantity="other">En aquesta trucada · %1$d persones</item>
+    <plurals name="CallParticipantsListDialog_in_this_call">
+        <item quantity="one">En aquesta trucada (%1$d)</item>
+        <item quantity="other">En aquesta trucada (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_ring">
+        <item quantity="one">Signal trucarà a (%1$d)</item>
+        <item quantity="other">Signal trucarà a (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__signal_will_notify">
+        <item quantity="one">Signal notificarà a (%1$d)</item>
+        <item quantity="other">Signal notificarà a (%1$d)</item>
+    </plurals>
+    <plurals name="CallParticipantsListDialog__raised_hands">
+        <item quantity="one">Mà aixecada (%1$d)</item>
+        <item quantity="other">Mans aixecades (%1$d)</item>
     </plurals>
 
     <!-- CallParticipantView -->
@@ -1961,6 +2031,12 @@
     <string name="RevealableMessageView_viewed">Vista</string>
     <string name="RevealableMessageView_media">Contingut</string>
 
+    <!-- ReviewBannerView -->
+    <!-- ReviewBannerView text when a name conflict has been found -->
+    <string name="ReviewBannerView__name_conflict_found">S\'ha trobat un conflicte en el nom</string>
+    <!-- Button label to view name conflicts -->
+    <string name="ReviewBannerView__view">Vista</string>
+
     <!-- Search -->
     <string name="SearchFragment_no_results">No s\'ha trobat cap resultat per a «%1$s»</string>
 
@@ -2030,7 +2106,7 @@
     <string name="SubmitDebugLogActivity_edit">Edita</string>
     <string name="SubmitDebugLogActivity_done">Fet</string>
     <!-- Menu option to save a debug log file to disk. -->
-    <string name="SubmitDebugLogActivity_save">Desats</string>
+    <string name="SubmitDebugLogActivity_save">Desar</string>
     <!-- Error that is show in a toast when we fail to save a debug log file to disk. -->
     <string name="SubmitDebugLogActivity_failed_to_save">No s\'ha pogut desar</string>
     <!-- Toast that is show to notify that we have saved the debug log file to disk. -->
@@ -2127,6 +2203,8 @@
     <string name="UnverifiedSendDialog_send">Envia</string>
 
     <!-- UsernameEditFragment -->
+    <!-- Placeholder text for custom discriminator -->
+    <string name="UsernameEditFragment__00">00</string>
     <!-- Toolbar title when entering from registration -->
     <string name="UsernameEditFragment__add_a_username">Afegeix un nom d\'usuari</string>
     <!-- Instructional text at the top of the username edit screen -->
@@ -2149,6 +2227,12 @@
     <string name="UsernameEditFragment__skip">Omet</string>
     <!-- Content description for done button -->
     <string name="UsernameEditFragment__done">Fet</string>
+    <!-- Displayed when the chosen discriminator is not available for the given nickname -->
+    <string name="UsernameEditFragment__this_username_is_not_available_try_another_number">Aquest nom d\'usuari no està disponible, prova un altre número.</string>
+    <!-- Displayed when the chosen discriminator is too short -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Nom d\'usuari no vàlid, introdueix %1$d dígits com a mínim.</string>
+    <!-- Displayed when the chosen discriminator is too long -->
+    <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Nom d\'usuari no vàlid, introdueix %1$d dígits com a màxim.</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%1$d contacte és al Signal!</item>
@@ -2346,6 +2430,10 @@
     </plurals>
     <!-- Status update label used while the device is transcoding video as a prerequisite to uploading -->
     <string name="TransferControlView__processing">Processant…</string>
+    <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
+    <string name="TransferControlView__download_progress">%1$1.1f MB/%2$2.1f MB</string>
+    <!-- Attachment file size label for not-yet-downloaded images and video. Will take the form of "1.0 MB" -->
+    <string name="TransferControlView__filesize">%1$1.1f MB</string>
 
 
     <!-- UnauthorizedReminder -->
@@ -2370,6 +2458,8 @@
     <string name="WebRtcCallActivity__answered_on_a_linked_device">S\'ha respost en un dispositiu enllaçat.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">S\'ha rebutjat en un dispositiu enllaçat.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Ocupat/da en un dispositiu enllaçat</string>
+    <!-- Tooltip message shown first time user is in a video call after switch camera button moved -->
+    <string name="WebRtcCallActivity__flip_camera_tooltip">El botó per canviar de càmera s\'ha mogut aquí, toca el teu vídeo per provar-lo</string>
 
     <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">Algú s\'ha afegit a aquesta trucada amb un número de seguretat que ha canviat.</string>
 
@@ -2980,7 +3070,7 @@
     <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Activeu-ho si el dispositiu fa servir SMS / MMS per WiFi (feu-ho només si la «Trucada per WiFi» està activada al dispositiu)</string>
     <string name="preferences__incognito_keyboard">Teclat d\'incògnit</string>
     <string name="preferences__read_receipts">Confirmació de lectura</string>
-    <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Si les confirmacions de recepció estan desactivbades, no podreu veure les dels altres.</string>
+    <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Si desactives les confirmacions de lectura, no podràs veure les dels altres.</string>
     <string name="preferences__typing_indicators">Indicadors de tecleig</string>
     <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Si els indicadors de tecleig estan desactivats, no podreu veure els indicadors de tecleig dels altres.</string>
     <string name="preferences__request_keyboard_to_disable">Sol·licita un teclat per desactivar l\'aprenentatge personalitzat.</string>
@@ -3358,7 +3448,7 @@
     <!-- Button to edit a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="conversation_selection__menu_edit">Editar</string>
     <!-- Button to save a message attachment (image, file etc.); Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
-    <string name="conversation_selection__menu_save">Desats</string>
+    <string name="conversation_selection__menu_save">Desar</string>
     <!-- Button to retry sending a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_resend_message">Torna a enviar</string>
     <!-- Button to select a message and enter selection mode; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
@@ -3925,14 +4015,16 @@
     <string name="ReviewCardDialogFragment__failed_to_remove_group_member">No s\'ha pogut esborrar el membre del grup.</string>
 
     <!-- ReviewCard -->
-    <string name="ReviewCard__member">Membre</string>
     <string name="ReviewCard__request">Sol·licitud</string>
     <string name="ReviewCard__your_contact">Contacte</string>
     <string name="ReviewCard__remove_from_group">Esborrar del grup</string>
     <string name="ReviewCard__update_contact">Actualitza el contacte</string>
     <string name="ReviewCard__block">Bloquejar</string>
     <string name="ReviewCard__delete">Esborrar</string>
-    <string name="ReviewCard__recently_changed">Recentment han canviat el nom del perfil de %1$s a %2$s.</string>
+    <!-- Displayed when a recent name change has occurred. First placeholder is new short name, second is previous name, third is new name. -->
+    <string name="ReviewCard__s_recently_changed">%1$s ha canviat recentment el nom del perfil de %2$s a %3$s</string>
+    <!-- Displayed when a review user is in your system contacts. Placeholder is short name. -->
+    <string name="ReviewCard__s_is_in_your_system_contacts">%1$s és als contactes del teu sistema</string>
 
     <!-- CallParticipantsListUpdatePopupWindow -->
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s s\'hi ha afegit.</string>
@@ -4964,7 +5056,7 @@
     <!-- Call to action button once the profile is named to create the profile and continue to the customization steps -->
     <string name="EditNotificationProfileFragment__create">Crea</string>
     <!-- Call to action button once the profile name is edited -->
-    <string name="EditNotificationProfileFragment__save">Desats</string>
+    <string name="EditNotificationProfileFragment__save">Desar</string>
     <!-- Title of edit notification profile screen -->
     <string name="EditNotificationProfileFragment__edit_this_profile">Edita aquest perfil</string>
     <!-- Error message shown when attempting to create or edit a profile name to an existing profile name -->
@@ -4988,6 +5080,12 @@
     <string name="AddAllowedMembers__add_people_and_groups_you_want_notifications_and_calls_from_when_this_profile_is_on">Afegiu persones i grups dels quals rebre notificacions i trucades quan aquest perfil estigui activat.</string>
     <!-- Button text that launches the contact picker to select from -->
     <string name="AddAllowedMembers__add_people_or_groups">Afegeix persones o grups</string>
+    <!-- Title for exceptions section of add people to notification profile screen in create flow -->
+    <string name="AddAllowedMembers__exceptions">Excepcions</string>
+    <!-- List preference to toggle that allows calls through the notification profile during create flow -->
+    <string name="AddAllowedMembers__allow_all_calls">Permet totes les trucades</string>
+    <!-- List preference to toggle that allows mentions through the notification profile during create flow -->
+    <string name="AddAllowedMembers__notify_for_all_mentions">Notifica totes les mencions</string>
 
     <!-- Call to action button on contact picker for adding to profile -->
     <string name="SelectRecipientsFragment__add">Afegeix</string>
@@ -5061,7 +5159,7 @@
     <!-- Title of select time dialog shown when setting end time for schedule -->
     <string name="EditNotificationProfileSchedule__set_end_time">Estableix l\'hora d\'acabar</string>
     <!-- If in edit mode, call to action button text show to save schedule to profile -->
-    <string name="EditNotificationProfileSchedule__save">Desats</string>
+    <string name="EditNotificationProfileSchedule__save">Desar</string>
     <!-- If in create mode, call to action button text to show to skip enabling a schedule -->
     <string name="EditNotificationProfileSchedule__skip">Omet</string>
     <!-- If in create mode, call to action button text to show to use the enabled schedule and move to the next screen -->
@@ -5602,8 +5700,8 @@
     <string name="SafetyNumberBottomSheetFragment__all_connections_have_been_reviewed">S\'han revisat tots els contactes, toca enviar per a continuar.</string>
     <!-- Message of safety number changes bottom sheet when not showing individual records -->
     <plurals name="SafetyNumberBottomSheetFragment__you_have_d_connections_plural">
-        <item quantity="one">Tens %1$d contacte que pot ser que hagi reinstal·lat Signal o canviat de dispositiu. Pots revisar el seu número de seguretat abans d\'enviar.</item>
-        <item quantity="other">Tens %1$d contactes que pot ser que hagin reinstal·lat Signal o canviat de dispositiu. Pots revisar els seus números de seguretat abans d\'enviar.</item>
+        <item quantity="one">Pot ser que %1$d contacte hagi reinstal·lat Signal o canviat de dispositiu. Pots revisar el seu número de seguretat o continuar i enviar.</item>
+        <item quantity="other">Pot ser que %1$d contactes hagin reinstal·lat Signal o canviat de dispositiu. Pots revisar els seus números de seguretat o continuar i enviar.</item>
     </plurals>
     <!-- Menu action to launch safety number verification screen -->
     <string name="SafetyNumberBottomSheetFragment__verify_safety_number">Verifica el número de seguretat</string>
@@ -5961,12 +6059,18 @@
     <string name="BankTransferDetailsFragment__iban_country_code_is_not_supported">El codi de país de l\'IBAN no és compatible</string>
     <!-- Error label for IBAN field when number is invalid -->
     <string name="BankTransferDetailsFragment__invalid_iban">IBAN no vàlid</string>
+    <!-- Error label for name field when name is not at least two characters long -->
+    <string name="BankTransferDetailsFragment__minimum_2_characters">Mínim 2 caràcters</string>
+    <!-- Error label for email field when email is not valid -->
+    <string name="BankTransferDetailsFragment__invalid_email_address">Adreça de correu electrònic no vàlida</string>
 
     <!-- IdealTransferDetailsFragment -->
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank">Introdueix el teu banc, nom i correu electrònic. Stripe utilitza aquest correu electrònic per enviar-te actualitzacions sobre la teva donació. %1$s</string>
+    <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
+    <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Introdueix els teus detalls bancaris. Signal no recopila ni emmagatzema la teva informació personal. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
     <string name="IdealTransferDetailsFragment__learn_more">Més informació</string>
     <!-- Hint label for text entry box for name on bank account -->
@@ -6152,6 +6256,8 @@
     <string name="CallLogAdapter__outgoing">Sortint</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">Perduda</string>
+    <!-- Displayed for missed calls declined by notification profile -->
+    <string name="CallLogAdapter__missed_notification_profile">Perduda mentre els ajustos de notificació estaven activats</string>
     <!-- Displayed on Group Call button if user is not in the call -->
     <string name="CallLogAdapter__join">Unir-me</string>
     <!-- Displayed on Group Call button if user is in the call -->
@@ -6259,6 +6365,8 @@
     <string name="CallPreference__group_call">Trucada de grup</string>
     <!-- Missed group call in call info -->
     <string name="CallPreference__missed_group_call">Trucada grupal perduda</string>
+    <!-- Missed group call while notification profile on in call info -->
+    <string name="CallPreference__missed_group_call_notification_profile">Trucada de grup perduda mentre els ajustos de notificació estaven activats</string>
     <!-- Incoming group call in call info -->
     <string name="CallPreference__incoming_group_call">Trucada grupal entrant</string>
     <!-- Outgoing group call in call info -->

@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.AccountValues;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.profiles.ProfileName;
+import org.thoughtcrime.securesms.profiles.manage.UsernameRepository;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.FeatureFlags;
@@ -127,6 +128,7 @@ public class RefreshOwnProfileJob extends BaseJob {
     setProfileAvatar(profile.getAvatar());
     setProfileCapabilities(profile.getCapabilities());
     ensureUnidentifiedAccessCorrect(profile.getUnidentifiedAccess(), profile.isUnrestrictedUnidentifiedAccess());
+    ensurePhoneNumberSharingIsCorrect(profile.getPhoneNumberSharing());
 
     profileAndCredential.getExpiringProfileKeyCredential()
                         .ifPresent(expiringProfileKeyCredential -> setExpiringProfileKeyCredential(self, ProfileKeyUtil.getSelfProfileKey(), expiringProfileKeyCredential));
@@ -235,7 +237,46 @@ public class RefreshOwnProfileJob extends BaseJob {
     }
   }
 
-  static void checkUsernameIsInSync() {
+  /**
+   * Checks to make sure that our phone number sharing setting matches what's on our profile. If there's a mismatch, we first sync with storage service
+   * (to limit race conditions between devices) and then upload our profile.
+   */
+  private void ensurePhoneNumberSharingIsCorrect(@Nullable String phoneNumberSharingCiphertext) {
+    if (phoneNumberSharingCiphertext == null) {
+      Log.w(TAG, "No phone number sharing is set remotely! Syncing with storage service, then uploading our profile.");
+      syncWithStorageServiceThenUploadProfile();
+      return;
+    }
+
+    ProfileKey    profileKey = ProfileKeyUtil.getSelfProfileKey();
+    ProfileCipher cipher     = new ProfileCipher(profileKey);
+
+    try {
+      RecipientTable.PhoneNumberSharingState remotePhoneNumberSharing = cipher.decryptBoolean(Base64.decode(phoneNumberSharingCiphertext))
+                                                                              .map(value -> value ? RecipientTable.PhoneNumberSharingState.ENABLED : RecipientTable.PhoneNumberSharingState.DISABLED)
+                                                                              .orElse(RecipientTable.PhoneNumberSharingState.UNKNOWN);
+
+      if (remotePhoneNumberSharing == RecipientTable.PhoneNumberSharingState.UNKNOWN || remotePhoneNumberSharing.getEnabled() != SignalStore.phoneNumberPrivacy().isPhoneNumberSharingEnabled()) {
+        Log.w(TAG, "Phone number sharing setting did not match! Syncing with storage service, then uploading our profile.");
+        syncWithStorageServiceThenUploadProfile();
+      }
+    } catch (IOException e) {
+      Log.w(TAG, "Failed to decode phone number sharing! Syncing with storage service, then uploading our profile.", e);
+      syncWithStorageServiceThenUploadProfile();
+    } catch (InvalidCiphertextException e) {
+      Log.w(TAG, "Failed to decrypt phone number sharing! Syncing with storage service, then uploading our profile.", e);
+      syncWithStorageServiceThenUploadProfile();
+    }
+  }
+
+  private void syncWithStorageServiceThenUploadProfile() {
+    ApplicationDependencies.getJobManager()
+                           .startChain(new StorageSyncJob())
+                           .then(new ProfileUploadJob())
+                           .enqueue();
+  }
+
+  private static void checkUsernameIsInSync() {
     boolean validated = false;
 
     try {
@@ -247,9 +288,10 @@ public class RefreshOwnProfileJob extends BaseJob {
 
       if (TextUtils.isEmpty(localUsernameHash) && TextUtils.isEmpty(remoteUsernameHash)) {
         Log.d(TAG, "Local and remote username hash are both empty. Considering validated.");
+        UsernameRepository.onUsernameConsistencyValidated();
       } else if (!Objects.equals(localUsernameHash, remoteUsernameHash)) {
         Log.w(TAG, "Local username hash does not match server username hash. Local hash: " + (TextUtils.isEmpty(localUsername) ? "empty" : "present") + ", Remote hash: " + (TextUtils.isEmpty(remoteUsernameHash) ? "empty" : "present"));
-        SignalStore.account().setUsernameSyncState(AccountValues.UsernameSyncState.USERNAME_AND_LINK_CORRUPTED);
+        UsernameRepository.onUsernameMismatchDetected();
         return;
       } else {
         Log.d(TAG, "Username validated.");
@@ -258,7 +300,8 @@ public class RefreshOwnProfileJob extends BaseJob {
       Log.w(TAG, "Failed perform synchronization check during username phase.", e);
     } catch (BaseUsernameException e) {
       Log.w(TAG, "Our local username data is invalid!", e);
-      SignalStore.account().setUsernameSyncState(AccountValues.UsernameSyncState.USERNAME_AND_LINK_CORRUPTED);
+      UsernameRepository.onUsernameMismatchDetected();
+      return;
     }
 
     try {
@@ -271,9 +314,7 @@ public class RefreshOwnProfileJob extends BaseJob {
 
         if (!remoteUsername.getUsername().equals(SignalStore.account().getUsername())) {
           Log.w(TAG, "The remote username decrypted ok, but the decrypted username did not match our local username!");
-          SignalStore.account().setUsernameSyncState(AccountValues.UsernameSyncState.LINK_CORRUPTED);
-          SignalStore.account().setUsernameLink(null);
-          StorageSyncHelper.scheduleSyncForDataChange();
+          UsernameRepository.onUsernameLinkMismatchDetected();
         } else {
           Log.d(TAG, "Username link validated.");
         }
@@ -284,13 +325,11 @@ public class RefreshOwnProfileJob extends BaseJob {
       Log.w(TAG, "Failed perform synchronization check during the username link phase.", e);
     } catch (BaseUsernameException e) {
       Log.w(TAG, "Failed to decrypt username link using the remote encrypted username and our local entropy!", e);
-      SignalStore.account().setUsernameSyncState(AccountValues.UsernameSyncState.LINK_CORRUPTED);
-      SignalStore.account().setUsernameLink(null);
-      StorageSyncHelper.scheduleSyncForDataChange();
+      UsernameRepository.onUsernameLinkMismatchDetected();
     }
 
     if (validated) {
-      SignalStore.account().setUsernameSyncState(AccountValues.UsernameSyncState.IN_SYNC);
+      UsernameRepository.onUsernameConsistencyValidated();
     }
   }
 

@@ -196,16 +196,6 @@ class ConversationSettingsRepository(
     }
   }
 
-  fun delete(recipientId: RecipientId, block: Boolean) {
-    SignalExecutors.BOUNDED.execute {
-      val recipient = Recipient.resolved(recipientId)
-      if (block) {
-        RecipientUtil.blockNonGroup(context, recipient)
-      }
-      RecipientUtil.delete(context, recipient)
-    }
-  }
-
   fun block(groupId: GroupId) {
     SignalExecutors.BOUNDED.execute {
       val recipient = Recipient.externalGroupExact(groupId)

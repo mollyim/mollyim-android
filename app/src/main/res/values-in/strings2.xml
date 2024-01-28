@@ -27,10 +27,10 @@
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Nomor port yang valid adalah antara 0 dan 65535</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot memulai</string>
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Kontak yang dihapus masih dapat menghubungi Anda atau mengirimi Anda pesan, kecuali jika kontak tersebut diblokir.</string>
-    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Obrolan Anda dengan %1$s akan dihapus dan %1$s akan dihapus dari kontak telepon Anda.</string>
+    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Obrolan Anda dengan %1$s akan dihapus dan %1$s akan dihapus dari kontak perangkat Anda.</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">Obrolan Anda dengan %1$s akan dihapus.</string>
     <string name="BlockUnblockDialog_delete_this_contact">Hapus kontak ini\?</string>
-    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Tambahkan ke kontak ponsel Anda</string>
+    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Tambahkan ke kontak perangkat Anda</string>
     <string name="preferences_network__hostname_or_ip_address">Nama host atau alamat IP</string>
     <string name="preferences_network__port">Port</string>
     <string name="preferences_network__host">Inang</string>
@@ -64,4 +64,13 @@
     <string name="BackupsPreferenceFragment__number_of_backups_to_retain">Jumlah cadangan yang harus dipertahankan</string>
     <string name="MessageRetrievalService_ready_to_receive_messages">Siap menerima pesan</string>
     <string name="HelpSettingsFragment__molly_im_website">Situs web Molly.im</string>
+    <string name="preferences__include_beta_updates">Sertakan pembaruan beta</string>
+    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Jika perangkat Anda tidak dapat memindai kode QR, Anda dapat memasukkan tautan secara manual yang dikodekan dalam kode QR.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly membutuhkan kontak dan izin media untuk membantu Anda menemukan teman dan mengirim pesan. Kontak Anda diunggah menggunakan penemuan kontak pribadi Signal, yang berarti kontak-kontak tersebut dienkripsi secara end-to-end dan tidak akan pernah terlihat oleh layanan Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly membutuhkan izin kontak untuk membantu Anda menemukan teman-teman Anda. Kontak Anda diunggah menggunakan penemuan kontak pribadi Signal, yang berarti kontak tersebut dienkripsi secara end-to-end dan tidak akan pernah terlihat oleh layanan Signal.</string>
+    <string name="EnableAppUpdatesMegaphone_check_for_updates_automatically">Periksa pembaruan secara otomatis?</string>
+    <string name="EnableAppUpdatesMegaphone_check_for_updates">Periksa pembaruan</string>
+    <string name="PrivacySettingsFragment_data_at_rest">Perihal data</string>
+    <string name="HelpSettingsFragment_disable_and_delete_debug_log">Hapus dan menonaktifkan log debug?</string>
+    <string name="DozeReminder_optimize_for_timely_notifications">Optimalkan untuk pemberitahuan tepat waktu</string>
 </resources>

@@ -207,6 +207,9 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     const val ORIGINAL_MESSAGE_ID = "original_message_id"
     const val REVISION_NUMBER = "revision_number"
 
+    const val QUOTE_NOT_PRESENT_ID = 0L
+    const val QUOTE_TARGET_MISSING_ID = -1L
+
     const val CREATE_TABLE = """
       CREATE TABLE $TABLE_NAME (
         $ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -348,15 +351,14 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       """
         json_group_array(
           json_object(
-            '${AttachmentTable.ROW_ID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ROW_ID}, 
-            '${AttachmentTable.UNIQUE_ID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.UNIQUE_ID}, 
-            '${AttachmentTable.MMS_ID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MMS_ID},
-            '${AttachmentTable.SIZE}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.SIZE}, 
+            '${AttachmentTable.ID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ID}, 
+            '${AttachmentTable.MESSAGE_ID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MESSAGE_ID},
+            '${AttachmentTable.DATA_SIZE}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.DATA_SIZE}, 
             '${AttachmentTable.FILE_NAME}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.FILE_NAME}, 
-            '${AttachmentTable.DATA}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.DATA}, 
+            '${AttachmentTable.DATA_FILE}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.DATA_FILE}, 
             '${AttachmentTable.CONTENT_TYPE}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.CONTENT_TYPE}, 
             '${AttachmentTable.CDN_NUMBER}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.CDN_NUMBER}, 
-            '${AttachmentTable.CONTENT_LOCATION}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.CONTENT_LOCATION}, 
+            '${AttachmentTable.REMOTE_LOCATION}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.REMOTE_LOCATION}, 
             '${AttachmentTable.FAST_PREFLIGHT_ID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.FAST_PREFLIGHT_ID},
             '${AttachmentTable.VOICE_NOTE}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.VOICE_NOTE},
             '${AttachmentTable.BORDERLESS}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.BORDERLESS},
@@ -364,15 +366,14 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
             '${AttachmentTable.WIDTH}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.WIDTH},
             '${AttachmentTable.HEIGHT}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.HEIGHT},
             '${AttachmentTable.QUOTE}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.QUOTE},
-            '${AttachmentTable.CONTENT_DISPOSITION}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.CONTENT_DISPOSITION},
-            '${AttachmentTable.NAME}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.NAME},
+            '${AttachmentTable.REMOTE_KEY}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.REMOTE_KEY},
             '${AttachmentTable.TRANSFER_STATE}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.TRANSFER_STATE},
             '${AttachmentTable.CAPTION}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.CAPTION},
             '${AttachmentTable.STICKER_PACK_ID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.STICKER_PACK_ID},
             '${AttachmentTable.STICKER_PACK_KEY}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.STICKER_PACK_KEY},
             '${AttachmentTable.STICKER_ID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.STICKER_ID},
             '${AttachmentTable.STICKER_EMOJI}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.STICKER_EMOJI},
-            '${AttachmentTable.VISUAL_HASH}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.VISUAL_HASH},
+            '${AttachmentTable.BLUR_HASH}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.BLUR_HASH},
             '${AttachmentTable.TRANSFORM_PROPERTIES}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.TRANSFORM_PROPERTIES},
             '${AttachmentTable.DISPLAY_ORDER}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.DISPLAY_ORDER},
             '${AttachmentTable.UPLOAD_TIMESTAMP}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.UPLOAD_TIMESTAMP}
@@ -398,17 +399,19 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
           $PARENT_STORY_ID <= 0 AND
           $SCHEDULED_DATE = -1 AND
           $LATEST_REVISION_ID IS NULL AND
+          $TYPE & ${MessageTypes.KEY_EXCHANGE_IDENTITY_DEFAULT_BIT} = 0 AND
+          $TYPE & ${MessageTypes.KEY_EXCHANGE_IDENTITY_VERIFIED_BIT} = 0 AND
           $TYPE NOT IN (
             ${MessageTypes.PROFILE_CHANGE_TYPE}, 
-             ${MessageTypes.GV1_MIGRATION_TYPE},
-             ${MessageTypes.CHANGE_NUMBER_TYPE},
-             ${MessageTypes.BOOST_REQUEST_TYPE},
-             ${MessageTypes.SMS_EXPORT_TYPE}
-           ) 
-         ORDER BY $DATE_RECEIVED DESC LIMIT 1
+            ${MessageTypes.GV1_MIGRATION_TYPE},
+            ${MessageTypes.CHANGE_NUMBER_TYPE},
+            ${MessageTypes.BOOST_REQUEST_TYPE},
+            ${MessageTypes.SMS_EXPORT_TYPE}
+           )
+          ORDER BY $DATE_RECEIVED DESC LIMIT 1
        """
 
-    private val IS_CALL_TYPE_CLAUSE = """(
+    const val IS_CALL_TYPE_CLAUSE = """(
       ($TYPE = ${MessageTypes.INCOMING_AUDIO_CALL_TYPE})
       OR
       ($TYPE = ${MessageTypes.INCOMING_VIDEO_CALL_TYPE})
@@ -1775,7 +1778,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return threads.getOrCreateThreadIdFor(recipient)
   }
 
-  private fun rawQueryWithAttachments(where: String, arguments: Array<String>?, reverse: Boolean = false, limit: Long = 0): Cursor {
+  fun rawQueryWithAttachments(where: String, arguments: Array<String>?, reverse: Boolean = false, limit: Long = 0): Cursor {
     return rawQueryWithAttachments(MMS_PROJECTION_WITH_ATTACHMENTS, where, arguments, reverse, limit)
   }
 
@@ -1785,7 +1788,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       SELECT 
         ${Util.join(projection, ",")} 
       FROM 
-        $TABLE_NAME LEFT OUTER JOIN ${AttachmentTable.TABLE_NAME} ON ($TABLE_NAME.$ID = ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MMS_ID}) 
+        $TABLE_NAME LEFT OUTER JOIN ${AttachmentTable.TABLE_NAME} ON ($TABLE_NAME.$ID = ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MESSAGE_ID}) 
       WHERE 
         $where 
       GROUP BY 
@@ -2249,18 +2252,25 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
    * Trims data related to expired messages. Only intended to be run after a backup restore.
    */
   fun trimEntriesForExpiredMessages() {
+    val messageDeleteCount = writableDatabase
+      .delete(TABLE_NAME)
+      .where("$EXPIRE_STARTED > 0 AND $EXPIRES_IN > 0 AND ($EXPIRE_STARTED + $EXPIRES_IN) < ${System.currentTimeMillis()}")
+      .run()
+
+    Log.d(TAG, "Deleted $messageDeleteCount expired messages after backup.")
+
     writableDatabase
       .delete(GroupReceiptTable.TABLE_NAME)
       .where("${GroupReceiptTable.MMS_ID} NOT IN (SELECT $ID FROM $TABLE_NAME)")
       .run()
 
     readableDatabase
-      .select(AttachmentTable.ROW_ID, AttachmentTable.UNIQUE_ID)
+      .select(AttachmentTable.ID)
       .from(AttachmentTable.TABLE_NAME)
-      .where("${AttachmentTable.MMS_ID} NOT IN (SELECT $ID FROM $TABLE_NAME)")
+      .where("${AttachmentTable.MESSAGE_ID} NOT IN (SELECT $ID FROM $TABLE_NAME)")
       .run()
       .forEach { cursor ->
-        attachments.deleteAttachment(AttachmentId(cursor.requireLong(AttachmentTable.ROW_ID), cursor.requireLong(AttachmentTable.UNIQUE_ID)))
+        attachments.deleteAttachment(AttachmentId(cursor.requireLong(AttachmentTable.ID)))
       }
 
     mentions.deleteAbandonedMentions()
@@ -2275,23 +2285,6 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         threads.setLastScrolled(id, 0)
         threads.update(id, false)
       }
-  }
-
-  fun getNotification(messageId: Long): Optional<MmsNotificationInfo> {
-    return readableDatabase
-      .select(FROM_RECIPIENT_ID, MMS_CONTENT_LOCATION, MMS_TRANSACTION_ID, SMS_SUBSCRIPTION_ID)
-      .from(TABLE_NAME)
-      .where("$ID = ?", messageId)
-      .run()
-      .readToSingleObject { cursor ->
-        MmsNotificationInfo(
-          from = RecipientId.from(cursor.requireLong(FROM_RECIPIENT_ID)),
-          contentLocation = cursor.requireNonNullString(MMS_CONTENT_LOCATION),
-          transactionId = cursor.requireNonNullString(MMS_TRANSACTION_ID),
-          subscriptionId = cursor.requireInt(SMS_SUBSCRIPTION_ID)
-        )
-      }
-      .toOptional()
   }
 
   @Throws(MmsException::class, NoSuchMessageException::class)
@@ -2318,10 +2311,10 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val quoteText = cursor.requireString(QUOTE_BODY)
       val quoteType = cursor.requireInt(QUOTE_TYPE)
       val quoteMissing = cursor.requireBoolean(QUOTE_MISSING)
-      val quoteAttachments: List<Attachment> = associatedAttachments.filter { it.isQuote }.toList()
+      val quoteAttachments: List<Attachment> = associatedAttachments.filter { it.quote }.toList()
       val quoteMentions: List<Mention> = parseQuoteMentions(cursor)
       val quoteBodyRanges: BodyRangeList? = parseQuoteBodyRanges(cursor)
-      val quote: QuoteModel? = if (quoteId > 0 && quoteAuthor > 0 && (!TextUtils.isEmpty(quoteText) || quoteAttachments.isNotEmpty())) {
+      val quote: QuoteModel? = if (quoteId != QUOTE_NOT_PRESENT_ID && quoteAuthor > 0 && (!TextUtils.isEmpty(quoteText) || quoteAttachments.isNotEmpty())) {
         QuoteModel(quoteId, RecipientId.from(quoteAuthor), quoteText ?: "", quoteMissing, quoteAttachments, quoteMentions, QuoteModel.Type.fromCode(quoteType), quoteBodyRanges)
       } else {
         null
@@ -2332,7 +2325,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val previews: List<LinkPreview> = getLinkPreviews(cursor, associatedAttachments)
       val previewAttachments: Set<Attachment> = previews.filter { it.thumbnail.isPresent }.map { it.thumbnail.get() }.toSet()
       val attachments: List<Attachment> = associatedAttachments
-        .filterNot { it.isQuote }
+        .filterNot { it.quote }
         .filterNot { contactAttachments.contains(it) }
         .filterNot { previewAttachments.contains(it) }
         .sortedWith(DisplayOrderComparator())
@@ -2557,7 +2550,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     }
 
     if (retrieved.attachments.isEmpty() && editedMessage?.id != null && attachments.getAttachmentsForMessage(editedMessage.id).isNotEmpty()) {
-      val linkPreviewAttachmentIds = editedMessage.linkPreviews.mapNotNull { it.attachmentId?.rowId }.toSet()
+      val linkPreviewAttachmentIds = editedMessage.linkPreviews.mapNotNull { it.attachmentId?.id }.toSet()
       attachments.duplicateAttachmentsForMessage(messageId, editedMessage.id, linkPreviewAttachmentIds)
     }
 
@@ -2930,8 +2923,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         .where("$ID_WHERE OR $LATEST_REVISION_ID = ?", message.messageToEdit, message.messageToEdit)
         .run()
 
-      val textAttachments = (editedMessage as? MmsMessageRecord)?.slideDeck?.asAttachments()?.filter { it.contentType == MediaUtil.LONG_TEXT }?.mapNotNull { (it as? DatabaseAttachment)?.attachmentId?.rowId } ?: emptyList()
-      val linkPreviewAttachments = (editedMessage as? MmsMessageRecord)?.linkPreviews?.mapNotNull { it.attachmentId?.rowId } ?: emptyList()
+      val textAttachments = (editedMessage as? MmsMessageRecord)?.slideDeck?.asAttachments()?.filter { it.contentType == MediaUtil.LONG_TEXT }?.mapNotNull { (it as? DatabaseAttachment)?.attachmentId?.id } ?: emptyList()
+      val linkPreviewAttachments = (editedMessage as? MmsMessageRecord)?.linkPreviews?.mapNotNull { it.attachmentId?.id } ?: emptyList()
       val excludeIds = HashSet<Long>()
       excludeIds += textAttachments
       excludeIds += linkPreviewAttachments
@@ -3108,26 +3101,16 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return rowsDeleted
   }
 
-  fun deleteMessage(messageId: Long): Boolean {
-    val threadId = getThreadIdForMessage(messageId)
-    return deleteMessage(messageId, threadId)
-  }
+  fun deleteExpiringMessage(messageId: Long): Boolean =
+    deleteMessage(messageId, isExpiring = true)
 
-  fun deleteExpiringMessage(messageId: Long): Boolean {
-    val threadId = getThreadIdForMessage(messageId)
-    return deleteMessage(messageId, threadId, notify = true, isExpiring = true)
-  }
+  fun deleteMessage(messageId: Long): Boolean =
+    deleteMessage(messageId, isExpiring = false)
 
-  fun deleteMessage(messageId: Long, notify: Boolean): Boolean {
-    val threadId = getThreadIdForMessage(messageId)
-    return deleteMessage(messageId, threadId, notify, isExpiring = false)
-  }
+  private fun deleteMessage(messageId: Long, threadId: Long = getThreadIdForMessage(messageId)): Boolean =
+    deleteMessage(messageId, isExpiring = false, threadId)
 
-  fun deleteMessage(messageId: Long, threadId: Long): Boolean {
-    return deleteMessage(messageId, threadId, notify = true, isExpiring = false)
-  }
-
-  private fun deleteMessage(messageId: Long, threadId: Long, notify: Boolean, isExpiring: Boolean): Boolean {
+  private fun deleteMessage(messageId: Long, isExpiring: Boolean = false, threadId: Long = getThreadIdForMessage(messageId), notify: Boolean = true, updateThread: Boolean = true): Boolean {
     Log.d(TAG, "deleteMessage($messageId)")
 
     attachments.deleteAttachmentsForMessage(messageId)
@@ -3141,7 +3124,12 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     calls.updateCallEventDeletionTimestamps()
     threads.setLastScrolled(threadId, 0)
-    val threadDeleted = threads.update(threadId, false)
+
+    val threadDeleted = if (updateThread) {
+      threads.update(threadId, false)
+    } else {
+      false
+    }
 
     if (notify) {
       notifyConversationListeners(threadId)
@@ -3316,9 +3304,9 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     val fileSize: Long = readableDatabase.rawQuery(
       """
       SELECT 
-        SUM(${AttachmentTable.TABLE_NAME}.${AttachmentTable.SIZE}) AS s
+        SUM(${AttachmentTable.TABLE_NAME}.${AttachmentTable.DATA_SIZE}) AS s
       FROM 
-        $TABLE_NAME INNER JOIN ${AttachmentTable.TABLE_NAME} ON $TABLE_NAME.$ID = ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MMS_ID}
+        $TABLE_NAME INNER JOIN ${AttachmentTable.TABLE_NAME} ON $TABLE_NAME.$ID = ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MESSAGE_ID}
       WHERE
         ${getInsecureMessageClause()} AND $EXPORTED < ${MessageExportStatus.EXPORTED.serialize()}
       """,
@@ -3348,7 +3336,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     OptimizeMessageSearchIndexJob.enqueue()
   }
 
-  fun deleteThreads(threadIds: Set<Long>) {
+  private fun deleteThreads(threadIds: Set<Long>) {
     Log.d(TAG, "deleteThreads(count: ${threadIds.size})")
 
     writableDatabase.withinTransaction { db ->
@@ -3358,7 +3346,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
           .where(query.where, query.whereArgs)
           .run()
           .forEach { cursor ->
-            deleteMessage(cursor.requireLong(ID), false)
+            deleteMessage(cursor.requireLong(ID), notify = false, updateThread = false)
           }
       }
     }
@@ -3426,10 +3414,10 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         $VIEW_ONCE, 
         $DATE_RECEIVED 
       FROM 
-        $TABLE_NAME INNER JOIN ${AttachmentTable.TABLE_NAME} ON $TABLE_NAME.$ID = ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MMS_ID} 
+        $TABLE_NAME INNER JOIN ${AttachmentTable.TABLE_NAME} ON $TABLE_NAME.$ID = ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MESSAGE_ID} 
       WHERE 
         $VIEW_ONCE > 0 AND 
-        (${AttachmentTable.DATA} NOT NULL OR ${AttachmentTable.TRANSFER_STATE} != ?)
+        (${AttachmentTable.DATA_FILE} NOT NULL OR ${AttachmentTable.TRANSFER_STATE} != ?)
       """
 
     val args = buildArgs(AttachmentTable.TRANSFER_PROGRESS_DONE)
@@ -5006,6 +4994,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val latestRevisionId: MessageId? = cursor.requireLong(LATEST_REVISION_ID).let { if (it == 0L) null else MessageId(it) }
       val originalMessageId: MessageId? = cursor.requireLong(ORIGINAL_MESSAGE_ID).let { if (it == 0L) null else MessageId(it) }
       val editCount = cursor.requireInt(REVISION_NUMBER)
+      val isRead = cursor.requireBoolean(READ)
 
       if (!TextSecurePreferences.isReadReceiptsEnabled(context)) {
         hasReadReceipt = false
@@ -5092,7 +5081,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         scheduledDate,
         latestRevisionId,
         originalMessageId,
-        editCount
+        editCount,
+        isRead
       )
     }
 
@@ -5130,10 +5120,10 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val bodyRanges = parseQuoteBodyRanges(cursor)
 
       val attachments = attachments.getAttachments(cursor)
-      val quoteAttachments: List<Attachment> = attachments.filter { it.isQuote }
+      val quoteAttachments: List<Attachment> = attachments.filter { it.quote }
       val quoteDeck = SlideDeck(quoteAttachments)
 
-      return if (quoteId > 0 && quoteAuthor > 0) {
+      return if (quoteId != QUOTE_NOT_PRESENT_ID && quoteAuthor > 0) {
         if (quoteText != null && (quoteMentions.isNotEmpty() || bodyRanges != null)) {
           val updated: UpdatedBodyAndMentions = MentionUtil.updateBodyAndMentionsWithDisplayNames(context, quoteText, quoteMentions)
           val styledText = SpannableString(updated.body)
@@ -5181,7 +5171,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       @JvmStatic
       fun buildSlideDeck(attachments: List<DatabaseAttachment>): SlideDeck {
         val messageAttachments = attachments
-          .filterNot { it.isQuote }
+          .filterNot { it.quote }
           .sortedWith(DisplayOrderComparator())
 
         return SlideDeck(messageAttachments)

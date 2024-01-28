@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.signal.ringrtc.CallManager
+import org.thoughtcrime.securesms.database.model.RemoteMegaphoneRecord
 import org.thoughtcrime.securesms.jobs.StoryOnboardingDownloadJob
 import org.thoughtcrime.securesms.keyvalue.InternalValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -114,7 +115,7 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
   }
 
   fun addRemoteDonateMegaphone() {
-    repository.addRemoteDonateMegaphone()
+    repository.addRemoteMegaphone(RemoteMegaphoneRecord.ActionId.DONATE)
   }
 
   fun refresh() {

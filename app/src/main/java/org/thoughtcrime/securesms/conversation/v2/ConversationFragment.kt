@@ -945,7 +945,7 @@ class ConversationFragment :
     adapter.registerAdapterDataObserver(dataObserver!!)
 
     val keyboardEvents = KeyboardEvents()
-    container.listener = keyboardEvents
+    container.addInputListener(keyboardEvents)
     container.addKeyboardStateListener(keyboardEvents)
     requireActivity()
       .onBackPressedDispatcher
@@ -1462,7 +1462,9 @@ class ConversationFragment :
         findViewById<View>(R.id.scheduled_messages_show_all)
           .setOnClickListener {
             val recipient = viewModel.recipientSnapshot ?: return@setOnClickListener
-            ScheduledMessagesBottomSheet.show(childFragmentManager, args.threadId, recipient.id)
+            container.runAfterAllHidden(composeText) {
+              ScheduledMessagesBottomSheet.show(childFragmentManager, args.threadId, recipient.id)
+            }
           }
 
         findViewById<TextView>(R.id.scheduled_messages_text).text = resources.getQuantityString(R.plurals.conversation_scheduled_messages_bar__number_of_messages, count, count)
@@ -2473,11 +2475,13 @@ class ConversationFragment :
       activity ?: return
       val recipientId = viewModel.recipientSnapshot?.id ?: return
 
-      MessageQuotesBottomSheet.show(
-        childFragmentManager,
-        MessageId(messageRecord.id),
-        recipientId
-      )
+      container.runAfterAllHidden(composeText) {
+        MessageQuotesBottomSheet.show(
+          childFragmentManager,
+          MessageId(messageRecord.id),
+          recipientId
+        )
+      }
     }
 
     override fun onMoreTextClicked(conversationRecipientId: RecipientId, messageId: Long, isMms: Boolean) {
@@ -2503,6 +2507,7 @@ class ConversationFragment :
         }
 
         toast(toastText)
+        return
       }
 
       disposables += viewModel.getTemporaryViewOnceUri(messageRecord).subscribeBy(

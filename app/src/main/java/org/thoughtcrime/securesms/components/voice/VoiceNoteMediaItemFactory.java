@@ -175,7 +175,7 @@ class VoiceNoteMediaItemFactory {
       return sender.isSelf() && threadRecipient.isSelf() ? context.getString(R.string.note_to_self)
                                                          : sender.getDisplayName(context);
     } else {
-      return context.getString(R.string.MessageNotifier_signal_message);
+      return context.getString(R.string.NewConversationActivity__message);
     }
   }
 
