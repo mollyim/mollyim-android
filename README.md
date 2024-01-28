@@ -14,32 +14,6 @@ Molly connects to the Signal server, so you can chat with your Signal contacts s
 
 We update Molly every two weeks to include the latest features and bug fixes from Signal. The exceptions are security issues, which are patched as soon as fixes become available.
 
-## Download
-
-You can download the app from GitHub's [Releases](https://github.com/mollyim/mollyim-android/releases/latest) page or install it from the [Molly F-Droid Repo](https://molly.im/fdroid/):
-
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="80">](https://molly.im/fdroid/)
-
-There are two flavors to choose from download: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
-
-You can also download **Molly-FOSS** from [Accrescent](https://accrescent.app/):
-
-<a href="https://accrescent.app/app/im.molly.app">
-   <img alt="Get it on Accrescent"
-      src="https://accrescent.app/badges/get-it-on.png"
-      height="80">
-</a>
-
-Signing certificate fingerprints to [verify](https://developer.android.com/studio/command-line/apksigner#usage-verify) the APK:
-```
-SHA-256: 6aa80fdf4a8cc13737cfb434fc0cde486f09cf8fcda21a67bea5ee1ca2700886
-SHA-1: 49ce310cdd0c09c8c34eb31a8005c6bf13f5a4f1
-```
-
-To explore latest experimental features, consider **Molly Insider**, our dedicated app for beta testing. Find out more here: [Molly Insider on GitHub](https://github.com/mollyim/mollyim-insider-android).
-
 ## Features
 
 Molly has unique features compared to Signal:
@@ -112,12 +86,6 @@ For older releases of Android, you might need to rename the backup file and copy
 - [Submit bugs and feature requests](https://github.com/mollyim/mollyim-android/issues)
 - Join us at [#mollyim:matrix.org](https://matrix.to/#/#mollyim:matrix.org) on Matrix
 - For news, tips and tricks follow [@mollyimapp](https://twitter.com/mollyimapp) on Twitter
-
-## Reproducible Builds
-
-Molly supports reproducible builds, so that anyone can run the build process to reproduce the same APK as the original release.
-
-Please check the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/master/reproducible-builds) directory.
 
 ## Changelog
 
