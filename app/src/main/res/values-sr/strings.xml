@@ -562,6 +562,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">Угасите или упалите овде Ваш профил обавештења.</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">%1$s упаљено</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">Your QR code and link have been reset and your username is %1$s</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">Порука размене кључева</string>
@@ -996,6 +998,8 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">Немој да ме обавештаваш</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">Your username, QR code and link aren\'t visible on your profile. Only share your username with people you trust.</string>
     <string name="ManageProfileFragment_profile_name">Име на профилу</string>
     <string name="ManageProfileFragment_username">Корисничко име</string>
     <string name="ManageProfileFragment_about">О контакту</string>
@@ -1896,7 +1900,10 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">Пажљиво прегледајте захтеве</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">Заједничких група: %1$d</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="one">Заједничких група: %1$d</item>
+        <item quantity="other">Заједничких група: %1$d</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">О контакту</string>
     <!-- Text displayed in title for you -->
@@ -2233,6 +2240,8 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Неважеће корисничко име – унесите најмање %1$d цифре.</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Неважеће корисничко име – унесите најмање %1$d цифара.</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">Recovering your username will reset your existing QR code and link. Are you sure?</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%1$d контакт је на Signal-у!</item>
@@ -2418,6 +2427,26 @@
     <string name="SingleRecipientNotificationBuilder_you">Ви</string>
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • Прича</string>
+
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">Нови начини повезивања</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">Приватност броја телефона</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">Your phone number is no longer shared with chats. If your number is saved to a friend\'s contacts, they will still see it.</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">Корисничка имена</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">People can now message you using your optional username so you don\'t have to give out your phone number. Usernames aren\'t visible on your profile.</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">QR кодови и линкови</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">Корисничка имена имају јединствени QR код и линк које можете да поделите са пријатељима да би брзо започели ћаскање са вама.</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">Не сада</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">Подесите корисничко име</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">Пусти видео</string>
@@ -3749,8 +3778,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Позови ме (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Поново пошаљи шифру (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Контактирајте Signal подршку</string>
-    <string name="RegistrationActivity_code_support_subject">Signal регистрација - верификациони кôд за Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Контактирајте Molly подршку</string>
+    <string name="RegistrationActivity_code_support_subject">Molly регистрација - верификациони кôд за Android</string>
     <string name="RegistrationActivity_incorrect_code">Погрешан кôд</string>
     <string name="BackupUtil_never">Никад</string>
     <string name="BackupUtil_unknown">Непозната</string>
@@ -3761,11 +3790,17 @@
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Ко може да види мој број</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Нико неће видети ваш број телефона у Molly-у</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">Nobody will see your phone number on Molly, even when messaging them.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Ко може да ме пронађе преко броја телефона</string>
     <!-- Subtext below radio buttons when who can see my number is set to everyone -->
     <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Ваш број телефона ће бити видљив људима и групама којима шаљете поруке. Људи који имају ваш број у својим контактима на телефону такође ће га видети у Molly-у.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">Anyone who has your phone number will see you\'re on Molly and can start chats with you.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">Nobody will be able to see you\'re on Molly unless you message them or have an existing chat with them.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"To change this setting, set Who can see my number to Nobody."</string>
     <string name="PhoneNumberPrivacy_everyone">Сви</string>
     <string name="PhoneNumberPrivacy_nobody">никога</string>
     <string name="preferences_app_protection__screen_lock">Закључавање екрана</string>
@@ -6199,11 +6234,11 @@
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">Подесите корисничко име за Signal</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">Корисничка имена омогућавају другима да вам шаљу поруке без потребе за вашим бројем телефона</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">Представљамо приватност бројева телефона, опциона корисничка имена и линкове.</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">Не сада</string>
+    <string name="SetUpYourUsername__dismiss">Одбаци</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">Настави</string>
+    <string name="SetUpYourUsername__learn_more">Сазнајте више</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6548,6 +6583,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">Никада не пропустите позиве од ваших контаката и група.</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">Укључи</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">Не сада</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">Укључите обавештења преко целог екрана</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->

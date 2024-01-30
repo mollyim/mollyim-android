@@ -546,6 +546,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">通知揀單唔揀單，可以喺呢處搞。</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">%1$s 揀揀單單</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">Your QR code and link have been reset and your username is %1$s</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">金鑰交換訊息</string>
@@ -962,6 +964,8 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">唔好通知我</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">Your username, QR code and link aren\'t visible on your profile. Only share your username with people you trust.</string>
     <string name="ManageProfileFragment_profile_name">個人資料名稱</string>
     <string name="ManageProfileFragment_username">使用者名稱</string>
     <string name="ManageProfileFragment_about">關於</string>
@@ -1823,7 +1827,9 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">請求要金睛火眼睇清楚</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">%1$d 個共同群組</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="other">%1$d 個有緣相遇嘅谷</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">關於</string>
     <!-- Text displayed in title for you -->
@@ -2155,6 +2161,8 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">用戶名稱無效，請輸入至少 %1$d 位數字。</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">用戶名稱無效，請輸入最多 %1$d 位數字。</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">Recovering your username will reset your existing QR code and link. Are you sure?</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="other">%1$d 位聯絡人開咗 Signal 喇！</item>
@@ -2337,6 +2345,26 @@
     <string name="SingleRecipientNotificationBuilder_you">您</string>
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • 限時動態</string>
+
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">全新連繫方式</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">電話號碼私隱</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">Your phone number is no longer shared with chats. If your number is saved to a friend\'s contacts, they will still see it.</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">用戶名稱</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">People can now message you using your optional username so you don\'t have to give out your phone number. Usernames aren\'t visible on your profile.</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">二維碼同連結</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">每個用戶名稱都有專屬嘅二維碼同埋連結，方便你同朋友分享，即刻開始傾計。</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">遲啲先啦</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">設定你嘅用戶名稱</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">播片</string>
@@ -3645,8 +3673,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">打俾我 (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">重新傳送驗證碼 (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">聯絡 Signal 支援</string>
-    <string name="RegistrationActivity_code_support_subject">Signal 註冊 - Android 版驗證碼</string>
+    <string name="RegistrationActivity_contact_signal_support">聯絡 Molly 支援</string>
+    <string name="RegistrationActivity_code_support_subject">Molly 註冊 - Android 版驗證碼</string>
     <string name="RegistrationActivity_incorrect_code">個碼唔啱</string>
     <string name="BackupUtil_never">唔使喇</string>
     <string name="BackupUtil_unknown">未知</string>
@@ -3657,11 +3685,17 @@
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">邊個可以睇到我嘅手機號碼</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">冇人會喺 Molly 度睇到你嘅手機號碼</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">Nobody will see your phone number on Molly, even when messaging them.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">邊個可以用手機號碼搵到我</string>
     <!-- Subtext below radio buttons when who can see my number is set to everyone -->
     <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">同你通訊嘅用戶同埋群組都可以睇到你嘅手機號碼。如果對方喺手機通訊錄入面儲存咗你嘅手機號碼，都會喺 Molly 度睇到。</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">Anyone who has your phone number will see you\'re on Molly and can start chats with you.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">Nobody will be able to see you\'re on Molly unless you message them or have an existing chat with them.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"To change this setting, set Who can see my number to Nobody."</string>
     <string name="PhoneNumberPrivacy_everyone">任何人都得</string>
     <string name="PhoneNumberPrivacy_nobody">邊個都唔得</string>
     <string name="preferences_app_protection__screen_lock">畫面鎖</string>
@@ -6061,11 +6095,11 @@
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">設定你嘅 Signal 用戶名稱</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">用戶名稱可以等其他人唔使知道你嘅電話號碼，都可以向你傳送訊息</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">包括電話號碼私隱、可以選填嘅用戶名稱同連結功能。</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">遲啲先啦</string>
+    <string name="SetUpYourUsername__dismiss">關閉</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">繼續</string>
+    <string name="SetUpYourUsername__learn_more">了解詳情</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6405,6 +6439,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">唔再錯過聯絡人同群組打嚟嘅電話。</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">開啟</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">遲啲先啦</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">開啟全螢幕通知</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->

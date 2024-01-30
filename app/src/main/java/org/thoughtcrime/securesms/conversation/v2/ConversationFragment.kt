@@ -393,7 +393,8 @@ class ConversationFragment :
       repository = ConversationRepository(localContext = requireContext(), isInBubble = args.conversationScreenType == ConversationScreenType.BUBBLE),
       recipientRepository = conversationRecipientRepository,
       messageRequestRepository = messageRequestRepository,
-      scheduledMessagesRepository = ScheduledMessagesRepository()
+      scheduledMessagesRepository = ScheduledMessagesRepository(),
+      initialChatColors = args.chatColors
     )
   }
 
@@ -582,7 +583,11 @@ class ConversationFragment :
 
     inputPanel.setMediaListener(InputPanelMediaListener())
 
-    ChatColorsDrawable.attach(binding.conversationItemRecycler)
+    binding.conversationItemRecycler.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+      viewModel.onChatBoundsChanged(Rect(left, top, right, bottom))
+    }
+
+    binding.conversationItemRecycler.addItemDecoration(ChatColorsDrawable.ChatColorsItemDecoration)
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -1361,7 +1366,6 @@ class ConversationFragment :
       colorFilter = PorterDuffColorFilter(chatColors.asSingleColor(), PorterDuff.Mode.MULTIPLY)
       invalidateSelf()
     }
-    ChatColorsDrawable.setGlobalChatColors(binding.conversationItemRecycler, chatColors)
   }
 
   private fun presentScrollButtons(scrollButtonState: ConversationScrollButtonState) {
@@ -1523,7 +1527,8 @@ class ConversationFragment :
       clickListener = ConversationItemClickListener(),
       hasWallpaper = args.wallpaper != null,
       colorizer = colorizer,
-      startExpirationTimeout = viewModel::startExpirationTimeout
+      startExpirationTimeout = viewModel::startExpirationTimeout,
+      chatColorsDataProvider = viewModel::chatColorsSnapshot
     )
 
     typingIndicatorAdapter = ConversationTypingIndicatorAdapter(GlideApp.with(this))

@@ -80,7 +80,7 @@ class EditProfileFragment : LoggingFragment() {
     binding.manageProfileNameContainer.setOnClickListener { v: View -> findNavController(v).safeNavigate(EditProfileFragmentDirections.actionManageProfileName()) }
 
     binding.manageProfileUsernameContainer.setOnClickListener { v: View ->
-      if (SignalStore.uiHints().hasSeenUsernameEducation()) {
+      if (SignalStore.uiHints().hasSeenUsernameEducation() || SignalStore.account().username != null) {
         if (SignalStore.account().username != null) {
           MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_Signal_MaterialAlertDialog_List)
             .setItems(R.array.username_edit_entries) { _: DialogInterface?, w: Int ->
@@ -168,6 +168,8 @@ class EditProfileFragment : LoggingFragment() {
       viewModel.username.observe(viewLifecycleOwner) { presentUsername(it) }
     } else {
       binding.manageProfileUsernameContainer.visibility = View.GONE
+      binding.manageProfileDivider.root.visibility = View.GONE
+      binding.usernameInfoText.visibility = View.GONE
     }
   }
 

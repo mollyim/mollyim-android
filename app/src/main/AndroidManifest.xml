@@ -1275,6 +1275,16 @@
         android:enabled="@bool/enable_alarm_manager"
         android:exported="false"/>
 
+    <service android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService" android:exported="false" />
+    <receiver android:name=".service.webrtc.ActiveCallManager$ActiveCallServiceReceiver" android:exported="false">
+        <intent-filter>
+            <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.DENY"/>
+        </intent-filter>
+        <intent-filter>
+            <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.HANGUP"/>
+        </intent-filter>
+    </receiver>
+
     <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
 </application>

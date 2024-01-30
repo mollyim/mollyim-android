@@ -9,13 +9,13 @@ dependencyResolutionManagement {
       version("androidx-camera", "1.3.0-rc01")
       version("androidx-fragment", "1.6.1")
       version("androidx-lifecycle", "2.6.1")
-      version("androidx-media3", "1.1.0")
+      version("androidx-media3", "1.2.1")
       version("androidx-navigation", "2.6.0")
       version("androidx-window", "1.0.0")
       version("exoplayer", "2.19.0")
       version("glide", "4.15.1")
       version("kotlin", "1.8.10")
-      version("libsignal-client", "0.37.0")
+      version("libsignal-client", "0.39.2")
       version("mp4parser", "1.9.39")
       version("android-gradle-plugin", "8.0.2")
       version("accompanist", "0.28.0")
@@ -65,6 +65,8 @@ dependencyResolutionManagement {
       library("androidx-media3-exoplayer", "androidx.media3", "media3-exoplayer").versionRef("androidx-media3")
       library("androidx-media3-session", "androidx.media3", "media3-session").versionRef("androidx-media3")
       library("androidx-media3-ui", "androidx.media3", "media3-ui").versionRef("androidx-media3")
+      library("androidx-media3-decoder", "androidx.media3", "media3-decoder").versionRef("androidx-media3")
+      library("androidx-media3-common", "androidx.media3", "media3-common").versionRef("androidx-media3")
       library("androidx-multidex", "androidx.multidex:multidex:2.0.1")
       library("androidx-navigation-fragment-ktx", "androidx.navigation", "navigation-fragment-ktx").versionRef("androidx-navigation")
       library("androidx-navigation-ui-ktx", "androidx.navigation", "navigation-ui-ktx").versionRef("androidx-navigation")
@@ -174,8 +176,8 @@ dependencyResolutionManagement {
     }
 
     create("testLibs") {
-      version("androidx-test", "1.4.0")
-      version("androidx-test-ext-junit", "1.1.1")
+      version("androidx-test", "1.5.0")
+      version("androidx-test-ext-junit", "1.1.5")
       version("robolectric", "4.10.3")
 
       library("junit-junit", "junit:junit:4.13.2")
