@@ -111,7 +111,7 @@ For older releases of Android, you might need to rename the backup file and copy
 
 - [Submit bugs and feature requests](https://github.com/mollyim/mollyim-android/issues)
 - Join us at [#mollyim:matrix.org](https://matrix.to/#/#mollyim:matrix.org) on Matrix
-- For news, tips and tricks follow [@mollyimapp](https://twitter.com/mollyimapp) on Twitter
+- For news, tips and tricks follow [@mollyim](https://fosstodon.org/@mollyim) on Mastodon
 
 ## Reproducible Builds
 
