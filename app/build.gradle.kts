@@ -19,8 +19,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1379
-val canonicalVersionName = "6.45.1"
+val canonicalVersionCode = 1380
+val canonicalVersionName = "6.45.2"
 val mollyRevision = 1
 
 val postFixSize = 100
