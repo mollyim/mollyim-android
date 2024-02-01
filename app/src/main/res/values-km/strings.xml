@@ -546,6 +546,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">បិទ ឬបើកសារជូនដំណឹងសម្រាប់គណនីរបស់អ្នកនៅទីនេះ</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">%1$s បើក</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">កូដ QR និងតំណរបស់អ្នកត្រូវបានកំណត់ឡើងវិញ ហើយឈ្មោះអ្នកប្រើរបស់អ្នកគឺ %1$s</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">សារផ្លាស់ប្តូរសោរ</string>
@@ -962,6 +964,8 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">កុំជូនដំណឹងខ្ញុំ</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">ឈ្មោះអ្នកប្រើ កូដ QR និងតំណរបស់អ្នកមិនអាចមើលឃើញនៅលើប្រូហ្វាល់របស់អ្នកទេ។ សូមចែករំលែកឈ្មោះអ្នកប្រើរបស់អ្នកជាមួយមនុស្សដែលអ្នកទុកចិត្តប៉ុណ្ណោះ។</string>
     <string name="ManageProfileFragment_profile_name">ឈ្មោះប្រវត្តិរូប</string>
     <string name="ManageProfileFragment_username">ឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="ManageProfileFragment_about">អំពី</string>
@@ -1823,7 +1827,9 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">ពិនិត្យការស្នើសុំដោយប្រុងប្រយ័ត្ន</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">%1$d ក្រុមរួមគ្នា</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="other">%1$dក្រុមរួមគ្នា</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">អំពី</string>
     <!-- Text displayed in title for you -->
@@ -2155,6 +2161,8 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">ឈ្មោះអ្នកប្រើមិនត្រឹមត្រូវ។ សូមបញ្ចូលលេខយ៉ាងតិចបំផុត %1$d ខ្ទង់។</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">ឈ្មោះអ្នកប្រើមិនត្រឹមត្រូវ។ សូមបញ្ចូលលេខយ៉ាងច្រើនបំផុត %1$d ខ្ទង់។</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">ការស្តារយកឈ្មោះអ្នកប្រើរបស់អ្នកមកវិញនឹងកំណត់ឡើងវិញនូវកូដ QR និងតំណដែលមានស្រាប់របស់អ្នក។ តើអ្នកប្រាកដឬទេ?</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="other">លេខទំនាក់ទំនង%1$dនៅលើ Signal!</item>
@@ -2337,6 +2345,26 @@
     <string name="SingleRecipientNotificationBuilder_you">អ្នក</string>
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • រឿងរ៉ាវ</string>
+
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">វិធីថ្មីៗដើម្បីភ្ជាប់</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">ឯកជនភាពនៃលេខទូរសព្ទ</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">លេខទូរសព្ទរបស់អ្នកមិនត្រូវបានចែករំលែកជាមួយការជជែកទៀតទេ។ ប្រសិនបើលេខរបស់អ្នកត្រូវបានរក្សាទុកក្នុងបញ្ជីទំនាក់ទំនងរបស់មិត្តភក្តិ ពួកគេនឹងនៅតែមើលឃើញវាដដែល។</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">ឈ្មោះអ្នកប្រើ</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">ឥឡូវនេះ អ្នកផ្សេងអាចផ្ញើសារមកអ្នក ដោយប្រើប្រាស់ឈ្មោះអ្នកប្រើតាមជម្រើសរបស់អ្នក ដូច្នេះអ្នកមិនចាំបាច់ផ្តល់លេខទូរសព្ទរបស់អ្នកទេ។ ឈ្មោះអ្នកប្រើមិនអាចមើលឃើញនៅលើប្រូហ្វាល់របស់អ្នកទេ។</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">កូដ QR និងតំណ</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">ឈ្មោះអ្នកប្រើមានកូដ QR និងតំណតែមួយគត់ដែលអ្នកអាចចែករំលែកជាមួយមិត្តភក្តិ ដើម្បីចាប់ផ្តើមជជែកជាមួយអ្នកបានឆាប់រហ័ស។</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">ឥឡូវកុំទាន់</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">បង្កើតឈ្មោះអ្នកប្រើរបស់អ្នក</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">ចាក់ វីដេអូ</string>
@@ -3645,8 +3673,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">ហៅមកខ្ញុំ (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">ផ្ញើលេខកូដឡើងវិញ (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">ទាក់ទងជំនួយ Signal</string>
-    <string name="RegistrationActivity_code_support_subject">ការចុះឈ្មោះ Signal - ការផ្ទៀងផ្ទាត់កូដសម្រាប់ Android</string>
+    <string name="RegistrationActivity_contact_signal_support">ទាក់ទងជំនួយ Molly</string>
+    <string name="RegistrationActivity_code_support_subject">ការចុះឈ្មោះ Molly - ការផ្ទៀងផ្ទាត់កូដសម្រាប់ Android</string>
     <string name="RegistrationActivity_incorrect_code">លេខកូដមិនត្រឹមត្រូវ</string>
     <string name="BackupUtil_never">មិនធ្លាប់</string>
     <string name="BackupUtil_unknown">មិនស្គាល់</string>
@@ -3657,11 +3685,17 @@
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">អ្នកដែលអាចមើលឃើញលេខរបស់ខ្ញុំ</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">គ្មាននរណាម្នាក់មើលឃើញលេខទូរសព្ទរបស់អ្នកនៅលើ Molly ទេ</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">គ្មាននរណាម្នាក់មើលឃើញលេខទូរសព្ទរបស់អ្នកនៅលើ Molly ទេ សូម្បីតែនៅពេលផ្ញើសារទៅពួកគេ។</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">អ្នកដែលអាចរកខ្ញុំឃើញតាមលេខរបស់ខ្ញុំ</string>
     <!-- Subtext below radio buttons when who can see my number is set to everyone -->
     <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">មនុស្ស និងក្រុមទាំងឡាយដែលអ្នកផ្ញើសារទៅនឹងអាចមើលឃើញលេខទូរសព្ទរបស់អ្នក។ អ្នកទាំងឡាយដែលមានលេខទូរសព្ទរបស់អ្នកនៅក្នុងបញ្ជីទំនាក់ទំនងរបស់ពួកគេក៏នឹងអាចមើលវាឃើញនៅលើ Molly ដែរ។</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">នរណាក៏ដោយដែលមានលេខទូរសព្ទរបស់អ្នកនឹងមើលឃើញអ្នកនៅលើ Molly ហើយអាចចាប់ផ្តើមជជែកជាមួយអ្នកបាន។</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">គ្មាននរណាម្នាក់អាចមើលឃើញអ្នកនៅលើ Molly ទេ លើកលែងតែអ្នកផ្ញើសារទៅពួកគេ ឬមានការជជែកដែលមានស្រាប់ជាមួយពួកគេ។</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"ដើម្បីផ្លាស់ប្តូរការកំណត់នេះ សូមកំណត់ \"អ្នកដែលអាចឃើញលេខរបស់ខ្ញុំ\" ទៅជា \"គ្មាននរណាម្នាក់\"។"</string>
     <string name="PhoneNumberPrivacy_everyone">អ្នករាល់គ្នា</string>
     <string name="PhoneNumberPrivacy_nobody">គ្មាននរណា</string>
     <string name="preferences_app_protection__screen_lock">ចាក់សោរអេក្រង់</string>
@@ -6061,11 +6095,11 @@
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">បង្កើតឈ្មោះអ្នកប្រើ Signal របស់អ្នក</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">ឈ្មោះអ្នកប្រើអាចឲ្យអ្នកផ្សេងទៀតផ្ញើសារមកអ្នកបាន ដោយមិនចាំបាច់ត្រូវការលេខទូរសព្ទរបស់អ្នកទេ</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">សូមណែនាំឯកជនភាពនៃលេខទូរសព្ទ ឈ្មោះអ្នកប្រើតាមជម្រើស និងតំណ។</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">កុំទាន់</string>
+    <string name="SetUpYourUsername__dismiss">បិទ</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">បន្ត</string>
+    <string name="SetUpYourUsername__learn_more">ស្វែងយល់បន្ថែម</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6405,6 +6439,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">លែងខកមិនបានទទួលការហៅពីឈ្មោះទំនាក់ទំនង និងក្រុមរបស់អ្នកទៀត។</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">បើក</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">ឥឡូវកុំទាន់</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">បើកការជូនដំណឹងពេញអេក្រង់</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->

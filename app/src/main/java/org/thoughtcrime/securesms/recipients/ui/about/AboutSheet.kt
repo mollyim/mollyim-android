@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -214,24 +215,22 @@ private fun AboutSheetContent(
     }
 
     val groupsInCommonText = if (recipient.hasGroupsInCommon()) {
-      stringResource(id = R.string.AboutSheet__d_groups_in_common, groupsInCommonCount)
+      pluralStringResource(id = R.plurals.AboutSheet__d_groups_in, groupsInCommonCount, groupsInCommonCount)
     } else {
       stringResource(id = R.string.AboutSheet__you_have_no_groups_in_common)
     }
 
+    val groupsInCommonIcon = if (!recipient.isProfileSharing && groupsInCommonCount == 0) {
+      painterResource(R.drawable.symbol_error_circle_24)
+    } else {
+      painterResource(R.drawable.symbol_group_24)
+    }
+
     AboutRow(
-      startIcon = painterResource(R.drawable.symbol_group_24),
+      startIcon = groupsInCommonIcon,
       text = groupsInCommonText,
       modifier = Modifier.fillMaxWidth()
     )
-
-    if (!recipient.isProfileSharing) {
-      AboutRow(
-        startIcon = painterResource(R.drawable.symbol_error_circle_24),
-        text = stringResource(id = R.string.AboutSheet__review_requests_carefully),
-        modifier = Modifier.fillMaxWidth()
-      )
-    }
 
     Spacer(modifier = Modifier.size(26.dp))
   }

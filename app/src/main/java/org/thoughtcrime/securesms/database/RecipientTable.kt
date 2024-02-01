@@ -16,6 +16,7 @@ import org.signal.core.util.CursorUtil
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.delete
 import org.signal.core.util.exists
+import org.signal.core.util.forEach
 import org.signal.core.util.logging.Log
 import org.signal.core.util.nullIfBlank
 import org.signal.core.util.optionalString
@@ -25,6 +26,7 @@ import org.signal.core.util.readToList
 import org.signal.core.util.readToSet
 import org.signal.core.util.readToSingleBoolean
 import org.signal.core.util.readToSingleLong
+import org.signal.core.util.readToSingleObject
 import org.signal.core.util.requireBlob
 import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
@@ -32,6 +34,7 @@ import org.signal.core.util.requireNonNullString
 import org.signal.core.util.requireString
 import org.signal.core.util.select
 import org.signal.core.util.update
+import org.signal.core.util.updateAll
 import org.signal.core.util.withinTransaction
 import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.InvalidKeyException
@@ -176,6 +179,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     const val NEEDS_PNI_SIGNATURE = "needs_pni_signature"
     const val REPORTING_TOKEN = "reporting_token"
     const val PHONE_NUMBER_SHARING = "phone_number_sharing"
+    const val PHONE_NUMBER_DISCOVERABLE = "phone_number_discoverable"
 
     const val SEARCH_PROFILE_NAME = "search_signal_profile"
     const val SORT_NAME = "sort_name"
@@ -242,7 +246,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         $BADGES BLOB DEFAULT NULL,
         $NEEDS_PNI_SIGNATURE INTEGER DEFAULT 0,
         $REPORTING_TOKEN BLOB DEFAULT NULL,
-        $PHONE_NUMBER_SHARING INTEGER DEFAULT ${PhoneNumberSharingState.UNKNOWN.id}
+        $PHONE_NUMBER_SHARING INTEGER DEFAULT ${PhoneNumberSharingState.UNKNOWN.id},
+        $PHONE_NUMBER_DISCOVERABLE INTEGER DEFAULT ${PhoneNumberDiscoverableState.UNKNOWN.id} 
       )
       """
 
@@ -1934,6 +1939,15 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     return 0
   }
 
+  fun getPhoneNumberDiscoverability(id: RecipientId): PhoneNumberDiscoverableState? {
+    return readableDatabase
+      .select(PHONE_NUMBER_DISCOVERABLE)
+      .from(TABLE_NAME)
+      .where("$ID = ?", id)
+      .run()
+      .readToSingleObject { PhoneNumberDiscoverableState.fromId(it.requireInt(PHONE_NUMBER_DISCOVERABLE)) }
+  }
+
   /**
    * @return True if setting the phone number resulted in changed recipientId, otherwise false.
    */
@@ -2006,7 +2020,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
   /**
    * Does *not* handle clearing the recipient cache. It is assumed the caller handles this.
    */
-  fun updateSelfPhone(e164: String, pni: PNI) {
+  fun updateSelfE164(e164: String, pni: PNI) {
     val db = writableDatabase
 
     db.beginTransaction()
@@ -2017,11 +2031,10 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       if (id == newId) {
         Log.i(TAG, "[updateSelfPhone] Phone updated for self")
       } else {
-        throw AssertionError("[updateSelfPhone] Self recipient id changed when updating phone. old: $id new: $newId")
+        throw AssertionError("[updateSelfPhone] Self recipient id changed when updating e164. old: $id new: $newId")
       }
 
-      db
-        .update(TABLE_NAME)
+      db.updateAll(TABLE_NAME)
         .values(NEEDS_PNI_SIGNATURE to 0)
         .run()
 
@@ -2233,7 +2246,10 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
    */
   fun splitForStorageSync(storageId: ByteArray) {
     val record = getByStorageId(storageId)!!
-    check(record.aci != null && record.pni != null)
+    if (record.aci == null || record.pni == null) {
+      Log.w(TAG, "Invalid state for split, ignoring.")
+      return
+    }
 
     writableDatabase
       .update(TABLE_NAME)
@@ -3109,11 +3125,12 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       .readToSingleBoolean()
   }
 
-  fun getRegisteredE164s(): Set<String> {
+  /** All e164's that are eligible for having a signal link added to their system contact entry. */
+  fun getE164sForSystemContactLinks(): Set<String> {
     return readableDatabase
       .select(E164)
       .from(TABLE_NAME)
-      .where("$REGISTERED = ? and $HIDDEN = ? AND $E164 NOT NULL", RegisteredState.REGISTERED.id, Recipient.HiddenState.NOT_HIDDEN.serialize())
+      .where("$REGISTERED = ? and $HIDDEN = ? AND $E164 NOT NULL AND $PHONE_NUMBER_DISCOVERABLE != ?", RegisteredState.REGISTERED.id, Recipient.HiddenState.NOT_HIDDEN.serialize(), PhoneNumberDiscoverableState.NOT_DISCOVERABLE)
       .run()
       .readToSet { cursor ->
         cursor.requireNonNullString(E164)
@@ -3602,6 +3619,24 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
           null
         }
       }
+  }
+
+  fun updatePhoneNumberDiscoverability(presentInCds: Set<RecipientId>, missingFromCds: Set<RecipientId>) {
+    SqlUtil.buildCollectionQuery(ID, presentInCds).forEach { query ->
+      writableDatabase
+        .update(TABLE_NAME)
+        .values(PHONE_NUMBER_DISCOVERABLE to PhoneNumberDiscoverableState.DISCOVERABLE.id)
+        .where(query.where, query.whereArgs)
+        .run()
+    }
+
+    SqlUtil.buildCollectionQuery(ID, missingFromCds).forEach { query ->
+      writableDatabase
+        .update(TABLE_NAME)
+        .values(PHONE_NUMBER_DISCOVERABLE to PhoneNumberDiscoverableState.NOT_DISCOVERABLE.id)
+        .where(query.where, query.whereArgs)
+        .run()
+    }
   }
 
   private fun updateExtras(recipientId: RecipientId, updater: java.util.function.Function<RecipientExtras.Builder, RecipientExtras.Builder>) {
@@ -4110,16 +4145,16 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         put(SYSTEM_CONTACT_URI, systemContactUri)
       }
 
-      val updatedValues = update(id, refreshQualifyingValues)
-      if (updatedValues) {
+      val updateQuery = SqlUtil.buildTrueUpdateQuery("$ID = ? AND $PHONE_NUMBER_DISCOVERABLE != ?", SqlUtil.buildArgs(id, PhoneNumberDiscoverableState.NOT_DISCOVERABLE.id), refreshQualifyingValues)
+      if (update(updateQuery, refreshQualifyingValues)) {
         pendingRecipients.add(id)
       }
 
-      val otherValues = ContentValues().apply {
-        put(SYSTEM_INFO_PENDING, 0)
-      }
-
-      update(id, otherValues)
+      writableDatabase
+        .update(TABLE_NAME)
+        .values(SYSTEM_INFO_PENDING to 0)
+        .where("$ID = ? AND $PHONE_NUMBER_DISCOVERABLE != ?", id, PhoneNumberDiscoverableState.NOT_DISCOVERABLE.id)
+        .run()
     }
 
     fun finish() {
@@ -4145,18 +4180,25 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     }
 
     private fun clearSystemDataForPendingInfo() {
-      database.update(TABLE_NAME)
-        .values(
-          SYSTEM_INFO_PENDING to 0,
-          SYSTEM_GIVEN_NAME to null,
-          SYSTEM_FAMILY_NAME to null,
-          SYSTEM_JOINED_NAME to null,
-          SYSTEM_PHOTO_URI to null,
-          SYSTEM_PHONE_LABEL to null,
-          SYSTEM_CONTACT_URI to null
-        )
-        .where("$SYSTEM_INFO_PENDING = ?", 1)
-        .run()
+      writableDatabase.rawQuery(
+        """
+        UPDATE $TABLE_NAME
+        SET
+          $SYSTEM_INFO_PENDING = 0,
+          $SYSTEM_GIVEN_NAME = NULL,
+          $SYSTEM_FAMILY_NAME = NULL,
+          $SYSTEM_JOINED_NAME = NULL,
+          $SYSTEM_PHOTO_URI = NULL,
+          $SYSTEM_PHONE_LABEL = NULL,
+          $SYSTEM_CONTACT_URI = NULL
+        WHERE $SYSTEM_INFO_PENDING = 1
+        RETURNING $ID
+        """,
+        null
+      ).forEach { cursor ->
+        val id = RecipientId.from(cursor.requireLong(ID))
+        ApplicationDependencies.getDatabaseObserver().notifyRecipientChanged(id)
+      }
     }
   }
 
@@ -4457,6 +4499,16 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     companion object {
       fun fromId(id: Int): PhoneNumberSharingState {
         return values()[id]
+      }
+    }
+  }
+
+  enum class PhoneNumberDiscoverableState(val id: Int) {
+    UNKNOWN(0), DISCOVERABLE(1), NOT_DISCOVERABLE(2);
+
+    companion object {
+      fun fromId(id: Int): PhoneNumberDiscoverableState {
+        return PhoneNumberDiscoverableState.values()[id]
       }
     }
   }

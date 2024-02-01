@@ -562,6 +562,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">Lülita oma teavituste profiil siin sisse või välja.</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">%1$s aktiivne</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">Sinu QR-kood ja link on lähtestatud ja sinu kasutajanimi on %1$s</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">Võtmevahetussõnum</string>
@@ -996,6 +998,8 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">Ära teavita mind</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">Sinu kasutajanimi, QR-kood ega link ei ole su profiilil nähtavad. Jaga oma kasutajanime ainult inimestega, keda usaldad.</string>
     <string name="ManageProfileFragment_profile_name">Profiilinimi</string>
     <string name="ManageProfileFragment_username">Kasutajanimi</string>
     <string name="ManageProfileFragment_about">Teave</string>
@@ -1896,7 +1900,10 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">Vaata taotlused tähelepanelikult üle</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">%1$d ühist gruppi</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="one">%1$d ühine grupp</item>
+        <item quantity="other">%1$d ühist gruppi</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">Teave</string>
     <!-- Text displayed in title for you -->
@@ -2233,6 +2240,8 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Kehtetu kasutajanimi, sisesta vähemalt %1$d tähemärki.</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Kehtetu kasutajanimi, sisesta maksimaalselt %1$d tähemärki.</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">Kasutajanime taastades lähtestad olemasoleva QR-koodi ja lingi. Kas oled kindel?</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%1$d kontakt on Signalis!</item>
@@ -2418,6 +2427,26 @@
     <string name="SingleRecipientNotificationBuilder_you">Sina</string>
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • Lugu</string>
+
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">Uued viisid ühenduse loomiseks</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">Telefoninumbri privaatsus</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">Sinu telefoninumbrit ei jagata enam vestluskaaslastega. Kui sõbral on su number kontaktide hulka salvestatud, näeb ta seda endiselt.</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">Kasutajanimed</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">Nüüd saavad teised sulle sõnumeid saata, kasutades sinu valikulist kasutajanime, et sa ei peaks oma telefoninumbrit jagama. Kasutajanimesid ei kuvata sinu profiilil.</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">QR-koodid ja lingid</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">Kasutajanimedel on unikaalne QR-kood ja link, mida saad oma sõpradega jagada, et nad saaksid sinuga kiiresti vestlust alustada.</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">Mitte praegu</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">Seadista oma kasutajanimi</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">Esita videot</string>
@@ -3749,8 +3778,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Helista mulle (%1$02d.%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Saada kood uuesti (%1$02d.%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Võta ühendust Signali kasutajatoega</string>
-    <string name="RegistrationActivity_code_support_subject">Signali registreerimine - kinnituskood Androidile</string>
+    <string name="RegistrationActivity_contact_signal_support">Võta ühendust Mollyi kasutajatoega</string>
+    <string name="RegistrationActivity_code_support_subject">Mollyi registreerimine - kinnituskood Androidile</string>
     <string name="RegistrationActivity_incorrect_code">Sobimatu kood</string>
     <string name="BackupUtil_never">Mitte kunagi</string>
     <string name="BackupUtil_unknown">Tundmatu</string>
@@ -3761,11 +3790,17 @@
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Kes mu numbrit näevad</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Mitte keegi ei näe Mollyis sinu telefoninumbrit</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">Mitte keegi ei näe Mollyis sinu telefoninumbrit, isegi kui neile sõnumi saadad.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Kes mind numbri järgi leida saavad</string>
     <!-- Subtext below radio buttons when who can see my number is set to everyone -->
     <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Sinu telefoninumber on nähtav isikutele ja gruppidele, kellega suhtled. Isikud, kellel on sinu telefoninumber nende telefonikontaktides, näevad seda ka Mollyis.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">Kõik, kellel on sinu telefoninumber, näevad, et sa kasutad Mollyit ja saavad sinuga vestlust alustada.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">Mitte keegi ei näe, et sa oled Mollyis, kui sa neile sõnumit ei saada või sul nendega juba vestlust pooleli ei ole.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Selle sätte muutmiseks vali „Kes mu numbrit näevad“ alt „Mitte keegi“."</string>
     <string name="PhoneNumberPrivacy_everyone">Igaüks</string>
     <string name="PhoneNumberPrivacy_nobody">Mitte keegi</string>
     <string name="preferences_app_protection__screen_lock">Ekraanilukk</string>
@@ -6199,11 +6234,11 @@
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">Seadista oma Signali kasutajanimi</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">Kasutajanimi võimaldab teistel sulle sõnumeid saata ilma, et nad peaks su telefoninumbrit teadma</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">Tutvustame telefoninumbri privaatsust, valikulisi kasutajanimesid ja linke.</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">Mitte praegu</string>
+    <string name="SetUpYourUsername__dismiss">Tühista</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">Jätka</string>
+    <string name="SetUpYourUsername__learn_more">Rohkem teavet</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6548,6 +6583,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">Ükski kontaktidelt või gruppidelt tulev kõne ei jää märkamata.</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">Lülita sisse</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">Mitte praegu</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">Lülita sisse täisekraani formaadis teavitused</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->

@@ -8,6 +8,7 @@ import org.signal.core.util.IntSerializer
 import org.signal.core.util.Serializer
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.delete
+import org.signal.core.util.deleteAll
 import org.signal.core.util.flatten
 import org.signal.core.util.insertInto
 import org.signal.core.util.logging.Log
@@ -131,18 +132,22 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         .run()
         .readToSingleObject(Call.Deserializer)
 
-      if (call?.messageId != null) {
+      if (call != null) {
         Log.i(TAG, "Updated call: $callId event: $event")
 
-        val unread = MessageTypes.isMissedCall(call.messageType)
-        val expiresIn = Recipient.resolved(call.peer).expiresInMillis
+        if (call.messageId == null) {
+          Log.w(TAG, "Call does not have an associated message id! No message to update.")
+        } else {
+          val unread = MessageTypes.isMissedCall(call.messageType)
+          val expiresIn = Recipient.resolved(call.peer).expiresInMillis
 
-        SignalDatabase.messages.updateCallLog(call.messageId, call.messageType, unread)
+          SignalDatabase.messages.updateCallLog(call.messageId, call.messageType, unread)
 
-        if (!unread && expiresIn > 0) {
-          val timestampOrNow = timestamp ?: System.currentTimeMillis()
-          SignalDatabase.messages.markExpireStarted(call.messageId, timestampOrNow)
-          ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(call.messageId, true, timestampOrNow, expiresIn)
+          if (!unread && expiresIn > 0) {
+            val timestampOrNow = timestamp ?: System.currentTimeMillis()
+            SignalDatabase.messages.markExpireStarted(call.messageId, timestampOrNow)
+            ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(call.messageId, true, timestampOrNow, expiresIn)
+          }
         }
       }
 
@@ -1034,9 +1039,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
   @Discouraged("Using this method is generally considered an error. Utilize other deletion methods instead of this.")
   fun deleteAllCalls() {
     Log.w(TAG, "Deleting all calls from the local database.")
-    writableDatabase
-      .delete(TABLE_NAME)
-      .run()
+    writableDatabase.deleteAll(TABLE_NAME)
   }
 
   private fun getCallSelectionQuery(callId: Long, recipientId: RecipientId): SqlUtil.Query {

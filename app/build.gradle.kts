@@ -19,8 +19,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1377
-val canonicalVersionName = "6.44.3"
+val canonicalVersionCode = 1380
+val canonicalVersionName = "6.45.2"
 val mollyRevision = 1
 
 val postFixSize = 100
@@ -411,7 +411,6 @@ dependencies {
   implementation(project(":qr"))
   implementation(project(":sticky-header-grid"))
   implementation(project(":photoview"))
-  implementation(project(":glide-webp"))
   implementation(project(":core-ui"))
 
   implementation(libs.androidx.fragment.ktx)

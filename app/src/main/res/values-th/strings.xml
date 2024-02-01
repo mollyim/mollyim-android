@@ -471,7 +471,7 @@
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">คุณสามารถปัดด้านซ้ายเพื่อตอบข้อความอย่างรวดเร็ว</string>
     <string name="ConversationFragment_view_once_media_is_deleted_after_sending">ไฟล์สื่อแบบที่ดูได้ครั้งเดียวจะถูกลบหลังการส่ง</string>
     <string name="ConversationFragment_you_already_viewed_this_message">คุณเปิดดูข้อความนี้แล้ว</string>
-    <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">คุณสามารถเพิ่มบันทึกถึงตัวเองได้ในแชทนี้\nและหากบัญชีของคุณมีอุปกรณ์ที่เชื่อมโยงอยู่ บันทึกใหม่ก็จะถูกซิงค์ด้วยเช่นกัน</string>
+    <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">คุณสามารถเพิ่มบันทึกถึงตัวเองได้ในแชทนี้ และหากบัญชีของคุณมีอุปกรณ์ที่เชื่อมโยงอยู่ บันทึกใหม่ก็จะถูกซิงค์ด้วยเช่นกัน</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">สมาชิกกลุ่ม %1$d คนมีชื่อเหมือนกัน</string>
     <string name="ConversationFragment__tap_to_review">แตะเพื่อทบทวน</string>
     <string name="ConversationFragment__review_requests_carefully">พิจารณาคำขออย่างระวัง</string>
@@ -546,6 +546,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">เปิดหรือโปรไฟล์การแจ้งเตือนตรงนี้</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">เปิด %1$s</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">รีเซ็ตคิวอาร์โค้ดและลิงก์ของคุณเรียบร้อยแล้ว โดยชื่อผู้ใช้ของคุณคือ %1$s</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">ข้อความแลกเปลี่ยนกุญแจ</string>
@@ -962,6 +964,8 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">ไม่ต้องแจ้งให้ฉันรู้</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">ชื่อผู้ใช้ คิวอาร์โค้ดและลิงก์จะไม่ปรากฏบนโปรไฟล์ของคุณ เราขอแนะนำให้แชร์ชื่อผู้ใช้ของคุณกับคนที่ไว้วางใจเท่านั้น</string>
     <string name="ManageProfileFragment_profile_name">ชื่อโปรไฟล์</string>
     <string name="ManageProfileFragment_username">ชื่อผู้ใช้</string>
     <string name="ManageProfileFragment_about">เกี่ยวกับ</string>
@@ -1823,7 +1827,9 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">พิจารณาคำขออย่างระวัง</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">มี %1$d กลุ่มร่วมกัน</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="other">มี %1$d กลุ่มร่วมกัน</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">เกี่ยวกับ</string>
     <!-- Text displayed in title for you -->
@@ -2155,6 +2161,8 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">ชื่อผู้ใช้ไม่ถูกต้อง ต้องกรอกตัวเลขอย่างน้อย %1$d หลัก</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">ชื่อผู้ใช้ไม่ถูกต้อง ต้องกรอกตัวเลขไม่เกิน %1$d หลัก</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">การกู้คืนชื่อผู้ใช้จะทำให้คิวอาร์โค้ดและลิงก์ที่มีอยู่เดิมของคุณถูกรีเซ็ต ต้องการดำเนินการต่อหรือไม่</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="other">มีผู้ติดต่อ %1$d คนใช้งาน Signal!</item>
@@ -2337,6 +2345,26 @@
     <string name="SingleRecipientNotificationBuilder_you">คุณ</string>
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • สตอรี่</string>
+
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">วิธีใหม่ในการติดต่อสื่อสาร</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">การรักษาความเป็นส่วนตัวของหมายเลขโทรศัพท์</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">ระบบจะไม่แสดงหมายเลขโทรศัพท์ของคุณในแชทอีกต่อไป ผู้ติดต่อจะยังคงเห็นหมายเลขโทรศัพท์ของคุณ หากบันทึกเบอร์คุณไว้ในรายชื่อติดต่อ</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">ชื่อผู้ใช้</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">ผู้ติดต่อจะสามารถส่งข้อความหาคุณผ่านชื่อผู้ใช้ที่คุณกำหนด วิธีนี้ทำให้คุณไม่จำเป็นต้องบอกหมายเลขโทรศัพท์กับใคร โดยชื่อผู้ใช้จะไม่ปรากฏบนโปรไฟล์ของคุณ</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">คิวอาร์โค้ดและลิงก์</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">ชื่อผู้ใช้จะมีคิวอาร์โค้ดและลิงก์เฉพาะที่คุณสามารถแชร์เพื่อให้เพื่อนเริ่มแชทด้วยได้ทันที</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">ไว้ทีหลัง</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">กำหนดชื่อผู้ใช้ของคุณ</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">เล่นวิดีโอ</string>
@@ -3645,8 +3673,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">โทรหาฉัน (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">ส่งรหัสอีกครั้งใน (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">ติดต่อทีมซัพพอร์ตของ Signal</string>
-    <string name="RegistrationActivity_code_support_subject">การลงทะเบียน Signal - รหัสตรวจยืนยันสำหรับ Android</string>
+    <string name="RegistrationActivity_contact_signal_support">ติดต่อทีมซัพพอร์ตของ Molly</string>
+    <string name="RegistrationActivity_code_support_subject">การลงทะเบียน Molly - รหัสตรวจยืนยันสำหรับ Android</string>
     <string name="RegistrationActivity_incorrect_code">รหัสไม่ถูกต้อง</string>
     <string name="BackupUtil_never">ไม่เลย</string>
     <string name="BackupUtil_unknown">ไม่ทราบ</string>
@@ -3657,11 +3685,17 @@
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">คนที่สามารถเห็นหมายเลขโทรศัพท์ของฉัน</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">จะไม่มีใครเห็นหมายเลขโทรศัพท์ของคุณบน Molly</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">จะไม่มีใครเห็นหมายเลขโทรศัพท์ของคุณบน Molly แม้แต่ผู้ใช้ที่คุณส่งข้อความหา</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">คนที่สามารถใช้หมายเลขโทรศัพท์ค้นหาฉันได้</string>
     <!-- Subtext below radio buttons when who can see my number is set to everyone -->
     <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">ผู้ใช้และกลุ่มที่คุณส่งข้อความหาจะเห็นหมายเลขโทรศัพท์ของคุณ และคนที่มีหมายเลขโทรศัพท์ของคุณอยู่ในรายชื่อผู้ติดต่อบนโทรศัพท์ก็จะสามารถดูหมายเลขของคุณบน Molly ได้ด้วยเช่นกัน</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">ผู้ใช้ที่มีหมายเลขโทรศัพท์ของคุณจะเห็นว่าคุณใช้งาน Molly และจะสามารถเริ่มแชทกับคุณได้</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">จะไม่มีใครเห็นว่าคุณใช้งาน Molly เว้นแต่ว่าคุณจะส่งข้อความหาหรือเคยแชทกับผู้ใช้คนนั้น</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"หากต้องการเปลี่ยนการตั้งค่านี้ ให้ไปที่หัวข้อ “คนที่สามารถเห็นหมายเลขโทรศัพท์ของฉัน” แล้วเลือก “ไม่อนุญาตให้ใครเห็น”"</string>
     <string name="PhoneNumberPrivacy_everyone">ทุกคน</string>
     <string name="PhoneNumberPrivacy_nobody">คนที่คุณไม่รู้จัก</string>
     <string name="preferences_app_protection__screen_lock">ล็อกหน้าจอ</string>
@@ -6061,11 +6095,11 @@
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">ตั้งค่าชื่อผู้ใช้ Signal ของคุณ</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">ชื่อผู้ใช้จะช่วยให้ผู้ใช้รายอื่นส่งข้อความหาคุณได้โดยไม่จำเป็นต้องมีหมายเลขโทรศัพท์ของคุณ</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">ขอแนะนำการรักษาความเป็นส่วนตัวของหมายเลขโทรศัพท์ ตัวเลือกการกำหนดชื่อผู้ใช้และลิงก์เพิ่มเติม</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">ไว้ทีหลัง</string>
+    <string name="SetUpYourUsername__dismiss">ปิด</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">ดำเนินการต่อ</string>
+    <string name="SetUpYourUsername__learn_more">เรียนรู้เพิ่มเติม</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6405,6 +6439,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">ไม่พลาดการโทรจากผู้ติดต่อและกลุ่มของคุณอีกต่อไป</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">เปิดใช้งาน</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">ไว้ทีหลัง</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">เปิดการแจ้งเตือนแบบเต็มหน้าจอ</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->

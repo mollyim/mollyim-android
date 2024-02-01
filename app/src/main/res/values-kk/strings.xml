@@ -562,6 +562,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">Хабарландыру профилін осы жерден қосуға немесе өшіруге болады.</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">%1$s қосулы</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">QR кодыңыз бен сілтемеңіз қалпына келтірілді және пайдаланушы атыңыз – %1$s</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">Кілтпен алмасу туралы хат</string>
@@ -996,6 +998,8 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">Хабарландыру керек емес</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">Профиліңізде пайдаланушы атыңыз, QR кодыңыз және сілтемеңіз көрсетілмейді. Пайдаланушы атыңызды сенімді адамдарға ғана беріңіз.</string>
     <string name="ManageProfileFragment_profile_name">Профиль атауы</string>
     <string name="ManageProfileFragment_username">Пайдаланушы аты</string>
     <string name="ManageProfileFragment_about">Мағлұмат</string>
@@ -1896,7 +1900,10 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">Өтініштерді мұқият қарап шығыңыз</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">%1$d ортақ топ бар</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="one">%1$d ортақ топ бар</item>
+        <item quantity="other">%1$d ортақ топ бар</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">Мағлұмат</string>
     <!-- Text displayed in title for you -->
@@ -2233,6 +2240,8 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Пайдаланушы аты дұрыс емес, кемінде %1$d сан енгізіңіз.</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Пайдаланушы аты дұрыс емес, ең көбі %1$d сан енгізіңіз.</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">Пайдаланушы атыңызды қалпына келтірсеңіз, бұрынғы QR кодыңыз бен сілтемеңіз де қайта орнатылады. Сенімдісіз бе?</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">Signal-да %1$d контакт бар!</item>
@@ -2418,6 +2427,26 @@
     <string name="SingleRecipientNotificationBuilder_you">Сіз</string>
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • Сторис</string>
+
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">Байланыс орнатудың жаңа жолдары</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">Телефон нөміріне қатысты құпиялылық</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">Телефон нөміріңіз енді чаттарда көрсетілмейтін болады. Досыңыздың контактілерінде телефон нөміріңіз сақталған болса, досыңыз нөміріңізді көре алады.</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">Пайдаланушы аттары</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">Енді адамдар сізге қосымша пайдаланушы атыңызға жаза алады, сондықтан телефон нөміріңізді берудің қажеті жоқ. Пайдаланушы аттары сіздің профиліңізде көрсетілмейді.</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">QR кодтары және сілтемелері</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">Пайдаланушы аттарында бірегей QR коды және сілтемесі бар, оларды достарыңызбен бөлісіп, чатты бірден бастап кете аласыз.</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">Кейін</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">Пайдаланушы атын орнату</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">Видеоны ойнату</string>
@@ -3749,8 +3778,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Маған қоңырау шалу (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Кодты қайта жіберу (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Signal қолдау қызметіне хабарласу</string>
-    <string name="RegistrationActivity_code_support_subject">Signal қолданбасында тіркелу - Android жүйесіне арналған тексеру коды</string>
+    <string name="RegistrationActivity_contact_signal_support">Molly қолдау қызметіне хабарласу</string>
+    <string name="RegistrationActivity_code_support_subject">Molly қолданбасында тіркелу - Android жүйесіне арналған тексеру коды</string>
     <string name="RegistrationActivity_incorrect_code">Код дұрыс емес</string>
     <string name="BackupUtil_never">Ешқашан</string>
     <string name="BackupUtil_unknown">Белгісіз</string>
@@ -3761,11 +3790,17 @@
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Менің нөмірімді кім көре алады?</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Molly-да сіздің нөміріңізді ешкім көрмейді</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">Тіпті біреуге хат жазсаңыз да, Molly-да телефон нөміріңіз ешкімге көрсетілмейді.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Мені нөмірім арқылы кім таба алады?</string>
     <!-- Subtext below radio buttons when who can see my number is set to everyone -->
     <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Телефон нөміріңіз сіз хат жазған адамдарға және топтарға көрініп тұрады. Басқа адамның телефонындағы контактілер тізімінде болсаңыз, ол адам да сізді Molly-дан көре алады.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">Телефон нөміріңізді білетін кез келген адам сіздің Molly қолданбасын пайдаланатыныңызды біле алады және сізбен чат аша алады.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">Сіз біреуге хат жазбайынша немесе біреумен ортақ чатыңыз болмайынша, сіздің Molly қолданбасын пайдаланатыныңызды ешкім көре алмайды.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Бұл параметрді өзгерту үшін \"Менің нөмірімді кім көре алады\" деген бөлімде \"Ешкім\" опциясын таңдаңыз."</string>
     <string name="PhoneNumberPrivacy_everyone">Барлығы</string>
     <string name="PhoneNumberPrivacy_nobody">Ешкім</string>
     <string name="preferences_app_protection__screen_lock">Экран құлпы</string>
@@ -6199,11 +6234,11 @@
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">Signal-дағы пайдаланушы атыңызды орнатыңыз</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">Басқа адамдар сіздің нөміріңізді термей-ақ, пайдаланушы атыңыз арқылы хат жаза береді</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">Телефон нөміріне қатысты құпиялылық, қосымша пайдаланушы аттары және сілтемелер.</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">Кейін</string>
+    <string name="SetUpYourUsername__dismiss">Жабу</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">Жалғастыру</string>
+    <string name="SetUpYourUsername__learn_more">Толық ақпарат</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6548,6 +6583,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">Контактілеріңіз бен топтарыңыздан келген қоңырауларды ешқашан жіберіп алмайсыз.</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">Іске қосу</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">Кейін</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">Толық экран хабарландыруларын қосыңыз</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->

@@ -21,6 +21,7 @@
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="${applicationId}.ACCESS_SECRETS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.WRITE_PROFILE"/>
@@ -1274,6 +1275,16 @@
         android:name=".jobmanager.AlarmManagerScheduler$RetryReceiver"
         android:enabled="@bool/enable_alarm_manager"
         android:exported="false"/>
+
+    <service android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService" android:exported="false" />
+    <receiver android:name=".service.webrtc.ActiveCallManager$ActiveCallServiceReceiver" android:exported="false">
+        <intent-filter>
+            <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.DENY"/>
+        </intent-filter>
+        <intent-filter>
+            <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.HANGUP"/>
+        </intent-filter>
+    </receiver>
 
     <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 

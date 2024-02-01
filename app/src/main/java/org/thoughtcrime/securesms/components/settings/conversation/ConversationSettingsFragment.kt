@@ -320,8 +320,10 @@ class ConversationSettingsFragment : DSLSettingsFragment(
           BioTextPreference.RecipientModel(
             recipient = state.recipient,
             linkedDevices = RecipientUtil.getSubDeviceCount(requireContext(), state.recipient).orElse(null),
-            onHeadlineClickListener = {
-              AboutSheet.create(state.recipient).show(parentFragmentManager, null)
+            onHeadlineClickListener = if (state.recipient.isSelf || !state.recipient.isIndividual) {
+              null
+            } else{
+              { AboutSheet.create(state.recipient).show(parentFragmentManager, null) }
             }
           )
         )

@@ -480,7 +480,7 @@
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">जलद प्रतिसाद देण्यासाठी आपण कुठल्याही संदेशावर डावीकडे स्वाइप करू शकता</string>
     <string name="ConversationFragment_view_once_media_is_deleted_after_sending">पाठवल्यानंतर-एकदा मिडीया हटवला असल्याचे पहा</string>
     <string name="ConversationFragment_you_already_viewed_this_message">आपण आधीच हा संदेश पाहिला आहे</string>
-    <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">या चॅटमध्ये आपण स्वतःसाठी टिपा जोडू शकता.\n जर आपल्या खात्यामध्ये लिंक केलेली डिव्हाइसेस असतील, तर नवीन टिपा संकलित केल्या जातील.</string>
+    <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">या चॅटमध्ये आपण स्वतःसाठी टिपा जोडू शकता. जर आपल्या खात्यामध्ये लिंक केलेली डिव्हाईस असतील, तर नवीन टिपा संकालित केल्या जातील.</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">%1$dगट सदस्यांचे समान नाव आहे.</string>
     <string name="ConversationFragment__tap_to_review">पुनरावलोकन करण्यासाठी टॅप करा</string>
     <string name="ConversationFragment__review_requests_carefully">विनंत्यांचे काळजीपूर्वक पुनरावलोकन करा</string>
@@ -562,6 +562,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">आपली सूचना प्रोफाइल येथे चालू किंवा बंद करा.</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">%1$s चालू केले</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">आपला QR कोड आणि लिंक रिसेट करण्यात आलेली आहे आणि आपले वापरकर्ता नाव %1$s आहे</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">की विनिमय संदेश</string>
@@ -996,6 +998,8 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">मला सूचित करू नका</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">आपले वापरकर्ता नाव, QR कोड आणि लिंक आपल्या फोनवर दिसत नाहीत. आपण ज्यांच्यावर विश्वास ठेवता फक्त त्याच्यासह आपले वापरकर्ता नाव शेअर करा.</string>
     <string name="ManageProfileFragment_profile_name">प्रोफाईल नाव</string>
     <string name="ManageProfileFragment_username">वापरकर्तानाव</string>
     <string name="ManageProfileFragment_about">आपल्याबद्दल</string>
@@ -1896,7 +1900,10 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">विनंत्यांचे काळजीपूर्वक पुनरावलोकन करा</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">सामान्यत: %1$d गट</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="one">%1$d गट समाईक</item>
+        <item quantity="other">%1$d गट समाईक</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">आपल्याबद्दल</string>
     <!-- Text displayed in title for you -->
@@ -2233,6 +2240,8 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">अवैध वापरकर्ता नाव, कमीत कमी %1$d अंक प्रविष्ट करा.</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">अवैध वापरकर्ता नाव, कमाल %1$d अंक प्रविष्ट करा.</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">आपले वापरकर्ता नाव पुर्नप्राप्त करण्याने आपला सध्याचा QR कोड आणि लिंक रिसेट होईल. आपल्याला खात्री आहे?</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%1$d संपर्क Signal वर आहे!</item>
@@ -2418,6 +2427,26 @@
     <string name="SingleRecipientNotificationBuilder_you">आपण</string>
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • स्टोरी</string>
+
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">कनेक्ट होण्याचे नवीन मार्ग</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">फोन नंबर गोपनीयता</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">आपला फोन नंबर यापुढे चॅट्ससह शेअर केला जाणार नाही. आपला नंबर जर मित्रांच्या संपर्कामध्ये जतन केलेला असल्यास, तो ते अद्याप पाहू शकतात.</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">वापरकर्ता नाव</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">लोक आपणाला आपले वैकल्पिक वापरकर्ता नाव वापरून आता संदेश करू शकतात ज्यामुळे आपणाला आपला फोन नंबर देण्याची आवश्यकता नाही. वापरकर्तानावे आपल्या प्रोफाइल वर दृश्यमान होणार नाहीत.</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">QR कोड्स आणि लिंक्स</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">आपल्यासह जलद चॅट्स सुरू करण्यासाठी आपल्या मित्रांसोबत आपण शेअर करू शकता असा एक असामान्य QR कोड आणि लिंक वापरकर्तानावाला आहे.</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">आता नाही</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">आपले वापरकर्तानाव सेटअप करा</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">व्हिडिओ प्ले करा</string>
@@ -3749,8 +3778,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">(%1$02d:%2$02d) मला कॉल करा</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">(%1$02d:%2$02d) कोड पुन्हा पाठवा</string>
-    <string name="RegistrationActivity_contact_signal_support">Signal समर्थनाशी संपर्क साधा</string>
-    <string name="RegistrationActivity_code_support_subject">Signal नोंदणी - Android करिता सत्यापन कोड</string>
+    <string name="RegistrationActivity_contact_signal_support">Molly समर्थनाशी संपर्क साधा</string>
+    <string name="RegistrationActivity_code_support_subject">Molly नोंदणी - Android करिता सत्यापन कोड</string>
     <string name="RegistrationActivity_incorrect_code">चुकीचा कोड</string>
     <string name="BackupUtil_never">कधीही नाही</string>
     <string name="BackupUtil_unknown">अज्ञात</string>
@@ -3761,11 +3790,17 @@
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">माझा नंबर कोण पाहू शकते</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Molly वर कुणीही आपला फोन नंबर पाहणार नाही</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">त्यांना संदेश पाठविताना देखील, कोणीही Molly वर आपला फोन नंबर पाहू शकणार नाही.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">मला फोन नंबरद्वारे कोण शोधू शकते</string>
     <!-- Subtext below radio buttons when who can see my number is set to everyone -->
     <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">आपण संदेश पाठवलेल्या व्यक्ती आणि गटांना आपला फोन नंबर दृश्यमान असेल. ज्या व्यक्तींकडे आपला नंबर त्यांच्या फोन संपर्कामध्ये आहे ते देखील Molly वर तो पाहू शकतील.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">आपला फोन नंबर असणारा कोणीही आपण Molly वर असल्याचे पाहू शकतो आणि आपणासह चॅट्स सुरु करू शकतो.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">आपण त्यांना संदेश पाठवल्याशिवाय किंवा त्यांच्यासोबत सध्याचे चॅट्स असल्यााशिवाय आपणाला कोणीही Molly वर पाहू शकणार नाही.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"हे सेटिंग्ज बदलण्यासाठी, माझा नंबर कोण पाहू शकतो ते कोणीही नाही ला सेट करा."</string>
     <string name="PhoneNumberPrivacy_everyone">प्रत्येकजण</string>
     <string name="PhoneNumberPrivacy_nobody">कोणीही नाही</string>
     <string name="preferences_app_protection__screen_lock">स्क्रीन लॉक</string>
@@ -6199,11 +6234,11 @@
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">आपले Signal वापरकर्तानाव सेटअप करा</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">वापरकर्तानाव आपणाला आपल्या फोन नंबरशिवाय इतरांना संदेश करू देते</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">फोन नंबर गोपनीयता, पर्यायी वापरकर्ता नाव आणि लिंक्स सादर करीत आहोत.</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">आता नाही</string>
+    <string name="SetUpYourUsername__dismiss">रद्द करा</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">सुरू ठेवा</string>
+    <string name="SetUpYourUsername__learn_more">अधिक जाणून घ्या</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6548,6 +6583,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">आपल्या संपर्कामधून आणि गटांमधून कॉल कधीही चुकवू नका.</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">चालू करा</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">आता नाही</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">पूर्ण स्क्रिन अधिसूचना सुरू करा</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->

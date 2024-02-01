@@ -21,6 +21,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.media.DecryptableUriMediaInput;
 import org.thoughtcrime.securesms.mms.VideoSlide;
 import org.thoughtcrime.securesms.util.MediaUtil;
+import org.thoughtcrime.securesms.video.TranscodingQuality;
 import org.thoughtcrime.securesms.video.VideoBitRateCalculator;
 import org.thoughtcrime.securesms.video.VideoUtil;
 import org.thoughtcrime.securesms.video.videoconverter.VideoThumbnailsRangeSelectorView;
@@ -97,7 +98,7 @@ public final class VideoEditorHud extends LinearLayout {
     long size = tryGetUriSize(getContext(), uri, Long.MAX_VALUE);
 
     if (size > maxSendSize) {
-      videoTimeLine.setTimeLimit(VideoUtil.getMaxVideoUploadDurationInSeconds(), TimeUnit.SECONDS);
+      videoTimeLine.setTimeLimit(videoBitRateCalculator.getMaxVideoUploadDurationInSeconds(), TimeUnit.SECONDS);
     }
 
     videoTimeLine.setOnRangeChangeListener(new VideoThumbnailsRangeSelectorView.OnRangeChangeListener() {
@@ -134,7 +135,7 @@ public final class VideoEditorHud extends LinearLayout {
       public VideoThumbnailsRangeSelectorView.Quality getQuality(long clipDurationUs, long totalDurationUs) {
         int inputBitRate = VideoBitRateCalculator.bitRate(size, TimeUnit.MICROSECONDS.toMillis(totalDurationUs));
 
-        VideoBitRateCalculator.Quality targetQuality = videoBitRateCalculator.getTargetQuality(TimeUnit.MICROSECONDS.toMillis(clipDurationUs), inputBitRate);
+        TranscodingQuality targetQuality = videoBitRateCalculator.getTargetQuality(TimeUnit.MICROSECONDS.toMillis(clipDurationUs), inputBitRate);
         return new VideoThumbnailsRangeSelectorView.Quality(targetQuality.getFileSizeEstimate(), (int) (100 * targetQuality.getQuality()));
       }
     });

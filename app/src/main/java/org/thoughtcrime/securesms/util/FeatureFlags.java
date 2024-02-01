@@ -60,7 +60,7 @@ public final class FeatureFlags {
   private static final String INTERNAL_USER                     = "android.internalUser";
   private static final String VERIFY_V2                         = "android.verifyV2";
   private static final String CLIENT_EXPIRATION                 = "android.clientExpiration";
-  private static final String CUSTOM_VIDEO_MUXER                = "android.customVideoMuxer";
+  private static final String CUSTOM_VIDEO_MUXER                = "android.customVideoMuxer.1";
   private static final String CDS_REFRESH_INTERVAL              = "cds.syncInterval.seconds";
   private static final String AUTOMATIC_SESSION_RESET           = "android.automaticSessionReset.2";
   private static final String AUTOMATIC_SESSION_INTERVAL        = "android.automaticSessionResetInterval";
@@ -82,7 +82,6 @@ public final class FeatureFlags {
   private static final String HARDWARE_AEC_BLOCKLIST_MODELS     = "android.calling.hardwareAecBlockList";
   private static final String SOFTWARE_AEC_BLOCKLIST_MODELS     = "android.calling.softwareAecBlockList";
   private static final String USE_HARDWARE_AEC_IF_OLD           = "android.calling.useHardwareAecIfOlderThanApi29";
-  private static final String USE_AEC3                          = "android.calling.useAec3";
   private static final String PAYMENTS_COUNTRY_BLOCKLIST        = "global.payments.disabledRegions";
   public  static final String PHONE_NUMBER_PRIVACY              = "android.pnp";
   public  static final String BLOCK_SSE                         = "android.blockSessionSwitchoverEvents";
@@ -110,7 +109,7 @@ public final class FeatureFlags {
   private static final String PROMPT_FOR_NOTIFICATION_CONFIG    = "android.logs.promptNotificationsConfig";
   public  static final String PROMPT_BATTERY_SAVER              = "android.promptBatterySaver";
   public  static final String USERNAMES                         = "android.usernames";
-  public  static final String INSTANT_VIDEO_PLAYBACK            = "android.instantVideoPlayback";
+  public  static final String INSTANT_VIDEO_PLAYBACK            = "android.instantVideoPlayback.1";
   public  static final String CRASH_PROMPT_CONFIG               = "android.crashPromptConfig";
   private static final String SEPA_DEBIT_DONATIONS              = "android.sepa.debit.donations.5";
   private static final String IDEAL_DONATIONS                   = "android.ideal.donations.5";
@@ -118,7 +117,8 @@ public final class FeatureFlags {
   public  static final String SEPA_ENABLED_REGIONS              = "global.donations.sepaEnabledRegions";
   private static final String CALLING_REACTIONS                 = "android.calling.reactions";
   private static final String NOTIFICATION_THUMBNAIL_BLOCKLIST  = "android.notificationThumbnailProductBlocklist";
-  private static final String CALLING_RAISE_HAND                 = "android.calling.raiseHand";
+  private static final String CALLING_RAISE_HAND                = "android.calling.raiseHand";
+  private static final String USE_ACTIVE_CALL_MANAGER           = "android.calling.useActiveCallManager";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -154,7 +154,6 @@ public final class FeatureFlags {
       HARDWARE_AEC_BLOCKLIST_MODELS,
       SOFTWARE_AEC_BLOCKLIST_MODELS,
       USE_HARDWARE_AEC_IF_OLD,
-      USE_AEC3,
       PAYMENTS_COUNTRY_BLOCKLIST,
       STORIES_AUTO_DOWNLOAD_MAXIMUM,
       TELECOM_MANUFACTURER_ALLOWLIST,
@@ -189,13 +188,13 @@ public final class FeatureFlags {
       SEPA_ENABLED_REGIONS,
       CALLING_REACTIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
-      CALLING_RAISE_HAND
+      CALLING_RAISE_HAND,
+      PHONE_NUMBER_PRIVACY,
+      USE_ACTIVE_CALL_MANAGER
   );
 
   @VisibleForTesting
-  static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet(
-      PHONE_NUMBER_PRIVACY
-  );
+  static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet();
 
   /**
    * Values in this map will take precedence over any value. This should only be used for local
@@ -241,7 +240,6 @@ public final class FeatureFlags {
       HARDWARE_AEC_BLOCKLIST_MODELS,
       SOFTWARE_AEC_BLOCKLIST_MODELS,
       USE_HARDWARE_AEC_IF_OLD,
-      USE_AEC3,
       PAYMENTS_COUNTRY_BLOCKLIST,
       TELECOM_MANUFACTURER_ALLOWLIST,
       TELECOM_MODEL_BLOCKLIST,
@@ -262,7 +260,8 @@ public final class FeatureFlags {
       BLOCK_SSE,
       CALLING_REACTIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
-      CALLING_RAISE_HAND
+      CALLING_RAISE_HAND,
+      PHONE_NUMBER_PRIVACY
   );
 
   /**
@@ -521,11 +520,6 @@ public final class FeatureFlags {
     return getBoolean(USE_HARDWARE_AEC_IF_OLD, false);
   }
 
-  /** Whether or not {@link org.signal.ringrtc.CallManager.AudioProcessingMethod#ForceSoftwareAec3} can be used */
-  public static boolean useAec3() {
-    return getBoolean(USE_AEC3, true);
-  }
-
   /**
    * Prefetch count for stories from a given user.
    */
@@ -610,6 +604,11 @@ public final class FeatureFlags {
   /** List of device products that are blocked from showing notification thumbnails. */
   public static String notificationThumbnailProductBlocklist() {
     return getString(NOTIFICATION_THUMBNAIL_BLOCKLIST, "");
+  }
+
+  /** Whether or not to use active call manager instead of WebRtcCallService. */
+  public static boolean useActiveCallManager() {
+    return getBoolean(USE_ACTIVE_CALL_MANAGER, false);
   }
 
   /** Only for rendering debug info. */

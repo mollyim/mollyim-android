@@ -216,7 +216,7 @@ class ChangeNumberRepository(
   @WorkerThread
   fun changeLocalNumber(e164: String, pni: PNI): Single<Unit> {
     val oldStorageId: ByteArray? = Recipient.self().storageServiceId
-    SignalDatabase.recipients.updateSelfPhone(e164, pni)
+    SignalDatabase.recipients.updateSelfE164(e164, pni)
     val newStorageId: ByteArray? = Recipient.self().storageServiceId
 
     if (e164 != SignalStore.account().requireE164() && MessageDigest.isEqual(oldStorageId, newStorageId)) {
@@ -352,7 +352,7 @@ class ChangeNumberRepository(
         val lastResortKyberPreKeyRecord: KyberPreKeyRecord = if (deviceId == primaryDeviceId) {
           PreKeyUtil.generateAndStoreLastResortKyberPreKey(ApplicationDependencies.getProtocolStore().pni(), SignalStore.account().pniPreKeys, pniIdentity.privateKey)
         } else {
-          PreKeyUtil.generateLastRestortKyberPreKey(SecureRandom().nextInt(Medium.MAX_VALUE), pniIdentity.privateKey)
+          PreKeyUtil.generateLastResortKyberPreKey(SecureRandom().nextInt(Medium.MAX_VALUE), pniIdentity.privateKey)
         }
         devicePniLastResortKyberPreKeys[deviceId] = KyberPreKeyEntity(lastResortKyberPreKeyRecord.id, lastResortKyberPreKeyRecord.keyPair.publicKey, lastResortKyberPreKeyRecord.signature)
 

@@ -14,6 +14,7 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
+import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.WakeLockUtil
 
 /**
@@ -123,6 +124,12 @@ class FcmFetchForegroundService : Service() {
 
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
     Log.d(TAG, "onStartCommand()")
+
+    if (KeyCachingService.isLocked()) {
+      stopForeground(STOP_FOREGROUND_REMOVE)
+      return START_NOT_STICKY
+    }
+
     postForegroundNotification()
 
     return if (intent != null && intent.getBooleanExtra(KEY_STOP_SELF, false)) {

@@ -498,7 +498,7 @@
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Chcete-li rychle odpovědět, přejeďte prstem na zprávě doleva</string>
     <string name="ConversationFragment_view_once_media_is_deleted_after_sending">Jednorázové médium je po odeslání smazáno</string>
     <string name="ConversationFragment_you_already_viewed_this_message">Tuto zprávu jste si už zobrazili</string>
-    <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">V tomto chatu si můžete přidávat poznámky.\nPokud má váš účet nějaká propojená zařízení, budou se nové poznámky synchronizovat.</string>
+    <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">V tomto chatu si můžete přidávat poznámky. Pokud má váš účet nějaká propojená zařízení, budou se nové poznámky synchronizovat.</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d členů skupiny má stejné jméno.</string>
     <string name="ConversationFragment__tap_to_review">Klepněte pro prověření</string>
     <string name="ConversationFragment__review_requests_carefully">Požadavky pečlivě prověřte</string>
@@ -594,6 +594,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">Zde zapněte nebo vypněte svůj profil oznámení.</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">%1$s zapnuto</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">Váš QR kód a odkaz byly resetovány a vaše uživatelské jméno je %1$s</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">Zpráva o výměně klíčů</string>
@@ -1064,6 +1066,8 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">Neupozorňovat mne</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">Vaše uživatelské jméno, QR kód a odkaz se na vašem profilu nezobrazují. Své uživatelské jméno sdílejte jen s lidmi, kterým věříte.</string>
     <string name="ManageProfileFragment_profile_name">Název profilu</string>
     <string name="ManageProfileFragment_username">Uživatelské jméno</string>
     <string name="ManageProfileFragment_about">O mně</string>
@@ -2042,7 +2046,12 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">Požadavky pečlivě prověřte</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">Počet společných skupin: %1$d</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="one">%1$d společná skupina</item>
+        <item quantity="few">%1$d společné skupiny</item>
+        <item quantity="many">%1$d společných skupin</item>
+        <item quantity="other">%1$d společných skupin</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">O mně</string>
     <!-- Text displayed in title for you -->
@@ -2389,6 +2398,8 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Neplatné uživatelské jméno – zadejte alespoň %1$d číslice.</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Neplatné uživatelské jméno – zadejte alespoň %1$d číslic.</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">Obnovením uživatelského jména resetujete svůj stávající QR kód a odkaz. Jste si jisti?</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%1$d kontakt má Signal!</item>
@@ -2580,6 +2591,26 @@
     <string name="SingleRecipientNotificationBuilder_you">Vy</string>
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • Příběh</string>
+
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">Nové způsoby, jak se propojit</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">Soukromé telefonní číslo</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">Vaše telefonní číslo již není sdíleno v chatech. Pokud mají přátelé vaše číslo uložené v seznamu kontaktů, stále ho uvidí.</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">Uživatelská jména</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">Lidé vám teď mohou posílat zprávy pomocí vašeho volitelného uživatelského jména, takže jim nemusíte sdělovat své telefonní číslo. Uživatelská jména se ve vašem profilu nezobrazují.</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">QR kódy a odkazy</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">Uživatelská jména mají jedinečný QR kód a odkaz, který můžete sdílet s přáteli, aby s vámi mohli rychle zahájit chat.</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">Nyní ne</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">Nastavit uživatelské jméno</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">Přehrát video</string>
@@ -3957,8 +3988,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Zavolejte mi (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Znovu odeslat kód (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Kontaktujte podporu Signal</string>
-    <string name="RegistrationActivity_code_support_subject">Registrace Signal - ověřovací kód pro Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Kontaktujte podporu Molly</string>
+    <string name="RegistrationActivity_code_support_subject">Registrace Molly - ověřovací kód pro Android</string>
     <string name="RegistrationActivity_incorrect_code">Špatný kód</string>
     <string name="BackupUtil_never">Nikdy</string>
     <string name="BackupUtil_unknown">Neznámý</string>
@@ -3969,11 +4000,17 @@
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Kdo uvidí moje číslo</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Vaše telefonní číslo v aplikaci Molly nikdo neuvidí</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">Nikdo neuvidí vaše telefonní číslo ve službě Molly, a to ani když si s ním píšete.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Kdo mě může najít podle čísla</string>
     <!-- Subtext below radio buttons when who can see my number is set to everyone -->
     <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Vaše telefonní číslo bude viditelné pro všechny lidi a skupiny, kterým pošlete zprávu. Lidé, kteří mají vaše číslo ve svých telefonních kontaktech, jej uvidí i v aplikaci Molly.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">Každý, kdo má vaše telefonní číslo, uvidí, že používáte Molly, a může s vámi začít chatovat.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">Nikdo neuvidí, že používáte Molly, dokud mu nenapíšete nebo pokud s ním už nejste v existujícím chatu.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Pokud toto nastavení chcete změnit, nastavte možnost Kdo uvidí moje číslo na Nikdo."</string>
     <string name="PhoneNumberPrivacy_everyone">Všichni</string>
     <string name="PhoneNumberPrivacy_nobody">Nikdo</string>
     <string name="preferences_app_protection__screen_lock">Zámek obrazovky</string>
@@ -6475,11 +6512,11 @@
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">Nastavte si uživatelské jméno v aplikaci Signal</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">Uživatelská jména umožňují ostatním posílat vám zprávy, aniž by potřebovali znát vaše telefonní číslo</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">Zavádíme soukromá telefonní čísla, volitelná uživatelská jména a odkazy.</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">Nyní ne</string>
+    <string name="SetUpYourUsername__dismiss">Zavřít</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">Pokračovat</string>
+    <string name="SetUpYourUsername__learn_more">Více informací</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6834,6 +6871,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">Nezmeškejte žádný hovor od svých kontaktů a skupin.</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">Zapnout</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">Nyní ne</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">Zapnout oznámení na celou obrazovku</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->

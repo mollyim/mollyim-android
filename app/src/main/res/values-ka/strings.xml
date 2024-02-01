@@ -562,6 +562,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">ჩართე ან გამორთე შენი შეტყობინებების პროფილი აქ.</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">%1$s ჩართულია</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">შენი QR კოდი და ბმული შეიცვალა და შენი მომხმარებლის სახელია %1$s</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">გასაღების გაცვლის შეტყობინება</string>
@@ -996,6 +998,8 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">არ შემატყობინოთ</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">შენი მომხმარებლის სახელი, QR კოდი და ბმული შენს პროფილზე არ ჩანს. შენი მომხმარებლის სახელი მხოლოდ მათ გაუზიარე, ვისაც ენდობი.</string>
     <string name="ManageProfileFragment_profile_name">პროფილის სახელი</string>
     <string name="ManageProfileFragment_username">მომხმარებლის სახელი</string>
     <string name="ManageProfileFragment_about">აღწერილობა</string>
@@ -1896,7 +1900,10 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">ყურადღებით გადახედე მოთხოვნებს</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">%1$d საერთო ჯგუფი</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="one">%1$d საერთო ჯგუფი</item>
+        <item quantity="other">%1$d საერთო ჯგუფი</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">შესახებ</string>
     <!-- Text displayed in title for you -->
@@ -2233,6 +2240,8 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">მომხმარებლის სახელი არასწორია, შეიყვანე მინიმუმ %1$d ციფრი.</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">მომხმარებლის სახელი არასწორია, შეიყვანე მინიმუმ %1$d ციფრი.</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">შენი მომხმარებლის სახელის აღდგენა შენს ამჟამინდელ QR კოდსა და ბმულს შეცვლის. დარწმუნებული ხარ?</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%1$d კონტაქტი Signal-ზეა!</item>
@@ -2418,6 +2427,26 @@
     <string name="SingleRecipientNotificationBuilder_you">შენ</string>
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • Story-ი</string>
+
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">დაკავშირების ახალი გზები</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">მობილურის ნომრის კონფიდენციალურობა</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">შენი მობილურის ნომერი ჩატებს აღარ გაუზიარდება. თუ შენი ნომერი მეგობარს კონტაქტებში აქვს შენახული, ის მაინც დაინახავს მას.</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">მომხმარებლის სახელები</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">ხალხს ახლა უკვე შეუძლია შენი ნებაყოფლობითი მომხმარებლის სახელის დახმარებით მოგწეროს, რომ შენი მობილურის ნომრის გაცემა არ დაგჭირდეს. მომხმარებლის სახელები შენს პროფილზე არ ჩანს.</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">QR კოდები და ბმულები</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">მომხმარებლის სახელებს აქვთ უნიკალური QR კოდი და ბმული, რომლის გაზიარებაც მეგობრებთან მიმოწერის სწრაფად დასაწყებად შეგიძლია.</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">ახლა არა</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">აირჩიე მომხმარებლის სახელი</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">ვიდეოს გაშვება</string>
@@ -3749,8 +3778,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">დამირეკეთ (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">კოდის თავიდან გაგზავნა (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">დაუკავშირდით Signal-ის მხარდაჭერას</string>
-    <string name="RegistrationActivity_code_support_subject">Signal-ის რეგისტრაცია - დადასტურების კოდი Android-ითვის</string>
+    <string name="RegistrationActivity_contact_signal_support">დაუკავშირდით Molly-ის მხარდაჭერას</string>
+    <string name="RegistrationActivity_code_support_subject">Molly-ის რეგისტრაცია - დადასტურების კოდი Android-ითვის</string>
     <string name="RegistrationActivity_incorrect_code">არასწორი კოდი</string>
     <string name="BackupUtil_never">არასდროს</string>
     <string name="BackupUtil_unknown">უცნობი</string>
@@ -3761,11 +3790,17 @@
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">ვის შეუძლია ჩემი ნომრის ნახვა</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Molly-ზე შენი ტელეფონის ნომერს ვერავინ ნახავს</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">შენი მობილურის ნომერს Molly-ზე ვერავინ დაინახავს, მაშინაც კი, როცა მათ მისწერ.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
     <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">ვის შეუძლია ნომრით მიპოვოს</string>
     <!-- Subtext below radio buttons when who can see my number is set to everyone -->
     <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">შენი ტელეფონის ნომერი ხილული იქნება ყველა ადამიანისა და ჯგუფისთვის, ვისთანაც მიმოწერა გაქვს. ადამიანები, რომლებსაც შენი ნომერი სატელეფონო კონტაქტებში აქვთ, მას Molly-ზეც ნახავენ.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">ნებისმიერს, ვისაც შენი მობილურის ნომერი აქვს, დაინახავს, რომ Molly-ზე ხარ და შენთან ჩატის წამოწყებას შეძლებს.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">ვერავინ დაინახავს, რომ Molly-ზე ხარ, სანამ არ მისწერ ან თუ არსებული ჩატი არ გექნებათ.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"ამ პარამეტრის შესაცვლელად, დააყენე \"ვინ ხედავს ჩემს ნომერს\" \"არავინ\"-ზე."</string>
     <string name="PhoneNumberPrivacy_everyone">ყველა</string>
     <string name="PhoneNumberPrivacy_nobody">არავინ</string>
     <string name="preferences_app_protection__screen_lock">Ეკრანის დაბლოკვა</string>
@@ -6199,11 +6234,11 @@
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">შექმენი შენი Signal-ის მომხმარებლის სახელი</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">მომხმარებლის სახელები საშუალებას აძლევს სხვებს გამოგიგზავნონ წერილი შენი ტელეფონის ნომრის გარეშე</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">წარმოგიდგენთ მობილურის ნომრის კონფიდენციალურობას, მომხმარებლის სახელების ნებაყოფლობითობასა და ბმულებს.</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">ახლა არა</string>
+    <string name="SetUpYourUsername__dismiss">გაუქმება</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">გაგრძელება</string>
+    <string name="SetUpYourUsername__learn_more">გაიგე მეტი</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6548,6 +6583,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">არასდროს გამოტოვო შენი კონტაქტებისა და ჯგუფების ზარები.</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">ჩართვა</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">ახლა არა</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">შეტყობინებების სრულ ეკრანზე ჩართვა</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
