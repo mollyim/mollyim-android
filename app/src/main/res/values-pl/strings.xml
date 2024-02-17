@@ -179,7 +179,18 @@
     <string name="BlockUnblockDialog_unblock_s">Odblokować: %1$s?</string>
     <string name="BlockUnblockDialog_block">Zablokuj</string>
     <string name="BlockUnblockDialog_block_and_leave">Zablokuj i opuść</string>
-    <string name="BlockUnblockDialog_report_spam_and_block">Zgłoś spam i zablokuj</string>
+    <!-- Dialog button label to report as spam and block the person -->
+    <string name="BlockUnblockDialog_report_spam_and_block">Report and block</string>
+    <!-- Dialog title for reporting spam -->
+    <string name="BlockUnblockDialog_report_spam_title">Report spam?</string>
+    <!-- Dialog button to report as spam only -->
+    <string name="BlockUnblockDialog_report_spam">Report spam</string>
+    <!-- Dialog message when reporting spam of an individual (1:1 conversation) -->
+    <string name="BlockUnblockDialog_report_spam_description">Signal will be notified that this person may be sending spam. Signal can’t see the content of any chats.</string>
+    <!-- Dialog message when reporting spam of a group and we can determine the group member that invited you, placeholder is a name -->
+    <string name="BlockUnblockDialog_report_spam_group_named_adder">Signal will be notified that %1$s, who invited you to this group, may be sending spam. Signal can’t see the content of any chats.</string>
+    <!-- Dialog message when reporting spam of a group and we cannot determine the group member that invited you -->
+    <string name="BlockUnblockDialog_report_spam_group_unknown_adder">Signal will be notified that the person who invited you to this group may be sending spam. Signal can’t see the content of any chats.</string>
 
     <!-- BucketedThreadMedia -->
     <string name="BucketedThreadMedia_Today">Dzisiaj</string>
@@ -528,6 +539,55 @@
     <string name="ConversationFragment__content_description_launch_signal_button">Otwórz Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Już niezweryfikowany(-a)</string>
+    <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
+    <string name="ConversationFragment_safety_tips">Safety tips</string>
+    <!-- Menu option to report spam in a conversation -->
+    <string name="ConversationFragment_report_spam">Report spam</string>
+    <!-- Menu option to block in a conversation -->
+    <string name="ConversationFragment_block">Zablokuj</string>
+    <!-- Menu otpion to accept a message request in a conversation -->
+    <string name="ConversationFragment_accept">Akceptuj</string>
+    <!-- Menu option to delete an entire chat in a conversation -->
+    <string name="ConversationFragment_delete_chat">Delete chat</string>
+    <!-- Menu option to unblock in a conversation -->
+    <string name="ConversationFragment_unblock">Odblokuj</string>
+    <!-- Menu option to report spam in a conversation -->
+    <string name="ConversationFragment_reported_spam">Reported spam</string>
+    <!-- Dialog message shown after reporting spam and tapping the conversation item -->
+    <string name="ConversationFragment_reported_spam_message">Signal has been be notified that this person may be sending spam. Signal can’t see the content of any chats.</string>
+    <!-- Toast shown after reporting spam and tapping the conversation item -->
+    <string name="ConversationFragment_reported_as_spam">Reported as spam</string>
+    <!-- Toast shown after reporting and blocking a conversation -->
+    <string name="ConversationFragment_reported_as_spam_and_blocked">Reported as spam and blocked</string>
+    <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
+    <string name="ConversationFragment_you_accepted_a_message_request_from_s">You accepted a message request from %1$s. If this was a mistake, you can choose an action below.</string>
+
+    <!-- Title of Safety Tips bottom sheet dialog -->
+    <string name="SafetyTips_title">Safety Tips</string>
+    <!-- Dialog subtitle when showign tips for a 1:1 conversation -->
+    <string name="SafetyTips_subtitle_individual">Be careful when accepting message requests from people you don’t know. Watch out for:</string>
+    <!-- Dialog subtitle when showing tips for a group conversation -->
+    <string name="SafetyTips_subtitle_group">Review this request carefully. None of your contacts or people you chat with are in this group. Here are a few things to watch out for:</string>
+    <!-- Button text to move to the previous tip-->
+    <string name="SafetyTips_previous_tip">Previous tip</string>
+    <!-- Button text to move to the next tip -->
+    <string name="SafetyTips_next_tip">Next tip</string>
+    <!-- Title of tip 1 -->
+    <string name="SafetyTips_tip1_title">Crypto or money scams</string>
+    <!-- Message of tip 1 -->
+    <string name="SafetyTips_tip1_message">If someone you don’t know messages about cryptocurrency (like Bitcoin) or an financial opportunity, be careful—it’s likely spam.</string>
+    <!-- Title of tip 2 -->
+    <string name="SafetyTips_tip2_title">Vague or irrelevant messages</string>
+    <!-- Message of tip 2 -->
+    <string name="SafetyTips_tip2_message">Spammers often start with a simple message like “Hi” to draw you in. If you respond they may engage you further.</string>
+    <!-- Title of tip 3 -->
+    <string name="SafetyTips_tip3_title">Messages with links</string>
+    <!-- Message of tip 3 -->
+    <string name="SafetyTips_tip3_message">Be careful of messages from people you don’t know that have links to websites. Never visit links from people you don’t trust.</string>
+    <!-- Title of tip 4 -->
+    <string name="SafetyTips_tip4_title">Fake businesses and institutions</string>
+    <!-- Message of tip 4 -->
+    <string name="SafetyTips_tip4_message">Be careful of businesses or government agencies contacting you. Messages involving tax agencies, couriers, and more can be spam.</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">Usuń filtr</string>
@@ -546,7 +606,12 @@
         <item quantity="other">Wszystkie %1$d wybranych czatów zostanie trwale usuniętych.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Usuwanie…</string>
-    <string name="ConversationListFragment_deleting_selected_conversations">Usuwanie wybranych czatów…</string>
+    <plurals name="ConversationListFragment_deleting_selected_conversations">
+        <item quantity="one">Deleting selected chat…</item>
+        <item quantity="few">Deleting selected chats…</item>
+        <item quantity="many">Deleting selected chats…</item>
+        <item quantity="other">Deleting selected chats…</item>
+    </plurals>
     <plurals name="ConversationListFragment_conversations_archived">
         <item quantity="one">Czat zarchiwizowany</item>
         <item quantity="few">%1$d czaty zarchiwizowane</item>
@@ -640,9 +705,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Kto może mnie znaleźć po numerze telefonu?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">Każdy, kto ma Twój numer telefonu w swoich kontaktach, będzie widział Cię jako kontakt w aplikacji Signal. Inni będą mogli Cię znaleźć, wyszukując Twój numer telefonu.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Każdy, kto ma Twój numer telefonu, zobaczy Cię w Signal i może rozpocząć z Tobą czat.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">Żaden użytkownik Signal nie będzie w stanie znaleźć Cię po numerze telefonu.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Nikt nie będzie mógł zobaczyć, że korzystasz z Signal, chyba że wyślesz tej osobie wiadomość lub macie już rozpoczętą rozmowę na czacie.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Przywrócić kopię zapasową?</string>
@@ -1068,6 +1133,8 @@
     <!-- ManageProfileFragment -->
     <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
     <string name="ManageProfileFragment__your_username">Twoja nazwa użytkownika, kod QR i link nie są widoczne na Twoim profilu. Udostępniaj swoją nazwę użytkownika tylko zaufanym osobom.</string>
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc, shown when you have no username -->
+  <!-- Removed by excludeNonTranslatables <string name="ManageProfileFragment__username_footer_no_username">Od teraz użytkownicy mogą wysyłać Ci wiadomości, używając Twojej opcjonalnej nazwy użytkownika. Nie musisz już podawać swojego numeru telefonu. </string> -->
     <string name="ManageProfileFragment_profile_name">Nazwa profilu</string>
     <string name="ManageProfileFragment_username">Nazwa użytkownika</string>
     <string name="ManageProfileFragment_about">O mnie</string>
@@ -1097,7 +1164,7 @@
     <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
     <string name="UsernameOutOfSyncReminder__username_and_link_corrupt">Wystąpił błąd z Twoją nazwą użytkownika — nie jest już przypisana do Twojego konta. Możesz spróbować ustawić ją ponownie lub wybrać nową nazwę.</string>
     <!-- Displayed above the conversation list when a user needs to address an issue with their username link -->
-    <string name="UsernameOutOfSyncReminder__link_corrupt">Coś poszło nie tak z kodem QR i linkiem do nazwy użytkownika – jest nieważny. Utwórz nowy link do udostępniania innym.</string>
+    <string name="UsernameOutOfSyncReminder__link_corrupt">Coś poszło nie tak z kodem QR i linkiem do nazwy użytkownika — są nieważne. Utwórz nowy link do udostępniania innym.</string>
     <!-- Action text to navigate user to manually fix the issue with their username -->
     <string name="UsernameOutOfSyncReminder__fix_now">Napraw błąd teraz</string>
 
@@ -1641,6 +1708,10 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Aplikacja Molly nie obsługuje już wysyłania wiadomości SMS. Zaproś %1$s do Molly i kontynuujcie rozmowę tutaj.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Płatność: %1$s</string>
+    <!-- Update message shown in chat after reporting it as spam -->
+    <string name="MessageRecord_reported_as_spam">Reported as spam</string>
+    <!-- Update message shown in chat after accept a message request -->
+    <string name="MessageRecord_you_accepted_the_message_request">You accepted the message request</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Akceptuj</string>
@@ -1695,6 +1766,8 @@
         <item quantity="many">%1$d dodatkowych grup</item>
         <item quantity="other">%1$d dodatkowe grupy</item>
     </plurals>
+    <!-- Button label to report spam for a conversation when in a message request state -->
+    <string name="MessageRequestBottomView_report">Report…</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Hasło niezgodne!</string>
@@ -1703,7 +1776,7 @@
 
     <!-- DeviceProvisioningActivity -->
     <string name="DeviceProvisioningActivity_link_this_device">Połączyć z tym urządzeniem?</string>
-    <string name="DeviceProvisioningActivity_continue">KONTYNUUJ</string>
+    <string name="DeviceProvisioningActivity_continue">Kontynuuj</string>
 
     <string name="DeviceProvisioningActivity_content_intro">Będzie ono w stanie:</string>
     <string name="DeviceProvisioningActivity_content_bullets">
@@ -2039,6 +2112,10 @@
     <!-- AboutSheet -->
     <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
     <string name="AboutSheet__signal_connection">Kontakt Signal</string>
+    <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
+  <!-- Removed by excludeNonTranslatables <string name="AboutSheet__verified">Zweryfikowano</string> -->
+    <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
+  <!-- Removed by excludeNonTranslatables <string name="AboutSheet__no_direct_message">No direct messages with %1$s</string> -->
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s znajduje się w kontaktach systemowych</string>
     <!-- Notice in a row when user has no groups in common -->
@@ -2398,8 +2475,16 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Nieprawidłowa nazwa użytkownika, wprowadź co najmniej %1$d cyfry.</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Nieprawidłowa nazwa użytkownika, wprowadź maks. %1$d cyfr.</string>
+    <!-- Displayed when the chosen discriminator is 00 -->
+    <string name="UsernameEditFragment__this_number_cant_be_00">Nie możesz wybrać cyfr 00. Wprowadź cyfrę 1–9.</string>
+    <!-- Displayed when the chosen discriminator starts with 00 -->
+    <string name="UsernameEditFragment__this_number_cant_start_with_00">Ten numer nie może zaczynać się od 00. Wprowadź cyfrę 1–9.</string>
     <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
     <string name="UsernameEditFragment_recovery_dialog_confirmation">Odzyskanie nazwy użytkownika spowoduje zresetowanie obecnego kodu QR i linku. Chcesz kontynuować?</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to change their username, even if it resets their link -->
+  <!-- Removed by excludeNonTranslatables <string name="UsernameEditFragment_change_confirmation_message">Zmiana nazwy użytkownika spowoduje zresetowanie obecnego kodu QR i linku. Chcesz kontynuować?</string> -->
+    <!-- Text for a button in a dialog asking if the user would like to continue the operation of changing their username -->
+  <!-- Removed by excludeNonTranslatables <string name="UsernameEditFragment_continue">Kontynuuj</string> -->
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">%1$dkontakt jest w Signal!</item>
@@ -2731,6 +2816,10 @@
         <item quantity="many">%1$d członków</item>
         <item quantity="other">%1$d członków</item>
     </plurals>
+    <!-- Text on row item to find user by phone number -->
+    <string name="ContactSelectionListFragment__find_by_phone_number">Znajdź po numerze telefonu</string>
+    <!-- Text on row item to find user by username -->
+    <string name="ContactSelectionListFragment__find_by_username">Znajdź po nazwie użytkownika</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly wymaga dostępu do Twoich kontaktów w celu wyświetlenia ich.</string>
@@ -2806,6 +2895,8 @@
     <string name="ConversationUpdateItem_activate_payments">Aktywuj płatności</string>
     <!-- Update item alerting the user they hid this person and that they can message them to unhide them -->
     <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">Ten użytkownik został wcześniej usunięty. Ponowne wysłanie do niego wiadomości spowoduje dodanie tej osoby do listy kontaktów.</string>
+    <!-- Update item button text shown for the accepted message request update message -->
+    <string name="ConversationUpdateItem_options">Options</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Odtwarzanie … Pauza</string>
@@ -3998,17 +4089,19 @@
     <!-- Subtext below option to launch into phone number privacy settings screen -->
     <string name="preferences_app_protection__choose_who_can_see">Zdecyduj, kto może zobaczyć Twój numer telefonu i kto może go użyć do skontaktowania się z Tobą w Molly.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
-    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Kto może zobaczyć mój numer</string>
-    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see_your">Nikt nie zobaczy Twojego numeru telefonu w Molly, nawet jeśli wysyłacie sobie wiadomości.</string>
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Kto może zobaczyć mój numer</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_on_description">Twój numer będzie widoczny dla wszystkich osób i grup, z którymi wymieniasz wiadomości.</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_on_description">Nikt nie zobaczy Twojego numeru, o ile nie ma go zapisanego w kontaktach swojego telefonu.</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_off_description">Nikt nie zobaczy Twojego numeru telefonu.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
-    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Kto może mnie znaleźć po numerze telefonu</string>
-    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
-    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Twój numer będzie widoczny dla osób i grup, z którymi wymieniasz wiadomości. Osoby, które mają Twój numer w kontaktach, będą również widzieć go w Molly.</string>
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_find_me_by_number_heading">Kto może mnie znaleźć po numerze telefonu</string>
     <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
-    <string name="PhoneNumberPrivacySettingsFragment__anyone_who_has">Każdy, kto ma Twój numer telefonu, zobaczy Cię w Molly i może rozpocząć z Tobą czat.</string>
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_on_description">Każdy, kto ma Twój numer telefonu, zobaczy Cię w Signal i może rozpocząć z Tobą czat.</string>
     <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_be_able_to_see">Nikt nie będzie mógł zobaczyć, że korzystasz z Molly, chyba że wyślesz tej osobie wiadomość lub macie już rozpoczętą rozmowę na czacie.</string>
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">Nikt nie będzie mógł zobaczyć, że korzystasz z Signal, chyba że wyślesz tej osobie wiadomość lub macie już rozpoczętą rozmowę na czacie.</string>
     <!-- Snackbar text when pressing invalid radio item -->
     <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Aby zmienić to ustawienie, w sekcji Kto może zobaczyć mój numer wybierz opcję Nikt."</string>
     <string name="PhoneNumberPrivacy_everyone">Wszyscy</string>
@@ -4039,6 +4132,8 @@
     <string name="prompt_passphrase_activity__signal_is_locked">Molly jest zablokowany</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">DOTKNIJ, ABY ODBLOKOWAĆ</string>
     <string name="Recipient_unknown">Nieznany</string>
+    <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
+    <string name="Recipient_deleted_account">Konto usunięte</string>
 
     <!-- Option in settings that will take use to re-register if they are no longer registered -->
     <string name="preferences_account_reregister">Zarejestruj konto ponownie</string>
@@ -4631,27 +4726,6 @@
     <!-- ChatsSettingsFragment -->
     <string name="ChatsSettingsFragment__keyboard">Klawiatura</string>
     <string name="ChatsSettingsFragment__enter_key_sends">Enter wysyła wiadomość</string>
-
-    <!--SmsSettingsFragment -->
-    <string name="SmsSettingsFragment__use_as_default_sms_app">Ustaw, jako domyślną aplikację SMS</string>
-    <!-- Preference title to export sms -->
-    <string name="SmsSettingsFragment__export_sms_messages">Eksportuj wiadomości SMS</string>
-    <!-- Preference title to re-export sms -->
-    <string name="SmsSettingsFragment__export_sms_messages_again">Eksportuj ponownie wiadomości SMS</string>
-    <!-- Preference title to delete sms -->
-    <string name="SmsSettingsFragment__remove_sms_messages">Usuń wiadomości SMS</string>
-    <!-- Snackbar text to confirm deletion -->
-    <string name="SmsSettingsFragment__removing_sms_messages_from_signal">Trwa usuwanie wiadomości SMS z Signal…</string>
-    <!-- Snackbar text to indicate can delete later -->
-    <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">W dowolnym momencie możesz usuwać wiadomości SMS z Signal w Ustawieniach.</string>
-    <!-- Description for export sms preference -->
-    <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Możesz wyeksportować swoje wiadomości SMS do bazy danych SMS w telefonie</string>
-    <!-- Description for re-export sms preference -->
-    <string name="SmsSettingsFragment__exporting_again_can_result_in_duplicate_messages">Ponowny eksport może poskutkować zduplikowanymi wiadomościami.</string>
-    <!-- Description for remove sms preference -->
-    <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Usuń wiadomości SMS z Signal, aby zwolnić miejsce w pamięci.</string>
-    <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
-    <string name="SmsSettingsFragment__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">Ponieważ chcemy skupić się na wiadomościach szyfrowanych, wkrótce wiadomości SMS przestaną być obsługiwane.</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">Wiadomości</string>
@@ -5685,7 +5759,7 @@
     <!-- Signal connections sheet bullet point 2 -->
     <string name="SignalConnectionsBottomSheet__accepting_a_message_request">Zaakceptowanie prośby o kontakt</string>
     <!-- Signal connections sheet bullet point 3 -->
-    <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Posiadanie ich w systemowej książce kontaktów</string>
+    <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Posiadanie ich w kontaktach systemowych</string>
     <!-- Note at the bottom of the Signal connections sheet -->
     <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Twoje kontakty widzą Twoje imię i zdjęcie, a także widzą posty w „Moja relacja”, chyba że je przed nimi ukryjesz."</string>
     <!-- Clickable option to add a viewer to a custom story -->
@@ -6095,50 +6169,6 @@
     <!-- Generic title for overflow menus -->
     <string name="OverflowMenu__overflow_menu">Rozwijane menu</string>
 
-    <!-- SMS Export Service -->
-    <!-- Displayed in the notification while export is running -->
-    <string name="SignalSmsExportService__exporting_messages">Trwa eksport wiadomości…</string>
-    <!-- Displayed in the notification title when export completes -->
-    <string name="SignalSmsExportService__signal_sms_export_complete">Eksport wiadomości SMS z Signal ukończony</string>
-    <!-- Displayed in the notification message when export completes -->
-    <string name="SignalSmsExportService__tap_to_return_to_signal">Stuknij, aby wrócić do Signal</string>
-
-    <!-- ExportYourSmsMessagesFragment -->
-    <!-- Title of the screen -->
-    <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Eksportuj wiadomości SMS</string>
-    <!-- Message of the screen -->
-    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database_and_youll_have_the_option_to_keep_or_remove_them_from_signal">Możesz wyeksportować swoje wiadomości SMS do bazy danych SMS w telefonie, a dodatkowo zachować je w Signal lub usunąć z aplikacji. Dzięki eksporcie wiadomości inne aplikacje do obsługi SMS-ów w Twoim telefonie będą mogły je importować. Nie spowoduje to utworzenia możliwego do udostępniania pliku z historią wiadomości SMS.</string>
-    <!-- Button label to begin export -->
-    <string name="ExportYourSmsMessagesFragment__continue">Kontynuuj</string>
-
-    <!-- ExportingSmsMessagesFragment -->
-    <!-- Title of the screen -->
-    <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Trwa eksport wiadomości SMS</string>
-    <!-- Message of the screen when exporting sms messages -->
-    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">To może zająć chwilę</string>
-    <!-- Progress indicator for export -->
-    <plurals name="ExportingSmsMessagesFragment__exporting_d_of_d">
-        <item quantity="one">Wyeksportowano %1$d z %2$d…</item>
-        <item quantity="few">Wyeksportowano %1$d z %2$d…</item>
-        <item quantity="many">Wyeksportowano %1$d z %2$d…</item>
-        <item quantity="other">Wyeksportowano %1$d z %2$d…</item>
-    </plurals>
-    <!-- Alert dialog title shown when we think a user may not have enough local storage available to export sms messages -->
-    <string name="ExportingSmsMessagesFragment__you_may_not_have_enough_disk_space">Możesz nie mieć wystarczającej ilości miejsca na dysku</string>
-    <!-- Alert dialog message shown when we think a user may not have enough local storage available to export sms messages, placeholder is the file size, e.g., 128kB -->
-    <string name="ExportingSmsMessagesFragment__you_need_approximately_s_to_export_your_messages_ensure_you_have_enough_space_before_continuing">Aby wyeksportować wiadomości, potrzebujesz około %1$s. Zanim przejdziesz dalej, upewnij się, że masz wystarczająco dużo miejsca.</string>
-    <!-- Alert dialog button to continue with exporting sms after seeing the lack of storage warning -->
-    <string name="ExportingSmsMessagesFragment__continue_anyway">Kontynuuj mimo to</string>
-    <!-- Dialog text shown when Signal isn\'t granted the sms permission needed to export messages, different than being selected as the sms app -->
-    <string name="ExportingSmsMessagesFragment__signal_needs_the_sms_permission_to_be_able_to_export_your_sms_messages">Aby eksportować wiadomości SMS, musisz przyznać aplikacji Signal dostęp do wiadomości SMS.</string>
-
-    <!-- ChooseANewDefaultSmsAppFragment -->
-    <!-- Title of the screen -->
-    <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Wybierz nową domyślną aplikację SMS</string>
-    <!-- Button label to launch picker -->
-    <string name="ChooseANewDefaultSmsAppFragment__continue">Kontynuuj</string>
-    <!-- Button label for when done with changing default SMS app -->
-    <string name="ChooseANewDefaultSmsAppFragment__done">Gotowe</string>
     <!-- First step number/bullet for choose new default sms app instructions -->
     <string name="ChooseANewDefaultSmsAppFragment__bullet_1">1</string>
     <!-- Second step number/bullet for choose new default sms app instructions -->
@@ -6147,47 +6177,6 @@
     <string name="ChooseANewDefaultSmsAppFragment__bullet_3">3</string>
     <!-- Fourth step number/bullet for choose new default sms app instructions -->
     <string name="ChooseANewDefaultSmsAppFragment__bullet_4">4</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__tap_continue_to_open_the_defaults_apps_screen_in_settings">Stuknij „Kontynuuj”, aby otworzyć ekran „Aplikacje domyślne” w Ustawieniach</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__select_sms_app_from_the_list">Wybierz „aplikację SMS” z listy</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__choose_another_app_to_use_for_sms_messaging">Wybierz inną aplikację do obsługi wiadomości SMS</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__return_to_signal">Wróć do Signal</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__open_your_phones_settings_app">Otwórz aplikację Ustawienia w swoim telefonie</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__navigate_to_apps_default_apps_sms_app">Przejdź do „Aplikacje” &gt; „Aplikacje domyślne” &gt; „Aplikacja SMS”</string>
-
-    <!-- RemoveSmsMessagesDialogFragment -->
-    <!-- Action button to keep messages -->
-    <string name="RemoveSmsMessagesDialogFragment__keep_messages">Zachowaj wiadomości</string>
-    <!-- Action button to remove messages -->
-    <string name="RemoveSmsMessagesDialogFragment__remove_messages">Usuń wiadomości</string>
-    <!-- Title of dialog -->
-    <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Usunąć wiadomości SMS z Signal?</string>
-    <!-- Message of dialog -->
-    <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Od teraz możesz usuwać wiadomości SMS z Signal, aby zwolnić miejsce w pamięci. Nawet jeśli usuniesz wiadomości, nadal będą dostępne w innych aplikacjach do obsługi SMS-ów na Twoim telefonie.</string>
-
-    <!-- ReExportSmsMessagesDialogFragment -->
-    <!-- Action button to re-export messages -->
-    <string name="ReExportSmsMessagesDialogFragment__continue">Kontynuuj</string>
-    <!-- Action button to cancel re-export process -->
-    <string name="ReExportSmsMessagesDialogFragment__cancel">Anuluj</string>
-    <!-- Title of dialog -->
-    <string name="ReExportSmsMessagesDialogFragment__export_sms_again">Ponownie wyeksportować wiadomości SMS?</string>
-    <!-- Message of dialog -->
-    <string name="ReExportSmsMessagesDialogFragment__you_already_exported_your_sms_messages">Twoje wiadomości SMS są już wyeksportowane.\nUWAGA: Jeśli zdecydujesz się kontynuować, może to poskutkować zduplikowanymi wiadomościami.</string>
-
-    <!-- SetSignalAsDefaultSmsAppFragment -->
-    <!-- Title of the screen -->
-    <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Ustaw Signal jako domyślną aplikację do obsługi SMS-ów</string>
-    <!-- Message of the screen -->
-    <string name="SetSignalAsDefaultSmsAppFragment__to_export_your_sms_messages">Aby wyeksportować wiadomości SMS, musisz ustawić Signal jako domyślną aplikację do obsługi SMS-ów.</string>
-    <!-- Button label to start export -->
-    <string name="SetSignalAsDefaultSmsAppFragment__next">Dalej</string>
-
     <!-- BackupSchedulePermission Megaphone -->
     <!-- The title on an alert window that explains to the user that we are unable to backup their messages -->
     <string name="BackupSchedulePermissionMegaphone__cant_back_up_chats">Nie można wykonać kopii zapasowej czatów</string>
@@ -6205,47 +6194,6 @@
     <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Włącz opcję „Zezwalaj na alarmy i przypomnienia”</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">Przejdź do ustawień</string>
-
-    <!-- SmsExportMegaphoneActivity -->
-    <!-- Phase 2 title of full screen megaphone indicating sms will no longer be supported in the near future -->
-    <string name="SmsExportMegaphoneActivity__signal_will_no_longer_support_sms">Signal nie będzie już obsługiwać wiadomości SMS</string>
-    <!-- Phase 3 title of full screen megaphone indicating sms is longer supported  -->
-    <string name="SmsExportMegaphoneActivity__signal_no_longer_supports_sms">Signal przestał obsługiwać wiadomości SMS</string>
-    <!-- The text on a button in a popup that, when clicked, will dismiss the popup and schedule the prompt to occur at a later time. -->
-    <string name="SmsExportMegaphoneActivity__remind_me_later">Przypomnij później</string>
-    <!-- The text on a button in a popup that, when clicked, will navigate the user to a web article on SMS removal -->
-
-    <!-- Title for screen shown after sms export has completed -->
-    <string name="ExportSmsCompleteFragment__export_complete">Eksport zakończony</string>
-    <!-- Button to continue to next screen -->
-    <string name="ExportSmsCompleteFragment__next">Dalej</string>
-    <!-- Message showing summary of sms export counts -->
-    <plurals name="ExportSmsCompleteFragment__d_of_d_messages_exported">
-        <item quantity="one">Wyeksportowano %1$d z %2$d wiadomości</item>
-        <item quantity="few">Wyeksportowano %1$d z %2$d wiadomości</item>
-        <item quantity="many">Wyeksportowano %1$d z %2$d wiadomości</item>
-        <item quantity="other">Wyeksportowano %1$d z %2$d wiadomości</item>
-    </plurals>
-
-    <!-- Title of screen shown when some sms messages did not export -->
-    <string name="ExportSmsPartiallyComplete__export_partially_complete">Eksport częściowo ukończony</string>
-    <!-- Debug step 1 on screen shown when some sms messages did not export -->
-    <string name="ExportSmsPartiallyComplete__ensure_you_have_an_additional_s_free_on_your_phone_to_export_your_messages">Upewnij się, że masz w telefonie dodatkowe %1$s wolnego miejsca na wyeksportowanie wiadomości</string>
-    <!-- Debug step 2 on screen shown when some sms messages dit not export -->
-    <string name="ExportSmsPartiallyComplete__retry_export_which_will_only_retry_messages_that_have_not_yet_been_exported">Ponów eksport — spowoduje to podjęcie ponownej próby eksportu wiadomości, które nie zostały jeszcze wyeksportowane</string>
-    <!-- Partial sentence for Debug step 3 on screen shown when some sms messages did not export, is combined with \'contact us\' -->
-    <string name="ExportSmsPartiallyComplete__if_the_problem_persists">Jeśli problem będzie się powtarzał, </string>
-    <!-- Partial sentence for deubg step 3 on screen shown when some sms messages did not export, combined with \'If the problem persists\', link text to open contact support view -->
-    <string name="ExportSmsPartiallyComplete__contact_us">Skontaktuj się z nami</string>
-    <!-- Button text to retry sms export -->
-    <string name="ExportSmsPartiallyComplete__retry">Ponów</string>
-    <!-- Button text to continue sms export flow and not retry failed message exports -->
-    <string name="ExportSmsPartiallyComplete__continue_anyway">Kontynuuj mimo to</string>
-    <!-- Title of screen shown when all sms messages failed to export -->
-    <string name="ExportSmsFullError__error_exporting_sms_messages">Błąd podczas eksportu wiadomości SMS</string>
-    <!-- Helper text shown when all sms messages failed to export -->
-    <string name="ExportSmsFullError__please_try_again_if_the_problem_persists">Spróbuj ponownie. Jeśli problem będzie się powtarzał, </string>
-
 
     <!-- DonateToSignalFragment -->
     <!-- Title below avatar -->
@@ -6390,6 +6338,12 @@
     <string name="IdealTransferDetailsFragment__email">E-mail</string>
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">Wybierz swój bank</string>
+    <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">Potwierdź darowiznę za pośrednictwem %1$s</string>
+    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation -->
+    <string name="IdealTransferDetailsFragment__monthly_ideal_warning">Aby skonfigurować darowiznę cykliczną, kliknij Dalej i potwierdź w banku obciążenie konta w wysokości 0,01 euro. Kwota zostanie automatycznie zwrócona i pozwoli na pobieranie z Twojego konta darowizny w wysokości 5 euro miesięcznie.</string>
+    <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
+    <string name="IdealTransferDetailsFragment__continue">Kontynuuj</string>
 
     <!-- IdealTransferDetailsBankSelectionDialogFragment -->
     <!-- Title of the screen, displayed in the toolbar -->
@@ -6495,19 +6449,6 @@
     <!-- Displayed in the "clear filter" item in the chat feed if the user opened the filter from the overflow menu -->
     <string name="ChatFilter__tip_pull_down">Podpowiedź: aby zastosować filtr, przesuń w dół listę czatów</string>
 
-    <!-- Title for screen describing that sms support is going to be removed soon -->
-    <string name="SmsRemoval_title_going_away">Wkrótce koniec obsługi wiadomości SMS</string>
-    <!-- Bullet point message shown on describing screen as first bullet why sms is being removed, placeholder with be date of removal (e.g., March 21st) -->
-    <string name="SmsRemoval_info_bullet_1">Wiadomości SMS w aplikacji Signal wkrótce przestaną być obsługiwane.</string>
-    <!-- Bullet point message shown on describing screen as second bullet why sms is being removed -->
-    <string name="SmsRemoval_info_bullet_2">Wiadomości SMS to nie to samo, co wiadomości Signal. <b>Spokojnie, zmiana nie obejmie zaszyfrowanych wiadomości Signal — te nadal będą działać.</b></string>
-    <!-- Bullet point message shown on describing screen as third bullet why sms is being removed -->
-    <string name="SmsRemoval_info_bullet_3">Możesz wyeksportować swoje wiadomości SMS i wybrać nową apkę do ich obsługi.</string>
-    <!-- Bullet point message shown on describing screen as first bullet variant why sms is being removed when user is locked out of sms -->
-    <string name="SmsRemoval_info_bullet_1_phase_3">Signal wycofał obsługę wiadomości SMS.</string>
-    <!-- Button label on sms removal info/megaphone to start the export SMS flow -->
-    <string name="SmsRemoval_export_sms">Eksportuj wiadomości SMS</string>
-
     <!-- Set up your username megaphone -->
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">Ustaw swoją nazwę użytkownika w Signal</string>
@@ -6517,6 +6458,15 @@
     <string name="SetUpYourUsername__dismiss">Odrzuć</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__learn_more">Dowiedz się więcej</string>
+
+    <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
+  <!-- Removed by excludeNonTranslatables <string name="PnpLaunchMegaphone_title">Nowe sposoby na pozostawanie w kontakcie</string> -->
+    <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
+  <!-- Removed by excludeNonTranslatables <string name="PnpLaunchMegaphone_body">Wprowadzamy możliwość ukrycia numeru telefonu, opcjonalną nazwę użytkownika i linki do udostępniania nazw.</string> -->
+    <!-- Displayed as an action on a megaphone which prompts user to set up a username. Clicking it will dismiss the megaphone. -->
+  <!-- Removed by excludeNonTranslatables <string name="PnpLaunchMegaphone_dismiss">Odrzuć</string> -->
+    <!-- Displayed as an action on a megaphone which prompts user to set up a username. Clicking it will open a link. -->
+  <!-- Removed by excludeNonTranslatables <string name="PnpLaunchMegaphone_learn_more">Dowiedz się więcej</string> -->
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6531,18 +6481,6 @@
     <string name="TextFormatting_spoiler">Spoiler</string>
     <!-- Popup menu label for clearing applied formatting -->
     <string name="TextFormatting_clear_formatting">Wyczyść formatowanie</string>
-
-    <!-- UsernameEducationFragment -->
-    <!-- Continue button which takes the user to the add a username screen -->
-    <string name="UsernameEducationFragment__continue">Kontynuuj</string>
-    <!-- Displayed as a title on the username education screen -->
-    <string name="UsernameEducationFragment__set_up_your_signal_username">Ustaw swoją nazwę użytkownika w Signal</string>
-    <!-- Displayed as body text in the username education screen -->
-    <string name="UsernameEducationFragment__usernames_are_paired_with_a_set_of_digits">Nazwy użytkowników są powiązane z ciągami cyfr i nie są udostępniane na Twoim profilu</string>
-    <!-- Displayed as body text in the username education screen -->
-    <string name="UsernameEducationFragment__each_username_has_a_unique_qr_code">Każda nazwa użytkownika powiązana jest z unikatowym kodem QR i linkiem do udostępniania znajomym, z którymi chcesz rozpocząć czat</string>
-    <!-- Displayed as body text in the username education screen. The string references the names of settings, so they should match our translations for those settings. -->
-    <string name="UsernameEducationFragment__turn_off_phone_number_discovery">Wyłącz wykrywanie kontaktów, przechodząc do Ustawienia &gt; Prywatność &gt; Numer telefonu &gt; Kto może mnie znaleźć po numerze telefonu, by ustawić nazwę użytkownika jako domyślny sposób wyszukiwania Twojego profilu</string>
 
     <!-- Username edit dialog -->
     <!-- Option to open username editor displayed as a list item in a dialog -->
@@ -6787,6 +6725,8 @@
     <!-- Displayed as body in dialog when user attempts to delete the link -->
     <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">Ten link nie będzie już działał u żadnego użytkownika.</string>
 
+    <!-- Button label for the link button in the username link settings -->
+    <string name="UsernameLinkSettings_link_button_label">Link</string>
     <!-- Button label for the share button in the username link settings -->
     <string name="UsernameLinkSettings_share_button_label">Udostępnij</string>
     <!-- Button label for the color selector button in the username link settings -->
@@ -6831,6 +6771,12 @@
     <string name="UsernameLinkSettings_reset_link_result_network_unavailable">Nie masz dostępu do sieci. Twój link nie został zresetowany. Spróbuj ponownie później.</string>
     <!-- Body of a dialog that is displayed when we failed to reset your username link because of a transient network issue. -->
     <string name="UsernameLinkSettings_reset_link_result_network_error">W trakcie próby zresetowania linku wystąpił błąd sieci. Spróbuj ponownie później.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because of an unknown error. -->
+  <!-- Removed by excludeNonTranslatables <string name="UsernameLinkSettings_reset_link_result_unknown_error">An unexpected error occurred while trying to reset your link. Try again later.</string> -->
+    <!-- Body of a dialog that is displayed when we successfully reset you username link. -->
+  <!-- Removed by excludeNonTranslatables <string name="UsernameLinkSettings_reset_link_result_success">Twój kod QR i link zostały zresetowane. Utworzono nowy kod QR i link.</string> -->
+    <!-- Shown on the generated username qr code image to explain how to use it. -->
+    <string name="UsernameLinkSettings_scan_this_qr_code">Aby rozmawiać ze mną w Signal, zeskanuj kod QR za pomocą swojego telefonu.</string>
 
     <!-- Explanatory text at the top of a bottom sheet describing how username links work -->
     <string name="UsernameLinkShareBottomSheet_title">Każdy posiadacz tego linku może zobaczyć Twoją nazwę użytkownika i rozpocząć czat z Tobą. Udostępniaj go tylko zaufanym osobom.</string>
@@ -6890,6 +6836,42 @@
     <string name="MonthlyDonationCanceled__renew_button">Odnów subskrypcję</string>
     <!-- Bottom sheet dialog shown when a monthly donation fails to renew, second button to dismiss the dialog entirely -->
     <string name="MonthlyDonationCanceled__not_now_button">Nie teraz</string>
+
+    <!-- FindByActivity -->
+    <!-- Title of activity when finding by username -->
+    <string name="FindByActivity__find_by_username">Znajdź po nazwie użytkownika</string>
+    <!-- Title of activity when finding by phone number -->
+    <string name="FindByActivity__find_by_phone_number">Znajdź po numerze telefonu</string>
+    <!-- Title of screen to select a country code -->
+    <string name="FindByActivity__select_country_code">Wybierz kod kraju</string>
+    <!-- Entry placeholder for find by username -->
+    <string name="FindByActivity__username">Nazwa użytkownika</string>
+    <!-- Entry placeholder for find by phone number -->
+    <string name="FindByActivity__phone_number">Numer telefonu</string>
+    <!-- Help text under user entry for find by username -->
+    <string name="FindByActivity__enter_a_full_username">Wprowadź pełną nazwę użytkownika z dwiema cyframi.</string>
+    <!-- Content description for next action button -->
+    <string name="FindByActivity__next">Dalej</string>
+    <!-- Placeholder text for search input for selecting country code -->
+    <string name="FindByActivity__search">Szukaj</string>
+    <!-- Dialog title for invalid username -->
+    <string name="FindByActivity__invalid_username">Nieprawidłowa nazwa użytkownika</string>
+    <!-- Dialog title for invalid phone number -->
+    <string name="FindByActivity__invalid_phone_number">Nieprawidłowy numer telefonu</string>
+    <!-- Dialog title when phone number is not a registered signal user -->
+    <string name="FindByActivity__invite_to_signal">Zaproś do Signal</string>
+    <!-- Dialog title when username is not found -->
+    <string name="FindByActivity__username_not_found">Nie znaleziono nazwy użytkownika</string>
+    <!-- Dialog body for invalid username. Placeholder is the entered username. -->
+    <string name="FindByActivity__s_is_not_a_valid_username">Nazwa użytkownika %1$s jest nieprawidłowa. Upewnij się, że wprowadzasz pełną nazwę użytkownika wraz z ciągiem cyfr.</string>
+    <!-- Dialog body for an invalid phone number. Placeholder is the entered phone number. -->
+    <string name="FindByActivity__s_is_not_a_valid_phone_number">%1$s to nie jest prawidłowy numer telefonu. Spróbuj ponownie, podając prawidłowy numer.</string>
+    <!-- Dialog body for not found username -->
+    <string name="FindByActivity__s_is_not_a_signal_user">\"%1$s\" nie jest użytkownikiem Signal. Sprawdź nazwę użytkownika i spróbuj ponownie.</string>
+    <!-- Dialog body for not found phone number -->
+    <string name="FindByActivity__s_is_not_a_signal_user_would">%1$s nie jest użytkownikiem Signal. Chcesz zaprosić ten numer?</string>
+    <!-- Dialog action to invite the phone number to Signal -->
+    <string name="FindByActivity__invite">Zaproś</string>
 
     <!-- EOF -->
 </resources>

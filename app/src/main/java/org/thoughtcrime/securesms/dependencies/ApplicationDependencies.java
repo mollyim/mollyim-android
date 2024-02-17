@@ -605,6 +605,12 @@ public class ApplicationDependencies {
     return protocolStore;
   }
 
+  public static void resetProtocolStores() {
+    synchronized (LOCK) {
+      protocolStore = null;
+    }
+  }
+
   public static @NonNull GiphyMp4Cache getGiphyMp4Cache() {
     if (giphyMp4Cache == null) {
       synchronized (LOCK) {

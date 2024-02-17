@@ -84,7 +84,6 @@ public final class FeatureFlags {
   private static final String USE_HARDWARE_AEC_IF_OLD           = "android.calling.useHardwareAecIfOlderThanApi29";
   private static final String PAYMENTS_COUNTRY_BLOCKLIST        = "global.payments.disabledRegions";
   public  static final String PHONE_NUMBER_PRIVACY              = "android.pnp";
-  public  static final String BLOCK_SSE                         = "android.blockSessionSwitchoverEvents";
   private static final String STORIES_AUTO_DOWNLOAD_MAXIMUM     = "android.stories.autoDownloadMaximum";
   private static final String TELECOM_MANUFACTURER_ALLOWLIST    = "android.calling.telecomAllowList";
   private static final String TELECOM_MODEL_BLOCKLIST           = "android.calling.telecomModelBlockList";
@@ -118,7 +117,10 @@ public final class FeatureFlags {
   private static final String CALLING_REACTIONS                 = "android.calling.reactions";
   private static final String NOTIFICATION_THUMBNAIL_BLOCKLIST  = "android.notificationThumbnailProductBlocklist";
   private static final String CALLING_RAISE_HAND                = "android.calling.raiseHand";
-  private static final String USE_ACTIVE_CALL_MANAGER           = "android.calling.useActiveCallManager";
+  private static final String USE_ACTIVE_CALL_MANAGER           = "android.calling.useActiveCallManager.4";
+  private static final String GIF_SEARCH                        = "global.gifSearch";
+  private static final String AUDIO_REMUXING                    = "android.media.audioRemux.1";
+  private static final String VIDEO_RECORD_1X_ZOOM              = "android.media.videoCaptureDefaultZoom";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -181,7 +183,6 @@ public final class FeatureFlags {
       USERNAMES,
       INSTANT_VIDEO_PLAYBACK,
       CRASH_PROMPT_CONFIG,
-      BLOCK_SSE,
       SEPA_DEBIT_DONATIONS,
       IDEAL_DONATIONS,
       IDEAL_ENABLED_REGIONS,
@@ -190,7 +191,10 @@ public final class FeatureFlags {
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
       CALLING_RAISE_HAND,
       PHONE_NUMBER_PRIVACY,
-      USE_ACTIVE_CALL_MANAGER
+      USE_ACTIVE_CALL_MANAGER,
+      GIF_SEARCH,
+      AUDIO_REMUXING,
+      VIDEO_RECORD_1X_ZOOM
   );
 
   @VisibleForTesting
@@ -257,11 +261,11 @@ public final class FeatureFlags {
       PROMPT_BATTERY_SAVER,
       USERNAMES,
       CRASH_PROMPT_CONFIG,
-      BLOCK_SSE,
       CALLING_REACTIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
       CALLING_RAISE_HAND,
-      PHONE_NUMBER_PRIVACY
+      PHONE_NUMBER_PRIVACY,
+      VIDEO_RECORD_1X_ZOOM
   );
 
   /**
@@ -383,13 +387,6 @@ public final class FeatureFlags {
    */
   public static boolean phoneNumberPrivacy() {
     return getBoolean(PHONE_NUMBER_PRIVACY, false);
-  }
-
-  /**
-   * Whether session switchover events should be blocked on the client.
-   */
-  public static boolean blockSessionSwitchoverEvents() {
-    return getBoolean(BLOCK_SSE, false) && !phoneNumberPrivacy();
   }
 
   /** Whether to use the custom streaming muxer or built in android muxer. */
@@ -609,6 +606,21 @@ public final class FeatureFlags {
   /** Whether or not to use active call manager instead of WebRtcCallService. */
   public static boolean useActiveCallManager() {
     return getBoolean(USE_ACTIVE_CALL_MANAGER, false);
+  }
+
+  /** Whether the in-app GIF search is available for use. */
+  public static boolean gifSearchAvailable() {
+    return getBoolean(GIF_SEARCH, true);
+  }
+
+  /** Allow media converters to remux audio instead of transcoding it. */
+  public static boolean allowAudioRemuxing() {
+    return getBoolean(AUDIO_REMUXING, false);
+  }
+
+  /** Get the default video zoom, expressed as 10x the actual Float value due to the service limiting us to whole numbers. */
+  public static boolean startVideoRecordAt1x() {
+    return getBoolean(VIDEO_RECORD_1X_ZOOM, false);
   }
 
   /** Only for rendering debug info. */

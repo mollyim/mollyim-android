@@ -17,6 +17,7 @@ import org.signal.core.util.exists
 import org.signal.core.util.logging.Log
 import org.signal.core.util.or
 import org.signal.core.util.readToList
+import org.signal.core.util.readToSingleLong
 import org.signal.core.util.requireBoolean
 import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
@@ -43,6 +44,7 @@ import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.ThreadRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
+import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras
 import org.thoughtcrime.securesms.database.model.serialize
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.groups.BadGroupIdException
@@ -95,6 +97,7 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
     const val SNIPPET_URI = "snippet_uri"
     const val SNIPPET_CONTENT_TYPE = "snippet_content_type"
     const val SNIPPET_EXTRAS = "snippet_extras"
+    const val SNIPPET_MESSAGE_EXTRAS = "snippet_message_extras"
     const val ARCHIVED = "archived"
     const val STATUS = "status"
     const val HAS_DELIVERY_RECEIPT = "has_delivery_receipt"
@@ -135,7 +138,8 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
         $LAST_SCROLLED INTEGER DEFAULT 0, 
         $PINNED INTEGER DEFAULT 0, 
         $UNREAD_SELF_MENTION_COUNT INTEGER DEFAULT 0,
-        $ACTIVE INTEGER DEFAULT 0
+        $ACTIVE INTEGER DEFAULT 0,
+        $SNIPPET_MESSAGE_EXTRAS BLOB DEFAULT NULL
       )
     """
 
@@ -162,6 +166,7 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
       SNIPPET_URI,
       SNIPPET_CONTENT_TYPE,
       SNIPPET_EXTRAS,
+      SNIPPET_MESSAGE_EXTRAS,
       ARCHIVED,
       STATUS,
       HAS_DELIVERY_RECEIPT,
@@ -221,7 +226,8 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
     expiresIn: Long,
     readReceiptCount: Int,
     unreadCount: Int,
-    unreadMentionCount: Int
+    unreadMentionCount: Int,
+    messageExtras: MessageExtras?
   ) {
     var extraSerialized: String? = null
 
@@ -247,7 +253,8 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
       EXPIRES_IN to expiresIn,
       ACTIVE to 1,
       UNREAD_COUNT to unreadCount,
-      UNREAD_SELF_MENTION_COUNT to unreadMentionCount
+      UNREAD_SELF_MENTION_COUNT to unreadMentionCount,
+      SNIPPET_MESSAGE_EXTRAS to messageExtras?.encode()
     )
 
     writableDatabase
@@ -1233,6 +1240,13 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
     return getThreadIdIfExistsFor(recipientId) > -1
   }
 
+  fun hasActiveThread(recipientId: RecipientId): Boolean {
+    return readableDatabase
+      .exists(TABLE_NAME)
+      .where("$RECIPIENT_ID = ? AND $ACTIVE = 1", recipientId)
+      .run()
+  }
+
   fun updateLastSeenAndMarkSentAndLastScrolledSilenty(threadId: Long) {
     writableDatabase
       .update(TABLE_NAME)
@@ -1477,7 +1491,8 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
             expiresIn = 0,
             readReceiptCount = 0,
             unreadCount = 0,
-            unreadMentionCount = 0
+            unreadMentionCount = 0,
+            messageExtras = null
           )
         }
         return@withinTransaction true
@@ -1506,7 +1521,8 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
         expiresIn = record.expiresIn,
         readReceiptCount = record.hasReadReceipt().toInt(),
         unreadCount = unreadCount,
-        unreadMentionCount = unreadMentionCount
+        unreadMentionCount = unreadMentionCount,
+        messageExtras = record.messageExtras
       )
 
       if (notifyListeners) {
@@ -1568,64 +1584,69 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
     check(databaseHelper.signalWritableDatabase.inTransaction()) { "Must be in a transaction!" }
     Log.w(TAG, "Merging threads. Primary: $primaryRecipientId, Secondary: $secondaryRecipientId", true)
 
-    val primary: ThreadRecord? = getThreadRecord(getThreadIdFor(primaryRecipientId))
-    val secondary: ThreadRecord? = getThreadRecord(getThreadIdFor(secondaryRecipientId))
+    val primaryThreadId: Long? = getThreadIdFor(primaryRecipientId)
+    val secondaryThreadId: Long? = getThreadIdFor(secondaryRecipientId)
 
-    return if (primary != null && secondary == null) {
+    return if (primaryThreadId != null && secondaryThreadId == null) {
       Log.w(TAG, "[merge] Only had a thread for primary. Returning that.", true)
-      MergeResult(threadId = primary.threadId, previousThreadId = -1, neededMerge = false)
-    } else if (primary == null && secondary != null) {
+      MergeResult(threadId = primaryThreadId, previousThreadId = -1, neededMerge = false)
+    } else if (primaryThreadId == null && secondaryThreadId != null) {
       Log.w(TAG, "[merge] Only had a thread for secondary. Updating it to have the recipientId of the primary.", true)
       writableDatabase
         .update(TABLE_NAME)
         .values(RECIPIENT_ID to primaryRecipientId.serialize())
-        .where("$ID = ?", secondary.threadId)
+        .where("$ID = ?", secondaryThreadId)
         .run()
       synchronized(threadIdCache) {
         threadIdCache.remove(secondaryRecipientId)
       }
-      MergeResult(threadId = secondary.threadId, previousThreadId = -1, neededMerge = false)
-    } else if (primary == null && secondary == null) {
+      MergeResult(threadId = secondaryThreadId, previousThreadId = -1, neededMerge = false)
+    } else if (primaryThreadId == null && secondaryThreadId == null) {
       Log.w(TAG, "[merge] No thread for either.")
       MergeResult(threadId = -1, previousThreadId = -1, neededMerge = false)
     } else {
       Log.w(TAG, "[merge] Had a thread for both. Deleting the secondary and merging the attributes together.", true)
-      check(primary != null)
-      check(secondary != null)
+      check(primaryThreadId != null)
+      check(secondaryThreadId != null)
 
       for (table in threadIdDatabaseTables) {
-        table.remapThread(secondary.threadId, primary.threadId)
+        table.remapThread(secondaryThreadId, primaryThreadId)
       }
 
       writableDatabase
         .delete(TABLE_NAME)
-        .where("$ID = ?", secondary.threadId)
+        .where("$ID = ?", secondaryThreadId)
         .run()
 
       synchronized(threadIdCache) {
         threadIdCache.remove(secondaryRecipientId)
       }
 
-      if (primary.expiresIn != secondary.expiresIn) {
-        val values = ContentValues()
-        if (primary.expiresIn == 0L) {
-          values.put(EXPIRES_IN, secondary.expiresIn)
-        } else if (secondary.expiresIn == 0L) {
-          values.put(EXPIRES_IN, primary.expiresIn)
-        } else {
-          values.put(EXPIRES_IN, min(primary.expiresIn, secondary.expiresIn))
-        }
+      val primaryExpiresIn = getExpiresIn(primaryThreadId)
+      val secondaryExpiresIn = getExpiresIn(secondaryThreadId)
 
-        writableDatabase
-          .update(TABLE_NAME)
-          .values(values)
-          .where("$ID = ?", primary.threadId)
-          .run()
+      val values = ContentValues()
+      values.put(ACTIVE, true)
+
+      if (primaryExpiresIn != secondaryExpiresIn) {
+        if (primaryExpiresIn == 0L) {
+          values.put(EXPIRES_IN, secondaryExpiresIn)
+        } else if (secondaryExpiresIn == 0L) {
+          values.put(EXPIRES_IN, primaryExpiresIn)
+        } else {
+          values.put(EXPIRES_IN, min(primaryExpiresIn, secondaryExpiresIn))
+        }
       }
 
-      RemappedRecords.getInstance().addThread(secondary.threadId, primary.threadId)
+      writableDatabase
+        .update(TABLE_NAME)
+        .values(values)
+        .where("$ID = ?", primaryThreadId)
+        .run()
 
-      MergeResult(threadId = primary.threadId, previousThreadId = secondary.threadId, neededMerge = true)
+      RemappedRecords.getInstance().addThread(secondaryThreadId, primaryThreadId)
+
+      MergeResult(threadId = primaryThreadId, previousThreadId = secondaryThreadId, neededMerge = true)
     }
   }
 
@@ -1643,6 +1664,15 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
         null
       }
     }
+  }
+
+  private fun getExpiresIn(threadId: Long): Long {
+    return readableDatabase
+      .select(EXPIRES_IN)
+      .from(TABLE_NAME)
+      .where("$ID = $threadId")
+      .run()
+      .readToSingleLong()
   }
 
   private fun SQLiteDatabase.deactivateThreads() {
@@ -1665,6 +1695,7 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
       SNIPPET_URI to null,
       SNIPPET_CONTENT_TYPE to null,
       SNIPPET_EXTRAS to null,
+      SNIPPET_MESSAGE_EXTRAS to null,
       UNREAD_COUNT to 0,
       ARCHIVED to 0,
       STATUS to 0,
@@ -1896,6 +1927,7 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
 
       val hasReadReceipt = TextSecurePreferences.isReadReceiptsEnabled(context) && cursor.requireBoolean(HAS_READ_RECEIPT)
       val extraString = cursor.getString(cursor.getColumnIndexOrThrow(SNIPPET_EXTRAS))
+      val messageExtras = cursor.getBlob(cursor.getColumnIndexOrThrow(SNIPPET_MESSAGE_EXTRAS))
       val extra: Extra? = if (extraString != null) {
         try {
           JsonUtils.fromJson(extraString, Extra::class.java)

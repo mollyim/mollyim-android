@@ -108,6 +108,7 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge
 import org.thoughtcrime.securesms.database.model.databaseprotos.GroupCallUpdateDetails
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExportState
+import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras
 import org.thoughtcrime.securesms.database.model.databaseprotos.ProfileChangeDetails
 import org.thoughtcrime.securesms.database.model.databaseprotos.SessionSwitchoverEvent
 import org.thoughtcrime.securesms.database.model.databaseprotos.ThreadMergeEvent
@@ -131,7 +132,6 @@ import org.thoughtcrime.securesms.revealable.ViewOnceExpirationInfo
 import org.thoughtcrime.securesms.revealable.ViewOnceUtil
 import org.thoughtcrime.securesms.sms.GroupV2UpdateMessageUtil
 import org.thoughtcrime.securesms.stories.Stories.isFeatureEnabled
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
@@ -207,6 +207,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     const val LATEST_REVISION_ID = "latest_revision_id"
     const val ORIGINAL_MESSAGE_ID = "original_message_id"
     const val REVISION_NUMBER = "revision_number"
+    const val MESSAGE_EXTRAS = "message_extras"
 
     const val QUOTE_NOT_PRESENT_ID = 0L
     const val QUOTE_TARGET_MISSING_ID = -1L
@@ -264,7 +265,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         $SCHEDULED_DATE INTEGER DEFAULT -1,
         $LATEST_REVISION_ID INTEGER DEFAULT NULL REFERENCES $TABLE_NAME ($ID) ON DELETE CASCADE,
         $ORIGINAL_MESSAGE_ID INTEGER DEFAULT NULL REFERENCES $TABLE_NAME ($ID) ON DELETE CASCADE,
-        $REVISION_NUMBER INTEGER DEFAULT 0
+        $REVISION_NUMBER INTEGER DEFAULT 0,
+        $MESSAGE_EXTRAS BLOB DEFAULT NULL
       )
     """
 
@@ -343,7 +345,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       SCHEDULED_DATE,
       LATEST_REVISION_ID,
       ORIGINAL_MESSAGE_ID,
-      REVISION_NUMBER
+      REVISION_NUMBER,
+      MESSAGE_EXTRAS
     )
 
     private val MMS_PROJECTION: Array<String> = MMS_PROJECTION_BASE + "NULL AS ${AttachmentTable.ATTACHMENT_JSON_ALIAS}"
@@ -402,6 +405,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
           $LATEST_REVISION_ID IS NULL AND
           $TYPE & ${MessageTypes.KEY_EXCHANGE_IDENTITY_DEFAULT_BIT} = 0 AND
           $TYPE & ${MessageTypes.KEY_EXCHANGE_IDENTITY_VERIFIED_BIT} = 0 AND
+          $TYPE & ${MessageTypes.SPECIAL_TYPES_MASK} != ${MessageTypes.SPECIAL_TYPE_REPORTED_SPAM} AND
+          $TYPE & ${MessageTypes.SPECIAL_TYPES_MASK} != ${MessageTypes.SPECIAL_TYPE_MESSAGE_REQUEST_ACCEPTED} AND
           $TYPE NOT IN (
             ${MessageTypes.PROFILE_CHANGE_TYPE}, 
             ${MessageTypes.GV1_MIGRATION_TYPE},
@@ -1139,7 +1144,6 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   fun insertSessionSwitchoverEvent(recipientId: RecipientId, threadId: Long, event: SessionSwitchoverEvent) {
-    check(!FeatureFlags.blockSessionSwitchoverEvents()) { "Should not occur in a non-PNP world!" }
     writableDatabase
       .insertInto(TABLE_NAME)
       .values(
@@ -1733,7 +1737,9 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         $TYPE != ${MessageTypes.CHANGE_NUMBER_TYPE} AND
         $TYPE != ${MessageTypes.SMS_EXPORT_TYPE} AND
         $TYPE != ${MessageTypes.BOOST_REQUEST_TYPE} AND
-        $TYPE & ${MessageTypes.GROUP_V2_LEAVE_BITS} != ${MessageTypes.GROUP_V2_LEAVE_BITS}
+        $TYPE & ${MessageTypes.GROUP_V2_LEAVE_BITS} != ${MessageTypes.GROUP_V2_LEAVE_BITS} AND
+        $TYPE & ${MessageTypes.SPECIAL_TYPES_MASK} != ${MessageTypes.SPECIAL_TYPE_REPORTED_SPAM} AND
+        $TYPE & ${MessageTypes.SPECIAL_TYPES_MASK} != ${MessageTypes.SPECIAL_TYPE_MESSAGE_REQUEST_ACCEPTED}
       )
     """
 
@@ -2393,6 +2399,18 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
           sentTimeMillis = timestamp,
           expiresIn = expiresIn
         )
+      } else if (MessageTypes.isReportedSpam(outboxType)) {
+        OutgoingMessage.reportSpamMessage(
+          threadRecipient = threadRecipient,
+          sentTimeMillis = timestamp,
+          expiresIn = expiresIn
+        )
+      } else if (MessageTypes.isMessageRequestAccepted(outboxType)) {
+        OutgoingMessage.messageRequestAcceptMessage(
+          threadRecipient = threadRecipient,
+          sentTimeMillis = timestamp,
+          expiresIn = expiresIn
+        )
       } else {
         val giftBadge: GiftBadge? = if (body != null && MessageTypes.isGiftBadge(outboxType)) {
           GiftBadge.ADAPTER.decode(Base64.decode(body))
@@ -2557,7 +2575,15 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     val isNotStoryGroupReply = retrieved.parentStoryId == null || !retrieved.parentStoryId.isGroupReply()
 
-    if (!MessageTypes.isPaymentsActivated(type) && !MessageTypes.isPaymentsRequestToActivate(type) && !MessageTypes.isExpirationTimerUpdate(type) && !retrieved.storyType.isStory && isNotStoryGroupReply && !silent) {
+    if (!MessageTypes.isPaymentsActivated(type) &&
+      !MessageTypes.isPaymentsRequestToActivate(type) &&
+      !MessageTypes.isReportedSpam(type) &&
+      !MessageTypes.isMessageRequestAccepted(type) &&
+      !MessageTypes.isExpirationTimerUpdate(type) &&
+      !retrieved.storyType.isStory &&
+      isNotStoryGroupReply &&
+      !silent
+    ) {
       val incrementUnreadMentions = retrieved.mentions.isNotEmpty() && retrieved.mentions.any { it.recipientId == Recipient.self().id }
       threads.incrementUnread(threadId, 1, if (incrementUnreadMentions) 1 else 0)
       ThreadUpdateJob.enqueue(threadId)
@@ -2787,6 +2813,22 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       hasSpecialType = true
     }
 
+    if (message.isReportSpam) {
+      if (hasSpecialType) {
+        throw MmsException("Cannot insert message with multiple special types.")
+      }
+      type = type or MessageTypes.SPECIAL_TYPE_REPORTED_SPAM
+      hasSpecialType = true
+    }
+
+    if (message.isMessageRequestAccept) {
+      if (hasSpecialType) {
+        throw MmsException("Cannot insert message with multiple special types.")
+      }
+      type = type or MessageTypes.SPECIAL_TYPE_MESSAGE_REQUEST_ACCEPTED
+      hasSpecialType = true
+    }
+
     val earlyDeliveryReceipts: Map<RecipientId, Receipt> = earlyDeliveryReceiptCache.remove(message.sentTimeMillis)
 
     if (earlyDeliveryReceipts.isNotEmpty()) {
@@ -2950,11 +2992,11 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       ApplicationDependencies.getDatabaseObserver().notifyStoryObservers(message.threadRecipient.id)
     }
 
-    notifyConversationListListeners()
-
     if (!message.isIdentityVerified && !message.isIdentityDefault) {
-      TrimThreadJob.enqueueAsync(threadId)
+      ThreadUpdateJob.enqueue(threadId)
     }
+
+    TrimThreadJob.enqueueAsync(threadId)
 
     return messageId
   }
@@ -3542,6 +3584,13 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       .run()
   }
 
+  fun hasReportSpamMessage(threadId: Long): Boolean {
+    return readableDatabase
+      .exists(TABLE_NAME)
+      .where("$THREAD_ID = $threadId AND ($TYPE & ${MessageTypes.SPECIAL_TYPES_MASK}) = ${MessageTypes.SPECIAL_TYPE_REPORTED_SPAM}")
+      .run()
+  }
+
   private val outgoingInsecureMessageClause = "($TYPE & ${MessageTypes.BASE_TYPE_MASK}) = ${MessageTypes.BASE_SENT_TYPE} AND NOT ($TYPE & ${MessageTypes.SECURE_MESSAGE_BIT})"
   private val outgoingSecureMessageClause = "($TYPE & ${MessageTypes.BASE_TYPE_MASK}) = ${MessageTypes.BASE_SENT_TYPE} AND ($TYPE & ${MessageTypes.SECURE_MESSAGE_BIT or MessageTypes.PUSH_MESSAGE_BIT})"
 
@@ -4018,6 +4067,33 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return getReportSpamMessageServerGuids(threadId, timestamp)
       .sortedBy { it.dateReceived }
       .take(limit)
+  }
+
+  fun getGroupReportSpamMessageServerData(threadId: Long, inviter: RecipientId, timestamp: Long, limit: Int): List<ReportSpamData> {
+    val data: MutableList<ReportSpamData> = ArrayList()
+
+    val incomingGroupUpdateClause = "($TYPE & ${MessageTypes.BASE_TYPE_MASK}) = ${MessageTypes.BASE_INBOX_TYPE} AND ($TYPE & ${MessageTypes.GROUP_UPDATE_BIT}) != 0"
+
+    readableDatabase
+      .select(FROM_RECIPIENT_ID, SERVER_GUID, DATE_RECEIVED)
+      .from(TABLE_NAME)
+      .where("$FROM_RECIPIENT_ID = ? AND $THREAD_ID = ? AND $DATE_RECEIVED <= ? AND $incomingGroupUpdateClause", inviter, threadId, timestamp)
+      .orderBy("$DATE_RECEIVED DESC")
+      .limit(limit)
+      .run()
+      .forEach { cursor ->
+        val serverGuid: String? = cursor.requireString(SERVER_GUID)
+
+        if (serverGuid != null && serverGuid.isNotEmpty()) {
+          data += ReportSpamData(
+            recipientId = RecipientId.from(cursor.requireLong(FROM_RECIPIENT_ID)),
+            serverGuid = serverGuid,
+            dateReceived = cursor.requireLong(DATE_RECEIVED)
+          )
+        }
+      }
+
+    return data
   }
 
   @Throws(NoSuchMessageException::class)
@@ -4996,6 +5072,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val originalMessageId: MessageId? = cursor.requireLong(ORIGINAL_MESSAGE_ID).let { if (it == 0L) null else MessageId(it) }
       val editCount = cursor.requireInt(REVISION_NUMBER)
       val isRead = cursor.requireBoolean(READ)
+      val messageExtraBytes = cursor.requireBlob(MESSAGE_EXTRAS)
+      val messageExtras = if (messageExtraBytes != null) MessageExtras.ADAPTER.decode(messageExtraBytes) else null
 
       if (!TextSecurePreferences.isReadReceiptsEnabled(context)) {
         hasReadReceipt = false
@@ -5083,7 +5161,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         latestRevisionId,
         originalMessageId,
         editCount,
-        isRead
+        isRead,
+        messageExtras
       )
     }
 

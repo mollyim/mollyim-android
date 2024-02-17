@@ -13,6 +13,7 @@ import androidx.core.view.children
 import androidx.lifecycle.LifecycleOwner
 import androidx.media3.common.MediaItem
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.RequestManager
 import org.signal.core.util.logging.Log
 import org.signal.core.util.toOptional
 import org.thoughtcrime.securesms.BindableConversationItem
@@ -49,8 +50,6 @@ import org.thoughtcrime.securesms.databinding.V2ConversationItemTextOnlyOutgoing
 import org.thoughtcrime.securesms.giph.mp4.GiphyMp4PlaybackPolicyEnforcer
 import org.thoughtcrime.securesms.groups.v2.GroupDescriptionUtil
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.messagerequests.MessageRequestState
-import org.thoughtcrime.securesms.mms.GlideRequests
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.CachedInflater
@@ -63,7 +62,7 @@ import java.util.Optional
 
 class ConversationAdapterV2(
   private val lifecycleOwner: LifecycleOwner,
-  override val glideRequests: GlideRequests,
+  override val requestManager: RequestManager,
   override val clickListener: ItemClickListener,
   private var hasWallpaper: Boolean,
   private val colorizer: Colorizer,
@@ -336,7 +335,7 @@ class ConversationAdapterV2(
         model.conversationMessage,
         previousMessage,
         nextMessage,
-        glideRequests,
+        requestManager,
         Locale.getDefault(),
         _selected,
         model.conversationMessage.threadRecipient,
@@ -364,7 +363,7 @@ class ConversationAdapterV2(
         model.conversationMessage,
         previousMessage,
         nextMessage,
-        glideRequests,
+        requestManager,
         Locale.getDefault(),
         _selected,
         model.conversationMessage.threadRecipient,
@@ -392,7 +391,7 @@ class ConversationAdapterV2(
         model.conversationMessage,
         previousMessage,
         nextMessage,
-        glideRequests,
+        requestManager,
         Locale.getDefault(),
         _selected,
         model.conversationMessage.threadRecipient,
@@ -420,7 +419,7 @@ class ConversationAdapterV2(
         model.conversationMessage,
         previousMessage,
         nextMessage,
-        glideRequests,
+        requestManager,
         Locale.getDefault(),
         _selected,
         model.conversationMessage.threadRecipient,
@@ -448,7 +447,7 @@ class ConversationAdapterV2(
         model.conversationMessage,
         previousMessage,
         nextMessage,
-        glideRequests,
+        requestManager,
         Locale.getDefault(),
         _selected,
         model.conversationMessage.threadRecipient,
@@ -569,7 +568,7 @@ class ConversationAdapterV2(
       val (recipient, groupInfo, sharedGroups, messageRequestState) = model.recipientInfo
       val isSelf = recipient.id == Recipient.self().id
 
-      conversationBanner.setAvatar(glideRequests, recipient)
+      conversationBanner.setAvatar(requestManager, recipient)
       conversationBanner.showBackgroundBubble(recipient.hasWallpaper())
       val title: String = conversationBanner.setTitle(recipient)
       conversationBanner.setAbout(recipient)
@@ -594,13 +593,25 @@ class ConversationAdapterV2(
         }
       }
 
-      if (sharedGroups.isEmpty() || isSelf) {
+      conversationBanner.hideButton()
+
+      if (messageRequestState?.isAccepted == false && sharedGroups.isEmpty() && !isSelf && !recipient.isGroup) {
+        conversationBanner.setDescription(context.getString(R.string.ConversationUpdateItem_no_groups_in_common_review_requests_carefully), R.drawable.symbol_error_circle_24)
+        conversationBanner.setButton(context.getString(R.string.ConversationFragment_safety_tips)) {
+          clickListener.onShowSafetyTips(false)
+        }
+      } else if (messageRequestState?.isAccepted == false && recipient.isGroup && !groupInfo.hasExistingContacts) {
+        conversationBanner.setDescription(context.getString(R.string.ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully), R.drawable.symbol_error_circle_24)
+        conversationBanner.setButton(context.getString(R.string.ConversationFragment_safety_tips)) {
+          clickListener.onShowSafetyTips(true)
+        }
+      } else if (sharedGroups.isEmpty() || isSelf) {
         if (TextUtils.isEmpty(groupInfo.description)) {
           conversationBanner.setLinkifyDescription(false)
           conversationBanner.hideDescription()
         } else {
           conversationBanner.setLinkifyDescription(true)
-          val linkifyWebLinks = messageRequestState == MessageRequestState.NONE
+          val linkifyWebLinks = messageRequestState?.isAccepted == true
           conversationBanner.showDescription()
 
           GroupDescriptionUtil.setText(
