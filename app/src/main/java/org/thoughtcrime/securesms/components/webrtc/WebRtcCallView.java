@@ -25,6 +25,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.constraintlayout.widget.Barrier;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.constraintlayout.widget.Guideline;
@@ -35,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.android.material.button.MaterialButton;
@@ -51,7 +53,6 @@ import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto;
 import org.thoughtcrime.securesms.events.CallParticipant;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
-import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.ringrtc.CameraState;
@@ -124,6 +125,7 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
   private RecyclerView                  groupReactionsFeed;
   private MultiReactionBurstLayout      reactionViews;
   private ComposeView                   raiseHandSnackbar;
+  private Barrier                       pipBottomBoundaryBarrier;
 
 
 
@@ -203,6 +205,7 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
     groupReactionsFeed            = findViewById(R.id.call_screen_reactions_feed);
     reactionViews                 = findViewById(R.id.call_screen_reactions_container);
     raiseHandSnackbar             = findViewById(R.id.call_screen_raise_hand_view);
+    pipBottomBoundaryBarrier      = findViewById(R.id.pip_bottom_boundary_barrier);
 
     View decline      = findViewById(R.id.call_screen_decline_call);
     View answerLabel  = findViewById(R.id.call_screen_answer_call_label);
@@ -355,6 +358,12 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
     rotatableControls.add(decline);
     rotatableControls.add(smallLocalAudioIndicator);
     rotatableControls.add(ringToggle);
+
+    pipBottomBoundaryBarrier.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+      if (bottom != oldBottom) {
+        onBarrierBottomChanged(bottom);
+      }
+    });
   }
 
   @Override
@@ -546,7 +555,7 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
 
         if (!localAvatar.equals(previousLocalAvatar)) {
           previousLocalAvatar = localAvatar;
-          GlideApp.with(getContext().getApplicationContext())
+          Glide.with(getContext().getApplicationContext())
                   .load(localAvatar)
                   .transform(new CenterCrop(), new BlurTransformation(getContext(), 0.25f, BlurTransformation.MAX_RADIUS))
                   .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -851,17 +860,17 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
 
   private void moveSnackbarAboveParticipantRail(boolean aboveRail) {
     if (aboveRail) {
-      updateSnackbarBottomConstraint(callParticipantsRecycler);
+      updatePendingParticipantsBottomConstraint(callParticipantsRecycler);
     } else {
-      updateSnackbarBottomConstraint(aboveControlsGuideline);
+      updatePendingParticipantsBottomConstraint(aboveControlsGuideline);
     }
   }
 
-  private void updateSnackbarBottomConstraint(View anchor) {
+  private void updatePendingParticipantsBottomConstraint(View anchor) {
     ConstraintSet constraintSet = new ConstraintSet();
     constraintSet.clone(this);
 
-    constraintSet.connect(R.id.call_screen_raise_hand_view,
+    constraintSet.connect(R.id.call_screen_pending_recipients,
                           ConstraintSet.BOTTOM,
                           anchor.getId(),
                           ConstraintSet.TOP,
@@ -938,15 +947,12 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
     ringToggle.setActivated(enabled);
   }
 
-  public void onControlTopChanged(int guidelineTop, int snackBarHeight) {
-    int offset = 0;
-    if (lastState != null) {
-      CallParticipantsState state = lastState.getCallParticipantsState();
-      if (!state.isViewingFocusedParticipant() && !state.isLargeVideoGroup()) {
-        offset = snackBarHeight;
-      }
-      pictureInPictureGestureHelper.setBottomVerticalBoundary(guidelineTop - offset);
-    }
+  public void onControlTopChanged() {
+    onBarrierBottomChanged(pipBottomBoundaryBarrier.getBottom());
+  }
+
+  private void onBarrierBottomChanged(int barrierBottom) {
+    pictureInPictureGestureHelper.setBottomVerticalBoundary(barrierBottom);
   }
 
   public interface ControlsListener {

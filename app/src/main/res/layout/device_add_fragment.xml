@@ -44,15 +44,16 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/devices"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="16dp"
+            android:layout_width="129dp"
+            android:layout_height="129dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/symbol_devices_24"
+            android:tint="@color/core_grey_25"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/text"
-            android:src="@drawable/ic_devices_white"
-            android:tint="@color/core_grey_25"
             android:transitionName="devices" />
 
         <TextView

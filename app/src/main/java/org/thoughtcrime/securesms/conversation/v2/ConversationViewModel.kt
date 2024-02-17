@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.lifecycle.ViewModel
+import com.bumptech.glide.RequestManager
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.core.Completable
@@ -58,7 +59,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkpreview.LinkPreview
 import org.thoughtcrime.securesms.messagerequests.MessageRequestRepository
 import org.thoughtcrime.securesms.messagerequests.MessageRequestState
-import org.thoughtcrime.securesms.mms.GlideRequests
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.mms.SlideDeck
@@ -132,9 +132,11 @@ class ConversationViewModel(
   private val _inputReadyState: Observable<InputReadyState>
   val inputReadyState: Observable<InputReadyState>
 
-  private val hasMessageRequestStateSubject: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
+  private val hasMessageRequestStateSubject: BehaviorSubject<MessageRequestState> = BehaviorSubject.createDefault(MessageRequestState())
   val hasMessageRequestState: Boolean
-    get() = hasMessageRequestStateSubject.value ?: false
+    get() = hasMessageRequestStateSubject.value?.state != MessageRequestState.State.NONE
+  val messageRequestState: MessageRequestState
+    get() = hasMessageRequestStateSubject.value ?: MessageRequestState()
 
   private val refreshReminder: Subject<Unit> = PublishSubject.create()
   val reminder: Observable<Optional<Reminder>>
@@ -239,7 +241,7 @@ class ConversationViewModel(
         isUnauthorized = TextSecurePreferences.isUnauthorizedReceived(ApplicationDependencies.getApplication())
       )
     }.doOnNext {
-      hasMessageRequestStateSubject.onNext(it.messageRequestState != MessageRequestState.NONE)
+      hasMessageRequestStateSubject.onNext(it.messageRequestState)
     }
     inputReadyState = _inputReadyState.observeOn(AndroidSchedulers.mainThread())
 
@@ -348,9 +350,9 @@ class ConversationViewModel(
       .addTo(disposables)
   }
 
-  fun getContactPhotoIcon(context: Context, glideRequests: GlideRequests): Single<ShortcutInfoCompat> {
+  fun getContactPhotoIcon(context: Context, requestManager: RequestManager): Single<ShortcutInfoCompat> {
     return recipient.firstOrError().flatMap {
-      repository.getRecipientContactPhotoBitmap(context, glideRequests, it)
+      repository.getRecipientContactPhotoBitmap(context, requestManager, it)
     }
   }
 

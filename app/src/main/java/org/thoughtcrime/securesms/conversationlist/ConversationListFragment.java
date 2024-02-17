@@ -43,9 +43,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -71,6 +68,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.SimpleColorFilter;
 import com.annimon.stream.Stream;
+import com.bumptech.glide.Glide;
 import com.google.android.material.animation.ArgbEvaluatorCompat;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -135,6 +133,7 @@ import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
+import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity;
@@ -145,11 +144,9 @@ import org.thoughtcrime.securesms.megaphone.Megaphone;
 import org.thoughtcrime.securesms.megaphone.MegaphoneActionController;
 import org.thoughtcrime.securesms.megaphone.MegaphoneViewBuilder;
 import org.thoughtcrime.securesms.megaphone.Megaphones;
-import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.notifications.MarkReadReceiver;
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile;
 import org.thoughtcrime.securesms.permissions.Permissions;
-import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity;
 import org.thoughtcrime.securesms.profiles.manage.UsernameEditFragment;
 import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -193,7 +190,6 @@ import java.util.stream.Collectors;
 
 import kotlin.Unit;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 
@@ -319,7 +315,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
                                                             storyContextMenuCallbacks,
                                                             callButtonClickCallbacks,
                                                             getViewLifecycleOwner(),
-                                                            GlideApp.with(this)
+                                                            Glide.with(this)
                                                         );
                                                       },
                                                       new ConversationListSearchAdapter.ChatFilterRepository()
@@ -832,7 +828,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
 
   private void initializeListAdapters() {
-    defaultAdapter          = new ConversationListAdapter(getViewLifecycleOwner(), GlideApp.with(this), this, this);
+    defaultAdapter          = new ConversationListAdapter(getViewLifecycleOwner(), Glide.with(this), this, this);
 
     setAdapter(defaultAdapter);
 
@@ -1013,6 +1009,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       } else if (CdsPermanentErrorReminder.isEligible()) {
         return Optional.of(new CdsPermanentErrorReminder());
       } else if (UsernameOutOfSyncReminder.isEligible()) {
+        ApplicationDependencies.getJobManager().add(new RefreshOwnProfileJob());
         return Optional.of(new UsernameOutOfSyncReminder());
       } else {
         return Optional.<Reminder>empty();
@@ -1159,7 +1156,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
           protected void onPreExecute() {
             dialog = SignalProgressDialog.show(requireActivity(),
                                                context.getString(R.string.ConversationListFragment_deleting),
-                                               context.getString(R.string.ConversationListFragment_deleting_selected_conversations),
+                                               context.getResources().getQuantityString(R.plurals.ConversationListFragment_deleting_selected_conversations, conversationsCount),
                                                true,
                                                false);
           }

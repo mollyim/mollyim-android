@@ -562,7 +562,7 @@ public class Recipient {
     String name = getNameFromLocalData(context);
 
     if (Util.isEmpty(name)) {
-      name = context.getString(R.string.Recipient_unknown);
+      name = getUnknownDisplayName(context);
     }
 
     return StringUtil.isolateBidi(name);
@@ -576,7 +576,7 @@ public class Recipient {
     }
 
     if (Util.isEmpty(name)) {
-      name = StringUtil.isolateBidi(context.getString(R.string.Recipient_unknown));
+      name = StringUtil.isolateBidi(getUnknownDisplayName(context));
     }
 
     return StringUtil.isolateBidi(name);
@@ -658,6 +658,14 @@ public class Recipient {
                                         getDisplayName(context));
 
     return StringUtil.isolateBidi(name);
+  }
+
+  private String getUnknownDisplayName(@NonNull Context context) {
+    if (getRegistered() == RegisteredState.NOT_REGISTERED) {
+      return context.getString(R.string.Recipient_deleted_account);
+    } else {
+      return context.getString(R.string.Recipient_unknown);
+    }
   }
 
   public @NonNull Optional<ServiceId> getServiceId() {

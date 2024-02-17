@@ -18,6 +18,8 @@ import androidx.preference.Preference;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.util.concurrent.ListenableFuture;
+import org.signal.core.util.concurrent.SettableFuture;
 import org.signal.core.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -26,8 +28,6 @@ import org.thoughtcrime.securesms.net.ProxyType;
 import org.thoughtcrime.securesms.net.SocksProxy;
 import org.thoughtcrime.securesms.util.SignalProxyUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
-import org.thoughtcrime.securesms.util.concurrent.SettableFuture;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
