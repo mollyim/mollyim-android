@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.recipients.ui.findby
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContract
@@ -40,6 +41,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -124,7 +126,7 @@ class FindByActivity : PassphraseRequiredActivity() {
               navigationIconPainter = painterResource(id = R.drawable.symbol_arrow_left_24)
             ) {
               val context = LocalContext.current
-              FindByContent(
+              Content(
                 paddingValues = it,
                 state = state,
                 onUserEntryChanged = viewModel::onUserEntryChanged,
@@ -265,25 +267,8 @@ class FindByActivity : PassphraseRequiredActivity() {
   }
 }
 
-@Preview
 @Composable
-private fun FindByContentPreview() {
-  Previews.Preview {
-    FindByContent(
-      paddingValues = PaddingValues(0.dp),
-      state = FindByState(
-        mode = FindByMode.PHONE_NUMBER,
-        userEntry = ""
-      ),
-      onUserEntryChanged = {},
-      onNextClick = {},
-      onSelectCountryPrefixClick = {}
-    )
-  }
-}
-
-@Composable
-private fun FindByContent(
+private fun Content(
   paddingValues: PaddingValues,
   state: FindByState,
   onUserEntryChanged: (String) -> Unit,
@@ -363,12 +348,16 @@ private fun FindByContent(
         .padding(horizontal = 16.dp, vertical = 10.dp)
         .focusRequester(focusRequester)
         .heightIn(min = 44.dp),
-      contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(top = 10.dp, bottom = 10.dp)
+      contentPadding = if (state.mode == FindByMode.PHONE_NUMBER) {
+        TextFieldDefaults.contentPaddingWithoutLabel(start = 4.dp, top = 10.dp, bottom = 10.dp)
+      } else {
+        TextFieldDefaults.contentPaddingWithoutLabel(top = 10.dp, bottom = 10.dp)
+      }
     )
 
     if (state.mode == FindByMode.USERNAME) {
       Text(
-        text = stringResource(id = R.string.FindByActivity__enter_a_full_username),
+        text = stringResource(id = R.string.FindByActivity__enter_username_description),
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier
@@ -411,18 +400,27 @@ private fun PhoneNumberEntryPrefix(
   onSelectCountryPrefixClick: () -> Unit
 ) {
   Row(
+    verticalAlignment = Alignment.CenterVertically,
     modifier = Modifier.padding(end = 16.dp)
   ) {
     Row(
-      modifier = Modifier.clickable(onClick = onSelectCountryPrefixClick, enabled = enabled)
+      verticalAlignment = Alignment.CenterVertically,
+      modifier = Modifier
+        .clip(RoundedCornerShape(1000.dp))
+        .clickable(onClick = onSelectCountryPrefixClick, enabled = enabled)
     ) {
       Text(
-        text = selectedCountryPrefix.toString()
+        text = selectedCountryPrefix.toString(),
+        modifier = Modifier
+          .padding(start = 12.dp, top = 6.dp, bottom = 6.dp)
       )
       Icon(
         painter = painterResource(id = R.drawable.symbol_dropdown_triangle_24),
         contentDescription = null,
-        tint = MaterialTheme.colorScheme.onSurfaceVariant
+        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier
+          .size(24.dp)
+          .padding(end = 1.dp)
       )
     }
     Dividers.Vertical(
@@ -430,22 +428,8 @@ private fun PhoneNumberEntryPrefix(
       color = MaterialTheme.colorScheme.outline,
       modifier = Modifier
         .padding(vertical = 2.dp)
-        .padding(start = 8.dp)
+        .padding(start = 7.dp)
         .height(20.dp)
-    )
-  }
-}
-
-@Preview
-@Composable
-private fun SelectCountryScreenPreview() {
-  Previews.Preview {
-    SelectCountryScreen(
-      paddingValues = PaddingValues(0.dp),
-      searchEntry = "",
-      onSearchEntryChanged = {},
-      supportedCountryPrefixes = FindByState(mode = FindByMode.PHONE_NUMBER).supportedCountryPrefixes,
-      onCountryPrefixSelected = {}
     )
   }
 }
@@ -553,6 +537,57 @@ private fun CountryPrefixRowItem(
       text = countryPrefix.toString(),
       color = MaterialTheme.colorScheme.onSurfaceVariant,
       style = MaterialTheme.typography.bodyMedium
+    )
+  }
+}
+
+@Preview(name = "Light Theme", group = "content", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(name = "Dark Theme", group = "content", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun ContentPreviewPhoneNumber() {
+  Previews.Preview {
+    Content(
+      paddingValues = PaddingValues(0.dp),
+      state = FindByState(
+        mode = FindByMode.PHONE_NUMBER,
+        userEntry = ""
+      ),
+      onUserEntryChanged = {},
+      onNextClick = {},
+      onSelectCountryPrefixClick = {}
+    )
+  }
+}
+
+@Preview(name = "Light Theme", group = "content", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(name = "Dark Theme", group = "content", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun ContentPreviewUsername() {
+  Previews.Preview {
+    Content(
+      paddingValues = PaddingValues(0.dp),
+      state = FindByState(
+        mode = FindByMode.USERNAME,
+        userEntry = ""
+      ),
+      onUserEntryChanged = {},
+      onNextClick = {},
+      onSelectCountryPrefixClick = {}
+    )
+  }
+}
+
+@Preview(name = "Light Theme", group = "select country", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(name = "Dark Theme", group = "select country", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun SelectCountryScreenPreview() {
+  Previews.Preview {
+    SelectCountryScreen(
+      paddingValues = PaddingValues(0.dp),
+      searchEntry = "",
+      onSearchEntryChanged = {},
+      supportedCountryPrefixes = FindByState(mode = FindByMode.PHONE_NUMBER).supportedCountryPrefixes,
+      onCountryPrefixSelected = {}
     )
   }
 }

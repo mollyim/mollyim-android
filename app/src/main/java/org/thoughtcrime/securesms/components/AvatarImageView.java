@@ -34,6 +34,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsActivity;
 import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto;
+import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ResourceContactPhoto;
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor;
@@ -183,8 +184,18 @@ public final class AvatarImageView extends AppCompatImageView {
         this.chatColors       = chatColors;
         recipientContactPhoto = photo;
 
-        Drawable fallbackContactPhotoDrawable = size == SIZE_SMALL ? photo.recipient.getSmallFallbackContactPhotoDrawable(getContext(), inverted, fallbackPhotoProvider, ViewUtil.getWidth(this))
-                                                                   : photo.recipient.getFallbackContactPhotoDrawable(getContext(), inverted, fallbackPhotoProvider, ViewUtil.getWidth(this));
+        Recipient.FallbackPhotoProvider activeFallbackPhotoProvider = this.fallbackPhotoProvider;
+        if (recipient.isSelf() && avatarOptions.useSelfProfileAvatar) {
+          activeFallbackPhotoProvider = new Recipient.FallbackPhotoProvider() {
+            @Override
+            public @NonNull FallbackContactPhoto getPhotoForLocalNumber() {
+              return super.getPhotoForRecipientWithName(recipient.getDisplayName(getContext()), ViewUtil.getWidth(AvatarImageView.this));
+            }
+          };
+        }
+
+        Drawable fallbackContactPhotoDrawable = size == SIZE_SMALL ? photo.recipient.getSmallFallbackContactPhotoDrawable(getContext(), inverted, activeFallbackPhotoProvider, ViewUtil.getWidth(this))
+                                                                   : photo.recipient.getFallbackContactPhotoDrawable(getContext(), inverted, activeFallbackPhotoProvider, ViewUtil.getWidth(this));
 
         if (fixedSizeTarget != null) {
           requestManager.clear(fixedSizeTarget);
@@ -244,8 +255,7 @@ public final class AvatarImageView extends AppCompatImageView {
                                 ConversationSettingsActivity.createTransitionBundle(context, this));
         } else {
           if (context instanceof FragmentActivity) {
-            RecipientBottomSheetDialogFragment.create(recipient.getId(), null)
-                                              .show(((FragmentActivity) context).getSupportFragmentManager(), "BOTTOM");
+            RecipientBottomSheetDialogFragment.show(((FragmentActivity) context).getSupportFragmentManager(), recipient.getId(), null);
           } else {
             context.startActivity(ConversationSettingsActivity.forRecipient(context, recipient.getId()),
                                   ConversationSettingsActivity.createTransitionBundle(context, this));

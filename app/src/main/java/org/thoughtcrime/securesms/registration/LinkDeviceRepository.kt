@@ -8,6 +8,7 @@ import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.thoughtcrime.securesms.AppCapabilities
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
+import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
@@ -75,8 +76,9 @@ class LinkDeviceRepository(private val context: Application) {
         val unidentifiedAccessKey: ByteArray = UnidentifiedAccess.deriveAccessKeyFrom(registrationData.profileKey)
 
         val registrationLock: String? = ret.masterKey?.deriveRegistrationLock()
-
         val encryptedDeviceName = deviceName?.let { DeviceNameCipher.encryptDeviceName(it.toByteArray(), ret.aciIdentity) }
+
+        val notDiscoverable =  SignalStore.phoneNumberPrivacy().phoneNumberDiscoverabilityMode == PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE
 
         val accountAttributes = AccountAttributes(
           signalingKey = null,
@@ -86,7 +88,7 @@ class LinkDeviceRepository(private val context: Application) {
           unidentifiedAccessKey = unidentifiedAccessKey,
           unrestrictedUnidentifiedAccess = universalUnidentifiedAccess,
           capabilities = AppCapabilities.getCapabilities(true),
-          discoverableByPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberDiscoverabilityMode.isDiscoverable,
+          discoverableByPhoneNumber = !notDiscoverable,
           name = encryptedDeviceName?.let { Base64.encodeWithPadding(it) },
           pniRegistrationId = registrationData.pniRegistrationId,
           recoveryPassword = registrationData.recoveryPassword
