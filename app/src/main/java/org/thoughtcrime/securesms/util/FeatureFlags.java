@@ -83,7 +83,6 @@ public final class FeatureFlags {
   private static final String SOFTWARE_AEC_BLOCKLIST_MODELS     = "android.calling.softwareAecBlockList";
   private static final String USE_HARDWARE_AEC_IF_OLD           = "android.calling.useHardwareAecIfOlderThanApi29";
   private static final String PAYMENTS_COUNTRY_BLOCKLIST        = "global.payments.disabledRegions";
-  public  static final String PHONE_NUMBER_PRIVACY              = "android.pnp";
   private static final String STORIES_AUTO_DOWNLOAD_MAXIMUM     = "android.stories.autoDownloadMaximum";
   private static final String TELECOM_MANUFACTURER_ALLOWLIST    = "android.calling.telecomAllowList";
   private static final String TELECOM_MODEL_BLOCKLIST           = "android.calling.telecomModelBlockList";
@@ -107,7 +106,6 @@ public final class FeatureFlags {
   public  static final String PROMPT_FOR_NOTIFICATION_LOGS      = "android.logs.promptNotifications";
   private static final String PROMPT_FOR_NOTIFICATION_CONFIG    = "android.logs.promptNotificationsConfig";
   public  static final String PROMPT_BATTERY_SAVER              = "android.promptBatterySaver";
-  public  static final String USERNAMES                         = "android.usernames";
   public  static final String INSTANT_VIDEO_PLAYBACK            = "android.instantVideoPlayback.1";
   public  static final String CRASH_PROMPT_CONFIG               = "android.crashPromptConfig";
   private static final String SEPA_DEBIT_DONATIONS              = "android.sepa.debit.donations.5";
@@ -180,7 +178,6 @@ public final class FeatureFlags {
       PROMPT_FOR_NOTIFICATION_LOGS,
       PROMPT_FOR_NOTIFICATION_CONFIG,
       PROMPT_BATTERY_SAVER,
-      USERNAMES,
       INSTANT_VIDEO_PLAYBACK,
       CRASH_PROMPT_CONFIG,
       SEPA_DEBIT_DONATIONS,
@@ -190,7 +187,6 @@ public final class FeatureFlags {
       CALLING_REACTIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
       CALLING_RAISE_HAND,
-      PHONE_NUMBER_PRIVACY,
       USE_ACTIVE_CALL_MANAGER,
       GIF_SEARCH,
       AUDIO_REMUXING,
@@ -259,12 +255,10 @@ public final class FeatureFlags {
       PROMPT_FOR_NOTIFICATION_LOGS,
       PROMPT_FOR_NOTIFICATION_CONFIG,
       PROMPT_BATTERY_SAVER,
-      USERNAMES,
       CRASH_PROMPT_CONFIG,
       CALLING_REACTIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
       CALLING_RAISE_HAND,
-      PHONE_NUMBER_PRIVACY,
       VIDEO_RECORD_1X_ZOOM
   );
 
@@ -344,11 +338,6 @@ public final class FeatureFlags {
     Log.i(TAG, "[Disk]   After : " + result.getDisk().toString());
   }
 
-  /** Creating usernames, sending messages by username. */
-  public static synchronized boolean usernames() {
-    return getBoolean(USERNAMES, false) || phoneNumberPrivacy();
-  }
-
   /**
    * Maximum number of members allowed in a group.
    */
@@ -379,14 +368,6 @@ public final class FeatureFlags {
   /** The raw client expiration JSON string. */
   public static String clientExpiration() {
     return getString(CLIENT_EXPIRATION, null);
-  }
-
-  /**
-   * Whether phone number privacy is enabled.
-   * IMPORTANT: This is under active development. Enabling this *will* break your contacts in terrible, irreversible ways.
-   */
-  public static boolean phoneNumberPrivacy() {
-    return getBoolean(PHONE_NUMBER_PRIVACY, false);
   }
 
   /** Whether to use the custom streaming muxer or built in android muxer. */
@@ -565,15 +546,6 @@ public final class FeatureFlags {
   /** Maximum attachment ciphertext size when sending in bytes */
   public static long maxAttachmentSizeBytes() {
     return getLong(MAX_ATTACHMENT_SIZE_BYTES, ByteUnit.MEGABYTES.toBytes(100));
-  }
-
-  /** True if you should use CDS in compat mode (i.e. request ACI's even if you don't know the access key), otherwise false. */
-  public static boolean cdsCompatMode() {
-    if (phoneNumberPrivacy()) {
-      return false;
-    } else {
-      return !getBoolean(CDS_DISABLE_COMPAT_MODE, false);
-    }
   }
 
   /**

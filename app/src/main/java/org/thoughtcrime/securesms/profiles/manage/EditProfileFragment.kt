@@ -36,7 +36,6 @@ import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.profiles.manage.EditProfileViewModel.AvatarState
 import org.thoughtcrime.securesms.profiles.manage.UsernameRepository.UsernameDeleteResult
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.NameUtil.getAbbreviation
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -120,28 +119,6 @@ class EditProfileFragment : LoggingFragment() {
         AvatarPreviewActivity.createTransitionBundle(requireActivity(), binding.manageProfileAvatar)
       )
     }
-
-    if (FeatureFlags.usernames() && SignalStore.account().username != null && SignalStore.account().usernameSyncState != AccountValues.UsernameSyncState.USERNAME_AND_LINK_CORRUPTED) {
-      binding.usernameLinkContainer.setOnClickListener {
-        findNavController().safeNavigate(EditProfileFragmentDirections.actionManageProfileFragmentToUsernameLinkFragment())
-      }
-
-      if (SignalStore.account().usernameSyncState == AccountValues.UsernameSyncState.LINK_CORRUPTED) {
-        binding.linkErrorIndicator.visibility = View.VISIBLE
-      } else {
-        binding.linkErrorIndicator.visibility = View.GONE
-      }
-
-      if (SignalStore.tooltips().showProfileSettingsQrCodeTooltop()) {
-        binding.usernameLinkTooltip.visibility = View.VISIBLE
-        binding.linkTooltipCloseButton.setOnClickListener {
-          binding.usernameLinkTooltip.visibility = View.GONE
-          SignalStore.tooltips().markProfileSettingsQrCodeTooltipSeen()
-        }
-      }
-    } else {
-      binding.usernameLinkContainer.visibility = View.GONE
-    }
   }
 
   private fun initializeViewModel() {
@@ -158,14 +135,7 @@ class EditProfileFragment : LoggingFragment() {
     viewModel.about.observe(viewLifecycleOwner) { presentAbout(it) }
     viewModel.aboutEmoji.observe(viewLifecycleOwner) { presentAboutEmoji(it) }
     viewModel.badge.observe(viewLifecycleOwner) { presentBadge(it) }
-
-    if (viewModel.shouldShowUsername()) {
-      viewModel.username.observe(viewLifecycleOwner) { presentUsername(it) }
-    } else {
-      binding.manageProfileUsernameContainer.visibility = View.GONE
-      binding.manageProfileDivider.root.visibility = View.GONE
-      binding.usernameInfoText.visibility = View.GONE
-    }
+    viewModel.username.observe(viewLifecycleOwner) { presentUsername(it) }
   }
 
   private fun presentAvatarImage(avatarData: Optional<ByteArray>) {
@@ -241,6 +211,31 @@ class EditProfileFragment : LoggingFragment() {
       binding.usernameErrorIndicator.visibility = View.VISIBLE
     } else {
       binding.usernameErrorIndicator.visibility = View.GONE
+    }
+
+    if (SignalStore.account().username != null && SignalStore.account().usernameSyncState != AccountValues.UsernameSyncState.USERNAME_AND_LINK_CORRUPTED) {
+      binding.usernameLinkContainer.setOnClickListener {
+        findNavController().safeNavigate(EditProfileFragmentDirections.actionManageProfileFragmentToUsernameLinkFragment())
+      }
+
+      if (SignalStore.account().usernameSyncState == AccountValues.UsernameSyncState.LINK_CORRUPTED) {
+        binding.linkErrorIndicator.visibility = View.VISIBLE
+      } else {
+        binding.linkErrorIndicator.visibility = View.GONE
+      }
+
+      if (SignalStore.tooltips().showProfileSettingsQrCodeTooltop()) {
+        binding.usernameLinkTooltip.visibility = View.VISIBLE
+        binding.linkTooltipCloseButton.setOnClickListener {
+          binding.usernameLinkTooltip.visibility = View.GONE
+          SignalStore.tooltips().markProfileSettingsQrCodeTooltipSeen()
+        }
+      }
+
+      binding.usernameInfoText.setText(R.string.ManageProfileFragment__your_username)
+    } else {
+      binding.usernameLinkContainer.visibility = View.GONE
+      binding.usernameInfoText.setText(R.string.ManageProfileFragment__username_footer_no_username)
     }
   }
 
