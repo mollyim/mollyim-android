@@ -372,7 +372,7 @@
     <string name="ConversationActivity_transport_insecure_sms_with_sim">Insecure SMS (%1$s)</string>
     <string name="ConversationActivity_transport_insecure_mms">Insecure MMS</string>
     <!-- A title for the option to send an SMS with a placeholder to put the name of their SIM card -->
-    <string name="ConversationActivity_transport_signal">Signal message</string>
+    <string name="ConversationActivity_transport_signal">Message</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Send message</string>
     <string name="ConversationActivity_lets_switch_to_signal">Let\'s switch to Molly %1$s</string>
@@ -2136,13 +2136,13 @@
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Add to Contacts</string>
     <string name="SharedContactDetailsActivity_invite_to_signal">Invite to Molly</string>
-    <string name="SharedContactDetailsActivity_signal_message">Signal Message</string>
+    <string name="SharedContactDetailsActivity_signal_message">Message</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal Call</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Add to Contacts</string>
     <string name="SharedContactView_invite_to_signal">Invite to Molly</string>
-    <string name="SharedContactView_message">Signal Message</string>
+    <string name="SharedContactView_message">Message</string>
 
     <!-- SignalBottomActionBar -->
     <string name="SignalBottomActionBar_more">More</string>
@@ -2433,7 +2433,7 @@
     <string name="MessageNotifier_view_once_photo">View-once photo</string>
     <string name="MessageNotifier_view_once_video">View-once video</string>
     <string name="MessageNotifier_reply">Reply</string>
-    <string name="MessageNotifier_signal_message">Signal Message</string>
+    <string name="MessageNotifier_signal_message">Message</string>
     <string name="MessageNotifier_contact_message">%1$s %2$s</string>
     <string name="MessageNotifier_unknown_contact_message">Contact</string>
     <string name="MessageNotifier_reacted_s_to_s">Reacted %1$s to: \"%2$s\".</string>
@@ -2670,7 +2670,7 @@
     </plurals>
 
     <!-- conversation_activity -->
-    <string name="conversation_activity__type_message_push">Signal message</string>
+    <string name="conversation_activity__type_message_push">Message</string>
     <string name="conversation_activity__type_message_sms_insecure">Unsecured SMS</string>
     <string name="conversation_activity__type_message_mms_insecure">Unsecured MMS</string>
     <!-- Option in send button context menu to schedule the message instead of sending it directly -->
