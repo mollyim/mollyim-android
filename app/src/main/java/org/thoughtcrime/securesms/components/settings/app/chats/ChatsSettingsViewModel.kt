@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.components.settings.app.chats
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.BackupUtil
@@ -11,11 +10,10 @@ import org.thoughtcrime.securesms.util.ThrottledDebouncer
 import org.thoughtcrime.securesms.util.livedata.Store
 
 class ChatsSettingsViewModel @JvmOverloads constructor(
-  private val repository: ChatsSettingsRepository = ChatsSettingsRepository(),
+  private val repository: ChatsSettingsRepository = ChatsSettingsRepository()
 ) : ViewModel() {
 
   private val refreshDebouncer = ThrottledDebouncer(500L)
-  private val disposables = CompositeDisposable()
 
   private val store: Store<ChatsSettingsState> = Store(
     ChatsSettingsState(
@@ -24,15 +22,11 @@ class ChatsSettingsViewModel @JvmOverloads constructor(
       keepMutedChatsArchived = SignalStore.settings().shouldKeepMutedChatsArchived(),
       useSystemEmoji = SignalStore.settings().isPreferSystemEmoji,
       enterKeySends = SignalStore.settings().isEnterKeySends,
-      chatBackupsEnabled = SignalStore.settings().isBackupEnabled && BackupUtil.canUserAccessBackupDirectory(ApplicationDependencies.getApplication()),
+      chatBackupsEnabled = SignalStore.settings().isBackupEnabled && BackupUtil.canUserAccessBackupDirectory(ApplicationDependencies.getApplication())
     )
   )
 
   val state: LiveData<ChatsSettingsState> = store.stateLiveData
-
-  override fun onCleared() {
-    disposables.clear()
-  }
 
   fun setGenerateLinkPreviewsEnabled(enabled: Boolean) {
     if (SignalStore.account().isLinkedDevice) {

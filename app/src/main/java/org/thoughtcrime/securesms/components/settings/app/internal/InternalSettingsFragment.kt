@@ -628,13 +628,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       )
 
       clickPref(
-        title = DSLSettingsText.from("Clear Username education ui hint"),
-        onClick = {
-          SignalStore.uiHints().clearHasSeenUsernameEducation()
-        }
-      )
-
-      clickPref(
         title = DSLSettingsText.from("Corrupt username"),
         summary = DSLSettingsText.from("Changes our local username without telling the server so it falls out of sync. Refresh profile afterwards to trigger corruption."),
         onClick = {
@@ -642,7 +635,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
             .setTitle("Corrupt your username?")
             .setMessage("Are you sure? You might not be able to get your original username back.")
             .setPositiveButton(android.R.string.ok) { _, _ ->
-              val random = "${(1..5).map { ('a'..'z').random() }.joinToString(separator = "") }.${Random.nextInt(1, 100)}"
+              val random = "${(1..5).map { ('a'..'z').random() }.joinToString(separator = "") }.${Random.nextInt(10, 100)}"
 
               SignalStore.account().username = random
               SignalDatabase.recipients.setUsername(Recipient.self().id, random)

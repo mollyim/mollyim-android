@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -17,13 +18,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.avatar.view.AvatarView;
@@ -34,16 +36,14 @@ import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.FallbackPhoto80dp;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientExporter;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.recipients.ui.about.AboutSheet;
+import org.thoughtcrime.securesms.recipients.ui.about.AboutSheetKt;
 import org.thoughtcrime.securesms.util.BottomSheetUtil;
 import org.thoughtcrime.securesms.util.ContextUtil;
-import org.thoughtcrime.securesms.util.DrawableUtil;
-import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SpanUtil;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.Util;
@@ -72,7 +72,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
   private AvatarView               avatar;
   private TextView                 fullName;
   private TextView                 about;
-  private TextView                 usernameNumber;
   private TextView                 blockButton;
   private TextView                 unblockButton;
   private TextView                 addContactButton;
@@ -91,20 +90,23 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
 
   private ButtonStripPreference.ViewHolder buttonStripViewHolder;
 
-  public static BottomSheetDialogFragment create(@NonNull RecipientId recipientId,
-                                                 @Nullable GroupId groupId)
-  {
-    Bundle                             args     = new Bundle();
-    RecipientBottomSheetDialogFragment fragment = new RecipientBottomSheetDialogFragment();
+  public static void show(FragmentManager fragmentManager, @NonNull RecipientId recipientId, @Nullable GroupId groupId) {
+    Recipient recipient = Recipient.resolved(recipientId);
+    if (recipient.isSelf()) {
+      AboutSheet.create(recipient).show(fragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG);
+    } else {
+      Bundle                             args     = new Bundle();
+      RecipientBottomSheetDialogFragment fragment = new RecipientBottomSheetDialogFragment();
 
-    args.putString(ARGS_RECIPIENT_ID, recipientId.serialize());
-    if (groupId != null) {
-      args.putString(ARGS_GROUP_ID, groupId.toString());
+      args.putString(ARGS_RECIPIENT_ID, recipientId.serialize());
+      if (groupId != null) {
+        args.putString(ARGS_GROUP_ID, groupId.toString());
+      }
+
+      fragment.setArguments(args);
+
+      fragment.show(fragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG);
     }
-
-    fragment.setArguments(args);
-
-    return fragment;
   }
 
   @Override
@@ -123,7 +125,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     avatar                 = view.findViewById(R.id.rbs_recipient_avatar);
     fullName               = view.findViewById(R.id.rbs_full_name);
     about                  = view.findViewById(R.id.rbs_about);
-    usernameNumber         = view.findViewById(R.id.rbs_username_number);
     blockButton            = view.findViewById(R.id.rbs_block_button);
     unblockButton          = view.findViewById(R.id.rbs_unblock_button);
     addContactButton       = view.findViewById(R.id.rbs_add_contact_button);
@@ -185,20 +186,24 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
                                        : recipient.getDisplayName(requireContext());
       fullName.setVisibility(TextUtils.isEmpty(name) ? View.GONE : View.VISIBLE);
       SpannableStringBuilder nameBuilder = new SpannableStringBuilder(name);
-      if (recipient.isSystemContact() && !recipient.isSelf()) {
-        Drawable systemContact = DrawableUtil.tint(ContextUtil.requireDrawable(requireContext(), R.drawable.ic_profile_circle_outline_16),
-                                                   ContextCompat.getColor(requireContext(), R.color.signal_text_primary));
-        SpanUtil.appendCenteredImageSpan(nameBuilder, systemContact, 16, 16);
-      } else if (recipient.showVerified()) {
+      if (recipient.showVerified()) {
         SpanUtil.appendCenteredImageSpan(nameBuilder, ContextUtil.requireDrawable(requireContext(), R.drawable.ic_official_28), 28, 28);
       }
 
-      SpanUtil.appendCenteredImageSpan(nameBuilder, ContextUtil.requireDrawable(requireContext(), R.drawable.symbol_chevron_right_24_color_on_secondary_container), 24, 24);
-      fullName.setText(nameBuilder);
-      fullName.setOnClickListener(v -> {
-        dismiss();
-        AboutSheet.create(recipient).show(getParentFragmentManager(), null);
-      });
+      if (!recipient.isSelf() && recipient.isIndividual()) {
+        Drawable drawable = ContextUtil.requireDrawable(requireContext(), R.drawable.symbol_chevron_right_24_color_on_secondary_container);
+        drawable.setBounds(0, 0, (int) DimensionUnit.DP.toPixels(24), (int) DimensionUnit.DP.toPixels(24));
+
+        Drawable insetDrawable = new InsetDrawable(drawable, 0, 0, 0, (int) DimensionUnit.DP.toPixels(4));
+
+        SpanUtil.appendBottomImageSpan(nameBuilder, insetDrawable, 24, 28);
+
+        fullName.setText(nameBuilder);
+        fullName.setOnClickListener(v -> {
+          dismiss();
+          AboutSheet.create(recipient).show(getParentFragmentManager(), null);
+        });
+      }
 
       String aboutText = recipient.getCombinedAboutAndEmoji();
       if (recipient.isReleaseNotes()) {
@@ -211,18 +216,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
       } else {
         about.setVisibility(View.GONE);
       }
-
-      String usernameNumberString = recipient.hasAUserSetDisplayName(requireContext()) && !recipient.isSelf() && recipient.shouldShowE164()
-                                    ? recipient.getSmsAddress().map(PhoneNumberFormatter::prettyPrint).orElse("").trim()
-                                    : "";
-      usernameNumber.setText(usernameNumberString);
-      usernameNumber.setVisibility(TextUtils.isEmpty(usernameNumberString) ? View.GONE : View.VISIBLE);
-      usernameNumber.setOnLongClickListener(v -> {
-        Util.copyToClipboard(v.getContext(), usernameNumber.getText().toString());
-        ServiceUtil.getVibrator(v.getContext()).vibrate(250);
-        Toast.makeText(v.getContext(), R.string.RecipientBottomSheet_copied_to_clipboard, Toast.LENGTH_SHORT).show();
-        return true;
-      });
 
       noteToSelfDescription.setVisibility(recipient.isSelf() ? View.VISIBLE : View.GONE);
 
@@ -285,7 +278,7 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
         buttonStrip.setVisibility(View.GONE);
       }
 
-      if (recipient.isSystemContact() || recipient.isGroup() || recipient.isSelf() || recipient.isBlocked() || recipient.isReleaseNotes() || !recipient.hasE164()) {
+      if (recipient.isSystemContact() || recipient.isGroup() || recipient.isSelf() || recipient.isBlocked() || recipient.isReleaseNotes() || !recipient.hasE164() || !recipient.shouldShowE164()) {
         addContactButton.setVisibility(View.GONE);
       } else {
         addContactButton.setVisibility(View.VISIBLE);

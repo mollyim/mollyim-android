@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.annimon.stream.Stream;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.thoughtcrime.securesms.R;
@@ -23,7 +24,6 @@ import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.contactshare.ContactUtil;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader.DecryptableUri;
-import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientForeverObserver;
@@ -44,13 +44,13 @@ public class SharedContactView extends LinearLayout implements RecipientForeverO
   private TextView               actionButtonView;
   private ConversationItemFooter footer;
 
-  private Contact       contact;
-  private Locale        locale;
-  private GlideRequests glideRequests;
-  private EventListener eventListener;
-  private CornerMask    cornerMask;
-  private int           bigCornerRadius;
-  private int           smallCornerRadius;
+  private Contact        contact;
+  private Locale         locale;
+  private RequestManager requestManager;
+  private EventListener  eventListener;
+  private CornerMask     cornerMask;
+  private int            bigCornerRadius;
+  private int            smallCornerRadius;
 
   private final Map<RecipientId, LiveRecipient> activeRecipients = new HashMap<>();
 
@@ -110,10 +110,10 @@ public class SharedContactView extends LinearLayout implements RecipientForeverO
     cornerMask.mask(canvas);
   }
 
-  public void setContact(@NonNull Contact contact, @NonNull GlideRequests glideRequests, @NonNull Locale locale) {
-    this.glideRequests = glideRequests;
-    this.locale        = locale;
-    this.contact       = contact;
+  public void setContact(@NonNull Contact contact, @NonNull RequestManager requestManager, @NonNull Locale locale) {
+    this.requestManager = requestManager;
+    this.locale         = locale;
+    this.contact        = contact;
 
     Stream.of(activeRecipients.values()).forEach(recipient ->  recipient.removeForeverObserver(this));
     this.activeRecipients.clear();
@@ -171,17 +171,17 @@ public class SharedContactView extends LinearLayout implements RecipientForeverO
 
   private void presentAvatar(@Nullable Uri uri) {
     if (uri != null) {
-      glideRequests.load(new DecryptableUri(uri))
-                   .fallback(R.drawable.ic_contact_picture)
-                   .circleCrop()
-                   .diskCacheStrategy(DiskCacheStrategy.ALL)
-                   .dontAnimate()
-                   .into(avatarView);
+      requestManager.load(new DecryptableUri(uri))
+                    .fallback(R.drawable.symbol_person_display_40)
+                    .circleCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .dontAnimate()
+                    .into(avatarView);
     } else {
-      glideRequests.load(R.drawable.ic_contact_picture)
-                   .circleCrop()
-                   .diskCacheStrategy(DiskCacheStrategy.ALL)
-                   .into(avatarView);
+      requestManager.load(R.drawable.symbol_person_display_40)
+                    .circleCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(avatarView);
     }
   }
 

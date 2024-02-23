@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -14,6 +15,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.signal.core.util.DimensionUnit;
+import org.signal.core.util.Stopwatch;
 import org.signal.core.util.concurrent.SimpleTask;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.ContactSelectionActivity;
@@ -21,13 +23,13 @@ import org.thoughtcrime.securesms.ContactSelectionListFragment;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.ContactSelectionDisplayMode;
 import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
-import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.groups.ui.creategroup.details.AddGroupDetailsActivity;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.recipients.ui.findby.FindByActivity;
+import org.thoughtcrime.securesms.recipients.ui.findby.FindByMode;
 import org.thoughtcrime.securesms.util.FeatureFlags;
-import org.signal.core.util.Stopwatch;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
 
 import java.io.IOException;
@@ -38,14 +40,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class CreateGroupActivity extends ContactSelectionActivity {
+public class CreateGroupActivity extends ContactSelectionActivity implements ContactSelectionListFragment.FindByCallback {
 
   private static final String TAG = Log.tag(CreateGroupActivity.class);
 
   private static final short REQUEST_CODE_ADD_DETAILS = 17275;
 
-  private MaterialButton       skip;
-  private FloatingActionButton next;
+  private MaterialButton                     skip;
+  private FloatingActionButton               next;
+  private ActivityResultLauncher<FindByMode> findByActivityLauncher;
+
 
   public static Intent newIntent(@NonNull Context context) {
     Intent intent = new Intent(context, CreateGroupActivity.class);
@@ -75,6 +79,12 @@ public class CreateGroupActivity extends ContactSelectionActivity {
 
     skip.setOnClickListener(v -> handleNextPressed());
     next.setOnClickListener(v -> handleNextPressed());
+
+    findByActivityLauncher = registerForActivityResult(new FindByActivity.Contract(), result -> {
+      if (result != null) {
+        contactsFragment.addRecipientToSelectionIfAble(result);
+      }
+    });
   }
 
   @Override
@@ -90,6 +100,7 @@ public class CreateGroupActivity extends ContactSelectionActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     if (requestCode == REQUEST_CODE_ADD_DETAILS && resultCode == RESULT_OK) {
+      setResult(RESULT_OK);
       finish();
     } else {
       super.onActivityResult(requestCode, resultCode, data);
@@ -127,6 +138,16 @@ public class CreateGroupActivity extends ContactSelectionActivity {
     } else {
       getToolbar().setTitle(getResources().getQuantityString(R.plurals.CreateGroupActivity__d_members, selectedMembers, selectedMembers));
     }
+  }
+
+  @Override
+  public void onFindByPhoneNumber() {
+    findByActivityLauncher.launch(FindByMode.PHONE_NUMBER);
+  }
+
+  @Override
+  public void onFindByUsername() {
+    findByActivityLauncher.launch(FindByMode.USERNAME);
   }
 
   private void extendSkip() {

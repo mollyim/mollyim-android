@@ -5,17 +5,17 @@ dependencyResolutionManagement {
   versionCatalogs {
     create("libs") {
       version("androidx-appcompat", "1.6.1")
-      version("androidx-activity", "1.7.2")
-      version("androidx-camera", "1.3.0-rc01")
-      version("androidx-fragment", "1.6.1")
-      version("androidx-lifecycle", "2.6.1")
-      version("androidx-media3", "1.1.0")
-      version("androidx-navigation", "2.6.0")
-      version("androidx-window", "1.0.0")
+      version("androidx-activity", "1.8.2")
+      version("androidx-camera", "1.3.1")
+      version("androidx-fragment", "1.6.2")
+      version("androidx-lifecycle", "2.7.0")
+      version("androidx-media3", "1.2.1")
+      version("androidx-navigation", "2.7.6")
+      version("androidx-window", "1.2.0")
       version("exoplayer", "2.19.0")
       version("glide", "4.15.1")
       version("kotlin", "1.8.10")
-      version("libsignal-client", "0.37.0")
+      version("libsignal-client", "0.39.2")
       version("mp4parser", "1.9.39")
       version("android-gradle-plugin", "8.0.2")
       version("accompanist", "0.28.0")
@@ -26,7 +26,7 @@ dependencyResolutionManagement {
       library("android-application", "com.android.application", "com.android.application.gradle.plugin").versionRef("android-gradle-plugin")
 
       // Compose
-      library("androidx-compose-bom", "androidx.compose:compose-bom:2023.08.00")
+      library("androidx-compose-bom", "androidx.compose:compose-bom:2023.09.01")
       library("androidx-compose-material3", "androidx.compose.material3", "material3").withoutVersion()
       library("androidx-compose-ui-tooling-preview", "androidx.compose.ui", "ui-tooling-preview").withoutVersion()
       library("androidx-compose-ui-tooling-core", "androidx.compose.ui", "ui-tooling").withoutVersion()
@@ -65,9 +65,12 @@ dependencyResolutionManagement {
       library("androidx-media3-exoplayer", "androidx.media3", "media3-exoplayer").versionRef("androidx-media3")
       library("androidx-media3-session", "androidx.media3", "media3-session").versionRef("androidx-media3")
       library("androidx-media3-ui", "androidx.media3", "media3-ui").versionRef("androidx-media3")
+      library("androidx-media3-decoder", "androidx.media3", "media3-decoder").versionRef("androidx-media3")
+      library("androidx-media3-common", "androidx.media3", "media3-common").versionRef("androidx-media3")
       library("androidx-multidex", "androidx.multidex:multidex:2.0.1")
       library("androidx-navigation-fragment-ktx", "androidx.navigation", "navigation-fragment-ktx").versionRef("androidx-navigation")
       library("androidx-navigation-ui-ktx", "androidx.navigation", "navigation-ui-ktx").versionRef("androidx-navigation")
+      library("androidx-navigation-compose", "androidx.navigation", "navigation-compose").versionRef("androidx-navigation")
       library("androidx-lifecycle-viewmodel-ktx", "androidx.lifecycle", "lifecycle-viewmodel-ktx").versionRef("androidx-lifecycle")
       library("androidx-lifecycle-livedata-core", "androidx.lifecycle", "lifecycle-livedata").versionRef("androidx-lifecycle")
       library("androidx-lifecycle-livedata-ktx", "androidx.lifecycle", "lifecycle-livedata-ktx").versionRef("androidx-lifecycle")
@@ -114,7 +117,7 @@ dependencyResolutionManagement {
       library("libsignal-client", "org.signal", "libsignal-client").versionRef("libsignal-client")
       library("libsignal-android", "org.signal", "libsignal-android").versionRef("libsignal-client")
       library("signal-aesgcmprovider", "org.signal:aesgcmprovider:0.0.3")
-      library("molly-ringrtc", "im.molly:ringrtc-android:2.36.0-1")
+      library("molly-ringrtc", "im.molly:ringrtc-android:2.37.1-1")
       library("signal-android-database-sqlcipher", "org.signal:sqlcipher-android:4.5.4-S2")
 
       // MOLLY
@@ -140,10 +143,10 @@ dependencyResolutionManagement {
       library("emilsjolander-stickylistheaders", "se.emilsjolander:stickylistheaders:2.7.0")
       library("apache-httpclient-android", "org.apache.httpcomponents:httpclient-android:4.3.5")
       library("glide-glide", "com.github.bumptech.glide", "glide").versionRef("glide")
-      library("glide-compiler", "com.github.bumptech.glide", "compiler").versionRef("glide")
+      library("glide-ksp", "com.github.bumptech.glide", "ksp").versionRef("glide")
       library("roundedimageview", "com.makeramen:roundedimageview:2.1.0")
-      library("materialish-progress", "com.pnikosis:materialish-progress:1.5")
-      library("subsampling-scale-image-view", "com.davemorrissey.labs:subsampling-scale-image-view:3.10.0")
+      library("materialish-progress", "com.pnikosis:materialish-progress:1.7")
+      library("subsampling-scale-image-view", "com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0")
       library("android-tooltips", "com.tomergoldst.android:tooltips:1.0.6")
       library("stream", "com.annimon:stream:1.1.8")
       library("lottie", "com.airbnb.android:lottie:5.2.0")
@@ -174,8 +177,8 @@ dependencyResolutionManagement {
     }
 
     create("testLibs") {
-      version("androidx-test", "1.4.0")
-      version("androidx-test-ext-junit", "1.1.1")
+      version("androidx-test", "1.5.0")
+      version("androidx-test-ext-junit", "1.1.5")
       version("robolectric", "4.10.3")
 
       library("junit-junit", "junit:junit:4.13.2")

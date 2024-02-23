@@ -35,7 +35,6 @@ import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPrefe
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.ExpirationUtil
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.WindowUtil
@@ -84,6 +83,40 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
   private fun getConfiguration(state: PrivacySettingsState): DSLConfiguration {
     return configure {
+
+      sectionHeaderPref(R.string.PrivacySettingsFragment__messaging)
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences_app_protection__phone_number),
+        summary = DSLSettingsText.from(R.string.preferences_app_protection__choose_who_can_see),
+        onClick = {
+          Navigation.findNavController(requireView())
+            .safeNavigate(R.id.action_privacySettingsFragment_to_phoneNumberPrivacySettingsFragment)
+        }
+      )
+
+      switchPref(
+        title = DSLSettingsText.from(R.string.preferences__read_receipts),
+        summary = DSLSettingsText.from(R.string.preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts),
+        isChecked = state.readReceipts,
+        isEnabled = SignalStore.account().isPrimaryDevice,
+        onClick = {
+          viewModel.setReadReceiptsEnabled(!state.readReceipts)
+        }
+      )
+
+      switchPref(
+        title = DSLSettingsText.from(R.string.preferences__typing_indicators),
+        summary = DSLSettingsText.from(R.string.preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators),
+        isChecked = state.typingIndicators,
+        isEnabled = SignalStore.account().isPrimaryDevice,
+        onClick = {
+          viewModel.setTypingIndicatorsEnabled(!state.typingIndicators)
+        }
+      )
+
+      dividerPref()
+
       sectionHeaderPref(DSLSettingsText.from(R.string.PrivacySettingsFragment_data_at_rest))
 
       switchPref(
@@ -165,43 +198,6 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         isChecked = state.blockUnknown,
         onClick = {
           viewModel.setBlockUnknownEnabled(!state.blockUnknown)
-        }
-      )
-
-      dividerPref()
-
-      sectionHeaderPref(R.string.PrivacySettingsFragment__messaging)
-
-      if (FeatureFlags.phoneNumberPrivacy()) {
-        clickPref(
-          title = DSLSettingsText.from(R.string.preferences_app_protection__phone_number),
-          summary = DSLSettingsText.from(R.string.preferences_app_protection__choose_who_can_see),
-          onClick = {
-            Navigation.findNavController(requireView())
-              .safeNavigate(R.id.action_privacySettingsFragment_to_phoneNumberPrivacySettingsFragment)
-          }
-        )
-
-        dividerPref()
-      }
-
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences__read_receipts),
-        summary = DSLSettingsText.from(R.string.preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts),
-        isChecked = state.readReceipts,
-        isEnabled = SignalStore.account().isPrimaryDevice,
-        onClick = {
-          viewModel.setReadReceiptsEnabled(!state.readReceipts)
-        }
-      )
-
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences__typing_indicators),
-        summary = DSLSettingsText.from(R.string.preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators),
-        isChecked = state.typingIndicators,
-        isEnabled = SignalStore.account().isPrimaryDevice,
-        onClick = {
-          viewModel.setTypingIndicatorsEnabled(!state.typingIndicators)
         }
       )
 

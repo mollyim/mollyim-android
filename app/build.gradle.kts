@@ -19,8 +19,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1377
-val canonicalVersionName = "6.44.3"
+val canonicalVersionCode = 1395
+val canonicalVersionName = "7.0.1"
 val mollyRevision = 1
 
 val postFixSize = 100
@@ -86,7 +86,6 @@ android {
 
   kotlinOptions {
     jvmTarget = signalKotlinJvmTarget
-    freeCompilerArgs = listOf("-Xallow-result-return-type")
   }
 
   signingConfigs {
@@ -153,8 +152,8 @@ android {
     versionCode = canonicalVersionCode * postFixSize + mollyRevision
     versionName = if (ciEnabled) getCommitTag() else canonicalVersionName
 
-    minSdkVersion(signalMinSdkVersion)
-    targetSdkVersion(signalTargetSdkVersion)
+    minSdk = signalMinSdkVersion
+    targetSdk = signalTargetSdkVersion
 
     applicationId = basePackageId
 
@@ -375,23 +374,22 @@ android {
       }
   }
 
-  android.buildTypes.forEach {
-    val path: String = if (it.name == "release") {
-      "$projectDir/src/release/java"
-    } else {
-      "$projectDir/src/debug/java"
+  androidComponents {
+    beforeVariants { variant ->
+      val selected = variant.name in selectableVariants
+      if (!(selected && buildVariants.toRegex().containsMatchIn(variant.name))) {
+        variant.enable = false
+      }
     }
-
-    sourceSets.findByName(it.name)!!.java.srcDir(path)
   }
-}
 
-androidComponents {
-  beforeVariants { variantBuilder ->
-    val name = variantBuilder.name
-    val selected = selectableVariants.contains(name)
-    if (!(selected && buildVariants.toRegex().containsMatchIn(name))) {
-      variantBuilder.enable = false
+  val releaseDir = "$projectDir/src/release/java"
+  val debugDir = "$projectDir/src/debug/java"
+
+  android.buildTypes.configureEach {
+    val path = if (name == "release") releaseDir else debugDir
+    sourceSets.named(name) {
+      java.srcDir(path)
     }
   }
 }
@@ -411,7 +409,6 @@ dependencies {
   implementation(project(":qr"))
   implementation(project(":sticky-header-grid"))
   implementation(project(":photoview"))
-  implementation(project(":glide-webp"))
   implementation(project(":core-ui"))
 
   implementation(libs.androidx.fragment.ktx)
@@ -431,16 +428,19 @@ dependencies {
   implementation(libs.androidx.exifinterface)
   implementation(libs.androidx.compose.rxjava3)
   implementation(libs.androidx.compose.runtime.livedata)
+  implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.constraintlayout)
   implementation(libs.androidx.multidex)
   implementation(libs.androidx.navigation.fragment.ktx)
   implementation(libs.androidx.navigation.ui.ktx)
+  implementation(libs.androidx.navigation.compose)
   implementation(libs.androidx.lifecycle.viewmodel.ktx)
   implementation(libs.androidx.lifecycle.livedata.ktx)
   implementation(libs.androidx.lifecycle.process)
   implementation(libs.androidx.lifecycle.viewmodel.savedstate)
   implementation(libs.androidx.lifecycle.common.java8)
   implementation(libs.androidx.lifecycle.reactivestreams.ktx)
+  implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.camera.core)
   implementation(libs.androidx.camera.camera2)
   implementation(libs.androidx.camera.lifecycle)

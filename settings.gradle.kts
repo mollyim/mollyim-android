@@ -76,9 +76,7 @@ include(":sticky-header-grid")
 include(":photoview")
 include(":core-ui")
 include(":video")
-//include(":video-app")
-include(":glide-webp")
-//include(":glide-webp-app")
+include(":video-app")
 
 project(":paging").projectDir = file("paging/lib")
 //project(":paging-app").projectDir = file("paging/app")
@@ -100,9 +98,6 @@ project(":qr").projectDir = file("qr/lib")
 
 project(":video").projectDir = file("video/lib")
 //project(":video-app").projectDir = file("video/app")
-
-project(":glide-webp").projectDir = file("glide-webp/lib")
-//project(":glide-webp-app").projectDir = file("glide-webp/app")
 
 rootProject.name = "Molly"
 

@@ -68,6 +68,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.SimpleColorFilter;
 import com.annimon.stream.Stream;
+import com.bumptech.glide.Glide;
 import com.google.android.material.animation.ArgbEvaluatorCompat;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -132,6 +133,7 @@ import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
+import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity;
@@ -142,11 +144,10 @@ import org.thoughtcrime.securesms.megaphone.Megaphone;
 import org.thoughtcrime.securesms.megaphone.MegaphoneActionController;
 import org.thoughtcrime.securesms.megaphone.MegaphoneViewBuilder;
 import org.thoughtcrime.securesms.megaphone.Megaphones;
-import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.notifications.MarkReadReceiver;
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile;
 import org.thoughtcrime.securesms.permissions.Permissions;
-import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity;
+import org.thoughtcrime.securesms.profiles.manage.UsernameEditFragment;
 import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -189,7 +190,6 @@ import java.util.stream.Collectors;
 
 import kotlin.Unit;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 
@@ -315,7 +315,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
                                                             storyContextMenuCallbacks,
                                                             callButtonClickCallbacks,
                                                             getViewLifecycleOwner(),
-                                                            GlideApp.with(this)
+                                                            Glide.with(this)
                                                         );
                                                       },
                                                       new ConversationListSearchAdapter.ChatFilterRepository()
@@ -642,6 +642,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       Snackbar.make(fab, R.string.ConfirmKbsPinFragment__pin_created, Snackbar.LENGTH_LONG).show();
       viewModel.onMegaphoneCompleted(Megaphones.Event.PINS_FOR_ALL);
     }
+
+    if (resultCode == RESULT_OK && requestCode == UsernameEditFragment.REQUEST_CODE) {
+      String snackbarString = getString(R.string.ConversationListFragment_username_recovered_toast, SignalStore.account().getUsername());
+      Snackbar.make(fab, snackbarString, Snackbar.LENGTH_LONG).show();
+    }
   }
 
   private void onConversationClicked(@NonNull ThreadRecord threadRecord) {
@@ -733,7 +738,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     } else if (reminderActionId == R.id.reminder_action_cds_permanent_error_learn_more) {
       CdsPermanentErrorBottomSheet.show(getChildFragmentManager());
     } else if (reminderActionId == R.id.reminder_action_fix_username_and_link) {
-      startActivity(EditProfileActivity.getIntent(requireContext()));
+      startActivityForResult(AppSettingsActivity.usernameRecovery(requireContext()), UsernameEditFragment.REQUEST_CODE);
     } else if (reminderActionId == R.id.reminder_action_fix_username_link) {
       startActivity(AppSettingsActivity.usernameLinkSettings(requireContext()));
     } else if (reminderActionId == R.id.reminder_action_re_register) {
@@ -823,7 +828,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
 
   private void initializeListAdapters() {
-    defaultAdapter          = new ConversationListAdapter(getViewLifecycleOwner(), GlideApp.with(this), this, this);
+    defaultAdapter          = new ConversationListAdapter(getViewLifecycleOwner(), Glide.with(this), this, this);
 
     setAdapter(defaultAdapter);
 
@@ -1004,6 +1009,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       } else if (CdsPermanentErrorReminder.isEligible()) {
         return Optional.of(new CdsPermanentErrorReminder());
       } else if (UsernameOutOfSyncReminder.isEligible()) {
+        ApplicationDependencies.getJobManager().add(new RefreshOwnProfileJob());
         return Optional.of(new UsernameOutOfSyncReminder());
       } else {
         return Optional.<Reminder>empty();
@@ -1150,7 +1156,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
           protected void onPreExecute() {
             dialog = SignalProgressDialog.show(requireActivity(),
                                                context.getString(R.string.ConversationListFragment_deleting),
-                                               context.getString(R.string.ConversationListFragment_deleting_selected_conversations),
+                                               context.getResources().getQuantityString(R.plurals.ConversationListFragment_deleting_selected_conversations, conversationsCount),
                                                true,
                                                false);
           }

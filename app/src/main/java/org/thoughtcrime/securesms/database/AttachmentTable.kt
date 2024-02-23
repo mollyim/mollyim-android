@@ -39,6 +39,7 @@ import org.signal.core.util.SqlUtil.buildSingleCollectionQuery
 import org.signal.core.util.StreamUtil
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.delete
+import org.signal.core.util.deleteAll
 import org.signal.core.util.exists
 import org.signal.core.util.forEach
 import org.signal.core.util.groupBy
@@ -474,9 +475,7 @@ class AttachmentTable(
   fun deleteAllAttachments() {
     Log.d(TAG, "[deleteAllAttachments]")
 
-    writableDatabase
-      .delete(TABLE_NAME)
-      .run()
+    writableDatabase.deleteAll(TABLE_NAME)
 
     FileUtils.deleteDirectoryContents(context.getDir(DIRECTORY, Context.MODE_PRIVATE))
 
@@ -1228,7 +1227,7 @@ class AttachmentTable(
       }
 
       val isUsedElsewhere = isAttachmentFileUsedByOtherAttachments(attachmentId, dataInfo)
-      val isSameQuality = transformProperties?.sentMediaQuality == sharedDataInfo.transformProperties?.sentMediaQuality
+      val isSameQuality = (transformProperties?.sentMediaQuality ?: 0) == (sharedDataInfo.transformProperties?.sentMediaQuality ?: 0)
 
       Log.i(TAG, "[deduplicateAttachment] Potential duplicate data file found. usedElsewhere: " + isUsedElsewhere + " sameQuality: " + isSameQuality + " otherFile: " + sharedDataInfo.file.absolutePath)
 

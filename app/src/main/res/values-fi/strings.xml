@@ -179,7 +179,18 @@
     <string name="BlockUnblockDialog_unblock_s">Poistetaanko käyttäjän %1$s esto?</string>
     <string name="BlockUnblockDialog_block">Estä</string>
     <string name="BlockUnblockDialog_block_and_leave">Estä ja poistu</string>
-    <string name="BlockUnblockDialog_report_spam_and_block">Ilmoita roskapostista ja estä</string>
+    <!-- Dialog button label to report as spam and block the person -->
+    <string name="BlockUnblockDialog_report_spam_and_block">Ilmoita ja estä</string>
+    <!-- Dialog title for reporting spam -->
+    <string name="BlockUnblockDialog_report_spam_title">Ilmoita roskapostista?</string>
+    <!-- Dialog button to report as spam only -->
+    <string name="BlockUnblockDialog_report_spam">Ilmoita roskapostista</string>
+    <!-- Dialog message when reporting spam of an individual (1:1 conversation) -->
+    <string name="BlockUnblockDialog_report_spam_description">Signal saa ilmoituksen, että tämä henkilö saattaa lähettää roskapostia. Signal ei näe keskustelujen sisältöä.</string>
+    <!-- Dialog message when reporting spam of a group and we can determine the group member that invited you, placeholder is a name -->
+    <string name="BlockUnblockDialog_report_spam_group_named_adder">Signal saa ilmoituksen, että sinut tähän ryhmään kutsunut %1$s saattaa lähettää roskapostia. Signal ei näe keskustelujen sisältöä.</string>
+    <!-- Dialog message when reporting spam of a group and we cannot determine the group member that invited you -->
+    <string name="BlockUnblockDialog_report_spam_group_unknown_adder">Signal saa ilmoituksen, että sinut tähän ryhmään kutsunut henkilö saattaa lähettää roskapostia. Signal ei näe keskustelujen sisältöä.</string>
 
     <!-- BucketedThreadMedia -->
     <string name="BucketedThreadMedia_Today">tänään</string>
@@ -480,11 +491,11 @@
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Vastaa viestiin nopeasti pyyhkäisemällä vasemmalle</string>
     <string name="ConversationFragment_view_once_media_is_deleted_after_sending">Kertaluontoinen media poistetaan lähettämisen jälkeen</string>
     <string name="ConversationFragment_you_already_viewed_this_message">Olet jo katsonut tämän viestin</string>
-    <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Voit lisätä itsellesi muistiinpanoja tähän keskusteluun. Jos tililläsi on yhdistettyjä laitteita, uudet muistiinpanot synkronoidaan.</string>
+    <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Voit lisätä itsellesi muistiinpanoja tähän keskusteluun. Jos tililläsi on linkitettyjä laitteita, uudet muistiinpanot synkronoidaan.</string>
     <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d ryhmän jäsenellä on sama nimi.</string>
     <string name="ConversationFragment__tap_to_review">Tarkista napauttamalla</string>
-    <string name="ConversationFragment__review_requests_carefully">Tarkista pyynnöt huolellisesti</string>
-    <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly löysi toisen yhteystiedon samalla nimellä.</string>
+    <!-- The body of a banner that can show up at the top of a chat, letting the user know that you have two contacts with the same name -->
+    <string name="ConversationFragment__review_banner_body">Tällä henkilöllä on sama nimi kuin toisella kontaktilla</string>
     <string name="ConversationFragment_contact_us">Ota yhteyttä</string>
     <string name="ConversationFragment_verify">Vahvista</string>
     <string name="ConversationFragment_not_now">Ei nyt</string>
@@ -510,6 +521,55 @@
     <string name="ConversationFragment__content_description_launch_signal_button">Avaa Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Ei enää varmennettu</string>
+    <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
+    <string name="ConversationFragment_safety_tips">Turvallisuusvinkkejä</string>
+    <!-- Menu option to report spam in a conversation -->
+    <string name="ConversationFragment_report_spam">Ilmoita roskapostista</string>
+    <!-- Menu option to block in a conversation -->
+    <string name="ConversationFragment_block">Estä</string>
+    <!-- Menu otpion to accept a message request in a conversation -->
+    <string name="ConversationFragment_accept">Hyväksy</string>
+    <!-- Menu option to delete an entire chat in a conversation -->
+    <string name="ConversationFragment_delete_chat">Poista keskustelu</string>
+    <!-- Menu option to unblock in a conversation -->
+    <string name="ConversationFragment_unblock">Poista esto</string>
+    <!-- Dialog title shown after reporting spam and tapping the conversation item -->
+    <string name="ConversationFragment_reported_spam">Ilmoitettu roskapostista</string>
+    <!-- Dialog message shown after reporting spam and tapping the conversation item -->
+    <string name="ConversationFragment_reported_spam_message">Signal has been notified that this person may be sending spam. Signal can’t see the content of any chats.</string>
+    <!-- Toast shown after reporting spam and tapping the conversation item -->
+    <string name="ConversationFragment_reported_as_spam">Ilmoitettu roskapostista</string>
+    <!-- Toast shown after reporting and blocking a conversation -->
+    <string name="ConversationFragment_reported_as_spam_and_blocked">Ilmoitettu roskapostista ja estetty</string>
+    <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
+    <string name="ConversationFragment_you_accepted_a_message_request_from_s">Hyväksyit viestipyynnön käyttäjältä %1$s. Jos tämä oli virhe, voit valita toiminnon alta.</string>
+
+    <!-- Title of Safety Tips bottom sheet dialog -->
+    <string name="SafetyTips_title">Turvallisuusvinkkejä</string>
+    <!-- Dialog subtitle when showign tips for a 1:1 conversation -->
+    <string name="SafetyTips_subtitle_individual">Ole varovainen vastaanottaessasi viestipyyntöjä tuntemattomilta henkilöiltä. Varo seuraavia:</string>
+    <!-- Dialog subtitle when showing tips for a group conversation -->
+    <string name="SafetyTips_subtitle_group">Tarkista pyyntö huolellisesti. Yksikään kontakteistasi tai ihmisistä, joiden kanssa keskustelet, ei ole tässä ryhmässä. Tässä muutamia asioita, joita kiinnittää varoa:</string>
+    <!-- Button text to move to the previous tip-->
+    <string name="SafetyTips_previous_tip">Edellinen vinkki</string>
+    <!-- Button text to move to the next tip -->
+    <string name="SafetyTips_next_tip">Seuraava vinkki</string>
+    <!-- Title of tip 1 -->
+    <string name="SafetyTips_tip1_title">Kryptovaluutta- tai muut rahahuijaukset</string>
+    <!-- Message of tip 1 -->
+    <string name="SafetyTips_tip1_message">If someone you don’t know messages about cryptocurrency (like Bitcoin) or a financial opportunity, be careful—it’s likely spam.</string>
+    <!-- Title of tip 2 -->
+    <string name="SafetyTips_tip2_title">Epämääräisiä tai merkityksettömiä viestejä</string>
+    <!-- Message of tip 2 -->
+    <string name="SafetyTips_tip2_message">Herättääkseen mielenkiintosi roskapostittajat aloittavat usein yksinkertaisella viestillä, kuten ”Hei”. Jos vastaat, he jatkavat sitouttamista.</string>
+    <!-- Title of tip 3 -->
+    <string name="SafetyTips_tip3_title">Viestit, joissa on linkkejä</string>
+    <!-- Message of tip 3 -->
+    <string name="SafetyTips_tip3_message">Ole varovainen tuntemattomien lähettämissä viesteissä, joissa on linkkejä verkkosivustoille. Älä koskaan käy viestin linkeissä, jos et luota sen lähettäjään.</string>
+    <!-- Title of tip 4 -->
+    <string name="SafetyTips_tip4_title">Väärennetyt yritykset ja organisaatiot</string>
+    <!-- Message of tip 4 -->
+    <string name="SafetyTips_tip4_message">Varo yrityksiä tai virastoja, jotka ottavat sinuun yhteyttä. Viestit, joissa mainitaan esim. verovirasto tai logistiikkayhtiö, voivat olla roskapostia.</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">Tyhjennä suodatin</string>
@@ -524,7 +584,10 @@
         <item quantity="other">Tämä poistaa kaikki %1$d valittua keskustelua pysyvästi.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Poistetaan</string>
-    <string name="ConversationListFragment_deleting_selected_conversations">Poistetaan valittuja keskusteluja…</string>
+    <plurals name="ConversationListFragment_deleting_selected_conversations">
+        <item quantity="one">Poistetaan valittu keskustelu…</item>
+        <item quantity="other">Poistetaan valitut keskustelut…</item>
+    </plurals>
     <plurals name="ConversationListFragment_conversations_archived">
         <item quantity="one">Keskustelu arkistoitu</item>
         <item quantity="other">%1$d keskustelua arkistoitu</item>
@@ -562,6 +625,8 @@
     <string name="ConversationListFragment__turn_your_notification_profile_on_or_off_here">Kytke ilmoitusprofiilisi käyttöön/pois käytöstä täältä.</string>
     <!-- Message shown in top toast to indicate the named profile is on -->
     <string name="ConversationListFragment__s_on">%1$s käytössä</string>
+    <!-- -->
+    <string name="ConversationListFragment_username_recovered_toast">QR-koodisi ja linkkisi on palautettu oletusasetukseen ja käyttäjänimesi on %1$s</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">Avaintenvaihtoviesti</string>
@@ -606,9 +671,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Kuka voi löytää minut puhelinnumeron avulla?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has">Kuka tahansa, jolla on puhelinnumerosi yhteystiedoissaan, näkee sinut yhteystietona Signalissa. Muut voivat löytää sinut puhelinnumerollasi haun kautta.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Kuka tahansa, jolla on puhelinnumerosi, näkee, että olet Signalissa, ja voi aloittaa keskustelut kanssasi.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_on_signal">Kukaan Signalissa ei voi löytää sinua puhelinnumerosi avulla.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Kukaan ei näe, että olet Signalissa, ellet lähetä heille viestiä tai keskustele heidän kanssaan.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Palautetaanko varmuuskopiosta?</string>
@@ -996,8 +1061,12 @@
     <string name="GroupMentionSettingDialog_dont_notify_me">Älä ilmoita</string>
 
     <!-- ManageProfileFragment -->
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+    <string name="ManageProfileFragment__your_username">Käyttäjänimi, QR-koodi ja linkki eivät näy profiilissasi. Jaa käyttäjänimesi vain henkilöille, joihin luotat.</string>
+    <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc, shown when you have no username -->
+    <string name="ManageProfileFragment__username_footer_no_username">Ihmiset voivat nyt lähettää sinulle viestejä valinnaisella käyttäjänimelläsi, joten sinun ei tarvitse antaa puhelinnumeroasi. </string>
     <string name="ManageProfileFragment_profile_name">Profiilin nimi</string>
-    <string name="ManageProfileFragment_username">Käyttäjätunnus</string>
+    <string name="ManageProfileFragment_username">Käyttäjänimi</string>
     <string name="ManageProfileFragment_about">Tiedot</string>
     <string name="ManageProfileFragment_failed_to_set_avatar">Avatarin asettaminen epäonnistui</string>
     <string name="ManageProfileFragment_badges">Merkit</string>
@@ -1314,8 +1383,8 @@
     </plurals>
 
     <!-- Profile change updates -->
-    <string name="MessageRecord_changed_their_profile_name_to">%1$s muutti profiilinimekseen %2$s.</string>
-    <string name="MessageRecord_changed_their_profile_name_from_to">%1$s muutti profiilinimensä %2$s nimeksi %3$s.</string>
+    <string name="MessageRecord_changed_their_profile_name_to">%1$s muutti profiilinsa nimeksi %2$s.</string>
+    <string name="MessageRecord_changed_their_profile_name_from_to">%1$s muutti profiilinsa nimen %2$s nimeksi %3$s.</string>
     <string name="MessageRecord_changed_their_profile">%1$s muutti profiiliaan.</string>
 
     <!-- GV2 specific -->
@@ -1529,6 +1598,10 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Et voi enää lähettää tekstiviestejä Mollyissa. Kutsu %1$s Mollyiin, niin voit jatkaa keskustelua täällä.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Maksu: %1$s</string>
+    <!-- Update message shown in chat after reporting it as spam -->
+    <string name="MessageRecord_reported_as_spam">Ilmoitettu roskapostista</string>
+    <!-- Update message shown in chat after accept a message request -->
+    <string name="MessageRecord_you_accepted_the_message_request">Hyväksyit viestipyynnön</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Hyväksy</string>
@@ -1575,6 +1648,8 @@
         <item quantity="one">%1$d toinen ryhmä</item>
         <item quantity="other">%1$d muuta ryhmää</item>
     </plurals>
+    <!-- Button label to report spam for a conversation when in a message request state -->
+    <string name="MessageRequestBottomView_report">Ilmoita…</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Salalauseet eivät täsmää!</string>
@@ -1583,7 +1658,7 @@
 
     <!-- DeviceProvisioningActivity -->
     <string name="DeviceProvisioningActivity_link_this_device">Yhdistetäänkö tämä laite?</string>
-    <string name="DeviceProvisioningActivity_continue">JATKA</string>
+    <string name="DeviceProvisioningActivity_continue">Jatka</string>
 
     <string name="DeviceProvisioningActivity_content_intro">Se saa luvan</string>
     <string name="DeviceProvisioningActivity_content_bullets">
@@ -1889,6 +1964,10 @@
     <!-- AboutSheet -->
     <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
     <string name="AboutSheet__signal_connection">Signal-kontaktit</string>
+    <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
+    <string name="AboutSheet__verified">Vahvistettu</string>
+    <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
+    <string name="AboutSheet__no_direct_message">Ei suoria viestejä käyttäjän %1$s kanssa</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s on järjestelmän yhteystiedoissa</string>
     <!-- Notice in a row when user has no groups in common -->
@@ -1896,7 +1975,10 @@
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">Tarkista pyynnöt huolellisesti</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
-    <string name="AboutSheet__d_groups_in_common">%1$d yhteistä ryhmää</string>
+    <plurals name="AboutSheet__d_groups_in">
+        <item quantity="one">%1$d yhteinen ryhmä</item>
+        <item quantity="other">%1$d yhteistä ryhmää</item>
+    </plurals>
     <!-- Text displayed in title for external recipients -->
     <string name="AboutSheet__about">Tiedot</string>
     <!-- Text displayed in title for you -->
@@ -2209,17 +2291,17 @@
     <string name="UsernameEditFragment__add_a_username">Lisää käyttäjänimi</string>
     <!-- Instructional text at the top of the username edit screen -->
     <string name="UsernameEditFragment__choose_your_username">Valitse käyttäjänimi</string>
-    <string name="UsernameEditFragment_username">Käyttäjätunnus</string>
+    <string name="UsernameEditFragment_username">Käyttäjänimi</string>
     <string name="UsernameEditFragment_delete">Poista</string>
-    <string name="UsernameEditFragment_successfully_removed_username">Käyttäjätunnuksen poisto onnistui.</string>
+    <string name="UsernameEditFragment_successfully_removed_username">Käyttäjänimen poisto onnistui.</string>
     <string name="UsernameEditFragment_encountered_a_network_error">Verkkovirhe.</string>
-    <string name="UsernameEditFragment_this_username_is_taken">Tämä käyttäjätunnus on varattu.</string>
-    <string name="UsernameEditFragment_usernames_can_only_include">Käyttäjätunnukset voivat sisältää vain merkkejä a–z, 0–9 ja alaviivoja.</string>
-    <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Käyttäjätunnus ei voi alkaa numerolla.</string>
-    <string name="UsernameEditFragment_username_is_invalid">Käyttäjätunnus on virheellinen.</string>
-    <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Käyttäjätunnuksen on oltava %1$d–%2$d merkkiä pitkä.</string>
+    <string name="UsernameEditFragment_this_username_is_taken">Tämä käyttäjänimi on varattu.</string>
+    <string name="UsernameEditFragment_usernames_can_only_include">Käyttäjänimet voivat sisältää vain merkkejä a–z, 0–9 ja alaviivoja.</string>
+    <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Käyttäjänimi ei voi alkaa numerolla.</string>
+    <string name="UsernameEditFragment_username_is_invalid">Käyttäjänimi on virheellinen.</string>
+    <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Käyttäjänimen on oltava %1$d–%2$d merkkiä pitkä.</string>
     <!-- Explanation about what usernames provide -->
-    <string name="UsernameEditFragment__usernames_let_others_message">Käyttäjänimien avulla muut voivat lähettää sinulle viestejä ilman puhelinnumeroasi. Käyttäjänimi on liitetty numerosarjaan osoitteesi yksityisyyden suojaamiseksi.</string>
+    <string name="UsernameEditFragment__usernames_let_others_message">Käyttäjänimi yhdistetään aina numerosarjaan.</string>
     <!-- Dialog title for explanation about numbers at the end of the username -->
     <string name="UsernameEditFragment__what_is_this_number">Mikä tämä numero on?</string>
     <string name="UsernameEditFragment__these_digits_help_keep">Nämä numerot auttavat suojaamaan käyttäjänimesi yksityisyyttä, jotta voit välttää ei-toivottuja viestejä. Jaa käyttäjänimesi vain niille henkilöille ja ryhmille, joiden kanssa haluat keskustella. Jos vaihdat käyttäjänimeä, saat uuden numerosarjan.</string>
@@ -2233,6 +2315,16 @@
     <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">Virheellinen käyttäjänimi, anna vähintään %1$d numeroa.</string>
     <!-- Displayed when the chosen discriminator is too long -->
     <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">Virheellinen käyttäjänimi, anna vähintään %1$d numeroa.</string>
+    <!-- Displayed when the chosen discriminator is 00 -->
+    <string name="UsernameEditFragment__this_number_cant_be_00">Numero ei voi olla 00. Anna numero väliltä 1–9</string>
+    <!-- Displayed when the chosen discriminator starts with 0 and has a length > 2 -->
+    <string name="UsernameEditFragment__this_number_cant_start_with_0">Numbers with more than 2 digits can\'t start with 0</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
+    <string name="UsernameEditFragment_recovery_dialog_confirmation">Käyttäjänimen palauttaminen palauttaa nykyisen QR-koodisi ja linkkisi oletusasetukseen. Oletko varma?</string>
+    <!-- The body of an alert dialog asking the user to confirm that they want to change their username, even if it resets their link -->
+    <string name="UsernameEditFragment_change_confirmation_message">Käyttäjänimen vaihtaminen nollaa nykyisen QR-koodisi ja linkkisi. Oletko varma?</string>
+    <!-- Text for a button in a dialog asking if the user would like to continue the operation of changing their username -->
+    <string name="UsernameEditFragment_continue">Jatka</string>
 
     <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
         <item quantity="one">Signalissa on %1$d kontakti!</item>
@@ -2419,6 +2511,26 @@
     <!-- Notification subtext for group stories -->
     <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • Tarina</string>
 
+    <!-- NewWaysToConnectDialogFragment -->
+    <!-- Fragment title, displayed at the top of the content -->
+    <string name="NewWaysToConnectDialogFragment__new_ways_to_connect">Uusia tapoja pitää yhteyttä</string>
+    <!-- Row item title for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__phone_number_privacy">Puhelinnumeron yksityisyys</string>
+    <!-- Row item description for phone number privacy explainer -->
+    <string name="NewWaysToConnectDialogFragment__your_phone_number_is_no_longer_shared">Puhelinnumeroasi ei enää jaeta keskusteluissa. Jos numerosi on tallennettu ystäväsi yhteystietoihin, hän näkee sen edelleen.</string>
+    <!-- Row item title for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames">Käyttäjänimet</string>
+    <!-- Row item description for usernames explainer -->
+    <string name="NewWaysToConnectDialogFragment__people_can_now_message_you_using_your_optional_username">Ihmiset voivat nyt lähettää sinulle viestejä valinnaisella käyttäjänimelläsi, joten sinun ei tarvitse antaa puhelinnumeroasi. Käyttäjänimi ei näy profiilissasi.</string>
+    <!-- Row item title for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__qr_codes_and_links">QR-koodit ja linkit</string>
+    <!-- Row item description for qr code and links explainer -->
+    <string name="NewWaysToConnectDialogFragment__usernames_have_a_unique_qr_code">Käyttäjänimillä on yksilöllinen QR-koodi ja linkki, jotka voit jakaa ystävillesi, jotta he voivat aloittaa keskustelun kanssasi.</string>
+    <!-- Button label for not right now -->
+    <string name="NewWaysToConnectDialogFragment__not_now">Ei nyt</string>
+    <!-- Button label for continue -->
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">Määritä käyttäjänimi</string>
+
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">Toista video</string>
     <string name="ThumbnailView_Has_a_caption_description">Sisältää kuvatekstin</string>
@@ -2523,8 +2635,8 @@
     <!-- ContactSelectionListFragment-->
     <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly tarvitsee luvan käyttää laitteesi yhteystietoja voidakseen näyttää ne, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Yhteystiedot\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Yhteystietojen haussa tapahtui virhe. Tarkista verkkoyhteytesi.</string>
-    <string name="ContactSelectionListFragment_username_not_found">Käyttäjätunnusta ei löydy</string>
-    <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s ei käytä Signalia. Tarkista käyttäjätunnus ja yritä uudelleen."</string>
+    <string name="ContactSelectionListFragment_username_not_found">Käyttäjänimeä ei löydy</string>
+    <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s ei käytä Signalia. Tarkista käyttäjänimi ja yritä uudelleen."</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">Sinun ei tarvitse lisätä itseäsi ryhmään</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">Ryhmän enimmäiskoko saavutettu</string>
     <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Signal-ryhmissä voi olla enintään %1$d jäsentä.</string>
@@ -2534,6 +2646,10 @@
         <item quantity="one">%1$d jäsen</item>
         <item quantity="other">%1$d jäsentä</item>
     </plurals>
+    <!-- Text on row item to find user by phone number -->
+    <string name="ContactSelectionListFragment__find_by_phone_number">Etsi puhelinnumerolla</string>
+    <!-- Text on row item to find user by username -->
+    <string name="ContactSelectionListFragment__find_by_username">Etsi käyttäjänimellä</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly tarvitsee luvan käyttää yhteystietojasi, jotta se voi näyttää ne.</string>
@@ -2605,6 +2721,8 @@
     <string name="ConversationUpdateItem_activate_payments">Aktivoi maksut</string>
     <!-- Update item alerting the user they hid this person and that they can message them to unhide them -->
     <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">Olet poistanut tämän henkilön. Jos lähetät hänelle viestin uudelleen, hänet lisätään takaisin luetteloosi.</string>
+    <!-- Update item button text shown for the accepted message request update message -->
+    <string name="ConversationUpdateItem_options">Valinnat</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Soita … keskeytä</string>
@@ -3017,7 +3135,7 @@
     <string name="preferences__mmsc_url">MMSC URL</string>
     <string name="preferences__mms_proxy_host">MMS-välityspalvelin</string>
     <string name="preferences__mms_proxy_port">MMS-välityspalvelimen portti</string>
-    <string name="preferences__mmsc_username">MMSC-käyttäjätunnus</string>
+    <string name="preferences__mmsc_username">MMSC-käyttäjänimi</string>
     <string name="preferences__mmsc_password">MMSC-salasana</string>
     <string name="preferences__sms_delivery_reports">Tekstiviestien toimitusvahvistukset</string>
     <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Pyydä vahvistus jokaisen lähetetyn tekstiviestin toimituksesta</string>
@@ -3724,7 +3842,7 @@
     <string name="BackupDialog_delete_backups">Poistetaanko varmuuskopiot?</string>
     <string name="BackupDialog_disable_and_delete_all_local_backups">Otetaanko paikalliset varmuuskopiot pois käytöstä ja poistetaanko ne?</string>
     <string name="BackupDialog_delete_backups_statement">Poista varmuuskopiot</string>
-    <string name="BackupDialog_to_enable_backups_choose_a_folder">Valitse kansio, jotta varmuuskopioit voidaan ottaa käyttöön. Varmuuskopiot tallennetaan tähän paikkaan.</string>
+    <string name="BackupDialog_to_enable_backups_choose_a_folder">Valitse kansio, jotta varmuuskopiot voidaan ottaa käyttöön. Varmuuskopiot tallennetaan tähän paikkaan.</string>
     <string name="BackupDialog_choose_folder">Valitse kansio</string>
     <string name="BackupDialog_copied_to_clipboard">Kopioitu leikepöydälle</string>
     <string name="BackupDialog_no_file_picker_available">Tiedostonvalitsinta ei ole saatavilla.</string>
@@ -3749,8 +3867,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Soita minulle (%1$02d.%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Lähetä koodi uudelleen (%1$02d.%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Ota yhteyttä Signalin tukeen</string>
-    <string name="RegistrationActivity_code_support_subject">Signalin rekisteröinti – vahvistuskoodi Androidille</string>
+    <string name="RegistrationActivity_contact_signal_support">Ota yhteyttä Mollyin tukeen</string>
+    <string name="RegistrationActivity_code_support_subject">Mollyin rekisteröinti – vahvistuskoodi Androidille</string>
     <string name="RegistrationActivity_incorrect_code">Väärä koodi</string>
     <string name="BackupUtil_never">ei koskaan</string>
     <string name="BackupUtil_unknown">Tuntematon</string>
@@ -3759,13 +3877,21 @@
     <!-- Subtext below option to launch into phone number privacy settings screen -->
     <string name="preferences_app_protection__choose_who_can_see">Valitse, kuka voi nähdä puhelinnumerosi ja kuka voi ottaa sinuun yhteyttä Mollyissa sen avulla.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
-    <string name="PhoneNumberPrivacySettingsFragment__who_can_see_my_number">Kuka voi nähdä numeroni</string>
-    <!-- Subtext below radio buttons when who can see my number is set to nobody -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_will_see">Kukaan ei näe puhelinnumeroasi Mollyissa</string>
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Kuka voi nähdä numeroni</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_on_description">Puhelinnumerosi näkyy ihmisille ja ryhmille, joille lähetät viestejä.</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_on_description">Puhelinnumerosi ei näy kenellekään, ellei hän ole tallentanut sitä puhelimensa yhteystietoihin.</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_off_description">Puhelinnumerosi ei näy kenellekään.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
-    <string name="PhoneNumberPrivacySettingsFragment__who_can_find_me_by_number">Kuka voi löytää minut puhelinnumerolla</string>
-    <!-- Subtext below radio buttons when who can see my number is set to everyone -->
-    <string name="PhoneNumberPrivacySettingsFragment__your_phone_number">Puhelinnumerosi näkyy henkilöille ja ryhmille, joille lähetät viestejä. Henkilöt, joilla on puhelinnumerosi puhelimensa yhteystiedoissa, näkevät sen myös Mollyissa.</string>
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_find_me_by_number_heading">Kuka voi löytää minut puhelinnumerolla</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_on_description">Kuka tahansa, jolla on puhelinnumerosi, näkee, että olet Signalissa, ja voi aloittaa keskustelut kanssasi.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">Kukaan ei näe, että olet Signalissa, ellet lähetä heille viestiä tai keskustele heidän kanssaan.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Jos haluat muuttaa tätä asetusta, määritä Kuka näkee numeroni -asetukseksi Ei kukaan."</string>
     <string name="PhoneNumberPrivacy_everyone">Kaikki</string>
     <string name="PhoneNumberPrivacy_nobody">Ei kukaan</string>
     <string name="preferences_app_protection__screen_lock">Näytön lukitus</string>
@@ -3794,6 +3920,8 @@
     <string name="prompt_passphrase_activity__signal_is_locked">Molly on lukittu</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">AVAA NAPAUTTAMALLA</string>
     <string name="Recipient_unknown">Tuntematon</string>
+    <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
+    <string name="Recipient_deleted_account">Poista tili</string>
 
     <!-- Option in settings that will take use to re-register if they are no longer registered -->
     <string name="preferences_account_reregister">Rekisteröi tili uudelleen</string>
@@ -3996,8 +4124,10 @@
     <string name="BlockedUsersActivity__s_has_been_unblocked">Henkilön %1$s esto on poistettu.</string>
 
     <!-- ReviewCardDialogFragment -->
+    <!-- Title of a screen where the user will be prompted to review group members with the same name -->
     <string name="ReviewCardDialogFragment__review_members">Tarkista jäsenet</string>
-    <string name="ReviewCardDialogFragment__review_request">Tarkista pyyntö</string>
+    <!-- Title of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <string name="ReviewCardDialogFragment__review_request">Tarkastuspyyntö</string>
     <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">Ryhmän %1$d jäsenistä on käyttäjiä, joilla on sama nimi. Tarkista jäsenet alapuolelta ja korjaa ongelma.</string>
     <string name="ReviewCardDialogFragment__if_youre_not_sure">Jos et ole varma lähettäjän henkilöllisyydestä, tarkista henkilötiedot alta.</string>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Ei muita yhteisiä ryhmiä.</string>
@@ -4378,27 +4508,6 @@
     <!-- ChatsSettingsFragment -->
     <string name="ChatsSettingsFragment__keyboard">Näppäimistö</string>
     <string name="ChatsSettingsFragment__enter_key_sends">Lähetä viesti rivinvaihtonäppäimellä</string>
-
-    <!--SmsSettingsFragment -->
-    <string name="SmsSettingsFragment__use_as_default_sms_app">Käytä oletussovelluksena tekstiviesteille</string>
-    <!-- Preference title to export sms -->
-    <string name="SmsSettingsFragment__export_sms_messages">Vie tekstiviestejä</string>
-    <!-- Preference title to re-export sms -->
-    <string name="SmsSettingsFragment__export_sms_messages_again">Vie tekstiviestit uudelleen</string>
-    <!-- Preference title to delete sms -->
-    <string name="SmsSettingsFragment__remove_sms_messages">Poista tekstiviestit</string>
-    <!-- Snackbar text to confirm deletion -->
-    <string name="SmsSettingsFragment__removing_sms_messages_from_signal">Poistetaan tekstiviestejä Signalista…</string>
-    <!-- Snackbar text to indicate can delete later -->
-    <string name="SmsSettingsFragment__you_can_remove_sms_messages_from_signal_in_settings">Voit poistaa tekstiviestejä Signalista asetuksissa milloin tahansa.</string>
-    <!-- Description for export sms preference -->
-    <string name="SmsSettingsFragment__you_can_export_your_sms_messages_to_your_phones_sms_database">Voit viedä tekstiviestit puhelimesi tekstiviestitietokantaan.</string>
-    <!-- Description for re-export sms preference -->
-    <string name="SmsSettingsFragment__exporting_again_can_result_in_duplicate_messages">Uudelleen vieminen voi aiheuttaa viestien kaksoiskappaleita.</string>
-    <!-- Description for remove sms preference -->
-    <string name="SmsSettingsFragment__remove_sms_messages_from_signal_to_clear_up_storage_space">Poista tekstiviestit Signalista vapauttaaksesi tallennustilaa.</string>
-    <!-- Information message shown at the top of sms settings to indicate it is being removed soon. -->
-    <string name="SmsSettingsFragment__sms_support_will_be_removed_soon_to_focus_on_encrypted_messaging">Tekstiviestituki päättyy pian palvelun keskittyessä viestien salaukseen.</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">Viestit</string>
@@ -5790,48 +5899,6 @@
     <!-- Generic title for overflow menus -->
     <string name="OverflowMenu__overflow_menu">Ylivuotovalikko</string>
 
-    <!-- SMS Export Service -->
-    <!-- Displayed in the notification while export is running -->
-    <string name="SignalSmsExportService__exporting_messages">Viedään viestejä…</string>
-    <!-- Displayed in the notification title when export completes -->
-    <string name="SignalSmsExportService__signal_sms_export_complete">Signalin tekstiviestien vienti valmis</string>
-    <!-- Displayed in the notification message when export completes -->
-    <string name="SignalSmsExportService__tap_to_return_to_signal">Napauta palataksesi Signaliin</string>
-
-    <!-- ExportYourSmsMessagesFragment -->
-    <!-- Title of the screen -->
-    <string name="ExportYourSmsMessagesFragment__export_your_sms_messages">Vie tekstiviestisi</string>
-    <!-- Message of the screen -->
-    <string name="ExportYourSmsMessagesFragment__you_can_export_your_sms_messages_to_your_phones_sms_database_and_youll_have_the_option_to_keep_or_remove_them_from_signal">Voit viedä tekstiviestit puhelimesi tekstiviestitietokantaan. Sinulla on mahdollisuus säilyttää tai poistaa ne Signalista. Näin muut tekstiviestisovellukset puhelimessasi voivat tuoda niitä. Tämä ei luo jaettavaa tiedostoa tekstiviestihistoriasta.</string>
-    <!-- Button label to begin export -->
-    <string name="ExportYourSmsMessagesFragment__continue">Jatka</string>
-
-    <!-- ExportingSmsMessagesFragment -->
-    <!-- Title of the screen -->
-    <string name="ExportingSmsMessagesFragment__exporting_sms_messages">Viedään tekstiviestejä</string>
-    <!-- Message of the screen when exporting sms messages -->
-    <string name="ExportingSmsMessagesFragment__this_may_take_awhile">Tämä saattaa kestää hetken</string>
-    <!-- Progress indicator for export -->
-    <plurals name="ExportingSmsMessagesFragment__exporting_d_of_d">
-        <item quantity="one">Viedään %1$d/%2$d…</item>
-        <item quantity="other">Viedään %1$d/%2$d…</item>
-    </plurals>
-    <!-- Alert dialog title shown when we think a user may not have enough local storage available to export sms messages -->
-    <string name="ExportingSmsMessagesFragment__you_may_not_have_enough_disk_space">Sinulla ei ehkä ole tarpeeksi levytilaa</string>
-    <!-- Alert dialog message shown when we think a user may not have enough local storage available to export sms messages, placeholder is the file size, e.g., 128kB -->
-    <string name="ExportingSmsMessagesFragment__you_need_approximately_s_to_export_your_messages_ensure_you_have_enough_space_before_continuing">Tarvitset noin %1$s, jotta voit viedä viestit. Varmista, että sinulla on riittävästi tilaa, ennen kuin jatkat.</string>
-    <!-- Alert dialog button to continue with exporting sms after seeing the lack of storage warning -->
-    <string name="ExportingSmsMessagesFragment__continue_anyway">Jatka silti</string>
-    <!-- Dialog text shown when Signal isn\'t granted the sms permission needed to export messages, different than being selected as the sms app -->
-    <string name="ExportingSmsMessagesFragment__signal_needs_the_sms_permission_to_be_able_to_export_your_sms_messages">Signal tarvitsee tekstiviestien käyttöoikeuden tekstiviestien tuontia varten.</string>
-
-    <!-- ChooseANewDefaultSmsAppFragment -->
-    <!-- Title of the screen -->
-    <string name="ChooseANewDefaultSmsAppFragment__choose_a_new">Valitse uusi oletusarvoinen tekstiviestisovellus</string>
-    <!-- Button label to launch picker -->
-    <string name="ChooseANewDefaultSmsAppFragment__continue">Jatka</string>
-    <!-- Button label for when done with changing default SMS app -->
-    <string name="ChooseANewDefaultSmsAppFragment__done">Valmis</string>
     <!-- First step number/bullet for choose new default sms app instructions -->
     <string name="ChooseANewDefaultSmsAppFragment__bullet_1">1</string>
     <!-- Second step number/bullet for choose new default sms app instructions -->
@@ -5840,47 +5907,6 @@
     <string name="ChooseANewDefaultSmsAppFragment__bullet_3">3</string>
     <!-- Fourth step number/bullet for choose new default sms app instructions -->
     <string name="ChooseANewDefaultSmsAppFragment__bullet_4">4</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__tap_continue_to_open_the_defaults_apps_screen_in_settings">Avaa Oletussovellukset -näyttö asetuksissa napauttamalla Jatka</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__select_sms_app_from_the_list">Valitse luettelosta vaihtoehto Tekstiviestisovellus</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__choose_another_app_to_use_for_sms_messaging">Valitse toinen sovellus, jota käytetään tekstiviesteissä</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__return_to_signal">Palaa Signaliin</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__open_your_phones_settings_app">Avaa puhelimesi Asetukset-sovellus</string>
-    <!-- Instruction step for choosing a new default sms app -->
-    <string name="ChooseANewDefaultSmsAppFragment__navigate_to_apps_default_apps_sms_app">Valitse Sovellukset &gt; Oletussovellukset &gt; Tekstiviestisovellus</string>
-
-    <!-- RemoveSmsMessagesDialogFragment -->
-    <!-- Action button to keep messages -->
-    <string name="RemoveSmsMessagesDialogFragment__keep_messages">Säilytä viestit</string>
-    <!-- Action button to remove messages -->
-    <string name="RemoveSmsMessagesDialogFragment__remove_messages">Poista viestit</string>
-    <!-- Title of dialog -->
-    <string name="RemoveSmsMessagesDialogFragment__remove_sms_messages">Haluatko poistaa tekstiviestit Signalista?</string>
-    <!-- Message of dialog -->
-    <string name="RemoveSmsMessagesDialogFragment__you_can_now_remove_sms_messages_from_signal">Voit nyt poistaa tekstiviestit Signalista vapauttaaksesi tallennustilaa. Ne ovat edelleen muiden tekstiviestisovellusten käytettävissä puhelimessasi, vaikka poistatkin ne.</string>
-
-    <!-- ReExportSmsMessagesDialogFragment -->
-    <!-- Action button to re-export messages -->
-    <string name="ReExportSmsMessagesDialogFragment__continue">Jatka</string>
-    <!-- Action button to cancel re-export process -->
-    <string name="ReExportSmsMessagesDialogFragment__cancel">Peruuta</string>
-    <!-- Title of dialog -->
-    <string name="ReExportSmsMessagesDialogFragment__export_sms_again">Viedäänkö tekstiviestit uudelleen?</string>
-    <!-- Message of dialog -->
-    <string name="ReExportSmsMessagesDialogFragment__you_already_exported_your_sms_messages">Olet jo vienyt tekstiviestisi.\nVAROITUS: Jatkaminen voi aiheuttaa viestien kaksoiskappaleita.</string>
-
-    <!-- SetSignalAsDefaultSmsAppFragment -->
-    <!-- Title of the screen -->
-    <string name="SetSignalAsDefaultSmsAppFragment__set_signal_as_the_default_sms_app">Määritä Signal tekstiviestien oletussovellukseksi</string>
-    <!-- Message of the screen -->
-    <string name="SetSignalAsDefaultSmsAppFragment__to_export_your_sms_messages">Jos haluat viedä tekstiviestisi, sinun on määritettävä Signal tekstiviestien oletussovellukseksi.</string>
-    <!-- Button label to start export -->
-    <string name="SetSignalAsDefaultSmsAppFragment__next">Seuraava</string>
-
     <!-- BackupSchedulePermission Megaphone -->
     <!-- The title on an alert window that explains to the user that we are unable to backup their messages -->
     <string name="BackupSchedulePermissionMegaphone__cant_back_up_chats">Keskusteluja ei voida varmuuskopioida</string>
@@ -5898,45 +5924,6 @@
     <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Ota käyttöön Salli asetusten hälytykset ja muistutukset -valinta.</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">Siirry asetuksiin</string>
-
-    <!-- SmsExportMegaphoneActivity -->
-    <!-- Phase 2 title of full screen megaphone indicating sms will no longer be supported in the near future -->
-    <string name="SmsExportMegaphoneActivity__signal_will_no_longer_support_sms">Signalin tekstiviestituki on päättymässä</string>
-    <!-- Phase 3 title of full screen megaphone indicating sms is longer supported  -->
-    <string name="SmsExportMegaphoneActivity__signal_no_longer_supports_sms">Signal ei enää tue tekstiviestejä</string>
-    <!-- The text on a button in a popup that, when clicked, will dismiss the popup and schedule the prompt to occur at a later time. -->
-    <string name="SmsExportMegaphoneActivity__remind_me_later">Muistuta minua myöhemmin</string>
-    <!-- The text on a button in a popup that, when clicked, will navigate the user to a web article on SMS removal -->
-
-    <!-- Title for screen shown after sms export has completed -->
-    <string name="ExportSmsCompleteFragment__export_complete">Vienti valmis</string>
-    <!-- Button to continue to next screen -->
-    <string name="ExportSmsCompleteFragment__next">Seuraava</string>
-    <!-- Message showing summary of sms export counts -->
-    <plurals name="ExportSmsCompleteFragment__d_of_d_messages_exported">
-        <item quantity="one">%1$d/%2$d viesti viety</item>
-        <item quantity="other">%1$d/%2$d viestiä viety</item>
-    </plurals>
-
-    <!-- Title of screen shown when some sms messages did not export -->
-    <string name="ExportSmsPartiallyComplete__export_partially_complete">Vienti osittain valmis</string>
-    <!-- Debug step 1 on screen shown when some sms messages did not export -->
-    <string name="ExportSmsPartiallyComplete__ensure_you_have_an_additional_s_free_on_your_phone_to_export_your_messages">Varmista, että puhelimessasi on vielä %1$s vapaata tilaa, jotta voit viedä viestit</string>
-    <!-- Debug step 2 on screen shown when some sms messages dit not export -->
-    <string name="ExportSmsPartiallyComplete__retry_export_which_will_only_retry_messages_that_have_not_yet_been_exported">Yritä viedä uudelleen viestit, joita ei ole vielä viety</string>
-    <!-- Partial sentence for Debug step 3 on screen shown when some sms messages did not export, is combined with \'contact us\' -->
-    <string name="ExportSmsPartiallyComplete__if_the_problem_persists">Jos ongelma jatkuu, </string>
-    <!-- Partial sentence for deubg step 3 on screen shown when some sms messages did not export, combined with \'If the problem persists\', link text to open contact support view -->
-    <string name="ExportSmsPartiallyComplete__contact_us">Ota yhteyttä</string>
-    <!-- Button text to retry sms export -->
-    <string name="ExportSmsPartiallyComplete__retry">Yritä uudelleen</string>
-    <!-- Button text to continue sms export flow and not retry failed message exports -->
-    <string name="ExportSmsPartiallyComplete__continue_anyway">Jatka silti</string>
-    <!-- Title of screen shown when all sms messages failed to export -->
-    <string name="ExportSmsFullError__error_exporting_sms_messages">Virhe vietäessä tekstiviestejä</string>
-    <!-- Helper text shown when all sms messages failed to export -->
-    <string name="ExportSmsFullError__please_try_again_if_the_problem_persists">Yritä uudelleen. Jos ongelma jatkuu, </string>
-
 
     <!-- DonateToSignalFragment -->
     <!-- Title below avatar -->
@@ -6079,6 +6066,12 @@
     <string name="IdealTransferDetailsFragment__email">Sähköposti</string>
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">Valitse pankki</string>
+    <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">Vahvista lahjoitus %1$s</string>
+    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation -->
+    <string name="IdealTransferDetailsFragment__monthly_ideal_warning">Määritä toistuva lahjoitus napauttamalla Jatka. Tämä vahvistaa 0,01 euron veloituksen pankkitiiltäsi. Veloitus mahdollistaa jatkuvan lahjoituksen veloituksen tilitäsi summalla 5 € / kk ja se hyvitetään automaattisesti.</string>
+    <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
+    <string name="IdealTransferDetailsFragment__continue">Jatka</string>
 
     <!-- IdealTransferDetailsBankSelectionDialogFragment -->
     <!-- Title of the screen, displayed in the toolbar -->
@@ -6182,28 +6175,24 @@
     <!-- Displayed in the "clear filter" item in the chat feed if the user opened the filter from the overflow menu -->
     <string name="ChatFilter__tip_pull_down">Vihje: Suodata vetämällä keskusteluluetteloa alaspäin</string>
 
-    <!-- Title for screen describing that sms support is going to be removed soon -->
-    <string name="SmsRemoval_title_going_away">Tekstiviestituki päättyy pian</string>
-    <!-- Bullet point message shown on describing screen as first bullet why sms is being removed, placeholder with be date of removal (e.g., March 21st) -->
-    <string name="SmsRemoval_info_bullet_1">Tekstiviestien tuki Signal-sovelluksessa päättyy pian.</string>
-    <!-- Bullet point message shown on describing screen as second bullet why sms is being removed -->
-    <string name="SmsRemoval_info_bullet_2">Tekstiviestit ovat erilaisia kuin Signal-viestit. <b>Tällä ei ole vaikutusta salattuihin Signal-viesteihin, jotka toimivat edelleen.</b></string>
-    <!-- Bullet point message shown on describing screen as third bullet why sms is being removed -->
-    <string name="SmsRemoval_info_bullet_3">Voit viedä tekstiviestisi ja valita uuden tekstiviestisovelluksen.</string>
-    <!-- Bullet point message shown on describing screen as first bullet variant why sms is being removed when user is locked out of sms -->
-    <string name="SmsRemoval_info_bullet_1_phase_3">Signalin tuki tekstiviestien lähettämiselle on päättynyt.</string>
-    <!-- Button label on sms removal info/megaphone to start the export SMS flow -->
-    <string name="SmsRemoval_export_sms">Vie tekstiviestit</string>
-
     <!-- Set up your username megaphone -->
     <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
     <string name="SetUpYourUsername__set_up_your_signal_username">Määritä Signal-käyttäjänimesi</string>
     <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__usernames_let_others">Käyttäjänimien avulla muut voivat lähettää sinulle viestejä ilman puhelinnumeroasi</string>
+    <string name="SetUpYourUsername__introducing_phone_number_privacy">Esittelyssä puhelinnumeroiden yksityisyys, valinnaiset käyttäjänimet ja linkit.</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__not_now">Ei nyt</string>
+    <string name="SetUpYourUsername__dismiss">Hylkää</string>
     <!-- Displayed as an action on a megaphone which prompts user to set up a username -->
-    <string name="SetUpYourUsername__continue">Jatka</string>
+    <string name="SetUpYourUsername__learn_more">Lue lisää</string>
+
+    <!-- Displayed as a title on a megaphone which prompts user to set up a username -->
+    <string name="PnpLaunchMegaphone_title">Uusia tapoja pitää yhteyttä</string>
+    <!-- Displayed as a description on a megaphone which prompts user to set up a username -->
+    <string name="PnpLaunchMegaphone_body">Esittelyssä puhelinnumeroiden yksityisyys, valinnaiset käyttäjänimet ja linkit.</string>
+    <!-- Displayed as an action on a megaphone which prompts user to set up a username. Clicking it will dismiss the megaphone. -->
+    <string name="PnpLaunchMegaphone_dismiss">Hylkää</string>
+    <!-- Displayed as an action on a megaphone which prompts user to set up a username. Clicking it will open a link. -->
+    <string name="PnpLaunchMegaphone_learn_more">Lue lisää</string>
 
     <!-- Text Formatting -->
     <!-- Popup menu label for applying bold style -->
@@ -6218,18 +6207,6 @@
     <string name="TextFormatting_spoiler">Sumennus</string>
     <!-- Popup menu label for clearing applied formatting -->
     <string name="TextFormatting_clear_formatting">Poista muotoilu</string>
-
-    <!-- UsernameEducationFragment -->
-    <!-- Continue button which takes the user to the add a username screen -->
-    <string name="UsernameEducationFragment__continue">Jatka</string>
-    <!-- Displayed as a title on the username education screen -->
-    <string name="UsernameEducationFragment__set_up_your_signal_username">Määritä Signal-käyttäjänimesi</string>
-    <!-- Displayed as body text in the username education screen -->
-    <string name="UsernameEducationFragment__usernames_are_paired_with_a_set_of_digits">Käyttäjänimi liitetään numerosarjaan, eikä sitä näytetä profiilissasi</string>
-    <!-- Displayed as body text in the username education screen -->
-    <string name="UsernameEducationFragment__each_username_has_a_unique_qr_code">Jokaisella käyttäjänimellä on yksilöllinen QR-koodi ja linkki, jotka voit jakaa ystävillesi, jotta he voivat aloittaa keskustelun kanssasi</string>
-    <!-- Displayed as body text in the username education screen. The string references the names of settings, so they should match our translations for those settings. -->
-    <string name="UsernameEducationFragment__turn_off_phone_number_discovery">Poista puhelinnumerohaku käytöstä kohdassa Asetukset &gt; Yksityisyys &gt; Puhelinnumero &gt; Kuka voi löytää numeroni, jos haluat käyttää käyttäjänimeä ensisijaisena tapana, jonka avulla muut voivat ottaa sinuun yhteyttä</string>
 
     <!-- Username edit dialog -->
     <!-- Option to open username editor displayed as a list item in a dialog -->
@@ -6468,6 +6445,8 @@
     <!-- Displayed as body in dialog when user attempts to delete the link -->
     <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">Poistamisen jälkeen linkki ei ole enää kenenkään käytettävissä.</string>
 
+    <!-- Button label for the link button in the username link settings -->
+    <string name="UsernameLinkSettings_link_button_label">Linkki</string>
     <!-- Button label for the share button in the username link settings -->
     <string name="UsernameLinkSettings_share_button_label">Jaa</string>
     <!-- Button label for the color selector button in the username link settings -->
@@ -6512,6 +6491,12 @@
     <string name="UsernameLinkSettings_reset_link_result_network_unavailable">Sinulla ei ole verkkoyhteyttä. Linkkiäsi ei nollattu. Yritä myöhemmin uudelleen.</string>
     <!-- Body of a dialog that is displayed when we failed to reset your username link because of a transient network issue. -->
     <string name="UsernameLinkSettings_reset_link_result_network_error">Linkkiä nollatessa tapahtui verkkovirhe. Yritä myöhemmin uudelleen.</string>
+    <!-- Body of a dialog that is displayed when we failed to reset your username link because of an unknown error. -->
+    <string name="UsernameLinkSettings_reset_link_result_unknown_error">Linkin palautuksessa tapahtui odottamaton virhe. Yritä myöhemmin uudelleen.</string>
+    <!-- Body of a dialog that is displayed when we successfully reset you username link. -->
+    <string name="UsernameLinkSettings_reset_link_result_success">QR-koodisi ja linkkisi on palautettu oletusasetukseen ja uusi QR-koodi ja linkki on luotu.</string>
+    <!-- Shown on the generated username qr code image to explain how to use it. -->
+    <string name="UsernameLinkSettings_scan_this_qr_code">Skannaa tämä QR-koodi puhelimellasi, niin voit keskustella kanssani Signalissa.</string>
 
     <!-- Explanatory text at the top of a bottom sheet describing how username links work -->
     <string name="UsernameLinkShareBottomSheet_title">Kuka tahansa, jolla on tämä linkki, voi nähdä käyttäjänimesi ja aloittaa keskustelun kanssasi. Jaa se vain henkilöille, joihin luotat.</string>
@@ -6548,6 +6533,8 @@
     <string name="GrantFullScreenIntentPermission_megaphone_body">Varmista, että huomaat yhteystiedoilta tai ryhmiltä tulevat puhelut.</string>
     <!-- Button on the megaphone megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls that starts the fix process -->
     <string name="GrantFullScreenIntentPermission_megaphone_turn_on">Ota käyttöön</string>
+    <!-- Button on the megaphone shown at the bottom of the chatlist when a user has disabled the system setting for showing full screen notifications used showing incoming calls that dismisses the megaphone -->
+    <string name="GrantFullScreenIntentPermission_megaphone_not_now">Ei nyt</string>
     <!-- Title of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
     <string name="GrantFullScreenIntentPermission_bottomsheet_title">Ota käyttöön koko näytön ilmoitukset</string>
     <!-- Subtitle of bottom sheet shown after tapping "Turn on" from the megaphone to re-enable full screen notifications for incoming call notifications -->
@@ -6565,6 +6552,42 @@
     <string name="MonthlyDonationCanceled__renew_button">Uusi tilaus</string>
     <!-- Bottom sheet dialog shown when a monthly donation fails to renew, second button to dismiss the dialog entirely -->
     <string name="MonthlyDonationCanceled__not_now_button">Ei nyt</string>
+
+    <!-- FindByActivity -->
+    <!-- Title of activity when finding by username -->
+    <string name="FindByActivity__find_by_username">Etsi käyttäjänimellä</string>
+    <!-- Title of activity when finding by phone number -->
+    <string name="FindByActivity__find_by_phone_number">Etsi puhelinnumerolla</string>
+    <!-- Title of screen to select a country code -->
+    <string name="FindByActivity__select_country_code">Valitse maatunnus</string>
+    <!-- Entry placeholder for find by username -->
+    <string name="FindByActivity__username">Käyttäjänimi</string>
+    <!-- Entry placeholder for find by phone number -->
+    <string name="FindByActivity__phone_number">Puhelinnumero</string>
+    <!-- Help text under user entry for find by username -->
+    <string name="FindByActivity__enter_username_description">Anna käyttäjänimi, sen jälkeen piste ja käyttäjänimeen liittyvä numerosarja.</string>
+    <!-- Content description for next action button -->
+    <string name="FindByActivity__next">Seuraava</string>
+    <!-- Placeholder text for search input for selecting country code -->
+    <string name="FindByActivity__search">Haku</string>
+    <!-- Dialog title for invalid username -->
+    <string name="FindByActivity__invalid_username">Virheellinen käyttäjänimi</string>
+    <!-- Dialog title for invalid phone number -->
+    <string name="FindByActivity__invalid_phone_number">Virheellinen puhelinnumero</string>
+    <!-- Dialog title when phone number is not a registered signal user -->
+    <string name="FindByActivity__invite_to_signal">Kutsu Signaliin</string>
+    <!-- Dialog title when username is not found -->
+    <string name="FindByActivity__username_not_found">Käyttäjänimeä ei löydy</string>
+    <!-- Dialog body for invalid username. Placeholder is the entered username. -->
+    <string name="FindByActivity__s_is_not_a_valid_username">%1$s ei ole kelvollinen käyttäjänimi. Varmista, että olet syöttänyt koko käyttäjänimen ja sen numerosarjan.</string>
+    <!-- Dialog body for an invalid phone number. Placeholder is the entered phone number. -->
+    <string name="FindByActivity__s_is_not_a_valid_phone_number">%1$s ei ole kelvollinen puhelinnumero. Yritä uudelleen kelvollisella puhelinnumerolla</string>
+    <!-- Dialog body for not found username -->
+    <string name="FindByActivity__s_is_not_a_signal_user">%1$s ei käytä Signalia. Tarkista käyttäjänimi ja yritä uudelleen.</string>
+    <!-- Dialog body for not found phone number -->
+    <string name="FindByActivity__s_is_not_a_signal_user_would">%1$s ei ole Signalin käyttäjä. Haluatko kutsua tämän numeron?</string>
+    <!-- Dialog action to invite the phone number to Signal -->
+    <string name="FindByActivity__invite">Kutsu</string>
 
     <!-- EOF -->
 </resources>

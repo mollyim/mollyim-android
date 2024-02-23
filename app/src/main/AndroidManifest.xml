@@ -21,6 +21,7 @@
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="${applicationId}.ACCESS_SECRETS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.WRITE_PROFILE"/>
@@ -648,7 +649,12 @@
 
     <activity android:name=".NewConversationActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:windowSoftInputMode="stateAlwaysVisible"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+              android:exported="false"/>
+
+    <activity android:name=".recipients.ui.findby.FindByActivity"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+              android:windowSoftInputMode="adjustResize"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
@@ -717,6 +723,13 @@
         android:theme="@style/Signal.DayNight.NoActionBar"
         android:windowSoftInputMode="stateAlwaysHidden"
         android:exported="false"/>
+
+    <activity
+        android:name=".backup.v2.ui.MessageBackupsFlowActivity"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+        android:exported="false"
+        android:theme="@style/Signal.DayNight.NoActionBar"
+        android:windowSoftInputMode="adjustResize" />
 
     <activity
         android:name=".stories.settings.StorySettingsActivity"
@@ -905,11 +918,6 @@
 
     <activity android:name=".profiles.edit.CreateProfileActivity"
               android:theme="@style/TextSecure.LightRegistrationTheme"
-              android:windowSoftInputMode="stateVisible|adjustResize"
-              android:exported="false"/>
-
-    <activity android:name=".profiles.username.AddAUsernameActivity"
-              android:theme="@style/Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateVisible|adjustResize"
               android:exported="false"/>
 
@@ -1274,6 +1282,16 @@
         android:name=".jobmanager.AlarmManagerScheduler$RetryReceiver"
         android:enabled="@bool/enable_alarm_manager"
         android:exported="false"/>
+
+    <service android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService" android:exported="false" />
+    <receiver android:name=".service.webrtc.ActiveCallManager$ActiveCallServiceReceiver" android:exported="false">
+        <intent-filter>
+            <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.DENY"/>
+        </intent-filter>
+        <intent-filter>
+            <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.HANGUP"/>
+        </intent-filter>
+    </receiver>
 
     <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 

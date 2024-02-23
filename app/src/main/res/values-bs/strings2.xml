@@ -89,4 +89,23 @@
     <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">Bit ćete obaviješteni kad ažuriranja budu dostupna</string>
     <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s nije registrovan/a na Signalu</string>
     <string name="TimeDurationPickerDialog_single_letter_second_abbreviation">s</string>
+    <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">Postavke PIN-a se ne mogu promijeniti s povezanog uređaja</string>
+    <string name="DeviceListItem_device_d">Uređaj broj %d</string>
+    <string name="DeviceListItem_primary">Primarni</string>
+    <string name="DeviceListItem_this_device">Ovaj uređaj</string>
+    <string name="DeviceListItem_registered_s">Registrovan %s</string>
+    <string name="RegistrationActivity_link_device">Poveži s postojećim uređajem</string>
+    <string name="RegistrationActivity_device_name_description">Ime uređaja</string>
+    <string name="RegistrationActivity_link">Poveži</string>
+    <string name="RegistrationActivity_enter_a_name_for_this_device">Upiši ime za ovaj uređaj</string>
+    <string name="RegistrationActivity_scan_this_qr_using_your_primary_device">Snimi ovaj QR kod pomoću primarnog uređaja</string>
+    <string name="RegistrationActivity_copied_to_clipboard">Kopirano u međuspremnik</string>
+    <string name="RegistrationActivity_link_error">Greška prilikom pokušaja povezivanja uređaja. Provjeri mrežu i pokušaj ponovo</string>
+    <string name="RegistrationActivity_link_timeout">Isteklo je vrijeme čekanja za primarni uređaj. Pripremi uređaj za snimanje QR koda, zatim pokušaj ponovo</string>
+    <string name="RegistrationActivity_link_retry">Ponovi povezivanje</string>
+    <string name="NotificationsSettingsFragment__new_activity_while_locked">Nova aktivnost dok je aplikacija zaljučana</string>
+    <string name="NotificationsSettingsFragment__push_notifications_unavailable">Push obavještenja nisu dostupna</string>
+    <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">Žao nam je, ova funkcija zahtijeva push obavještenja koja se isporučuju putem FCM ili UnifiedPush usluga koje trenutno nisu dostupne.</string>
+    <string name="RegistrationActivity_provider_declined">Pružatelj usluge je odbio poslati kod za verifikaciju, vjerovatno zbog pravila za sprječavanje prijevara.</string>
+    <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Primaj obavještenja o porukama ili propuštenim pozivima kada je aplikacija zaključana.</string>
 </resources>
