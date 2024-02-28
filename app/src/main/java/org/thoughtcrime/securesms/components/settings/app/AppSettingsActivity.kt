@@ -109,8 +109,6 @@ class AppSettingsActivity : DSLSettingsActivity() {
   override fun onWillFinish() {
     if (wasConfigurationUpdated) {
       setResult(MainActivity.RESULT_CONFIG_CHANGED)
-    } else {
-      setResult(RESULT_OK)
     }
   }
 
