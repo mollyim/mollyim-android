@@ -141,7 +141,7 @@ public class UsernameEditFragment extends LoggingFragment {
   }
 
   private void promptOrSubmitUsername() {
-    if (args.getMode() == UsernameEditMode.RECOVERY) {
+    if (viewModel.isSameUsernameRecovery()) {
       new MaterialAlertDialogBuilder(requireContext())
           .setMessage(R.string.UsernameEditFragment_recovery_dialog_confirmation)
           .setPositiveButton(android.R.string.ok, ((dialog, which) -> {
@@ -316,6 +316,9 @@ public class UsernameEditFragment extends LoggingFragment {
         break;
       case NETWORK_FAILURE:
         Toast.makeText(requireContext(), R.string.UsernameEditFragment_encountered_a_network_error, Toast.LENGTH_SHORT).show();
+        break;
+      case RATE_LIMIT_EXCEEDED:
+        Toast.makeText(requireContext(), R.string.UsernameEditFragment_rate_limit_exceeded_error, Toast.LENGTH_SHORT).show();
         break;
       case SKIPPED:
         closeScreen();
