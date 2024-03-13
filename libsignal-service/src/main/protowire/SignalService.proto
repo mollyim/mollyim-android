@@ -439,9 +439,11 @@ message Verified {
 message SyncMessage {
   message Sent {
     message UnidentifiedDeliveryStatus {
-      reserved      /*destinationE164*/ 1;
-      optional string destinationServiceId = 3;
-      optional bool   unidentified         = 2;
+      reserved        /*destinationE164*/      1;
+      optional string destinationServiceId   = 3;
+      optional bool   unidentified           = 2;
+      reserved        /*destinationPni*/       4;
+      optional bytes  destinationIdentityKey = 5;
     }
 
     message StoryMessageRecipient {
@@ -460,6 +462,8 @@ message SyncMessage {
     optional StoryMessage               storyMessage             = 8;
     repeated StoryMessageRecipient      storyMessageRecipients   = 9;
     optional EditMessage                editMessage              = 10;
+    reserved                            /*destinationPni*/         11;
+    // NEXT ID: 12
   }
 
   message Contacts {
@@ -621,13 +625,20 @@ message SyncMessage {
   }
 
   message CallLinkUpdate {
+    enum Type {
+      UPDATE = 0;
+      DELETE = 1;
+    }
+
     optional bytes rootKey      = 1;
     optional bytes adminPassKey = 2;
+    optional Type  type         = 3;
   }
 
   message CallLogEvent {
     enum Type {
-      CLEAR = 0;
+      CLEAR          = 0;
+      MARKED_AS_READ = 1;
     }
 
     optional Type   type      = 1;

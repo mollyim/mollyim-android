@@ -432,6 +432,8 @@
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported">Zasílání SMS zpráv již není aplikací Signal podporováno.</string>
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Zasílání SMS zpráv již není aplikací Signal podporováno. Pozvěte kontakt %1$s do aplikace Signal a pokračujte v konverzaci zde.</string>
+    <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Tato osoba již Molly nepoužívá. Pozvěte ji do aplikace Molly a pokračujte v konverzaci zde.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__invite_to_signal">Pozvat do Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
@@ -554,7 +556,7 @@
     <!-- Dialog title shown after reporting spam and tapping the conversation item -->
     <string name="ConversationFragment_reported_spam">Nahlášený spam</string>
     <!-- Dialog message shown after reporting spam and tapping the conversation item -->
-    <string name="ConversationFragment_reported_spam_message">Signal has been notified that this person may be sending spam. Signal can’t see the content of any chats.</string>
+    <string name="ConversationFragment_reported_spam_message">Signal byl upozorněn, že tato osoba možná rozesílá spam. Signal nevidí obsah chatů.</string>
     <!-- Toast shown after reporting spam and tapping the conversation item -->
     <string name="ConversationFragment_reported_as_spam">Nahlášeno jako spam</string>
     <!-- Toast shown after reporting and blocking a conversation -->
@@ -575,7 +577,7 @@
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Podvody s kryptoměnami nebo penězi</string>
     <!-- Message of tip 1 -->
-    <string name="SafetyTips_tip1_message">If someone you don’t know messages about cryptocurrency (like Bitcoin) or a financial opportunity, be careful—it’s likely spam.</string>
+    <string name="SafetyTips_tip1_message">Když vám někdo, koho neznáte, posílá zprávy o kryptoměnách (třeba bitcoinech) nebo o finanční příležitosti, mějte se na pozoru – nejspíš jde o spam.</string>
     <!-- Title of tip 2 -->
     <string name="SafetyTips_tip2_title">Neurčité nebo bezpředmětné zprávy</string>
     <!-- Message of tip 2 -->
@@ -854,7 +856,7 @@
     <string name="PendingGroupJoinRequestsReminder_view">Zobrazit</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Trvalá chyba komunikace Signal!</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Trvalá chyba komunikace Molly!</string>
     <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly se nemůže registrovat k službě Google Play. Zprávy a volání jsou proto zakázány: Prosím zkuste se znovu registrovat v menu Nastavení &gt; Rozšířené.</string>
 
 
@@ -1480,6 +1482,8 @@
     <string name="MessageRecord_changed_their_profile_name_to">%1$s změnil/a jméno svého profilu na %2$s.</string>
     <string name="MessageRecord_changed_their_profile_name_from_to">%1$s změnil/a jméno svého profilu z %2$s na %3$s.</string>
     <string name="MessageRecord_changed_their_profile">%1$s upravil svůj profil.</string>
+    <!-- Conversation update event message shown when you\'ve started a conversation by phone number or username and then learn their profile name. placeholder is username or phone number -->
+    <string name="MessageRecord_started_this_chat">Zahájili jste tento chat s uživatelem %1$s.</string>
 
     <!-- GV2 specific -->
     <string name="MessageRecord_you_created_the_group">Vytvořili jste skupinu.</string>
@@ -1995,8 +1999,10 @@
     <string name="WebRtcCallView__disconnected">Odpojen</string>
     <!-- Utilized in the lobby before joining a call link -->
     <string name="WebRtcCallView__signal_call_link">Odkaz na hovor Signal</string>
-    <!-- Warning displayed when entering a call via a link -->
-    <string name="WebRtcCallView__anyone_who_joins">Každý, kdo se k tomuto hovoru připojí prostřednictvím odkazu, uvidí vaše jméno, fotografii a telefonní číslo.</string>
+    <!-- Warning displayed when entering a call via a link and you have Phone Number Privacy disabled-->
+    <string name="WebRtcCallView__anyone_who_joins_pnp_disabled">Každý, kdo se k tomuto hovoru připojí prostřednictvím odkazu, uvidí vaše jméno, fotografii a telefonní číslo.</string>
+    <!-- Warning displayed when entering a call via a link and you have Phone Number Privacy enabled-->
+    <string name="WebRtcCallView__anyone_who_joins_pnp_enabled">Každý, kdo se k tomuto hovoru připojí prostřednictvím odkazu, uvidí vaše jméno a fotografii.</string>
     <!-- Displayed on the call screen as the status when waiting to be let into a call link by an admin -->
     <string name="WebRtcCallView__waiting_to_be_let_in">Čeká se na vpuštění…</string>
 
@@ -2456,7 +2462,7 @@
     <string name="UsernameEditFragment_successfully_removed_username">Uživatelské jméno bylo úspěšně odstraněno.</string>
     <string name="UsernameEditFragment_encountered_a_network_error">Došlo k chybě v síti.</string>
     <!-- Toast message shown if user exceeds the rate limit for reserving usernames -->
-    <string name="UsernameEditFragment_rate_limit_exceeded_error">Too many attempts made, please try again later.</string>
+    <string name="UsernameEditFragment_rate_limit_exceeded_error">Uskutečnili jste příliš mnoho pokusů. Zkuste to prosím znovu později.</string>
     <string name="UsernameEditFragment_this_username_is_taken">Toto uživatelské jméno je obsazené.</string>
     <string name="UsernameEditFragment_usernames_can_only_include">Uživatelská jména mohou obsahovat pouze a–Z, 0–9 a podtržítka.</string>
     <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Uživatelská jména nesmí začínat číslicí.</string>
@@ -2480,7 +2486,7 @@
     <!-- Displayed when the chosen discriminator is 00 -->
     <string name="UsernameEditFragment__this_number_cant_be_00">Toto číslo nesmí být 00. Zadejte číslici od 1 do 9</string>
     <!-- Displayed when the chosen discriminator starts with 0 and has a length > 2 -->
-    <string name="UsernameEditFragment__this_number_cant_start_with_0">Numbers with more than 2 digits can\'t start with 0</string>
+    <string name="UsernameEditFragment__this_number_cant_start_with_0">Čísla s více než dvěma číslicemi nemohou začínat 0</string>
     <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
     <string name="UsernameEditFragment_recovery_dialog_confirmation">Obnovením uživatelského jména resetujete svůj stávající QR kód a odkaz. Jste si jisti?</string>
     <!-- The body of an alert dialog asking the user to confirm that they want to change their username, even if it resets their link -->
@@ -4106,6 +4112,12 @@
     <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">Nikdo neuvidí, že používáte Signal, dokud mu nenapíšete nebo pokud s ním už nejste v existujícím chatu.</string>
     <!-- Snackbar text when pressing invalid radio item -->
     <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Pokud toto nastavení chcete změnit, nastavte možnost Kdo uvidí moje číslo na Nikdo."</string>
+    <!-- Dialog title shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Jste si jisti?</string>
+    <!-- Dialog warning message shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Nastavením položky „Kdo mě může najít podle čísla“ na „Nikdo“ ztížíte lidem, aby vás ve službě Signal našli.</string>
+    <!-- Dialog button text for canceling change action -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">Zrušit</string>
     <string name="PhoneNumberPrivacy_everyone">Všichni</string>
     <string name="PhoneNumberPrivacy_nobody">Nikdo</string>
     <string name="preferences_app_protection__screen_lock">Zámek obrazovky</string>
@@ -4611,11 +4623,16 @@
     <string name="GroupDescriptionDialog__group_description">Popisek skupiny</string>
 
     <!-- QualitySelectorBottomSheetDialog -->
+    <!-- Label for our standard quality media conversion. -->
     <string name="QualitySelectorBottomSheetDialog__standard">Standard</string>
+    <!-- Description for our standard quality media conversion. -->
     <string name="QualitySelectorBottomSheetDialog__faster_less_data">Rychlejší, méně dat</string>
+    <!-- Label for our high quality media conversion. This has better quality than standard. -->
     <string name="QualitySelectorBottomSheetDialog__high">Vysoká</string>
+    <!-- Label for our high quality media conversion. This has better quality than standard. -->
     <string name="QualitySelectorBottomSheetDialog__slower_more_data">Pomalejší, více dat</string>
-    <string name="QualitySelectorBottomSheetDialog__photo_quality">Kvalita fotografie</string>
+    <!-- Title heading for our media conversion quality selector. -->
+    <string name="QualitySelectorBottomSheetDialog__media_quality">Kvalita médií</string>
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">Pozvěte své přátele</string>
@@ -5105,6 +5122,32 @@
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">Jeden nebo více souborů je moc velkých</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">Jeden nebo více souborů je neplatných</string>
     <string name="MediaReviewFragment__too_many_items_selected">Příliš mnoho vybraných položek</string>
+    <!-- Small notification presented to the user when they set their video to view-once mode -->
+    <string name="MediaReviewFragment__video_set_to_view_once">Video nastaveno na jednorázové zobrazení</string>
+    <!-- Small notification presented to the user when they set their photo to view-once mode -->
+    <string name="MediaReviewFragment__photo_set_to_view_once">Fotografie nastavena na jednorázové zobrazení</string>
+    <!-- Small notification presented to the user when they set their video to be sent in high visual quality. -->
+    <string name="MediaReviewFragment__video_set_to_high_quality">Video nastaveno na vysokou kvalitu</string>
+    <!-- Small notification presented to the user when they set their video to be sent in standard (lower than high) visual quality. -->
+    <string name="MediaReviewFragment__video_set_to_standard_quality">Video nastaveno na standardní kvalitu</string>
+    <!-- Small notification presented to the user when they set their still image to be sent in high visual quality. -->
+    <string name="MediaReviewFragment__photo_set_to_high_quality">Fotografie nastavena na vysokou kvalitu</string>
+    <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
+    <string name="MediaReviewFragment__photo_set_to_standard_quality">Fotografie nastavena na standardní kvalitu</string>
+    <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
+    <plurals name="MediaReviewFragment__items_set_to_high_quality">
+        <item quantity="one">%1$d položka nastavena na vysokou kvalitu</item>
+        <item quantity="few">%1$d položky nastaveny na vysokou kvalitu</item>
+        <item quantity="many">%1$d položek nastaveno na vysokou kvalitu</item>
+        <item quantity="other">%1$d položek nastaveno na vysokou kvalitu</item>
+    </plurals>
+    <!-- Small notification presented to the user when they set multiple media items to be sent in standard (lower than high) visual quality. -->
+    <plurals name="MediaReviewFragment__items_set_to_standard_quality">
+        <item quantity="one">%1$d položka nastavena na standardní kvalitu</item>
+        <item quantity="few">%1$d položky nastaveny na standardní kvalitu</item>
+        <item quantity="many">%1$d položek nastaveno na standardní kvalitu</item>
+        <item quantity="other">%1$d položek nastaveno na standardní kvalitu</item>
+    </plurals>
 
     <string name="ImageEditorHud__cancel">Zrušit</string>
     <string name="ImageEditorHud__draw">Kreslit</string>
@@ -5128,6 +5171,20 @@
     <string name="MediaReviewImagePageFragment__discard">Zahodit</string>
     <string name="MediaReviewImagePageFragment__discard_changes">Zrušit změny?</string>
     <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Ztratíte všechny změny, které jste na této fotografii provedli.</string>
+
+    <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
+    <string name="MediaCaptureFragment_username_dialog_title">Nalezen uživatel %1$s</string>
+    <!-- The body of a dialog notifying that a user was found matching a scanned QR code, prompting the user to start a chat with them. The placeholder is a username. Usernames are always latin characters. -->
+    <string name="MediaCaptureFragment_username_dialog_body">Začít chatovat s uživatelem %1$s</string>
+    <!-- The label of a dialog asking the user if they would like to start a chat with a specific user. -->
+    <string name="MediaCaptureFragment_username_dialog_go_to_chat_button">Přejít na chat</string>
+
+    <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+    <string name="MediaCaptureFragment_device_link_dialog_title">Propojit zařízení?</string>
+    <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+    <string name="MediaCaptureFragment_device_link_dialog_body">Zdá se, že se snažíte propojit zařízení Signal. Pro propojení klepněte na možnost pokračovat a znovu naskenujte kód.</string>
+    <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
+    <string name="MediaCaptureFragment_device_link_dialog_continue">Pokračovat</string>
 
 
     <string name="BadgesOverviewFragment__my_badges">Moje odznaky</string>
@@ -5227,7 +5284,7 @@
     <!-- Displayed as a subtitle on a row in the Manage Donations screen when payment for a donation is pending -->
     <string name="MySupportPreference__payment_pending">Platba se zpracovává</string>
     <!-- Displayed as a dialog message when clicking on a donation row that is pending. Placeholder is a formatted fiat amount -->
-    <string name="MySupportPreference__your_bank_transfer_of_s">Váš bankovní převod ve výši %1$s se zpracovává. Dokončení bankovního převodu obvykle trvá 1 pracovní den.  </string>
+    <string name="MySupportPreference__your_bank_transfer_of_s">Váš bankovní převod ve výši %1$s se zpracovává. Dokončení bankovního převodu může trvat 1 až 14 pracovních dní.  </string>
     <!-- Displayed in the pending help dialog, used to launch user to more details about bank transfers -->
     <string name="MySupportPreference__learn_more">Více informací</string>
 
@@ -6209,9 +6266,9 @@
     <!-- Dialog title when a user tries to donate while they already have a pending donation. -->
     <string name="DonateToSignalFragment__you_have_a_donation_pending">Máte nezpracovaný příspěvek</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
-    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_monthly">Zpracování bankovního převodu obvykle trvá 1 pracovní den. S aktualizací předplatného prosím počkejte, dokud nebude tato platba dokončena.</string>
+    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_monthly">Zpracování bankovního převodu může trvat 1 až 14 pracovních dní. S aktualizací předplatného prosím počkejte, dokud nebude tato platba dokončena.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
-    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_onetime">Zpracování bankovního převodu obvykle trvá 1 pracovní den. S dalším příspěvkem prosím počkejte, dokud nebude tato platba dokončena.</string>
+    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_onetime">Zpracování bankovního převodu může trvat 1 až 14 pracovních dní. S dalším příspěvkem prosím počkejte, dokud nebude tato platba dokončena.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
     <string name="DonateToSignalFragment__your_payment_is_still_being_processed_monthly">Váš příspěvek se stále ještě zpracovává. V závislosti na vašem připojení to může trvat několik minut. S aktualizací předplatného prosím počkejte, dokud nebude tato platba dokončena.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
@@ -6365,7 +6422,7 @@
     <!-- Top text block of donation pending sheet displayed after one-time donation via a bank transfer. Placeholder is the badge name. -->
     <string name="DonationPendingBottomSheet__your_one_time_donation_is_pending">Váš jednorázový příspěvek se zpracovává. Jakmile váš příspěvek obdržíme, budete si moci na svém profilu zobrazit odznak %1$s.</string>
     <!-- Bottom text block of donation pending sheet displayed after donating via a bank transfer. Placeholder is for learn more. -->
-    <string name="DonationPendingBottomSheet__bank_transfers_usually_take">Zpracování bankovního převodu obvykle trvá 1 pracovní den. %1$s</string>
+    <string name="DonationPendingBottomSheet__bank_transfers_usually_take">Zpracování bankovního převodu může trvat 1 až 14 pracovních dní. %1$s</string>
     <!-- Learn more text for donation pending sheet displayed after donating via a bank transfer. -->
     <string name="DonationPendingBottomSheet__learn_more">Více informací</string>
     <!-- Confirmation button for donation pending sheet displayed after donating via a bank transfer. -->
@@ -6714,6 +6771,8 @@
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->
     <string name="CallLinkDetailsFragment__call_details">Podrobnosti o hovoru</string>
+    <!-- Displayed in a text row, allowing the user to click and edit a call name -->
+    <string name="CallLinkDetailsFragment__edit_call_name">Upravit název hovoru</string>
     <!-- Displayed in a text row, allowing the user to click and add a call name -->
     <string name="CallLinkDetailsFragment__add_call_name">Přidat název hovoru</string>
     <!-- Displayed in a toggle row, allowing the user to click to enable or disable member approval -->
@@ -6781,6 +6840,10 @@
     <string name="UsernameLinkSettings_reset_link_result_success">Váš QR kód a odkaz byly resetovány a byl vytvořen nový QR kód a odkaz.</string>
     <!-- Shown on the generated username qr code image to explain how to use it. -->
     <string name="UsernameLinkSettings_scan_this_qr_code">Naskenuj tento QR kód svým telefonem a chatuj se mnou přes Signal.</string>
+    <!-- Dialog title shown when scanning an image from the gallery for a username QR code and there is no qr code in the image. -->
+    <string name="UsernameLinkSettings_qr_code_not_found">QR kód nebyl nalezen</string>
+    <!-- Dialog message shown when scanning an image from the gallery for a username QR code and there is no qr code in the image. -->
+    <string name="UsernameLinkSettings_try_scanning_another_image_containing_a_signal_qr_code">Zkuste naskenovat jiný obrázek s QR kódem Signal.</string>
 
     <!-- Explanatory text at the top of a bottom sheet describing how username links work -->
     <string name="UsernameLinkShareBottomSheet_title">Kdokoli, kdo má tento odkaz, může vidět vaše uživatelské jméno a začít s vámi chatovat. Sdílejte jej pouze s lidmi, kterým důvěřujete.</string>
@@ -6876,6 +6939,10 @@
     <string name="FindByActivity__s_is_not_a_signal_user_would">%1$s není uživatelem služby Signal. Chcete toto číslo pozvat do služby?</string>
     <!-- Dialog action to invite the phone number to Signal -->
     <string name="FindByActivity__invite">Pozvánka</string>
+    <!-- Button label for a button that will launch a camera to scan a username QR code -->
+    <string name="FindByActivity__qr_scan_button">Naskenování QR kódu</string>
+    <!-- Content of a dialog indicating that we could not perform the requested action because we encountered a network error. -->
+    <string name="FindByActivity__network_error_dialog">Došlo k síťové chybě. Zkuste to znovu později.</string>
 
     <!-- EOF -->
 </resources>

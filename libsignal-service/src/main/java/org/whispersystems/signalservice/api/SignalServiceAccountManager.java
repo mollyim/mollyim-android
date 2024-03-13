@@ -8,6 +8,7 @@ package org.whispersystems.signalservice.api;
 
 import com.squareup.wire.FieldEncoding;
 
+import org.signal.libsignal.net.Network;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.IdentityKeyPair;
 import org.signal.libsignal.protocol.InvalidKeyException;
@@ -35,6 +36,7 @@ import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Api;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
 import org.whispersystems.signalservice.api.kbs.MasterKey;
+import org.whispersystems.signalservice.api.keys.KeysApi;
 import org.whispersystems.signalservice.api.messages.calls.TurnServerInfo;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo;
 import org.whispersystems.signalservice.api.payments.CurrencyConversions;
@@ -135,7 +137,6 @@ public class SignalServiceAccountManager {
   private final String                     userAgent;
   private final GroupsV2Operations         groupsV2Operations;
   private final SignalServiceConfiguration configuration;
-
 
   /**
    * Construct a SignalServiceAccountManager.
@@ -383,11 +384,12 @@ public class SignalServiceAccountManager {
                                                            Optional<byte[]> token,
                                                            String mrEnclave,
                                                            Long timeoutMs,
+                                                           @Nullable Network.Environment libsignalNetEnv,
                                                            Consumer<byte[]> tokenSaver)
       throws IOException
   {
     CdsiAuthResponse                                auth    = pushServiceSocket.getCdsiAuth();
-    CdsiV2Service                                   service = new CdsiV2Service(configuration, mrEnclave);
+    CdsiV2Service                                   service = new CdsiV2Service(configuration, mrEnclave, libsignalNetEnv);
     CdsiV2Service.Request                           request = new CdsiV2Service.Request(previousE164s, newE164s, serviceIds, token);
     Single<ServiceResponse<CdsiV2Service.Response>> single  = service.getRegisteredUsers(auth.getUsername(), auth.getPassword(), request, tokenSaver);
 
@@ -1043,6 +1045,10 @@ public class SignalServiceAccountManager {
 
   public ArchiveApi getArchiveApi() {
     return ArchiveApi.create(pushServiceSocket, configuration.getBackupServerPublicParams(), credentials.getAci());
+  }
+
+  public KeysApi getKeysApi() {
+    return KeysApi.create(pushServiceSocket);
   }
 
   public AuthCredentials getPaymentsAuthorization() throws IOException {

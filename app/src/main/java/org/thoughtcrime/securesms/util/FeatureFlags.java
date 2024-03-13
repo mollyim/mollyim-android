@@ -62,6 +62,7 @@ public final class FeatureFlags {
   private static final String CLIENT_EXPIRATION                 = "android.clientExpiration";
   private static final String CUSTOM_VIDEO_MUXER                = "android.customVideoMuxer.1";
   private static final String CDS_REFRESH_INTERVAL              = "cds.syncInterval.seconds";
+  private static final String CDS_FOREGROUND_SYNC_INTERVAL      = "cds.foregroundSyncInterval.seconds";
   private static final String AUTOMATIC_SESSION_RESET           = "android.automaticSessionReset.2";
   private static final String AUTOMATIC_SESSION_INTERVAL        = "android.automaticSessionResetInterval";
   private static final String DEFAULT_MAX_BACKOFF               = "android.defaultMaxBackoff";
@@ -122,6 +123,8 @@ public final class FeatureFlags {
   private static final String RETRY_RECEIPT_MAX_COUNT           = "android.retryReceipt.maxCount";
   private static final String RETRY_RECEIPT_MAX_COUNT_RESET_AGE = "android.retryReceipt.maxCountResetAge";
   private static final String PREKEY_FORCE_REFRESH_INTERVAL     = "android.prekeyForceRefreshInterval";
+  private static final String CDSI_LIBSIGNAL_NET                = "android.cds.libsignal";
+  private static final String RX_MESSAGE_SEND                   = "android.rxMessageSend";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -136,6 +139,7 @@ public final class FeatureFlags {
       CLIENT_EXPIRATION,
       CUSTOM_VIDEO_MUXER,
       CDS_REFRESH_INTERVAL,
+      CDS_FOREGROUND_SYNC_INTERVAL,
       GROUP_NAME_MAX_LENGTH,
       AUTOMATIC_SESSION_RESET,
       AUTOMATIC_SESSION_INTERVAL,
@@ -196,7 +200,9 @@ public final class FeatureFlags {
       VIDEO_RECORD_1X_ZOOM,
       RETRY_RECEIPT_MAX_COUNT,
       RETRY_RECEIPT_MAX_COUNT_RESET_AGE,
-      PREKEY_FORCE_REFRESH_INTERVAL
+      PREKEY_FORCE_REFRESH_INTERVAL,
+      CDSI_LIBSIGNAL_NET,
+      RX_MESSAGE_SEND
   );
 
   @VisibleForTesting
@@ -226,6 +232,7 @@ public final class FeatureFlags {
       CLIENT_EXPIRATION,
       CUSTOM_VIDEO_MUXER,
       CDS_REFRESH_INTERVAL,
+      CDS_FOREGROUND_SYNC_INTERVAL,
       GROUP_NAME_MAX_LENGTH,
       AUTOMATIC_SESSION_RESET,
       AUTOMATIC_SESSION_INTERVAL,
@@ -268,7 +275,9 @@ public final class FeatureFlags {
       VIDEO_RECORD_1X_ZOOM,
       RETRY_RECEIPT_MAX_COUNT,
       RETRY_RECEIPT_MAX_COUNT_RESET_AGE,
-      PREKEY_FORCE_REFRESH_INTERVAL
+      PREKEY_FORCE_REFRESH_INTERVAL,
+      CDSI_LIBSIGNAL_NET,
+      RX_MESSAGE_SEND
   );
 
   /**
@@ -387,6 +396,11 @@ public final class FeatureFlags {
   /** The time in between routine CDS refreshes, in seconds. */
   public static int cdsRefreshIntervalSeconds() {
     return getInteger(CDS_REFRESH_INTERVAL, (int) TimeUnit.HOURS.toSeconds(48));
+  }
+
+  /** The minimum time in between foreground CDS refreshes initiated via message requests, in milliseconds. */
+  public static Long cdsForegroundSyncInterval() {
+    return TimeUnit.SECONDS.toMillis(getInteger(CDS_FOREGROUND_SYNC_INTERVAL, (int) TimeUnit.HOURS.toSeconds(4)));
   }
 
   public static @NonNull SelectionLimits shareSelectionLimit() {
@@ -621,6 +635,16 @@ public final class FeatureFlags {
   /** How often we allow a forced prekey refresh. */
   public static long preKeyForceRefreshInterval() {
     return getLong(PREKEY_FORCE_REFRESH_INTERVAL, TimeUnit.HOURS.toMillis(1));
+  }
+
+  /** Make CDSI lookups via libsignal-net instead of native websocket. */
+  public static boolean useLibsignalNetForCdsiLookup() {
+    return getBoolean(CDSI_LIBSIGNAL_NET, false);
+  }
+
+  /** Use Rx threading model to do sends. */
+  public static boolean useRxMessageSending() {
+    return getBoolean(RX_MESSAGE_SEND, false);
   }
 
   /** Only for rendering debug info. */

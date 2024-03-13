@@ -426,6 +426,8 @@
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported">La messaggistica via SMS non è più supportata su Signal.</string>
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">La messaggistica via SMS non è più supportata su Signal. Invita %1$s su Signal per continuare la conversazione in app.</string>
+    <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Questa persona non sta più usando Molly. Invitala su Molly per continuare la conversazione in app.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__invite_to_signal">Invita a Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
@@ -536,7 +538,7 @@
     <!-- Dialog title shown after reporting spam and tapping the conversation item -->
     <string name="ConversationFragment_reported_spam">Segnalato come spam</string>
     <!-- Dialog message shown after reporting spam and tapping the conversation item -->
-    <string name="ConversationFragment_reported_spam_message">Signal has been notified that this person may be sending spam. Signal can’t see the content of any chats.</string>
+    <string name="ConversationFragment_reported_spam_message">Hai avvertito Signal che questa persona sta inviando contenuti spam. Ricorda che Signal non può vedere il contenuto delle chat.</string>
     <!-- Toast shown after reporting spam and tapping the conversation item -->
     <string name="ConversationFragment_reported_as_spam">Segnalato come spam</string>
     <!-- Toast shown after reporting and blocking a conversation -->
@@ -557,7 +559,7 @@
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Criptovalute e truffe economiche</string>
     <!-- Message of tip 1 -->
-    <string name="SafetyTips_tip1_message">If someone you don’t know messages about cryptocurrency (like Bitcoin) or a financial opportunity, be careful—it’s likely spam.</string>
+    <string name="SafetyTips_tip1_message">Hai ricevuto l\'ennesimo messaggio su una criptovaluta che ti cambierà la vita? Chiunque ti prometta grossi guadagni, in breve tempo e con poco sforzo, vuole sicuramente truffarti.</string>
     <!-- Title of tip 2 -->
     <string name="SafetyTips_tip2_title">Messaggi vaghi e ambigui</string>
     <!-- Message of tip 2 -->
@@ -818,7 +820,7 @@
     <string name="PendingGroupJoinRequestsReminder_view">Mostra</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Comunicazione Signal fallita definitivamente!</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Comunicazione Molly fallita definitivamente!</string>
     <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly è stato impossibilitato a registrarsi con i sevizi di Google Play. I suoi messaggi e le chiamate sono state disabilitate, si prega di provare e ri-registrare in Impostazioni &gt; Avanzate.</string>
 
 
@@ -1386,6 +1388,8 @@
     <string name="MessageRecord_changed_their_profile_name_to">%1$s ha cambiato il suo nome profilo in %2$s.</string>
     <string name="MessageRecord_changed_their_profile_name_from_to">%1$s ha cambiato il suo nome profilo da %2$s a %3$s.</string>
     <string name="MessageRecord_changed_their_profile">%1$s ha cambiato il suo profilo.</string>
+    <!-- Conversation update event message shown when you\'ve started a conversation by phone number or username and then learn their profile name. placeholder is username or phone number -->
+    <string name="MessageRecord_started_this_chat">Hai iniziato questa chat con %1$s.</string>
 
     <!-- GV2 specific -->
     <string name="MessageRecord_you_created_the_group">Hai creato il gruppo.</string>
@@ -1861,8 +1865,10 @@
     <string name="WebRtcCallView__disconnected">Disconnesso</string>
     <!-- Utilized in the lobby before joining a call link -->
     <string name="WebRtcCallView__signal_call_link">Link chiamata Signal</string>
-    <!-- Warning displayed when entering a call via a link -->
-    <string name="WebRtcCallView__anyone_who_joins">Chiunque si unirà alla chiamata tramite il link potrà vedere il tuo nome, foto profilo e numero di telefono.</string>
+    <!-- Warning displayed when entering a call via a link and you have Phone Number Privacy disabled-->
+    <string name="WebRtcCallView__anyone_who_joins_pnp_disabled">Chiunque si unirà alla chiamata tramite il link potrà vedere il tuo nome, foto profilo e numero di telefono.</string>
+    <!-- Warning displayed when entering a call via a link and you have Phone Number Privacy enabled-->
+    <string name="WebRtcCallView__anyone_who_joins_pnp_enabled">Chiunque si unirà alla chiamata tramite il link potrà vedere il tuo nome e foto profilo.</string>
     <!-- Displayed on the call screen as the status when waiting to be let into a call link by an admin -->
     <string name="WebRtcCallView__waiting_to_be_let_in">In attesa di entrare…</string>
 
@@ -2296,7 +2302,7 @@
     <string name="UsernameEditFragment_successfully_removed_username">Nome utente rimosso con successo.</string>
     <string name="UsernameEditFragment_encountered_a_network_error">Si è verificato un errore di rete.</string>
     <!-- Toast message shown if user exceeds the rate limit for reserving usernames -->
-    <string name="UsernameEditFragment_rate_limit_exceeded_error">Too many attempts made, please try again later.</string>
+    <string name="UsernameEditFragment_rate_limit_exceeded_error">Hai fatto troppi tentativi, riprova più tardi.</string>
     <string name="UsernameEditFragment_this_username_is_taken">Questo nome utente è già in uso.</string>
     <string name="UsernameEditFragment_usernames_can_only_include">I nomi utente possono includere solo a–Z, 0–9 e trattini bassi.</string>
     <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">I nomi utente non possono iniziare con un numero.</string>
@@ -2320,7 +2326,7 @@
     <!-- Displayed when the chosen discriminator is 00 -->
     <string name="UsernameEditFragment__this_number_cant_be_00">Questo numero non può essere 00. Inserisci una cifra tra 1-9</string>
     <!-- Displayed when the chosen discriminator starts with 0 and has a length > 2 -->
-    <string name="UsernameEditFragment__this_number_cant_start_with_0">Numbers with more than 2 digits can\'t start with 0</string>
+    <string name="UsernameEditFragment__this_number_cant_start_with_0">I numeri con più di due cifre non possono iniziare con 0</string>
     <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
     <string name="UsernameEditFragment_recovery_dialog_confirmation">Se ripristini il tuo nome utente, il tuo codice QR e link attuali verranno modificati. Vuoi procedere comunque?</string>
     <!-- The body of an alert dialog asking the user to confirm that they want to change their username, even if it resets their link -->
@@ -3894,6 +3900,12 @@
     <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">Nessuna persona potrà sapere che sei su Signal, a meno che tu non invii un messaggio (o se avete già una chat in corso).</string>
     <!-- Snackbar text when pressing invalid radio item -->
     <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Per modificare questa opzione, imposta \"Chi può vedere il mio numero\" su \"Nessuna persona\""</string>
+    <!-- Dialog title shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Vuoi procedere comunque?</string>
+    <!-- Dialog warning message shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Se imposti l\'opzione \"Chi può trovarmi tramite il mio numero di telefono\" su \"Nessuna persona\", diventerà più difficile trovarti su Signal.</string>
+    <!-- Dialog button text for canceling change action -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">Annulla</string>
     <string name="PhoneNumberPrivacy_everyone">Chiunque</string>
     <string name="PhoneNumberPrivacy_nobody">Nessuno</string>
     <string name="preferences_app_protection__screen_lock">Blocco schermo</string>
@@ -4391,11 +4403,16 @@
     <string name="GroupDescriptionDialog__group_description">Descrizione gruppo</string>
 
     <!-- QualitySelectorBottomSheetDialog -->
+    <!-- Label for our standard quality media conversion. -->
     <string name="QualitySelectorBottomSheetDialog__standard">Normale</string>
+    <!-- Description for our standard quality media conversion. -->
     <string name="QualitySelectorBottomSheetDialog__faster_less_data">Più veloce, meno dati</string>
+    <!-- Label for our high quality media conversion. This has better quality than standard. -->
     <string name="QualitySelectorBottomSheetDialog__high">Alta</string>
+    <!-- Label for our high quality media conversion. This has better quality than standard. -->
     <string name="QualitySelectorBottomSheetDialog__slower_more_data">Più lento, più dati</string>
-    <string name="QualitySelectorBottomSheetDialog__photo_quality">Qualità foto</string>
+    <!-- Title heading for our media conversion quality selector. -->
+    <string name="QualitySelectorBottomSheetDialog__media_quality">Qualità media</string>
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">Invita i tuoi amici</string>
@@ -4871,6 +4888,28 @@
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">Uno o più elementi erano troppo grandi</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">Uno o più elementi non erano validi</string>
     <string name="MediaReviewFragment__too_many_items_selected">Troppi elementi selezionati</string>
+    <!-- Small notification presented to the user when they set their video to view-once mode -->
+    <string name="MediaReviewFragment__video_set_to_view_once">Video impostato per una singola visione</string>
+    <!-- Small notification presented to the user when they set their photo to view-once mode -->
+    <string name="MediaReviewFragment__photo_set_to_view_once">Foto impostata per una singola visione</string>
+    <!-- Small notification presented to the user when they set their video to be sent in high visual quality. -->
+    <string name="MediaReviewFragment__video_set_to_high_quality">Video impostato su alta qualità</string>
+    <!-- Small notification presented to the user when they set their video to be sent in standard (lower than high) visual quality. -->
+    <string name="MediaReviewFragment__video_set_to_standard_quality">Video impostato su qualità standard</string>
+    <!-- Small notification presented to the user when they set their still image to be sent in high visual quality. -->
+    <string name="MediaReviewFragment__photo_set_to_high_quality">Foto impostata su alta qualità</string>
+    <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
+    <string name="MediaReviewFragment__photo_set_to_standard_quality">Foto impostata su qualità standard</string>
+    <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
+    <plurals name="MediaReviewFragment__items_set_to_high_quality">
+        <item quantity="one">%1$d elemento impostato su alta qualità</item>
+        <item quantity="other">%1$d elementi impostati su alta qualità</item>
+    </plurals>
+    <!-- Small notification presented to the user when they set multiple media items to be sent in standard (lower than high) visual quality. -->
+    <plurals name="MediaReviewFragment__items_set_to_standard_quality">
+        <item quantity="one">%1$d elemento impostato su qualità standard</item>
+        <item quantity="other">%1$d elementi impostati su qualità standard</item>
+    </plurals>
 
     <string name="ImageEditorHud__cancel">Annulla</string>
     <string name="ImageEditorHud__draw">Disegna</string>
@@ -4894,6 +4933,20 @@
     <string name="MediaReviewImagePageFragment__discard">Elimina</string>
     <string name="MediaReviewImagePageFragment__discard_changes">Eliminare le modifiche?</string>
     <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Perderai tutte le modifiche che hai fatto a questa foto.</string>
+
+    <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
+    <string name="MediaCaptureFragment_username_dialog_title">Trovato l\'utente %1$s</string>
+    <!-- The body of a dialog notifying that a user was found matching a scanned QR code, prompting the user to start a chat with them. The placeholder is a username. Usernames are always latin characters. -->
+    <string name="MediaCaptureFragment_username_dialog_body">Inizia una chat con \"%1$s\"</string>
+    <!-- The label of a dialog asking the user if they would like to start a chat with a specific user. -->
+    <string name="MediaCaptureFragment_username_dialog_go_to_chat_button">Vai alla chat</string>
+
+    <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+    <string name="MediaCaptureFragment_device_link_dialog_title">Collegare il dispositivo?</string>
+    <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+    <string name="MediaCaptureFragment_device_link_dialog_body">Stai provando a collegare un dispositivo a Signal? Tocca su \"Continua\" e scansiona di nuovo il codice per collegarlo.</string>
+    <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
+    <string name="MediaCaptureFragment_device_link_dialog_continue">Continua</string>
 
 
     <string name="BadgesOverviewFragment__my_badges">I miei badge</string>
@@ -4993,7 +5046,7 @@
     <!-- Displayed as a subtitle on a row in the Manage Donations screen when payment for a donation is pending -->
     <string name="MySupportPreference__payment_pending">Pagamento in sospeso</string>
     <!-- Displayed as a dialog message when clicking on a donation row that is pending. Placeholder is a formatted fiat amount -->
-    <string name="MySupportPreference__your_bank_transfer_of_s">Il tuo bonifico bancario di %1$s è in sospeso. L\'elaborazione dei bonifici bancari di solito richiede un giorno lavorativo.  </string>
+    <string name="MySupportPreference__your_bank_transfer_of_s">Il tuo bonifico bancario di %1$s è in sospeso. L\'elaborazione dei bonifici bancari di solito richiede da 1 a 14 giorni lavorativi.  </string>
     <!-- Displayed in the pending help dialog, used to launch user to more details about bank transfers -->
     <string name="MySupportPreference__learn_more">Scopri di più</string>
 
@@ -5937,9 +5990,9 @@
     <!-- Dialog title when a user tries to donate while they already have a pending donation. -->
     <string name="DonateToSignalFragment__you_have_a_donation_pending">Hai una donazione in sospeso</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
-    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_monthly">L\'elaborazione dei bonifici bancari di solito richiede un giorno lavorativo. Attendi il completamento del pagamento prima di aggiornare/cambiare il tuo abbonamento.</string>
+    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_monthly">L\'elaborazione dei bonifici bancari di solito richiede da 1 a 14 giorni lavorativi. Attendi il completamento di questa transazione prima di aggiornare/cambiare il tuo abbonamento.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
-    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_onetime">L\'elaborazione dei bonifici bancari di solito richiede un giorno lavorativo. Attendi il completamento del pagamento prima di effettuare un\'altra donazione.</string>
+    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_onetime">L\'elaborazione dei bonifici bancari di solito richiede da 1 a 14 giorni lavorativi. Attendi il completamento di questa transazione prima di effettuare un\'altra donazione.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
     <string name="DonateToSignalFragment__your_payment_is_still_being_processed_monthly">La tua donazione è ancora in fase di elaborazione. Questo processo può richiedere qualche minuto in base alla tua connessione. Attendi il completamento di questa transazione prima di aggiornare/cambiare il tuo abbonamento.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
@@ -6091,7 +6144,7 @@
     <!-- Top text block of donation pending sheet displayed after one-time donation via a bank transfer. Placeholder is the badge name. -->
     <string name="DonationPendingBottomSheet__your_one_time_donation_is_pending">La tua donazione singola è in sospeso. Potrai mostrare il Badge %1$s sul tuo profilo quando la donazione verrà ricevuta.</string>
     <!-- Bottom text block of donation pending sheet displayed after donating via a bank transfer. Placeholder is for learn more. -->
-    <string name="DonationPendingBottomSheet__bank_transfers_usually_take">L\'elaborazione dei bonifici bancari di solito richiede un giorno lavorativo. %1$s</string>
+    <string name="DonationPendingBottomSheet__bank_transfers_usually_take">L\'elaborazione dei bonifici bancari di solito richiede da 1 a 14 giorni lavorativi. %1$s</string>
     <!-- Learn more text for donation pending sheet displayed after donating via a bank transfer. -->
     <string name="DonationPendingBottomSheet__learn_more">Scopri di più</string>
     <!-- Confirmation button for donation pending sheet displayed after donating via a bank transfer. -->
@@ -6432,6 +6485,8 @@
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->
     <string name="CallLinkDetailsFragment__call_details">Dettagli della chiamata</string>
+    <!-- Displayed in a text row, allowing the user to click and edit a call name -->
+    <string name="CallLinkDetailsFragment__edit_call_name">Modifica nome chiamata</string>
     <!-- Displayed in a text row, allowing the user to click and add a call name -->
     <string name="CallLinkDetailsFragment__add_call_name">Aggiungi nome chiamata</string>
     <!-- Displayed in a toggle row, allowing the user to click to enable or disable member approval -->
@@ -6499,6 +6554,10 @@
     <string name="UsernameLinkSettings_reset_link_result_success">Il tuo codice QR e link sono stati resettati e ne abbiamo creati di nuovi.</string>
     <!-- Shown on the generated username qr code image to explain how to use it. -->
     <string name="UsernameLinkSettings_scan_this_qr_code">Scansiona questo codice QR con il tuo telefono per chattare con me su Signal.</string>
+    <!-- Dialog title shown when scanning an image from the gallery for a username QR code and there is no qr code in the image. -->
+    <string name="UsernameLinkSettings_qr_code_not_found">Codice QR non trovato</string>
+    <!-- Dialog message shown when scanning an image from the gallery for a username QR code and there is no qr code in the image. -->
+    <string name="UsernameLinkSettings_try_scanning_another_image_containing_a_signal_qr_code">Prova a scansionare un\'altra immagine contenente un codice QR di Signal.</string>
 
     <!-- Explanatory text at the top of a bottom sheet describing how username links work -->
     <string name="UsernameLinkShareBottomSheet_title">Chiunque abbia questo link può vedere il tuo nome utente e iniziare una chat con te. Condividilo solo con persone di cui ti fidi.</string>
@@ -6590,6 +6649,10 @@
     <string name="FindByActivity__s_is_not_a_signal_user_would">%1$s non è un utente di Signal. Vorresti invitare questo numero di telefono su Signal?</string>
     <!-- Dialog action to invite the phone number to Signal -->
     <string name="FindByActivity__invite">Invita</string>
+    <!-- Button label for a button that will launch a camera to scan a username QR code -->
+    <string name="FindByActivity__qr_scan_button">Scansiona codice QR</string>
+    <!-- Content of a dialog indicating that we could not perform the requested action because we encountered a network error. -->
+    <string name="FindByActivity__network_error_dialog">Si è verificato un errore di rete. Riprova più tardi.</string>
 
     <!-- EOF -->
 </resources>

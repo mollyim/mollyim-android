@@ -180,7 +180,11 @@ public abstract class MessageRecord extends DisplayRecord {
 
   public @Nullable UpdateDescription getUpdateDisplayBody(@NonNull Context context, @Nullable Consumer<RecipientId> recipientClickHandler) {
     if (isGroupUpdate() && isGroupV2()) {
-      return getGv2ChangeDescription(context, getBody(), recipientClickHandler);
+      if (messageExtras != null) {
+        return getGv2ChangeDescription(context, messageExtras, recipientClickHandler);
+      } else {
+        return getGv2ChangeDescription(context, getBody(), recipientClickHandler);
+      }
     } else if (isGroupUpdate() && isOutgoing()) {
       return staticUpdateDescription(context.getString(R.string.MessageRecord_you_updated_group), R.drawable.ic_update_group_16);
     } else if (isGroupUpdate()) {
@@ -223,7 +227,7 @@ public abstract class MessageRecord extends DisplayRecord {
       if (isOutgoing()) return fromRecipient(getToRecipient(), r -> context.getString(R.string.MessageRecord_you_marked_your_safety_number_with_s_unverified, r.getDisplayName(context)), R.drawable.ic_update_info_16);
       else              return fromRecipient(getFromRecipient(), r -> context.getString(R.string.MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device, r.getDisplayName(context)), R.drawable.ic_update_info_16);
     } else if (isProfileChange()) {
-      return staticUpdateDescription(getProfileChangeDescription(context), R.drawable.ic_update_profile_16);
+      return getProfileChangeDescription(context);
     } else if (isChangeNumber()) {
       return fromRecipient(getFromRecipient(), r -> context.getString(R.string.MessageRecord_s_changed_their_phone_number, r.getDisplayName(context)), R.drawable.ic_phone_16);
     } else if (isBoostRequest()) {
@@ -294,7 +298,7 @@ public abstract class MessageRecord extends DisplayRecord {
     return selfCreatedGroup(change);
   }
 
-  @Nullable public MessageExtras getMessageExtras() {
+  public @Nullable MessageExtras getMessageExtras() {
     return messageExtras;
   }
 
@@ -427,27 +431,41 @@ public abstract class MessageRecord extends DisplayRecord {
     return UpdateDescription.staticDescription(string, iconResource, lightTint, darkTint);
   }
 
-  private @NonNull String getProfileChangeDescription(@NonNull Context context) {
-    try {
-      byte[]               decoded              = Base64.decode(getBody());
-      ProfileChangeDetails profileChangeDetails = ProfileChangeDetails.ADAPTER.decode(decoded);
+  private @NonNull UpdateDescription getProfileChangeDescription(@NonNull Context context) {
+    ProfileChangeDetails profileChangeDetails = null;
 
+    MessageExtras extras = getMessageExtras();
+    if (extras != null) {
+      profileChangeDetails = extras.profileChangeDetails;
+    } else {
+      try {
+        byte[] decoded = Base64.decode(getBody());
+        profileChangeDetails = ProfileChangeDetails.ADAPTER.decode(decoded);
+      } catch (IOException e) {
+        Log.w(TAG, "Profile name change details could not be read", e);
+      }
+    }
+
+    if (profileChangeDetails != null) {
       if (profileChangeDetails.profileNameChange != null) {
         String displayName  = getFromRecipient().getDisplayName(context);
         String newName      = StringUtil.isolateBidi(ProfileName.fromSerialized(profileChangeDetails.profileNameChange.newValue).toString());
         String previousName = StringUtil.isolateBidi(ProfileName.fromSerialized(profileChangeDetails.profileNameChange.previous).toString());
 
+        String updateMessage;
         if (getFromRecipient().isSystemContact()) {
-          return context.getString(R.string.MessageRecord_changed_their_profile_name_from_to, displayName, previousName, newName);
+          updateMessage = context.getString(R.string.MessageRecord_changed_their_profile_name_from_to, displayName, previousName, newName);
         } else {
-          return context.getString(R.string.MessageRecord_changed_their_profile_name_to, previousName, newName);
+          updateMessage = context.getString(R.string.MessageRecord_changed_their_profile_name_to, previousName, newName);
         }
+
+        return staticUpdateDescription(updateMessage, R.drawable.ic_update_profile_16);
+      } else if (profileChangeDetails.learnedProfileName != null) {
+        return staticUpdateDescription(context.getString(R.string.MessageRecord_started_this_chat, profileChangeDetails.learnedProfileName.previous), R.drawable.symbol_thread_16);
       }
-    } catch (IOException e) {
-      Log.w(TAG, "Profile name change details could not be read", e);
     }
 
-    return context.getString(R.string.MessageRecord_changed_their_profile, getFromRecipient().getDisplayName(context));
+    return staticUpdateDescription(context.getString(R.string.MessageRecord_changed_their_profile, getFromRecipient().getDisplayName(context)), R.drawable.ic_update_profile_16);
   }
 
   private UpdateDescription getGroupMigrationEventDescription(@NonNull Context context) {

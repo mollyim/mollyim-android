@@ -2,14 +2,14 @@ package org.thoughtcrime.securesms.components.settings.conversation.preferences
 
 import android.content.ClipData
 import android.content.Context
-import android.graphics.drawable.InsetDrawable
 import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import org.signal.core.util.dp
+import androidx.core.content.ContextCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
+import org.thoughtcrime.securesms.fonts.SignalSymbols
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.ServiceUtil
@@ -47,7 +47,7 @@ object BioTextPreference {
       val name = if (recipient.isSelf) {
         context.getString(R.string.note_to_self)
       } else {
-        recipient.getDisplayNameOrUsername(context)
+        recipient.getDisplayName(context)
       }
 
       if (!recipient.showVerified() && !recipient.isIndividual) {
@@ -56,16 +56,34 @@ object BioTextPreference {
 
       return SpannableStringBuilder(name).apply {
         if (recipient.showVerified()) {
-          SpanUtil.appendCenteredImageSpan(this, ContextUtil.requireDrawable(context, R.drawable.ic_official_28), 28, 28)
+          SpanUtil.appendSpacer(this, 8)
+          SpanUtil.appendCenteredImageSpanWithoutSpace(this, ContextUtil.requireDrawable(context, R.drawable.ic_official_28), 28, 28)
+        } else if (recipient.isSystemContact) {
+          val systemContactGlyph = SignalSymbols.getSpannedString(
+            context,
+            SignalSymbols.Weight.BOLD,
+            SignalSymbols.Glyph.PERSON_CIRCLE
+          ).let {
+            SpanUtil.ofSize(it, 20)
+          }
+
+          append(" ")
+          append(systemContactGlyph)
         }
 
         if (recipient.isIndividual && !recipient.isSelf) {
-          val drawable = ContextUtil.requireDrawable(context, R.drawable.symbol_chevron_right_24_color_on_secondary_container)
-          drawable.setBounds(0, 0, 24.dp, 24.dp)
+          val chevronGlyph = SignalSymbols.getSpannedString(
+            context,
+            SignalSymbols.Weight.BOLD,
+            SignalSymbols.Glyph.CHEVRON_RIGHT
+          ).let {
+            SpanUtil.ofSize(it, 24)
+          }.let {
+            SpanUtil.color(ContextCompat.getColor(context, R.color.signal_colorOutline), it)
+          }
 
-          val insetDrawable = InsetDrawable(drawable, 0, 0, 0, 4.dp)
-
-          SpanUtil.appendBottomImageSpan(this, insetDrawable, 24, 28)
+          append(" ")
+          append(chevronGlyph)
         }
       }
     }
