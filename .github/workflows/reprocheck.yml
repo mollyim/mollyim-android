@@ -6,10 +6,6 @@ on:
       tag_name:
         description: "Enter the version to check"
         required: true
-      prerelease:
-        description: 'Pre-release build'
-        required: true
-        type: boolean
   release:
     types:
       - published
@@ -19,7 +15,6 @@ permissions:
 
 env:
   TAG_NAME: "${{ github.event.inputs.tag_name || github.event.release.tag_name }}"
-  PRE_RELEASE: "${{ github.event.inputs.prerelease || github.event.release.prerelease }}"
 
 jobs:
   build:
@@ -27,6 +22,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
+      CI_ENV_FILE: ${{ vars.CI_ENV_FILE || 'beta-stable.env' }}
       CI_MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
     steps:
@@ -39,13 +35,7 @@ jobs:
         working-directory: reproducible-builds
 
       - name: Build release
-        if: "env.PRE_RELEASE == 'false'"
-        run: docker-compose --env-file ci/release.env run assemble
-        working-directory: reproducible-builds
-
-      - name: Build pre-release
-        if: "env.PRE_RELEASE == 'true'"
-        run: docker-compose --env-file ci/prerelease.env run assemble
+        run: docker-compose --env-file "ci/$CI_ENV_FILE" run assemble
         working-directory: reproducible-builds
 
       - uses: actions/upload-artifact@v3
