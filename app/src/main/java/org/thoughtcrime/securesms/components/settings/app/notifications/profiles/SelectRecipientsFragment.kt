@@ -98,13 +98,12 @@ class SelectRecipientsFragment : LoggingFragment(), ContactSelectionListFragment
   }
 
   private fun getDefaultDisplayMode(): Int {
-    var mode = ContactSelectionDisplayMode.FLAG_PUSH or
+    return ContactSelectionDisplayMode.FLAG_PUSH or
       ContactSelectionDisplayMode.FLAG_ACTIVE_GROUPS or
       ContactSelectionDisplayMode.FLAG_HIDE_NEW or
       ContactSelectionDisplayMode.FLAG_HIDE_RECENT_HEADER or
-      ContactSelectionDisplayMode.FLAG_GROUPS_AFTER_CONTACTS
-
-    return mode or ContactSelectionDisplayMode.FLAG_HIDE_GROUPS_V1
+      ContactSelectionDisplayMode.FLAG_GROUPS_AFTER_CONTACTS or
+      ContactSelectionDisplayMode.FLAG_HIDE_GROUPS_V1
   }
 
   override fun onBeforeContactSelected(isFromUnknownSearchKey: Boolean, recipientId: Optional<RecipientId>, number: String?, callback: Consumer<Boolean>) {

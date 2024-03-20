@@ -205,7 +205,6 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment), Schedul
 
       if (sharedViewModel.isContactSelectionRequired) {
         val args = MultiselectForwardFragmentArgs(
-          false,
           title = R.string.MediaReviewFragment__send_to,
           storySendRequirements = sharedViewModel.getStorySendRequirements(),
           isSearchEnabled = !sharedViewModel.isStory(),
@@ -665,7 +664,7 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment), Schedul
   }
 
   private fun computeEmojiButtonAnimators(state: MediaSelectionState): List<Animator> {
-    return if (state.isTouchEnabled && !state.isStory && !SignalStore.settings().isPreferSystemEmoji) {
+    return if (state.isTouchEnabled && !SignalStore.settings().isPreferSystemEmoji && state.viewOnceToggleState != MediaSelectionState.ViewOnceToggleState.ONCE) {
       listOf(MediaReviewAnimatorController.getFadeInAnimator(emojiButton))
     } else {
       listOf(MediaReviewAnimatorController.getFadeOutAnimator(emojiButton))

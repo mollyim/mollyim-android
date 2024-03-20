@@ -110,8 +110,7 @@ public final class MultiShareSender {
       MessageSendType sendType       = MessageSendType.SignalMessageSendType.INSTANCE;
       long            expiresIn      = TimeUnit.SECONDS.toMillis(recipient.getExpiresInSeconds());
       List<Contact>   contacts       = multiShareArgs.getSharedContacts();
-      boolean needsSplit = !sendType.usesSmsTransport() &&
-                           message != null &&
+      boolean needsSplit = message != null &&
                            message.length() > sendType.calculateCharacters(message).maxPrimaryMessageSize;
       boolean hasMmsMedia = !multiShareArgs.getMedia().isEmpty() ||
                             (multiShareArgs.getDataUri() != null && multiShareArgs.getDataUri() != Uri.EMPTY) ||
@@ -129,7 +128,7 @@ public final class MultiShareSender {
 
       if ((recipient.isMmsGroup() || recipient.getEmail().isPresent())) {
         results.add(new MultiShareSendResult(recipientSearchKey, MultiShareSendResult.Type.MMS_NOT_ENABLED));
-      } else if (hasMmsMedia && sendType.usesSmsTransport() || hasPushMedia && !sendType.usesSmsTransport() || canSendAsTextStory) {
+      } else if (hasPushMedia || canSendAsTextStory) {
         sendMediaMessageOrCollectStoryToBatch(context,
                                               multiShareArgs,
                                               recipient,

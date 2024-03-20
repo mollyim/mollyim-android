@@ -27,14 +27,8 @@ sealed class MessageSendType(
   @ColorRes
   val backgroundColorRes: Int,
   val transportType: TransportType,
-  val characterCalculator: CharacterCalculator,
-  open val simName: CharSequence? = null,
-  open val simSubscriptionId: Int? = null
+  val characterCalculator: CharacterCalculator
 ) : Parcelable {
-
-  @get:JvmName("usesSmsTransport")
-  val usesSmsTransport
-    get() = false
 
   @get:JvmName("usesSignalTransport")
   val usesSignalTransport
@@ -63,7 +57,7 @@ sealed class MessageSendType(
   )
 
   enum class TransportType {
-    SIGNAL
+    SIGNAL, SMS
   }
 
   companion object {

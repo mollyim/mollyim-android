@@ -133,7 +133,6 @@ public final class JobManagerFactories {
       put(LocalBackupJob.KEY,                        new LocalBackupJob.Factory());
       put(LocalBackupJobApi29.KEY,                   new LocalBackupJobApi29.Factory());
       put(MarkerJob.KEY,                             new MarkerJob.Factory());
-      put("MmsSendJobV2",                            new FailingJob.Factory());
       put(MultiDeviceBlockedUpdateJob.KEY,           new MultiDeviceBlockedUpdateJob.Factory());
       put(MultiDeviceCallLinkSyncJob.KEY,            new MultiDeviceCallLinkSyncJob.Factory());
       put(MultiDeviceConfigurationUpdateJob.KEY,     new MultiDeviceConfigurationUpdateJob.Factory());
@@ -200,8 +199,6 @@ public final class JobManagerFactories {
       put(MultiDeviceStorySendSyncJob.KEY,           new MultiDeviceStorySendSyncJob.Factory());
       put(ResetSvrGuessCountJob.KEY,                 new ResetSvrGuessCountJob.Factory());
       put(ServiceOutageDetectionJob.KEY,             new ServiceOutageDetectionJob.Factory());
-      put("SmsSendJob",                              new FailingJob.Factory());
-      put("SmsSentJob",                              new FailingJob.Factory());
       put(StickerDownloadJob.KEY,                    new StickerDownloadJob.Factory());
       put(StickerPackDownloadJob.KEY,                new StickerPackDownloadJob.Factory());
       put(StorageAccountRestoreJob.KEY,              new StorageAccountRestoreJob.Factory());
@@ -306,6 +303,9 @@ public final class JobManagerFactories {
       put("StoryReadStateMigrationJob",              new PassingMigrationJob.Factory());
       put("GroupV1MigrationJob",                     new FailingJob.Factory());
       put("NewRegistrationUsernameSyncJob",          new FailingJob.Factory());
+      put("SmsSendJob",                              new FailingJob.Factory());
+      put("SmsSentJob",                              new FailingJob.Factory());
+      put("MmsSendJobV2",                            new FailingJob.Factory());
     }};
   }
 

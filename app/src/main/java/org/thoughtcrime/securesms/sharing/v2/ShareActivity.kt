@@ -232,7 +232,6 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
           R.id.fragment_container,
           MultiselectForwardFragment.create(
             MultiselectForwardFragmentArgs(
-              canSendToNonPush = false,
               multiShareArgs = listOf(resolvedShareData.toMultiShareArgs()),
               title = getTitleFromExtras(),
               forceDisableAddMessage = true,

@@ -12,10 +12,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
  * Request body to check if our prekeys match what's on the service.
  */
 class CheckRepeatedUsedPreKeysRequest(
-  @JsonProperty
+  @JsonProperty("identityType")
   val identityType: String,
 
-  @JsonProperty
+  @JsonProperty("digest")
   @JsonSerialize(using = ByteArraySerializerBase64NoPadding::class)
   val digest: ByteArray
 )

@@ -534,10 +534,8 @@ public class MessageSender {
       sendDistributionList(context, recipient, messageId, Collections.emptySet(), uploadJobIds);
     } else if (sendType == SendType.SIGNAL && isPushMediaSend(context, recipient)) {
       sendMediaPush(context, recipient, messageId, uploadJobIds);
-    } else if (sendType == SendType.MMS) {
-      sendMms(context, messageId);
     } else {
-      sendSms(recipient, messageId);
+      Log.w(TAG, "Unknown send type!");
     }
   }
 
@@ -572,14 +570,6 @@ public class MessageSender {
     } else {
       PushDistributionListSendJob.enqueue(context, jobManager, messageId, recipient.getId(), filterRecipientIds);
     }
-  }
-
-  private static void sendMms(Context context, long messageId) {
-    // MOLLY: Noop
-  }
-
-  private static void sendSms(Recipient recipient, long messageId) {
-    // MOLLY: Noop
   }
 
   private static boolean isPushMediaSend(Context context, Recipient recipient) {
