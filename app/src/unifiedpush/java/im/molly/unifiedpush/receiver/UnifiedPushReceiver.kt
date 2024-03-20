@@ -42,9 +42,15 @@ class UnifiedPushReceiver : MessagingReceiver() {
   }
 
   override fun onMessage(context: Context, message: ByteArray, instance: String) {
+    val msg = message.toString(Charsets.UTF_8)
+    if (msg.contains("\"test\":true")) {
+      Log.d(TAG, "Test message received.")
+      UnifiedPushNotificationBuilder(context).setNotificationTest()
+      return
+    }
     if (KeyCachingService.isLocked()) {
       // We look directly in the message to avoid its deserialization
-      if (message.toString(Charsets.UTF_8).contains("\"urgent\":true") &&
+      if (msg.contains("\"urgent\":true") &&
         TextSecurePreferences.isPassphraseLockNotificationsEnabled(context)) {
         Log.d(TAG, "New urgent message received while app is locked.")
         FcmFetchManager.postMayHaveMessagesNotification(context)

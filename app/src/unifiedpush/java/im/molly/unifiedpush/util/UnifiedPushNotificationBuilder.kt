@@ -43,4 +43,9 @@ class UnifiedPushNotificationBuilder(val context: Context) {
     (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
       .notify(NOTIFICATION_ID_UNIFIEDPUSH, getNotification(context.getString(R.string.UnifiedPushNotificationBuilder__registration_failed)))
   }
+
+  fun setNotificationTest() {
+    (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+      .notify(NOTIFICATION_ID_UNIFIEDPUSH, getNotification(context.getString(R.string.UnifiedPushNotificationBuilder__test)))
+  }
 }
