@@ -15,7 +15,7 @@ dependencyResolutionManagement {
       version("exoplayer", "2.19.0")
       version("glide", "4.15.1")
       version("kotlin", "1.8.10")
-      version("libsignal-client", "0.39.2")
+      version("libsignal-client", "0.40.1")
       version("mp4parser", "1.9.39")
       version("android-gradle-plugin", "8.0.2")
       version("accompanist", "0.28.0")
@@ -99,8 +99,8 @@ dependencyResolutionManagement {
       // Google
       library("google-protobuf-javalite", "com.google.protobuf:protobuf-javalite:3.11.4")
       library("google-libphonenumber", "com.googlecode.libphonenumber:libphonenumber:8.13.23")
-      library("google-play-services-maps", "com.google.android.gms:play-services-maps:18.1.0")
-      library("google-play-services-auth", "com.google.android.gms:play-services-auth:20.3.0")
+      library("google-play-services-maps", "com.google.android.gms:play-services-maps:18.2.0")
+      library("google-play-services-auth", "com.google.android.gms:play-services-auth:21.0.0")
       library("google-zxing-android-integration", "com.google.zxing:android-integration:3.3.0")
       library("google-zxing-core", "com.google.zxing:core:3.4.1")
       library("google-ez-vcard", "com.googlecode.ez-vcard:ez-vcard:0.9.11")
@@ -117,7 +117,7 @@ dependencyResolutionManagement {
       library("libsignal-client", "org.signal", "libsignal-client").versionRef("libsignal-client")
       library("libsignal-android", "org.signal", "libsignal-android").versionRef("libsignal-client")
       library("signal-aesgcmprovider", "org.signal:aesgcmprovider:0.0.3")
-      library("molly-ringrtc", "im.molly:ringrtc-android:2.37.1-1")
+      library("molly-ringrtc", "im.molly:ringrtc-android:2.39.0-1")
       library("signal-android-database-sqlcipher", "org.signal:sqlcipher-android:4.5.4-S2")
 
       // MOLLY

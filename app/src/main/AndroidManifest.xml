@@ -24,7 +24,6 @@
     <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="${applicationId}.ACCESS_SECRETS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
-    <uses-permission android:name="android.permission.WRITE_PROFILE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
@@ -46,11 +45,6 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_CALL_STATE"/>
 
-    <!-- For sending/receiving events -->
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
-
-
     <!-- Normal -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -69,13 +63,14 @@
     <uses-permission android:name="android.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
-    <!-- Set image as wallpaper -->
-    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
+    <!-- For device transfer -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RAISED_THREAD_PRIORITY" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
@@ -576,7 +571,7 @@
                 android:host="signal.me" />
         </intent-filter>
 
-        <intent-filter android:autoVerify="true">
+        <intent-filter>
             <action android:name="android.intent.action.VIEW" />
 
             <category android:name="android.intent.category.DEFAULT" />
@@ -885,12 +880,12 @@
     </activity>
 
     <activity android:name="org.thoughtcrime.securesms.webrtc.VoiceCallShare"
-              android:exported="true"
-              android:excludeFromRecents="true"
-              android:permission="android.permission.CALL_PHONE"
-              android:theme="@style/NoAnimation.Theme.BlackScreen"
-              android:launchMode="singleTask"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize">
+        android:exported="true"
+        android:excludeFromRecents="true"
+        android:permission="android.permission.CALL_PHONE"
+        android:theme="@style/NoAnimation.Theme.BlackScreen"
+        android:launchMode="singleTask"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize">
 
         <intent-filter tools:ignore="AppLinkUrlError">
             <action android:name="android.intent.action.VIEW" />
@@ -1027,6 +1022,16 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:screenOrientation="portrait"
               android:theme="@style/Theme.Signal.WallpaperCropper"
+              android:exported="false"/>
+
+    <activity android:name=".components.settings.app.usernamelinks.main.UsernameQrImageSelectionActivity"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+        android:theme="@style/TextSecure.DarkNoActionBar"
+        android:exported="false"/>
+
+    <activity android:name=".components.settings.app.usernamelinks.main.UsernameQrScannerActivity"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:exported="false"/>
 
     <activity android:name=".reactions.edit.EditReactionsActivity"
@@ -1176,11 +1181,6 @@
               android:authorities="${applicationId}.blob"
               android:exported="false"
               android:grantUriPermissions="true" />
-
-    <provider android:name=".providers.MmsBodyProvider"
-              android:grantUriPermissions="true"
-              android:exported="false"
-              android:authorities="${applicationId}.mms" />
 
     <provider android:name="androidx.core.content.FileProvider"
               android:authorities="${applicationId}.fileprovider"

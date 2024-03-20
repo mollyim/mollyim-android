@@ -3,18 +3,23 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 env:
-  HAVE_RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE != '' }}
+  HAVE_KEYSTORE: ${{ secrets.KEYSTORE != '' }}
 
 jobs:
   build:
     name: Build
-    if: "github.event.base_ref == 'refs/heads/main'"
+    if: "github.event.base_ref != 'refs/heads/upstream'"
     runs-on: ubuntu-22.04
+
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+
     env:
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
+      CI_ENV_FILE: ${{ vars.CI_ENV_FILE || 'beta-stable.env' }}
       CI_MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
     steps:
@@ -24,33 +29,33 @@ jobs:
         run: docker-compose build
         working-directory: reproducible-builds
 
-      - name: Extract release keys
-        if: "env.HAVE_RELEASE_KEYSTORE == 'true'"
-        run: printenv RELEASE_KEYSTORE | base64 -d > certs/release.jks
+      - name: Extract signing keys
+        if: "env.HAVE_KEYSTORE == 'true'"
+        run: printenv KEYSTORE | base64 -d > certs/keystore.jks
         working-directory: reproducible-builds
         env:
-          RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+          KEYSTORE: ${{ secrets.KEYSTORE }}
 
-      - name: Build release
-        if: "env.HAVE_RELEASE_KEYSTORE == 'false'"
-        run: docker-compose --env-file ci/release.env run assemble
+      - name: Build without signing
+        if: "env.HAVE_KEYSTORE == 'false'"
+        run: docker-compose --env-file "ci/$CI_ENV_FILE" run assemble
         working-directory: reproducible-builds
 
-      - name: Build and sign release
-        if: "env.HAVE_RELEASE_KEYSTORE == 'true'"
-        run: docker-compose --env-file ci/release.env run assemble
+      - name: Build and sign
+        if: "env.HAVE_KEYSTORE == 'true'"
+        run: docker-compose --env-file "ci/$CI_ENV_FILE" run assemble
         working-directory: reproducible-builds
         env:
-          CI_KEYSTORE_PATH: certs/release.jks
-          CI_KEYSTORE_ALIAS: release
-          CI_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          CI_KEYSTORE_PATH: certs/keystore.jks
+          CI_KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+          CI_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
 
-      - name: Clean up
+      - name: Clean up keystore
         if: "always()"
-        run: rm -f certs/release.jks
+        run: rm -f certs/keystore.jks
         working-directory: reproducible-builds
 
-      - name: Log checksums
+      - name: Log APK and AAB checksums
         run: find outputs \( -name "*.aab" -o -name "*.apk" \) -exec sha256sum '{}' +
         working-directory: reproducible-builds
 
@@ -83,15 +88,21 @@ jobs:
 
       - name: Check version for upgrade compatibility
         run: |
-          gh release list --exclude-drafts
+          echo "Listing latest APKs"
+          gh release list --exclude-drafts --limit 10
           gh release download --pattern '*.apk' --dir latest || exit 0
           latest_apks=(latest/*.apk)
           build_apks=(apk/*/release/*.apk)
+          aapt=($ANDROID_HOME/build-tools/*/aapt)
           version_code() {
-            local aapt=($ANDROID_HOME/build-tools/30.*/aapt)
             $aapt d badging "$1" | gawk 'match($0, /^package:.*versionCode=.([0-9]+)/, v) {print v[1]}'
           }
-          test $(version_code "$build_apks") -gt $(version_code "$latest_apks")
+          echo "Using aapt: $aapt"
+          latest_version_code=$(version_code "$latest_apks")
+          build_version_code=$(version_code "$build_apks")
+          echo "Latest version code: $latest_version_code"
+          echo "Build version code: $build_version_code"
+          test $build_version_code -gt $latest_version_code
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

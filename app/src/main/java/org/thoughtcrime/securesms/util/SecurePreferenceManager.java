@@ -34,6 +34,7 @@ public class SecurePreferenceManager {
         case TextSecurePreferences.FIRST_INSTALL_VERSION:
         case TextSecurePreferences.SYSTEM_EMOJI_PREF:
         case TextSecurePreferences.DIRECTORY_FRESH_TIME_PREF:
+        case TextSecurePreferences.NAVBAR_SHOW_CALLS:
         case KeyboardAwareLinearLayout.KEYBOARD_HEIGHT_LANDSCAPE:
         case KeyboardAwareLinearLayout.KEYBOARD_HEIGHT_PORTRAIT:
           return false;

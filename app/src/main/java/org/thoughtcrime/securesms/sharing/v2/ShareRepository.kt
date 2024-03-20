@@ -9,7 +9,6 @@ import androidx.core.util.toKotlinPair
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.attachments.UriAttachment
 import org.thoughtcrime.securesms.mediasend.Media
 import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.util.FeatureFlags
@@ -65,7 +64,7 @@ class ShareRepository(context: Context) {
     return ResolvedShareData.ExternalUri(
       uri = blobUri,
       mimeType = mimeType,
-      text = multiShareExternal.text,
+      text = multiShareExternal.text
     )
   }
 
@@ -167,10 +166,6 @@ class ShareRepository(context: Context) {
         }
       }
       return null
-    }
-
-    private fun asUriAttachment(uri: Uri, mimeType: String, size: Long): UriAttachment {
-      return UriAttachment(uri, mimeType, -1, size, null, false, false, false, false, null, null, null, null, null)
     }
   }
 }

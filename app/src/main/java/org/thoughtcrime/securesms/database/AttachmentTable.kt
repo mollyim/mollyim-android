@@ -948,7 +948,8 @@ class AttachmentTable(
               audioHash = if (MediaUtil.isAudioType(contentType)) AudioHash.parseOrNull(jsonObject.getString(BLUR_HASH)) else null,
               transformProperties = TransformProperties.parse(jsonObject.getString(TRANSFORM_PROPERTIES)),
               displayOrder = jsonObject.getInt(DISPLAY_ORDER),
-              uploadTimestamp = jsonObject.getLong(UPLOAD_TIMESTAMP)
+              uploadTimestamp = jsonObject.getLong(UPLOAD_TIMESTAMP),
+              dataHash = jsonObject.getString(DATA_HASH)
             )
           }
         }
@@ -1317,7 +1318,7 @@ class AttachmentTable(
             useTemplateUpload = possibleTemplate.uploadTimestamp > attachment.uploadTimestamp &&
               possibleTemplate.transferState == TRANSFER_PROGRESS_DONE &&
               possibleTemplate.transformProperties?.shouldSkipTransform() == true && possibleTemplate.remoteDigest != null &&
-              attachment.transformProperties?.videoEdited == false && possibleTemplate.transformProperties?.sentMediaQuality == attachment.transformProperties?.sentMediaQuality
+              attachment.transformProperties?.videoEdited == false && possibleTemplate.transformProperties.sentMediaQuality == attachment.transformProperties.sentMediaQuality
 
             if (useTemplateUpload) {
               Log.i(TAG, "Found a duplicate attachment upon insertion. Using it as a template.")
@@ -1449,7 +1450,8 @@ class AttachmentTable(
       audioHash = if (MediaUtil.isAudioType(contentType)) AudioHash.parseOrNull(cursor.requireString(BLUR_HASH)) else null,
       transformProperties = TransformProperties.parse(cursor.requireString(TRANSFORM_PROPERTIES)),
       displayOrder = cursor.requireInt(DISPLAY_ORDER),
-      uploadTimestamp = cursor.requireLong(UPLOAD_TIMESTAMP)
+      uploadTimestamp = cursor.requireLong(UPLOAD_TIMESTAMP),
+      dataHash = cursor.requireString(DATA_HASH)
     )
   }
 
@@ -1481,6 +1483,18 @@ class AttachmentTable(
       this.audioHash != null -> this.audioHash!!.hash
       else -> null
     }
+  }
+
+  fun debugGetLatestAttachments(): List<DatabaseAttachment> {
+    return readableDatabase
+      .select(*PROJECTION)
+      .from(TABLE_NAME)
+      .where("$TRANSFER_STATE == $TRANSFER_PROGRESS_DONE AND $REMOTE_LOCATION IS NOT NULL AND $DATA_HASH IS NOT NULL")
+      .orderBy("$ID DESC")
+      .limit(30)
+      .run()
+      .readToList { it.readAttachments() }
+      .flatten()
   }
 
   @VisibleForTesting

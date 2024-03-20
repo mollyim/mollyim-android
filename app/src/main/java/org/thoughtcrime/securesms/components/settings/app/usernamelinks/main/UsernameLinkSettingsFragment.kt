@@ -8,6 +8,8 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -40,11 +42,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ShareCompat
+import androidx.core.app.TaskStackBuilder
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -52,9 +56,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.accompanist.permissions.rememberPermissionState
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
@@ -63,13 +69,16 @@ import org.signal.core.ui.Dialogs
 import org.signal.core.ui.Snackbars
 import org.signal.core.ui.theme.SignalTheme
 import org.signal.core.util.concurrent.LifecycleDisposable
+import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCodeData
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCodeState
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.UsernameQrCodeColorScheme
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.main.UsernameLinkSettingsState.ActiveTab
 import org.thoughtcrime.securesms.compose.ComposeFragment
+import org.thoughtcrime.securesms.permissions.PermissionCompat
 import org.thoughtcrime.securesms.providers.BlobProvider
+import org.thoughtcrime.securesms.util.CommunicationActions
 import java.io.ByteArrayOutputStream
 import java.util.UUID
 
@@ -78,6 +87,18 @@ class UsernameLinkSettingsFragment : ComposeFragment() {
 
   private val viewModel: UsernameLinkSettingsViewModel by viewModels()
   private val disposables: LifecycleDisposable = LifecycleDisposable()
+
+  private lateinit var galleryLauncher: ActivityResultLauncher<Unit>
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    galleryLauncher = registerForActivityResult(UsernameQrImageSelectionActivity.Contract()) { uri ->
+      if (uri != null) {
+        viewModel.scanImage(requireContext(), uri)
+      }
+    }
+  }
 
   override fun onStart() {
     super.onStart()
@@ -99,6 +120,14 @@ class UsernameLinkSettingsFragment : ComposeFragment() {
       viewModel.onTabSelected(ActiveTab.Scan)
     }
 
+    val galleryPermissionState: MultiplePermissionsState = rememberMultiplePermissionsState(permissions = PermissionCompat.forImages().toList()) { grants ->
+      if (grants.values.all { it }) {
+        galleryLauncher.launch(Unit)
+      } else {
+        Toast.makeText(requireContext(), R.string.ChatWallpaperPreviewActivity__viewing_your_gallery_requires_the_storage_permission, Toast.LENGTH_SHORT).show()
+      }
+    }
+
     MainScreen(
       state = state,
       navController = navController,
@@ -111,6 +140,13 @@ class UsernameLinkSettingsFragment : ComposeFragment() {
       onShareBadge = { shareQrBadge(requireActivity(), viewModel.generateQrCodeImage(helpText)) },
       onQrCodeScanned = { data -> viewModel.onQrCodeScanned(data) },
       onQrResultHandled = { viewModel.onQrResultHandled() },
+      onOpenGalleryClicked = {
+        if (galleryPermissionState.allPermissionsGranted) {
+          galleryLauncher.launch(Unit)
+        } else {
+          galleryPermissionState.launchMultiplePermissionRequest()
+        }
+      },
       onLinkReset = { viewModel.onUsernameLinkReset() },
       onBackNavigationPressed = { requireActivity().onBackPressed() },
       linkCopiedEvent = linkCopiedEvent
@@ -127,6 +163,7 @@ class UsernameLinkSettingsFragment : ComposeFragment() {
   }
 }
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun MainScreen(
   state: UsernameLinkSettingsState,
@@ -140,10 +177,13 @@ private fun MainScreen(
   onShareBadge: () -> Unit = {},
   onQrCodeScanned: (String) -> Unit = {},
   onQrResultHandled: () -> Unit = {},
+  onOpenGalleryClicked: () -> Unit = {},
   onLinkReset: () -> Unit = {},
   onBackNavigationPressed: () -> Unit = {},
   linkCopiedEvent: UUID? = null
 ) {
+  val context = LocalContext.current
+
   val snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
   val scope: CoroutineScope = rememberCoroutineScope()
   var showResetDialog: Boolean by remember { mutableStateOf(false) }
@@ -204,7 +244,15 @@ private fun MainScreen(
         qrScanResult = state.qrScanResult,
         onQrCodeScanned = onQrCodeScanned,
         onQrResultHandled = onQrResultHandled,
-        modifier = Modifier.padding(contentPadding)
+        onOpenGalleryClicked = onOpenGalleryClicked,
+        modifier = Modifier.padding(contentPadding),
+        onRecipientFound = { recipient ->
+          val taskStack = TaskStackBuilder
+            .create(context)
+            .addNextIntent(MainActivity.clearTop(context))
+
+          CommunicationActions.startConversation(context, recipient, null, taskStack)
+        }
       )
     }
   }

@@ -6,5 +6,6 @@ data class AppearanceSettingsState(
   val theme: SettingsValues.Theme,
   val messageFontSize: Int,
   val language: String,
+  val navbarShowCalls: Boolean,
   val isCompactNavigationBar: Boolean
 )

@@ -53,6 +53,7 @@ import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto;
 import org.thoughtcrime.securesms.events.CallParticipant;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.ringrtc.CameraState;
@@ -441,7 +442,13 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
 
     if (state.getGroupCallState().isNotIdle()) {
       if (state.getCallState() == WebRtcViewModel.State.CALL_PRE_JOIN) {
-        callLinkWarningCard.setVisibility(callParticipantsViewState.isStartedFromCallLink() ? View.VISIBLE : View.GONE);
+        if (callParticipantsViewState.isStartedFromCallLink()) {
+          TextView warningTextView = callLinkWarningCard.get().findViewById(R.id.call_screen_call_link_warning_textview);
+          warningTextView.setText(SignalStore.phoneNumberPrivacy().isPhoneNumberSharingEnabled() ? R.string.WebRtcCallView__anyone_who_joins_pnp_enabled : R.string.WebRtcCallView__anyone_who_joins_pnp_disabled);
+          callLinkWarningCard.setVisibility(View.VISIBLE);
+        } else {
+          callLinkWarningCard.setVisibility(View.GONE);
+        }
         setStatus(state.getPreJoinGroupDescription(getContext()));
       } else if (state.getCallState() == WebRtcViewModel.State.CALL_CONNECTED && state.isInOutgoingRingingMode()) {
         callLinkWarningCard.setVisibility(View.GONE);
@@ -514,6 +521,8 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
       }
     }
 
+    pictureInPictureGestureHelper.setDisplayBelowVerticalBoundary(false);
+
     switch (state) {
       case GONE:
         largeLocalRender.attachBroadcastVideoSink(null);
@@ -534,6 +543,7 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
 
         largeLocalRender.attachBroadcastVideoSink(null);
         largeLocalRenderFrame.setVisibility(View.GONE);
+        pictureInPictureGestureHelper.setDisplayBelowVerticalBoundary(true);
         break;
       case LARGE:
         largeLocalRender.attachBroadcastVideoSink(localCallParticipant.getVideoSink());
@@ -835,6 +845,7 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
     previousLayoutPositions = layoutPositions;
 
     ConstraintSet constraintSet = new ConstraintSet();
+    constraintSet.setForceId(false);
     constraintSet.clone(this);
 
     constraintSet.connect(R.id.call_screen_participants_parent,
@@ -868,6 +879,7 @@ public class WebRtcCallView extends InsetAwareConstraintLayout {
 
   private void updatePendingParticipantsBottomConstraint(View anchor) {
     ConstraintSet constraintSet = new ConstraintSet();
+    constraintSet.setForceId(false);
     constraintSet.clone(this);
 
     constraintSet.connect(R.id.call_screen_pending_recipients,

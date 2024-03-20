@@ -193,13 +193,6 @@ public class InviteActivity extends PassphraseRequiredActivity implements Contac
     }
   }
 
-  private class SmsClickListener implements OnClickListener {
-    @Override
-    public void onClick(View v) {
-      ViewUtil.animateIn(smsSendFrame, slideInAnimation);
-    }
-  }
-
   private class SmsCancelClickListener implements OnClickListener {
     @Override
     public void onClick(View v) {

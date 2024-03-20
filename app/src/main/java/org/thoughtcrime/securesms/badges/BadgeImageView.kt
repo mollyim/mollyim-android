@@ -10,6 +10,7 @@ import org.thoughtcrime.securesms.badges.glide.BadgeSpriteTransformation
 import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.ThemeUtil
+import org.thoughtcrime.securesms.util.visible
 
 class BadgeImageView @JvmOverloads constructor(
   context: Context,
@@ -69,6 +70,10 @@ class BadgeImageView @JvmOverloads constructor(
         .clear(this)
       clearDrawable()
     }
+  }
+
+  fun isShowingBadge(): Boolean {
+    return drawable != null
   }
 
   private fun clearDrawable() {

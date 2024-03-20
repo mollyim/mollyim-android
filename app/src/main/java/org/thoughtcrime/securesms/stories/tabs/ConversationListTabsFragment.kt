@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.databinding.ConversationListTabsBinding
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.stories.Stories
+import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.visible
 
 /**
@@ -104,7 +105,7 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
       binding.callsUnreadIndicator,
       binding.callsTabTouchPoint
     ).forEach {
-      it.visible = true
+      it.visible = TextSecurePreferences.getNavbarShowCalls(requireContext())
     }
 
     listOf(
@@ -132,44 +133,51 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
   }
 
   private fun update(state: ConversationListTabsState, immediate: Boolean) {
+    val storiesEnabled = Stories.isFeatureEnabled()
+    val showCalls = TextSecurePreferences.getNavbarShowCalls(requireContext())
+
     binding.chatsTabIcon.isSelected = state.tab == ConversationListTab.CHATS
     binding.chatsPill.isSelected = state.tab == ConversationListTab.CHATS
 
-    if (Stories.isFeatureEnabled()) {
+    if (storiesEnabled) {
       binding.storiesTabIcon.isSelected = state.tab == ConversationListTab.STORIES
       binding.storiesPill.isSelected = state.tab == ConversationListTab.STORIES
     }
 
-    binding.callsTabIcon.isSelected = state.tab == ConversationListTab.CALLS
-    binding.callsPill.isSelected = state.tab == ConversationListTab.CALLS
+    if (showCalls) {
+      binding.callsTabIcon.isSelected = state.tab == ConversationListTab.CALLS
+      binding.callsPill.isSelected = state.tab == ConversationListTab.CALLS
+    }
 
     val hasStateChange = state.tab != state.prevTab
     if (immediate) {
       binding.chatsTabIcon.pauseAnimation()
       binding.chatsTabIcon.progress = if (state.tab == ConversationListTab.CHATS) 1f else 0f
 
-      if (Stories.isFeatureEnabled()) {
+      if (storiesEnabled) {
         binding.storiesTabIcon.pauseAnimation()
         binding.storiesTabIcon.progress = if (state.tab == ConversationListTab.STORIES) 1f else 0f
       }
 
-      binding.callsTabIcon.pauseAnimation()
-      binding.callsTabIcon.progress = if (state.tab == ConversationListTab.CALLS) 1f else 0f
+      if (showCalls) {
+        binding.callsTabIcon.pauseAnimation()
+        binding.callsTabIcon.progress = if (state.tab == ConversationListTab.CALLS) 1f else 0f
+      }
 
       runPillAnimation(
         0,
         listOfNotNull(
           binding.chatsPill,
-          binding.callsPill,
-          binding.storiesPill.takeIf { Stories.isFeatureEnabled() }
+          binding.callsPill.takeIf { showCalls },
+          binding.storiesPill.takeIf { storiesEnabled }
         )
       )
     } else if (hasStateChange) {
       runLottieAnimations(
         listOfNotNull(
           binding.chatsTabIcon,
-          binding.callsTabIcon,
-          binding.storiesTabIcon.takeIf { Stories.isFeatureEnabled() }
+          binding.callsTabIcon.takeIf { showCalls },
+          binding.storiesTabIcon.takeIf { storiesEnabled }
         )
       )
 
@@ -177,8 +185,8 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
         150,
         listOfNotNull(
           binding.chatsPill,
-          binding.callsPill,
-          binding.storiesPill.takeIf { Stories.isFeatureEnabled() }
+          binding.callsPill.takeIf { showCalls },
+          binding.storiesPill.takeIf { storiesEnabled }
         )
       )
     }
@@ -186,13 +194,15 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
     binding.chatsUnreadIndicator.visible = state.unreadMessagesCount > 0
     binding.chatsUnreadIndicator.text = formatCount(state.unreadMessagesCount)
 
-    if (Stories.isFeatureEnabled()) {
+    if (storiesEnabled) {
       binding.storiesUnreadIndicator.visible = state.unreadStoriesCount > 0 || state.hasFailedStory
       binding.storiesUnreadIndicator.text = if (state.hasFailedStory) "!" else formatCount(state.unreadStoriesCount)
     }
 
-    binding.callsUnreadIndicator.visible = state.unreadCallsCount > 0
-    binding.callsUnreadIndicator.text = formatCount(state.unreadCallsCount)
+    if (showCalls) {
+      binding.callsUnreadIndicator.visible = state.unreadCallsCount > 0
+      binding.callsUnreadIndicator.text = formatCount(state.unreadCallsCount)
+    }
 
     requireView().visible = state.visibilityState.isVisible()
   }
