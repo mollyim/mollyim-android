@@ -107,6 +107,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
     } else {
       url
     }
+    SignalStore.unifiedpush.pending = true
     EXECUTOR.enqueue {
       SignalStore.unifiedpush.mollySocketFound = try {
         MollySocketRequest.discoverMollySocketServer()
@@ -119,7 +120,6 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
   }
 
   private fun processNewStatus() {
-    SignalStore.unifiedpush.pending = true
     store.update { getState() }
     AppDependencies.jobManager.add(UnifiedPushRefreshJob())
   }
