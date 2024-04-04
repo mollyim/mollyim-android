@@ -91,7 +91,7 @@ public final class StorageSyncModels {
 
   private static @NonNull SignalAccountRecord.PinnedConversation localToRemotePinnedConversation(@NonNull RecipientRecord settings) {
     switch (settings.getRecipientType()) {
-      case INDIVIDUAL: return SignalAccountRecord.PinnedConversation.forContact(new SignalServiceAddress(settings.getAci(), settings.getE164()));
+      case INDIVIDUAL: return SignalAccountRecord.PinnedConversation.forContact(new SignalServiceAddress(settings.getServiceId(), settings.getE164()));
       case GV1: return SignalAccountRecord.PinnedConversation.forGroupV1(settings.getGroupId().requireV1().getDecodedId());
       case GV2: return SignalAccountRecord.PinnedConversation.forGroupV2(settings.getSyncExtras().getGroupMasterKey().serialize());
       default       : throw new AssertionError("Unexpected group type!");
@@ -154,6 +154,9 @@ public final class StorageSyncModels {
                                   .setHidden(recipient.getHiddenState() != Recipient.HiddenState.NOT_HIDDEN)
                                   .setUsername(recipient.getUsername())
                                   .setPniSignatureVerified(recipient.getSyncExtras().getPniSignatureVerified())
+                                  .setNicknameGivenName(recipient.getNickname().getGivenName())
+                                  .setNicknameFamilyName(recipient.getNickname().getFamilyName())
+                                  .setNote(recipient.getNote())
                                   .build();
   }
 

@@ -90,6 +90,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Server Time Offset: ").append(locked ? "Unknown" : getLastKnownServerTimeOffset()).append("\n");
     builder.append("Telecom           : ").append(locked ? "Unknown" : AndroidTelecomUtil.getTelecomSupported()).append("\n");
     builder.append("User-Agent        : ").append(StandardUserAgentInterceptor.USER_AGENT).append("\n");
+    builder.append("APNG Animation    : ").append(locked ? "Unknown" : DeviceProperties.shouldAllowApngStickerAnimation(context)).append("\n");
     if (BuildConfig.MANAGES_MOLLY_UPDATES) {
       builder.append("Update Check URL  : ").append(BuildConfig.FDROID_UPDATE_URL).append("\n");
     }

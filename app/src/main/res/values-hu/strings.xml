@@ -45,8 +45,6 @@
     <string name="ApplicationPreferencesActivity_disable_passphrase">Jelmondat letiltása?</string>
     <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ez véglegesen fel fogja oldani a Mollyt és az üzenet értesítéseket.</string>
     <string name="ApplicationPreferencesActivity_disable">Letiltás</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Letiltod a Molly üzeneteket és hívásokat?</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Molly üzenetek és hívások letiltása a kiszolgálóról való leregisztrálással. Ha a jövőben újra szeretnéd használni ezeket a szolgáltatásokat, újra kell regisztrálnod a telefonszámoddal.</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Hiba történt a kiszolgálóhoz történő kapcsolódás során!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">A regisztrációs zárhoz PIN kódra van szükség. A PIN kód letiltásához előbb ki kell kapcsolni a regisztrációs zárat.</string>
     <string name="ApplicationPreferencesActivity_pin_created">PIN kód létrehozva.</string>
@@ -1989,6 +1987,8 @@
     <string name="AboutSheet__about">Névjegy</string>
     <!-- Text displayed in title for you -->
     <string name="AboutSheet__you">Te</string>
+    <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
+    <string name="AboutSheet__user_set_display_name_and_profile_name">%1$s (%2$s)</string>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
@@ -2925,6 +2925,18 @@
     <string name="EditProfileFragment__group_name">Csoport neve</string>
     <string name="EditProfileFragment__group_description">Csoportleírás</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
+    <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_title">Molly frissítése</string>
+    <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_body">A Molly jelenlegi verziója lejárt. A Molly használatának folytatásához frissítsd most.</string>
+    <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
+    <string name="EditProfileFragment_deprecated_dialog_update_button">Frissítés</string>
+    <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_title">Az eszköz nincs regisztrálva</string>
+    <!-- The body of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_body">Ez az eszköz már nincs regisztrálva. Regisztráld újra, ha módosítani szeretnéd a fiókod.</string>
+    <!-- The button on a dialog informing the user that they cannot use this app feature when they are unregistered. When clicked, the user will be taken to a screen to help them re-register. -->
+    <string name="EditProfileFragment_unregistered_dialog_reregister_button">Újraregisztrálás</string>
 
     <!-- EditProfileNameFragment -->
     <string name="EditProfileNameFragment_your_name">Neved</string>
@@ -3663,8 +3675,6 @@
     <string name="verify_display_fragment_context_menu__compare_with_clipboard">Összehasonlítás vágólappal</string>
 
     <!-- reminder_header -->
-    <string name="reminder_header_push_title">Signal üzenetek és hívások engedélyezése</string>
-    <string name="reminder_header_push_text">Tedd jobbá kommunikációs élményedet!</string>
     <string name="reminder_header_service_outage_text">A Signal technikai nehézségekkel küzd. Keményen dolgozunk azért, hogy a lehető leghamarabb visszaállítsuk a szolgáltatást.</string>
     <string name="reminder_header_progress">%1$d%%</string>
     <!-- Body text of a banner that will show at the top of the chat list when we temporarily cannot process the user\'s contacts -->
@@ -3961,6 +3971,8 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Hozzá kell férned a régi eszközödhöz.</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">Visszaállítás biztonsági mentésből</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Üzeneteid helyreállítása egy helyi mentésből. Ha nem állítod őket helyre most, akkor később már nem lesz rá lehetőséged.</string>
+    <!-- Button label for more options -->
+    <string name="TransferOrRestoreFragment__more_options">További lehetőségek</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Nyisd meg a Signalt régi Android készülékeden!</string>
@@ -4718,7 +4730,7 @@
     <string name="ConversationSettingsFragment__disappearing_messages">Eltűnő üzenetek</string>
     <string name="ConversationSettingsFragment__sounds_and_notifications">Hangok &amp; értesítések</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
-    <string name="ConversationSettingsFragment__contact_details">Kontakt adatok</string>
+    <string name="ConversationSettingsFragment__contact_details">Phone contact info</string>
     <string name="ConversationSettingsFragment__view_safety_number">Biztonsági szám megjelenítése</string>
     <string name="ConversationSettingsFragment__block">Letiltás</string>
     <string name="ConversationSettingsFragment__block_group">Csoport letiltása</string>
@@ -6652,6 +6664,46 @@
     <string name="FindByActivity__qr_scan_button">QR kód beolvasása</string>
     <!-- Content of a dialog indicating that we could not perform the requested action because we encountered a network error. -->
     <string name="FindByActivity__network_error_dialog">Hálózati hiba történt. Próbáld újra később.</string>
+
+    <!-- Title for an alert letting someone know that one of their linked devices is inactive. -->
+    <string name="LinkedDeviceInactiveMegaphone_title">Inaktív kapcsolt eszköz</string>
+    <!-- Body for an alert letting someone know that one of their linked devices is inactive. The string placeholder is the name of the device, and the number placeholder is the number of days before device is unlinked. -->
+    <plurals name="LinkedDeviceInactiveMegaphone_body">
+        <item quantity="one">A(z) „%1$s” összekapcsolásának megtartásához nyissa meg a Signalt az adott eszközön %2$d napon belül.</item>
+        <item quantity="other">A(z) „%1$s” összekapcsolásának megtartásához nyissa meg a Signalt az adott eszközön %2$d napon belül.</item>
+    </plurals>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the user will opt out of all future alerts. -->
+    <string name="LinkedDeviceInactiveMegaphone_dont_remind_button_label">Ne emlékeztessen</string>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the alert will be dismissed. -->
+    <string name="LinkedDeviceInactiveMegaphone_got_it_button_label">Rendben</string>
+
+    <!-- NicknameFragment -->
+    <!-- Title displayed at the top of the screen -->
+    <string name="NicknameActivity__nickname">Becenév</string>
+    <!-- Subtitle displayed under title -->
+    <string name="NicknameActivity__nicknames_amp_notes">A beceneveket és jegyzeteket a Signal végponttól végpontig titkosított tárolási szolgáltatásával tároljuk. Ezek csak számodra láthatók.</string>
+    <!-- Field label for given name -->
+    <string name="NicknameActivity__first_name">Keresztnév</string>
+    <!-- Content description for first name clear button -->
+    <string name="NicknameActivity__clear_first_name">Keresztnév törlése</string>
+    <!-- Field label for family name -->
+    <string name="NicknameActivity__last_name">Vezetéknév</string>
+    <!-- Content description for last name clear button -->
+    <string name="NicknameActivity__clear_last_name">Vezetéknév törlése</string>
+    <!-- Field label for note -->
+    <string name="NicknameActivity__note">Megjegyzés</string>
+    <!-- Button label to save -->
+    <string name="NicknameActivity__save">Mentés</string>
+    <!-- Dialog title for note and name deletion -->
+    <string name="NicknameActivity__delete_nickname">Becenév törlése?</string>
+    <!-- Dialog message for note and name deletion -->
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">Ezzel véglegesen törli ezt a becenevet és jegyzetet.</string>
+
+    <!-- ViewNoteBottomSheetDialogFragment -->
+    <!-- Sheet title -->
+    <string name="ViewNoteSheet__note">Megjegyzés</string>
+    <!-- Content description for opening the note editor -->
+    <string name="ViewNoteSheet__edit_note">Megjegyzés szerkesztése</string>
 
     <!-- EOF -->
 </resources>

@@ -68,6 +68,7 @@ import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.FontDownloaderJob;
 import org.thoughtcrime.securesms.jobs.GroupRingCleanupJob;
 import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
+import org.thoughtcrime.securesms.jobs.LinkedDeviceInactiveCheckJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PnpInitializeDevicesJob;
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob;
@@ -241,6 +242,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addPostRender(() -> ApplicationDependencies.getRecipientCache().warmUp())
                             .addPostRender(AccountConsistencyWorkerJob::enqueueIfNecessary)
                             .addPostRender(GroupRingCleanupJob::enqueue)
+                            .addPostRender(LinkedDeviceInactiveCheckJob::enqueueIfNecessary)
                             .execute();
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -345,7 +347,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   public void checkBuildExpiration() {
     if (Util.getTimeUntilBuildExpiry() <= 0 && !SignalStore.misc().isClientDeprecated()) {
       Log.w(TAG, "Build expired!");
-      SignalStore.misc().markClientDeprecated();
+      SignalStore.misc().setClientDeprecated(true);
     }
   }
 

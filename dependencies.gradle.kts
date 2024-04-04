@@ -6,7 +6,7 @@ dependencyResolutionManagement {
     create("libs") {
       version("androidx-appcompat", "1.6.1")
       version("androidx-activity", "1.8.2")
-      version("androidx-camera", "1.3.1")
+      version("androidx-camera", "1.3.2")
       version("androidx-fragment", "1.6.2")
       version("androidx-lifecycle", "2.7.0")
       version("androidx-media3", "1.2.1")
@@ -15,7 +15,7 @@ dependencyResolutionManagement {
       version("exoplayer", "2.19.0")
       version("glide", "4.15.1")
       version("kotlin", "1.8.10")
-      version("libsignal-client", "0.40.1")
+      version("libsignal-client", "0.42.0")
       version("mp4parser", "1.9.39")
       version("android-gradle-plugin", "8.0.2")
       version("accompanist", "0.28.0")
@@ -80,6 +80,7 @@ dependencyResolutionManagement {
       library("androidx-lifecycle-reactivestreams-ktx", "androidx.lifecycle", "lifecycle-reactivestreams-ktx").versionRef("androidx-lifecycle")
       library("androidx-camera-core", "androidx.camera", "camera-core").versionRef("androidx-camera")
       library("androidx-camera-camera2", "androidx.camera", "camera-camera2").versionRef("androidx-camera")
+      library("androidx-camera-extensions", "androidx.camera", "camera-extensions").versionRef("androidx-camera")
       library("androidx-camera-lifecycle", "androidx.camera", "camera-lifecycle").versionRef("androidx-camera")
       library("androidx-camera-view", "androidx.camera", "camera-view").versionRef("androidx-camera")
       library("androidx-concurrent-futures", "androidx.concurrent:concurrent-futures:1.0.0")
@@ -117,7 +118,7 @@ dependencyResolutionManagement {
       library("libsignal-client", "org.signal", "libsignal-client").versionRef("libsignal-client")
       library("libsignal-android", "org.signal", "libsignal-android").versionRef("libsignal-client")
       library("signal-aesgcmprovider", "org.signal:aesgcmprovider:0.0.3")
-      library("molly-ringrtc", "im.molly:ringrtc-android:2.39.0-1")
+      library("molly-ringrtc", "im.molly:ringrtc-android:2.39.3-1")
       library("signal-android-database-sqlcipher", "org.signal:sqlcipher-android:4.5.4-S2")
 
       // MOLLY
