@@ -39,7 +39,7 @@ import org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.OpenGraph;
 import org.thoughtcrime.securesms.mms.PushMediaConstraints;
 import org.thoughtcrime.securesms.net.CallRequestController;
 import org.thoughtcrime.securesms.net.CompositeRequestController;
-import org.thoughtcrime.securesms.net.Network;
+import org.thoughtcrime.securesms.net.Networking;
 import org.thoughtcrime.securesms.net.RequestController;
 import org.thoughtcrime.securesms.net.UserAgentInterceptor;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
@@ -90,9 +90,9 @@ public class LinkPreviewRepository {
 
   public LinkPreviewRepository() {
     this.client = new OkHttpClient.Builder()
-                                  .socketFactory(Network.getSocketFactory())
-                                  .proxySelector(Network.getProxySelectorForSocks())
-                                  .dns(Network.getDns())
+                                  .socketFactory(Networking.getSocketFactory())
+                                  .proxySelector(Networking.getProxySelectorForSocks())
+                                  .dns(Networking.getDns())
                                   .cache(null)
                                   .addInterceptor(new UserAgentInterceptor("WhatsApp/2"))
                                   .build();

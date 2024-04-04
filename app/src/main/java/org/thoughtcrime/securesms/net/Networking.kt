@@ -9,7 +9,7 @@ import java.net.SocketAddress
 import java.net.URI
 import javax.net.SocketFactory
 
-object Network {
+object Networking {
   @JvmStatic
   var isEnabled: Boolean = false
 
