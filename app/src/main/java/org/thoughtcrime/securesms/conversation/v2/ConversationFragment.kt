@@ -251,6 +251,7 @@ import org.thoughtcrime.securesms.mms.VideoSlide
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity
 import org.thoughtcrime.securesms.permissions.Permissions
+import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewCardDialogFragment
 import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment
@@ -1098,7 +1099,7 @@ class ConversationFragment :
         ConversationTypingIndicatorAdapter.State(
           typists = it.typists,
           isGroupThread = recipient.isGroup,
-          hasWallpaper = recipient.hasWallpaper(),
+          hasWallpaper = recipient.hasWallpaper,
           isReplacedByIncomingMessage = it.isReplacedByIncomingMessage
         )
       )
@@ -1116,7 +1117,7 @@ class ConversationFragment :
 
     binding.conversationTitleView.conversationTitleView.setOnStoryRingClickListener {
       val recipient: Recipient = viewModel.recipientSnapshot ?: return@setOnStoryRingClickListener
-      val args = StoryViewerArgs.Builder(recipient.id, recipient.shouldHideStory())
+      val args = StoryViewerArgs.Builder(recipient.id, recipient.shouldHideStory)
         .isFromQuote(true)
         .build()
 
@@ -1528,7 +1529,8 @@ class ConversationFragment :
       hasWallpaper = args.wallpaper != null,
       colorizer = colorizer,
       startExpirationTimeout = viewModel::startExpirationTimeout,
-      chatColorsDataProvider = viewModel::chatColorsSnapshot
+      chatColorsDataProvider = viewModel::chatColorsSnapshot,
+      displayDialogFragment = { it.show(childFragmentManager, null) }
     )
 
     typingIndicatorAdapter = ConversationTypingIndicatorAdapter(Glide.with(this))
@@ -1868,7 +1870,7 @@ class ConversationFragment :
   private fun handleRecentSafetyNumberChange(changedRecords: List<IdentityRecord>) {
     val recipient = viewModel.recipientSnapshot ?: return
     SafetyNumberBottomSheet
-      .forIdentityRecordsAndDestination(changedRecords, RecipientSearchKey(recipient.getId(), false))
+      .forIdentityRecordsAndDestination(changedRecords, RecipientSearchKey(recipient.id, false))
       .show(childFragmentManager)
   }
 
@@ -2574,7 +2576,7 @@ class ConversationFragment :
         startActivity(
           StoryViewerActivity.createIntent(
             requireContext(),
-            StoryViewerArgs.Builder(quote.author, Recipient.resolved(quote.author).shouldHideStory())
+            StoryViewerArgs.Builder(quote.author, Recipient.resolved(quote.author).shouldHideStory)
               .withStoryId(parentStoryId.asMessageId().id)
               .isFromQuote(true)
               .build()
@@ -2802,6 +2804,9 @@ class ConversationFragment :
     }
 
     override fun onCallToAction(action: String) {
+      if ("username_edit" == action) {
+        startActivity(EditProfileActivity.getIntentForUsernameEdit(requireContext()))
+      }
     }
 
     override fun onDonateClicked() {
