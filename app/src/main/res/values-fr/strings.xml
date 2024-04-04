@@ -45,8 +45,6 @@
     <string name="ApplicationPreferencesActivity_disable_passphrase">Désactiver la phrase de passe ?</string>
     <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly et les notifications de message seront déverrouillées en permanence.</string>
     <string name="ApplicationPreferencesActivity_disable">Désactiver</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Désactiver les messages et appels Molly ?</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Pour désactiver les messages et les appels Molly, désinscrivez-vous du serveur. Vous devrez réenregistrer votre numéro de téléphone pour les réutiliser.</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Erreur de connexion au serveur.</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Le blocage d’inscription nécessite l’utilisation d’un code PIN. Pour désactiver le code PIN, commencez par désactiver le blocage d’inscription.</string>
     <string name="ApplicationPreferencesActivity_pin_created">Code PIN créé.</string>
@@ -101,7 +99,7 @@
     <string name="AttachmentManager__cancel">Annuler</string>
 
     <!-- AttachmentUploadJob -->
-    <string name="AttachmentUploadJob_uploading_media">Téléversement du média…</string>
+    <string name="AttachmentUploadJob_uploading_media">Importation du média…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Compression de la vidéo…</string>
 
     <!-- BackgroundMessageRetriever -->
@@ -646,7 +644,7 @@
     <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
     <string name="RelinkDevicesReminderFragment__relink_your_devices">Liez de nouveau vos appareils</string>
     <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
-    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">Les appareils que vous avez ajoutés ont été dissociés lorsque votre appareil a été supprimé. Rendez-vous dans les paramètres pour relier vos appareils.</string>
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">Les appareils que vous avez ajoutés ont été dissociés lorsque vous avez désinscrit votre appareil. Accédez aux paramètres pour les associer de nouveau.</string>
     <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
     <string name="RelinkDevicesReminderFragment__open_settings">Ouvrir les paramètres</string>
     <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
@@ -1661,7 +1659,7 @@
     <string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">Saisissez la nouvelle phrase de passe.</string>
 
     <!-- DeviceProvisioningActivity -->
-    <string name="DeviceProvisioningActivity_link_this_device">Relier cet appareil ?</string>
+    <string name="DeviceProvisioningActivity_link_this_device">Associer cet appareil ?</string>
     <string name="DeviceProvisioningActivity_continue">Poursuivre</string>
 
     <string name="DeviceProvisioningActivity_content_intro">Il pourra</string>
@@ -1676,8 +1674,8 @@
     <string name="DeviceProvisioningActivity_content_progress_key_error">Le code QR est invalide</string>
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">Désolé, trop d’appareils sont déjà reliés. Essayez d’en supprimer</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Désolé, ce n’est pas un code QR valide de liaison d’appareil.</string>
-    <string name="DeviceProvisioningActivity_link_a_signal_device">Relier un appareil Signal ?</string>
-    <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Il semble que vous tentiez de relier un appareil Signal en utilisant un lecteur tiers. Pour votre protection, veuillez lire le code de nouveau à partir Signal.</string>
+    <string name="DeviceProvisioningActivity_link_a_signal_device">Associer un appareil Signal ?</string>
+    <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Il semble que vous tentiez d’associer un appareil Signal via un lecteur tiers. Pour votre sécurité, veuillez rescanner le code à partir de Signal.</string>
 
     <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly a besoin de l’autorisation Appareil photo afin de lire un code QR, mais elle a été refusée définitivement. Veuillez accéder aux paramètres de l’appli, sélectionner Autorisations et activer Appareil photo.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Impossible de lire un code QR sans l’autorisation Appareil photo</string>
@@ -1989,6 +1987,8 @@
     <string name="AboutSheet__about">À propos</string>
     <!-- Text displayed in title for you -->
     <string name="AboutSheet__you">Vous</string>
+    <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
+    <string name="AboutSheet__user_set_display_name_and_profile_name">%1$s (%2$s)</string>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
@@ -2053,8 +2053,8 @@
     <string name="RegistrationActivity_play_services_error">Erreur des Services Google Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Les services Google Play sont en cours de mise à jour ou temporairement non disponibles. Veuillez réessayer.</string>
     <string name="RegistrationActivity_terms_and_privacy">Conditions générales et politique de confidentialité</string>
-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal a besoin des autorisations Contacts et Médias pour vous aider à vous connecter avec vos amis et à envoyer des messages. Vos contacts sont téléversés en utilisant la découverte confidentielle des contacts de Signal, ce qui signifie qu’ils sont chiffrés de bout en bout et ne sont jamais visibles par le service Signal.</string>
-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal a besoin de l’autorisation Contacts pour vous aider à vous connecter avec vos amis. Vos contacts sont téléversés en utilisant la découverte confidentielle des contacts de Signal, ce qui signifie qu’ils sont chiffrés de bout en bout et ne sont jamais visibles par le service Signal.</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Pour vous permettre de contacter vos amis et d’envoyer des messages, Signal a besoin des autorisations Contacts et Médias. Vos contacts sont importés grâce au service de découverte confidentielle de Signal : autrement dit, ils sont chiffrés de bout en bout et nous n’y avons jamais accès.</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Pour vous permettre de contacter vos amis, Signal a besoin de l’autorisation Contacts. Vos contacts sont importés grâce au service de découverte confidentielle de Signal•: autrement dit, ils sont chiffrés de bout en bout et nous n’y avons jamais accès.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Vous avez fait trop d’essais pour inscrire ce numéro. Veuillez réessayer plus tard.</string>
     <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
     <string name="RegistrationActivity_rate_limited_to_try_again">Vous avez atteint le nombre maximal de tentatives d’inscription de ce numéro. Veuillez réessayer dans %1$s.</string>
@@ -2065,7 +2065,7 @@
     <string name="RegistrationActivity_unable_to_request_verification_code">Demande de code de vérification impossible. Vérifiez votre connexion réseau puis réessayez.</string>
     <string name="RegistrationActivity_non_standard_number_format">Format de numéro non standard</string>
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Le numéro que vous avez saisi (%1$s) semble avoir un format atypique.\n\nSerait-ce plutôt %2$s ?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly pour Android – format de numéro de téléphone</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly pour Android – Format de numéro de téléphone</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Appel demandé</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2205,7 +2205,7 @@
     <string name="SubmitDebugLogActivity_success">C’est réussi !</string>
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copiez cette URL et ajoutez-la à votre relevé d’erreur ou à votre courriel de demande d’assistance :\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Partager</string>
-    <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Ce journal sera publié publiquement sur Internet pour être consulté par les contributeurs. Vous pouvez l’examiner avant de le téléverser.</string>
+    <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Ce journal sera publiquement disponible sur le web, où les contributeurs pourront le consulter. Vous pouvez l’examiner avant de l’importer.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@molly.im</string> -->
@@ -2579,7 +2579,7 @@
     <string name="WebRtcCallActivity__declined_on_a_linked_device">L’appel a été refusé sur un appareil relié.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Occupé sur un appareil relié.</string>
     <!-- Tooltip message shown first time user is in a video call after switch camera button moved -->
-    <string name="WebRtcCallActivity__flip_camera_tooltip">Le bouton pour changer de caméra se trouve désormais ici. Appuyez-le pour l’essayer.</string>
+    <string name="WebRtcCallActivity__flip_camera_tooltip">L’icône « Changer de caméra » se trouve désormais ici. Touchez la vidéo pour l’essayer.</string>
 
     <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">Quelqu’un s’est joint à cet appel avec un numéro de sécurité qui a changé.</string>
 
@@ -2795,14 +2795,14 @@
     <string name="country_selection_fragment__no_matching_countries">Aucun pays ne correspond</string>
 
     <!-- device_add_fragment -->
-    <string name="device_add_fragment__scan_the_qr_code_displayed_on_the_device_to_link">Lisez le code QR affiché sur l’appareil pour le relier</string>
+    <string name="device_add_fragment__scan_the_qr_code_displayed_on_the_device_to_link">Scannez le code QR affiché sur l’appareil pour l’associer</string>
 
     <!-- device_link_fragment -->
-    <string name="device_link_fragment__link_device">Relier l’appareil</string>
+    <string name="device_link_fragment__link_device">Associer l’appareil</string>
 
     <!-- device_list_fragment -->
     <string name="device_list_fragment__no_devices_linked">Aucun appareil n’est relié</string>
-    <string name="device_list_fragment__link_new_device">Relier un nouvel appareil</string>
+    <string name="device_list_fragment__link_new_device">Associer un nouvel appareil</string>
 
     <!-- expiration -->
     <string name="expiration_off">Désactivés</string>
@@ -2925,6 +2925,18 @@
     <string name="EditProfileFragment__group_name">Nom du groupe</string>
     <string name="EditProfileFragment__group_description">Description du groupe</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
+    <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_title">Passez à la dernière version de Molly</string>
+    <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_body">Cette version de Molly est arrivée à expiration. Pour continuer d’utiliser l’application, une mise à jour est nécessaire.</string>
+    <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
+    <string name="EditProfileFragment_deprecated_dialog_update_button">Mettre à jour</string>
+    <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_title">Appareil non enregistré</string>
+    <!-- The body of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_body">Cet appareil n’est plus enregistré. Pour apporter des modifications à votre compte, vous devez le réenregistrer.</string>
+    <!-- The button on a dialog informing the user that they cannot use this app feature when they are unregistered. When clicked, the user will be taken to a screen to help them re-register. -->
+    <string name="EditProfileFragment_unregistered_dialog_reregister_button">Réenregistrer l’appareil</string>
 
     <!-- EditProfileNameFragment -->
     <string name="EditProfileNameFragment_your_name">Votre nom</string>
@@ -2985,7 +2997,7 @@
     <string name="AndroidManifest__verify_safety_number">Confirmer le numéro de sécurité</string>
     <string name="AndroidManifest__media_preview">Aperçu du média</string>
     <string name="AndroidManifest__message_details">Détails du message</string>
-    <string name="AndroidManifest__linked_devices">Appareils reliés</string>
+    <string name="AndroidManifest__linked_devices">Appareils associés</string>
     <string name="AndroidManifest__invite_friends">Inviter des amis</string>
     <string name="AndroidManifest_archived_conversations">Conversations archivées</string>
 
@@ -3008,7 +3020,7 @@
     <string name="HelpFragment__support_info">Info d’assistance</string>
     <string name="HelpFragment__signal_android_support_request">Demande d’assistance – Signal pour Android</string>
     <string name="HelpFragment__debug_log">Journal de débogage :</string>
-    <string name="HelpFragment__could_not_upload_logs">Impossible de téléverser les journaux</string>
+    <string name="HelpFragment__could_not_upload_logs">Impossible d’importer les journaux.</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Veuillez nous donner autant de détails que possible, afin de nous aider à comprendre la situation.</string>
     <string-array name="HelpFragment__categories_5">
         <item>Veuillez sélectionner une option</item>
@@ -3021,7 +3033,7 @@
         <item>Dons et macarons</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
-    <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Soumission du journal de débogage de Signal Android</string>
+    <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Journal de débogage de Signal pour Android</string>
     <!-- Category to organize the support email sent -->
     <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Voir les notifications</string>
     <!-- Category to organize the support email sent -->
@@ -3154,7 +3166,7 @@
     <string name="preferences__conversation_length_limit">Taille maximale de la conversation</string>
     <string name="preferences__keep_messages">Conserver les messages</string>
     <string name="preferences__clear_message_history">Effacer l’historique des messages</string>
-    <string name="preferences__linked_devices">Appareils reliés</string>
+    <string name="preferences__linked_devices">Appareils associés</string>
     <string name="preferences__light_theme">Clair</string>
     <string name="preferences__dark_theme">Sombre</string>
     <string name="preferences__appearance">Apparence</string>
@@ -3663,8 +3675,6 @@
     <string name="verify_display_fragment_context_menu__compare_with_clipboard">Comparer avec le presse-papiers</string>
 
     <!-- reminder_header -->
-    <string name="reminder_header_push_title">Activer les messages et appels Signal</string>
-    <string name="reminder_header_push_text">Survoltez votre expérience de communication.</string>
     <string name="reminder_header_service_outage_text">Petit souci technique… Nous mettons tout en œuvre pour restaurer le service le plus rapidement possible.</string>
     <string name="reminder_header_progress">%1$d %%</string>
     <!-- Body text of a banner that will show at the top of the chat list when we temporarily cannot process the user\'s contacts -->
@@ -3961,6 +3971,8 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Vous avez besoin d’accéder à votre ancien appareil.</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">Restaurer depuis une sauvegarde</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Restaurez vos messages d’une sauvegarde locale. Si vous ne les restaurez pas maintenant, vous ne pourrez pas le faire plus tard.</string>
+    <!-- Button label for more options -->
+    <string name="TransferOrRestoreFragment__more_options">Plus d’options</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Ouvrez Signal sur votre ancien téléphone Android</string>
@@ -4718,7 +4730,7 @@
     <string name="ConversationSettingsFragment__disappearing_messages">Messages éphémères</string>
     <string name="ConversationSettingsFragment__sounds_and_notifications">Sons et notifications</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
-    <string name="ConversationSettingsFragment__contact_details">Détails du contact</string>
+    <string name="ConversationSettingsFragment__contact_details">Phone contact info</string>
     <string name="ConversationSettingsFragment__view_safety_number">Afficher le numéro de sécurité</string>
     <string name="ConversationSettingsFragment__block">Bloquer</string>
     <string name="ConversationSettingsFragment__block_group">Bloquer le groupe</string>
@@ -5063,7 +5075,7 @@
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
     <string name="ReregisterSignalDialog__message">Cet appareil n’est plus enregistré. Inscrivez-vous à nouveau pour continuer à utiliser Molly sur cet appareil.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
-    <string name="ReregisterSignalDialog__reregister_action">S’inscrire de nouveau</string>
+    <string name="ReregisterSignalDialog__reregister_action">Réenregistrer l’appareil</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
     <string name="ReregisterSignalDialog__cancel_action">Annuler</string>
 
@@ -6652,6 +6664,46 @@
     <string name="FindByActivity__qr_scan_button">Scanner le code QR</string>
     <!-- Content of a dialog indicating that we could not perform the requested action because we encountered a network error. -->
     <string name="FindByActivity__network_error_dialog">Une erreur réseau s’est produite. Veuillez réessayer plus tard.</string>
+
+    <!-- Title for an alert letting someone know that one of their linked devices is inactive. -->
+    <string name="LinkedDeviceInactiveMegaphone_title">Appareil associé inactif</string>
+    <!-- Body for an alert letting someone know that one of their linked devices is inactive. The string placeholder is the name of the device, and the number placeholder is the number of days before device is unlinked. -->
+    <plurals name="LinkedDeviceInactiveMegaphone_body">
+        <item quantity="one">Il vous reste %2$d jour pour ouvrir Signal sur l’appareil \"%1$s\" avant qu’il ne soit dissocié.</item>
+        <item quantity="other">Il vous reste %2$d jours pour ouvrir Signal sur l’appareil \"%1$s\" avant qu’il ne soit dissocié.</item>
+    </plurals>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the user will opt out of all future alerts. -->
+    <string name="LinkedDeviceInactiveMegaphone_dont_remind_button_label">Ne plus afficher de rappels</string>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the alert will be dismissed. -->
+    <string name="LinkedDeviceInactiveMegaphone_got_it_button_label">J’ai compris</string>
+
+    <!-- NicknameFragment -->
+    <!-- Title displayed at the top of the screen -->
+    <string name="NicknameActivity__nickname">Pseudo</string>
+    <!-- Subtitle displayed under title -->
+    <string name="NicknameActivity__nicknames_amp_notes">Les pseudos et les notes sont conservés dans le service de stockage Signal chiffré de bout en bout. Vous seul y avez accès.</string>
+    <!-- Field label for given name -->
+    <string name="NicknameActivity__first_name">Prénom</string>
+    <!-- Content description for first name clear button -->
+    <string name="NicknameActivity__clear_first_name">Effacer le prénom</string>
+    <!-- Field label for family name -->
+    <string name="NicknameActivity__last_name">Nom</string>
+    <!-- Content description for last name clear button -->
+    <string name="NicknameActivity__clear_last_name">Effacer le nom</string>
+    <!-- Field label for note -->
+    <string name="NicknameActivity__note">Note</string>
+    <!-- Button label to save -->
+    <string name="NicknameActivity__save">Enregistrer</string>
+    <!-- Dialog title for note and name deletion -->
+    <string name="NicknameActivity__delete_nickname">Supprimer le pseudo ?</string>
+    <!-- Dialog message for note and name deletion -->
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">Cette action supprimera définitivement ce pseudo et cette note.</string>
+
+    <!-- ViewNoteBottomSheetDialogFragment -->
+    <!-- Sheet title -->
+    <string name="ViewNoteSheet__note">Note</string>
+    <!-- Content description for opening the note editor -->
+    <string name="ViewNoteSheet__edit_note">Modifier la note</string>
 
     <!-- EOF -->
 </resources>

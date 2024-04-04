@@ -45,8 +45,6 @@
     <string name="ApplicationPreferencesActivity_disable_passphrase">পাসফ্রেজ নিষ্ক্রিয় করবেন?</string>
     <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">এটি স্থায়ীভাবে Molly এবং বার্তা নোটিফিকেশনগুলিকে আনলক করবে।</string>
     <string name="ApplicationPreferencesActivity_disable">নিষ্ক্রিয় করুন</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly বার্তা ও কল বন্ধ করবেন?</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Molly মেসেজ ও কল সমূহ বন্ধ করতে সার্ভার থেকে নিবন্ধন বাতিল করুন। ভবিষ্যতে পুনরায় ব্যাবহার করতে হলে আপনাকে আপনার ফোন নম্বর পুনঃ নিবন্ধন করতে হবে।</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">সার্ভারের সাথে সংযোগ স্থাপনে ব্যর্থ!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">রেজিস্ট্রেশন লকের জন্য পিনসমূহ আবশ্যক। পিনসমূহ নিষ্ক্রিয় করতে আগে রেজিস্ট্রেশন লক নিষ্ক্রিয় করুন।</string>
     <string name="ApplicationPreferencesActivity_pin_created">পিন তৈরি করা হয়েছে।</string>
@@ -1989,6 +1987,8 @@
     <string name="AboutSheet__about">পরিচিতি</string>
     <!-- Text displayed in title for you -->
     <string name="AboutSheet__you">আপনি</string>
+    <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
+    <string name="AboutSheet__user_set_display_name_and_profile_name">%1$s (%2$s)</string>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
@@ -2925,6 +2925,18 @@
     <string name="EditProfileFragment__group_name">গ্রুপের নাম</string>
     <string name="EditProfileFragment__group_description">গ্রুপের বিবরণ</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
+    <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_title">Molly আপডেট করুন</string>
+    <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_body">Molly-এর এই সংস্করণটির মেয়াদ শেষ হয়ে গেছে। Molly ব্যবহার চালিয়ে যেতে এখনই আপডেট করুন।</string>
+    <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
+    <string name="EditProfileFragment_deprecated_dialog_update_button">আপডেট করুন</string>
+    <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_title">ডিভাইসটি নিবন্ধিত নয়</string>
+    <!-- The body of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_body">এই ডিভাইসটি আর নিবন্ধিত নয়। আপনার অ্যাকাউন্টে পরিবর্তন করতে পুনরায় নিবন্ধন করুন।</string>
+    <!-- The button on a dialog informing the user that they cannot use this app feature when they are unregistered. When clicked, the user will be taken to a screen to help them re-register. -->
+    <string name="EditProfileFragment_unregistered_dialog_reregister_button">পূনঃ নিবন্ধন করুন</string>
 
     <!-- EditProfileNameFragment -->
     <string name="EditProfileNameFragment_your_name">আপনার নাম</string>
@@ -3663,8 +3675,6 @@
     <string name="verify_display_fragment_context_menu__compare_with_clipboard">ক্লিপবোর্ডের সাথে তুলনা করুন</string>
 
     <!-- reminder_header -->
-    <string name="reminder_header_push_title">Signal বার্তা এবং কল সমূহ সক্ষম করুন</string>
-    <string name="reminder_header_push_text">আপনার যোগাযোগ অভিজ্ঞতা আপগ্রেড করুন।</string>
     <string name="reminder_header_service_outage_text">Signal প্রযুক্তিগত অসুবিধাগুলি অনুভব করছে। আমরা যত তাড়াতাড়ি সম্ভব সেবা পুনরুদ্ধার করতে কঠোর পরিশ্রম করছি।</string>
     <string name="reminder_header_progress">%1$d%%</string>
     <!-- Body text of a banner that will show at the top of the chat list when we temporarily cannot process the user\'s contacts -->
@@ -3961,6 +3971,8 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">আপনার পুরনো ডিভাইসে আপনার অ্যাক্সেস থাকতে হবে।</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">ব্যাকআপ থেকে পুনরুদ্ধার করুন</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">একটি স্থানীয় ব্যাকআপ থেকে আপনার মেসেজগুলো পুনরুদ্ধার করুন। আপনি এখনই পুনরুদ্ধার না করলে, পরে আর করতে পারবেন না।</string>
+    <!-- Button label for more options -->
+    <string name="TransferOrRestoreFragment__more_options">আরো অপশন</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">আপনার পুরনো Android ফোনে Signal খুলুন</string>
@@ -4718,7 +4730,7 @@
     <string name="ConversationSettingsFragment__disappearing_messages">অদৃশ্য বার্তা</string>
     <string name="ConversationSettingsFragment__sounds_and_notifications">সাউন্ড &amp; নোটিফিকেশন</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
-    <string name="ConversationSettingsFragment__contact_details">কন্ট্যাক্টের বিস্তারিত</string>
+    <string name="ConversationSettingsFragment__contact_details">Phone contact info</string>
     <string name="ConversationSettingsFragment__view_safety_number">নিরাপত্তা নাম্বার দেখুন</string>
     <string name="ConversationSettingsFragment__block">ব্লক করুন</string>
     <string name="ConversationSettingsFragment__block_group">গ্রুপ ব্লক করুন</string>
@@ -6652,6 +6664,46 @@
     <string name="FindByActivity__qr_scan_button">কিউআর কোড স্ক্যান করুন</string>
     <!-- Content of a dialog indicating that we could not perform the requested action because we encountered a network error. -->
     <string name="FindByActivity__network_error_dialog">একটি নেটওয়ার্ক ত্রুটির সম্মুখীন হয়েছে। পরে আবার চেষ্টা করুন।</string>
+
+    <!-- Title for an alert letting someone know that one of their linked devices is inactive. -->
+    <string name="LinkedDeviceInactiveMegaphone_title">নিষ্ক্রিয় লিংককৃত ডিভাইস</string>
+    <!-- Body for an alert letting someone know that one of their linked devices is inactive. The string placeholder is the name of the device, and the number placeholder is the number of days before device is unlinked. -->
+    <plurals name="LinkedDeviceInactiveMegaphone_body">
+        <item quantity="one">\"%1$s\" লিংককৃত অবস্থায় রাখতে, %2$d দিনের মধ্যে সেই ডিভাইসে Signal খুলুন।</item>
+        <item quantity="other">\"%1$s\" লিংককৃত অবস্থায় রাখতে, %2$d দিনের মধ্যে সেই ডিভাইসে Signal খুলুন।</item>
+    </plurals>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the user will opt out of all future alerts. -->
+    <string name="LinkedDeviceInactiveMegaphone_dont_remind_button_label">আমাকে অবহিত করবেন না</string>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the alert will be dismissed. -->
+    <string name="LinkedDeviceInactiveMegaphone_got_it_button_label">বুঝতে পেরেছি</string>
+
+    <!-- NicknameFragment -->
+    <!-- Title displayed at the top of the screen -->
+    <string name="NicknameActivity__nickname">ডাকনাম</string>
+    <!-- Subtitle displayed under title -->
+    <string name="NicknameActivity__nicknames_amp_notes">Signal-এর এন্ড-টু-এন্ড এনক্রিপ্টকৃত স্টোরেজ সার্ভিস ব্যবহার করে ডাকনাম ও নোট  সংরক্ষণ করা হয়। এগুলো শুধুমাত্র আপনার কাছে দৃশ্যমান।</string>
+    <!-- Field label for given name -->
+    <string name="NicknameActivity__first_name">নামের প্রথম অংশ</string>
+    <!-- Content description for first name clear button -->
+    <string name="NicknameActivity__clear_first_name">নামের প্রথম অংশটি মুছুন</string>
+    <!-- Field label for family name -->
+    <string name="NicknameActivity__last_name">নামের শেষ অংশ</string>
+    <!-- Content description for last name clear button -->
+    <string name="NicknameActivity__clear_last_name">নামের শেষ অংশটি মুছুন</string>
+    <!-- Field label for note -->
+    <string name="NicknameActivity__note">নোট</string>
+    <!-- Button label to save -->
+    <string name="NicknameActivity__save">সেভ করুন</string>
+    <!-- Dialog title for note and name deletion -->
+    <string name="NicknameActivity__delete_nickname">ডাকনাম মুছে ফেলবেন?</string>
+    <!-- Dialog message for note and name deletion -->
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">এটি স্থায়ীভাবে এই ডাকনাম ও নোট মুছে ফেলবে।</string>
+
+    <!-- ViewNoteBottomSheetDialogFragment -->
+    <!-- Sheet title -->
+    <string name="ViewNoteSheet__note">নোট</string>
+    <!-- Content description for opening the note editor -->
+    <string name="ViewNoteSheet__edit_note">নোট এডিট করুন</string>
 
     <!-- EOF -->
 </resources>

@@ -123,8 +123,12 @@ public final class FeatureFlags {
   private static final String RETRY_RECEIPT_MAX_COUNT           = "android.retryReceipt.maxCount";
   private static final String RETRY_RECEIPT_MAX_COUNT_RESET_AGE = "android.retryReceipt.maxCountResetAge";
   private static final String PREKEY_FORCE_REFRESH_INTERVAL     = "android.prekeyForceRefreshInterval";
-  private static final String CDSI_LIBSIGNAL_NET                = "android.cds.libsignal";
+  private static final String CDSI_LIBSIGNAL_NET                = "android.cds.libsignal.2";
   private static final String RX_MESSAGE_SEND                   = "android.rxMessageSend";
+  private static final String LINKED_DEVICE_LIFESPAN_SECONDS    = "android.linkedDeviceLifespanSeconds";
+  private static final String MESSAGE_BACKUPS                   = "android.messageBackups";
+  private static final String NICKNAMES                         = "android.nicknames";
+  private static final String CAMERAX_CUSTOM_CONTROLLER         = "android.cameraXCustomController";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -202,11 +206,14 @@ public final class FeatureFlags {
       RETRY_RECEIPT_MAX_COUNT_RESET_AGE,
       PREKEY_FORCE_REFRESH_INTERVAL,
       CDSI_LIBSIGNAL_NET,
-      RX_MESSAGE_SEND
+      RX_MESSAGE_SEND,
+      LINKED_DEVICE_LIFESPAN_SECONDS,
+      NICKNAMES,
+      CAMERAX_CUSTOM_CONTROLLER
   );
 
   @VisibleForTesting
-  static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet();
+  static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet(MESSAGE_BACKUPS);
 
   /**
    * Values in this map will take precedence over any value. This should only be used for local
@@ -277,7 +284,10 @@ public final class FeatureFlags {
       RETRY_RECEIPT_MAX_COUNT_RESET_AGE,
       PREKEY_FORCE_REFRESH_INTERVAL,
       CDSI_LIBSIGNAL_NET,
-      RX_MESSAGE_SEND
+      RX_MESSAGE_SEND,
+      LINKED_DEVICE_LIFESPAN_SECONDS,
+      CAMERAX_CUSTOM_CONTROLLER,
+      NICKNAMES
   );
 
   /**
@@ -645,6 +655,30 @@ public final class FeatureFlags {
   /** Use Rx threading model to do sends. */
   public static boolean useRxMessageSending() {
     return getBoolean(RX_MESSAGE_SEND, false);
+  }
+
+  /** The lifespan of a linked device (i.e. the time it can be inactive for before it expires), in milliseconds. */
+  public static long linkedDeviceLifespan() {
+    long seconds = getLong(LINKED_DEVICE_LIFESPAN_SECONDS, TimeUnit.DAYS.toSeconds(30));
+    return TimeUnit.SECONDS.toMillis(seconds);
+  }
+
+  /**
+   * Enable Message Backups UI
+   * Note: This feature is in active development and is not intended to currently function.
+   */
+  public static boolean messageBackups() {
+    return getBoolean(MESSAGE_BACKUPS, false);
+  }
+
+  /** Whether or not the nicknames feature is available */
+  public static boolean nicknames() {
+    return getBoolean(NICKNAMES, true);
+  }
+
+  /** Whether or not to use the custom CameraX controller class */
+  public static boolean customCameraXController() {
+    return getBoolean(CAMERAX_CUSTOM_CONTROLLER, false);
   }
 
   /** Only for rendering debug info. */

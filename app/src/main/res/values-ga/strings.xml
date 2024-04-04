@@ -45,8 +45,6 @@
     <string name="ApplicationPreferencesActivity_disable_passphrase">Díchumasaigh an nath faire?</string>
     <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Baineann sé seo glas de Molly agus de fógraí teachtaireachta go deo.</string>
     <string name="ApplicationPreferencesActivity_disable">Díchumasaigh</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Díchumasiagh teachtaireachtaí agus glaonna Molly?</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Díchumasaigh teachtaireachtaí agus glaonna Molly trí dhíchlárú ón bhfreastalaí. Ba chóir duit do uimhir ghutháin a athchlárú chun iad a úsáid arís sa todhchaí.</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Tharla botún ag déanamh teagmháil leis an bhfreastalaí!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Tá UAP de dhíth chun glas clárúcháin a úsáid. Caithfidh tú an glas clárúcháin a dhíchumasú sula mbeidh tú in ann an UAP a dhíchumasú.</string>
     <string name="ApplicationPreferencesActivity_pin_created">Cruthaíodh an UAP.</string>
@@ -2214,6 +2212,8 @@
     <string name="AboutSheet__about">Maidir le</string>
     <!-- Text displayed in title for you -->
     <string name="AboutSheet__you">Tusa</string>
+    <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
+    <string name="AboutSheet__user_set_display_name_and_profile_name">%1$s (%2$s)</string>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
@@ -3207,6 +3207,18 @@
     <string name="EditProfileFragment__group_name">Ainm an Ghrúpa</string>
     <string name="EditProfileFragment__group_description">Group Description</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
+    <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_title">Nuashonraigh Molly</string>
+    <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_body">Tá an leagan seo de Molly imithe as feidhm. Nuashonraigh anois le leanúint le húsáid Molly.</string>
+    <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
+    <string name="EditProfileFragment_deprecated_dialog_update_button">Nuashonraigh</string>
+    <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_title">Níl an gléas cláraithe</string>
+    <!-- The body of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_body">Níl an gléas seo cláraithe a thuilleadh. Athchláraigh chun athruithe a dhéanamh ar do chuntas.</string>
+    <!-- The button on a dialog informing the user that they cannot use this app feature when they are unregistered. When clicked, the user will be taken to a screen to help them re-register. -->
+    <string name="EditProfileFragment_unregistered_dialog_reregister_button">Athchláraigh</string>
 
     <!-- EditProfileNameFragment -->
     <string name="EditProfileNameFragment_your_name">Your Name</string>
@@ -3960,8 +3972,6 @@
     <string name="verify_display_fragment_context_menu__compare_with_clipboard">Cuir i gcomórtas leis an ngearrthaisce</string>
 
     <!-- reminder_header -->
-    <string name="reminder_header_push_title">Cumasaigh teachtaireachtaí agus glaonna Signal</string>
-    <string name="reminder_header_push_text">Feabhsaigh do chumarsáid.</string>
     <string name="reminder_header_service_outage_text">Tá Signal buailte le deacrachtaí teicniúla faoi láthair. Táimid ag déanamh ár ndíchill an fhadhb a réiteach chomh luath agus is féidir.</string>
     <string name="reminder_header_progress">%1$d%%</string>
     <!-- Body text of a banner that will show at the top of the chat list when we temporarily cannot process the user\'s contacts -->
@@ -4279,6 +4289,8 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Beidh rochtain ar do sheanghléas de dhíth ort.</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">Aischuir ó chúltaca</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Aischuir do theachtaireachtaí ó chúltaca logánta. Mura ndéanann tú an t-aischur anois, ní bheidh tú in ann iad a aischur níos déanaí.</string>
+    <!-- Button label for more options -->
+    <string name="TransferOrRestoreFragment__more_options">Tuilleadh roghanna</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Oscail Signal ar do sheanghuthán Android</string>
@@ -5054,7 +5066,7 @@
     <string name="ConversationSettingsFragment__disappearing_messages">Teachtaireachtaí a imíonn as amharc</string>
     <string name="ConversationSettingsFragment__sounds_and_notifications">Fuaimeanna &amp; Fógraí</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
-    <string name="ConversationSettingsFragment__contact_details">Contact Details</string>
+    <string name="ConversationSettingsFragment__contact_details">Phone contact info</string>
     <string name="ConversationSettingsFragment__view_safety_number">Amharc ar an Uimhir Sábháilteachta</string>
     <string name="ConversationSettingsFragment__block">Cuir bac</string>
     <string name="ConversationSettingsFragment__block_group">Cuir bac ar an ngrúpa</string>
@@ -7087,6 +7099,49 @@
     <string name="FindByActivity__qr_scan_button">Scan Cód QR</string>
     <!-- Content of a dialog indicating that we could not perform the requested action because we encountered a network error. -->
     <string name="FindByActivity__network_error_dialog">Tharla earráid líonra Déan arís é ar ball.</string>
+
+    <!-- Title for an alert letting someone know that one of their linked devices is inactive. -->
+    <string name="LinkedDeviceInactiveMegaphone_title">Gléas neamhghníomhach nasctha</string>
+    <!-- Body for an alert letting someone know that one of their linked devices is inactive. The string placeholder is the name of the device, and the number placeholder is the number of days before device is unlinked. -->
+    <plurals name="LinkedDeviceInactiveMegaphone_body">
+        <item quantity="one">Chun \"%1$s\" a choinneáil nasctha, oscail Signal ar an ngléas sin laistigh de %2$d lá.</item>
+        <item quantity="two">Chun \"%1$s\" a choinneáil nasctha, oscail Signal ar an ngléas sin laistigh de %2$d lá.</item>
+        <item quantity="few">Chun \"%1$s\" a choinneáil nasctha, oscail Signal ar an ngléas sin laistigh de %2$d lá.</item>
+        <item quantity="many">Chun \"%1$s\" a choinneáil nasctha, oscail Signal ar an ngléas sin laistigh de %2$d lá.</item>
+        <item quantity="other">Chun \"%1$s\" a choinneáil nasctha, oscail Signal ar an ngléas sin laistigh de %2$d lá.</item>
+    </plurals>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the user will opt out of all future alerts. -->
+    <string name="LinkedDeviceInactiveMegaphone_dont_remind_button_label">Ná meabhraigh dom</string>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the alert will be dismissed. -->
+    <string name="LinkedDeviceInactiveMegaphone_got_it_button_label">Tuigim</string>
+
+    <!-- NicknameFragment -->
+    <!-- Title displayed at the top of the screen -->
+    <string name="NicknameActivity__nickname">Leasainm</string>
+    <!-- Subtitle displayed under title -->
+    <string name="NicknameActivity__nicknames_amp_notes">Stóráiltear leasainmneacha agus nótaí le seirbhís stórála criptithe ó cheann ceann Signal. Níl siad infheicthe ach agatsa amháin.</string>
+    <!-- Field label for given name -->
+    <string name="NicknameActivity__first_name">Ainm</string>
+    <!-- Content description for first name clear button -->
+    <string name="NicknameActivity__clear_first_name">Glan an chéad ainm</string>
+    <!-- Field label for family name -->
+    <string name="NicknameActivity__last_name">Sloinne</string>
+    <!-- Content description for last name clear button -->
+    <string name="NicknameActivity__clear_last_name">Glan an sloinne</string>
+    <!-- Field label for note -->
+    <string name="NicknameActivity__note">Nóta</string>
+    <!-- Button label to save -->
+    <string name="NicknameActivity__save">Sábháil</string>
+    <!-- Dialog title for note and name deletion -->
+    <string name="NicknameActivity__delete_nickname">Scrios leasainm?</string>
+    <!-- Dialog message for note and name deletion -->
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">Scriosfar an leasainm agus an nóta seo go buan leis sin.</string>
+
+    <!-- ViewNoteBottomSheetDialogFragment -->
+    <!-- Sheet title -->
+    <string name="ViewNoteSheet__note">Nóta</string>
+    <!-- Content description for opening the note editor -->
+    <string name="ViewNoteSheet__edit_note">Cuir nóta in eagar</string>
 
     <!-- EOF -->
 </resources>
