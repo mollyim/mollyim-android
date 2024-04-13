@@ -54,11 +54,11 @@ public class NetworkManager {
   }
 
   public boolean isNetworkEnabled() {
-    return Network.isEnabled();
+    return Networking.isEnabled();
   }
 
   public void setNetworkEnabled(boolean enabled) {
-    Network.setEnabled(enabled);
+    Networking.setEnabled(enabled);
     if (enabled) {
       onNetworkEnabled();
     }
@@ -123,7 +123,7 @@ public class NetworkManager {
       return false;
     }
 
-    Network.setSocksProxy(newProxy);
+    Networking.setSocksProxy(newProxy);
     existingProxy = newProxy;
 
     SignalExecutors.UNBOUNDED.execute(() -> {

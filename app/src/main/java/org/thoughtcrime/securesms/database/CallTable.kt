@@ -110,7 +110,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
   fun insertOneToOneCall(callId: Long, timestamp: Long, peer: RecipientId, type: Type, direction: Direction, event: Event) {
     val messageType: Long = Call.getMessageType(type, direction, event)
     val unread = MessageTypes.isMissedCall(messageType)
-    val expiresIn = Recipient.resolved(peer).expiresInMillis
+    val expiresIn = TimeUnit.SECONDS.toMillis(Recipient.resolved(peer).expiresInSeconds.toLong())
 
     writableDatabase.withinTransaction {
       val result = SignalDatabase.messages.insertCallLog(peer, messageType, timestamp, direction == Direction.OUTGOING, expiresIn)
@@ -163,7 +163,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         if (call.messageId == null) {
           Log.w(TAG, "Call does not have an associated message id! No message to update.")
         } else {
-          val expiresIn = Recipient.resolved(call.peer).expiresInMillis
+          val expiresIn = TimeUnit.SECONDS.toMillis(Recipient.resolved(call.peer).expiresInSeconds.toLong())
 
           SignalDatabase.messages.updateCallLog(call.messageId, call.messageType)
 

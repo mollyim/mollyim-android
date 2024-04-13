@@ -21,7 +21,7 @@ import org.thoughtcrime.securesms.apkupdate.ApkUpdateDownloadManagerReceiver
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.net.Network
+import org.thoughtcrime.securesms.net.Networking
 import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.FileUtils
 import org.thoughtcrime.securesms.util.JsonUtils
@@ -72,9 +72,9 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     Log.i(TAG, "Checking for APK update [stable" + (if (includeBeta) ", beta" else "") + "] at $url")
 
     val client = OkHttpClient().newBuilder()
-      .socketFactory(Network.socketFactory)
-      .proxySelector(Network.proxySelectorForSocks)
-      .dns(Network.dns)
+      .socketFactory(Networking.socketFactory)
+      .proxySelector(Networking.proxySelectorForSocks)
+      .dns(Networking.dns)
       .build()
 
     val request = Request.Builder().url(url).build()

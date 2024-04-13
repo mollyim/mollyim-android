@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import com.annimon.stream.Stream;
 
 import org.greenrobot.eventbus.EventBus;
+import org.signal.core.util.ListUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.util.Pair;
@@ -100,6 +101,7 @@ import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Flowable;
@@ -458,7 +460,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
                                                    peekInfo.getEraId(),
                                                    peekInfo.getJoinedMembers(),
                                                    WebRtcUtil.isCallFull(peekInfo),
-                                                   group.getExpiresInMillis());
+                                                   TimeUnit.SECONDS.toMillis(group.getExpiresInSeconds()));
 
             ApplicationDependencies.getMessageNotifier().updateNotification(context, ConversationId.forConversation(threadId));
 
@@ -995,7 +997,20 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
         TurnServerInfo turnServerInfo = ApplicationDependencies.getSignalServiceAccountManager().getTurnServerInfo();
 
         List<PeerConnection.IceServer> iceServers = new LinkedList<>();
-        for (String url : turnServerInfo.getUrls()) {
+        for (String url : ListUtil.emptyIfNull(turnServerInfo.getUrlsWithIps())) {
+          if (url.startsWith("turn")) {
+            iceServers.add(PeerConnection.IceServer.builder(url)
+                                                   .setUsername(turnServerInfo.getUsername())
+                                                   .setPassword(turnServerInfo.getPassword())
+                                                   .setHostname(turnServerInfo.getHostname())
+                                                   .createIceServer());
+          } else {
+            iceServers.add(PeerConnection.IceServer.builder(url)
+                                                   .setHostname(turnServerInfo.getHostname())
+                                                   .createIceServer());
+          }
+        }
+        for (String url : ListUtil.emptyIfNull(turnServerInfo.getUrls())) {
           if (url.startsWith("turn")) {
             iceServers.add(PeerConnection.IceServer.builder(url)
                                                    .setUsername(turnServerInfo.getUsername())

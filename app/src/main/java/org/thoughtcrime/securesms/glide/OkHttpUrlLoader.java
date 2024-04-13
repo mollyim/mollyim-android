@@ -10,7 +10,7 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 
 import org.thoughtcrime.securesms.net.ContentProxySelector;
-import org.thoughtcrime.securesms.net.Network;
+import org.thoughtcrime.securesms.net.Networking;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 
 import java.io.InputStream;
@@ -47,8 +47,8 @@ public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
         synchronized (Factory.class) {
           if (internalClient == null) {
             internalClient = new OkHttpClient.Builder()
-                                             .socketFactory(Network.getSocketFactory())
-                                             .dns(Network.getDns())
+                                             .socketFactory(Networking.getSocketFactory())
+                                             .dns(Networking.getDns())
                                              .proxySelector(new ContentProxySelector())
                                              .addInterceptor(new StandardUserAgentInterceptor())
                                              .build();
