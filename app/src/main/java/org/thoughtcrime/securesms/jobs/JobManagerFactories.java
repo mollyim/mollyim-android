@@ -93,6 +93,7 @@ public final class JobManagerFactories {
     return new HashMap<String, Job.Factory>() {{
       put(AccountConsistencyWorkerJob.KEY,           new AccountConsistencyWorkerJob.Factory());
       put(AllDataSyncRequestJob.KEY,                 new AllDataSyncRequestJob.Factory());
+      put(AnalyzeDatabaseJob.KEY,                    new AnalyzeDatabaseJob.Factory());
       put(AttachmentCompressionJob.KEY,              new AttachmentCompressionJob.Factory());
       put(AttachmentCopyJob.KEY,                     new AttachmentCopyJob.Factory());
       put(AttachmentDownloadJob.KEY,                 new AttachmentDownloadJob.Factory());

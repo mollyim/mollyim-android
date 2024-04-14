@@ -1051,12 +1051,6 @@
 
     <service
         android:enabled="true"
-        android:name=".service.webrtc.WebRtcCallService"
-        android:foregroundServiceType="camera|microphone"
-        android:exported="false"/>
-
-    <service
-        android:enabled="true"
         android:exported="false"
         android:name=".service.KeyCachingService" />
 
@@ -1239,6 +1233,12 @@
         </intent-filter>
     </receiver>
 
+    <receiver android:name=".service.AnalyzeDatabaseAlarmListener" android:exported="false">
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
+    </receiver>
+
     <receiver android:name="org.thoughtcrime.securesms.jobs.ForegroundServiceUtil$Receiver" android:exported="false" />
 
     <receiver android:name=".service.PersistentConnectionBootListener" android:exported="false">
@@ -1293,7 +1293,11 @@
         android:enabled="@bool/enable_alarm_manager"
         android:exported="false"/>
 
-    <service android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService" android:exported="false" />
+    <service
+        android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService"
+        android:exported="false"
+        android:foregroundServiceType="camera|microphone" />
+
     <receiver android:name=".service.webrtc.ActiveCallManager$ActiveCallServiceReceiver" android:exported="false">
         <intent-filter>
             <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.DENY"/>
