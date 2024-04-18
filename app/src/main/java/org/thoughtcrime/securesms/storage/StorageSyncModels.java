@@ -84,7 +84,10 @@ public final class StorageSyncModels {
   public static List<SignalAccountRecord.PinnedConversation> localToRemotePinnedConversations(@NonNull List<RecipientRecord> settings) {
     return Stream.of(settings)
                  .filter(s -> s.getRecipientType() == RecipientTable.RecipientType.GV1 ||
-                              s.getRecipientType() == RecipientTable.RecipientType.GV2)
+                              s.getRecipientType() == RecipientTable.RecipientType.GV2 ||
+                              s.getRegistered() == RecipientTable.RegisteredState.REGISTERED ||
+                              s.getRegistered() == RecipientTable.RegisteredState.NOT_REGISTERED
+                 )
                  .map(StorageSyncModels::localToRemotePinnedConversation)
                  .toList();
   }
