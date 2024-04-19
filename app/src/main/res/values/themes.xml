@@ -74,7 +74,7 @@
 
         <item name="theme_type">dark</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
-        <item name="colorPrimary">@color/core_black</item>
+        <item name="colorPrimary">@color/core_grey_95</item>
         <item name="colorAccent">@color/core_ultramarine_light</item>
     </style>
 
@@ -99,9 +99,25 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:statusBarColor">@color/core_ultramarine</item>
-        <item name="android:navigationBarColor">@color/core_black</item>
+        <item name="android:navigationBarColor">@color/core_grey_95</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+    </style>
+
+    <style name="TextSecure.DarkIntroTheme" parent="@style/Theme.AppCompat">
+        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">default</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@color/login_top_background</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="colorAccent">@color/core_ultramarine_light</item>
+
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:windowBackground">@color/core_grey_95</item>
     </style>
 
     <style name="TextSecure.LightTheme.Popup" parent="TextSecure.LightTheme">

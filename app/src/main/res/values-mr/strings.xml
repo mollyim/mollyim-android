@@ -307,7 +307,6 @@
     <string name="ConversationItem_error_network_not_delivered">पाठविणे अयशस्वी</string>
     <string name="ConversationItem_group_action_left">%1$s याने गट सोडले आहे.</string>
     <string name="ConversationItem_send_paused">विराम दिलेले पाठवा</string>
-    <string name="ConversationItem_click_to_approve_unencrypted">पाठविणे अयशस्वी, असुरक्षित फॉलबॅक करिता टॅप करा</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">अनएन्क्रिप्टेड SMS वर फॉलबॅक करायचे?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">अनएन्क्रिप्टेड MMS वर फॉलबॅक करायचे?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">हा संदेश एन्क्रिप्ट केला जाणार <b>नाही</b> कारण प्राप्तकर्ता आता Signal वापरकर्ता राहिलेला नाही.\n\nअसुरक्षित संदेश पाठवायचा?</string>
@@ -2558,7 +2557,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">हे डिव्हाइस यापुढे नोंदणीकृत राहणार नाही. असे होण्याचे कारण आपण आपला फोन नंबर Signal सह वेगळ्या डिव्हाइसवर नोंदणीकृत केला आहे.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">हे डिव्हाइस यापुढे नोंदणीकृत राहणार नाही. असे होण्याचे कारण आपण आपला फोन नंबर Molly सह वेगळ्या डिव्हाइसवर नोंदणीकृत केला आहे.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">डिव्हाईस चे पुन्हा नोंदणीकरण करा</string>
 
@@ -6681,7 +6680,7 @@
     <!-- Title displayed at the top of the screen -->
     <string name="NicknameActivity__nickname">टोपणनाव</string>
     <!-- Subtitle displayed under title -->
-    <string name="NicknameActivity__nicknames_amp_notes">Nicknames &amp; notes are stored with Signal and end-to-end encrypted. They are only visible to you.</string>
+    <string name="NicknameActivity__nicknames_amp_notes">टोपणनाव व टिपा हे Signal सह स्टोअर केले जातात आणि कूटबद्ध केलेले असतात. ते फक्त आपणाला दृश्यमान आहेत.</string>
     <!-- Field label for given name -->
     <string name="NicknameActivity__first_name">नाव</string>
     <!-- Content description for first name clear button -->
@@ -6695,9 +6694,9 @@
     <!-- Button label to save -->
     <string name="NicknameActivity__save">जतन करा</string>
     <!-- Dialog title for note and name deletion -->
-    <string name="NicknameActivity__delete_nickname">Delete?</string>
+    <string name="NicknameActivity__delete_nickname">हटवायचे?</string>
     <!-- Dialog message for note and name deletion -->
-    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">This will permanently delete any nickname and note you’ve set.</string>
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">यामुळे आपण सेट केलेली कोणतीही टोपणनावे आणि टीपा कायमस्वरूपी हटवल्या जातील.</string>
 
     <!-- ViewNoteBottomSheetDialogFragment -->
     <!-- Sheet title -->

@@ -1925,12 +1925,6 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     }
   }
 
-  fun markAsPendingInsecureSmsFallback(messageId: Long) {
-    val threadId = getThreadIdForMessage(messageId)
-    updateMailboxBitmask(messageId, MessageTypes.BASE_TYPE_MASK, MessageTypes.BASE_PENDING_INSECURE_SMS_FALLBACK, Optional.of(threadId))
-    ApplicationDependencies.getDatabaseObserver().notifyMessageUpdateObservers(MessageId(messageId))
-  }
-
   fun markAsSending(messageId: Long) {
     val threadId = getThreadIdForMessage(messageId)
     updateMailboxBitmask(messageId, MessageTypes.BASE_TYPE_MASK, MessageTypes.BASE_SENDING_TYPE, Optional.of(threadId))
@@ -3973,6 +3967,29 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return getMessagePositionInConversation(threadId, 0, receivedTimestamp)
   }
 
+  fun messageExistsOnDays(threadId: Long, dayStarts: Collection<Long>): Map<Long, Boolean> {
+    if (dayStarts.isEmpty()) {
+      return emptyMap()
+    }
+    return dayStarts.associateWith { startOfDay ->
+      readableDatabase
+        .exists(TABLE_NAME)
+        .where("$THREAD_ID = $threadId AND $DATE_RECEIVED >= $startOfDay AND $DATE_RECEIVED < $startOfDay + 86400000 AND $SCHEDULED_DATE = -1 AND $LATEST_REVISION_ID IS NULL AND $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0")
+        .run()
+    }
+  }
+
+  fun getEarliestMessageDate(threadId: Long): Long {
+    return readableDatabase
+      .select(DATE_RECEIVED)
+      .from(TABLE_NAME)
+      .where("$THREAD_ID = $threadId AND $SCHEDULED_DATE = -1 AND $LATEST_REVISION_ID IS NULL AND $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0")
+      .orderBy("$DATE_RECEIVED ASC")
+      .limit(1)
+      .run()
+      .readToSingleLong(0)
+  }
+
   /**
    * Retrieves the position of the message with the provided timestamp in the query results you'd
    * get from calling [.getConversation].
@@ -3984,22 +4001,16 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
    * @param groupStoryId Ignored if passed value is <= 0
    */
   fun getMessagePositionInConversation(threadId: Long, groupStoryId: Long, receivedTimestamp: Long): Int {
-    val order: String
-    val selection: String
-
-    if (groupStoryId > 0) {
-      order = "$DATE_RECEIVED ASC"
-      selection = "$THREAD_ID = $threadId AND $DATE_RECEIVED < $receivedTimestamp AND $STORY_TYPE = 0 AND $PARENT_STORY_ID = $groupStoryId AND $SCHEDULED_DATE = -1 AND $LATEST_REVISION_ID IS NULL"
+    val selection = if (groupStoryId > 0) {
+      "$THREAD_ID = $threadId AND $DATE_RECEIVED < $receivedTimestamp AND $STORY_TYPE = 0 AND $PARENT_STORY_ID = $groupStoryId AND $SCHEDULED_DATE = -1 AND $LATEST_REVISION_ID IS NULL"
     } else {
-      order = "$DATE_RECEIVED DESC"
-      selection = "$THREAD_ID = $threadId AND $DATE_RECEIVED > $receivedTimestamp AND $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND $SCHEDULED_DATE = -1 AND $LATEST_REVISION_ID IS NULL"
+      "$THREAD_ID = $threadId AND $DATE_RECEIVED > $receivedTimestamp AND $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND $SCHEDULED_DATE = -1 AND $LATEST_REVISION_ID IS NULL"
     }
 
     return readableDatabase
       .select("COUNT(*)")
       .from(TABLE_NAME)
       .where(selection)
-      .orderBy(order)
       .run()
       .readToSingleInt(-1)
   }

@@ -309,7 +309,6 @@
     <string name="ConversationItem_error_network_not_delivered">Wysyłanie nie powiodło się</string>
     <string name="ConversationItem_group_action_left">%1$s opuścił(a) grupę.</string>
     <string name="ConversationItem_send_paused">Wysyłanie wstrzymane</string>
-    <string name="ConversationItem_click_to_approve_unencrypted">Wysyłanie nie powiodło się, dotknij w celu użycia niezabezpieczonej alternatywy</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Powrócić do nieszyfrowanych wiadomości SMS?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Powrócić do nieszyfrowanych wiadomości MMS?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">Ta wiadomość <b>nie</b> będzie zaszyfrowana, ponieważ odbiorca nie jest już użytkownikiem Signal.\n\nWysłać wiadomość nieszyfrowaną?</string>
@@ -2726,7 +2725,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">To urządzenie nie jest już zarejestrowane. Powodem może być zarejestrowanie Twojego numeru telefonu w aplikacji Signal na innym urządzeniu.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">To urządzenie nie jest już zarejestrowane. Powodem może być zarejestrowanie Twojego numeru telefonu w aplikacji Molly na innym urządzeniu.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Zarejestruj urządzenie ponownie</string>
 

@@ -306,7 +306,6 @@
     <string name="ConversationItem_error_network_not_delivered">傳送失敗</string>
     <string name="ConversationItem_group_action_left">%1$s 已經離開群組。</string>
     <string name="ConversationItem_send_paused">傳送已暫停</string>
-    <string name="ConversationItem_click_to_approve_unencrypted">傳送失敗，輕觸改用不安全的遞補方式</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">改用未加密的簡訊作為遞補方式？</string>
     <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">改用未加密的多媒體訊息作為遞補方式？</string>
     <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">由於對方已經不再是 Signal 的使用者，當前訊息<b>不會</b>被加密。\n\n傳送不加密的訊息？</string>
@@ -2474,7 +2473,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">此裝置已不再註冊。通常是因為你已在另一部裝置上使用你的電話號碼註冊 Signal。</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">此裝置已不再註冊。通常是因為你已在另一部裝置上使用你的電話號碼註冊 Molly。</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">重新註冊裝置</string>
 
@@ -6535,7 +6534,7 @@
     <!-- Title displayed at the top of the screen -->
     <string name="NicknameActivity__nickname">暱稱</string>
     <!-- Subtitle displayed under title -->
-    <string name="NicknameActivity__nicknames_amp_notes">Nicknames &amp; notes are stored with Signal and end-to-end encrypted. They are only visible to you.</string>
+    <string name="NicknameActivity__nicknames_amp_notes">暱稱和備註均以 Signal 的端對端加密儲存。只有你可以看見它們。</string>
     <!-- Field label for given name -->
     <string name="NicknameActivity__first_name">名</string>
     <!-- Content description for first name clear button -->
@@ -6549,9 +6548,9 @@
     <!-- Button label to save -->
     <string name="NicknameActivity__save">儲存</string>
     <!-- Dialog title for note and name deletion -->
-    <string name="NicknameActivity__delete_nickname">Delete?</string>
+    <string name="NicknameActivity__delete_nickname">要刪除嗎？</string>
     <!-- Dialog message for note and name deletion -->
-    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">This will permanently delete any nickname and note you’ve set.</string>
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">這將會永久刪除你設定的任何暱稱和備註。</string>
 
     <!-- ViewNoteBottomSheetDialogFragment -->
     <!-- Sheet title -->

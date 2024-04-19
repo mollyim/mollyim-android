@@ -306,7 +306,6 @@
     <string name="ConversationItem_error_network_not_delivered">Penghantaran gagal</string>
     <string name="ConversationItem_group_action_left">%1$s telah meninggalkan kumpulan.</string>
     <string name="ConversationItem_send_paused">Penghantaran dijeda</string>
-    <string name="ConversationItem_click_to_approve_unencrypted">Gagal menghantar, ketik untuk sandaran tidak selamat</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Sandaran ke SMS yang tidak disulitkan?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Sandaran ke MMS yang tidak disulitkan?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">Mesej ini <b>tidak </b>akan disulitkan sebab penerima bukan lagi pengguna Signal.n\nHantar mesej yang tidak dilindungi?</string>
@@ -2474,7 +2473,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Peranti tidak lagi didaftarkan. Ini berkemungkinan kerana anda mendaftarkan nombor telefon anda dengan Signal pada peranti lain.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Peranti tidak lagi didaftarkan. Ini berkemungkinan kerana anda mendaftarkan nombor telefon anda dengan Molly pada peranti lain.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Daftar Semula Peranti</string>
 
@@ -6535,7 +6534,7 @@
     <!-- Title displayed at the top of the screen -->
     <string name="NicknameActivity__nickname">Nama pendek</string>
     <!-- Subtitle displayed under title -->
-    <string name="NicknameActivity__nicknames_amp_notes">Nicknames &amp; notes are stored with Signal and end-to-end encrypted. They are only visible to you.</string>
+    <string name="NicknameActivity__nicknames_amp_notes">Nama pendek &amp; nota disimpan oleh Signal dan disulitkan hujung ke hujung. Hanya dapat dilihat oleh anda.</string>
     <!-- Field label for given name -->
     <string name="NicknameActivity__first_name">Nama pertama</string>
     <!-- Content description for first name clear button -->
@@ -6549,9 +6548,9 @@
     <!-- Button label to save -->
     <string name="NicknameActivity__save">Simpan</string>
     <!-- Dialog title for note and name deletion -->
-    <string name="NicknameActivity__delete_nickname">Delete?</string>
+    <string name="NicknameActivity__delete_nickname">Padam?</string>
     <!-- Dialog message for note and name deletion -->
-    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">This will permanently delete any nickname and note you’ve set.</string>
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">Ini akan memadamkan secara kekal sebarang nama pendek dan nota yang telah anda tetapkan.</string>
 
     <!-- ViewNoteBottomSheetDialogFragment -->
     <!-- Sheet title -->

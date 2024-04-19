@@ -306,7 +306,6 @@
     <string name="ConversationItem_error_network_not_delivered">Pengiriman gagal</string>
     <string name="ConversationItem_group_action_left">%1$s telah meninggalkan grup.</string>
     <string name="ConversationItem_send_paused">Pengiriman ditunda</string>
-    <string name="ConversationItem_click_to_approve_unencrypted">Gagal mengirim, ketuk untuk mengirim kembali tanpa enkripsi</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Alihkan ke pengiriman SMS tanpa enkripsi?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Alihkan ke pengiriman MMS tanpa enkripsi?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">Pesan ini <b>tidak</b> akan dienkripsi karena penerima tidak lagi menjadi pengguna Signal.\n\nTetap kirim pesan tidak aman?</string>
@@ -2474,7 +2473,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Perangkat ini sudah tidak terdaftar. Hal ini mungkin karena Anda telah mendaftarkan nomor telepon Anda untuk Signal pada perangkat yang berbeda.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Perangkat ini sudah tidak terdaftar. Hal ini mungkin karena Anda telah mendaftarkan nomor telepon Anda untuk Molly pada perangkat yang berbeda.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Daftarkan Ulang Perangkat</string>
 
@@ -6535,7 +6534,7 @@
     <!-- Title displayed at the top of the screen -->
     <string name="NicknameActivity__nickname">Nama panggilan</string>
     <!-- Subtitle displayed under title -->
-    <string name="NicknameActivity__nicknames_amp_notes">Nicknames &amp; notes are stored with Signal and end-to-end encrypted. They are only visible to you.</string>
+    <string name="NicknameActivity__nicknames_amp_notes">Nama panggilan &amp; catatan disimpan di Signal dan terenkripsi ujung-ke-ujung. Hanya Anda yang bisa melihatnya.</string>
     <!-- Field label for given name -->
     <string name="NicknameActivity__first_name">Nama depan</string>
     <!-- Content description for first name clear button -->
@@ -6549,9 +6548,9 @@
     <!-- Button label to save -->
     <string name="NicknameActivity__save">Simpan</string>
     <!-- Dialog title for note and name deletion -->
-    <string name="NicknameActivity__delete_nickname">Delete?</string>
+    <string name="NicknameActivity__delete_nickname">Hapus?</string>
     <!-- Dialog message for note and name deletion -->
-    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">This will permanently delete any nickname and note you’ve set.</string>
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">Ini akan menghapus secara permanen nama panggilan dan catatan yang sudah Anda buat.</string>
 
     <!-- ViewNoteBottomSheetDialogFragment -->
     <!-- Sheet title -->

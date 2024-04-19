@@ -307,7 +307,6 @@
     <string name="ConversationItem_error_network_not_delivered">Failed ang pag-send</string>
     <string name="ConversationItem_group_action_left">Umalis si %1$s sa grupo.</string>
     <string name="ConversationItem_send_paused">Naka-pause ang pag-send</string>
-    <string name="ConversationItem_click_to_approve_unencrypted">Hindi naipadala, pindutin para sa hindi secure na fallback</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Fallback sa hindi naka-encrypt na SMS?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Fallback sa hindi naka-encrypt na MMS?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">Ang mensaheng ito ay <b>hindi</b> magiging encrypted dahil ang tatanggap ay hindi na gumagamit ng Signal.\n\nMagpadala ng hindi secure na mensahe?</string>
@@ -2558,7 +2557,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Hindi na registered ang device na ito. Maaaring ito ay dahil na-register mo ang iyong phone number sa Signal sa ibang device.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Hindi na registered ang device na ito. Maaaring ito ay dahil na-register mo ang iyong phone number sa Molly sa ibang device.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Mag-register ulit ng device</string>
 

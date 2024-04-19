@@ -94,14 +94,15 @@ import org.thoughtcrime.securesms.ratelimit.RateLimitUtil;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.RegistrationUtil;
 import org.thoughtcrime.securesms.ringrtc.RingRtcLogger;
+import org.thoughtcrime.securesms.service.AnalyzeDatabaseAlarmListener;
 import org.thoughtcrime.securesms.service.DirectoryRefreshListener;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.service.LocalBackupListener;
 import org.thoughtcrime.securesms.service.WipeMemoryService;
 import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
+import org.thoughtcrime.securesms.service.webrtc.ActiveCallManager;
 import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
-import org.thoughtcrime.securesms.service.webrtc.WebRtcCallService;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
@@ -243,6 +244,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addPostRender(AccountConsistencyWorkerJob::enqueueIfNecessary)
                             .addPostRender(GroupRingCleanupJob::enqueue)
                             .addPostRender(LinkedDeviceInactiveCheckJob::enqueueIfNecessary)
+                            .addPostRender(() -> ActiveCallManager.clearNotifications(this))
                             .execute();
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -321,7 +323,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   public void onLock(boolean keyExpired) {
     Log.i(TAG, "onLock()");
 
-    stopService(new Intent(this, WebRtcCallService.class));
+    ActiveCallManager.stop();
 
     finalizeExpiringMessageManager();
     finalizeMessageRetrieval();
@@ -551,6 +553,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     LocalBackupListener.schedule(this);
     RotateSenderCertificateListener.schedule(this);
     RoutineMessageFetchReceiver.startOrUpdateAlarm(this);
+    AnalyzeDatabaseAlarmListener.schedule(this);
 
     if (TextSecurePreferences.isUpdateApkEnabled(this)) {
       ApkUpdateRefreshListener.scheduleIfAllowed(this);

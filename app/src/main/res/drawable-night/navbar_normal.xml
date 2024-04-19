@@ -11,42 +11,42 @@
     <path
         android:pathData="M70,65L148,65A4,4 0,0 1,152 69L152,69A4,4 0,0 1,148 73L70,73A4,4 0,0 1,66 69L66,69A4,4 0,0 1,70 65z"
         android:strokeAlpha="0.6"
-        android:fillColor="#BEBFC5"
+        android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
         android:fillAlpha="0.6"/>
     <path
         android:pathData="M70,79L260,79A4,4 0,0 1,264 83L264,83A4,4 0,0 1,260 87L70,87A4,4 0,0 1,66 83L66,83A4,4 0,0 1,70 79z"
         android:strokeAlpha="0.6"
-        android:fillColor="#BEBFC5"
+        android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
         android:fillAlpha="0.6"/>
     <path
         android:pathData="M70,93L260,93A4,4 0,0 1,264 97L264,97A4,4 0,0 1,260 101L70,101A4,4 0,0 1,66 97L66,97A4,4 0,0 1,70 93z"
         android:strokeAlpha="0.6"
-        android:fillColor="#BEBFC5"
+        android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
         android:fillAlpha="0.6"/>
     <path
         android:pathData="M33,80m-17,0a17,17 0,1 1,34 0a17,17 0,1 1,-34 0"
         android:strokeAlpha="0.6"
-        android:fillColor="#BEBFC5"
+        android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
         android:fillAlpha="0.6"/>
     <path
         android:pathData="M70,11L148,11A4,4 0,0 1,152 15L152,15A4,4 0,0 1,148 19L70,19A4,4 0,0 1,66 15L66,15A4,4 0,0 1,70 11z"
         android:strokeAlpha="0.6"
-        android:fillColor="#BEBFC5"
+        android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
         android:fillAlpha="0.6"/>
     <path
         android:pathData="M70,25L260,25A4,4 0,0 1,264 29L264,29A4,4 0,0 1,260 33L70,33A4,4 0,0 1,66 29L66,29A4,4 0,0 1,70 25z"
         android:strokeAlpha="0.6"
-        android:fillColor="#BEBFC5"
+        android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
         android:fillAlpha="0.6"/>
     <path
         android:pathData="M70,39L260,39A4,4 0,0 1,264 43L264,43A4,4 0,0 1,260 47L70,47A4,4 0,0 1,66 43L66,43A4,4 0,0 1,70 39z"
         android:strokeAlpha="0.6"
-        android:fillColor="#BEBFC5"
+        android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
         android:fillAlpha="0.6"/>
     <path
         android:pathData="M33,26m-17,0a17,17 0,1 1,34 0a17,17 0,1 1,-34 0"
         android:strokeAlpha="0.6"
-        android:fillColor="#BEBFC5"
+        android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
         android:fillAlpha="0.6"/>
     <group>
       <clip-path
@@ -72,7 +72,7 @@
       <path
           android:pathData="M222,149L246,149A4,4 0,0 1,250 153L250,153A4,4 0,0 1,246 157L222,157A4,4 0,0 1,218 153L218,153A4,4 0,0 1,222 149z"
           android:strokeAlpha="0.25"
-          android:fillColor="#BEBFC5"
+          android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
           android:fillAlpha="0.25"/>
       <path
           android:pathData="M36.02,121.16L57.77,121.16A10.87,10.87 0,0 1,68.64 132.03L68.64,132.03A10.87,10.87 0,0 1,57.77 142.9L36.02,142.9A10.87,10.87 0,0 1,25.15 132.03L25.15,132.03A10.87,10.87 0,0 1,36.02 121.16z"
@@ -85,7 +85,7 @@
       <path
           android:pathData="M38,149L56,149A4,4 0,0 1,60 153L60,153A4,4 0,0 1,56 157L38,157A4,4 0,0 1,34 153L34,153A4,4 0,0 1,38 149z"
           android:strokeAlpha="0.25"
-          android:fillColor="#BEBFC5"
+          android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
           android:fillAlpha="0.25"/>
       <path
           android:pathData="M134.63,125.73C135.48,124.88 136.87,124.98 137.6,125.93L139.07,127.87C139.67,128.65 139.59,129.76 138.89,130.46L138.18,131.17C138.2,131.23 138.24,131.32 138.3,131.44C138.49,131.77 138.82,132.21 139.27,132.65C139.71,133.1 140.15,133.43 140.49,133.62C140.6,133.68 140.69,133.72 140.75,133.74L141.47,133.03C142.16,132.33 143.27,132.26 144.06,132.85L145.99,134.33C146.95,135.05 147.04,136.45 146.2,137.29L145.9,137.59C144.83,138.66 143.24,139.24 141.71,138.72C139.8,138.06 138,136.97 136.48,135.45C134.95,133.92 133.86,132.12 133.21,130.21C132.68,128.68 133.27,127.09 134.33,126.02L134.63,125.73ZM136.65,126.65C136.36,126.27 135.81,126.23 135.47,126.57L135.17,126.86C134.35,127.69 133.99,128.82 134.33,129.83C134.93,131.57 135.93,133.21 137.32,134.6C138.71,136 140.35,136.99 142.1,137.59C143.1,137.93 144.23,137.58 145.06,136.75L145.35,136.45C145.69,136.12 145.65,135.56 145.27,135.27L143.34,133.8C143.02,133.56 142.58,133.59 142.31,133.87L141.46,134.71C141.18,134.99 140.81,134.97 140.6,134.93C140.37,134.89 140.13,134.78 139.91,134.66C139.45,134.4 138.93,133.99 138.43,133.49C137.93,133 137.52,132.47 137.26,132.01C137.14,131.79 137.04,131.55 136.99,131.32C136.95,131.11 136.93,130.74 137.21,130.46L138.05,129.62C138.33,129.34 138.36,128.9 138.12,128.59L136.65,126.65ZM140.85,133.77C140.85,133.77 140.85,133.77 140.85,133.77C140.85,133.77 140.85,133.77 140.85,133.77ZM138.15,131.07C138.15,131.07 138.15,131.07 138.15,131.08C138.15,131.07 138.15,131.07 138.15,131.07Z"
@@ -96,7 +96,7 @@
       <path
           android:pathData="M130.5,149L149.5,149A4,4 0,0 1,153.5 153L153.5,153A4,4 0,0 1,149.5 157L130.5,157A4,4 0,0 1,126.5 153L126.5,153A4,4 0,0 1,130.5 149z"
           android:strokeAlpha="0.25"
-          android:fillColor="#BEBFC5"
+          android:fillColor="@color/signal_dark_colorOnSurfaceVariant"
           android:fillAlpha="0.25"/>
       <path
           android:pathData="M116.21,170.76L163.79,170.76A0.68,0.68 0,0 1,164.47 171.44L164.47,171.44A0.68,0.68 0,0 1,163.79 172.12L116.21,172.12A0.68,0.68 0,0 1,115.53 171.44L115.53,171.44A0.68,0.68 0,0 1,116.21 170.76z"

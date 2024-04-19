@@ -307,7 +307,6 @@
     <string name="ConversationItem_error_network_not_delivered">Afsendelse mislykkedes</string>
     <string name="ConversationItem_group_action_left">%1$s har forladt gruppen.</string>
     <string name="ConversationItem_send_paused">Afsendelse sat på pause</string>
-    <string name="ConversationItem_click_to_approve_unencrypted">Fejl ved afsendelse. Tryk for at sende usikret SMS</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Benyt ukrypteret SMS?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Benyt ukrypteret MMS?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">Denne besked vil <b>ikke</b> blive krypteret, da modtageren ikke længere bruger Signal.\n\nSend usikret besked?</string>
@@ -2558,7 +2557,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Denne enhed er ikke længere registreret. Det skyldes sandsynligvis, at du har registreret dit telefonnummer på Signal med en anden enhed.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Denne enhed er ikke længere registreret. Det skyldes sandsynligvis, at du har registreret dit telefonnummer på Molly med en anden enhed.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Registrér enheden igen</string>
 
@@ -6681,7 +6680,7 @@
     <!-- Title displayed at the top of the screen -->
     <string name="NicknameActivity__nickname">Kaldenavn</string>
     <!-- Subtitle displayed under title -->
-    <string name="NicknameActivity__nicknames_amp_notes">Nicknames &amp; notes are stored with Signal and end-to-end encrypted. They are only visible to you.</string>
+    <string name="NicknameActivity__nicknames_amp_notes">Kaldenavne og noter opbevares af Signal og er E2E-krypterede. Det er kun dig, der kan se dem.</string>
     <!-- Field label for given name -->
     <string name="NicknameActivity__first_name">Fornavn</string>
     <!-- Content description for first name clear button -->
@@ -6695,9 +6694,9 @@
     <!-- Button label to save -->
     <string name="NicknameActivity__save">Gem</string>
     <!-- Dialog title for note and name deletion -->
-    <string name="NicknameActivity__delete_nickname">Delete?</string>
+    <string name="NicknameActivity__delete_nickname">Slet?</string>
     <!-- Dialog message for note and name deletion -->
-    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">This will permanently delete any nickname and note you’ve set.</string>
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">Dette sletter eventuelle kaldenavne og noter permanent.</string>
 
     <!-- ViewNoteBottomSheetDialogFragment -->
     <!-- Sheet title -->
