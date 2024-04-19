@@ -2473,7 +2473,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">この端末は登録されていません。以前、おそらく別の端末で Signal に電話番号を登録したことが原因です。</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">この端末は登録されていません。以前、おそらく別の端末で Molly に電話番号を登録したことが原因です。</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">端末を再登録する</string>
 
@@ -6534,7 +6534,7 @@
     <!-- Title displayed at the top of the screen -->
     <string name="NicknameActivity__nickname">ニックネーム</string>
     <!-- Subtitle displayed under title -->
-    <string name="NicknameActivity__nicknames_amp_notes">Nicknames &amp; notes are stored with Signal and end-to-end encrypted. They are only visible to you.</string>
+    <string name="NicknameActivity__nicknames_amp_notes">ニックネームとメモは、Signalのエンドツーエンドの暗号化ストレージサービスによって保存されます。これらはあなただけに表示されます。</string>
     <!-- Field label for given name -->
     <string name="NicknameActivity__first_name">名</string>
     <!-- Content description for first name clear button -->
@@ -6548,9 +6548,9 @@
     <!-- Button label to save -->
     <string name="NicknameActivity__save">保存</string>
     <!-- Dialog title for note and name deletion -->
-    <string name="NicknameActivity__delete_nickname">Delete?</string>
+    <string name="NicknameActivity__delete_nickname">消去しますか？</string>
     <!-- Dialog message for note and name deletion -->
-    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">This will permanently delete any nickname and note you’ve set.</string>
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">消去すると、このニックネームとメモは復元できません。</string>
 
     <!-- ViewNoteBottomSheetDialogFragment -->
     <!-- Sheet title -->
