@@ -9,7 +9,7 @@ plugins {
   id("app.cash.exhaustive")
   id("kotlin-parcelize")
   id("com.squareup.wire")
-  id("translations")
+  id("molly")
   id("licenses")
 }
 
