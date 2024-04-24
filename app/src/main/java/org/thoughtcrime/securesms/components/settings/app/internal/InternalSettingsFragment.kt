@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.util.AppUtil
+import org.signal.core.util.ThreadUtil
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.concurrent.SimpleTask
 import org.signal.core.util.logging.Log
@@ -24,6 +25,7 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
+import org.thoughtcrime.securesms.components.settings.app.privacy.advanced.AdvancedPrivacySettingsRepository
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.database.JobDatabase
 import org.thoughtcrime.securesms.database.LocalMetricsDatabase
@@ -137,6 +139,14 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         }
       )
 
+      clickPref(
+        title = DSLSettingsText.from("Unregister"),
+        summary = DSLSettingsText.from("This will unregister your account without deleting it."),
+        onClick = {
+          onUnregisterClicked()
+        }
+      )
+
       dividerPref()
 
       sectionHeaderPref(DSLSettingsText.from("Miscellaneous"))
@@ -173,6 +183,48 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
           viewModel.setSeeMoreUserDetails(!state.seeMoreUserDetails)
         }
       )
+
+      clickPref(
+        title = DSLSettingsText.from("Log dump PreKey ServiceId-KeyIds"),
+        onClick = {
+          logPreKeyIds()
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from("Retry all jobs now"),
+        summary = DSLSettingsText.from("Clear backoff intervals, app will restart"),
+        onClick = {
+          SimpleTask.run({
+            JobDatabase.getInstance(ApplicationDependencies.getApplication()).debugResetBackoffInterval()
+          }) {
+            AppUtil.restart(requireContext())
+          }
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from("Delete all prekeys"),
+        summary = DSLSettingsText.from("Deletes all signed/last-resort/one-time prekeys for both ACI and PNI accounts. WILL cause problems."),
+        onClick = {
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Delete all prekeys?")
+            .setMessage("Are you sure? This will delete all prekeys for both ACI and PNI accounts. This WILL cause problems.")
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+              SignalDatabase.signedPreKeys.debugDeleteAll()
+              SignalDatabase.oneTimePreKeys.debugDeleteAll()
+              SignalDatabase.kyberPreKeys.debugDeleteAll()
+
+              Toast.makeText(requireContext(), "All prekeys deleted!", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+        }
+      )
+
+      dividerPref()
+
+      sectionHeaderPref(DSLSettingsText.from("Logging"))
 
       clickPref(
         title = DSLSettingsText.from("Clear all logs"),
@@ -215,21 +267,10 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       )
 
       clickPref(
-        title = DSLSettingsText.from("Log dump PreKey ServiceId-KeyIds"),
+        title = DSLSettingsText.from("Clear local metrics"),
+        summary = DSLSettingsText.from("Click to clear all local metrics state."),
         onClick = {
-          logPreKeyIds()
-        }
-      )
-
-      clickPref(
-        title = DSLSettingsText.from("Retry all jobs now"),
-        summary = DSLSettingsText.from("Clear backoff intervals, app will restart"),
-        onClick = {
-          SimpleTask.run({
-            JobDatabase.getInstance(ApplicationDependencies.getApplication()).debugResetBackoffInterval()
-          }) {
-            AppUtil.restart(requireContext())
-          }
+          clearAllLocalMetricsState()
         }
       )
 
@@ -419,18 +460,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         isChecked = state.delayResends,
         onClick = {
           viewModel.setDelayResends(!state.delayResends)
-        }
-      )
-
-      dividerPref()
-
-      sectionHeaderPref(DSLSettingsText.from("Local Metrics"))
-
-      clickPref(
-        title = DSLSettingsText.from("Clear local metrics"),
-        summary = DSLSettingsText.from("Click to clear all local metrics state."),
-        onClick = {
-          clearAllLocalMetricsState()
         }
       )
 
@@ -693,6 +722,32 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         }
       )
     }
+  }
+
+  private fun onUnregisterClicked() {
+    MaterialAlertDialogBuilder(requireContext())
+      .setTitle("Unregister?")
+      .setMessage("Are you sure? You'll have to re-register to use Signal again -- no promises that the process will go smoothly.")
+      .setPositiveButton(android.R.string.ok) { _, _ ->
+        AdvancedPrivacySettingsRepository(requireContext()).disablePushMessages {
+          ThreadUtil.runOnMain {
+            when (it) {
+              AdvancedPrivacySettingsRepository.DisablePushMessagesResult.SUCCESS -> {
+                SignalStore.account().setRegistered(false)
+                SignalStore.registrationValues().clearRegistrationComplete()
+                SignalStore.registrationValues().clearHasUploadedProfile()
+                Toast.makeText(context, "Unregistered!", Toast.LENGTH_SHORT).show()
+              }
+
+              AdvancedPrivacySettingsRepository.DisablePushMessagesResult.NETWORK_ERROR -> {
+                Toast.makeText(context, "Network error!", Toast.LENGTH_SHORT).show()
+              }
+            }
+          }
+        }
+      }
+      .setNegativeButton(android.R.string.cancel, null)
+      .show()
   }
 
   private fun copyPaymentsDataToClipboard() {

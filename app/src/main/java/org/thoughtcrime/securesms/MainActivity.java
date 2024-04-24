@@ -22,6 +22,8 @@ import org.thoughtcrime.securesms.conversationlist.RelinkDevicesReminderBottomSh
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceExitActivity;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor;
+import org.thoughtcrime.securesms.stories.Stories;
+import org.thoughtcrime.securesms.stories.tabs.ConversationListTab;
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTabRepository;
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTabsViewModel;
 import org.thoughtcrime.securesms.util.AppStartup;
@@ -30,6 +32,7 @@ import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.SplashScreenUtil;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.WindowUtil;
 
 public class MainActivity extends PassphraseRequiredActivity implements VoiceNoteMediaControllerOwner {
@@ -121,7 +124,7 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
           .setMessage(R.string.OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device)
           .setPositiveButton(R.string.OldDeviceTransferLockedDialog__done, (d, w) -> OldDeviceExitActivity.exit(this))
           .setNegativeButton(R.string.OldDeviceTransferLockedDialog__cancel_and_activate_this_device, (d, w) -> {
-            SignalStore.misc().clearOldDeviceTransferLocked();
+            SignalStore.misc().setOldDeviceTransferLocked(false);
             DeviceTransferBlockingInterceptor.getInstance().unblockNetwork();
           })
           .setCancelable(false)
@@ -158,8 +161,21 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
   }
 
   private void updateTabVisibility() {
-    findViewById(R.id.conversation_list_tabs).setVisibility(View.VISIBLE);
-    WindowUtil.setNavigationBarColor(this, ContextCompat.getColor(this, R.color.signal_colorSurface2));
+    final boolean showStories = Stories.isFeatureEnabled();
+    final boolean showCalls   = TextSecurePreferences.getNavbarShowCalls(this);
+    if (showCalls || showStories) {
+      findViewById(R.id.conversation_list_tabs).setVisibility(View.VISIBLE);
+      WindowUtil.setNavigationBarColor(this, ContextCompat.getColor(this, R.color.signal_colorSurface2));
+    } else {
+      findViewById(R.id.conversation_list_tabs).setVisibility(View.GONE);
+      WindowUtil.setNavigationBarColor(this, ContextCompat.getColor(this, R.color.signal_colorBackground));
+    }
+    ConversationListTab selectedTab = conversationListTabsViewModel.getStateSnapshot().getTab();
+    if ((selectedTab == ConversationListTab.CALLS && !showCalls) ||
+        (selectedTab == ConversationListTab.STORIES && !showStories))
+    {
+      conversationListTabsViewModel.onChatsSelected();
+    }
   }
 
   public @NonNull MainNavigator getNavigator() {

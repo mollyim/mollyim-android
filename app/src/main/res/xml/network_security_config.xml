@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <base-config cleartextTrafficPermitted="false" />
+    <!-- gnutls-cli tool can be used to retrieve the SHA-256 pin for these domains. -->
     <domain-config>
         <domain includeSubdomains="false">a.tile.openstreetmap.org</domain>
         <domain includeSubdomains="false">b.tile.openstreetmap.org</domain>
         <domain includeSubdomains="false">c.tile.openstreetmap.org</domain>
         <pin-set>
-            <pin digest="SHA-256">dp9glEC0AkIjVaGzqReW5zqMR7lSEWG/laUZsRhq4JM=</pin>
+            <pin digest="SHA-256">Rehz0ahoqqnCIIuXj6jWVUdLDssV5ARbkFHOfFccWaU=</pin>
         </pin-set>
     </domain-config>
     <domain-config>
         <domain includeSubdomains="false">maps.wikimedia.org</domain>
         <pin-set>
-            <pin digest="SHA-256">Vwx2HUc8dPy3t+Yd8KbSgnQmGe8AVtgfwA2s6DC/pyM=</pin>
+            <pin digest="SHA-256">jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=</pin>
         </pin-set>
     </domain-config>
     <domain-config>
         <domain includeSubdomains="false">tiles.openseamap.org</domain>
         <pin-set>
-            <pin digest="SHA-256">HvHMVMntBDPrDCgr610nxBciVTXmE0TIkDg646DamR4=</pin>
+            <pin digest="SHA-256">jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=</pin>
         </pin-set>
     </domain-config>
     <domain-config>
         <domain includeSubdomains="false">basemap.nationalmap.gov</domain>
         <pin-set>
-            <pin digest="SHA-256">C1iV1i3BJavZTPH6np1aBKRTt7eFwrDe1DLZjQWJsqg=</pin>
-        </pin-set>
-    </domain-config>
-    <domain-config>
-        <domain includeSubdomains="false">wms.chartbundle.com</domain>
-        <pin-set>
-            <pin digest="SHA-256">JRr7ycLBSpCNp1QJ1ubad0j7ey4EVPbq5qmVbnWHFrQ=</pin>
+            <pin digest="SHA-256">NIQDTktVizbP/aEJd1qrl6bEiEoEPmT1HVKF+wPMhKc=</pin>
         </pin-set>
     </domain-config>
     <domain-config>
@@ -38,7 +33,7 @@
         <domain includeSubdomains="false">b.tile.opentopomap.org</domain>
         <domain includeSubdomains="false">c.tile.opentopomap.org</domain>
         <pin-set>
-            <pin digest="SHA-256">QkH1AS1TfZPxrapGeUMeaQ2761CRfL3tjUc0RFiWO3w=</pin>
+            <pin digest="SHA-256">jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=</pin>
         </pin-set>
     </domain-config>
 </network-security-config>

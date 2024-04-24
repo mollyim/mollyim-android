@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.net.Networking;
 import org.webrtc.PeerConnection;
 
 public final class NetworkUtil {
@@ -124,7 +125,7 @@ public final class NetworkUtil {
   }
 
   public static NetworkInfo getNetworkInfo(@NonNull Context context) {
-    if (!org.thoughtcrime.securesms.net.Network.isEnabled()) return null;
+    if (!Networking.isEnabled()) return null;
     return ServiceUtil.getConnectivityManager(context).getActiveNetworkInfo();
   }
 }

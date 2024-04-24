@@ -62,6 +62,7 @@ public final class FeatureFlags {
   private static final String CLIENT_EXPIRATION                 = "android.clientExpiration";
   private static final String CUSTOM_VIDEO_MUXER                = "android.customVideoMuxer.1";
   private static final String CDS_REFRESH_INTERVAL              = "cds.syncInterval.seconds";
+  private static final String CDS_FOREGROUND_SYNC_INTERVAL      = "cds.foregroundSyncInterval.seconds";
   private static final String AUTOMATIC_SESSION_RESET           = "android.automaticSessionReset.2";
   private static final String AUTOMATIC_SESSION_INTERVAL        = "android.automaticSessionResetInterval";
   private static final String DEFAULT_MAX_BACKOFF               = "android.defaultMaxBackoff";
@@ -115,10 +116,17 @@ public final class FeatureFlags {
   private static final String CALLING_REACTIONS                 = "android.calling.reactions";
   private static final String NOTIFICATION_THUMBNAIL_BLOCKLIST  = "android.notificationThumbnailProductBlocklist";
   private static final String CALLING_RAISE_HAND                = "android.calling.raiseHand";
-  private static final String USE_ACTIVE_CALL_MANAGER           = "android.calling.useActiveCallManager.4";
   private static final String GIF_SEARCH                        = "global.gifSearch";
   private static final String AUDIO_REMUXING                    = "android.media.audioRemux.1";
   private static final String VIDEO_RECORD_1X_ZOOM              = "android.media.videoCaptureDefaultZoom";
+  private static final String RETRY_RECEIPT_MAX_COUNT           = "android.retryReceipt.maxCount";
+  private static final String RETRY_RECEIPT_MAX_COUNT_RESET_AGE = "android.retryReceipt.maxCountResetAge";
+  private static final String PREKEY_FORCE_REFRESH_INTERVAL     = "android.prekeyForceRefreshInterval";
+  private static final String CDSI_LIBSIGNAL_NET                = "android.cds.libsignal.3";
+  private static final String RX_MESSAGE_SEND                   = "android.rxMessageSend";
+  private static final String LINKED_DEVICE_LIFESPAN_SECONDS    = "android.linkedDeviceLifespanSeconds";
+  private static final String MESSAGE_BACKUPS                   = "android.messageBackups";
+  private static final String CAMERAX_CUSTOM_CONTROLLER         = "android.cameraXCustomController";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -133,6 +141,7 @@ public final class FeatureFlags {
       CLIENT_EXPIRATION,
       CUSTOM_VIDEO_MUXER,
       CDS_REFRESH_INTERVAL,
+      CDS_FOREGROUND_SYNC_INTERVAL,
       GROUP_NAME_MAX_LENGTH,
       AUTOMATIC_SESSION_RESET,
       AUTOMATIC_SESSION_INTERVAL,
@@ -187,14 +196,20 @@ public final class FeatureFlags {
       CALLING_REACTIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
       CALLING_RAISE_HAND,
-      USE_ACTIVE_CALL_MANAGER,
       GIF_SEARCH,
       AUDIO_REMUXING,
-      VIDEO_RECORD_1X_ZOOM
+      VIDEO_RECORD_1X_ZOOM,
+      RETRY_RECEIPT_MAX_COUNT,
+      RETRY_RECEIPT_MAX_COUNT_RESET_AGE,
+      PREKEY_FORCE_REFRESH_INTERVAL,
+      CDSI_LIBSIGNAL_NET,
+      RX_MESSAGE_SEND,
+      LINKED_DEVICE_LIFESPAN_SECONDS,
+      CAMERAX_CUSTOM_CONTROLLER
   );
 
   @VisibleForTesting
-  static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet();
+  static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet(MESSAGE_BACKUPS);
 
   /**
    * Values in this map will take precedence over any value. This should only be used for local
@@ -220,6 +235,7 @@ public final class FeatureFlags {
       CLIENT_EXPIRATION,
       CUSTOM_VIDEO_MUXER,
       CDS_REFRESH_INTERVAL,
+      CDS_FOREGROUND_SYNC_INTERVAL,
       GROUP_NAME_MAX_LENGTH,
       AUTOMATIC_SESSION_RESET,
       AUTOMATIC_SESSION_INTERVAL,
@@ -259,7 +275,14 @@ public final class FeatureFlags {
       CALLING_REACTIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
       CALLING_RAISE_HAND,
-      VIDEO_RECORD_1X_ZOOM
+      VIDEO_RECORD_1X_ZOOM,
+      RETRY_RECEIPT_MAX_COUNT,
+      RETRY_RECEIPT_MAX_COUNT_RESET_AGE,
+      PREKEY_FORCE_REFRESH_INTERVAL,
+      CDSI_LIBSIGNAL_NET,
+      RX_MESSAGE_SEND,
+      LINKED_DEVICE_LIFESPAN_SECONDS,
+      CAMERAX_CUSTOM_CONTROLLER
   );
 
   /**
@@ -380,6 +403,11 @@ public final class FeatureFlags {
     return getInteger(CDS_REFRESH_INTERVAL, (int) TimeUnit.HOURS.toSeconds(48));
   }
 
+  /** The minimum time in between foreground CDS refreshes initiated via message requests, in milliseconds. */
+  public static Long cdsForegroundSyncInterval() {
+    return TimeUnit.SECONDS.toMillis(getInteger(CDS_FOREGROUND_SYNC_INTERVAL, (int) TimeUnit.HOURS.toSeconds(4)));
+  }
+
   public static @NonNull SelectionLimits shareSelectionLimit() {
     int limit = getInteger(SHARE_SELECTION_LIMIT, 5);
     return new SelectionLimits(limit, limit);
@@ -437,6 +465,20 @@ public final class FeatureFlags {
   /** How old a message is allowed to be while still resending in response to a retry receipt . */
   public static long retryRespondMaxAge() {
     return getLong(RETRY_RESPOND_MAX_AGE, TimeUnit.DAYS.toMillis(14));
+  }
+
+  /**
+   * The max number of retry receipts sends we allow (within @link{#retryReceiptMaxCountResetAge()}) before we consider the volume too large and stop responding.
+   */
+  public static long retryReceiptMaxCount() {
+    return getLong(RETRY_RECEIPT_MAX_COUNT, 10);
+  }
+
+  /**
+   * If the last retry receipt send was older than this, then we reset the retry receipt sent count. (For use with @link{#retryReceiptMaxCount()})
+   */
+  public static long retryReceiptMaxCountResetAge() {
+    return getLong(RETRY_RECEIPT_MAX_COUNT_RESET_AGE, TimeUnit.HOURS.toMillis(3));
   }
 
   /** How long a sender key can live before it needs to be rotated. */
@@ -575,11 +617,6 @@ public final class FeatureFlags {
     return getString(NOTIFICATION_THUMBNAIL_BLOCKLIST, "");
   }
 
-  /** Whether or not to use active call manager instead of WebRtcCallService. */
-  public static boolean useActiveCallManager() {
-    return getBoolean(USE_ACTIVE_CALL_MANAGER, false);
-  }
-
   /** Whether the in-app GIF search is available for use. */
   public static boolean gifSearchAvailable() {
     return getBoolean(GIF_SEARCH, true);
@@ -593,6 +630,40 @@ public final class FeatureFlags {
   /** Get the default video zoom, expressed as 10x the actual Float value due to the service limiting us to whole numbers. */
   public static boolean startVideoRecordAt1x() {
     return getBoolean(VIDEO_RECORD_1X_ZOOM, false);
+  }
+
+  /** How often we allow a forced prekey refresh. */
+  public static long preKeyForceRefreshInterval() {
+    return getLong(PREKEY_FORCE_REFRESH_INTERVAL, TimeUnit.HOURS.toMillis(1));
+  }
+
+  /** Make CDSI lookups via libsignal-net instead of native websocket. */
+  public static boolean useLibsignalNetForCdsiLookup() {
+    return getBoolean(CDSI_LIBSIGNAL_NET, false);
+  }
+
+  /** Use Rx threading model to do sends. */
+  public static boolean useRxMessageSending() {
+    return getBoolean(RX_MESSAGE_SEND, false);
+  }
+
+  /** The lifespan of a linked device (i.e. the time it can be inactive for before it expires), in milliseconds. */
+  public static long linkedDeviceLifespan() {
+    long seconds = getLong(LINKED_DEVICE_LIFESPAN_SECONDS, TimeUnit.DAYS.toSeconds(30));
+    return TimeUnit.SECONDS.toMillis(seconds);
+  }
+
+  /**
+   * Enable Message Backups UI
+   * Note: This feature is in active development and is not intended to currently function.
+   */
+  public static boolean messageBackups() {
+    return getBoolean(MESSAGE_BACKUPS, false);
+  }
+
+  /** Whether or not to use the custom CameraX controller class */
+  public static boolean customCameraXController() {
+    return getBoolean(CAMERAX_CUSTOM_CONTROLLER, false);
   }
 
   /** Only for rendering debug info. */

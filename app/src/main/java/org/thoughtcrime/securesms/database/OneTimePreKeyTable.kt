@@ -5,6 +5,7 @@ import androidx.core.content.contentValuesOf
 import org.signal.core.util.Base64
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.delete
+import org.signal.core.util.deleteAll
 import org.signal.core.util.logging.Log
 import org.signal.core.util.requireNonNullString
 import org.signal.core.util.update
@@ -31,7 +32,7 @@ class OneTimePreKeyTable(context: Context, databaseHelper: SignalDatabase) : Dat
       CREATE TABLE $TABLE_NAME (
         $ID INTEGER PRIMARY KEY,
         $ACCOUNT_ID TEXT NOT NULL,
-        $KEY_ID INTEGER UNIQUE, 
+        $KEY_ID INTEGER NOT NULL, 
         $PUBLIC_KEY TEXT NOT NULL, 
         $PRIVATE_KEY TEXT NOT NULL,
         $STALE_TIMESTAMP INTEGER NOT NULL DEFAULT 0,
@@ -113,6 +114,10 @@ class OneTimePreKeyTable(context: Context, databaseHelper: SignalDatabase) : Dat
       .run()
 
     Log.i(TAG, "Deleted $count stale one-time EC prekeys.")
+  }
+
+  fun debugDeleteAll() {
+    writableDatabase.deleteAll(TABLE_NAME)
   }
 
   private fun ServiceId.toAccountId(): String {

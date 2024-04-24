@@ -27,7 +27,7 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.net.Network;
+import org.thoughtcrime.securesms.net.Networking;
 import org.thoughtcrime.securesms.osm.MapTileProvider;
 
 import java.net.Proxy;
@@ -65,7 +65,7 @@ public class MapView extends org.osmdroid.views.MapView {
 
   private void setDefaultConfiguration(Context context) {
     final String userAgent = context.getPackageName();
-    final Proxy proxy = Network.getProxy();
+    final Proxy proxy = Networking.getProxy();
     final IConfigurationProvider config = Configuration.getInstance();
     config.setDebugMode(BuildConfig.DEBUG);
     config.setUserAgentValue(userAgent);

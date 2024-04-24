@@ -365,7 +365,7 @@ public final class ConversationUpdateItem extends FrameLayout
 
       Set<UUID> members = liveFullMembers.getValue();
       if (members != null) {
-        return recipient.hasAci() && members.contains(recipient.requireAci().getRawUuid());
+        return recipient.getHasAci() && members.contains(recipient.requireAci().getRawUuid());
       }
       return false;
     }
@@ -597,7 +597,7 @@ public final class ConversationUpdateItem extends FrameLayout
   private boolean shouldShowBlockRequestAction(MessageRecord messageRecord) {
     Recipient toBlock = messageRecord.getFromRecipient();
 
-    if (!toBlock.hasServiceId() || !groupData.isSelfAdmin() || groupData.isBanned(toBlock) || groupData.isFullMember(toBlock)) {
+    if (!toBlock.getHasServiceId() || !groupData.isSelfAdmin() || groupData.isBanned(toBlock) || groupData.isFullMember(toBlock)) {
       return false;
     }
 

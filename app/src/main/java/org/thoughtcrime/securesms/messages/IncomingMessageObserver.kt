@@ -31,6 +31,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.AppForegroundObserver
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
+import org.thoughtcrime.securesms.util.asChain
 import org.whispersystems.signalservice.api.push.ServiceId
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import org.whispersystems.signalservice.api.websocket.WebSocketUnavailableException
@@ -309,7 +310,7 @@ class IncomingMessageObserver(private val context: Application) {
       is MessageDecryptor.Result.Success -> {
         val job = PushProcessMessageJob.processOrDefer(messageContentProcessor, result, localReceiveMetric)
         if (job != null) {
-          return result.followUpOperations + FollowUpOperation { job }
+          return result.followUpOperations + FollowUpOperation { job.asChain() }
         }
       }
       is MessageDecryptor.Result.Error -> {
@@ -318,7 +319,7 @@ class IncomingMessageObserver(private val context: Application) {
             result.toMessageState(),
             result.errorMetadata.toExceptionMetadata(),
             result.envelope.timestamp!!
-          )
+          ).asChain()
         }
       }
       is MessageDecryptor.Result.Ignore -> {
@@ -419,7 +420,7 @@ class IncomingMessageObserver(private val context: Application) {
                       if (followUpOperations != null) {
                         Log.d(TAG, "Running ${followUpOperations.size} follow-up operations...")
                         val jobs = followUpOperations.mapNotNull { it.run() }
-                        ApplicationDependencies.getJobManager().addAll(jobs)
+                        ApplicationDependencies.getJobManager().addAllChains(jobs)
                       }
 
                       signalWebSocket.sendAck(response)

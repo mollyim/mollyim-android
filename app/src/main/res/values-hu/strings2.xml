@@ -103,4 +103,11 @@
     <string name="DeviceListItem_this_device">Ez az eszköz</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly számára szükséges a kapcsolatok- és helyi médiához való hozzáférés az ismerősök megtalálásához. A kapcsolatai a Signal privát keresőjébe kerülnek feltöltésre, ami azt jelenti, hogy mindkét oldalon titkosított adatok melyek a Signal részére sem megfejthetőek.</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Immáron állíthat be jelmondatot az adatbázisa titkosításához. Amíg nem kerül feloldásra, Molly nem fogad be se értesítéseket, se hívásokat. Ez segít az adatok megőrzéséhez ellopott eszközökön.</string>
+    <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Értesítések üzenetekről és nem fogadott hívásokról, amíg az app le volt zárva.</string>
+    <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">Ehhez a funkcióhoz push értesítések kellenek FCM vagy UnifiedPush-on keresztül. Ezek sajnos nem elérhetőek.</string>
+    <string name="NotificationsSettingsFragment__new_activity_while_locked">Új aktivitás míg le volt zárva</string>
+    <string name="NotificationsSettingsFragment__push_notifications_unavailable">Push értesítések nem elérhetőek</string>
+    <string name="preferences_appearance__navigation_bar">Navigációs csík</string>
+    <string name="preferences_appearance__show_calls">Hívások mutatása</string>
+    <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">A navigációs csíkon levő ikon mutatásának ki/be kapcsolása</string>
 </resources>

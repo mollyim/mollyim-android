@@ -776,6 +776,18 @@ class RecipientTableTest_getAndPossiblyMerge {
       expectThreadMergeEvent(E164_A)
     }
 
+    test("merge, e164+pni & e164+aci, pni+aci provided, change number") {
+      given(E164_A, PNI_A, null)
+      given(E164_B, null, ACI_A)
+
+      process(null, PNI_A, ACI_A)
+
+      expect(E164_A, PNI_A, ACI_A)
+
+      expectThreadMergeEvent(E164_A)
+      expectChangeNumberEvent()
+    }
+
     test("merge, e164 + pni reassigned, aci abandoned") {
       given(E164_A, PNI_A, ACI_A)
       given(E164_B, PNI_B, ACI_B)
@@ -786,6 +798,17 @@ class RecipientTableTest_getAndPossiblyMerge {
       expect(E164_A, PNI_A, ACI_B)
 
       expectChangeNumberEvent()
+    }
+
+    test("merge, e164 follows pni+aci") {
+      given(E164_A, PNI_A, null)
+      given(null, null, ACI_A)
+
+      process(null, PNI_A, ACI_A, pniVerified = true)
+
+      expect(E164_A, PNI_A, ACI_A)
+      expectThreadMergeEvent(E164_A)
+      expectPniVerified()
     }
 
     test("local user, local e164 and aci provided, changeSelf=false, leave e164 alone") {

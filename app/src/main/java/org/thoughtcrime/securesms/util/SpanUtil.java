@@ -105,10 +105,6 @@ public final class SpanUtil {
     return spannable;
   }
 
-  public static @NonNull CharSequence bullet(@NonNull CharSequence sequence) {
-    return bullet(sequence, BulletSpan.STANDARD_GAP_WIDTH);
-  }
-
   public static @NonNull CharSequence bullet(@NonNull CharSequence sequence, int gapWidth) {
     SpannableString spannable = new SpannableString(sequence);
     spannable.setSpan(new BulletSpan(gapWidth), 0, sequence.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -147,9 +143,13 @@ public final class SpanUtil {
     builder.append(" ").append(SpanUtil.buildCenteredImageSpan(drawable));
   }
 
-  public static void appendBottomImageSpan(@NonNull SpannableStringBuilder builder, @NonNull Drawable drawable, int width, int height) {
+  public static void appendSpacer(@NonNull SpannableStringBuilder builder, int width) {
+    SpanUtil.appendCenteredImageSpanWithoutSpace(builder, new ColorDrawable(Color.TRANSPARENT), width, 8);
+  }
+
+  public static void appendCenteredImageSpanWithoutSpace(@NonNull SpannableStringBuilder builder, @NonNull Drawable drawable, int width, int height) {
     drawable.setBounds(0, 0, ViewUtil.dpToPx(width), ViewUtil.dpToPx(height));
-    builder.append(SpanUtil.buildImageSpan(drawable, DynamicDrawableSpan.ALIGN_BOTTOM));
+    builder.append(SpanUtil.buildCenteredImageSpan(drawable));
   }
 
   public static CharSequence learnMore(@NonNull Context context,

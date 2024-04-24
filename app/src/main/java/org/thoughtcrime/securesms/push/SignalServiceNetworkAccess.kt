@@ -13,7 +13,7 @@ import org.thoughtcrime.securesms.keyvalue.SettingsValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.DeprecatedClientPreventionInterceptor
 import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor
-import org.thoughtcrime.securesms.net.Network
+import org.thoughtcrime.securesms.net.Networking
 import org.thoughtcrime.securesms.net.RemoteDeprecationDetectorInterceptor
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor
 import org.whispersystems.signalservice.api.push.TrustStore
@@ -219,9 +219,9 @@ open class SignalServiceNetworkAccess(context: Context) {
     signalCdsiUrls = fUrls.map { SignalCdsiUrl(it, F_CDSI_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
     signalSvr2Urls = fUrls.map { SignalSvr2Url(it, fTrustStore, F_SVR2_HOST, APP_CONNECTION_SPEC) }.toTypedArray(),
     networkInterceptors = interceptors,
-    socketFactory = Network.socketFactory,
-    proxySelector = Network.proxySelectorForSocks,
-    dns = Network.dns,
+    socketFactory = Networking.socketFactory,
+    proxySelector = Networking.proxySelectorForSocks,
+    dns = Networking.dns,
     zkGroupServerPublicParams = zkGroupServerPublicParams,
     genericServerPublicParams = genericServerPublicParams,
     backupServerPublicParams = backupServerPublicParams
@@ -273,9 +273,9 @@ open class SignalServiceNetworkAccess(context: Context) {
     signalCdsiUrls = arrayOf(SignalCdsiUrl(BuildConfig.SIGNAL_CDSI_URL, serviceTrustStore)),
     signalSvr2Urls = arrayOf(SignalSvr2Url(BuildConfig.SIGNAL_SVR2_URL, serviceTrustStore)),
     networkInterceptors = interceptors,
-    socketFactory = Network.socketFactory,
-    proxySelector = Network.proxySelectorForSocks,
-    dns = Network.dns,
+    socketFactory = Networking.socketFactory,
+    proxySelector = Networking.proxySelectorForSocks,
+    dns = Networking.dns,
     zkGroupServerPublicParams = zkGroupServerPublicParams,
     genericServerPublicParams = genericServerPublicParams,
     backupServerPublicParams = backupServerPublicParams
@@ -344,9 +344,9 @@ open class SignalServiceNetworkAccess(context: Context) {
       signalCdsiUrls = cdsiUrls,
       signalSvr2Urls = svr2Urls,
       networkInterceptors = interceptors,
-      socketFactory = Network.socketFactory,
-      proxySelector = Network.proxySelectorForSocks,
-      dns = Network.dns,
+      socketFactory = Networking.socketFactory,
+      proxySelector = Networking.proxySelectorForSocks,
+      dns = Networking.dns,
       zkGroupServerPublicParams = zkGroupServerPublicParams,
       genericServerPublicParams = genericServerPublicParams,
       backupServerPublicParams = backupServerPublicParams

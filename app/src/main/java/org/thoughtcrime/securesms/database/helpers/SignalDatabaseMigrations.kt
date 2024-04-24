@@ -77,6 +77,10 @@ import org.thoughtcrime.securesms.database.helpers.migration.V216_PhoneNumberDis
 import org.thoughtcrime.securesms.database.helpers.migration.V217_MessageTableExtrasColumn
 import org.thoughtcrime.securesms.database.helpers.migration.V218_RecipientPniSignatureVerified
 import org.thoughtcrime.securesms.database.helpers.migration.V219_PniPreKeyStores
+import org.thoughtcrime.securesms.database.helpers.migration.V220_PreKeyConstraints
+import org.thoughtcrime.securesms.database.helpers.migration.V221_AddReadColumnToCallEventsTable
+import org.thoughtcrime.securesms.database.helpers.migration.V222_DataHashRefactor
+import org.thoughtcrime.securesms.database.helpers.migration.V223_AddNicknameAndNoteFieldsToRecipientTable
 
 /**
  * Contains all of the database migrations for [SignalDatabase]. Broken into a separate file for cleanliness.
@@ -157,10 +161,14 @@ object SignalDatabaseMigrations {
     216 to V216_PhoneNumberDiscoverable,
     217 to V217_MessageTableExtrasColumn,
     218 to V218_RecipientPniSignatureVerified,
-    219 to V219_PniPreKeyStores
+    219 to V219_PniPreKeyStores,
+    220 to V220_PreKeyConstraints,
+    221 to V221_AddReadColumnToCallEventsTable,
+    222 to V222_DataHashRefactor,
+    223 to V223_AddNicknameAndNoteFieldsToRecipientTable
   )
 
-  const val DATABASE_VERSION = 219
+  const val DATABASE_VERSION = 223
 
   @JvmStatic
   fun migrate(context: Application, db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

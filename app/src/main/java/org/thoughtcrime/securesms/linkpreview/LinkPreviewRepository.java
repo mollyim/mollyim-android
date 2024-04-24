@@ -39,7 +39,7 @@ import org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.OpenGraph;
 import org.thoughtcrime.securesms.mms.PushMediaConstraints;
 import org.thoughtcrime.securesms.net.CallRequestController;
 import org.thoughtcrime.securesms.net.CompositeRequestController;
-import org.thoughtcrime.securesms.net.Network;
+import org.thoughtcrime.securesms.net.Networking;
 import org.thoughtcrime.securesms.net.RequestController;
 import org.thoughtcrime.securesms.net.UserAgentInterceptor;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
@@ -90,9 +90,9 @@ public class LinkPreviewRepository {
 
   public LinkPreviewRepository() {
     this.client = new OkHttpClient.Builder()
-                                  .socketFactory(Network.getSocketFactory())
-                                  .proxySelector(Network.getProxySelectorForSocks())
-                                  .dns(Network.getDns())
+                                  .socketFactory(Networking.getSocketFactory())
+                                  .proxySelector(Networking.getProxySelectorForSocks())
+                                  .dns(Networking.getDns())
                                   .cache(null)
                                   .addInterceptor(new UserAgentInterceptor("WhatsApp/2"))
                                   .build();
@@ -194,7 +194,15 @@ public class LinkPreviewRepository {
           return;
         }
 
-        String           body        = OkHttpUtil.readAsString(response.body(), FAILSAFE_MAX_TEXT_SIZE);
+        String body;
+        try {
+          body = OkHttpUtil.readAsString(response.body(), FAILSAFE_MAX_TEXT_SIZE);
+        } catch (IOException e) {
+          Log.w(TAG, "Failed to read body", e);
+          callback.accept(Metadata.empty());
+          return;
+        }
+
         OpenGraph        openGraph   = LinkPreviewUtil.parseOpenGraphFields(body);
         Optional<String> title       = openGraph.getTitle();
         Optional<String> description = openGraph.getDescription();
@@ -240,7 +248,7 @@ public class LinkPreviewRepository {
                 bitmap,
                 maxDimension,
                 mediaConfig.getMaxImageFileSize(),
-                mediaConfig.getQualitySetting()
+                mediaConfig.getImageQualitySetting()
             );
 
             if (result != null) {

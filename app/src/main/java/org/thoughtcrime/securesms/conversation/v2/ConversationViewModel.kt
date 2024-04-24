@@ -64,7 +64,6 @@ import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.mms.SlideDeck
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.search.MessageResult
 import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.util.BubbleUtil
 import org.thoughtcrime.securesms.util.ConversationUtil
@@ -158,6 +157,10 @@ class ConversationViewModel(
 
   private val startExpiration = BehaviorSubject.create<MessageTable.ExpirationInfo>()
 
+  private val _jumpToDateValidator: JumpToDateValidator by lazy { JumpToDateValidator(threadId) }
+  val jumpToDateValidator: JumpToDateValidator
+    get() = _jumpToDateValidator
+
   init {
     disposables += recipient
       .subscribeBy {
@@ -238,7 +241,7 @@ class ConversationViewModel(
         messageRequestState = messageRequestRepository.getMessageRequestState(recipient, threadId),
         groupRecord = groupRecord.orNull(),
         isClientExpired = SignalStore.misc().isClientDeprecated,
-        isUnauthorized = TextSecurePreferences.isUnauthorizedReceived(ApplicationDependencies.getApplication())
+        isUnauthorized = TextSecurePreferences.isUnauthorizedReceived(ApplicationDependencies.getApplication()),
       )
     }.doOnNext {
       hasMessageRequestStateSubject.onNext(it.messageRequestState)
@@ -311,8 +314,8 @@ class ConversationViewModel(
     return repository.getQuotedMessagePosition(threadId, quote)
   }
 
-  fun moveToSearchResult(messageResult: MessageResult): Single<Int> {
-    return repository.getMessageResultPosition(threadId, messageResult)
+  fun moveToDate(receivedTimestamp: Long): Single<Int> {
+    return repository.getMessageResultPosition(threadId, receivedTimestamp)
   }
 
   fun getNextMentionPosition(): Single<Int> {
@@ -505,5 +508,16 @@ class ConversationViewModel(
 
   fun markLastSeen() {
     repository.markLastSeen(threadId)
+  }
+
+  fun onChatSearchOpened() {
+    // Trigger the lazy load, so we can race initialization of the validator
+    _jumpToDateValidator
+  }
+
+  fun getEarliestMessageDate(): Single<Long> {
+    return repository
+      .getEarliestMessageDate(threadId)
+      .observeOn(AndroidSchedulers.mainThread())
   }
 }

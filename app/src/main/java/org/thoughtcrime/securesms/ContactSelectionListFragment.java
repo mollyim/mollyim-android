@@ -890,11 +890,11 @@ public final class ContactSelectionListFragment extends LoggingFragment {
     return ContactSearchConfiguration.build(builder -> {
       builder.setQuery(contactSearchState.getQuery());
 
-      if (newConversationCallback != null) {
+      if (newConversationCallback != null && !hasQuery) {
         builder.arbitrary(ContactSelectionListAdapter.ArbitraryRepository.ArbitraryRow.NEW_GROUP.getCode());
       }
 
-      if (findByCallback != null) {
+      if (findByCallback != null && !hasQuery) {
         builder.arbitrary(ContactSelectionListAdapter.ArbitraryRepository.ArbitraryRow.FIND_BY_USERNAME.getCode());
         builder.arbitrary(ContactSelectionListAdapter.ArbitraryRepository.ArbitraryRow.FIND_BY_PHONE_NUMBER.getCode());
       }
@@ -913,12 +913,14 @@ public final class ContactSelectionListFragment extends LoggingFragment {
           ));
         }
 
+        boolean hideHeader = newCallCallback != null || (newConversationCallback != null && !hasQuery);
         builder.addSection(new ContactSearchConfiguration.Section.Individuals(
             includeSelf,
             transportType,
-            newCallCallback == null && findByCallback == null,
+            !hideHeader,
             null,
-            !hideLetterHeaders()
+            !hideLetterHeaders(),
+            newConversationCallback != null ? ContactSearchSortOrder.RECENCY : ContactSearchSortOrder.NATURAL
         ));
       }
 
@@ -944,7 +946,7 @@ public final class ContactSelectionListFragment extends LoggingFragment {
         builder.username(newRowMode);
       }
 
-      if (newCallCallback != null || newConversationCallback != null) {
+      if ((newCallCallback != null || newConversationCallback != null) && !hasQuery) {
         addMoreSection(builder);
         builder.withEmptyState(emptyBuilder -> {
           emptyBuilder.addSection(ContactSearchConfiguration.Section.Empty.INSTANCE);

@@ -17,7 +17,7 @@ class ConversationListTabRepository {
         .messages
         .getUnreadStoryThreadRecipientIds()
         .map { Recipient.resolved(it) }
-        .filterNot { it.shouldHideStory() }
+        .filterNot { it.shouldHideStory }
         .size
         .toLong()
     }
@@ -28,6 +28,6 @@ class ConversationListTabRepository {
   }
 
   fun getNumberOfUnseenCalls(): Flowable<Long> {
-    return RxDatabaseObserver.conversationList.map { SignalDatabase.messages.getUnreadMisedCallCount() }
+    return RxDatabaseObserver.conversationList.map { SignalDatabase.calls.getUnreadMissedCallCount() }
   }
 }

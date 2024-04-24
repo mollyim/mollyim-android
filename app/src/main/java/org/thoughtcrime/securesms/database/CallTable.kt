@@ -7,10 +7,12 @@ import androidx.core.content.contentValuesOf
 import org.signal.core.util.IntSerializer
 import org.signal.core.util.Serializer
 import org.signal.core.util.SqlUtil
+import org.signal.core.util.count
 import org.signal.core.util.delete
 import org.signal.core.util.deleteAll
 import org.signal.core.util.flatten
 import org.signal.core.util.insertInto
+import org.signal.core.util.isAbsent
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readToList
 import org.signal.core.util.readToMap
@@ -60,9 +62,10 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     const val TIMESTAMP = "timestamp"
     const val RINGER = "ringer"
     const val DELETION_TIMESTAMP = "deletion_timestamp"
+    const val READ = "read"
 
     //language=sql
-    val CREATE_TABLE = """
+    const val CREATE_TABLE = """
       CREATE TABLE $TABLE_NAME (
         $ID INTEGER PRIMARY KEY,
         $CALL_ID INTEGER NOT NULL,
@@ -74,6 +77,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         $TIMESTAMP INTEGER NOT NULL,
         $RINGER INTEGER DEFAULT NULL,
         $DELETION_TIMESTAMP INTEGER DEFAULT 0,
+        $READ INTEGER DEFAULT 1,
         UNIQUE ($CALL_ID, $PEER) ON CONFLICT FAIL
       )
     """
@@ -85,14 +89,31 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     )
   }
 
+  fun markAllCallEventsRead(timestamp: Long = Long.MAX_VALUE) {
+    writableDatabase.update(TABLE_NAME)
+      .values(READ to ReadState.serialize(ReadState.READ))
+      .where("$TIMESTAMP <= ?", timestamp)
+      .run()
+
+    notifyConversationListListeners()
+  }
+
+  fun getUnreadMissedCallCount(): Long {
+    return readableDatabase
+      .count()
+      .from(TABLE_NAME)
+      .where("$EVENT = ? AND $READ = ?", Event.serialize(Event.MISSED), ReadState.serialize(ReadState.UNREAD))
+      .run()
+      .readToSingleLong()
+  }
+
   fun insertOneToOneCall(callId: Long, timestamp: Long, peer: RecipientId, type: Type, direction: Direction, event: Event) {
     val messageType: Long = Call.getMessageType(type, direction, event)
     val unread = MessageTypes.isMissedCall(messageType)
-    val expiresIn = Recipient.resolved(peer).expiresInMillis
+    val expiresIn = TimeUnit.SECONDS.toMillis(Recipient.resolved(peer).expiresInSeconds.toLong())
 
     writableDatabase.withinTransaction {
-      val result = SignalDatabase.messages.insertCallLog(peer, messageType, timestamp, direction == Direction.OUTGOING, expiresIn, unread)
-
+      val result = SignalDatabase.messages.insertCallLog(peer, messageType, timestamp, direction == Direction.OUTGOING, expiresIn)
       val values = contentValuesOf(
         CALL_ID to callId,
         MESSAGE_ID to result.messageId,
@@ -100,7 +121,8 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         TYPE to Type.serialize(type),
         DIRECTION to Direction.serialize(direction),
         EVENT to Event.serialize(event),
-        TIMESTAMP to timestamp
+        TIMESTAMP to timestamp,
+        READ to ReadState.serialize(ReadState.UNREAD)
       )
 
       writableDatabase.insert(TABLE_NAME, null, values)
@@ -121,7 +143,10 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     val call = writableDatabase.withinTransaction {
       writableDatabase
         .update(TABLE_NAME)
-        .values(EVENT to Event.serialize(event))
+        .values(
+          EVENT to Event.serialize(event),
+          READ to ReadState.serialize(ReadState.UNREAD)
+        )
         .where("$CALL_ID = ?", callId)
         .run()
 
@@ -138,12 +163,11 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         if (call.messageId == null) {
           Log.w(TAG, "Call does not have an associated message id! No message to update.")
         } else {
-          val unread = MessageTypes.isMissedCall(call.messageType)
-          val expiresIn = Recipient.resolved(call.peer).expiresInMillis
+          val expiresIn = TimeUnit.SECONDS.toMillis(Recipient.resolved(call.peer).expiresInSeconds.toLong())
 
-          SignalDatabase.messages.updateCallLog(call.messageId, call.messageType, unread)
+          SignalDatabase.messages.updateCallLog(call.messageId, call.messageType)
 
-          if (!unread && expiresIn > 0) {
+          if (expiresIn > 0) {
             val timestampOrNow = timestamp ?: System.currentTimeMillis()
             SignalDatabase.messages.markExpireStarted(call.messageId, timestampOrNow)
             ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(call.messageId, true, timestampOrNow, expiresIn)
@@ -400,6 +424,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         Log.w(TAG, "[acceptOutgoingGroupCall] This shouldn't have been an outgoing ring because the call already existed!")
         Event.ACCEPTED
       }
+
       else -> {
         Log.d(TAG, "[acceptOutgoingGroupCall] Call in state ${call.event} cannot be transitioned by ACCEPTED")
         return
@@ -940,12 +965,12 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
   /**
    * Gets the most recent timestamp from the [TIMESTAMP] column
    */
-  fun getLatestTimestamp(): Long {
+  fun getLatestCall(): Call? {
     val statement = """
-      SELECT $TIMESTAMP FROM $TABLE_NAME ORDER BY $TIMESTAMP DESC LIMIT 1
+      SELECT * FROM $TABLE_NAME ORDER BY $TIMESTAMP DESC LIMIT 1
     """.trimIndent()
 
-    return readableDatabase.query(statement).readToSingleLong(-1)
+    return readableDatabase.query(statement).readToSingleObject { Call.deserialize(it) }
   }
 
   fun deleteNonAdHocCallEventsOnOrBefore(timestamp: Long) {
@@ -1250,6 +1275,16 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
       val actualChildren = inPeriod.takeWhile { children.contains(it) }
       val peer = Recipient.resolved(call.peer)
 
+      val canUserBeginCall = if (peer.isGroup) {
+        val record = SignalDatabase.groups.getGroup(peer.id)
+
+        !record.isAbsent() &&
+          record.get().isActive &&
+          (!record.get().isAnnouncementGroup || record.get().memberLevel(Recipient.self()) == GroupTable.MemberLevel.ADMINISTRATOR)
+      } else {
+        true
+      }
+
       CallLogRow.Call(
         record = call,
         date = call.timestamp,
@@ -1257,7 +1292,8 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         groupCallState = CallLogRow.GroupCallState.fromDetails(groupCallDetails),
         children = actualChildren.toSet(),
         searchQuery = searchTerm,
-        callLinkPeekInfo = ApplicationDependencies.getSignalCallManager().peekInfoSnapshot[peer.id]
+        callLinkPeekInfo = ApplicationDependencies.getSignalCallManager().peekInfoSnapshot[peer.id],
+        canUserBeginCall = canUserBeginCall
       )
     }
   }
@@ -1376,6 +1412,21 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
           CallEvent.Direction.INCOMING -> INCOMING
           CallEvent.Direction.OUTGOING -> OUTGOING
         }
+      }
+    }
+  }
+
+  enum class ReadState(private val code: Int) {
+    UNREAD(0),
+    READ(1);
+
+    companion object Serializer : IntSerializer<ReadState> {
+      override fun serialize(data: ReadState): Int {
+        return data.code
+      }
+
+      override fun deserialize(data: Int): ReadState {
+        return ReadState.values().first { it.code == data }
       }
     }
   }

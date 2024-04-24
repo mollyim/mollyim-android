@@ -9,7 +9,7 @@ import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
-import org.thoughtcrime.securesms.net.Network;
+import org.thoughtcrime.securesms.net.Networking;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
@@ -60,7 +60,7 @@ public class ServiceOutageDetectionJob extends BaseJob {
     }
 
     try {
-      InetAddress address = Network.getDns().lookup(BuildConfig.SIGNAL_SERVICE_STATUS_URL).get(0);
+      InetAddress address = Networking.getDns().lookup(BuildConfig.SIGNAL_SERVICE_STATUS_URL).get(0);
       Log.i(TAG, "Received outage check address: " + address.getHostAddress());
 
       if (IP_SUCCESS.equals(address.getHostAddress())) {

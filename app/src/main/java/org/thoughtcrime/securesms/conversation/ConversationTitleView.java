@@ -137,7 +137,7 @@ public class ConversationTitleView extends ConstraintLayout {
       endDrawable = DrawableUtil.tint(endDrawable, ContextCompat.getColor(getContext(), R.color.signal_inverse_transparent_80));
     }
 
-    if (recipient != null && recipient.showVerified()) {
+    if (recipient != null && recipient.getShowVerified()) {
       endDrawable = ContextUtil.requireDrawable(getContext(), R.drawable.ic_official_24);
     }
 
@@ -207,7 +207,7 @@ public class ConversationTitleView extends ConstraintLayout {
   }
 
   private void setIndividualRecipientTitle(@NonNull Recipient recipient) {
-    final String displayName = recipient.getDisplayNameOrUsername(getContext());
+    final String displayName = recipient.getDisplayName(getContext());
     this.title.setText(displayName);
     this.subtitle.setText(null);
     updateSubtitleVisibility();

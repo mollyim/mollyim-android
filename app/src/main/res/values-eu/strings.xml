@@ -45,8 +45,6 @@
     <string name="ApplicationPreferencesActivity_disable_passphrase">Desaktibatu nahi duzu pasaesaldia?</string>
     <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly eta mezu jakinarazpenak iraunkorki desbloketuako dira.</string>
     <string name="ApplicationPreferencesActivity_disable">Desaktibatu</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Desaktibatu Molly-en mezuak eta deiak?</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desaktibatu Molly-en mezu eta deiak zerbitzaritik deserregistratuz. Zure telefono-zenbakia bererregistratu beharko duzu mezu eta deiak berriro erabili ahal izateko.</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Errorea zerbitzariarekin konektatzerakoan!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PINak beharrezkoak dira erregistratzeko blokeoa aktibatzeko. Pinak desaktibatzeko, mesedez, lehenago desaktibatu erregistratzeko blokeoa.</string>
     <string name="ApplicationPreferencesActivity_pin_created">Sortu da PINa.</string>
@@ -309,7 +307,6 @@
     <string name="ConversationItem_error_network_not_delivered">Bidaltzeak huts egin du</string>
     <string name="ConversationItem_group_action_left">%1$s taldea utzi du</string>
     <string name="ConversationItem_send_paused">Bidalketa eten egin da</string>
-    <string name="ConversationItem_click_to_approve_unencrypted">Ezin izan da bidali; sakatu segurtasunik gabeko alternatibarako</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Alternatiba gisa, enkriptatu gabeko SMS mezuak erabili?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Enkriptatu gabeko MMSaz baliatu?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">Mezu hau <b>ez</b> da enkriptatuko: hartzailea ez da jada Signal aplikazioaren erabiltzailea.\n\nSegurtasunik gabeko mezua bidali?</string>
@@ -426,6 +423,8 @@
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported">Signal-en jada ez dira onartzen SMS mezuak.</string>
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Signal-en jada ez dira onartzen SMS mezuak. %1$s(r)ekin duzun elkarrizketa mantentzeko, gonbida ezazu Signal-era.</string>
+    <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Pertsona honek jada ez du Molly erabiltzen. Harekin duzun elkarrizketa mantentzeko, gonbida ezazu Molly-era.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__invite_to_signal">Gonbidatu Molly erabiltzera</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
@@ -536,7 +535,7 @@
     <!-- Dialog title shown after reporting spam and tapping the conversation item -->
     <string name="ConversationFragment_reported_spam">Spama dela salatu da</string>
     <!-- Dialog message shown after reporting spam and tapping the conversation item -->
-    <string name="ConversationFragment_reported_spam_message">Signal has been notified that this person may be sending spam. Signal can’t see the content of any chats.</string>
+    <string name="ConversationFragment_reported_spam_message">Pertsona hau spama bidaltzen ari omen dela jakinarazi zaio Signal-i. Signal-ek ezin du ikusi txatetako edukia.</string>
     <!-- Toast shown after reporting spam and tapping the conversation item -->
     <string name="ConversationFragment_reported_as_spam">Spama dela salatu da</string>
     <!-- Toast shown after reporting and blocking a conversation -->
@@ -557,7 +556,7 @@
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Kriptodiru- edo diru-iruzurrak</string>
     <!-- Message of tip 1 -->
-    <string name="SafetyTips_tip1_message">If someone you don’t know messages about cryptocurrency (like Bitcoin) or a financial opportunity, be careful—it’s likely spam.</string>
+    <string name="SafetyTips_tip1_message">Ezagutzen ez duzun norbaitek kriptodiruari buruzko mezuak bidaltzen badizkizu (adibidez, Bitcoin-i buruzkoak), edo finantza-aukera bat duzula esaten badizu, erne ibili, seguruenik spama baita.</string>
     <!-- Title of tip 2 -->
     <string name="SafetyTips_tip2_title">Mezu lauso edo hutsalak</string>
     <!-- Message of tip 2 -->
@@ -818,7 +817,7 @@
     <string name="PendingGroupJoinRequestsReminder_view">Ikusi</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal behin betiko komunikazio hutsegitea!</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Molly behin betiko komunikazio hutsegitea!</string>
     <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ez da gai izan Google Play Zerbitzuekin erregistratzeko. Molly mezu eta deiak desgaitu egin dira; mesedez, saiatu bererregistratzen Ezarpenak &gt; Aurreratua menuan.</string>
 
 
@@ -1386,6 +1385,8 @@
     <string name="MessageRecord_changed_their_profile_name_to">%1$s erabiltzaileak bere profileko izena aldatu du. Orain %2$s da.</string>
     <string name="MessageRecord_changed_their_profile_name_from_to">%1$s erabiltzaileak bere profileko izena aldatu du. Lehen %2$s zen eta orain %3$s da.</string>
     <string name="MessageRecord_changed_their_profile">%1$s erabiltzaileak bere profila aldatu du.</string>
+    <!-- Conversation update event message shown when you\'ve started a conversation by phone number or username and then learn their profile name. placeholder is username or phone number -->
+    <string name="MessageRecord_started_this_chat">%1$s erabiltzailearekiko txat hau hasi duzu.</string>
 
     <!-- GV2 specific -->
     <string name="MessageRecord_you_created_the_group">Taldea sortu duzu.</string>
@@ -1861,8 +1862,10 @@
     <string name="WebRtcCallView__disconnected">Deskonektatuta</string>
     <!-- Utilized in the lobby before joining a call link -->
     <string name="WebRtcCallView__signal_call_link">Signal deiaren esteka</string>
-    <!-- Warning displayed when entering a call via a link -->
-    <string name="WebRtcCallView__anyone_who_joins">Esteka bidez dei honetan sartzen den edonork zure izena, argazkia eta telefono-zenbakia ikusiko ditu.</string>
+    <!-- Warning displayed when entering a call via a link and you have Phone Number Privacy disabled-->
+    <string name="WebRtcCallView__anyone_who_joins_pnp_disabled">Esteka bidez dei honetan sartzen den edonork zure izena, argazkia eta telefono-zenbakia ikusiko ditu.</string>
+    <!-- Warning displayed when entering a call via a link and you have Phone Number Privacy enabled-->
+    <string name="WebRtcCallView__anyone_who_joins_pnp_enabled">Estekaren bidez sartzen direnek zure izena eta argazkia ikusi ahalko dituzte.</string>
     <!-- Displayed on the call screen as the status when waiting to be let into a call link by an admin -->
     <string name="WebRtcCallView__waiting_to_be_let_in">Sartzen uzteko zain…</string>
 
@@ -1969,7 +1972,7 @@
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">Ez duzu zuzeneko mezurik %1$s erabiltzailearekin</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
-    <string name="AboutSheet__s_is_in_your_system_contacts">%1$s zure sistemako kontaktuetan dago</string>
+    <string name="AboutSheet__s_is_in_your_system_contacts">%1$s zure telefonoko kontaktuetan dago</string>
     <!-- Notice in a row when user has no groups in common -->
     <string name="AboutSheet__you_have_no_groups_in_common">Ez duzue talderik komunean</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
@@ -1983,6 +1986,8 @@
     <string name="AboutSheet__about">Honi buruz</string>
     <!-- Text displayed in title for you -->
     <string name="AboutSheet__you">Zu</string>
+    <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
+    <string name="AboutSheet__user_set_display_name_and_profile_name">%1$s (%2$s)</string>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
@@ -2295,6 +2300,8 @@
     <string name="UsernameEditFragment_delete">Ezabatu</string>
     <string name="UsernameEditFragment_successfully_removed_username">Kendu da erabiltzaile-izena.</string>
     <string name="UsernameEditFragment_encountered_a_network_error">Sare errore bat izan da.</string>
+    <!-- Toast message shown if user exceeds the rate limit for reserving usernames -->
+    <string name="UsernameEditFragment_rate_limit_exceeded_error">Saiakera gehiegi egin dira; saiatu berriro geroago.</string>
     <string name="UsernameEditFragment_this_username_is_taken">Erabiltzaile-izen hau hartuta dago.</string>
     <string name="UsernameEditFragment_usernames_can_only_include">Erabiltzaile-izenetan bakarrik ondokoak daude onartuta: a-Z, 0-9 eta azpimarrak.</string>
     <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Erabiltzaile-izenak ezin dira zenbaki batez hasi.</string>
@@ -2318,7 +2325,7 @@
     <!-- Displayed when the chosen discriminator is 00 -->
     <string name="UsernameEditFragment__this_number_cant_be_00">Zenbaki hau ezin da 00 izan. Idatzi 1 eta 9 arteko digitu bat</string>
     <!-- Displayed when the chosen discriminator starts with 0 and has a length > 2 -->
-    <string name="UsernameEditFragment__this_number_cant_start_with_0">Numbers with more than 2 digits can\'t start with 0</string>
+    <string name="UsernameEditFragment__this_number_cant_start_with_0">2 digitu baino gehiagoko zenbakiak ezin dira hasi 0rekin</string>
     <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
     <string name="UsernameEditFragment_recovery_dialog_confirmation">Erabiltzaile-izena berreskuratzen baduzu, lehendik dauden QR kodea eta esteka berrezarri egingo dira. Ziur zaude?</string>
     <!-- The body of an alert dialog asking the user to confirm that they want to change their username, even if it resets their link -->
@@ -2550,7 +2557,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Gailu hau jada ez dago erregistratuta. Ziurrenik zure telefono-zenbakia Signal-ekin beste gailu batean erregistratu duzulako gertatu da hori.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Gailu hau jada ez dago erregistratuta. Ziurrenik zure telefono-zenbakia Molly-ekin beste gailu batean erregistratu duzulako gertatu da hori.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Erregistratu gailua berriro</string>
 
@@ -2917,6 +2924,18 @@
     <string name="EditProfileFragment__group_name">Taldearen izena</string>
     <string name="EditProfileFragment__group_description">Taldearen deskribapena</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
+    <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_title">Eguneratu Molly</string>
+    <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
+    <string name="EditProfileFragment_deprecated_dialog_body">Molly-en bertsio hau zaharkituta dago. Eguneratu orain Molly erabiltzen jarraitzeko.</string>
+    <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
+    <string name="EditProfileFragment_deprecated_dialog_update_button">Eguneratu</string>
+    <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_title">Gailua ez dago erregistratuta</string>
+    <!-- The body of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
+    <string name="EditProfileFragment_unregistered_dialog_body">Gailu hau jada ez dago erregistratuta. Erregistratu berriro zure kontuan aldaketak egiteko.</string>
+    <!-- The button on a dialog informing the user that they cannot use this app feature when they are unregistered. When clicked, the user will be taken to a screen to help them re-register. -->
+    <string name="EditProfileFragment_unregistered_dialog_reregister_button">Bierregistratu</string>
 
     <!-- EditProfileNameFragment -->
     <string name="EditProfileNameFragment_your_name">Zure izena</string>
@@ -3011,7 +3030,6 @@
         <item>Besteak</item>
         <item>Ordainketak (MobileCoin)</item>
         <item>Dohaintzak eta bereizgarriak</item>
-        <item>SMSen esportazioa</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android arazketa-erregistroaren bidalketa</string>
@@ -3656,8 +3674,6 @@
     <string name="verify_display_fragment_context_menu__compare_with_clipboard">Arbelarekin konparatu</string>
 
     <!-- reminder_header -->
-    <string name="reminder_header_push_title">Aktibatu Signal mezu eta deiak</string>
-    <string name="reminder_header_push_text">Berritu zure komunikazio-esperientzia.</string>
     <string name="reminder_header_service_outage_text">Signal arazo teknikoak izaten ari da. Gogor ari gara lanean zerbitzua ahal bezain laster berriro martxan jartzeko.</string>
     <string name="reminder_header_progress">%1$d%%</string>
     <!-- Body text of a banner that will show at the top of the chat list when we temporarily cannot process the user\'s contacts -->
@@ -3892,6 +3908,12 @@
     <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">Ezingo du inork ikusi Signal-en zaudela, salbu eta mezuak bidaltzen badituzu edo lehendik txaten bat baduzu norbaitekin.</string>
     <!-- Snackbar text when pressing invalid radio item -->
     <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Ezarpen hori aldatzeko, joan \"Nork ikus dezake nire zenbakia?\" atalera eta aukeratu \"Inork ez\"."</string>
+    <!-- Dialog title shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Ziur zaude?</string>
+    <!-- Dialog warning message shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">\"Nork aurki nazake zenbakia erabiliz?\" ezarpenean \"Inork ez\" aukeratuz gero, jendearentzat zailagoa izango da zu Signal-en aurkitzea.</string>
+    <!-- Dialog button text for canceling change action -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">Utzi</string>
     <string name="PhoneNumberPrivacy_everyone">Guztiak</string>
     <string name="PhoneNumberPrivacy_nobody">Inor ez</string>
     <string name="preferences_app_protection__screen_lock">Blokeo-pantaila</string>
@@ -3948,6 +3970,8 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Zure gailu zaharrerako sarbidea behar duzu.</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">Babeskopia berreskuratu</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Berreskuratu babeskopia lokal bateko mezuak. Orain ez baduzu egiten, ezingo duzu geroago berreskuratu.</string>
+    <!-- Button label for more options -->
+    <string name="TransferOrRestoreFragment__more_options">Aukera gehiago</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Ireki Signal zure Android telefono zaharrean</string>
@@ -4154,7 +4178,7 @@
     <!-- Displayed when a recent name change has occurred. First placeholder is new short name, second is previous name, third is new name. -->
     <string name="ReviewCard__s_recently_changed">%1$s erabiltzaileak %3$s ezarri du profileko izen gisa (lehen %2$s zen)</string>
     <!-- Displayed when a review user is in your system contacts. Placeholder is short name. -->
-    <string name="ReviewCard__s_is_in_your_system_contacts">%1$s zure sistemako kontaktuetan dago</string>
+    <string name="ReviewCard__s_is_in_your_system_contacts">%1$s zure telefonoko kontaktuetan dago</string>
 
     <!-- CallParticipantsListUpdatePopupWindow -->
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s batu da</string>
@@ -4389,11 +4413,16 @@
     <string name="GroupDescriptionDialog__group_description">Taldearen deskribapena</string>
 
     <!-- QualitySelectorBottomSheetDialog -->
+    <!-- Label for our standard quality media conversion. -->
     <string name="QualitySelectorBottomSheetDialog__standard">Estandarra</string>
+    <!-- Description for our standard quality media conversion. -->
     <string name="QualitySelectorBottomSheetDialog__faster_less_data">Azkarrago, datu gutxiago</string>
+    <!-- Label for our high quality media conversion. This has better quality than standard. -->
     <string name="QualitySelectorBottomSheetDialog__high">Altua</string>
+    <!-- Label for our high quality media conversion. This has better quality than standard. -->
     <string name="QualitySelectorBottomSheetDialog__slower_more_data">Mantsoago, datu gehiago</string>
-    <string name="QualitySelectorBottomSheetDialog__photo_quality">Argazki kalitatea</string>
+    <!-- Title heading for our media conversion quality selector. -->
+    <string name="QualitySelectorBottomSheetDialog__media_quality">Media kalitatea</string>
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">Gonbidatu zure lagunak</string>
@@ -4700,7 +4729,7 @@
     <string name="ConversationSettingsFragment__disappearing_messages">Mezuen desagerpena</string>
     <string name="ConversationSettingsFragment__sounds_and_notifications">Soinuak &amp; jakinarazpenak</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
-    <string name="ConversationSettingsFragment__contact_details">Kontaktuaren xehetasunak</string>
+    <string name="ConversationSettingsFragment__contact_details">Telefonoko kontaktuaren informazioa</string>
     <string name="ConversationSettingsFragment__view_safety_number">Erakutsi segurtasun zenbakia</string>
     <string name="ConversationSettingsFragment__block">Blokeatu</string>
     <string name="ConversationSettingsFragment__block_group">Blokeatu taldea</string>
@@ -4869,6 +4898,28 @@
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">Elementu bat edo gehiago handiegiak dira</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">Elementu bat edo gehiago handiegiak dira</string>
     <string name="MediaReviewFragment__too_many_items_selected">Elementu gehiegi hautatu dira</string>
+    <!-- Small notification presented to the user when they set their video to view-once mode -->
+    <string name="MediaReviewFragment__video_set_to_view_once">Bideoa behin bakarrik ikus daitekeela ezarri da</string>
+    <!-- Small notification presented to the user when they set their photo to view-once mode -->
+    <string name="MediaReviewFragment__photo_set_to_view_once">Argazkia behin bakarrik ikus daitekeela ezarri da</string>
+    <!-- Small notification presented to the user when they set their video to be sent in high visual quality. -->
+    <string name="MediaReviewFragment__video_set_to_high_quality">Bideoaren kalitatea handi gisa ezarri da</string>
+    <!-- Small notification presented to the user when they set their video to be sent in standard (lower than high) visual quality. -->
+    <string name="MediaReviewFragment__video_set_to_standard_quality">Bideoaren kalitatea estandar gisa ezarri da</string>
+    <!-- Small notification presented to the user when they set their still image to be sent in high visual quality. -->
+    <string name="MediaReviewFragment__photo_set_to_high_quality">Argazkiaren kalitatea handi gisa ezarri da</string>
+    <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
+    <string name="MediaReviewFragment__photo_set_to_standard_quality">Argazkiaren kalitatea estandar gisa ezarri da</string>
+    <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
+    <plurals name="MediaReviewFragment__items_set_to_high_quality">
+        <item quantity="one">%1$d elementuren kalitatea handi gisa ezarri da</item>
+        <item quantity="other">%1$d elementuren kalitatea handi gisa ezarri da</item>
+    </plurals>
+    <!-- Small notification presented to the user when they set multiple media items to be sent in standard (lower than high) visual quality. -->
+    <plurals name="MediaReviewFragment__items_set_to_standard_quality">
+        <item quantity="one">%1$d elementuren kalitatea estandar gisa ezarri da</item>
+        <item quantity="other">%1$d elementuren kalitatea estandar gisa ezarri da</item>
+    </plurals>
 
     <string name="ImageEditorHud__cancel">Utzi</string>
     <string name="ImageEditorHud__draw">Marraztu</string>
@@ -4892,6 +4943,20 @@
     <string name="MediaReviewImagePageFragment__discard">Baztertu</string>
     <string name="MediaReviewImagePageFragment__discard_changes">Aldaketak baztertu?</string>
     <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Argazki honetan egin dituzun aldaketak galduko dituzu.</string>
+
+    <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
+    <string name="MediaCaptureFragment_username_dialog_title">%1$s aurkitu da</string>
+    <!-- The body of a dialog notifying that a user was found matching a scanned QR code, prompting the user to start a chat with them. The placeholder is a username. Usernames are always latin characters. -->
+    <string name="MediaCaptureFragment_username_dialog_body">Hasi txateatzen \"%1$s\" erabiltzailearekin</string>
+    <!-- The label of a dialog asking the user if they would like to start a chat with a specific user. -->
+    <string name="MediaCaptureFragment_username_dialog_go_to_chat_button">Joan txatera</string>
+
+    <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+    <string name="MediaCaptureFragment_device_link_dialog_title">Gailua lotu nahi duzu?</string>
+    <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+    <string name="MediaCaptureFragment_device_link_dialog_body">Signal-eko gailu bat lotu nahian zabiltzala dirudi. Horretarako, sakatu aurrera egiteko botoia eta eskaneatu kodea berriro.</string>
+    <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
+    <string name="MediaCaptureFragment_device_link_dialog_continue">Jarraitu</string>
 
 
     <string name="BadgesOverviewFragment__my_badges">Nire bereizgarriak</string>
@@ -4991,7 +5056,7 @@
     <!-- Displayed as a subtitle on a row in the Manage Donations screen when payment for a donation is pending -->
     <string name="MySupportPreference__payment_pending">Ordainketa zain</string>
     <!-- Displayed as a dialog message when clicking on a donation row that is pending. Placeholder is a formatted fiat amount -->
-    <string name="MySupportPreference__your_bank_transfer_of_s">Zure %1$s banku-transferentzia zain dago. Banku-transferentziak burutzeko lanegun bat behar izaten da.  </string>
+    <string name="MySupportPreference__your_bank_transfer_of_s">Zure banku-transferentzia (%1$s) zain dago. Banku-transferentziek 1-14 lanegun behar izaten dituzte osatzeko.  </string>
     <!-- Displayed in the pending help dialog, used to launch user to more details about bank transfers -->
     <string name="MySupportPreference__learn_more">Informazio gehiago</string>
 
@@ -5515,7 +5580,7 @@
     <!-- Signal connections sheet bullet point 2 -->
     <string name="SignalConnectionsBottomSheet__accepting_a_message_request">Mezu eskaera onartzen</string>
     <!-- Signal connections sheet bullet point 3 -->
-    <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Zure sistemako kontaktuetan edukitzen</string>
+    <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Telefonoko kontaktuetan edukitzea</string>
     <!-- Note at the bottom of the Signal connections sheet -->
     <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Zure konexioek zure izena eta argazkia ikus ditzakete, eta \"Nire istorioa\" ataleko argitalpenak ikus ditzakete (haientzat ezkutatu ezean)."</string>
     <!-- Clickable option to add a viewer to a custom story -->
@@ -5935,9 +6000,9 @@
     <!-- Dialog title when a user tries to donate while they already have a pending donation. -->
     <string name="DonateToSignalFragment__you_have_a_donation_pending">Dohaintza bat zain duzu</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
-    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_monthly">Banku-transferentziak prozesatzeko lanegun bat behar izaten da. Harpidetza eguneratu aurretik, itxaron ordainketa hau osatu arte.</string>
+    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_monthly">Banku-transferentziek 1-14 egun behar izaten dituzte prozesatzeko. Harpidetza eguneratu aurretik, itxaron ordainketa hau osatu arte.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
-    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_onetime">Banku-transferentziak prozesatzeko lanegun bat behar izaten da. Beste dohaintza bat egin aurretik, itxaron ordainketa hau osatu arte.</string>
+    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_onetime">Banku-transferentziek 1-14 egun behar izaten dituzte prozesatzeko. Beste dohaintza bat egin aurretik, itxaron ordainketa hau osatu arte.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
     <string name="DonateToSignalFragment__your_payment_is_still_being_processed_monthly">Dohaintza prozesatzen ari da oraindik. Zure konexioaren arabera, baliteke minutu batzuk behar izatea. Harpidetza eguneratu aurretik, itxaron ordainketa hau osatu arte.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
@@ -6089,7 +6154,7 @@
     <!-- Top text block of donation pending sheet displayed after one-time donation via a bank transfer. Placeholder is the badge name. -->
     <string name="DonationPendingBottomSheet__your_one_time_donation_is_pending">Zure behin-behineko dohaintza zain dago. Dohaintza jasotzen duzunean %1$s bereizgarria erakutsi ahal izango duzu zure profilean.</string>
     <!-- Bottom text block of donation pending sheet displayed after donating via a bank transfer. Placeholder is for learn more. -->
-    <string name="DonationPendingBottomSheet__bank_transfers_usually_take">Banku-transferentziak prozesatzeko lanegun bat behar izaten da. %1$s</string>
+    <string name="DonationPendingBottomSheet__bank_transfers_usually_take">Banku-transferentziek 1-14 egun behar izaten dituzte prozesatzeko. %1$s</string>
     <!-- Learn more text for donation pending sheet displayed after donating via a bank transfer. -->
     <string name="DonationPendingBottomSheet__learn_more">Informazio gehiago</string>
     <!-- Confirmation button for donation pending sheet displayed after donating via a bank transfer. -->
@@ -6430,6 +6495,8 @@
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->
     <string name="CallLinkDetailsFragment__call_details">Deiaren xehetasunak</string>
+    <!-- Displayed in a text row, allowing the user to click and edit a call name -->
+    <string name="CallLinkDetailsFragment__edit_call_name">Editatu deiaren izena</string>
     <!-- Displayed in a text row, allowing the user to click and add a call name -->
     <string name="CallLinkDetailsFragment__add_call_name">Gehitu deiaren izena</string>
     <!-- Displayed in a toggle row, allowing the user to click to enable or disable member approval -->
@@ -6497,6 +6564,10 @@
     <string name="UsernameLinkSettings_reset_link_result_success">QR kodea eta esteka berrezarri egin dira, eta QR kode eta esteka berriak sortu.</string>
     <!-- Shown on the generated username qr code image to explain how to use it. -->
     <string name="UsernameLinkSettings_scan_this_qr_code">Signal-en nirekin txateatzeko, eskaneatu QR kode hau telefonoarekin.</string>
+    <!-- Dialog title shown when scanning an image from the gallery for a username QR code and there is no qr code in the image. -->
+    <string name="UsernameLinkSettings_qr_code_not_found">Ez da aurkitu QR kodea</string>
+    <!-- Dialog message shown when scanning an image from the gallery for a username QR code and there is no qr code in the image. -->
+    <string name="UsernameLinkSettings_try_scanning_another_image_containing_a_signal_qr_code">Saiatu Signal-eko QR kode bat duen beste irudi bat eskaneatzen.</string>
 
     <!-- Explanatory text at the top of a bottom sheet describing how username links work -->
     <string name="UsernameLinkShareBottomSheet_title">Esteka hau duen edonork ikusi ahalko du zure erabiltzaile-izena, eta zurekin txateatzen hasi ahalko da. Parteka ezazu jende fidagarriarekin bakarrik.</string>
@@ -6588,6 +6659,50 @@
     <string name="FindByActivity__s_is_not_a_signal_user_would">%1$s ez da Signal-en erabiltzailea. Zenbaki hori gonbidatu nahi duzu?</string>
     <!-- Dialog action to invite the phone number to Signal -->
     <string name="FindByActivity__invite">Gonbidatu</string>
+    <!-- Button label for a button that will launch a camera to scan a username QR code -->
+    <string name="FindByActivity__qr_scan_button">QR kodea eskaneatu</string>
+    <!-- Content of a dialog indicating that we could not perform the requested action because we encountered a network error. -->
+    <string name="FindByActivity__network_error_dialog">Sare errore bat izan da. Saia zaitez beranduago.</string>
+
+    <!-- Title for an alert letting someone know that one of their linked devices is inactive. -->
+    <string name="LinkedDeviceInactiveMegaphone_title">Lotutako gailu inaktiboa</string>
+    <!-- Body for an alert letting someone know that one of their linked devices is inactive. The string placeholder is the name of the device, and the number placeholder is the number of days before device is unlinked. -->
+    <plurals name="LinkedDeviceInactiveMegaphone_body">
+        <item quantity="one">\"%1$s\" lotuta mantentzeko, ireki Signal gailu horretan egun %2$deko epean.</item>
+        <item quantity="other">\"%1$s\" lotuta mantentzeko, ireki Signal gailu horretan %2$d eguneko epean.</item>
+    </plurals>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the user will opt out of all future alerts. -->
+    <string name="LinkedDeviceInactiveMegaphone_dont_remind_button_label">Ez nazazu gogoratu</string>
+    <!-- Button label for an alert letting someone know that one of their linked devices is inactive. When clicked, the alert will be dismissed. -->
+    <string name="LinkedDeviceInactiveMegaphone_got_it_button_label">Ulertu dut</string>
+
+    <!-- NicknameFragment -->
+    <!-- Title displayed at the top of the screen -->
+    <string name="NicknameActivity__nickname">Ezizena</string>
+    <!-- Subtitle displayed under title -->
+    <string name="NicknameActivity__nicknames_amp_notes">Ezizenak eta oharrak Signal-en gordetzen dira, eta muturretik muturrera enkriptatzen dira. Zuk bakarrik ikus ditzakezu.</string>
+    <!-- Field label for given name -->
+    <string name="NicknameActivity__first_name">Izena</string>
+    <!-- Content description for first name clear button -->
+    <string name="NicknameActivity__clear_first_name">Garbitu izena</string>
+    <!-- Field label for family name -->
+    <string name="NicknameActivity__last_name">Abizena</string>
+    <!-- Content description for last name clear button -->
+    <string name="NicknameActivity__clear_last_name">Garbitu abizena</string>
+    <!-- Field label for note -->
+    <string name="NicknameActivity__note">Oharra</string>
+    <!-- Button label to save -->
+    <string name="NicknameActivity__save">Gorde</string>
+    <!-- Dialog title for note and name deletion -->
+    <string name="NicknameActivity__delete_nickname">Ezabatu?</string>
+    <!-- Dialog message for note and name deletion -->
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">Betiko ezabatuko dira ezarritako ezizen eta oharrak.</string>
+
+    <!-- ViewNoteBottomSheetDialogFragment -->
+    <!-- Sheet title -->
+    <string name="ViewNoteSheet__note">Oharra</string>
+    <!-- Content description for opening the note editor -->
+    <string name="ViewNoteSheet__edit_note">Editatu oharra</string>
 
     <!-- EOF -->
 </resources>

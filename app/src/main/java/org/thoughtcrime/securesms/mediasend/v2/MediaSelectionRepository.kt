@@ -29,8 +29,8 @@ import org.thoughtcrime.securesms.mediasend.MediaSendActivityResult
 import org.thoughtcrime.securesms.mediasend.MediaTransform
 import org.thoughtcrime.securesms.mediasend.MediaUploadRepository
 import org.thoughtcrime.securesms.mediasend.SentMediaQualityTransform
-import org.thoughtcrime.securesms.mediasend.VideoEditorFragment
 import org.thoughtcrime.securesms.mediasend.VideoTrimTransform
+import org.thoughtcrime.securesms.mediasend.v2.videos.VideoTrimData
 import org.thoughtcrime.securesms.mms.GifSlide
 import org.thoughtcrime.securesms.mms.ImageSlide
 import org.thoughtcrime.securesms.mms.MediaConstraints
@@ -80,7 +80,6 @@ class MediaSelectionRepository(context: Context) {
     stateMap: Map<Uri, Any>,
     quality: SentMediaQuality,
     message: CharSequence?,
-    isSms: Boolean,
     isViewOnce: Boolean,
     singleContact: ContactSearchKey.RecipientSearchKey?,
     contacts: List<ContactSearchKey.RecipientSearchKey>,
@@ -89,10 +88,6 @@ class MediaSelectionRepository(context: Context) {
     sendType: MessageSendType,
     scheduledTime: Long = -1
   ): Maybe<MediaSendActivityResult> {
-    if (isSms && contacts.isNotEmpty()) {
-      throw IllegalStateException("Provided recipients to send to, but this is SMS!")
-    }
-
     if (selectedMedia.isEmpty()) {
       throw IllegalStateException("No selected media!")
     }
@@ -121,8 +116,8 @@ class MediaSelectionRepository(context: Context) {
         StoryType.NONE
       }
 
-      if (isSms || MessageSender.isLocalSelfSend(context, singleRecipient, SendType.SIGNAL)) {
-        Log.i(TAG, "SMS or local self-send. Skipping pre-upload.")
+      if (MessageSender.isLocalSelfSend(context, singleRecipient, SendType.SIGNAL)) {
+        Log.i(TAG, "Local self-send. Skipping pre-upload.")
         emitter.onSuccess(
           MediaSendActivityResult(
             recipientId = singleRecipient!!.id,
@@ -207,7 +202,7 @@ class MediaSelectionRepository(context: Context) {
               )
             )
           } else {
-            Log.w(TAG, "Got empty upload results! isSms: $isSms, updatedMedia.size(): ${updatedMedia.size}, isViewOnce: $isViewOnce, target: $singleContact")
+            Log.w(TAG, "Got empty upload results! updatedMedia.size(): ${updatedMedia.size}, isViewOnce: $isViewOnce, target: $singleContact")
             emitter.onSuccess(
               MediaSendActivityResult(
                 recipientId = singleRecipient!!.id,
@@ -249,8 +244,8 @@ class MediaSelectionRepository(context: Context) {
     uploadRepository.deleteAbandonedAttachments()
   }
 
-  fun isLocalSelfSend(recipient: Recipient?, isSms: Boolean): Boolean {
-    return MessageSender.isLocalSelfSend(context, recipient, if (isSms) MessageSender.SendType.SMS else MessageSender.SendType.SIGNAL)
+  fun isLocalSelfSend(recipient: Recipient?): Boolean {
+    return MessageSender.isLocalSelfSend(context, recipient, SendType.SIGNAL)
   }
 
   @WorkerThread
@@ -270,7 +265,7 @@ class MediaSelectionRepository(context: Context) {
         }
       }
 
-      if (state is VideoEditorFragment.Data && state.isDurationEdited) {
+      if (state is VideoTrimData && state.isDurationEdited) {
         modelsToRender[it] = VideoTrimTransform(state)
       }
 

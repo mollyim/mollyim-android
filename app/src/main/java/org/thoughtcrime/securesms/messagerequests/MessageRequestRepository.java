@@ -67,7 +67,7 @@ public final class MessageRequestRepository {
       if (groupRecord.get().isV2Group()) {
         List<Recipient> recipients = Recipient.resolvedList(groupRecord.get().getMembers());
         for (Recipient recipient : recipients) {
-          if ((recipient.isProfileSharing() || recipient.hasGroupsInCommon()) && !recipient.isSelf()) {
+          if ((recipient.isProfileSharing() || recipient.getHasGroupsInCommon()) && !recipient.isSelf()) {
             groupHasExistingContacts = true;
             break;
           }
@@ -148,6 +148,10 @@ public final class MessageRequestRepository {
         }
       }
     }
+  }
+
+  public boolean threadContainsSms(long threadId) {
+    return SignalDatabase.messages().threadContainsSms(threadId);
   }
 
   private boolean reportedAsSpam(long threadId) {

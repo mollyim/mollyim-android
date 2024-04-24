@@ -15,6 +15,7 @@ import android.util.Size;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,34 +31,33 @@ import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.ImageProxy;
-import androidx.camera.video.FallbackStrategy;
-import androidx.camera.video.Quality;
-import androidx.camera.video.QualitySelector;
-import androidx.camera.view.CameraController;
-import androidx.camera.view.LifecycleCameraController;
 import androidx.camera.view.PreviewView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.util.Executors;
 import com.google.android.material.card.MaterialCardView;
 
 import org.signal.core.util.Stopwatch;
 import org.signal.core.util.concurrent.SimpleTask;
 import org.signal.core.util.logging.Log;
+import org.signal.qr.QrProcessor;
 import org.thoughtcrime.securesms.LoggingFragment;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
 import org.thoughtcrime.securesms.components.TooltipPopup;
+import org.thoughtcrime.securesms.mediasend.camerax.CameraXController;
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXFlashToggleView;
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXModePolicy;
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil;
+import org.thoughtcrime.securesms.mediasend.camerax.PlatformCameraController;
+import org.thoughtcrime.securesms.mediasend.camerax.SignalCameraController;
 import org.thoughtcrime.securesms.mediasend.v2.MediaAnimations;
 import org.thoughtcrime.securesms.mediasend.v2.MediaCountIndicatorButton;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader.DecryptableUri;
 import org.thoughtcrime.securesms.mms.MediaConstraints;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.MemoryFileDescriptor;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ViewUtil;
@@ -65,9 +65,12 @@ import org.thoughtcrime.securesms.video.VideoUtil;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.Disposable;
+import kotlin.Unit;
 
 /**
  * Camera captured implemented using the CameraX SDK, which uses Camera2 under the hood. Should be
@@ -75,38 +78,48 @@ import io.reactivex.rxjava3.disposables.Disposable;
  */
 public class CameraXFragment extends LoggingFragment implements CameraFragment {
 
-  private static final String TAG              = Log.tag(CameraXFragment.class);
-  private static final String IS_VIDEO_ENABLED = "is_video_enabled";
+  private static final String TAG                = Log.tag(CameraXFragment.class);
+  private static final String IS_VIDEO_ENABLED   = "is_video_enabled";
+  private static final String IS_QR_SCAN_ENABLED = "is_qr_scan_enabled";
 
 
   private static final Rational              ASPECT_RATIO_16_9  = new Rational(16, 9);
   private static final PreviewView.ScaleType PREVIEW_SCALE_TYPE = PreviewView.ScaleType.FILL_CENTER;
 
   private PreviewView                      previewView;
+  private MaterialCardView                 cameraParent;
   private ViewGroup                        controlsContainer;
   private Controller                       controller;
   private View                             selfieFlash;
   private MemoryFileDescriptor             videoFileDescriptor;
-  private LifecycleCameraController        cameraController;
+  private CameraXController                cameraController;
+  private CameraXOrientationListener       orientationListener;
   private Disposable                       mostRecentItemDisposable = Disposable.disposed();
   private CameraXModePolicy                cameraXModePolicy;
   private CameraScreenBrightnessController cameraScreenBrightnessController;
   private boolean                          isMediaSelected;
+
+  private final Executor    qrAnalysisExecutor = Executors.newSingleThreadExecutor();
+  private final QrProcessor qrProcessor        = new QrProcessor();
 
   public static CameraXFragment newInstanceForAvatarCapture() {
     CameraXFragment fragment = new CameraXFragment();
     Bundle          args     = new Bundle();
 
     args.putBoolean(IS_VIDEO_ENABLED, false);
+    args.putBoolean(IS_QR_SCAN_ENABLED, false);
     fragment.setArguments(args);
 
     return fragment;
   }
 
-  public static CameraXFragment newInstance() {
+  public static CameraXFragment newInstance(boolean qrScanEnabled) {
     CameraXFragment fragment = new CameraXFragment();
 
-    fragment.setArguments(new Bundle());
+    Bundle args = new Bundle();
+    args.putBoolean(IS_QR_SCAN_ENABLED, qrScanEnabled);
+
+    fragment.setArguments(args);
 
     return fragment;
   }
@@ -124,6 +137,8 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
     if (controller == null) {
       throw new IllegalStateException("Parent must implement controller interface.");
     }
+
+    this.orientationListener = new CameraXOrientationListener(context);
   }
 
   @Override
@@ -134,7 +149,7 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
   @SuppressLint("MissingPermission")
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    ViewGroup cameraParent = view.findViewById(R.id.camerax_camera_parent);
+    this.cameraParent = view.findViewById(R.id.camerax_camera_parent);
 
     this.previewView       = view.findViewById(R.id.camerax_camera);
     this.controlsContainer = view.findViewById(R.id.camerax_controls_container);
@@ -144,11 +159,18 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
 
     Log.d(TAG, "Starting CameraX with mode policy " + cameraXModePolicy.getClass().getSimpleName());
 
-    cameraController = new LifecycleCameraController(requireContext());
-    cameraController.bindToLifecycle(getViewLifecycleOwner());
-    cameraController.setCameraSelector(CameraXUtil.toCameraSelector(TextSecurePreferences.getDirectCaptureCameraId(requireContext())));
-    cameraController.setTapToFocusEnabled(true);
-    cameraController.setImageCaptureMode(CameraXUtil.getOptimalCaptureMode());
+
+    previewView.setScaleType(PREVIEW_SCALE_TYPE);
+    if (FeatureFlags.customCameraXController()) {
+      View focusIndicator = view.findViewById(R.id.camerax_focus_indicator);
+      cameraController = new SignalCameraController(requireContext(), getViewLifecycleOwner(), previewView, focusIndicator);
+    } else {
+      PlatformCameraController platformController = new PlatformCameraController(requireContext());
+      platformController.initializeAndBind(requireContext(), getViewLifecycleOwner());
+      previewView.setController(platformController.getDelegate());
+      cameraController = platformController;
+    }
+
     cameraXModePolicy.initialize(cameraController);
 
     cameraScreenBrightnessController = new CameraScreenBrightnessController(
@@ -157,40 +179,45 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
     );
 
     previewView.setScaleType(PREVIEW_SCALE_TYPE);
-    previewView.setController(cameraController);
 
     onOrientationChanged();
 
-    view.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-      // Let's assume portrait for now, so 9:16
-      float aspectRatio = CameraFragment.getAspectRatioForOrientation(Configuration.ORIENTATION_PORTRAIT);
-      float width       = right - left;
-      float height      = Math.min((1f / aspectRatio) * width, bottom - top);
+    if (FeatureFlags.customCameraXController()) {
+      cameraController.initializeAndBind(requireContext(), getViewLifecycleOwner());
+    }
 
-      ViewGroup.LayoutParams params = cameraParent.getLayoutParams();
+    if (requireArguments().getBoolean(IS_QR_SCAN_ENABLED, false)) {
+      cameraController.setImageAnalysisAnalyzer(qrAnalysisExecutor, imageProxy -> {
+        try {
+          String data = qrProcessor.getScannedData(imageProxy);
+          if (data != null) {
+            controller.onQrCodeFound(data);
+          }
+        } finally {
+          imageProxy.close();
+        }
+      });
+    }
+  }
 
-      // If there's a mismatch...
-      if (params.height != (int) height) {
-        params.width  = (int) width;
-        params.height = (int) height;
+  @Override
+  public void onStart() {
+    super.onStart();
+    orientationListener.enable();
+  }
 
-        cameraParent.setLayoutParams(params);
-        cameraController.setPreviewTargetSize(new CameraController.OutputSize(new Size((int) width, (int) height)));
-      }
-    });
+  @Override
+  public void onStop() {
+    super.onStop();
+    orientationListener.disable();
   }
 
   @Override
   public void onResume() {
     super.onResume();
 
-    cameraController.bindToLifecycle(getViewLifecycleOwner());
+    cameraController.bindToLifecycle(getViewLifecycleOwner(), () -> Log.d(TAG, "Camera init complete from onResume"));
     requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
   }
 
   @Override
@@ -235,12 +262,10 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
   private void onOrientationChanged() {
     int layout = R.layout.camera_controls_portrait;
 
-    int                         resolution = CameraXUtil.getIdealResolution(Resources.getSystem().getDisplayMetrics().widthPixels, Resources.getSystem().getDisplayMetrics().heightPixels);
-    Size                        size       = CameraXUtil.buildResolutionForRatio(resolution, ASPECT_RATIO_16_9, true);
-    CameraController.OutputSize outputSize = new CameraController.OutputSize(size);
+    int  resolution = CameraXUtil.getIdealResolution(Resources.getSystem().getDisplayMetrics().widthPixels, Resources.getSystem().getDisplayMetrics().heightPixels);
+    Size size       = CameraXUtil.buildResolutionForRatio(resolution, ASPECT_RATIO_16_9, true);
 
-    cameraController.setImageCaptureTargetSize(outputSize);
-    cameraController.setVideoCaptureQualitySelector(QualitySelector.from(Quality.HD, FallbackStrategy.lowerQualityThan(Quality.HD)));
+    cameraController.setImageCaptureTargetSize(size);
 
     controlsContainer.removeAllViews();
     controlsContainer.addView(LayoutInflater.from(getContext()).inflate(layout, controlsContainer, false));
@@ -331,16 +356,19 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
     selfieFlash = requireView().findViewById(R.id.camera_selfie_flash);
 
     captureButton.setOnClickListener(v -> {
-      captureButton.setEnabled(false);
-      flipButton.setEnabled(false);
-      flashButton.setEnabled(false);
-      onCaptureClicked();
+      if (cameraController.isInitialized()) {
+        captureButton.setEnabled(false);
+        flipButton.setEnabled(false);
+        flashButton.setEnabled(false);
+        onCaptureClicked();
+      } else {
+        Log.i(TAG, "Camera capture button clicked but the camera controller is not yet initialized.");
+      }
     });
 
     previewView.setScaleType(PREVIEW_SCALE_TYPE);
 
-    cameraController.getInitializationFuture()
-                    .addListener(() -> initializeFlipButton(flipButton, flashButton), Executors.mainThreadExecutor());
+    cameraController.addInitializationCompletedListener(ContextCompat.getMainExecutor(requireContext()), () -> initializeFlipButton(flipButton, flashButton));
 
     flashButton.setAutoFlashEnabled(cameraController.getImageCaptureFlashMode() >= ImageCapture.FLASH_MODE_AUTO);
     flashButton.setFlash(cameraController.getImageCaptureFlashMode());
@@ -476,7 +504,7 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
     );
 
     flashHelper.onWillTakePicture();
-    cameraController.takePicture(Executors.mainThreadExecutor(), new ImageCapture.OnImageCapturedCallback() {
+    cameraController.takePicture(ContextCompat.getMainExecutor(requireContext()), new ImageCapture.OnImageCapturedCallback() {
       @Override
       public void onCaptureSuccess(@NonNull ImageProxy image) {
         flashHelper.endFlash();
@@ -505,8 +533,8 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
       }
 
       @Override
-      public void onError(ImageCaptureException exception) {
-        Log.w(TAG, "Failed to capture image", exception);
+      public void onError(@NonNull ImageCaptureException exception) {
+        Log.w(TAG, "Failed to capture image due to error " + exception.getImageCaptureError(), exception.getCause());
         flashHelper.endFlash();
         controller.onCameraError();
       }
@@ -527,10 +555,10 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
   }
 
   @SuppressLint({ "MissingPermission" })
-  private void initializeFlipButton(@NonNull View flipButton, @NonNull CameraXFlashToggleView flashButton) {
+  private Unit initializeFlipButton(@NonNull View flipButton, @NonNull CameraXFlashToggleView flashButton) {
     if (getContext() == null) {
       Log.w(TAG, "initializeFlipButton called either before or after fragment was attached.");
-      return;
+      return Unit.INSTANCE;
     }
 
     getViewLifecycleOwner().getLifecycle().addObserver(cameraScreenBrightnessController);
@@ -567,13 +595,14 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
     } else {
       flipButton.setVisibility(View.GONE);
     }
+    return Unit.INSTANCE;
   }
 
   private static class CameraStateProvider implements CameraScreenBrightnessController.CameraStateProvider {
 
-    private final CameraController cameraController;
+    private final CameraXController cameraController;
 
-    private CameraStateProvider(CameraController cameraController) {
+    private CameraStateProvider(CameraXController cameraController) {
       this.cameraController = cameraController;
     }
 
@@ -585,6 +614,22 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
     @Override
     public boolean isFlashEnabled() {
       return cameraController.getImageCaptureFlashMode() == ImageCapture.FLASH_MODE_ON;
+    }
+  }
+
+  private class CameraXOrientationListener extends OrientationEventListener {
+
+    public CameraXOrientationListener(Context context) {
+      super(context);
+    }
+
+    @Override
+    public void onOrientationChanged(int orientation) {
+      if (cameraController != null) {
+        if (FeatureFlags.customCameraXController()) {
+          cameraController.setImageRotation(orientation);
+        }
+      }
     }
   }
 }

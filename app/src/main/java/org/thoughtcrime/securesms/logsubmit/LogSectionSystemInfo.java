@@ -56,6 +56,8 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Manufacturer      : ").append(Build.MANUFACTURER).append("\n");
     builder.append("Model             : ").append(Build.MODEL).append("\n");
     builder.append("Product           : ").append(Build.PRODUCT).append("\n");
+    builder.append("SoC Manufacturer  : ").append(Build.VERSION.SDK_INT >= 31 ? Build.SOC_MANUFACTURER : "N/A").append("\n");
+    builder.append("SoC Model         : ").append(Build.VERSION.SDK_INT >= 31 ? Build.SOC_MODEL : "N/A").append("\n");
     builder.append("Screen            : ").append(getScreenResolution(context)).append(", ")
                                       .append(ScreenDensity.get(context)).append(", ")
                                       .append(getScreenRefreshRate(context)).append("\n");
@@ -90,6 +92,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Server Time Offset: ").append(locked ? "Unknown" : getLastKnownServerTimeOffset()).append("\n");
     builder.append("Telecom           : ").append(locked ? "Unknown" : AndroidTelecomUtil.getTelecomSupported()).append("\n");
     builder.append("User-Agent        : ").append(StandardUserAgentInterceptor.USER_AGENT).append("\n");
+    builder.append("APNG Animation    : ").append(locked ? "Unknown" : DeviceProperties.shouldAllowApngStickerAnimation(context)).append("\n");
     if (BuildConfig.MANAGES_MOLLY_UPDATES) {
       builder.append("Update Check URL  : ").append(BuildConfig.FDROID_UPDATE_URL).append("\n");
     }

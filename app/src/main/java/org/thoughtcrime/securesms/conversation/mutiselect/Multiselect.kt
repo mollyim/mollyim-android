@@ -1,7 +1,5 @@
 package org.thoughtcrime.securesms.conversation.mutiselect
 
-import android.content.Context
-import android.net.Uri
 import org.thoughtcrime.securesms.conversation.ConversationMessage
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.mms.SlideDeck
@@ -55,16 +53,5 @@ object Multiselect {
     }
 
     return parts
-  }
-
-  fun canSendToNonPush(context: Context, multiselectPart: MultiselectPart): Boolean {
-    return false
-  }
-
-  /**
-   * Helper function to determine whether a given attachment can be sent via MMS.
-   */
-  fun isMmsSupported(context: Context, mediaUri: Uri, mediaType: String, mediaSize: Long): Boolean {
-    return false
   }
 }

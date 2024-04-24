@@ -55,7 +55,7 @@ import org.thoughtcrime.securesms.mms.SlideDeck
 import org.thoughtcrime.securesms.mms.StickerSlide
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientDetails
+import org.thoughtcrime.securesms.recipients.RecipientCreator
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
@@ -1164,9 +1164,23 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
   }
 
   fun getOrCreateThreadIdFor(recipientId: RecipientId, isGroup: Boolean, distributionType: Int = DistributionTypes.DEFAULT): Long {
+    return getOrCreateThreadIdResultFor(recipientId, isGroup, distributionType).threadId
+  }
+
+  fun getOrCreateThreadIdResultFor(recipientId: RecipientId, isGroup: Boolean, distributionType: Int = DistributionTypes.DEFAULT): ThreadIdResult {
     return writableDatabase.withinTransaction {
       val threadId = getThreadIdFor(recipientId)
-      threadId ?: createThreadForRecipient(recipientId, isGroup, distributionType)
+      if (threadId != null) {
+        ThreadIdResult(
+          threadId = threadId,
+          newlyCreated = false
+        )
+      } else {
+        ThreadIdResult(
+          threadId = createThreadForRecipient(recipientId, isGroup, distributionType),
+          newlyCreated = true
+        )
+      }
     }
   }
 
@@ -1914,20 +1928,20 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
 
       val recipient: Recipient = if (recipientSettings.groupId != null) {
         GroupTable.Reader(cursor).getCurrent()?.let { group ->
-          val details = RecipientDetails.forGroup(
+          RecipientCreator.forGroup(
             groupRecord = group,
-            recipientRecord = recipientSettings
+            recipientRecord = recipientSettings,
+            resolved = false
           )
-          Recipient(recipientId, details, false)
         } ?: Recipient.live(recipientId).get()
       } else {
-        val details = RecipientDetails.forIndividual(context, recipientSettings)
-        Recipient(recipientId, details, true)
+        RecipientCreator.forIndividual(context, recipientSettings)
       }
 
       val hasReadReceipt = TextSecurePreferences.isReadReceiptsEnabled(context) && cursor.requireBoolean(HAS_READ_RECEIPT)
       val extraString = cursor.getString(cursor.getColumnIndexOrThrow(SNIPPET_EXTRAS))
-      val messageExtras = cursor.getBlob(cursor.getColumnIndexOrThrow(SNIPPET_MESSAGE_EXTRAS))
+      val messageExtraBytes = cursor.getBlob(cursor.getColumnIndexOrThrow(SNIPPET_MESSAGE_EXTRAS))
+      val messageExtras = if (messageExtraBytes != null) MessageExtras.ADAPTER.decode(messageExtraBytes) else null
       val extra: Extra? = if (extraString != null) {
         try {
           JsonUtils.fromJson(extraString, Extra::class.java)
@@ -1959,6 +1973,7 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
         .setPinned(cursor.requireBoolean(PINNED))
         .setUnreadSelfMentionsCount(cursor.requireInt(UNREAD_SELF_MENTION_COUNT))
         .setExtra(extra)
+        .setSnippetMessageExtras(messageExtras)
         .build()
     }
 
@@ -2102,4 +2117,9 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
   )
 
   data class MergeResult(val threadId: Long, val previousThreadId: Long, val neededMerge: Boolean)
+
+  data class ThreadIdResult(
+    val threadId: Long,
+    val newlyCreated: Boolean
+  )
 }

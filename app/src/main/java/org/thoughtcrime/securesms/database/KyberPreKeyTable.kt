@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.database
 
 import android.content.Context
 import org.signal.core.util.delete
+import org.signal.core.util.deleteAll
 import org.signal.core.util.exists
 import org.signal.core.util.insertInto
 import org.signal.core.util.logging.Log
@@ -35,7 +36,7 @@ class KyberPreKeyTable(context: Context, databaseHelper: SignalDatabase) : Datab
       CREATE TABLE $TABLE_NAME (
         $ID INTEGER PRIMARY KEY,
         $ACCOUNT_ID TEXT NOT NULL,
-        $KEY_ID INTEGER UNIQUE NOT NULL, 
+        $KEY_ID INTEGER NOT NULL, 
         $TIMESTAMP INTEGER NOT NULL,
         $LAST_RESORT INTEGER NOT NULL,
         $SERIALIZED BLOB NOT NULL,
@@ -169,6 +170,10 @@ class KyberPreKeyTable(context: Context, databaseHelper: SignalDatabase) : Datab
       .run()
 
     Log.i(TAG, "Deleted $count stale one-time EC prekeys.")
+  }
+
+  fun debugDeleteAll() {
+    writableDatabase.deleteAll(OneTimePreKeyTable.TABLE_NAME)
   }
 
   data class KyberPreKey(

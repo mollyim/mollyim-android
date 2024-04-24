@@ -13,7 +13,7 @@ import org.signal.ringrtc.GroupCall;
 import org.signal.ringrtc.PeekInfo;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
-import org.thoughtcrime.securesms.net.Network;
+import org.thoughtcrime.securesms.net.Networking;
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState;
 import org.thoughtcrime.securesms.webrtc.audio.AudioManagerCompat;
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager;
@@ -119,7 +119,7 @@ public final class WebRtcUtil {
   }
 
   public static PeerConnection.ProxyInfo getProxyInfo() {
-    Proxy proxy = Network.getProxy();
+    Proxy proxy = Networking.getProxy();
     if (proxy == Proxy.NO_PROXY) {
       return null;
     } else if (proxy.type() == Proxy.Type.SOCKS) {

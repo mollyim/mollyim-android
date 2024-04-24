@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.components.settings.app.usernamelinks.main
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -9,6 +10,7 @@ import android.graphics.PorterDuffColorFilter
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Build
 import android.text.Layout
 import android.text.StaticLayout
@@ -29,6 +31,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import org.signal.core.util.logging.Log
@@ -41,7 +44,6 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.profiles.manage.UsernameRepository
 import org.thoughtcrime.securesms.profiles.manage.UsernameRepository.toLink
-import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.NetworkUtil
 import org.whispersystems.signalservice.api.push.UsernameLinkComponents
 import java.util.Optional
@@ -164,16 +166,7 @@ class UsernameLinkSettingsViewModel : ViewModel() {
       indeterminateProgress = true
     )
 
-    disposable += UsernameRepository.fetchUsernameAndAciFromLink(url)
-      .map { result ->
-        when (result) {
-          is UsernameRepository.UsernameLinkConversionResult.Success -> QrScanResult.Success(Recipient.externalUsername(result.aci, result.username.toString()))
-          is UsernameRepository.UsernameLinkConversionResult.Invalid -> QrScanResult.InvalidData
-          is UsernameRepository.UsernameLinkConversionResult.NotFound -> QrScanResult.NotFound(result.username?.toString())
-          is UsernameRepository.UsernameLinkConversionResult.NetworkError -> QrScanResult.NetworkError
-        }
-      }
-      .subscribeOn(Schedulers.io())
+    disposable += UsernameQrScanRepository.lookupUsernameUrl(url)
       .observeOn(AndroidSchedulers.mainThread())
       .subscribe { result ->
         _state.value = _state.value.copy(
@@ -191,6 +184,21 @@ class UsernameLinkSettingsViewModel : ViewModel() {
 
   fun onLinkCopied() {
     _linkCopiedEvent.value = UUID.randomUUID()
+  }
+
+  fun scanImage(context: Context, uri: Uri) {
+    _state.value = _state.value.copy(
+      indeterminateProgress = true
+    )
+
+    disposable += UsernameQrScanRepository.scanImageUriForQrCode(context, uri)
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribeBy { result ->
+        _state.value = _state.value.copy(
+          qrScanResult = result,
+          indeterminateProgress = false
+        )
+      }
   }
 
   private fun generateQrCodeData(url: Optional<String>): Single<Optional<QrCodeData>> {
@@ -304,7 +312,7 @@ class UsernameLinkSettingsViewModel : ViewModel() {
     }
 
     // Draw the username
-    val usernamePaint = Paint().apply {
+    val usernamePaint = TextPaint().apply {
       color = state.qrCodeColorScheme.textColor.toArgb()
       textSize = usernameTextSize
       typeface = if (Build.VERSION.SDK_INT < 26) {
@@ -316,10 +324,18 @@ class UsernameLinkSettingsViewModel : ViewModel() {
           .build()
       }
     }
-    val usernameBounds = Rect()
-    usernamePaint.getTextBounds(state.username, 0, state.username.length, usernameBounds)
 
-    androidCanvas.drawText(state.username, (width / 2f) - (usernameBounds.width() / 2f), usernameVerticalPad + usernameBounds.height(), usernamePaint)
+    val usernameMaxWidth = qrBorderWidth - borderSizeX * 2f
+    val usernameLayout = StaticLayout(state.username, usernamePaint, usernameMaxWidth.toInt(), Layout.Alignment.ALIGN_CENTER, 1f, 0f, true)
+    val usernameVerticalOffset = when (usernameLayout.lineCount) {
+      1 -> 0f
+      2 -> usernameTextSize / 2f
+      else -> usernameTextSize
+    }
+
+    androidCanvas.withTranslation(x = backgroundPadHorizontal + borderSizeX, y = usernameVerticalPad - usernameVerticalOffset) {
+      usernameLayout.draw(this)
+    }
 
     // Draw the help text
     val helpTextPaint = TextPaint().apply {

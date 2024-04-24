@@ -193,6 +193,8 @@ public final class RegistrationRepository {
       TextSecurePreferences.setMultiDevice(context, true);
     }
 
+    ApplicationDependencies.resetProtocolStores();
+
     ApplicationDependencies.getProtocolStore().aci().sessions().archiveAllSessions();
     ApplicationDependencies.getProtocolStore().pni().sessions().archiveAllSessions();
     SenderKeyUtil.clearAllState();

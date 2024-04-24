@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.contentValuesOf
 import org.signal.core.util.Base64
 import org.signal.core.util.SqlUtil
+import org.signal.core.util.deleteAll
 import org.signal.core.util.logging.Log
 import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
@@ -33,7 +34,7 @@ class SignedPreKeyTable(context: Context, databaseHelper: SignalDatabase) : Data
       CREATE TABLE $TABLE_NAME (
         $ID INTEGER PRIMARY KEY,
         $ACCOUNT_ID TEXT NOT NULL,
-        $KEY_ID INTEGER UNIQUE, 
+        $KEY_ID INTEGER NOT NULL, 
         $PUBLIC_KEY TEXT NOT NULL,
         $PRIVATE_KEY TEXT NOT NULL,
         $SIGNATURE TEXT NOT NULL, 
@@ -101,6 +102,10 @@ class SignedPreKeyTable(context: Context, databaseHelper: SignalDatabase) : Data
 
   fun delete(serviceId: ServiceId, keyId: Int) {
     writableDatabase.delete(TABLE_NAME, "$ACCOUNT_ID = ? AND $KEY_ID = ?", SqlUtil.buildArgs(serviceId.toAccountId(), keyId))
+  }
+
+  fun debugDeleteAll() {
+    writableDatabase.deleteAll(OneTimePreKeyTable.TABLE_NAME)
   }
 
   private fun ServiceId.toAccountId(): String {

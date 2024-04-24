@@ -92,9 +92,9 @@ private val lightColorScheme = lightColorScheme(
   onPrimaryContainer = Color(0xFF110647),
   onSecondary = Color(0xFFFFFFFF),
   onSecondaryContainer = Color(0xFF18152B),
-  onSurface = Color(0xFF1A1A1C),
+  onSurface = Color(0xFF171719),
   onSurfaceVariant = Color(0xFF585563),
-  onBackground = Color(0xFF1A1B1C),
+  onBackground = Color(0xFF171719),
   outline = Color(0xFF82808A)
 )
 
