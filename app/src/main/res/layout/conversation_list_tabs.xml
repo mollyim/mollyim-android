@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/signal_colorSurface2"
-    android:maxHeight="30dp"
-    android:minHeight="25dp">
+    android:maxHeight="32dp"
+    android:minHeight="16dp">
 
     <View
         android:id="@+id/chats_tab_container"
@@ -65,7 +65,7 @@
     <ImageView
         android:id="@+id/chats_pill"
         android:layout_width="64dp"
-        android:layout_height="30dp"
+        android:layout_height="32dp"
         android:importantForAccessibility="no"
         android:src="@drawable/conversation_tab_icon_background"
         app:layout_constraintBottom_toBottomOf="@id/chats_tab_icon"
@@ -76,7 +76,7 @@
     <ImageView
         android:id="@+id/calls_pill"
         android:layout_width="64dp"
-        android:layout_height="30dp"
+        android:layout_height="32dp"
         android:importantForAccessibility="no"
         android:src="@drawable/conversation_tab_icon_background"
         app:layout_constraintBottom_toBottomOf="@id/calls_tab_icon"
@@ -87,8 +87,9 @@
     <ImageView
         android:id="@+id/stories_pill"
         android:layout_width="64dp"
-        android:layout_height="30dp"
+        android:layout_height="32dp"
         android:importantForAccessibility="no"
+        android:paddingHorizontal="16dp"
         android:src="@drawable/conversation_tab_icon_background"
         app:layout_constraintBottom_toBottomOf="@id/stories_tab_icon"
         app:layout_constraintEnd_toEndOf="@id/stories_tab_icon"
@@ -120,7 +121,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/chats_tab_icon"
         app:layout_constraintStart_toStartOf="@id/chats_tab_icon"
-        app:layout_constraintTop_toBottomOf="@id/chats_tab_icon" />
+        app:layout_constraintTop_toBottomOf="@id/chats_tab_icon"
+        tools:visibility="gone" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/calls_tab_icon"
@@ -147,7 +149,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/calls_tab_icon"
         app:layout_constraintStart_toStartOf="@id/calls_tab_icon"
-        app:layout_constraintTop_toBottomOf="@id/calls_tab_icon" />
+        app:layout_constraintTop_toBottomOf="@id/calls_tab_icon"
+        tools:visibility="gone" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/stories_tab_icon"
@@ -174,7 +177,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/stories_tab_icon"
         app:layout_constraintStart_toStartOf="@id/stories_tab_icon"
-        app:layout_constraintTop_toBottomOf="@id/stories_tab_icon" />
+        app:layout_constraintTop_toBottomOf="@id/stories_tab_icon"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/chats_unread_indicator"
@@ -208,7 +212,7 @@
         android:textAppearance="@style/Signal.Text.Caption"
         android:textColor="@color/white"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@id/calls_tab_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/calls_tab_icon"
         app:layout_constraintStart_toStartOf="@id/calls_tab_icon"
         tools:text="3" />
 
@@ -226,7 +230,7 @@
         android:textAppearance="@style/Signal.Text.Caption"
         android:textColor="@color/white"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@id/stories_tab_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/stories_tab_icon"
         app:layout_constraintStart_toStartOf="@id/stories_tab_icon"
         tools:text="99+" />
 

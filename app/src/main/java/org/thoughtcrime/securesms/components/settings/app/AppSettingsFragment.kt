@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.IdRes
+import androidx.compose.material3.MaterialTheme
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import org.greenrobot.eventbus.EventBus
@@ -43,6 +44,7 @@ import org.thoughtcrime.securesms.util.visible
 class AppSettingsFragment : DSLSettingsFragment(
   titleId = R.string.text_secure_normal__menu_settings,
   layoutId = R.layout.dsl_settings_fragment_with_reminder
+
 ) {
 
   private val viewModel: AppSettingsViewModel by viewModels()
@@ -120,12 +122,14 @@ class AppSettingsFragment : DSLSettingsFragment(
     EventBus.getDefault().unregister(this)
   }
 
+
   private fun getConfiguration(state: AppSettingsState): DSLConfiguration {
     return configure {
+      /*
       customPref(
         BioPreference(
           recipient = state.self,
-          onRowClicked = {
+          onRowClicked =
             findNavController().safeNavigate(R.id.action_appSettingsFragment_to_manageProfileActivity)
           },
           onQrButtonClicked = {
@@ -137,7 +141,7 @@ class AppSettingsFragment : DSLSettingsFragment(
           }
         )
       )
-
+ *//*
       clickPref(
         title = DSLSettingsText.from(R.string.AccountSettingsFragment__account),
         icon = DSLSettingsIcon.from(R.drawable.symbol_person_circle_24),
@@ -162,7 +166,7 @@ class AppSettingsFragment : DSLSettingsFragment(
       )
 
       dividerPref()
-
+*/
       clickPref(
         title = DSLSettingsText.from(R.string.preferences__appearance),
         icon = DSLSettingsIcon.from(R.drawable.symbol_appearance_24),
@@ -222,7 +226,7 @@ class AppSettingsFragment : DSLSettingsFragment(
           findNavController().safeNavigate(R.id.action_appSettingsFragment_to_dataAndStorageSettingsFragment)
         }
       )
-
+/*
       dividerPref()
 
       if (SignalStore.paymentsValues().paymentsAvailability.showPaymentsMenu()) {
@@ -252,7 +256,7 @@ class AppSettingsFragment : DSLSettingsFragment(
           findNavController().safeNavigate(R.id.action_appSettingsFragment_to_inviteActivity)
         }
       )
-
+*/
       if (FeatureFlags.internalUser()) {
         dividerPref()
 
