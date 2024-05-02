@@ -28,7 +28,7 @@
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Les contacts supprimés peuvent toujours vous appeler ou vous envoyer des messages, sauf s\'ils sont également bloqués.</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Votre conversation avec %1$s sera supprimée et %1$s sera retiré des contacts de votre appareil.</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">Votre conversation avec %1$s sera supprimée.</string>
-    <string name="BlockUnblockDialog_delete_this_contact">Supprimer ce contact \?</string>
+    <string name="BlockUnblockDialog_delete_this_contact">Supprimer ce contact ?</string>
     <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Ajouter aux contacts de votre appareil</string>
     <string name="preferences_network__tunnels_network_traffic">Trafic du réseau des tunnels</string>
     <string name="preferences_network__hostname_or_ip_address">Nom d\'hôte ou adresse IP</string>
@@ -70,7 +70,7 @@
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly a besoin de l\'autorisation des contacts pour vous aider à trouver vos amis. Vos contacts sont téléversés en utilisant la découverte de contacts privés de Signal, ce qui signifie qu\'ils sont chiffrés de bout en bout et ne sont jamais visibles pour le service Signal.</string>
     <string name="DozeReminder_optimize_for_timely_notifications">Optimiser pour des notifications en temps opportun</string>
     <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Appuyez pour permettre à Molly de récupérer des messages quand l\'appareil est en veille.</string>
-    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Les versions bêta sont destinées à des fins de test et peuvent contenir des bogues</string>
+    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Les versions bêta sont destinées à des fins de test et peuvent contenir des bugs</string>
     <string name="preferences__include_beta_updates">Inclure les mises à jour bêta</string>
     <string name="BiometricDialogFragment__biometric_verification">Vérification biométrique</string>
     <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Veuillez confirmer qu\'il s\'agit bien de vous pour utiliser Molly</string>
@@ -109,4 +109,7 @@
     <string name="NotificationsSettingsFragment__new_activity_while_locked">Nouvelle activité pendant le verrouillage</string>
     <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Recevoir des notifications pour des messages ou des appels interrompus quand l\'application est verrouillée.</string>
     <string name="NotificationsSettingsFragment__push_notifications_unavailable">Notifications poussées indisponibles</string>
+    <string name="preferences_appearance__navigation_bar">Barre de navigation</string>
+    <string name="preferences_appearance__show_calls">Afficher les appels</string>
+    <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Afficher ou masquer l\'icône dans la barre de navigation</string>
 </resources>
