@@ -416,7 +416,7 @@ class ConversationFragment :
 
   private val conversationGroupViewModel: ConversationGroupViewModel by viewModels(
     factoryProducer = {
-      ConversationGroupViewModel.Factory(args.threadId, conversationRecipientRepository)
+      ConversationGroupViewModel.Factory(conversationRecipientRepository)
     }
   )
 
@@ -639,6 +639,10 @@ class ConversationFragment :
     }
 
     conversationGroupViewModel.updateGroupStateIfNeeded()
+
+    if (inputPanel.voiceNoteDraft != null) {
+      updateToggleButtonState()
+    }
 
     if (SignalStore.rateLimit().needsRecaptcha()) {
       RecaptchaProofBottomSheetFragment.show(childFragmentManager)
@@ -3639,6 +3643,10 @@ class ConversationFragment :
 
     override fun onReviewGroupMembers(groupId: GroupId.V2) {
       ReviewCardDialogFragment.createForReviewMembers(groupId).show(childFragmentManager, null)
+    }
+
+    override fun onDismissReview() {
+      viewModel.onDismissReview()
     }
   }
 
