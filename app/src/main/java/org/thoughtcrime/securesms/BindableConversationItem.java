@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms;
 
 import android.net.Uri;
+import android.view.GestureDetector;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,10 @@ public interface BindableConversationItem extends Unbindable, GiphyMp4Playable, 
   @NonNull ConversationMessage getConversationMessage();
 
   void setEventListener(@Nullable EventListener listener);
+
+  default void setGestureDetector(@Nullable GestureDetector gestureDetector) {
+    // Intentionally Blank.
+  }
 
   default void setParentScrolling(boolean isParentScrolling) {
     // Intentionally Blank.
@@ -124,5 +129,6 @@ public interface BindableConversationItem extends Unbindable, GiphyMp4Playable, 
     void onShowSafetyTips(boolean forGroup);
     void onReportSpamLearnMoreClicked();
     void onMessageRequestAcceptOptionsClicked();
+    void onItemDoubleClick(MultiselectPart multiselectPart);
   }
 }

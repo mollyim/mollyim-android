@@ -118,6 +118,30 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     notifyConversationListListeners()
   }
 
+  fun markAllCallEventsWithPeerBeforeTimestampRead(peer: RecipientId, timestamp: Long): Call? {
+    val latestCallAsOfTimestamp = writableDatabase.withinTransaction { db ->
+      val updated = db.update(TABLE_NAME)
+        .values(READ to ReadState.serialize(ReadState.READ))
+        .where("$PEER = ? AND $TIMESTAMP <= ?", peer.toLong(), timestamp)
+        .run()
+
+      if (updated == 0) {
+        null
+      } else {
+        db.select()
+          .from(TABLE_NAME)
+          .where("$PEER = ? AND $TIMESTAMP <= ?", peer.toLong(), timestamp)
+          .orderBy("$TIMESTAMP DESC")
+          .limit(1)
+          .run()
+          .readToSingleObject(Call.Deserializer)
+      }
+    }
+
+    notifyConversationListListeners()
+    return latestCallAsOfTimestamp
+  }
+
   fun getUnreadMissedCallCount(): Long {
     return readableDatabase
       .count()
@@ -1438,7 +1462,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     companion object Deserializer : Serializer<Call, Cursor> {
 
       private fun isDisplayedAsMissedCallInUi(call: Call): Boolean {
-        return call.event in Event.DISPLAY_AS_MISSED_CALL || (call.event == Event.GENERIC_GROUP_CALL && !call.didLocalUserJoin && !call.isGroupCallActive)
+        return call.direction == Direction.INCOMING && (call.event in Event.DISPLAY_AS_MISSED_CALL || (call.event == Event.GENERIC_GROUP_CALL && !call.didLocalUserJoin && !call.isGroupCallActive))
       }
 
       fun getMessageType(type: Type, direction: Direction, event: Event): Long {

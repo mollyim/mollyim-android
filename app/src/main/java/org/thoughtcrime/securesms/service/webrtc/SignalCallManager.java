@@ -919,9 +919,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
   @Override
   public void onReactions(@NonNull GroupCall groupCall, List<Reaction> reactions) {
-    if (FeatureFlags.groupCallReactions()) {
-      processStateless(s -> serviceState.getActionProcessor().handleGroupCallReaction(serviceState, s, reactions));
-    }
+    processStateless(s -> serviceState.getActionProcessor().handleGroupCallReaction(serviceState, s, reactions));
   }
 
   @Override
@@ -1051,7 +1049,27 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     Log.i(TAG, "sendGroupCallUpdateMessage id: " + recipient.getId() + " era: " + groupCallEraId + " isIncoming: " + isIncoming + " isJoinEvent: " + isJoinEvent);
 
     if (recipient.isCallLink()) {
-      Log.i(TAG, "sendGroupCallUpdateMessage -- ignoring for call link");
+      if (isJoinEvent) {
+        SignalExecutors.BOUNDED.execute(() -> {
+          CallId callIdLocal = callId;
+
+          if (callIdLocal == null && groupCallEraId != null) {
+            callIdLocal = CallId.fromEra(groupCallEraId);
+          }
+
+          if (callIdLocal != null) {
+            ApplicationDependencies.getJobManager().add(
+                CallSyncEventJob.createForJoin(
+                    recipient.getId(),
+                    callIdLocal.longValue(),
+                    isIncoming
+                )
+            );
+          }
+        });
+      } else {
+        Log.i(TAG, "sendGroupCallUpdateMessage -- ignoring non-join event for call link");
+      }
       return;
     }
 

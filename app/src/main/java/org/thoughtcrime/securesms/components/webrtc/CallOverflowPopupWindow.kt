@@ -30,19 +30,15 @@ class CallOverflowPopupWindow(private val activity: FragmentActivity, parentView
   LayoutInflater.from(activity).inflate(R.layout.call_overflow_holder, parentViewGroup, false),
   activity.resources.getDimension(R.dimen.calling_reaction_popup_menu_width).toInt(),
   activity.resources.getDimension(R.dimen.calling_reaction_popup_menu_height).toInt()
-
 ) {
   private val raiseHandLabel: TextView = (contentView as LinearLayout).findViewById(R.id.raise_hand_label)
 
   init {
     val root = (contentView as LinearLayout)
-    if (FeatureFlags.groupCallReactions()) {
-      val reactionScrubber = root.findViewById<CallReactionScrubber>(R.id.reaction_scrubber)
-      reactionScrubber.visible = true
-      reactionScrubber.initialize(activity.supportFragmentManager) {
-        ApplicationDependencies.getSignalCallManager().react(it)
-        dismiss()
-      }
+    val reactionScrubber = root.findViewById<CallReactionScrubber>(R.id.reaction_scrubber)
+    reactionScrubber.initialize(activity.supportFragmentManager) {
+      ApplicationDependencies.getSignalCallManager().react(it)
+      dismiss()
     }
     if (FeatureFlags.groupCallRaiseHand()) {
       val raiseHand = root.findViewById<ConstraintLayout>(R.id.raise_hand_layout_parent)

@@ -113,7 +113,6 @@ public final class FeatureFlags {
   private static final String IDEAL_DONATIONS                   = "android.ideal.donations.5";
   public static final  String IDEAL_ENABLED_REGIONS             = "global.donations.idealEnabledRegions";
   public static final  String SEPA_ENABLED_REGIONS              = "global.donations.sepaEnabledRegions";
-  private static final String CALLING_REACTIONS                 = "android.calling.reactions";
   private static final String NOTIFICATION_THUMBNAIL_BLOCKLIST  = "android.notificationThumbnailProductBlocklist";
   private static final String CALLING_RAISE_HAND                = "android.calling.raiseHand";
   private static final String USE_ACTIVE_CALL_MANAGER           = "android.calling.useActiveCallManager.5";
@@ -129,6 +128,8 @@ public final class FeatureFlags {
   private static final String MESSAGE_BACKUPS                   = "android.messageBackups";
   private static final String CAMERAX_CUSTOM_CONTROLLER         = "android.cameraXCustomController";
   private static final String REGISTRATION_V2                   = "android.registration.v2";
+  private static final String LIBSIGNAL_WEB_SOCKET_ENABLED      = "android.libsignalWebSocketEnabled";
+  private static final String RESTORE_POST_REGISTRATION         = "android.registration.restorePostRegistration";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -195,7 +196,6 @@ public final class FeatureFlags {
       IDEAL_DONATIONS,
       IDEAL_ENABLED_REGIONS,
       SEPA_ENABLED_REGIONS,
-      CALLING_REACTIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
       CALLING_RAISE_HAND,
       USE_ACTIVE_CALL_MANAGER,
@@ -208,11 +208,12 @@ public final class FeatureFlags {
       CDSI_LIBSIGNAL_NET,
       RX_MESSAGE_SEND,
       LINKED_DEVICE_LIFESPAN_SECONDS,
-      CAMERAX_CUSTOM_CONTROLLER
+      CAMERAX_CUSTOM_CONTROLLER,
+      LIBSIGNAL_WEB_SOCKET_ENABLED
   );
 
   @VisibleForTesting
-  static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet(MESSAGE_BACKUPS, REGISTRATION_V2);
+  static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet(MESSAGE_BACKUPS, REGISTRATION_V2, RESTORE_POST_REGISTRATION);
 
   /**
    * Values in this map will take precedence over any value. This should only be used for local
@@ -275,7 +276,6 @@ public final class FeatureFlags {
       PROMPT_FOR_NOTIFICATION_CONFIG,
       PROMPT_BATTERY_SAVER,
       CRASH_PROMPT_CONFIG,
-      CALLING_REACTIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
       CALLING_RAISE_HAND,
       VIDEO_RECORD_1X_ZOOM,
@@ -602,13 +602,6 @@ public final class FeatureFlags {
   }
 
   /**
-   * Whether or not group call reactions are enabled.
-   */
-  public static boolean groupCallReactions() {
-    return getBoolean(CALLING_REACTIONS, false);
-  }
-
-  /**
    * Whether or not group call raise hand is enabled.
    */
   public static boolean groupCallRaiseHand() {
@@ -676,7 +669,15 @@ public final class FeatureFlags {
 
   /** Whether or not to use the V2 refactor of registration. */
   public static boolean registrationV2() {
-    return getBoolean(REGISTRATION_V2, false);
+    return false;
+  }
+
+  /** Whether unauthenticated chat web socket is backed by libsignal-net */
+  public static boolean libSignalWebSocketEnabled() { return false; }
+
+  /** Whether or not to launch the restore activity after registration is complete, rather than before. */
+  public static boolean restoreAfterRegistration() {
+    return getBoolean(RESTORE_POST_REGISTRATION, false);
   }
 
   /** Only for rendering debug info. */

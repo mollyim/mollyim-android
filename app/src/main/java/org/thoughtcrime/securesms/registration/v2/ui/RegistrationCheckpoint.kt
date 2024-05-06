@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.thoughtcrime.securesms.registration.v2.ui.shared
+package org.thoughtcrime.securesms.registration.v2.ui
 
 /**
  * An ordered list of checkpoints of the registration process.
@@ -17,6 +17,7 @@ enum class RegistrationCheckpoint {
   BACKUP_RESTORED,
   PUSH_NETWORK_AUDITED,
   PHONE_NUMBER_CONFIRMED,
+  PIN_CONFIRMED,
   VERIFICATION_CODE_REQUESTED,
   CHALLENGE_RECEIVED,
   CHALLENGE_COMPLETED,

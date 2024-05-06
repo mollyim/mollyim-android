@@ -20,10 +20,13 @@ internal class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_CDN_READ_CREDENTIALS_TIMESTAMP = "backup.cdn.readCredentials.timestamp"
     private const val KEY_RESTORE_STATE = "backup.restoreState"
 
+    private const val KEY_NEXT_BACKUP_TIME = "backup.nextBackupTime"
+
     private const val KEY_CDN_BACKUP_DIRECTORY = "backup.cdn.directory"
     private const val KEY_CDN_BACKUP_MEDIA_DIRECTORY = "backup.cdn.mediaDirectory"
 
     private const val KEY_OPTIMIZE_STORAGE = "backup.optimizeStorage"
+    private const val KEY_BACKUPS_INITIALIZED = "backup.initialized"
 
     /**
      * Specifies whether remote backups are enabled on this device.
@@ -45,7 +48,22 @@ internal class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   var restoreState: RestoreState by enumValue(KEY_RESTORE_STATE, RestoreState.NONE, RestoreState.serializer)
   var optimizeStorage: Boolean by booleanValue(KEY_OPTIMIZE_STORAGE, false)
 
-  var areBackupsEnabled: Boolean by booleanValue(KEY_BACKUPS_ENABLED, false)
+  var nextBackupTime: Long by longValue(KEY_NEXT_BACKUP_TIME, -1)
+
+  var areBackupsEnabled: Boolean
+    get() {
+      return getBoolean(KEY_BACKUPS_ENABLED, false)
+    }
+    set(value) {
+      store
+        .beginWrite()
+        .putBoolean(KEY_BACKUPS_ENABLED, value)
+        .putLong(KEY_NEXT_BACKUP_TIME, -1)
+        .putBoolean(KEY_BACKUPS_INITIALIZED, false)
+        .apply()
+    }
+
+  var backupsInitialized: Boolean by booleanValue(KEY_BACKUPS_INITIALIZED, false)
 
   /**
    * Retrieves the stored credentials, mapped by the day they're valid. The day is represented as

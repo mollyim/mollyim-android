@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.wire.Message;
 
+import org.jetbrains.annotations.NotNull;
 import org.signal.core.util.Base64;
 import org.signal.core.util.concurrent.FutureTransformers;
 import org.signal.core.util.concurrent.ListenableFuture;
@@ -51,7 +52,6 @@ import org.whispersystems.signalservice.api.archive.ArchiveGetBackupInfoResponse
 import org.whispersystems.signalservice.api.archive.ArchiveGetMediaItemsResponse;
 import org.whispersystems.signalservice.api.archive.ArchiveMediaRequest;
 import org.whispersystems.signalservice.api.archive.ArchiveMediaResponse;
-import org.whispersystems.signalservice.api.archive.ArchiveMessageBackupUploadFormResponse;
 import org.whispersystems.signalservice.api.archive.ArchiveServiceCredentialsResponse;
 import org.whispersystems.signalservice.api.archive.ArchiveSetBackupIdRequest;
 import org.whispersystems.signalservice.api.archive.ArchiveSetPublicKeyRequest;
@@ -318,6 +318,7 @@ public class PushServiceSocket {
   private static final String ARCHIVE_PUBLIC_KEY          = "/v1/archives/keys";
   private static final String ARCHIVE_INFO                = "/v1/archives";
   private static final String ARCHIVE_MESSAGE_UPLOAD_FORM = "/v1/archives/upload/form";
+  private static final String ARCHIVE_MEDIA_UPLOAD_FORM   = "/v1/archives/media/upload/form";
   private static final String ARCHIVE_MEDIA               = "/v1/archives/media";
   private static final String ARCHIVE_MEDIA_LIST          = "/v1/archives/media?limit=%d";
   private static final String ARCHIVE_MEDIA_BATCH         = "/v1/archives/media/batch";
@@ -327,9 +328,9 @@ public class PushServiceSocket {
   private static final String CALL_LINK_CREATION_AUTH = "/v1/call-link/create-auth";
   private static final String SERVER_DELIVERED_TIMESTAMP_HEADER = "X-Signal-Timestamp";
 
-  private static final Map<String, String> NO_HEADERS           = Collections.emptyMap();
-  private static final ResponseCodeHandler NO_HANDLER           = new EmptyResponseCodeHandler();
-  private static final ResponseCodeHandler UNOPINIONATED_HANDER = new UnopinionatedResponseCodeHandler();
+  private static final Map<String, String> NO_HEADERS            = Collections.emptyMap();
+  private static final ResponseCodeHandler NO_HANDLER            = new EmptyResponseCodeHandler();
+  private static final ResponseCodeHandler UNOPINIONATED_HANDLER = new UnopinionatedResponseCodeHandler();
 
   private static final long CDN2_RESUMABLE_LINK_LIFETIME_MILLIS = TimeUnit.DAYS.toMillis(7);
 
@@ -497,14 +498,14 @@ public class PushServiceSocket {
     long secondsRoundedToNearestDay = TimeUnit.DAYS.toSeconds(TimeUnit.MILLISECONDS.toDays(currentTime));
     long endTimeInSeconds           = secondsRoundedToNearestDay + TimeUnit.DAYS.toSeconds(7);
 
-    String response = makeServiceRequest(String.format(Locale.US, ARCHIVE_CREDENTIALS, secondsRoundedToNearestDay, endTimeInSeconds), "GET", null, NO_HEADERS, UNOPINIONATED_HANDER, Optional.empty());
+    String response = makeServiceRequest(String.format(Locale.US, ARCHIVE_CREDENTIALS, secondsRoundedToNearestDay, endTimeInSeconds), "GET", null, NO_HEADERS, UNOPINIONATED_HANDLER, Optional.empty());
 
     return JsonUtil.fromJson(response, ArchiveServiceCredentialsResponse.class);
   }
 
   public void setArchiveBackupId(BackupAuthCredentialRequest request) throws IOException {
     String body = JsonUtil.toJson(new ArchiveSetBackupIdRequest(request));
-    makeServiceRequest(ARCHIVE_BACKUP_ID, "PUT", body, NO_HEADERS, UNOPINIONATED_HANDER, Optional.empty());
+    makeServiceRequest(ARCHIVE_BACKUP_ID, "PUT", body, NO_HEADERS, UNOPINIONATED_HANDLER, Optional.empty());
   }
 
   public void setArchivePublicKey(ECPublicKey publicKey, ArchiveCredentialPresentation credentialPresentation) throws IOException {
@@ -558,7 +559,7 @@ public class PushServiceSocket {
   public ArchiveMediaResponse archiveAttachmentMedia(@Nonnull ArchiveCredentialPresentation credentialPresentation, @Nonnull ArchiveMediaRequest request) throws IOException {
     Map<String, String> headers = credentialPresentation.toHeaders();
 
-    String response = makeServiceRequestWithoutAuthentication(ARCHIVE_MEDIA, "PUT", JsonUtil.toJson(request), headers, UNOPINIONATED_HANDER);
+    String response = makeServiceRequestWithoutAuthentication(ARCHIVE_MEDIA, "PUT", JsonUtil.toJson(request), headers, UNOPINIONATED_HANDLER);
 
     return JsonUtil.fromJson(response, ArchiveMediaResponse.class);
   }
@@ -569,7 +570,7 @@ public class PushServiceSocket {
   public BatchArchiveMediaResponse archiveAttachmentMedia(@Nonnull ArchiveCredentialPresentation credentialPresentation, @Nonnull BatchArchiveMediaRequest request) throws IOException {
     Map<String, String> headers = credentialPresentation.toHeaders();
 
-    String response = makeServiceRequestWithoutAuthentication(ARCHIVE_MEDIA_BATCH, "PUT", JsonUtil.toJson(request), headers, UNOPINIONATED_HANDER);
+    String response = makeServiceRequestWithoutAuthentication(ARCHIVE_MEDIA_BATCH, "PUT", JsonUtil.toJson(request), headers, UNOPINIONATED_HANDLER);
 
     return JsonUtil.fromJson(response, BatchArchiveMediaResponse.class);
   }
@@ -583,11 +584,18 @@ public class PushServiceSocket {
     makeServiceRequestWithoutAuthentication(ARCHIVE_MEDIA_DELETE, "POST", JsonUtil.toJson(request), headers, NO_HANDLER);
   }
 
-  public ArchiveMessageBackupUploadFormResponse getArchiveMessageBackupUploadForm(ArchiveCredentialPresentation credentialPresentation) throws IOException {
+  public AttachmentUploadForm getArchiveMessageBackupUploadForm(ArchiveCredentialPresentation credentialPresentation) throws IOException {
     Map<String, String> headers = credentialPresentation.toHeaders();
 
     String response = makeServiceRequestWithoutAuthentication(ARCHIVE_MESSAGE_UPLOAD_FORM, "GET", null, headers, NO_HANDLER);
-    return JsonUtil.fromJson(response, ArchiveMessageBackupUploadFormResponse.class);
+    return JsonUtil.fromJson(response, AttachmentUploadForm.class);
+  }
+
+  public AttachmentUploadForm getArchiveMediaUploadForm(@NotNull ArchiveCredentialPresentation credentialPresentation) throws IOException {
+    Map<String, String> headers = credentialPresentation.toHeaders();
+
+    String response = makeServiceRequestWithoutAuthentication(ARCHIVE_MEDIA_UPLOAD_FORM, "GET", null, headers, UNOPINIONATED_HANDLER);
+    return JsonUtil.fromJson(response, AttachmentUploadForm.class);
   }
 
   /**
@@ -1172,6 +1180,11 @@ public class PushServiceSocket {
         .onErrorReturn(ServiceResponse::forUnknownError);
   }
 
+  public BackupAuthCheckResponse checkBackupAuthCredentials(@Nullable String number, @Nonnull List<String> passwords) throws IOException {
+    String response = makeServiceRequest(BACKUP_AUTH_CHECK, "POST", JsonUtil.toJson(new BackupAuthCheckRequest(number, passwords)), NO_HEADERS, UNOPINIONATED_HANDLER, Optional.empty());
+    return JsonUtil.fromJson(response, BackupAuthCheckResponse.class);
+  }
+
   private Single<ServiceResponse<BackupAuthCheckResponse>> createBackupAuthCheckSingle(@Nonnull String path,
                                                                                        @Nonnull BackupAuthCheckRequest request,
                                                                                        @Nonnull ResponseMapper<BackupAuthCheckResponse> responseMapper)
@@ -1566,12 +1579,12 @@ public class PushServiceSocket {
     }
   }
 
-  public AttachmentV4UploadAttributes getAttachmentV4UploadAttributes()
+  public AttachmentUploadForm getAttachmentV4UploadAttributes()
       throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     String response = makeServiceRequest(ATTACHMENT_V4_PATH, "GET", null);
     try {
-      return JsonUtil.fromJson(response, AttachmentV4UploadAttributes.class);
+      return JsonUtil.fromJson(response, AttachmentUploadForm.class);
     } catch (IOException e) {
       Log.w(TAG, e);
       throw new MalformedResponseException("Unable to parse entity", e);
@@ -1606,14 +1619,14 @@ public class PushServiceSocket {
     return new Pair<>(id, digest);
   }
 
-  public ResumableUploadSpec getResumableUploadSpec(AttachmentV4UploadAttributes uploadAttributes) throws IOException {
+  public ResumableUploadSpec getResumableUploadSpec(AttachmentUploadForm uploadForm) throws IOException {
     return new ResumableUploadSpec(Util.getSecretBytes(64),
                                    Util.getSecretBytes(16),
-                                   uploadAttributes.getKey(),
-                                   uploadAttributes.getCdn(),
-                                   getResumableUploadUrl(uploadAttributes.getCdn(), uploadAttributes.getSignedUploadLocation(), uploadAttributes.getHeaders()),
+                                   uploadForm.key,
+                                   uploadForm.cdn,
+                                   getResumableUploadUrl(uploadForm),
                                    System.currentTimeMillis() + CDN2_RESUMABLE_LINK_LIFETIME_MILLIS,
-                                   uploadAttributes.getHeaders());
+                                   uploadForm.headers);
   }
 
   public AttachmentDigest uploadAttachment(PushAttachmentData attachment) throws IOException {
@@ -1784,22 +1797,18 @@ public class PushServiceSocket {
     }
   }
 
-  public String getResumableUploadUrl(ArchiveMessageBackupUploadFormResponse uploadFormResponse) throws IOException {
-    return getResumableUploadUrl(uploadFormResponse.getCdn(), uploadFormResponse.getSignedUploadLocation(), uploadFormResponse.getHeaders());
-  }
-
-  private String getResumableUploadUrl(int cdn, String signedUrl, Map<String, String> headers) throws IOException {
-    ConnectionHolder connectionHolder = getRandom(cdnClientsMap.get(cdn), random);
+  public String getResumableUploadUrl(AttachmentUploadForm uploadForm) throws IOException {
+    ConnectionHolder connectionHolder = getRandom(cdnClientsMap.get(uploadForm.cdn), random);
     OkHttpClient     okHttpClient     = connectionHolder.getClient()
                                                         .newBuilder()
                                                         .connectTimeout(soTimeoutMillis, TimeUnit.MILLISECONDS)
                                                         .readTimeout(soTimeoutMillis, TimeUnit.MILLISECONDS)
                                                         .build();
 
-    Request.Builder request = new Request.Builder().url(buildConfiguredUrl(connectionHolder, signedUrl))
+    Request.Builder request = new Request.Builder().url(buildConfiguredUrl(connectionHolder, uploadForm.signedUploadLocation))
                                                    .post(RequestBody.create(null, ""));
 
-    for (Map.Entry<String, String> header : headers.entrySet()) {
+    for (Map.Entry<String, String> header : uploadForm.headers.entrySet()) {
       if (!header.getKey().equalsIgnoreCase("host")) {
         request.header(header.getKey(), header.getValue());
       }
@@ -1811,13 +1820,13 @@ public class PushServiceSocket {
 
     request.addHeader("Content-Length", "0");
 
-    if (cdn == 2) {
+    if (uploadForm.cdn == 2) {
       request.addHeader("Content-Type", "application/octet-stream");
-    } else if (cdn == 3) {
+    } else if (uploadForm.cdn == 3) {
       request.addHeader("Upload-Defer-Length", "1")
              .addHeader("Tus-Resumable", "1.0.0");
     } else {
-      throw new AssertionError("Unknown CDN version: " + cdn);
+      throw new AssertionError("Unknown CDN version: " + uploadForm.cdn);
     }
 
     Call call = okHttpClient.newCall(request.build());
@@ -1890,8 +1899,8 @@ public class PushServiceSocket {
     }
   }
 
-  public void uploadBackupFile(ArchiveMessageBackupUploadFormResponse uploadFormResponse, String resumableUploadUrl, InputStream data, long dataLength) throws IOException {
-    uploadToCdn3(resumableUploadUrl, data, "application/octet-stream", dataLength, false, new NoCipherOutputStreamFactory(), null, null, uploadFormResponse.getHeaders());
+  public void uploadBackupFile(AttachmentUploadForm uploadForm, String resumableUploadUrl, InputStream data, long dataLength) throws IOException {
+    uploadToCdn3(resumableUploadUrl, data, "application/octet-stream", dataLength, false, new NoCipherOutputStreamFactory(), null, null, uploadForm.headers);
   }
 
   private AttachmentDigest uploadToCdn3(String resumableUrl,
@@ -2614,6 +2623,7 @@ public class PushServiceSocket {
       return readBodyJson(response.body(), clazz);
   }
 
+
   public enum VerificationCodeTransport { SMS, VOICE }
 
   private static class RegistrationLock {
@@ -3085,7 +3095,6 @@ public class PushServiceSocket {
       }
     }
   }
-
 
   private static RegistrationSessionMetadataResponse parseSessionMetadataResponse(Response response) throws IOException {
     long serverDeliveredTimestamp = 0;

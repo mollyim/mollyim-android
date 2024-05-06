@@ -7,6 +7,7 @@ import org.signal.libsignal.protocol.InvalidKeyException;
 import org.whispersystems.signalservice.api.websocket.HealthMonitor;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 import org.whispersystems.signalservice.internal.crypto.PrimaryProvisioningCipher;
+import org.whispersystems.signalservice.internal.websocket.OkHttpWebSocketConnection;
 import org.whispersystems.signalservice.internal.websocket.WebSocketConnection;
 import org.whispersystems.signalservice.internal.websocket.WebSocketRequestMessage;
 
@@ -21,7 +22,7 @@ public class ProvisioningSocket {
   private boolean connected = false;
 
   public ProvisioningSocket(SignalServiceConfiguration signalServiceConfiguration, String userAgent) {
-    connection = new WebSocketConnection(
+    connection = new OkHttpWebSocketConnection(
         "provisioning",
         signalServiceConfiguration,
         Optional.empty(),
