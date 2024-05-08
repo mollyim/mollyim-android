@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -89,6 +87,16 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly memerlukan kebenaran Storan untuk melampirkan foto, video atau audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly memerlukan kebenaran Kenalan untuk melampirkan maklumat hubungan, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly memerlukan kebenaran Lokasi untuk melampirkan lokasi, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Lokasi\".</string>
+
+    <!-- Dialog title asking users for location permission -->
+    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <!-- Dialog description that will explain the steps needed to give location permission -->
+    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <!-- Alert dialog description asking for location permission -->
+    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <!-- Toast text explaining Signal\'s need for location access -->
+    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s belum mengaktifkan Pembayaran </string>
     <!-- Alert dialog description to send the recipient a request to activate payments -->
@@ -240,7 +248,7 @@
     <string name="ClientDeprecatedActivity_update">Kemas Kini</string>
     <string name="ClientDeprecatedActivity_dont_update">Jangan Update</string>
     <string name="ClientDeprecatedActivity_warning">Amaran</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Versi aplikasi Signal anda telah tamat tempoh. Anda boleh melihat sejarah mesej anda tetapi tidak boleh menghantar dan menerima mesej sehinggalah anda mengemas kini.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Versi aplikasi Molly anda telah tamat tempoh. Anda boleh melihat sejarah mesej anda tetapi tidak boleh menghantar dan menerima mesej sehinggalah anda mengemas kini.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Pelayar web tidak dijumpai.</string>
@@ -383,8 +391,16 @@
     <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Permintaan anda untuk join telah dihantar kepada admin group. Anda akan diberitahu sekiranya mereka telah mengambil tindakan.</string>
     <string name="ConversationActivity_cancel_request">Batalkan Permintaan</string>
 
-    <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Untuk menghantar mesej audio, benarkan Molly untuk mengakses mikrofon anda.</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
     <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly memerlukan kebenaran Mikrofon untuk menghantar mesej audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\".</string>
+
     <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly memerlukan kebenaran Mikrofon dan Kamera untuk memanggil %1$s, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
     <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Untuk menangkap foto dan video, benarkan Molly untuk mengakses kamera anda.</string>
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly memerlukan kebenaran Kamera untuk menangkap foto dan video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
@@ -408,10 +424,17 @@
     <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Anda akan meninggalkan kumpulan ini, dan ia akan dipadam daripada semua peranti anda.</string>
     <string name="ConversationActivity_delete">Padam</string>
     <string name="ConversationActivity_delete_and_leave">Padam dan tinggalkan</string>
-    <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Untuk memanggil %1$s, Molly memerlukan akses kepada mikrofon anda</string>
+
+    <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
+    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
 
 
     <string name="ConversationActivity_join">Sertai</string>
+    <!-- Button text for an active group call but the call is currently full and unjoinable -->
     <string name="ConversationActivity_full">Penuh</string>
 
     <string name="ConversationActivity_error_sending_media">Ralat menghantar media</string>
@@ -597,6 +620,7 @@
     <string name="ConversationListFragment_unarchive">Nyaharkib</string>
     <string name="ConversationListFragment_delete">Padam</string>
     <string name="ConversationListFragment_select_all">Pilih semua</string>
+    <!-- Screen title shown when selecting multiple items from a list like conversation threads or call logs. -->
     <plurals name="ConversationListFragment_s_selected">
         <item quantity="other">%1$d dipilih</item>
     </plurals>
@@ -845,6 +869,7 @@
     <plurals name="GroupManagement_invitation_sent">
         <item quantity="other">%1$d jemputan dihantar</item>
     </plurals>
+    <!-- Dialog message shown when you are attempting to add a single contact to a group and you don\'t have enough information about them to do it automatically, so must do it via an invite instead. Placeholder is name/username/phone number. -->
     <string name="GroupManagement_invite_single_user">\"%1$s\" tidak dapat ditambah secara automatik ke kumpulan ini oleh anda.\n\nMereka telah dijemput untuk menyertai kumpulan dan tidak akan nampak sebarang mesej kumpulan sehingga mereka menerimanya.</string>
     <string name="GroupManagement_invite_multiple_users">Pengguna ini tidak dapat ditambah secara automatik ke kumpulan ini oleh anda.\n\nMereka telah dijemput untuk menyertai kumpulan ini dan tidak akan nampak sebarang mesej kumpulan sehingga mereka menerimanya.</string>
 
@@ -1009,7 +1034,9 @@
 
     <string name="ManageGroupActivity_edit_name_and_picture">Edit nama dan gambar</string>
     <string name="ManageGroupActivity_legacy_group">Kumpulan Legasi</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code -->
     <string name="ManageGroupActivity_legacy_group_learn_more">Ini Kumpulan Legasi. Ciri-ciri seperti pentadbir kumpulan hanya tersedia untuk Kumpulan Baru,</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code to the end of the string -->
     <string name="ManageGroupActivity_legacy_group_upgrade">Ini Kumpulan Legasi. Untuk mengakses ciri-ciri baru seperti @sebutan dan pentadbir,</string>
     <string name="ManageGroupActivity_legacy_group_too_large">Kumpulan Legasi tidak boleh dinaik taraf kepada Kumpulan Baru kerana ia terlalu besar. Saiz maksimum kumpulan ialah %1$d.</string>
     <string name="ManageGroupActivity_upgrade_this_group">naik taraf kumpulan ini.</string>
@@ -1227,6 +1254,7 @@
         <item quantity="other">Padam</item>
     </plurals>
 
+    <!-- Screen title shown when selecting multiple items in the media overview screen. The first placeholder is the number of items, the second number is the cumulative file size in bytes. -->
     <plurals name="MediaOverviewActivity_d_selected_s">
         <item quantity="other">%1$d dipilih (%2$s)</item>
     </plurals>
@@ -1290,17 +1318,13 @@
     <string name="MessageRecord_left_group">Anda telah meninggalkan kumpulan.</string>
     <string name="MessageRecord_you_updated_group">Anda telah mengemas kini kumpulan.</string>
     <string name="MessageRecord_the_group_was_updated">Kumpulan telah dikemas kini.</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 voice/audio call -->
     <string name="MessageRecord_outgoing_voice_call">Panggilan suara keluar</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 video call -->
     <string name="MessageRecord_outgoing_video_call">Panggilan video keluar</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_voice_call">Panggilan suara tidak dijawab</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_video_call">Panggilan video tidak dijawab</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered -->
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered or ringing -->
     <string name="MessageRecord_incoming_voice_call">Panggilan suara masuk</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and answered -->
+    <!-- Update message shown when receiving an incoming 1:1 video call and answered or ringing -->
     <string name="MessageRecord_incoming_video_call">Panggilan video masuk</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
     <string name="MessageRecord_missed_voice_call">Panggilan suara terlepas</string>
@@ -1310,10 +1334,6 @@
     <string name="MessageRecord_missed_voice_call_notification_profile">Panggilan suara terlepas semasa profil pemberitahuan dihidupkan</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
     <string name="MessageRecord_missed_video_call_notification_profile">Panggilan video terlepas semasa profil pemberitahuan dihidupkan</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_voice_call">Anda menolak panggilan suara</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_video_call">Anda menolak panggilan video</string>
     <!-- Call update formatter string to place the update message next to a time stamp. e.g., \'Incoming voice call · 11:11am\' -->
     <string name="MessageRecord_call_message_with_date">%1$s · %2$s</string>
     <string name="MessageRecord_s_updated_group">%1$s telah mengemas kini kumpulan.</string>
@@ -1514,27 +1534,52 @@
     <string name="MessageRecord_can_accept_payments">%1$s kini boleh menerima Pembayaran</string>
 
     <!-- Group Calling update messages -->
-    <string name="MessageRecord_s_started_a_group_call_s">%1$s telah memulakan panggilan kumpulan · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">Anda telah memulakan panggilan kumpulan · %1$s</string>
-    <string name="MessageRecord_s_is_in_the_group_call_s">%1$s berada dalam panggilan kumpulan · %2$s</string>
-    <string name="MessageRecord_you_are_in_the_group_call_s1">Anda berada dalam panggilan kumpulan · %1$s</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s dan %2$s berada dalam panggilan kumpulan · %3$s</string>
-    <string name="MessageRecord_group_call_s">Panggilan kumpulan · %1$s</string>
-
-    <string name="MessageRecord_s_started_a_group_call">%1$s telah memulakan panggilan kumpulan</string>
-    <string name="MessageRecord_you_started_a_group_call">Anda telah memulakan panggilan kumpulan</string>
-    <string name="MessageRecord_s_is_in_the_group_call">%1$s berada dalam panggilan kumpulan</string>
-    <string name="MessageRecord_you_are_in_the_group_call">Anda berada dalam panggilan kumpulan</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s dan %2$s berada dalam panggilan kumpulan</string>
-    <string name="MessageRecord_group_call">Panggilan kumpulan</string>
+    <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_is_in_the_call_s">%1$s dalam panggilan · %2$s</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
+    <string name="MessageRecord_you_are_in_the_call_s1">Anda dalam panggilan · %1$s</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s dan %2$s sedang dalam panggilan · %3$s</string>
+    <!-- Chat log text for an ongoing group call that has one participant -->
+    <string name="MessageRecord_s_is_in_the_call">%1$s dalam panggilan</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined -->
+    <string name="MessageRecord_you_are_in_the_call">Anda dalam panggilan</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
+    <string name="MessageRecord_s_and_s_are_in_the_call">%1$s dan %2$s sedang dalam panggilan ini</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes -->
+    <string name="MessageRecord__the_video_call_has_ended">Panggilan video telah tamat</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes with a placeholder for formatted time -->
+    <string name="MessageRecord__the_video_call_has_ended_s">Panggilan video telah tamat · %1$s</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed -->
+    <string name="MessageRecord__missed_video_call">Panggilan video terlepas</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed with a placeholder for formatted time -->
+    <string name="MessageRecord__missed_video_call_s">Panggilan video tidak dijawab · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user did not start -->
+    <string name="MessageRecord__incoming_video_call">Panggilan video masuk</string>
+    <!-- Chat log text for a group call that ended that the local user did not start with a placeholder for formatted time -->
+    <string name="MessageRecord__incoming_video_call_s">Panggilan video masuk · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user started -->
+    <string name="MessageRecord__outgoing_video_call">Panggilan video keluar</string>
+    <!-- Chat log text for a group call that ended that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__outgoing_video_call_s">Panggilan video keluar · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user started -->
+    <string name="MessageRecord__you_started_a_video_call">Anda memulakan panggilan video</string>
+    <!-- Chat log text for an ongoing group call that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__you_started_a_video_call_s">Anda memulakan panggilan video · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name -->
+    <string name="MessageRecord__s_started_a_video_call">%1$s memulakan panggilan video</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name and a placeholder for formatted time -->
+    <string name="MessageRecord__s_started_a_video_call_s">%1$s memulakan panggilan video · %2$s</string>
 
     <string name="MessageRecord_you">Anda</string>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call_s">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users, a placeholder for the number of users in the call, and a placeholder for formatted time -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call_s">
         <item quantity="other">%1$s, %2$s, dan %3$d orang yang lain berada dalam panggilan kumpulan · %4$s</item>
     </plurals>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users and a placeholder for the number of users in the call -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call">
         <item quantity="other">%1$s, %2$s, dan %3$d orang yang lain berada dalam panggilan kumpulan</item>
     </plurals>
 
@@ -1984,6 +2029,7 @@
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
     <string name="RegistrationActivity_unable_to_request_verification_code">Tidak dapat meminta kod pengesahan. Sila periksa sambungan rangkaian anda dan cuba lagi.</string>
     <string name="RegistrationActivity_non_standard_number_format">Format nombor bukan standard</string>
+    <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Nombor yang anda telah masukkan (%1$s) adalah dalam format bukan standard.\n\nAdakah anda maksudkan %2$s?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Format Nombor Telefon</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
@@ -2127,7 +2173,7 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Log ini akan disiarkan secara terbuka dalam talian untuk dilihat oleh penyumbang. Anda boleh memeriksanya sebelum memuat naik.</string>
 
     <!-- SupportEmailUtil -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@molly.im</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
     <string name="SupportEmailUtil_filter">Tapis:</string>
     <string name="SupportEmailUtil_device_info">Maklumat peranti:</string>
     <string name="SupportEmailUtil_android_version">Versi Android:</string>
@@ -2622,6 +2668,8 @@
     <string name="ConversationUpdateItem_loading">Memuatkan</string>
     <string name="ConversationUpdateItem_learn_more">Ketahui lebih lanjut</string>
     <string name="ConversationUpdateItem_join_call">Sertai panggilan</string>
+    <!-- Action button label for starting a new call in the current conversation -->
+    <string name="ConversationUpdateItem_call_back">Panggilan Balik</string>
     <string name="ConversationUpdateItem_return_to_call">Kembali ke panggilan</string>
     <string name="ConversationUpdateItem_call_is_full">Panggilan penuh</string>
     <string name="ConversationUpdateItem_invite_friends">Jemput rakan</string>
@@ -2686,6 +2734,7 @@
     <string name="safety_number_change_dialog__leave_call">Tinggalkan panggilan</string>
     <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">Orang yang berikut mungkin telah memasang semula atau telah menukar peranti. Sahkan nombor keselamatan anda dengan mereka untuk memastikan privasi.</string>
     <string name="safety_number_change_dialog__view">Lihat</string>
+    <!-- Subtitle shown for a single contact and that their safety number was previously verified and is now no longer verified. -->
     <string name="safety_number_change_dialog__previous_verified">Disahkan sebelum ini</string>
 
     <!-- EnableCallNotificationSettingsDialog__call_notifications_checklist -->
@@ -2992,6 +3041,7 @@
 
     <string name="arrays__default">Lalai</string>
     <string name="arrays__high">Tinggi</string>
+    <!-- Setting title that represent an abstract priority to assign to notifications as the max/highest priority a notification can be within the system. -->
     <string name="arrays__max">Maks</string>
 
     <!-- plurals.xml -->
@@ -3260,7 +3310,7 @@
     <string name="PaymentsHomeFragment__details">Butiran</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Anda boleh menggunakan Signal untuk menghantar dan menerima MobileCoin. Semua pembayaran adalah tertakluk kepada Syarat Penggunaan untuk MobileCoins dan MobileCoin Wallet. Anda mungkin menghadapi beberapa isu dan pembayaran atau baki yang mungkin hilang tidak dapat dipulihkan. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Anda boleh menggunakan Molly untuk menghantar dan menerima MobileCoin. Semua pembayaran adalah tertakluk kepada Syarat Penggunaan untuk MobileCoins dan MobileCoin Wallet. Anda mungkin menghadapi beberapa isu dan pembayaran atau baki yang mungkin hilang tidak dapat dipulihkan. </string>
     <string name="PaymentsHomeFragment__activate">Aktifkan</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Lihat terma MobileCoin</string>
     <string name="PaymentsHomeFragment__payments_not_available">Pembayaran dalam Molly tidak lagi tersedia. Anda masih boleh memindah dana ke pertukaran tetapi anda tidak lagi dapat menghantar dan menerima pembayaran atau menambah dana.</string>
@@ -3309,6 +3359,14 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">Hantar foto, video dan fail daripada peranti anda.</string>
 
+    <!-- PermissionDeniedBottomSheet -->
+    <!-- Sheet describing step 1 on how to give permissions by opening settings -->
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
+    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
     <string name="PaymentsSecuritySetupFragment__security_setup">Persediaan keselamatan</string>
@@ -3349,6 +3407,7 @@
     <string name="PaymentsDetailsFragment__sent_to_s">Dihantar kepada %1$s</string>
     <string name="PaymentsDetailsFragment__you_on_s_at_s">Anda pada %1$s pada %2$s</string>
     <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s pada %2$s pada %3$s</string>
+    <!-- Prefix to a name to indicate who a payment was sent to -->
     <string name="PaymentsDetailsFragment__to">Kepada</string>
     <string name="PaymentsDetailsFragment__from">Daripada</string>
     <string name="PaymentsDetailsFragment__information">Butiran transaksi termasuk jumlah pembayaran dan masa transaksi merupakan sebahagian daripada MobileCoin Ledger.</string>
@@ -3411,6 +3470,7 @@
     <string name="ConfirmPayment__confirm_payment">Sahkan pembayaran</string>
     <string name="ConfirmPayment__network_fee">Bayaran rangkaian</string>
     <string name="ConfirmPayment__estimated_s">Anggaran %1$s</string>
+    <!-- Prefix to a name to indicate who a payment will be sent to -->
     <string name="ConfirmPayment__to">Kepada</string>
     <string name="ConfirmPayment__total_amount">Jumlah keseluruhan</string>
     <string name="ConfirmPayment__balance_s">Baki: %1$s</string>
@@ -3558,6 +3618,14 @@
     <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">Sembang</string>
     <string name="conversation_group_options__broadcast">Siaran</string>
+
+    <!-- DoubleTapEditEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">Kumpulan baru</string>
@@ -4006,6 +4074,7 @@
     <string name="RecipientBottomSheet_copied_to_clipboard">Disalin ke papan klip</string>
 
     <string name="GroupRecipientListItem_admin">Pentadbir</string>
+    <!-- Button text to approve a user that has requested to join a group -->
     <string name="GroupRecipientListItem_approve_description">Luluskan</string>
     <string name="GroupRecipientListItem_deny_description">Tolak</string>
 
@@ -4033,6 +4102,7 @@
 
     <!-- VoiceNoteMediaDescriptionCompatFactory -->
     <string name="VoiceNoteMediaItemFactory__voice_message">Mesej suara · %1$s</string>
+    <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s kepada %2$s</string>
 
     <!-- StorageUtil -->
@@ -4046,8 +4116,14 @@
     <string name="ReviewCardDialogFragment__review_members">Semak ahli</string>
     <!-- Title of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <string name="ReviewCardDialogFragment__review_request">Semak permintaan</string>
-    <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d ahli kumpulan mempunyai nama yang sama, semak ahli di bawah dan pilih untuk mengambil tindakan.</string>
-    <string name="ReviewCardDialogFragment__if_youre_not_sure">Jika anda tidak pasti tentang penghantar permintaan, semak kenalan di bawah dan ambil tindakan.</string>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
+        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+    </plurals>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
+        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+    </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Tidak ada kumpulan lain yang sama.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Tidak ada kumpulan yang sama.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
@@ -4076,11 +4152,18 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s telah menyertai kumpulan</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s dan %2$s telah menyertai kumpulan</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s dan %3$s telah menyertai kumpulan</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">%1$s, %2$s dan %3$d orang yang lain telah menyertai kumpulan</string>
+    <!-- Toast message shown in group call when 3 or more people join -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
+        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+    </plurals>
+    <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s telah meninggalkan kumpulan</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s dan %2$s telah meninggalkan kumpulan</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s dan %3$s telah meninggalkan kumpulan</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">%1$s, %2$s dan %3$d orang yang lain telah meninggalkan kumpulan</string>
+    <!-- Toast message shown in group call when 3 or more people leave -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
+        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+    </plurals>
 
     <string name="CallParticipant__you">Anda</string>
     <string name="CallParticipant__you_on_another_device">Anda (pada peranti lain)</string>
@@ -4448,10 +4531,14 @@
 
     <!-- PrivacySettingsFragment -->
     <string name="PrivacySettingsFragment__blocked">Disekat</string>
-    <string name="PrivacySettingsFragment__d_contacts">%1$d kenalan</string>
+    <!-- Settings label that shows the number blocked contacts -->
+    <plurals name="PrivacySettingsFragment__d_contacts">
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
     <string name="PrivacySettingsFragment__messaging">Pemesejan</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Mesej hilang</string>
     <string name="PrivacySettingsFragment__app_security">Keselamatan aplikasi</string>
+    <!-- This refers to the multi-tasking overview (recent apps) from the Android operating system.-->
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Sekat tangkapan skrin pada senarai terbaru dan di dalam aplikasi</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Mesej dan panggilan Signal, selalu menghantar panggilan, dan pengirim terlindung</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Pemasa lalai untuk sembang baharu</string>
@@ -4508,11 +4595,14 @@
     <string name="DataAndStorageSettingsFragment__media_quality">Kualiti media</string>
     <string name="DataAndStorageSettingsFragment__sent_media_quality">Kualiti media yang dihantar</string>
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Menghantar media berkualiti tinggi akan menggunakan lebih banyak data.</string>
+    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
     <string name="DataAndStorageSettingsFragment__high">Tinggi</string>
+    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
     <string name="DataAndStorageSettingsFragment__standard">Standard</string>
     <string name="DataAndStorageSettingsFragment__calls">Panggilan</string>
 
     <!-- ChatColorSelectionFragment -->
+    <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
     <string name="ChatColorSelectionFragment__auto">Automatik</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">Gunakan warna tersuai</string>
     <string name="ChatColorSelectionFragment__chat_color">Warna sembang</string>
@@ -4721,6 +4811,7 @@
     <string name="AvatarPickerFragment__take_a_picture">Ambil gambar</string>
     <string name="AvatarPickerFragment__choose_a_photo">Pilih gambar</string>
     <string name="AvatarPickerFragment__photo">Foto</string>
+    <!-- Button label during avatar selection/creation that when tapped lets you generate an avatar from typed in text. -->
     <string name="AvatarPickerFragment__text">Teks</string>
     <string name="AvatarPickerFragment__save">Simpan</string>
     <string name="AvatarPickerFragment__clear_avatar">Kosongkan avatar</string>
@@ -4777,7 +4868,7 @@
     <string name="MediaReviewFragment__add_a_message">Tambah mesej</string>
     <string name="MediaReviewFragment__add_a_reply">Tambah balasan</string>
     <string name="MediaReviewFragment__send_to">Hantar kepada</string>
-    <string name="MediaReviewFragment__view_once_message">Lihat mesej sekali buka</string>
+    <string name="MediaReviewFragment__view_once_message">Media lihat sekali</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">Saiz satu atau lebih item terlalu besar</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">Satu atau lebih item tidak sah</string>
     <string name="MediaReviewFragment__too_many_items_selected">Terlalu banyak item dipilih</string>
@@ -5365,7 +5456,7 @@
     <string name="StoryViewerFragment__s_s">%1$s%2$s</string>
     <!-- Displayed when viewing a post you sent -->
     <string name="StoryViewerPageFragment__you">Anda</string>
-    <!-- Displayed when viewing a post displayed to a group -->
+    <!-- Displayed when viewing a story sent to a group, placeholders are person who sent the story and the group name -->
     <string name="StoryViewerPageFragment__s_to_s">%1$s kepada %2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">Balas</string>
@@ -6557,6 +6648,27 @@
     <string name="ViewNoteSheet__note">Nota</string>
     <!-- Content description for opening the note editor -->
     <string name="ViewNoteSheet__edit_note">Edit nota</string>
+
+    <!-- BackupProgressService -->
+    <!-- Notification title shown while backup restore job is running -->
+    <string name="BackupProgressService_title">Memulihkan sandaran…</string>
+    <!-- Notification title shown while downloading backup restore data -->
+    <string name="BackupProgressService_title_downloading">Memuat turun data sandaran…</string>
+
+    <!-- BackupsTypeSettingsFragment -->
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+
 
     <!-- EOF -->
 </resources>

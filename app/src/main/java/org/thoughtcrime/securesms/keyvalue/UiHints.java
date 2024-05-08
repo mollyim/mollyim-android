@@ -18,6 +18,7 @@ public class UiHints extends SignalStoreValues {
   private static final String HAS_NOT_SEEN_EDIT_MESSAGE_BETA_ALERT   = "uihints.edit_message.has_not_seen_beta_alert";
   private static final String HAS_SEEN_SAFETY_NUMBER_NUX             = "uihints.has_seen_safety_number_nux";
   private static final String HAS_COMPLETED_USERNAME_ONBOARDING      = "uihints.has_completed_username_onboarding";
+  private static final String HAS_SEEN_DOUBLE_TAP_EDIT_EDUCATION_SHEET = "uihints.has_seen_double_tap_edit_education_sheet";
 
   UiHints(@NonNull KeyValueStore store) {
     super(store);
@@ -112,5 +113,13 @@ public class UiHints extends SignalStoreValues {
 
   public void markHasSeenSafetyNumberUpdateNux() {
     putBoolean(HAS_SEEN_SAFETY_NUMBER_NUX, true);
+  }
+
+  public void setHasSeenDoubleTapEditEducationSheet(boolean seen) {
+    putBoolean(HAS_SEEN_DOUBLE_TAP_EDIT_EDUCATION_SHEET, seen);
+  }
+
+  public boolean getHasSeenDoubleTapEditEducationSheet() {
+    return getBoolean(HAS_SEEN_DOUBLE_TAP_EDIT_EDUCATION_SHEET, false);
   }
 }

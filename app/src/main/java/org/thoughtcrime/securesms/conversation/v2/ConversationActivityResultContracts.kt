@@ -109,7 +109,9 @@ class ConversationActivityResultContracts(private val fragment: Fragment, privat
       Permissions.with(fragment)
         .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
         .ifNecessary()
-        .withPermanentDenialDialog(fragment.getString(R.string.AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location))
+        .withRationaleDialog(fragment.getString(R.string.AttachmentManager_signal_allow_access_location), fragment.getString(R.string.AttachmentManager_signal_allow_signal_access_location), R.drawable.symbol_location_white_24)
+        .withPermanentDenialDialog(fragment.getString(R.string.AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location), null, R.string.AttachmentManager_signal_allow_access_location, R.string.AttachmentManager_signal_to_send_location, fragment.parentFragmentManager)
+        .onAnyDenied { Toast.makeText(fragment.requireContext(), R.string.AttachmentManager_signal_needs_location_access, Toast.LENGTH_LONG).show() }
         .onSomeGranted { selectLocationLauncher.launch(chatColors) }
         .execute()
     }

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -89,6 +87,16 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly에서 사진, 동영상 또는 오디오를 첨부하려면 저장 공간 접근 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly에서 연락처 정보를 첨부하려면 연락처 접근 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly에서 위치 정보를 첨부하려면 위치 접근 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'위치\' 항목을 허용해 주세요.</string>
+
+    <!-- Dialog title asking users for location permission -->
+    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <!-- Dialog description that will explain the steps needed to give location permission -->
+    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <!-- Alert dialog description asking for location permission -->
+    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <!-- Toast text explaining Signal\'s need for location access -->
+    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s 님이 결제를 아직 활성화하지 않았습니다. </string>
     <!-- Alert dialog description to send the recipient a request to activate payments -->
@@ -240,7 +248,7 @@
     <string name="ClientDeprecatedActivity_update">업데이트</string>
     <string name="ClientDeprecatedActivity_dont_update">업데이트하지 않음</string>
     <string name="ClientDeprecatedActivity_warning">경고</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Signal 버전이 만료되었습니다. 이전 메세지 기록은 읽을 수 있지만 업데이트하기 전까지 메세지를 보내거나 받을 수 없습니다.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Molly 버전이 만료되었습니다. 이전 메세지 기록은 읽을 수 있지만 업데이트하기 전까지 메세지를 보내거나 받을 수 없습니다.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">웹 브라우저를 찾을 수 없습니다.</string>
@@ -383,8 +391,16 @@
     <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">참가 요청이 그룹 관리자에게 전송되었습니다. 요청이 처리되면 알림을 받게 됩니다.</string>
     <string name="ConversationActivity_cancel_request">요청 취소하기</string>
 
-    <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">음성 메시지를 보내려면 Molly이 마이크를 사용할 수 있도록 허용해 주세요.</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
     <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly에서 오디오 메시지를 보내려면 마이크 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\' 항목을 허용해 주세요.</string>
+
     <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly에서 %1$s에게 전화하려면 마이크와 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
     <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Molly에서 사진과 동영상을 찍으려면 카메라 권한이 필요합니다.</string>
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly에서 사진이나 동영상을 찍으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
@@ -408,10 +424,17 @@
     <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">당신은 그룹을 떠날 것이며, 당신의 모든 기기에서 삭제될 겁니다.</string>
     <string name="ConversationActivity_delete">삭제</string>
     <string name="ConversationActivity_delete_and_leave">삭제 후 나가기</string>
-    <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$s에게 통화하려면, Molly에서 마이크 권한이 필요합니다.</string>
+
+    <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
+    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
 
 
     <string name="ConversationActivity_join">참가</string>
+    <!-- Button text for an active group call but the call is currently full and unjoinable -->
     <string name="ConversationActivity_full">최대한도 도달</string>
 
     <string name="ConversationActivity_error_sending_media">미디어 전송 오류</string>
@@ -597,6 +620,7 @@
     <string name="ConversationListFragment_unarchive">보관 해제</string>
     <string name="ConversationListFragment_delete">삭제</string>
     <string name="ConversationListFragment_select_all">모두 선택</string>
+    <!-- Screen title shown when selecting multiple items from a list like conversation threads or call logs. -->
     <plurals name="ConversationListFragment_s_selected">
         <item quantity="other">%1$d개 선택됨</item>
     </plurals>
@@ -845,6 +869,7 @@
     <plurals name="GroupManagement_invitation_sent">
         <item quantity="other">%1$d에게 초대가 전송됨</item>
     </plurals>
+    <!-- Dialog message shown when you are attempting to add a single contact to a group and you don\'t have enough information about them to do it automatically, so must do it via an invite instead. Placeholder is name/username/phone number. -->
     <string name="GroupManagement_invite_single_user">\'%1$s\' 님을 내가 그룹에 자동으로 추가할 수 없습니다.\n\n가입 초대를 받았으며 수락할 때까지 그룹 메시지가 표시되지 않습니다.</string>
     <string name="GroupManagement_invite_multiple_users">이 사용자들을 내가 그룹에 자동으로 추가할 수 없습니다.\n\n그룹에 가입하도록 초대되었으며 수락할 때까지 그룹 메시지가 표시되지 않습니다.</string>
 
@@ -1009,7 +1034,9 @@
 
     <string name="ManageGroupActivity_edit_name_and_picture">이름과 그림 수정하기</string>
     <string name="ManageGroupActivity_legacy_group">구형 그룹</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code -->
     <string name="ManageGroupActivity_legacy_group_learn_more">구형 그룹입니다. 그룹 관리자와 같은 기능은 새 그룹에서만 사용할 수 있습니다.</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code to the end of the string -->
     <string name="ManageGroupActivity_legacy_group_upgrade">구형 그룹입니다. @멘션 및 관리자와 같은 새로운 기능에 액세스하려면</string>
     <string name="ManageGroupActivity_legacy_group_too_large">이 구형 그룹의 규모가 너무 커서 새 그룹으로 업그레이드할 수 없습니다. 최대 그룹 규모는 %1$d입니다.</string>
     <string name="ManageGroupActivity_upgrade_this_group">그룹을 업그레이드하세요.</string>
@@ -1227,6 +1254,7 @@
         <item quantity="other">삭제</item>
     </plurals>
 
+    <!-- Screen title shown when selecting multiple items in the media overview screen. The first placeholder is the number of items, the second number is the cumulative file size in bytes. -->
     <plurals name="MediaOverviewActivity_d_selected_s">
         <item quantity="other">%1$d개 선택됨 (%2$s)</item>
     </plurals>
@@ -1290,17 +1318,13 @@
     <string name="MessageRecord_left_group">그룹에서 탈퇴했습니다.</string>
     <string name="MessageRecord_you_updated_group">그룹을 업데이트했습니다.</string>
     <string name="MessageRecord_the_group_was_updated">그룹이 업데이트 되었습니다.</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 voice/audio call -->
     <string name="MessageRecord_outgoing_voice_call">발신 음성 통화</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 video call -->
     <string name="MessageRecord_outgoing_video_call">발신 영상 통화</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_voice_call">미응답 음성 통화</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_video_call">미응답 영상 통화</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered -->
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered or ringing -->
     <string name="MessageRecord_incoming_voice_call">수신 음성 통화</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and answered -->
+    <!-- Update message shown when receiving an incoming 1:1 video call and answered or ringing -->
     <string name="MessageRecord_incoming_video_call">수신 영상 통화</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
     <string name="MessageRecord_missed_voice_call">부재중 음성 통화</string>
@@ -1310,10 +1334,6 @@
     <string name="MessageRecord_missed_voice_call_notification_profile">알림 프로필을 사용하는 동안 받지 못한 전화가 있습니다.</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
     <string name="MessageRecord_missed_video_call_notification_profile">알림 프로필을 사용하는 동안 받지 못한 화상 통화가 있습니다.</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_voice_call">음성 통화를 거부했습니다.</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_video_call">영상 통화를 거부했습니다.</string>
     <!-- Call update formatter string to place the update message next to a time stamp. e.g., \'Incoming voice call · 11:11am\' -->
     <string name="MessageRecord_call_message_with_date">%1$s · %2$s</string>
     <string name="MessageRecord_s_updated_group">%1$s 님이 그룹을 업데이트했습니다.</string>
@@ -1514,28 +1534,53 @@
     <string name="MessageRecord_can_accept_payments">%1$s 님이 이제 결제를 수락할 수 있습니다.</string>
 
     <!-- Group Calling update messages -->
-    <string name="MessageRecord_s_started_a_group_call_s">%1$s 님이 그룹 통화를 시작했습니다(%2$s).</string>
-    <string name="MessageRecord_you_started_a_group_call_s">내가 그룹 통화를 시작함 · %1$s</string>
-    <string name="MessageRecord_s_is_in_the_group_call_s">%1$s 님이 그룹 통화 중입니다(%2$s).</string>
-    <string name="MessageRecord_you_are_in_the_group_call_s1">그룹 통화 중입니다(%1$s).</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s 및 %2$s 님이 그룹 통화 중입니다(%3$s).</string>
-    <string name="MessageRecord_group_call_s">그룹 통화: %1$s</string>
-
-    <string name="MessageRecord_s_started_a_group_call">%1$s 님이 그룹 통화를 시작했습니다.</string>
-    <string name="MessageRecord_you_started_a_group_call">그룹 통화를 시작함</string>
-    <string name="MessageRecord_s_is_in_the_group_call">%1$s 님이 그룹 통화 중입니다.</string>
-    <string name="MessageRecord_you_are_in_the_group_call">그룹 통화 중입니다.</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s 및 %2$s 님이 그룹 통화 중입니다.</string>
-    <string name="MessageRecord_group_call">그룹 통화</string>
+    <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_is_in_the_call_s">%1$s 님이 통화에 참여했습니다 · %2$s</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
+    <string name="MessageRecord_you_are_in_the_call_s1">통화에 참여했습니다 · %1$s</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s 님과 %2$s 님이 통화에 참여했습니다 · %3$s</string>
+    <!-- Chat log text for an ongoing group call that has one participant -->
+    <string name="MessageRecord_s_is_in_the_call">%1$s 님이 통화에 참여했습니다</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined -->
+    <string name="MessageRecord_you_are_in_the_call">통화에 참여했습니다</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
+    <string name="MessageRecord_s_and_s_are_in_the_call">%1$s 님과 %2$s 님이 통화에 참여했습니다</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes -->
+    <string name="MessageRecord__the_video_call_has_ended">화상 통화를 종료했습니다</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes with a placeholder for formatted time -->
+    <string name="MessageRecord__the_video_call_has_ended_s">화상 통화를 종료했습니다 · %1$s</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed -->
+    <string name="MessageRecord__missed_video_call">부재중 영상 통화</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed with a placeholder for formatted time -->
+    <string name="MessageRecord__missed_video_call_s">부재중 영상 통화 %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user did not start -->
+    <string name="MessageRecord__incoming_video_call">수신 영상 통화</string>
+    <!-- Chat log text for a group call that ended that the local user did not start with a placeholder for formatted time -->
+    <string name="MessageRecord__incoming_video_call_s">화상 통화 수신 중 · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user started -->
+    <string name="MessageRecord__outgoing_video_call">발신 영상 통화</string>
+    <!-- Chat log text for a group call that ended that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__outgoing_video_call_s">화상 통화 발신 중 · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user started -->
+    <string name="MessageRecord__you_started_a_video_call">화상 통화를 시작했습니다</string>
+    <!-- Chat log text for an ongoing group call that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__you_started_a_video_call_s">화상 통화를 시작했습니다 · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name -->
+    <string name="MessageRecord__s_started_a_video_call">%1$s 님이 화상 통화를 시작했습니다</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name and a placeholder for formatted time -->
+    <string name="MessageRecord__s_started_a_video_call_s">%1$s 님이 화상 통화를 시작했습니다 · %2$s</string>
 
     <string name="MessageRecord_you">나</string>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call_s">
-        <item quantity="other">%1$s, %2$s 및 %3$d명이 그룹 통화 중입니다(%4$s).</item>
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users, a placeholder for the number of users in the call, and a placeholder for formatted time -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call_s">
+        <item quantity="other">%1$s, %2$s 외 %3$d명이 그룹 통화 중입니다(%4$s).</item>
     </plurals>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call">
-        <item quantity="other">%1$s, %2$s 및 %3$d명이 그룹 통화 중입니다.</item>
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users and a placeholder for the number of users in the call -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call">
+        <item quantity="other">%1$s, %2$s 외 %3$d명이 그룹 통화 중입니다.</item>
     </plurals>
 
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
@@ -1984,6 +2029,7 @@
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
     <string name="RegistrationActivity_unable_to_request_verification_code">확인 코드를 요청하지 못했습니다. 네트워크 연결을 확인하고 다시 시도하세요.</string>
     <string name="RegistrationActivity_non_standard_number_format">비표준 전화번호 형식</string>
+    <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">입력한 번호(%1$s)가 표준 형식이 아닙니다.\n\n혹시 입력하려던 번호가 %2$s인가요?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - 전화번호 형식</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
@@ -2127,7 +2173,7 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">이 로그는 기여자가 볼 수 있도록 온라인에 공개적으로 게시됩니다. 업로드하기 전에 검토할 수 있습니다.</string>
 
     <!-- SupportEmailUtil -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@molly.im</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
     <string name="SupportEmailUtil_filter">필터:</string>
     <string name="SupportEmailUtil_device_info">기기 정보:</string>
     <string name="SupportEmailUtil_android_version">안드로이드 버전:</string>
@@ -2622,6 +2668,8 @@
     <string name="ConversationUpdateItem_loading">로드 중</string>
     <string name="ConversationUpdateItem_learn_more">더 알아보기</string>
     <string name="ConversationUpdateItem_join_call">통화 참여</string>
+    <!-- Action button label for starting a new call in the current conversation -->
+    <string name="ConversationUpdateItem_call_back">다시 걸기</string>
     <string name="ConversationUpdateItem_return_to_call">통화로 돌아가기</string>
     <string name="ConversationUpdateItem_call_is_full">통화 참가자 수 최대</string>
     <string name="ConversationUpdateItem_invite_friends">친구 초대</string>
@@ -2686,6 +2734,7 @@
     <string name="safety_number_change_dialog__leave_call">전화 종료</string>
     <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">재설치했거나 기기를 바꾼 사람의 목록입니다. 보안을 보장하려면 안전 번호를 검증하세요.</string>
     <string name="safety_number_change_dialog__view">보기</string>
+    <!-- Subtitle shown for a single contact and that their safety number was previously verified and is now no longer verified. -->
     <string name="safety_number_change_dialog__previous_verified">이전에 확인됨</string>
 
     <!-- EnableCallNotificationSettingsDialog__call_notifications_checklist -->
@@ -2992,6 +3041,7 @@
 
     <string name="arrays__default">기본</string>
     <string name="arrays__high">높음</string>
+    <!-- Setting title that represent an abstract priority to assign to notifications as the max/highest priority a notification can be within the system. -->
     <string name="arrays__max">최대</string>
 
     <!-- plurals.xml -->
@@ -3260,7 +3310,7 @@
     <string name="PaymentsHomeFragment__details">세부 정보</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Signal을 사용하여 MobileCoin을 주고받으세요. 모든 결제에는 MobileCoins와 MobileCoin Wallet의 사용 약관이 적용됩니다. 일부 문제가 발생할 수 있으며, 손실된 결제나 잔액은 복구할 수 없습니다. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Molly을 사용하여 MobileCoin을 주고받으세요. 모든 결제에는 MobileCoins와 MobileCoin Wallet의 사용 약관이 적용됩니다. 일부 문제가 발생할 수 있으며, 손실된 결제나 잔액은 복구할 수 없습니다. </string>
     <string name="PaymentsHomeFragment__activate">활성화</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin 용어 보기</string>
     <string name="PaymentsHomeFragment__payments_not_available">Molly 결제는 더 이상 사용할 수 없습니다. 여전히 거래소로 자금을 이체할 수 있지만 더 이상 지불을 주고받거나 자금을 추가할 수 없습니다.</string>
@@ -3309,6 +3359,14 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">기기에서 사진, 동영상, 파일을 전송하세요.</string>
 
+    <!-- PermissionDeniedBottomSheet -->
+    <!-- Sheet describing step 1 on how to give permissions by opening settings -->
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
+    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
     <string name="PaymentsSecuritySetupFragment__security_setup">보안 설정</string>
@@ -3349,6 +3407,7 @@
     <string name="PaymentsDetailsFragment__sent_to_s">%1$s에게 전송됨</string>
     <string name="PaymentsDetailsFragment__you_on_s_at_s">%1$s의 %2$s</string>
     <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s, %2$s, %3$s</string>
+    <!-- Prefix to a name to indicate who a payment was sent to -->
     <string name="PaymentsDetailsFragment__to">받는이:</string>
     <string name="PaymentsDetailsFragment__from">보낸이:</string>
     <string name="PaymentsDetailsFragment__information">지불 금액 및 거래 시간을 비롯한 거래 세부 정보는 MobileCoin Ledger의 일부입니다.</string>
@@ -3411,6 +3470,7 @@
     <string name="ConfirmPayment__confirm_payment">결제 확인</string>
     <string name="ConfirmPayment__network_fee">네트워크 요금</string>
     <string name="ConfirmPayment__estimated_s">예상 %1$s</string>
+    <!-- Prefix to a name to indicate who a payment will be sent to -->
     <string name="ConfirmPayment__to">받는이:</string>
     <string name="ConfirmPayment__total_amount">총액</string>
     <string name="ConfirmPayment__balance_s">잔액: %1$s</string>
@@ -3558,6 +3618,14 @@
     <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">대화</string>
     <string name="conversation_group_options__broadcast">방송</string>
+
+    <!-- DoubleTapEditEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">새 그룹</string>
@@ -4006,6 +4074,7 @@
     <string name="RecipientBottomSheet_copied_to_clipboard">클립보드로 복사됨</string>
 
     <string name="GroupRecipientListItem_admin">관리자</string>
+    <!-- Button text to approve a user that has requested to join a group -->
     <string name="GroupRecipientListItem_approve_description">승인</string>
     <string name="GroupRecipientListItem_deny_description">거부</string>
 
@@ -4033,6 +4102,7 @@
 
     <!-- VoiceNoteMediaDescriptionCompatFactory -->
     <string name="VoiceNoteMediaItemFactory__voice_message">음성 메시지 %1$s</string>
+    <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s~%2$s</string>
 
     <!-- StorageUtil -->
@@ -4046,8 +4116,14 @@
     <string name="ReviewCardDialogFragment__review_members">구성원 검토</string>
     <!-- Title of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <string name="ReviewCardDialogFragment__review_request">검토 요청</string>
-    <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d명의 그룹 멤버가 같은 이름을 가지고 있습니다. 아래 멤버를 검토한 후 조치를 취하세요.</string>
-    <string name="ReviewCardDialogFragment__if_youre_not_sure">요청의 출처가 확실하지 않은 경우 아래 연락처를 검토하고 조치를 취하세요.</string>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
+        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+    </plurals>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
+        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+    </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">공통된 다른 그룹이 없습니다.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">공통된 그룹이 없습니다.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
@@ -4076,11 +4152,18 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s 가입함</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s 및 %2$s 가입함</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s 및 %3$s 가입함</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">%1$s, %2$s 및 %3$d명이 가입함</string>
+    <!-- Toast message shown in group call when 3 or more people join -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
+        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+    </plurals>
+    <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s 남음</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s 및 %2$s 남음</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s 및 %3$s 남음</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">%1$s, %2$s 및 %3$d명 남음</string>
+    <!-- Toast message shown in group call when 3 or more people leave -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
+        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+    </plurals>
 
     <string name="CallParticipant__you">나</string>
     <string name="CallParticipant__you_on_another_device">나(다른 기기에서)</string>
@@ -4448,10 +4531,14 @@
 
     <!-- PrivacySettingsFragment -->
     <string name="PrivacySettingsFragment__blocked">차단함</string>
-    <string name="PrivacySettingsFragment__d_contacts">연락처 %1$d개</string>
+    <!-- Settings label that shows the number blocked contacts -->
+    <plurals name="PrivacySettingsFragment__d_contacts">
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
     <string name="PrivacySettingsFragment__messaging">메시징</string>
     <string name="PrivacySettingsFragment__disappearing_messages">사라지는 메시지</string>
     <string name="PrivacySettingsFragment__app_security">애플리케이션 보안</string>
+    <!-- This refers to the multi-tasking overview (recent apps) from the Android operating system.-->
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">최근 사용 목록과 앱 내 스크린샷 차단</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">신호 메시지 및 통화, 항상 중계 통화 및 봉인된 발신자</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">새 대화를 위한 기본 타이머</string>
@@ -4508,11 +4595,14 @@
     <string name="DataAndStorageSettingsFragment__media_quality">미디어 품질</string>
     <string name="DataAndStorageSettingsFragment__sent_media_quality">미디어 전송 품질</string>
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">고품질 미디어는 더 많은 모바일 데이터를 사용할 수 있습니다.</string>
+    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
     <string name="DataAndStorageSettingsFragment__high">높음</string>
+    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
     <string name="DataAndStorageSettingsFragment__standard">기본</string>
     <string name="DataAndStorageSettingsFragment__calls">전화</string>
 
     <!-- ChatColorSelectionFragment -->
+    <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
     <string name="ChatColorSelectionFragment__auto">자동</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">사용자 지정 색상 사용하기</string>
     <string name="ChatColorSelectionFragment__chat_color">대화창 색</string>
@@ -4721,6 +4811,7 @@
     <string name="AvatarPickerFragment__take_a_picture">사진을 찍다</string>
     <string name="AvatarPickerFragment__choose_a_photo">사진 선택</string>
     <string name="AvatarPickerFragment__photo">사진</string>
+    <!-- Button label during avatar selection/creation that when tapped lets you generate an avatar from typed in text. -->
     <string name="AvatarPickerFragment__text">텍스트</string>
     <string name="AvatarPickerFragment__save">저장</string>
     <string name="AvatarPickerFragment__clear_avatar">아바타 지우기</string>
@@ -4777,7 +4868,7 @@
     <string name="MediaReviewFragment__add_a_message">메시지 추가</string>
     <string name="MediaReviewFragment__add_a_reply">답장 추가</string>
     <string name="MediaReviewFragment__send_to">받는 사람</string>
-    <string name="MediaReviewFragment__view_once_message">한 번 보기 메시지</string>
+    <string name="MediaReviewFragment__view_once_message">한 번만 볼 수 있는 미디어</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">하나 이상의 항목이 너무 큽니다.</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">하나 이상의 항목이 유효하지 않습니다.</string>
     <string name="MediaReviewFragment__too_many_items_selected">항목을 너무 많이 선택했습니다.</string>
@@ -5365,7 +5456,7 @@
     <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
     <!-- Displayed when viewing a post you sent -->
     <string name="StoryViewerPageFragment__you">나</string>
-    <!-- Displayed when viewing a post displayed to a group -->
+    <!-- Displayed when viewing a story sent to a group, placeholders are person who sent the story and the group name -->
     <string name="StoryViewerPageFragment__s_to_s">%1$s~%2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">답장</string>
@@ -6534,7 +6625,7 @@
     <!-- Title displayed at the top of the screen -->
     <string name="NicknameActivity__nickname">별칭</string>
     <!-- Subtitle displayed under title -->
-    <string name="NicknameActivity__nicknames_amp_notes">Nicknames &amp; notes are stored with Signal and end-to-end encrypted. They are only visible to you.</string>
+    <string name="NicknameActivity__nicknames_amp_notes">별칭과 메모는 Signal에 엔드투엔드 암호화되어 저장됩니다. 해당 항목은 사용자에게만 표시됩니다.</string>
     <!-- Field label for given name -->
     <string name="NicknameActivity__first_name">이름</string>
     <!-- Content description for first name clear button -->
@@ -6548,15 +6639,36 @@
     <!-- Button label to save -->
     <string name="NicknameActivity__save">저장</string>
     <!-- Dialog title for note and name deletion -->
-    <string name="NicknameActivity__delete_nickname">Delete?</string>
+    <string name="NicknameActivity__delete_nickname">삭제하시겠어요?</string>
     <!-- Dialog message for note and name deletion -->
-    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">This will permanently delete any nickname and note you’ve set.</string>
+    <string name="NicknameActivity__this_will_permanently_delete_this_nickname_and_note">설정한 별칭과 메모를 영구 삭제합니다.</string>
 
     <!-- ViewNoteBottomSheetDialogFragment -->
     <!-- Sheet title -->
     <string name="ViewNoteSheet__note">메모</string>
     <!-- Content description for opening the note editor -->
     <string name="ViewNoteSheet__edit_note">메모 수정</string>
+
+    <!-- BackupProgressService -->
+    <!-- Notification title shown while backup restore job is running -->
+    <string name="BackupProgressService_title">백업을 복원하는 중…</string>
+    <!-- Notification title shown while downloading backup restore data -->
+    <string name="BackupProgressService_title_downloading">백업 데이터를 다운로드하는 중…</string>
+
+    <!-- BackupsTypeSettingsFragment -->
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+
 
     <!-- EOF -->
 </resources>

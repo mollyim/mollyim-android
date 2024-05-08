@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -89,6 +87,16 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Norint pridėti nuotraukas, vaizdo įrašus ar garsą, Molly reikia saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Norint pridėti kontaktinę informaciją, Molly reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Norint pridėti vietą, Molly reikia vietos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Vietą“.</string>
+
+    <!-- Dialog title asking users for location permission -->
+    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <!-- Dialog description that will explain the steps needed to give location permission -->
+    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <!-- Alert dialog description asking for location permission -->
+    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <!-- Toast text explaining Signal\'s need for location access -->
+    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s neįjungė Mokėjimų </string>
     <!-- Alert dialog description to send the recipient a request to activate payments -->
@@ -243,7 +251,7 @@
     <string name="ClientDeprecatedActivity_update">Atnaujinti</string>
     <string name="ClientDeprecatedActivity_dont_update">Neatnaujinti</string>
     <string name="ClientDeprecatedActivity_warning">Įspėjimas</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Tavo „Signal“ versija nebegalioja. Gali žiūrėti žinučių istoriją, tačiau nebegalėsi nei siųsti, nei gauti žinučių, kol neatnaujinsi programėlės.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Tavo „Molly“ versija nebegalioja. Gali žiūrėti žinučių istoriją, tačiau nebegalėsi nei siųsti, nei gauti žinučių, kol neatnaujinsi programėlės.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Nerasta jokios saityno naršyklės.</string>
@@ -392,8 +400,16 @@
     <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Jūsų prašymas prisijungti prie grupės buvo išsiųstas grupės administratoriui. Jums bus pranešta, kai jis atliks tam tikrus veiksmus.</string>
     <string name="ConversationActivity_cancel_request">Panaikinti prašymą</string>
 
-    <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Norėdami siųsti garso žinutes, leiskite Molly prieigą prie mikrofono.</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
     <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Norint siųsti garso žinutes, Molly reikia mikrofono leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“.</string>
+
     <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Norint skambinti %1$s, programai Molly reikia mikrofono ir kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
     <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Norėdami fotografuoti ir filmuoti vaizdo įrašus, leiskite Molly prieigą prie kameros.</string>
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Norint fotografuoti, Molly reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
@@ -417,10 +433,17 @@
     <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Tu išeisi iš šios grupės ir ji bus ištrinta iš visų tavo įrenginių.</string>
     <string name="ConversationActivity_delete">Ištrinti</string>
     <string name="ConversationActivity_delete_and_leave">Ištrinti ir išeiti</string>
-    <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Norint skambinti %1$s, Molly reikia prieigos prie jūsų mikrofono</string>
+
+    <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
+    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
 
 
     <string name="ConversationActivity_join">Prisijungti</string>
+    <!-- Button text for an active group call but the call is currently full and unjoinable -->
     <string name="ConversationActivity_full">Pilnas</string>
 
     <string name="ConversationActivity_error_sending_media">Klaida siunčiant mediją</string>
@@ -645,6 +668,7 @@
     <string name="ConversationListFragment_unarchive">Nebearchyvuoti</string>
     <string name="ConversationListFragment_delete">Ištrinti</string>
     <string name="ConversationListFragment_select_all">Žymėti viską</string>
+    <!-- Screen title shown when selecting multiple items from a list like conversation threads or call logs. -->
     <plurals name="ConversationListFragment_s_selected">
         <item quantity="one">Pažymėta: %1$d</item>
         <item quantity="few">Pažymėta: %1$d</item>
@@ -902,6 +926,7 @@
         <item quantity="many">Išsiųsta %1$d pakvietimo</item>
         <item quantity="other">Išsiųsta %1$d pakvietimų</item>
     </plurals>
+    <!-- Dialog message shown when you are attempting to add a single contact to a group and you don\'t have enough information about them to do it automatically, so must do it via an invite instead. Placeholder is name/username/phone number. -->
     <string name="GroupManagement_invite_single_user">Jūs negalite automatiškai pridėti naudotojo „%1$s“ į šią grupę.\n\nJis yra pakviestas prisijungti prie grupės ir nematys jokių grupėje esančių žinučių tol, kol nepriims kvietimo.</string>
     <string name="GroupManagement_invite_multiple_users">Jūs negalite automatiškai pridėti šių naudotojų į šią grupę.\n\nJie yra pakviesti prisijungti prie grupės ir nematys jokių grupėje esančių žinučių tol, kol nepriims kvietimo.</string>
 
@@ -1114,7 +1139,9 @@
 
     <string name="ManageGroupActivity_edit_name_and_picture">Taisyti pavadinimą ir paveikslą</string>
     <string name="ManageGroupActivity_legacy_group">Pasenusi grupė</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code -->
     <string name="ManageGroupActivity_legacy_group_learn_more">Tai yra pasenusi grupė. Tokios ypatybės, kaip grupės administratoriai, yra prieinamos tik naujosiose grupėse.</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code to the end of the string -->
     <string name="ManageGroupActivity_legacy_group_upgrade">Tai yra pasenusi grupė. Norėdami naudoti tokias ypatybes kaip @paminėjimai ir administratoriai,</string>
     <string name="ManageGroupActivity_legacy_group_too_large">Ši pasenusi grupė negali būti naujinta į naująją grupę, nes yra per didelė. Didžiausias grupės dydis yra %1$d.</string>
     <string name="ManageGroupActivity_upgrade_this_group">naujinkite šią grupę.</string>
@@ -1359,6 +1386,7 @@
         <item quantity="other">Ištrinti</item>
     </plurals>
 
+    <!-- Screen title shown when selecting multiple items in the media overview screen. The first placeholder is the number of items, the second number is the cumulative file size in bytes. -->
     <plurals name="MediaOverviewActivity_d_selected_s">
         <item quantity="one">Pažymėta %1$d (%2$s)</item>
         <item quantity="few">Pažymėtos %1$d (%2$s)</item>
@@ -1425,17 +1453,13 @@
     <string name="MessageRecord_left_group">Jūs išėjote iš grupės.</string>
     <string name="MessageRecord_you_updated_group">Jūs atnaujinote grupę.</string>
     <string name="MessageRecord_the_group_was_updated">Grupė buvo atnaujinta.</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 voice/audio call -->
     <string name="MessageRecord_outgoing_voice_call">Išsiunčiamasis balso skambutis</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 video call -->
     <string name="MessageRecord_outgoing_video_call">Išsiunčiamasis vaizdo skambutis</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_voice_call">Neatsakytas balso skambutis</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_video_call">Neatsakytas vaizdo skambutis</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered -->
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered or ringing -->
     <string name="MessageRecord_incoming_voice_call">Gaunamasis balso skambutis</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and answered -->
+    <!-- Update message shown when receiving an incoming 1:1 video call and answered or ringing -->
     <string name="MessageRecord_incoming_video_call">Gaunamasis vaizdo skambutis</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
     <string name="MessageRecord_missed_voice_call">Praleistas balso skambutis</string>
@@ -1445,10 +1469,6 @@
     <string name="MessageRecord_missed_voice_call_notification_profile">Praleistas balso skambutis įjungus pranešimų profilį</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
     <string name="MessageRecord_missed_video_call_notification_profile">Praleistas vaizdo skambutis įjungus pranešimų profilį</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_voice_call">Tu atmetei balso skambutį</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_video_call">Tu atmetei vaizdo skambutį</string>
     <!-- Call update formatter string to place the update message next to a time stamp. e.g., \'Incoming voice call · 11:11am\' -->
     <string name="MessageRecord_call_message_with_date">%1$s · %2$s</string>
     <string name="MessageRecord_s_updated_group">%1$s atnaujino grupę.</string>
@@ -1673,30 +1693,55 @@
     <string name="MessageRecord_can_accept_payments">%1$s dabar gali priimti Mokėjimus</string>
 
     <!-- Group Calling update messages -->
-    <string name="MessageRecord_s_started_a_group_call_s">%1$s pradėjo grupės skambutį · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">Tu pradėjai grupės skambutį · %1$s</string>
-    <string name="MessageRecord_s_is_in_the_group_call_s">%1$s yra grupės skambutyje · %2$s</string>
-    <string name="MessageRecord_you_are_in_the_group_call_s1">Jūs esate grupės skambutyje · %1$s</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s ir %2$s yra grupės skambutyje · %3$s</string>
-    <string name="MessageRecord_group_call_s">Grupės skambutis · %1$s</string>
-
-    <string name="MessageRecord_s_started_a_group_call">%1$s pradėjo grupės skambutį</string>
-    <string name="MessageRecord_you_started_a_group_call">Jūs pradėjote grupės skambutį</string>
-    <string name="MessageRecord_s_is_in_the_group_call">%1$s yra grupės skambutyje</string>
-    <string name="MessageRecord_you_are_in_the_group_call">Jūs esate grupės skambutyje</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s ir %2$s yra grupės skambutyje</string>
-    <string name="MessageRecord_group_call">Grupės skambutis</string>
+    <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_is_in_the_call_s">%1$s yra skambutyje · %2$s</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
+    <string name="MessageRecord_you_are_in_the_call_s1">Dalyvaujate skambutyje · %1$s</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s ir %2$s yra skambutyje · %3$s</string>
+    <!-- Chat log text for an ongoing group call that has one participant -->
+    <string name="MessageRecord_s_is_in_the_call">%1$s yra skambutyje</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined -->
+    <string name="MessageRecord_you_are_in_the_call">Dalyvaujate skambutyje</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
+    <string name="MessageRecord_s_and_s_are_in_the_call">%1$s ir %2$s yra skambutyje</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes -->
+    <string name="MessageRecord__the_video_call_has_ended">Vaizdo skambutis baigtas</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes with a placeholder for formatted time -->
+    <string name="MessageRecord__the_video_call_has_ended_s">Vaizdo skambutis baigtas · %1$s</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed -->
+    <string name="MessageRecord__missed_video_call">Praleistas vaizdo skambutis</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed with a placeholder for formatted time -->
+    <string name="MessageRecord__missed_video_call_s">Praleistas vaizdo skambutis · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user did not start -->
+    <string name="MessageRecord__incoming_video_call">Gaunamasis vaizdo skambutis</string>
+    <!-- Chat log text for a group call that ended that the local user did not start with a placeholder for formatted time -->
+    <string name="MessageRecord__incoming_video_call_s">Gaunamasis vaizdo skambutis · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user started -->
+    <string name="MessageRecord__outgoing_video_call">Išsiunčiamasis vaizdo skambutis</string>
+    <!-- Chat log text for a group call that ended that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__outgoing_video_call_s">Išsiunčiamasis vaizdo skambutis · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user started -->
+    <string name="MessageRecord__you_started_a_video_call">Pradėjote vaizdo skambutį</string>
+    <!-- Chat log text for an ongoing group call that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__you_started_a_video_call_s">Pradėjote vaizdo skambutį · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name -->
+    <string name="MessageRecord__s_started_a_video_call">%1$s pradėjo vaizdo skambutį</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name and a placeholder for formatted time -->
+    <string name="MessageRecord__s_started_a_video_call_s">%1$s pradėjo vaizdo skambutį · %2$s</string>
 
     <string name="MessageRecord_you">Jūs</string>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call_s">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users, a placeholder for the number of users in the call, and a placeholder for formatted time -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call_s">
         <item quantity="one">%1$s, %2$s ir dar %3$d žmogus yra grupės skambutyje · %4$s</item>
         <item quantity="few">%1$s, %2$s ir dar %3$d žmonės yra grupės skambutyje · %4$s</item>
         <item quantity="many">%1$s, %2$s ir dar %3$d žmonių yra grupės skambutyje · %4$s</item>
         <item quantity="other">%1$s, %2$s ir dar %3$d žmogus yra grupės skambutyje · %4$s</item>
     </plurals>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users and a placeholder for the number of users in the call -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call">
         <item quantity="one">%1$s, %2$s ir dar %3$d žmogus yra grupės skambutyje</item>
         <item quantity="few">%1$s, %2$s ir dar %3$d žmonės yra grupės skambutyje</item>
         <item quantity="many">%1$s, %2$s ir dar %3$d žmonių yra grupės skambutyje</item>
@@ -2221,6 +2266,7 @@
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
     <string name="RegistrationActivity_unable_to_request_verification_code">Nepavyko paprašyti patvirtinimo kodo. Patikrink tinklo ryšį ir bandyk dar kartą.</string>
     <string name="RegistrationActivity_non_standard_number_format">Nestandartinis numerio formatas</string>
+    <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Atrodo, kad jūsų įvestas numeris (%1$s) yra nestandartinio formato.\n\nAr turėjote omenyje %2$s?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly „Android“ - Telefono numerio formatas</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
@@ -2367,7 +2413,7 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Šis žurnalas bus viešai paskelbtas internete talkininkams peržiūrėti. Prieš išsiųsdami, galite jį panagrinėti.</string>
 
     <!-- SupportEmailUtil -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@molly.im</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
     <string name="SupportEmailUtil_filter">Filtras:</string>
     <string name="SupportEmailUtil_device_info">Įrenginio informacija:</string>
     <string name="SupportEmailUtil_android_version">„Android“ versija:</string>
@@ -2883,6 +2929,8 @@
     <string name="ConversationUpdateItem_loading">Įkeliama</string>
     <string name="ConversationUpdateItem_learn_more">Sužinoti daugiau</string>
     <string name="ConversationUpdateItem_join_call">Prisijungti prie skambučio</string>
+    <!-- Action button label for starting a new call in the current conversation -->
+    <string name="ConversationUpdateItem_call_back">Atskambinti</string>
     <string name="ConversationUpdateItem_return_to_call">Grįžti į skambutį</string>
     <string name="ConversationUpdateItem_call_is_full">Skambutis yra pilnas</string>
     <string name="ConversationUpdateItem_invite_friends">Pakviesti draugus</string>
@@ -2947,6 +2995,7 @@
     <string name="safety_number_change_dialog__leave_call">Išeiti iš skambučio</string>
     <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">Gali būti, kad šie žmonės iš naujo įdiegė programėlę ar pakeitė įrenginį. Patvirtinkite savo saugumo numerį su kiekvienu iš jų, kad užtikrintumėte privatumą.</string>
     <string name="safety_number_change_dialog__view">Rodyti</string>
+    <!-- Subtitle shown for a single contact and that their safety number was previously verified and is now no longer verified. -->
     <string name="safety_number_change_dialog__previous_verified">Anksčiau patvirtinta(s)</string>
 
     <!-- EnableCallNotificationSettingsDialog__call_notifications_checklist -->
@@ -3274,6 +3323,7 @@
 
     <string name="arrays__default">Numatytoji</string>
     <string name="arrays__high">Aukšta</string>
+    <!-- Setting title that represent an abstract priority to assign to notifications as the max/highest priority a notification can be within the system. -->
     <string name="arrays__max">Maksimali</string>
 
     <!-- plurals.xml -->
@@ -3551,7 +3601,7 @@
     <string name="PaymentsHomeFragment__details">Išsamesnė informacija</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Naudojant „Signal“ galima siųsti ir gauti „Mobile Coin“. Visiems mokėjimams taikomos „Mobile Coin“ ir „Mobile Coin Wallet“ naudojimo sąlygos. Gali būti, kad susidursi su tam tikromis problemomis, ir mokėjimai ar likučiai, kuriuos galbūt prarasi, nebus atkurti. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Naudojant „Molly“ galima siųsti ir gauti „Mobile Coin“. Visiems mokėjimams taikomos „Mobile Coin“ ir „Mobile Coin Wallet“ naudojimo sąlygos. Gali būti, kad susidursi su tam tikromis problemomis, ir mokėjimai ar likučiai, kuriuos galbūt prarasi, nebus atkurti. </string>
     <string name="PaymentsHomeFragment__activate">Aktyvuoti</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Rodyti „MobileCoin“ sąlygas</string>
     <string name="PaymentsHomeFragment__payments_not_available">Mokėjimai Molly programėlėje daugiau nebeprieinami. Jūs vis dar galite pervesti lėšas į valiutos keitimo punktą, bet nebegalite siųsti ir gauti mokėjimų ar pridėti lėšų.</string>
@@ -3600,6 +3650,14 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">Siųsk nuotraukas, vaizdo įrašus ir failus iš savo įrenginio.</string>
 
+    <!-- PermissionDeniedBottomSheet -->
+    <!-- Sheet describing step 1 on how to give permissions by opening settings -->
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
+    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
     <string name="PaymentsSecuritySetupFragment__security_setup">Saugumo konfigūracija</string>
@@ -3640,6 +3698,7 @@
     <string name="PaymentsDetailsFragment__sent_to_s">Kam išsiųsta: %1$s</string>
     <string name="PaymentsDetailsFragment__you_on_s_at_s">Jūs ties %1$s, %2$s</string>
     <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s ties %2$s, %3$s</string>
+    <!-- Prefix to a name to indicate who a payment was sent to -->
     <string name="PaymentsDetailsFragment__to">Skirta</string>
     <string name="PaymentsDetailsFragment__from">Nuo</string>
     <string name="PaymentsDetailsFragment__information">Išsami operacijos informacija, įskaitant mokėjimo sumą ir operacijos laiką, yra „MobileCoin Ledger“ dalis.</string>
@@ -3702,6 +3761,7 @@
     <string name="ConfirmPayment__confirm_payment">Patvirtinti mokėjimą</string>
     <string name="ConfirmPayment__network_fee">Tinklo mokestis</string>
     <string name="ConfirmPayment__estimated_s">Apskaičiuota %1$s suma</string>
+    <!-- Prefix to a name to indicate who a payment will be sent to -->
     <string name="ConfirmPayment__to">Kam</string>
     <string name="ConfirmPayment__total_amount">Iš viso</string>
     <string name="ConfirmPayment__balance_s">Likutis: %1$s</string>
@@ -3855,6 +3915,14 @@
     <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">Pokalbis</string>
     <string name="conversation_group_options__broadcast">Transliavimas</string>
+
+    <!-- DoubleTapEditEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">Nauja grupė</string>
@@ -4324,6 +4392,7 @@
     <string name="RecipientBottomSheet_copied_to_clipboard">Nukopijuota į iškarpinę</string>
 
     <string name="GroupRecipientListItem_admin">Administratorius</string>
+    <!-- Button text to approve a user that has requested to join a group -->
     <string name="GroupRecipientListItem_approve_description">Patvirtinti</string>
     <string name="GroupRecipientListItem_deny_description">Atmesti</string>
 
@@ -4351,6 +4420,7 @@
 
     <!-- VoiceNoteMediaDescriptionCompatFactory -->
     <string name="VoiceNoteMediaItemFactory__voice_message">Balso žinutė · %1$s</string>
+    <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s naudotojui %2$s</string>
 
     <!-- StorageUtil -->
@@ -4364,8 +4434,20 @@
     <string name="ReviewCardDialogFragment__review_members">Peržiūrėti narius</string>
     <!-- Title of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <string name="ReviewCardDialogFragment__review_request">Peržiūrėti užklausą</string>
-    <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d grupės nariai(-ių) turi tokį patį vardą, peržiūrėkite žemiau esančius narius ir pasirinkite norėdami imtis veiksmų.</string>
-    <string name="ReviewCardDialogFragment__if_youre_not_sure">Jei nesate tikri, nuo ko yra gautas prašymas, peržiūrėkite žemiau esančius adresatus ir imkitės veiksmų.</string>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
+        <item quantity="one">%1$d group member have the same name, review the member below and choose to take action.</item>
+        <item quantity="few">%1$d group members have the same name, review the members below and choose to take action.</item>
+        <item quantity="many">%1$d group members have the same name, review the members below and choose to take action.</item>
+        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+    </plurals>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
+        <item quantity="one">If you\'re not sure who the request is from, review the contact below and take action.</item>
+        <item quantity="few">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+        <item quantity="many">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+    </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Nėra kitų bendrų grupių.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Nėra bendrų grupių.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
@@ -4400,11 +4482,24 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">Prisijungė %1$s</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">Prisijungė %1$s ir %2$s</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">Prisijungė %1$s, %2$s ir %3$s</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">Prisijungė %1$s, %2$s dar %3$d žmonės(-ių)</string>
+    <!-- Toast message shown in group call when 3 or more people join -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
+        <item quantity="one">%1$s, %2$s and %3$d other joined</item>
+        <item quantity="few">%1$s, %2$s and %3$d others joined</item>
+        <item quantity="many">%1$s, %2$s and %3$d others joined</item>
+        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+    </plurals>
+    <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s išėjo</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s ir %2$s išėjo</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s ir %3$s išėjo</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">%1$s, %2$s ir dar %3$d žmonės(-ių) išėjo</string>
+    <!-- Toast message shown in group call when 3 or more people leave -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
+        <item quantity="one">%1$s, %2$s and %3$d other left</item>
+        <item quantity="few">%1$s, %2$s and %3$d others left</item>
+        <item quantity="many">%1$s, %2$s and %3$d others left</item>
+        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+    </plurals>
 
     <string name="CallParticipant__you">Jūs</string>
     <string name="CallParticipant__you_on_another_device">Jūs (kitame įrenginyje)</string>
@@ -4778,10 +4873,17 @@
 
     <!-- PrivacySettingsFragment -->
     <string name="PrivacySettingsFragment__blocked">Užblokuotas</string>
-    <string name="PrivacySettingsFragment__d_contacts">%1$d adresatų</string>
+    <!-- Settings label that shows the number blocked contacts -->
+    <plurals name="PrivacySettingsFragment__d_contacts">
+        <item quantity="one">%1$d contact</item>
+        <item quantity="few">%1$d contacts</item>
+        <item quantity="many">%1$d contacts</item>
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
     <string name="PrivacySettingsFragment__messaging">Susirašinėjimas</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Išnykstančios žinutės</string>
     <string name="PrivacySettingsFragment__app_security">Programėlės saugumas</string>
+    <!-- This refers to the multi-tasking overview (recent apps) from the Android operating system.-->
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Blokuoti ekrano kopijas paskiausiųjų sąraše ir programėlėje</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Signal žinutės ir skambučiai, visada retransliuoti skambučius ir užantspauduotas siuntėjas</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Numatytasis laikmatis naujuose pokalbiuose</string>
@@ -4838,11 +4940,14 @@
     <string name="DataAndStorageSettingsFragment__media_quality">Medijos kokybė</string>
     <string name="DataAndStorageSettingsFragment__sent_media_quality">Siunčiamos medijos kokybė</string>
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Aukštos kokybės medijos siuntimas naudos daugiau tinklo duomenų.</string>
+    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
     <string name="DataAndStorageSettingsFragment__high">Aukšta</string>
+    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
     <string name="DataAndStorageSettingsFragment__standard">Standartinė</string>
     <string name="DataAndStorageSettingsFragment__calls">Skambučiai</string>
 
     <!-- ChatColorSelectionFragment -->
+    <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
     <string name="ChatColorSelectionFragment__auto">Auto</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">Naudoti tinkintas spalvas</string>
     <string name="ChatColorSelectionFragment__chat_color">Pokalbio spalva</string>
@@ -5060,6 +5165,7 @@
     <string name="AvatarPickerFragment__take_a_picture">Padaryti nuotrauką</string>
     <string name="AvatarPickerFragment__choose_a_photo">Pasirinkti nuotrauką</string>
     <string name="AvatarPickerFragment__photo">Nuotrauka</string>
+    <!-- Button label during avatar selection/creation that when tapped lets you generate an avatar from typed in text. -->
     <string name="AvatarPickerFragment__text">Tekstas</string>
     <string name="AvatarPickerFragment__save">Įrašyti</string>
     <string name="AvatarPickerFragment__clear_avatar">Išvalyti avatarą</string>
@@ -5128,7 +5234,7 @@
     <string name="MediaReviewFragment__add_a_message">Pridėti žinutę</string>
     <string name="MediaReviewFragment__add_a_reply">Pridėti atsakymą</string>
     <string name="MediaReviewFragment__send_to">Kam siųsti</string>
-    <string name="MediaReviewFragment__view_once_message">Vienkartinės peržiūros žinutė</string>
+    <string name="MediaReviewFragment__view_once_message">Medija, kurią galima peržiūrėti vieną kartą</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">Vienas ar daugiau elementų buvo per dideli</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">Vienas ar daugiau elementų buvo neteisingi</string>
     <string name="MediaReviewFragment__too_many_items_selected">Pažymėta per daug elementų</string>
@@ -5731,7 +5837,7 @@
     <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
     <!-- Displayed when viewing a post you sent -->
     <string name="StoryViewerPageFragment__you">Jūs</string>
-    <!-- Displayed when viewing a post displayed to a group -->
+    <!-- Displayed when viewing a story sent to a group, placeholders are person who sent the story and the group name -->
     <string name="StoryViewerPageFragment__s_to_s">Nuo %1$s iki %2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">Atsakyti</string>
@@ -6995,6 +7101,27 @@
     <string name="ViewNoteSheet__note">Pastaba</string>
     <!-- Content description for opening the note editor -->
     <string name="ViewNoteSheet__edit_note">Redaguoti pastabą</string>
+
+    <!-- BackupProgressService -->
+    <!-- Notification title shown while backup restore job is running -->
+    <string name="BackupProgressService_title">Atkuriama atsarginė kopija…</string>
+    <!-- Notification title shown while downloading backup restore data -->
+    <string name="BackupProgressService_title_downloading">Atsiunčiami atsarginės kopijos duomenys…</string>
+
+    <!-- BackupsTypeSettingsFragment -->
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+
 
     <!-- EOF -->
 </resources>

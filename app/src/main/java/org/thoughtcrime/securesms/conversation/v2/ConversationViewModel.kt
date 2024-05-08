@@ -290,6 +290,11 @@ class ConversationViewModel(
     refreshReminder.onNext(Unit)
   }
 
+  fun onDismissReview() {
+    val recipientId = recipientSnapshot?.id ?: return
+    repository.dismissRequestReviewState(recipientId)
+  }
+
   override fun onCleared() {
     disposables.clear()
     startExpiration.onComplete()

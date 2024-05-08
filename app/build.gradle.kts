@@ -9,7 +9,7 @@ plugins {
   id("app.cash.exhaustive")
   id("kotlin-parcelize")
   id("com.squareup.wire")
-  id("translations")
+  id("molly")
   id("licenses")
 }
 
@@ -19,8 +19,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1410
-val canonicalVersionName = "7.4.2"
+val canonicalVersionCode = 1416
+val canonicalVersionName = "7.6.2"
 val mollyRevision = 1
 
 val postFixSize = 100
@@ -177,7 +177,6 @@ android {
     buildConfigField("String", "SIGNAL_CDN3_URL", "\"https://cdn3.signal.org\"")
     buildConfigField("String", "SIGNAL_CDSI_URL", "\"https://cdsi.signal.org\"")
     buildConfigField("String", "SIGNAL_SERVICE_STATUS_URL", "\"uptime.signal.org\"")
-    buildConfigField("String", "SIGNAL_KEY_BACKUP_URL", "\"https://api.backup.signal.org\"")
     buildConfigField("String", "SIGNAL_SVR2_URL", "\"https://svr2.signal.org\"")
     buildConfigField("String", "SIGNAL_SFU_URL", "\"https://sfu.voip.signal.org\"")
     buildConfigField("String", "SIGNAL_STAGING_SFU_URL", "\"https://sfu.staging.voip.signal.org\"")
@@ -332,7 +331,6 @@ android {
       buildConfigField("String", "SIGNAL_CDN2_URL", "\"https://cdn2-staging.signal.org\"")
       buildConfigField("String", "SIGNAL_CDN3_URL", "\"https://cdn3-staging.signal.org\"")
       buildConfigField("String", "SIGNAL_CDSI_URL", "\"https://cdsi.staging.signal.org\"")
-      buildConfigField("String", "SIGNAL_KEY_BACKUP_URL", "\"https://api-staging.backup.signal.org\"")
       buildConfigField("String", "SIGNAL_SVR2_URL", "\"https://svr2.staging.signal.org\"")
       buildConfigField("String", "SVR2_MRENCLAVE", "\"acb1973aa0bbbd14b3b4e06f145497d948fd4a98efc500fcce363b3b743ec482\"")
       buildConfigField("String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BbqY1DzohE4NUZoVF+L18oUPrK3kILllLEJh2UnPSsEx\"")

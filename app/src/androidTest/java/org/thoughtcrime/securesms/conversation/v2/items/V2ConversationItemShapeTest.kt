@@ -324,5 +324,7 @@ class V2ConversationItemShapeTest {
     override fun onReportSpamLearnMoreClicked() = Unit
 
     override fun onMessageRequestAcceptOptionsClicked() = Unit
+
+    override fun onItemDoubleClick(item: MultiselectPart) = Unit
   }
 }

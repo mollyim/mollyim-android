@@ -15,6 +15,8 @@ data class ArchiveGetBackupInfoResponse(
   val cdn: Int?,
   @JsonProperty("backupDir")
   val backupDir: String?,
+  @JsonProperty("mediaDir")
+  val mediaDir: String?,
   @JsonProperty("backupName")
   val backupName: String?,
   @JsonProperty("usedSpace")
