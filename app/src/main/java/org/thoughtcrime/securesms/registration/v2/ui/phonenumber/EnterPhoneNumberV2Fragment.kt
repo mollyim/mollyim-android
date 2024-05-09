@@ -268,7 +268,8 @@ class EnterPhoneNumberV2Fragment : LoggingFragment(R.layout.fragment_registratio
       }
 
       PlayServicesUtil.PlayServicesStatus.DISABLED -> {
-        TODO()
+        // TODO: MOLLY
+        return false
       }
 
       PlayServicesUtil.PlayServicesStatus.MISSING -> {
