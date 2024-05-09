@@ -129,7 +129,7 @@ dependencyResolutionManagement {
 
       // Third Party
       library("greenrobot-eventbus", "org.greenrobot:eventbus:3.0.0")
-      library("jackson-core", "com.fasterxml.jackson.core:jackson-databind:2.13.5")
+      library("jackson-core", "com.fasterxml.jackson.core:jackson-databind:2.15.4")
       library("square-okhttp3", "com.squareup.okhttp3:okhttp:3.12.13")
       library("square-okhttp3-dnsoverhttps", "com.squareup.okhttp3:okhttp-dnsoverhttps:3.12.13")
       library("square-okio", "com.squareup.okio:okio:3.0.0")
