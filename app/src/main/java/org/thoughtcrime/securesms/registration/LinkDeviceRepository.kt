@@ -69,46 +69,44 @@ class LinkDeviceRepository(private val context: Application) {
     val deviceName: String? = progressImpl.deviceName
 
     return Single.fromCallable<ServiceResponse<LinkDeviceResponse>> {
-      try {
-        val ret = accountManager.getNewDeviceRegistration(tempIdentityKey)
+      val ret = accountManager.getNewDeviceRegistration(tempIdentityKey)
 
-        val universalUnidentifiedAccess: Boolean = TextSecurePreferences.isUniversalUnidentifiedAccess(context)
-        val unidentifiedAccessKey: ByteArray = UnidentifiedAccess.deriveAccessKeyFrom(registrationData.profileKey)
+      val universalUnidentifiedAccess: Boolean = TextSecurePreferences.isUniversalUnidentifiedAccess(context)
+      val unidentifiedAccessKey: ByteArray = UnidentifiedAccess.deriveAccessKeyFrom(registrationData.profileKey)
 
-        val registrationLock: String? = ret.masterKey?.deriveRegistrationLock()
-        val encryptedDeviceName = deviceName?.let { DeviceNameCipher.encryptDeviceName(it.toByteArray(), ret.aciIdentity) }
+      val registrationLock: String? = ret.masterKey?.deriveRegistrationLock()
+      val encryptedDeviceName = deviceName?.let { DeviceNameCipher.encryptDeviceName(it.toByteArray(), ret.aciIdentity) }
 
-        val notDiscoverable =  SignalStore.phoneNumberPrivacy().phoneNumberDiscoverabilityMode == PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE
+      val notDiscoverable =  SignalStore.phoneNumberPrivacy().phoneNumberDiscoverabilityMode == PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE
 
-        val accountAttributes = AccountAttributes(
-          signalingKey = null,
-          registrationId = registrationData.registrationId,
-          fetchesMessages = registrationData.isNotFcm,
-          registrationLock = registrationLock,
-          unidentifiedAccessKey = unidentifiedAccessKey,
-          unrestrictedUnidentifiedAccess = universalUnidentifiedAccess,
-          capabilities = AppCapabilities.getCapabilities(true),
-          discoverableByPhoneNumber = !notDiscoverable,
-          name = encryptedDeviceName?.let { Base64.encodeWithPadding(it) },
-          pniRegistrationId = registrationData.pniRegistrationId,
-          recoveryPassword = registrationData.recoveryPassword
-        )
+      val accountAttributes = AccountAttributes(
+        signalingKey = null,
+        registrationId = registrationData.registrationId,
+        fetchesMessages = registrationData.isNotFcm,
+        registrationLock = registrationLock,
+        unidentifiedAccessKey = unidentifiedAccessKey,
+        unrestrictedUnidentifiedAccess = universalUnidentifiedAccess,
+        capabilities = AppCapabilities.getCapabilities(true),
+        discoverableByPhoneNumber = !notDiscoverable,
+        name = encryptedDeviceName?.let { Base64.encodeWithPadding(it) },
+        pniRegistrationId = registrationData.pniRegistrationId,
+        recoveryPassword = registrationData.recoveryPassword
+      )
 
-        val aciPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.aciIdentity, SignalStore.account().aciPreKeys)
-        val pniPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.pniIdentity, SignalStore.account().pniPreKeys)
+      val aciPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.aciIdentity, SignalStore.account().aciPreKeys)
+      val pniPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.pniIdentity, SignalStore.account().pniPreKeys)
 
-        val deviceId = accountManager.finishNewDeviceRegistration(
-          ret.provisioningCode,
-          accountAttributes,
-          aciPreKeyCollection, pniPreKeyCollection,
-          registrationData.fcmToken
-        )
+      val deviceId = accountManager.finishNewDeviceRegistration(
+        ret.provisioningCode,
+        accountAttributes,
+        aciPreKeyCollection, pniPreKeyCollection,
+        registrationData.fcmToken
+      )
 
-        ServiceResponse.forResult(LinkDeviceResponse(deviceName, ret, deviceId, aciPreKeyCollection, pniPreKeyCollection), 200, null)
-      } catch (e: IOException) {
-        ServiceResponse.forExecutionError(e)
-      }
-    }.subscribeOn(Schedulers.io()).map(::LinkDeviceResponseProcessor)
+      ServiceResponse.forResult(LinkDeviceResponse(deviceName, ret, deviceId, aciPreKeyCollection, pniPreKeyCollection), 200, null)
+    }.subscribeOn(Schedulers.io())
+      .onErrorReturn { t -> ServiceResponse.forExecutionError(t) }
+      .map(::LinkDeviceResponseProcessor)
   }
 
   companion object {

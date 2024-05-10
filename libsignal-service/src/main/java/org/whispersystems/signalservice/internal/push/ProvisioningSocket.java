@@ -2,8 +2,11 @@ package org.whispersystems.signalservice.internal.push;
 
 import okio.ByteString;
 
+import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.IdentityKeyPair;
 import org.signal.libsignal.protocol.InvalidKeyException;
+import org.whispersystems.signalservice.api.util.SleepTimer;
+import org.whispersystems.signalservice.api.util.UptimeSleepTimer;
 import org.whispersystems.signalservice.api.websocket.HealthMonitor;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 import org.whispersystems.signalservice.internal.crypto.PrimaryProvisioningCipher;
@@ -16,6 +19,8 @@ import java.util.Optional;
 import java.util.concurrent.TimeoutException;
 
 public class ProvisioningSocket {
+
+  private static final String TAG = Log.tag(ProvisioningSocket.class);
 
   private final WebSocketConnection connection;
 
@@ -54,20 +59,34 @@ public class ProvisioningSocket {
     if (!connected) {
       throw new IllegalStateException("No UUID requested yet!");
     }
-    ByteString bytes = readRequest();
-    connection.disconnect();
-    connected = false;
-    ProvisionMessage msg;
+    final Thread keepAliveThread = new Thread(() -> {
+      try {
+        while (connected) {
+          connection.sendKeepAlive();
+          //noinspection BusyWait
+          Thread.sleep(5_000);
+        }
+      } catch (InterruptedException | IOException ignored) {}
+    });
+    keepAliveThread.start();
     try {
-      msg = new PrimaryProvisioningCipher(null).decrypt(tempIdentity, bytes.toByteArray());
-    } catch (InvalidKeyException e) {
-      throw new AssertionError(e);
+      ByteString bytes = readRequest();
+      ProvisionMessage msg;
+      try {
+        msg = new PrimaryProvisioningCipher(null).decrypt(tempIdentity, bytes.toByteArray());
+      } catch (InvalidKeyException e) {
+        throw new AssertionError(e);
+      }
+      return msg;
+    } finally {
+      connection.disconnect();
+      connected = false;
+      keepAliveThread.interrupt();
     }
-    return msg;
   }
 
   private ByteString readRequest() throws TimeoutException, IOException {
-    WebSocketRequestMessage response = connection.readRequest(100000);
+    WebSocketRequestMessage response = connection.readRequest(500_000);
     return response.body;
   }
 }
