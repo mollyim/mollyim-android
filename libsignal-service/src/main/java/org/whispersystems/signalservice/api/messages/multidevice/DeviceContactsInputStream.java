@@ -106,7 +106,9 @@ public class DeviceContactsInputStream extends ChunkedInputStream {
       inboxPosition = Optional.of(details.inboxPosition);
     }
 
-    archived = details.archived;
+    if (details.archived != null) {
+      archived = details.archived;
+    }
 
     return new DeviceContact(aci, e164, name, avatar, color, verified, profileKey, expireTimer, inboxPosition, archived);
   }
