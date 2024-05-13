@@ -47,7 +47,6 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val COUNTRY_CODE_IRAN = 98
     private const val COUNTRY_CODE_CUBA = 53
     private const val COUNTRY_CODE_UZBEKISTAN = 998
-    private const val COUNTRY_CODE_UKRAINE = 380
 
     private const val G_HOST = "reflector-nrgwuv7kwq-uc.a.run.app"
     private const val F_SERVICE_HOST = "chat-signal.global.ssl.fastly.net"
@@ -73,7 +72,6 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val HTTPS_WWW_GOOGLE_COM_OM = "https://www.google.com.om"
     private const val HTTPS_WWW_GOOGLE_COM_QA = "https://www.google.com.qa"
     private const val HTTPS_WWW_GOOGLE_CO_UZ = "https://www.google.co.uz"
-    private const val HTTPS_WWW_GOOGLE_COM_UA = "https://www.google.com.ua"
 
     @JvmField
     val HOSTNAMES = setOf(
@@ -81,6 +79,7 @@ open class SignalServiceNetworkAccess(context: Context) {
       BuildConfig.STORAGE_URL.stripProtocol(),
       BuildConfig.SIGNAL_CDN_URL.stripProtocol(),
       BuildConfig.SIGNAL_CDN2_URL.stripProtocol(),
+      BuildConfig.SIGNAL_CDN3_URL.stripProtocol(),
       BuildConfig.SIGNAL_CDSI_URL.stripProtocol(),
       BuildConfig.SIGNAL_SFU_URL.stripProtocol(),
       BuildConfig.SIGNAL_STAGING_SFU_URL.stripProtocol(),
@@ -110,7 +109,6 @@ open class SignalServiceNetworkAccess(context: Context) {
       HTTPS_WWW_GOOGLE_COM_OM.stripProtocol(),
       HTTPS_WWW_GOOGLE_COM_QA.stripProtocol(),
       HTTPS_WWW_GOOGLE_CO_UZ.stripProtocol(),
-      HTTPS_WWW_GOOGLE_COM_UA.stripProtocol(),
     )
 
     private val GMAPS_CONNECTION_SPEC = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
@@ -242,9 +240,6 @@ open class SignalServiceNetworkAccess(context: Context) {
     ),
     COUNTRY_CODE_UZBEKISTAN to buildGConfiguration(
       listOf(HostConfig(HTTPS_WWW_GOOGLE_CO_UZ, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
-    ),
-    COUNTRY_CODE_UKRAINE to buildGConfiguration(
-      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_UA, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_IRAN to fConfig,
     COUNTRY_CODE_CUBA to fConfig

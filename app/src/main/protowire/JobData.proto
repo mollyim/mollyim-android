@@ -47,3 +47,12 @@ message AttachmentUploadJobData {
 message PreKeysSyncJobData {
   bool forceRefreshRequested = 1;
 }
+
+message ArchiveAttachmentJobData {
+  uint64 attachmentId = 1;
+}
+
+message ArchiveAttachmentBackfillJobData {
+  optional uint64 attachmentId = 1;
+  ResumableUpload uploadSpec = 2;
+}

@@ -16,7 +16,6 @@ import org.signal.libsignal.protocol.ecc.Curve;
 import org.signal.libsignal.protocol.ecc.ECPrivateKey;
 import org.signal.libsignal.protocol.ecc.ECPublicKey;
 import org.signal.libsignal.protocol.logging.Log;
-import org.signal.libsignal.protocol.state.SignedPreKeyRecord;
 import org.signal.libsignal.protocol.util.ByteUtil;
 import org.signal.libsignal.usernames.BaseUsernameException;
 import org.signal.libsignal.usernames.Username;
@@ -52,6 +51,7 @@ import org.whispersystems.signalservice.api.push.exceptions.NoContentException;
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
 import org.whispersystems.signalservice.api.push.exceptions.NotFoundException;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
+import org.whispersystems.signalservice.api.registration.RegistrationApi;
 import org.whispersystems.signalservice.api.services.CdsiV2Service;
 import org.whispersystems.signalservice.api.storage.SignalStorageCipher;
 import org.whispersystems.signalservice.api.storage.SignalStorageManifest;
@@ -93,6 +93,7 @@ import org.whispersystems.signalservice.internal.util.StaticCredentialsProvider;
 import org.whispersystems.signalservice.internal.util.Util;
 import org.whispersystems.signalservice.internal.websocket.DefaultResponseMapper;
 import org.signal.core.util.Base64;
+import org.whispersystems.signalservice.internal.websocket.LibSignalNetwork;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -227,7 +228,7 @@ public class SignalServiceAccountManager {
 
   public ServiceResponse<RegistrationSessionMetadataResponse> createRegistrationSession(@Nullable String fcmToken, @Nullable String mcc, @Nullable String mnc) {
     try {
-      final RegistrationSessionMetadataResponse response =  pushServiceSocket.createVerificationSession(fcmToken, mcc, mnc);
+      final RegistrationSessionMetadataResponse response = pushServiceSocket.createVerificationSession(fcmToken, mcc, mnc);
       return ServiceResponse.forResult(response, 200, null);
     } catch (IOException e) {
       return ServiceResponse.forUnknownError(e);
@@ -319,6 +320,10 @@ public class SignalServiceAccountManager {
     }
   }
 
+  public @Nonnull VerifyAccountResponse registerAccountV2(@Nullable String sessionId, @Nullable String recoveryPassword, AccountAttributes attributes, PreKeyCollection aciPreKeys, PreKeyCollection pniPreKeys, String fcmToken, boolean skipDeviceTransfer) throws IOException {
+    return pushServiceSocket.submitRegistrationRequest(sessionId, recoveryPassword, attributes, aciPreKeys, pniPreKeys, fcmToken, skipDeviceTransfer);
+  }
+
   public @Nonnull ServiceResponse<VerifyAccountResponse> changeNumber(@Nonnull ChangePhoneNumberRequest changePhoneNumberRequest) {
     try {
       VerifyAccountResponse response = this.pushServiceSocket.changeNumber(changePhoneNumberRequest);
@@ -384,7 +389,7 @@ public class SignalServiceAccountManager {
                                                            Optional<byte[]> token,
                                                            String mrEnclave,
                                                            Long timeoutMs,
-                                                           @Nullable Network libsignalNetwork,
+                                                           @Nullable LibSignalNetwork libsignalNetwork,
                                                            Consumer<byte[]> tokenSaver)
       throws IOException
   {
@@ -1049,6 +1054,10 @@ public class SignalServiceAccountManager {
 
   public KeysApi getKeysApi() {
     return KeysApi.create(pushServiceSocket);
+  }
+
+  public RegistrationApi getRegistrationApi() {
+    return new RegistrationApi(pushServiceSocket);
   }
 
   public AuthCredentials getPaymentsAuthorization() throws IOException {

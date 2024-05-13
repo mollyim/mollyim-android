@@ -15,7 +15,7 @@ dependencyResolutionManagement {
       version("exoplayer", "2.19.0")
       version("glide", "4.15.1")
       version("kotlin", "1.8.10")
-      version("libsignal-client", "0.44.0")
+      version("libsignal-client", "0.45.1")
       version("mp4parser", "1.9.39")
       version("android-gradle-plugin", "8.0.2")
       version("accompanist", "0.28.0")
@@ -118,7 +118,7 @@ dependencyResolutionManagement {
       library("libsignal-client", "org.signal", "libsignal-client").versionRef("libsignal-client")
       library("libsignal-android", "org.signal", "libsignal-android").versionRef("libsignal-client")
       library("signal-aesgcmprovider", "org.signal:aesgcmprovider:0.0.3")
-      library("molly-ringrtc", "im.molly:ringrtc-android:2.39.3-1")
+      library("molly-ringrtc", "im.molly:ringrtc-android:2.41.0-1")
       library("signal-android-database-sqlcipher", "org.signal:sqlcipher-android:4.5.4-S2")
 
       // MOLLY
@@ -129,7 +129,7 @@ dependencyResolutionManagement {
 
       // Third Party
       library("greenrobot-eventbus", "org.greenrobot:eventbus:3.0.0")
-      library("jackson-core", "com.fasterxml.jackson.core:jackson-databind:2.13.5")
+      library("jackson-core", "com.fasterxml.jackson.core:jackson-databind:2.15.4")
       library("square-okhttp3", "com.squareup.okhttp3:okhttp:3.12.13")
       library("square-okhttp3-dnsoverhttps", "com.squareup.okhttp3:okhttp-dnsoverhttps:3.12.13")
       library("square-okio", "com.squareup.okio:okio:3.0.0")

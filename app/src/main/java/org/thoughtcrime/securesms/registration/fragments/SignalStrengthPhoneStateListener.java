@@ -1,3 +1,8 @@
+/*
+ * Copyright 2024 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 package org.thoughtcrime.securesms.registration.fragments;
 
 import android.content.Context;
@@ -13,7 +18,8 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.util.Debouncer;
 
-final class SignalStrengthPhoneStateListener extends PhoneStateListener
+// TODO [nicholas]: move to v2 package and make package-private. convert to Kotlin
+public final class SignalStrengthPhoneStateListener extends PhoneStateListener
                                              implements DefaultLifecycleObserver
 {
   private static final String TAG = Log.tag(SignalStrengthPhoneStateListener.class);
@@ -21,7 +27,8 @@ final class SignalStrengthPhoneStateListener extends PhoneStateListener
   private final Callback  callback;
   private final Debouncer debouncer = new Debouncer(1000);
 
-  SignalStrengthPhoneStateListener(@NonNull LifecycleOwner lifecycleOwner, @NonNull Callback callback) {
+  @SuppressWarnings("deprecation")
+  public SignalStrengthPhoneStateListener(@NonNull LifecycleOwner lifecycleOwner, @NonNull Callback callback) {
     this.callback = callback;
 
     lifecycleOwner.getLifecycle().addObserver(this);
@@ -45,7 +52,7 @@ final class SignalStrengthPhoneStateListener extends PhoneStateListener
     return signalStrength.getLevel() == 0;
   }
 
-  interface Callback {
+  public interface Callback {
     void onNoCellSignalPresent();
 
     void onCellSignalPresent();

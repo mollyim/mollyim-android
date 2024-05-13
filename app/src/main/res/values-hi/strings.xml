@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -89,6 +87,16 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">फ़ोटो, वीडियो या ऑडियो संलग्न करने के लिए Molly को संग्रहण अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"संग्रहण\" सक्षम करें।</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">संपर्क जानकारी संलग्न करने के लिए Molly को संपर्क अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"संपर्क\" सक्षम करें।</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">किसी स्थान को संलग्न करने के लिए Molly को स्थान अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"स्थान\" सक्षम करें।</string>
+
+    <!-- Dialog title asking users for location permission -->
+    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <!-- Dialog description that will explain the steps needed to give location permission -->
+    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <!-- Alert dialog description asking for location permission -->
+    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <!-- Toast text explaining Signal\'s need for location access -->
+    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s ने भुगतान सक्रीय नहीं किए हैं </string>
     <!-- Alert dialog description to send the recipient a request to activate payments -->
@@ -241,7 +249,7 @@
     <string name="ClientDeprecatedActivity_update">अपडेट</string>
     <string name="ClientDeprecatedActivity_dont_update">अपडेट न करें</string>
     <string name="ClientDeprecatedActivity_warning">चेतावनी</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Signal के आपके वर्ज़न की समय सीमा समाप्त हो गई है। आप अपना मेसेज इतिहास देख सकते हैं लेकिन जब तक आप अपडेट नहीं करते तब तक आप मेसेज भेज या प्राप्त नहीं कर पाएंगे।</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Molly के आपके वर्ज़न की समय सीमा समाप्त हो गई है। आप अपना मेसेज इतिहास देख सकते हैं लेकिन जब तक आप अपडेट नहीं करते तब तक आप मेसेज भेज या प्राप्त नहीं कर पाएंगे।</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">कोई वेब ब्राउजर नहीं मिला।</string>
@@ -386,8 +394,16 @@
     <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">समूह से जुड़ने का आपका अनुरोध समूह संचालक को भेज दिया गया है। जब वे जवाब देंगे तो आपको सूचित किया जाएगा।</string>
     <string name="ConversationActivity_cancel_request">निवेदन रद्द करें</string>
 
-    <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ऑडियो मेसेज भेजने के लिए, अपने माइक्रोफ़ोन पर Molly पहुंच की अनुमति दें।</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
     <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ऑडियो मेसेज को भेजने के लिए Molly को माइक्रोफ़ोन अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफ़ोन\" सक्षम करें।</string>
+
     <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%1$s को कॉल करने के लिए Molly को माइक्रोफ़ोन और कैमरा अनुमतियों की आवश्यकता होती है, लेकिन उन्हें स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफ़ोन\" और \"कैमरा\" सक्षम करें।</string>
     <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">फोटो और वीडियो कैप्चर करने के लिए, कैमरे को Molly पहुंच की अनुमति दें।</string>
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly को फ़ोटो या वीडियो लेने के लिए कैमरा अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"कैमरा\" सक्षम करें।</string>
@@ -411,10 +427,17 @@
     <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">आप इस ग्रूप को छोङ देंगे और यह ग्रूप आपके सभी डिवाइस से डिलीट कर दिया जाएगा।</string>
     <string name="ConversationActivity_delete">डिलीट करें</string>
     <string name="ConversationActivity_delete_and_leave">डिलीट करें और छोड़ दें</string>
-    <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$s को कॉल करने के लिए, Molly को आपके माइक्रोफ़ोन तक पहुंच की आवश्यकता है।</string>
+
+    <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
+    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
 
 
     <string name="ConversationActivity_join">जुड़ें</string>
+    <!-- Button text for an active group call but the call is currently full and unjoinable -->
     <string name="ConversationActivity_full">पूर्ण</string>
 
     <string name="ConversationActivity_error_sending_media">मीडिया भेजने में त्रुटि</string>
@@ -613,6 +636,7 @@
     <string name="ConversationListFragment_unarchive">अनारक्षित करें</string>
     <string name="ConversationListFragment_delete">डिलीट करें</string>
     <string name="ConversationListFragment_select_all">सभी को चुन लो</string>
+    <!-- Screen title shown when selecting multiple items from a list like conversation threads or call logs. -->
     <plurals name="ConversationListFragment_s_selected">
         <item quantity="one">%1$d चुना हुआ</item>
         <item quantity="other">%1$d चुना हुआ</item>
@@ -864,6 +888,7 @@
         <item quantity="one">आमंत्रण भेजा गया</item>
         <item quantity="other">%1$d आमंत्रण भेजे गए</item>
     </plurals>
+    <!-- Dialog message shown when you are attempting to add a single contact to a group and you don\'t have enough information about them to do it automatically, so must do it via an invite instead. Placeholder is name/username/phone number. -->
     <string name="GroupManagement_invite_single_user">“%1$s” को आपके द्वारा स्वचालित रूप से इस ग्रुप में शामिल नहीं किया जा सकता।\n\nउन्हें जुड़ने के लिए आमंत्रित किया गया है, और उन्हें ग्रुप के कोई भी मेसेज दिखाई नहीं देंगे जब तक वे स्वीकार नहीं कर लेते।</string>
     <string name="GroupManagement_invite_multiple_users">इन उपयोगकर्ताओं को आपके द्वारा स्वचालित रूप से इस ग्रुप में शामिल नहीं किया जा सकता।\n\nउनको ग्रुप में जुड़ने के लिए आमंत्रित किया गया है, जब तक वे आमंत्रण स्वीकार नहीं कर लेते, ग्रुप के संदेश नहीं देख सकते।</string>
 
@@ -1044,7 +1069,9 @@
 
     <string name="ManageGroupActivity_edit_name_and_picture">नाम और चित्र संपादित करें</string>
     <string name="ManageGroupActivity_legacy_group">लेगेसी ग्रुप</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code -->
     <string name="ManageGroupActivity_legacy_group_learn_more">यह एक लेगेसी ग्रुप है। फ़ीचर्स जैसे कि ग्रुप एडमिन केवल नए ग्रुप्स के लिए उपलब्ध हैं।</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code to the end of the string -->
     <string name="ManageGroupActivity_legacy_group_upgrade">यह एक लेगेसी ग्रुप है। नए फ़ीचर्स जैसे कि @mentions और एडमिन तक पहुँच प्राप्त करने के लिए,</string>
     <string name="ManageGroupActivity_legacy_group_too_large">इस लेगेसी ग्रुप को एक नए ग्रुप में अपग्रेड नहीं किया जा सकता क्योंकि यह बहुत बड़ा है। अधिकतम ग्रुप साइज़ है %1$d।</string>
     <string name="ManageGroupActivity_upgrade_this_group">इस समूह को अपग्रेड करें।</string>
@@ -1271,6 +1298,7 @@
         <item quantity="other">डिलीट करें</item>
     </plurals>
 
+    <!-- Screen title shown when selecting multiple items in the media overview screen. The first placeholder is the number of items, the second number is the cumulative file size in bytes. -->
     <plurals name="MediaOverviewActivity_d_selected_s">
         <item quantity="one">%1$d चुना हुआ (%2$s)</item>
         <item quantity="other">%1$d चुना हुआ (%2$s)</item>
@@ -1335,17 +1363,13 @@
     <string name="MessageRecord_left_group">आपने समूह छोड़ दिया है</string>
     <string name="MessageRecord_you_updated_group">आपने समूह को अपडेट किया है।</string>
     <string name="MessageRecord_the_group_was_updated">ग्रुप को अपडेट किया गया था।</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 voice/audio call -->
     <string name="MessageRecord_outgoing_voice_call">आउटगोइंग वॉयस कॉल</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 video call -->
     <string name="MessageRecord_outgoing_video_call">आउटगोइंग वीडियो कॉल</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_voice_call">अनुत्तरित वॉयस कॉल</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_video_call">अनुत्तरित वीडियो कॉल</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered -->
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered or ringing -->
     <string name="MessageRecord_incoming_voice_call">इनकमिंग वॉयस कॉल</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and answered -->
+    <!-- Update message shown when receiving an incoming 1:1 video call and answered or ringing -->
     <string name="MessageRecord_incoming_video_call">इनकमिंग वीडियो कॉल</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
     <string name="MessageRecord_missed_voice_call">छूटी हुई वॉयस कॉल</string>
@@ -1355,10 +1379,6 @@
     <string name="MessageRecord_missed_voice_call_notification_profile">नोटिफ़िकेशन प्रोफ़ाइल चालू होने पर वॉयस कॉल छूट गई</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
     <string name="MessageRecord_missed_video_call_notification_profile">नोटिफ़िकेशन प्रोफ़ाइल चालू होने पर वीडियो कॉल छूट गई</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_voice_call">आपने एक वॉयस कॉल काट दी</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_video_call">आपने एक वीडियो कॉल काट दी</string>
     <!-- Call update formatter string to place the update message next to a time stamp. e.g., \'Incoming voice call · 11:11am\' -->
     <string name="MessageRecord_call_message_with_date">%1$s · %2$s</string>
     <string name="MessageRecord_s_updated_group">%1$s ने समूह को अद्यतन किया</string>
@@ -1567,28 +1587,53 @@
     <string name="MessageRecord_can_accept_payments">%1$s अब भुगतान स्वीकार कर सकते हैं</string>
 
     <!-- Group Calling update messages -->
-    <string name="MessageRecord_s_started_a_group_call_s">%1$s ने एक ग्रुप कॉल शुरू की · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">आपने एक ग्रुप कॉल शुरू की · %1$s</string>
-    <string name="MessageRecord_s_is_in_the_group_call_s">%1$s ग्रुप कॉल में है · %2$s</string>
-    <string name="MessageRecord_you_are_in_the_group_call_s1">आप ग्रुप कॉल में हैं · %1$s</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s और %2$s ग्रुप कॉल में हैं · %3$s</string>
-    <string name="MessageRecord_group_call_s">ग्रुप कॉल · %1$s</string>
-
-    <string name="MessageRecord_s_started_a_group_call">%1$s ने एक ग्रुप कॉल शुरू की</string>
-    <string name="MessageRecord_you_started_a_group_call">आपने एक ग्रुप कॉल शुरू की</string>
-    <string name="MessageRecord_s_is_in_the_group_call">%1$s ग्रुप कॉल में है</string>
-    <string name="MessageRecord_you_are_in_the_group_call">आप ग्रुप कॉल मे हैं</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s और %2$s ग्रुप कॉल में हैं</string>
-    <string name="MessageRecord_group_call">ग्रुप कॉल</string>
+    <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_is_in_the_call_s">%1$s कॉल में है · %2$s</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
+    <string name="MessageRecord_you_are_in_the_call_s1">आप कॉल में हैं · %1$s</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s और %2$s कॉल में हैं · %3$s</string>
+    <!-- Chat log text for an ongoing group call that has one participant -->
+    <string name="MessageRecord_s_is_in_the_call">%1$s कॉल में है</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined -->
+    <string name="MessageRecord_you_are_in_the_call">आप कॉल में हैं</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
+    <string name="MessageRecord_s_and_s_are_in_the_call">%1$s और %2$s कॉल में हैं</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes -->
+    <string name="MessageRecord__the_video_call_has_ended">वीडियो कॉल समाप्त हो गया है</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes with a placeholder for formatted time -->
+    <string name="MessageRecord__the_video_call_has_ended_s">वीडियो कॉल समाप्त हो गया है · %1$s</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed -->
+    <string name="MessageRecord__missed_video_call">छूटी हुई वीडियो कॉल</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed with a placeholder for formatted time -->
+    <string name="MessageRecord__missed_video_call_s">मिस हुई वीडियो कॉल · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user did not start -->
+    <string name="MessageRecord__incoming_video_call">इनकमिंग वीडियो कॉल</string>
+    <!-- Chat log text for a group call that ended that the local user did not start with a placeholder for formatted time -->
+    <string name="MessageRecord__incoming_video_call_s">इनकमिंग वीडियो कॉल %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user started -->
+    <string name="MessageRecord__outgoing_video_call">आउटगोइंग वीडियो कॉल</string>
+    <!-- Chat log text for a group call that ended that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__outgoing_video_call_s">आउटगोइंग वीडियो कॉल %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user started -->
+    <string name="MessageRecord__you_started_a_video_call">आपने वीडियो कॉल शुरू किया</string>
+    <!-- Chat log text for an ongoing group call that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__you_started_a_video_call_s">आपने वीडियो कॉल शुरू किया %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name -->
+    <string name="MessageRecord__s_started_a_video_call">%1$s ने वीडियो कॉल शुरू किया</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name and a placeholder for formatted time -->
+    <string name="MessageRecord__s_started_a_video_call_s">%1$s ने वीडियो कॉल शुरू किया · %2$s</string>
 
     <string name="MessageRecord_you">आप</string>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call_s">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users, a placeholder for the number of users in the call, and a placeholder for formatted time -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call_s">
         <item quantity="one">%1$s, %2$s, और %3$d अन्य लोग ग्रुप कॉल में हैं · %4$s</item>
         <item quantity="other">%1$s, %2$s, और %3$d अन्य लोग ग्रुप कॉल में हैं · %4$s</item>
     </plurals>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users and a placeholder for the number of users in the call -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call">
         <item quantity="one">%1$s, %2$s, और %3$d अन्य लोग ग्रुप कॉल में हैं</item>
         <item quantity="other">%1$s, %2$s, और %3$d अन्य लोग ग्रुप कॉल में हैं</item>
     </plurals>
@@ -2063,6 +2108,7 @@
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
     <string name="RegistrationActivity_unable_to_request_verification_code">सत्यापन कोड का अनुरोध करने में असमर्थ। कृपया नेटवर्क जाँचें और फिर से प्रयास करें।</string>
     <string name="RegistrationActivity_non_standard_number_format">नॉन-स्टैंडर्ड नंबर फ़ॉर्मैट</string>
+    <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">आपके ज़रिए दर्ज किया गया नंबर (%1$s) एक नॉन-स्टैंडर्ड फ़ॉर्मैट लगता है.\n\nक्या आपका मतलब %2$s था?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly एंड्रॉइड - फोन नंबर का फ़ॉर्मेट</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
@@ -2207,7 +2253,7 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">योगदानकर्ताओं को देखने के लिए यह लॉग सार्वजनिक रूप से ऑनलाइन पोस्ट किया जाएगा। अपलोड करने से पहले आप इसकी जांच कर सकते हैं।</string>
 
     <!-- SupportEmailUtil -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@molly.im</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
     <string name="SupportEmailUtil_filter">फिल्टर:</string>
     <string name="SupportEmailUtil_device_info">डिवाइस की जानकारी:</string>
     <string name="SupportEmailUtil_android_version">Android वर्ज़न:</string>
@@ -2709,6 +2755,8 @@
     <string name="ConversationUpdateItem_loading">लोड हो रहा है</string>
     <string name="ConversationUpdateItem_learn_more">अधिक जानें</string>
     <string name="ConversationUpdateItem_join_call">कॉल से जुड़ें</string>
+    <!-- Action button label for starting a new call in the current conversation -->
+    <string name="ConversationUpdateItem_call_back">वापस कॉल करें</string>
     <string name="ConversationUpdateItem_return_to_call">कॉल पर वापस जाएँ</string>
     <string name="ConversationUpdateItem_call_is_full">कॉल पूर्ण है</string>
     <string name="ConversationUpdateItem_invite_friends">मित्रों को आमंत्रित करें</string>
@@ -2773,6 +2821,7 @@
     <string name="safety_number_change_dialog__leave_call">कॉल छोड़ें</string>
     <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">हो सकता है कि निम्नलिखित लोगों ने रीइंस्टॉल किया हो या डिवाइसेस को बदल लिया हो। गोपनीयता को सुनिश्चित करने के लिए उनके साथ अपने सुरक्षा नंबर को वेरिफाई करें।</string>
     <string name="safety_number_change_dialog__view">देखना</string>
+    <!-- Subtitle shown for a single contact and that their safety number was previously verified and is now no longer verified. -->
     <string name="safety_number_change_dialog__previous_verified">पहले से वेरिफाई किया हुआ</string>
 
     <!-- EnableCallNotificationSettingsDialog__call_notifications_checklist -->
@@ -3086,6 +3135,7 @@
 
     <string name="arrays__default">डिफ़ॉल्ट</string>
     <string name="arrays__high">उच्च</string>
+    <!-- Setting title that represent an abstract priority to assign to notifications as the max/highest priority a notification can be within the system. -->
     <string name="arrays__max">अधिकतम</string>
 
     <!-- plurals.xml -->
@@ -3357,7 +3407,7 @@
     <string name="PaymentsHomeFragment__details">माहिती</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">आप मोबाइलकॉइन भेजने और प्राप्त करने के लिए Signal इस्तेमाल कर सकते हैं। सभी भुगतान मोबाइलकॉइन्स और मोबाइलकॉइन वॉलेट के उपयोग की शर्तों के अधीन हैं। आपको कुछ समस्याएँ आ सकती हैं और जो भुगतान या बैलेंस आप खोते हैं उन्हें रिकवर नहीं किया जा सकता। </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">आप मोबाइलकॉइन भेजने और प्राप्त करने के लिए Molly इस्तेमाल कर सकते हैं। सभी भुगतान मोबाइलकॉइन्स और मोबाइलकॉइन वॉलेट के उपयोग की शर्तों के अधीन हैं। आपको कुछ समस्याएँ आ सकती हैं और जो भुगतान या बैलेंस आप खोते हैं उन्हें रिकवर नहीं किया जा सकता। </string>
     <string name="PaymentsHomeFragment__activate">सक्रिय करें</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin शर्तें देखें</string>
     <string name="PaymentsHomeFragment__payments_not_available">Molly में भुगतान अब उपलब्ध नहीं है। अब भी आप किसी एक्सचेंज में धनराशि ट्रांसफ़र कर सकते हैं लेकिन अब आप भुगतान भेज या प्राप्त नहीं कर सकते या धनराशि नहीं जोड़ सकते।</string>
@@ -3406,6 +3456,14 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">अपनी डिवाइस से फोटो, वीडियो और फाइलें भेजें।</string>
 
+    <!-- PermissionDeniedBottomSheet -->
+    <!-- Sheet describing step 1 on how to give permissions by opening settings -->
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
+    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
     <string name="PaymentsSecuritySetupFragment__security_setup">सुरक्षा सेटअप</string>
@@ -3446,6 +3504,7 @@
     <string name="PaymentsDetailsFragment__sent_to_s">%1$s को भेजा गया</string>
     <string name="PaymentsDetailsFragment__you_on_s_at_s">आपने %1$s को %2$s पर</string>
     <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s %2$s को %3$s पर</string>
+    <!-- Prefix to a name to indicate who a payment was sent to -->
     <string name="PaymentsDetailsFragment__to">किस को</string>
     <string name="PaymentsDetailsFragment__from">द्वारा</string>
     <string name="PaymentsDetailsFragment__information">भुगतान राशि और लेन-देन के समय सहित लेन-देन विवरण, MobileCoin लेजर का हिस्सा हैं।</string>
@@ -3508,6 +3567,7 @@
     <string name="ConfirmPayment__confirm_payment">भुगतान की पुष्टि करें</string>
     <string name="ConfirmPayment__network_fee">नेटवर्क शुल्क</string>
     <string name="ConfirmPayment__estimated_s">अनुमानित %1$s</string>
+    <!-- Prefix to a name to indicate who a payment will be sent to -->
     <string name="ConfirmPayment__to">किस को</string>
     <string name="ConfirmPayment__total_amount">कुल राशि</string>
     <string name="ConfirmPayment__balance_s">बैलेंस: %1$s</string>
@@ -3657,6 +3717,14 @@
     <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">चैट</string>
     <string name="conversation_group_options__broadcast">प्रसारण</string>
+
+    <!-- DoubleTapEditEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">नया समूह</string>
@@ -4112,6 +4180,7 @@
     <string name="RecipientBottomSheet_copied_to_clipboard">क्लिपबोर्ड पर कॉपी किया गया है</string>
 
     <string name="GroupRecipientListItem_admin">एडमिन</string>
+    <!-- Button text to approve a user that has requested to join a group -->
     <string name="GroupRecipientListItem_approve_description">स्वीकार करें</string>
     <string name="GroupRecipientListItem_deny_description">अस्वीकार करें</string>
 
@@ -4139,6 +4208,7 @@
 
     <!-- VoiceNoteMediaDescriptionCompatFactory -->
     <string name="VoiceNoteMediaItemFactory__voice_message">ऑडियो संदेश · %1$s</string>
+    <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$sसे%2$s</string>
 
     <!-- StorageUtil -->
@@ -4152,8 +4222,16 @@
     <string name="ReviewCardDialogFragment__review_members">सदस्यों की समीक्षा करें</string>
     <!-- Title of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <string name="ReviewCardDialogFragment__review_request">निवेदन की समीक्षा करें</string>
-    <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d समूह सदस्यों के एक ही नाम हैं, नीचे दिए गए सदस्यों की समीक्षा करें और कार्रवाई का चुनाव करें।</string>
-    <string name="ReviewCardDialogFragment__if_youre_not_sure">अगर आप इस निवेदन को भेजने वाले के बारे में निश्चित नहीं हों, तो निचे दिए गए संपर्कों की समीक्षा करें और कार्रवाई करें।</string>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
+        <item quantity="one">%1$d group member have the same name, review the member below and choose to take action.</item>
+        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+    </plurals>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
+        <item quantity="one">If you\'re not sure who the request is from, review the contact below and take action.</item>
+        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+    </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">कोई दूसरा साझा समूह नहीं</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">कोई साझा समूह नहीं</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
@@ -4184,11 +4262,20 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s समूह में शामिल हुए</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s और %2$s समूह में शामिल हुए</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s %3$s और समूह में शामिल हुए</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">%1$s, %2$s और %3$d अन्य उपयोगकर्ता शामिल हुए</string>
+    <!-- Toast message shown in group call when 3 or more people join -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
+        <item quantity="one">%1$s, %2$s and %3$d other joined</item>
+        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+    </plurals>
+    <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s समूह छोड़ गए</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$sऔर %2$s समूह छोड़ गए</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s और %3$s समूह छोड़ गए</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">%1$s, %2$s और %3$d अन्यउपयोगकर्ता समूह छोड़ गए</string>
+    <!-- Toast message shown in group call when 3 or more people leave -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
+        <item quantity="one">%1$s, %2$s and %3$d other left</item>
+        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+    </plurals>
 
     <string name="CallParticipant__you">आप</string>
     <string name="CallParticipant__you_on_another_device">आप (दूसरे डिवाइस से)</string>
@@ -4558,10 +4645,15 @@
 
     <!-- PrivacySettingsFragment -->
     <string name="PrivacySettingsFragment__blocked">ब्लॉक किया गया</string>
-    <string name="PrivacySettingsFragment__d_contacts">%1$d संपर्क</string>
+    <!-- Settings label that shows the number blocked contacts -->
+    <plurals name="PrivacySettingsFragment__d_contacts">
+        <item quantity="one">%1$d contact</item>
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
     <string name="PrivacySettingsFragment__messaging">संदेश संवाद</string>
     <string name="PrivacySettingsFragment__disappearing_messages">गायब होने वाले मेसेज</string>
     <string name="PrivacySettingsFragment__app_security">ऐप सुरक्षा</string>
+    <!-- This refers to the multi-tasking overview (recent apps) from the Android operating system.-->
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">रीसेंट सूची में और ऐप के अंदर स्क्रीनशॉट ब्लॉक करें</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Signal संदेश और कॉल, हमेशा रिले होने वाले कॉल और सील्ड सेंडर</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">नई चैट के लिए डिफ़ॉल्ट टाइमर</string>
@@ -4618,11 +4710,14 @@
     <string name="DataAndStorageSettingsFragment__media_quality">मीडिया क्वालिटी</string>
     <string name="DataAndStorageSettingsFragment__sent_media_quality">मीडिया क्वालिटी भेजी गई</string>
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">हाई क्वालिटी मीडिया भेजने के लिए अधिक डेटा खर्च होगा।</string>
+    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
     <string name="DataAndStorageSettingsFragment__high">उच्च</string>
+    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
     <string name="DataAndStorageSettingsFragment__standard">मानक</string>
     <string name="DataAndStorageSettingsFragment__calls">कॉल</string>
 
     <!-- ChatColorSelectionFragment -->
+    <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
     <string name="ChatColorSelectionFragment__auto">स्वतः</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">कस्टम रंगों का उपयोग करें</string>
     <string name="ChatColorSelectionFragment__chat_color">चैट का रंग</string>
@@ -4834,6 +4929,7 @@
     <string name="AvatarPickerFragment__take_a_picture">फ़ोटो खींचें</string>
     <string name="AvatarPickerFragment__choose_a_photo">कोई फ़ोटो चुनें</string>
     <string name="AvatarPickerFragment__photo">तस्वीर</string>
+    <!-- Button label during avatar selection/creation that when tapped lets you generate an avatar from typed in text. -->
     <string name="AvatarPickerFragment__text">टेक्स्ट</string>
     <string name="AvatarPickerFragment__save">सेव</string>
     <string name="AvatarPickerFragment__clear_avatar">अवतार हटाएँ</string>
@@ -4894,7 +4990,7 @@
     <string name="MediaReviewFragment__add_a_message">एक मेसेज शामिल करें</string>
     <string name="MediaReviewFragment__add_a_reply">एक जवाब शामिल करें</string>
     <string name="MediaReviewFragment__send_to">को भेजें</string>
-    <string name="MediaReviewFragment__view_once_message">एक बार मेसेज देखें</string>
+    <string name="MediaReviewFragment__view_once_message">एक बार मीडिया देखें</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">एक या उससे ज़्यादा आइटम बहुत बड़े थे</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">एक या अधिक आइटम अमान्य थे</string>
     <string name="MediaReviewFragment__too_many_items_selected">बहुत ज़्यादा आइटम चुने गए</string>
@@ -5487,7 +5583,7 @@
     <string name="StoryViewerFragment__s_s">%1$s%2$s</string>
     <!-- Displayed when viewing a post you sent -->
     <string name="StoryViewerPageFragment__you">आप</string>
-    <!-- Displayed when viewing a post displayed to a group -->
+    <!-- Displayed when viewing a story sent to a group, placeholders are person who sent the story and the group name -->
     <string name="StoryViewerPageFragment__s_to_s">%1$sसे%2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">उत्तर</string>
@@ -6703,6 +6799,27 @@
     <string name="ViewNoteSheet__note">नोट</string>
     <!-- Content description for opening the note editor -->
     <string name="ViewNoteSheet__edit_note">नोट संपादित करें</string>
+
+    <!-- BackupProgressService -->
+    <!-- Notification title shown while backup restore job is running -->
+    <string name="BackupProgressService_title">बैकअप पुनः निर्मित हो रहा है…</string>
+    <!-- Notification title shown while downloading backup restore data -->
+    <string name="BackupProgressService_title_downloading">बैकअप डाटा डाउनलोड हो रहा है…</string>
+
+    <!-- BackupsTypeSettingsFragment -->
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+
 
     <!-- EOF -->
 </resources>

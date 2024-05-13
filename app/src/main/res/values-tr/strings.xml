@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -89,6 +87,16 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly, fotoğraflar, videolar, veya ses ekleyebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly, iletişim bilgilerini eklemek için Kişiler iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kişiler\"i etkinleştirin.</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly, konum bilgisi eklemek için Konum iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Konum\"u etkinleştirin.</string>
+
+    <!-- Dialog title asking users for location permission -->
+    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <!-- Dialog description that will explain the steps needed to give location permission -->
+    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <!-- Alert dialog description asking for location permission -->
+    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <!-- Toast text explaining Signal\'s need for location access -->
+    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s, Ödemeleri etkinleştirmedi </string>
     <!-- Alert dialog description to send the recipient a request to activate payments -->
@@ -386,8 +394,16 @@
     <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Katılma isteğiniz grup yöneticisine gönderildi. İsteğiniz yanıtlandığı zaman haberdar edileceksiniz.</string>
     <string name="ConversationActivity_cancel_request">İsteği İptal Et</string>
 
-    <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Sesli ileti göndermek için Molly\'in mikrofonunuza erişmesine izin verin.</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
     <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly, sesli iletiler göndermek için Mikrofon iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Mikrofon\"u etkinleştirin.</string>
+
     <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly, %1$s ile arama yapmanız için Mikrofon ve Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
     <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Fotoğraf veya video çekmek için, Molly\'in kameraya erişmesine izin verin.</string>
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly, fotoğraf veya video çekmek için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
@@ -411,10 +427,17 @@
     <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Bu gruptan ayrılacaksın ve grup tüm cihazlarından silinecek.</string>
     <string name="ConversationActivity_delete">Sil</string>
     <string name="ConversationActivity_delete_and_leave">Sil ve ayrıl</string>
-    <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$s ile arama yapmanız için Molly\'in mikrofonunuza erişime ihtiyacı var.</string>
+
+    <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
+    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
 
 
     <string name="ConversationActivity_join">Katıl</string>
+    <!-- Button text for an active group call but the call is currently full and unjoinable -->
     <string name="ConversationActivity_full">Dolu</string>
 
     <string name="ConversationActivity_error_sending_media">İçerik gönderilemedi</string>
@@ -613,6 +636,7 @@
     <string name="ConversationListFragment_unarchive">Çıkart</string>
     <string name="ConversationListFragment_delete">Sil</string>
     <string name="ConversationListFragment_select_all">Hepsini seç</string>
+    <!-- Screen title shown when selecting multiple items from a list like conversation threads or call logs. -->
     <plurals name="ConversationListFragment_s_selected">
         <item quantity="one">%1$d seçili</item>
         <item quantity="other">%1$d seçili</item>
@@ -864,6 +888,7 @@
         <item quantity="one">Davet gönderildi</item>
         <item quantity="other">%1$d davet gönderildi</item>
     </plurals>
+    <!-- Dialog message shown when you are attempting to add a single contact to a group and you don\'t have enough information about them to do it automatically, so must do it via an invite instead. Placeholder is name/username/phone number. -->
     <string name="GroupManagement_invite_single_user">\"%1$s\" sizin tarafınızdan bu gruba otomatik olarak eklenemez.\n\nKatılmaları için davet gönderildi ve daveti kabul edene kadar hiçbir grup iletisini görmeyecekler.</string>
     <string name="GroupManagement_invite_multiple_users">Bu kullanıcılar otomatik olarak bu gruba eklenemez.\n\nKatılmaları için davet gönderildi ve daveti kabul edene kadar hiçbir grup iletisini görmeyecekler.</string>
 
@@ -1044,7 +1069,9 @@
 
     <string name="ManageGroupActivity_edit_name_and_picture">Adı ve resmi düzenleyin</string>
     <string name="ManageGroupActivity_legacy_group">Eski Grup</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code -->
     <string name="ManageGroupActivity_legacy_group_learn_more">Bu bir Eski Gruptur. Grup yöneticisi gibi özellikler sadece Yeni Gruplarda mevcuttur.</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code to the end of the string -->
     <string name="ManageGroupActivity_legacy_group_upgrade">Bu bir Eski Gruptur. Bahsedilmeler ve yöneticiler gibi özelliklere erişmek için,</string>
     <string name="ManageGroupActivity_legacy_group_too_large">Bu eski grup, boyutu çok büyük olduğu için Yeni Gruba yükseltilemiyor. Maksimum grup boyutu %1$d.</string>
     <string name="ManageGroupActivity_upgrade_this_group">bu grubu yükseltin.</string>
@@ -1271,6 +1298,7 @@
         <item quantity="other">Sil</item>
     </plurals>
 
+    <!-- Screen title shown when selecting multiple items in the media overview screen. The first placeholder is the number of items, the second number is the cumulative file size in bytes. -->
     <plurals name="MediaOverviewActivity_d_selected_s">
         <item quantity="one">%1$d seçili (%2$s)</item>
         <item quantity="other">%1$d seçili (%2$s)</item>
@@ -1335,17 +1363,13 @@
     <string name="MessageRecord_left_group">Gruptan ayrıldınız.</string>
     <string name="MessageRecord_you_updated_group">Grubu güncellediniz.</string>
     <string name="MessageRecord_the_group_was_updated">Grup güncellendi</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 voice/audio call -->
     <string name="MessageRecord_outgoing_voice_call">Giden sesli arama</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 video call -->
     <string name="MessageRecord_outgoing_video_call">Giden görüntülü arama</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_voice_call">Cevapsız sesli arama</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_video_call">Cevapsız görüntülü arama</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered -->
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered or ringing -->
     <string name="MessageRecord_incoming_voice_call">Gelen sesli arama</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and answered -->
+    <!-- Update message shown when receiving an incoming 1:1 video call and answered or ringing -->
     <string name="MessageRecord_incoming_video_call">Gelen görüntülü arama</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
     <string name="MessageRecord_missed_voice_call">Cevapsız sesli arama</string>
@@ -1355,10 +1379,6 @@
     <string name="MessageRecord_missed_voice_call_notification_profile">Bildirim profili açıkken cevapsız sesli arama</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
     <string name="MessageRecord_missed_video_call_notification_profile">Bildirim profili açıkken cevapsız görüntülü arama</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_voice_call">Sesli aramayı reddettin</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_video_call">Görüntülü aramayı reddettin</string>
     <!-- Call update formatter string to place the update message next to a time stamp. e.g., \'Incoming voice call · 11:11am\' -->
     <string name="MessageRecord_call_message_with_date">%1$s · %2$s</string>
     <string name="MessageRecord_s_updated_group">%1$s grubu güncelledi.</string>
@@ -1567,28 +1587,53 @@
     <string name="MessageRecord_can_accept_payments">%1$s artık Ödemeleri kabul edebilir</string>
 
     <!-- Group Calling update messages -->
-    <string name="MessageRecord_s_started_a_group_call_s">%1$s grup araması başlattı · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">Bir grup araması başlattın · %1$s</string>
-    <string name="MessageRecord_s_is_in_the_group_call_s">%1$s grup görüşmesinde· %2$s</string>
-    <string name="MessageRecord_you_are_in_the_group_call_s1">Grup görüşmesindesiniz · %1$s</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s ve %2$s grup görüşmesinde · %3$s</string>
-    <string name="MessageRecord_group_call_s">Grup araması · %1$s</string>
-
-    <string name="MessageRecord_s_started_a_group_call">%1$s grup araması başlattı</string>
-    <string name="MessageRecord_you_started_a_group_call">Bir grup görüşmesi başlattınız</string>
-    <string name="MessageRecord_s_is_in_the_group_call">%1$s grup görüşmesinde</string>
-    <string name="MessageRecord_you_are_in_the_group_call">Grup görüşmesindesiniz</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s ve %2$s grup görüşmesinde</string>
-    <string name="MessageRecord_group_call">Grup görüşmesi</string>
+    <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_is_in_the_call_s">%1$s aramada · %2$s</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
+    <string name="MessageRecord_you_are_in_the_call_s1">Aramadasın · %1$s</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s ve %2$s aramada · %3$s</string>
+    <!-- Chat log text for an ongoing group call that has one participant -->
+    <string name="MessageRecord_s_is_in_the_call">%1$s aramada</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined -->
+    <string name="MessageRecord_you_are_in_the_call">Aramadasın</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
+    <string name="MessageRecord_s_and_s_are_in_the_call">%1$s ve %2$s aramada</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes -->
+    <string name="MessageRecord__the_video_call_has_ended">Görüntülü arama sona erdi</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes with a placeholder for formatted time -->
+    <string name="MessageRecord__the_video_call_has_ended_s">Görüntülü arama sona erdi · %1$s</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed -->
+    <string name="MessageRecord__missed_video_call">Cevapsız görüntülü arama</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed with a placeholder for formatted time -->
+    <string name="MessageRecord__missed_video_call_s">Yanıtsız görüntülü arama · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user did not start -->
+    <string name="MessageRecord__incoming_video_call">Gelen görüntülü arama</string>
+    <!-- Chat log text for a group call that ended that the local user did not start with a placeholder for formatted time -->
+    <string name="MessageRecord__incoming_video_call_s">Gelen görüntülü arama · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user started -->
+    <string name="MessageRecord__outgoing_video_call">Giden görüntülü arama</string>
+    <!-- Chat log text for a group call that ended that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__outgoing_video_call_s">Giden görüntülü arama · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user started -->
+    <string name="MessageRecord__you_started_a_video_call">Bir görüntülü arama başlattın</string>
+    <!-- Chat log text for an ongoing group call that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__you_started_a_video_call_s">Bir görüntülü arama başlattın · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name -->
+    <string name="MessageRecord__s_started_a_video_call">%1$s bir görüntülü arama başlattı</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name and a placeholder for formatted time -->
+    <string name="MessageRecord__s_started_a_video_call_s">%1$s bir görüntülü arama başlattı · %2$s</string>
 
     <string name="MessageRecord_you">Siz</string>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call_s">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users, a placeholder for the number of users in the call, and a placeholder for formatted time -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call_s">
         <item quantity="one">%1$s, %2$s, ve %3$d diğer kişi grup görüşmesinde · %4$s</item>
         <item quantity="other">%1$s, %2$s, ve %3$d diğer kişi grup görüşmesinde · %4$s</item>
     </plurals>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users and a placeholder for the number of users in the call -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call">
         <item quantity="one">%1$s, %2$s, ve %3$d diğer kişi grup görüşmesinde</item>
         <item quantity="other">%1$s, %2$s, ve %3$d diğer kişi grup görüşmesinde</item>
     </plurals>
@@ -2063,6 +2108,7 @@
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
     <string name="RegistrationActivity_unable_to_request_verification_code">Doğrulama kodu istenemiyor. Lütfen ağ bağlantını kontrol edip tekrar dene.</string>
     <string name="RegistrationActivity_non_standard_number_format">Standart olmayan numara formatı</string>
+    <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Girdiğin numara (%1$s) standart olmayan bir formatta gibi görünüyor.\n\n%2$s mi demek istedin?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Telefon Numarası Formatı</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
@@ -2207,7 +2253,7 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Bu günlük katkıda bulunanların görmesi için herkese açık bir şekilde paylaşılacaktır. Yüklemeden önce inceleyebilirsiniz.</string>
 
     <!-- SupportEmailUtil -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@molly.im</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
     <string name="SupportEmailUtil_filter">Filtre:</string>
     <string name="SupportEmailUtil_device_info">Cihaz bilgisi:</string>
     <string name="SupportEmailUtil_android_version">Android sürümü:</string>
@@ -2709,6 +2755,8 @@
     <string name="ConversationUpdateItem_loading">Yükleniyor</string>
     <string name="ConversationUpdateItem_learn_more">Dahasını öğrenin</string>
     <string name="ConversationUpdateItem_join_call">Aramaya katıl</string>
+    <!-- Action button label for starting a new call in the current conversation -->
+    <string name="ConversationUpdateItem_call_back">Geri Ara</string>
     <string name="ConversationUpdateItem_return_to_call">Aramaya dön</string>
     <string name="ConversationUpdateItem_call_is_full">Arama dolu</string>
     <string name="ConversationUpdateItem_invite_friends">Arkadaşlarını davet et</string>
@@ -2773,6 +2821,7 @@
     <string name="safety_number_change_dialog__leave_call">Aramadan ayrıl</string>
     <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">Aşağıdaki kişiler cihaz değiştirmiş veya yeniden yükleme yapmış olabilir. Gizliliğinizden emin olmak için güvenlik numaranızı doğrulayın.</string>
     <string name="safety_number_change_dialog__view">Görüntüle</string>
+    <!-- Subtitle shown for a single contact and that their safety number was previously verified and is now no longer verified. -->
     <string name="safety_number_change_dialog__previous_verified">Daha önce doğrulandı</string>
 
     <!-- EnableCallNotificationSettingsDialog__call_notifications_checklist -->
@@ -3086,6 +3135,7 @@
 
     <string name="arrays__default">Varsayılan</string>
     <string name="arrays__high">Yüksek</string>
+    <!-- Setting title that represent an abstract priority to assign to notifications as the max/highest priority a notification can be within the system. -->
     <string name="arrays__max">En Yüksek</string>
 
     <!-- plurals.xml -->
@@ -3357,7 +3407,7 @@
     <string name="PaymentsHomeFragment__details">Detaylar</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoin göndermek ve almak için Signal\'i kullanabilirsin. Tüm ödemeler MobileCoin ve MobileCoin Wallet Kullanım Koşullarına tabidir. Bazı sorunlarla karşılaşabilir ve kaybettiğin ödeme veya bakiyeyi geri alamayabilirsin. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoin göndermek ve almak için Molly\'i kullanabilirsin. Tüm ödemeler MobileCoin ve MobileCoin Wallet Kullanım Koşullarına tabidir. Bazı sorunlarla karşılaşabilir ve kaybettiğin ödeme veya bakiyeyi geri alamayabilirsin. </string>
     <string name="PaymentsHomeFragment__activate">Etkinleştir</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin şartlarını görüntüle</string>
     <string name="PaymentsHomeFragment__payments_not_available">Molly\'de Ödemeler artık mevcut değil. Yine de kambiyoya para aktarabilirsiniz ancak ödeme alıp gönderemez veya para ekleyemezsiniz.</string>
@@ -3406,6 +3456,14 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">Cihazından fotoğraf, video ve dosya gönder.</string>
 
+    <!-- PermissionDeniedBottomSheet -->
+    <!-- Sheet describing step 1 on how to give permissions by opening settings -->
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
+    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
     <string name="PaymentsSecuritySetupFragment__security_setup">Güvenlik kurulumu</string>
@@ -3446,6 +3504,7 @@
     <string name="PaymentsDetailsFragment__sent_to_s">%1$s\'ye gönderildi</string>
     <string name="PaymentsDetailsFragment__you_on_s_at_s">Siz %1$s tarihinde saat %2$s \'de</string>
     <string name="PaymentsDetailsFragment__s_on_s_at_s">%2$starihinde saat %3$s\'te %1$s</string>
+    <!-- Prefix to a name to indicate who a payment was sent to -->
     <string name="PaymentsDetailsFragment__to">Alıcı</string>
     <string name="PaymentsDetailsFragment__from">Gönderen</string>
     <string name="PaymentsDetailsFragment__information">Ödeme miktarı ve işlem zamanını da içeren işlem ayrıntıları MobileCoin hesap defterinin bir parçasıdır.</string>
@@ -3508,6 +3567,7 @@
     <string name="ConfirmPayment__confirm_payment">Ödemeyi onayla</string>
     <string name="ConfirmPayment__network_fee">Ağ ücreti</string>
     <string name="ConfirmPayment__estimated_s">Tahmini %1$s</string>
+    <!-- Prefix to a name to indicate who a payment will be sent to -->
     <string name="ConfirmPayment__to">Alıcı</string>
     <string name="ConfirmPayment__total_amount">Toplam tutar</string>
     <string name="ConfirmPayment__balance_s">Bakiye: %1$s</string>
@@ -3657,6 +3717,14 @@
     <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">Sohbet</string>
     <string name="conversation_group_options__broadcast">Yayın</string>
+
+    <!-- DoubleTapEditEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">Yeni grup</string>
@@ -4112,6 +4180,7 @@
     <string name="RecipientBottomSheet_copied_to_clipboard">Panoya kopyalandı</string>
 
     <string name="GroupRecipientListItem_admin">Yönetici</string>
+    <!-- Button text to approve a user that has requested to join a group -->
     <string name="GroupRecipientListItem_approve_description">Onayla</string>
     <string name="GroupRecipientListItem_deny_description">Reddet</string>
 
@@ -4139,6 +4208,7 @@
 
     <!-- VoiceNoteMediaDescriptionCompatFactory -->
     <string name="VoiceNoteMediaItemFactory__voice_message">Sesli ileti · %1$s</string>
+    <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s --&gt; %2$s</string>
 
     <!-- StorageUtil -->
@@ -4152,8 +4222,16 @@
     <string name="ReviewCardDialogFragment__review_members">Üyeleri incele</string>
     <!-- Title of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <string name="ReviewCardDialogFragment__review_request">İsteği incele</string>
-    <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d grup üyesi aynı ada sahip, aşağıdan inceleyerek tercih yapabilirsiniz.</string>
-    <string name="ReviewCardDialogFragment__if_youre_not_sure">İsteğin kimden geldiğinden emin değilseniz, aşağıdaki kişileri inceleyerek tercih yapabilirsiniz.</string>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
+        <item quantity="one">%1$d group member have the same name, review the member below and choose to take action.</item>
+        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+    </plurals>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
+        <item quantity="one">If you\'re not sure who the request is from, review the contact below and take action.</item>
+        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+    </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Başka ortak grup yok.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Ortak grup yok.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
@@ -4184,11 +4262,20 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s katıldı</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s ve %2$s katıldı</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s ve %3$s katıldı</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">%1$s, %2$s ve %3$d diğer kişi katıldı</string>
+    <!-- Toast message shown in group call when 3 or more people join -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
+        <item quantity="one">%1$s, %2$s and %3$d other joined</item>
+        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+    </plurals>
+    <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s ayrıldı</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s ve %2$s ayrıldı</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s ve %3$s ayrıldı</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">%1$s, %2$s ve %3$d diğer kişi ayrıldı</string>
+    <!-- Toast message shown in group call when 3 or more people leave -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
+        <item quantity="one">%1$s, %2$s and %3$d other left</item>
+        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+    </plurals>
 
     <string name="CallParticipant__you">Siz</string>
     <string name="CallParticipant__you_on_another_device">Siz (başka bir cihazda)</string>
@@ -4558,10 +4645,15 @@
 
     <!-- PrivacySettingsFragment -->
     <string name="PrivacySettingsFragment__blocked">Engellendi</string>
-    <string name="PrivacySettingsFragment__d_contacts">%1$d kişi</string>
+    <!-- Settings label that shows the number blocked contacts -->
+    <plurals name="PrivacySettingsFragment__d_contacts">
+        <item quantity="one">%1$d contact</item>
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
     <string name="PrivacySettingsFragment__messaging">Yazışma</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Kaybolan iletiler</string>
     <string name="PrivacySettingsFragment__app_security">Uygulama güvenliği</string>
+    <!-- This refers to the multi-tasking overview (recent apps) from the Android operating system.-->
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Son kullanılanlar listesinde ve uygulama içinde ekran görüntüsü alınmasını engelle</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Signal iletileri ve aramaları, arama aktarma ve gizli gönderici</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Yeni sohbetler için varsayılan zamanlayıcı</string>
@@ -4618,11 +4710,14 @@
     <string name="DataAndStorageSettingsFragment__media_quality">İçerik kalitesi</string>
     <string name="DataAndStorageSettingsFragment__sent_media_quality">Gönderilen içerik kalitesi</string>
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Yüksek kalitede içerik göndermek daha fazla veri kullanacaktır.</string>
+    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
     <string name="DataAndStorageSettingsFragment__high">Yüksek</string>
+    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
     <string name="DataAndStorageSettingsFragment__standard">Standart</string>
     <string name="DataAndStorageSettingsFragment__calls">Aramalar</string>
 
     <!-- ChatColorSelectionFragment -->
+    <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
     <string name="ChatColorSelectionFragment__auto">Otomatik</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">Özel renkleri kullan</string>
     <string name="ChatColorSelectionFragment__chat_color">Sohbet rengi</string>
@@ -4834,6 +4929,7 @@
     <string name="AvatarPickerFragment__take_a_picture">Fotoğraf çekin</string>
     <string name="AvatarPickerFragment__choose_a_photo">Fotoğraf seçin</string>
     <string name="AvatarPickerFragment__photo">Fotoğraf</string>
+    <!-- Button label during avatar selection/creation that when tapped lets you generate an avatar from typed in text. -->
     <string name="AvatarPickerFragment__text">Yazı</string>
     <string name="AvatarPickerFragment__save">Kaydet</string>
     <string name="AvatarPickerFragment__clear_avatar">Avatarı sil</string>
@@ -4894,7 +4990,7 @@
     <string name="MediaReviewFragment__add_a_message">İleti ekle</string>
     <string name="MediaReviewFragment__add_a_reply">Yanıt ekle</string>
     <string name="MediaReviewFragment__send_to">Gönder:</string>
-    <string name="MediaReviewFragment__view_once_message">Tek görümlük ileti</string>
+    <string name="MediaReviewFragment__view_once_message">Bir kez görünür medya</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">Bir veya daha fazla öğe çok büyük</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">Bir veya daha fazla öğe çok geçersiz</string>
     <string name="MediaReviewFragment__too_many_items_selected">Çok fazla öğe seçildi</string>
@@ -5487,7 +5583,7 @@
     <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
     <!-- Displayed when viewing a post you sent -->
     <string name="StoryViewerPageFragment__you">Siz</string>
-    <!-- Displayed when viewing a post displayed to a group -->
+    <!-- Displayed when viewing a story sent to a group, placeholders are person who sent the story and the group name -->
     <string name="StoryViewerPageFragment__s_to_s">%1$s --&gt; %2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">Cevapla</string>
@@ -6703,6 +6799,27 @@
     <string name="ViewNoteSheet__note">Not</string>
     <!-- Content description for opening the note editor -->
     <string name="ViewNoteSheet__edit_note">Notu düzenle</string>
+
+    <!-- BackupProgressService -->
+    <!-- Notification title shown while backup restore job is running -->
+    <string name="BackupProgressService_title">Yedekleme geri yükleniyor…</string>
+    <!-- Notification title shown while downloading backup restore data -->
+    <string name="BackupProgressService_title_downloading">Yedekleme verileri indiriliyor…</string>
+
+    <!-- BackupsTypeSettingsFragment -->
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+
 
     <!-- EOF -->
 </resources>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -89,6 +87,16 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly-у је потребна дозвола за приступ вашем меморијском простору да би могао да приложи слике, видео или аудио, али му је она трајно одбијена. Идите у мени за подешавања апликације, изаберите „Дозволе“ и укључите опцију „Меморијски простор“.</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly-у је потребна дозвола за приступ вашим контактима да би могао да приложи информације о контакту, али му је она трајно одбијена. Идите у мени за подешавања апликације, изаберите „Дозволе“ и укључите опцију „Контакти“.</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly-у је потребна дозвола за приступ вашој локацији да би могао да приложи локацију, али му је она трајно одбијена. Идите у мени за подешавања апликације, изаберите „Дозволе“ и укључите опцију „Локација“.</string>
+
+    <!-- Dialog title asking users for location permission -->
+    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <!-- Dialog description that will explain the steps needed to give location permission -->
+    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <!-- Alert dialog description asking for location permission -->
+    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <!-- Toast text explaining Signal\'s need for location access -->
+    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s није активирао/ла плаћања </string>
     <!-- Alert dialog description to send the recipient a request to activate payments -->
@@ -241,7 +249,7 @@
     <string name="ClientDeprecatedActivity_update">Ажурирај</string>
     <string name="ClientDeprecatedActivity_dont_update">Немој да ажурираш</string>
     <string name="ClientDeprecatedActivity_warning">Упозорење</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Ваша верзија Signal-а је истекла. Можете да видите историју порука али нећете моћи да шаљете и примате поруке док не ажурирате апликацију.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Ваша верзија Molly-а је истекла. Можете да видите историју порука али нећете моћи да шаљете и примате поруке док не ажурирате апликацију.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Није пронађен веб прегледач.</string>
@@ -386,8 +394,16 @@
     <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Ваш захтев за придруживање је послат администратору групе. Бићете обавештени када администратор предузме мере.</string>
     <string name="ConversationActivity_cancel_request">Откажи захтев</string>
 
-    <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Да бисте послали аудио поруку, дозволите Molly-у приступ за коришћење микрофона.</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
     <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly-у је потребна дозвола за приступ микрофону да би могао да шаље аудио поруке, али му је она трајно одбијена. Идите у мени за подешавања апликације, изаберите „Дозволе“ и укључите опцију „Микрофон“.</string>
+
     <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly-у је потребна дозвола за приступ микрофону и камери да би могао да успостави позив са корисником %1$s, али му је она трајно одбијена. Идите у мени за подешавања апликације, изаберите „Дозволе“ и укључите опције „Микрофон“ и „Камера“.</string>
     <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Да бисте могли да снимате фотографије и видео, дозволите Molly-у приступ камери.</string>
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly-у је потребна дозвола за приступ камери да би могао да снима фотографије и видео, али му је она трајно одбијена. Идите у мени за подешавања апликације, изаберите „Дозволе“ и укључите опцију „Камера“.</string>
@@ -411,10 +427,17 @@
     <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Напустићете групу и она ће бити избрисана на свим вашим уређајима.</string>
     <string name="ConversationActivity_delete">Избриши</string>
     <string name="ConversationActivity_delete_and_leave">Избриши и напусти</string>
-    <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Да бисте позвали контакт %1$s, Molly-у је потребан приступ вашем микрофону</string>
+
+    <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
+    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
 
 
     <string name="ConversationActivity_join">Придружите се</string>
+    <!-- Button text for an active group call but the call is currently full and unjoinable -->
     <string name="ConversationActivity_full">Пуно</string>
 
     <string name="ConversationActivity_error_sending_media">Грешка приликом слања медија</string>
@@ -613,6 +636,7 @@
     <string name="ConversationListFragment_unarchive">Врати из архиве</string>
     <string name="ConversationListFragment_delete">Избриши</string>
     <string name="ConversationListFragment_select_all">Изабери све</string>
+    <!-- Screen title shown when selecting multiple items from a list like conversation threads or call logs. -->
     <plurals name="ConversationListFragment_s_selected">
         <item quantity="one">Изабрано: %1$d</item>
         <item quantity="other">Изабрано: %1$d</item>
@@ -864,6 +888,7 @@
         <item quantity="one">Позивница је послата</item>
         <item quantity="other">Послатих позивница: %1$d</item>
     </plurals>
+    <!-- Dialog message shown when you are attempting to add a single contact to a group and you don\'t have enough information about them to do it automatically, so must do it via an invite instead. Placeholder is name/username/phone number. -->
     <string name="GroupManagement_invite_single_user">Не можете аутоматски додати корисника „%1$s“ у групу.\n\n Позивница је послата том кориснику и корисник неће видети групне поруке док је не прихвати.</string>
     <string name="GroupManagement_invite_multiple_users">Ове кориснике не можете аутоматски додати у групу.\n\nПозвани су да се придруже групи и неће видети ниједну групну поруку док не прихвате позивницу.</string>
 
@@ -1044,7 +1069,9 @@
 
     <string name="ManageGroupActivity_edit_name_and_picture">Измените име и слику</string>
     <string name="ManageGroupActivity_legacy_group">Стара група</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code -->
     <string name="ManageGroupActivity_legacy_group_learn_more">Ово је старе група. Функционалности попут администратора групе доступне су само у новим групама.</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code to the end of the string -->
     <string name="ManageGroupActivity_legacy_group_upgrade">Ово је стара група. Да бисте приступили новим функционалностима попут @помињања и администратора,</string>
     <string name="ManageGroupActivity_legacy_group_too_large">Ова стара група не може да се надогради на нову групу јер је превелика. Максимална величина групе је %1$d.</string>
     <string name="ManageGroupActivity_upgrade_this_group">надоградите ову групу.</string>
@@ -1271,6 +1298,7 @@
         <item quantity="other">Избриши</item>
     </plurals>
 
+    <!-- Screen title shown when selecting multiple items in the media overview screen. The first placeholder is the number of items, the second number is the cumulative file size in bytes. -->
     <plurals name="MediaOverviewActivity_d_selected_s">
         <item quantity="one">Изабрано: %1$d (%2$s)</item>
         <item quantity="other">Изабрано: %1$d (%2$s)</item>
@@ -1335,17 +1363,13 @@
     <string name="MessageRecord_left_group">Напустили сте групу.</string>
     <string name="MessageRecord_you_updated_group">Ажурирали сте групу.</string>
     <string name="MessageRecord_the_group_was_updated">Група је ажурирана.</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 voice/audio call -->
     <string name="MessageRecord_outgoing_voice_call">Одлазни гласовни позив</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 video call -->
     <string name="MessageRecord_outgoing_video_call">Одлазни видео позив</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_voice_call">Неодговорен гласовни позив</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_video_call">Неодговорен видео позив</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered -->
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered or ringing -->
     <string name="MessageRecord_incoming_voice_call">Долазни гласовни позив</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and answered -->
+    <!-- Update message shown when receiving an incoming 1:1 video call and answered or ringing -->
     <string name="MessageRecord_incoming_video_call">Долазни видео позив</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
     <string name="MessageRecord_missed_voice_call">Пропуштен гласовни позив</string>
@@ -1355,10 +1379,6 @@
     <string name="MessageRecord_missed_voice_call_notification_profile">Пропуштен је гласовни позив док је профил за обавештења био укључен</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
     <string name="MessageRecord_missed_video_call_notification_profile">Пропуштен је гласовни позив док је профил за обавештења био укључен</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_voice_call">Одбили сте гласовни позив</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_video_call">Одбили сте видео позив</string>
     <!-- Call update formatter string to place the update message next to a time stamp. e.g., \'Incoming voice call · 11:11am\' -->
     <string name="MessageRecord_call_message_with_date">%1$s · %2$s</string>
     <string name="MessageRecord_s_updated_group">%1$s је ажурирао/ла групу.</string>
@@ -1567,28 +1587,53 @@
     <string name="MessageRecord_can_accept_payments">%1$s сада може да прихвата плаћања</string>
 
     <!-- Group Calling update messages -->
-    <string name="MessageRecord_s_started_a_group_call_s">%1$s је започео/ла групни позив · %2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">Започели сте групни позив · %1$s</string>
-    <string name="MessageRecord_s_is_in_the_group_call_s">%1$s је у групном позиву · %2$s</string>
-    <string name="MessageRecord_you_are_in_the_group_call_s1">Ви сте у групном позиву · %1$s</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s и %2$s су у групном позиву · %3$s</string>
-    <string name="MessageRecord_group_call_s">Групни позив · %1$s</string>
-
-    <string name="MessageRecord_s_started_a_group_call">%1$s је започео/ла групни позив</string>
-    <string name="MessageRecord_you_started_a_group_call">Покренули сте групни позив</string>
-    <string name="MessageRecord_s_is_in_the_group_call">%1$s је у групном позиву</string>
-    <string name="MessageRecord_you_are_in_the_group_call">Ви сте у групном позиву</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s и %2$s су у групном позиву</string>
-    <string name="MessageRecord_group_call">Групни позив</string>
+    <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_is_in_the_call_s">%1$s је у позиву · %2$s</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
+    <string name="MessageRecord_you_are_in_the_call_s1">Ви сте у позиву · %1$s</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s и %2$s су у позиву · %3$s</string>
+    <!-- Chat log text for an ongoing group call that has one participant -->
+    <string name="MessageRecord_s_is_in_the_call">%1$s је у позиву</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined -->
+    <string name="MessageRecord_you_are_in_the_call">Ви сте у позиву</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
+    <string name="MessageRecord_s_and_s_are_in_the_call">%1$s и %2$s су у позиву</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes -->
+    <string name="MessageRecord__the_video_call_has_ended">Видео-позив је завршен</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes with a placeholder for formatted time -->
+    <string name="MessageRecord__the_video_call_has_ended_s">Видео-позив је завршен · %1$s</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed -->
+    <string name="MessageRecord__missed_video_call">Пропуштен видео позив</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed with a placeholder for formatted time -->
+    <string name="MessageRecord__missed_video_call_s">пропуштен видео позив од · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user did not start -->
+    <string name="MessageRecord__incoming_video_call">Долазни видео позив</string>
+    <!-- Chat log text for a group call that ended that the local user did not start with a placeholder for formatted time -->
+    <string name="MessageRecord__incoming_video_call_s">Долазни видео-позив · %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user started -->
+    <string name="MessageRecord__outgoing_video_call">Одлазни видео позив</string>
+    <!-- Chat log text for a group call that ended that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__outgoing_video_call_s">Одлазни видео-позив · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user started -->
+    <string name="MessageRecord__you_started_a_video_call">Започели сте видео-позив</string>
+    <!-- Chat log text for an ongoing group call that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__you_started_a_video_call_s">Започели сте видео-позив · %1$s</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name -->
+    <string name="MessageRecord__s_started_a_video_call">%1$s је започео/ла видео-позив</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name and a placeholder for formatted time -->
+    <string name="MessageRecord__s_started_a_video_call_s">%1$s је започео/ла видео-позив · %2$s</string>
 
     <string name="MessageRecord_you">Ви</string>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call_s">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users, a placeholder for the number of users in the call, and a placeholder for formatted time -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call_s">
         <item quantity="one">У групном позиву су %1$s, %2$s и још %3$d особа · %4$s</item>
         <item quantity="other">У групном позиву су %1$s, %2$s и још њих %3$d · %4$s</item>
     </plurals>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users and a placeholder for the number of users in the call -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call">
         <item quantity="one">У групном позиву су %1$s, %2$s и још %3$d особа</item>
         <item quantity="other">У групном позиву су %1$s, %2$s и још њих %3$d</item>
     </plurals>
@@ -2063,6 +2108,7 @@
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
     <string name="RegistrationActivity_unable_to_request_verification_code">Није могуће затражити шифру за верификацију. Проверите да ли сте повезани на интернет и пробајте поново.</string>
     <string name="RegistrationActivity_non_standard_number_format">Нестандардни формат броја</string>
+    <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Број који сте унели (%1$s) није у стандардном формату.\n\nДа ли сте мислили да унесете: %2$s?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android – формат броја телефона</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
@@ -2207,7 +2253,7 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Овај извештај ће бити јавно објављен и видљив сарадницима. Можете га прегледати пре отпремања.</string>
 
     <!-- SupportEmailUtil -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@molly.im</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
     <string name="SupportEmailUtil_filter">Филтер:</string>
     <string name="SupportEmailUtil_device_info">Информације о уређају:</string>
     <string name="SupportEmailUtil_android_version">Верзија Android-а:</string>
@@ -2709,6 +2755,8 @@
     <string name="ConversationUpdateItem_loading">Учитава се</string>
     <string name="ConversationUpdateItem_learn_more">Сазнајте више</string>
     <string name="ConversationUpdateItem_join_call">Укључите се у позив</string>
+    <!-- Action button label for starting a new call in the current conversation -->
+    <string name="ConversationUpdateItem_call_back">Позови</string>
     <string name="ConversationUpdateItem_return_to_call">Вратите се на позив</string>
     <string name="ConversationUpdateItem_call_is_full">Позив је пун</string>
     <string name="ConversationUpdateItem_invite_friends">Позовите пријатеље</string>
@@ -2773,6 +2821,7 @@
     <string name="safety_number_change_dialog__leave_call">Напусти позив</string>
     <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">Људи наведени у наставку су вероватно поново инсталирали апликацију или променили уређаје. Верификујте сигурносни број за дописивање са њима како бисте обезбедили приватност.</string>
     <string name="safety_number_change_dialog__view">Прикажи</string>
+    <!-- Subtitle shown for a single contact and that their safety number was previously verified and is now no longer verified. -->
     <string name="safety_number_change_dialog__previous_verified">Претходно верификовано</string>
 
     <!-- EnableCallNotificationSettingsDialog__call_notifications_checklist -->
@@ -3086,6 +3135,7 @@
 
     <string name="arrays__default">Подразумевано</string>
     <string name="arrays__high">Висок квалитет</string>
+    <!-- Setting title that represent an abstract priority to assign to notifications as the max/highest priority a notification can be within the system. -->
     <string name="arrays__max">Максимално</string>
 
     <!-- plurals.xml -->
@@ -3357,7 +3407,7 @@
     <string name="PaymentsHomeFragment__details">Опширније</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Можете да користите Signal да бисте слали и примали MobileCoin. Сва плаћања подлежу условима коришћења за MobileCoin и MobileCoin Wallet. Може се десити да наиђете на неке проблеме због којих се плаћања или износи које можда изгубите не могу повратити. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Можете да користите Molly да бисте слали и примали MobileCoin. Сва плаћања подлежу условима коришћења за MobileCoin и MobileCoin Wallet. Може се десити да наиђете на неке проблеме због којих се плаћања или износи које можда изгубите не могу повратити. </string>
     <string name="PaymentsHomeFragment__activate">Активирај</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Погледајте услове за MobileCoin</string>
     <string name="PaymentsHomeFragment__payments_not_available">Плаћања на Molly-у више није доступна. И даље можете да пренесете средства на берзу, али више не можете да шаљете и примате уплате или да уплаћујете средства.</string>
@@ -3406,6 +3456,14 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">Шаљите слике, видео и фајлове са свог уређаја.</string>
 
+    <!-- PermissionDeniedBottomSheet -->
+    <!-- Sheet describing step 1 on how to give permissions by opening settings -->
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
+    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
     <string name="PaymentsSecuritySetupFragment__security_setup">Сигурносна подешавања</string>
@@ -3446,6 +3504,7 @@
     <string name="PaymentsDetailsFragment__sent_to_s">Послато кориснику %1$s</string>
     <string name="PaymentsDetailsFragment__you_on_s_at_s">Ви %1$s у %2$s</string>
     <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s %2$s у %3$s</string>
+    <!-- Prefix to a name to indicate who a payment was sent to -->
     <string name="PaymentsDetailsFragment__to">Прималац</string>
     <string name="PaymentsDetailsFragment__from">Пошиљалац</string>
     <string name="PaymentsDetailsFragment__information">Детаљи трансакције, укључујући износ плаћања и време трансакције, део су књиге MobileCoin-а.</string>
@@ -3508,6 +3567,7 @@
     <string name="ConfirmPayment__confirm_payment">Потврди плаћање</string>
     <string name="ConfirmPayment__network_fee">Мрежна накнада</string>
     <string name="ConfirmPayment__estimated_s">Процењено %1$s</string>
+    <!-- Prefix to a name to indicate who a payment will be sent to -->
     <string name="ConfirmPayment__to">Прималац</string>
     <string name="ConfirmPayment__total_amount">Укупан износ</string>
     <string name="ConfirmPayment__balance_s">Стање: %1$s</string>
@@ -3657,6 +3717,14 @@
     <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">Ћаскање</string>
     <string name="conversation_group_options__broadcast">Емитовање</string>
+
+    <!-- DoubleTapEditEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">Нова група</string>
@@ -4112,6 +4180,7 @@
     <string name="RecipientBottomSheet_copied_to_clipboard">Копирано</string>
 
     <string name="GroupRecipientListItem_admin">Администратор</string>
+    <!-- Button text to approve a user that has requested to join a group -->
     <string name="GroupRecipientListItem_approve_description">Одобравам</string>
     <string name="GroupRecipientListItem_deny_description">Одбијам</string>
 
@@ -4139,6 +4208,7 @@
 
     <!-- VoiceNoteMediaDescriptionCompatFactory -->
     <string name="VoiceNoteMediaItemFactory__voice_message">Гласовна порука · %1$s</string>
+    <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s за: %2$s</string>
 
     <!-- StorageUtil -->
@@ -4152,8 +4222,16 @@
     <string name="ReviewCardDialogFragment__review_members">Прегледајте чланове</string>
     <!-- Title of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <string name="ReviewCardDialogFragment__review_request">Прегледајте захтев</string>
-    <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">Њих %1$d у групи имају слична имена. Прегледајте те чланове у наставку и предузмите мере.</string>
-    <string name="ReviewCardDialogFragment__if_youre_not_sure">Ако нисте сигурни од кога потиче захтев, прегледајте контакте у наставку и предузмите мере.</string>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
+        <item quantity="one">%1$d group member have the same name, review the member below and choose to take action.</item>
+        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+    </plurals>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
+        <item quantity="one">If you\'re not sure who the request is from, review the contact below and take action.</item>
+        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+    </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Немате других заједничких група.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Немате заједничких група.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
@@ -4184,11 +4262,20 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s се придружио/ла</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s и %2$s су се придружили</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s и %3$s су се придружили</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">%1$s, %2$s и још њих %3$d су се придружили</string>
+    <!-- Toast message shown in group call when 3 or more people join -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
+        <item quantity="one">%1$s, %2$s and %3$d other joined</item>
+        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+    </plurals>
+    <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s је напустио/ла групу</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s и %2$s су напустили групу</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s и %3$s су напустили групу</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">%1$s, %2$s и још њих %3$d су напустили групу</string>
+    <!-- Toast message shown in group call when 3 or more people leave -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
+        <item quantity="one">%1$s, %2$s and %3$d other left</item>
+        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+    </plurals>
 
     <string name="CallParticipant__you">Ви</string>
     <string name="CallParticipant__you_on_another_device">Ви (на другом уређају)</string>
@@ -4558,10 +4645,15 @@
 
     <!-- PrivacySettingsFragment -->
     <string name="PrivacySettingsFragment__blocked">Корисник је блокиран</string>
-    <string name="PrivacySettingsFragment__d_contacts">Контаката: %1$d</string>
+    <!-- Settings label that shows the number blocked contacts -->
+    <plurals name="PrivacySettingsFragment__d_contacts">
+        <item quantity="one">%1$d contact</item>
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
     <string name="PrivacySettingsFragment__messaging">Поруке</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Нестајуће поруке</string>
     <string name="PrivacySettingsFragment__app_security">Безбедност апликације</string>
+    <!-- This refers to the multi-tasking overview (recent apps) from the Android operating system.-->
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Блокирајте снимке екрана у листи недавних апликација и унутар апликације</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Поруке и позиви преко Signal-а, увек преузмеравај позиве, запечаћени пошиљалац</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Подразумевани тајмер за нова ћаскања</string>
@@ -4618,11 +4710,14 @@
     <string name="DataAndStorageSettingsFragment__media_quality">Квалитет медија</string>
     <string name="DataAndStorageSettingsFragment__sent_media_quality">Квалитет послатог медија</string>
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Слање висококвалитетних медија ће користити више података.</string>
+    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
     <string name="DataAndStorageSettingsFragment__high">Висок квалитет</string>
+    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
     <string name="DataAndStorageSettingsFragment__standard">Стандардни квалитет</string>
     <string name="DataAndStorageSettingsFragment__calls">Позиви</string>
 
     <!-- ChatColorSelectionFragment -->
+    <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
     <string name="ChatColorSelectionFragment__auto">Аутоматски</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">Користите прилагођене боје</string>
     <string name="ChatColorSelectionFragment__chat_color">Боја ћаскања</string>
@@ -4834,6 +4929,7 @@
     <string name="AvatarPickerFragment__take_a_picture">Снимите фотографију</string>
     <string name="AvatarPickerFragment__choose_a_photo">Одаберите слику</string>
     <string name="AvatarPickerFragment__photo">Слика</string>
+    <!-- Button label during avatar selection/creation that when tapped lets you generate an avatar from typed in text. -->
     <string name="AvatarPickerFragment__text">Текст</string>
     <string name="AvatarPickerFragment__save">Сачувај</string>
     <string name="AvatarPickerFragment__clear_avatar">Уклони аватар</string>
@@ -4894,7 +4990,7 @@
     <string name="MediaReviewFragment__add_a_message">Напишите поруку</string>
     <string name="MediaReviewFragment__add_a_reply">Напишите одговор</string>
     <string name="MediaReviewFragment__send_to">Пошаљи кориснику</string>
-    <string name="MediaReviewFragment__view_once_message">Једнократна порука</string>
+    <string name="MediaReviewFragment__view_once_message">Једнократни медиј</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">Једна или више ставки су превелике</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">Једна или више ставки су неважеће</string>
     <string name="MediaReviewFragment__too_many_items_selected">Изабрано је превише ставки</string>
@@ -5487,7 +5583,7 @@
     <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
     <!-- Displayed when viewing a post you sent -->
     <string name="StoryViewerPageFragment__you">Ви</string>
-    <!-- Displayed when viewing a post displayed to a group -->
+    <!-- Displayed when viewing a story sent to a group, placeholders are person who sent the story and the group name -->
     <string name="StoryViewerPageFragment__s_to_s">%1$s за: %2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">Одговорите</string>
@@ -6703,6 +6799,27 @@
     <string name="ViewNoteSheet__note">Белешка</string>
     <!-- Content description for opening the note editor -->
     <string name="ViewNoteSheet__edit_note">Измени белешку</string>
+
+    <!-- BackupProgressService -->
+    <!-- Notification title shown while backup restore job is running -->
+    <string name="BackupProgressService_title">Враћање резервне копије…</string>
+    <!-- Notification title shown while downloading backup restore data -->
+    <string name="BackupProgressService_title_downloading">Преузимање података резервне копије…</string>
+
+    <!-- BackupsTypeSettingsFragment -->
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+
 
     <!-- EOF -->
 </resources>

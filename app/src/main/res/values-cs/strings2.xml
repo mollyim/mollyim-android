@@ -81,7 +81,7 @@
     <string name="preferences__map_normal">Normální</string>
     <string name="preferences_network__proxy">Proxy</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Prosíme, vyberte heslo které bude použito k lokálnímu zašifrování vašich dat.\n\nToto heslo by mělo být silné.</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Nyní můžete nastavit heslo pro zašifrování databaáze. Dokud není Molly odemečená, nemůže získávat upozornění ani hovory. Toto pomáhá chránit data na ztraceném nebo ukradeném zařízení.</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Nyní můžete nastavit heslo pro zašifrování databáze. Dokud není Molly odemečená, nelze přijímat upozornění ani hovory. Toto pomáhá chránit data na ztraceném nebo ukradeném zařízení.</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nPředpokládáný čas prolomení: %2$s\n\nNávrh: %3$s</string>
     <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly se nebude moci připojit bez Orbotu, který není na tomto zařízení nainstalován.</string>
     <string name="BioTextPreference_no_linked_devices">Žádná propojená zařízení</string>
@@ -89,4 +89,26 @@
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly potřebuje oprávnění ke kontaktům aby vám pomohla najít vaše přátele. Vaše kontakty budou nahrány pomocí Signal objevování soukromých kontaktů, což znamená že budou end-to-end šifrované a nebudou nikdy viditelné službě Signal.</string>
     <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s není registrováno na Signálu</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Smazat a vypnout zaznamenáváni debugu\?</string>
+    <string name="DeviceListItem_primary">Hlavní</string>
+    <string name="DeviceListItem_registered_s">Registrováno %s</string>
+    <string name="RegistrationActivity_link">Propojit</string>
+    <string name="preferences_appearance__navigation_bar">Navigační panel</string>
+    <string name="preferences_appearance__show_calls">Zobrazovat hovory</string>
+    <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Přepnutím se zobrazí nebo skryje ikona volání v navigačním panelu</string>
+    <string name="DeviceListItem_this_device">Toto zařízení</string>
+    <string name="RegistrationActivity_device_name_description">Název zařízení</string>
+    <string name="RegistrationActivity_link_error">Při propojování nastala chyba. Zkontrolujte připojení a zkuste to znovu</string>
+    <string name="NotificationsSettingsFragment__push_notifications_unavailable">Oznámení nejsou dostupná</string>
+    <string name="NotificationsSettingsFragment__new_activity_while_locked">Nová aktivita během uzamknutí</string>
+    <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">Nastavení PINu nelze měnit z propojeného zařízení</string>
+    <string name="RegistrationActivity_link_device">Propojit s existujícím zařízením</string>
+    <string name="RegistrationActivity_scan_this_qr_using_your_primary_device">Naskenujte tento QR kód pomocí svého hlavního zařízení</string>
+    <string name="DeviceListItem_device_d">Zařízení #%d</string>
+    <string name="RegistrationActivity_enter_a_name_for_this_device">Zadejte název pro toto zařízení</string>
+    <string name="RegistrationActivity_copied_to_clipboard">Zkopírováno do schránky</string>
+    <string name="RegistrationActivity_link_timeout">Při čekání na hlavní zařízení vypršel čas. Připravte si zařízení k naskenování QR kódu a zkuste to znovu</string>
+    <string name="RegistrationActivity_provider_declined">Poskytovatel odmítnul poslat vám ověřovací kód, zřejmě kvůli pravidlům ohledně předcházení podvodů.</string>
+    <string name="RegistrationActivity_link_retry">Propojit znovu</string>
+    <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Dostávat oznámení o nových zprávách a zmeškaných hovorech když je aplikace zamknutá.</string>
+    <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">Omlouváme se, tato funkce vyžaduje doručení oznámení skrz FCM nebo UnifiedPush, které nejsou aktuálně dostupné.</string>
 </resources>

@@ -181,7 +181,7 @@ class AppSettingsFragment : DSLSettingsFragment(
         onClick = {
           findNavController().safeNavigate(R.id.action_appSettingsFragment_to_chatsSettingsFragment)
         },
-        isEnabled = state.isRegisteredAndUpToDate()
+        isEnabled = true
       )
 
       clickPref(

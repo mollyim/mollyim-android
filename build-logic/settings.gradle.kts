@@ -18,6 +18,5 @@ dependencyResolutionManagement {
 rootProject.name = "build-logic"
 
 include(":plugins")
-include(":tools")
 
 apply(from = "../dependencies.gradle.kts")

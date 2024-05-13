@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <base-config cleartextTrafficPermitted="false" />
-    <!-- gnutls-cli tool can be used to retrieve the SHA-256 pin for these domains. -->
+    <!-- www.ssllabs.com/ssltest can be used to retrieve the SHA-256 pin for these domains. -->
+    <domain-config>
+        <domain includeSubdomains="true">molly.im</domain>
+        <pin-set>
+            <pin digest="SHA-256">C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=</pin><!-- ISRG Root X1 -->
+            <pin digest="SHA-256">diGVwiVYbubAI3RW4hB9xU8e/CH2GnkuvVFZE8zmgzI=</pin><!-- ISRG Root X2 -->
+        </pin-set>
+    </domain-config>
     <domain-config>
         <domain includeSubdomains="false">a.tile.openstreetmap.org</domain>
         <domain includeSubdomains="false">b.tile.openstreetmap.org</domain>

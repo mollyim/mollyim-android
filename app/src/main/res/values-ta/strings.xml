@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -89,6 +87,16 @@
     <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">புகைப்படங்கள், காணொளிகள் அல்லது ஆடியோவை இணைக்கவும் Molly க்கு சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
     <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">தொடர்பு தகவலை இணைக்கவும் Molly க்கு தொடர்புகளின் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
     <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">இருப்பிடத்தை இணைக்கவும், Molly க்கு இருப்பிட அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"இருப்பிடம்\" ஐ இயக்கவும்.</string>
+
+    <!-- Dialog title asking users for location permission -->
+    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <!-- Dialog description that will explain the steps needed to give location permission -->
+    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <!-- Alert dialog description asking for location permission -->
+    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <!-- Toast text explaining Signal\'s need for location access -->
+    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s கட்டணங்களைச் செயல்படுத்தவில்லை </string>
     <!-- Alert dialog description to send the recipient a request to activate payments -->
@@ -386,8 +394,16 @@
     <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">குழுவில் சேர உங்கள் கோரிக்கை குழு நிர்வாகிக்கு அனுப்பப்பட்டுள்ளது. அவர்கள் நடவடிக்கை எடுக்கும்போது உங்களுக்கு அறிவிக்கப்படும்.</string>
     <string name="ConversationActivity_cancel_request">கோரிக்கையை ரத்துசெய்</string>
 
-    <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ஆடியோ செய்திகளை அனுப்ப, உங்கள் மைக்ரோஃபோனுக்கு Molly அணுகலை அனுமதிக்கவும்.</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
     <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ஆடியோ செய்திகளை அனுப்ப Molly க்கு மைக்ரோஃபோன் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோனை\" இயக்கவும்.</string>
+
     <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly லை அழைக்க மைக்ரோஃபோன் மற்றும் கேமரா அனுமதிகள் தேவை%1$s, ஆனால் அவை நிரந்தரமாக மறுக்கப்பட்டுள்ளன. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதி\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" ஐ இயக்கவும்.</string>
     <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Molly-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">புகைப்படங்கள் அல்லது வீடியோ எடுக்க Molly-க்கு கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\"-ஐ இயலச் செய்யவும்.</string>
@@ -411,10 +427,17 @@
     <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">நீங்கள் இந்த குழுவை விட்டு வெளியேறும், மற்றும் இது எல்லாவற்றிலிருந்தும் நீக்கப்படும் உங்கள் சாதனங்கள்.</string>
     <string name="ConversationActivity_delete">நீக்கு</string>
     <string name="ConversationActivity_delete_and_leave">நீக்கி வெளியேறுக</string>
-    <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$sஐ அழைக்க, சிக்னலுக்கு உங்கள் மைக்ரோஃபோனுக்கு அனுமதி தேவை microphone access and permission for Molly</string>
+
+    <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
+    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
 
 
     <string name="ConversationActivity_join">சேரவும்</string>
+    <!-- Button text for an active group call but the call is currently full and unjoinable -->
     <string name="ConversationActivity_full">நிரம்பியது</string>
 
     <string name="ConversationActivity_error_sending_media">மீடியா அனுப்புவதில் பிழை</string>
@@ -613,6 +636,7 @@
     <string name="ConversationListFragment_unarchive">வெளிப்படுத்து</string>
     <string name="ConversationListFragment_delete">நீக்கு</string>
     <string name="ConversationListFragment_select_all">எல்லாம்</string>
+    <!-- Screen title shown when selecting multiple items from a list like conversation threads or call logs. -->
     <plurals name="ConversationListFragment_s_selected">
         <item quantity="one">%1$d தேர்ந்தெடுக்கப்பட்டது</item>
         <item quantity="other">%1$d தேர்ந்தெடுக்கப்பட்டது</item>
@@ -864,6 +888,7 @@
         <item quantity="one">அழைப்பிதழ் அனுப்பப்பட்டது</item>
         <item quantity="other">%1$d அழைப்பிதழ்கள் அனுப்பப்பட்டன</item>
     </plurals>
+    <!-- Dialog message shown when you are attempting to add a single contact to a group and you don\'t have enough information about them to do it automatically, so must do it via an invite instead. Placeholder is name/username/phone number. -->
     <string name="GroupManagement_invite_single_user">“%1$s” ஐ தானாக இந்த குழுவில் சேர்க்க முடியாது. குழுவில் சேர அவர்கள் அழைக்கப்பட்டுள்ளனர். எந்தவொரு குழு செய்திகளையும் அவர்கள் ஏற்றுக்கொள்ளும் வரை பார்க்க மாட்டார்கள்.</string>
     <string name="GroupManagement_invite_multiple_users">இந்த பயனர்களை இந்த குழுவில் தானாக உங்களால் சேர்க்க முடியாது. குழுவில் சேர அவர்கள் அழைக்கப்பட்டுள்ளனர், அவர்கள் ஏற்றுக்கொள்ளும் வரை எந்த குழு செய்திகளையும் பார்க்க மாட்டார்கள்.</string>
 
@@ -1044,7 +1069,9 @@
 
     <string name="ManageGroupActivity_edit_name_and_picture">பெயர் மற்றும் படத்தைத் திருத்தவும்</string>
     <string name="ManageGroupActivity_legacy_group">பழைய மரபு குழு</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code -->
     <string name="ManageGroupActivity_legacy_group_learn_more">இது ஒரு மரபு குழு. குழு நிர்வாகிகள் போன்ற அம்சங்கள் புதிய குழுக்களுக்கு மட்டுமே கிடைக்கும்.</string>
+    <!-- This is placed inside a "Learn More" text view, which automatically appends LearnMoreTextView_learn_more in code to the end of the string -->
     <string name="ManageGroupActivity_legacy_group_upgrade">இது ஒரு மரபு குழு. @குறிப்புகள் மற்றும் நிர்வாகிகள் போன்ற புதிய அம்சங்களை அணுக,</string>
     <string name="ManageGroupActivity_legacy_group_too_large">இந்த மரபு குழுவை புதிய குழுவாக மேம்படுத்த முடியாது, ஏனெனில் அது அளவு மிகப் பெரியது. அதிகபட்ச குழு அளவு%1$d.</string>
     <string name="ManageGroupActivity_upgrade_this_group">இந்த குழுவை மேம்படுத்தவும்.</string>
@@ -1271,6 +1298,7 @@
         <item quantity="other">நீக்கு</item>
     </plurals>
 
+    <!-- Screen title shown when selecting multiple items in the media overview screen. The first placeholder is the number of items, the second number is the cumulative file size in bytes. -->
     <plurals name="MediaOverviewActivity_d_selected_s">
         <item quantity="one">%1$d தேர்ந்தெடுக்கப்பட்டது (%2$s)</item>
         <item quantity="other">%1$d தேர்ந்தெடுக்கப்பட்டது (%2$s)</item>
@@ -1335,17 +1363,13 @@
     <string name="MessageRecord_left_group">நீங்கள் குழுவை விட்டு விலகினீர்கள்.</string>
     <string name="MessageRecord_you_updated_group">நீங்கள் குழுவைப் புதுப்பித்தீர்கள்.</string>
     <string name="MessageRecord_the_group_was_updated">குழு புதுப்பிக்கப்பட்டது.</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 voice/audio call -->
     <string name="MessageRecord_outgoing_voice_call">வெளிச்செல்லும் குரல் அழைப்பு</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s answered by the other party -->
+    <!-- Update message shown when placing an outgoing 1:1 video call -->
     <string name="MessageRecord_outgoing_video_call">வெளிச்செல்லும் வீடியோ அழைப்பு</string>
-    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_voice_call">பதிலளிக்கப்படாத குரல் அழைப்பு</string>
-    <!-- Update message shown when placing an outgoing 1:1 video call and it\'s not answered by the other party -->
-    <string name="MessageRecord_unanswered_video_call">பதிலளிக்கப்படாத வீடியோ அழைப்பு</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered -->
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and it\'s answered or ringing -->
     <string name="MessageRecord_incoming_voice_call">உள்வரும் குரல் அழைப்பு</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and answered -->
+    <!-- Update message shown when receiving an incoming 1:1 video call and answered or ringing -->
     <string name="MessageRecord_incoming_video_call">உள்வரும் வீடியோ அழைப்பு</string>
     <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
     <string name="MessageRecord_missed_voice_call">தவறவிட்ட குரல் அழைப்பு</string>
@@ -1355,10 +1379,6 @@
     <string name="MessageRecord_missed_voice_call_notification_profile">அறிவிப்பு புரொஃபைல் இயக்கப்பட்டிருக்கும்போது தவறவிட்ட குரல் அழைப்பு</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
     <string name="MessageRecord_missed_video_call_notification_profile">அறிவிப்பு புரொஃபைல் இயக்கப்பட்டிருக்கும் போது தவறவிட்ட வீடியோ அழைப்பு</string>
-    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_voice_call">குரல் அழைப்பை மறுத்துவிட்டீர்கள்</string>
-    <!-- Update message shown when receiving an incoming 1:1 video call and explicitly declined -->
-    <string name="MessageRecord_you_declined_a_video_call">வீடியோ அழைப்பை மறுத்துவிட்டீர்கள்</string>
     <!-- Call update formatter string to place the update message next to a time stamp. e.g., \'Incoming voice call · 11:11am\' -->
     <string name="MessageRecord_call_message_with_date">%1$s · %2$s</string>
     <string name="MessageRecord_s_updated_group">%1$s குழு புதுப்பிக்கப்பட்டது .</string>
@@ -1567,28 +1587,53 @@
     <string name="MessageRecord_can_accept_payments">%1$s இப்போது கட்டணங்களை ஏற்க முடியும்</string>
 
     <!-- Group Calling update messages -->
-    <string name="MessageRecord_s_started_a_group_call_s">%1$sகுழு அழைப்பைத் தொடங்கினார்%2$s</string>
-    <string name="MessageRecord_you_started_a_group_call_s">குழு அழைப்பைத் தொடங்கியுள்ளீர்கள் · %1$s</string>
-    <string name="MessageRecord_s_is_in_the_group_call_s">%1$s குழு அழைப்பில் உள்ளார் %2$s</string>
-    <string name="MessageRecord_you_are_in_the_group_call_s1">நீங்கள் குழு அழைப்பில் இருக்கிறீர்கள். %1$s</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s மற்றும் %2$s குழு அழைப்பில் உள்ளனர் %3$s</string>
-    <string name="MessageRecord_group_call_s">குழு அழைப்பு . %1$s</string>
-
-    <string name="MessageRecord_s_started_a_group_call">%1$s குழு அழைப்பைத் தொடங்கினார்</string>
-    <string name="MessageRecord_you_started_a_group_call">நீங்கள் ஒரு தொடங்கினீர்கள் குழு அழைப்பு</string>
-    <string name="MessageRecord_s_is_in_the_group_call">%1$s குழு அழைப்பில் இருக்கிறார்</string>
-    <string name="MessageRecord_you_are_in_the_group_call">நீங்கள் குழு அழைப்பில் இருக்கிறீர்கள்</string>
-    <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s மற்றும் %2$s குழு அழைப்பில் உள்ளனர்</string>
-    <string name="MessageRecord_group_call">குழு அழைப்பு</string>
+    <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_is_in_the_call_s">%1$s என்பவர் %2$s நேரத்தில் அழைப்பில் உள்ளார்</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
+    <string name="MessageRecord_you_are_in_the_call_s1">நீங்கள் %1$s நேரத்தில் அழைப்பில் உள்ளீர்கள்</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
+    <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s மற்றும் %2$s ஆகியோ %3$s நேரத்தில் அழைப்பில் உள்ளனர்</string>
+    <!-- Chat log text for an ongoing group call that has one participant -->
+    <string name="MessageRecord_s_is_in_the_call">%1$s அழைப்பில் உள்ளார்</string>
+    <!-- Chat log text for an ongoing group call only the local user has joined -->
+    <string name="MessageRecord_you_are_in_the_call">நீங்கள் அழைப்பில் உள்ளீர்கள்</string>
+    <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
+    <string name="MessageRecord_s_and_s_are_in_the_call">%1$s மற்றும் %2$s ஆகியோர் அழைப்பில் உள்ளனர்</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes -->
+    <string name="MessageRecord__the_video_call_has_ended">வீடியோ அழைப்பு முடிந்தது</string>
+    <!-- Chat log text for a group call that ended within the last 5 minutes with a placeholder for formatted time -->
+    <string name="MessageRecord__the_video_call_has_ended_s">வீடியோ அழைப்பு %1$s முடிந்தது</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed -->
+    <string name="MessageRecord__missed_video_call">தவறவிட்ட வீடியோ அழைப்பு</string>
+    <!-- Chat log text for a group call that ended more than 5 minutes ago and was missed with a placeholder for formatted time -->
+    <string name="MessageRecord__missed_video_call_s">தவறவிட்ட வீடியோ அழைப்பு . %1$s</string>
+    <!-- Chat log text for a group call that ended that the local user did not start -->
+    <string name="MessageRecord__incoming_video_call">உள்வரும் வீடியோ அழைப்பு</string>
+    <!-- Chat log text for a group call that ended that the local user did not start with a placeholder for formatted time -->
+    <string name="MessageRecord__incoming_video_call_s">%1$s நேரத்தில் இன்கமிங் வீடியோ அழைப்பு</string>
+    <!-- Chat log text for a group call that ended that the local user started -->
+    <string name="MessageRecord__outgoing_video_call">வெளிச்செல்லும் வீடியோ அழைப்பு</string>
+    <!-- Chat log text for a group call that ended that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__outgoing_video_call_s">%1$s நேரத்தில் அவுட்கோயிங் வீடியோ அழைப்பு</string>
+    <!-- Chat log text for an ongoing group call that the local user started -->
+    <string name="MessageRecord__you_started_a_video_call">நீங்கள் ஒரு வீடியோ அழைப்பைத் தொடங்கியுள்ளீர்கள்</string>
+    <!-- Chat log text for an ongoing group call that the local user started with a placeholder for formatted time -->
+    <string name="MessageRecord__you_started_a_video_call_s">நீங்கள் %1$s நேரத்தில் ஒரு வீடியோ அழைப்பைத் தொடங்கியுள்ளீர்கள்</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name -->
+    <string name="MessageRecord__s_started_a_video_call">%1$s என்பவர் ஒரு வீடியோ அழைப்பைத் தொடங்கினார்</string>
+    <!-- Chat log text for an ongoing group call that the local user has not joined with a placeholder for user\'s short display name and a placeholder for formatted time -->
+    <string name="MessageRecord__s_started_a_video_call_s">%1$s என்பவர் %2$s நேரத்தில் ஒரு வீடியோ அழைப்பைத் தொடங்கினார்</string>
 
     <string name="MessageRecord_you">நீங்கள்</string>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call_s">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users, a placeholder for the number of users in the call, and a placeholder for formatted time -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call_s">
         <item quantity="one">%1$s, %2$s,. மற்றும் கூடுதலாக%3$d குழு உறுப்பினர் அழைப்பில் உள்ளனர் %4$s</item>
         <item quantity="other">%1$s, %2$s மற்றும் கூடுதலாக%3$d குழு உறுப்பினர்கள் அழைப்பில் உள்ளனர் %4$s</item>
     </plurals>
 
-    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call">
+    <!-- Chat log text for an ongoing group call with more than two participants with placeholders for the first two joined users and a placeholder for the number of users in the call -->
+    <plurals name="MessageRecord_s_s_and_d_others_are_in_the_call">
         <item quantity="one">%1$s, %2$s, மற்றும் %3$dகூடுதலாக குழு உறுப்பினர்கள் அழைப்பில் உள்ளனர்</item>
         <item quantity="other">%1$s, %2$s, மற்றும் கூடுதலாக %3$d குழு உறுப்பினர்கள் அழைப்பில் உள்ளனர்</item>
     </plurals>
@@ -2063,6 +2108,7 @@
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
     <string name="RegistrationActivity_unable_to_request_verification_code">சரிபார்ப்புக் குறியீட்டைக் கோர முடியவில்லை. உங்கள் நெட்வொர்க் இணைப்பைச் சரிபார்த்து, மீண்டும் முயலவும்.</string>
     <string name="RegistrationActivity_non_standard_number_format">நான்-ஸ்டாண்டர்ட் எண் வடிவம்</string>
+    <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">நீங்கள் உள்ளிட்ட எண் (%1$s) நான்-ஸ்டாண்டர்ட் எண் வடிவத்தைக் கொண்டுள்ளது.\n\nநீங்கள் %2$s-ஐ நினைத்தீர்களா?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">சிக்னல் ஆண்ட்ராய்டு - தொலைபேசி எண் வடிவம்</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
@@ -2207,7 +2253,7 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">இது பதிவு பொதுவில் வெளியிடப்படும் நிகழ்நிலைபங்களிப்பாளர்கள் பார்க்க. பதிவேற்றுவதற்கு முன் அதை நீங்கள் ஆராயலாம்.</string>
 
     <!-- SupportEmailUtil -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@molly.im</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
     <string name="SupportEmailUtil_filter">வடிகட்டி:</string>
     <string name="SupportEmailUtil_device_info">Device info: சாதனத் தகவல்:</string>
     <string name="SupportEmailUtil_android_version">Android version: Android பதிப்பு:</string>
@@ -2709,6 +2755,8 @@
     <string name="ConversationUpdateItem_loading">ஏற்றுதல்</string>
     <string name="ConversationUpdateItem_learn_more">மேலும் அறிக</string>
     <string name="ConversationUpdateItem_join_call">அழைப்பில் சேரவும்</string>
+    <!-- Action button label for starting a new call in the current conversation -->
+    <string name="ConversationUpdateItem_call_back">மீண்டும் அழைக்கவும்</string>
     <string name="ConversationUpdateItem_return_to_call">அழைப்புக்குத் திரும்பு</string>
     <string name="ConversationUpdateItem_call_is_full">அழைப்பு நிரம்பியுள்ளது</string>
     <string name="ConversationUpdateItem_invite_friends">நண்பர்களை அழை</string>
@@ -2773,6 +2821,7 @@
     <string name="safety_number_change_dialog__leave_call">அழைப்பை விடுங்கள்</string>
     <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">பின்வரும் நபர்கள் தொலைபேசிகளை மீண்டும் நிறுவியிருக்கலாம் அல்லது மாற்றியிருக்கலாம். தனியுரிமையை உறுதிப்படுத்த அவர்களுடன் உங்கள் பாதுகாப்பு எண்ணைச் சரிபார்க்கவும்.</string>
     <string name="safety_number_change_dialog__view">காண்க</string>
+    <!-- Subtitle shown for a single contact and that their safety number was previously verified and is now no longer verified. -->
     <string name="safety_number_change_dialog__previous_verified">முன்பு சரிபார்க்கப்பட்டது</string>
 
     <!-- EnableCallNotificationSettingsDialog__call_notifications_checklist -->
@@ -3086,6 +3135,7 @@
 
     <string name="arrays__default">இயல்புநிலை</string>
     <string name="arrays__high">உயர்</string>
+    <!-- Setting title that represent an abstract priority to assign to notifications as the max/highest priority a notification can be within the system. -->
     <string name="arrays__max">மேக்ஸ்</string>
 
     <!-- plurals.xml -->
@@ -3357,7 +3407,7 @@
     <string name="PaymentsHomeFragment__details">விவரங்கள்</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoinஐ அனுப்பவும் பெறவும் நீங்கள் Signalஐப் பயன்படுத்தலாம். அனைத்து பேமெண்ட்களும் MobileCoins மற்றும் MobileCoin Wallet செயலியின் விதிமுறைகளுக்கு உட்பட்டது. நீங்கள் சில சிக்கல்களைச் சந்திக்க நேரிடலாம் மற்றும் நீங்கள் இழக்கக்கூடிய கட்டணங்களை அல்லது நிலுவைகளை மீட்டெடுக்க முடியாது. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoinஐ அனுப்பவும் பெறவும் நீங்கள் Mollyஐப் பயன்படுத்தலாம். அனைத்து பேமெண்ட்களும் MobileCoins மற்றும் MobileCoin Wallet செயலியின் விதிமுறைகளுக்கு உட்பட்டது. நீங்கள் சில சிக்கல்களைச் சந்திக்க நேரிடலாம் மற்றும் நீங்கள் இழக்கக்கூடிய கட்டணங்களை அல்லது நிலுவைகளை மீட்டெடுக்க முடியாது. </string>
     <string name="PaymentsHomeFragment__activate">செயல்படுத்த</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin விதிமுறைகளைக் காண்க</string>
     <string name="PaymentsHomeFragment__payments_not_available">கொடுப்பனவுகள் Molly இருக்கிறது இல்லைநீண்ட நேரம் கிடைக்கும். நீங்கள் இன்னும் முடியும்பரிமாற்றம் நிதி ஒரு பரிமாற்றம் ஆனால் உன்னால் முடியும் இல்லை நீண்டது அனுப்பு மற்றும் பணம் பெறுதல் அல்லது கூட்டு நிதி.</string>
@@ -3406,6 +3456,14 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">உங்கள் டிவைஸில் இருந்து புகைப்படங்கள், வீடியோக்கள் மற்றும் கோப்புகளை அனுப்பலாம்.</string>
 
+    <!-- PermissionDeniedBottomSheet -->
+    <!-- Sheet describing step 1 on how to give permissions by opening settings -->
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
+    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
     <string name="PaymentsSecuritySetupFragment__security_setup">பாதுகாப்பு அமைப்பு</string>
@@ -3446,6 +3504,7 @@
     <string name="PaymentsDetailsFragment__sent_to_s">அனுப்பப்பட்டது %1$s</string>
     <string name="PaymentsDetailsFragment__you_on_s_at_s">நீங்கள் %1$s இல் %2$s</string>
     <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s ஆன் %2$s இல் %3$s</string>
+    <!-- Prefix to a name to indicate who a payment was sent to -->
     <string name="PaymentsDetailsFragment__to">செய்ய</string>
     <string name="PaymentsDetailsFragment__from">இருந்து</string>
     <string name="PaymentsDetailsFragment__information">கட்டணத் தொகை மற்றும் பரிவர்த்தனை நேரம் உள்ளிட்ட பரிவர்த்தனை விவரங்கள் MobileCoin லெட்ஜரின் பகுதியாகும்.</string>
@@ -3508,6 +3567,7 @@
     <string name="ConfirmPayment__confirm_payment">கட்டணத்தை உறுதிப்படுத்தவும்</string>
     <string name="ConfirmPayment__network_fee">பிணைய கட்டணம்</string>
     <string name="ConfirmPayment__estimated_s">மதிப்பிடப்பட்டுள்ளது %1$s</string>
+    <!-- Prefix to a name to indicate who a payment will be sent to -->
     <string name="ConfirmPayment__to">செய்ய</string>
     <string name="ConfirmPayment__total_amount">மொத்தத் தொகை</string>
     <string name="ConfirmPayment__balance_s">இருப்பு: %1$s</string>
@@ -3657,6 +3717,14 @@
     <!-- Label for a menu item that appears after pressing the three-dot icon in a  -->
     <string name="conversation_group_options__conversation">சாட்</string>
     <string name="conversation_group_options__broadcast">ஒளிபரப்பு</string>
+
+    <!-- DoubleTapEditEducationSheet -->
+    <!-- Displayed as the title of the education bottom sheet -->
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <!-- Button label to dismiss sheet -->
+    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">புதிய குழு</string>
@@ -4112,6 +4180,7 @@
     <string name="RecipientBottomSheet_copied_to_clipboard">கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது</string>
 
     <string name="GroupRecipientListItem_admin">நிர்வாகி</string>
+    <!-- Button text to approve a user that has requested to join a group -->
     <string name="GroupRecipientListItem_approve_description">ஒப்புதல்</string>
     <string name="GroupRecipientListItem_deny_description">மறுக்க</string>
 
@@ -4139,6 +4208,7 @@
 
     <!-- VoiceNoteMediaDescriptionCompatFactory -->
     <string name="VoiceNoteMediaItemFactory__voice_message">குரல் செய்தி:%1$s</string>
+    <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s to %2$s</string>
 
     <!-- StorageUtil -->
@@ -4152,8 +4222,16 @@
     <string name="ReviewCardDialogFragment__review_members">மதிப்பாய்வு கோரிக்கை</string>
     <!-- Title of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <string name="ReviewCardDialogFragment__review_request">மதிப்பாய்வு கோரிக்கை</string>
-    <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$dகுழு உறுப்பினர்களுக்கு ஒரே பெயர் உள்ளது, கீழே உள்ள உறுப்பினர்களை மதிப்பாய்வு செய்து நடவடிக்கை எடுக்க முடிவு செய்யுங்கள்</string>
-    <string name="ReviewCardDialogFragment__if_youre_not_sure">உங்களுக்கு யார் கோரிக்கையை அனுப்பினார்கள் என்பது உங்களுக்குத் தெரியாவிட்டால், கீழே உள்ள தொடர்புகளை மதிப்பாய்வு செய்து நடவடிக்கை எடுக்கவும்.</string>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
+        <item quantity="one">%1$d group member have the same name, review the member below and choose to take action.</item>
+        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+    </plurals>
+    <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
+    <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
+        <item quantity="one">If you\'re not sure who the request is from, review the contact below and take action.</item>
+        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+    </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">பொதுவான குழுக்கள் இல்லை</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">பொதுவான குழுக்கள் இல்லை</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
@@ -4184,11 +4262,20 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s சேர்ந்தார்</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s மற்றும் %2$sசேர்ந்தார்</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s மற்றும் %3$s சேர்ந்தார்</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">%1$s, %2$s and %3$dஅதிக உறுப்பினர்கள் இணைந்தனர்</string>
+    <!-- Toast message shown in group call when 3 or more people join -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
+        <item quantity="one">%1$s, %2$s and %3$d other joined</item>
+        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+    </plurals>
+    <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s வெளியேறினர்</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s மற்றும் %2$s வெளியேறினர்</string>
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s மற்றும் %3$sவெளியேறினர்</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">%1$s, %2$s and மேலும்%3$d வெளியேறினர்</string>
+    <!-- Toast message shown in group call when 3 or more people leave -->
+    <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
+        <item quantity="one">%1$s, %2$s and %3$d other left</item>
+        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+    </plurals>
 
     <string name="CallParticipant__you">நீங்கள்</string>
     <string name="CallParticipant__you_on_another_device">நீங்கள் (மற்றொரு சாதனத்தில்)</string>
@@ -4558,10 +4645,15 @@
 
     <!-- PrivacySettingsFragment -->
     <string name="PrivacySettingsFragment__blocked">தடைசெய்யப்பட்டார்</string>
-    <string name="PrivacySettingsFragment__d_contacts">%1$d contacts</string>
+    <!-- Settings label that shows the number blocked contacts -->
+    <plurals name="PrivacySettingsFragment__d_contacts">
+        <item quantity="one">%1$d contact</item>
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
     <string name="PrivacySettingsFragment__messaging">செய்தி அனுப்புதல்</string>
     <string name="PrivacySettingsFragment__disappearing_messages">காணாமல் போகும் செய்திகள்</string>
     <string name="PrivacySettingsFragment__app_security">பயன்பாட்டு பாதுகாப்பு</string>
+    <!-- This refers to the multi-tasking overview (recent apps) from the Android operating system.-->
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">சமீபத்தியவை பட்டியல் மற்றும் செயலிக்கு உள்ளே ஸ்கிரீன்ஷாட் எடுப்பதைத் தடுக்கவும்</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Signal செய்திகள் மற்றும் அழைப்புகள், எப்போதும் ரிலே அழைப்புகள் மற்றும் சீல் அனுப்பியவர்</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">புதிய சாட்களுக்கு இயல்புநிலை டைமர்</string>
@@ -4618,11 +4710,14 @@
     <string name="DataAndStorageSettingsFragment__media_quality">மீடியா தரம்</string>
     <string name="DataAndStorageSettingsFragment__sent_media_quality">அனுப்பிய மீடியா தரம்</string>
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">உயர்தரத்தை அனுப்புகிறது ஊடகம் அதிக தரவைப் பயன்படுத்தும்.</string>
+    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
     <string name="DataAndStorageSettingsFragment__high">உயர்</string>
+    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
     <string name="DataAndStorageSettingsFragment__standard">தரநிலை</string>
     <string name="DataAndStorageSettingsFragment__calls">அழைப்புகள்</string>
 
     <!-- ChatColorSelectionFragment -->
+    <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
     <string name="ChatColorSelectionFragment__auto">ஆட்டோ</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">தனிப்பயன் நிறங்களை பயன்படுத்தவும்</string>
     <string name="ChatColorSelectionFragment__chat_color">சாட் கலர்</string>
@@ -4834,6 +4929,7 @@
     <string name="AvatarPickerFragment__take_a_picture">படம் எடுக்கவும்</string>
     <string name="AvatarPickerFragment__choose_a_photo">ஒன்றை தேர்ந்தெடு புகைப்படம்</string>
     <string name="AvatarPickerFragment__photo">புகைப்படம்</string>
+    <!-- Button label during avatar selection/creation that when tapped lets you generate an avatar from typed in text. -->
     <string name="AvatarPickerFragment__text">உரை</string>
     <string name="AvatarPickerFragment__save">சேமி</string>
     <string name="AvatarPickerFragment__clear_avatar">அவதார் அழி</string>
@@ -4894,7 +4990,7 @@
     <string name="MediaReviewFragment__add_a_message">கூட்டு ஒரு செய்தி</string>
     <string name="MediaReviewFragment__add_a_reply">ஒரு பதிலைச் சேர்க்கவும்</string>
     <string name="MediaReviewFragment__send_to">இவருக்கு அனுப்பு</string>
-    <string name="MediaReviewFragment__view_once_message">ஒருமுறை பார்க்கும் செய்தி</string>
+    <string name="MediaReviewFragment__view_once_message">ஒரு முறை பார்க்கக்கூடிய மீடியா</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">ஒன்று அல்லது அதற்கு மேற்பட்ட பொருட்கள் மிகப் பெரியதாக இருந்தன</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">ஒன்று அல்லது அதற்கு மேற்பட்ட பொருட்கள் செல்லாதவை</string>
     <string name="MediaReviewFragment__too_many_items_selected">பல பொருட்கள் தேர்ந்தெடுக்கப்பட்டுள்ளன</string>
@@ -5487,7 +5583,7 @@
     <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
     <!-- Displayed when viewing a post you sent -->
     <string name="StoryViewerPageFragment__you">நீங்கள்</string>
-    <!-- Displayed when viewing a post displayed to a group -->
+    <!-- Displayed when viewing a story sent to a group, placeholders are person who sent the story and the group name -->
     <string name="StoryViewerPageFragment__s_to_s">%1$s to %2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">பதில்</string>
@@ -6703,6 +6799,27 @@
     <string name="ViewNoteSheet__note">குறிப்பு</string>
     <!-- Content description for opening the note editor -->
     <string name="ViewNoteSheet__edit_note">குறிப்பைத் திருத்து</string>
+
+    <!-- BackupProgressService -->
+    <!-- Notification title shown while backup restore job is running -->
+    <string name="BackupProgressService_title">காப்புப்பிரதியை மீட்டெடுக்கிறது…</string>
+    <!-- Notification title shown while downloading backup restore data -->
+    <string name="BackupProgressService_title_downloading">காப்புப்பிரதி தரவைப் பதிவிறக்குகிறது…</string>
+
+    <!-- BackupsTypeSettingsFragment -->
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
+    <!-- Displayed as the user\'s payment method as a label in a preference row -->
+    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+
 
     <!-- EOF -->
 </resources>
