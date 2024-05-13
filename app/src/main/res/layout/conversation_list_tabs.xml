@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/signal_colorSurface2"
-    android:minHeight="80dp">
+    android:layout_height="32dp">
 
     <View
         android:id="@+id/chats_tab_container"
@@ -116,10 +114,12 @@
         android:text="@string/ConversationListTabs__chats"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
         android:textColor="@color/signal_colorOnBackground"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/chats_tab_icon"
         app:layout_constraintStart_toStartOf="@id/chats_tab_icon"
-        app:layout_constraintTop_toBottomOf="@id/chats_tab_icon" />
+        app:layout_constraintTop_toBottomOf="@id/chats_tab_icon"
+        tools:visibility="gone" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/calls_tab_icon"
@@ -142,10 +142,12 @@
         android:text="@string/ConversationListTabs__calls"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
         android:textColor="@color/signal_colorOnBackground"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/calls_tab_icon"
         app:layout_constraintStart_toStartOf="@id/calls_tab_icon"
-        app:layout_constraintTop_toBottomOf="@id/calls_tab_icon" />
+        app:layout_constraintTop_toBottomOf="@id/calls_tab_icon"
+        tools:visibility="gone" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/stories_tab_icon"
@@ -168,10 +170,12 @@
         android:text="@string/ConversationListTabs__stories"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
         android:textColor="@color/signal_colorOnBackground"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/stories_tab_icon"
         app:layout_constraintStart_toStartOf="@id/stories_tab_icon"
-        app:layout_constraintTop_toBottomOf="@id/stories_tab_icon" />
+        app:layout_constraintTop_toBottomOf="@id/stories_tab_icon"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/chats_unread_indicator"
@@ -187,8 +191,8 @@
         android:textAppearance="@style/Signal.Text.Caption"
         android:textColor="@color/white"
         android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="@id/chats_tab_icon"
         app:layout_constraintBottom_toBottomOf="@id/chats_tab_icon"
+        app:layout_constraintStart_toStartOf="@id/chats_tab_icon"
         tools:text="3" />
 
     <TextView
@@ -205,8 +209,8 @@
         android:textAppearance="@style/Signal.Text.Caption"
         android:textColor="@color/white"
         android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="@id/calls_tab_icon"
         app:layout_constraintBottom_toBottomOf="@+id/calls_tab_icon"
+        app:layout_constraintStart_toStartOf="@id/calls_tab_icon"
         tools:text="3" />
 
     <TextView
@@ -223,8 +227,8 @@
         android:textAppearance="@style/Signal.Text.Caption"
         android:textColor="@color/white"
         android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="@id/stories_tab_icon"
         app:layout_constraintBottom_toBottomOf="@+id/stories_tab_icon"
+        app:layout_constraintStart_toStartOf="@id/stories_tab_icon"
         tools:text="99+" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

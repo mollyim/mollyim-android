@@ -25,8 +25,8 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:textAppearance="@style/Signal.Text.HeadlineMedium"
-            android:text="@string/RegistrationActivity_enter_a_name_for_this_device" />
+            android:text="@string/RegistrationActivity_enter_a_name_for_this_device"
+            android:textAppearance="@style/Signal.Text.Title.Large" />
 
         <org.thoughtcrime.securesms.components.LabeledEditText
             android:id="@+id/device_name"

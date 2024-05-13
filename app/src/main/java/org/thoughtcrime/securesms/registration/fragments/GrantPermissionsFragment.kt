@@ -12,6 +12,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import org.signal.core.ui.Buttons
+import org.signal.core.ui.theme.SignalTheme
+import org.signal.core.util.sp
+import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.registration.compose.GrantPermissionsScreen
@@ -101,3 +105,140 @@ class GrantPermissionsFragment : ComposeFragment() {
     RESTORE_BACKUP
   }
 }
+
+@Preview
+@Composable
+fun GrantPermissionsScreenPreview() {
+  SignalTheme(isDarkMode = false) {
+    GrantPermissionsScreen(
+      deviceBuildVersion = 33,
+      isBackupSelectionRequired = true,
+      isSearchingForBackup = true,
+      {},
+      {}
+    )
+  }
+}
+
+@Composable
+fun GrantPermissionsScreen(
+  deviceBuildVersion: Int,
+  isBackupSelectionRequired: Boolean,
+  isSearchingForBackup: Boolean,
+  onNextClicked: () -> Unit,
+  onNotNowClicked: () -> Unit
+) {
+  Surface {
+    Column(
+      modifier = Modifier
+        .padding(horizontal = 12.dp)
+        .padding(top = 40.dp, bottom = 24.dp)
+    ) {
+      LazyColumn(
+        modifier = Modifier.weight(1f)
+      ) {
+        item {
+          Text(
+            text = stringResource(id = R.string.GrantPermissionsFragment__allow_permissions),
+            style = MaterialTheme.typography.labelLarge,
+          )
+        }
+      }
+
+      Row {
+        TextButton(onClick = onNotNowClicked) {
+          Text(
+            text = stringResource(id = R.string.GrantPermissionsFragment__not_now),
+            style = MaterialTheme.typography.labelSmall,
+          )
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        if (isSearchingForBackup) {
+          Box {
+            NextButton(
+              isSearchingForBackup = true,
+              onNextClicked = onNextClicked
+            )
+
+            CircularProgressIndicator(
+              modifier = Modifier.align(Alignment.Center)
+            )
+          }
+        } else {
+          NextButton(
+            isSearchingForBackup = false,
+            onNextClicked = onNextClicked
+          )
+        }
+      }
+    }
+  }
+}
+
+@Preview
+@Composable
+fun PermissionRowPreview() {
+  PermissionRow(
+    imageVector = ImageVector.vectorResource(id = R.drawable.permission_notification),
+    title = stringResource(id = R.string.GrantPermissionsFragment__notifications),
+    subtitle = stringResource(id = R.string.GrantPermissionsFragment__get_notified_when)
+  )
+}
+
+@Composable
+fun PermissionRow(
+  imageVector: ImageVector,
+  title: String,
+  subtitle: String
+) {
+  Row(modifier = Modifier.padding(bottom = 32.dp)) {
+    Image(
+      imageVector = imageVector,
+      contentDescription = null,
+      modifier = Modifier.size(48.dp)
+    )
+
+    Spacer(modifier = Modifier.size(16.dp))
+
+    Column {
+      Text(
+        text = title,
+        style = MaterialTheme.typography.titleSmall
+      )
+
+      Text(
+        text = subtitle,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+      )
+    }
+
+    Spacer(modifier = Modifier.size(32.dp))
+  }
+}
+
+@Composable
+fun NextButton(
+  isSearchingForBackup: Boolean,
+  onNextClicked: () -> Unit
+) {
+  val alpha = if (isSearchingForBackup) {
+    0f
+  } else {
+    1f
+  }
+
+  Buttons.LargeTonal(
+    onClick = onNextClicked,
+    enabled = !isSearchingForBackup,
+    modifier = Modifier.alpha(alpha)
+  ) {
+    Text(
+      text = stringResource(id = R.string.GrantPermissionsFragment__next),
+      style = MaterialTheme.typography.labelSmall,
+
+    )
+  }
+}
+

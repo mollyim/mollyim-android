@@ -2,10 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:viewBindingIgnore="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/core_ultramarine">
+    tools:viewBindingIgnore="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,23 +15,36 @@
             android:id="@+id/blurb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="@string/preferences__passphrase_lock"
+            android:text="Welcome to Molly for Watch"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textIsSelectable="false"
             android:textSize="@dimen/onboarding_title_size" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/no_button"
+            style="@style/Signal.Widget.Button.Medium.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:text="Continue"
+            android:textColor="@color/core_white"
+            app:backgroundTint="@color/core_ultramarine_dark" />
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            tools:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="170dp"
@@ -59,7 +71,9 @@
             android:text="@string/PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database"
             android:textColor="@color/core_white"
             android:textIsSelectable="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone"
+            tools:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
@@ -72,7 +86,9 @@
             android:text="@string/PassphraseCreateActivity_require_passphrase_to_unlock_molly"
             android:textColor="@color/core_white"
             android:textIsSelectable="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone"
+            tools:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/yes_button"
@@ -83,18 +99,9 @@
             android:layout_marginTop="16dp"
             android:text="@string/PassphraseCreateActivity_turn_on_database_encryption"
             android:textColor="@color/core_ultramarine"
-            app:backgroundTint="@color/core_white" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/no_button"
-            style="@style/Signal.Widget.Button.Medium.Primary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="@string/RatingManager_no_thanks"
-            android:textColor="@color/core_white"
-            app:backgroundTint="@color/core_ultramarine_dark" />
+            android:visibility="gone"
+            app:backgroundTint="@color/core_white"
+            tools:visibility="gone" />
 
     </LinearLayout>
 </ScrollView>

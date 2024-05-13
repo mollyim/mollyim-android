@@ -1694,7 +1694,7 @@ class ConversationFragment :
     when {
       inputPanel.isRecordingInLockedMode -> {
         buttonToggle.display(sendButton)
-        quickAttachment.show()
+        quickAttachment.hide()
         inlineAttachment.hide()
       }
 
@@ -1712,7 +1712,7 @@ class ConversationFragment :
 
       composeText.text.isNullOrBlank() && !attachmentManager.isAttachmentPresent -> {
         buttonToggle.display(binding.conversationInputPanel.attachButton)
-        quickAttachment.show()
+        quickAttachment.hide()
         inlineAttachment.hide()
       }
 

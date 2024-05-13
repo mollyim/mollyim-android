@@ -12,7 +12,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 public class UnauthorizedReminder extends Reminder {
 
   public UnauthorizedReminder() {
-    super(R.string.UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device);
+    super(R.string.WebRtcCallView__disconnected);
     addAction(new Action(R.string.UnauthorizedReminder_reregister_action, R.id.reminder_action_re_register));
   }
 
