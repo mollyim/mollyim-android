@@ -4,15 +4,14 @@
 [![Translation status](https://hosted.weblate.org/widgets/molly-instant-messenger/-/svg-badge.svg)](https://hosted.weblate.org/engage/molly-instant-messenger/?utm_source=widget)
 [![Financial contributors](https://opencollective.com/mollyim/tiers/badge.svg)](https://opencollective.com/mollyim#category-CONTRIBUTE)
 
-Molly is a hardened version of [Signal](https://github.com/signalapp/Signal-Android) for Android, the fast simple yet secure messaging app by [Signal Foundation](https://signal.org).
+Molly for Watch is a modified version of Molly that makes it to be usable on Smartwatches.
 
 ## Introduction
 
-Back in 2018, Signal allowed the user to set a passphrase to secure the local message database. But this option was removed with the introduction of file-based encryption on Android. Molly brings it back again with additional security features.
-
 Molly connects to the Signal server, so you can chat with your Signal contacts seamlessly. Please remember to review the [Signal Terms & Privacy Policy](https://signal.org/legal/) before signing up.
 
-We update Molly every two weeks to include the latest features and bug fixes from Signal. The exceptions are security issues, which are patched as soon as fixes become available.
+I'll update Molly for Watch if i've fixed some features or a big update is made by Signal or Molly.
+
 
 ## Features
 
@@ -41,15 +40,6 @@ Molly is open-source just like Signal. But Signal uses Google's proprietary soft
 
 To support a 100% free and auditable app, Molly comes in two flavors: one with proprietary blobs like Signal and one without. They are called Molly and Molly-FOSS, respectively. You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
 
-### UnifiedPush
-
-[Molly-UP](https://github.com/mollyim/mollyim-android-unifiedpush) is a separate app based on Molly-FOSS. It incorporates the ability to receive notifications through a UnifiedPush provider.
-
-> [!IMPORTANT]
-> Molly-UP **requires** an instance of [mollysocket](https://github.com/mollyim/mollysocket) to work with a UnifiedPush provider. This can be done on a machine you control.
-
-If Molly-UP is set up as a secondary linked device, UnifiedPush notifications will not be available.
-
 ### Dependency Comparison
 
 This table lists the current status of the dependencies:
@@ -72,14 +62,6 @@ If you are currently a Signal user and want to use Molly instead of Signal
 (with the same phone number), see [Migrating From
 Signal](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
 on the wiki.
-
-## Backups
-
-Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around, simply by choosing the backup folder and file. However, to import a backup from Signal you must use a matching or newer version of Molly.
-
-For older releases of Android, you might need to rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation. These are the locations within internal storage where backups are written by default:
-- `Signal/Backups/Signal-year-month-date-time.backup`
-- `Molly/Backups/Molly-year-month-date-time.backup`
 
 ## Feedback
 
