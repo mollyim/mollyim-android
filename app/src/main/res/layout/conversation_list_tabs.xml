@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/signal_colorSurface2"
-    android:maxHeight="32dp"
-    android:minHeight="16dp">
+    android:layout_height="32dp">
 
     <View
         android:id="@+id/chats_tab_container"
