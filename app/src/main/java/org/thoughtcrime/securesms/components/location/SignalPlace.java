@@ -19,7 +19,8 @@ import java.io.IOException;
 
 public class SignalPlace {
 
-  private static final String URL = "https://maps.google.com/maps";
+  private static final String OSM_URL = "https://openstreetmap.org/";
+  private static final String GMS_URL = "https://maps.google.com/maps";
 
   private static final String TAG = Log.tag(SignalPlace.class);
 
@@ -53,22 +54,28 @@ public class SignalPlace {
 
   @JsonIgnore
   public String getDescription() {
-    String description = "";
+    final StringBuilder description = new StringBuilder();
 
     if (!TextUtils.isEmpty(name)) {
-      description += (name + "\n");
+      description.append(name).append("\n");
     }
 
     if (!TextUtils.isEmpty(address)) {
-      description += (address + "\n");
+      description.append(address).append("\n");
     }
 
-    description += Uri.parse(URL)
-                      .buildUpon()
-                      .appendQueryParameter("q", String.format("%s,%s", latitude, longitude))
-                      .build().toString();
+    description.append("\nOpenStreetMap: ")
+               .append(Uri.parse(OSM_URL)
+                          .buildUpon()
+                          .encodedFragment(String.format("map=15/%s/%s", latitude, longitude))
+                          .build().toString())
+               .append("\n\nGoogle Maps: ")
+               .append(Uri.parse(GMS_URL)
+                          .buildUpon()
+                          .appendQueryParameter("q", String.format("%s,%s", latitude, longitude))
+                          .build().toString());
 
-    return description;
+    return description.toString();
   }
 
   public @Nullable String serialize() {
