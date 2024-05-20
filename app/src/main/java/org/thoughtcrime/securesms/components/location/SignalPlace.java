@@ -16,10 +16,11 @@ import org.thoughtcrime.securesms.maps.AddressData;
 import org.thoughtcrime.securesms.util.JsonUtils;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class SignalPlace {
 
-  private static final String OSM_URL = "https://openstreetmap.org/";
+  private static final String OSM_URL = "https://www.openstreetmap.org/";
   private static final String GMS_URL = "https://maps.google.com/maps";
 
   private static final String TAG = Log.tag(SignalPlace.class);
@@ -64,15 +65,20 @@ public class SignalPlace {
       description.append(address).append("\n");
     }
 
+    String lat = String.format(Locale.US, "%.6f", latitude);
+    String lon = String.format(Locale.US, "%.6f", longitude);
+
     description.append("\nOpenStreetMap: ")
                .append(Uri.parse(OSM_URL)
                           .buildUpon()
-                          .encodedFragment(String.format("map=15/%s/%s", latitude, longitude))
+                          .appendQueryParameter("mlat", lat)
+                          .appendQueryParameter("mlon", lon)
+                          .appendQueryParameter("zoom", "16") // Street level zoom
                           .build().toString())
                .append("\n\nGoogle Maps: ")
                .append(Uri.parse(GMS_URL)
                           .buildUpon()
-                          .appendQueryParameter("q", String.format("%s,%s", latitude, longitude))
+                          .appendQueryParameter("q", String.format("%s,%s", lat, lon))
                           .build().toString());
 
     return description.toString();
