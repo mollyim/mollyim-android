@@ -86,6 +86,8 @@ class AppearanceSettingsFragment : DSLSettingsFragment(R.string.preferences__app
         }
       )
 
+      dividerPref()
+
       sectionHeaderPref(R.string.preferences_appearance__navigation_bar)
 
       clickPref(
