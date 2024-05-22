@@ -34,7 +34,6 @@ import org.signal.storageservice.protos.groups.local.DecryptedPendingMember
 import org.signal.storageservice.protos.groups.local.DecryptedRequestingMember
 import org.signal.storageservice.protos.groups.local.DecryptedTimer
 import org.signal.storageservice.protos.groups.local.EnabledState
-import org.thoughtcrime.securesms.backup.v2.BackupState
 import org.thoughtcrime.securesms.backup.v2.proto.AccountData
 import org.thoughtcrime.securesms.backup.v2.proto.Contact
 import org.thoughtcrime.securesms.backup.v2.proto.Group
@@ -47,6 +46,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.databaseprotos.RecipientExtras
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.groups.GroupId
+import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.profiles.ProfileName
@@ -130,25 +130,6 @@ fun RecipientTable.getGroupsForBackup(): BackupGroupIterator {
 }
 
 /**
- * Takes a [BackupRecipient] and writes it into the database.
- */
-fun RecipientTable.restoreRecipientFromBackup(recipient: BackupRecipient, backupState: BackupState): RecipientId? {
-  // TODO Need to handle groups
-  // TODO Also, should we move this when statement up to mimic the export? Kinda weird that this calls distributionListTable functions
-  return when {
-    recipient.contact != null -> restoreContactFromBackup(recipient.contact)
-    recipient.group != null -> restoreGroupFromBackup(recipient.group)
-    recipient.distributionList != null -> SignalDatabase.distributionLists.restoreFromBackup(recipient.distributionList, backupState)
-    recipient.self != null -> Recipient.self().id
-    recipient.releaseNotes != null -> restoreReleaseNotes()
-    else -> {
-      Log.w(TAG, "Unrecognized recipient type!")
-      null
-    }
-  }
-}
-
-/**
  * Given [AccountData], this will insert the necessary data for the local user into the [RecipientTable].
  */
 fun RecipientTable.restoreSelfFromBackup(accountData: AccountData, selfId: RecipientId) {
@@ -187,7 +168,7 @@ fun RecipientTable.clearAllDataForBackupRestore() {
   ApplicationDependencies.getRecipientCache().clearSelf()
 }
 
-private fun RecipientTable.restoreContactFromBackup(contact: Contact): RecipientId {
+fun RecipientTable.restoreContactFromBackup(contact: Contact): RecipientId {
   val id = getAndPossiblyMergePnpVerified(
     aci = ACI.parseOrNull(contact.aci?.toByteArray()),
     pni = PNI.parseOrNull(contact.pni?.toByteArray()),
@@ -218,7 +199,7 @@ private fun RecipientTable.restoreContactFromBackup(contact: Contact): Recipient
   return id
 }
 
-private fun RecipientTable.restoreReleaseNotes(): RecipientId {
+fun RecipientTable.restoreReleaseNotes(): RecipientId {
   val releaseChannelId: RecipientId = insertReleaseChannelRecipient()
   SignalStore.releaseChannelValues().setReleaseChannelRecipientId(releaseChannelId)
 
@@ -227,12 +208,16 @@ private fun RecipientTable.restoreReleaseNotes(): RecipientId {
   return releaseChannelId
 }
 
-private fun RecipientTable.restoreGroupFromBackup(group: Group): RecipientId {
+fun RecipientTable.restoreGroupFromBackup(group: Group): RecipientId {
   val masterKey = GroupMasterKey(group.masterKey.toByteArray())
   val groupId = GroupId.v2(masterKey)
 
   val operations = ApplicationDependencies.getGroupsV2Operations().forGroup(GroupSecretParams.deriveFromMasterKey(masterKey))
-  val decryptedState = group.snapshot!!.toDecryptedGroup(operations)
+  val decryptedState = if (group.snapshot == null) {
+    DecryptedGroup(revision = GroupsV2StateProcessor.RESTORE_PLACEHOLDER_REVISION)
+  } else {
+    group.snapshot.toDecryptedGroup(operations)
+  }
 
   val values = ContentValues().apply {
     put(RecipientTable.GROUP_ID, groupId.toString())
@@ -247,7 +232,10 @@ private fun RecipientTable.restoreGroupFromBackup(group: Group): RecipientId {
   }
 
   val recipientId = writableDatabase.insert(RecipientTable.TABLE_NAME, null, values)
-  SignalDatabase.groups.create(masterKey, decryptedState)
+  val restoredId = SignalDatabase.groups.create(masterKey, decryptedState)
+  if (restoredId != null) {
+    SignalDatabase.groups.setShowAsStoryState(restoredId, group.storySendMode.toGroupShowAsStoryState())
+  }
 
   return RecipientId.from(recipientId)
 }
@@ -296,18 +284,21 @@ private fun Member.Role.toSnapshot(): Group.Member.Role {
   }
 }
 
-private fun DecryptedGroup.toSnapshot(): Group.GroupSnapshot {
+private fun DecryptedGroup.toSnapshot(): Group.GroupSnapshot? {
+  if (revision == GroupsV2StateProcessor.RESTORE_PLACEHOLDER_REVISION || revision == GroupsV2StateProcessor.PLACEHOLDER_REVISION) {
+    return null
+  }
   return Group.GroupSnapshot(
-    title = title,
-    avatar = avatar,
-    disappearingMessagesTimer = disappearingMessagesTimer?.duration ?: 0,
+    title = Group.GroupAttributeBlob(title = title),
+    avatarUrl = avatar,
+    disappearingMessagesTimer = Group.GroupAttributeBlob(disappearingMessagesDuration = disappearingMessagesTimer?.duration ?: 0),
     accessControl = accessControl?.toSnapshot(),
     version = revision,
     members = members.map { it.toSnapshot() },
     membersPendingProfileKey = pendingMembers.map { it.toSnapshot() },
     membersPendingAdminApproval = requestingMembers.map { it.toSnapshot() },
     inviteLinkPassword = inviteLinkPassword,
-    description = description,
+    description = Group.GroupAttributeBlob(descriptionText = description),
     announcements_only = isAnnouncementGroup == EnabledState.ENABLED,
     members_banned = bannedMembers.map { it.toSnapshot() }
   )
@@ -374,16 +365,16 @@ private fun DecryptedBannedMember.toSnapshot(): Group.MemberBanned {
 
 private fun Group.GroupSnapshot.toDecryptedGroup(operations: GroupsV2Operations.GroupOperations): DecryptedGroup {
   return DecryptedGroup(
-    title = title,
-    avatar = avatar,
-    disappearingMessagesTimer = DecryptedTimer(duration = disappearingMessagesTimer),
+    title = title?.title ?: "",
+    avatar = avatarUrl,
+    disappearingMessagesTimer = DecryptedTimer(duration = disappearingMessagesTimer?.disappearingMessagesDuration ?: 0),
     accessControl = accessControl?.toLocal(),
     revision = version,
     members = members.map { member -> member.toLocal() },
     pendingMembers = membersPendingProfileKey.map { pending -> pending.toLocal(operations) },
     requestingMembers = membersPendingAdminApproval.map { requesting -> requesting.toLocal() },
     inviteLinkPassword = inviteLinkPassword,
-    description = description,
+    description = description?.descriptionText ?: "",
     isAnnouncementGroup = if (announcements_only) EnabledState.ENABLED else EnabledState.DISABLED,
     bannedMembers = members_banned.map { it.toLocal() }
   )
@@ -479,7 +470,6 @@ class BackupGroupIterator(private val cursor: Cursor) : Iterator<BackupRecipient
         whitelisted = cursor.requireBoolean(RecipientTable.PROFILE_SHARING),
         hideStory = extras?.hideStory() ?: false,
         storySendMode = showAsStoryState.toGroupStorySendMode(),
-        name = cursor.requireString(GroupTable.TITLE) ?: "",
         snapshot = decryptedGroup.toSnapshot()
       )
     )

@@ -63,8 +63,12 @@ class ChatsSettingsViewModel @JvmOverloads constructor(
 
   fun refresh() {
     val backupsEnabled = SignalStore.settings().isBackupEnabled && BackupUtil.canUserAccessBackupDirectory(ApplicationDependencies.getApplication())
-    if (store.state.localBackupsEnabled != backupsEnabled) {
-      store.update { it.copy(localBackupsEnabled = backupsEnabled) }
+    val remoteBackupsEnabled = SignalStore.backup().areBackupsEnabled
+
+    if (store.state.localBackupsEnabled != backupsEnabled ||
+      store.state.remoteBackupsEnabled != remoteBackupsEnabled
+    ) {
+      store.update { it.copy(localBackupsEnabled = backupsEnabled, remoteBackupsEnabled = remoteBackupsEnabled) }
     }
   }
 }

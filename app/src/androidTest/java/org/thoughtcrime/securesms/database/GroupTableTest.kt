@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.database
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -73,21 +72,6 @@ class GroupTableTest {
     val groups = groupTable.getGroupMemberIds(groupId, GroupTable.MemberSet.FULL_MEMBERS_INCLUDING_SELF)
 
     assertEquals(2, groups.size)
-  }
-
-  @Test
-  fun givenGroups_whenIQueryGroupsByMembership_thenIExpectBothGroups() {
-    insertPushGroup()
-    insertMmsGroup(members = listOf(harness.others[1]))
-
-    val groups = groupTable.queryGroupsByMembership(
-      setOf(harness.self.id, harness.others[1]),
-      includeInactive = false,
-      excludeV1 = false,
-      excludeMms = false
-    )
-
-    assertEquals(2, groups.cursor?.count)
   }
 
   @Test
@@ -179,15 +163,6 @@ class GroupTableTest {
     val actual = groupTable.isCurrentMember(v2Group.requirePush(), harness.others[1])
 
     assertFalse(actual)
-  }
-
-  @Test
-  fun givenAGroup_whenIUpdateMembers_thenIExpectUpdatedMembers() {
-    val v2Group = insertPushGroup()
-    groupTable.updateMembers(v2Group, listOf(harness.self.id, harness.others[1]))
-    val groupRecord = groupTable.getGroup(v2Group)
-
-    assertEquals(setOf(harness.self.id, harness.others[1]), groupRecord.get().members.toSet())
   }
 
   @Test

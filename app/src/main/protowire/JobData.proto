@@ -55,4 +55,10 @@ message ArchiveAttachmentJobData {
 message ArchiveAttachmentBackfillJobData {
   optional uint64 attachmentId = 1;
   ResumableUpload uploadSpec = 2;
+  optional uint32 count = 3;
+  optional uint32 totalCount = 4;
+}
+
+message ArchiveThumbnailUploadJobData {
+  uint64 attachmentId = 1;
 }
