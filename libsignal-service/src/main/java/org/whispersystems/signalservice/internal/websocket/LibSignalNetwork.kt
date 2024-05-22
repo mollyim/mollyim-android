@@ -5,12 +5,14 @@
 
 package org.whispersystems.signalservice.internal.websocket
 
+import org.signal.core.util.orNull
 import org.signal.libsignal.internal.CompletableFuture
 import org.signal.libsignal.net.CdsiLookupRequest
 import org.signal.libsignal.net.CdsiLookupResponse
 import org.signal.libsignal.net.ChatService
 import org.signal.libsignal.net.Network
 import org.whispersystems.signalservice.api.util.CredentialsProvider
+//import org.whispersystems.signalservice.internal.configuration.SignalProxy
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
 import java.io.IOException
 import java.util.concurrent.ExecutionException
@@ -19,7 +21,7 @@ import java.util.function.Consumer
 /**
  * Makes Network API more ergonomic to use with Android client types
  */
-class LibSignalNetwork(private val inner: Network, config: SignalServiceConfiguration) {
+class LibSignalNetwork(val network: Network, config: SignalServiceConfiguration) {
   init {
     resetSettings(config)
   }
@@ -29,13 +31,21 @@ class LibSignalNetwork(private val inner: Network, config: SignalServiceConfigur
   ): ChatService {
     val username = credentialsProvider?.username ?: ""
     val password = credentialsProvider?.password ?: ""
-    return inner.createChatService(username, password)
+    return network.createChatService(username, password)
   }
 
   fun resetSettings(config: SignalServiceConfiguration) {
     // TODO: MOLLY
-    // resetProxy(config.signalProxy.orNull())
+//    resetProxy(config.signalProxy.orNull())
   }
+
+//  private fun resetProxy(proxy: SignalProxy?) {
+//    if (proxy == null) {
+//      network.clearProxy()
+//    } else {
+//      network.setProxy(proxy.host, proxy.port)
+//    }
+//  }
 
   // Delegates
   @Throws(IOException::class, InterruptedException::class, ExecutionException::class)
@@ -45,6 +55,6 @@ class LibSignalNetwork(private val inner: Network, config: SignalServiceConfigur
     request: CdsiLookupRequest?,
     tokenConsumer: Consumer<ByteArray?>
   ): CompletableFuture<CdsiLookupResponse?>? {
-    return inner.cdsiLookup(username, password, request, tokenConsumer)
+    return network.cdsiLookup(username, password, request, tokenConsumer)
   }
 }

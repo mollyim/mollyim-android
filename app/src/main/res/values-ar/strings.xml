@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -78,7 +80,7 @@
     <string name="AttachmentKeyboard_file">ملف</string>
     <string name="AttachmentKeyboard_contact">جهة الاتصال</string>
     <string name="AttachmentKeyboard_location">الموقع</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">يحتاج Molly إلى إذن لإظهار الصور ومقاطع الفيديو الخاصة بك</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">يحتاج Signal إلى إذن لإظهار الصور ومقاطع الفيديو الخاصة بك</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">إعطاء الصلاحية</string>
     <string name="AttachmentKeyboard_payment">عملية الدفع</string>
@@ -102,7 +104,7 @@
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">لإظهار الصور والفيديوهات:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">يَحتاج Molly إلى الوصول إلى مساحة التخزين لإظهار الصور ومقاطع الفيديو الخاصة بك.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">يَحتاج Signal إلى الوصول إلى مساحة التخزين لإظهار الصور ومقاطع الفيديو الخاصة بك.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">لم يُفعّل %1$s عمليات الدفع </string>
@@ -223,6 +225,38 @@
     <string name="CameraXFragment_capture_description">التقاط</string>
     <string name="CameraXFragment_change_camera_description">تغيير الكاميرا</string>
     <string name="CameraXFragment_open_gallery_description">فتح المعرض</string>
+    <!-- Button text asking for access to camera permissions -->
+    <string name="CameraXFragment_allow_access">Allow access</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos -->
+    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <!-- Text explaining why Signal needs microphone access to take videos -->
+    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <!-- Text explaining why Signal needs camera access to scan QR codes -->
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <!-- Toast dialog explaining why Signal needs microphone permissions -->
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <!-- Dialog description that explains the steps needed to give camera permission -->
+    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
+    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give microphone permission -->
+    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
+    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">جهات الاتصال مؤخّراً</string>
@@ -297,7 +331,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">رسالة %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">مكالمة سيجنال %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -2415,7 +2450,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">ستأتيك مكالمة هاتفية للتحقق من هذا الرقم.</string>
     <string name="RegistrationActivity_edit_number">تعديل الرقم</string>
     <string name="RegistrationActivity_missing_google_play_services">خدمات Google Play غير موجودة</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">خدمات Google Play غير موجودة في هذا الجهاز. لا زال بإمكانك استخدام سيجنال، ولكن هذا الضبط قد يؤدي إلى ضعف في موثوقية أو أداء البرنامج ان لم تكن مستخدما متقدما، أو لم تكن مشغلا ل Android ROM من سوق ثانوية، أو تعتقد أن رؤيتك لهذه الرسالة ناجم عن خطأ، يرجى التواصل مع support@molly.im للمساعدة فى اكتشاف المشكلة واصلاحها.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">خدمات Google Play غير موجودة في هذا الجهاز. لا زال بإمكانك استخدام سيجنال، ولكن هذا الضبط قد يؤدي إلى ضعف في موثوقية أو أداء البرنامج ان لم تكن مستخدما متقدما، أو لم تكن مشغلا ل Android ROM من سوق ثانوية، أو تعتقد أن رؤيتك لهذه الرسالة ناجم عن خطأ، يرجى التواصل مع support@signal.org للمساعدة فى اكتشاف المشكلة واصلاحها.</string>
     <string name="RegistrationActivity_i_understand">فهمت</string>
     <string name="RegistrationActivity_play_services_error">خطأ في خدمات Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">جاري تحديث خدمات Google Play أو أنها غير موجودة مؤقتاً. يرجى المحاولة مجدداً.</string>
@@ -2961,7 +2996,7 @@
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">للإجابة على المكالمة، يجب عليك منح ترخيص الوصول إلى ميكروفونك.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">للرّد على مكالمة الفيديو، يُرجى منح Molly ترخيص الوصول إلى الميكروفون و الكاميرا على هاتفك.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">للرّد على مكالمة الفيديو، يُرجى منح Signal ترخيص الوصول إلى الميكروفون و الكاميرا على هاتفك.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">يحتاج سيجنال إلى أذونات الميكروفون والكاميرا من أجل استقبال أو تلقّي المكالمات، ولكن الإذن لم يُمنح بشكل دائم. الرجاء زيارة إعدادات التطبيق، واختيار \"الأذونات\"، ثم تفعيل \"الميكروفون\" و\"الكاميرا\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">أجاب عبر جهاز مرتبط.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">رُفض عبر جهاز مرتبط.</string>
@@ -3013,6 +3048,10 @@
     <string name="contact_selection_activity__refresh_contacts">تحديث قائمة الاتصال</string>
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">هل تفتقد إلى جهة اتصال؟ حاول التحديث من جديد</string>
+    <!-- Row item title for finding people on Signal via your contacts -->
+    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <!-- Row item description asking users for access to their contacts to find people they know -->
+    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">المزيد</string>
 
@@ -3050,6 +3089,14 @@
     <string name="ContactSelectionListFragment__find_by_phone_number">العثور عبر رقم الهاتف</string>
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">العثور عبر اسم المُستخدم</string>
+    <!-- Dialog title asking users for contact permission -->
+    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <!-- Dialog description that will explain the steps needed to give contact permissions -->
+    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <!-- Text on button prompting users to give Signal contact permissions -->
+    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <!-- Text asking for user\'s contact permission -->
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">سيجنال بحاجة إلى الوصول إلى جهات الاتصال لديك وذلك بغرض عرضها.</string>

@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -36,12 +38,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Molly inasasishwa…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Signal inasasishwa…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Bado haujaweka sisitizo.</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Lemaza ufafanuzi</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Hii itafungua kabisa Molly na arifu za ujumbe</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Hii itafungua kabisa Signal na arifu za ujumbe</string>
     <string name="ApplicationPreferencesActivity_disable">Lemaza</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Hitilafu kuunganisha kwa mtambo.</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Nambari za Siri zinahitajika kwenye kufuli ya usajili. Ili kulemaza Nambari za Siri, tafadhali kwanza lemaza kufuli ya usajili.</string>
@@ -78,31 +80,31 @@
     <string name="AttachmentKeyboard_file">Faili</string>
     <string name="AttachmentKeyboard_contact">Mwasiliani</string>
     <string name="AttachmentKeyboard_location">Eneo</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly inahitaji ruhusa ili kuonyesha picha zako na video.</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal inahitaji ruhusa ili kuonyesha picha zako na video.</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Ruhusu Ufikiaji</string>
     <string name="AttachmentKeyboard_payment">Malipo</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Haiwezi kupata programu ya kuchagua media</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly inahitaji idhini ya Hifadhi ili kuunganisha picha, video, au sauti, lakini imekataliwa kabisa. Tafadhali endelea kwenye orodha ya mipangilio ya programu, chagua \"Ruhusa\", na uwezesha \"Hifadhi\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly inahitaji idhini ya Mawasiliano ili kuunganisha maelezo ya mawasiliano, lakini imekataliwa kabisa. Tafadhali endelea kwenye orodha ya mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Mawasiliano\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly inahitaji ruhusa ya Eneo ili kuunganisha mahali, lakini imekataliwa kabisa. Tafadhali endelea kwenye orodha ya mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Eneo\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal inahitaji idhini ya Hifadhi ili kuunganisha picha, video, au sauti, lakini imekataliwa kabisa. Tafadhali endelea kwenye orodha ya mipangilio ya programu, chagua \"Ruhusa\", na uwezesha \"Hifadhi\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal inahitaji idhini ya Mawasiliano ili kuunganisha maelezo ya mawasiliano, lakini imekataliwa kabisa. Tafadhali endelea kwenye orodha ya mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Mawasiliano\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal inahitaji ruhusa ya Eneo ili kuunganisha mahali, lakini imekataliwa kabisa. Tafadhali endelea kwenye orodha ya mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Eneo\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Ruhusu ufikiaji wa eneo ulipo</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Ili kutuma eneo ulipo:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Ruhusu Molly kufikia eneo ulipo.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Ruhusu Signal kufikia eneo ulipo.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Molly inahitaji ufikiaji wa eneo ili kutuma eneo ulipo.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Signal inahitaji ufikiaji wa eneo ili kutuma eneo ulipo.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Ruhusu ufikiaji kwenye hifadhi</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Kuonyesha picha na video:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Molly inahitaji ruhusa kuonyesha picha na video zako.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Signal inahitaji ruhusa kuonyesha picha na video zako.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s hajaamilisha Malipo </string>
@@ -223,6 +225,38 @@
     <string name="CameraXFragment_capture_description">Piga</string>
     <string name="CameraXFragment_change_camera_description">Geuza kamera</string>
     <string name="CameraXFragment_open_gallery_description">Fungua kitunzio</string>
+    <!-- Button text asking for access to camera permissions -->
+    <string name="CameraXFragment_allow_access">Allow access</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos -->
+    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <!-- Text explaining why Signal needs microphone access to take videos -->
+    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <!-- Text explaining why Signal needs camera access to scan QR codes -->
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <!-- Toast dialog explaining why Signal needs microphone permissions -->
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <!-- Dialog description that explains the steps needed to give camera permission -->
+    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
+    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give microphone permission -->
+    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
+    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Mawasiliano ya hivi karibuni</string>
@@ -237,7 +271,7 @@
     <string name="CameraContacts_no_signal_contacts">Hakuna mawasiliano ya Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Unaweza kutumia kitufe cha kamera kutuma picha kwa mawasiliano ya Signal. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Huwezi kumpata unayemtafuta?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Alika mwasiliani wako ajiunge na Molly</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Alika mwasiliani wako ajiunge na Signal</string>
     <string name="CameraContacts__menu_search">Tafuta</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -251,12 +285,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Hapana nashukuru</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Sasisha Molly</string>
+    <string name="ClientDeprecatedActivity_update_signal">Sasisha Signal</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Toleo hili la programu halitumiki tena. Ili kuendelea kutuma na kupokea ujumbe, sasisha utumie toleo jipya.</string>
     <string name="ClientDeprecatedActivity_update">Sasisha</string>
     <string name="ClientDeprecatedActivity_dont_update">Usisasishe</string>
     <string name="ClientDeprecatedActivity_warning">Onyo</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Toleo lako la Molly limekwisha muda wake. Unaweza kuangalia historia ya jumbe zako lakini hutaweza kutuma au kupokea ujumbe hadi usasishe.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Toleo lako la Signal limekwisha muda wake. Unaweza kuangalia historia ya jumbe zako lakini hutaweza kutuma au kupokea ujumbe hadi usasishe.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Hakuna kivinjari kilichopatikana.</string>
@@ -293,7 +327,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Ujumbe %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Simu ya Signal %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -387,7 +422,7 @@
     <string name="ConversationActivity_transport_signal">Ujumbe wa Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Tuma ujumbe</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Wacha tubadili kwa Molly 1%1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Wacha tubadili kwa Signal 1%1$s</string>
     <string name="ConversationActivity_specify_recipient">Tafadhali chagua mawasiliano</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Kiambatisho kimezidi ukubwa wa aina ya ujumbe unaotuma</string>
     <string name="ConversationActivity_unable_to_record_audio">Haiwezi kurekodi sauti!</string>
@@ -408,16 +443,16 @@
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
     <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Ili kutuma ujumbe wa sauti, iruhusu Signal kufikia maikrofoni yako.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly inahitaji ufikiaji wa maikrofoni ili kurekodi ujumbe wa sauti.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly inahitaji idhini ya Kipaza sauti ili kutuma ujumbe wa sauti, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kipaza sauti\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal inahitaji ufikiaji wa maikrofoni ili kurekodi ujumbe wa sauti.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal inahitaji idhini ya Kipaza sauti ili kutuma ujumbe wa sauti, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kipaza sauti\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly inahitaji ruhusa ya Kipaza sauti na Kamera ili kupiga%1$s , lakini zimekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kipaza sauti\" na \"Kamera\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Ili kupiga picha na video, ruhusu ufikiaji wa Molly kwa kamera.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly inahitaji kibali cha Kamera kuchukua picha au video, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly inahitaji ruhusa ya kamera kuchukua picha na video</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal inahitaji ruhusa ya Kipaza sauti na Kamera ili kupiga%1$s , lakini zimekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kipaza sauti\" na \"Kamera\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Ili kupiga picha na video, ruhusu ufikiaji wa Signal kwa kamera.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal inahitaji kibali cha Kamera kuchukua picha au video, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal inahitaji ruhusa ya kamera kuchukua picha na video</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Wezesha ruhusa ya kipaza sauti kiweze kunasa video za sauti.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly inahitaji ruhusa za kipaza sauti kurekodi video, lakini imekataliwa. Tafadhali enda kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kipaza Sauti\" na \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly inahitaji ruhusa za kipaza sauti ili kurekodi video.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal inahitaji ruhusa za kipaza sauti kurekodi video, lakini imekataliwa. Tafadhali enda kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kipaza Sauti\" na \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal inahitaji ruhusa za kipaza sauti ili kurekodi video.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Hapana</string>
@@ -438,9 +473,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Ili kupiga simu:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Ili kupiga simu, iruhusu Molly kufikia maikrofoni yako.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Ili kupiga simu, iruhusu Signal kufikia maikrofoni yako.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly inahitaji ufikiaji wa maikrofoni ili kupiga simu.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal inahitaji ufikiaji wa maikrofoni ili kupiga simu.</string>
 
 
     <string name="ConversationActivity_join">Jiunge</string>
@@ -454,9 +489,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Huwezi tena kutuma jumbe za SMS kwenye Signal. Mkaribishe %1$s Signal ili kuendeleza mazungumzo hapa.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Mtu huyu hatumii tena Molly. Waalike kwenye Molly ili kuendeleza mazungumzo hapa.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Mtu huyu hatumii tena Signal. Waalike kwenye Signal ili kuendeleza mazungumzo hapa.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Mwalike kwenye Molly</string>
+    <string name="ConversationActivity__invite_to_signal">Mwalike kwenye Signal</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Utakumbushwa tena hivi karibuni.</string>
 
@@ -541,13 +576,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Zuiliwa</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Sasisha Molly</string>
+    <string name="ConversationFragment__update_build">Sasisha Signal</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Sajili tena Molly</string>
+    <string name="ConversationFragment__reregister_signal">Sajili tena Signal</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Rudi nyuma.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Fungua Molly</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Fungua Signal</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Haijathibitishwa tena</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -737,7 +772,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Jaribu kifungu maneno chako cha nakilihifadhi na uhakikishe kinalingana</string>
     <string name="BackupsPreferenceFragment__turn_on">Washa</string>
     <string name="BackupsPreferenceFragment__turn_off">Zima</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Ili kurejesha nakala hifadhi, sakinisha nakala mpya ya Molly. Fungua programu na uguse \"Rejesha nakala rudufu\", kisha utafute faili ya nakala hifadhi. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Ili kurejesha nakala hifadhi, sakinisha nakala mpya ya Signal. Fungua programu na uguse \"Rejesha nakala rudufu\", kisha utafute faili ya nakala hifadhi. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Jifunze zaidi</string>
     <string name="BackupsPreferenceFragment__in_progress">Inaendelea…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -745,7 +780,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d hadi sasa…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% hadi sasa …</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly inahitaji idhini ya hifadhi ya nje ili kuunda nakalahifadhi, lakini imekataliwa kabisa. Tafadhali enda kwenye mipangilio ya programu, chagua \"Ruhusa\" na uwezeshe \"Hifadhi\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal inahitaji idhini ya hifadhi ya nje ili kuunda nakalahifadhi, lakini imekataliwa kabisa. Tafadhali enda kwenye mipangilio ya programu, chagua \"Ruhusa\" na uwezeshe \"Hifadhi\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Weka muda wa ziada</string>
 
@@ -834,7 +869,7 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Panga kwa Huduma za Play sizizopo.</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Kifaa hiki hakiwezeshi Huduma za Play. Gonga ili kulemaza na kuboresha mfumo wa betri unaozuia Molly kupokea ujumbe wakati haupo kwenye matumizi.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Kifaa hiki hakiwezeshi Huduma za Play. Gonga ili kulemaza na kuboresha mfumo wa betri unaozuia Signal kupokea ujumbe wakati haupo kwenye matumizi.</string>
 
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Muda wa toleo hili la Signal umekwisha. Sasisha sasa ili utume na kupokea ujumbe.</string>
@@ -848,8 +883,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">Tazama</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Muda wote mawasiliano ya Molly yanafeli!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly haikuweza kujisajili na Huduma za Google Play. Ujumbe wa Molly na simu zimezimwa, tafadhali jaribu kujiandikisha katika Mipangilio &gt; Zaidi.</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Muda wote mawasiliano ya Signal yanafeli!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal haikuweza kujisajili na Huduma za Google Play. Ujumbe wa Signal na simu zimezimwa, tafadhali jaribu kujiandikisha katika Mipangilio &gt; Zaidi.</string>
 
 
     <!-- GiphyActivity -->
@@ -988,12 +1023,12 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Kumbukumbu za utatuzi zinatusaidia kutambua na kurekebisha tatizo, na hazina maelezo ya utambulisho.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly imekumbana na tatizo. Je, uwasilishe kumbukumbu za utatuzi?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal imekumbana na tatizo. Je, uwasilishe kumbukumbu za utatuzi?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Arifa zinaweza kuchelewesha kutokana na uboreshaji wa betri</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Unaweza kuzima kipengele cha uboreshaji wa betri kwa Molly ili kuhakikisha kuwa arifa za ujumbe hazichelewi.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Unaweza kuzima kipengele cha uboreshaji wa betri kwa Signal ili kuhakikisha kuwa arifa za ujumbe hazichelewi.</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Endelea</string>
@@ -1248,13 +1283,13 @@
     <string name="InviteActivity_cancel">Ghairi</string>
     <string name="InviteActivity_sending">Inatuma…</string>
     <string name="InviteActivity_invitations_sent">Mialiko imetumwa!</string>
-    <string name="InviteActivity_invite_to_signal">Alika kwa Molly</string>
+    <string name="InviteActivity_invite_to_signal">Alika kwa Signal</string>
     <string name="InviteActivity_send_sms">Tuma Arafa (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Tuma miwito za SMS 1%1$d?</item>
         <item quantity="other">Tuma %1$d mialiko ya SMS?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Wacha tubadili kwa Molly: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Wacha tubadili kwa Signal: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">Inaonekana huna programu zozote za kushiriki</string>
 
     <!-- LearnMoreTextView -->
@@ -1268,7 +1303,7 @@
     <string name="LongMessageActivity_your_message">Ujumbe wako</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">kuunganisha kwa usuli kumewezeshwa</string>
 
     <!-- MediaOverviewActivity -->
@@ -1339,8 +1374,8 @@
     <!-- NotificationBarManager -->
     <string name="NotificationBarManager__establishing_signal_call">Inaanzisha simu ya Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Kuanzisha huduma ya kupiga simu na Molly</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Kusimamisha huduma ya mazungumzo ya simu ya Molly</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Kuanzisha huduma ya kupiga simu na Signal</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Kusimamisha huduma ya mazungumzo ya simu ya Signal</string>
     <string name="NotificationBarManager__cancel_call">Ghairi simu</string>
 
     <!-- NotificationsMegaphone -->
@@ -1648,7 +1683,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Hutoweza tena kutuma jumbe za SMS kupitia Signal. Mkaribishe %1$s Signal ili kuendeleza mazungumzo hapa.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Huwezi tena kutuma jumbe za SMS kupitia Molly. Mkaribishe %1$s Molly ili kuendeleza mazungumzo hapa.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Huwezi tena kutuma jumbe za SMS kupitia Signal. Mkaribishe %1$s Signal ili kuendeleza mazungumzo hapa.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Malipo: %1$s</string>
     <!-- Update message shown in chat after reporting it as spam -->
@@ -1728,7 +1763,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Unganisha kifaa cha Signal</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Inaonekana unajaribu kuunganisha kifaa cha Signal kwa kutumia skana ya mhusika wa 3. Kwa usalama wako, tafadhali skani msimbo tena kutoka ndani ya Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly inahitaji ruhusa ya Kamera ili kuskani msimbo wa QR, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kamera\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal inahitaji ruhusa ya Kamera ili kuskani msimbo wa QR, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kamera\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Imeshindwa kuskani msimbo wa QR bila ruhusa ya Kamera</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1741,11 +1776,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Ingiza nenosiri</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Molly ikoni</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Signal ikoni</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Wasilisha nenosiri</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Nenosiri sio sahihi</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Fungua Molly</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Kufunga Skrini</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Fungua Signal</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Kufunga Skrini</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Ramani</string>
@@ -1812,7 +1847,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Thibitisha ili uendelee kutuma ujumbe</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Ili kusaidia kuzuia maudhui taka kwenye Molly, tafadhali kamilisha uthibitishaji.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Ili kusaidia kuzuia maudhui taka kwenye Signal, tafadhali kamilisha uthibitishaji.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Baada ya kuthibitisha, unaweza kuendelea kutuma ujumbe. Ujumbe wowote uliositishwa utatumwa kiotomatiki.</string>
 
     <!-- Recipient -->
@@ -1820,7 +1855,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Stori Yangu</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Simu ya Molly</string>
+    <string name="Recipient_signal_call">Simu ya Signal</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Zuia</string>
@@ -1845,8 +1880,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Gusa hapa ili kuwasha video yako</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Ili kumpigia simu %1$s, Molly inahitaji idhini ya kufikia kamera yako</string>
-    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Ili kumpigia simu %1$s, Signal inahitaji idhini ya kufikia kamera yako</string>
+    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
     <string name="WebRtcCallActivity__calling">Unapiga simu…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Inaunganisha tena…</string>
@@ -2099,7 +2134,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Utapokea simu ya kuthibitisha nambari hii.</string>
     <string name="RegistrationActivity_edit_number">Hariri nambari</string>
     <string name="RegistrationActivity_missing_google_play_services">Huduma za Google Play zinakosekana</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kifaa hiki kimekosa huduma za Google Play. Bado unaweza kutumia Molly, lakini usanidi huu unaweza kusababisha upungufu wa kutegemewa au utendaji. \\ n\n \\ Kama wewe si mtumiaji wa juu, hautumii Android ROM, au unaamini kwamba unaona hili kimakosa, tafadhali wasiliana na support@molly.im kwa usaidizi wa matatizo.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kifaa hiki kimekosa huduma za Google Play. Bado unaweza kutumia Signal, lakini usanidi huu unaweza kusababisha upungufu wa kutegemewa au utendaji. \\ n\n \\ Kama wewe si mtumiaji wa juu, hautumii Android ROM, au unaamini kwamba unaona hili kimakosa, tafadhali wasiliana na support@signal.org kwa usaidizi wa matatizo.</string>
     <string name="RegistrationActivity_i_understand">Nimeelewa</string>
     <string name="RegistrationActivity_play_services_error">Hitilafu katika huduma za Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Huduma za Google Play zinasasisha au hazipatikani kwa muda. Tafadhali jaribu tena.</string>
@@ -2117,7 +2152,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Mfumo wa nambari usio wa kiwango</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Nambari uliyoingiza (%1$s) inaonekana kuwa isiyo ya mfumo wa nambari usio wa kiwango.\n\nUlimaanisha %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Mfumo wa Nambari ya Simu</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - Mfumo wa Nambari ya Simu</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Ombi la kupiga simu</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2190,13 +2225,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Ongeza mawasiliano</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Mwalike kwenye Molly</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Mwalike kwenye Signal</string>
     <string name="SharedContactDetailsActivity_signal_message">Ujumbe wa Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Simu ya Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Ongeza kwa wawasiliani</string>
-    <string name="SharedContactView_invite_to_signal">Mwalike kwenye Molly</string>
+    <string name="SharedContactView_invite_to_signal">Mwalike kwenye Signal</string>
     <string name="SharedContactView_message">Ujumbe wa Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2327,11 +2362,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s inamilikiwa na %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Sasisho ya Molly</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Toleo jipya la Molly linapatikana. Gusa ili kusasisha.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Molly imeshindwa kusasisha</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Sasisho ya Signal</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Toleo jipya la Signal linapatikana. Gusa ili kusasisha.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Signal imeshindwa kusasisha</string>
     <string name="ApkUpdateNotifications_failed_general_body">Tutajaribu tena baadae.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly imesasishwa kwa mafanikio</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal imesasishwa kwa mafanikio</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Umesasishwa kiotomatiki kwenda toleo la %1$s.</string>
 
     <!-- UntrustedSendDialog -->
@@ -2402,7 +2437,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Nambari yetu ya usalama ya Signal</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Inaonekana huna programu yoyote ya kushiriki</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Hamna nambari ya usalama ya kulinganisha iliyopatikana kwenye bodi ya kupogoa</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly inahitaji ruhusa ya Kamera ili kuskani msimbo wa QR, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kamera\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal inahitaji ruhusa ya Kamera ili kuskani msimbo wa QR, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kamera\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Imeshindwa kuskani msimbo wa QR bila ruhusa ya kamera</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Sharti kwanza mtumiane ujumbe ili uone nambari ya usalama ya %1$s.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2432,14 +2467,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Gusa kufungua</string>
-    <string name="KeyCachingService_passphrase_cached">Molly imefunguliwa</string>
-    <string name="KeyCachingService_lock">Funga Molly</string>
+    <string name="KeyCachingService_passphrase_cached">Signal imefunguliwa</string>
+    <string name="KeyCachingService_lock">Funga Signal</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Wewe</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Aina ya media isiyowezeshwa</string>
     <string name="MediaPreviewActivity_draft">Rasimu</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly inahitaji ruhusa ya Hifadhi ili kuhifadhi kwenye hifadhi ya nje, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Uhifadhi\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal inahitaji ruhusa ya Hifadhi ili kuhifadhi kwenye hifadhi ya nje, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Uhifadhi\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Haiwezekani kuhifadhi kwenye hifadhi ya nje bila ruhusa</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Futa ujumbe?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Hii itafuta ujumbe kabisa.</string>
@@ -2483,7 +2518,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Imefeli kuwasilisha ujumbe</string>
     <string name="MessageNotifier_error_delivering_message">Hitilafu kuwasilisha ujumbe</string>
     <string name="MessageNotifier_message_delivery_paused">Uwasilishaji wa ujumbe umesitishwa.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Thibitisha ili uendelee kutuma ujumbe kwenye Molly.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Thibitisha ili uendelee kutuma ujumbe kwenye Signal.</string>
     <string name="MessageNotifier_mark_all_as_read">Nakili yote kama imesomwa</string>
     <string name="MessageNotifier_mark_read">Nakili imesomwa</string>
     <string name="MessageNotifier_turn_off_these_notifications">Zima arifa hizi</string>
@@ -2544,7 +2579,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Jibu la haraka halipatikani wakati Molly imefungwa!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Jibu la haraka halipatikani wakati Signal imefungwa!</string>
     <string name="QuickResponseService_problem_sending_message">Tatizo kutuma ujumbe</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2564,7 +2599,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Mkato batili</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Ujumbe mpya</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Ombi la ujumbe</string>
     <string name="SingleRecipientNotificationBuilder_you">Wewe</string>
@@ -2610,7 +2645,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Kifaa hiki hakijasajiliwa tena. Huenda hii ni kwa sababu ulisajili nambari yako ya simu kwa Molly kwenye kifaa cha tofauti.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Kifaa hiki hakijasajiliwa tena. Huenda hii ni kwa sababu ulisajili nambari yako ya simu kwa Signal kwenye kifaa cha tofauti.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Sajili tena kifaa</string>
 
@@ -2623,10 +2658,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Kupokea simu, iwezeshe Molly kutumia maikrofoni yako.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Kupokea simu, iwezeshe Signal kutumia maikrofoni yako.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Ili kupokea simu ya video, ipe Molly ruhusa ya kufikia maikrofoni na kamera yako.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly inahitaji ruhusa ya kipaza sauti na Kamera ili kufanya au kupokea simu, lakini zimekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kipaza sauti\" na \"Kamera\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Ili kupokea simu ya video, ipe Signal ruhusa ya kufikia maikrofoni na kamera yako.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal inahitaji ruhusa ya kipaza sauti na Kamera ili kufanya au kupokea simu, lakini zimekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Kipaza sauti\" na \"Kamera\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Umejibu kwenye kifaa kilichounganishwa.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Umekataa kwenye kifaa kilichounganishwa.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Una shughuli kwenye kifaa kilichounganishwa.</string>
@@ -2671,12 +2706,16 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Rudia nenosiri mpya</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Mwalike kwenye Molly</string>
+    <string name="contact_selection_activity__invite_to_signal">Mwalike kwenye Signal</string>
     <string name="contact_selection_activity__new_group">Kikundi kipya</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Huisha upya wawasiliani</string>
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Umemkosa mtu? Jaribu kuhuisha upya</string>
+    <!-- Row item title for finding people on Signal via your contacts -->
+    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <!-- Row item description asking users for access to their contacts to find people they know -->
+    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Zaidi</string>
 
@@ -2693,7 +2732,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Picha ya mwasiliani</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly inahitaji idhini ya Wawasiliani ili kuonyesha wawasiliani wako, lakini imekataliwa kabisa. Tafadhali endelea kwenye orodha ya mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Wawasiliani\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal inahitaji idhini ya Wawasiliani ili kuonyesha wawasiliani wako, lakini imekataliwa kabisa. Tafadhali endelea kwenye orodha ya mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe \"Wawasiliani\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Hitilafu kupata wawasiliani, angalia uunganisho wako wa mtandao</string>
     <string name="ContactSelectionListFragment_username_not_found">Jina la mtumiaji halijapatikana</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" sio mtumiaji wa Signal. Tafadhali angalia jina la mtumiaji na ujaribu tena."</string>
@@ -2710,9 +2749,17 @@
     <string name="ContactSelectionListFragment__find_by_phone_number">Tafuta kwa nambari ya simu</string>
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Tafuta kwa jina la mtumiaji</string>
+    <!-- Dialog title asking users for contact permission -->
+    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <!-- Dialog description that will explain the steps needed to give contact permissions -->
+    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <!-- Text on button prompting users to give Signal contact permissions -->
+    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <!-- Text asking for user\'s contact permission -->
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly inahitaji upatikanaji wa wawasiliani yako ili kuonyesha.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal inahitaji upatikanaji wa wawasiliani yako ili kuonyesha.</string>
     <string name="contact_selection_list_fragment__show_contacts">onyesha mawasiliano</string>
 
     <!-- contact_selection_list_item -->
@@ -2813,7 +2860,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Bubbles ni kipengele cha Android ambacho unaweza kukizima kwa Gumzo za Molly.</string>
+    <string name="BubbleOptOutTooltip__description">Bubbles ni kipengele cha Android ambacho unaweza kukizima kwa Gumzo za Signal.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Sio sasa</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -2981,9 +3028,9 @@
     <string name="EditProfileFragment__group_description">Maelezo ya kikundi</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Sasisha Molly</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Sasisha Signal</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Toleo hili la Molly limekwisha muda wake. Sasisha sasa ili kuendelea kutumia Molly.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Toleo hili la Signal limekwisha muda wake. Sasisha sasa ili kuendelea kutumia Signal.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Sasisha</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3200,7 +3247,7 @@
     <string name="preferences__slow">Polepole</string>
     <string name="preferences__help">Msaada</string>
     <string name="preferences__advanced">ya juu</string>
-    <string name="preferences__donate_to_signal">Changia Molly</string>
+    <string name="preferences__donate_to_signal">Changia Signal</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Faragha</string>
     <!-- Preference label for stories -->
@@ -3237,13 +3284,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Badili ikoni na jina la programu kuwa \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Molly itahitaji kuzimwa ili kubadili ikoni na jina la programu. Arifa mara zote zitaonyesha ikoni na jina la Molly kama chaguomsingi.</string>
+    <string name="preferences__app_icon_dialog_description">Signal itahitaji kuzimwa ili kubadili ikoni na jina la programu. Arifa mara zote zitaonyesha ikoni na jina la Signal kama chaguomsingi.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Chagua ikoni na jina la programu, ambavyo vitaonekana kwenye skrini ya kwanza na mfuko wa programu. Arifa mara zote zitaonyesha ikoni na jina la Molly kama chaguomsingi. Jifunze zaidi</string>
+    <string name="preferences__app_icon_warning_learn_more">Chagua ikoni na jina la programu, ambavyo vitaonekana kwenye skrini ya kwanza na mfuko wa programu. Arifa mara zote zitaonyesha ikoni na jina la Signal kama chaguomsingi. Jifunze zaidi</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Ikoni na majina ya programu yanaonekana kwenye skrini ya kwanza na mfuko wa programu.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Arifa mara zote zitaonyesha ikoni na jina la Molly kama chaguomsingi.</string>
+    <string name="preferences__app_icon_notification_warning">Arifa mara zote zitaonyesha ikoni na jina la Signal kama chaguomsingi.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Jifunze zaidi</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3328,7 +3375,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Kukwepa udhibiti</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Kukwepa udhibiti</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ikiwezeshwa, Molly itajaribu kukwepa udhibiti. Usiruhusu kipengele hiki ila ukiwa katika eneo ambalo Molly imedhibiitiwa.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ikiwezeshwa, Signal itajaribu kukwepa udhibiti. Usiruhusu kipengele hiki ila ukiwa katika eneo ambalo Signal imedhibiitiwa.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Kukwepa udhibiti kumeamlishwa kulingana na nambari ya simu ya akaunti yako.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3380,7 +3427,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Kuanzisha malipo</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Tumia Molly kutuma na kupokea MobileCoin, sarafu mpya ya kidijitali inayozingatia faragha. Wezesha ili uanze.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Tumia Signal kutuma na kupokea MobileCoin, sarafu mpya ya kidijitali inayozingatia faragha. Wezesha ili uanze.</string>
     <string name="PaymentsHomeFragment__activate_payments">Wezesha Malipo</string>
     <string name="PaymentsHomeFragment__activating_payments">Unawezesha malipo…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Rejesha akaunti ya malipo</string>
@@ -3406,7 +3453,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Malipo hayapatikani katika eneo lako.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Hukuwezesha malipo. Jaribu tena baadaye.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Ungependa Kuzima Malipo?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Hutaweza kutuma au kupokea MobileCoin katika Molly ukizima malipo.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Hutaweza kutuma au kupokea MobileCoin katika Signal ukizima malipo.</string>
     <string name="PaymentsHomeFragment__deactivate">Zima</string>
     <string name="PaymentsHomeFragment__continue">Endelea</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Salio halipatikani kwa sasa.</string>
@@ -3415,10 +3462,10 @@
     <string name="PaymentsHomeFragment__details">Maelezo</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Unaweza kutumia Molly kutuma na kupokea MobileCoin. Malipo yote yako chini ya Masharti ya Matumizi kwa MobileCoins na MobileCoin Wallet. Unaweza kukumbana na hitilafu na malipo au salio ambazo huenda ukapoteza zisirejeshwe. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Unaweza kutumia Signal kutuma na kupokea MobileCoin. Malipo yote yako chini ya Masharti ya Matumizi kwa MobileCoins na MobileCoin Wallet. Unaweza kukumbana na hitilafu na malipo au salio ambazo huenda ukapoteza zisirejeshwe. </string>
     <string name="PaymentsHomeFragment__activate">Wezesha</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Angalia masharti ya MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Malipo katika Molly hayapatikani tena. Bado unaweza kuhamishia fedha kwenye ubadilishanaji lakini huwezi kutuma na kupokea malipo au kuongeza pesa.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Malipo katika Signal hayapatikani tena. Bado unaweza kuhamishia fedha kwenye ubadilishanaji lakini huwezi kutuma na kupokea malipo au kuongeza pesa.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3446,7 +3493,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Kubalisha ruhusa</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Ili kukusaidia kutuma ujumbe kwa watu unaowajua, Molly itakuomba ruhusa hizi. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Ili kukusaidia kutuma ujumbe kwa watu unaowajua, Signal itakuomba ruhusa hizi. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Arifa</string>
     <!-- Notifications permission row description -->
@@ -3534,10 +3581,10 @@
     <string name="PaymentsTransferFragment__next">Ifuatayo</string>
     <string name="PaymentsTransferFragment__invalid_address">Anwani si sahihi</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Angalia anwani ya mkoba unayojaribu kuhamishia pesa kisha ujaribu tena.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Huwezi kuhamishia kwenye anwani yako mwenyewe ya mkoba wa Molly. Weka anwani ya mkoba kutoka kwenye akaunti yako kwenye ubadilishanaji unaotumika.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Ili kuchanganua msimbo wa QR, Molly inahitaji idhini ya kufikia kamera.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly inahitaji ruhusa ya Kamera ili kunasa msimbo wa QR. Nenda kwenye mipangilio, chagua \"Ruhusa\", na uwezeshe \"Kamera\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Ili kuchanganua msimbo wa QR, Molly inahitaji idhini ya kufikia kamera.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Huwezi kuhamishia kwenye anwani yako mwenyewe ya mkoba wa Signal. Weka anwani ya mkoba kutoka kwenye akaunti yako kwenye ubadilishanaji unaotumika.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Ili kuchanganua msimbo wa QR, Signal inahitaji idhini ya kufikia kamera.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal inahitaji ruhusa ya Kamera ili kunasa msimbo wa QR. Nenda kwenye mipangilio, chagua \"Ruhusa\", na uwezeshe \"Kamera\".</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Ili kuchanganua msimbo wa QR, Signal inahitaji idhini ya kufikia kamera.</string>
     <string name="PaymentsTransferFragment__settings">Mipangilio</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -3885,17 +3932,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Simu ya Kawaida ya Molly Inayopiga Sasa</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Simu ya Kawaida ya Signal Inayopiga Sasa</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Simu ya Video ya Molly Inayopiga Sasa</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Simu ya Video ya Signal Inayopiga Sasa</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Simu ya kikundi ya Molly inaingia</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Simu ya kikundi ya Signal inaingia</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Simu ya Kawaida ya Molly Inayoendelea</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Simu ya Kawaida ya Signal Inayoendelea</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Simu ya Video ya Molly Inayoendelea</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Simu ya Video ya Signal Inayoendelea</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Simu ya Kikundi ya Molly Inayoendelea</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Simu ya Kikundi ya Signal Inayoendelea</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Inafunguka</string>
@@ -3942,9 +3989,9 @@
     <string name="BackupDialog_verify">Hakikisha</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Umefaulu kuweka kifungu maneno chako cha nakilihifadhi</string>
     <string name="BackupDialog_passphrase_was_not_correct">Kifungu maneno hakikuwa sahihi</string>
-    <string name="LocalBackupJob_creating_signal_backup">Kutengeneza nakala rudufu ya Molly…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Kutengeneza nakala rudufu ya Signal…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Kuthibitisha nakala rudufu ya Molly…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Kuthibitisha nakala rudufu ya Signal…</string>
     <string name="LocalBackupJobApi29_backup_failed">Nakala hifadhi haijawekwa</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Nakala hifadhi yako imefutwa au imehamishwa.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Faili yako ya kakala hifadhi ni kubwa mno kwamba haiwezi kuhifadhi kiasi hiki.</string>
@@ -3959,15 +4006,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Nipigie (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Tuma tena kodi (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Wasiliana na Msaada wa Molly</string>
-    <string name="RegistrationActivity_code_support_subject">Usajili wa Molly: Msimbo wa Hakiki wa Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Wasiliana na Msaada wa Signal</string>
+    <string name="RegistrationActivity_code_support_subject">Usajili wa Signal: Msimbo wa Hakiki wa Android</string>
     <string name="RegistrationActivity_incorrect_code">Kodi isiyo sahihi</string>
     <string name="BackupUtil_never">Kamwe</string>
     <string name="BackupUtil_unknown">Isiyojulikana</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Nambari ya simu</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Chagua nani anayeweza kuona nambari yako ya simu na kuwasiliana nawe kwenye Molly kwa kuitumia.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Chagua nani anayeweza kuona nambari yako ya simu na kuwasiliana nawe kwenye Signal kwa kuitumia.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Anayeweza kuona nambari yangu</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4015,7 +4062,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Umefanya majaribio mengi sana. Tafadhali jaribu tena baadaye.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Hitilafu kujiunga kwa huduma</string>
     <string name="preferences_chats__backups">Nakala zilizohifadhiwa</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Molly Imefungwa</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Signal Imefungwa</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">Gusa kufungua</string>
     <string name="Recipient_unknown">Isiyojulikana</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4063,19 +4110,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Inasubiri kuunganisha kwenye kifaa cha awali cha Android…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Subiri kidogo, itakuwa tayari hivi punde</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Inasubiri kifaa cha awali cha Android kiunganishwe…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly inahitaji idhini ya kufikia maelezo ya eneo ili igundue na kuunganisha na kifaa chako cha awali cha Android.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly inahitaji idhini ya kufikia huduma za eneo ili igundue na kuunganisha na kifaa chako cha awali cha Android.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly inahitaji Wi-Fi ili kugundua na kuunganisha kifaa chako cha awali cha Android. Unatakiwa kuwasha Wi-Fi lakini si lazima uunganishe kwenye mtandao wa Wi-Fi.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Samahani, inaonekana kifaa hiki hakitumii huduma ya Wi-Fi Direct. Molly hutumia Wi-Fi Direct kugundua na kuunganisha kifaa chako cha awali cha Android. Bado unaweza kurejesha nakala hifadhi kurejesha akaunti yako kutoka kwenye kifaa chako cha awali cha Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal inahitaji idhini ya kufikia maelezo ya eneo ili igundue na kuunganisha na kifaa chako cha awali cha Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal inahitaji idhini ya kufikia huduma za eneo ili igundue na kuunganisha na kifaa chako cha awali cha Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal inahitaji Wi-Fi ili kugundua na kuunganisha kifaa chako cha awali cha Android. Unatakiwa kuwasha Wi-Fi lakini si lazima uunganishe kwenye mtandao wa Wi-Fi.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Samahani, inaonekana kifaa hiki hakitumii huduma ya Wi-Fi Direct. Signal hutumia Wi-Fi Direct kugundua na kuunganisha kifaa chako cha awali cha Android. Bado unaweza kurejesha nakala hifadhi kurejesha akaunti yako kutoka kwenye kifaa chako cha awali cha Android.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Rejesha nakala hifadhi</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Hitilafu isiyotarajiwa imetokea wakati wa kujaribu kuunganisha kwenye kifaa chako cha awali cha Android.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Inatafuta kifaa kipya cha Android…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly inahitaji idhini ya kufikia maelezo ya eneo ili igundue na kuunganisha na kifaa chako kipya cha Android.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly inahitaji idhini ya kufikia huduma za eneo ili igundue na kuunganisha na kifaa chako kipya cha Android.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly inahitaji Wi-Fi ili kugundua na kuunganisha kifaa chako kipya cha Android. Unatakiwa kuwasha Wi-Fi lakini si lazima uunganishe kwenye mtandao wa Wi-Fi.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Samahani, inaonekana kifaa hiki hakitumii huduma ya Wi-Fi Direct. Molly hutumia Wi-Fi Direct kugundua na kuunganisha kifaa chako kipya cha Android. Bado unaweza kuunda nakala hifadhi kurejesha akaunti yako kutoka kwenye kifaa chako cha awali cha Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal inahitaji idhini ya kufikia maelezo ya eneo ili igundue na kuunganisha na kifaa chako kipya cha Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal inahitaji idhini ya kufikia huduma za eneo ili igundue na kuunganisha na kifaa chako kipya cha Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal inahitaji Wi-Fi ili kugundua na kuunganisha kifaa chako kipya cha Android. Unatakiwa kuwasha Wi-Fi lakini si lazima uunganishe kwenye mtandao wa Wi-Fi.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Samahani, inaonekana kifaa hiki hakitumii huduma ya Wi-Fi Direct. Signal hutumia Wi-Fi Direct kugundua na kuunganisha kifaa chako kipya cha Android. Bado unaweza kuunda nakala hifadhi kurejesha akaunti yako kutoka kwenye kifaa chako cha awali cha Android.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Unda nakala hifadhi</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Hitilafu isiyotarajiwa imetokea wakati wa kujaribu kuunganisha kwenye kifaa chako kipya cha Android.</string>
 
@@ -4116,7 +4163,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Inahamisha data</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Weka vifaa vyote viwili karibu. Usizime vifaa hivi na hakikisha Molly imefunguliwa. Mchakato wa kuhamisha umesimbwa kwa njia ya mwisho kwa mwisho.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Weka vifaa vyote viwili karibu. Usizime vifaa hivi na hakikisha Signal imefunguliwa. Mchakato wa kuhamisha umesimbwa kwa njia ya mwisho kwa mwisho.</string>
     <string name="DeviceTransfer__d_messages_so_far">Jumbe %1$d hadi sasa…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% ya jumbe mpaka sasa…</string>
@@ -4130,7 +4177,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Hamisha Akaunti</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Pakua Molly kwenye kifaa chako kipya cha Android</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Pakua Signal kwenye kifaa chako kipya cha Android</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Gonga \"Hamisha au rejesha akaunti\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4204,7 +4251,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Yeyote aliye na kiungo hiki anaweza kutazama jina na picha za kikundi hiki na kuomba kujiunga. Shiriki na watu unaowaamini.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Yeyote aliye na kiungo hiki anaweza kutazama jina na picha ya kikundi na kujiunga na kikundi. Shiriki na watu unaowaamini.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Shiriki kupitia Molly</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Shiriki kupitia Signal</string>
     <string name="GroupLinkBottomSheet_copy">Nakili</string>
     <string name="GroupLinkBottomSheet_qr_code">Msimbo wa QR</string>
     <string name="GroupLinkBottomSheet_share">Shiriki</string>
@@ -4390,7 +4437,7 @@
     <string name="payment_info_card_about_mobilecoin">Kuhusu MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin ni sarafu mpya ya kidijitali inayozingatia faragha.</string>
     <string name="payment_info_card_adding_funds">Kuongeza fedha</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Unaweza kuongeza pesa za matumizi katika Molly kwa kutuma MobileCoin kwenye anwani yako ya mkoba.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Unaweza kuongeza pesa za matumizi katika Signal kwa kutuma MobileCoin kwenye anwani yako ya mkoba.</string>
     <string name="payment_info_card_cashing_out">Kutoa pesa</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Unaweza kutoa MobileCoin wakati wowote kwenye ubadilishaji unaotumia MobileCoin. Hamishia tu kwenye akaunti yako katika ubadilishaji huo.</string>
     <string name="payment_info_card_hide_this_card">Ungependa kuficha kadi hii?</string>
@@ -4411,12 +4458,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Zima Mkoba</string>
     <string name="DeactivateWalletFragment__your_balance">Salio lako</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Inashauriwa uhamishie fedha zako kwa anwani nyingine ya mkoba kabla ya kuzima malipo. Ukichagua kutohamisha pesa zako sasa, zitabakia kwenye mkoba wako uliounganishwa na Molly ikiwa utawezesha malipo tena.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Inashauriwa uhamishie fedha zako kwa anwani nyingine ya mkoba kabla ya kuzima malipo. Ukichagua kutohamisha pesa zako sasa, zitabakia kwenye mkoba wako uliounganishwa na Signal ikiwa utawezesha malipo tena.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Hamisha salio lililobakia</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Zima bila kuhamisha</string>
     <string name="DeactivateWalletFragment__deactivate">Zima</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Ungependa kuzima bila kuhamisha?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Salio lako litabakia kwenye mkoba wako uliounganishwa na Molly ukichagua kuwezesha malipo tena.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Salio lako litabakia kwenye mkoba wako uliounganishwa na Signal ukichagua kuwezesha malipo tena.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Hitilafu imetokea wakati wa kuzima mkoba.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4711,7 +4758,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Leseni</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Vigezo &amp;amp: Sera ya Faragha</string>
-    <string name="HelpFragment__copyright_signal_messenger">Molly Messenger yenye Hakimiliki</string>
+    <string name="HelpFragment__copyright_signal_messenger">Signal Messenger yenye Hakimiliki</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Imepewa leseni chini ya GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5165,9 +5212,9 @@
     <string name="MySupportPreference__learn_more">Jifunze zaidi</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Sasisha Molly</string>
+    <string name="UpdateSignalExpiredDialog__title">Sasisha Signal</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Toleo hili la Molly limekwisha muda wake. Sasisha sasa ili kuendelea kutumia Molly.</string>
+    <string name="UpdateSignalExpiredDialog__message">Toleo hili la Signal limekwisha muda wake. Sasisha sasa ili kuendelea kutumia Signal.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Sasisha</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5176,7 +5223,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Kifaa hakijasajiliwa</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Kifaa hiki hakijasajiliwa tena. Sajili upya ili uendelee kutumia Molly kwenye kifaa hiki.</string>
+    <string name="ReregisterSignalDialog__message">Kifaa hiki hakijasajiliwa tena. Sajili upya ili uendelee kutumia Signal kwenye kifaa hiki.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Sajili tena</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5470,7 +5517,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Haiwezekani kufungua picker.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Ili kuruhusu arifa, Molly inahitaji ruhusa ili kuzionyesha.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Ili kuruhusu arifa, Signal inahitaji ruhusa ili kuzionyesha.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Washa</string>
 
