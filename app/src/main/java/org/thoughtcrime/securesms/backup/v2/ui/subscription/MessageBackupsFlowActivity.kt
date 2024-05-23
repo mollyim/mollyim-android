@@ -32,6 +32,10 @@ class MessageBackupsFlowActivity : PassphraseRequiredActivity() {
 
         fun MessageBackupsScreen.next() {
           val nextScreen = viewModel.goToNextScreen(this)
+          if (nextScreen == MessageBackupsScreen.COMPLETED) {
+            finishAfterTransition()
+            return
+          }
           if (nextScreen != this) {
             navController.navigate(nextScreen.name)
           }
@@ -53,7 +57,7 @@ class MessageBackupsFlowActivity : PassphraseRequiredActivity() {
 
         NavHost(
           navController = navController,
-          startDestination = MessageBackupsScreen.EDUCATION.name,
+          startDestination = if (state.currentMessageBackupTier == null) MessageBackupsScreen.EDUCATION.name else MessageBackupsScreen.TYPE_SELECTION.name,
           enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
           exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) },
           popEnterTransition = { slideInHorizontally(initialOffsetX = { -it }) },
@@ -88,9 +92,9 @@ class MessageBackupsFlowActivity : PassphraseRequiredActivity() {
 
           composable(route = MessageBackupsScreen.TYPE_SELECTION.name) {
             MessageBackupsTypeSelectionScreen(
-              selectedBackupsType = state.selectedMessageBackupsType,
-              availableBackupsTypes = state.availableBackupsTypes,
-              onMessageBackupsTypeSelected = viewModel::onMessageBackupsTypeUpdated,
+              selectedBackupTier = state.selectedMessageBackupTier,
+              availableBackupTiers = state.availableBackupTiers,
+              onMessageBackupsTierSelected = viewModel::onMessageBackupTierUpdated,
               onNavigationClick = navController::popOrFinish,
               onReadMoreClicked = {},
               onNextClicked = { MessageBackupsScreen.TYPE_SELECTION.next() }
@@ -99,8 +103,13 @@ class MessageBackupsFlowActivity : PassphraseRequiredActivity() {
 
           dialog(route = MessageBackupsScreen.CHECKOUT_SHEET.name) {
             MessageBackupsCheckoutSheet(
-              messageBackupsType = state.selectedMessageBackupsType!!,
+              messageBackupTier = state.selectedMessageBackupTier!!,
+//              availablePaymentGateways = state.availablePaymentGateways,
               onDismissRequest = navController::popOrFinish,
+//              onPaymentGatewaySelected = {
+//                viewModel.onPaymentGatewayUpdated(it)
+//                MessageBackupsScreen.CHECKOUT_SHEET.next()
+//              }
             )
           }
         }

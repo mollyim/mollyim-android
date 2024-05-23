@@ -73,7 +73,8 @@ public class GoogleMap {
   public void moveCamera(CameraUpdate update) {
     // Zoom in a little bit because OSM Droid's zoom level is slightly wider than Google Maps'
     float zoom = update.zoom + 2.0f;
-    mapView.setMapPosition(new CameraPosition(update.latLng, zoom));
+    cameraPosition = new CameraPosition(update.latLng, zoom);
+    mapView.setMapPosition(cameraPosition);
   }
 
   public Marker addMarker(MarkerOptions options) {
@@ -106,17 +107,21 @@ public class GoogleMap {
     callback.onSnapshotReady(bitmap);
   }
 
+  private void updateCameraPosition() {
+    IGeoPoint geoPoint = mapView.getMapCenter();
+    LatLng    center   = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
+    cameraPosition = new CameraPosition(center, (float) mapView.getZoomLevelDouble());
+  }
+
   private void onCameraIdle() {
+    updateCameraPosition();
     if (onCameraIdleListener != null) {
       onCameraIdleListener.onCameraIdle();
     }
   }
 
   private void onCameraMoveStarted() {
-    IGeoPoint geoPoint = mapView.getMapCenter();
-    LatLng center      = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
-    cameraPosition     = new CameraPosition(center, (float) mapView.getZoomLevelDouble());
-
+    updateCameraPosition();
     if (onCameraMoveStartedListener != null) {
       onCameraMoveStartedListener.onCameraMoveStarted(0);
     }

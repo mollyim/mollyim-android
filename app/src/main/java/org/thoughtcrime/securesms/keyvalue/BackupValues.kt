@@ -3,6 +3,8 @@ package org.thoughtcrime.securesms.keyvalue
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.backup.RestoreState
+import org.thoughtcrime.securesms.backup.v2.BackupFrequency
+import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.whispersystems.signalservice.api.archive.ArchiveServiceCredential
 import org.whispersystems.signalservice.api.archive.GetArchiveCdnCredentialsResponse
 import org.whispersystems.signalservice.internal.util.JsonUtil
@@ -19,12 +21,17 @@ internal class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_CDN_READ_CREDENTIALS = "backup.cdn.readCredentials"
     private const val KEY_CDN_READ_CREDENTIALS_TIMESTAMP = "backup.cdn.readCredentials.timestamp"
     private const val KEY_RESTORE_STATE = "backup.restoreState"
+    private const val KEY_BACKUP_USED_MEDIA_SPACE = "backup.usedMediaSpace"
+    private const val KEY_BACKUP_LAST_PROTO_SIZE = "backup.lastProtoSize"
 
     private const val KEY_NEXT_BACKUP_TIME = "backup.nextBackupTime"
+    private const val KEY_LAST_BACKUP_TIME = "backup.lastBackupTime"
+    private const val KEY_BACKUP_FREQUENCY = "backup.backupFrequency"
 
     private const val KEY_CDN_BACKUP_DIRECTORY = "backup.cdn.directory"
     private const val KEY_CDN_BACKUP_MEDIA_DIRECTORY = "backup.cdn.mediaDirectory"
 
+    private const val KEY_BACKUP_OVER_CELLULAR = "backup.useCellular"
     private const val KEY_OPTIMIZE_STORAGE = "backup.optimizeStorage"
     private const val KEY_BACKUPS_INITIALIZED = "backup.initialized"
 
@@ -40,15 +47,26 @@ internal class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   private var cachedCdnCredentials: String? by stringValue(KEY_CDN_READ_CREDENTIALS, null)
   var cachedBackupDirectory: String? by stringValue(KEY_CDN_BACKUP_DIRECTORY, null)
   var cachedBackupMediaDirectory: String? by stringValue(KEY_CDN_BACKUP_MEDIA_DIRECTORY, null)
+  var usedBackupMediaSpace: Long by longValue(KEY_BACKUP_USED_MEDIA_SPACE, 0L)
+  var lastBackupProtoSize: Long by longValue(KEY_BACKUP_LAST_PROTO_SIZE, 0L)
 
   override fun onFirstEverAppLaunch() = Unit
   override fun getKeysToIncludeInBackup(): List<String> = emptyList()
 
-  var canReadWriteToArchiveCdn: Boolean by booleanValue(KEY_CDN_CAN_READ_WRITE, false)
   var restoreState: RestoreState by enumValue(KEY_RESTORE_STATE, RestoreState.NONE, RestoreState.serializer)
   var optimizeStorage: Boolean by booleanValue(KEY_OPTIMIZE_STORAGE, false)
+  var backupWithCellular: Boolean by booleanValue(KEY_BACKUP_OVER_CELLULAR, false)
 
   var nextBackupTime: Long by longValue(KEY_NEXT_BACKUP_TIME, -1)
+  var lastBackupTime: Long by longValue(KEY_LAST_BACKUP_TIME, -1)
+  var backupFrequency: BackupFrequency by enumValue(KEY_BACKUP_FREQUENCY, BackupFrequency.MANUAL, BackupFrequency.Serializer)
+
+  val totalBackupSize: Long get() = lastBackupProtoSize + usedBackupMediaSpace
+
+  /** True if the user backs up media, otherwise false. */
+  val backsUpMedia: Boolean
+    @JvmName("backsUpMedia")
+    get() = backupTier == MessageBackupTier.PAID
 
   var areBackupsEnabled: Boolean
     get() {
@@ -62,6 +80,16 @@ internal class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
         .putBoolean(KEY_BACKUPS_INITIALIZED, false)
         .apply()
     }
+
+  val backupTier: MessageBackupTier? = if (areBackupsEnabled) {
+    if (backsUpMedia) {
+      MessageBackupTier.PAID
+    } else {
+      MessageBackupTier.FREE
+    }
+  } else {
+    null
+  }
 
   var backupsInitialized: Boolean by booleanValue(KEY_BACKUPS_INITIALIZED, false)
 
@@ -122,6 +150,10 @@ internal class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     val current: MutableMap<Long, ArchiveServiceCredential> = credentialsByDay.toMutableMap()
     val updated = current.filterKeys { it < startOfDayInSeconds }
     putString(KEY_CREDENTIALS, JsonUtil.toJson(SerializedCredentials(updated)))
+  }
+
+  fun clearAllCredentials() {
+    putString(KEY_CREDENTIALS, null)
   }
 
   class SerializedCredentials(

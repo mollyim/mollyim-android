@@ -6,6 +6,8 @@
 package org.thoughtcrime.securesms.components.settings.app.chats.backups
 
 import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -17,8 +19,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -34,7 +38,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.fragment.findNavController
-import kotlinx.collections.immutable.persistentListOf
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.signal.core.ui.Buttons
 import org.signal.core.ui.Dialogs
 import org.signal.core.ui.Dividers
@@ -44,18 +50,19 @@ import org.signal.core.ui.Scaffolds
 import org.signal.core.ui.SignalPreview
 import org.signal.core.ui.Snackbars
 import org.signal.core.ui.Texts
-import org.signal.core.util.money.FiatMoney
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.backup.v2.BackupFrequency
+import org.thoughtcrime.securesms.backup.v2.BackupV2Event
+import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsFlowActivity
-import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsFrequency
-import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
+import org.thoughtcrime.securesms.backup.v2.ui.subscription.getTierDetails
 import org.thoughtcrime.securesms.compose.ComposeFragment
+import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.DateUtils
+import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.viewModel
-import java.math.BigDecimal
-import java.util.Currency
 import java.util.Locale
 
 /**
@@ -75,13 +82,15 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     val callbacks = remember { Callbacks() }
 
     RemoteBackupsSettingsContent(
-      messageBackupsType = state.messageBackupsType,
+      messageBackupTier = state.messageBackupsTier,
       lastBackupTimestamp = state.lastBackupTimestamp,
       canBackUpUsingCellular = state.canBackUpUsingCellular,
       backupsFrequency = state.backupsFrequency,
       requestedDialog = state.dialog,
       requestedSnackbar = state.snackbar,
-      contentCallbacks = callbacks
+      contentCallbacks = callbacks,
+      backupProgress = state.backupProgress,
+      backupSize = state.backupSize
     )
   }
 
@@ -104,7 +113,7 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     }
 
     override fun onBackupNowClick() {
-      // TODO [message-backups] Enqueue immediate backup
+      viewModel.onBackupNowClick()
     }
 
     override fun onTurnOffAndDeleteBackupsClick() {
@@ -123,7 +132,7 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
       viewModel.requestSnackbar(RemoteBackupsSettingsState.Snackbar.NONE)
     }
 
-    override fun onSelectBackupsFrequencyChange(newFrequency: MessageBackupsFrequency) {
+    override fun onSelectBackupsFrequencyChange(newFrequency: BackupFrequency) {
       viewModel.setBackupsFrequency(newFrequency)
     }
 
@@ -134,6 +143,16 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     override fun onBackupsTypeClick() {
       findNavController().safeNavigate(R.id.action_remoteBackupsSettingsFragment_to_backupsTypeSettingsFragment)
     }
+  }
+
+  @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+  fun onEvent(backupEvent: BackupV2Event) {
+    viewModel.updateBackupProgress(backupEvent)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
   }
 }
 
@@ -151,19 +170,21 @@ private interface ContentCallbacks {
   fun onChangeBackupFrequencyClick() = Unit
   fun onDialogDismissed() = Unit
   fun onSnackbarDismissed() = Unit
-  fun onSelectBackupsFrequencyChange(newFrequency: MessageBackupsFrequency) = Unit
+  fun onSelectBackupsFrequencyChange(newFrequency: BackupFrequency) = Unit
   fun onTurnOffAndDeleteBackupsConfirm() = Unit
 }
 
 @Composable
 private fun RemoteBackupsSettingsContent(
-  messageBackupsType: MessageBackupsType?,
+  messageBackupTier: MessageBackupTier?,
   lastBackupTimestamp: Long,
   canBackUpUsingCellular: Boolean,
-  backupsFrequency: MessageBackupsFrequency,
+  backupsFrequency: BackupFrequency,
   requestedDialog: RemoteBackupsSettingsState.Dialog,
   requestedSnackbar: RemoteBackupsSettingsState.Snackbar,
-  contentCallbacks: ContentCallbacks
+  contentCallbacks: ContentCallbacks,
+  backupProgress: BackupV2Event?,
+  backupSize: Long
 ) {
   val snackbarHostState = remember {
     SnackbarHostState()
@@ -183,13 +204,13 @@ private fun RemoteBackupsSettingsContent(
     ) {
       item {
         BackupTypeRow(
-          messageBackupsType = messageBackupsType,
+          messageBackupTier = messageBackupTier,
           onEnableBackupsClick = contentCallbacks::onEnableBackupsClick,
           onChangeBackupsTypeClick = contentCallbacks::onBackupsTypeClick
         )
       }
 
-      if (messageBackupsType == null) {
+      if (messageBackupTier == null) {
         item {
           Rows.TextRow(
             text = "Payment history",
@@ -205,11 +226,17 @@ private fun RemoteBackupsSettingsContent(
           Texts.SectionHeader(text = "Backup Details")
         }
 
-        item {
-          LastBackupRow(
-            lastBackupTimestamp = lastBackupTimestamp,
-            onBackupNowClick = {}
-          )
+        if (backupProgress == null || backupProgress.type == BackupV2Event.Type.FINISHED) {
+          item {
+            LastBackupRow(
+              lastBackupTimestamp = lastBackupTimestamp,
+              onBackupNowClick = contentCallbacks::onBackupNowClick
+            )
+          }
+        } else {
+          item {
+            InProgressBackupRow(progress = backupProgress.count.toInt(), totalProgress = backupProgress.estimatedTotalCount.toInt())
+          }
         }
 
         item {
@@ -221,7 +248,7 @@ private fun RemoteBackupsSettingsContent(
                 color = MaterialTheme.colorScheme.onSurface
               )
               Text(
-                text = "2.3GB",
+                text = Util.getPrettyFileSize(backupSize ?: 0),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
               )
@@ -326,14 +353,16 @@ private fun RemoteBackupsSettingsContent(
 
 @Composable
 private fun BackupTypeRow(
-  messageBackupsType: MessageBackupsType?,
+  messageBackupTier: MessageBackupTier?,
   onEnableBackupsClick: () -> Unit,
   onChangeBackupsTypeClick: () -> Unit
 ) {
+  val messageBackupsType = if (messageBackupTier != null) getTierDetails(messageBackupTier) else null
+
   Row(
     modifier = Modifier
       .fillMaxWidth()
-      .clickable(enabled = messageBackupsType != null, onClick = onChangeBackupsTypeClick)
+      .clickable(enabled = messageBackupTier != null, onClick = onChangeBackupsTypeClick)
       .padding(horizontal = dimensionResource(id = R.dimen.core_ui__gutter))
       .padding(top = 16.dp, bottom = 14.dp)
   ) {
@@ -368,6 +397,34 @@ private fun BackupTypeRow(
       Buttons.Small(onClick = onEnableBackupsClick) {
         Text(text = "Enable backups")
       }
+    }
+  }
+}
+
+@Composable
+private fun InProgressBackupRow(
+  progress: Int?,
+  totalProgress: Int?
+) {
+  Row(
+    modifier = Modifier
+      .padding(horizontal = dimensionResource(id = R.dimen.core_ui__gutter))
+      .padding(top = 16.dp, bottom = 14.dp)
+  ) {
+    Column(
+      modifier = Modifier.weight(1f)
+    ) {
+      if (totalProgress == null || totalProgress == 0) {
+        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+      } else {
+        LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), progress = ((progress ?: 0) / totalProgress).toFloat())
+      }
+
+      Text(
+        text = "$progress/$totalProgress",
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+      )
     }
   }
 }
@@ -441,53 +498,55 @@ private fun TurnOffAndDeleteBackupsDialog(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BackupFrequencyDialog(
-  selected: MessageBackupsFrequency,
-  onSelected: (MessageBackupsFrequency) -> Unit,
+  selected: BackupFrequency,
+  onSelected: (BackupFrequency) -> Unit,
   onDismiss: () -> Unit
 ) {
   AlertDialog(
     onDismissRequest = onDismiss
   ) {
-    Column(
-      modifier = Modifier
-        .background(
-          color = AlertDialogDefaults.containerColor,
-          shape = AlertDialogDefaults.shape
-        )
-        .fillMaxWidth()
-    ) {
-      Text(
-        text = "Backup frequency",
-        style = MaterialTheme.typography.headlineMedium,
-        modifier = Modifier.padding(24.dp)
-      )
-
-      MessageBackupsFrequency.values().forEach {
-        Rows.RadioRow(
-          selected = selected == it,
-          text = getTextForFrequency(backupsFrequency = it),
-          label = when (it) {
-            MessageBackupsFrequency.NEVER -> "By tapping \"Back up now\""
-            else -> null
-          },
-          modifier = Modifier
-            .padding(end = 24.dp)
-            .clickable(onClick = {
-              onSelected(it)
-              onDismiss()
-            })
-        )
-      }
-
-      Box(
-        contentAlignment = Alignment.CenterEnd,
+    Surface {
+      Column(
         modifier = Modifier
+          .background(
+            color = AlertDialogDefaults.containerColor,
+            shape = AlertDialogDefaults.shape
+          )
           .fillMaxWidth()
-          .padding(horizontal = 24.dp)
-          .padding(bottom = 24.dp)
       ) {
-        TextButton(onClick = onDismiss) {
-          Text(text = stringResource(id = android.R.string.cancel))
+        Text(
+          text = "Backup frequency",
+          style = MaterialTheme.typography.headlineMedium,
+          modifier = Modifier.padding(24.dp)
+        )
+
+        BackupFrequency.values().forEach {
+          Rows.RadioRow(
+            selected = selected == it,
+            text = getTextForFrequency(backupsFrequency = it),
+            label = when (it) {
+              BackupFrequency.MANUAL -> "By tapping \"Back up now\""
+              else -> null
+            },
+            modifier = Modifier
+              .padding(end = 24.dp)
+              .clickable(onClick = {
+                onSelected(it)
+                onDismiss()
+              })
+          )
+        }
+
+        Box(
+          contentAlignment = Alignment.CenterEnd,
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp)
+            .padding(bottom = 24.dp)
+        ) {
+          TextButton(onClick = onDismiss) {
+            Text(text = stringResource(id = android.R.string.cancel))
+          }
         }
       }
     }
@@ -495,12 +554,12 @@ private fun BackupFrequencyDialog(
 }
 
 @Composable
-private fun getTextForFrequency(backupsFrequency: MessageBackupsFrequency): String {
+private fun getTextForFrequency(backupsFrequency: BackupFrequency): String {
   return when (backupsFrequency) {
-    MessageBackupsFrequency.DAILY -> "Daily"
-    MessageBackupsFrequency.WEEKLY -> "Weekly"
-    MessageBackupsFrequency.MONTHLY -> "Monthly"
-    MessageBackupsFrequency.NEVER -> "Manually back up"
+    BackupFrequency.DAILY -> "Daily"
+    BackupFrequency.WEEKLY -> "Weekly"
+    BackupFrequency.MONTHLY -> "Monthly"
+    BackupFrequency.MANUAL -> "Manually back up"
   }
 }
 
@@ -509,13 +568,15 @@ private fun getTextForFrequency(backupsFrequency: MessageBackupsFrequency): Stri
 private fun RemoteBackupsSettingsContentPreview() {
   Previews.Preview {
     RemoteBackupsSettingsContent(
-      messageBackupsType = null,
+      messageBackupTier = null,
       lastBackupTimestamp = -1,
       canBackUpUsingCellular = false,
-      backupsFrequency = MessageBackupsFrequency.NEVER,
+      backupsFrequency = BackupFrequency.MANUAL,
       requestedDialog = RemoteBackupsSettingsState.Dialog.NONE,
       requestedSnackbar = RemoteBackupsSettingsState.Snackbar.NONE,
-      contentCallbacks = object : ContentCallbacks {}
+      contentCallbacks = object : ContentCallbacks {},
+      backupProgress = null,
+      backupSize = 2300000
     )
   }
 }
@@ -525,11 +586,7 @@ private fun RemoteBackupsSettingsContentPreview() {
 private fun BackupTypeRowPreview() {
   Previews.Preview {
     BackupTypeRow(
-      messageBackupsType = MessageBackupsType(
-        title = "Text + all media",
-        pricePerMonth = FiatMoney(BigDecimal.valueOf(3L), Currency.getInstance(Locale.US)),
-        features = persistentListOf()
-      ),
+      messageBackupTier = MessageBackupTier.PAID,
       onChangeBackupsTypeClick = {},
       onEnableBackupsClick = {}
     )
@@ -549,6 +606,14 @@ private fun LastBackupRowPreview() {
 
 @SignalPreview
 @Composable
+private fun InProgressRowPreview() {
+  Previews.Preview {
+    InProgressBackupRow(50, 100)
+  }
+}
+
+@SignalPreview
+@Composable
 private fun TurnOffAndDeleteBackupsDialogPreview() {
   Previews.Preview {
     TurnOffAndDeleteBackupsDialog(
@@ -563,7 +628,7 @@ private fun TurnOffAndDeleteBackupsDialogPreview() {
 private fun BackupFrequencyDialogPreview() {
   Previews.Preview {
     BackupFrequencyDialog(
-      selected = MessageBackupsFrequency.DAILY,
+      selected = BackupFrequency.DAILY,
       onSelected = {},
       onDismiss = {}
     )

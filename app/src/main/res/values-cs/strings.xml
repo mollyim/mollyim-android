@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -36,12 +38,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Molly se aktualizuje…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Signal se aktualizuje…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Dosud nemáte nastavené heslo!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Zakázat heslo?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tímto trvale odemknete Molly a upozornění na zprávy.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tímto trvale odemknete Signal a upozornění na zprávy.</string>
     <string name="ApplicationPreferencesActivity_disable">Deaktivovat</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Chyba při připojování k serveru!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN je vyžadován pro zámek registrace. Nejprve prosím zakažte zámek registrace, aby bylo možné PIN deaktivovat.</string>
@@ -78,24 +80,31 @@
     <string name="AttachmentKeyboard_file">Soubor</string>
     <string name="AttachmentKeyboard_contact">Kontakt</string>
     <string name="AttachmentKeyboard_location">Poloha</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly potřebuje oprávnění pro zobrazení vašich fotografií a videí.</string>
-    <string name="AttachmentKeyboard_give_access">Povolit přístup</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Aplikace Signal potřebuje povolení, aby mohla zobrazovat vaše fotografie a videa.</string>
+    <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
+    <string name="AttachmentKeyboard_allow_access">Povolit přístup</string>
     <string name="AttachmentKeyboard_payment">Platba</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Nemohu nalézt aplikaci pro vybraný typ dat.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly potřebuje oprávnění pro přístup k úložišti, aby mohl připojovat fotky, videa nebo audio, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly potřebuje oprávnění pro přístup ke kontaktům, aby mohl připojit informace o kontaktu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly potřebuje oprávnění pro přístup k poloze, aby mohl připojit informace o poloze, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Poloha\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal potřebuje oprávnění pro přístup k úložišti, aby mohl připojovat fotky, videa nebo audio, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal potřebuje oprávnění pro přístup ke kontaktům, aby mohl připojit informace o kontaktu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal potřebuje oprávnění pro přístup k poloze, aby mohl připojit informace o poloze, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Poloha\".</string>
 
     <!-- Dialog title asking users for location permission -->
-    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <string name="AttachmentManager_signal_allow_access_location">Povolit přístup k poloze</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
-    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <string name="AttachmentManager_signal_to_send_location">Jak poslat svou polohu:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Povolte pro aplikaci Signal přístup k odeslání polohy.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Aplikace Signal potřebuje povolení přístupu k poloze, aby ji mohla odeslat.</string>
+    <!-- Dialog title asking users for gallery storage permission -->
+    <string name="AttachmentManager_signal_allow_storage">Povolte přístup k úložišti</string>
+    <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
+    <string name="AttachmentManager_signal_to_show_photos">Zobrazení fotografií a videí:</string>
+    <!-- Toast text explaining Signal\'s need for storage access -->
+    <string name="AttachmentManager_signal_needs_storage_access">Aplikace Signal potřebuje povolit přístup k úložišti, aby mohla zobrazovat vaše fotografie a videa.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s nemá aktivované Platby </string>
@@ -216,6 +225,38 @@
     <string name="CameraXFragment_capture_description">Pořídit</string>
     <string name="CameraXFragment_change_camera_description">Změnit kameru</string>
     <string name="CameraXFragment_open_gallery_description">Otevřít galerii</string>
+    <!-- Button text asking for access to camera permissions -->
+    <string name="CameraXFragment_allow_access">Allow access</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos -->
+    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <!-- Text explaining why Signal needs microphone access to take videos -->
+    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <!-- Text explaining why Signal needs camera access to scan QR codes -->
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <!-- Toast dialog explaining why Signal needs microphone permissions -->
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <!-- Dialog description that explains the steps needed to give camera permission -->
+    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
+    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give microphone permission -->
+    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
+    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Nedávné kontakty</string>
@@ -232,7 +273,7 @@
     <string name="CameraContacts_no_signal_contacts">Žádné Signal kontakty</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Tlačítko fotoaparátu můžete použit pouze pro odeslání fotografií kontaktům Signal. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Nemůžete najít, koho jste hledali?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Pozvěte kontakt do Molly</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Pozvěte kontakt do Signal</string>
     <string name="CameraContacts__menu_search">Hledat</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -246,12 +287,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Ne, díky</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Aktualizovat Molly</string>
+    <string name="ClientDeprecatedActivity_update_signal">Aktualizovat Signal</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Tato verze aplikace již není podporována. Chcete-li pokračovat v odesílání a přijímání zpráv, aktualizujte na nejnovější verzi.</string>
     <string name="ClientDeprecatedActivity_update">Aktualizovat</string>
     <string name="ClientDeprecatedActivity_dont_update">Neaktualizovat</string>
     <string name="ClientDeprecatedActivity_warning">Varování</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Verze Molly, kterou používáte, je zastaralá. Můžete zobrazit svoji historii zpráv, ale nebudete moci zprávy odesílat ani přijímat, dokud neprovedete aktualizaci.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Verze Signal, kterou používáte, je zastaralá. Můžete zobrazit svoji historii zpráv, ale nebudete moci zprávy odesílat ani přijímat, dokud neprovedete aktualizaci.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Nebyl nalezen žádný webový prohlížeč.</string>
@@ -288,7 +329,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Zpráva %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal volání %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -386,7 +428,7 @@
     <string name="ConversationActivity_transport_signal">Zpráva Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Odeslat zprávu</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Přejít na Molly: %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Přejít na Signal: %1$s</string>
     <string name="ConversationActivity_specify_recipient">Vyberte prosím kontakt</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Velikost přílohy překročila limit pro typ zprávy, kterou posíláte.</string>
     <string name="ConversationActivity_unable_to_record_audio">Nemohu nahrávat audio!</string>
@@ -401,22 +443,22 @@
     <string name="ConversationActivity_cancel_request">Zrušit požadavek</string>
 
     <!-- Dialog title asking users for microphone permission -->
-    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <string name="ConversationActivity_allow_access_microphone">Povolte přístup k mikrofonu</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
-    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <string name="ConversationActivity_signal_to_send_audio_messages">Jak poslat hlasovou zprávu:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Pro odeslání hlasové zprávy povolte aplikaci Signal přístup k mikrofonu.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly potřebuje oprávnění pro přístup k mikrofonu, aby mohl poslat audio zprávu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Aplikace Signal potřebuje pro nahrání hlasové zprávy povolit přístup k mikrofonu.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal potřebuje oprávnění pro přístup k mikrofonu, aby mohl poslat audio zprávu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly potřebuje oprávnění pro přístup k mikrofonu a fotoaparátu, abyste mohli volat %1$s, ale tato oprávnění jsou nyní zakázána. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pro pořizování fotografií nebo videa potřebuje Molly přístup k fotoaparátu.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly potřebuje oprávnění pro přístup k fotoaparátu, aby mohl pořizovat fotografie nebo video, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Fotoaparát\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly potřebuje přístup k fotoaparátu, aby mohl pořizovat fotografie nebo videa.</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal potřebuje oprávnění pro přístup k mikrofonu a fotoaparátu, abyste mohli volat %1$s, ale tato oprávnění jsou nyní zakázána. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pro pořizování fotografií nebo videa potřebuje Signal přístup k fotoaparátu.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal potřebuje oprávnění pro přístup k fotoaparátu, aby mohl pořizovat fotografie nebo video, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Fotoaparát\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal potřebuje přístup k fotoaparátu, aby mohl pořizovat fotografie nebo videa.</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Povolte oprávnění k mikrofonu pro nahrávání videa se zvukem.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly potřebuje oprávnění k mikrofonu, aby mohl nahrávat videa, ale toto oprávnění bylo zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly potřebuje oprávnění k mikrofonu pro nahrávání videa.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal potřebuje oprávnění k mikrofonu, aby mohl nahrávat videa, ale toto oprávnění bylo zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal potřebuje oprávnění k mikrofonu pro nahrávání videa.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Ne</string>
@@ -435,11 +477,11 @@
     <string name="ConversationActivity_delete_and_leave">Odstranit a opustit</string>
 
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
-    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <string name="ConversationActivity__to_start_call">Jak zahájit hovor:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Abyste mohli telefonovat, je potřeba pro aplikaci Signal povolit přístup k mikrofonu.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Aplikace Signal potřebuje pro zahájení hovoru povolit přístup k mikrofonu.</string>
 
 
     <string name="ConversationActivity_join">Připojit</string>
@@ -453,9 +495,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Zasílání SMS zpráv již není aplikací Signal podporováno. Pozvěte kontakt %1$s do aplikace Signal a pokračujte v konverzaci zde.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Tato osoba již Molly nepoužívá. Pozvěte ji do aplikace Molly a pokračujte v konverzaci zde.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Tato osoba již Signal nepoužívá. Pozvěte ji do aplikace Signal a pokračujte v konverzaci zde.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Pozvat do Molly</string>
+    <string name="ConversationActivity__invite_to_signal">Pozvat do Signal</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Brzy vám to znovu připomeneme.</string>
 
@@ -552,13 +594,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Zablokováno</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Aktualizovat Molly</string>
+    <string name="ConversationFragment__update_build">Aktualizovat Signal</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Znovu se zaregistrovat do služby Molly</string>
+    <string name="ConversationFragment__reregister_signal">Znovu se zaregistrovat do služby Signal</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Přejít zpět.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Otevřít Molly</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Otevřít Signal</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Již bez ověření</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -764,7 +806,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Otestujte přístupovou frázi pro vaši zálohu a ověřte, že se shoduje</string>
     <string name="BackupsPreferenceFragment__turn_on">Zapnout</string>
     <string name="BackupsPreferenceFragment__turn_off">Vypnout</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Pro obnovení ze zálohy znovu nainstalujte aplikaci Molly. Spusťte aplikaci a klepněte na \"Obnovení ze zálohy\", pak najděte soubor se zálohou. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Pro obnovení ze zálohy znovu nainstalujte aplikaci Signal. Spusťte aplikaci a klepněte na \"Obnovení ze zálohy\", pak najděte soubor se zálohou. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Zjistit více</string>
     <string name="BackupsPreferenceFragment__in_progress">Probíhá…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -772,7 +814,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d dosud…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">Zatím %1$s%%…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly potřebuje oprávnění pro přístup k úložišti, aby mohl vytvářet zálohy, ale toto oprávnění je nyní trvale zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal potřebuje oprávnění pro přístup k úložišti, aby mohl vytvářet zálohy, ale toto oprávnění je nyní trvale zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Nastavte si čas zálohování</string>
 
@@ -861,7 +903,7 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimlizovat pro chybějící Google Play službu</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Toto zařízení nepodporuje službu Google Play. Klepnutím zakážete systémové optimalizace baterie, které způsobují nemožnost aplikaci Molly přijímat zprávy v době nečinnosti.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Toto zařízení nepodporuje službu Google Play. Klepnutím zakážete systémové optimalizace baterie, které způsobují nemožnost aplikaci Signal přijímat zprávy v době nečinnosti.</string>
 
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Tato verze aplikace Signal je zastaralá. Proveďte aktualizaci, abyste mohli odesílat a přijímat zprávy.</string>
@@ -877,8 +919,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">Zobrazit</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Trvalá chyba komunikace Molly!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly se nemůže registrovat k službě Google Play. Zprávy a volání jsou proto zakázány: Prosím zkuste se znovu registrovat v menu Nastavení &gt; Rozšířené.</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Trvalá chyba komunikace Signal!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal se nemůže registrovat k službě Google Play. Zprávy a volání jsou proto zakázány: Prosím zkuste se znovu registrovat v menu Nastavení &gt; Rozšířené.</string>
 
 
     <!-- GiphyActivity -->
@@ -1043,12 +1085,12 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Protokoly ladění nám pomáhají diagnostikovat a opravit problém a neobsahují identifikační informace.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">U aplikace Molly se vyskytl problém. Odeslat protokol ladění?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">U aplikace Signal se vyskytl problém. Odeslat protokol ladění?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Oznámení se mohou zpožďovat kvůli optimalizaci baterie</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Optimalizaci baterie pro službu Molly můžete vypnout, abyste zajistili, že se oznámení zpráv nebudou zpožďovat.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Optimalizaci baterie pro službu Signal můžete vypnout, abyste zajistili, že se oznámení zpráv nebudou zpožďovat.</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Pokračovat</string>
@@ -1319,7 +1361,7 @@
     <string name="InviteActivity_cancel">Storno</string>
     <string name="InviteActivity_sending">Odesílaní…</string>
     <string name="InviteActivity_invitations_sent">Pozvánka odeslána!</string>
-    <string name="InviteActivity_invite_to_signal">Pozvat do Molly</string>
+    <string name="InviteActivity_invite_to_signal">Pozvat do Signal</string>
     <string name="InviteActivity_send_sms">Poslat SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Poslat %1$d SMS pozvánku?</item>
@@ -1327,7 +1369,7 @@
         <item quantity="many">Poslat %1$d SMS pozvánek?</item>
         <item quantity="other">Poslat %1$d SMS pozvánek?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Přejít na Molly: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Přejít na Signal: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">Zdá se, že nemáte žádnou aplikaci pro sdílení.</string>
 
     <!-- LearnMoreTextView -->
@@ -1341,7 +1383,7 @@
     <string name="LongMessageActivity_your_message">Vaše zpráva</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">Komunikace na pozadí povolena</string>
 
     <!-- MediaOverviewActivity -->
@@ -1414,7 +1456,7 @@
     <string name="Megaphones_new_group">Nová skupina</string>
     <string name="Megaphones_invite_friends">Pozvat přátele</string>
     <string name="Megaphones_chat_colors">Barvy chatu</string>
-    <string name="Megaphones_add_a_profile_photo">Přidat profilovou fotografii</string>
+    <string name="Megaphones_add_a_profile_photo">Přidat avatar</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Odpovědi</string>
@@ -1422,8 +1464,8 @@
     <!-- NotificationBarManager -->
     <string name="NotificationBarManager__establishing_signal_call">Navazuji hovor Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Zahájení služby volání Molly</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Zastavuji službu hovorů Molly</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Zahájení služby volání Signal</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Zastavuji službu hovorů Signal</string>
     <string name="NotificationBarManager__cancel_call">Zrušit hovor</string>
 
     <!-- NotificationsMegaphone -->
@@ -1751,7 +1793,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Zprávy SMS již brzy nebude možné z aplikace Signal posílat. Pozvěte kontakt %1$s do aplikace Signal a pokračujte v konverzaci zde.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">V aplikaci Molly již nelze odesílat zprávy SMS. Pozvěte kontakt %1$s do aplikace Molly a pokračujte v konverzaci zde.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">V aplikaci Signal již nelze odesílat zprávy SMS. Pozvěte kontakt %1$s do aplikace Signal a pokračujte v konverzaci zde.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Platba: %1$s</string>
     <!-- Update message shown in chat after reporting it as spam -->
@@ -1839,7 +1881,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Propojit zařízení Signal?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Zdá se, že se snažíte propojit zařízení Signal použitím jiné skenovací aplikace. Pro vaši ochranu, prosím, oskenujete kód ještě jednou z aplikace Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly potřebuje oprávnění pro přístup k fotoaparátu, aby mohl naskenovat QR kód, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Fotoaparát\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal potřebuje oprávnění pro přístup k fotoaparátu, aby mohl naskenovat QR kód, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Fotoaparát\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nelze naskenovat QR kód bez přístupu k fotoaparátu.</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1854,11 +1896,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Zadat heslo</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Ikona Molly</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Ikona Signal</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Zadejte heslo</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Chybné heslo!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Odemknout Molly</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Zamykací obrazovka</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Odemknout Signal</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Zamykací obrazovka</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Mapa</string>
@@ -1935,7 +1977,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Můj příběh</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Hovor přes Molly</string>
+    <string name="Recipient_signal_call">Hovor přes Signal</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Blokovat</string>
@@ -1960,8 +2002,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Klepnutím sem zapnete své video</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly potřebuje přístup k vašemu fotoaparátu pro volání %1$s</string>
-    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Signal potřebuje přístup k vašemu fotoaparátu pro volání %1$s</string>
+    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
     <string name="WebRtcCallActivity__calling">Volání…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Opětovné připojování…</string>
@@ -2250,7 +2292,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Zavoláme vám pro ověření tohoto čísla</string>
     <string name="RegistrationActivity_edit_number">Upravit číslo</string>
     <string name="RegistrationActivity_missing_google_play_services">Chybí Google Play služba</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Toto zařízení nepodporuje službu Google Play. Můžete stále používat Molly, ale tato konfigurace může mít za následek snížení spolehlivosti nebo výkonu.\n\n Jestli nejste zkušený uživatel, nepoužíváte alternativní Android ROM nebo si myslíte, že je to chyba, kontaktujte support@molly.im pro pomoc s řešením tohoto problému.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Toto zařízení nepodporuje službu Google Play. Můžete stále používat Signal, ale tato konfigurace může mít za následek snížení spolehlivosti nebo výkonu.\n\n Jestli nejste zkušený uživatel, nepoužíváte alternativní Android ROM nebo si myslíte, že je to chyba, kontaktujte support@signal.org pro pomoc s řešením tohoto problému.</string>
     <string name="RegistrationActivity_i_understand">Rozumím</string>
     <string name="RegistrationActivity_play_services_error">Chyba Google Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Služba Google Play se aktualizuje nebo je dočasně nedostupná. Zkuste to prosím znovu.</string>
@@ -2268,7 +2310,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Nestandardní formát čísla</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Zadané číslo (%1$s) má zřejmě nestandardní formát.\n\nMysleli jste %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly pro Android - Formát telefonního čísla</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal pro Android - Formát telefonního čísla</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Vyžádané volání</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2343,13 +2385,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Přidat do kontaktů</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Pozvat do Molly</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Pozvat do Signal</string>
     <string name="SharedContactDetailsActivity_signal_message">Zpráva Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal volání</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Přidat do kontaktů</string>
-    <string name="SharedContactView_invite_to_signal">Pozvat do Molly</string>
+    <string name="SharedContactView_invite_to_signal">Pozvat do Signal</string>
     <string name="SharedContactView_message">Zpráva Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2417,10 +2459,10 @@
     <string name="SupportEmailUtil_filter">Filtr:</string>
     <string name="SupportEmailUtil_device_info">Informace o zařízení:</string>
     <string name="SupportEmailUtil_android_version">Verze Androidu:</string>
-    <string name="SupportEmailUtil_signal_version">Verze Molly:</string>
-    <string name="SupportEmailUtil_signal_package">Molly balíček:</string>
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_version" translatable="false">Signal version:</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_package" translatable="false">Signal package:</string> -->
     <string name="SupportEmailUtil_registration_lock">Zámek registrace:</string>
-    <string name="SupportEmailUtil_locale">Jazyk:</string>
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_locale" translatable="false">Locale:</string> -->
 
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">Skupina upravena</string>
@@ -2480,11 +2522,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s patří uživateli %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Aktualizace Molly</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">K dispozici je nová verze aplikace Molly. Klepnutím ji aktualizujete.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Molly se nepodařilo aktualizovat</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Aktualizace Signal</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">K dispozici je nová verze aplikace Signal. Klepnutím ji aktualizujete.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Signal se nepodařilo aktualizovat</string>
     <string name="ApkUpdateNotifications_failed_general_body">Zkusíme to znovu později.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly byl úspěšně aktualizován</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal byl úspěšně aktualizován</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Byla provedena automatická aktualizace na verzi %1$s.</string>
 
     <!-- UntrustedSendDialog -->
@@ -2587,14 +2629,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Dotykem otevřete.</string>
-    <string name="KeyCachingService_passphrase_cached">Molly je odemčen</string>
-    <string name="KeyCachingService_lock">Zamknout Molly</string>
+    <string name="KeyCachingService_passphrase_cached">Signal je odemčen</string>
+    <string name="KeyCachingService_lock">Zamknout Signal</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Vy</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Nepodporovaný typ dat</string>
     <string name="MediaPreviewActivity_draft">Koncept</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly potřebuje oprávnění pro přístup k úložišti, aby mohl zapisovat do externího úložiště, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal potřebuje oprávnění pro přístup k úložišti, aby mohl zapisovat do externího úložiště, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nelze ukládat do externího úložiště bez oprávnění.</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Odstranit zprávu?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Tímto tuto zprávu trvale odstraníte.</string>
@@ -2642,7 +2684,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Nepodařilo se zprávu doručit.</string>
     <string name="MessageNotifier_error_delivering_message">Chyba při doručení zprávy.</string>
     <string name="MessageNotifier_message_delivery_paused">Doručení zprávy pozastaveno.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Ověřte pro pokračování konverzace na Mollyu.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Ověřte pro pokračování konverzace na Signalu.</string>
     <string name="MessageNotifier_mark_all_as_read">Označit vše jako přečtené</string>
     <string name="MessageNotifier_mark_read">Označit jako přečtené</string>
     <string name="MessageNotifier_turn_off_these_notifications">Vypnout tato upozornění</string>
@@ -2703,7 +2745,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Rychlá odpověď není dostupná, pokud je Molly uzamčen!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Rychlá odpověď není dostupná, pokud je Signal uzamčen!</string>
     <string name="QuickResponseService_problem_sending_message">Problém při odesílání zprávy!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2723,7 +2765,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Chybná klávesová zkratka</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Nová zpráva</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Žádost o zprávu</string>
     <string name="SingleRecipientNotificationBuilder_you">Vy</string>
@@ -2771,7 +2813,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Toto zařízení již není registrované. Je to pravděpodobně proto, že jste své telefonní číslo zaregistrovali v aplikaci Molly z jiného zařízení.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Toto zařízení již není registrované. Je to pravděpodobně proto, že jste své telefonní číslo zaregistrovali v aplikaci Signal z jiného zařízení.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Znovu zaregistrujte zařízení</string>
 
@@ -2784,10 +2826,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Chcete-li přijmout hovor, umožněte aplikaci Molly přístup k mikrofonu.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Chcete-li přijmout hovor, umožněte aplikaci Signal přístup k mikrofonu.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Chcete-li přijmout videohovor, umožněte aplikaci Molly přístup k mikrofonu a fotoaparátu.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly potřebuje oprávnění pro přístup k mikrofonu a fotoaparátu, abyste mohli volat nebo přijímat hovory, ale tato oprávnění jsou nyní zakázána. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Chcete-li přijmout videohovor, umožněte aplikaci Signal přístup k mikrofonu a fotoaparátu.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal potřebuje oprávnění pro přístup k mikrofonu a fotoaparátu, abyste mohli volat nebo přijímat hovory, ale tato oprávnění jsou nyní zakázána. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Odpovězeno na propojeném zařízení.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Odmítnuto na propojeném zařízení.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Obsazeno na propojeném zařízení.</string>
@@ -2832,12 +2874,16 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Zopakujte nové heslo</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Pozvat do Molly</string>
+    <string name="contact_selection_activity__invite_to_signal">Pozvat do Signal</string>
     <string name="contact_selection_activity__new_group">Nová skupina</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Obnovit kontakty</string>
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Chybí někdo? Zkuste provést obnovení</string>
+    <!-- Row item title for finding people on Signal via your contacts -->
+    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <!-- Row item description asking users for access to their contacts to find people they know -->
+    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Více</string>
 
@@ -2854,7 +2900,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Fotografie kontaktu</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly potřebuje oprávnění pro přístup ke kontaktům, aby vám je mohl zobrazit, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal potřebuje oprávnění pro přístup ke kontaktům, aby vám je mohl zobrazit, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Nepodařilo se načíst kontakty, zkontrolujte připojení k síti.</string>
     <string name="ContactSelectionListFragment_username_not_found">Uživatelské jméno nebylo nalezeno</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" není uživatel Signal. Zkontrolujte prosím uživatelské jméno a zkuste to znovu."</string>
@@ -2873,9 +2919,17 @@
     <string name="ContactSelectionListFragment__find_by_phone_number">Najít podle telefonního čísla</string>
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Najít podle uživatelského jména</string>
+    <!-- Dialog title asking users for contact permission -->
+    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <!-- Dialog description that will explain the steps needed to give contact permissions -->
+    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <!-- Text on button prompting users to give Signal contact permissions -->
+    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <!-- Text asking for user\'s contact permission -->
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly potřebuje přístup k vašim kontaktům, aby je mohl zobrazit.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal potřebuje přístup k vašim kontaktům, aby je mohl zobrazit.</string>
     <string name="contact_selection_list_fragment__show_contacts">Zobrazit kontakty</string>
 
     <!-- contact_selection_list_item -->
@@ -2980,7 +3034,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Bubliny jsou funkcí systému Android, kterou můžete pro chaty aplikace Molly vypnout.</string>
+    <string name="BubbleOptOutTooltip__description">Bubliny jsou funkcí systému Android, kterou můžete pro chaty aplikace Signal vypnout.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Teď ne</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3162,9 +3216,9 @@
     <string name="EditProfileFragment__group_description">Popisek skupiny</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Aktualizovat Molly</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Aktualizovat Signal</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Platnost této verze aplikace Molly vypršela. Aktualizujte ji, ať můžete Molly dál používat.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Platnost této verze aplikace Signal vypršela. Aktualizujte ji, ať můžete Signal dál používat.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Aktualizovat</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3255,7 +3309,7 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__link__faq" translatable="false">https://support.signal.org</string> -->
     <string name="HelpFragment__support_info">Informace o podpoře</string>
     <string name="HelpFragment__signal_android_support_request">Požadavek na podporu Signal Android</string>
-    <string name="HelpFragment__debug_log">Ladicí log</string>
+  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">Nepodařilo se nahrát logy</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Popište detailně váš problém, aby to bylo pro nás srozumitelné.</string>
     <string-array name="HelpFragment__categories_5">
@@ -3383,7 +3437,7 @@
     <string name="preferences__slow">Pomalu</string>
     <string name="preferences__help">Nápověda</string>
     <string name="preferences__advanced">Rozšířené možnosti</string>
-    <string name="preferences__donate_to_signal">Podpořte Molly finančně</string>
+    <string name="preferences__donate_to_signal">Podpořte Signal finančně</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Soukromí</string>
     <!-- Preference label for stories -->
@@ -3420,13 +3474,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Změnit ikonu a název aplikace na „%1$s“</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Aby bylo možné ikonu a název aplikace Molly změnit, bude nutné ji zavřít. Oznámení budou vždy zobrazovat výchozí ikonu a název Molly.</string>
+    <string name="preferences__app_icon_dialog_description">Aby bylo možné ikonu a název aplikace Signal změnit, bude nutné ji zavřít. Oznámení budou vždy zobrazovat výchozí ikonu a název Signal.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Vyberte si ikonu a název aplikace, které se budou zobrazovat na domovské obrazovce vašeho telefonu a ve složce s aplikacemi. Oznámení budou vždy zobrazovat výchozí ikonu a název Molly. Více informací</string>
+    <string name="preferences__app_icon_warning_learn_more">Vyberte si ikonu a název aplikace, které se budou zobrazovat na domovské obrazovce vašeho telefonu a ve složce s aplikacemi. Oznámení budou vždy zobrazovat výchozí ikonu a název Signal. Více informací</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Ikony a názvy aplikací se zobrazují na domovské obrazovce a ve složce s aplikacemi.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Oznámení budou vždy zobrazovat výchozí ikonu a název Molly.</string>
+    <string name="preferences__app_icon_notification_warning">Oznámení budou vždy zobrazovat výchozí ikonu a název Signal.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Více informací</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3464,7 +3518,8 @@
     <string name="preferences_storage__audio">Audio</string>
     <string name="preferences_storage__review_storage">Zkontrolovat úložiště</string>
     <string name="preferences_storage__delete_older_messages">Odstranit starší zprávy?</string>
-    <string name="preferences_storage__clear_message_history">Smazat historii zpráv?</string>
+    <!-- Dialog title shown when selecting delete message history from manage storage -->
+    <string name="preferences_storage__delete_message_history">Smazat historii zpráv?</string>
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">Tímto trvale odstraníte veškerou historii zpráv a mediální soubory z vašeho zařízení, které jsou starší než %1$s.</string>
     <!-- The body of an alert dialog that is shown when confirming a trim operation. Trimming will delete all but the most recent messages in a chat. The placeholder represents how many messages are kept in each chat. All older messages are deleted. -->
     <plurals name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">
@@ -3514,7 +3569,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Obcházení cenzury</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Obcházení cenzury</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Pokud je povoleno, Molly se pokusí obejít cenzuru. Nepovolujte v místech, kde Molly není cenzurován.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Pokud je povoleno, Signal se pokusí obejít cenzuru. Nepovolujte v místech, kde Signal není cenzurován.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Obcházení cenzury bylo aktivováno na základě vašeho telefonního čísla.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3566,7 +3621,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Představujeme Platby</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Pomocí Mollyu můžete odesílat a přijímat MobileCoin, novou digitální měnu zaměřenou na soukromí. Stačí aktivovat a můžete začít.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Pomocí Signalu můžete odesílat a přijímat MobileCoin, novou digitální měnu zaměřenou na soukromí. Stačí aktivovat a můžete začít.</string>
     <string name="PaymentsHomeFragment__activate_payments">Aktivovat platby</string>
     <string name="PaymentsHomeFragment__activating_payments">Aktivuji platby…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Obnovit platební účet</string>
@@ -3592,7 +3647,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Platby nejsou ve vašem regionu dostupné.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Nepodařilo se povolit platby. Zkuste to znovu.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Deaktivovat platby?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Nebudete moci posílat ani přijímat MobileCoin v Mollyu, pokud deaktivujete platby.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Nebudete moci posílat ani přijímat MobileCoin v Signalu, pokud deaktivujete platby.</string>
     <string name="PaymentsHomeFragment__deactivate">Deaktivovat</string>
     <string name="PaymentsHomeFragment__continue">Pokračovat</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Zůstatek není aktuálně k dispozici.</string>
@@ -3601,10 +3656,10 @@
     <string name="PaymentsHomeFragment__details">Podrobnosti</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Pomocí služby Molly můžete odesílat a přijímat měnu MobileCoin. Na všechny platby se vztahují Podmínky používání služby MobileCoin a peněženky MobileCoin. Můžete se setkat s problémy a platby i zůstatky, o které přijdete, není možné obnovit. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Pomocí služby Signal můžete odesílat a přijímat měnu MobileCoin. Na všechny platby se vztahují Podmínky používání služby MobileCoin a peněženky MobileCoin. Můžete se setkat s problémy a platby i zůstatky, o které přijdete, není možné obnovit. </string>
     <string name="PaymentsHomeFragment__activate">Aktivovat</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Zobrazit MobileCoin podmínky</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Platby v Molly již nejsou k dispozici. Stále můžete převádět prostředky na burzu, ale již nemůžete posílat a přijímat platby ani přidávat prostředky.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Platby v Signal již nejsou k dispozici. Stále můžete převádět prostředky na burzu, ale již nemůžete posílat a přijímat platby ani přidávat prostředky.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3632,7 +3687,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Povolit oprávnění</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Abychom vám pomohli posílat zprávy lidem, které znáte, vyžádá si služba Molly tato oprávnění. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Abychom vám pomohli posílat zprávy lidem, které znáte, vyžádá si služba Signal tato oprávnění. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Oznámení</string>
     <!-- Notifications permission row description -->
@@ -3652,11 +3707,11 @@
 
     <!-- PermissionDeniedBottomSheet -->
     <!-- Sheet describing step 1 on how to give permissions by opening settings -->
-    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Klepněte níže na „nastavení“</string>
     <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
-    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Povolit přístup</string>
     <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
-    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+    <string name="PermissionDeniedBottomSheet__settings">Nastavení</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -3720,10 +3775,10 @@
     <string name="PaymentsTransferFragment__next">Další</string>
     <string name="PaymentsTransferFragment__invalid_address">Neplatná adresa</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Zkontrolujte adresu peněženky, na kterou se pokoušíte převést, a zkuste to znovu.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Nelze převést na svou vlastní adresu peněženky Molly. Zadejte adresu peněženky ze svého účtu na podporované burze.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Molly potřebuje přístup ke kameře pro naskenování QR kódu.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Nelze převést na svou vlastní adresu peněženky Signal. Zadejte adresu peněženky ze svého účtu na podporované burze.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Signal potřebuje přístup ke kameře pro naskenování QR kódu.</string>
     <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signál vyžaduje povolení kamery k zachycení QR kódu. Přejděte do nastavení, vyberte možnost \"Oprávnění\" a povolte možnost \"Fotoaparát\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">K naskenování QR kódu potřebuje Molly přístup ke kameře.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">K naskenování QR kódu potřebuje Signal přístup ke kameře.</string>
     <string name="PaymentsTransferFragment__settings">Nastavení</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -3918,11 +3973,11 @@
 
     <!-- DoubleTapEditEducationSheet -->
     <!-- Displayed as the title of the education bottom sheet -->
-    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Klikněte dvakrát pro úpravu</string>
     <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
-    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Klikněte rychle dvakrát na zprávu pro její úpravu. Své zprávy můžete upravit do 24 hodin po jejich odeslání.</string>
     <!-- Button label to dismiss sheet -->
-    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
+    <string name="DoubleTapEditEducationSheet__got_it">Rozumím</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">Nová skupina</string>
@@ -4089,17 +4144,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Příchozí hlasový hovor Molly</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Příchozí hlasový hovor Signal</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Příchozí videohovor Molly</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Příchozí videohovor Signal</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Příchozí Molly skupinový hovor</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Příchozí Signal skupinový hovor</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Probíhající hlasový hovor Molly</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Probíhající hlasový hovor Signal</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Probíhající videohovor Molly</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Probíhající videohovor Signal</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Probíhající skupinový hovor Molly</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Probíhající skupinový hovor Signal</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Načítání…</string>
@@ -4146,9 +4201,9 @@
     <string name="BackupDialog_verify">Ověřit</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Úspěšně jste zadali přístupovou frázi pro vaši zálohu</string>
     <string name="BackupDialog_passphrase_was_not_correct">Přístupová fráze nebyla správná</string>
-    <string name="LocalBackupJob_creating_signal_backup">Vytvářím zálohu Mollyu…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Vytvářím zálohu Signalu…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Ověřování zálohy Molly…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Ověřování zálohy Signal…</string>
     <string name="LocalBackupJobApi29_backup_failed">Zálohování selhalo</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Váš adresář se zálohami byl odstraněn nebo přesunut.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Soubor s vaší zálohou je příliš velký pro uložení na tento disk.</string>
@@ -4163,15 +4218,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Zavolejte mi (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Znovu odeslat kód (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Kontaktujte podporu Molly</string>
-    <string name="RegistrationActivity_code_support_subject">Registrace Molly - ověřovací kód pro Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Kontaktujte podporu Signal</string>
+    <string name="RegistrationActivity_code_support_subject">Registrace Signal - ověřovací kód pro Android</string>
     <string name="RegistrationActivity_incorrect_code">Špatný kód</string>
     <string name="BackupUtil_never">Nikdy</string>
     <string name="BackupUtil_unknown">Neznámý</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Telefonní číslo</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Zvolte si, kdo uvidí vaše telefonní číslo a kdo vás pomocí něj může v aplikaci Molly kontaktovat.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Zvolte si, kdo uvidí vaše telefonní číslo a kdo vás pomocí něj může v aplikaci Signal kontaktovat.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Kdo uvidí moje číslo</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4219,7 +4274,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Uskutečnili jste příliš mnoho pokusů. Prosím zkuste to znovu později</string>
     <string name="RegistrationActivity_error_connecting_to_service">Chyba při připojování k službě</string>
     <string name="preferences_chats__backups">Zálohy</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Molly je zamčen</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Signal je zamčen</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">KLEPNUTÍM ODEMKNĚTE</string>
     <string name="Recipient_unknown">Neznámý</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4267,19 +4322,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Připravuji na připojení ke starému Android zařízení…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Chvíli to potrvá, brzy to bude připravené</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Čekám na připojení starého Android zařízení…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly potřebuji oprávnění pro přístup k poloze pro nalezení a připojení ke staršímu Android zařízení.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly potřebuje povolené služby polohy pro nalezení a připojení ke starému Android zařízení.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly potřebuje zapnutou Wi-Fi pro nalezení a připojení ke starému Android zařízení. Wi-Fi musí být zapnuté, ale nemusí být připojené k žádné Wi-Fi síti.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Omlouváme se, ale vypadá to, že toto zařízení nepodporuje Wi-Fi Direct. Molly používá Wi-Fi Direct pro nalezení staršího Android zařízení a připojení se k němu. Můžete stále obnovit zálohu pro obnovení vašeho původního účtu na starém Android zařízení.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal potřebuji oprávnění pro přístup k poloze pro nalezení a připojení ke staršímu Android zařízení.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal potřebuje povolené služby polohy pro nalezení a připojení ke starému Android zařízení.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal potřebuje zapnutou Wi-Fi pro nalezení a připojení ke starému Android zařízení. Wi-Fi musí být zapnuté, ale nemusí být připojené k žádné Wi-Fi síti.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Omlouváme se, ale vypadá to, že toto zařízení nepodporuje Wi-Fi Direct. Signal používá Wi-Fi Direct pro nalezení staršího Android zařízení a připojení se k němu. Můžete stále obnovit zálohu pro obnovení vašeho původního účtu na starém Android zařízení.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Obnovit zálohu</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Nastala neočekávaná chyba při pokusu o připojení ke starému Android zařízení.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Hledám nové Android zařízení…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly potřebuje oprávnění k poloze pro nalezení nového Android zařízení a připojení se k němu.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly potřebuje povolené služby polohy pro nalezení a připojení k novému Android zařízení.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly potřebuje zapnutou Wi-Fi pro nalezení a připojení k novému Android zařízení. Wi-Fi musí být zapnuté, ale nemusí být připojené k žádné Wi-Fi síti.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Omlouváme se, ale vypadá to, že toto zařízení nepodporuje Wi-Fi Direct. Molly používá Wi-Fi Direct pro nalezení nového Android zařízení a připojení se k němu. Můžete stále obnovit zálohu pro obnovení vašeho původního účtu na novém Android zařízení.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal potřebuje oprávnění k poloze pro nalezení nového Android zařízení a připojení se k němu.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal potřebuje povolené služby polohy pro nalezení a připojení k novému Android zařízení.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal potřebuje zapnutou Wi-Fi pro nalezení a připojení k novému Android zařízení. Wi-Fi musí být zapnuté, ale nemusí být připojené k žádné Wi-Fi síti.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Omlouváme se, ale vypadá to, že toto zařízení nepodporuje Wi-Fi Direct. Signal používá Wi-Fi Direct pro nalezení nového Android zařízení a připojení se k němu. Můžete stále obnovit zálohu pro obnovení vašeho původního účtu na novém Android zařízení.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Vytvořit zálohu</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Nastala neočekávaná chyba při pokusu o připojení k novému Android zařízení.</string>
 
@@ -4320,7 +4375,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Přenáším data</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Ponechte obě zařízení blízko sebe. Nevypínejte zařízení a nechte spuštěnou aplikaci Molly. Přenos je koncově šifrován.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Ponechte obě zařízení blízko sebe. Nevypínejte zařízení a nechte spuštěnou aplikaci Signal. Přenos je koncově šifrován.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d zpráv zatím…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">Zatím %1$s%% zpráv…</string>
@@ -4334,7 +4389,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Přenést účet</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Stáhněte Molly na novém Android zařízení</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Stáhněte Signal na novém Android zařízení</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Klepněte na \"Přenést nebo obnovit účet\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4408,7 +4463,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Kdokoli, kdo má tento odkaz, může vidět jméno skupiny a fotografii a může požádat o připojení ke skupině. Sdílejte pouze s lidmi, kterým důvěřujete.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Kdokoli, kdo má tento odkaz, může vidět jméno skupiny a fotografii a může se připojit ke skupině. Sdílejte pouze s lidmi, kterým důvěřujete.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Sdílet přes Molly</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Sdílet přes Signal</string>
     <string name="GroupLinkBottomSheet_copy">Kopírovat</string>
     <string name="GroupLinkBottomSheet_qr_code">QR kód</string>
     <string name="GroupLinkBottomSheet_share">Sdílet</string>
@@ -4436,17 +4491,17 @@
     <string name="ReviewCardDialogFragment__review_request">Zkontrolovat žádost</string>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
-        <item quantity="one">%1$d group member have the same name, review the member below and choose to take action.</item>
-        <item quantity="few">%1$d group members have the same name, review the members below and choose to take action.</item>
-        <item quantity="many">%1$d group members have the same name, review the members below and choose to take action.</item>
-        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+        <item quantity="one">%1$d člen skupiny má stejné jméno, prohlédněte si ho níže a zvolte akci.</item>
+        <item quantity="few">%1$d členové skupiny mají stejné jméno. Prohlédněte si je níže a zvolte akci.</item>
+        <item quantity="many">%1$d členů skupiny má stejné jméno. Prohlédněte si je níže a zvolte akci.</item>
+        <item quantity="other">%1$d členů skupiny má stejné jméno. Prohlédněte si je níže a zvolte akci.</item>
     </plurals>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
-        <item quantity="one">If you\'re not sure who the request is from, review the contact below and take action.</item>
-        <item quantity="few">If you\'re not sure who the request is from, review the contacts below and take action.</item>
-        <item quantity="many">If you\'re not sure who the request is from, review the contacts below and take action.</item>
-        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+        <item quantity="one">Pokud si nejste jisti, od koho žádost je, zkontrolujte níže uvedený kontakt a proveďte akci.</item>
+        <item quantity="few">Pokud si nejste jisti, od koho žádost je, zkontrolujte níže uvedené kontakty a proveďte akci.</item>
+        <item quantity="many">Pokud si nejste jisti, od koho žádost je, zkontrolujte níže uvedené kontakty a proveďte akci.</item>
+        <item quantity="other">Pokud si nejste jisti, od koho žádost je, zkontrolujte níže uvedené kontakty a proveďte akci.</item>
     </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Žádné další společné skupiny.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Žádné společné skupiny.</string>
@@ -4484,10 +4539,10 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s a %3$s se připojili.</string>
     <!-- Toast message shown in group call when 3 or more people join -->
     <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
-        <item quantity="one">%1$s, %2$s and %3$d other joined</item>
-        <item quantity="few">%1$s, %2$s and %3$d others joined</item>
-        <item quantity="many">%1$s, %2$s and %3$d others joined</item>
-        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+        <item quantity="one">%1$s, %2$s a %3$d další se připojili k hovoru</item>
+        <item quantity="few">%1$s, %2$s a %3$d další se připojili k hovoru</item>
+        <item quantity="many">%1$s, %2$s a %3$d další se připojili k hovoru</item>
+        <item quantity="other">%1$s, %2$s a %3$d dalších se připojilo k hovoru</item>
     </plurals>
     <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s odešel</string>
@@ -4495,10 +4550,10 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s a %3$s odešli</string>
     <!-- Toast message shown in group call when 3 or more people leave -->
     <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
-        <item quantity="one">%1$s, %2$s and %3$d other left</item>
-        <item quantity="few">%1$s, %2$s and %3$d others left</item>
-        <item quantity="many">%1$s, %2$s and %3$d others left</item>
-        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+        <item quantity="one">%1$s, %2$s a %3$d další opustili hovor</item>
+        <item quantity="few">%1$s, %2$s a %3$d další opustili hovor</item>
+        <item quantity="many">%1$s, %2$s a %3$d další opustili hovor</item>
+        <item quantity="other">%1$s, %2$s a %3$d dalších opustilo hovor</item>
     </plurals>
 
     <string name="CallParticipant__you">Vy</string>
@@ -4608,7 +4663,7 @@
     <string name="payment_info_card_about_mobilecoin">O MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin je nová digitální měna zaměřená na soukromí.</string>
     <string name="payment_info_card_adding_funds">Přidávám prostředky</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Prostředky pro použití v Molly můžete přidat zasláním MobileCoin na adresu vaší peněženky.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Prostředky pro použití v Signal můžete přidat zasláním MobileCoin na adresu vaší peněženky.</string>
     <string name="payment_info_card_cashing_out">Vyplacení</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">MobileCoin můžete kdykoli vyplatit na burze, která podporuje MobileCoin. Stačí provést převod na svůj účet na této burze.</string>
     <string name="payment_info_card_hide_this_card">Schovat tuto kartu?</string>
@@ -4629,12 +4684,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Deaktivovat peněženku</string>
     <string name="DeactivateWalletFragment__your_balance">Váš zůstatek</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Před deaktivací plateb doporučujeme převést prostředky na jinou adresu peněženky. Pokud se rozhodnete své prostředky nyní nepřevádět, zůstanou ve vaší peněžence propojené se službou Molly, pokud platby znovu aktivujete.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Před deaktivací plateb doporučujeme převést prostředky na jinou adresu peněženky. Pokud se rozhodnete své prostředky nyní nepřevádět, zůstanou ve vaší peněžence propojené se službou Signal, pokud platby znovu aktivujete.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Převést zbývající zůstatek</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Deaktivovat bez převodu</string>
     <string name="DeactivateWalletFragment__deactivate">Deaktivovat</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Deaktivovat bez převodu?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Pokud se rozhodnete platby znovu aktivovat, zůstanou vaše prostředky v peněžence propojené se službou Molly.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Pokud se rozhodnete platby znovu aktivovat, zůstanou vaše prostředky v peněžence propojené se službou Signal.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Chyba při deaktivování peněženky.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4875,10 +4930,10 @@
     <string name="PrivacySettingsFragment__blocked">Zablokováno</string>
     <!-- Settings label that shows the number blocked contacts -->
     <plurals name="PrivacySettingsFragment__d_contacts">
-        <item quantity="one">%1$d contact</item>
-        <item quantity="few">%1$d contacts</item>
-        <item quantity="many">%1$d contacts</item>
-        <item quantity="other">%1$d contacts</item>
+        <item quantity="one">%1$d kontakt</item>
+        <item quantity="few">%1$d kontakty</item>
+        <item quantity="many">%1$d kontaktů</item>
+        <item quantity="other">%1$d kontaktů</item>
     </plurals>
     <string name="PrivacySettingsFragment__messaging">Odesílání zpráv</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Mizející zprávy</string>
@@ -4933,7 +4988,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Licence</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Podmínky a zásady ochrany osobních údajů</string>
-    <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Licencováno pod GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5405,9 +5460,9 @@
     <string name="MySupportPreference__learn_more">Více informací</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Aktualizovat Molly</string>
+    <string name="UpdateSignalExpiredDialog__title">Aktualizovat Signal</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Platnost této verze aplikace Molly vypršela. Aktualizujte ji, ať můžete Molly dál používat.</string>
+    <string name="UpdateSignalExpiredDialog__message">Platnost této verze aplikace Signal vypršela. Aktualizujte ji, ať můžete Signal dál používat.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Aktualizovat</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5416,7 +5471,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Zařízení není registrováno</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Toto zařízení již není registrované. Zařízení znovu zaregistrujte, chcete-li na něm nadále používat službu Molly.</string>
+    <string name="ReregisterSignalDialog__message">Toto zařízení již není registrované. Zařízení znovu zaregistrujte, chcete-li na něm nadále používat službu Signal.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Znovu se zaregistrovat</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5710,7 +5765,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Nepodařilo se otevřít picker.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Aby bylo možné oznámení zapnout, Molly potřebuje povolení k jejich zobrazování.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Aby bylo možné oznámení zapnout, Signal potřebuje povolení k jejich zobrazování.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Zapnout</string>
 
@@ -7110,18 +7165,27 @@
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Kreditní nebo debetní karta</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <string name="BackupsTypeSettingsFragment__bank_transfer">Bankovní převod</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+    <string name="BackupsTypeSettingsFragment__unknown">Neznámý</string>
 
+    <!-- ManageStorageSettingsFragment -->
+    <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
+    <string name="ManageStorageSettingsFragment_chat_limit">Omezení chatu</string>
+    <!-- Settings row title text that can be clicked to delete all messages and associated data from the device -->
+    <string name="ManageStorageSettingsFragment_delete_message_history">Smazat historii zpráv</string>
+    <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (time is a range like 30 days or 1 year etc) -->
+    <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Zprávy starší než zvolené období budou trvale odstraněny.</string>
+    <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
+    <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Zprávy přesahující zvolenou délku budou trvale odstraněny.</string>
 
     <!-- EOF -->
 </resources>

@@ -306,7 +306,7 @@ public class PushServiceSocket {
   private static final String REGISTRATION_PATH    = "/v1/registration";
 
   private static final String CDSI_AUTH = "/v2/directory/auth";
-  private static final String SVR2_AUTH = "/v2/backup/auth";
+  private static final String SVR_AUTH  = "/v2/backup/auth";
 
   private static final String REPORT_SPAM = "/v1/messages/report/%s/%s";
 
@@ -487,8 +487,8 @@ public class PushServiceSocket {
     return JsonUtil.fromJsonResponse(body, CdsiAuthResponse.class);
   }
 
-  public AuthCredentials getSvr2Authorization() throws IOException {
-    String          body        = makeServiceRequest(SVR2_AUTH, "GET", null);
+  public AuthCredentials getSvrAuthorization() throws IOException {
+    String          body        = makeServiceRequest(SVR_AUTH, "GET", null);
     AuthCredentials credentials = JsonUtil.fromJsonResponse(body, AuthCredentials.class);
 
     return credentials;
@@ -1621,6 +1621,16 @@ public class PushServiceSocket {
 
   public ResumableUploadSpec getResumableUploadSpec(AttachmentUploadForm uploadForm) throws IOException {
     return new ResumableUploadSpec(Util.getSecretBytes(64),
+                                   Util.getSecretBytes(16),
+                                   uploadForm.key,
+                                   uploadForm.cdn,
+                                   getResumableUploadUrl(uploadForm),
+                                   System.currentTimeMillis() + CDN2_RESUMABLE_LINK_LIFETIME_MILLIS,
+                                   uploadForm.headers);
+  }
+
+  public ResumableUploadSpec getResumableUploadSpecWithKey(AttachmentUploadForm uploadForm, byte[] secretKey) throws IOException {
+    return new ResumableUploadSpec(secretKey,
                                    Util.getSecretBytes(16),
                                    uploadForm.key,
                                    uploadForm.cdn,

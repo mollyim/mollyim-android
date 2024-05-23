@@ -7,7 +7,6 @@ import org.signal.libsignal.protocol.InvalidMessageException;
 import org.signal.libsignal.protocol.incrementalmac.ChunkSizeChoice;
 import org.signal.libsignal.protocol.incrementalmac.InvalidMacException;
 import org.signal.libsignal.protocol.kdf.HKDFv3;
-import org.signal.libsignal.protocol.util.ByteUtil;
 import org.whispersystems.signalservice.api.backup.BackupKey;
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
 import org.whispersystems.signalservice.internal.push.http.AttachmentCipherOutputStreamFactory;
@@ -16,7 +15,6 @@ import org.whispersystems.signalservice.internal.util.Util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +37,7 @@ public final class AttachmentCipherTest {
     }
   }
 
-  private static int MEBIBYTE = 1024 * 1024;
+  private static final int MEBIBYTE = 1024 * 1024;
 
   @Test
   public void attachment_encryptDecrypt_nonIncremental() throws IOException, InvalidMessageException {
@@ -391,7 +389,7 @@ public final class AttachmentCipherTest {
 
     try {
       byte[]        key              = Util.getSecretBytes(64);
-      byte[]        plaintextInput   = "Uncle Ben".getBytes();
+      byte[]        plaintextInput   = Util.getSecretBytes(MEBIBYTE);
       EncryptResult encryptResult    = encryptData(plaintextInput, key, true);
       byte[]        badMacCiphertext = Arrays.copyOf(encryptResult.ciphertext, encryptResult.ciphertext.length);
 
@@ -418,7 +416,7 @@ public final class AttachmentCipherTest {
     assumeLibSignalSupportedOnOS();
 
     byte[]        packKey         = Util.getSecretBytes(32);
-    byte[]        plaintextInput  = "Peter Parker".getBytes();
+    byte[]        plaintextInput  = Util.getSecretBytes(MEBIBYTE);
     EncryptResult encryptResult   = encryptData(plaintextInput, expandPackKey(packKey), true);
     InputStream   inputStream     = AttachmentCipherInputStream.createForStickerData(encryptResult.ciphertext, packKey);
     byte[]        plaintextOutput = readInputStreamFully(inputStream);
@@ -447,7 +445,7 @@ public final class AttachmentCipherTest {
 
     try {
       byte[]        packKey        = Util.getSecretBytes(32);
-      byte[]        plaintextInput = "Gwen Stacy".getBytes();
+      byte[]        plaintextInput = Util.getSecretBytes(MEBIBYTE);
       EncryptResult encryptResult  = encryptData(plaintextInput, expandPackKey(packKey), true);
       byte[]        badPackKey     = new byte[32];
 
@@ -467,7 +465,7 @@ public final class AttachmentCipherTest {
 
     try {
       byte[]        packKey          = Util.getSecretBytes(32);
-      byte[]        plaintextInput   = "Uncle Ben".getBytes();
+      byte[]        plaintextInput   = Util.getSecretBytes(MEBIBYTE);
       EncryptResult encryptResult    = encryptData(plaintextInput, expandPackKey(packKey), true);
       byte[]        badMacCiphertext = Arrays.copyOf(encryptResult.ciphertext, encryptResult.ciphertext.length);
 

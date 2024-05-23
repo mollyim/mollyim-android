@@ -14,13 +14,15 @@ import org.signal.libsignal.messagebackup.MessageBackup.ValidationResult
 import org.signal.libsignal.messagebackup.MessageBackupKey
 import org.signal.libsignal.protocol.ServiceId.Aci
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
+import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
+import org.thoughtcrime.securesms.backup.v2.BackupRepository.getThumbnailMediaName
 import org.thoughtcrime.securesms.backup.v2.database.ChatItemImportInserter
 import org.thoughtcrime.securesms.backup.v2.database.clearAllDataForBackupRestore
 import org.thoughtcrime.securesms.backup.v2.processor.AccountDataProcessor
-import org.thoughtcrime.securesms.backup.v2.processor.CallLogBackupProcessor
+import org.thoughtcrime.securesms.backup.v2.processor.AdHocCallBackupProcessor
 import org.thoughtcrime.securesms.backup.v2.processor.ChatBackupProcessor
 import org.thoughtcrime.securesms.backup.v2.processor.ChatItemBackupProcessor
 import org.thoughtcrime.securesms.backup.v2.processor.RecipientBackupProcessor
@@ -40,6 +42,7 @@ import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.StatusCodeErrorAction
 import org.whispersystems.signalservice.api.archive.ArchiveGetMediaItemsResponse
 import org.whispersystems.signalservice.api.archive.ArchiveMediaRequest
+import org.whispersystems.signalservice.api.archive.ArchiveMediaResponse
 import org.whispersystems.signalservice.api.archive.ArchiveServiceCredential
 import org.whispersystems.signalservice.api.archive.DeleteArchivedMediaRequest
 import org.whispersystems.signalservice.api.archive.GetArchiveCdnCredentialsResponse
@@ -63,9 +66,15 @@ object BackupRepository {
   private const val VERSION = 1L
 
   private val resetInitializedStateErrorAction: StatusCodeErrorAction = { error ->
-    if (error.code == 401) {
-      Log.i(TAG, "Resetting initialized state due to 401.")
-      SignalStore.backup().backupsInitialized = false
+    when (error.code) {
+      401 -> {
+        Log.i(TAG, "Resetting initialized state due to 401.")
+        SignalStore.backup().backupsInitialized = false
+      }
+      403 -> {
+        Log.i(TAG, "Bad auth credential. Clearing stored credentials.")
+        SignalStore.backup().clearAllCredentials()
+      }
     }
   }
 
@@ -109,7 +118,7 @@ object BackupRepository {
           eventTimer.emit("thread")
         }
 
-        CallLogBackupProcessor.export { frame ->
+        AdHocCallBackupProcessor.export { frame ->
           writer.write(frame)
           eventTimer.emit("call")
         }
@@ -198,8 +207,8 @@ object BackupRepository {
             eventTimer.emit("chat")
           }
 
-          frame.call != null -> {
-            CallLogBackupProcessor.import(frame.call, backupState)
+          frame.adHocCall != null -> {
+            AdHocCallBackupProcessor.import(frame.adHocCall, backupState)
             eventTimer.emit("call")
           }
 
@@ -240,6 +249,17 @@ object BackupRepository {
     return initBackupAndFetchAuth(backupKey)
       .then { credential ->
         api.getArchiveMediaItemsPage(backupKey, credential, limit, cursor)
+      }
+  }
+
+  fun getRemoteBackupUsedSpace(): NetworkResult<Long?> {
+    val api = ApplicationDependencies.getSignalServiceAccountManager().archiveApi
+    val backupKey = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey()
+
+    return initBackupAndFetchAuth(backupKey)
+      .then { credential ->
+        api.getBackupInfo(backupKey, credential)
+          .map { it.usedSpace }
       }
   }
 
@@ -327,7 +347,7 @@ object BackupRepository {
   /**
    * Retrieves an upload spec that can be used to upload attachment media.
    */
-  fun getMediaUploadSpec(): NetworkResult<ResumableUploadSpec> {
+  fun getMediaUploadSpec(secretKey: ByteArray? = null): NetworkResult<ResumableUploadSpec> {
     val api = ApplicationDependencies.getSignalServiceAccountManager().archiveApi
     val backupKey = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey()
 
@@ -336,7 +356,22 @@ object BackupRepository {
         api.getMediaUploadForm(backupKey, credential)
       }
       .then { form ->
-        api.getResumableUploadSpec(form)
+        api.getResumableUploadSpec(form, secretKey)
+      }
+  }
+
+  fun archiveThumbnail(thumbnailAttachment: Attachment, parentAttachment: DatabaseAttachment): NetworkResult<ArchiveMediaResponse> {
+    val api = ApplicationDependencies.getSignalServiceAccountManager().archiveApi
+    val backupKey = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey()
+    val request = thumbnailAttachment.toArchiveMediaRequest(parentAttachment.getThumbnailMediaName(), backupKey)
+
+    return initBackupAndFetchAuth(backupKey)
+      .then { credential ->
+        api.archiveAttachmentMedia(
+          backupKey = backupKey,
+          serviceCredential = credential,
+          item = request
+        )
       }
   }
 
@@ -345,10 +380,6 @@ object BackupRepository {
     val backupKey = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey()
 
     return initBackupAndFetchAuth(backupKey)
-      .then { credential ->
-        api.setPublicKey(backupKey, credential)
-          .map { credential }
-      }
       .then { credential ->
         val mediaName = attachment.getMediaName()
         val request = attachment.toArchiveMediaRequest(mediaName, backupKey)
@@ -361,7 +392,8 @@ object BackupRepository {
           .map { Triple(mediaName, request.mediaId, it) }
       }
       .map { (mediaName, mediaId, response) ->
-        SignalDatabase.attachments.setArchiveData(attachmentId = attachment.attachmentId, archiveCdn = response.cdn, archiveMediaName = mediaName.name, archiveMediaId = mediaId)
+        val thumbnailId = backupKey.deriveMediaId(attachment.getThumbnailMediaName()).encode()
+        SignalDatabase.attachments.setArchiveData(attachmentId = attachment.attachmentId, archiveCdn = response.cdn, archiveMediaName = mediaName.name, archiveMediaId = mediaId, archiveThumbnailMediaId = thumbnailId)
       }
       .also { Log.i(TAG, "archiveMediaResult: $it") }
   }
@@ -398,7 +430,8 @@ object BackupRepository {
           .forEach {
             val attachmentId = result.mediaIdToAttachmentId(it.mediaId)
             val mediaName = result.attachmentIdToMediaName(attachmentId)
-            SignalDatabase.attachments.setArchiveData(attachmentId = attachmentId, archiveCdn = it.cdn!!, archiveMediaName = mediaName, archiveMediaId = it.mediaId)
+            val thumbnailId = backupKey.deriveMediaId(MediaName.forThumbnailFromMediaName(mediaName = mediaName)).encode()
+            SignalDatabase.attachments.setArchiveData(attachmentId = attachmentId, archiveCdn = it.cdn!!, archiveMediaName = mediaName, archiveMediaId = it.mediaId, thumbnailId)
           }
         result
       }
@@ -551,6 +584,7 @@ object BackupRepository {
     return initBackupAndFetchAuth(backupKey)
       .then { credential ->
         api.getBackupInfo(backupKey, credential).map {
+          SignalStore.backup().usedBackupMediaSpace = it.usedSpace ?: 0L
           BackupDirectories(it.backupDir!!, it.mediaDir!!)
         }
       }
@@ -613,7 +647,11 @@ object BackupRepository {
     return MediaName.fromDigest(remoteDigest!!)
   }
 
-  private fun DatabaseAttachment.toArchiveMediaRequest(mediaName: MediaName, backupKey: BackupKey): ArchiveMediaRequest {
+  fun DatabaseAttachment.getThumbnailMediaName(): MediaName {
+    return MediaName.fromDigestForThumbnail(remoteDigest!!)
+  }
+
+  private fun Attachment.toArchiveMediaRequest(mediaName: MediaName, backupKey: BackupKey): ArchiveMediaRequest {
     val mediaSecrets = backupKey.deriveMediaSecrets(mediaName)
 
     return ArchiveMediaRequest(
@@ -644,10 +682,14 @@ class BackupState(val backupKey: BackupKey) {
   val chatIdToLocalThreadId = HashMap<Long, Long>()
   val chatIdToLocalRecipientId = HashMap<Long, RecipientId>()
   val chatIdToBackupRecipientId = HashMap<Long, Long>()
-  val callIdToType = HashMap<Long, Long>()
 }
 
 class BackupMetadata(
   val usedSpace: Long,
   val mediaCount: Long
 )
+
+enum class MessageBackupTier {
+  FREE,
+  PAID
+}

@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.database
 import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
+import androidx.compose.runtime.Immutable
 import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireNonNullString
@@ -27,6 +28,7 @@ class MediaTable internal constructor(context: Context?, databaseHelper: SignalD
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.DATA_SIZE}, 
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.FILE_NAME}, 
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.DATA_FILE}, 
+        ${AttachmentTable.TABLE_NAME}.${AttachmentTable.THUMBNAIL_FILE}, 
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.CDN_NUMBER},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.REMOTE_LOCATION},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.REMOTE_KEY},
@@ -53,6 +55,7 @@ class MediaTable internal constructor(context: Context?, databaseHelper: SignalD
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_CDN},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_MEDIA_NAME},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_MEDIA_ID},
+        ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_THUMBNAIL_CDN},
         ${MessageTable.TABLE_NAME}.${MessageTable.TYPE}, 
         ${MessageTable.TABLE_NAME}.${MessageTable.DATE_SENT}, 
         ${MessageTable.TABLE_NAME}.${MessageTable.DATE_RECEIVED}, 
@@ -302,6 +305,7 @@ class MediaTable internal constructor(context: Context?, databaseHelper: SignalD
     }
   }
 
+  @Immutable
   data class StorageBreakdown(
     val photoSize: Long,
     val videoSize: Long,

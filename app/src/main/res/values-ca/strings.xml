@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -36,12 +38,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">El Molly s\'actualitza…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">El Signal s\'actualitza…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Encara no heu establert cap contrasenya.</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Voleu desactivar la contrasenya?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">El Molly i les notificacions es desblocaran permanentment.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">El Signal i les notificacions es desblocaran permanentment.</string>
     <string name="ApplicationPreferencesActivity_disable">Desactiva</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">S\'ha produït un error en connectar amb el servidor.</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Els PIN són necessaris per al bloqueig de registre. Per desactivar-los, primer desactiveu el bloqueig de registre.</string>
@@ -78,24 +80,31 @@
     <string name="AttachmentKeyboard_file">Fitxer</string>
     <string name="AttachmentKeyboard_contact">Contacte</string>
     <string name="AttachmentKeyboard_location">Ubicació</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">El Molly necessita permís per mostrar les vostres fotografies i vídeos.</string>
-    <string name="AttachmentKeyboard_give_access">Permet-hi l\'accés</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal necessita permís per mostrar les teves fotografies i vídeos</string>
+    <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
+    <string name="AttachmentKeyboard_allow_access">Permet l\'accés</string>
     <string name="AttachmentKeyboard_payment">Pagament</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">No s\'ha trobat cap aplicació compatible.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">El Molly necessita el permís de l\'emmagatzematge per tal d\'adjuntar fotografies, vídeos o àudio, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">El Molly necessita el permís de l\'aplicació dels contactes per tal d\'adjuntar-ne informació, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">El Molly necessita el permís de la ubicació per tal d\'adjuntar-ne informació, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la ubicació.</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">El Signal necessita el permís de l\'emmagatzematge per tal d\'adjuntar fotografies, vídeos o àudio, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">El Signal necessita el permís de l\'aplicació dels contactes per tal d\'adjuntar-ne informació, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">El Signal necessita el permís de la ubicació per tal d\'adjuntar-ne informació, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la ubicació.</string>
 
     <!-- Dialog title asking users for location permission -->
-    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <string name="AttachmentManager_signal_allow_access_location">Permet accés a la teva ubicació</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
-    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <string name="AttachmentManager_signal_to_send_location">Per enviar la teva ubicació:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Permet l\'accés a Signal per a enviar la teva ubicació.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Signal necessita accés als serveis de localització per poder enviar la ubicació.</string>
+    <!-- Dialog title asking users for gallery storage permission -->
+    <string name="AttachmentManager_signal_allow_storage">Permet accés a l\'emmagatzematge</string>
+    <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
+    <string name="AttachmentManager_signal_to_show_photos">Per mostrar fotos i vídeos:</string>
+    <!-- Toast text explaining Signal\'s need for storage access -->
+    <string name="AttachmentManager_signal_needs_storage_access">Signal necessita accés al teu emmagatzematge per mostrar les teves fotos i vídeos.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s no ha activat Pagaments </string>
@@ -216,6 +225,38 @@
     <string name="CameraXFragment_capture_description">Captura</string>
     <string name="CameraXFragment_change_camera_description">Canvia la càmera</string>
     <string name="CameraXFragment_open_gallery_description">Obre la galeria</string>
+    <!-- Button text asking for access to camera permissions -->
+    <string name="CameraXFragment_allow_access">Allow access</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos -->
+    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <!-- Text explaining why Signal needs microphone access to take videos -->
+    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <!-- Text explaining why Signal needs camera access to scan QR codes -->
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <!-- Toast dialog explaining why Signal needs microphone permissions -->
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <!-- Dialog description that explains the steps needed to give camera permission -->
+    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
+    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give microphone permission -->
+    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
+    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Contactes recents</string>
@@ -230,7 +271,7 @@
     <string name="CameraContacts_no_signal_contacts">No hi ha contactes de Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Només podeu usar el botó de la càmera per enviar fotografies a contactes de Signal. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">No trobeu qui busqueu?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Convideu un contacte a Molly</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Convideu un contacte a Signal</string>
     <string name="CameraContacts__menu_search">Cerca</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -244,12 +285,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">No, gràcies.</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Actualitza el Molly</string>
+    <string name="ClientDeprecatedActivity_update_signal">Actualitza el Signal</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Aquesta versió de l\'aplicació ja no té assistència. Per continuar enviant i rebent missatges, actualitzeu-la a la darrera versió.</string>
     <string name="ClientDeprecatedActivity_update">Actualitza-la</string>
     <string name="ClientDeprecatedActivity_dont_update">No l\'actualitzis</string>
     <string name="ClientDeprecatedActivity_warning">Advertiment</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">La versió de Molly ha vençut. Podràs veure l\'historial de missatges però no Podràs enviar-ne ni rebre\'n fins que l\'actualitzis.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">La versió de Signal ha vençut. Podràs veure l\'historial de missatges però no Podràs enviar-ne ni rebre\'n fins que l\'actualitzis.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">No s\'ha trobat cap navegador web.</string>
@@ -286,7 +327,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Missatge %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Trucada del Signal %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -380,7 +422,7 @@
     <string name="ConversationActivity_transport_signal">Missatge del Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Envia el missatge</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Canviem al Molly, %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Canviem al Signal, %1$s</string>
     <string name="ConversationActivity_specify_recipient">Trieu un contacte</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">El fitxer adjunt excedeix la mida màxima per a aquest tipus de missatges.</string>
     <string name="ConversationActivity_unable_to_record_audio">No s\'ha pogut enregistrar l\'àudio.</string>
@@ -395,22 +437,22 @@
     <string name="ConversationActivity_cancel_request">Cancel·la la sol·licitud</string>
 
     <!-- Dialog title asking users for microphone permission -->
-    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <string name="ConversationActivity_allow_access_microphone">Permet l\'accés al micròfon</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
-    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <string name="ConversationActivity_signal_to_send_audio_messages">Per enviar missatges d\'àudio</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Per enviar missatges de veu, permet a Signal accedir al micròfon.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">El Molly necessita el permís del micròfon per tal d\'enviar missatges d\'àudio, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal necessita accés al micròfon per gravar un missatge de veu.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">El Signal necessita el permís del micròfon per tal d\'enviar missatges d\'àudio, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon.</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">El Molly necessita el permís del micròfon i de la càmera per tal de trucar a %1$s, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Per captar fotografies i vídeos, permeteu que el Molly tingui accés a la càmera.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">El Molly necessita el permís de la càmera per tal de fer fotografies i vídeos, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">El Molly necessita el permís de la càmera per fer fotografies i vídeos.</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">El Signal necessita el permís del micròfon i de la càmera per tal de trucar a %1$s, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Per captar fotografies i vídeos, permeteu que el Signal tingui accés a la càmera.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">El Signal necessita el permís de la càmera per tal de fer fotografies i vídeos, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">El Signal necessita el permís de la càmera per fer fotografies i vídeos.</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Activeu el permís del micròfon per capturar vídeos amb so.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">El Molly necessita el permís del micròfon per gravar vídeos, però s\'han denegat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">El Molly necessita el permís del telèfon per gravar vídeos.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">El Signal necessita el permís del micròfon per gravar vídeos, però s\'han denegat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">El Signal necessita el permís del telèfon per gravar vídeos.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">No</string>
@@ -429,11 +471,11 @@
     <string name="ConversationActivity_delete_and_leave">Esborra i surt</string>
 
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
-    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <string name="ConversationActivity__to_start_call">Per iniciar una trucada:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Per iniciar la trucada, permet a Signal accedir al micròfon.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal necessita accés al micròfon per iniciar una trucada.</string>
 
 
     <string name="ConversationActivity_join">Afegeix-m\'hi</string>
@@ -447,9 +489,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Els missatges SMS ja no són compatibles amb Signal. Convida %1$s a Signal per mantenir la conversa aquí.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Aquesta persona ja no utilitza Molly. Convida-la a Molly per continuar parlant per aquí.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Aquesta persona ja no utilitza Signal. Convida-la a Signal per continuar parlant per aquí.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Convida al Molly</string>
+    <string name="ConversationActivity__invite_to_signal">Convida al Signal</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Aviat t\'ho tornarem a recordar.</string>
 
@@ -534,13 +576,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Bloquejat</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Actualitza el Molly</string>
+    <string name="ConversationFragment__update_build">Actualitza el Signal</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Torna a registrar Molly</string>
+    <string name="ConversationFragment__reregister_signal">Torna a registrar Signal</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Tornar enrere.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Obrir Molly</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Obrir Signal</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Ja no està verificat</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -730,7 +772,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Proveu la contrasenya de còpia de seguretat i verifiqueu que coincideix.</string>
     <string name="BackupsPreferenceFragment__turn_on">Activa</string>
     <string name="BackupsPreferenceFragment__turn_off">Desactiva</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Per restaurar una còpia de seguretat, instal·leu una còpia del Molly. Obriu l\'aplicació i toqueu Restaura la còpia de seguretat. Indiqueu el fitxer de còpia de seguretat. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Per restaurar una còpia de seguretat, instal·leu una còpia del Signal. Obriu l\'aplicació i toqueu Restaura la còpia de seguretat. Indiqueu el fitxer de còpia de seguretat. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Més informació</string>
     <string name="BackupsPreferenceFragment__in_progress">En curs…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -738,7 +780,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d fins ara…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% fins ara…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">El Molly necessita el permís de l\'emmagatzematge extern per tal de crear còpies de seguretat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">El Signal necessita el permís de l\'emmagatzematge extern per tal de crear còpies de seguretat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Establir hora per la còpia de seguretat</string>
 
@@ -827,7 +869,7 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimitza per a la no presència dels Play Services</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">El dispositiu no és compatible amb Play Services. Toqueu per desactivar les optimitzacions de la bateria que impedeixen que el Molly rebi missatges quan estigui inactiu.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">El dispositiu no és compatible amb Play Services. Toqueu per desactivar les optimitzacions de la bateria que impedeixen que el Signal rebi missatges quan estigui inactiu.</string>
 
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Aquesta versió del Signal ha vençut. Actualitzeu-la ara per enviar i rebre missatges.</string>
@@ -841,8 +883,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">Mostra</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">La comunicació del Molly falla contínuament!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">El Molly no s\'ha pogut registrar al Google Play Services. Els missatges i les trucades del Molly s\'han desactivat, registreu-vos de nou a Configuració &gt; Avançada.</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">La comunicació del Signal falla contínuament!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">El Signal no s\'ha pogut registrar al Google Play Services. Els missatges i les trucades del Signal s\'han desactivat, registreu-vos de nou a Configuració &gt; Avançada.</string>
 
 
     <!-- GiphyActivity -->
@@ -981,12 +1023,12 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Els registres de depuració ens ajuden a diagnosticar i solucionar el problema i no contenen informació que pugui identificar-te.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Hi ha hagut un problema a Molly. Vols enviar un registre de depuració?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Hi ha hagut un problema a Signal. Vols enviar un registre de depuració?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Les notificacions poden retardar-se a causa dels processos d\'optimització de la bateria</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Pots deshabilitar les opcions d\'optimització de bateria per a Molly per tal d\'assegurar-te que les notificacions de missatges no es retardin.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Pots deshabilitar les opcions d\'optimització de bateria per a Signal per tal d\'assegurar-te que les notificacions de missatges no es retardin.</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Continuar</string>
@@ -1241,13 +1283,13 @@
     <string name="InviteActivity_cancel">Cancel·la</string>
     <string name="InviteActivity_sending">S\'envia…</string>
     <string name="InviteActivity_invitations_sent">Invitacions enviades!</string>
-    <string name="InviteActivity_invite_to_signal">Convida al Molly</string>
+    <string name="InviteActivity_invite_to_signal">Convida al Signal</string>
     <string name="InviteActivity_send_sms">Envia SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Voleu enviar %1$d invitació SMS?</item>
         <item quantity="other">Voleu enviar %1$d invitacions SMS?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Canviem al Molly: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Canviem al Signal: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">Sembla que no teniu cap aplicació on compartir-ho.</string>
 
     <!-- LearnMoreTextView -->
@@ -1261,7 +1303,7 @@
     <string name="LongMessageActivity_your_message">El vostre missatge</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">S\'ha activat la connexió en segon pla</string>
 
     <!-- MediaOverviewActivity -->
@@ -1320,11 +1362,11 @@
     <string name="Megaphones_verify_your_signal_pin">Verifiqueu el PIN del Signal</string>
     <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">De tant en tant us demanarem de verificar el PIN perquè el recordeu.</string>
     <string name="Megaphones_verify_pin">Verifica el PIN</string>
-    <string name="Megaphones_get_started">Comenceu</string>
+    <string name="Megaphones_get_started">Començar</string>
     <string name="Megaphones_new_group">Grup nou</string>
-    <string name="Megaphones_invite_friends">Convideu-hi amistats</string>
+    <string name="Megaphones_invite_friends">Afegir amistats</string>
     <string name="Megaphones_chat_colors">Colors del xat</string>
-    <string name="Megaphones_add_a_profile_photo">Afegeix una fotografia de perfil</string>
+    <string name="Megaphones_add_a_profile_photo">Foto de perfil</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Respostes</string>
@@ -1332,8 +1374,8 @@
     <!-- NotificationBarManager -->
     <string name="NotificationBarManager__establishing_signal_call">S\'estableix la trucada del Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Començar el servei de trucada de Molly</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">S\'atura el servei de trucades del Molly</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Començar el servei de trucada de Signal</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">S\'atura el servei de trucades del Signal</string>
     <string name="NotificationBarManager__cancel_call">Cancel·la la trucada</string>
 
     <!-- NotificationsMegaphone -->
@@ -1641,7 +1683,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Aviat ja no podràs enviar missatges SMS a través de Signal. Convida %1$s a Signal per mantenir la conversa aquí.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Ja no pots enviar missatges SMS a través de Molly. Convida %1$s a Molly per mantenir la conversa aquí.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Ja no pots enviar missatges SMS a través de Signal. Convida %1$s a Signal per mantenir la conversa aquí.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Pagament: %1$s</string>
     <!-- Update message shown in chat after reporting it as spam -->
@@ -1721,7 +1763,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Voleu enllaçar un dispositiu de Signal?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Sembla que esteu provant d\'enllaçar un dispositiu de Signal amb un escàner extern. Per seguretat, torneu a escanejar el codi dins del Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">El Molly necessita el permís de la càmera per tal d\'escanejar un codi QR, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">El Signal necessita el permís de la càmera per tal d\'escanejar un codi QR, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">No es pot escanejar un codi QR sense permís de la càmera.</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1734,11 +1776,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Escriviu la contrasenya</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Icona del Molly</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Icona del Signal</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Envia la contrasenya</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Contrasenya incorrecta!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Desbloca el Molly</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Bloca la pantalla</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Desbloca el Signal</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Bloca la pantalla</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Mapa</string>
@@ -1805,7 +1847,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Verifiqueu-ho per continuar la missatgeria</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Per ajudar a prevenir el correu brossa al Molly, completeu la verificació.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Per ajudar a prevenir el correu brossa al Signal, completeu la verificació.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Després de verificar-ho, podeu continuar enviant missatges. Qualsevol missatge interromput s\'enviarà automàticament.</string>
 
     <!-- Recipient -->
@@ -1813,7 +1855,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">La meva història</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Trucada de Molly</string>
+    <string name="Recipient_signal_call">Trucada de Signal</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Bloquejar</string>
@@ -1838,8 +1880,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Toqueu aquí per activar el vídeo</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Per trucar a %1$s, el Molly necessita accés a la càmera.</string>
-    <string name="WebRtcCallActivity__signal_s">Trucada del Molly: %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Per trucar a %1$s, el Signal necessita accés a la càmera.</string>
+    <string name="WebRtcCallActivity__signal_s">Trucada del Signal: %1$s</string>
     <string name="WebRtcCallActivity__calling">Es truca…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Es torna a connectar…</string>
@@ -2092,7 +2134,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Rebreu una trucada per a verificar aquest número.</string>
     <string name="RegistrationActivity_edit_number">Edita el número</string>
     <string name="RegistrationActivity_missing_google_play_services">No hi ha el Google Play Services.</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Aquest dispositiu no té el Google Play Services. Encara podeu usar el Molly, però aquesta configuració pot resultar en una fiabilitat o un rendiment reduïts.\n\nSi no sou un usuari avançat, si no esteu fent servir una ROM d\'Android de mercat secundari o si creieu que esteu veient això com a error, si us plau, poseu-vos en contacte amb support@molly.im per a la resolució de problemes.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Aquest dispositiu no té el Google Play Services. Encara podeu usar el Signal, però aquesta configuració pot resultar en una fiabilitat o un rendiment reduïts.\n\nSi no sou un usuari avançat, si no esteu fent servir una ROM d\'Android de mercat secundari o si creieu que esteu veient això com a error, si us plau, poseu-vos en contacte amb support@signal.org per a la resolució de problemes.</string>
     <string name="RegistrationActivity_i_understand">Ho entenc</string>
     <string name="RegistrationActivity_play_services_error">Error amb el Play Services</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">El Google Play Services s\'està actualitzant o no està disponible. Torneu a provar-ho.</string>
@@ -2110,7 +2152,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Format de número no estàndard</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">El número que heu introduït (%1$s) sembla d\'un format no estàndard.\n\nVoleu dir %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly d\'Android. Format del número de telèfon</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal d\'Android. Format del número de telèfon</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Trucada sol·licitada</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2183,13 +2225,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Afegeix als contactes</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Convida al Molly</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Convida al Signal</string>
     <string name="SharedContactDetailsActivity_signal_message">Missatge del Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Trucada del Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Afegeix als contactes</string>
-    <string name="SharedContactView_invite_to_signal">Convida al Molly</string>
+    <string name="SharedContactView_invite_to_signal">Convida al Signal</string>
     <string name="SharedContactView_message">Missatge del Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2257,10 +2299,10 @@
     <string name="SupportEmailUtil_filter">Filtre:</string>
     <string name="SupportEmailUtil_device_info">Informació del dispositiu:</string>
     <string name="SupportEmailUtil_android_version">Versió d\'Android:</string>
-    <string name="SupportEmailUtil_signal_version">Versió del Molly:</string>
-    <string name="SupportEmailUtil_signal_package">Paquet del Molly:</string>
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_version" translatable="false">Signal version:</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_package" translatable="false">Signal package:</string> -->
     <string name="SupportEmailUtil_registration_lock">Bloqueig de registre:</string>
-    <string name="SupportEmailUtil_locale">Llengua:</string>
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_locale" translatable="false">Locale:</string> -->
 
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">S\'ha actualitzat el grup</string>
@@ -2320,11 +2362,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s pertany a %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Actualització del Molly</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Hi ha disponible una nova versió de Molly. Toca per actualitzar-lo.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">No s\'ha pogut actualitzar Molly</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Actualització del Signal</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Hi ha disponible una nova versió de Signal. Toca per actualitzar-lo.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">No s\'ha pogut actualitzar Signal</string>
     <string name="ApkUpdateNotifications_failed_general_body">Ho tornarem a provar més tard.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly s\'ha actualitzat correctament</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal s\'ha actualitzat correctament</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">S\'ha actualitzat automàticament a la versió %1$s.</string>
 
     <!-- UntrustedSendDialog -->
@@ -2395,7 +2437,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">El nostre número de seguretat:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Sembla que no teniu cap aplicació on compartir-ho.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">No s\'ha trobat cap número de seguretat al porta-retalls</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">El Molly necessita el permís de la càmera per tal d\'escanejar un codi QR, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">El Signal necessita el permís de la càmera per tal d\'escanejar un codi QR, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">No es pot escanejar un codi QR sense permís de la càmera.</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Primer heu d\'intercanviar missatges per tal de veure el número de seguretat de %1$s.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2425,14 +2467,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Toqueu per obrir-ho.</string>
-    <string name="KeyCachingService_passphrase_cached">S\'ha desblocat el Molly</string>
-    <string name="KeyCachingService_lock">Bloca el Molly</string>
+    <string name="KeyCachingService_passphrase_cached">S\'ha desblocat el Signal</string>
+    <string name="KeyCachingService_lock">Bloca el Signal</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Jo</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Tipus de fitxer no compatible</string>
     <string name="MediaPreviewActivity_draft">Esborrany</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">El Molly necessita el permís de l\'emmagatzematge per tal de desar en un emmagatzematge extern, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">El Signal necessita el permís de l\'emmagatzematge per tal de desar en un emmagatzematge extern, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">No es pot desar en un emmagatzematge extern sense permís.</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Vols esborrar el missatge?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Aquest missatge s\'esborrarà permanentment.</string>
@@ -2476,7 +2518,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">No s\'ha pogut entregar el missatge.</string>
     <string name="MessageNotifier_error_delivering_message">S\'ha produït un error en entregar el missatge.</string>
     <string name="MessageNotifier_message_delivery_paused">Lliurament de missatge interromput</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifiqueu-ho per continuar la missatgeria al Molly.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifiqueu-ho per continuar la missatgeria al Signal.</string>
     <string name="MessageNotifier_mark_all_as_read">Marca-ho tot com a llegit</string>
     <string name="MessageNotifier_mark_read">Marca\'l com a llegit</string>
     <string name="MessageNotifier_turn_off_these_notifications">Desactiva aquestes notificacions</string>
@@ -2537,7 +2579,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">La resposta ràpida no és disponible si el Molly està blocat!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">La resposta ràpida no és disponible si el Signal està blocat!</string>
     <string name="QuickResponseService_problem_sending_message">S\'ha produït un problema en enviar el missatge!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2557,7 +2599,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Drecera no vàlida</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Missatge nou</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Sol·licitud de missatge</string>
     <string name="SingleRecipientNotificationBuilder_you">Vós</string>
@@ -2603,7 +2645,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Aquest dispositiu ja no està registrat. Segurament vas registrar el número de telèfon a Molly des d\'un altre dispositiu.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Aquest dispositiu ja no està registrat. Segurament vas registrar el número de telèfon a Signal des d\'un altre dispositiu.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Tornar a registrar dispositiu</string>
 
@@ -2616,10 +2658,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Per respondre la trucada, permeteu que el Molly accedeixi al micròfon.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Per respondre la trucada, permeteu que el Signal accedeixi al micròfon.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Per respondre la videotrucada, permet que Molly accedeixi al micròfon i a la càmera.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">El Molly necessita el permís del micròfon i de la càmera per tal de fer o rebre trucades, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Per respondre la videotrucada, permet que Signal accedeixi al micròfon i a la càmera.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">El Signal necessita el permís del micròfon i de la càmera per tal de fer o rebre trucades, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">S\'ha respost en un dispositiu enllaçat.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">S\'ha rebutjat en un dispositiu enllaçat.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Ocupat/da en un dispositiu enllaçat</string>
@@ -2664,12 +2706,16 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Repetiu la contrasenya nova</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Convida al Molly</string>
+    <string name="contact_selection_activity__invite_to_signal">Convida al Signal</string>
     <string name="contact_selection_activity__new_group">Grup nou</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Actualitzar contactes</string>
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Falta algú? Prova d\'actualitzar</string>
+    <!-- Row item title for finding people on Signal via your contacts -->
+    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <!-- Row item description asking users for access to their contacts to find people they know -->
+    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Més</string>
 
@@ -2686,7 +2732,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Foto del contacte</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">El Molly necessita el permís de l\'aplicació dels contactes per tal de mostrar-ne els vostres, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">El Signal necessita el permís de l\'aplicació dels contactes per tal de mostrar-ne els vostres, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Error en recuperar els contactes. Comproveu la connexió de xarxa.</string>
     <string name="ContactSelectionListFragment_username_not_found">No s\'ha trobat l\'àlies.</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s no és un usuari del Signal. Si us plau, comproveu-ne l\'àlies i torneu-ho a provar."</string>
@@ -2703,9 +2749,17 @@
     <string name="ContactSelectionListFragment__find_by_phone_number">Cerca per número de telèfon</string>
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Cerca per àlies</string>
+    <!-- Dialog title asking users for contact permission -->
+    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <!-- Dialog description that will explain the steps needed to give contact permissions -->
+    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <!-- Text on button prompting users to give Signal contact permissions -->
+    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <!-- Text asking for user\'s contact permission -->
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">El Molly necessita accés als contactes per tal de mostrar-los.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">El Signal necessita accés als contactes per tal de mostrar-los.</string>
     <string name="contact_selection_list_fragment__show_contacts">Mostra els contactes</string>
 
     <!-- contact_selection_list_item -->
@@ -2806,7 +2860,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Les bombolles són una funció d\'Android que pots desactivar per als xats de Molly.</string>
+    <string name="BubbleOptOutTooltip__description">Les bombolles són una funció d\'Android que pots desactivar per als xats de Signal.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Ara no</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -2974,9 +3028,9 @@
     <string name="EditProfileFragment__group_description">Descripció del grup</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Actualitza el Molly</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Actualitza el Signal</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Aquesta versió de Molly ha caducat. Actualitza-la ara per continuar utilitzant Molly.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Aquesta versió de Signal ha caducat. Actualitza-la ara per continuar utilitzant Signal.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Actualitza-la</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3067,7 +3121,7 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__link__faq" translatable="false">https://support.signal.org</string> -->
     <string name="HelpFragment__support_info">Informació de suport</string>
     <string name="HelpFragment__signal_android_support_request">Petició de suport de Signal d\'Android</string>
-    <string name="HelpFragment__debug_log">Informe de depuració:</string>
+  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">No s\'han pogut carregar els registres.</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Si us plau, expliqueu-ho de la manera més descriptiva possible per ajudar-nos a entendre el problema.</string>
     <string-array name="HelpFragment__categories_5">
@@ -3193,7 +3247,7 @@
     <string name="preferences__slow">Lent</string>
     <string name="preferences__help">Ajuda</string>
     <string name="preferences__advanced">Avançat</string>
-    <string name="preferences__donate_to_signal">Fer una donació a Molly</string>
+    <string name="preferences__donate_to_signal">Fer una donació a Signal</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Privadesa</string>
     <!-- Preference label for stories -->
@@ -3230,13 +3284,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Canviar la icona i el nom de l\'app per \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Molly s\'haurà de tancar per canviar la icona i el nom de l\'app. Les notificacions sempre mostraran la icona i el nom predeterminats de Molly.</string>
+    <string name="preferences__app_icon_dialog_description">Signal s\'haurà de tancar per canviar la icona i el nom de l\'app. Les notificacions sempre mostraran la icona i el nom predeterminats de Signal.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Selecciona la icona i el nom per a l\'app, que seran visibles a la pantalla d\'inici del telèfon i al menú d\'aplicacions. Les notificacions sempre mostraran la icona i el nom predeterminats de Molly. Més informació</string>
+    <string name="preferences__app_icon_warning_learn_more">Selecciona la icona i el nom per a l\'app, que seran visibles a la pantalla d\'inici del telèfon i al menú d\'aplicacions. Les notificacions sempre mostraran la icona i el nom predeterminats de Signal. Més informació</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Les icones i els noms de les apps són visibles a la pantalla d\'inici i al menú d\'aplicacions.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Les notificacions sempre mostraran la icona i el nom predeterminats de Molly.</string>
+    <string name="preferences__app_icon_notification_warning">Les notificacions sempre mostraran la icona i el nom predeterminats de Signal.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Més informació</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3274,7 +3328,8 @@
     <string name="preferences_storage__audio">Àudio</string>
     <string name="preferences_storage__review_storage">Revisa l\'emmagatzematge</string>
     <string name="preferences_storage__delete_older_messages">Vols esborrar els missatges més antics?</string>
-    <string name="preferences_storage__clear_message_history">Vols netejar l\'historial dels missatges?</string>
+    <!-- Dialog title shown when selecting delete message history from manage storage -->
+    <string name="preferences_storage__delete_message_history">Eliminar l\'historial de missatges?</string>
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">Això esborrarà permanentment l\'historial dels missatges i el contingut del dispositiu més antic de %1$s.</string>
     <!-- The body of an alert dialog that is shown when confirming a trim operation. Trimming will delete all but the most recent messages in a chat. The placeholder represents how many messages are kept in each chat. All older messages are deleted. -->
     <plurals name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">
@@ -3320,7 +3375,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Elusió de la censura</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Elusió de la censura</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">En activar-ho, el Molly provarà d\'eludir la censura. No activeu aquesta característica si no sou a una ubicació on el Molly és censurat.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">En activar-ho, el Signal provarà d\'eludir la censura. No activeu aquesta característica si no sou a una ubicació on el Signal és censurat.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">L\'elusió de la censura s\'ha activat basant-se en el número de telèfon del vostre compte.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3372,7 +3427,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Presentem els Pagaments</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Utilitza Molly per enviar i rebre MobileCoin, una nova moneda digital amb la privacitat com a prioritat. Activa-ho per començar.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Utilitza Signal per enviar i rebre MobileCoin, una nova moneda digital amb la privacitat com a prioritat. Activa-ho per començar.</string>
     <string name="PaymentsHomeFragment__activate_payments">Activa els pagaments</string>
     <string name="PaymentsHomeFragment__activating_payments">S\'activen els pagaments…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Restaura el compte de pagaments</string>
@@ -3398,7 +3453,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Els pagaments no estan disponibles a la vostra regió.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">No s\'han pogut activar els pagaments. Torneu-ho a provar més tard.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Voleu desactivar els pagaments?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">No podreu enviar ni rebre MobileCoin al Molly si desactiveu els pagaments.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">No podreu enviar ni rebre MobileCoin al Signal si desactiveu els pagaments.</string>
     <string name="PaymentsHomeFragment__deactivate">Desactiva\'ls</string>
     <string name="PaymentsHomeFragment__continue">Continua</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">El saldo actualment no està disponible.</string>
@@ -3407,10 +3462,10 @@
     <string name="PaymentsHomeFragment__details">Detalls</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Pots fer servir Molly per enviar i rebre MobileCoin. Tots els pagaments estan subjectes a les Condicions d\'ús de MobileCoins i MobileCoin Wallet. És possible que tinguis algun problema, i els pagaments o fons que perdis no podran ser recuperats. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Pots fer servir Signal per enviar i rebre MobileCoin. Tots els pagaments estan subjectes a les Condicions d\'ús de MobileCoins i MobileCoin Wallet. És possible que tinguis algun problema, i els pagaments o fons que perdis no podran ser recuperats. </string>
     <string name="PaymentsHomeFragment__activate">Activa\'ls</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Vegeu els termes de MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Els pagaments al Molly ja no estan disponibles. Encara podeu transferir fons a un intercanvi, però ja no podeu enviar ni rebre pagaments ni afegir-hi fons.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Els pagaments al Signal ja no estan disponibles. Encara podeu transferir fons a un intercanvi, però ja no podeu enviar ni rebre pagaments ni afegir-hi fons.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3438,7 +3493,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Permisos</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Per ajudar-te a enviar missatges a persones que coneixes, Molly sol·licitarà aquests permisos. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Per ajudar-te a enviar missatges a persones que coneixes, Signal sol·licitarà aquests permisos. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Notificacions</string>
     <!-- Notifications permission row description -->
@@ -3458,11 +3513,11 @@
 
     <!-- PermissionDeniedBottomSheet -->
     <!-- Sheet describing step 1 on how to give permissions by opening settings -->
-    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Toca \"Ajustos\" més avall</string>
     <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
-    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Permet l\'accés</string>
     <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
-    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+    <string name="PermissionDeniedBottomSheet__settings">Ajustos</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -3526,10 +3581,10 @@
     <string name="PaymentsTransferFragment__next">Següent</string>
     <string name="PaymentsTransferFragment__invalid_address">Adreça no vàlida</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Comproveu l\'adreça de cartera a la qual intenteu fer una transferència i torneu-ho a provar.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">No podeu fer una transferència a la vostra adreça de cartera del Molly. Introduïu l\'adreça de la cartera des del compte amb un intercanvi compatible.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Per escanejar un codi QR, el Molly necessita accés a la càmera.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">El Molly necessita el permís de la càmera per capturar un codi QR. Aneu a la configuració, seleccioneu Permisos i activeu la càmera.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Per escanejar un codi QR, el Molly necessita accés a la càmera.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">No podeu fer una transferència a la vostra adreça de cartera del Signal. Introduïu l\'adreça de la cartera des del compte amb un intercanvi compatible.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Per escanejar un codi QR, el Signal necessita accés a la càmera.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">El Signal necessita el permís de la càmera per capturar un codi QR. Aneu a la configuració, seleccioneu Permisos i activeu la càmera.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Per escanejar un codi QR, el Signal necessita accés a la càmera.</string>
     <string name="PaymentsTransferFragment__settings">Configuració</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -3720,11 +3775,11 @@
 
     <!-- DoubleTapEditEducationSheet -->
     <!-- Displayed as the title of the education bottom sheet -->
-    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Toca dos cops per editar</string>
     <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
-    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Toca ràpidament dos cops els teus missatges per editar-los. Pots editar els teus missatges fins 24 hores després d\'haver-los enviat.</string>
     <!-- Button label to dismiss sheet -->
-    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
+    <string name="DoubleTapEditEducationSheet__got_it">Entesos</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">Grup nou</string>
@@ -3877,17 +3932,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Trucada de veu Molly entrant</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Trucada de veu Signal entrant</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Videotrucada de Molly entrant</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Videotrucada de Signal entrant</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Trucada de grup de Molly rebuda</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Trucada de grup de Signal rebuda</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Trucada de veu de Molly en curs</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Trucada de veu de Signal en curs</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Trucada de vídeo de Molly en curs</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Trucada de vídeo de Signal en curs</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Trucada de grup de Molly en curs</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Trucada de grup de Signal en curs</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Es carrega…</string>
@@ -3934,9 +3989,9 @@
     <string name="BackupDialog_verify">Verificació</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Heu escrit correctament la contrasenya de còpia de seguretat.</string>
     <string name="BackupDialog_passphrase_was_not_correct">La contrasenya no és correcta.</string>
-    <string name="LocalBackupJob_creating_signal_backup">Es crea una còpia de seguretat del Molly…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Es crea una còpia de seguretat del Signal…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Verificant la còpia de seguretat de Molly…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Verificant la còpia de seguretat de Signal…</string>
     <string name="LocalBackupJobApi29_backup_failed">Ha fallat la còpia de seguretat.</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">El directori de còpia de seguretat s\'ha suprimit o s\'ha canviat de lloc.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">El fitxer de còpia de seguretat és massa gros per desar-lo en aquest volum.</string>
@@ -3951,15 +4006,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Truca\'m (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Torna a enviar el codi (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Contacteu amb el suport de Molly</string>
-    <string name="RegistrationActivity_code_support_subject">Registre del Molly - Codi de verificació per a Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Contacteu amb el suport de Signal</string>
+    <string name="RegistrationActivity_code_support_subject">Registre del Signal - Codi de verificació per a Android</string>
     <string name="RegistrationActivity_incorrect_code">Codi incorrecte</string>
     <string name="BackupUtil_never">Mai</string>
     <string name="BackupUtil_unknown">Desconegut</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Número de telèfon</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Tria qui pot veure el teu número de telèfon i qui pot contactar-te a Molly a través d\'ell.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Tria qui pot veure el teu número de telèfon i qui pot contactar-te a Signal a través d\'ell.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Qui pot veure el meu número</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4007,7 +4062,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Massa intents. Si us plau, torneu-ho a provar més tard.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Error en connectar al servei</string>
     <string name="preferences_chats__backups">Còpies de seguretat</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">El Molly està blocat</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">El Signal està blocat</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">TOQUEU PER DESBLOCAR-LO</string>
     <string name="Recipient_unknown">Desconegut</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4055,19 +4110,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Es prepara la connexió amb un dispositiu Android antic…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Un moment, hauria d’estar llest aviat…</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">S\'espera que el dispositiu Android antic es connecti…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">El Molly necessita el permís d’ubicació per descobrir i connectar-se al dispositiu antic d\'Android.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">El Molly necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu antic d\'Android.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">El Molly necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu antic d\'Android. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Molly usa Wi-Fi Direct per descobrir i connectar-se al dispositiu antic d\'Android. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android antic.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">El Signal necessita el permís d’ubicació per descobrir i connectar-se al dispositiu antic d\'Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">El Signal necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu antic d\'Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">El Signal necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu antic d\'Android. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Signal usa Wi-Fi Direct per descobrir i connectar-se al dispositiu antic d\'Android. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android antic.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Restaura una còpia de seguretat</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">S\'ha produït un error inesperat en intentar connectar al dispositiu d\'Android antic.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Se cerca un dispositiu d\'Android nou…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">El Molly necessita el permís d’ubicació per descobrir i connectar-se al dispositiu d\'Android nou.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">El Molly necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu d\'Android nou.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">El Molly necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu d\'Android nou. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Molly usa Wi-Fi Direct per descobrir i connectar-se al dispositiu d\'Android nou. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android nou.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">El Signal necessita el permís d’ubicació per descobrir i connectar-se al dispositiu d\'Android nou.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">El Signal necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu d\'Android nou.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">El Signal necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu d\'Android nou. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Signal usa Wi-Fi Direct per descobrir i connectar-se al dispositiu d\'Android nou. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android nou.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Crea una còpia de seguretat</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">S\'ha produït un error inesperat en intentar connectar al dispositiu d\'Android nou.</string>
 
@@ -4108,7 +4163,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Es transfereixen dades</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantingueu els dos dispositius a prop l’un de l’altre. No els apagueu i mantingueu el Molly obert. Les transferències estan encriptades d\'extrem a extrem.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantingueu els dos dispositius a prop l’un de l’altre. No els apagueu i mantingueu el Signal obert. Les transferències estan encriptades d\'extrem a extrem.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d missatges fins ara…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% de missatges fins ara…</string>
@@ -4122,7 +4177,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Transfereix el compte</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Baixeu el Molly al dispositiu d\'Android nou.</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Baixeu el Signal al dispositiu d\'Android nou.</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Toqueu Transfereix o restaura el compte"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4196,7 +4251,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Qualsevol persona amb aquest enllaç pot veure el nom i la fotografia del grup i sol·licitar afegir-s\'hi. Compartiu-lo amb gent en qui confieu.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Qualsevol persona amb aquest enllaç pot veure el nom i la fotografia del grup i sol·licitar afegir-s\'hi. Compartiu-lo amb gent en qui confieu.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Comparteix per Molly</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Comparteix per Signal</string>
     <string name="GroupLinkBottomSheet_copy">Copia</string>
     <string name="GroupLinkBottomSheet_qr_code">Codi QR</string>
     <string name="GroupLinkBottomSheet_share">Compartir-lo</string>
@@ -4224,13 +4279,13 @@
     <string name="ReviewCardDialogFragment__review_request">Reviseu la sol·licitud</string>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
-        <item quantity="one">%1$d group member have the same name, review the member below and choose to take action.</item>
-        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+        <item quantity="one">%1$d membre del grup té el mateix nom. Revisa el membre a continuació i pren les mesures que calguin.</item>
+        <item quantity="other">%1$d membres del grup tenen el mateix nom. Revisa els membres a continuació i pren les mesures que calguin.</item>
     </plurals>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
-        <item quantity="one">If you\'re not sure who the request is from, review the contact below and take action.</item>
-        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+        <item quantity="one">Si no saps segur de qui prové la sol·licitud, revisa el contacte que hi ha a continuació.</item>
+        <item quantity="other">Si no saps segur de qui prové la sol·licitud, revisa els contactes que hi ha a continuació.</item>
     </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Cap altre grup en comú</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Cap grup en comú</string>
@@ -4264,8 +4319,8 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s i %3$s s\'hi han afegit.</string>
     <!-- Toast message shown in group call when 3 or more people join -->
     <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
-        <item quantity="one">%1$s, %2$s and %3$d other joined</item>
-        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+        <item quantity="one">%1$s, %2$s i %3$d persona més s\'han afegit a la trucada</item>
+        <item quantity="other">%1$s, %2$s i %3$d persones més s\'han afegit a la trucada.</item>
     </plurals>
     <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s n\'ha sortit.</string>
@@ -4273,8 +4328,8 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s i %3$s n\'han sortit.</string>
     <!-- Toast message shown in group call when 3 or more people leave -->
     <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
-        <item quantity="one">%1$s, %2$s and %3$d other left</item>
-        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+        <item quantity="one">%1$s, %2$s i %3$d persona més han sortit de la trucada</item>
+        <item quantity="other">%1$s, %2$s i %3$d persones més han sortit de la trucada</item>
     </plurals>
 
     <string name="CallParticipant__you">Vós</string>
@@ -4382,7 +4437,7 @@
     <string name="payment_info_card_about_mobilecoin">Quant a MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin és una nova moneda digital amb la privacitat com a prioritat.</string>
     <string name="payment_info_card_adding_funds">Afegir-hi fons</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Podeu afegir fons per usar-los al Molly enviant MobileCoin a la vostra adreça de cartera.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Podeu afegir fons per usar-los al Signal enviant MobileCoin a la vostra adreça de cartera.</string>
     <string name="payment_info_card_cashing_out">Passar per caixa</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Podeu cobrar els MobileCoin en qualsevol moment amb un intercanvi que admeti MobileCoin. Només heu de fer una transferència al vostre compte amb aquest intercanvi.</string>
     <string name="payment_info_card_hide_this_card">Voleu amagar aquesta targeta?</string>
@@ -4403,12 +4458,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Desactiva la cartera</string>
     <string name="DeactivateWalletFragment__your_balance">El saldo</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Es recomana transferir els fons a una altra adreça de cartera abans de desactivar els pagaments. Si decideixes no transferir els fons ara, quedaran a la cartera enllaçada al Molly si reactives els pagaments.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Es recomana transferir els fons a una altra adreça de cartera abans de desactivar els pagaments. Si decideixes no transferir els fons ara, quedaran a la cartera enllaçada al Signal si reactives els pagaments.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Transfereix el saldo restant</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Desactiveu-ho sense transferència</string>
     <string name="DeactivateWalletFragment__deactivate">Desactiva\'ls</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Voleu desactivar els fons sense transferir-los?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">El saldo es mantindrà a la cartera enllaçada amb Molly si decideixes reactivar els pagaments.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">El saldo es mantindrà a la cartera enllaçada amb Signal si decideixes reactivar els pagaments.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Error en desactivar la cartera</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4647,8 +4702,8 @@
     <string name="PrivacySettingsFragment__blocked">Bloquejat</string>
     <!-- Settings label that shows the number blocked contacts -->
     <plurals name="PrivacySettingsFragment__d_contacts">
-        <item quantity="one">%1$d contact</item>
-        <item quantity="other">%1$d contacts</item>
+        <item quantity="one">%1$d contacte</item>
+        <item quantity="other">%1$d contactes</item>
     </plurals>
     <string name="PrivacySettingsFragment__messaging">Missatges</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Missatges efímers</string>
@@ -4703,7 +4758,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Llicències</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Termes i política de privadesa</string>
-    <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Amb llicència de GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5157,9 +5212,9 @@
     <string name="MySupportPreference__learn_more">Més informació</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Actualitza el Molly</string>
+    <string name="UpdateSignalExpiredDialog__title">Actualitza el Signal</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Aquesta versió de Molly ha caducat. Actualitza-la ara per continuar utilitzant Molly.</string>
+    <string name="UpdateSignalExpiredDialog__message">Aquesta versió de Signal ha caducat. Actualitza-la ara per continuar utilitzant Signal.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Actualitza-la</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5168,7 +5223,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Dispositiu no registrat</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Aquest dispositiu ja no està registrat. Torna a registrar-lo per continuar utilitzant Molly en aquest dispositiu.</string>
+    <string name="ReregisterSignalDialog__message">Aquest dispositiu ja no està registrat. Torna a registrar-lo per continuar utilitzant Signal en aquest dispositiu.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Torna a registrar</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5462,7 +5517,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Ha fallat obrir el selector.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Per activar les notificacions, Molly necessita permís per mostrar-les.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Per activar les notificacions, Signal necessita permís per mostrar-les.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Activar</string>
 
@@ -6808,18 +6863,27 @@
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Targeta de crèdit o dèbit</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <string name="BackupsTypeSettingsFragment__bank_transfer">Transferència bancària</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+    <string name="BackupsTypeSettingsFragment__unknown">Desconegut</string>
 
+    <!-- ManageStorageSettingsFragment -->
+    <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
+    <string name="ManageStorageSettingsFragment_chat_limit">Límits del xat</string>
+    <!-- Settings row title text that can be clicked to delete all messages and associated data from the device -->
+    <string name="ManageStorageSettingsFragment_delete_message_history">Eliminar l\'historial de missatges</string>
+    <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (time is a range like 30 days or 1 year etc) -->
+    <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Els missatges anteriors a la data seleccionada seran eliminats de manera permanent.</string>
+    <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
+    <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Els missatges que superin la longitud seleccionada seran eliminats de manera permanent.</string>
 
     <!-- EOF -->
 </resources>

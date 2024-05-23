@@ -129,6 +129,7 @@ public class DeviceActivity extends PassphraseRequiredActivity
 
   @Override
   public void onClick(View v) {
+    // MOLLY: Camera permission request moved to DeviceAddFragment
     getSupportFragmentManager().beginTransaction()
                                .replace(R.id.fragment_container, deviceAddFragment)
                                .addToBackStack(null)

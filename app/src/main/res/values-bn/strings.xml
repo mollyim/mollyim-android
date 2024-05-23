@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- smartling.instruction_comments_enabled = on --><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -41,7 +43,7 @@
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">আপনি এখনও কোনো পাসফ্রেজ স্থাপন করেন নি!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">পাসফ্রেজ নিষ্ক্রিয় করবেন?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">এটি স্থায়ীভাবে Molly এবং বার্তা নোটিফিকেশনগুলিকে আনলক করবে।</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">এটি স্থায়ীভাবে Signal এবং বার্তা নোটিফিকেশনগুলিকে আনলক করবে।</string>
     <string name="ApplicationPreferencesActivity_disable">নিষ্ক্রিয় করুন</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">সার্ভারের সাথে সংযোগ স্থাপনে ব্যর্থ!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">রেজিস্ট্রেশন লকের জন্য পিনসমূহ আবশ্যক। পিনসমূহ নিষ্ক্রিয় করতে আগে রেজিস্ট্রেশন লক নিষ্ক্রিয় করুন।</string>
@@ -78,24 +80,31 @@
     <string name="AttachmentKeyboard_file">ফাইল</string>
     <string name="AttachmentKeyboard_contact">পরিচিতি</string>
     <string name="AttachmentKeyboard_location">স্থান</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">আপনার ছবি এবং ভিডিও দেখানোর জন্য Molly-এর অনুমতি প্রয়োজন।</string>
-    <string name="AttachmentKeyboard_give_access">অ্যাক্সেসের অনুমতি দিন</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">আপনার ছবি ও ভিডিও দেখানোর জন্য Signal-এর অনুমতি প্রয়োজন</string>
+    <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
+    <string name="AttachmentKeyboard_allow_access">অ্যাক্সেসের অনুমতি দিন</string>
     <string name="AttachmentKeyboard_payment">পেমেন্ট</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">মিডিয়া নির্বাচন করার জন্য কোন অ্যাপ খুঁজে পাওয়া যায়নি।</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ছবি, ভিডিও অথবা অডিও সংযুক্ত করার জন্য Molly এর স্টোরেজ ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংস-এ যান, \"অনুমতি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">পরিচিতিসমূহের তথ্য সংযুক্ত করার জন্য Molly এর পরিচিতিসমূহ ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"পরিচিতিসমূহ\" সক্ষম করুন।</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">স্থান সংযুক্ত করার জন্য Molly এর স্থান ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"স্থান\" সক্ষম করুন।</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ছবি, ভিডিও অথবা অডিও সংযুক্ত করার জন্য Signal এর স্টোরেজ ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংস-এ যান, \"অনুমতি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">পরিচিতিসমূহের তথ্য সংযুক্ত করার জন্য Signal এর পরিচিতিসমূহ ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"পরিচিতিসমূহ\" সক্ষম করুন।</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">স্থান সংযুক্ত করার জন্য Signal এর স্থান ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"স্থান\" সক্ষম করুন।</string>
 
     <!-- Dialog title asking users for location permission -->
-    <string name="AttachmentManager_signal_allow_access_location">Allow access to your location</string>
+    <string name="AttachmentManager_signal_allow_access_location">আপনার অবস্থানে অ্যাক্সেসের অনুমতি দিন</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
-    <string name="AttachmentManager_signal_to_send_location">To send your location:</string>
+    <string name="AttachmentManager_signal_to_send_location">আপনার অবস্থান পাঠাতে:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">আপনার অবস্থান পাঠাতে Signal-কে অ্যাক্সেসের অনুমতি দিন।</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+    <string name="AttachmentManager_signal_needs_location_access">আপনার অবস্থান পাঠাতে Signal-এর লোকেশনে অ্যাক্সেসের প্রয়োজন।</string>
+    <!-- Dialog title asking users for gallery storage permission -->
+    <string name="AttachmentManager_signal_allow_storage">স্টোরেজে অ্যাক্সেসের অনুমতি দিন</string>
+    <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
+    <string name="AttachmentManager_signal_to_show_photos">ছবি ও ভিডিও দেখাতে:</string>
+    <!-- Toast text explaining Signal\'s need for storage access -->
+    <string name="AttachmentManager_signal_needs_storage_access">আপনার ছবি ও ভিডিও দেখানোর জন্য Signal-এর স্টোরেজে অ্যাক্সেসের প্রয়োজন।</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s পেমেন্ট সক্রিয় করেননি </string>
@@ -216,6 +225,38 @@
     <string name="CameraXFragment_capture_description">ক্যাপচার</string>
     <string name="CameraXFragment_change_camera_description">ক্যামেরা পরিবর্তন</string>
     <string name="CameraXFragment_open_gallery_description">গ্যালারী খুলুন</string>
+    <!-- Button text asking for access to camera permissions -->
+    <string name="CameraXFragment_allow_access">Allow access</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos -->
+    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <!-- Text explaining why Signal needs microphone access to take videos -->
+    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <!-- Text explaining why Signal needs camera access to scan QR codes -->
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <!-- Toast dialog explaining why Signal needs microphone permissions -->
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <!-- Dialog description that explains the steps needed to give camera permission -->
+    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
+    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <!-- Dialog description that explains the steps needed to give microphone permission -->
+    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
+    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">সাম্প্রতিক যোগাযোগ</string>
@@ -230,7 +271,7 @@
     <string name="CameraContacts_no_signal_contacts">কোনও Signal পরিচিতি নেই</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">শুধুমাত্র Signal পরিচিতিদের ছবি পাঠাতে ক্যামেরা বোতাম ব্যবহার করতে পারবেন। </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">আপনি যাকে খুঁজছেন তাকে খুঁজে পাচ্ছেন না?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Molly -এ যোগ দিতে একটি পরিচিতিকে আমন্ত্রণ জানান</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Signal -এ যোগ দিতে একটি পরিচিতিকে আমন্ত্রণ জানান</string>
     <string name="CameraContacts__menu_search">খুঁজুন</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -244,12 +285,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">না ধন্যবাদ</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Molly আপডেট করুন</string>
+    <string name="ClientDeprecatedActivity_update_signal">Signal আপডেট করুন</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">এই অ্যাপের এই সংস্করণ আর সাহায্য পাবে না। বার্তা পেতে ও পাঠাতে সর্বনতুন সংস্করণে হালনাগাদ(আপডেট) করো।</string>
     <string name="ClientDeprecatedActivity_update">আপডেট করুন</string>
     <string name="ClientDeprecatedActivity_dont_update">আপডেট করবেন না</string>
     <string name="ClientDeprecatedActivity_warning">সতর্কবার্তা</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">আপনার Molly-এর সংস্করণটি পুরোনো হয়ে গেছে। আপডেট না করা পর্যন্ত আপনি পুরোনো ম্যাসেজগুলো দেখতে পাবেন, কিন্তু নতুন ম্যাসেজ দেখতে বা পাঠাতে পারবেন না।</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">আপনার Signal-এর সংস্করণটি পুরোনো হয়ে গেছে। আপডেট না করা পর্যন্ত আপনি পুরোনো ম্যাসেজগুলো দেখতে পাবেন, কিন্তু নতুন ম্যাসেজ দেখতে বা পাঠাতে পারবেন না।</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">কোন ওয়েব ব্রাউজার পাওয়া যায়নি।</string>
@@ -286,7 +327,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">%1$sটি বার্তা</string>
-    <string name="ContactsDatabase_signal_call_s">%1$sটি Signal কল</string>
+    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -380,7 +422,7 @@
     <string name="ConversationActivity_transport_signal">Signal বার্তা</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">মেসেজ পাঠান</string>
-    <string name="ConversationActivity_lets_switch_to_signal">চলুন Molly এ যোগ দেই %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">চলুন Signal এ যোগ দেই %1$s</string>
     <string name="ConversationActivity_specify_recipient">দয়া করে একটি পরিচিতি চয়ন করুন</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">আপনি যে বার্তা প্রেরণ করছেন সংযুক্তি তার আকারের সীমা অতিক্রম করেছে।</string>
     <string name="ConversationActivity_unable_to_record_audio">অডিও রেকর্ড করা যাচ্ছেনা!</string>
@@ -395,22 +437,22 @@
     <string name="ConversationActivity_cancel_request">অনুরোধ বাতিল করুন</string>
 
     <!-- Dialog title asking users for microphone permission -->
-    <string name="ConversationActivity_allow_access_microphone">Allow access to your microphone</string>
+    <string name="ConversationActivity_allow_access_microphone">আপনার মাইক্রোফোনে অ্যাক্সেসের অনুমতি দিন</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
-    <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
+    <string name="ConversationActivity_signal_to_send_audio_messages">অডিও মেসেজ পাঠাতে:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">ভয়েস মেসেজ পাঠাতে, আপনার মাইক্রোফোনে Signal-কে অ্যাক্সেসের অনুমতি দিন।</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">অডিও বার্তাগুলি প্রেরণের জন্য Molly এর মাইক্রোফোনের অনুমতি প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" সক্ষম করুন|</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">ভয়েস মেসেজ রেকর্ড করতে Signal-এর মাইক্রোফোনে অ্যাক্সেসের প্রয়োজন।</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">অডিও বার্তাগুলি প্রেরণের জন্য Signal এর মাইক্রোফোনের অনুমতি প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" সক্ষম করুন|</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%1$s কে ফোন করতে Molly এর মাইক্রোফোন এবং ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে এপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" ও \"ক্যামেরা\" এর অনুমতি সক্ষম করুন।</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ছবি ও ভিডিও তুলতে Molly কে ক্যামেরা ব্যাবহারের অনুমতি দিন।</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ছবি অথবা ভিডিও তুলতে Molly এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"ক্যামেরা\" এর অনুমতি সক্ষম করুন।</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ছবি অথবা ভিডিও তুলতে Molly এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন।</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%1$s কে ফোন করতে Signal এর মাইক্রোফোন এবং ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে এপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" ও \"ক্যামেরা\" এর অনুমতি সক্ষম করুন।</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ছবি ও ভিডিও তুলতে Signal কে ক্যামেরা ব্যাবহারের অনুমতি দিন।</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ছবি অথবা ভিডিও তুলতে Signal এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"ক্যামেরা\" এর অনুমতি সক্ষম করুন।</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ছবি অথবা ভিডিও তুলতে Signal এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন।</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">শব্দ সহ ভিডিও ধারন করতে মাইক্রোফোন অনুমতি সক্ষম করুন।</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">ভিডিও রেকর্ড করতে Molly এর মাইক্রোফোনের অনুমতি প্রয়োজন, তবে সেগুলি অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" এবং \"ক্যামেরা\" সক্ষম করুন|</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">ভিডিও রেকর্ড করতে Molly এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন।</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">ভিডিও রেকর্ড করতে Signal এর মাইক্রোফোনের অনুমতি প্রয়োজন, তবে সেগুলি অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" এবং \"ক্যামেরা\" সক্ষম করুন|</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">ভিডিও রেকর্ড করতে Signal এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন।</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">না</string>
@@ -429,11 +471,11 @@
     <string name="ConversationActivity_delete_and_leave">মুছুন এবং ছেড়ে যান</string>
 
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
-    <string name="ConversationActivity__to_start_call">To start a call:</string>
+    <string name="ConversationActivity__to_start_call">একটি কল শুরু করতে:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">To start a call, allow Molly access to your microphone.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">কল শুরু করতে, আপনার মাইক্রোফোনে Signal-কে অ্যাক্সেসের অনুমতি দিন।</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly needs microphone access to start a call.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">কল শুরু করতে Signal-এর মাইক্রোফোনে অ্যাক্সেসের প্রয়োজন।</string>
 
 
     <string name="ConversationActivity_join">যোগদান করুন</string>
@@ -447,9 +489,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Signal-এ এসএমএস ম্যাসেজিং আর সমর্থন করে না। এখানে কথোপকথন করতে %1$s-কে Signal-এ আমন্ত্রণ জানান।</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">এই ব্যক্তি আর Molly ব্যবহার করছেন না। এখানে কথোপকথন করতে তাদেরকে Molly-এ আমন্ত্রণ জানান।</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">এই ব্যক্তি আর Signal ব্যবহার করছেন না। এখানে কথোপকথন করতে তাদেরকে Signal-এ আমন্ত্রণ জানান।</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Molly এ আমন্ত্রন জানান</string>
+    <string name="ConversationActivity__invite_to_signal">Signal এ আমন্ত্রন জানান</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">আপনাকে শীঘ্রই আবার মনে করিয়ে দেওয়া হবে।</string>
 
@@ -534,13 +576,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">ব্লক করা হয়েছে</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Molly আপডেট করুন</string>
+    <string name="ConversationFragment__update_build">Signal আপডেট করুন</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">পুনরায় Molly-এ নিবন্ধন করুন</string>
+    <string name="ConversationFragment__reregister_signal">পুনরায় Signal-এ নিবন্ধন করুন</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">পিছনের দিকে নেভিগেট করুন।</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Molly খুলুন</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Signal খুলুন</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">আর যাচাইকৃত নয়</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -730,7 +772,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">আপনার ব্যাকআপ পাসফ্রেজটি পরীক্ষা করুন এবং এটি মিলছে কিনা তা যাচাই করুন</string>
     <string name="BackupsPreferenceFragment__turn_on">চালু করুন</string>
     <string name="BackupsPreferenceFragment__turn_off">বন্ধ করুন</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"একটি ব্যাকআপ পুনরুদ্ধার করতে, নতুন করে Molly ইনস্টল করুন। অ্যাপ্লিকেশনটি খুলুন এবং \" ব্যাকআপ পুনরুদ্ধার করুন\" বাটনে আলতো চাপুন, তারপরে ব্যাকআপ ফাইলটি সনাক্ত করুন। %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"একটি ব্যাকআপ পুনরুদ্ধার করতে, নতুন করে Signal ইনস্টল করুন। অ্যাপ্লিকেশনটি খুলুন এবং \" ব্যাকআপ পুনরুদ্ধার করুন\" বাটনে আলতো চাপুন, তারপরে ব্যাকআপ ফাইলটি সনাক্ত করুন। %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">আরও জানুন</string>
     <string name="BackupsPreferenceFragment__in_progress">চলমান…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -738,7 +780,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d এখন অব্দি…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">এখন পর্যন্ত %1$s %%…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ব্যাকআপগুলি তৈরি করতে Molly এর জন্য বাহ্যিক স্টোরেজ অনুমতি প্রয়োজন, তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংস যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ব্যাকআপগুলি তৈরি করতে Signal এর জন্য বাহ্যিক স্টোরেজ অনুমতি প্রয়োজন, তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংস যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">ব্যাকআপ সময় সেট করুন</string>
 
@@ -827,7 +869,7 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">অনুপস্থিত প্লে সার্ভিসের জন্য অনুকুল করা</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">এই ডিভাইস প্লে সার্ভিস সমর্থন করে না। সিস্টেম ব্যাটারি অপ্টিমাইজেশন অক্ষম করতে আলতো চাপুন, যা নিষ্ক্রিয় অবস্থায় বার্তা পুনরুদ্ধার থেকে Molly -কে বাধা দেয়।</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">এই ডিভাইস প্লে সার্ভিস সমর্থন করে না। সিস্টেম ব্যাটারি অপ্টিমাইজেশন অক্ষম করতে আলতো চাপুন, যা নিষ্ক্রিয় অবস্থায় বার্তা পুনরুদ্ধার থেকে Signal -কে বাধা দেয়।</string>
 
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">আপনার Signal সংস্করণটির মেয়াদ শেষ হয়ে গেছে। বার্তা প্রেরণ এবং গ্রহণ করতে এখনই আপডেট করুন।</string>
@@ -841,8 +883,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">দেখান</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Molly স্থায়ীভাবে যোগাযোগ স্থাপনে ব্যর্থ!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly গুগল প্লে পরিষেবাদিতে নিবন্ধন করতে অক্ষম ছিল। Molly বার্তা এবং কল সমূহ অক্ষম করা হয়েছে, দয়া করে পুনরায় নিবন্ধকরণ চেষ্টা করুন সেটিংস &gt; উন্নত।</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal স্থায়ীভাবে যোগাযোগ স্থাপনে ব্যর্থ!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal গুগল প্লে পরিষেবাদিতে নিবন্ধন করতে অক্ষম ছিল। Signal বার্তা এবং কল সমূহ অক্ষম করা হয়েছে, দয়া করে পুনরায় নিবন্ধকরণ চেষ্টা করুন সেটিংস &gt; উন্নত।</string>
 
 
     <!-- GiphyActivity -->
@@ -981,12 +1023,12 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">ডিবাগ লগ আমাদের সমস্যা নির্ণয় ও সমাধান করতে সাহায্য করে এবং শনাক্তকরণের তথ্য ধারণ করে না।</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly একটি সমস্যার সম্মুখীন হয়েছে। ডিবাগ লগ জমা দেবেন?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal একটি সমস্যার সম্মুখীন হয়েছে। ডিবাগ লগ জমা দেবেন?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">ব্যাটারি অপ্টিমাইজেশনের কারণে বিজ্ঞপ্তি আসতে দেরি হতে পারে</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">মেসেজের বিজ্ঞপ্তি যেন বিলম্বিত না হয় তা নিশ্চিত করতে আপনি Molly-এর জন্য ব্যাটারি অপ্টিমাইজেশন নিষ্ক্রিয় করতে পারেন।</string>
+    <string name="PromptBatterySaverBottomSheet__message">মেসেজের বিজ্ঞপ্তি যেন বিলম্বিত না হয় তা নিশ্চিত করতে আপনি Signal-এর জন্য ব্যাটারি অপ্টিমাইজেশন নিষ্ক্রিয় করতে পারেন।</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">চালিয়ে যান</string>
@@ -1241,13 +1283,13 @@
     <string name="InviteActivity_cancel">বাতিল</string>
     <string name="InviteActivity_sending">পাঠানো হচ্ছে</string>
     <string name="InviteActivity_invitations_sent">আমন্ত্রণ পাঠানো হয়েছে!</string>
-    <string name="InviteActivity_invite_to_signal">Molly এ আমন্ত্রণ জানান</string>
+    <string name="InviteActivity_invite_to_signal">Signal এ আমন্ত্রণ জানান</string>
     <string name="InviteActivity_send_sms">এসএমএস পাঠান (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">%1$d টি নিমন্ত্রন এসএমএস পাঠান?</item>
         <item quantity="other">%1$d টি নিমন্ত্রন এসএমএস পাঠান?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">চলুন Molly এ যোগ দেইঃ %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">চলুন Signal এ যোগ দেইঃ %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">আপনার কাছে শেয়ার করতে পারবেন এমন কোন অ্যাপ নেই।</string>
 
     <!-- LearnMoreTextView -->
@@ -1261,7 +1303,7 @@
     <string name="LongMessageActivity_your_message">আপনার বার্তা</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">পটভূমির সংযোগ সক্ষম করা হয়েছে</string>
 
     <!-- MediaOverviewActivity -->
@@ -1322,9 +1364,9 @@
     <string name="Megaphones_verify_pin">পিন যাচাই করুন</string>
     <string name="Megaphones_get_started">শুরু করা যাক</string>
     <string name="Megaphones_new_group">নতুন গ্রুপ</string>
-    <string name="Megaphones_invite_friends">বন্ধুদের আমন্ত্রণ</string>
+    <string name="Megaphones_invite_friends">আমন্ত্রণ জানান</string>
     <string name="Megaphones_chat_colors">চ্যাটের রং</string>
-    <string name="Megaphones_add_a_profile_photo">একটি প্রোফাইল ছবি যুক্ত করুন</string>
+    <string name="Megaphones_add_a_profile_photo">প্রোফাইল ছবি</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">রিপ্লাই</string>
@@ -1332,8 +1374,8 @@
     <!-- NotificationBarManager -->
     <string name="NotificationBarManager__establishing_signal_call">Signal কল স্থাপন করা হচ্ছে</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Molly কল সার্ভিস চালু করা হচ্ছে</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Molly কল সার্ভিস বন্ধ করা হচ্ছে</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Signal কল সার্ভিস চালু করা হচ্ছে</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Signal কল সার্ভিস বন্ধ করা হচ্ছে</string>
     <string name="NotificationBarManager__cancel_call">কল বাতিল করুন</string>
 
     <!-- NotificationsMegaphone -->
@@ -1641,7 +1683,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">শীঘ্রই Signal থেকে আপনি আর এসএমএস ম্যাসেজ পাঠাতে পারবেন না। এখানে কথোপকথন করতে %1$s-কে Signal-এ আমন্ত্রণ জানান।</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Molly থেকে আপনি আর এসএমএস ম্যাসেজ পাঠাতে পারবেন না। এখানে কথোপকথন করতে %1$s-কে Molly-এ আমন্ত্রণ জানান।</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Signal থেকে আপনি আর এসএমএস ম্যাসেজ পাঠাতে পারবেন না। এখানে কথোপকথন করতে %1$s-কে Signal-এ আমন্ত্রণ জানান।</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">পেমেন্ট: %1$s</string>
     <!-- Update message shown in chat after reporting it as spam -->
@@ -1721,7 +1763,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">একটি Signal ডিভাইস লিঙ্ক করবেন?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">দেখে মনে হচ্ছে আপনি ৩য় পক্ষের স্ক্যানার ব্যবহার করে একটি Signal ডিভাইস লিঙ্ক করার চেষ্টা করছেন। আপনার সুরক্ষার জন্য, দয়া করে Signal এর মধ্যে থেকে আবার কোডটি স্ক্যান করুন।</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">কোনও কিউআর কোড স্ক্যান করার জন্য Molly এর ক্যামেরা অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">কোনও কিউআর কোড স্ক্যান করার জন্য Signal এর ক্যামেরা অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">ক্যামেরা অনুমতি ব্যতীত কোনও কিউআর কোড স্ক্যান করতে অক্ষম</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1734,11 +1776,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">পাসফ্রেজ প্রবেশ করান</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Molly আইকন</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Signal আইকন</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">পাসফ্রেজ সাবমিট করুন</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">অকার্যকর পাসফ্রেজ!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Molly আনলক করুন</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly অ্যান্ড্রয়েড - লক স্ক্রিন</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Signal আনলক করুন</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal অ্যান্ড্রয়েড - লক স্ক্রিন</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">ম্যাপ</string>
@@ -1805,7 +1847,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">মেসেজ পাঠানো চালিয়ে যেতে ভেরিফাই করুন</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Molly-এ স্প্যাম প্রতিরোধ করতে, অনুগ্রহ করে যাচাইকরণ সম্পূর্ণ করুন।</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signal-এ স্প্যাম প্রতিরোধ করতে, অনুগ্রহ করে যাচাইকরণ সম্পূর্ণ করুন।</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">যাচাই করার পর, আপনি মেসেজ পাঠানো চালিয়ে যেতে পারবেন। স্থগিত করা যেকোনো বার্তা স্বয়ংক্রিয়ভাবে পাঠানো হবে।</string>
 
     <!-- Recipient -->
@@ -1813,7 +1855,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">আমার স্টোরি</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Molly কল</string>
+    <string name="Recipient_signal_call">Signal কল</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">ব্লক করুন</string>
@@ -1838,8 +1880,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">আপনার ভিডিও চালু করতে এখানে আলতো চাপুন</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s কে ফোন করতে Molly কে আপনার ক্যামেরা ব্যাবহার করতে হবে।</string>
-    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s কে ফোন করতে Signal কে আপনার ক্যামেরা ব্যাবহার করতে হবে।</string>
+    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
     <string name="WebRtcCallActivity__calling">কল করা হচ্ছে…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">পুনঃসংযোগ হচ্ছে …</string>
@@ -2092,7 +2134,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">এই নম্বরটি যাচাই করার জন্য আপনি একটি কল পাবেন।</string>
     <string name="RegistrationActivity_edit_number">নম্বর সম্পাদনা</string>
     <string name="RegistrationActivity_missing_google_play_services">গুগল প্লে সার্ভিস নিখোজ</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">এই ডিভাইস টিতে গুগল প্লে পরিষেবাদি অনুপস্থিত। আপনি এখনও সিগন্যাল ব্যবহার করতে পারেন, তবে এই কনফিগারেশনের ফলে নির্ভরযোগ্যতা বা কার্যকারিতা হ্রাস পেতে পারে। \n\\ আপনি যদি এ্যাডভান্স ব্যবহারকারী না হন, তাছাড়া কোনও পরিবর্তিত অ্যানড্রয়েড রম চালিয়ে যাচ্ছেন না, বা মনে করছেন যে, আপনি এই ত্রুটি ভুল করে দেখছেন। দয়া করে সমস্যা সমাধানের জন্য support@molly.im ঠিকানায় পরিচিতি করুন।</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">এই ডিভাইস টিতে গুগল প্লে পরিষেবাদি অনুপস্থিত। আপনি এখনও সিগন্যাল ব্যবহার করতে পারেন, তবে এই কনফিগারেশনের ফলে নির্ভরযোগ্যতা বা কার্যকারিতা হ্রাস পেতে পারে। \n\\ আপনি যদি এ্যাডভান্স ব্যবহারকারী না হন, তাছাড়া কোনও পরিবর্তিত অ্যানড্রয়েড রম চালিয়ে যাচ্ছেন না, বা মনে করছেন যে, আপনি এই ত্রুটি ভুল করে দেখছেন। দয়া করে সমস্যা সমাধানের জন্য support@signal.org ঠিকানায় পরিচিতি করুন।</string>
     <string name="RegistrationActivity_i_understand">আমি বুঝতে পেরেছি</string>
     <string name="RegistrationActivity_play_services_error">প্লে সার্ভিস সমস্যা</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">গুগল প্লে পরিষেবাদি আপডেট করছে বা অস্থায়ীভাবে অনুপলব্ধ। অনুগ্রহপূর্বক আবার চেষ্টা করুন।</string>
@@ -2110,7 +2152,7 @@
     <string name="RegistrationActivity_non_standard_number_format">নন-স্ট্যান্ডার্ড নম্বর বিন্যাস</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">আপনি যে নম্বরটি প্রবেশ করেছেন (%1$s) সেটি একটি অ-মানক বিন্যাস বলে মনে হচ্ছে।\n\nআপনি কি %2$s বলতে চান?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly অ্যান্ড্রয়েড - ফোন নম্বর ফর্ম্যাট</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal অ্যান্ড্রয়েড - ফোন নম্বর ফর্ম্যাট</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">কল অনুরোধ করা হয়েছে</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2183,13 +2225,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">পরিচিতি যুক্ত করুন</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Molly এ আমন্ত্রণ জানান</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Signal এ আমন্ত্রণ জানান</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal বার্তা</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal কল</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">পরিচিতিতে যুক্ত করুন</string>
-    <string name="SharedContactView_invite_to_signal">Molly এ আমন্ত্রণ জানান</string>
+    <string name="SharedContactView_invite_to_signal">Signal এ আমন্ত্রণ জানান</string>
     <string name="SharedContactView_message">Signal বার্তা</string>
 
     <!-- SignalBottomActionBar -->
@@ -2257,10 +2299,10 @@
     <string name="SupportEmailUtil_filter">ফিল্টার:</string>
     <string name="SupportEmailUtil_device_info">ডিভাইস-এর তথ্য:</string>
     <string name="SupportEmailUtil_android_version">অ্যান্ড্রয়েড সংস্করণ:</string>
-    <string name="SupportEmailUtil_signal_version">Molly সংস্করণ:</string>
-    <string name="SupportEmailUtil_signal_package">Molly প্যাকেজ:</string>
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_version" translatable="false">Signal version:</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_package" translatable="false">Signal package:</string> -->
     <string name="SupportEmailUtil_registration_lock">রেজিস্ট্রেশন লক</string>
-    <string name="SupportEmailUtil_locale">স্থান:</string>
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_locale" translatable="false">Locale:</string> -->
 
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">গ্রুপ অাপডেট হয়েছে</string>
@@ -2320,11 +2362,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s নম্বরটি %2$s-এর</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Molly আপডেট</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Molly-এর একটি নতুন সংস্করণ পাওয়া যাচ্ছে। আপডেট করতে ট্যাপ করুন।</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Molly আপডেট করতে ব্যর্থ হয়েছে</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Signal আপডেট</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Signal-এর একটি নতুন সংস্করণ পাওয়া যাচ্ছে। আপডেট করতে ট্যাপ করুন।</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Signal আপডেট করতে ব্যর্থ হয়েছে</string>
     <string name="ApkUpdateNotifications_failed_general_body">আমরা পরে আবার চেষ্টা করবো।</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly সফলভাবে আপডেট করা হয়েছে</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal সফলভাবে আপডেট করা হয়েছে</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">আপনি স্বয়ংক্রিয়ভাবে %1$s সংস্করণে আপডেট হয়েছেন।</string>
 
     <!-- UntrustedSendDialog -->
@@ -2395,7 +2437,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">আমাদের Signal নিরাপত্তা নাম্বার:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">আপনার কাছে শেয়ার করতে পারবেন এমন কোন অ্যাপ নেই।</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">ক্লিপবোর্ডে তুলনার মতো কোনও নিরাপত্তা নাম্বার পাওয়া যায় নি</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">কোনও কিউআর কোড স্ক্যান করার জন্য Molly এর ক্যামেরা অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">কোনও কিউআর কোড স্ক্যান করার জন্য Signal এর ক্যামেরা অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">ক্যামেরা অনুমতি ছাড়া কিউআর কোড স্ক্যান করা সম্ভব নয়</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s-এর নিরাপত্তা নাম্বার দেখতে আপনাকে প্রথমে তার সাথে মেসেজ আদান-প্রদান করতে হবে।</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2425,14 +2467,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">খোলার জন্য স্পর্শ করুন।</string>
-    <string name="KeyCachingService_passphrase_cached">Molly আনলক করা আছে</string>
-    <string name="KeyCachingService_lock">Molly লক্ করুন</string>
+    <string name="KeyCachingService_passphrase_cached">Signal আনলক করা আছে</string>
+    <string name="KeyCachingService_lock">Signal লক্ করুন</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">আপনি</string>
     <string name="MediaPreviewActivity_unssuported_media_type">অসমর্থিত ধরনের মিডিয়া</string>
     <string name="MediaPreviewActivity_draft">খসড়া</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">বাহ্যিক স্টোরেজে সংরক্ষণের জন্য Mollyএর স্টোরেজের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">বাহ্যিক স্টোরেজে সংরক্ষণের জন্য Signalএর স্টোরেজের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">অনুমতি ব্যতীত বাহ্যিক স্টোরেজে সংরক্ষণ করতে অক্ষম</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">বার্তা মুছে ফেলবেন?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">এর ফলে এই বার্তাটি চিরতরে মুছে যাবে।</string>
@@ -2476,7 +2518,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">বার্তা পৌছে দিতে ব্যর্থ।</string>
     <string name="MessageNotifier_error_delivering_message">বার্তা পৌছানোর সময় ত্রুটি।</string>
     <string name="MessageNotifier_message_delivery_paused">মেসেজ পাঠানো পজ করা আছে।</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Molly-এ মেসেজ পাঠানো চালিউয়ে যেতে যাচাই করুন।</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal-এ মেসেজ পাঠানো চালিউয়ে যেতে যাচাই করুন।</string>
     <string name="MessageNotifier_mark_all_as_read">সবগুলো পঠিত বলে সনাক্ত কর।</string>
     <string name="MessageNotifier_mark_read">পঠিত বলে সনাক্ত কর</string>
     <string name="MessageNotifier_turn_off_these_notifications">এই নোটিফিকেশনগুলো বন্ধ করতে চান?</string>
@@ -2537,7 +2579,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly লক্ করা থাকলে দ্রুত প্রত্যুত্তর দেওয়া সম্ভব নয়!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal লক্ করা থাকলে দ্রুত প্রত্যুত্তর দেওয়া সম্ভব নয়!</string>
     <string name="QuickResponseService_problem_sending_message">বার্তা প্রেরণে সমস্যা!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2557,7 +2599,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">অকার্যকর শর্টকাট</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">নতুন বার্তা</string>
     <string name="SingleRecipientNotificationBuilder_message_request">মেসেজের অনুরোধ</string>
     <string name="SingleRecipientNotificationBuilder_you">আপনি</string>
@@ -2603,7 +2645,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">এই ডিভাইসটি আর নিবন্ধিত নয়। এটি হওয়ার সম্ভাব্য কারণ হলো, আপনি হয়তো একটি ভিন্ন ডিভাইসে Molly-এর সাথে আপনার ফোন নম্বর নিবন্ধন করেছেন।</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">এই ডিভাইসটি আর নিবন্ধিত নয়। এটি হওয়ার সম্ভাব্য কারণ হলো, আপনি হয়তো একটি ভিন্ন ডিভাইসে Signal-এর সাথে আপনার ফোন নম্বর নিবন্ধন করেছেন।</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">ডিভাইসটি আবারো নিবন্ধন করুন</string>
 
@@ -2616,10 +2658,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">কলের উত্তর দিতে, Molly-কে আপনার মাইক্রোফোন অ্যাক্সেস দিন।</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">কলের উত্তর দিতে, Signal-কে আপনার মাইক্রোফোন অ্যাক্সেস দিন।</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">ভিডিও কলের উত্তর দিতে, Molly-কে আপনার মাইক্রোফোন এবং ক্যামেরায় অ্যাক্সেস দিন।</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">কল সমূহ করতে বা গ্রহণের জন্য Molly এর মাইক্রোফোন এবং ক্যামেরা ব্যবহারের অনুমতি প্রয়োজন, তবে সেগুলি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" এবং \"ক্যামেরা\" সক্ষম করুন |</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">ভিডিও কলের উত্তর দিতে, Signal-কে আপনার মাইক্রোফোন এবং ক্যামেরায় অ্যাক্সেস দিন।</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">কল সমূহ করতে বা গ্রহণের জন্য Signal এর মাইক্রোফোন এবং ক্যামেরা ব্যবহারের অনুমতি প্রয়োজন, তবে সেগুলি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" এবং \"ক্যামেরা\" সক্ষম করুন |</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">সংযুক্ত ডিভাইসে উত্তর দেওয়া হয়েছে।</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">সংযুক্ত ডিভাইসে অস্বীকার করা হয়েছে।</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">সংযুক্ত ডিভাইসে ব্যাস্ত।</string>
@@ -2664,12 +2706,16 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">নতুন পাসফ্রেজ পুনরাবৃত্তি করুন</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Molly এ নিমন্ত্রণ করুন</string>
+    <string name="contact_selection_activity__invite_to_signal">Signal এ নিমন্ত্রণ করুন</string>
     <string name="contact_selection_activity__new_group">নতুন গ্রুপ</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">কন্টাক্ট রিফ্রেশ করুন</string>
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">কাউকে মিস করছেন? রিফ্রেশ করার চেষ্টা করুন</string>
+    <!-- Row item title for finding people on Signal via your contacts -->
+    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <!-- Row item description asking users for access to their contacts to find people they know -->
+    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">আরো</string>
 
@@ -2686,7 +2732,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">পরিচিতির ছবি</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">আপনার পরিচিতিসমূহ দেখানোর জন্য Molly এর পরিচিতি পাঠের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং \"অনুমতিগুলি\" নির্বাচন করুন এবং \"পরিচিতি\" সক্ষম করুন।</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">আপনার পরিচিতিসমূহ দেখানোর জন্য Signal এর পরিচিতি পাঠের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং \"অনুমতিগুলি\" নির্বাচন করুন এবং \"পরিচিতি\" সক্ষম করুন।</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">পরিচিতি পুনরুদ্ধারে ত্রুটি, আপনার নেটওয়ার্ক সংযোগটি পরীক্ষা করুন</string>
     <string name="ContactSelectionListFragment_username_not_found">ব্যবহারকারীর নাম খুঁজে পাওয়া যায়নি</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" কোনো Signal ব্যবহারকারী নয়। দয়া করে ব্যবহারকারীর নামটি পরীক্ষা করুন এবং আবার চেষ্টা করুন।"</string>
@@ -2703,9 +2749,17 @@
     <string name="ContactSelectionListFragment__find_by_phone_number">ফোন নম্বর দিয়ে খুঁজুন</string>
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">ব্যবহারকারীর নাম দিয়ে খুঁজুন</string>
+    <!-- Dialog title asking users for contact permission -->
+    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <!-- Dialog description that will explain the steps needed to give contact permissions -->
+    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <!-- Text on button prompting users to give Signal contact permissions -->
+    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <!-- Text asking for user\'s contact permission -->
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly আপনার পরিচিতিসমূহ প্রদর্শন করতে তাদের প্রবেশাধিকার প্রয়োজন।</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal আপনার পরিচিতিসমূহ প্রদর্শন করতে তাদের প্রবেশাধিকার প্রয়োজন।</string>
     <string name="contact_selection_list_fragment__show_contacts">পরিচিতিসমূহ দেখান</string>
 
     <!-- contact_selection_list_item -->
@@ -2806,7 +2860,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">বাবলস একটি Android ফিচার যা আপনি Molly চ্যাটের ক্ষেত্রে বন্ধ করতে পারবেন।</string>
+    <string name="BubbleOptOutTooltip__description">বাবলস একটি Android ফিচার যা আপনি Signal চ্যাটের ক্ষেত্রে বন্ধ করতে পারবেন।</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">এখন না</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -2974,9 +3028,9 @@
     <string name="EditProfileFragment__group_description">গ্রুপের বিবরণ</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Molly আপডেট করুন</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Signal আপডেট করুন</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Molly-এর এই সংস্করণটির মেয়াদ শেষ হয়ে গেছে। Molly ব্যবহার চালিয়ে যেতে এখনই আপডেট করুন।</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Signal-এর এই সংস্করণটির মেয়াদ শেষ হয়ে গেছে। Signal ব্যবহার চালিয়ে যেতে এখনই আপডেট করুন।</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">আপডেট করুন</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3067,7 +3121,7 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__link__faq" translatable="false">https://support.signal.org</string> -->
     <string name="HelpFragment__support_info">সহায়ক তথ্য</string>
     <string name="HelpFragment__signal_android_support_request">Signal অ্যানড্রয়েড সহায়তা আবেদন</string>
-    <string name="HelpFragment__debug_log">ডিবাগ লগ:</string>
+  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">লগসমূহ আপলোড করা যায়নি</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">আমরা যাতে সমস্যাটি বুঝতে পারি সেজন্য যতটা সম্ভব বিস্তারিত বলুন।</string>
     <string-array name="HelpFragment__categories_5">
@@ -3193,7 +3247,7 @@
     <string name="preferences__slow">ধীর</string>
     <string name="preferences__help">সাহায্য</string>
     <string name="preferences__advanced">উন্নততর</string>
-    <string name="preferences__donate_to_signal">Molly-এ ডোনেট করুন</string>
+    <string name="preferences__donate_to_signal">Signal-এ ডোনেট করুন</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">গোপনীয়তা</string>
     <!-- Preference label for stories -->
@@ -3218,7 +3272,7 @@
     <string name="preferences__linked_devices">সংযুক্ত ডিভাইস সমূহ</string>
     <string name="preferences__light_theme">আলো</string>
     <string name="preferences__dark_theme">অন্ধকার</string>
-    <string name="preferences__appearance">অ্যাপিয়ারেন্স</string>
+    <string name="preferences__appearance">অবয়ব।</string>
     <string name="preferences__theme">থীম</string>
     <string name="preferences__chat_color_and_wallpaper">চ্যাটের রং ও ওয়ালপেপার</string>
     <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
@@ -3230,13 +3284,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">অ্যাপ আইকন ও নাম \"%1$s\"-এ পরিবর্তন করুন</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">অ্যাপ আইকন ও নাম পরিবর্তন করতে Molly বন্ধ করতে হবে। নোটিফিকেশনে সবসময় ডিফল্ট Molly আইকন ও নাম দেখা যাবে।</string>
+    <string name="preferences__app_icon_dialog_description">অ্যাপ আইকন ও নাম পরিবর্তন করতে Signal বন্ধ করতে হবে। নোটিফিকেশনে সবসময় ডিফল্ট Signal আইকন ও নাম দেখা যাবে।</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">একটি অ্যাপ আইকন ও নাম বেছে নিন, যা আপনার ফোনের হোম স্ক্রিন এবং অ্যাপ ড্রয়ারে দেখা যাবে। নোটিফিকেশনে সবসময় ডিফল্ট Molly আইকন ও নাম দেখা যাবে। আরো জানুন</string>
+    <string name="preferences__app_icon_warning_learn_more">একটি অ্যাপ আইকন ও নাম বেছে নিন, যা আপনার ফোনের হোম স্ক্রিন এবং অ্যাপ ড্রয়ারে দেখা যাবে। নোটিফিকেশনে সবসময় ডিফল্ট Signal আইকন ও নাম দেখা যাবে। আরো জানুন</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">অ্যাপ আইকন ও নাম হোম স্ক্রিন ও অ্যাপ ড্রয়ারে দৃশ্যমান।</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">নোটিফিকেশনে সবসময় ডিফল্ট Molly আইকন ও নাম দেখা যাবে।</string>
+    <string name="preferences__app_icon_notification_warning">নোটিফিকেশনে সবসময় ডিফল্ট Signal আইকন ও নাম দেখা যাবে।</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">আরো জানুন</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3274,7 +3328,8 @@
     <string name="preferences_storage__audio">শব্দ</string>
     <string name="preferences_storage__review_storage">স্টোরেজ পর্যালোচনা</string>
     <string name="preferences_storage__delete_older_messages">পুরানো বার্তা মুছে ফেলবেন?</string>
-    <string name="preferences_storage__clear_message_history">ম্যাসেজের ইতিহাস মুছে ফেলবেন?</string>
+    <!-- Dialog title shown when selecting delete message history from manage storage -->
+    <string name="preferences_storage__delete_message_history">মেসেজের ইতিহাস মুছে ফেলবেন?</string>
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">এটি আপনার ডিভাইস থেকে %1$s থেকে পুরনো সকল বার্তার ইতিহাস ও মিডিয়া চিরতরে মুছে ফেলবে।</string>
     <!-- The body of an alert dialog that is shown when confirming a trim operation. Trimming will delete all but the most recent messages in a chat. The placeholder represents how many messages are kept in each chat. All older messages are deleted. -->
     <plurals name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">
@@ -3320,7 +3375,7 @@
     <string name="preferences_communication__category_censorship_circumvention">সেন্সরশিপ উপেক্ষা</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">সেন্সরশিপ উপেক্ষা</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">যদি সক্ষম করা থাকে তবে Molly সেন্সরশিপকে ছিন্ন করার চেষ্টা করবে। আপনি যদি এমন কোনও স্থানে না থাকেন যেখানে Molly সেন্সর করা রয়েছে তবে এই বৈশিষ্ট্যটি সচল করবেন না।</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">যদি সক্ষম করা থাকে তবে Signal সেন্সরশিপকে ছিন্ন করার চেষ্টা করবে। আপনি যদি এমন কোনও স্থানে না থাকেন যেখানে Signal সেন্সর করা রয়েছে তবে এই বৈশিষ্ট্যটি সচল করবেন না।</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">আপনার অ্যাকাউন্ট ফোন নাম্বার এর ভিত্তিতে সেন্সরশিপ এড়ানো সক্রিয় করা হয়েছে।</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3372,7 +3427,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">পেমেন্ট পরিচিতি</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">গোপনীয়তাকে গুরুত্ব দেয় এমন একটি নতুন ডিজিটাল মুদ্রা MobileCoin পাঠাতে ও গ্রহণ করতে Molly ব্যবহার করুন। শুরু করতে সক্রিয় করুন।</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">গোপনীয়তাকে গুরুত্ব দেয় এমন একটি নতুন ডিজিটাল মুদ্রা MobileCoin পাঠাতে ও গ্রহণ করতে Signal ব্যবহার করুন। শুরু করতে সক্রিয় করুন।</string>
     <string name="PaymentsHomeFragment__activate_payments">অর্থ প্রদানের উপায় সক্রিয় করুন</string>
     <string name="PaymentsHomeFragment__activating_payments">অর্থ প্রদানের উপায় সক্রিয় করা হচ্ছে</string>
     <string name="PaymentsHomeFragment__restore_payments_account">পেমেন্ট অ্যাকাউন্ট পুনর্বহাল করুন</string>
@@ -3398,7 +3453,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">আপনার অঞ্চল থেকে অর্থ প্রদান উপলভ্য নয়।</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">অর্থ প্রদান করা সক্ষম করা যায়নি। পরে আবার চেষ্টা করুন।</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">পেমেন্ট বন্ধ করবেন?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">আপনি পেমেন্ট বন্ধ করলে Molly-এ Mobilecoin পাঠাতে বা গ্রহণ করতে পারবেন না।</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">আপনি পেমেন্ট বন্ধ করলে Signal-এ Mobilecoin পাঠাতে বা গ্রহণ করতে পারবেন না।</string>
     <string name="PaymentsHomeFragment__deactivate">বন্ধ করুন</string>
     <string name="PaymentsHomeFragment__continue">চলতে থাকুন</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">ব্যালেন্স বর্তমানে উপলভ্য নয়।</string>
@@ -3407,10 +3462,10 @@
     <string name="PaymentsHomeFragment__details">খুঁটিনাটি</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">আপনি MobileCoin পাঠাতে ও গ্রহণ করতে Molly ব্যবহার করতে পারেন। সকল পেমেন্ট MobileCoins ও MobileCoin ওয়ালেট ব্যবহারের শর্তাবলী মেনে সম্পাদিত হয়। আপনি কিছু কিছু সমস্যার সম্মুখীন হতে পারেন এবং আপনার হারানো পেমেন্ট বা ব্যালেন্স পুনরুদ্ধার করা যাবে না। </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">আপনি MobileCoin পাঠাতে ও গ্রহণ করতে Signal ব্যবহার করতে পারেন। সকল পেমেন্ট MobileCoins ও MobileCoin ওয়ালেট ব্যবহারের শর্তাবলী মেনে সম্পাদিত হয়। আপনি কিছু কিছু সমস্যার সম্মুখীন হতে পারেন এবং আপনার হারানো পেমেন্ট বা ব্যালেন্স পুনরুদ্ধার করা যাবে না। </string>
     <string name="PaymentsHomeFragment__activate">সক্রিয় করুন</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin-এর শর্তাবলী দেখুন</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Molly-এ পেমেন্ট আর উপলভ্য নেই। আপনি এখনও কোনও এক্সচেঞ্জে আপনার ফান্ডগুলি ট্রান্সফার করতে পারেন তবে আপনি আর পেমেন্টগুলি প্রেরণ এবং গ্রহণ করতে বা ফান্ড যোগ করতে পারবেন না।</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Signal-এ পেমেন্ট আর উপলভ্য নেই। আপনি এখনও কোনও এক্সচেঞ্জে আপনার ফান্ডগুলি ট্রান্সফার করতে পারেন তবে আপনি আর পেমেন্টগুলি প্রেরণ এবং গ্রহণ করতে বা ফান্ড যোগ করতে পারবেন না।</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3438,7 +3493,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">অনুমতি দিন</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">আপনার পরিচিত ব্যক্তিদের মেসেজ করতে সাহায্য করার জন্য, Molly এই অনুমতিগুলোর জন্য অনুরোধ করবে। </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">আপনার পরিচিত ব্যক্তিদের মেসেজ করতে সাহায্য করার জন্য, Signal এই অনুমতিগুলোর জন্য অনুরোধ করবে। </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">নোটিফিকেশন</string>
     <!-- Notifications permission row description -->
@@ -3458,11 +3513,11 @@
 
     <!-- PermissionDeniedBottomSheet -->
     <!-- Sheet describing step 1 on how to give permissions by opening settings -->
-    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Tap “Settings” below</string>
+    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. নিচের \"সেটিংস\" ট্যাপ করুন</string>
     <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
-    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Allow the permission</string>
+    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s অনুমতি দিন</string>
     <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
-    <string name="PermissionDeniedBottomSheet__settings">Settings</string>
+    <string name="PermissionDeniedBottomSheet__settings">সেটিংস</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -3526,10 +3581,10 @@
     <string name="PaymentsTransferFragment__next">পরবর্তী</string>
     <string name="PaymentsTransferFragment__invalid_address">ভুল ঠিকানা</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">আপনি যে ওয়ালেটের ঠিকানাতে স্থানান্তর করার চেষ্টা করছেন তা পরীক্ষা করে আবার চেষ্টা করুন।</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">আপনি নিজের Molly ওয়ালেট ঠিকানায় স্থানান্তর করতে পারবেন না। একটি সমর্থিত এক্সচেঞ্জ এ আপনার অ্যাকাউন্ট থেকে ওয়ালেট ঠিকানা লিখুন।</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">কোনও কিউআর কোড স্ক্যান করতে Molly এর ক্যামেরা অ্যাক্সেস করা দরকার।</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">একটি কিউআর কোড ক্যাপচারের জন্য Molly এর ক্যামেরার অনুমতি প্রয়োজন। সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">কোনও কিউআর কোড স্ক্যান করতে Molly এর ক্যামেরা অ্যাক্সেস করা দরকার।</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">আপনি নিজের Signal ওয়ালেট ঠিকানায় স্থানান্তর করতে পারবেন না। একটি সমর্থিত এক্সচেঞ্জ এ আপনার অ্যাকাউন্ট থেকে ওয়ালেট ঠিকানা লিখুন।</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">কোনও কিউআর কোড স্ক্যান করতে Signal এর ক্যামেরা অ্যাক্সেস করা দরকার।</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">একটি কিউআর কোড ক্যাপচারের জন্য Signal এর ক্যামেরার অনুমতি প্রয়োজন। সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">কোনও কিউআর কোড স্ক্যান করতে Signal এর ক্যামেরা অ্যাক্সেস করা দরকার।</string>
     <string name="PaymentsTransferFragment__settings">সেটিংস</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -3720,11 +3775,11 @@
 
     <!-- DoubleTapEditEducationSheet -->
     <!-- Displayed as the title of the education bottom sheet -->
-    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">Double tap to edit</string>
+    <string name="DoubleTapEditEducationSheet__double_tap_edit_title">এডিট করতে দু\'বার ট্যাপ করুন</string>
     <!-- Text on the sheet explaining how double tapping on a message will let them edit it -->
-    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">Quickly tap twice on your messages to edit them. You can edit your messages up to 24hrs after they’ve been sent.</string>
+    <string name="DoubleTapEditEducationSheet__quickly_tap_twice">আপনার মেসেজগুলো এডিট করতে দ্রুত দু\'বার ট্যাপ করুন। আপনি আপনার মেসেজগুলো পাঠানোর পরের 24 ঘন্টার মধ্যে এডিট করতে পারবেন।</string>
     <!-- Button label to dismiss sheet -->
-    <string name="DoubleTapEditEducationSheet__got_it">Got it</string>
+    <string name="DoubleTapEditEducationSheet__got_it">বুঝতে পেরেছি</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">নতুন গ্রুপ</string>
@@ -3877,17 +3932,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly ভয়েস কল আসছে</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Signal ভয়েস কল আসছে</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Molly ভিডিও কল আসছে</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Signal ভিডিও কল আসছে</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
     <string name="CallNotificationBuilder__incoming_signal_group_call">ইনকামিং সিগন্যাল গ্রুপ কল</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">চলমান Molly ভয়েস কল</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">চলমান Signal ভয়েস কল</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">চলমান Molly ভিডিও কল</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">চলমান Signal ভিডিও কল</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">চলমান Molly গ্ৰুপ কল</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">চলমান Signal গ্ৰুপ কল</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">লোড হচ্ছে…</string>
@@ -3934,9 +3989,9 @@
     <string name="BackupDialog_verify">যাচাই করুন</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">আপনি সফলভাবে আপনার ব্যাকআপ পাসফ্রেজটি প্রবেশ করিয়েছেন</string>
     <string name="BackupDialog_passphrase_was_not_correct">পাসফ্রেজ সঠিক ছিলোনা।</string>
-    <string name="LocalBackupJob_creating_signal_backup">Molly ব্যাকআপ তৈরি করা হচ্ছে…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Signal ব্যাকআপ তৈরি করা হচ্ছে…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Molly ব্যাকআপ যাচাই করা হচ্ছে…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Signal ব্যাকআপ যাচাই করা হচ্ছে…</string>
     <string name="LocalBackupJobApi29_backup_failed">ব্যাকআপ ব্যর্থ হয়েছে</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">আপনার ব্যাকআপ ডিরেক্টরি মুছে ফেলা হয়েছে বা সরানো হয়েছে।</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">আপনার ব্যাকআপ ফাইলটি এই স্থানে সংরক্ষণ করার জন্য খুব বড়।</string>
@@ -3951,15 +4006,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">আমাকে কল করুন (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">কোডটি আবারো পাঠান (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Molly সহায়তায় যোগাযোগ করুন</string>
-    <string name="RegistrationActivity_code_support_subject">Molly নিবন্ধন - অ্যানড্রয়েড এর জন্য যাচাইকরণ কোড</string>
+    <string name="RegistrationActivity_contact_signal_support">Signal সহায়তায় যোগাযোগ করুন</string>
+    <string name="RegistrationActivity_code_support_subject">Signal নিবন্ধন - অ্যানড্রয়েড এর জন্য যাচাইকরণ কোড</string>
     <string name="RegistrationActivity_incorrect_code">ভুল কোড</string>
     <string name="BackupUtil_never">কখনোই না</string>
     <string name="BackupUtil_unknown">অজানা</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">ফোন নম্বর</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">আপনার ফোন নম্বর কে দেখতে পাবেন এবং এটি ব্যবহার করে Molly-এ কে আপনার সাথে যোগাযোগ করতে পারবেন তা নির্বাচন করুন।</string>
+    <string name="preferences_app_protection__choose_who_can_see">আপনার ফোন নম্বর কে দেখতে পাবেন এবং এটি ব্যবহার করে Signal-এ কে আপনার সাথে যোগাযোগ করতে পারবেন তা নির্বাচন করুন।</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">আমার নম্বর কে দেখতে পাবেন</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4007,7 +4062,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">আপনি অনেক বেশী প্রচেষ্টা চালিয়েছেন। দয়াকরে পরবর্তীতে আবার চেষ্টা করুন।</string>
     <string name="RegistrationActivity_error_connecting_to_service">পরিষেবাতে সংযোগ করার সময় ত্রুটি</string>
     <string name="preferences_chats__backups">ব্যাকআপ সমূহ</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Molly লক্ করা আছে</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Signal লক্ করা আছে</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">লক্ খুলতে ট্যাপ করুন</string>
     <string name="Recipient_unknown">অজানা</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4055,19 +4110,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">পুরনো Android ডিভাইসের সাথে সংযোগের প্রস্তুতি নিচ্ছে…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">কিছু সময় নিচ্ছে, শীঘ্রই প্রস্তুত হয়ে যাবে</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">পুরনো Android ডিভাইসের সংযোগের জন্য অপেক্ষা করছে…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">আপনার পুরনো Android ডিভাইস খুঁজে পেতে ও সংযুক্ত করতে Molly-এর লোকেশনের অনুমতি আবশ্যক।</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">আপনার পুরনো Android ডিভাইস খুঁজে পেতে ও সংযুক্ত করতে Molly-এর জন্য লোকেশন পরিষেবাটি চালু থাকতে হবে।</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">আপনার পুরনো Android ডিভাইস খুঁজে পেতে ও সংযুক্ত করতে Molly-এর ওয়াই-ফাই চালু থাকতে হবে। ওয়াই-ফাই চালু থাকতে হবে, কিন্তু এটি কোন ওয়াই-ফাই নেটওয়ার্কের সাথে সংযুক্ত থাকার দরকার নেই।</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">দুঃখিত, মনে হচ্ছে এই ডিভাইসটি Wi-Fi Direct-কে সমর্থন করে না। Molly আপনার পুরানো Android ডিভাইসটি খুঁজে পেতে এবং সংযোগ করতে Wi-Fi Direct ব্যবহার করে। আপনার পুরানো Android ডিভাইস থেকে আপনার অ্যাকাউন্টটি পুনরুদ্ধার করতে আপনি এখনও একটি ব্যাকআপ পুনরুদ্ধার করতে পারেন।</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">আপনার পুরনো Android ডিভাইস খুঁজে পেতে ও সংযুক্ত করতে Signal-এর লোকেশনের অনুমতি আবশ্যক।</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">আপনার পুরনো Android ডিভাইস খুঁজে পেতে ও সংযুক্ত করতে Signal-এর জন্য লোকেশন পরিষেবাটি চালু থাকতে হবে।</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">আপনার পুরনো Android ডিভাইস খুঁজে পেতে ও সংযুক্ত করতে Signal-এর ওয়াই-ফাই চালু থাকতে হবে। ওয়াই-ফাই চালু থাকতে হবে, কিন্তু এটি কোন ওয়াই-ফাই নেটওয়ার্কের সাথে সংযুক্ত থাকার দরকার নেই।</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">দুঃখিত, মনে হচ্ছে এই ডিভাইসটি Wi-Fi Direct-কে সমর্থন করে না। Signal আপনার পুরানো Android ডিভাইসটি খুঁজে পেতে এবং সংযোগ করতে Wi-Fi Direct ব্যবহার করে। আপনার পুরানো Android ডিভাইস থেকে আপনার অ্যাকাউন্টটি পুনরুদ্ধার করতে আপনি এখনও একটি ব্যাকআপ পুনরুদ্ধার করতে পারেন।</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">একটি ব্যাকআপ পুনরুদ্ধার করুন</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">আপনার পুরনো Android ডিভাইসে সংযুক্ত হওয়ার চেষ্টাকালীন একটি অপ্রত্যাশিত সমস্যা হয়েছে।</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">নতুন Android ডিভাইস খোঁজা হচ্ছে…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">আপনার নতুন Android ডিভাইসটি খুঁজে পেতে এবং সংযোগ করতে Molly-এর লোকেশনের অনুমতি প্রয়োজন।</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">আপনার নতুন Android ডিভাইসটি খুঁজে পেতে এবং সংযোগের জন্য Molly-এর জন্য লোকেশন পরিষেবা চালু থাকতে হবে।</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">আপনার নতুন Android ডিভাইসটি খুঁজে পেতে এবং সংযুক্ত করতে Molly-এর ওয়াই-ফাই প্রয়োজন। ওয়াই-ফাই চালু থাকা প্রয়োজন তবে এটি কোনও ওয়াই-ফাই নেটওয়ার্কের সাথে সংযুক্ত থাকার দরকার নেই।</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">দুঃখিত, মনে হচ্ছে এটি এই ডিভাইসটি Wi-Fi Direct-কে সমর্থন করে না। Molly আপনার নতুন Android ডিভাইসটি খুঁজে পেতে এবং সংযুক্ত করতে Wi-Fi Direct ব্যবহার করে। আপনার নতুন Android ডিভাইসে আপনার অ্যাকাউন্টটি পুনরুদ্ধার করতে আপনি এখনও একটি ব্যাকআপ তৈরি করতে পারেন।</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">আপনার নতুন Android ডিভাইসটি খুঁজে পেতে এবং সংযোগ করতে Signal-এর লোকেশনের অনুমতি প্রয়োজন।</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">আপনার নতুন Android ডিভাইসটি খুঁজে পেতে এবং সংযোগের জন্য Signal-এর জন্য লোকেশন পরিষেবা চালু থাকতে হবে।</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">আপনার নতুন Android ডিভাইসটি খুঁজে পেতে এবং সংযুক্ত করতে Signal-এর ওয়াই-ফাই প্রয়োজন। ওয়াই-ফাই চালু থাকা প্রয়োজন তবে এটি কোনও ওয়াই-ফাই নেটওয়ার্কের সাথে সংযুক্ত থাকার দরকার নেই।</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">দুঃখিত, মনে হচ্ছে এটি এই ডিভাইসটি Wi-Fi Direct-কে সমর্থন করে না। Signal আপনার নতুন Android ডিভাইসটি খুঁজে পেতে এবং সংযুক্ত করতে Wi-Fi Direct ব্যবহার করে। আপনার নতুন Android ডিভাইসে আপনার অ্যাকাউন্টটি পুনরুদ্ধার করতে আপনি এখনও একটি ব্যাকআপ তৈরি করতে পারেন।</string>
     <string name="OldDeviceTransferSetup__create_a_backup">একটি ব্যাকআপ তৈরি করুন</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">আপনার নতুন Android ডিভাইসে সংযোগ দেওয়ার চেষ্টা করার সময় একটি অপ্রত্যাশিত ত্রুটি ঘটেছে।</string>
 
@@ -4108,7 +4163,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">তথ্য স্থানান্তর করা হচ্ছে</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">উভয় ডিভাইসকে একে অপরের কাছাকাছি রাখুন। ডিভাইসগুলো বন্ধ করবেন না এবং Molly চালু রাখুন। ট্রান্সফারগুলো এক প্রান্ত থেকে অপর প্রান্তে এনক্রিপ্ট করা অবস্থায় থাকে।</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">উভয় ডিভাইসকে একে অপরের কাছাকাছি রাখুন। ডিভাইসগুলো বন্ধ করবেন না এবং Signal চালু রাখুন। ট্রান্সফারগুলো এক প্রান্ত থেকে অপর প্রান্তে এনক্রিপ্ট করা অবস্থায় থাকে।</string>
     <string name="DeviceTransfer__d_messages_so_far">এখন পর্যন্ত %1$dটি মেসেজ…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">এখন পর্যন্ত %1$s%%-টি ম্যাসেজ</string>
@@ -4122,7 +4177,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">অ্যাকাউন্ট স্থানান্তর করুন</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">আপনার নতুন Android ডিভাইসে Molly ডাউনলোড করুন</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">আপনার নতুন Android ডিভাইসে Signal ডাউনলোড করুন</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"\"অ্যাকাউন্ট ট্রান্সফার বা পুনর্বহাল করুন\"-এ ট্যাপ করুন"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4196,7 +4251,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">এই লিঙ্ক থেকে যে কেউ গ্রুপের নাম এবং ফটো দেখতে এবং যোগদানের জন্য অনুরোধ করতে পারেন। আপনার বিশ্বস্ত মানুষের সাথে এটি শেয়ার করুন।</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">এই লিংকে যেয়ে যে কেউ গ্রুপটির নাম ও ছবি দেখতে এবং গ্রুপটিতে যোগ দিতে পারবেন। আপনার বিশ্বস্ত লোকদের সাথে এটি শেয়ার করুন।</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Molly এর মাধ্যমে শেয়ার করুন</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Signal এর মাধ্যমে শেয়ার করুন</string>
     <string name="GroupLinkBottomSheet_copy">অনুলিপি</string>
     <string name="GroupLinkBottomSheet_qr_code">কিউআর কোড</string>
     <string name="GroupLinkBottomSheet_share">শেয়ার করুন</string>
@@ -4224,13 +4279,13 @@
     <string name="ReviewCardDialogFragment__review_request">অনুরোধ পর্যালোচনা করুন</string>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
-        <item quantity="one">%1$d group member have the same name, review the member below and choose to take action.</item>
-        <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
+        <item quantity="one">গ্রুপের %1$d জন সদস্যের নাম একই, নিচের সদস্যকে পর্যবেক্ষণ করুন এবং কোনো পদক্ষেপ নিন।</item>
+        <item quantity="other">গ্রুপের %1$d জন সদস্যের নাম একই, নিচের সদস্যদের পর্যবেক্ষণ করুন এবং কোনো পদক্ষেপ নিন।</item>
     </plurals>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
-        <item quantity="one">If you\'re not sure who the request is from, review the contact below and take action.</item>
-        <item quantity="other">If you\'re not sure who the request is from, review the contacts below and take action.</item>
+        <item quantity="one">আপনি যদি নিশ্চিত না হন কার কাছ থেকে অনুরোধ এসেছে, তবে নিচের কন্টাক্টগুলো পর্যালোচনা করার পর পদক্ষেপ নিন।</item>
+        <item quantity="other">আপনি যদি নিশ্চিত না হন কার কাছ থেকে অনুরোধ এসেছে, তবে নিচের কন্টাক্টগুলো পর্যালোচনা করার পর পদক্ষেপ নিন।</item>
     </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">একই রকমের আর কোন গ্রুপ নেই</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">একই রকমের কোন গ্রুপ নেই</string>
@@ -4264,8 +4319,8 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s এবং %3$s যোগ দিয়েছে</string>
     <!-- Toast message shown in group call when 3 or more people join -->
     <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
-        <item quantity="one">%1$s, %2$s and %3$d other joined</item>
-        <item quantity="other">%1$s, %2$s and %3$d others joined</item>
+        <item quantity="one">%1$s, %2$s, এবং অন্য %3$d জন যোগ দিয়েছেন</item>
+        <item quantity="other">%1$s, %2$s ও আরো %3$d জন যোগ দিয়েছেন</item>
     </plurals>
     <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s চলে গেছে</string>
@@ -4273,8 +4328,8 @@
     <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s এবং%3$s চলে গেছে</string>
     <!-- Toast message shown in group call when 3 or more people leave -->
     <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
-        <item quantity="one">%1$s, %2$s and %3$d other left</item>
-        <item quantity="other">%1$s, %2$s and %3$d others left</item>
+        <item quantity="one">%1$s, %2$s, এবং অন্য %3$d জন বের হয়ে গেছেন</item>
+        <item quantity="other">%1$s, %2$s, ও আরো %3$d জন বের হয়ে গেছেন</item>
     </plurals>
 
     <string name="CallParticipant__you">আপনি</string>
@@ -4382,7 +4437,7 @@
     <string name="payment_info_card_about_mobilecoin">MobileCoin সম্পর্কে</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin হলো গোপনীয়তার উপর গুরুত্ব দেয় এমন একটি নতুন ডিজিটাল মুদ্রা।</string>
     <string name="payment_info_card_adding_funds">ফান্ড যোগ করছে</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">আপনার ওয়ালেটের ঠিকানায় MobileCoin পাঠানোর মাধ্যমে আপনি Molly-এ ব্যবহারের জন্য ফান্ড পাঠাতে পারেন।</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">আপনার ওয়ালেটের ঠিকানায় MobileCoin পাঠানোর মাধ্যমে আপনি Signal-এ ব্যবহারের জন্য ফান্ড পাঠাতে পারেন।</string>
     <string name="payment_info_card_cashing_out">ক্যাশ আউট</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">MobileCoin-কে সাপোর্ট করে এমন যেকোনও কিছুর বিনিময়ে আপনি MobileCoin ক্যাশ আউট করতে পারবেন। কেবল সেটির বিনিময়ে আপনার অ্যাকাউন্টে টাকা ট্রান্সফার করুন।</string>
     <string name="payment_info_card_hide_this_card">এই কার্ডটি লুকাবেন?</string>
@@ -4403,12 +4458,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">ওয়ালেট বন্ধ করুন</string>
     <string name="DeactivateWalletFragment__your_balance">আপনার ব্যালেন্স</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">পেমেন্ট নিষ্ক্রিয় করার পূর্বে আপনাকে আপনার অর্থ অন্য ওয়ালেটের ঠিকানায় পাঠানোর জন্য পরামর্শ দেওয়া হচ্ছে। আপনি এখন আপনার অর্থ পাঠাতে না চাইলে, পেমেন্ট পুনরায় চালু করার পর সেগুলো আপনার Molly-এর সাথে লিংককৃত ওয়ালেটেই থাকবে।</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">পেমেন্ট নিষ্ক্রিয় করার পূর্বে আপনাকে আপনার অর্থ অন্য ওয়ালেটের ঠিকানায় পাঠানোর জন্য পরামর্শ দেওয়া হচ্ছে। আপনি এখন আপনার অর্থ পাঠাতে না চাইলে, পেমেন্ট পুনরায় চালু করার পর সেগুলো আপনার Signal-এর সাথে লিংককৃত ওয়ালেটেই থাকবে।</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">অবশিষ্ট ব্যালেন্স ট্রান্সফার করুন</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">ট্রান্সফার না করেই বন্ধ করুন</string>
     <string name="DeactivateWalletFragment__deactivate">বন্ধ করুন</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">ট্রান্সফার না করেই বন্ধ করবেন?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">আপনি পেমেন্ট পুনরায় সক্রিয় করলে আপনার ব্যালান্স Molly-এর সাথে লিংককৃত ওয়ালেটে থাকবে।</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">আপনি পেমেন্ট পুনরায় সক্রিয় করলে আপনার ব্যালান্স Signal-এর সাথে লিংককৃত ওয়ালেটে থাকবে।</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">ওয়ালেট বন্ধ করতে ত্রুটি।</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4647,8 +4702,8 @@
     <string name="PrivacySettingsFragment__blocked">ব্লক করা হয়েছে</string>
     <!-- Settings label that shows the number blocked contacts -->
     <plurals name="PrivacySettingsFragment__d_contacts">
-        <item quantity="one">%1$d contact</item>
-        <item quantity="other">%1$d contacts</item>
+        <item quantity="one">%1$d জন কন্টাক্ট</item>
+        <item quantity="other">%1$d জন কন্টাক্ট</item>
     </plurals>
     <string name="PrivacySettingsFragment__messaging">বাদানুবাদ</string>
     <string name="PrivacySettingsFragment__disappearing_messages">অদৃশ্য বার্তা</string>
@@ -4703,7 +4758,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">লাইসেন্স</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">শর্তাদি এবং গোপনীয়তা নীতি</string>
-    <string name="HelpFragment__copyright_signal_messenger">Molly Messenger এর কপিরাইট</string>
+    <string name="HelpFragment__copyright_signal_messenger">Signal Messenger এর কপিরাইট</string>
     <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3-এর অধীনে লাইসেন্সকৃত</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5157,9 +5212,9 @@
     <string name="MySupportPreference__learn_more">আরো জানুন</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Molly আপডেট করুন</string>
+    <string name="UpdateSignalExpiredDialog__title">Signal আপডেট করুন</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Molly-এর এই সংস্করণটির মেয়াদ শেষ হয়ে গেছে। Molly ব্যবহার চালিয়ে যেতে এখনই আপডেট করুন।</string>
+    <string name="UpdateSignalExpiredDialog__message">Signal-এর এই সংস্করণটির মেয়াদ শেষ হয়ে গেছে। Signal ব্যবহার চালিয়ে যেতে এখনই আপডেট করুন।</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">আপডেট করুন</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5168,7 +5223,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">ডিভাইসটি নিবন্ধিত নয়</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">এই ডিভাইসটি আর নিবন্ধিত নয়। এই ডিভাইসে Molly ব্যবহার চালিয়ে যেতে পুনরায় নিবন্ধন করুন।</string>
+    <string name="ReregisterSignalDialog__message">এই ডিভাইসটি আর নিবন্ধিত নয়। এই ডিভাইসে Signal ব্যবহার চালিয়ে যেতে পুনরায় নিবন্ধন করুন।</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">পূনঃ নিবন্ধন করুন</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5462,7 +5517,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">পিকার খুলতে ব্যর্থ হয়েছে।</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">নোটিফিকেশন চালু করতে, Molly-এর সেগুলো প্রদর্শন করার অনুমতি প্রয়োজন।</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">নোটিফিকেশন চালু করতে, Signal-এর সেগুলো প্রদর্শন করার অনুমতি প্রয়োজন।</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">চালু করুন</string>
 
@@ -6808,18 +6863,27 @@
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">ক্রেডিট বা ডেবিট কার্ড</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__google_pay">Google Pay</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__bank_transfer">Bank transfer</string>
+    <string name="BackupsTypeSettingsFragment__bank_transfer">ব্যাংক ট্রান্সফার</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+    <string name="BackupsTypeSettingsFragment__unknown">অজানা</string>
 
+    <!-- ManageStorageSettingsFragment -->
+    <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
+    <string name="ManageStorageSettingsFragment_chat_limit">চ্যাটের সংখ্যার সীমা</string>
+    <!-- Settings row title text that can be clicked to delete all messages and associated data from the device -->
+    <string name="ManageStorageSettingsFragment_delete_message_history">মেসেজের ইতিহাস মুছে ফেলুন</string>
+    <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (time is a range like 30 days or 1 year etc) -->
+    <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">নির্বাচিত সময়ের চেয়ে পুরানো মেসেজ স্থায়ীভাবে মুছে ফেলা হবে।</string>
+    <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
+    <string name="ManageStorageSettingsFragment_chat_length_limit_warning">নির্বাচিত দৈর্ঘ্যের তুলনায় অধিক দৈর্ঘ্যের মেসেজ স্থায়ীভাবে মুছে ফেলা হবে।</string>
 
     <!-- EOF -->
 </resources>

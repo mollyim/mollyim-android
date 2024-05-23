@@ -12,7 +12,7 @@
         android:id="@+id/map_view"
         android:layout_width="210dp"
         android:layout_height="210dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

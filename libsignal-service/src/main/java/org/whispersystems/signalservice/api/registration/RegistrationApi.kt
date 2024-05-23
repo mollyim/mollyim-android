@@ -31,6 +31,15 @@ class RegistrationApi(
   }
 
   /**
+   * Retrieve current status of a registration session.
+   */
+  fun getRegistrationSessionStatus(sessionId: String): NetworkResult<RegistrationSessionMetadataResponse> {
+    return NetworkResult.fromFetch {
+      pushServiceSocket.getSessionStatus(sessionId)
+    }
+  }
+
+  /**
    * Submit an FCM token to the service as proof that this is an honest user attempting to register.
    */
   fun submitPushChallengeToken(sessionId: String?, pushChallengeToken: String?): NetworkResult<RegistrationSessionMetadataResponse> {
@@ -54,9 +63,18 @@ class RegistrationApi(
   /**
    * Submit a verification code sent by the service via one of the supported channels (SMS, phone call) to prove the registrant's control of the phone number.
    */
-  fun verifyAccount(verificationCode: String, sessionId: String): NetworkResult<RegistrationSessionMetadataResponse> {
+  fun verifyAccount(sessionId: String, verificationCode: String): NetworkResult<RegistrationSessionMetadataResponse> {
     return NetworkResult.fromFetch {
       pushServiceSocket.submitVerificationCode(sessionId, verificationCode)
+    }
+  }
+
+  /**
+   * Submits the solved captcha token to the service.
+   */
+  fun submitCaptchaToken(sessionId: String, captchaToken: String): NetworkResult<RegistrationSessionMetadataResponse> {
+    return NetworkResult.fromFetch {
+      pushServiceSocket.patchVerificationSession(sessionId, null, null, null, captchaToken, null)
     }
   }
 

@@ -1246,6 +1246,10 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
   }
 
   fun getRecipientIdsForThreadIds(threadIds: Collection<Long>): List<RecipientId> {
+    if (threadIds.isEmpty()) {
+      return emptyList()
+    }
+
     val query = SqlUtil.buildSingleCollectionQuery(ID, threadIds)
 
     return readableDatabase
