@@ -329,7 +329,7 @@ public final class Megaphones {
           CommunicationActions.openBrowserLink(listener.getMegaphoneActivity(), context.getString(R.string.donate_url));
           listener.onMegaphoneCompleted(megaphone.getEvent());
         })
-        .setSecondaryButton(R.string.BecomeASustainerMegaphone__not_now, (megaphone, controller) -> controller.onMegaphoneCompleted(megaphone.getEvent()))
+        .setSecondaryButton(R.string.RatingManager_no_thanks, (megaphone, controller) -> controller.onMegaphoneCompleted(megaphone.getEvent()))
         .build();
   }
 
