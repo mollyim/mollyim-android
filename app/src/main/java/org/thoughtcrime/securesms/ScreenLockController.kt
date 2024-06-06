@@ -20,7 +20,7 @@ private val TAG = Log.tag(ScreenLockController.javaClass)
 
 object ScreenLockController {
 
-  private const val SCREEN_LOCK_TIMEOUT_SHORT_MS = 5_000
+  private const val SCREEN_LOCK_TIMEOUT_SHORT_MS = 7_000
   private const val SCREEN_LOCK_TIMEOUT_LONG_MS = 60_000
 
   private const val APP_BACKGROUNDED_EVENT_DELAY_MS = 700
@@ -160,7 +160,7 @@ object ScreenLockController {
     }
 }
 
-@SuppressLint("PrivateApi")
+@SuppressLint("PrivateApi", "DiscouragedPrivateApi")
 object WindowInspectorLegacy {
   private val wmClass = Class.forName("android.view.WindowManagerGlobal")
   private val lockField = wmClass.getDeclaredField("mLock").apply { isAccessible = true }
