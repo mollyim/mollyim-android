@@ -76,7 +76,7 @@
         <item quantity="other">%d dispositivos vinculados</item>
     </plurals>
     <string name="DozeReminder_optimize_for_timely_notifications">Otimizar para notificações atempadas</string>
-    <string name="DeviceAddFragment__link_without_scanning">Hiperligação sem digitalizar</string>
+    <string name="DeviceAddFragment__link_without_scanning">Vincular sem digitalizar</string>
     <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Se o seu dispositivo não puder digitalizar o código QR, pode introduzir manualmente a hiperligação codificada no código QR.</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">O Molly precisa da permissão dos contactos para o ajudar a encontrar os seus amigos. Os seus contactos são carregados utilizando a descoberta de contactos privados do Signal, o que significa que são encriptados de ponta a ponta e nunca visíveis para o serviço Signal.</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Configure primeiro os seus dados biométricos nas configurações do Android</string>
@@ -90,4 +90,26 @@
     <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">Irá aparecer uma notificação quando existirem novas atualizações</string>
     <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s não está registado com o Signal</string>
     <string name="TimeDurationPickerDialog_single_letter_second_abbreviation">s</string>
+    <string name="preferences_appearance__navigation_bar">Barra de navegação</string>
+    <string name="preferences_appearance__show_calls">Mostrar chamadas</string>
+    <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Alternar para mostrar ou ocultar o ícone na barra de navegação</string>
+    <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">As definições do PIN não podem ser alteradas a partir de um dispositivo vinculado</string>
+    <string name="DeviceListItem_device_d">Dispositivo n.º %d</string>
+    <string name="DeviceListItem_primary">Primário</string>
+    <string name="DeviceListItem_this_device">Este dispositivo</string>
+    <string name="DeviceListItem_registered_s">Registado %s</string>
+    <string name="RegistrationActivity_link_device">Vincular a um dispositivo existente</string>
+    <string name="RegistrationActivity_device_name_description">Nome do dispositivo</string>
+    <string name="RegistrationActivity_link">Vincular</string>
+    <string name="RegistrationActivity_enter_a_name_for_this_device">Introduza um nome para este dispositivo</string>
+    <string name="RegistrationActivity_scan_this_qr_using_your_primary_device">Digitalize este código QR utilizando o seu dispositivo principal</string>
+    <string name="RegistrationActivity_copied_to_clipboard">Copiado para a área de transferência</string>
+    <string name="RegistrationActivity_link_error">Ocorreu um erro ao tentar vincular o dispositivo. Verifique a conetividade da rede e tente novamente</string>
+    <string name="RegistrationActivity_link_timeout">Tempo esgotado à espera do dispositivo principal. Prepare o seu dispositivo para ler o código QR e tente novamente</string>
+    <string name="RegistrationActivity_link_retry">Voltar a tentar vincular</string>
+    <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Receber notificações de mensagens ou chamadas não atendidas quando a aplicação está bloqueada.</string>
+    <string name="NotificationsSettingsFragment__push_notifications_unavailable">Notificações push não disponíveis</string>
+    <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">Lamentamos, mas esta funcionalidade requer notificações push entregues através de FCM ou UnifiedPush, que não estão atualmente disponíveis.</string>
+    <string name="NotificationsSettingsFragment__new_activity_while_locked">Nova atividade durante o bloqueio</string>
+    <string name="RegistrationActivity_provider_declined">O fornecedor recusou-se a enviar-lhe um código de verificação, provavelmente devido a regras de prevenção de fraudes.</string>
 </resources>

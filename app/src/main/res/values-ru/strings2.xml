@@ -11,7 +11,7 @@
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Включить шифрование базы данных</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Запрашивать парольную фразу для разблокировки Molly\?</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Теперь вы можете установить парольную фразу для шифрования базы данных. Пока она не будет разблокирована, Molly не сможет получать уведомления или звонки. Это помогает защитить данные на утерянных или украденных устройствах.</string>
-    <string name="WipeMemoryService_secure_wipe_in_progress">Выполняется безопасная очистка</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Выполняется защищенное удаление</string>
     <string name="preferences__passphrase_changed">Парольная фраза изменена</string>
     <string name="preferences__device_lock_timeout">Таймаут блокировки устройства</string>
     <string name="preferences__automatic_lockdown">Автоматическая блокировка</string>
@@ -109,4 +109,8 @@
     <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Получайте уведомления о сообщениях или пропущенных вызовах, когда приложение заблокировано.</string>
     <string name="NotificationsSettingsFragment__push_notifications_unavailable">Push-уведомления недоступны</string>
     <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">К сожалению, для этой функции требуются push-уведомления, доставляемые через FCM или UnifiedPush, которые в настоящее время недоступны.</string>
+    <string name="preferences_appearance__navigation_bar">Панель навигации</string>
+    <string name="preferences_appearance__show_calls">Показать звонки</string>
+    <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Переключите, чтобы показать или скрыть значок на панели навигации</string>
+    <string name="NotificationsSettingsFragment__new_activity_while_locked">Новая активность при блокировке</string>
 </resources>
