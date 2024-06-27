@@ -21,7 +21,7 @@ apply {
 
 val canonicalVersionCode = 1421
 val canonicalVersionName = "7.8.1"
-val mollyRevision = 1
+val mollyRevision = 2
 
 val postFixSize = 100
 
