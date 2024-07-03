@@ -6,7 +6,7 @@ on:
       - "v*"
 
 env:
-  HAVE_KEYSTORE: ${{ secrets.KEYSTORE != '' }}
+  HAVE_KEYSTORE: ${{ secrets.SECRET_KEYSTORE != '' }}
 
 jobs:
   build:
@@ -18,9 +18,8 @@ jobs:
       contents: read # to fetch code (actions/checkout)
 
     env:
+      BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
-      CI_ENV_FILE: ${{ vars.CI_ENV_FILE || 'beta-stable.env' }}
-      CI_MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
     steps:
       - uses: actions/checkout@v3
@@ -29,26 +28,43 @@ jobs:
         run: docker-compose build
         working-directory: reproducible-builds
 
+      - name: Export CI environment variables
+        run: |
+          for var in APP_TITLE APP_FILENAME PACKAGE_ID \
+                     BUILD_VARIANTS FORCE_INTERNAL_USER_FLAG \
+                     MAPS_API_KEY; do
+            if [ -n "${!var}" ]; then
+              echo "CI_$var=${!var}" >> $GITHUB_ENV
+            fi
+          done
+        env:
+          APP_TITLE: ${{ vars.CI_APP_TITLE }}
+          APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
+          PACKAGE_ID: ${{ vars.CI_PACKAGE_ID }}
+          BUILD_VARIANTS: ${{ vars.CI_BUILD_VARIANTS }}
+          FORCE_INTERNAL_USER_FLAG: ${{ vars.CI_FORCE_INTERNAL_USER_FLAG }}
+          MAPS_API_KEY: ${{ vars.CI_MAPS_API_KEY }}
+
       - name: Extract signing keys
         if: "env.HAVE_KEYSTORE == 'true'"
         run: printenv KEYSTORE | base64 -d > certs/keystore.jks
         working-directory: reproducible-builds
         env:
-          KEYSTORE: ${{ secrets.KEYSTORE }}
+          KEYSTORE: ${{ secrets.SECRET_KEYSTORE }}
 
       - name: Build without signing
         if: "env.HAVE_KEYSTORE == 'false'"
-        run: docker-compose --env-file "ci/$CI_ENV_FILE" run assemble
+        run: docker-compose --env-file "ci/$BUILD_ENV_FILE" run assemble
         working-directory: reproducible-builds
 
       - name: Build and sign
         if: "env.HAVE_KEYSTORE == 'true'"
-        run: docker-compose --env-file "ci/$CI_ENV_FILE" run assemble
+        run: docker-compose --env-file "ci/$BUILD_ENV_FILE" run assemble
         working-directory: reproducible-builds
         env:
           CI_KEYSTORE_PATH: certs/keystore.jks
-          CI_KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
-          CI_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          CI_KEYSTORE_ALIAS: ${{ secrets.SECRET_KEYSTORE_ALIAS }}
+          CI_KEYSTORE_PASSWORD: ${{ secrets.SECRET_KEYSTORE_PASSWORD }}
 
       - name: Clean up keystore
         if: "always()"

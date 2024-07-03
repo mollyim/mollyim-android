@@ -20,10 +20,10 @@ jobs:
   build:
     name: Build new
     runs-on: ubuntu-22.04
+
     env:
+      BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
-      CI_ENV_FILE: ${{ vars.CI_ENV_FILE || 'beta-stable.env' }}
-      CI_MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
     steps:
       - uses: actions/checkout@v3
@@ -34,8 +34,25 @@ jobs:
         run: docker-compose build
         working-directory: reproducible-builds
 
+      - name: Export CI environment variables
+        run: |
+          for var in APP_TITLE APP_FILENAME PACKAGE_ID \
+                     BUILD_VARIANTS FORCE_INTERNAL_USER_FLAG \
+                     MAPS_API_KEY; do
+            if [ -n "${!var}" ]; then
+              echo "CI_$var=${!var}" >> $GITHUB_ENV
+            fi
+          done
+        env:
+          APP_TITLE: ${{ vars.CI_APP_TITLE }}
+          APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
+          PACKAGE_ID: ${{ vars.CI_PACKAGE_ID }}
+          BUILD_VARIANTS: ${{ vars.CI_BUILD_VARIANTS }}
+          FORCE_INTERNAL_USER_FLAG: ${{ vars.CI_FORCE_INTERNAL_USER_FLAG }}
+          MAPS_API_KEY: ${{ vars.CI_MAPS_API_KEY }}
+
       - name: Build release
-        run: docker-compose --env-file "ci/$CI_ENV_FILE" run assemble
+        run: docker-compose --env-file "ci/$BUILD_ENV_FILE" run assemble
         working-directory: reproducible-builds
 
       - uses: actions/upload-artifact@v3
