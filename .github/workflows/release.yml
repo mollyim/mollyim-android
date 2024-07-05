@@ -89,15 +89,40 @@ jobs:
           path: reproducible-builds/outputs/bundle/*Release/*.aab
           if-no-files-found: error
 
-  publish:
-    name: Publish
-    needs: build
+  prepare_release:
+    name: Prepare release
+    if: "github.event.base_ref != 'refs/heads/upstream'"
     runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+
+      - name: Check if release exists
+        id: check_release
+        run: |
+          if gh release view "$GITHUB_REF_NAME"; then
+            echo "release_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "release_exists=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create release draft
+        if: "steps.check_release.outputs.release_exists == 'false'"
+        run: gh release create -d --verify-tag -t "$GITHUB_REF_NAME" "$GITHUB_REF_NAME"
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
+
+  upload:
+    name: Upload
+    runs-on: ubuntu-22.04
+    needs:
+      - build
+      - prepare_release
+
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Download artifacts
         uses: actions/download-artifact@v3
@@ -118,11 +143,14 @@ jobs:
           build_version_code=$(version_code "$build_apks")
           echo "Latest version code: $latest_version_code"
           echo "Build version code: $build_version_code"
-          test $build_version_code -gt $latest_version_code
+          if [ "$build_version_code" -le "$latest_version_code" ]; then
+            echo "Build version code must be greater than the latest version code" >&2
+            exit 1
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create release draft
-        run: gh release create -d -t "$GITHUB_REF_NAME" "$GITHUB_REF_NAME" ./apk/*/release/*.apk
+      - name: Upload APKs to GitHub release
+        run: gh release upload "$GITHUB_REF_NAME" ./apk/*/release/*.apk --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
