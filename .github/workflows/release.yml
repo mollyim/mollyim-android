@@ -4,9 +4,14 @@ on:
   push:
     tags:
       - "v*"
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
 
 env:
-  HAVE_KEYSTORE: ${{ secrets.SECRET_KEYSTORE != '' }}
+  TAG_REF: "${{ inputs.version || github.ref_name }}"
 
 jobs:
   build:
@@ -19,10 +24,13 @@ jobs:
 
     env:
       BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
+      HAVE_KEYSTORE: ${{ secrets.SECRET_KEYSTORE != '' }}
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: "${{ env.TAG_REF }}"
 
       - name: Set up builder image
         run: docker-compose build
@@ -96,11 +104,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: "${{ env.TAG_REF }}"
 
       - name: Check if release exists
         id: check_release
         run: |
-          if gh release view "$GITHUB_REF_NAME"; then
+          if gh release view "$TAG_REF"; then
             echo "release_exists=true" >> $GITHUB_OUTPUT
           else
             echo "release_exists=false" >> $GITHUB_OUTPUT
@@ -110,7 +120,7 @@ jobs:
 
       - name: Create release draft
         if: "steps.check_release.outputs.release_exists == 'false'"
-        run: gh release create -d --verify-tag -t "$GITHUB_REF_NAME" "$GITHUB_REF_NAME"
+        run: gh release create -d --verify-tag -t "$TAG_REF" "$TAG_REF"
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
 
@@ -123,6 +133,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: "${{ env.TAG_REF }}"
 
       - name: Download artifacts
         uses: actions/download-artifact@v3
@@ -151,6 +163,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload APKs to GitHub release
-        run: gh release upload "$GITHUB_REF_NAME" ./apk/*/release/*.apk --clobber
+        run: gh release upload "$TAG_REF" ./apk/*/release/*.apk --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}

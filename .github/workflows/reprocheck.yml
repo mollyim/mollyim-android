@@ -3,7 +3,7 @@ name: Reproducible build
 on:
   workflow_dispatch:
     inputs:
-      tag_name:
+      version:
         description: "Enter the version to check"
         required: true
   release:
@@ -14,7 +14,7 @@ permissions:
   contents: read # to fetch code (actions/checkout)
 
 env:
-  TAG_NAME: "${{ github.event.inputs.tag_name || github.event.release.tag_name }}"
+  TAG_REF: "${{ github.event.inputs.version || github.event.release.tag_name }}"
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: "${{ env.TAG_NAME }}"
+          ref: "${{ env.TAG_REF }}"
 
       - name: Set up builder image
         run: docker-compose build
@@ -76,10 +76,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: "${{ env.TAG_NAME }}"
+          ref: "${{ env.TAG_REF }}"
 
       - name: Download published APKs
-        run: gh release download --pattern '*.apk' "$TAG_NAME"
+        run: gh release download --pattern '*.apk' "$TAG_REF"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
