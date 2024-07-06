@@ -25,6 +25,8 @@ val mollyRevision = 2
 
 val postFixSize = 100
 
+val sourceVersionNameWithRevision = "${canonicalVersionName}-${mollyRevision}"
+
 val selectableVariants = listOf(
   "prodFossWebsiteDebug",
   "prodFossWebsiteRelease",
@@ -150,7 +152,7 @@ android {
 
   defaultConfig {
     versionCode = canonicalVersionCode * postFixSize + mollyRevision
-    versionName = if (ciEnabled) getCommitTag() else canonicalVersionName
+    versionName = if (ciEnabled) getCommitTag() else sourceVersionNameWithRevision
 
     minSdk = signalMinSdkVersion
     targetSdk = signalTargetSdkVersion

@@ -1,7 +1,8 @@
+import com.android.build.gradle.AppExtension
+import org.jetbrains.kotlin.com.google.gson.Gson
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import javax.xml.parsers.DocumentBuilderFactory
-import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
@@ -74,5 +75,20 @@ val updateTranslationsForMolly by tasks.registering {
         logger.error("Error processing file: ${translationFile.path}, ${e.message}")
       }
     }
+  }
+}
+
+val version by tasks.registering {
+  doLast {
+    val android = project.extensions.getByType(AppExtension::class)
+    val versionCode = android.defaultConfig.versionCode
+    val versionName = android.defaultConfig.versionName
+
+    val versionInfo = mapOf(
+      "versionCode" to versionCode,
+      "versionName" to versionName
+    )
+
+    println(Gson().toJson(versionInfo))
   }
 }
