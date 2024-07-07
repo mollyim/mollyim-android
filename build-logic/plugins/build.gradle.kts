@@ -2,7 +2,6 @@ import org.gradle.kotlin.dsl.extra
 
 plugins {
   `kotlin-dsl`
-  id("groovy-gradle-plugin")
 }
 
 val signalJavaVersion: JavaVersion by rootProject.extra

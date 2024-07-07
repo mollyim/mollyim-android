@@ -10,7 +10,6 @@ plugins {
   id("kotlin-parcelize")
   id("com.squareup.wire")
   id("molly")
-  id("licenses")
 }
 
 // Sort baseline.profm for reproducible builds
