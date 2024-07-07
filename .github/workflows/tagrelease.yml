@@ -12,7 +12,7 @@ jobs:
       should_call_release: ${{ steps.release_trigger.outputs.should_call_release }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
 

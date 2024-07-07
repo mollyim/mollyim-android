@@ -28,7 +28,7 @@ jobs:
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: "${{ env.TAG_REF }}"
 
@@ -84,14 +84,14 @@ jobs:
         working-directory: reproducible-builds
 
       - name: Upload APKs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: apk
           path: reproducible-builds/outputs/apk/*/release/*.apk
           if-no-files-found: error
 
       - name: Upload Bundles
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bundle
           path: reproducible-builds/outputs/bundle/*Release/*.aab
@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: "${{ env.TAG_REF }}"
 
@@ -132,12 +132,12 @@ jobs:
       - prepare_release
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: "${{ env.TAG_REF }}"
 
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
 
       - name: Check version for upgrade compatibility
         run: |
