@@ -18,7 +18,7 @@ import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.BackupRepository.getThumbnailMediaName
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.PartProgressEvent
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JobLogger.format
@@ -89,22 +89,17 @@ class RestoreAttachmentJob private constructor(
       return ids.contains(parsed)
     }
 
-    fun modifyPriorities(ids: Set<AttachmentId>, priority: Int) {
-      val jobManager = ApplicationDependencies.getJobManager()
-      jobManager.update { spec ->
-        val jobData = getJsonJobData(spec)
-        if (jobSpecMatchesAnyAttachmentId(jobData, ids) && spec.priority != priority) {
-          val restoreMode = RestoreMode.deserialize(jobData!!.getIntOrDefault(KEY_RESTORE_MODE, RestoreMode.ORIGINAL.value))
-          val modifiedJobData = if (restoreMode == RestoreMode.ORIGINAL) {
-            jobData.buildUpon().putInt(KEY_RESTORE_MODE, RestoreMode.BOTH.value).build()
-          } else {
-            jobData
-          }
-          spec.copy(priority = priority, serializedData = modifiedJobData.serialize())
-        } else {
-          spec
-        }
-      }
+    @JvmStatic
+    fun restoreOffloadedAttachment(attachment: DatabaseAttachment): String {
+      val restoreJob = RestoreAttachmentJob(
+        messageId = attachment.mmsId,
+        attachmentId = attachment.attachmentId,
+        manual = false,
+        forceArchiveDownload = true,
+        restoreMode = RestoreAttachmentJob.RestoreMode.ORIGINAL
+      )
+      AppDependencies.jobManager.add(restoreJob)
+      return restoreJob.id
     }
   }
 
@@ -148,7 +143,7 @@ class RestoreAttachmentJob private constructor(
     val attachmentId = AttachmentId(attachmentId)
     val attachment = SignalDatabase.attachments.getAttachment(attachmentId)
     val pending = attachment != null && attachment.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE && attachment.transferState != AttachmentTable.TRANSFER_PROGRESS_PERMANENT_FAILURE
-    if (attachment?.transferState == AttachmentTable.TRANSFER_NEEDS_RESTORE) {
+    if (attachment?.transferState == AttachmentTable.TRANSFER_NEEDS_RESTORE || attachment?.transferState == AttachmentTable.TRANSFER_RESTORE_OFFLOADED) {
       Log.i(TAG, "onAdded() Marking attachment restore progress as 'started'")
       SignalDatabase.attachments.setTransferState(messageId, attachmentId, AttachmentTable.TRANSFER_RESTORE_IN_PROGRESS)
     }
@@ -159,7 +154,7 @@ class RestoreAttachmentJob private constructor(
     doWork()
 
     if (!SignalDatabase.messages.isStory(messageId)) {
-      ApplicationDependencies.getMessageNotifier().updateNotification(context, forConversation(0))
+      AppDependencies.messageNotifier.updateNotification(context, forConversation(0))
     }
   }
 
@@ -232,7 +227,7 @@ class RestoreAttachmentJob private constructor(
         false
       }
 
-      val messageReceiver = ApplicationDependencies.getSignalServiceMessageReceiver()
+      val messageReceiver = AppDependencies.signalServiceMessageReceiver
       val pointer = createAttachmentPointer(attachment, useArchiveCdn)
 
       val progressListener = object : SignalServiceAttachment.ProgressListener {
@@ -257,6 +252,7 @@ class RestoreAttachmentJob private constructor(
             pointer,
             attachmentFile,
             maxReceiveSize,
+            false,
             progressListener
           )
       } else {
@@ -391,16 +387,7 @@ class RestoreAttachmentJob private constructor(
     val backupDirectories = BackupRepository.getCdnBackupDirectories().successOrThrow()
     return try {
       val key = backupKey.deriveThumbnailTransitKey(attachment.getThumbnailMediaName())
-
-      if (attachment.remoteDigest != null) {
-        Log.i(TAG, "Downloading attachment with digest: " + Hex.toString(attachment.remoteDigest))
-      } else {
-        Log.i(TAG, "Downloading attachment with no digest...")
-      }
-
       val mediaId = backupKey.deriveMediaId(attachment.getThumbnailMediaName()).encode()
-      Log.i(TAG, "Restore: Thumbnail mediaId=$mediaId backupDir=${backupDirectories.backupDir} mediaDir=${backupDirectories.mediaDir}")
-
       SignalServiceAttachmentPointer(
         attachment.archiveThumbnailCdn,
         SignalServiceAttachmentRemoteId.Backup(
@@ -414,7 +401,7 @@ class RestoreAttachmentJob private constructor(
         Optional.empty(),
         0,
         0,
-        Optional.ofNullable(attachment.remoteDigest),
+        Optional.empty(),
         Optional.empty(),
         attachment.incrementalMacChunkSize,
         Optional.empty(),
@@ -435,8 +422,16 @@ class RestoreAttachmentJob private constructor(
   }
 
   private fun downloadThumbnail(attachmentId: AttachmentId, attachment: DatabaseAttachment) {
-    if (attachment.transferState == AttachmentTable.TRANSFER_RESTORE_OFFLOADED) {
+    if (attachment.thumbnailRestoreState == AttachmentTable.ThumbnailRestoreState.FINISHED) {
       Log.w(TAG, "$attachmentId already has thumbnail downloaded")
+      return
+    }
+    if (attachment.thumbnailRestoreState == AttachmentTable.ThumbnailRestoreState.NONE) {
+      Log.w(TAG, "$attachmentId has no thumbnail state")
+      return
+    }
+    if (attachment.thumbnailRestoreState == AttachmentTable.ThumbnailRestoreState.PERMANENT_FAILURE) {
+      Log.w(TAG, "$attachmentId thumbnail permanently failed")
       return
     }
     if (attachment.archiveMediaName == null) {
@@ -450,7 +445,6 @@ class RestoreAttachmentJob private constructor(
 
     val progressListener = object : SignalServiceAttachment.ProgressListener {
       override fun onAttachmentProgress(total: Long, progress: Long) {
-        EventBus.getDefault().postSticky(PartProgressEvent(attachment, PartProgressEvent.Type.NETWORK, total, progress))
       }
 
       override fun shouldCancel(): Boolean {
@@ -459,7 +453,7 @@ class RestoreAttachmentJob private constructor(
     }
 
     val cdnCredentials = BackupRepository.getCdnReadCredentials(attachment.archiveCdn).successOrThrow().headers
-    val messageReceiver = ApplicationDependencies.getSignalServiceMessageReceiver()
+    val messageReceiver = AppDependencies.signalServiceMessageReceiver
     val pointer = createThumbnailPointer(attachment)
 
     Log.w(TAG, "Downloading thumbnail for $attachmentId mediaName=${attachment.getThumbnailMediaName()}")
@@ -471,6 +465,7 @@ class RestoreAttachmentJob private constructor(
         pointer,
         thumbnailFile,
         maxThumbnailSize,
+        true,
         progressListener
       )
 

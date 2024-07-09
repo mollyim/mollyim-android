@@ -18,7 +18,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.LoggingFragment;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.qr.QrView;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.registration.viewmodel.RegistrationViewModel;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -66,7 +66,7 @@ public final class LinkDeviceFragment extends LoggingFragment {
     viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
 
     TextSecurePreferences.setHasSeenNetworkConfig(requireContext(), true);
-    ApplicationDependencies.getNetworkManager().setNetworkEnabled(true);
+    AppDependencies.getNetworkManager().setNetworkEnabled(true);
 
     state = 0;
     attemptDeviceLink();

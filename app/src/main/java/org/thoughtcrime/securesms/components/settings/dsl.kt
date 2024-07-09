@@ -1,4 +1,4 @@
-@file:Suppress("ktlint:filename")
+@file:Suppress("ktlint:standard:filename")
 
 package org.thoughtcrime.securesms.components.settings
 
@@ -161,18 +161,20 @@ class DSLConfiguration {
     text: DSLSettingsText,
     icon: DSLSettingsIcon? = null,
     isEnabled: Boolean = true,
+    disableOnClick: Boolean = false,
     onClick: () -> Unit
   ) {
-    val preference = Button.Model.Primary(text, icon, isEnabled, onClick)
+    val preference = Button.Model.Primary(text, icon, isEnabled, disableOnClick, onClick)
     children.add(preference)
   }
 
   fun primaryWrappedButton(
     text: DSLSettingsText,
     isEnabled: Boolean = true,
+    disableOnClick: Boolean = false,
     onClick: () -> Unit
   ) {
-    val preference = Button.Model.PrimaryWrapped(text, null, isEnabled, onClick)
+    val preference = Button.Model.PrimaryWrapped(text, null, isEnabled, disableOnClick, onClick)
     children.add(preference)
   }
 
@@ -180,9 +182,10 @@ class DSLConfiguration {
     text: DSLSettingsText,
     icon: DSLSettingsIcon? = null,
     isEnabled: Boolean = true,
+    disableOnClick: Boolean = false,
     onClick: () -> Unit
   ) {
-    val preference = Button.Model.Tonal(text, icon, isEnabled, onClick)
+    val preference = Button.Model.Tonal(text, icon, isEnabled, disableOnClick, onClick)
     children.add(preference)
   }
 
@@ -190,9 +193,10 @@ class DSLConfiguration {
     text: DSLSettingsText,
     icon: DSLSettingsIcon? = null,
     isEnabled: Boolean = true,
+    disableOnClick: Boolean = false,
     onClick: () -> Unit
   ) {
-    val preference = Button.Model.TonalWrapped(text, icon, isEnabled, onClick)
+    val preference = Button.Model.TonalWrapped(text, icon, isEnabled, disableOnClick, onClick)
     children.add(preference)
   }
 
@@ -200,9 +204,10 @@ class DSLConfiguration {
     text: DSLSettingsText,
     icon: DSLSettingsIcon? = null,
     isEnabled: Boolean = true,
+    disableOnClick: Boolean = false,
     onClick: () -> Unit
   ) {
-    val preference = Button.Model.SecondaryNoOutline(text, icon, isEnabled, onClick)
+    val preference = Button.Model.SecondaryNoOutline(text, icon, isEnabled, disableOnClick, onClick)
     children.add(preference)
   }
 

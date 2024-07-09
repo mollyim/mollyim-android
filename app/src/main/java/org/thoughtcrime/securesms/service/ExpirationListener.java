@@ -2,19 +2,18 @@ package org.thoughtcrime.securesms.service;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import org.signal.core.util.PendingIntentFlags;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 
 public class ExpirationListener extends ExportedBroadcastReceiver {
 
   @Override
   public void onReceiveUnlock(Context context, Intent intent) {
-    ApplicationDependencies.getExpiringMessageManager().checkSchedule();
+    AppDependencies.getExpiringMessageManager().checkSchedule();
   }
 
   public static void setAlarm(Context context, long waitTimeMillis) {

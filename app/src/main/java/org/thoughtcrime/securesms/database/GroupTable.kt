@@ -39,7 +39,7 @@ import org.thoughtcrime.securesms.contacts.paged.collections.ContactSearchIterat
 import org.thoughtcrime.securesms.crypto.SenderKeyUtil
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.recipients
 import org.thoughtcrime.securesms.database.model.GroupRecord
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.BadGroupIdException
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.GroupId.Push
@@ -617,7 +617,7 @@ class GroupTable(context: Context?, databaseHelper: SignalDatabase?) : DatabaseT
     }
 
     Log.w(TAG, "Scheduling request for latest group info for $groupId")
-    ApplicationDependencies.getJobManager().add(RequestGroupV2InfoJob(groupId))
+    AppDependencies.jobManager.add(RequestGroupV2InfoJob(groupId))
   }
 
   /**
@@ -1271,7 +1271,8 @@ class GroupTable(context: Context?, databaseHelper: SignalDatabase?) : DatabaseT
   }
 
   enum class MemberSet(val includeSelf: Boolean, val includePending: Boolean) {
-    FULL_MEMBERS_INCLUDING_SELF(true, false), FULL_MEMBERS_EXCLUDING_SELF(false, false)
+    FULL_MEMBERS_INCLUDING_SELF(true, false),
+    FULL_MEMBERS_EXCLUDING_SELF(false, false)
   }
 
   /**

@@ -123,12 +123,13 @@ public interface BindableConversationItem extends Unbindable, GiphyMp4Playable, 
     /** @return true if handled, false if you want to let the normal url handling continue */
     boolean onUrlClicked(@NonNull String url);
     void goToMediaPreview(ConversationItem parent, View sharedElement, MediaIntentFactory.MediaPreviewArgs args);
-    void onEditedIndicatorClicked(@NonNull MessageRecord messageRecord);
+    void onEditedIndicatorClicked(@NonNull ConversationMessage conversationMessage);
     void onShowGroupDescriptionClicked(@NonNull String groupName, @NonNull String description, boolean shouldLinkifyWebLinks);
     void onJoinCallLink(@NonNull CallLinkRootKey callLinkRootKey);
     void onShowSafetyTips(boolean forGroup);
     void onReportSpamLearnMoreClicked();
     void onMessageRequestAcceptOptionsClicked();
     void onItemDoubleClick(MultiselectPart multiselectPart);
+    void onPaymentTombstoneClicked();
   }
 }

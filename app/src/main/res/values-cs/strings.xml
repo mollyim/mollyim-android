@@ -226,37 +226,37 @@
     <string name="CameraXFragment_change_camera_description">Změnit kameru</string>
     <string name="CameraXFragment_open_gallery_description">Otevřít galerii</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">Povolit přístup</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Povolte přístup k fotoaparátu a mikrofonu</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">Povolte přístup k fotoaparátu</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">Povolte přístup k mikrofonu</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Chcete-li pořizovat fotografie, povolte aplikaci Signal přístup k fotoaparátu.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Pro pořizování fotografií nebo videa potřebuje Signal přístup k fotoaparátu.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Chcete-li pořizovat fotografie a natáčet videa, povolte aplikaci Signal přístup k fotoaparátu a mikrofonu.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Chcete-li natáčet videa se zvukem, povolte aplikaci Signal přístup k mikrofonu.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Chcete-li naskenovat QR kód, povolte aplikaci Signal přístup k fotoaparátu.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">K pořizování fotografií vyžaduje Signal přístup k fotoaparátu</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Ke skenování QR kódů vyžaduje Signal přístup k fotoaparátu</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">K natáčení videa vyžaduje Signal přístup k mikrofonu</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Jak pořizovat fotografie v aplikaci Signal:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Jak pořizovat fotografie a natáčet videa v aplikaci Signal:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">Jak natáčet videa se zvukem:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">Jak skenovat QR kódy:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Nedávné kontakty</string>
@@ -329,8 +329,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Zpráva %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Hlasový hovor Signal %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Videohovor Signal %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -565,6 +565,13 @@
     <string name="ConversationFragment_delete_on_this_device">Odstranit v tomto zařízení</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Odstranit všude</string>
+    <!-- Dialog message when deleting individual messages and you have a linked device that the delete will sync to -->
+    <plurals name="ConversationFragment_delete_on_linked_warning">
+        <item quantity="one">Tato zpráva bude odstraněna ze všech vašich zařízení.</item>
+        <item quantity="few">Tyto zprávy budou odstraněny ze všech vašich zařízení.</item>
+        <item quantity="many">Tyto zprávy budou odstraněny ze všech vašich zařízení.</item>
+        <item quantity="other">Tyto zprávy budou odstraněny ze všech vašich zařízení.</item>
+    </plurals>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Tato zpráva bude smazána pro všechny v chatu, pokud používají poslední verzi aplikace Signal. Uvidí, že jste zprávu odstranili.</string>
     <string name="ConversationFragment_quoted_message_not_found">Původní zpráva nebyla nalezena</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Původní zpráva již není dostupná</string>
@@ -668,6 +675,13 @@
         <item quantity="few">Tímto trvale odstraníte všechny %1$d vybrané chaty.</item>
         <item quantity="many">Tímto trvale odstraníte všech %1$d vybraných chatů.</item>
         <item quantity="other">Tímto trvale odstraníte všech %1$d vybraných chatů.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">Tím se trvale odstraní zvolený chat ze všech vašich zařízení.</item>
+        <item quantity="few">Tím se trvale odstraní %1$d zvolené chaty ze všech vašich zařízení.</item>
+        <item quantity="many">Tím se trvale odstraní %1$d zvolených chatů ze všech vašich zařízení.</item>
+        <item quantity="other">Tím se trvale odstraní %1$d zvolených chatů ze všech vašich zařízení.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Mažu</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -1098,7 +1112,7 @@
     <string name="PromptBatterySaverBottomSheet__dismiss">Zavřít</string>
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Nevyřízené skupinové pozvánky</string>
+    <string name="PendingMembersActivity_pending_group_invites">Požadavky a pozvání</string>
     <string name="PendingMembersActivity_requests">Požadavky</string>
     <string name="PendingMembersActivity_invites">Pozvánky</string>
     <string name="PendingMembersActivity_people_you_invited">Osoby, které jste pozvali</string>
@@ -1402,6 +1416,13 @@
         <item quantity="few">Tímto trvale odstraníte všechny %1$d vybrané soubory. Veškerý text zpráv přidružený k těmto položkám bude rovněž odstraněn.</item>
         <item quantity="many">Tímto trvale odstraníte všech %1$d vybraných souborů. Veškerý text zpráv přidružený k těmto položkám bude rovněž odstraněn.</item>
         <item quantity="other">Tímto trvale odstraníte všech %1$d vybraných souborů. Veškerý text zpráv přidružený k těmto položkám bude rovněž odstraněn.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many attachments from the media overview screen -->
+    <plurals name="MediaOverviewActivity_Media_delete_confirm_message_linked_device">
+        <item quantity="one">Tím se trvale odstraní zvolený soubor ze všech vašich zařízení. Veškerý text zpráv spojený s touto položkou bude také odstraněn.</item>
+        <item quantity="few">Tím se trvale odstraní %1$d zvolené soubory ze všech vašich zařízení. Veškerý text zpráv spojený s těmito položkami bude také odstraněn.</item>
+        <item quantity="many">Tím se trvale odstraní %1$d zvolených souborů ze všech vašich zařízení. Veškerý text zpráv spojený s těmito položkami bude také odstraněn.</item>
+        <item quantity="other">Tím se trvale odstraní %1$d zvolených souborů ze všech vašich zařízení. Veškerý text zpráv spojený s těmito položkami bude také odstraněn.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Mazání</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Mazání zpráv…</string>
@@ -1733,6 +1754,14 @@
     <string name="MessageRecord_you_activated_payments">Platby máte aktivované</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s teď může přijímat Platby</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">Údaje o platbě nejsou k dispozici</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Klepnutím zobrazíte více</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">Údaje o platbě nejsou k dispozici</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">Podrobnosti o této platbě nejsou k dispozici, protože vaše zprávy byly obnoveny ze zdroje, který historii plateb neobsahoval. Nemá to vliv na zůstatek ani stav proběhlých plateb.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1796,6 +1825,8 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">V aplikaci Signal již nelze odesílat zprávy SMS. Pozvěte kontakt %1$s do aplikace Signal a pokračujte v konverzaci zde.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Platba: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Platba</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Nahlášeno jako spam</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -2069,6 +2100,26 @@
     <string name="WebRtcCallActivity__removed_from_call">Byl/a jste odebrán/a z hovoru</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Někdo vás odebral z hovoru.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Povolte přístup k fotoaparátu a mikrofonu</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Povolte přístup k mikrofonu</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Povolte přístup k fotoaparátu</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Pro zahájení nebo připojení se k hovoru potřebuje aplikace Signal přístup ke kameře a mikrofonu.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">Pro zahájení nebo připojení se k hovoru povolte aplikaci Signal přístup k mikrofonu.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Pro použití videa povolte aplikaci Signal přístup k fotoaparátu.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Pro zahájení nebo připojení k hovoru potřebuje aplikace Signal přístup k mikrofonu.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Pro použití videa potřebuje aplikace Signal přístup k fotoaparátu</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">Zahájení hovoru nebo připojení se k němu:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">Jak používat video:</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal hovor</string>
@@ -2175,26 +2226,18 @@
     <string name="CallOverflowPopupWindow__lower_hand">Dát ruku dolů</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Zrušit</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">Máte zvednutou ruku</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Zobrazit</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">%1$s má zvednutou ruku</item>
-        <item quantity="few">%1$s a %2$d mají zvednutou ruku</item>
-        <item quantity="many">%1$s a %2$d mají zvednutou ruku</item>
-        <item quantity="other">%1$s a %2$d mají zvednutou ruku</item>
-    </plurals>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_singular">%1$s má zvednutou ruku</string>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_plural">%1$s a %2$d mají zvednutou ruku</string>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="one">%1$s</item>
-        <item quantity="few">%1$s a %2$d</item>
-        <item quantity="many">%1$s a %2$d</item>
-        <item quantity="other">%1$s a %2$d</item>
-    </plurals>
+    <!-- A badge to show how many hands are raised. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar_raised_hands_plural">%1$s +%2$d</string>
 
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Rozbalit zobrazení zvednutých rukou</string>
@@ -2346,8 +2389,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Máte potíže s registrací?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Ujistěte se, že váš telefon má signál, abyste mohli přijímat SMS nebo volání\n • Potvrďte, že můžete na tomto čísle přijímat telefonní hovory\n • Zkontrolujte, že jste své telefonní číslo zadali správně.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Další informace získáte podle těchto kroků pro řešení problémů, nebo kontaktujte podporu</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Více informací na %1$s nebo %2$s</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">kroků pro řešení problémů</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2640,6 +2683,8 @@
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nelze ukládat do externího úložiště bez oprávnění.</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Odstranit zprávu?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Tímto tuto zprávu trvale odstraníte.</string>
+    <!-- Dialog message shown when deleting an attachment and message -->
+    <string name="MediaPreviewActivity_media_delete_confirmation_message_linked_device">Tím se trvale odstraní tato zpráva ze všech vašich zařízení.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s pro %2$s</string>
     <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
     <string name="MediaPreviewActivity_you_to_s">Odesláno uživateli %1$s</string>
@@ -2881,9 +2926,9 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Chybí někdo? Zkuste provést obnovení</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Najděte v aplikaci Signal lidi, které znáte</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Povolte přístup ke svým kontaktům</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Více</string>
 
@@ -2920,13 +2965,13 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Najít podle uživatelského jména</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">Povolte přístup ke kontaktům</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Jak najít v aplikaci Signal lidi, které znáte:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">Povolit přístup</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Povolte přístup ke svým kontaktům. Vaše kontakty jsou šifrované a nejsou ve službě Signal viditelné.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal potřebuje přístup k vašim kontaktům, aby je mohl zobrazit.</string>
@@ -3529,8 +3574,12 @@
         <item quantity="other">Tím se trvale zkrátí všechny chaty na %1$s nejnovějších zpráv.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Tímto trvale odstraníte veškerou historii zpráv a mediální soubory z vašeho zařízení.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">Trvale se tak odstraní veškerá historie zpráv a médií z tohoto zařízení a všech propojených zařízení.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Opravdu chcete odstranit veškerou historii zpráv?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Veškerá historie zpráv bude trvale odstraněna. Tuto akci nelze vrátit zpět.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">Ze všech zařízení bude trvale odstraněna veškerá historie zpráv. Tuto operaci nelze vzít zpět.</string>
     <string name="preferences_storage__delete_all_now">Vše nyní odstranit</string>
     <string name="preferences_storage__forever">Navždy</string>
     <string name="preferences_storage__one_year">1 rok</string>
@@ -5920,8 +5969,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">Zatím žádné odpovědi</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">Na tento příběh nemůžete reagovat, protože už nejste členem této skupiny.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Reagoval/a na příběh</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">Reagoval/a jste na příběh</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">Reagoval/a na příběh</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Zobrazení</string>
     <!-- Label for story replies tab -->
@@ -7179,13 +7230,24 @@
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
-    <string name="ManageStorageSettingsFragment_chat_limit">Omezení chatu</string>
+    <string name="ManageStorageSettingsFragment_chat_limit">Limity délky historie chatu</string>
     <!-- Settings row title text that can be clicked to delete all messages and associated data from the device -->
     <string name="ManageStorageSettingsFragment_delete_message_history">Smazat historii zpráv</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (time is a range like 30 days or 1 year etc) -->
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Zprávy starší než zvolené období budou trvale odstraněny.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Zprávy přesahující zvolenou délku budou trvale odstraněny.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Použít limity u propojených zařízení</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Pokud jsou limity chatu povoleny, budou se mazat i zprávy z propojených zařízení.</string>
+
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">Odstraňování zpráv je nyní synchronizováno pro všechna vaše zařízení</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">Když odstraníte zprávy, média nebo chaty, budou odstraněny z vašeho telefonu i všech propojených zařízení.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">OK</string>
 
     <!-- EOF -->
 </resources>

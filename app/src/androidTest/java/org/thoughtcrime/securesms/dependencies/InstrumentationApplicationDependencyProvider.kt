@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.dependencies
 
 import android.app.Application
+import io.mockk.spyk
 import okhttp3.ConnectionSpec
 import okhttp3.Response
 import okhttp3.WebSocket
@@ -24,6 +25,9 @@ import org.thoughtcrime.securesms.testing.Get
 import org.thoughtcrime.securesms.testing.Verb
 import org.thoughtcrime.securesms.testing.runSync
 import org.thoughtcrime.securesms.testing.success
+import org.whispersystems.signalservice.api.SignalServiceDataStore
+import org.whispersystems.signalservice.api.SignalServiceMessageSender
+import org.whispersystems.signalservice.api.SignalWebSocket
 import org.whispersystems.signalservice.api.push.TrustStore
 import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl
 import org.whispersystems.signalservice.internal.configuration.SignalCdsiUrl
@@ -37,12 +41,13 @@ import org.whispersystems.signalservice.internal.configuration.SignalSvr2Url
  *
  * Handles setting up a mock web server for API calls, and provides mockable versions of [SignalServiceNetworkAccess].
  */
-class InstrumentationApplicationDependencyProvider(val application: Application, private val default: ApplicationDependencyProvider) : ApplicationDependencies.Provider by default {
+class InstrumentationApplicationDependencyProvider(val application: Application, private val default: ApplicationDependencyProvider) : AppDependencies.Provider by default {
 
   private val serviceTrustStore: TrustStore
   private val uncensoredConfiguration: SignalServiceConfiguration
   private val serviceNetworkAccessMock: SignalServiceNetworkAccess
   private val recipientCache: LiveRecipientCache
+  private var signalServiceMessageSender: SignalServiceMessageSender? = null
 
   init {
     runSync {
@@ -100,6 +105,17 @@ class InstrumentationApplicationDependencyProvider(val application: Application,
 
   override fun provideRecipientCache(): LiveRecipientCache {
     return recipientCache
+  }
+
+  override fun provideSignalServiceMessageSender(
+    signalWebSocket: SignalWebSocket,
+    protocolStore: SignalServiceDataStore,
+    signalServiceConfiguration: SignalServiceConfiguration
+  ): SignalServiceMessageSender {
+    if (signalServiceMessageSender == null) {
+      signalServiceMessageSender = spyk(objToCopy = default.provideSignalServiceMessageSender(signalWebSocket, protocolStore, signalServiceConfiguration))
+    }
+    return signalServiceMessageSender!!
   }
 
   class MockWebSocket : WebSocketListener() {

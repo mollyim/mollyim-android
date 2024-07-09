@@ -226,37 +226,37 @@
     <string name="CameraXFragment_change_camera_description">Bytt kamera</string>
     <string name="CameraXFragment_open_gallery_description">Åpne galleri</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">Tillat Tilgang</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Gi tilgang til kameraet og mikrofonen</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">Gi tilgang til kameraet</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">Gi tilgang til mikrofonen</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Gi Signal tilgang til kameraet for å ta bilder.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Du må gi Signal «Kamera»-tillatelse på systemet for å kunne filme og ta bilder.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Gi Signal tilgang til kameraet og mikrofonen for å ta bilder og spille inn videoer.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Gi Signal tilgang til mikrofonen for å spille inn videoer med lyd.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Gi Signal tilgang til kameraet for å skanne QR-koder.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Du må gi Signal tilgang til kameraet for å ta bilder</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Du må gi Signal tilgang til kameraet for å skanne QR-koder</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Du må gi Signal tilgang til mikrofonen for å spille inn videoer</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Slik tar du bilder i Signal:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Slik tar du bilder og spiller inn videoer i Signal:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">Slik spiller du inn videoer med lyd:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">Slik skanner du QR-koder:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Nylige kontakter</string>
@@ -327,8 +327,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Melding %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Lydsamtale i Signal %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Videosamtale i Signal %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -547,6 +547,11 @@
     <string name="ConversationFragment_delete_on_this_device">Slett på denne enheten</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Slett overalt</string>
+    <!-- Dialog message when deleting individual messages and you have a linked device that the delete will sync to -->
+    <plurals name="ConversationFragment_delete_on_linked_warning">
+        <item quantity="one">Denne meldingen slettes fra alle enhetene dine.</item>
+        <item quantity="other">Disse meldingene slettes fra alle enhetene dine.</item>
+    </plurals>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Denne meldingen slettes for alle i samtalen dersom de er på en ny versjon av Signal. De vil kunne se at du har slettet en melding.</string>
     <string name="ConversationFragment_quoted_message_not_found">Opprinnelig melding ikke funnet</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Opprinnelig melding er ikke lenger tilgjengelig</string>
@@ -646,6 +651,11 @@
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">Den valgte samtalen slettes for godt.</item>
         <item quantity="other">De %1$d valgte samtalene slettes for godt.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">Den valgte samtalen slettes permanent fra alle enhetene dine.</item>
+        <item quantity="other">De %1$d valgte samtalene slettes permanent fra alle enhetene dine.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Sletter</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -1036,7 +1046,7 @@
     <string name="PromptBatterySaverBottomSheet__dismiss">Avbryt</string>
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Ventende gruppeinvitasjoner</string>
+    <string name="PendingMembersActivity_pending_group_invites">Forespørsler og invitasjoner</string>
     <string name="PendingMembersActivity_requests">Forespørsler</string>
     <string name="PendingMembersActivity_invites">Invitasjoner</string>
     <string name="PendingMembersActivity_people_you_invited">Personer du har invitert</string>
@@ -1318,6 +1328,11 @@
     <plurals name="MediaOverviewActivity_Media_delete_confirm_message">
         <item quantity="one">Dette vil permanent slette den valgte filen. All tekst tilknyttet dette elementet, vil også bli slettet.</item>
         <item quantity="other">Dette vil permanent slette de %1$d valgte filene. All tekst tilknyttet disse elementene, vil også bli slettet.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many attachments from the media overview screen -->
+    <plurals name="MediaOverviewActivity_Media_delete_confirm_message_linked_device">
+        <item quantity="one">Dette sletter den valgte filen fra alle enhetene dine permanent. All tekst tilknyttet disse elementene, blir også slettet.</item>
+        <item quantity="other">Dette sletter de %1$d valgte filene fra alle enhetene dine permanent. All tekst tilknyttet disse elementene, blir også slettet.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Sletter</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Sletter meldinger…</string>
@@ -1627,6 +1642,14 @@
     <string name="MessageRecord_you_activated_payments">Du har aktivert betalinger</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s kan nå motta betalinger</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">Betalingsinformasjonen er ikke tilgjengelig</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Trykk for mer</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">Betalingsinformasjon mangler</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">Informasjonen om denne betalingen er ikke tilgjengelig fordi meldingene ble gjenopprettet fra en kilde som manglet informasjon om betalingshistorikk. Dette påvirker verken saldoen din eller statusene for de siste betalingene du har foretatt.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1686,6 +1709,8 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Det er ikke lenger mulig å sende SMS-meldinger i Signal. Inviter %1$s til Signal for å fortsette samtalen her.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Betaling: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Betaling</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Rapportert som søppelpost</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -1935,6 +1960,26 @@
     <string name="WebRtcCallActivity__removed_from_call">Fjernet fra samtalen</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Noen fjernet deg fra samtalen.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Gi tilgang til kameraet og mikrofonen</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Gi tilgang til mikrofonen</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Gi tilgang til kameraet</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Gi Signal tilgang til kameraet ditt og mikrofonen din for å starte eller bli med i en samtale.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">Gi Signal tilgang til mikrofonen din for å starte eller bli med i en samtale.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Gi Signal tilgang til kameraet ditt for å slå på video.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Du må gi Signal tilgang til mikrofonen for å starte eller bli med i en samtale.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal trenger tilgang til kameraet for å slå på video</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">Slik starter eller blir du med i en samtale:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">Slik slår du på video:</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal Anrop</string>
@@ -2031,22 +2076,18 @@
     <string name="CallOverflowPopupWindow__lower_hand">Ta ned hånden</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Avbryt</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">Du rakk opp hånden</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Vis</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">%1$s har rukket opp hånden</item>
-        <item quantity="other">%1$s + %2$d har rukket opp hånden</item>
-    </plurals>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_singular">%1$s rakk opp hånden</string>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_plural">%1$s +%2$d rakk opp hånden</string>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="one">%1$s</item>
-        <item quantity="other">%1$s + %2$d</item>
-    </plurals>
+    <!-- A badge to show how many hands are raised. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar_raised_hands_plural">%1$s +%2$d</string>
 
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Se alle opprakte hender</string>
@@ -2186,8 +2227,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Har du problemer med å registrere deg?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Pass på at telefonen din har dekning, slik at du kan motta koden på SMS eller via anrop\n • Sørg for at du kan motta anrop til telefonnummeret\n • Dobbeltsjekk at du har skrevet inn riktig telefonnummer.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">For å få mer informasjon kan du følge disse feilsøkingstrinnene eller kontakte brukerstøtten vår</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Følg %1$s eller %2$s for å finne ut mer</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">disse feilsøkingstrinnene</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2478,6 +2519,8 @@
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Du kan ikke lagre på ekstern lagringsenhet uten å slå på tillatelse i systemet først</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Vil du slette denne meldingen?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Meldingen blir slettet for godt.</string>
+    <!-- Dialog message shown when deleting an attachment and message -->
+    <string name="MediaPreviewActivity_media_delete_confirmation_message_linked_device">Dette sletter denne meldingen fra alle enhetene dine permanent.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s til %2$s</string>
     <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
     <string name="MediaPreviewActivity_you_to_s">Fra deg til %1$s</string>
@@ -2713,9 +2756,9 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Mangler det noen? Last inn kontaktene på nytt</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Finn bekjente på Signal</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Gi tilgang til kontaktlisten din</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Mer</string>
 
@@ -2750,13 +2793,13 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Søk på brukernavn</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">Gi tilgang til kontaktlisten</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Slik finner du bekjente på Signal:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">Tillat Tilgang</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Gi tilgang til kontaktlisten din. Kontaktlisten krypteres og er ikke synlig for Signal-tjenesten.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal må ha tilgang til kontaktene dine for å kunne vise dem.</string>
@@ -3337,8 +3380,12 @@
         <item quantity="other">Dette vil forkorte alle samtaler til de %1$s siste meldingene.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Dette vil permanent slette alle meldingslogger og mediefiler fra denne enheten.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">Dette sletter alle meldingslogger og mediefiler fra alle tilkoblede enheter permanent.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Er du sikker på at du vil slette alle meldingslogger?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Alle meldingslogger slettes permanent. Denne handlingen kan ikke angres.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">Alle meldingslogger slettes permanent fra alle enheter. Dette kan ikke angres.</string>
     <string name="preferences_storage__delete_all_now">Slett alt nå</string>
     <string name="preferences_storage__forever">For alltid</string>
     <string name="preferences_storage__one_year">1 år</string>
@@ -5666,8 +5713,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">Ingen svar ennå</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">Du kan ikke svare på denne storyen fordi du ikke er medlem av denne gruppen lenger.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Reagerte på storyen</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">Reagerte på storyen</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">Reagerte på storyen</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Visninger</string>
     <!-- Label for story replies tab -->
@@ -6884,6 +6933,17 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Meldinger som er eldre enn dette, slettes for godt.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Når du når det valgte antallet meldinger, slettes gamle meldinger for godt.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Bruk grenser på tilkoblede enheter</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Når dette er slått på, slettes også meldinger fra de tilkoblede enhetene dine.</string>
+
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">Sletting er nå synkronisert på alle enhetene dine</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">Meldinger, mediefiler og samtaler som slettes her, slettes også fra mobilen din og alle andre tilkoblede enheter.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">OK</string>
 
     <!-- EOF -->
 </resources>

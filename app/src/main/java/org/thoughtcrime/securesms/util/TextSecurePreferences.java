@@ -23,7 +23,7 @@ import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.backup.proto.SharedPreference;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.SignalDatabase;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.keyvalue.SettingsValues;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.RegistrationLockReminders;
@@ -1092,7 +1092,7 @@ public class TextSecurePreferences {
     Recipient  self          = Recipient.self();
     SignalDatabase.recipients().setProfileKey(self.getId(), newProfileKey);
 
-    ApplicationDependencies.getGroupsV2Authorization().clear();
+    AppDependencies.getGroupsV2Authorization().clear();
   }
 
   private static SharedPreferences getSharedPreferences(Context context) {

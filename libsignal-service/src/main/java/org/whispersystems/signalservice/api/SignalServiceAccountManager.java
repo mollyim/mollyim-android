@@ -94,7 +94,6 @@ import org.whispersystems.signalservice.internal.util.StaticCredentialsProvider;
 import org.whispersystems.signalservice.internal.util.Util;
 import org.whispersystems.signalservice.internal.websocket.DefaultResponseMapper;
 import org.signal.core.util.Base64;
-import org.whispersystems.signalservice.internal.websocket.LibSignalNetwork;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -325,10 +324,6 @@ public class SignalServiceAccountManager {
     }
   }
 
-  public @Nonnull VerifyAccountResponse registerAccountV2(@Nullable String sessionId, @Nullable String recoveryPassword, AccountAttributes attributes, PreKeyCollection aciPreKeys, PreKeyCollection pniPreKeys, String fcmToken, boolean skipDeviceTransfer) throws IOException {
-    return pushServiceSocket.submitRegistrationRequest(sessionId, recoveryPassword, attributes, aciPreKeys, pniPreKeys, fcmToken, skipDeviceTransfer);
-  }
-
   public @Nonnull ServiceResponse<VerifyAccountResponse> changeNumber(@Nonnull ChangePhoneNumberRequest changePhoneNumberRequest) {
     try {
       VerifyAccountResponse response = this.pushServiceSocket.changeNumber(changePhoneNumberRequest);
@@ -394,7 +389,7 @@ public class SignalServiceAccountManager {
                                                            Optional<byte[]> token,
                                                            String mrEnclave,
                                                            Long timeoutMs,
-                                                           @Nullable LibSignalNetwork libsignalNetwork,
+                                                           @Nullable Network libsignalNetwork,
                                                            Consumer<byte[]> tokenSaver)
       throws IOException
   {

@@ -226,37 +226,37 @@
     <string name="CameraXFragment_change_camera_description">Kameranı dəyişdir</string>
     <string name="CameraXFragment_open_gallery_description">Qalereyanı aç</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">Müraciətə icazə ver</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Kamera və mikrofonuna giriş icazəsi ver</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">Kameraya giriş icazəsi ver</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">Mikrofona giriş icazəsi verin</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Fotolar çəkmək üçün Signal-a kameraya giriş icazəsi ver.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Foto və video çəkmək üçün, Signal-ın kameraya müraciətinə icazə verin.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Foto və video çəkmək üçün Signal-a kamera və mikrofona giriş icazəsi ver.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Səsli videolar çəkmək üçün Signal-a mikrofona giriş icazəsi ver.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR kodunu skan etmək üçün Signal-a kameraya giriş icazəsi ver.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Fotolar çəkmək üçün Signal kameraya giriş tələb edir</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR kodlarını skan etmək üçün Signal kameraya giriş tələb edir</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Video çəkmək üçün Signal mikrofona giriş tələb edir</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Signal-da fotolar çəkmək üçün:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Signal-da foto və videolar çəkmək üçün:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">Səsli videolar çəkmək üçün:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">QR kodlarını skan etmək üçün:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Son əlaqələr</string>
@@ -327,8 +327,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Mesaj %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal audio-zəng %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal video-zəng %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -547,6 +547,11 @@
     <string name="ConversationFragment_delete_on_this_device">Bu cihazdan sil</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Hər yerdən sil</string>
+    <!-- Dialog message when deleting individual messages and you have a linked device that the delete will sync to -->
+    <plurals name="ConversationFragment_delete_on_linked_warning">
+        <item quantity="one">Bu mesaj bütün cihazlarınızdan silinəcək.</item>
+        <item quantity="other">Bu mesajlar bütün cihazlarınızdan silinəcək.</item>
+    </plurals>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Bu mesaj bu çatda Signal-ın ən son versiyasına malik olan hər kəsdən silinəcək. Onlar mesajı sildiyinizi görə bilərlər.</string>
     <string name="ConversationFragment_quoted_message_not_found">Orijinal mesaj tapılmadı</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Orijinal mesaj artıq yoxdur</string>
@@ -646,6 +651,11 @@
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">Bu addımla seçilmiş çat həmişəlik silinəcək.</item>
         <item quantity="other">Bu addımla seçilmiş %1$d çat həmişəlik silinəcək.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">Bununla, bütün cihazlarınızdan seçilmiş çat həmişəlik silinəcək.</item>
+        <item quantity="other">Bununla, bütün cihazlarınızdan seçilmiş bütün %1$d çat həmişəlik silinəcək.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Silinir</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -1036,7 +1046,7 @@
     <string name="PromptBatterySaverBottomSheet__dismiss">Rədd et</string>
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Gözləyən qrup dəvətləri</string>
+    <string name="PendingMembersActivity_pending_group_invites">Tələb və dəvətlər</string>
     <string name="PendingMembersActivity_requests">Tələblər</string>
     <string name="PendingMembersActivity_invites">Dəvətlər</string>
     <string name="PendingMembersActivity_people_you_invited">Dəvət etdiyiniz şəxslər</string>
@@ -1318,6 +1328,11 @@
     <plurals name="MediaOverviewActivity_Media_delete_confirm_message">
         <item quantity="one">Bu, seçilmiş faylı birdəfəlik siləcək. Bu elementlə əlaqəli bütün mesaj mətnləri də silinəcək.</item>
         <item quantity="other">Bu, seçilmiş %1$d faylın hamısını birdəfəlik siləcək. Bu elementlərlə əlaqəli bütün mesaj mətnləri də silinəcək.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many attachments from the media overview screen -->
+    <plurals name="MediaOverviewActivity_Media_delete_confirm_message_linked_device">
+        <item quantity="one">Bununla, bütün cihazlarınızdan seçilmiş fayl həmişəlik silinəcək. Bu faylla əlaqəli istənilən mesaj mətnini də silinəcək.</item>
+        <item quantity="other">Bununla, bütün cihazlarınızdan seçilmiş hər %1$d fayl həmişəlik silinəcək. Bu fayllarla əlaqəli istənilən mesaj mətnini də silinəcək.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Silinir</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Mesajlar silinir…</string>
@@ -1627,6 +1642,14 @@
     <string name="MessageRecord_you_activated_payments">Ödənişləri aktivləşdirdiniz</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s artıq Ödənişləri qəbul edə bilər</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">Ödəniş məlumatları mövcud deyil</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Daha Çoxu Üçün Kliklə</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">Ödəniş məlumatları mövcud deyil</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">Mesajlarınız bu ödəniş tarixçəsi ilə əlaqəli məzmuna malik olmayan mənbədən bərpa edildiyinə görə bu ödənişə aid müəyyən məlumatlar mövcud deyil. Bu pul kisənizin balansına, yaxud da keçmiş ödənişlərin statusuna təsir etmir.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1686,6 +1709,8 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Artıq Signal-da SMS mesajları göndərə bilməzsiniz. Söhbəti burada davam etdirmək üçün %1$s adlı şəxsi Signal-a dəvət edin.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Ödəniş: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Ödəniş</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Spam olaraq bildirildi</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -1935,6 +1960,26 @@
     <string name="WebRtcCallActivity__removed_from_call">Zəngdən çıxarıldı</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Biri sizi zəngdən çıxarıb.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Kamera və mikrofonuna giriş icazəsi ver</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Mikrofona giriş icazəsi verin</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Kameraya giriş icazəsi ver</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Zəng etmək və ya zəngə qoşulmaq üçün Signal-ın kamera və mikrofonunuza daxil olmasına icazə verin.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">Zəng etmək və ya zəngə qoşulmaq üçün Signal-ın mikrofonunuza daxil olmasına icazə verin.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Videonuzu aktivləşdirmək üçün Signal-ın kameranıza daxil olmasına icazə verin.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Zəng etmək və ya zəngə qoşulmaq üçün Signal mikrofona giriş icazəsi tələb edir.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Videonuzu aktivləşdirmək üçün Signal kameraya giriş tələb edir</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">Zəng etmək və ya zəngə qoşulmaq üçün:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">Videonuzu aktivləşdirmək üçün:</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal zəngi</string>
@@ -2031,22 +2076,18 @@
     <string name="CallOverflowPopupWindow__lower_hand">Əlini endir</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Ləğv et</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">Əl qaldırdınız</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Bax</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">%1$s əl qaldırdı</item>
-        <item quantity="other">%1$s + %2$d əl qaldırdı</item>
-    </plurals>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_singular">%1$s əl qaldırdı</string>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_plural">%1$s +%2$d əl qaldırdı</string>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="one">%1$s</item>
-        <item quantity="other">%1$s +%2$d</item>
-    </plurals>
+    <!-- A badge to show how many hands are raised. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar_raised_hands_plural">%1$s +%2$d</string>
 
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Qaldırılmış əl görünüşünü genişləndir</string>
@@ -2186,8 +2227,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Qeydiyyatdan keçməkdə çətinlik çəkirsiniz?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• SMS qəbulu və ya zəng etmək üçün telefonunuzda mobil siqnalın aktivliyindən əmin olun \n • Nömrəyə telefon zəngi qəbul edə biləcəyinizi təsdiqləyin\n• Telefon nömrənizi düzgün daxil edib-etmədiyinizi yoxlayın.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Əlavə məlumat üçün problemlərin aradan qaldırılması ilə əlaqəli bu addımları yerinə yetirin və ya Dəstək xidmətimizlə əlaqə saxlayın</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Daha ətraflı məlumat üçün %1$s və ya %2$s bölmələrinə keçin</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">buradakı nasazlıqların aradan qaldırılması addımları</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2478,6 +2519,8 @@
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">İcazə olmadan xarici anbarda saxlanıla bilmir</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Mesaj silinsin?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Bu, mesajı birdəfəlik siləcək.</string>
+    <!-- Dialog message shown when deleting an attachment and message -->
+    <string name="MediaPreviewActivity_media_delete_confirmation_message_linked_device">Bununla, bu mesaj bütün cihazlarınızdan həmişəlik silinəcək.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s - %2$s</string>
     <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
     <string name="MediaPreviewActivity_you_to_s">Göndərdiniz: %1$s</string>
@@ -2713,9 +2756,9 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Kimsə nəzərdən qaçıb? Yeniləməyə çalışın</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Signal-da tanıdığın insanları tap</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Kontaktlara giriş icazəsi ver</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Daha çox</string>
 
@@ -2750,13 +2793,13 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">İstifadəçi adına görə tap</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">Kontaktlara giriş icazəsi ver</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Signal-da tanıdığın insanları tapmaq üçün:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">Müraciətə icazə ver</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Kontaktlara giriş icazəsi ver. Kontaktlar şifrələnib və Signal xidmətində görünmür.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-ın, əlaqələrinizi görüntüləmək üçün müraciətə ehtiyacı var.</string>
@@ -3337,8 +3380,12 @@
         <item quantity="other">Bu, bütün çatları %1$s ən son mesaja qədər kəsəcək.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Bu, bütün mesaj tarixçəsini və medianı cihazınızdan birdəfəlik siləcək.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">Çat mesaj tarixçəsinin silinməsi, bu cihazdan və bütün əlaqələndirilmiş cihazlardan bütün mesaj tarixçəsini və medianı həmişəlik siləcək.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Bütün mesaj tarixçənizi silmək istədiyinizə əminsiniz?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Bütün mesaj tarixçəniz birdəfəlik silənəcək. Bu əməliyyat geri qaytarıla bilməz.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">Bütün mesaj tarixçəsi bütün cihazlardan həmişəlik silinəcək. Bu əməliyyat geri qaytarıla bilməz.</string>
     <string name="preferences_storage__delete_all_now">Hamısını indi sil</string>
     <string name="preferences_storage__forever">Həmişəlik</string>
     <string name="preferences_storage__one_year">1 il</string>
@@ -5666,8 +5713,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">Hələ ki, cavab yoxdur</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">Artıq bu qrupun üzvü olmadığınız üçün bu hekayəyə cavab verə bilmirsiniz.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Hekayəyə reaksiya verildi</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">Hekayəyə reaksiya verildi</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">Hekayəyə reaksiya verildi</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Baxış</string>
     <!-- Label for story replies tab -->
@@ -6884,6 +6933,17 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Seçilmiş vaxtdan daha köhnə mesajlar daimi olaraq silinəcək.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Seçilmiş limiti keçən mesajlar daimi olaraq silinəcək.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Əlaqələndirilmiş cihazlara limitlər tətbiq et</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Aktivləşdirildikdə, əlaqələndirilmiş cihazlarınızdan çat limitləri də mesajları siləcək.</string>
+
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">Silmə funksiyası artıq bütün cihazlarınızla sinxronlaşdırılıb</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">Mesajları, media və ya çatları sildikdə, onlar həm də telefonunuzdan və əlaqələndirilmiş bütün cihazlardan silinəcək.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">Oldu</string>
 
     <!-- EOF -->
 </resources>

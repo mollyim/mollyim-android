@@ -31,7 +31,7 @@ import org.thoughtcrime.securesms.components.TooltipPopup
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.notifications.manual.NotificationProfileSelectionFragment
 import org.thoughtcrime.securesms.conversationlist.ConversationListFragment
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.Networking
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
@@ -287,7 +287,7 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
   }
 
   override fun updateProxyStatus(state: WebSocketConnectionState) {
-    if (ApplicationDependencies.getNetworkManager().isProxyEnabled) {
+    if (AppDependencies.networkManager.isProxyEnabled) {
       proxyStatus.visibility = View.VISIBLE
       when (state) {
         WebSocketConnectionState.CONNECTING, WebSocketConnectionState.DISCONNECTING, WebSocketConnectionState.DISCONNECTED -> proxyStatus.setImageResource(R.drawable.ic_proxy_connecting_24)

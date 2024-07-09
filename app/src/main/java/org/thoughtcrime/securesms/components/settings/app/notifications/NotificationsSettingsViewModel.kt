@@ -1,13 +1,12 @@
 package org.thoughtcrime.securesms.components.settings.app.notifications
 
-import android.app.Application
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference
@@ -17,8 +16,6 @@ import org.thoughtcrime.securesms.util.livedata.Store
 class NotificationsSettingsViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 
   private val store = Store(getState())
-
-  private val application: Application = ApplicationDependencies.getApplication()
 
   val state: LiveData<NotificationsSettingsState> = store.stateLiveData
 
@@ -100,7 +97,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
   }
 
   fun setNotifyWhileLocked(enabled: Boolean) {
-    TextSecurePreferences.setPassphraseLockNotificationsEnabled(application, enabled)
+    TextSecurePreferences.setPassphraseLockNotificationsEnabled(AppDependencies.application, enabled)
     refresh()
   }
 
@@ -125,7 +122,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
       inChatSoundsEnabled = SignalStore.settings().isMessageNotificationsInChatSoundsEnabled,
       repeatAlerts = SignalStore.settings().messageNotificationsRepeatAlerts,
       messagePrivacy = SignalStore.settings().messageNotificationsPrivacy.toString(),
-      priority = TextSecurePreferences.getNotificationPriority(application),
+      priority = TextSecurePreferences.getNotificationPriority(AppDependencies.application),
     ),
     callNotificationsState = CallNotificationsState(
       notificationsEnabled = SignalStore.settings().isCallNotificationsEnabled && canEnableNotifications(),
@@ -133,7 +130,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
       ringtone = SignalStore.settings().callRingtone,
       vibrateEnabled = SignalStore.settings().isCallVibrateEnabled
     ),
-    notifyWhileLocked = TextSecurePreferences.isPassphraseLockNotificationsEnabled(application) && SignalStore.account().pushAvailable,
+    notifyWhileLocked = TextSecurePreferences.isPassphraseLockNotificationsEnabled(AppDependencies.application) && SignalStore.account().pushAvailable,
     canEnableNotifyWhileLocked = SignalStore.account().pushAvailable,
     notifyWhenContactJoinsSignal = SignalStore.settings().isNotifyWhenContactJoinsSignal
   )

@@ -40,7 +40,7 @@ import org.thoughtcrime.securesms.database.model.ParentStoryId;
 import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList;
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.events.PartProgressEvent;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
@@ -76,6 +76,7 @@ import org.whispersystems.signalservice.api.push.ServiceId.ACI;
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
 import org.whispersystems.signalservice.api.push.exceptions.ProofRequiredException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
+import org.whispersystems.signalservice.internal.push.AttachmentPointer;
 import org.whispersystems.signalservice.internal.push.BodyRange;
 
 import java.io.ByteArrayInputStream;
@@ -114,7 +115,7 @@ public abstract class PushSendJob extends SendJob {
     ) {
       warn(TAG, "It's been too long since rotating our signed prekeys (ACI: " + timeSinceAciSignedPreKeyRotation + " ms, PNI: " + timeSincePniSignedPreKeyRotation + " ms)! Attempting to rotate now.");
 
-      Optional<JobTracker.JobState> state = ApplicationDependencies.getJobManager().runSynchronously(PreKeysSyncJob.create(), TimeUnit.SECONDS.toMillis(30));
+      Optional<JobTracker.JobState> state = AppDependencies.getJobManager().runSynchronously(PreKeysSyncJob.create(), TimeUnit.SECONDS.toMillis(30));
 
       if (state.isPresent() && state.get() == JobTracker.JobState.SUCCESS) {
         log(TAG, "Successfully refreshed prekeys. Continuing.");
@@ -141,7 +142,7 @@ public abstract class PushSendJob extends SendJob {
 
     if (getRunAttempt() > 1) {
       Log.i(TAG, "Scheduling service outage detection job.");
-      ApplicationDependencies.getJobManager().add(new ServiceOutageDetectionJob());
+      AppDependencies.getJobManager().add(new ServiceOutageDetectionJob());
     }
   }
 
@@ -330,9 +331,9 @@ public abstract class PushSendJob extends SendJob {
     if (threadId != -1 && recipient != null) {
       if (isStory) {
         SignalDatabase.messages().markAsNotNotified(messageId);
-        ApplicationDependencies.getMessageNotifier().notifyStoryDeliveryFailed(context, recipient, ConversationId.forConversation(threadId));
+        AppDependencies.getMessageNotifier().notifyStoryDeliveryFailed(context, recipient, ConversationId.forConversation(threadId));
       } else {
-        ApplicationDependencies.getMessageNotifier().notifyMessageDeliveryFailed(context, recipient, ConversationId.fromThreadAndReply(threadId, groupReplyStoryId));
+        AppDependencies.getMessageNotifier().notifyMessageDeliveryFailed(context, recipient, ConversationId.fromThreadAndReply(threadId, groupReplyStoryId));
       }
     }
   }
@@ -380,7 +381,7 @@ public abstract class PushSendJob extends SendJob {
                                                                            .withHeight(thumbnailData.getHeight())
                                                                            .withLength(thumbnailData.getData().length)
                                                                            .withStream(new ByteArrayInputStream(thumbnailData.getData()))
-                                                                           .withResumableUploadSpec(ApplicationDependencies.getSignalServiceMessageSender().getResumableUploadSpec());
+                                                                           .withResumableUploadSpec(AppDependencies.getSignalServiceMessageSender().getResumableUploadSpec());
 
           thumbnail = builder.build();
         }
@@ -445,7 +446,11 @@ public abstract class PushSendJob extends SendJob {
       SharedContact.Avatar  avatar  = null;
 
       if (contact.getAvatar() != null && contact.getAvatar().getAttachment() != null) {
-        avatar = SharedContact.Avatar.newBuilder().withAttachment(getAttachmentFor(contact.getAvatarAttachment()))
+        SignalServiceAttachment attachment = getAttachmentPointerFor(contact.getAvatar().getAttachment());
+        if (attachment == null) {
+          attachment = getAttachmentFor(contact.getAvatar().getAttachment());
+        }
+        avatar = SharedContact.Avatar.newBuilder().withAttachment(attachment)
                                                   .withProfileFlag(contact.getAvatar().isProfile())
                                                   .build();
       }
@@ -555,7 +560,7 @@ public abstract class PushSendJob extends SendJob {
       Log.d(TAG, "All certificates are valid.");
     } catch (InvalidCertificateException e) {
       Log.w(TAG, "A certificate was invalid at send time. Fetching new ones.", e);
-      if (!ApplicationDependencies.getJobManager().runSynchronously(new RotateCertificateJob(), 5000).isPresent()) {
+      if (!AppDependencies.getJobManager().runSynchronously(new RotateCertificateJob(), 5000).isPresent()) {
         throw new IOException("Timeout rotating certificate");
       }
     }
@@ -568,7 +573,7 @@ public abstract class PushSendJob extends SendJob {
 
     try {
       if (proofRequired.getOptions().contains(ProofRequiredException.Option.PUSH_CHALLENGE)) {
-        ApplicationDependencies.getSignalServiceAccountManager().requestRateLimitPushChallenge();
+        AppDependencies.getSignalServiceAccountManager().requestRateLimitPushChallenge();
         Log.i(TAG, "[Proof Required] Successfully requested a challenge. Waiting up to " + PUSH_CHALLENGE_TIMEOUT + " ms.");
 
         boolean success = new PushChallengeRequest(PUSH_CHALLENGE_TIMEOUT).blockUntilSuccess();
@@ -605,7 +610,7 @@ public abstract class PushSendJob extends SendJob {
 
       if (recipient != null) {
         ParentStoryId.GroupReply groupReply = SignalDatabase.messages().getParentStoryIdForGroupReply(messageId);
-        ApplicationDependencies.getMessageNotifier().notifyProofRequired(context, recipient, ConversationId.fromThreadAndReply(threadId, groupReply));
+        AppDependencies.getMessageNotifier().notifyProofRequired(context, recipient, ConversationId.fromThreadAndReply(threadId, groupReply));
       } else {
         Log.w(TAG, "[Proof Required] No recipient! Couldn't notify.");
       }

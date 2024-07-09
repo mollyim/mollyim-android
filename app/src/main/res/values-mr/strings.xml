@@ -226,37 +226,37 @@
     <string name="CameraXFragment_change_camera_description">कॅमेरा बदला</string>
     <string name="CameraXFragment_open_gallery_description">गॅलरी उघडा</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">अॅक्सेस अनुमती द्या</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">आपला कॅमेरा आणि मायक्रोफोन ॲक्सेस करण्याची अनुमती द्या</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">आपल्या कॅमेऱ्याच्या ॲक्सेसची अनुमती द्या</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">आपल्या मायक्रोफोन ॲक्सेस करण्याची अनुमती द्या</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">फोटो कॅप्चर करण्यासाठी, Signal ला कॅमेरा ॲक्सेसची अनुमती द्या.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">फोटो आणि व्हिडिओ कॅप्चर करण्यासाठी, Signal ला कॅमेरा अॅक्सेसची अनुमती द्या.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">फोटो आणि व्हिडिओ कॅप्चर करण्यासाठी, Signal ला कॅमेरा आणि मायक्रोफोनच्या ॲक्सेसची अनुमती द्या.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">आवाजासह व्हिडीओ कॅप्चर करण्यासाठी, आपल्या Signal ला आपल्या मायक्रोफोनच्या ॲक्सेसची अनुमती द्या.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR कोड स्कॅन, कॅमेरा ॲक्सेस करण्याची Signal ला अनुमती द्या.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal ला फोटो घेण्यासाठी कॅमेऱ्याच्या ॲक्सेसची गरज आहे</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal ला QR कोड स्कॅन करण्याच्या ॲक्सेसची गरज आहे</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal ला व्हिडीओ कॅप्चर करण्यासाठी मायक्रोफोनला ॲक्सेस करण्याची गरज आहे</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Signal मध्ये फोटोज कॅप्चर करण्यासाठी:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Signal मध्ये फोटोज आणि व्हिडिओ कॅप्चर करण्यासाठी:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">ध्वनीसह व्हिडिओ कॅप्चर करण्यासाठी:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">QR कोड्स स्कॅन करण्यासाठी:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">अलीकडील संपर्क</string>
@@ -327,8 +327,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">संदेश %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal व्हॉईस कॉल %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal व्हिडिओ कॉल %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -547,6 +547,11 @@
     <string name="ConversationFragment_delete_on_this_device">या डिव्हाइस वरून हटवा</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">सर्वत्र हटवा</string>
+    <!-- Dialog message when deleting individual messages and you have a linked device that the delete will sync to -->
+    <plurals name="ConversationFragment_delete_on_linked_warning">
+        <item quantity="one">हा संदेश आपल्या सर्व डिव्हाइसेसवरून हटवला जाईल.</item>
+        <item quantity="other">हे संदेश आपल्या सर्व डिव्हाइसेसवरून हटविले जातील.</item>
+    </plurals>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Signal च्या अलिकडील आवृत्तीवर असल्यास हा संदेश चॅटमधील प्रत्येकासाठी हटवला जाईल. आपण संदेश हटवला हे पाहण्यात ते सक्षम असतील.</string>
     <string name="ConversationFragment_quoted_message_not_found">मूळ संदेश आढळला नाही</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">मूळ संदेश आता उपलब्ध नाही</string>
@@ -646,6 +651,11 @@
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">यामुळे निवडलेला चॅट्स कायमस्वरुपी हटवला जाईल.</item>
         <item quantity="other">यामुळे निवडलेले सर्व %1$d चॅट्स कायमस्वरुपी हटवले जातील.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">हे आपल्या सर्व डिव्हाइसेसरून निवडलेल्या चॅट्स कायमस्वरूपी हटवेल.</item>
+        <item quantity="other">हे आपल्या सर्व डिव्हाईसेसवरून निवडलेल्या सर्व %1$d चॅट्स कायमस्वरूपी हटवेल.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">हटवत आहे</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -1036,7 +1046,7 @@
     <string name="PromptBatterySaverBottomSheet__dismiss">रद्द करा</string>
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">प्रलंबित गट आमंत्रणे</string>
+    <string name="PendingMembersActivity_pending_group_invites">विनंत्या आणि आमंत्रण</string>
     <string name="PendingMembersActivity_requests">विनंत्या</string>
     <string name="PendingMembersActivity_invites">आमंत्रण</string>
     <string name="PendingMembersActivity_people_you_invited">आपण आमंत्रित केलेल्या व्यक्ती</string>
@@ -1318,6 +1328,11 @@
     <plurals name="MediaOverviewActivity_Media_delete_confirm_message">
         <item quantity="one">हे निवडलेली फाईल कायमची हटवेल. या घटकाशी संबंधित कुठलाही संदेश मजकूर देखील हटवला जाईल.</item>
         <item quantity="other">हे निवडलेल्या सर्व %1$d फायली कायमच्या हटवेल. या घटकांशी संबंधित कुठलाही संदेश मजकूर देखील हटवला जाईल.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many attachments from the media overview screen -->
+    <plurals name="MediaOverviewActivity_Media_delete_confirm_message_linked_device">
+        <item quantity="one">हे आपल्या सर्व डिव्हाइसेसवरून निवडलेली फाईल कायमस्वरूपी हटवेल. या आयटमशी संबंधित कोणताही संदेश मजकूर देखील हटवेल.</item>
+        <item quantity="other">हे आपल्या सर्व डिव्हाइसेसवरून निडवलेल्या सर्व %1$d फाईल कायमस्वरूपी हटवेल. या आयटम्सशी संबंधित कोणताही संदेश मजकूर देखील हटवला जाईल.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">हटवत आहे</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">संदेश हटवत आहे…</string>
@@ -1627,6 +1642,14 @@
     <string name="MessageRecord_you_activated_payments">आपण पेमेंट्स सक्रिय केले आहे</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s आता पेमेंट्स स्विकारु शकतात</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">पेमेंट तपशील उपलब्ध नाही</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">अधिक करिता टॅप करा</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">पेमेंट्स तपशील उपलब्ध नाही</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">या पेमेंट्सचा हा तपशील उपलब्ध नाही कारण आपले संदेश पेमेंट इतिहास समाविष्ट नसलेल्या एका स्त्रोताकडून पुनर्संचयित केले गेले. याचा आपल्या वॉलेट शिल्लकेवर किंवा मागील पेमेंट्सच्या स्थितीवर परिणाम होत नाही.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1686,6 +1709,8 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">आपण यापुढे Signal मध्ये SMS संदेश पाठवू शकणार नाही. संभाषण येथे ठेवण्यासाठी %1$s ला Signal वर आमंत्रित करा.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">पेमेंट: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">पेमेंट</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">स्पॅम म्हणून रिपोर्ट केले</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -1935,6 +1960,26 @@
     <string name="WebRtcCallActivity__removed_from_call">कॉलमधून काढण्यात आले</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">कोणीतरी आपणाला कॉल मधून काढले.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">आपला कॅमेरा आणि मायक्रोफोन ॲक्सेस करण्याची अनुमती द्या</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">आपल्या मायक्रोफोन ॲक्सेस करण्याची अनुमती द्या</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">आपल्या कॅमेऱ्याच्या ॲक्सेसची अनुमती द्या</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">कॉल सुरू करण्यास, Signal ला आपला कॅमेरा आणि मायक्रोफोन ॲक्सेस करण्याची अनुमती द्या.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">कॉल सुरू करण्यास, Signal ला आपला मायक्रोफोन ॲक्सेस करण्याची अनुमती द्या.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">आपला व्हिडिओ सक्षम करण्यासाठी, Signal ला आपला कॅमेरा ॲक्सेस करण्याची अनुमती द्या.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal ला कॉल सुरू करण्यासाठी किंवा त्यात सामील होण्यासाठी मायक्रोफोन परवानगीची गरज आहे.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">आपला व्हिडिओ समक्ष करण्यासाठी Signal ला कॅमेरा ॲक्सेसची गरज आहे</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">कॉल सुरू करण्यासाठी किंवा त्यात सामील होण्यासाठी:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">आपला व्हिडिओ सक्षम करण्यासाठी:</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal कॉल</string>
@@ -2031,22 +2076,18 @@
     <string name="CallOverflowPopupWindow__lower_hand">हात खाली घ्या</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">रद्द करा</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">आपण आपला हात वर केला आहे</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">बघा</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">%1$s ने हात वर केला आहे</item>
-        <item quantity="other">%1$s + %2$d नी हात वर केला आहे</item>
-    </plurals>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_singular">%1$s ने हात वर केला</string>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_plural">%1$s +%2$d नी हात वर केला</string>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="one">%1$s</item>
-        <item quantity="other">%1$s +%2$d</item>
-    </plurals>
+    <!-- A badge to show how many hands are raised. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar_raised_hands_plural">%1$s +%2$d</string>
 
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">वर केलेल्या हाताचा दृश्य विस्तार करा</string>
@@ -2186,8 +2227,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">नोंदणी करण्यामध्ये समस्या आली?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• कृपया आपल्या फोनला आपले SMS किंवा कॉल प्राप्त करण्यास सेल्युलर सिग्नल असल्याची खात्री करा\n • तुम्ही या क्रमांकावर फोन कॉल प्राप्त करु शकता याची पुष्टी करा\n • आपण आपला फोन नंबर बरोबर प्रविष्ट केला आहे याची खात्री करा.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">अधिक माहितीसाठी, कृपया या निराकरण टप्प्यांची अंमलबजावणी करा किंवा सपोर्टशी संपर्क साधा</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">अधिक माहितीसाठी, कृपया %1$s किंवा %2$s ला फॉलो करा</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">हे निराकरणाचे टप्पे आहेत</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2478,6 +2519,8 @@
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">परवानग्यांविना बाह्य संचयनात जतन करण्यात अक्षम</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">संदेश हटवायचा?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">हे कायमचे हा संदेश हटवेल.</string>
+    <!-- Dialog message shown when deleting an attachment and message -->
+    <string name="MediaPreviewActivity_media_delete_confirmation_message_linked_device">हे आपल्या सर्व डिव्हाइससेवरून हा संदेश कायमस्वरूपी हटवेल.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s ते %2$s</string>
     <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
     <string name="MediaPreviewActivity_you_to_s">आपण %1$sकरावे</string>
@@ -2713,9 +2756,9 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">कोणाची आठवण येत आहे? रिफ्रेश करून पहा</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Signal वर आपणाला माहीत असलेल्या लोकांना शोधा</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">आपल्या संपर्कास ॲक्सेस करण्याची अनुमती द्या</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">अधिक</string>
 
@@ -2750,13 +2793,13 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">वापरकर्ता नावाने शोधा</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">संपर्कांना ॲक्सेसची अनुमती द्या</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Signal वर आपणाला माहीत असलेल्या लोकांना शोधण्यासाठी:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">अॅक्सेस अनुमती द्या</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">आपले संपर्क ॲक्सेस करण्यासाठी अनुमती द्या. आपले संपर्क कूटबद्ध केलेले आहेत आणि ते Signal सेवेला दृश्यमान नाहीत.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">आपले संपर्क दाखविण्यासाठी Signal ला त्यांना अॅक्सेस करण्याची गरज आहे.</string>
@@ -3337,8 +3380,12 @@
         <item quantity="other">हे सर्व चॅट्स कायमस्वरुपी सर्वात अलीकडील %1$s संदेशांमध्ये ट्रिम करेल.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">हे आपल्या डिव्हाईसवरून सर्व संदेश इतिहास आणि मिडिया कायमचे हटवेल.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">हे आपल्या डिव्हाइस आणि कोणत्याही लिंंक केलेल्या डिव्हाइसेस वरून सर्व संदेश इतिहास आणि मिडीया कायमचे हटवेल.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">आपण खात्रीने सर्व संदेश इतिहास हटवू इच्छिता?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">सर्व संदेश इतिहास कायमचा हटवला जाईल. ही क्रिया मागे घेतली जाऊ शकत नाही.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">सर्व संदेश इतिहास सर्व डिव्हाइसेसवरून कायमस्वरूपी हटवले जाईल. ही क्रिया पूर्ववत केली जाऊ शकत नाही.</string>
     <string name="preferences_storage__delete_all_now">सर्व आता हटवा</string>
     <string name="preferences_storage__forever">नेहमीसाठी</string>
     <string name="preferences_storage__one_year">1 वर्ष</string>
@@ -5666,8 +5713,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">अद्याप कोणतीही प्रत्युत्तरे नाहीत</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">आपण या स्टोरीज ला उत्तर देऊ शकणार नाही कारण आपण यापुढे या ग्रुपचे सदस्य नाही.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">स्टोरीला प्रतिक्रिया दिली</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">स्टोरीला प्रतिक्रिया दिली</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">स्टोरीला प्रतिक्रिया दिली</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">दृश्ये</string>
     <!-- Label for story replies tab -->
@@ -6884,6 +6933,17 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">निवडलेल्या वेळेपेक्षा जुने संदेश कायमस्वरूपी हटवले जातील.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">निवडलेल्या लांबीची मर्यादा ओलांडणारे संदेश कायमस्वरपी हटवले जातील.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">लिंंक केलेल्या डिव्हाइसेस वर मर्यादा लागू करा</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">सक्षम केल्यावर, चॅट मर्यादा आपल्या लिंंक केलेल्या डिव्हाइसेस मधील संदेश देखील हटवतील.</string>
+
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">हटवणे आता आपल्या सर्व डिव्हाइसेसवरून संकालित केले आहे</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">जेव्हा आपण संदेश, मिडीया किंवा चॅट्स हटवता, तेव्हा ते आपल्या फोन आणि लिंक केलेल्या डिव्हाइसेसवरून हटवले जातील.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">ठीक</string>
 
     <!-- EOF -->
 </resources>

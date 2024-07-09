@@ -6,6 +6,7 @@
 package org.thoughtcrime.securesms.registration.v2.ui.phonenumber
 
 import android.telephony.PhoneNumberFormattingTextWatcher
+import android.text.TextWatcher
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.registration.util.CountryPrefix
+import org.thoughtcrime.securesms.registration.v2.data.RegistrationRepository
 
 /**
  * ViewModel for the phone number entry screen.
@@ -27,24 +29,32 @@ class EnterPhoneNumberV2ViewModel : ViewModel() {
 
   private val TAG = Log.tag(EnterPhoneNumberV2ViewModel::class.java)
 
-  private val store = MutableStateFlow(EnterPhoneNumberV2State.INIT)
+  private val store = MutableStateFlow(EnterPhoneNumberV2State())
   val uiState = store.asLiveData()
 
-  val supportedCountryPrefixes: List<CountryPrefix> = PhoneNumberUtil.getInstance().supportedCallingCodes
-    .map { CountryPrefix(it, PhoneNumberUtil.getInstance().getRegionCodeForCountryCode(it)) }
-    .sortedBy { it.digits.toString() }
+  val formatter: TextWatcher?
+    get() = store.value.phoneNumberFormatter
 
-  fun countryPrefix(): CountryPrefix {
-    return supportedCountryPrefixes[store.value.countryPrefixIndex]
-  }
-
-  fun phoneNumber(): PhoneNumber? {
-    return try {
+  val phoneNumber: PhoneNumber?
+    get() = try {
       parsePhoneNumber(store.value)
     } catch (ex: NumberParseException) {
       Log.w(TAG, "Could not parse phone number in current state.", ex)
       null
     }
+
+  val supportedCountryPrefixes: List<CountryPrefix> = PhoneNumberUtil.getInstance().supportedCallingCodes
+    .map { CountryPrefix(it, PhoneNumberUtil.getInstance().getRegionCodeForCountryCode(it)) }
+    .sortedBy { it.digits }
+
+  var mode: RegistrationRepository.Mode
+    get() = store.value.mode
+    set(value) = store.update {
+      it.copy(mode = value)
+    }
+
+  fun countryPrefix(): CountryPrefix {
+    return supportedCountryPrefixes[store.value.countryPrefixIndex]
   }
 
   fun setPhoneNumber(phoneNumber: String?) {
@@ -53,6 +63,11 @@ class EnterPhoneNumberV2ViewModel : ViewModel() {
 
   fun setCountry(digits: Int) {
     val matchingIndex = countryCodeToAdapterIndex(digits)
+    if (matchingIndex == -1) {
+      Log.d(TAG, "Invalid country code specified $digits")
+      return
+    }
+
     store.update {
       it.copy(countryPrefixIndex = matchingIndex)
     }

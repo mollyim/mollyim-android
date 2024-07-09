@@ -11,34 +11,36 @@ import org.thoughtcrime.securesms.backup.v2.database.restoreSelfFromBackup
 import org.thoughtcrime.securesms.backup.v2.proto.AccountData
 import org.thoughtcrime.securesms.backup.v2.proto.Frame
 import org.thoughtcrime.securesms.backup.v2.stream.BackupFrameEmitter
+import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.UsernameQrCodeColorScheme
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.recipients
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.RetrieveProfileAvatarJob
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.subscription.Subscriber
 import org.thoughtcrime.securesms.util.ProfileUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.push.UsernameLinkComponents
 import org.whispersystems.signalservice.api.storage.StorageRecordProtoUtil.defaultAccountRecord
 import org.whispersystems.signalservice.api.subscriptions.SubscriberId
 import org.whispersystems.signalservice.api.util.UuidUtil
+import java.util.Currency
 import kotlin.jvm.optionals.getOrNull
 
 object AccountDataProcessor {
 
   fun export(emitter: BackupFrameEmitter) {
-    val context = ApplicationDependencies.getApplication()
+    val context = AppDependencies.application
 
     val self = Recipient.self().fresh()
     val record = recipients.getRecordForSync(self.id)
 
-    val subscriber: Subscriber? = SignalStore.signalDonationsValues().getSubscriber()
+    val subscriber: InAppPaymentSubscriberRecord? = InAppPaymentsRepository.getSubscriber(InAppPaymentSubscriberRecord.Type.DONATION)
 
     emitter.emit(
       Frame(
@@ -47,10 +49,10 @@ object AccountDataProcessor {
           givenName = self.profileName.givenName,
           familyName = self.profileName.familyName,
           avatarUrlPath = self.profileAvatar ?: "",
-          subscriptionManuallyCancelled = SignalStore.signalDonationsValues().isUserManuallyCancelled(),
+          subscriptionManuallyCancelled = InAppPaymentsRepository.isUserManuallyCancelled(InAppPaymentSubscriberRecord.Type.DONATION),
           username = self.username.getOrNull(),
           subscriberId = subscriber?.subscriberId?.bytes?.toByteString() ?: defaultAccountRecord.subscriberId,
-          subscriberCurrencyCode = subscriber?.currencyCode ?: defaultAccountRecord.subscriberCurrencyCode,
+          subscriberCurrencyCode = subscriber?.currency?.currencyCode ?: defaultAccountRecord.subscriberCurrencyCode,
           accountSettings = AccountData.AccountSettings(
             storyViewReceiptsEnabled = SignalStore.storyValues().viewedReceiptsEnabled,
             typingIndicators = TextSecurePreferences.isTypingIndicatorsEnabled(context),
@@ -80,7 +82,7 @@ object AccountDataProcessor {
 
     SignalStore.account().setRegistered(true)
 
-    val context = ApplicationDependencies.getApplication()
+    val context = AppDependencies.application
     val settings = accountData.accountSettings
 
     if (settings != null) {
@@ -101,19 +103,27 @@ object AccountDataProcessor {
       SignalStore.storyValues().userHasSeenGroupStoryEducationSheet = settings.hasSeenGroupStoryEducationSheet
       SignalStore.storyValues().viewedReceiptsEnabled = settings.storyViewReceiptsEnabled ?: settings.readReceipts
 
-      if (accountData.subscriptionManuallyCancelled) {
-        SignalStore.signalDonationsValues().updateLocalStateForManualCancellation()
-      } else {
-        SignalStore.signalDonationsValues().clearUserManuallyCancelled()
+      if (accountData.subscriberId.size > 0) {
+        val remoteSubscriberId = SubscriberId.fromBytes(accountData.subscriberId.toByteArray())
+        val localSubscriber = InAppPaymentsRepository.getSubscriber(InAppPaymentSubscriberRecord.Type.DONATION)
+
+        val subscriber = InAppPaymentSubscriberRecord(
+          remoteSubscriberId,
+          Currency.getInstance(accountData.subscriberCurrencyCode),
+          InAppPaymentSubscriberRecord.Type.DONATION,
+          localSubscriber?.requiresCancel ?: false,
+          InAppPaymentsRepository.getLatestPaymentMethodType(InAppPaymentSubscriberRecord.Type.DONATION)
+        )
+
+        InAppPaymentsRepository.setSubscriber(subscriber)
       }
 
-      if (accountData.subscriberId.size > 0) {
-        val subscriber = Subscriber(SubscriberId.fromBytes(accountData.subscriberId.toByteArray()), accountData.subscriberCurrencyCode)
-        SignalStore.signalDonationsValues().setSubscriber(subscriber)
+      if (accountData.subscriptionManuallyCancelled) {
+        SignalStore.signalDonationsValues().updateLocalStateForManualCancellation(InAppPaymentSubscriberRecord.Type.DONATION)
       }
 
       if (accountData.avatarUrlPath.isNotEmpty()) {
-        ApplicationDependencies.getJobManager().add(RetrieveProfileAvatarJob(Recipient.self().fresh(), accountData.avatarUrlPath))
+        AppDependencies.jobManager.add(RetrieveProfileAvatarJob(Recipient.self().fresh(), accountData.avatarUrlPath))
       }
 
       if (accountData.usernameLink != null) {

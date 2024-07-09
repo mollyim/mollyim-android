@@ -272,7 +272,7 @@ class InternalConversationTestFragment : Fragment(R.layout.conversation_test_fra
       Toast.makeText(requireContext(), "Can't touch this.", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onEditedIndicatorClicked(messageRecord: MessageRecord) {
+    override fun onEditedIndicatorClicked(conversationMessage: ConversationMessage) {
       Toast.makeText(requireContext(), "Can't touch this.", Toast.LENGTH_SHORT).show()
     }
 
@@ -293,6 +293,10 @@ class InternalConversationTestFragment : Fragment(R.layout.conversation_test_fra
     }
 
     override fun onItemDoubleClick(item: MultiselectPart) {
+      Toast.makeText(requireContext(), "Can't touch this.", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPaymentTombstoneClicked() {
       Toast.makeText(requireContext(), "Can't touch this.", Toast.LENGTH_SHORT).show()
     }
 

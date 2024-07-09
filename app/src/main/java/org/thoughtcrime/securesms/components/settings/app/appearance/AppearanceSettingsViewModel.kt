@@ -4,7 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.reactivex.rxjava3.core.Flowable
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob
 import org.thoughtcrime.securesms.keyvalue.SettingsValues.Theme
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -44,7 +44,7 @@ class AppearanceSettingsViewModel : ViewModel() {
 
   fun setNavbarShowCalls(value: Boolean) {
     store.update { it.copy(navbarShowCalls = value) }
-    TextSecurePreferences.setNavbarShowCalls(ApplicationDependencies.getApplication(), value)
+    TextSecurePreferences.setNavbarShowCalls(AppDependencies.application, value)
   }
 
   private fun getState(): AppearanceSettingsState {
@@ -52,7 +52,7 @@ class AppearanceSettingsViewModel : ViewModel() {
       SignalStore.settings().theme,
       SignalStore.settings().messageFontSize,
       SignalStore.settings().language,
-      navbarShowCalls = TextSecurePreferences.getNavbarShowCalls(ApplicationDependencies.getApplication()),
+      navbarShowCalls = TextSecurePreferences.getNavbarShowCalls(AppDependencies.application),
       SignalStore.settings().useCompactNavigationBar
     )
   }

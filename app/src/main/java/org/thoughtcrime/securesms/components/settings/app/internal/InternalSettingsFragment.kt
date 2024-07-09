@@ -33,7 +33,7 @@ import org.thoughtcrime.securesms.database.LogDatabase
 import org.thoughtcrime.securesms.database.MegaphoneDatabase
 import org.thoughtcrime.securesms.database.OneTimePreKeyTable
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.JobTracker
 import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob
 import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob
@@ -60,7 +60,7 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 import kotlin.random.Random
-import kotlin.random.nextInt
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__internal_preferences) {
@@ -196,7 +196,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         summary = DSLSettingsText.from("Clear backoff intervals, app will restart"),
         onClick = {
           SimpleTask.run({
-            JobDatabase.getInstance(ApplicationDependencies.getApplication()).debugResetBackoffInterval()
+            JobDatabase.getInstance(AppDependencies.application).debugResetBackoffInterval()
           }) {
             AppUtil.restart(requireContext())
           }
@@ -329,15 +329,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       )
 
       switchPref(
-        title = DSLSettingsText.from("Ignore server changes"),
-        summary = DSLSettingsText.from("Changes in server's response will be ignored, causing passive voice update messages if P2P is also ignored."),
-        isChecked = state.gv2ignoreServerChanges,
-        onClick = {
-          viewModel.setGv2IgnoreServerChanges(!state.gv2ignoreServerChanges)
-        }
-      )
-
-      switchPref(
         title = DSLSettingsText.from("Ignore P2P changes"),
         summary = DSLSettingsText.from("Changes sent P2P will be ignored. In conjunction with ignoring server changes, will cause passive voice."),
         isChecked = state.gv2ignoreP2PChanges,
@@ -357,7 +348,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         onClick = {
           viewModel.setForceWebsocketMode(!state.forceWebsocketMode)
           SimpleTask.run({
-            val jobState = ApplicationDependencies.getJobManager().runSynchronously(RefreshAttributesJob(), 10.seconds.inWholeMilliseconds)
+            val jobState = AppDependencies.jobManager.runSynchronously(RefreshAttributesJob(), 10.seconds.inWholeMilliseconds)
             return@run jobState.isPresent && jobState.get().isComplete
           }, { success ->
             if (success) {
@@ -413,7 +404,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         title = DSLSettingsText.from("Force emoji download"),
         summary = DSLSettingsText.from("Download the latest emoji set if it\\'s newer than what we have."),
         onClick = {
-          ApplicationDependencies.getJobManager().add(DownloadLatestEmojiDataJob(true))
+          AppDependencies.jobManager.add(DownloadLatestEmojiDataJob(true))
         }
       )
 
@@ -531,12 +522,12 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         title = DSLSettingsText.from("Reset donation megaphone"),
         onClick = {
           SignalDatabase.remoteMegaphones.debugRemoveAll()
-          MegaphoneDatabase.getInstance(ApplicationDependencies.getApplication()).let {
+          MegaphoneDatabase.getInstance(AppDependencies.application).let {
             it.delete(Megaphones.Event.REMOTE_MEGAPHONE)
             it.markFirstVisible(Megaphones.Event.DONATE_MOLLY, System.currentTimeMillis() - TimeUnit.DAYS.toMillis(31))
           }
           // Force repository database cache refresh
-          MegaphoneRepository(ApplicationDependencies.getApplication()).onFirstEverAppLaunch()
+          MegaphoneRepository(AppDependencies.application).onFirstEverAppLaunch()
         }
       )
 
@@ -635,7 +626,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         isEnabled = true,
         onClick = {
           SimpleTask.run(viewLifecycleOwner.lifecycle, {
-            ApplicationDependencies.getJobManager().runSynchronously(PnpInitializeDevicesJob(), 10.seconds.inWholeMilliseconds)
+            AppDependencies.jobManager.runSynchronously(PnpInitializeDevicesJob(), 10.seconds.inWholeMilliseconds)
           }, { state ->
             if (state.isPresent) {
               Toast.makeText(context, "Job finished with result: ${state.get()}!", Toast.LENGTH_SHORT).show()
@@ -762,7 +753,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       .setPositiveButton(
         "Copy"
       ) { _: DialogInterface?, _: Int ->
-        val context: Context = ApplicationDependencies.getApplication()
+        val context: Context = AppDependencies.application
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
         SimpleTask.run<Any?>(
@@ -787,7 +778,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   }
 
   private fun refreshAttributes() {
-    ApplicationDependencies.getJobManager()
+    AppDependencies.jobManager
       .startChain(RefreshAttributesJob())
       .then(RefreshOwnProfileJob())
       .enqueue()
@@ -795,19 +786,19 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   }
 
   private fun refreshProfile() {
-    ApplicationDependencies.getJobManager().add(RefreshOwnProfileJob())
+    AppDependencies.jobManager.add(RefreshOwnProfileJob())
     Toast.makeText(context, "Scheduled profile refresh", Toast.LENGTH_SHORT).show()
   }
 
   private fun rotateProfileKey() {
-    ApplicationDependencies.getJobManager().add(RotateProfileKeyJob())
+    AppDependencies.jobManager.add(RotateProfileKeyJob())
     Toast.makeText(context, "Scheduled profile key rotation", Toast.LENGTH_SHORT).show()
   }
 
   private fun refreshRemoteValues() {
     Toast.makeText(context, "Running remote config refresh, app will restart after completion.", Toast.LENGTH_LONG).show()
     SignalExecutors.BOUNDED.execute {
-      val result: Optional<JobTracker.JobState> = ApplicationDependencies.getJobManager().runSynchronously(RemoteConfigRefreshJob(), TimeUnit.SECONDS.toMillis(10))
+      val result: Optional<JobTracker.JobState> = AppDependencies.jobManager.runSynchronously(RemoteConfigRefreshJob(), TimeUnit.SECONDS.toMillis(10))
 
       if (result.isPresent && result.get() == JobTracker.JobState.SUCCESS) {
         AppUtil.restart(requireContext())
@@ -823,7 +814,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   }
 
   private fun enqueueStorageServiceForcePush() {
-    ApplicationDependencies.getJobManager().add(StorageForcePushJob())
+    AppDependencies.jobManager.add(StorageForcePushJob())
     Toast.makeText(context, "Scheduled storage force push", Toast.LENGTH_SHORT).show()
   }
 
@@ -844,7 +835,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   }
 
   private fun clearAllLocalMetricsState() {
-    LocalMetricsDatabase.getInstance(ApplicationDependencies.getApplication()).clear()
+    LocalMetricsDatabase.getInstance(AppDependencies.application).clear()
     Toast.makeText(context, "Cleared all local metrics state.", Toast.LENGTH_SHORT).show()
   }
 

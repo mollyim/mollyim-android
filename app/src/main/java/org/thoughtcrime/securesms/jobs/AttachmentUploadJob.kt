@@ -17,7 +17,7 @@ import org.thoughtcrime.securesms.attachments.AttachmentUploadUtil
 import org.thoughtcrime.securesms.attachments.PointerAttachment
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.PartProgressEvent
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
@@ -32,6 +32,7 @@ import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResumableUploadResponseCodeException
+import org.whispersystems.signalservice.api.push.exceptions.ResumeLocationInvalidException
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
 import java.io.IOException
 import java.util.Optional
@@ -128,7 +129,7 @@ class AttachmentUploadJob private constructor(
       throw NotPushRegisteredException()
     }
 
-    val messageSender = ApplicationDependencies.getSignalServiceMessageSender()
+    val messageSender = AppDependencies.signalServiceMessageSender
     val databaseAttachment = SignalDatabase.attachments.getAttachment(attachmentId) ?: throw InvalidAttachmentException("Cannot find the specified attachment.")
 
     val timeSinceUpload = System.currentTimeMillis() - databaseAttachment.uploadTimestamp
@@ -146,7 +147,7 @@ class AttachmentUploadJob private constructor(
 
     if (uploadSpec == null) {
       Log.d(TAG, "Need an upload spec. Fetching...")
-      uploadSpec = ApplicationDependencies.getSignalServiceMessageSender().getResumableUploadSpec().toProto()
+      uploadSpec = AppDependencies.signalServiceMessageSender.getResumableUploadSpec().toProto()
     } else {
       Log.d(TAG, "Re-using existing upload spec.")
     }
@@ -166,6 +167,11 @@ class AttachmentUploadJob private constructor(
         Log.w(TAG, "Failed to upload due to a 400 when getting resumable upload information. Clearing upload spec.", e)
         uploadSpec = null
       }
+
+      throw e
+    } catch (e: ResumeLocationInvalidException) {
+      Log.w(TAG, "Resume location invalid. Clearing upload spec.", e)
+      uploadSpec = null
 
       throw e
     }

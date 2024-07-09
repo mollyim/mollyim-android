@@ -22,7 +22,7 @@ import org.thoughtcrime.securesms.database.RecipientTable.PhoneNumberSharingStat
 import org.thoughtcrime.securesms.database.RecipientTable.UnidentifiedAccessMode
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.RecipientRecord
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JsonJobData
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
@@ -291,7 +291,7 @@ class RetrieveProfileJob private constructor(parameters: Parameters, private val
       }
 
       val identityKey = IdentityKey(decode(identityKeyValue), 0)
-      if (!ApplicationDependencies.getProtocolStore().aci().identities().getIdentityRecord(recipient.id).isPresent) {
+      if (!AppDependencies.protocolStore.aci().identities().getIdentityRecord(recipient.id).isPresent) {
         Log.w(TAG, "Still first use for ${recipient.id}")
         return
       }
@@ -362,8 +362,15 @@ class RetrieveProfileJob private constructor(parameters: Parameters, private val
         !recipient.isGroup &&
         !recipient.isSelf
       ) {
-        Log.i(TAG, "Learned profile name for first time, insert event")
-        SignalDatabase.messages.insertLearnedProfileNameChangeMessage(recipient, recipient.getDisplayName(context))
+        val username = SignalDatabase.recipients.getUsername(recipient.id)
+        val e164 = if (username == null) SignalDatabase.recipients.getE164sForIds(listOf(recipient.id)).firstOrNull() else null
+
+        if (username != null || e164 != null) {
+          Log.i(TAG, "Learned profile name for first time, inserting event")
+          SignalDatabase.messages.insertLearnedProfileNameChangeMessage(recipient, e164, username)
+        } else {
+          Log.w(TAG, "Learned profile name for first time, but do not have username or e164 for ${recipient.id}")
+        }
       }
 
       if (remoteProfileName != localProfileName) {
@@ -400,11 +407,11 @@ class RetrieveProfileJob private constructor(parameters: Parameters, private val
         }
 
         if (writeChangeEvent || localDisplayName.isEmpty()) {
-          ApplicationDependencies.getDatabaseObserver().notifyConversationListListeners()
+          AppDependencies.databaseObserver.notifyConversationListListeners()
           val threadId = SignalDatabase.threads.getThreadIdFor(recipient.id)
           if (threadId != null) {
             SignalDatabase.runPostSuccessfulTransaction {
-              ApplicationDependencies.getMessageNotifier().updateNotification(context, forConversation(threadId))
+              AppDependencies.messageNotifier.updateNotification(context, forConversation(threadId))
             }
           }
         }
@@ -473,7 +480,7 @@ class RetrieveProfileJob private constructor(parameters: Parameters, private val
     if (profileAvatar != recipient.profileAvatar) {
       SignalDatabase.runPostSuccessfulTransaction(DEDUPE_KEY_RETRIEVE_AVATAR + recipient.id) {
         SignalExecutors.BOUNDED.execute {
-          ApplicationDependencies.getJobManager().add(RetrieveProfileAvatarJob(recipient, profileAvatar))
+          AppDependencies.jobManager.add(RetrieveProfileAvatarJob(recipient, profileAvatar))
         }
       }
     }
@@ -519,7 +526,7 @@ class RetrieveProfileJob private constructor(parameters: Parameters, private val
     @WorkerThread
     fun enqueue(recipientId: RecipientId) {
       forRecipients(setOf(recipientId)).firstOrNull()?.let { job ->
-        ApplicationDependencies.getJobManager().add(job)
+        AppDependencies.jobManager.add(job)
       }
     }
 
@@ -530,7 +537,7 @@ class RetrieveProfileJob private constructor(parameters: Parameters, private val
     @JvmStatic
     @WorkerThread
     fun enqueue(recipientIds: Set<RecipientId>) {
-      val jobManager = ApplicationDependencies.getJobManager()
+      val jobManager = AppDependencies.jobManager
       for (job in forRecipients(recipientIds)) {
         jobManager.add(job)
       }

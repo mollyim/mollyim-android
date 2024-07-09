@@ -226,37 +226,37 @@
     <string name="CameraXFragment_change_camera_description">Keisti kamerą</string>
     <string name="CameraXFragment_open_gallery_description">Atverti galeriją</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">Leisti prieigą</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Leiskite prieigą prie kameros ir mikrofono</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">Leiskite prieigą prie kameros</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">Leisti prieigą prie mikrofono</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Jei norite fotografuoti, leiskite „Signal“ prieigą prie kameros.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Norėdami fotografuoti ir filmuoti vaizdo įrašus, leiskite Signal prieigą prie kameros.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Jei norite fotografuoti ir filmuoti, leiskite „Signal“ prieigą prie kameros ir mikrofono.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Jei norite filmuoti su garsu, leiskite „Signal“ prieigą prie mikrofono.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Jei norite nuskenuoti QR kodą, leiskite „Signal“ prieigą prie kameros.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Kad būtų galima fotografuoti, „Signal“ reikalinga prieiga prie kameros</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Kad būtų galima nuskaityti QR kodus, „Signal“ reikalinga prieiga prie kameros</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Kad būtų galima filmuoti, „Signal“ reikalinga prieiga prie mikrofono</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Jei norite fotografuoti per „Signal“:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Jei norite fotografuoti ir filmuoti per „Signal“:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">Jei norite filmuoti vaizdo įrašus su garsu:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">Jei norite nuskenuoti QR kodus:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Paskiausi adresatai</string>
@@ -329,8 +329,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Žinutė %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">„Signal“ balso skambutis %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signalinis vaizdo skambutis %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -565,6 +565,13 @@
     <string name="ConversationFragment_delete_on_this_device">Ištrinti šiame įrenginyje</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Ištrinti visur</string>
+    <!-- Dialog message when deleting individual messages and you have a linked device that the delete will sync to -->
+    <plurals name="ConversationFragment_delete_on_linked_warning">
+        <item quantity="one">Ši žinutė bus ištrinta iš visų jūsų įrenginių.</item>
+        <item quantity="few">Šios žinutės bus ištrintos iš visų jūsų įrenginių.</item>
+        <item quantity="many">Šios žinutės bus ištrintos iš visų jūsų įrenginių.</item>
+        <item quantity="other">Šios žinutės bus ištrintos iš visų jūsų įrenginių.</item>
+    </plurals>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Ši žinutė bus ištrinta visiems žmonėms šiame pokalbyje, jeigu jie naudoja naujausią „Signal“ versiją. Jie matys, kad ištrynei žinutę.</string>
     <string name="ConversationFragment_quoted_message_not_found">Pradinė žinutė nerasta</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Pradinė žinutė daugiau nebeprieinama</string>
@@ -668,6 +675,13 @@
         <item quantity="few">Visi %1$d pasirinkti pokalbiai bus negrįžtamai ištrinti.</item>
         <item quantity="many">Visi %1$d pasirinkti pokalbiai bus negrįžtamai ištrinti.</item>
         <item quantity="other">Visi %1$d pasirinktų pokalbių bus negrįžtamai ištrinti.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">Pasirinktas pokalbis bus negrįžtamai ištrintas iš visų jūsų įrenginių.</item>
+        <item quantity="few">Visi %1$d pasirinkti pokalbiai bus negrįžtamai ištrinti iš visų jūsų įrenginių.</item>
+        <item quantity="many">Visi %1$d pasirinkti pokalbiai bus negrįžtamai ištrinti iš visų jūsų įrenginių.</item>
+        <item quantity="other">Visi %1$d pasirinktų pokalbių bus negrįžtamai ištrinti iš visų jūsų įrenginių.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Ištrinama</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -1098,7 +1112,7 @@
     <string name="PromptBatterySaverBottomSheet__dismiss">Atmesti</string>
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Laukiantys pakvietimai į grupę</string>
+    <string name="PendingMembersActivity_pending_group_invites">Prašymai ir pakvietimai</string>
     <string name="PendingMembersActivity_requests">Prašymai</string>
     <string name="PendingMembersActivity_invites">Pakvietimai</string>
     <string name="PendingMembersActivity_people_you_invited">Jūsų pakviesti žmonės</string>
@@ -1402,6 +1416,13 @@
         <item quantity="few">Tai negrįžtamai ištrins visus %1$d pažymėtus failus. Visos su jais susietos žinutės taip pat bus ištrintos.</item>
         <item quantity="many">Tai negrįžtamai ištrins visus %1$d pažymėtus failus. Visos su jais susietos žinutės taip pat bus ištrintos.</item>
         <item quantity="other">Tai negrįžtamai ištrins visus %1$d pažymėtų failų. Visos su jais susietos žinutės taip pat bus ištrintos.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many attachments from the media overview screen -->
+    <plurals name="MediaOverviewActivity_Media_delete_confirm_message_linked_device">
+        <item quantity="one">Tai negrįžtamai ištrins pažymėtą failą iš visų jūsų įrenginių. Visos su juo susietos žinutės taip pat bus ištrintos.</item>
+        <item quantity="few">Tai negrįžtamai ištrins visus %1$d pažymėtus failus iš visų jūsų įrenginių. Visos su jais susietos žinutės taip pat bus ištrintos.</item>
+        <item quantity="many">Tai negrįžtamai ištrins visus %1$d pažymėtus failus iš visų jūsų įrenginių. Visos su jais susietos žinutės taip pat bus ištrintos.</item>
+        <item quantity="other">Tai negrįžtamai ištrins visus %1$d pažymėtų failų iš visų jūsų įrenginių. Visos su jais susietos žinutės taip pat bus ištrintos.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Ištrinama</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Ištrinamos žinutės…</string>
@@ -1733,6 +1754,14 @@
     <string name="MessageRecord_you_activated_payments">Tu įjungei Mokėjimus</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s dabar gali priimti Mokėjimus</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">Mokėjimo informacijos nėra</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Bakstelėkite, norėdami pamatyti daugiau</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">Išsamios mokėjimo informacijos nėra</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">Informacija apie šį mokėjimą neprieinama, nes jūsų žinutės atkurtos iš šaltinio, kuriame nebuvo šios mokėjimų istorijos. Tai neturi įtakos jūsų piniginės likučiui ar ankstesnių mokėjimų būsenai.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1796,6 +1825,8 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Per programėlę „Signal“ nebegalima siųsti SMS žinučių. Pakviesk %1$s į „Signal“ ir pratęsk pokalbį čia.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Mokėjimas: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Mokėjimas</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Pranešta apie šlamštą</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -2069,6 +2100,26 @@
     <string name="WebRtcCallActivity__removed_from_call">Pašalinimas iš skambučio</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Kažkas tave pašalino iš skambučio.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Leiskite prieigą prie kameros ir mikrofono</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Leisti prieigą prie mikrofono</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Leiskite prieigą prie kameros</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Jei norite pradėti skambutį arba prie jo prisijungti, leiskite „Signal“ prieigą prie kameros ir mikrofono.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">Jei norite pradėti skambutį arba prie jo prisijungti, leiskite „Signal“ prieigą prie mikrofono.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Jei norite įjungti vaizdą, leiskite „Signal“ prieigą prie kameros.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Norint pradėti skambutį arba prie jo prisijungti, „Signal“ reikalingas mikrofono leidimas.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Norint įjungti vaizdą, „Signal“ reikalinga prieiga prie jūsų kameros</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">Norėdami pradėti skambutį arba prie jo prisijungti:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">Jei norite įjungti vaizdą:</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">„Signal“ skambutis</string>
@@ -2175,26 +2226,18 @@
     <string name="CallOverflowPopupWindow__lower_hand">Nuleisti ranką</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Atšaukti</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">Pakėlėte ranką</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Rodyti</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">Rankas pakėlė %1$s</item>
-        <item quantity="few">Rankas pakėlė %1$s + %2$d</item>
-        <item quantity="many">Rankas pakėlė %1$s + %2$d</item>
-        <item quantity="other">Rankas pakėlė %1$s + %2$d</item>
-    </plurals>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_singular">%1$s pakėlė ranką</string>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_plural">%1$s + %2$d pakėlė rankas</string>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="one">%1$s</item>
-        <item quantity="few">%1$s + %2$d</item>
-        <item quantity="many">%1$s + %2$d</item>
-        <item quantity="other">%1$s + %2$d</item>
-    </plurals>
+    <!-- A badge to show how many hands are raised. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar_raised_hands_plural">%1$s + %2$d</string>
 
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Išplėsti pakeltos rankos rodinį</string>
@@ -2346,8 +2389,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Nepavyksta prisiregistruoti?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Įsitikink, kad telefone yra mobilusis ryšys ir gali gauti SMS ar priimti skambutį.\n • Patvirtink, kad gali atsiliepti į skambutį šiuo numeriu.\n • Patikrink, ar teisingai įvedei savo telefono numerį.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Jei reikia daugiau informacijos, atlik šiuos nesklandumų šalinimo veiksmus arba kreipkis į aptarnavimo komandą</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Jei norite gauti daugiau informacijos, vadovaukitės %1$s arba %2$s</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">šiuos nesklandumų šalinimo veiksmus</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2640,6 +2683,8 @@
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nepavyksta įrašyti į išorinę saugyklą be leidimų</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Ištrinti žinutę?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Tai visiems laikams ištrins šią žinutę.</string>
+    <!-- Dialog message shown when deleting an attachment and message -->
+    <string name="MediaPreviewActivity_media_delete_confirmation_message_linked_device">Taip ši žinutė bus negrįžtamai ištrinta iš visų jūsų įrenginių.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s naudotojui %2$s</string>
     <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
     <string name="MediaPreviewActivity_you_to_s">Jūs siuntėte gavėjui %1$s</string>
@@ -2881,9 +2926,9 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Kažko trūksta? Bandyk atnaujinti</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Raskite pažįstamų žmonių per „Signal“</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Leiskite prieigą prie savo kontaktų</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Daugiau</string>
 
@@ -2920,13 +2965,13 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Rasti pagal naudotojo vardą</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">Leiskite prieigą prie kontaktų</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Jei norite rasti pažįstamų žmonių „Signal“:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">Leisti prieigą</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Leiskite prieigą prie savo kontaktų. Jūsų kontaktai yra užšifruoti ir „Signal“ jų nemato.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Norint rodyti jūsų adresatus, Signal reikia prieigos prie jų.</string>
@@ -3529,8 +3574,12 @@
         <item quantity="other">Visi pokalbiai bus negrįžtamai apkarpyti iki %1$s naujausių žinučių.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Tai visam laikui iš tavo įrenginio ištrins visą žinučių istoriją ir įrašus.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">Tai visam laikui iš šio įrenginio ir bet kokių susietų įrenginių ištrins visą žinučių istoriją ir įrašus.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Ar tikrai nori ištrinti visą žinučių istoriją?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Visa žinučių istorija bus pašalinta visam laikui. Šio veiksmo nebus galima atšaukti.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">Iš visų įrenginių visam laikui bus pašalinta visa žinučių istorija. Šio veiksmo bus neįmanoma atšaukti.</string>
     <string name="preferences_storage__delete_all_now">Ištrinti viską dabar</string>
     <string name="preferences_storage__forever">Amžinai</string>
     <string name="preferences_storage__one_year">1 metus</string>
@@ -5920,8 +5969,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">Atsakymų kol kas nėra</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">Negali atsakyti į šią istoriją, nes nebesi šios grupės narys.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Sureagavo į istoriją</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">sureagavote į istoriją</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">sureagavo į istoriją</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Peržiūros</string>
     <!-- Label for story replies tab -->
@@ -7179,13 +7230,24 @@
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
-    <string name="ManageStorageSettingsFragment_chat_limit">Pokalbio ribojimai</string>
+    <string name="ManageStorageSettingsFragment_chat_limit">Pokalbio ilgio ribojimai</string>
     <!-- Settings row title text that can be clicked to delete all messages and associated data from the device -->
     <string name="ManageStorageSettingsFragment_delete_message_history">Ištrinti žinučių istoriją</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (time is a range like 30 days or 1 year etc) -->
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Už pasirinktą laiką senesnės žinutės bus visam laikui ištrintos.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Pasirinktą ilgį viršijančios žinutės bus visam laikui ištrintos.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Taikyti apribojimus susietiems įrenginiams</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Kai įjungta, pokalbio ilgio ribojimo funkcija ištrins žinutes iš susietų įrenginių.</string>
+
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">Ištrynimas dabar sinchronizuojamas visuose jūsų įrenginiuose</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">Jei ištrinate žinutes, įrašus ar pokalbius, jie bus ištrinti iš jūsų telefono ir visų susietų įrenginių.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">Gerai</string>
 
     <!-- EOF -->
 </resources>

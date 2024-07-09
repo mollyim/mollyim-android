@@ -14,7 +14,7 @@ import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.crypto.ReentrantSessionLock
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupsV2ProcessingLock
 import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
@@ -73,7 +73,7 @@ class IncomingMessageObserver(private val context: Application) {
     const val FOREGROUND_ID = 313399
 
     private val censored: Boolean
-      get() = ApplicationDependencies.getSignalServiceNetworkAccess().isCensored()
+      get() = AppDependencies.signalServiceNetworkAccess.isCensored()
   }
 
   private val decryptionDrainedListeners: MutableList<Runnable> = CopyOnWriteArrayList()
@@ -112,7 +112,7 @@ class IncomingMessageObserver(private val context: Application) {
 
     // MOLLY: Foreground service startup is handled inside the connection loop
 
-    ApplicationDependencies.getAppForegroundObserver().addListener(object : AppForegroundObserver.Listener {
+    AppDependencies.appForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
         onAppForegrounded()
       }
@@ -193,7 +193,7 @@ class IncomingMessageObserver(private val context: Application) {
     val fcmEnabled = SignalStore.account().fcmEnabled
     val pushAvailable = SignalStore.account().pushAvailable
     val hasNetwork = NetworkConstraint.isMet(context)
-    val hasProxy = ApplicationDependencies.getNetworkManager().isProxyEnabled
+    val hasProxy = AppDependencies.networkManager.isProxyEnabled
     val forceWebsocket = SignalStore.internalValues().isWebsocketModeForced
 
     if (registered && (!pushAvailable || forceWebsocket)) {
@@ -251,7 +251,7 @@ class IncomingMessageObserver(private val context: Application) {
   }
 
   private fun disconnect() {
-    ApplicationDependencies.getSignalWebSocket().disconnect()
+    AppDependencies.signalWebSocket.disconnect()
   }
 
   @JvmOverloads
@@ -387,8 +387,8 @@ class IncomingMessageObserver(private val context: Application) {
         waitForConnectionNecessary()
         Log.i(TAG, "Making websocket connection....")
 
-        val signalWebSocket = ApplicationDependencies.getSignalWebSocket()
-        val webSocketDisposable = signalWebSocket.webSocketState.subscribe { state: WebSocketConnectionState ->
+        val signalWebSocket = AppDependencies.signalWebSocket
+        val webSocketDisposable = AppDependencies.webSocketObserver.subscribe { state: WebSocketConnectionState ->
           Log.d(TAG, "WebSocket State: $state")
 
           // Any state change at all means that we are not drained
@@ -420,7 +420,7 @@ class IncomingMessageObserver(private val context: Application) {
                       if (followUpOperations != null) {
                         Log.d(TAG, "Running ${followUpOperations.size} follow-up operations...")
                         val jobs = followUpOperations.mapNotNull { it.run() }
-                        ApplicationDependencies.getJobManager().addAllChains(jobs)
+                        AppDependencies.jobManager.addAllChains(jobs)
                       }
 
                       signalWebSocket.sendAck(response)

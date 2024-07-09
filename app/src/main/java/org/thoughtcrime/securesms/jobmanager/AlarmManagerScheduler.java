@@ -13,7 +13,7 @@ import com.annimon.stream.Stream;
 import org.signal.core.util.PendingIntentFlags;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
 
 import java.util.List;
@@ -63,7 +63,7 @@ public class AlarmManagerScheduler implements Scheduler {
     @Override
     public void onReceiveUnlock(Context context, Intent intent) {
       Log.i(TAG, "Received an alarm to retry a job.");
-      ApplicationDependencies.getJobManager().wakeUp();
+      AppDependencies.getJobManager().wakeUp();
     }
   }
 }

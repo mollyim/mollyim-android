@@ -22,7 +22,7 @@ import org.signal.core.util.concurrent.ListenableFuture;
 import org.signal.core.util.concurrent.SettableFuture;
 import org.signal.core.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.ProxyType;
 import org.thoughtcrime.securesms.net.SocksProxy;
@@ -43,7 +43,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
   private SettableFuture<Boolean> connected;
 
   public NetworkPreferenceFragment() {
-    networkManager = ApplicationDependencies.getNetworkManager();
+    networkManager = AppDependencies.getNetworkManager();
   }
 
   @Override
@@ -145,7 +145,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
     final boolean changed = networkManager.applyProxyConfig();
     if (changed || alwaysRestart) {
       networkManager.setNetworkEnabled(true);
-      ApplicationDependencies.restartAllNetworkConnections();
+      AppDependencies.restartAllNetworkConnections();
     }
   }
 

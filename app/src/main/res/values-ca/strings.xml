@@ -226,37 +226,37 @@
     <string name="CameraXFragment_change_camera_description">Canvia la càmera</string>
     <string name="CameraXFragment_open_gallery_description">Obre la galeria</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">Permet l\'accés</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Permet l\'accés a la teva càmera i al teu micròfon</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">Permet l\'accés a la teva càmera</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">Permet l\'accés al micròfon</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Per capturar fotos, permet que Signal accedeixi a la càmera.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Per captar fotografies i vídeos, permeteu que el Signal tingui accés a la càmera.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Per capturar fotos i vídeos, permet que Signal accedeixi a la càmera i al micròfon.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Per gravar vídeos amb so, permet que Signal accedeixi al teu micròfon.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Per escanejar un codi QR, permet que Signal accedeixi a la càmera.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal necessita accedir a la càmera per fer fotos</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal necessita accedir a la càmera per escanejar codis QR</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal necessita accedir al micròfon per gravar vídeos</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Per capturar fotos a Signal:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Per capturar fotos i vídeos a Signal:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">Per gravar vídeos amb so:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">Per escanejar codis QR:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Contactes recents</string>
@@ -327,8 +327,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Missatge %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Trucada de veu de Signal de %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Videotrucada de Signal de %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -547,6 +547,11 @@
     <string name="ConversationFragment_delete_on_this_device">Suprimir en aquest dispositiu</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Suprimir a tot arreu</string>
+    <!-- Dialog message when deleting individual messages and you have a linked device that the delete will sync to -->
+    <plurals name="ConversationFragment_delete_on_linked_warning">
+        <item quantity="one">Aquest missatge s\'eliminarà de tots els teus dispositius.</item>
+        <item quantity="other">Aquests missatges s\'eliminaran de tots els teus dispositius.</item>
+    </plurals>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Aquest missatge s\'eliminarà per a tots els membres del xat si utilitzen una versió recent de Signal. Podran veure que has eliminat un missatge.</string>
     <string name="ConversationFragment_quoted_message_not_found">No s\'ha trobat el missatge original.</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">El missatge original ja no està disponible.</string>
@@ -646,6 +651,11 @@
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">S\'eliminarà de manera permanent el xat seleccionat.</item>
         <item quantity="other">S\'eliminarà de manera permanent els %1$d xats seleccionats.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">Aquesta acció eliminarà de manera permanent el xat seleccionat de tots els teus dispositius.</item>
+        <item quantity="other">Aquesta acció eliminarà de manera permanent els %1$d xats seleccionats de tots els teus dispositius.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Se suprimeix</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -1036,7 +1046,7 @@
     <string name="PromptBatterySaverBottomSheet__dismiss">Descarta</string>
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Invitacions de grup pendents</string>
+    <string name="PendingMembersActivity_pending_group_invites">Sol·licituds i invitacions</string>
     <string name="PendingMembersActivity_requests">Sol·licituds</string>
     <string name="PendingMembersActivity_invites">Invitacions</string>
     <string name="PendingMembersActivity_people_you_invited">Persones que heu convidat</string>
@@ -1318,6 +1328,11 @@
     <plurals name="MediaOverviewActivity_Media_delete_confirm_message">
         <item quantity="one">Aquesta acció esborrarà permanentment el fitxer seleccionat. Qualsevol missatge de text que hi estigui associat també s\'esborrarà.</item>
         <item quantity="other">Aquesta acció esborrarà permanentment els %1$d fitxers seleccionats. Qualsevol missatge de text que hi estigui associat també s\'esborrarà.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many attachments from the media overview screen -->
+    <plurals name="MediaOverviewActivity_Media_delete_confirm_message_linked_device">
+        <item quantity="one">Aquesta acció eliminarà de manera permanent l\'arxiu seleccionat de tots els teus dispositius. Qualsevol missatge de text que hi estigui associat també s\'esborrarà.</item>
+        <item quantity="other">Aquesta acció eliminarà de manera permanent els %1$d arxius seleccionats de tots els teus dispositius. Qualsevol missatge de text que hi estigui associat també s\'esborrarà.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Se suprimeix</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Se suprimeixen missatges…</string>
@@ -1627,6 +1642,14 @@
     <string name="MessageRecord_you_activated_payments">Has activat Pagaments</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s ja pot acceptar Pagaments</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">Les dades de pagament no estan disponibles</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Mostra\'n més</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">Dades de pagament no disponibles</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">Els detalls d\'aquest pagament no estan disponibles perquè els teus missatges s\'han restaurat des d\'una font que no incloïa aquest historial de pagaments. Això no afecta el saldo de la teva cartera ni l\'estat dels pagaments anteriors.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1686,6 +1709,8 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Ja no pots enviar missatges SMS a través de Signal. Convida %1$s a Signal per mantenir la conversa aquí.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Pagament: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Pagament</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Se n\'ha informat com a spam</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -1935,6 +1960,26 @@
     <string name="WebRtcCallActivity__removed_from_call">Expulsar de la trucada</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Algú t\'ha expulsat de la trucada.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Permet l\'accés a la teva càmera i al teu micròfon</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Permet l\'accés al micròfon</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Permet l\'accés a la teva càmera</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Per iniciar o unir-se a una trucada, permet a Signal accedir al micròfon i a la càmera.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">Per iniciar o unir-se a una trucada, permet a Signal accedir al micròfon.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Per activar el vídeo, permet que Signal tingui accés a la teva càmera.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal necessita permisos de micròfon per iniciar o unir-se a una trucada.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal necessita accedir a la càmera per activar el vídeo</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">Per iniciar o unir-se a una trucada:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">Per activar el vídeo:</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Trucada del Signal</string>
@@ -2031,22 +2076,18 @@
     <string name="CallOverflowPopupWindow__lower_hand">Baixar la mà</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Cancel·lar</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">Has aixecat la mà</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Vista</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">%1$s ha aixecat la mà</item>
-        <item quantity="other">%1$s + %2$d han aixecat la mà</item>
-    </plurals>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_singular">%1$s ha aixecat la mà</string>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_plural">%1$s i %2$d han aixecat la mà</string>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="one">%1$s</item>
-        <item quantity="other">%1$s +%2$d</item>
-    </plurals>
+    <!-- A badge to show how many hands are raised. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar_raised_hands_plural">%1$s +%2$d</string>
 
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Ampliar la vista de mà aixecada</string>
@@ -2186,8 +2227,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Problemes per registrar-te?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Assegura\'t que el teu telèfon tingui senyal per rebre el teu SMS o trucada\n • Confirma que puguis rebre una trucada telefònica al número\n • Comprova que has introduït el teu número de telèfon correctament.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Per obtenir més informació, segueix aquests passos de resolució de problemes o posa\'t en contacte amb el servei d\'assistència</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Per obtenir més informació, consulta %1$s o %2$s</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">aquests passos de resolució de problemes</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2478,6 +2519,8 @@
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">No es pot desar en un emmagatzematge extern sense permís.</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Vols esborrar el missatge?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Aquest missatge s\'esborrarà permanentment.</string>
+    <!-- Dialog message shown when deleting an attachment and message -->
+    <string name="MediaPreviewActivity_media_delete_confirmation_message_linked_device">Aquesta acció eliminarà de manera permanent aquest missatge de tots els teus dispositius.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s a %2$s</string>
     <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
     <string name="MediaPreviewActivity_you_to_s">Vós a %1$s</string>
@@ -2713,9 +2756,9 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Falta algú? Prova d\'actualitzar</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Troba gent que coneixes a Signal</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Permet l\'accés als teus contactes</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Més</string>
 
@@ -2750,13 +2793,13 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Cerca per àlies</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">Permet l\'accés als contactes</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Per trobar gent que coneixes a Signal:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">Permet l\'accés</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Permet l\'accés als teus contactes. Els teus contactes estan xifrats i no són visibles pel servei de Signal.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">El Signal necessita accés als contactes per tal de mostrar-los.</string>
@@ -3337,8 +3380,12 @@
         <item quantity="other">Això reduirà permanentment tots els xats als %1$s missatges més recents.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Això esborrarà permanentment tot l\'historial dels missatges i tot el contingut del dispositiu.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">Això eliminarà permanentment tot l\'historial de missatges i els continguts multimèdia d\'aquest dispositiu i de qualsevol dispositiu vinculat.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Segur que vols esborrar tot l\'historial dels missatges?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">S\'esborrarà permanentment tot l\'historial dels missatges. Aquesta acció no es pot desfer.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">S\'esborrarà permanentment tot l\'historial de missatges de tots els dispositius. Aquesta acció no es pot desfer.</string>
     <string name="preferences_storage__delete_all_now">Esborrar-ho tot ara</string>
     <string name="preferences_storage__forever">Per sempre</string>
     <string name="preferences_storage__one_year">1 any</string>
@@ -4773,7 +4820,7 @@
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
-    <string name="ChatColorSelectionFragment__auto">Automàtic</string>
+    <string name="ChatColorSelectionFragment__auto">Auto</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">Usa els colors personalitzats</string>
     <string name="ChatColorSelectionFragment__chat_color">Color del xat</string>
     <string name="ChatColorSelectionFragment__edit">Edita</string>
@@ -5637,7 +5684,7 @@
     <!-- Used to join views and replies when both exist on a story item -->
     <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
     <!-- Displayed when viewing a post you sent -->
-    <string name="StoryViewerPageFragment__you">Vós</string>
+    <string name="StoryViewerPageFragment__you">Tu</string>
     <!-- Displayed when viewing a story sent to a group, placeholders are person who sent the story and the group name -->
     <string name="StoryViewerPageFragment__s_to_s">%1$s a %2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
@@ -5666,8 +5713,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">Encara no té respostes</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">No pots respondre a aquesta història perquè ja no pertanys a aquest grup.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Ha reaccionat a la història</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">Has reaccionat a la història</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">Ha reaccionat a la història</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Visualitzacions</string>
     <!-- Label for story replies tab -->
@@ -6884,6 +6933,17 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Els missatges anteriors a la data seleccionada seran eliminats de manera permanent.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Els missatges que superin la longitud seleccionada seran eliminats de manera permanent.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Aplicar límits als dispositius connectats</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Quan això està activat, els límits de xat també eliminaran els missatges dels dispositius connectats.</string>
+
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">L\'eliminació de continguts ara es sincronitza ara a tots els teus dispositius</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">Quan elimines missatges, contingut multimèdia o xats, s\'eliminen del teu telèfon i de tots els dispositius connectats.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">D\'acord</string>
 
     <!-- EOF -->
 </resources>

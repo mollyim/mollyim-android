@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import org.signal.core.util.SetUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
@@ -101,20 +101,17 @@ public final class FeatureFlags {
   private static final String MAX_ATTACHMENT_COUNT              = "android.attachments.maxCount";
   private static final String MAX_ATTACHMENT_RECEIVE_SIZE_BYTES = "global.attachments.maxReceiveBytes";
   private static final String MAX_ATTACHMENT_SIZE_BYTES         = "global.attachments.maxBytes";
-  private static final String SVR2_KILLSWITCH                   = "android.svr2.killSwitch";
   private static final String CDS_DISABLE_COMPAT_MODE           = "cds.disableCompatibilityMode";
   private static final String FCM_MAY_HAVE_MESSAGES_KILL_SWITCH = "android.fcmNotificationFallbackKillSwitch";
   public static final  String PROMPT_FOR_NOTIFICATION_LOGS      = "android.logs.promptNotifications";
   private static final String PROMPT_FOR_NOTIFICATION_CONFIG    = "android.logs.promptNotificationsConfig";
   public static final  String PROMPT_BATTERY_SAVER              = "android.promptBatterySaver";
-  public static final  String INSTANT_VIDEO_PLAYBACK            = "android.instantVideoPlayback.1";
   public static final  String CRASH_PROMPT_CONFIG               = "android.crashPromptConfig";
   private static final String SEPA_DEBIT_DONATIONS              = "android.sepa.debit.donations.5";
   private static final String IDEAL_DONATIONS                   = "android.ideal.donations.5";
   public static final  String IDEAL_ENABLED_REGIONS             = "global.donations.idealEnabledRegions";
   public static final  String SEPA_ENABLED_REGIONS              = "global.donations.sepaEnabledRegions";
   private static final String NOTIFICATION_THUMBNAIL_BLOCKLIST  = "android.notificationThumbnailProductBlocklist";
-  private static final String CALLING_RAISE_HAND                = "android.calling.raiseHand";
   private static final String USE_ACTIVE_CALL_MANAGER           = "android.calling.useActiveCallManager.5";
   private static final String GIF_SEARCH                        = "global.gifSearch";
   private static final String AUDIO_REMUXING                    = "android.media.audioRemux.1";
@@ -122,7 +119,7 @@ public final class FeatureFlags {
   private static final String RETRY_RECEIPT_MAX_COUNT           = "android.retryReceipt.maxCount";
   private static final String RETRY_RECEIPT_MAX_COUNT_RESET_AGE = "android.retryReceipt.maxCountResetAge";
   private static final String PREKEY_FORCE_REFRESH_INTERVAL     = "android.prekeyForceRefreshInterval";
-  private static final String CDSI_LIBSIGNAL_NET                = "android.cds.libsignal.3";
+  private static final String CDSI_LIBSIGNAL_NET                = "android.cds.libsignal.4";
   private static final String RX_MESSAGE_SEND                   = "android.rxMessageSend.2";
   private static final String LINKED_DEVICE_LIFESPAN_SECONDS    = "android.linkedDeviceLifespanSeconds";
   private static final String MESSAGE_BACKUPS                   = "android.messageBackups";
@@ -131,6 +128,7 @@ public final class FeatureFlags {
   private static final String LIBSIGNAL_WEB_SOCKET_ENABLED      = "android.libsignalWebSocketEnabled";
   private static final String RESTORE_POST_REGISTRATION         = "android.registration.restorePostRegistration";
   private static final String LIBSIGNAL_WEB_SOCKET_SHADOW_PCT   = "android.libsignalWebSocketShadowingPercentage";
+  private static final String DELETE_SYNC_SEND_RECEIVE          = "android.deleteSyncSendReceive";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -185,20 +183,17 @@ public final class FeatureFlags {
       MAX_ATTACHMENT_RECEIVE_SIZE_BYTES,
       MAX_ATTACHMENT_SIZE_BYTES,
       AD_HOC_CALLING,
-      SVR2_KILLSWITCH,
       CDS_DISABLE_COMPAT_MODE,
       FCM_MAY_HAVE_MESSAGES_KILL_SWITCH,
       PROMPT_FOR_NOTIFICATION_LOGS,
       PROMPT_FOR_NOTIFICATION_CONFIG,
       PROMPT_BATTERY_SAVER,
-      INSTANT_VIDEO_PLAYBACK,
       CRASH_PROMPT_CONFIG,
       SEPA_DEBIT_DONATIONS,
       IDEAL_DONATIONS,
       IDEAL_ENABLED_REGIONS,
       SEPA_ENABLED_REGIONS,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
-      CALLING_RAISE_HAND,
       USE_ACTIVE_CALL_MANAGER,
       GIF_SEARCH,
       AUDIO_REMUXING,
@@ -211,7 +206,8 @@ public final class FeatureFlags {
       LINKED_DEVICE_LIFESPAN_SECONDS,
       CAMERAX_CUSTOM_CONTROLLER,
       LIBSIGNAL_WEB_SOCKET_ENABLED,
-      LIBSIGNAL_WEB_SOCKET_SHADOW_PCT
+      LIBSIGNAL_WEB_SOCKET_SHADOW_PCT,
+      DELETE_SYNC_SEND_RECEIVE
   );
 
   @VisibleForTesting
@@ -271,7 +267,6 @@ public final class FeatureFlags {
       MAX_ATTACHMENT_COUNT,
       MAX_ATTACHMENT_RECEIVE_SIZE_BYTES,
       MAX_ATTACHMENT_SIZE_BYTES,
-      SVR2_KILLSWITCH,
       CDS_DISABLE_COMPAT_MODE,
       FCM_MAY_HAVE_MESSAGES_KILL_SWITCH,
       PROMPT_FOR_NOTIFICATION_LOGS,
@@ -279,7 +274,6 @@ public final class FeatureFlags {
       PROMPT_BATTERY_SAVER,
       CRASH_PROMPT_CONFIG,
       NOTIFICATION_THUMBNAIL_BLOCKLIST,
-      CALLING_RAISE_HAND,
       VIDEO_RECORD_1X_ZOOM,
       RETRY_RECEIPT_MAX_COUNT,
       RETRY_RECEIPT_MAX_COUNT_RESET_AGE,
@@ -287,7 +281,8 @@ public final class FeatureFlags {
       CDSI_LIBSIGNAL_NET,
       RX_MESSAGE_SEND,
       LINKED_DEVICE_LIFESPAN_SECONDS,
-      CAMERAX_CUSTOM_CONTROLLER
+      CAMERAX_CUSTOM_CONTROLLER,
+      DELETE_SYNC_SEND_RECEIVE
   );
 
   /**
@@ -296,7 +291,6 @@ public final class FeatureFlags {
   @VisibleForTesting
   static final Set<String> STICKY = SetUtil.newHashSet(
       VERIFY_V2,
-      SVR2_KILLSWITCH,
       FCM_MAY_HAVE_MESSAGES_KILL_SWITCH
   );
 
@@ -312,7 +306,7 @@ public final class FeatureFlags {
    * desired test state.
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
-    put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> RoutineMessageFetchReceiver.startOrUpdateAlarm(ApplicationDependencies.getApplication()));
+    put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> RoutineMessageFetchReceiver.startOrUpdateAlarm(AppDependencies.getApplication()));
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -336,7 +330,7 @@ public final class FeatureFlags {
 
     if (timeSinceLastFetch < 0 || timeSinceLastFetch > FETCH_INTERVAL) {
       Log.i(TAG, "Scheduling remote config refresh.");
-      ApplicationDependencies.getJobManager().add(new RemoteConfigRefreshJob());
+      AppDependencies.getJobManager().add(new RemoteConfigRefreshJob());
     } else {
       Log.i(TAG, "Skipping remote config refresh. Refreshed " + timeSinceLastFetch + " ms ago.");
     }
@@ -344,7 +338,7 @@ public final class FeatureFlags {
 
   @WorkerThread
   public static void refreshSync() throws IOException {
-    RemoteConfigResult result = ApplicationDependencies.getSignalServiceAccountManager().getRemoteConfig();
+    RemoteConfigResult result = AppDependencies.getSignalServiceAccountManager().getRemoteConfig();
     FeatureFlags.update(result.getConfig());
   }
 
@@ -595,21 +589,6 @@ public final class FeatureFlags {
     return getLong(MAX_ATTACHMENT_SIZE_BYTES, ByteUnit.MEGABYTES.toBytes(100));
   }
 
-  /**
-   * Allow the video players to read from the temporary download files for attachments.
-   * @return whether this functionality is enabled.
-   */
-  public static boolean instantVideoPlayback() {
-    return getBoolean(INSTANT_VIDEO_PLAYBACK, false);
-  }
-
-  /**
-   * Whether or not group call raise hand is enabled.
-   */
-  public static boolean groupCallRaiseHand() {
-    return getBoolean(CALLING_RAISE_HAND, false);
-  }
-
   /** List of device products that are blocked from showing notification thumbnails. */
   public static String notificationThumbnailProductBlocklist() {
     return getString(NOTIFICATION_THUMBNAIL_BLOCKLIST, "");
@@ -688,6 +667,11 @@ public final class FeatureFlags {
    */
   public static  int libSignalWebSocketShadowingPercentage() {
     return 0;
+  }
+
+  /** Whether or not to delete syncing is enabled. */
+  public static boolean deleteSyncEnabled() {
+    return false;
   }
 
   /** Only for rendering debug info. */
@@ -830,14 +814,6 @@ public final class FeatureFlags {
    */
   public static long getBackgroundMessageProcessForegroundDelay() {
     return getInteger(MESSAGE_PROCESSOR_DELAY, 300);
-  }
-
-  /**
-   * Whether or not SVR2 should be used at all. Defaults to true. In practice this is reserved as a killswitch.
-   */
-  public static boolean svr2() {
-    // Despite us always inverting the value, it's important that this defaults to false so that the STICKY property works as intended
-    return !getBoolean(SVR2_KILLSWITCH, false);
   }
 
   private enum VersionFlag {

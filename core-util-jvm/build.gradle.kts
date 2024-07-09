@@ -16,6 +16,8 @@ java {
 }
 
 dependencies {
+  testImplementation(libs.kotlin.reflect.tests)
+
   testImplementation(testLibs.junit.junit)
   testImplementation(testLibs.assertj.core)
 }

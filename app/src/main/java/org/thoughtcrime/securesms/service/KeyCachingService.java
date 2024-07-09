@@ -38,7 +38,7 @@ import org.thoughtcrime.securesms.DummyActivity;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
@@ -161,7 +161,7 @@ public class KeyCachingService extends Service {
 
     SignalExecutors.BOUNDED.execute(() -> {
       if (!ApplicationMigrations.isUpdate(KeyCachingService.this)) {
-        ApplicationDependencies.getMessageNotifier().updateNotification(KeyCachingService.this);
+        AppDependencies.getMessageNotifier().updateNotification(KeyCachingService.this);
       }
     });
   }

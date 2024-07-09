@@ -17,7 +17,7 @@ import org.thoughtcrime.securesms.database.MediaTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.media
 import org.thoughtcrime.securesms.database.ThreadTable
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.KeepMessagesDuration
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 
@@ -26,7 +26,8 @@ class ManageStorageSettingsViewModel : ViewModel() {
   private val store = MutableStateFlow(
     ManageStorageState(
       keepMessagesDuration = SignalStore.settings().keepMessagesDuration,
-      lengthLimit = if (SignalStore.settings().isTrimByLengthEnabled) SignalStore.settings().threadTrimLength else ManageStorageState.NO_LIMIT
+      lengthLimit = if (SignalStore.settings().isTrimByLengthEnabled) SignalStore.settings().threadTrimLength else ManageStorageState.NO_LIMIT,
+      syncTrimDeletes = SignalStore.settings().shouldSyncThreadTrimDeletes()
     )
   )
   val state = store.asStateFlow()
@@ -41,13 +42,13 @@ class ManageStorageSettingsViewModel : ViewModel() {
   fun deleteChatHistory() {
     viewModelScope.launch {
       SignalDatabase.threads.deleteAllConversations()
-      ApplicationDependencies.getMessageNotifier().updateNotification(ApplicationDependencies.getApplication())
+      AppDependencies.messageNotifier.updateNotification(AppDependencies.application)
     }
   }
 
   fun setKeepMessagesDuration(newDuration: KeepMessagesDuration) {
     SignalStore.settings().setKeepMessagesForDuration(newDuration)
-    ApplicationDependencies.getTrimThreadsByDateManager().scheduleIfNecessary()
+    AppDependencies.trimThreadsByDateManager.scheduleIfNecessary()
 
     store.update { it.copy(keepMessagesDuration = newDuration) }
   }
@@ -82,6 +83,11 @@ class ManageStorageSettingsViewModel : ViewModel() {
     return isRestrictingLengthLimitChange(newLimit)
   }
 
+  fun setSyncTrimDeletes(syncTrimDeletes: Boolean) {
+    SignalStore.settings().setSyncThreadTrimDeletes(syncTrimDeletes)
+    store.update { it.copy(syncTrimDeletes = syncTrimDeletes) }
+  }
+
   private fun isRestrictingLengthLimitChange(newLimit: Int): Boolean {
     return state.value.lengthLimit == ManageStorageState.NO_LIMIT || (newLimit != ManageStorageState.NO_LIMIT && newLimit < state.value.lengthLimit)
   }
@@ -90,6 +96,7 @@ class ManageStorageSettingsViewModel : ViewModel() {
   data class ManageStorageState(
     val keepMessagesDuration: KeepMessagesDuration = KeepMessagesDuration.FOREVER,
     val lengthLimit: Int = NO_LIMIT,
+    val syncTrimDeletes: Boolean = true,
     val breakdown: MediaTable.StorageBreakdown? = null
   ) {
     companion object {

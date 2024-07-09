@@ -14,7 +14,7 @@ import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.events.NetworkAvailableEvent;
 
 import java.util.Objects;
@@ -164,11 +164,11 @@ public class NetworkManager {
         if (proxyOrbotPort != socksPort) {
           if (proxyType == ProxyType.ORBOT) {
             if (configureProxy(new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, socksPort))) {
-              ApplicationDependencies.restartAllNetworkConnections();
+              AppDependencies.restartAllNetworkConnections();
             }
           }
           proxyOrbotPort = socksPort;
-          if (ApplicationDependencies.getAppForegroundObserver().isForegrounded()) {
+          if (AppDependencies.getAppForegroundObserver().isForegrounded()) {
             Toast.makeText(application, R.string.ProxyManager_successfully_started_orbot, Toast.LENGTH_SHORT).show();
           }
         }

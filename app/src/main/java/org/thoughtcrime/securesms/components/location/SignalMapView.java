@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.signal.core.util.concurrent.ListenableFuture;
 import org.signal.core.util.concurrent.SettableFuture;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.concurrent.ExecutionException;
@@ -55,7 +55,7 @@ public class SignalMapView extends LinearLayout {
   }
 
   static public void setGoogleMapType(GoogleMap googleMap) {
-    String mapType = TextSecurePreferences.getGoogleMapType(ApplicationDependencies.getApplication());
+    String mapType = TextSecurePreferences.getGoogleMapType(AppDependencies.getApplication());
     if (googleMap != null) {
       if (mapType.equals("hybrid"))         { googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); }
       else if (mapType.equals("satellite")) { googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE); }

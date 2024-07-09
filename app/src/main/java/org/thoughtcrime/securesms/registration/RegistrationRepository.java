@@ -22,7 +22,7 @@ import org.thoughtcrime.securesms.crypto.storage.SignalServiceAccountDataStoreIm
 import org.thoughtcrime.securesms.database.IdentityTable;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobs.AllDataSyncRequestJob;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
@@ -110,7 +110,7 @@ public final class RegistrationRepository {
       try {
         registerAccountInternal(registrationData, response, setRegistrationLockEnabled);
 
-        JobManager jobManager = ApplicationDependencies.getJobManager();
+        JobManager jobManager = AppDependencies.getJobManager();
         jobManager.add(new DirectoryRefreshJob(false));
         jobManager.add(new RotateCertificateJob());
 
@@ -154,7 +154,7 @@ public final class RegistrationRepository {
                                 null,
                                 false);
 
-        JobManager jobManager = ApplicationDependencies.getJobManager();
+        JobManager jobManager = AppDependencies.getJobManager();
         jobManager.add(new RotateCertificateJob());
         jobManager.add(new AllDataSyncRequestJob());
         jobManager.add(new RefreshOwnProfileJob());
@@ -193,16 +193,16 @@ public final class RegistrationRepository {
       TextSecurePreferences.setMultiDevice(context, true);
     }
 
-    ApplicationDependencies.resetProtocolStores();
+    AppDependencies.resetProtocolStores();
 
-    ApplicationDependencies.getProtocolStore().aci().sessions().archiveAllSessions();
-    ApplicationDependencies.getProtocolStore().pni().sessions().archiveAllSessions();
+    AppDependencies.getProtocolStore().aci().sessions().archiveAllSessions();
+    AppDependencies.getProtocolStore().pni().sessions().archiveAllSessions();
     SenderKeyUtil.clearAllState();
 
-    SignalServiceAccountDataStoreImpl aciProtocolStore = ApplicationDependencies.getProtocolStore().aci();
+    SignalServiceAccountDataStoreImpl aciProtocolStore = AppDependencies.getProtocolStore().aci();
     PreKeyMetadataStore               aciMetadataStore = SignalStore.account().aciPreKeys();
 
-    SignalServiceAccountDataStoreImpl pniProtocolStore = ApplicationDependencies.getProtocolStore().pni();
+    SignalServiceAccountDataStoreImpl pniProtocolStore = AppDependencies.getProtocolStore().pni();
     PreKeyMetadataStore               pniMetadataStore = SignalStore.account().pniPreKeys();
 
     storeSignedAndLastResortPreKeys(aciProtocolStore, aciMetadataStore, aciPreKeyCollection);
@@ -216,7 +216,7 @@ public final class RegistrationRepository {
     recipientTable.linkIdsForSelf(aci, pni, registrationData.getE164());
     recipientTable.setProfileKey(selfId, registrationData.getProfileKey());
 
-    ApplicationDependencies.getRecipientCache().clearSelf();
+    AppDependencies.getRecipientCache().clearSelf();
 
     SignalStore.account().setE164(registrationData.getE164());
     SignalStore.account().setFcmToken(registrationData.getFcmToken());
@@ -234,8 +234,8 @@ public final class RegistrationRepository {
 
     SvrRepository.onRegistrationComplete(masterKey, userPin, hasPin, setRegistrationLockEnabled);
 
-    ApplicationDependencies.closeConnections();
-    ApplicationDependencies.getIncomingMessageObserver();
+    AppDependencies.resetNetwork();
+    AppDependencies.getIncomingMessageObserver();
     PreKeysSyncJob.enqueue();
   }
 

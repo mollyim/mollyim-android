@@ -21,7 +21,7 @@ import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.PartProgressEvent
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JobLogger.format
@@ -84,6 +84,26 @@ class AttachmentDownloadJob private constructor(
       val parsed = AttachmentId(data.getLong(KEY_ATTACHMENT_ID))
       return attachmentId == parsed
     }
+
+    @JvmStatic
+    fun downloadAttachmentIfNeeded(databaseAttachment: DatabaseAttachment): String? {
+      if (databaseAttachment.transferState == AttachmentTable.TRANSFER_RESTORE_OFFLOADED) {
+        return RestoreAttachmentJob.restoreOffloadedAttachment(databaseAttachment)
+      } else if (databaseAttachment.transferState != AttachmentTable.TRANSFER_PROGRESS_STARTED &&
+        databaseAttachment.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE &&
+        databaseAttachment.transferState != AttachmentTable.TRANSFER_PROGRESS_PERMANENT_FAILURE
+      ) {
+        val downloadJob = AttachmentDownloadJob(
+          messageId = databaseAttachment.mmsId,
+          attachmentId = databaseAttachment.attachmentId,
+          manual = true,
+          forceArchiveDownload = false
+        )
+        AppDependencies.jobManager.add(downloadJob)
+        return downloadJob.id
+      }
+      return null
+    }
   }
 
   private val attachmentId: Long
@@ -136,7 +156,7 @@ class AttachmentDownloadJob private constructor(
     doWork()
 
     if (!SignalDatabase.messages.isStory(messageId)) {
-      ApplicationDependencies.getMessageNotifier().updateNotification(context, forConversation(0))
+      AppDependencies.messageNotifier.updateNotification(context, forConversation(0))
     }
   }
 
@@ -180,7 +200,7 @@ class AttachmentDownloadJob private constructor(
       attachment.archiveMediaId == null &&
       SignalStore.backup().backsUpMedia
     ) {
-      ApplicationDependencies.getJobManager().add(ArchiveAttachmentJob(attachmentId))
+      AppDependencies.jobManager.add(ArchiveAttachmentJob(attachmentId))
     }
   }
 
@@ -221,7 +241,7 @@ class AttachmentDownloadJob private constructor(
         false
       }
 
-      val messageReceiver = ApplicationDependencies.getSignalServiceMessageReceiver()
+      val messageReceiver = AppDependencies.signalServiceMessageReceiver
       val pointer = createAttachmentPointer(attachment, useArchiveCdn)
 
       val progressListener = object : SignalServiceAttachment.ProgressListener {
@@ -246,6 +266,7 @@ class AttachmentDownloadJob private constructor(
             pointer,
             attachmentFile,
             maxReceiveSize,
+            false,
             progressListener
           )
       } else {

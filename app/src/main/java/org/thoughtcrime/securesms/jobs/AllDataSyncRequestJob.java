@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
@@ -49,7 +49,7 @@ public class AllDataSyncRequestJob extends BaseJob {
 
   @Override
   public void onRun() throws IOException, UntrustedIdentityException {
-    SignalServiceMessageSender signalServiceMessageSender = ApplicationDependencies.getSignalServiceMessageSender();
+    SignalServiceMessageSender signalServiceMessageSender = AppDependencies.getSignalServiceMessageSender();
     Optional<UnidentifiedAccessPair> accessForSync = UnidentifiedAccessUtil.getAccessForSync(context);
     signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.CONTACTS)), accessForSync);
     signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.BLOCKED)), accessForSync);

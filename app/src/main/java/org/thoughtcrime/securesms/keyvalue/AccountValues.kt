@@ -12,7 +12,7 @@ import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.crypto.storage.PreKeyMetadataStore
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
@@ -354,7 +354,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
 
     putBoolean(KEY_IS_REGISTERED, registered)
 
-    ApplicationDependencies.getIncomingMessageObserver().notifyRegistrationChanged()
+    AppDependencies.incomingMessageObserver.notifyRegistrationChanged()
 
     if (previous != registered) {
       Recipient.self().live().refresh()
@@ -372,7 +372,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   fun clearRegistrationButKeepCredentials() {
     putBoolean(KEY_IS_REGISTERED, false)
 
-    ApplicationDependencies.getIncomingMessageObserver().notifyRegistrationChanged()
+    AppDependencies.incomingMessageObserver.notifyRegistrationChanged()
 
     Recipient.self().live().refresh()
   }
@@ -446,13 +446,13 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
     val self = Recipient.self()
 
     SignalDatabase.recipients.setProfileKey(self.id, newProfileKey)
-    ApplicationDependencies.getGroupsV2Authorization().clear()
+    AppDependencies.groupsV2Authorization.clear()
   }
 
   private fun migrateFromSharedPrefs() {
     Log.i(TAG, "Migrating account values from shared prefs:")
 
-    val context = ApplicationDependencies.getApplication()
+    val context = AppDependencies.application
     val sharedPrefs = SecurePreferenceManager.getSecurePreferences(context)
     val identitySharedPrefs = EncryptedPreferences.create(context, "SecureSMS-Preferences")
 

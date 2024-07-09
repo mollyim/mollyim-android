@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.thoughtcrime.securesms.ScreenLockController
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.livedata.Store
@@ -16,7 +16,7 @@ class PrivacySettingsViewModel(
   private val repository: PrivacySettingsRepository
 ) : ViewModel() {
 
-  private val application: Application = ApplicationDependencies.getApplication()
+  private val application: Application = AppDependencies.application
 
   private val store = Store(getState())
 

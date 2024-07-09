@@ -226,37 +226,37 @@
     <string name="CameraXFragment_change_camera_description">Zamenjaj kamero</string>
     <string name="CameraXFragment_open_gallery_description">Odpri galerijo</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">Dovoli dostop</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Dovoli dostop do kamere in mikrofona</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">Dovoli dostop do kamere</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">Dovoli dostop do mikrofona</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Za zajemanje fotografij dovolite Signalu dostop do kamere naprave.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Za zajemanje fotografij in videov dovolite aplikaciji Signal dostop do kamere naprave.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Za zajemanje fotografij in videov dovolite Signalu dostop do kamere in mikrofona naprave.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Za zajemanje videov z zvokom dovolite Signalu dostop do mikrofona naprave.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Za skeniranje QR kode dovolite Signalu dostop do kamere.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal potrebuje dostop do kamere za zajemanje fotografij</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal potrebuje dostop do kamere za optično branje QR kod</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal potrebuje dostop do mikrofona za zajemanje videoposnetkov</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Za zajemanje fotografij v Signalu:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Za zajemanje fotografij in videov v Signalu:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">Za zajemanje videov z zvokom:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">Za skeniranje QR kod:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Nedavni stiki</string>
@@ -329,8 +329,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Sporočilo %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Zvočni klic Signal %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Video klic Signal %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -565,6 +565,13 @@
     <string name="ConversationFragment_delete_on_this_device">Izbriši v tej napravi</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Izbriši povsod</string>
+    <!-- Dialog message when deleting individual messages and you have a linked device that the delete will sync to -->
+    <plurals name="ConversationFragment_delete_on_linked_warning">
+        <item quantity="one">To sporočilo bo izbrisano iz vseh vaših naprav.</item>
+        <item quantity="two">Ti sporočili bosta izbrisani iz vseh vaših naprav.</item>
+        <item quantity="few">Ta sporočila bodo izbrisana iz vseh vaših naprav.</item>
+        <item quantity="other">Ta sporočila bodo izbrisana iz vseh vaših naprav.</item>
+    </plurals>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">To sporočilo bo izbrisano za vse v tem klepetu, če uporabljajo novejšo različico Signala. Sodelujoči bodo lahko videli, da je bilo sporočilo izbrisano.</string>
     <string name="ConversationFragment_quoted_message_not_found">Izvorno sporočilo ni bilo najdeno</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Izvorno sporočilo ni več na voljo</string>
@@ -668,6 +675,13 @@
         <item quantity="two">S tem boste trajno izbrisali %1$d izbrana klepeta.</item>
         <item quantity="few">S tem boste trajno izbrisali vse %1$d izbrane klepete.</item>
         <item quantity="other">S tem boste trajno izbrisali vseh %1$d izbranih klepetov.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">S tem boste izbrani klepet trajno izbrisali iz vseh naprav.</item>
+        <item quantity="two">S tem boste %1$d izbrana klepeta trajno izbrisali iz vseh naprav.</item>
+        <item quantity="few">S tem boste vse %1$d izbrane klepete trajno izbrisali iz vseh naprav.</item>
+        <item quantity="other">S tem boste vseh %1$d izbranih klepetov trajno izbrisali iz vseh naprav.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Brisanje</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -1098,7 +1112,7 @@
     <string name="PromptBatterySaverBottomSheet__dismiss">Prekini</string>
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Čakajoča vabila v skupino</string>
+    <string name="PendingMembersActivity_pending_group_invites">Prošnje in vabila</string>
     <string name="PendingMembersActivity_requests">Prošnje</string>
     <string name="PendingMembersActivity_invites">Vabila</string>
     <string name="PendingMembersActivity_people_you_invited">Ljudje, ki ste jih povabili</string>
@@ -1402,6 +1416,13 @@
         <item quantity="two">S tem boste nepovratno izbrisali izbrani datoteki. Vsak tekst, povezan s tema datotekama, bo prav tako izbrisan.</item>
         <item quantity="few">S tem boste nepovratno izbrisali %1$d izbrane datoteke. Vsak tekst, povezan s temi datotekami, bo prav tako izbrisan.</item>
         <item quantity="other">S tem boste nepovratno izbrisali %1$d izbranih datotek. Vsak tekst, povezan s temi datotekami, bo prav tako izbrisan.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many attachments from the media overview screen -->
+    <plurals name="MediaOverviewActivity_Media_delete_confirm_message_linked_device">
+        <item quantity="one">S tem boste izbrano datoteko trajno izbrisali iz vseh naprav. Izbrisana bodo tudi vsa besedila sporočil, povezana s tem elementom.</item>
+        <item quantity="two">S tem boste %1$d izbrani datoteki trajno izbrisali iz vseh naprav. Izbrisana bodo tudi vsa besedila sporočil, povezana s tem elementom.</item>
+        <item quantity="few">S tem boste vse %1$d izbrane datoteke trajno izbrisali iz vseh naprav. Izbrisana bodo tudi vsa besedila sporočil, povezana s tem elementom.</item>
+        <item quantity="other">S tem boste vseh %1$d izbranih datotek trajno izbrisali iz vseh naprav. Izbrisana bodo tudi vsa besedila sporočil, povezana s tem elementom.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Brišem</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Izbris sporočil …</string>
@@ -1733,6 +1754,14 @@
     <string name="MessageRecord_you_activated_payments">Aktivirali ste Plačila</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s lahko zdaj sprejema plačila</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">Podatki o plačilu niso na voljo</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Tapnite za več</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">Podatki o plačilu niso na voljo</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">Podrobnosti o tem plačilu niso na voljo, ker so bila vaša sporočila obnovljena iz vira, ki ni vseboval te zgodovine plačil. To ne vpliva na stanje v denarnici ali stanje preteklih plačil.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1796,6 +1825,8 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">V Signalu ne morete več pošiljati SMS sporočil. Povabite stik %1$s v Signal, da ohranite pogovor tukaj.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Plačilo: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Plačilo</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Prijavljeno kot neželeno</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -2069,6 +2100,26 @@
     <string name="WebRtcCallActivity__removed_from_call">Odstranjen_a iz klica</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Nekdo vas je odstranil iz klica.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Dovoli dostop do kamere in mikrofona</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Dovoli dostop do mikrofona</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Dovoli dostop do kamere</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Če želite začeti klic ali se mu pridružiti, omogočite Signalu dostop do kamere in mikrofona.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">Če želite začeti klic ali se mu pridružiti, omogočite Signalu dostop do mikrofona.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Če želite omogočiti video, omogočite Signalu dostop do kamere.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal potrebuje dovoljenja za mikrofon, da lahko začne klic ali se mu pridruži.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal potrebuje dostop do kamere, da omogoči video</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">Za začetek klica ali pridružitev:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">Omogočanje videa:</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal klic</string>
@@ -2175,26 +2226,18 @@
     <string name="CallOverflowPopupWindow__lower_hand">Spusti roko</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Prekliči</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">Dvignili ste roko</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Ogled</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">%1$s je dvignil_a roko</item>
-        <item quantity="two">%1$s + %2$d sta dvignila roko</item>
-        <item quantity="few">%1$s + %2$d so dvignili roko</item>
-        <item quantity="other">%1$s + %2$d jih je dvignilo roko</item>
-    </plurals>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_singular">%1$s je dvignil_a roko</string>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_plural">%1$s + še %2$d so dvignili roko</string>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="one">%1$s</item>
-        <item quantity="two">%1$s + %2$d</item>
-        <item quantity="few">%1$s + %2$d</item>
-        <item quantity="other">%1$s + %2$d</item>
-    </plurals>
+    <!-- A badge to show how many hands are raised. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar_raised_hands_plural">%1$s +%2$d</string>
 
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Razširite pogled dvignjene roke</string>
@@ -2346,8 +2389,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Imate težave z registracijo?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Prepričajte se, da ima vaš telefon mobilni signal za sprejem SMS-a ali klica\n • Potrdite, da lahko sprejmete telefonski klic na številko\n • Preverite, ali ste pravilno vnesli svojo telefonsko številko.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Za več informacij sledite tem korakom za odpravljanje težav ali se obrnite na Podporo</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Za več informacij sledite %1$s ali %2$s</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">tem korakom za odpravljanje težav</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2640,6 +2683,8 @@
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Brez dovoljenja za dostop do shrambe ne morem shranjevati na zunanji pomnilnik naprave.</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Izbrišem sporočilo?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Sporočilo bo nepovratno izbrisano.</string>
+    <!-- Dialog message shown when deleting an attachment and message -->
+    <string name="MediaPreviewActivity_media_delete_confirmation_message_linked_device">To bo trajno izbrisalo to sporočilo iz vseh vaših naprav.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s do %2$s</string>
     <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
     <string name="MediaPreviewActivity_you_to_s">Vi za uporabnika_co %1$s</string>
@@ -2881,9 +2926,9 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Pogrešate koga? Poskusite osvežiti</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Poiščite ljudi, ki jih poznate, v Signalu</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Dovolite dostop do svojih stikov</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Več</string>
 
@@ -2920,13 +2965,13 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Iskanje po uporabniškem imenu</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">Omogoči dostop do stikov</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Za iskanje ljudi, ki jih poznate, v Signalu:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">Dovoli dostop</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Dovolite dostop do svojih stikov. Vaši stiki so šifrirani in niso vidni storitvi Signal.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Za prikaz imen iz vašega imenika potrebuje aplikacija Signal dostop do stikov.</string>
@@ -3529,8 +3574,12 @@
         <item quantity="other">S tem boste vse klepete trajno obrezali na %1$s najnovejših sporočil.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">S tem boste nepovratno izbrisali celotno zgodovino pogovorov in medijskih datotek z vaše naprave.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">S tem boste trajno izbrisali vso zgodovino sporočil in medije iz te naprave in vseh povezanih naprav.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Ali ste prepričani, da želite izbrisati celotno zgodovino pogovorov?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Celotna zgodovina vaših pogovorov bo za vedno izbrisana. Ta korak je nepovraten.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">Vsa zgodovina sporočil bo trajno odstranjena iz vseh naprav. Ta korak je nepovraten.</string>
     <string name="preferences_storage__delete_all_now">Izbriši vse zdaj</string>
     <string name="preferences_storage__forever">Za vedno</string>
     <string name="preferences_storage__one_year">1 leto</string>
@@ -5003,7 +5052,7 @@
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
-    <string name="ChatColorSelectionFragment__auto">Avtomatično</string>
+    <string name="ChatColorSelectionFragment__auto">Izbor</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">Uporabi barve po meri</string>
     <string name="ChatColorSelectionFragment__chat_color">Barva klepeta</string>
     <string name="ChatColorSelectionFragment__edit">Uredi</string>
@@ -5920,8 +5969,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">Brez odgovorov</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">Na to zgodbo ne morete odgovoriti, ker niste več član_ica te skupine.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Odzivi na zgodbo</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">ste se odzvali na zgodbo</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">se je odzval/-a na zgodbo</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Ogledi</string>
     <!-- Label for story replies tab -->
@@ -7186,6 +7237,17 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Sporočila, starejša od izbranega časa, bodo trajno izbrisana.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Sporočila, ki presegajo izbrano dolžino, bodo trajno izbrisana.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Uporaba omejitev za povezane naprave</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Če je omejitev klepeta omogočena, se izbrišejo tudi sporočila iz povezanih naprav.</string>
+
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">Brisanje je zdaj sinhronizirano v vseh napravah</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">Ko izbrišete sporočila, medije ali klepete, se izbrišejo iz telefona in vseh povezanih naprav.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">OK</string>
 
     <!-- EOF -->
 </resources>

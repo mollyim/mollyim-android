@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.backup.v2.proto.ChatUpdateMessage
 import org.thoughtcrime.securesms.backup.v2.proto.GroupCall
 import org.thoughtcrime.securesms.backup.v2.proto.IndividualCall
 import org.thoughtcrime.securesms.backup.v2.proto.MessageAttachment
+import org.thoughtcrime.securesms.backup.v2.proto.PaymentNotification
 import org.thoughtcrime.securesms.backup.v2.proto.Quote
 import org.thoughtcrime.securesms.backup.v2.proto.Reaction
 import org.thoughtcrime.securesms.backup.v2.proto.SendStatus
@@ -38,6 +39,7 @@ import org.thoughtcrime.securesms.database.MessageTypes
 import org.thoughtcrime.securesms.database.ReactionTable
 import org.thoughtcrime.securesms.database.SQLiteDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.SignalDatabase.Companion.recipients
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatch
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatchSet
 import org.thoughtcrime.securesms.database.documents.NetworkFailure
@@ -45,22 +47,31 @@ import org.thoughtcrime.securesms.database.documents.NetworkFailureSet
 import org.thoughtcrime.securesms.database.model.GroupCallUpdateDetailsUtil
 import org.thoughtcrime.securesms.database.model.Mention
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
+import org.thoughtcrime.securesms.database.model.databaseprotos.CryptoValue
 import org.thoughtcrime.securesms.database.model.databaseprotos.GV2UpdateDescription
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras
+import org.thoughtcrime.securesms.database.model.databaseprotos.PaymentTombstone
 import org.thoughtcrime.securesms.database.model.databaseprotos.ProfileChangeDetails
 import org.thoughtcrime.securesms.database.model.databaseprotos.SessionSwitchoverEvent
 import org.thoughtcrime.securesms.database.model.databaseprotos.ThreadMergeEvent
 import org.thoughtcrime.securesms.mms.QuoteModel
+import org.thoughtcrime.securesms.payments.CryptoValueUtil
+import org.thoughtcrime.securesms.payments.Direction
+import org.thoughtcrime.securesms.payments.State
+import org.thoughtcrime.securesms.payments.proto.PaymentMetaData
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.whispersystems.signalservice.api.backup.MediaName
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId
+import org.whispersystems.signalservice.api.payments.Money
 import org.whispersystems.signalservice.api.push.ServiceId
 import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.internal.push.DataMessage
+import java.math.BigInteger
 import java.util.Optional
+import java.util.UUID
 
 /**
  * An object that will ingest all fo the [ChatItem]s you want to write, buffer them until hitting a specified batch size, and then batch insert them
@@ -92,7 +103,6 @@ class ChatItemImportInserter(
       MessageTable.EXPIRE_STARTED,
       MessageTable.UNIDENTIFIED,
       MessageTable.REMOTE_DELETED,
-      MessageTable.REMOTE_DELETED,
       MessageTable.NETWORK_FAILURES,
       MessageTable.QUOTE_ID,
       MessageTable.QUOTE_AUTHOR,
@@ -104,7 +114,9 @@ class ChatItemImportInserter(
       MessageTable.LINK_PREVIEWS,
       MessageTable.MESSAGE_RANGES,
       MessageTable.VIEW_ONCE,
-      MessageTable.MESSAGE_EXTRAS
+      MessageTable.MESSAGE_EXTRAS,
+      MessageTable.ORIGINAL_MESSAGE_ID,
+      MessageTable.LATEST_REVISION_ID
     )
 
     private val REACTION_COLUMNS = arrayOf(
@@ -156,8 +168,22 @@ class ChatItemImportInserter(
       Log.w(TAG, "[insert] Could not find a backup recipientId for backup chatId ${chatItem.chatId}! Skipping.")
       return
     }
+    val messageInsert = chatItem.toMessageInsert(fromLocalRecipientId, chatLocalRecipientId, localThreadId)
+    if (chatItem.revisions.isNotEmpty()) {
+      val originalId = messageId
+      val latestRevisionId = originalId + chatItem.revisions.size
+      val sortedRevisions = chatItem.revisions.sortedBy { it.dateSent }.map { it.toMessageInsert(fromLocalRecipientId, chatLocalRecipientId, localThreadId) }
+      for (revision in sortedRevisions) {
+        revision.contentValues.put(MessageTable.ORIGINAL_MESSAGE_ID, originalId)
+        revision.contentValues.put(MessageTable.LATEST_REVISION_ID, latestRevisionId)
+        revision.contentValues.put(MessageTable.REVISION_NUMBER, (messageId - originalId))
+        buffer.messages += revision
+        messageId++
+      }
 
-    buffer.messages += chatItem.toMessageInsert(fromLocalRecipientId, chatLocalRecipientId, localThreadId)
+      messageInsert.contentValues.put(MessageTable.ORIGINAL_MESSAGE_ID, originalId)
+    }
+    buffer.messages += messageInsert
     buffer.reactions += chatItem.toReactionContentValues(messageId)
     buffer.groupReceipts += chatItem.toGroupReceiptContentValues(messageId, chatBackupRecipientId)
 
@@ -266,6 +292,22 @@ class ChatItemImportInserter(
         }
       }
     }
+    if (this.paymentNotification != null) {
+      followUp = { messageRowId ->
+        val uuid = tryRestorePayment(this, chatRecipientId)
+        if (uuid != null) {
+          db.update(
+            MessageTable.TABLE_NAME,
+            contentValuesOf(
+              MessageTable.BODY to uuid.toString(),
+              MessageTable.TYPE to ((contentValues.getAsLong(MessageTable.TYPE) and MessageTypes.SPECIAL_TYPES_MASK.inv()) or MessageTypes.SPECIAL_TYPE_PAYMENTS_NOTIFICATION)
+            ),
+            "${MessageTable.ID}=?",
+            SqlUtil.buildArgs(messageRowId)
+          )
+        }
+      }
+    }
     if (this.standardMessage != null) {
       val bodyRanges = this.standardMessage.text?.bodyRanges
       if (!bodyRanges.isNullOrEmpty()) {
@@ -353,9 +395,40 @@ class ChatItemImportInserter(
       this.standardMessage != null -> contentValues.addStandardMessage(this.standardMessage)
       this.remoteDeletedMessage != null -> contentValues.put(MessageTable.REMOTE_DELETED, 1)
       this.updateMessage != null -> contentValues.addUpdateMessage(this.updateMessage)
+      this.paymentNotification != null -> contentValues.addPaymentNotification(this, chatRecipientId)
     }
 
     return contentValues
+  }
+
+  private fun tryRestorePayment(chatItem: ChatItem, chatRecipientId: RecipientId): UUID? {
+    val paymentNotification = chatItem.paymentNotification!!
+
+    val amount = paymentNotification.amountMob?.tryParseMoney() ?: return null
+    val fee = paymentNotification.feeMob?.tryParseMoney() ?: return null
+
+    if (paymentNotification.transactionDetails?.failedTransaction != null) {
+      return null
+    }
+
+    val transaction = paymentNotification.transactionDetails?.transaction
+
+    val mobileCoinIdentification = transaction?.mobileCoinIdentification?.toLocal() ?: return null
+
+    return SignalDatabase.payments.restoreFromBackup(
+      chatRecipientId,
+      transaction.timestamp ?: 0,
+      transaction.blockIndex ?: 0,
+      paymentNotification.note ?: "",
+      if (chatItem.outgoing != null) Direction.SENT else Direction.RECEIVED,
+      transaction.status.toLocalStatus(),
+      amount,
+      fee,
+      transaction.transaction?.toByteArray(),
+      transaction.receipt?.toByteArray(),
+      mobileCoinIdentification,
+      chatItem.incoming?.read ?: true
+    )
   }
 
   private fun ChatItem.toReactionContentValues(messageId: Long): List<ContentValues> {
@@ -474,8 +547,14 @@ class ChatItemImportInserter(
       updateMessage.profileChange != null -> {
         typeFlags = MessageTypes.PROFILE_CHANGE_TYPE
         val profileChangeDetails = ProfileChangeDetails(profileNameChange = ProfileChangeDetails.StringChange(previous = updateMessage.profileChange.previousName, newValue = updateMessage.profileChange.newName))
-          .encode()
-        put(MessageTable.BODY, Base64.encodeWithPadding(profileChangeDetails))
+        val messageExtras = MessageExtras(profileChangeDetails = profileChangeDetails).encode()
+        put(MessageTable.MESSAGE_EXTRAS, Base64.encodeWithPadding(messageExtras))
+      }
+      updateMessage.learnedProfileChange != null -> {
+        typeFlags = MessageTypes.PROFILE_CHANGE_TYPE
+        val profileChangeDetails = ProfileChangeDetails(learnedProfileName = ProfileChangeDetails.LearnedProfileName(e164 = updateMessage.learnedProfileChange.e164?.toString(), username = updateMessage.learnedProfileChange.username))
+        val messageExtras = MessageExtras(profileChangeDetails = profileChangeDetails).encode()
+        put(MessageTable.MESSAGE_EXTRAS, Base64.encodeWithPadding(messageExtras))
       }
       updateMessage.sessionSwitchover != null -> {
         typeFlags = MessageTypes.SESSION_SWITCHOVER_TYPE or (getAsLong(MessageTable.TYPE) and MessageTypes.BASE_TYPE_MASK.inv())
@@ -500,7 +579,17 @@ class ChatItemImportInserter(
         this.put(MessageTable.TYPE, typeFlags)
       }
       updateMessage.groupCall != null -> {
-        this.put(MessageTable.BODY, GroupCallUpdateDetailsUtil.createBodyFromBackup(updateMessage.groupCall))
+        val startedCallRecipientId = if (updateMessage.groupCall.startedCallRecipientId != null) {
+          backupState.backupToLocalRecipientId[updateMessage.groupCall.startedCallRecipientId]
+        } else {
+          null
+        }
+        val startedCall = if (startedCallRecipientId != null) {
+          recipients.getRecord(startedCallRecipientId).aci
+        } else {
+          null
+        }
+        this.put(MessageTable.BODY, GroupCallUpdateDetailsUtil.createBodyFromBackup(updateMessage.groupCall, startedCall))
         this.put(MessageTable.TYPE, MessageTypes.GROUP_CALL_TYPE)
       }
       updateMessage.groupChange != null -> {
@@ -518,6 +607,104 @@ class ChatItemImportInserter(
     this.put(MessageTable.TYPE, typeFlags)
   }
 
+  /**
+   * Add the payment notification to the chat item.
+   *
+   * Note we add a tombstone first, then post insertion update it to a proper notification
+   */
+  private fun ContentValues.addPaymentNotification(chatItem: ChatItem, chatRecipientId: RecipientId) {
+    val paymentNotification = chatItem.paymentNotification!!
+    if (chatItem.paymentNotification.amountMob.isNullOrEmpty()) {
+      addPaymentTombstoneNoAmount()
+      return
+    }
+    val amount = paymentNotification.amountMob?.tryParseMoney() ?: return addPaymentTombstoneNoAmount()
+    val fee = paymentNotification.feeMob?.tryParseMoney() ?: return addPaymentTombstoneNoAmount()
+
+    if (chatItem.paymentNotification.transactionDetails?.failedTransaction != null) {
+      addFailedPaymentNotification(chatItem, amount, fee, chatRecipientId)
+      return
+    }
+    addPaymentTombstoneNoMetadata(chatItem.paymentNotification)
+  }
+
+  private fun PaymentNotification.TransactionDetails.MobileCoinTxoIdentification.toLocal(): PaymentMetaData {
+    return PaymentMetaData(
+      mobileCoinTxoIdentification = PaymentMetaData.MobileCoinTxoIdentification(
+        publicKey = this.publicKey,
+        keyImages = this.keyImages
+      )
+    )
+  }
+
+  private fun ContentValues.addFailedPaymentNotification(chatItem: ChatItem, amount: Money, fee: Money, chatRecipientId: RecipientId) {
+    val uuid = SignalDatabase.payments.restoreFromBackup(
+      chatRecipientId,
+      0,
+      0,
+      chatItem.paymentNotification?.note ?: "",
+      if (chatItem.outgoing != null) Direction.SENT else Direction.RECEIVED,
+      State.FAILED,
+      amount,
+      fee,
+      null,
+      null,
+      null,
+      chatItem.incoming?.read ?: true
+    )
+    if (uuid != null) {
+      put(MessageTable.BODY, uuid.toString())
+      put(MessageTable.TYPE, getAsLong(MessageTable.TYPE) or MessageTypes.SPECIAL_TYPE_PAYMENTS_NOTIFICATION)
+    } else {
+      addPaymentTombstoneNoMetadata(chatItem.paymentNotification!!)
+    }
+  }
+
+  private fun ContentValues.addPaymentTombstoneNoAmount() {
+    put(MessageTable.TYPE, getAsLong(MessageTable.TYPE) or MessageTypes.SPECIAL_TYPE_PAYMENTS_TOMBSTONE)
+  }
+
+  private fun ContentValues.addPaymentTombstoneNoMetadata(paymentNotification: PaymentNotification) {
+    put(MessageTable.TYPE, getAsLong(MessageTable.TYPE) or MessageTypes.SPECIAL_TYPE_PAYMENTS_TOMBSTONE)
+    val amount = tryParseCryptoValue(paymentNotification.amountMob)
+    val fee = tryParseCryptoValue(paymentNotification.feeMob)
+    put(
+      MessageTable.MESSAGE_EXTRAS,
+      MessageExtras(
+        paymentTombstone = PaymentTombstone(
+          note = paymentNotification.note,
+          amount = amount,
+          fee = fee
+        )
+      ).encode()
+    )
+  }
+
+  private fun String?.tryParseMoney(): Money? {
+    if (this.isNullOrEmpty()) {
+      return null
+    }
+
+    val amountCryptoValue = tryParseCryptoValue(this)
+    return if (amountCryptoValue != null) {
+      CryptoValueUtil.cryptoValueToMoney(amountCryptoValue)
+    } else {
+      null
+    }
+  }
+
+  private fun tryParseCryptoValue(bigIntegerString: String?): CryptoValue? {
+    if (bigIntegerString == null) {
+      return null
+    }
+    val amount = try {
+      BigInteger(bigIntegerString).toString()
+    } catch (e: NumberFormatException) {
+      return null
+    }
+    return CryptoValue(mobileCoinValue = CryptoValue.MobileCoinValue(picoMobileCoin = amount))
+  }
+
   private fun ContentValues.addQuote(quote: Quote) {
     this.put(MessageTable.QUOTE_ID, quote.targetSentTimestamp ?: MessageTable.QUOTE_TARGET_MISSING_ID)
     this.put(MessageTable.QUOTE_AUTHOR, backupState.backupToLocalRecipientId[quote.authorId]!!.serialize())
@@ -526,6 +713,15 @@ class ChatItemImportInserter(
     this.put(MessageTable.QUOTE_BODY_RANGES, quote.bodyRanges.toLocalBodyRanges()?.encode())
     // TODO quote attachments
     this.put(MessageTable.QUOTE_MISSING, (quote.targetSentTimestamp == null).toInt())
+  }
+
+  private fun PaymentNotification.TransactionDetails.Transaction.Status?.toLocalStatus(): State {
+    return when (this) {
+      PaymentNotification.TransactionDetails.Transaction.Status.INITIAL -> State.INITIAL
+      PaymentNotification.TransactionDetails.Transaction.Status.SUBMITTED -> State.SUBMITTED
+      PaymentNotification.TransactionDetails.Transaction.Status.SUCCESSFUL -> State.SUCCESSFUL
+      else -> State.INITIAL
+    }
   }
 
   private fun Quote.Type.toLocalQuoteType(): Int {
@@ -680,7 +876,11 @@ class ChatItemImportInserter(
       ?: if (this.contentType == null) null else PointerAttachment.forPointer(quotedAttachment = DataMessage.Quote.QuotedAttachment(contentType = this.contentType, fileName = this.fileName, thumbnail = null)).orNull()
   }
 
-  private class MessageInsert(val contentValues: ContentValues, val followUp: ((Long) -> Unit)?)
+  private class MessageInsert(
+    val contentValues: ContentValues,
+    val followUp: ((Long) -> Unit)?,
+    val edits: List<MessageInsert>? = null
+  )
 
   private class Buffer(
     val messages: MutableList<MessageInsert> = mutableListOf(),

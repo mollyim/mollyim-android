@@ -10,10 +10,8 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.util.JavaTimeExtensionsKt;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Random;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class LocalBackupListener extends PersistentAlarmManagerListener {
@@ -46,21 +44,10 @@ public class LocalBackupListener extends PersistentAlarmManagerListener {
   }
 
   public static long setNextBackupTimeToIntervalFromNow(@NonNull Context context) {
-    long nowPlusInterval = System.currentTimeMillis() + TextSecurePreferences.getBackupInternal(context);
-
-    LocalDateTime nextInstant = LocalDateTime.ofInstant(Instant.ofEpochMilli(nowPlusInterval),
-                                                        TimeZone.getDefault().toZoneId());
+    LocalDateTime now    = LocalDateTime.now();
     int           hour   = SignalStore.settings().getBackupHour();
     int           minute = SignalStore.settings().getBackupMinute();
-    LocalDateTime next   = nextInstant.withHour(hour).withMinute(minute).withSecond(0);
-
-    int jitter = (new Random().nextInt(BACKUP_JITTER_WINDOW_SECONDS)) - (BACKUP_JITTER_WINDOW_SECONDS / 2);
-
-    next = next.plusSeconds(jitter);
-
-    if (nextInstant.isAfter(next)) {
-      next = next.plusDays(1);
-    }
+    LocalDateTime next   = MessageBackupListener.getNextDailyBackupTimeFromNowWithJitter(now, hour, minute, BACKUP_JITTER_WINDOW_SECONDS);
 
     long nextTime = JavaTimeExtensionsKt.toMillis(next);
 

@@ -226,37 +226,37 @@
     <string name="CameraXFragment_change_camera_description">Nomainīt kameru</string>
     <string name="CameraXFragment_open_gallery_description">Atvērt galeriju</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">Atļaut piekļuvi</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Atļaujiet piekļuvi kamerai un mikrofonam</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">Atļaujiet piekļuvi kamerai</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">Atļaujiet piekļuvi mikrofonam</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Lai uzņemtu fotoattēlus, atļaujiet Signal piekļuvi kamerai.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Lai uzņemtu fotogrāfijas un video, ļaujiet Signal piekļūt kamerai.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Lai uzņemtu fotoattēlus un videoklipus, atļaujiet Signal piekļuvi kamerai un mikrofonam.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Lai ierakstītu videoklipus un skaņu, atļaujiet Signal piekļuvi mikrofonam.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Lai skenētu QR kodu, atļaujiet Signal piekļuvi kamerai.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Lai varētu uzņemtu fotoattēlus, Signal ir nepieciešama piekļuve kamerai</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Lai varētu skenēt QR kodus, Signal ir nepieciešama piekļuve kamerai</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Lai varētu uzņemt videoklipus, Signal ir nepieciešama piekļuve mikrofonam</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Lai uzņemtu fotoattēlus platformā Signal:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Lai uzņemtu fotoattēlus un videoklipus platformā Signal:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">Lai uzņemtu videoklipus ar skaņu:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">Lai skenētu QR kodus:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Pēdējie kontakti</string>
@@ -328,8 +328,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Ziņa %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal balss zvans %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal video zvans %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -556,6 +556,12 @@
     <string name="ConversationFragment_delete_on_this_device">Dzēst šajā ierīcē</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Dzēst visur</string>
+    <!-- Dialog message when deleting individual messages and you have a linked device that the delete will sync to -->
+    <plurals name="ConversationFragment_delete_on_linked_warning">
+        <item quantity="zero">Šīs ziņas tiks dzēstas no visām jūsu ierīcēm.</item>
+        <item quantity="one">Šī ziņa tiks dzēsta no visām jūsu ierīcēm.</item>
+        <item quantity="other">Šīs ziņas tiks dzēstas no visām jūsu ierīcēm.</item>
+    </plurals>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Šī ziņa tiks izdzēsta visiem sarunas dalībniekiem, ja viņi izmanto jaunāko Signal versiju. Dalībnieki varēs redzēt, ka ziņa ir dzēsta.</string>
     <string name="ConversationFragment_quoted_message_not_found">Oriģinālā ziņa nav atrasta</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Oriģinālā ziņa vairs nav pieejama</string>
@@ -657,6 +663,12 @@
         <item quantity="zero">Tiks neatgriezeniski dzēstas visas %1$d atlasītās sarunas.</item>
         <item quantity="one">Tiks neatgriezeniski dzēsta atlasītā saruna.</item>
         <item quantity="other">Tiks neatgriezeniski dzēstas visas %1$d atlasītās sarunas.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="zero">Visas %1$d atlasītās sarunas tiks neatgriezeniski dzēstas no visām jūsu ierīcēm.</item>
+        <item quantity="one">Atlasītā saruna tiks neatgriezeniski dzēsta no visām jūsu ierīcēm.</item>
+        <item quantity="other">Visas %1$d atlasītās sarunas tiks neatgriezeniski dzēstas no visām jūsu ierīcēm.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Dzēš</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -1067,7 +1079,7 @@
     <string name="PromptBatterySaverBottomSheet__dismiss">Nerādīt</string>
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Neapstiprinātie grupu ielūgumi</string>
+    <string name="PendingMembersActivity_pending_group_invites">Pieprasījumi un uzaicinājumi</string>
     <string name="PendingMembersActivity_requests">Pieprasījumi</string>
     <string name="PendingMembersActivity_invites">Uzaicinājumi</string>
     <string name="PendingMembersActivity_people_you_invited">Jūsu ielūgumi</string>
@@ -1360,6 +1372,12 @@
         <item quantity="zero">Tiks neatgriezeniski izdzēsti visi atlasītie %1$d faili. Tiks izdzēstas arī ar šiem failiem saistītās ziņas.</item>
         <item quantity="one">Atlasītais fails tiks neatgriezeniski izdzēsts. Tiks izdzēsta arī ar šo failu saistītā ziņa.</item>
         <item quantity="other">Tiks neatgriezeniski izdzēsti visi atlasītie %1$d faili. Tiks izdzēstas arī ar šiem failiem saistītās ziņas.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many attachments from the media overview screen -->
+    <plurals name="MediaOverviewActivity_Media_delete_confirm_message_linked_device">
+        <item quantity="zero">Visi %1$d atlasītie faili tiks neatgriezeniski dzēsti no visām jūsu ierīcēm. Tiks dzēsts arī viss ar šiem failiem saistītais teksts ziņās.</item>
+        <item quantity="one">Atlasītais fails tiks neatgriezeniski dzēsts no visām jūsu ierīcēm.. Tiks dzēsts arī viss ar šo failu saistītais teksts ziņās.</item>
+        <item quantity="other">Visi %1$d atlasītie faili tiks neatgriezeniski dzēsti no visām jūsu ierīcēm. Tiks dzēsts arī viss ar šiem failiem saistītais teksts ziņās.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Dzēš</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Dzēš ziņas…</string>
@@ -1680,6 +1698,14 @@
     <string name="MessageRecord_you_activated_payments">Jūs aktivizējāt maksājumus</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s tagad var pieņemt maksājumus</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">Maksājuma informācija nav pieejama</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Pieskarieties, lai redzētu vairāk</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">Maksājuma informācija nav pieejama</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">Šī maksājuma informācija nav pieejama, jo jūsu ziņas tika atjaunotas no avota, kas nesaturēja šī maksājuma vēsturi. Tas neietekmē jūsu maka atlikumu un iepriekšējo maksājumu statusu.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1741,6 +1767,8 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Lietotnē Signal vairs nav iespējams sūtīt SMS ziņas. Uzaiciniet lietotāju %1$s izmantot Signal, lai turpinātu sarunu šeit.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Maksājums: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Maksājums</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Atzīmēts kā surogātpasts</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -2002,6 +2030,26 @@
     <string name="WebRtcCallActivity__removed_from_call">Noņemts no zvana</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Kāds jūs noņēma no zvana.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Atļaujiet piekļuvi kamerai un mikrofonam</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Atļaujiet piekļuvi mikrofonam</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Atļaujiet piekļuvi kamerai</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Lai uzsāktu zvanu vai pievienotos zvanam, ļaujiet Signal piekļūt kamerai un mikrofonam.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">Lai uzsāktu zvanu vai pievienotos zvanam, ļaujiet Signal piekļūt mikrofonam.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Lai iespējotu video, ļaujiet Signal piekļūt kamerai.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Lai uzsāktu zvanu vai pievienotos zvanam, Signal ir nepieciešama atļauja piekļūt kamerai.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Lai varētu iespējot video, Signal ir nepieciešama piekļuve kamerai</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">Lai uzsāktu zvanu vai pievienotos zvanam:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">Lai iespējotu video:</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal zvans</string>
@@ -2103,24 +2151,18 @@
     <string name="CallOverflowPopupWindow__lower_hand">Nolaist roku</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Atcelt</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">Jūs pacēlāt roku</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Skatīt</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="zero">%1$s +%2$d pacēla roku</item>
-        <item quantity="one">%1$s pacēla roku</item>
-        <item quantity="other">%1$s +%2$d pacēla roku</item>
-    </plurals>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_singular">%1$s pacēla roku</string>
+    <!-- A notification to the user that one or more participants in the call successfully raised their hand. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar__raised_a_hand_plural">%1$s + %2$d pacēla rokas</string>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="zero">%1$s +%2$d</item>
-        <item quantity="one">%1$s</item>
-        <item quantity="other">%1$s +%2$d</item>
-    </plurals>
+    <!-- A badge to show how many hands are raised. The placeholder string may either be a name, or "You". -->
+    <string name="CallRaiseHandSnackbar_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first string may either be a name, or "You". The second placeholder is a number quantifying how many other hands are also raised. -->
+    <string name="CallRaiseHandSnackbar_raised_hands_plural">%1$s + %2$d</string>
 
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Izvērst pacelto roku skatu</string>
@@ -2266,8 +2308,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Vai jums ir problēmas ar reģistrāciju?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Pārbaudiet, vai tālrunim ir mobilā tīkla signāls, lai saņemtu īsziņu vai zvanu \n • Pārbaudiet, vai varat uz šo numuru saņemt tālruņa zvanu\n • Pārbaudiet, vai esat pareizi ievadījis tālruņa numuru.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Lai iegūtu vairāk informācijas, veiciet šīs problēmu novēršanas darbības vai sazinieties ar atbalstu</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Lai iegūtu plašāku informāciju, dodieties uz %1$s vai %2$s</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">šīs problēmu novēršanas darbības</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2559,6 +2601,8 @@
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nav iespējams saglabāt ārējā krātuvē bez atļaujas.</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Izdzēst ziņu?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Šis neatgriezeniski izdzēsīs ziņu.</string>
+    <!-- Dialog message shown when deleting an attachment and message -->
+    <string name="MediaPreviewActivity_media_delete_confirmation_message_linked_device">Šī ziņa tiks neatgriezeniski dzēsta no visām jūsu ierīcēm.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s %2$s</string>
     <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
     <string name="MediaPreviewActivity_you_to_s">Jūs %1$s</string>
@@ -2797,9 +2841,9 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Kāda pietrūkst? Mēģiniet atsvaidzināt</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Atrodiet pazīstamas personas platformā Signal</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Atļaujiet piekļuvi kontaktpersonām</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Vēl</string>
 
@@ -2835,13 +2879,13 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Atrast pēc lietotājvārda</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">Atļaujiet piekļuvi kontaktpersonām</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Lai atrastu pazīstamas personas platformā Signal:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">Atļaut piekļuvi</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Atļaujiet piekļuvi kontaktpersonām. Jūsu kontaktpersonas tiek šifrētas un nav redzamas pakalpojumam Signal.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal nepieciešama pieeja jūsu kontaktiem, lai varētu tos parādīt.</string>
@@ -3433,8 +3477,12 @@
         <item quantity="other">Tiks saīsināta visu sarunu vēsture un tiks paturētas tikai %1$s jaunākās ziņas.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Tādējādi no jūsu ierīces tiks neatgriezeniski dzēsta visa ziņu vēsture un multivides saturs.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">Pabeidzot šo darbību, no jūsu ierīces un visām saistītajām ierīcēm tiks neatgriezeniski dzēsta visa ziņu vēsture un multivides saturs.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Vai tiešām vēlaties dzēst visu ziņu vēsturi?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Visu ziņu vēsture tiks neatgriezeniski dzēsta. Šo darbību nevar atsaukt.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">No visām ierīcēm tiks neatgriezeniski dzēsta visa ziņu vēsture. Šo darbību nevar atsaukt.</string>
     <string name="preferences_storage__delete_all_now">Izdzēst visas tagad</string>
     <string name="preferences_storage__forever">Uz visiem laikiem</string>
     <string name="preferences_storage__one_year">1 gadu</string>
@@ -4888,7 +4936,7 @@
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
-    <string name="ChatColorSelectionFragment__auto">Automātiski</string>
+    <string name="ChatColorSelectionFragment__auto">Autom.</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">Lietot pielāgotas krāsas</string>
     <string name="ChatColorSelectionFragment__chat_color">Sarunas krāsa</string>
     <string name="ChatColorSelectionFragment__edit">Rediģēt</string>
@@ -5793,8 +5841,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">Vēl nav atbilžu</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">Jūs nevarat atbildēt uz šo stāstu, jo vairs neesat šīs grupas dalībnieks.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Reaģēja uz stāstu</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">Reaģēja uz stāstu</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">Reaģēja uz stāstu</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Skatījumi</string>
     <!-- Label for story replies tab -->
@@ -7035,6 +7085,17 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Ziņas, kas ir vecākas par iestatīto laika periodu, tiks neatgriezeniski dzēstas.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Ziņas, kuru garums pārsniedz iestatīto rakstzīmju skaitu, tiks neatgriezeniski dzēstas.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Piemērot ierobežojumus saistītajām ierīcēm</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Iespējojot ziņu ierobežojumus sarunās, ziņas tiks dzēstas arī no jūsu saistītajām ierīcēm.</string>
+
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">Dzēšana tagad ir sinhronizēta visās jūsu ierīcēs</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">Ja dzēsīsiet ziņas, multivides saturu vai sarunas, tās tiks dzēstas arī no jūsu tālruņa un visām saistītajām ierīcēm.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">Ok</string>
 
     <!-- EOF -->
 </resources>

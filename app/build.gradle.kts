@@ -19,8 +19,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1421
-val canonicalVersionName = "7.8.1"
+val canonicalVersionCode = 1428
+val canonicalVersionName = "7.9.6"
 val mollyRevision = 1
 
 val postFixSize = 100
@@ -141,7 +141,7 @@ android {
   }
 
   composeOptions {
-    kotlinCompilerExtensionVersion = "1.4.4"
+    kotlinCompilerExtensionVersion = "1.5.4"
   }
 
   if (mollyRevision < 0 || mollyRevision >= postFixSize) {
@@ -495,6 +495,7 @@ dependencies {
   implementation(libs.kotlinx.collections.immutable)
   implementation(libs.accompanist.permissions)
   implementation(libs.kotlin.stdlib.jdk8)
+  "gmsImplementation"(libs.kotlinx.coroutines.play.services)
   implementation(libs.rxjava3.rxandroid)
   implementation(libs.rxjava3.rxkotlin)
   implementation(libs.rxdogtag)
@@ -614,7 +615,8 @@ fun Project.languageList(): List<String> {
     .map { valuesFolderName -> valuesFolderName.replace("values-", "") }
     .filter { valuesFolderName -> valuesFolderName != "values" }
     .map { languageCode -> languageCode.replace("-r", "_") }
-    .distinct() + "en"
+    .distinct()
+    .sorted() + "en"
 }
 
 fun String.capitalize(): String {

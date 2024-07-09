@@ -39,7 +39,7 @@ import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.LoggingFragment;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.registration.RegistrationSessionProcessor;
 import org.thoughtcrime.securesms.registration.VerifyAccountRepository.Mode;
@@ -187,7 +187,7 @@ public final class EnterPhoneNumberFragment extends LoggingFragment implements R
     }
 
     TextSecurePreferences.setHasSeenNetworkConfig(context, true);
-    ApplicationDependencies.getNetworkManager().setNetworkEnabled(true);
+    AppDependencies.getNetworkManager().setNetworkEnabled(true);
 
     PlayServicesUtil.PlayServicesStatus fcmStatus = PlayServicesUtil.getPlayServicesStatus(context);
 

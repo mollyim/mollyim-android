@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModel
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateNotifications
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.ApkUpdateJob
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.livedata.Store
 
 class HelpSettingsViewModel : ViewModel() {
 
-  private val application: Application = ApplicationDependencies.getApplication()
+  private val application: Application = AppDependencies.application
 
   private val store: Store<HelpSettingsState> = Store(getCurrentState())
 
@@ -36,7 +36,7 @@ class HelpSettingsViewModel : ViewModel() {
 
   private fun checkForUpdates() {
     ApkUpdateRefreshListener.scheduleIfAllowed(application)
-    ApplicationDependencies.getJobManager().add(ApkUpdateJob())
+    AppDependencies.jobManager.add(ApkUpdateJob())
   }
 
   fun setLogEnabled(enabled: Boolean) {

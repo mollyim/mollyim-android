@@ -24,27 +24,30 @@ import org.signal.core.util.toInt
 import org.signal.core.util.withinTransaction
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.thoughtcrime.securesms.backup.v2.database.clearAllDataForBackupRestore
+import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.database.CallTable
 import org.thoughtcrime.securesms.database.EmojiSearchTable
 import org.thoughtcrime.securesms.database.MessageTable
 import org.thoughtcrime.securesms.database.MessageTypes
 import org.thoughtcrime.securesms.database.RecipientTable
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.subscription.Subscriber
 import org.thoughtcrime.securesms.testing.assertIs
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.push.ServiceId.ACI
 import org.whispersystems.signalservice.api.push.ServiceId.PNI
 import org.whispersystems.signalservice.api.subscriptions.SubscriberId
 import java.io.ByteArrayInputStream
+import java.util.Currency
 import java.util.UUID
 import kotlin.random.Random
 
@@ -233,7 +236,7 @@ class BackupTest {
 
   @Test
   fun accountData() {
-    val context = ApplicationDependencies.getApplication()
+    val context = AppDependencies.application
 
     backupTest(validateKeyValue = true) {
       val self = Recipient.self()
@@ -251,8 +254,7 @@ class BackupTest {
       SignalDatabase.recipients.setProfileName(self.id, ProfileName.fromParts("Peter", "Parker"))
       SignalDatabase.recipients.setProfileAvatar(self.id, "https://example.com/")
 
-      SignalStore.donationsValues().markUserManuallyCancelled()
-      SignalStore.donationsValues().setSubscriber(Subscriber(SubscriberId.generate(), "USD"))
+      InAppPaymentsRepository.setSubscriber(InAppPaymentSubscriberRecord(SubscriberId.generate(), Currency.getInstance("USD"), InAppPaymentSubscriberRecord.Type.DONATION, false, InAppPaymentData.PaymentMethodType.UNKNOWN))
       SignalStore.donationsValues().setDisplayBadgesOnProfile(false)
 
       SignalStore.phoneNumberPrivacy().phoneNumberDiscoverabilityMode = PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE
