@@ -5,7 +5,7 @@ import org.signal.core.util.StringSerializer
 import org.thoughtcrime.securesms.database.model.DistributionListId
 import org.thoughtcrime.securesms.groups.GroupId
 
-internal class StoryValues(store: KeyValueStore) : SignalStoreValues(store) {
+class StoryValues(store: KeyValueStore) : SignalStoreValues(store) {
 
   companion object {
     /*
@@ -51,9 +51,9 @@ internal class StoryValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val USER_HAS_SEEN_GROUP_STORY_EDUCATION_SHEET = "stories.user.has.seen.group.story.education.sheet"
   }
 
-  override fun onFirstEverAppLaunch() = Unit
+  public override fun onFirstEverAppLaunch() = Unit
 
-  override fun getKeysToIncludeInBackup(): MutableList<String> = mutableListOf(
+  public override fun getKeysToIncludeInBackup(): MutableList<String> = mutableListOf(
     MANUAL_FEATURE_DISABLE,
     USER_HAS_ADDED_TO_A_STORY,
     USER_HAS_SEEN_FIRST_NAV_VIEW,

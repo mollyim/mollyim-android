@@ -85,10 +85,10 @@ import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.stickers.StickerLocator
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.LinkUtil
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.isStory
@@ -215,11 +215,11 @@ object DataMessageProcessor {
     }
 
     if (insertResult != null && insertResult.threadWasNewlyCreated && !threadRecipient.isGroup && !threadRecipient.isSelf && !senderRecipient.isSystemContact) {
-      val timeSinceLastSync = System.currentTimeMillis() - SignalStore.misc().lastCdsForegroundSyncTime
-      if (timeSinceLastSync > FeatureFlags.cdsForegroundSyncInterval() || timeSinceLastSync < 0) {
+      val timeSinceLastSync = System.currentTimeMillis() - SignalStore.misc.lastCdsForegroundSyncTime
+      if (timeSinceLastSync > RemoteConfig.cdsForegroundSyncInterval || timeSinceLastSync < 0) {
         log(envelope.timestamp!!, "New 1:1 chat. Scheduling a CDS sync to see if they match someone in our contacts.")
         AppDependencies.jobManager.add(DirectoryRefreshJob(false))
-        SignalStore.misc().lastCdsForegroundSyncTime = System.currentTimeMillis()
+        SignalStore.misc.lastCdsForegroundSyncTime = System.currentTimeMillis()
       } else {
         warn(envelope.timestamp!!, "New 1:1 chat, but performed a CDS sync $timeSinceLastSync ms ago, which is less than our threshold. Skipping CDS sync.")
       }

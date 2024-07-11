@@ -54,12 +54,6 @@ class AccountAttributes(
 
   data class Capabilities(
     @JsonProperty("storage") val storage: Boolean,
-    @JsonProperty("senderKey") val senderKey: Boolean,
-    @JsonProperty("announcementGroup") val announcementGroup: Boolean,
-    @JsonProperty("changeNumber") val changeNumber: Boolean,
-    @JsonProperty("stories") val stories: Boolean,
-    @JsonProperty("giftBadges") val giftBadges: Boolean,
-    @JsonProperty("pni") val pni: Boolean,
-    @JsonProperty("paymentActivation") val paymentActivation: Boolean
+    @JsonProperty("deleteSync") val deleteSync: Boolean
   )
 }

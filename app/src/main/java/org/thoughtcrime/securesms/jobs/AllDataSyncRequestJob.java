@@ -3,12 +3,10 @@ package org.thoughtcrime.securesms.jobs;
 import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
-import org.whispersystems.signalservice.api.crypto.UnidentifiedAccessPair;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
 import org.whispersystems.signalservice.api.messages.multidevice.RequestMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
@@ -16,7 +14,6 @@ import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException
 import org.whispersystems.signalservice.internal.push.SyncMessage.Request;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public class AllDataSyncRequestJob extends BaseJob {
 
@@ -50,11 +47,10 @@ public class AllDataSyncRequestJob extends BaseJob {
   @Override
   public void onRun() throws IOException, UntrustedIdentityException {
     SignalServiceMessageSender signalServiceMessageSender = AppDependencies.getSignalServiceMessageSender();
-    Optional<UnidentifiedAccessPair> accessForSync = UnidentifiedAccessUtil.getAccessForSync(context);
-    signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.CONTACTS)), accessForSync);
-    signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.BLOCKED)), accessForSync);
-    signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.CONFIGURATION)), accessForSync);
-    signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.KEYS)), accessForSync);
+    signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.CONTACTS)));
+    signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.BLOCKED)));
+    signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.CONFIGURATION)));
+    signalServiceMessageSender.sendSyncMessage(SignalServiceSyncMessage.forRequest(RequestMessage.forType(Request.Type.KEYS)));
   }
 
   @Override

@@ -145,7 +145,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
     final boolean changed = networkManager.applyProxyConfig();
     if (changed || alwaysRestart) {
       networkManager.setNetworkEnabled(true);
-      AppDependencies.restartAllNetworkConnections();
+      AppDependencies.resetNetwork(true);
     }
   }
 

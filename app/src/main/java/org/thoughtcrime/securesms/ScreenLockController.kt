@@ -99,7 +99,7 @@ object ScreenLockController {
       .mapNotNull { it.topActivity }
 
   private fun clearReplyActionFromNotifications(context: Context) {
-    if (!ApplicationMigrations.isUpdate(context) && SignalStore.settings().messageNotificationsPrivacy.isDisplayMessage) {
+    if (!ApplicationMigrations.isUpdate(context) && SignalStore.settings.messageNotificationsPrivacy.isDisplayMessage) {
       SignalExecutors.BOUNDED.execute {
         AppDependencies.messageNotifier.updateNotification(context)
       }

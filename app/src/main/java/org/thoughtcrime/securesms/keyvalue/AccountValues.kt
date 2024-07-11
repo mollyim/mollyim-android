@@ -26,7 +26,7 @@ import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.api.util.toByteArray
 import java.security.SecureRandom
 
-internal class AccountValues internal constructor(store: KeyValueStore) : SignalStoreValues(store) {
+class AccountValues internal constructor(store: KeyValueStore) : SignalStoreValues(store) {
 
   companion object {
     private val TAG = Log.tag(AccountValues::class.java)
@@ -100,6 +100,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
       KEY_PNI_IDENTITY_PUBLIC_KEY,
       KEY_PNI_IDENTITY_PRIVATE_KEY,
       KEY_USERNAME,
+      KEY_USERNAME_LINK_ENTROPY,
       KEY_USERNAME_LINK_SERVER_ID
     )
   }

@@ -5,7 +5,6 @@
 
 package org.whispersystems.signalservice.internal.push.exceptions
 
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.ChargeFailure
@@ -14,7 +13,7 @@ import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.Cha
  * HTTP 402 Exception when trying to submit credentials for a donation with
  * a failed payment.
  */
-class DonationReceiptCredentialError @JsonCreator constructor(
+class DonationReceiptCredentialError(
   @JsonProperty("chargeFailure") val chargeFailure: ChargeFailure
 ) : NonSuccessfulResponseCodeException(402) {
   override fun toString(): String {

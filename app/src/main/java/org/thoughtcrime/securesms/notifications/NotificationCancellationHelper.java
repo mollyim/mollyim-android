@@ -53,27 +53,31 @@ public final class NotificationCancellationHelper {
    * bubble notifications that do not have unread messages in them.
    */
   public static void cancelAllMessageNotifications(@NonNull Context context, @NonNull Set<Integer> stickyNotifications) {
-    try {
-      NotificationManager     notifications       = ServiceUtil.getNotificationManager(context);
-      StatusBarNotification[] activeNotifications = notifications.getActiveNotifications();
-      int                     activeCount         = 0;
+    if (Build.VERSION.SDK_INT >= 23) {
+      try {
+        NotificationManager     notifications       = ServiceUtil.getNotificationManager(context);
+        StatusBarNotification[] activeNotifications = notifications.getActiveNotifications();
+        int                     activeCount         = 0;
 
-      for (StatusBarNotification activeNotification : activeNotifications) {
-        if (isSingleThreadNotification(activeNotification)) {
-          activeCount++;
-          if (!stickyNotifications.contains(activeNotification.getId()) && cancel(context, activeNotification.getId())) {
-            activeCount--;
+        for (StatusBarNotification activeNotification : activeNotifications) {
+          if (isSingleThreadNotification(activeNotification)) {
+            activeCount++;
+            if (!stickyNotifications.contains(activeNotification.getId()) && cancel(context, activeNotification.getId())) {
+              activeCount--;
+            }
           }
         }
-      }
 
-      if (activeCount == 0) {
-        cancelLegacy(context, NotificationIds.MESSAGE_SUMMARY);
+        if (activeCount == 0) {
+          cancelLegacy(context, NotificationIds.MESSAGE_SUMMARY);
+        }
+      } catch (Throwable e) {
+        // XXX Appears to be a ROM bug, see #6043
+        Log.w(TAG, "Canceling all notifications.", e);
+        ServiceUtil.getNotificationManager(context).cancelAll();
       }
-    } catch (Throwable e) {
-      // XXX Appears to be a ROM bug, see #6043
-      Log.w(TAG, "Canceling all notifications.", e);
-      ServiceUtil.getNotificationManager(context).cancelAll();
+    } else {
+      cancelLegacy(context, NotificationIds.MESSAGE_SUMMARY);
     }
   }
 

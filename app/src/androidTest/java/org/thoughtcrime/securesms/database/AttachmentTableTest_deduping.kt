@@ -50,9 +50,9 @@ class AttachmentTableTest_deduping {
 
   @Before
   fun setUp() {
-    SignalStore.account().setAci(ServiceId.ACI.from(UUID.randomUUID()))
-    SignalStore.account().setPni(ServiceId.PNI.from(UUID.randomUUID()))
-    SignalStore.account().setE164("+15558675309")
+    SignalStore.account.setAci(ServiceId.ACI.from(UUID.randomUUID()))
+    SignalStore.account.setPni(ServiceId.PNI.from(UUID.randomUUID()))
+    SignalStore.account.setE164("+15558675309")
 
     SignalDatabase.attachments.deleteAllAttachments()
   }
@@ -824,7 +824,8 @@ class AttachmentTableTest_deduping {
         uploadTimestamp,
         databaseAttachment.caption,
         databaseAttachment.stickerLocator,
-        databaseAttachment.blurHash
+        databaseAttachment.blurHash,
+        databaseAttachment.uuid
       )
     }
   }

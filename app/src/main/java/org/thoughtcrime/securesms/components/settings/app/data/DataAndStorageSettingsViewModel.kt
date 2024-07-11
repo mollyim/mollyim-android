@@ -42,13 +42,13 @@ class DataAndStorageSettingsViewModel(
   }
 
   fun setCallDataMode(callDataMode: CallDataMode) {
-    SignalStore.settings().callDataMode = callDataMode
+    SignalStore.settings.callDataMode = callDataMode
     AppDependencies.signalCallManager.dataModeUpdate()
     getStateAndCopyStorageUsage()
   }
 
   fun setSentMediaQuality(sentMediaQuality: SentMediaQuality) {
-    SignalStore.settings().sentMediaQuality = sentMediaQuality
+    SignalStore.settings.sentMediaQuality = sentMediaQuality
     getStateAndCopyStorageUsage()
   }
 
@@ -67,8 +67,8 @@ class DataAndStorageSettingsViewModel(
     roamingAutoDownloadValues = TextSecurePreferences.getRoamingMediaDownloadAllowed(
       AppDependencies.application
     ),
-    callDataMode = SignalStore.settings().callDataMode,
-    sentMediaQuality = SignalStore.settings().sentMediaQuality
+    callDataMode = SignalStore.settings.callDataMode,
+    sentMediaQuality = SignalStore.settings.sentMediaQuality
   )
 
   class Factory(

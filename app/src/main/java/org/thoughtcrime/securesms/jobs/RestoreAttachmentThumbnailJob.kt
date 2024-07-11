@@ -22,7 +22,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.MmsException
 import org.thoughtcrime.securesms.notifications.v2.ConversationId.Companion.forConversation
 import org.thoughtcrime.securesms.transport.RetryLaterException
-import org.thoughtcrime.securesms.util.FeatureFlags
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId
@@ -141,7 +141,7 @@ class RestoreAttachmentThumbnailJob private constructor(
       throw InvalidPartException("empty encrypted key")
     }
 
-    val backupKey = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey()
+    val backupKey = SignalStore.svr.getOrCreateMasterKey().deriveBackupKey()
     val backupDirectories = BackupRepository.getCdnBackupDirectories().successOrThrow()
     return try {
       val key = backupKey.deriveThumbnailTransitKey(attachment.getThumbnailMediaName())
@@ -168,7 +168,8 @@ class RestoreAttachmentThumbnailJob private constructor(
         attachment.videoGif,
         Optional.empty(),
         Optional.ofNullable(attachment.blurHash).map { it.hash },
-        attachment.uploadTimestamp
+        attachment.uploadTimestamp,
+        attachment.uuid
       )
     } catch (e: IOException) {
       Log.w(TAG, e)
@@ -197,7 +198,7 @@ class RestoreAttachmentThumbnailJob private constructor(
       return
     }
 
-    val maxThumbnailSize: Long = FeatureFlags.maxAttachmentReceiveSizeBytes()
+    val maxThumbnailSize: Long = RemoteConfig.maxAttachmentReceiveSizeBytes
     val thumbnailTransferFile: File = SignalDatabase.attachments.createArchiveThumbnailTransferFile()
     val thumbnailFile: File = SignalDatabase.attachments.createArchiveThumbnailTransferFile()
 
@@ -217,7 +218,7 @@ class RestoreAttachmentThumbnailJob private constructor(
     Log.w(TAG, "Downloading thumbnail for $attachmentId")
     val stream = messageReceiver
       .retrieveArchivedAttachment(
-        SignalStore.svr().getOrCreateMasterKey().deriveBackupKey().deriveMediaSecrets(attachment.getThumbnailMediaName()),
+        SignalStore.svr.getOrCreateMasterKey().deriveBackupKey().deriveMediaSecrets(attachment.getThumbnailMediaName()),
         cdnCredentials,
         thumbnailTransferFile,
         pointer,

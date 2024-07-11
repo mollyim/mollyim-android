@@ -61,6 +61,7 @@ import org.thoughtcrime.securesms.emoji.EmojiSource;
 import org.thoughtcrime.securesms.emoji.JumboEmoji;
 import org.thoughtcrime.securesms.gcm.FcmFetchManager;
 import org.thoughtcrime.securesms.jobs.AccountConsistencyWorkerJob;
+import org.thoughtcrime.securesms.jobs.BuildExpirationConfirmationJob;
 import org.thoughtcrime.securesms.jobs.CheckServiceReachabilityJob;
 import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob;
 import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob;
@@ -84,6 +85,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.PersistentLogger;
 import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchReceiver;
+import org.thoughtcrime.securesms.messages.GroupSendEndorsementInternalNotifier;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.mms.SignalGlideComponents;
 import org.thoughtcrime.securesms.mms.SignalGlideModule;
@@ -108,9 +110,10 @@ import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.DynamicTheme;
-import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.FileUtils;
 import org.thoughtcrime.securesms.util.PlayServicesUtil;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
 import org.thoughtcrime.securesms.util.StorageUtil;
@@ -179,7 +182,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
     long startTime = System.currentTimeMillis();
 
-    if (FeatureFlags.internalUser()) {
+    if (RemoteConfig.internalUser()) {
       Tracer.getInstance().setMaxBufferSize(35_000);
     }
 
@@ -204,7 +207,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addBlocking("lifecycle-observer", () -> AppDependencies.getAppForegroundObserver().addListener(this))
                             .addBlocking("message-retriever", this::initializeMessageRetrieval)
                             .addBlocking("blob-provider", this::initializeBlobProvider)
-                            .addBlocking("feature-flags", FeatureFlags::init)
+                            .addBlocking("remote-config", RemoteConfig::init)
                             .addBlocking("ring-rtc", this::initializeRingRtc)
                             .addBlocking("glide", () -> SignalGlideModule.setRegisterGlideComponents(new SignalGlideComponents()))
                             .addNonBlocking(() -> RegistrationUtil.maybeMarkRegistrationComplete())
@@ -231,7 +234,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addPostRender(RefreshSvrCredentialsJob::enqueueIfNecessary)
                             .addPostRender(() -> DownloadLatestEmojiDataJob.scheduleIfNecessary(this))
                             .addPostRender(EmojiSearchIndexDownloadJob::scheduleIfNecessary)
-                            .addPostRender(() -> SignalDatabase.messageLog().trimOldMessages(System.currentTimeMillis(), FeatureFlags.retryRespondMaxAge()))
+                            .addPostRender(() -> SignalDatabase.messageLog().trimOldMessages(System.currentTimeMillis(), RemoteConfig.retryRespondMaxAge()))
                             .addPostRender(() -> JumboEmoji.updateCurrentVersion(this))
                             .addPostRender(RetrieveRemoteAnnouncementsJob::enqueue)
                             .addPostRender(() -> AndroidTelecomUtil.registerPhoneAccount())
@@ -246,6 +249,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addPostRender(GroupRingCleanupJob::enqueue)
                             .addPostRender(LinkedDeviceInactiveCheckJob::enqueueIfNecessary)
                             .addPostRender(() -> ActiveCallManager.clearNotifications(this))
+                            .addPostRender(() -> GroupSendEndorsementInternalNotifier.init())
                             .execute();
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -271,7 +275,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     FcmFetchManager.onForeground(this);
 
     SignalExecutors.BOUNDED.execute(() -> {
-      FeatureFlags.refreshIfNecessary();
+      RemoteConfig.refreshIfNecessary();
       RetrieveProfileJob.enqueueRoutineFetchIfNecessary();
       executePendingContactSync();
       checkBuildExpiration();
@@ -282,7 +286,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
       long timeDiff           = currentTime - lastForegroundTime;
 
       if (timeDiff < 0) {
-        Log.w(TAG, "Time travel! The system clock has moved backwards. (currentTime: " + currentTime + " ms, lastForegroundTime: " + lastForegroundTime + " ms, diff: " + timeDiff + " ms)");
+        Log.w(TAG, "Time travel! The system clock has moved backwards. (currentTime: " + currentTime + " ms, lastForegroundTime: " + lastForegroundTime + " ms, diff: " + timeDiff + " ms)", true);
       }
 
       SignalStore.misc().setLastForegroundTime(currentTime);
@@ -348,9 +352,9 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   public void checkBuildExpiration() {
-    if (Util.getTimeUntilBuildExpiry() <= 0 && !SignalStore.misc().isClientDeprecated()) {
-      Log.w(TAG, "Build expired!");
-      SignalStore.misc().setClientDeprecated(true);
+    if (Util.getTimeUntilBuildExpiry(SignalStore.misc().getEstimatedServerTime()) <= 0 && !SignalStore.misc().isClientDeprecated()) {
+      Log.w(TAG, "Build potentially expired! Enqueing job to check.", true);
+      AppDependencies.getJobManager().add(new BuildExpirationConfirmationJob());
     }
   }
 
@@ -378,9 +382,10 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     } else {
       boolean enableLogging = TextSecurePreferences.isLogEnabled(this);
       boolean alwaysRedact  = !BuildConfig.DEBUG;
-      Log.configure(FeatureFlags::internalUser, enableLogging, alwaysRedact, AndroidLogger.INSTANCE, new PersistentLogger(this));
+      Log.configure(RemoteConfig::internalUser, enableLogging, alwaysRedact, AndroidLogger.INSTANCE, new PersistentLogger(this));
 
       SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
+      SignalProtocolLoggerProvider.initializeLogging(BuildConfig.LIBSIGNAL_LOG_LEVEL);
 
       SignalExecutors.UNBOUNDED.execute(() -> {
         Log.blockUntilAllWritesFinished();
@@ -428,7 +433,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   public void finalizeMessageRetrieval() {
-    AppDependencies.closeConnections();
+    AppDependencies.resetNetwork(false);
   }
 
   private void initializePassphraseLock() {
@@ -567,11 +572,8 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   private void initializeRingRtc() {
     try {
       Map<String, String> fieldTrials = new HashMap<>();
-      if (FeatureFlags.callingFieldTrialAnyAddressPortsKillSwitch()) {
+      if (RemoteConfig.callingFieldTrialAnyAddressPortsKillSwitch()) {
         fieldTrials.put("RingRTC-AnyAddressPortsKillSwitch", "Enabled");
-      }
-      if (!SignalStore.internalValues().callingDisableLBRed()) {
-        fieldTrials.put("RingRTC-Audio-LBRed-For-Opus", "Enabled,bitrate_pri:22000");
       }
       CallManager.initialize(this, new RingRtcLogger(), fieldTrials);
     } catch (UnsatisfiedLinkError e) {
@@ -592,10 +594,10 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void ensureProfileUploaded() {
     if (SignalStore.account().isRegistered()) {
-      if (SignalStore.registrationValues().needDownloadProfileOrAvatar()) {
+      if (SignalStore.registration().needDownloadProfileOrAvatar()) {
         Log.w(TAG, "User has linked a device, but has not yet downloaded the profile. Downloading now.");
         AppDependencies.getJobManager().add(new RefreshOwnProfileJob());
-      } else if (!SignalStore.registrationValues().hasUploadedProfile() && !Recipient.self().getProfileName().isEmpty()) {
+      } else if (!SignalStore.registration().hasUploadedProfile() && !Recipient.self().getProfileName().isEmpty()) {
         Log.w(TAG, "User has a profile, but has not uploaded one. Uploading now.");
         AppDependencies.getJobManager().add(new ProfileUploadJob());
       }

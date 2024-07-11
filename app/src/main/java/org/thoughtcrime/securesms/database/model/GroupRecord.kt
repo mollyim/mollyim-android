@@ -31,7 +31,8 @@ class GroupRecord(
   groupRevision: Int,
   decryptedGroupBytes: ByteArray?,
   val distributionId: DistributionId?,
-  val lastForceUpdateTimestamp: Long
+  val lastForceUpdateTimestamp: Long,
+  val groupSendEndorsementExpiration: Long
 ) {
 
   val members: List<RecipientId> by lazy {
@@ -155,7 +156,7 @@ class GroupRecord(
     return if (isV2Group) {
       val memberLevel = requireV2GroupProperties().memberLevel(recipient.serviceId)
       if (recipient.isSelf && memberLevel == GroupTable.MemberLevel.NOT_A_MEMBER) {
-        requireV2GroupProperties().memberLevel(Optional.ofNullable(SignalStore.account().pni))
+        requireV2GroupProperties().memberLevel(Optional.ofNullable(SignalStore.account.pni))
       } else {
         memberLevel
       }

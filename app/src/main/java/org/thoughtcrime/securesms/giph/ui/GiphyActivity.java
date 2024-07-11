@@ -26,7 +26,7 @@ import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
-import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
@@ -60,7 +60,7 @@ public class GiphyActivity extends PassphraseRequiredActivity implements Keyboar
   @SuppressLint("MissingInflatedId")
   @Override
   public void onCreate(Bundle bundle, boolean ready) {
-    if (!FeatureFlags.gifSearchAvailable()) {
+    if (!RemoteConfig.gifSearchAvailable()) {
       finish();
     }
     setContentView(R.layout.giphy_activity);
@@ -126,7 +126,7 @@ public class GiphyActivity extends PassphraseRequiredActivity implements Keyboar
       mimeType = mediaType.toFallbackMimeType();
     }
 
-    Media media = new Media(success.getBlobUri(), mimeType, 0, success.getWidth(), success.getHeight(), 0, 0, false, true, Optional.empty(), Optional.empty(), Optional.empty());
+    Media media = new Media(success.getBlobUri(), mimeType, 0, success.getWidth(), success.getHeight(), 0, 0, false, true, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     startActivityForResult(MediaSelectionActivity.editor(this, sendType, Collections.singletonList(media), recipientId, text), MEDIA_SENDER);
   }
 

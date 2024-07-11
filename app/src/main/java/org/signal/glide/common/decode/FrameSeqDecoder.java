@@ -8,6 +8,7 @@ package org.signal.glide.common.decode;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -107,13 +108,23 @@ public abstract class FrameSeqDecoder<R extends Reader, W extends Writer> {
             int reuseSize = width * height * 4;
             ret = iterator.next();
 
-            if (ret != null && ret.getAllocationByteCount() >= reuseSize) {
-                iterator.remove();
-                if (ret.getWidth() != width || ret.getHeight() != height) {
-                    ret.reconfigure(width, height, Bitmap.Config.ARGB_8888);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (ret != null && ret.getAllocationByteCount() >= reuseSize) {
+                    iterator.remove();
+                    if (ret.getWidth() != width || ret.getHeight() != height) {
+                        ret.reconfigure(width, height, Bitmap.Config.ARGB_8888);
+                    }
+                    ret.eraseColor(0);
+                    return ret;
                 }
-                ret.eraseColor(0);
-                return ret;
+            } else {
+                if (ret != null && ret.getByteCount() >= reuseSize) {
+                    if (ret.getWidth() == width && ret.getHeight() == height) {
+                        iterator.remove();
+                        ret.eraseColor(0);
+                    }
+                    return ret;
+                }
             }
         }
 

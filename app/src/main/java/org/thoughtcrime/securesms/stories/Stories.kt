@@ -64,7 +64,7 @@ object Stories {
    */
   @JvmStatic
   fun isFeatureEnabled(): Boolean {
-    return !SignalStore.storyValues().isFeatureDisabled
+    return !SignalStore.story.isFeatureDisabled
   }
 
   fun getHeaderAction(onClick: () -> Unit): HeaderAction {
@@ -359,7 +359,8 @@ object Stories {
         media.isVideoGif,
         media.bucketId,
         media.caption,
-        Optional.of(transformProperties)
+        Optional.of(transformProperties),
+        media.fileName
       )
     }
 
@@ -398,6 +399,7 @@ object Stories {
         videoSlide.isVideoGif,
         Optional.empty(),
         videoSlide.caption,
+        Optional.empty(),
         Optional.empty()
       )
     }

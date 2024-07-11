@@ -7,7 +7,9 @@ package org.thoughtcrime.securesms.backup.v2.database
 
 import android.content.ContentValues
 import androidx.core.content.contentValuesOf
+import okio.ByteString
 import org.signal.core.util.Base64
+import org.signal.core.util.Hex
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
@@ -22,8 +24,11 @@ import org.thoughtcrime.securesms.backup.v2.BackupState
 import org.thoughtcrime.securesms.backup.v2.proto.BodyRange
 import org.thoughtcrime.securesms.backup.v2.proto.ChatItem
 import org.thoughtcrime.securesms.backup.v2.proto.ChatUpdateMessage
+import org.thoughtcrime.securesms.backup.v2.proto.ContactAttachment
+import org.thoughtcrime.securesms.backup.v2.proto.FilePointer
 import org.thoughtcrime.securesms.backup.v2.proto.GroupCall
 import org.thoughtcrime.securesms.backup.v2.proto.IndividualCall
+import org.thoughtcrime.securesms.backup.v2.proto.LinkPreview
 import org.thoughtcrime.securesms.backup.v2.proto.MessageAttachment
 import org.thoughtcrime.securesms.backup.v2.proto.PaymentNotification
 import org.thoughtcrime.securesms.backup.v2.proto.Quote
@@ -31,6 +36,8 @@ import org.thoughtcrime.securesms.backup.v2.proto.Reaction
 import org.thoughtcrime.securesms.backup.v2.proto.SendStatus
 import org.thoughtcrime.securesms.backup.v2.proto.SimpleChatUpdate
 import org.thoughtcrime.securesms.backup.v2.proto.StandardMessage
+import org.thoughtcrime.securesms.backup.v2.proto.Sticker
+import org.thoughtcrime.securesms.contactshare.Contact
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.CallTable
 import org.thoughtcrime.securesms.database.GroupReceiptTable
@@ -49,6 +56,7 @@ import org.thoughtcrime.securesms.database.model.Mention
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.database.model.databaseprotos.CryptoValue
 import org.thoughtcrime.securesms.database.model.databaseprotos.GV2UpdateDescription
+import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras
 import org.thoughtcrime.securesms.database.model.databaseprotos.PaymentTombstone
 import org.thoughtcrime.securesms.database.model.databaseprotos.ProfileChangeDetails
@@ -61,6 +69,7 @@ import org.thoughtcrime.securesms.payments.State
 import org.thoughtcrime.securesms.payments.proto.PaymentMetaData
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.stickers.StickerLocator
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.whispersystems.signalservice.api.backup.MediaName
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer
@@ -72,6 +81,7 @@ import org.whispersystems.signalservice.internal.push.DataMessage
 import java.math.BigInteger
 import java.util.Optional
 import java.util.UUID
+import org.thoughtcrime.securesms.backup.v2.proto.GiftBadge as BackupGiftBadge
 
 /**
  * An object that will ingest all fo the [ChatItem]s you want to write, buffer them until hitting a specified batch size, and then batch insert them
@@ -308,6 +318,60 @@ class ChatItemImportInserter(
         }
       }
     }
+    if (this.contactMessage != null) {
+      val contacts = this.contactMessage.contact.map { backupContact ->
+        Contact(
+          backupContact.name.toLocal(),
+          backupContact.organization,
+          backupContact.number.map { phone ->
+            Contact.Phone(
+              phone.value_ ?: "",
+              phone.type.toLocal(),
+              phone.label
+            )
+          },
+          backupContact.email.map { email ->
+            Contact.Email(
+              email.value_ ?: "",
+              email.type.toLocal(),
+              email.label
+            )
+          },
+          backupContact.address.map { address ->
+            Contact.PostalAddress(
+              address.type.toLocal(),
+              address.label,
+              address.street,
+              address.pobox,
+              address.neighborhood,
+              address.city,
+              address.region,
+              address.postcode,
+              address.country
+            )
+          },
+          Contact.Avatar(null, backupContact.avatar.toLocalAttachment(voiceNote = false, borderless = false, gif = false, wasDownloaded = true), true)
+        )
+      }
+      val contactAttachments = contacts.mapNotNull { it.avatarAttachment }
+      if (contacts.isNotEmpty()) {
+        followUp = { messageRowId ->
+          val attachmentMap = if (contactAttachments.isNotEmpty()) {
+            SignalDatabase.attachments.insertAttachmentsForMessage(messageRowId, contactAttachments, emptyList())
+          } else {
+            emptyMap()
+          }
+          db.update(
+            MessageTable.TABLE_NAME,
+            contentValuesOf(
+              MessageTable.SHARED_CONTACTS to SignalDatabase.messages.getSerializedSharedContacts(attachmentMap, contacts)
+            ),
+            "${MessageTable.ID} = ?",
+            SqlUtil.buildArgs(messageRowId)
+          )
+        }
+      }
+    }
     if (this.standardMessage != null) {
       val bodyRanges = this.standardMessage.text?.bodyRanges
       if (!bodyRanges.isNullOrEmpty()) {
@@ -328,15 +392,36 @@ class ChatItemImportInserter(
           }
         }
       }
+      val linkPreviews = this.standardMessage.linkPreview.map { it.toLocalLinkPreview() }
+      val linkPreviewAttachments = linkPreviews.mapNotNull { it.thumbnail.orNull() }
       val attachments = this.standardMessage.attachments.mapNotNull { attachment ->
         attachment.toLocalAttachment()
       }
       val quoteAttachments = this.standardMessage.quote?.attachments?.mapNotNull {
         it.toLocalAttachment()
       } ?: emptyList()
-      if (attachments.isNotEmpty()) {
+      if (attachments.isNotEmpty() || linkPreviewAttachments.isNotEmpty() || quoteAttachments.isNotEmpty()) {
         followUp = { messageRowId ->
-          SignalDatabase.attachments.insertAttachmentsForMessage(messageRowId, attachments, quoteAttachments)
+          val attachmentMap = SignalDatabase.attachments.insertAttachmentsForMessage(messageRowId, attachments + linkPreviewAttachments, quoteAttachments)
+          if (linkPreviews.isNotEmpty()) {
+            db.update(
+              MessageTable.TABLE_NAME,
+              contentValuesOf(
+                MessageTable.LINK_PREVIEWS to SignalDatabase.messages.getSerializedLinkPreviews(attachmentMap, linkPreviews)
+              ),
+              "${MessageTable.ID} = ?",
+              SqlUtil.buildArgs(messageRowId)
+            )
+          }
+        }
+      }
+    }
+    if (this.stickerMessage != null) {
+      val sticker = this.stickerMessage.sticker
+      val attachment = sticker.toLocalAttachment()
+      if (attachment != null) {
+        followUp = { messageRowId ->
+          SignalDatabase.attachments.insertAttachmentsForMessage(messageRowId, listOf(attachment), emptyList())
         }
       }
     }
@@ -396,6 +481,7 @@ class ChatItemImportInserter(
       this.remoteDeletedMessage != null -> contentValues.put(MessageTable.REMOTE_DELETED, 1)
       this.updateMessage != null -> contentValues.addUpdateMessage(this.updateMessage)
       this.paymentNotification != null -> contentValues.addPaymentNotification(this, chatRecipientId)
+      this.giftBadge != null -> contentValues.addGiftBadge(this.giftBadge)
     }
 
     return contentValues
@@ -503,6 +589,10 @@ class ChatItemImportInserter(
       type = type or MessageTypes.SECURE_MESSAGE_BIT or MessageTypes.PUSH_MESSAGE_BIT
     }
 
+    if (this.giftBadge != null) {
+      type = type or MessageTypes.SPECIAL_TYPE_GIFT_BADGE
+    }
+
     return type
   }
 
@@ -538,6 +628,7 @@ class ChatItemImportInserter(
           SimpleChatUpdate.Type.BAD_DECRYPT -> MessageTypes.BAD_DECRYPT_TYPE or typeWithoutBase
           SimpleChatUpdate.Type.PAYMENTS_ACTIVATED -> MessageTypes.SPECIAL_TYPE_PAYMENTS_ACTIVATED or typeWithoutBase
           SimpleChatUpdate.Type.PAYMENT_ACTIVATION_REQUEST -> MessageTypes.SPECIAL_TYPE_PAYMENTS_ACTIVATE_REQUEST or typeWithoutBase
+          SimpleChatUpdate.Type.UNSUPPORTED_PROTOCOL_MESSAGE -> MessageTypes.UNSUPPORTED_MESSAGE_TYPE or typeWithoutBase
         }
       }
       updateMessage.expirationTimerChange != null -> {
@@ -548,13 +639,13 @@ class ChatItemImportInserter(
         typeFlags = MessageTypes.PROFILE_CHANGE_TYPE
         val profileChangeDetails = ProfileChangeDetails(profileNameChange = ProfileChangeDetails.StringChange(previous = updateMessage.profileChange.previousName, newValue = updateMessage.profileChange.newName))
         val messageExtras = MessageExtras(profileChangeDetails = profileChangeDetails).encode()
-        put(MessageTable.MESSAGE_EXTRAS, Base64.encodeWithPadding(messageExtras))
+        put(MessageTable.MESSAGE_EXTRAS, messageExtras)
       }
       updateMessage.learnedProfileChange != null -> {
         typeFlags = MessageTypes.PROFILE_CHANGE_TYPE
         val profileChangeDetails = ProfileChangeDetails(learnedProfileName = ProfileChangeDetails.LearnedProfileName(e164 = updateMessage.learnedProfileChange.e164?.toString(), username = updateMessage.learnedProfileChange.username))
         val messageExtras = MessageExtras(profileChangeDetails = profileChangeDetails).encode()
-        put(MessageTable.MESSAGE_EXTRAS, Base64.encodeWithPadding(messageExtras))
+        put(MessageTable.MESSAGE_EXTRAS, messageExtras)
       }
       updateMessage.sessionSwitchover != null -> {
         typeFlags = MessageTypes.SESSION_SWITCHOVER_TYPE or (getAsLong(MessageTable.TYPE) and MessageTypes.BASE_TYPE_MASK.inv())
@@ -680,6 +771,20 @@ class ChatItemImportInserter(
     )
   }
 
+  private fun ContentValues.addGiftBadge(giftBadge: BackupGiftBadge) {
+    val dbGiftBadge = GiftBadge(
+      redemptionToken = giftBadge.receiptCredentialPresentation,
+      redemptionState = when (giftBadge.state) {
+        BackupGiftBadge.State.UNOPENED -> GiftBadge.RedemptionState.PENDING
+        BackupGiftBadge.State.OPENED -> GiftBadge.RedemptionState.STARTED
+        BackupGiftBadge.State.REDEEMED -> GiftBadge.RedemptionState.REDEEMED
+        BackupGiftBadge.State.FAILED -> GiftBadge.RedemptionState.FAILED
+      }
+    )
+
+    put(MessageTable.BODY, Base64.encodeWithPadding(GiftBadge.ADAPTER.encode(dbGiftBadge)))
+  }
+
   private fun String?.tryParseMoney(): Money? {
     if (this.isNullOrEmpty()) {
       return null
@@ -803,72 +908,163 @@ class ChatItemImportInserter(
     }
   }
 
-  private fun MessageAttachment.toLocalAttachment(contentType: String? = pointer?.contentType, fileName: String? = pointer?.fileName): Attachment? {
-    if (pointer == null) return null
-    if (pointer.attachmentLocator != null) {
+  private fun FilePointer?.toLocalAttachment(voiceNote: Boolean, borderless: Boolean, gif: Boolean, wasDownloaded: Boolean, stickerLocator: StickerLocator? = null, contentType: String? = this?.contentType, fileName: String? = this?.fileName, uuid: ByteString? = null): Attachment? {
+    if (this == null) return null
+
+    if (attachmentLocator != null) {
       val signalAttachmentPointer = SignalServiceAttachmentPointer(
-        pointer.attachmentLocator.cdnNumber,
-        SignalServiceAttachmentRemoteId.from(pointer.attachmentLocator.cdnKey),
+        attachmentLocator.cdnNumber,
+        SignalServiceAttachmentRemoteId.from(attachmentLocator.cdnKey),
         contentType,
-        pointer.attachmentLocator.key.toByteArray(),
-        Optional.ofNullable(pointer.attachmentLocator.size),
+        attachmentLocator.key.toByteArray(),
+        Optional.ofNullable(attachmentLocator.size),
         Optional.empty(),
-        pointer.width ?: 0,
-        pointer.height ?: 0,
-        Optional.ofNullable(pointer.attachmentLocator.digest.toByteArray()),
-        Optional.ofNullable(pointer.incrementalMac?.toByteArray()),
-        pointer.incrementalMacChunkSize ?: 0,
+        width ?: 0,
+        height ?: 0,
+        Optional.ofNullable(attachmentLocator.digest.toByteArray()),
+        Optional.ofNullable(incrementalMac?.toByteArray()),
+        incrementalMacChunkSize ?: 0,
         Optional.ofNullable(fileName),
-        flag == MessageAttachment.Flag.VOICE_MESSAGE,
-        flag == MessageAttachment.Flag.BORDERLESS,
-        flag == MessageAttachment.Flag.GIF,
-        Optional.ofNullable(pointer.caption),
-        Optional.ofNullable(pointer.blurHash),
-        pointer.attachmentLocator.uploadTimestamp
+        voiceNote,
+        borderless,
+        gif,
+        Optional.ofNullable(caption),
+        Optional.ofNullable(blurHash),
+        attachmentLocator.uploadTimestamp,
+        UuidUtil.fromByteStringOrNull(uuid)
       )
       return PointerAttachment.forPointer(
         pointer = Optional.of(signalAttachmentPointer),
+        stickerLocator = stickerLocator,
         transferState = if (wasDownloaded) AttachmentTable.TRANSFER_NEEDS_RESTORE else AttachmentTable.TRANSFER_PROGRESS_PENDING
       ).orNull()
-    } else if (pointer.invalidAttachmentLocator != null) {
+    } else if (invalidAttachmentLocator != null) {
       return TombstoneAttachment(
         contentType = contentType,
-        incrementalMac = pointer.incrementalMac?.toByteArray(),
-        incrementalMacChunkSize = pointer.incrementalMacChunkSize,
-        width = pointer.width,
-        height = pointer.height,
-        caption = pointer.caption,
-        blurHash = pointer.blurHash,
-        voiceNote = flag == MessageAttachment.Flag.VOICE_MESSAGE,
-        borderless = flag == MessageAttachment.Flag.BORDERLESS,
-        gif = flag == MessageAttachment.Flag.GIF,
-        quote = false
+        incrementalMac = incrementalMac?.toByteArray(),
+        incrementalMacChunkSize = incrementalMacChunkSize,
+        width = width,
+        height = height,
+        caption = caption,
+        blurHash = blurHash,
+        voiceNote = voiceNote,
+        borderless = borderless,
+        gif = gif,
+        quote = false,
+        uuid = UuidUtil.fromByteStringOrNull(uuid)
       )
-    } else if (pointer.backupLocator != null) {
+    } else if (backupLocator != null) {
       return ArchivedAttachment(
         contentType = contentType,
-        size = pointer.backupLocator.size.toLong(),
-        cdn = pointer.backupLocator.transitCdnNumber ?: Cdn.CDN_0.cdnNumber,
-        key = pointer.backupLocator.key.toByteArray(),
-        cdnKey = pointer.backupLocator.transitCdnKey,
-        archiveCdn = pointer.backupLocator.cdnNumber,
-        archiveMediaName = pointer.backupLocator.mediaName,
-        archiveMediaId = backupState.backupKey.deriveMediaId(MediaName(pointer.backupLocator.mediaName)).encode(),
-        archiveThumbnailMediaId = backupState.backupKey.deriveMediaId(MediaName.forThumbnailFromMediaName(pointer.backupLocator.mediaName)).encode(),
-        digest = pointer.backupLocator.digest.toByteArray(),
-        incrementalMac = pointer.incrementalMac?.toByteArray(),
-        incrementalMacChunkSize = pointer.incrementalMacChunkSize,
-        width = pointer.width,
-        height = pointer.height,
-        caption = pointer.caption,
-        blurHash = pointer.blurHash,
-        voiceNote = flag == MessageAttachment.Flag.VOICE_MESSAGE,
-        borderless = flag == MessageAttachment.Flag.BORDERLESS,
-        gif = flag == MessageAttachment.Flag.GIF,
-        quote = false
+        size = backupLocator.size.toLong(),
+        cdn = backupLocator.transitCdnNumber ?: Cdn.CDN_0.cdnNumber,
+        key = backupLocator.key.toByteArray(),
+        cdnKey = backupLocator.transitCdnKey,
+        archiveCdn = backupLocator.cdnNumber,
+        archiveMediaName = backupLocator.mediaName,
+        archiveMediaId = backupState.backupKey.deriveMediaId(MediaName(backupLocator.mediaName)).encode(),
+        archiveThumbnailMediaId = backupState.backupKey.deriveMediaId(MediaName.forThumbnailFromMediaName(backupLocator.mediaName)).encode(),
+        digest = backupLocator.digest.toByteArray(),
+        incrementalMac = incrementalMac?.toByteArray(),
+        incrementalMacChunkSize = incrementalMacChunkSize,
+        width = width,
+        height = height,
+        caption = caption,
+        blurHash = blurHash,
+        voiceNote = voiceNote,
+        borderless = borderless,
+        gif = gif,
+        quote = false,
+        stickerLocator = stickerLocator,
+        uuid = UuidUtil.fromByteStringOrNull(uuid)
       )
     }
     return null
+  }
+
+  private fun Sticker?.toLocalAttachment(): Attachment? {
+    if (this == null) return null
+
+    return data_.toLocalAttachment(
+      voiceNote = false,
+      gif = false,
+      borderless = false,
+      wasDownloaded = true,
+      stickerLocator = StickerLocator(
+        packId = Hex.toStringCondensed(packId.toByteArray()),
+        packKey = Hex.toStringCondensed(packKey.toByteArray()),
+        stickerId = stickerId,
+        emoji = emoji
+      )
+    )
+  }
+
+  private fun LinkPreview.toLocalLinkPreview(): org.thoughtcrime.securesms.linkpreview.LinkPreview {
+    return org.thoughtcrime.securesms.linkpreview.LinkPreview(
+      this.url,
+      this.title ?: "",
+      this.description ?: "",
+      this.date ?: 0,
+      Optional.ofNullable(this.image?.toLocalAttachment(voiceNote = false, borderless = false, gif = false, wasDownloaded = true))
+    )
+  }
+
+  private fun MessageAttachment.toLocalAttachment(): Attachment? {
+    return pointer?.toLocalAttachment(
+      voiceNote = flag == MessageAttachment.Flag.VOICE_MESSAGE,
+      gif = flag == MessageAttachment.Flag.GIF,
+      borderless = flag == MessageAttachment.Flag.BORDERLESS,
+      wasDownloaded = wasDownloaded,
+      uuid = clientUuid
+    )
+  }
+
+  private fun ContactAttachment.Name?.toLocal(): Contact.Name {
+    return Contact.Name(this?.displayName, this?.givenName, this?.familyName, this?.prefix, this?.suffix, this?.middleName)
+  }
+
+  private fun ContactAttachment.Phone.Type?.toLocal(): Contact.Phone.Type {
+    return when (this) {
+      ContactAttachment.Phone.Type.HOME -> Contact.Phone.Type.HOME
+      ContactAttachment.Phone.Type.MOBILE -> Contact.Phone.Type.MOBILE
+      ContactAttachment.Phone.Type.WORK -> Contact.Phone.Type.WORK
+      ContactAttachment.Phone.Type.CUSTOM,
+      ContactAttachment.Phone.Type.UNKNOWN,
+      null -> Contact.Phone.Type.CUSTOM
+    }
+  }
+
+  private fun ContactAttachment.Email.Type?.toLocal(): Contact.Email.Type {
+    return when (this) {
+      ContactAttachment.Email.Type.HOME -> Contact.Email.Type.HOME
+      ContactAttachment.Email.Type.MOBILE -> Contact.Email.Type.MOBILE
+      ContactAttachment.Email.Type.WORK -> Contact.Email.Type.WORK
+      ContactAttachment.Email.Type.CUSTOM,
+      ContactAttachment.Email.Type.UNKNOWN,
+      null -> Contact.Email.Type.CUSTOM
+    }
+  }
+
+  private fun ContactAttachment.PostalAddress.Type?.toLocal(): Contact.PostalAddress.Type {
+    return when (this) {
+      ContactAttachment.PostalAddress.Type.HOME -> Contact.PostalAddress.Type.HOME
+      ContactAttachment.PostalAddress.Type.WORK -> Contact.PostalAddress.Type.WORK
+      ContactAttachment.PostalAddress.Type.CUSTOM,
+      ContactAttachment.PostalAddress.Type.UNKNOWN,
+      null -> Contact.PostalAddress.Type.CUSTOM
+    }
+  }
+
+  private fun MessageAttachment.toLocalAttachment(contentType: String?, fileName: String?): Attachment? {
+    return pointer?.toLocalAttachment(
+      voiceNote = flag == MessageAttachment.Flag.VOICE_MESSAGE,
+      gif = flag == MessageAttachment.Flag.GIF,
+      borderless = flag == MessageAttachment.Flag.BORDERLESS,
+      wasDownloaded = wasDownloaded,
+      contentType = contentType,
+      fileName = fileName,
+      uuid = clientUuid
+    )
   }
 
   private fun Quote.QuotedAttachment.toLocalAttachment(): Attachment? {

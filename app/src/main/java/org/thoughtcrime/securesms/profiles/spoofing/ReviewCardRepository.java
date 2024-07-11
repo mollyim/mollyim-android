@@ -60,10 +60,6 @@ class ReviewCardRepository {
   }
 
   void block(@NonNull ReviewCard reviewCard, @NonNull Runnable onActionCompleteListener) {
-    if (recipientId == null) {
-      throw new UnsupportedOperationException();
-    }
-
     SignalExecutors.BOUNDED.execute(() -> {
       RecipientUtil.blockNonGroup(context, reviewCard.getReviewRecipient());
       onActionCompleteListener.run();
@@ -87,7 +83,7 @@ class ReviewCardRepository {
       ThreadTable threadTable = SignalDatabase.threads();
       long        threadId    = Objects.requireNonNull(threadTable.getThreadIdFor(recipientId));
 
-      threadTable.deleteConversation(threadId);
+      threadTable.deleteConversation(threadId, false);
       onActionCompleteListener.run();
     });
   }

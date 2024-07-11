@@ -129,7 +129,7 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
 
         textPref(
           title = DSLSettingsText.from("Sealed Sender Mode"),
-          summary = DSLSettingsText.from(recipient.unidentifiedAccessMode.toString())
+          summary = DSLSettingsText.from(recipient.sealedSenderAccessMode.toString())
         )
 
         textPref(
@@ -190,10 +190,10 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
               .setNegativeButton(android.R.string.cancel) { d, _ -> d.dismiss() }
               .setPositiveButton(android.R.string.ok) { _, _ ->
                 if (recipient.hasAci) {
-                  SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account().requireAci(), addressName = recipient.requireAci().toString())
+                  SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account.requireAci(), addressName = recipient.requireAci().toString())
                 }
                 if (recipient.hasPni) {
-                  SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account().requireAci(), addressName = recipient.requirePni().toString())
+                  SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account.requireAci(), addressName = recipient.requirePni().toString())
                 }
               }
               .show()
@@ -217,14 +217,14 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
               }
 
               if (recipient.hasAci) {
-                SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account().requireAci(), addressName = recipient.requireAci().toString())
-                SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account().requirePni(), addressName = recipient.requireAci().toString())
+                SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account.requireAci(), addressName = recipient.requireAci().toString())
+                SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account.requirePni(), addressName = recipient.requireAci().toString())
                 AppDependencies.protocolStore.aci().identities().delete(recipient.requireAci().toString())
               }
 
               if (recipient.hasPni) {
-                SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account().requireAci(), addressName = recipient.requirePni().toString())
-                SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account().requirePni(), addressName = recipient.requirePni().toString())
+                SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account.requireAci(), addressName = recipient.requirePni().toString())
+                SignalDatabase.sessions.deleteAllFor(serviceId = SignalStore.account.requirePni(), addressName = recipient.requirePni().toString())
                 AppDependencies.protocolStore.aci().identities().delete(recipient.requirePni().toString())
               }
 
@@ -341,7 +341,8 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
 
     return if (capabilities != null) {
       TextUtils.concat(
-        colorize("PaymentActivation", capabilities.paymentActivation)
+        ", ",
+        colorize("DeleteSync", capabilities.deleteSync)
       )
     } else {
       "Recipient not found!"

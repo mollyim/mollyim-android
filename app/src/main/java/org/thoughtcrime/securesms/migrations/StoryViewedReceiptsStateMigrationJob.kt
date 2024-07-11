@@ -22,10 +22,10 @@ internal class StoryViewedReceiptsStateMigrationJob(
   override fun isUiBlocking(): Boolean = true
 
   override fun performMigration() {
-    SignalStore.storyValues().isFeatureDisabled = false
-    if (!SignalStore.storyValues().isViewedReceiptsStateSet()) {
-      SignalStore.storyValues().viewedReceiptsEnabled = TextSecurePreferences.isReadReceiptsEnabled(context)
-      if (SignalStore.account().isRegistered) {
+    SignalStore.story.isFeatureDisabled = false
+    if (!SignalStore.story.isViewedReceiptsStateSet()) {
+      SignalStore.story.viewedReceiptsEnabled = TextSecurePreferences.isReadReceiptsEnabled(context)
+      if (SignalStore.account.isRegistered) {
         recipients.markNeedsSync(Recipient.self().id)
         StorageSyncHelper.scheduleSyncForDataChange()
       }

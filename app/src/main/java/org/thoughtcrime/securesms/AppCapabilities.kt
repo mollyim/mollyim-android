@@ -11,13 +11,7 @@ object AppCapabilities {
   fun getCapabilities(storageCapable: Boolean): AccountAttributes.Capabilities {
     return AccountAttributes.Capabilities(
       storage = storageCapable,
-      senderKey = true,
-      announcementGroup = true,
-      changeNumber = true,
-      stories = true,
-      giftBadges = false,
-      pni = true,
-      paymentActivation = false,
+      deleteSync = true
     )
   }
 }

@@ -62,7 +62,7 @@ import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
 import org.signal.core.util.Base64;
 import org.thoughtcrime.securesms.util.BitmapDecodingException;
-import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.ImageCompressionUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.Util;
@@ -76,7 +76,6 @@ import org.whispersystems.signalservice.api.push.ServiceId.ACI;
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
 import org.whispersystems.signalservice.api.push.exceptions.ProofRequiredException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
-import org.whispersystems.signalservice.internal.push.AttachmentPointer;
 import org.whispersystems.signalservice.internal.push.BodyRange;
 
 import java.io.ByteArrayInputStream;
@@ -89,6 +88,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -176,7 +176,7 @@ public abstract class PushSendJob extends SendJob {
       }
     } else if (exception instanceof NonSuccessfulResponseCodeException) {
       if (((NonSuccessfulResponseCodeException) exception).is5xx()) {
-        return BackoffUtil.exponentialBackoff(pastAttemptCount, FeatureFlags.getServerErrorMaxBackoff());
+        return BackoffUtil.exponentialBackoff(pastAttemptCount, RemoteConfig.getServerErrorMaxBackoff());
       }
     } else if (exception instanceof RetryLaterException) {
       long backoff = ((RetryLaterException) exception).getBackoff();
@@ -212,6 +212,7 @@ public abstract class PushSendJob extends SendJob {
                                     .withWidth(attachment.width)
                                     .withHeight(attachment.height)
                                     .withCaption(attachment.caption)
+                                    .withUuid(attachment.uuid)
                                     .withListener(new SignalServiceAttachment.ProgressListener() {
                                       @Override
                                       public void onAttachmentProgress(long total, long progress) {
@@ -306,7 +307,8 @@ public abstract class PushSendJob extends SendJob {
                                                 attachment.videoGif,
                                                 Optional.ofNullable(attachment.caption),
                                                 Optional.ofNullable(attachment.blurHash).map(BlurHash::getHash),
-                                                attachment.uploadTimestamp);
+                                                attachment.uploadTimestamp,
+                                                attachment.uuid);
     } catch (IOException | ArithmeticException e) {
       Log.w(TAG, e);
       return null;
@@ -381,7 +383,8 @@ public abstract class PushSendJob extends SendJob {
                                                                            .withHeight(thumbnailData.getHeight())
                                                                            .withLength(thumbnailData.getData().length)
                                                                            .withStream(new ByteArrayInputStream(thumbnailData.getData()))
-                                                                           .withResumableUploadSpec(AppDependencies.getSignalServiceMessageSender().getResumableUploadSpec());
+                                                                           .withResumableUploadSpec(AppDependencies.getSignalServiceMessageSender().getResumableUploadSpec())
+                                                                           .withUuid(UUID.randomUUID());
 
           thumbnail = builder.build();
         }
@@ -542,7 +545,7 @@ public abstract class PushSendJob extends SendJob {
 
       for (CertificateType certificateType : requiredCertificateTypes) {
 
-        byte[] certificateBytes = SignalStore.certificateValues()
+        byte[] certificateBytes = SignalStore.certificate()
                                              .getUnidentifiedAccessCertificate(certificateType);
 
         if (certificateBytes == null) {
@@ -599,13 +602,8 @@ public abstract class PushSendJob extends SendJob {
       SignalDatabase.messages().markAsRateLimited(messageId);
     }
 
-    final Optional<ProofRequiredException.Option> captchaRequired =
-        proofRequired.getOptions().stream()
-                     .filter(option -> option.equals(ProofRequiredException.Option.RECAPTCHA) || option.equals(ProofRequiredException.Option.CAPTCHA))
-                     .findFirst();
-
-    if (captchaRequired.isPresent()) {
-      Log.i(TAG, "[Proof Required] " + captchaRequired.get() + " required.");
+    if (proofRequired.getOptions().contains(ProofRequiredException.Option.CAPTCHA)) {
+      Log.i(TAG, "[Proof Required] CAPTCHA required.");
       SignalStore.rateLimit().markNeedsRecaptcha(proofRequired.getToken());
 
       if (recipient != null) {

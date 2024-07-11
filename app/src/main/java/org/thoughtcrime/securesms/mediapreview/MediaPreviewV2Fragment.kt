@@ -67,14 +67,12 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Debouncer
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
 import org.thoughtcrime.securesms.util.SaveAttachmentTask
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.StorageUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.visible
 import java.util.Locale
@@ -601,7 +599,7 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
     MaterialAlertDialogBuilder(requireContext()).apply {
       setIcon(R.drawable.symbol_error_triangle_fill_24)
       setTitle(R.string.MediaPreviewActivity_media_delete_confirmation_title)
-      setMessage(if (TextSecurePreferences.isMultiDevice(requireContext()) && FeatureFlags.deleteSyncEnabled()) R.string.MediaPreviewActivity_media_delete_confirmation_message_linked_device else R.string.MediaPreviewActivity_media_delete_confirmation_message)
+      setMessage(R.string.MediaPreviewActivity_media_delete_confirmation_message)
       setCancelable(true)
       setNegativeButton(android.R.string.cancel, null)
       setPositiveButton(R.string.ConversationFragment_delete_for_me) { _, _ ->

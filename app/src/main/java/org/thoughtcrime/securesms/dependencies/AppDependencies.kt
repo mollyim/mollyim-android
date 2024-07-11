@@ -12,6 +12,7 @@ import org.signal.core.util.resettableLazy
 import org.signal.libsignal.net.Network
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations
+import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.components.TypingStatusRepository
 import org.thoughtcrime.securesms.components.TypingStatusSender
 import org.thoughtcrime.securesms.crypto.storage.SignalServiceDataStoreImpl
@@ -21,6 +22,7 @@ import org.thoughtcrime.securesms.groups.GroupsV2Authorization
 import org.thoughtcrime.securesms.jobmanager.JobManager
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver
+import org.thoughtcrime.securesms.net.NetworkManager
 import org.thoughtcrime.securesms.notifications.MessageNotifier
 import org.thoughtcrime.securesms.payments.Payments
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess
@@ -33,7 +35,6 @@ import org.thoughtcrime.securesms.service.PendingRetryReceiptManager
 import org.thoughtcrime.securesms.service.ScheduledMessageManager
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager
-import org.thoughtcrime.securesms.shakereport.ShakeToReport
 import org.thoughtcrime.securesms.util.AppForegroundObserver
 import org.thoughtcrime.securesms.util.EarlyMessageCache
 import org.thoughtcrime.securesms.util.FrameRateTracker
@@ -63,7 +64,6 @@ import java.util.function.Supplier
  */
 @SuppressLint("StaticFieldLeak")
 object AppDependencies {
-  private lateinit var _application: Application
   private lateinit var provider: Provider
 
   // Needs special initialization because it needs to be created on the main thread
@@ -72,11 +72,10 @@ object AppDependencies {
   @JvmStatic
   @MainThread
   fun init(application: Application, provider: Provider) {
-    if (this::_application.isInitialized || this::provider.isInitialized) {
+    if (isInitialized) {
       throw IllegalStateException("Already initialized!")
     }
 
-    _application = application
     AppDependencies.provider = provider
 
     _appForegroundObserver = provider.provideAppForegroundObserver()
@@ -85,11 +84,12 @@ object AppDependencies {
 
   @JvmStatic
   val isInitialized: Boolean
-    get() = this::_application.isInitialized
+    get() = this::provider.isInitialized
 
   @JvmStatic
   val application: Application
-    get() = _application
+    // MOLLY: Ensure the app instance is always returned, even before init() is called
+    get() = ApplicationContext.getInstance()
 
   @JvmStatic
   val appForegroundObserver: AppForegroundObserver
@@ -161,11 +161,6 @@ object AppDependencies {
   }
 
   @JvmStatic
-  val shakeToReport: ShakeToReport by lazy {
-    provider.provideShakeToReport()
-  }
-
-  @JvmStatic
   val pendingRetryReceiptManager: PendingRetryReceiptManager by lazy {
     provider.providePendingRetryReceiptManager()
   }
@@ -218,6 +213,10 @@ object AppDependencies {
    */
   @JvmStatic
   val webSocketObserver: Observable<WebSocketConnectionState> = _webSocketObserver
+
+  @JvmStatic
+  val networkManager: NetworkManager
+    get() = provider.provideNetworkManager()
 
   private val _networkModule = resettableLazy {
     NetworkDependenciesModule(application, provider, _webSocketObserver)
@@ -298,9 +297,12 @@ object AppDependencies {
   }
 
   @JvmStatic
-  fun resetNetwork() {
+  fun resetNetwork(restartMessageObserver: Boolean) {
     networkModule.closeConnections()
     _networkModule.reset()
+    if (restartMessageObserver) {
+      incomingMessageObserver
+    }
   }
 
   interface Provider {
@@ -325,7 +327,6 @@ object AppDependencies {
     fun provideTypingStatusSender(): TypingStatusSender
     fun provideDatabaseObserver(): DatabaseObserver
     fun providePayments(signalServiceAccountManager: SignalServiceAccountManager): Payments
-    fun provideShakeToReport(): ShakeToReport
     fun provideAppForegroundObserver(): AppForegroundObserver
     fun provideSignalCallManager(): SignalCallManager
     fun providePendingRetryReceiptManager(): PendingRetryReceiptManager
@@ -341,6 +342,7 @@ object AppDependencies {
     fun provideDeadlockDetector(): DeadlockDetector
     fun provideClientZkReceiptOperations(signalServiceConfiguration: SignalServiceConfiguration): ClientZkReceiptOperations
     fun provideScheduledMessageManager(): ScheduledMessageManager
+    fun provideNetworkManager(): NetworkManager
     fun provideLibsignalNetwork(config: SignalServiceConfiguration): Network
   }
 }

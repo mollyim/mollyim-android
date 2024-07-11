@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.util.Environment;
-import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,7 +24,7 @@ public final class InternalValues extends SignalStoreValues {
   public static final String CALLING_AUDIO_PROCESSING_METHOD      = "internal.calling_audio_processing_method";
   public static final String CALLING_DATA_MODE                    = "internal.calling_bandwidth_mode";
   public static final String CALLING_DISABLE_TELECOM              = "internal.calling_disable_telecom";
-  public static final String CALLING_DISABLE_LBRED                = "internal.calling_disable_lbred";
+  public static final String CALLING_ENABLE_OBOE_ADM              = "internal.calling_enable_oboe_adm";
   public static final String DISABLE_STORAGE_SERVICE              = "internal.disable_storage_service";
   public static final String FORCE_WEBSOCKET_MODE                 = "internal.force_websocket_mode";
   public static final String LAST_SCROLL_POSITION                 = "internal.last_scroll_position";
@@ -49,7 +49,7 @@ public final class InternalValues extends SignalStoreValues {
    * Members will not be added directly to a GV2 even if they could be.
    */
   public synchronized boolean gv2ForceInvites() {
-    return FeatureFlags.internalUser() && getBoolean(GV2_FORCE_INVITES, false);
+    return RemoteConfig.internalUser() && getBoolean(GV2_FORCE_INVITES, false);
   }
 
   /**
@@ -57,49 +57,49 @@ public final class InternalValues extends SignalStoreValues {
    * directly which allows testing of certain testing scenarios.
    */
   public synchronized boolean gv2IgnoreP2PChanges() {
-    return FeatureFlags.internalUser() && getBoolean(GV2_IGNORE_P2P_CHANGES, false);
+    return RemoteConfig.internalUser() && getBoolean(GV2_IGNORE_P2P_CHANGES, false);
   }
 
   /**
    * Show detailed recipient info in the {@link org.thoughtcrime.securesms.components.settings.conversation.InternalConversationSettingsFragment}.
    */
   public synchronized boolean recipientDetails() {
-    return FeatureFlags.internalUser() && getBoolean(RECIPIENT_DETAILS, true);
+    return RemoteConfig.internalUser() && getBoolean(RECIPIENT_DETAILS, true);
   }
 
   /**
    * Allow changing the censorship circumvention setting regardless of network status.
    */
   public synchronized boolean allowChangingCensorshipSetting() {
-    return FeatureFlags.internalUser() && getBoolean(ALLOW_CENSORSHIP_SETTING, false);
+    return RemoteConfig.internalUser() && getBoolean(ALLOW_CENSORSHIP_SETTING, false);
   }
 
   /**
    * Force the app to use the emoji that ship with the app, as opposed to the ones that were downloaded.
    */
   public synchronized boolean forceBuiltInEmoji() {
-    return FeatureFlags.internalUser() && getBoolean(FORCE_BUILT_IN_EMOJI, false);
+    return RemoteConfig.internalUser() && getBoolean(FORCE_BUILT_IN_EMOJI, false);
   }
 
   /**
    * Remove the requirement that there must be two sender-key-capable recipients to use sender key
    */
   public synchronized boolean removeSenderKeyMinimum() {
-    return FeatureFlags.internalUser() && getBoolean(REMOVE_SENDER_KEY_MINIMUM, false);
+    return RemoteConfig.internalUser() && getBoolean(REMOVE_SENDER_KEY_MINIMUM, false);
   }
 
   /**
    * Delay resending messages in response to retry receipts by 10 seconds.
    */
   public synchronized boolean delayResends() {
-    return FeatureFlags.internalUser() && getBoolean(DELAY_RESENDS, false);
+    return RemoteConfig.internalUser() && getBoolean(DELAY_RESENDS, false);
   }
 
   /**
    * Whether or not storage service is manually disabled.
    */
   public synchronized boolean storageServiceDisabled() {
-    return FeatureFlags.internalUser() && getBoolean(DISABLE_STORAGE_SERVICE, false);
+    return RemoteConfig.internalUser() && getBoolean(DISABLE_STORAGE_SERVICE, false);
   }
 
   /**
@@ -110,7 +110,7 @@ public final class InternalValues extends SignalStoreValues {
    * internal users cannot be left on old servers.
    */
   public synchronized @NonNull String groupCallingServer() {
-    String internalServer = FeatureFlags.internalUser() ? getString(CALLING_SERVER, Environment.Calling.defaultSfuUrl()) : null;
+    String internalServer = RemoteConfig.internalUser() ? getString(CALLING_SERVER, Environment.Calling.defaultSfuUrl()) : null;
     if (internalServer != null && !Arrays.asList(BuildConfig.SIGNAL_SFU_INTERNAL_URLS).contains(internalServer)) {
       internalServer = null;
     }
@@ -121,7 +121,7 @@ public final class InternalValues extends SignalStoreValues {
    * Setting to override the default handling of hardware/software AEC.
    */
   public synchronized CallManager.AudioProcessingMethod callingAudioProcessingMethod() {
-    if (FeatureFlags.internalUser()) {
+    if (RemoteConfig.internalUser()) {
       return CallManager.AudioProcessingMethod.values()[getInteger(CALLING_AUDIO_PROCESSING_METHOD, CallManager.AudioProcessingMethod.Default.ordinal())];
     } else {
       return CallManager.AudioProcessingMethod.Default;
@@ -132,7 +132,7 @@ public final class InternalValues extends SignalStoreValues {
    * Setting to override the default calling bandwidth mode.
    */
   public synchronized CallManager.DataMode callingDataMode() {
-    if (FeatureFlags.internalUser()) {
+    if (RemoteConfig.internalUser()) {
       int                    index = getInteger(CALLING_DATA_MODE, CallManager.DataMode.NORMAL.ordinal());
       CallManager.DataMode[] modes = CallManager.DataMode.values();
 
@@ -146,7 +146,7 @@ public final class InternalValues extends SignalStoreValues {
    * Whether or not Telecom integration is manually disabled.
    */
   public synchronized boolean callingDisableTelecom() {
-    if (FeatureFlags.internalUser()) {
+    if (RemoteConfig.internalUser()) {
       return getBoolean(CALLING_DISABLE_TELECOM, true);
     } else {
       return false;
@@ -154,13 +154,13 @@ public final class InternalValues extends SignalStoreValues {
   }
 
   /**
-   * Whether or not LBRed for Opus is manually disabled.
+   * Whether or not the Oboe ADM is used.
    */
-  public synchronized boolean callingDisableLBRed() {
-    if (FeatureFlags.internalUser()) {
-      return getBoolean(CALLING_DISABLE_LBRED, false);
+  public synchronized boolean callingEnableOboeAdm() {
+    if (RemoteConfig.internalUser()) {
+      return getBoolean(CALLING_ENABLE_OBOE_ADM, true);
     } else {
-      return true;
+      return false;
     }
   }
 
@@ -168,7 +168,7 @@ public final class InternalValues extends SignalStoreValues {
    * Whether or not the system is forced to be in 'websocket mode', where FCM is ignored and we use a foreground service to keep the app alive.
    */
   public boolean isWebsocketModeForced() {
-    if (FeatureFlags.internalUser()) {
+    if (RemoteConfig.internalUser()) {
       return getBoolean(FORCE_WEBSOCKET_MODE, false);
     } else {
       return false;
@@ -188,15 +188,7 @@ public final class InternalValues extends SignalStoreValues {
   }
 
   public boolean useConversationItemV2Media() {
-    return FeatureFlags.internalUser() && getBoolean(CONVERSATION_ITEM_V2_MEDIA, false);
-  }
-
-  public void setForceEnterRestoreV2Flow(boolean enter) {
-    putBoolean(FORCE_ENTER_RESTORE_V2_FLOW, enter);
-  }
-
-  public boolean enterRestoreV2Flow() {
-    return FeatureFlags.restoreAfterRegistration() && getBoolean(FORCE_ENTER_RESTORE_V2_FLOW, false);
+    return RemoteConfig.internalUser() && getBoolean(CONVERSATION_ITEM_V2_MEDIA, false);
   }
 
   public synchronized void setWebSocketShadowingStats(byte[] bytes) {

@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.util
 
 import org.thoughtcrime.securesms.BuildConfig
 
+@Suppress("KotlinConstantConditions")
 object Environment {
   const val IS_STAGING: Boolean = BuildConfig.FLAVOR_environment == "staging"
   const val IS_DEV: Boolean = BuildConfig.FLAVOR_environment == "dev" || BuildConfig.BUILD_TYPE == "instrumentation"

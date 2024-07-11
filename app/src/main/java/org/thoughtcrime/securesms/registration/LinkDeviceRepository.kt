@@ -77,7 +77,7 @@ class LinkDeviceRepository(private val context: Application) {
       val registrationLock: String? = ret.masterKey?.deriveRegistrationLock()
       val encryptedDeviceName = deviceName?.let { DeviceNameCipher.encryptDeviceName(it.toByteArray(), ret.aciIdentity) }
 
-      val notDiscoverable =  SignalStore.phoneNumberPrivacy().phoneNumberDiscoverabilityMode == PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE
+      val notDiscoverable =  SignalStore.phoneNumberPrivacy.phoneNumberDiscoverabilityMode == PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE
 
       val accountAttributes = AccountAttributes(
         signalingKey = null,
@@ -93,8 +93,8 @@ class LinkDeviceRepository(private val context: Application) {
         recoveryPassword = registrationData.recoveryPassword
       )
 
-      val aciPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.aciIdentity, SignalStore.account().aciPreKeys)
-      val pniPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.pniIdentity, SignalStore.account().pniPreKeys)
+      val aciPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.aciIdentity, SignalStore.account.aciPreKeys)
+      val pniPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(ret.pniIdentity, SignalStore.account.pniPreKeys)
 
       val deviceId = accountManager.finishNewDeviceRegistration(
         ret.provisioningCode,

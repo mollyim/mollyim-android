@@ -36,7 +36,7 @@ import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.profiles.manage.EditProfileViewModel.AvatarState
 import org.thoughtcrime.securesms.profiles.manage.UsernameRepository.UsernameDeleteResult
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity
+import org.thoughtcrime.securesms.registration.ui.RegistrationActivity
 import org.thoughtcrime.securesms.util.NameUtil.getAbbreviation
 import org.thoughtcrime.securesms.util.PlayStoreUtil
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
@@ -98,7 +98,7 @@ class EditProfileFragment : LoggingFragment() {
     binding.manageProfileUsernameContainer.setOnClickListener { v: View ->
       if (!viewModel.isRegisteredAndUpToDate) {
         onClickWhenUnregisteredOrDeprecated()
-      } else if (SignalStore.account().username != null) {
+      } else if (SignalStore.account.username != null) {
         MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_Signal_MaterialAlertDialog_List)
           .setItems(R.array.username_edit_entries) { _: DialogInterface?, w: Int ->
             when (w) {
@@ -246,28 +246,28 @@ class EditProfileFragment : LoggingFragment() {
       binding.manageProfileUsername.text = username
     }
 
-    if (SignalStore.account().usernameSyncState == AccountValues.UsernameSyncState.USERNAME_AND_LINK_CORRUPTED) {
+    if (SignalStore.account.usernameSyncState == AccountValues.UsernameSyncState.USERNAME_AND_LINK_CORRUPTED) {
       binding.usernameErrorIndicator.visibility = View.VISIBLE
     } else {
       binding.usernameErrorIndicator.visibility = View.GONE
     }
 
-    if (SignalStore.account().username != null && SignalStore.account().usernameSyncState != AccountValues.UsernameSyncState.USERNAME_AND_LINK_CORRUPTED) {
+    if (SignalStore.account.username != null && SignalStore.account.usernameSyncState != AccountValues.UsernameSyncState.USERNAME_AND_LINK_CORRUPTED) {
       binding.usernameLinkContainer.setOnClickListener {
         findNavController().safeNavigate(EditProfileFragmentDirections.actionManageProfileFragmentToUsernameLinkFragment())
       }
 
-      if (SignalStore.account().usernameSyncState == AccountValues.UsernameSyncState.LINK_CORRUPTED) {
+      if (SignalStore.account.usernameSyncState == AccountValues.UsernameSyncState.LINK_CORRUPTED) {
         binding.linkErrorIndicator.visibility = View.VISIBLE
       } else {
         binding.linkErrorIndicator.visibility = View.GONE
       }
 
-      if (SignalStore.tooltips().showProfileSettingsQrCodeTooltop()) {
+      if (SignalStore.tooltips.showProfileSettingsQrCodeTooltop()) {
         binding.usernameLinkTooltip.visibility = View.VISIBLE
         binding.linkTooltipCloseButton.setOnClickListener {
           binding.usernameLinkTooltip.visibility = View.GONE
-          SignalStore.tooltips().markProfileSettingsQrCodeTooltipSeen()
+          SignalStore.tooltips.markProfileSettingsQrCodeTooltipSeen()
         }
       }
 
@@ -335,7 +335,7 @@ class EditProfileFragment : LoggingFragment() {
   private fun displayConfirmUsernameDeletionDialog() {
     MaterialAlertDialogBuilder(requireContext())
       .setTitle(R.string.ManageProfileFragment__delete_username_dialog_title)
-      .setMessage(requireContext().getString(R.string.ManageProfileFragment__delete_username_dialog_body, SignalStore.account().username))
+      .setMessage(requireContext().getString(R.string.ManageProfileFragment__delete_username_dialog_body, SignalStore.account.username))
       .setPositiveButton(R.string.delete) { _, _ -> onUserConfirmedUsernameDeletion() }
       .setNegativeButton(android.R.string.cancel) { d: DialogInterface?, w: Int -> }
       .show()
@@ -380,7 +380,7 @@ class EditProfileFragment : LoggingFragment() {
         .setMessage(R.string.EditProfileFragment_unregistered_dialog_body)
         .setNegativeButton(android.R.string.cancel) { d, _ -> d.dismiss() }
         .setPositiveButton(R.string.EditProfileFragment_unregistered_dialog_reregister_button) { d, _ ->
-          startActivity(RegistrationNavigationActivity.newIntentForReRegistration(requireContext()))
+          startActivity(RegistrationActivity.newIntentForReRegistration(requireContext()))
           d.dismiss()
         }
         .show()

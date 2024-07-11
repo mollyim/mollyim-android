@@ -12,8 +12,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.core.Flowable
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.DeviceActivity
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.mediasend.CameraFragment
 import org.thoughtcrime.securesms.mediasend.Media
 import org.thoughtcrime.securesms.mediasend.v2.HudCommand
@@ -92,7 +92,7 @@ class MediaCaptureFragment : Fragment(R.layout.fragment_container), CameraFragme
             .setTitle(R.string.MediaCaptureFragment_device_link_dialog_title)
             .setMessage(R.string.MediaCaptureFragment_device_link_dialog_body)
             .setPositiveButton(R.string.MediaCaptureFragment_device_link_dialog_continue) { d, _ ->
-              startActivity(DeviceActivity.getIntentForScanner(requireContext()))
+              startActivity(AppSettingsActivity.linkedDevices(requireContext()))
               requireActivity().finish()
             }
             .setNegativeButton(android.R.string.cancel, null)

@@ -143,7 +143,10 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
     _state.value = _state.value.copy(remoteBackupState = RemoteBackupState.Unknown)
 
     disposables += Single
-      .fromCallable { BackupRepository.getRemoteBackupState() }
+      .fromCallable {
+        BackupRepository.restoreBackupTier()
+        BackupRepository.getRemoteBackupState()
+      }
       .subscribeOn(Schedulers.io())
       .subscribe { result ->
         when {
@@ -303,7 +306,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
   fun restoreArchivedMedia(attachment: BackupAttachment) {
     disposables += Completable
       .fromCallable {
-        val recipientId = SignalStore.releaseChannelValues().releaseChannelRecipientId!!
+        val recipientId = SignalStore.releaseChannel.releaseChannelRecipientId!!
         val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(Recipient.resolved(recipientId))
 
         val message = IncomingMessage(
@@ -385,7 +388,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
       attachments: List<BackupAttachment> = this.attachments,
       inProgress: Set<AttachmentId> = this.inProgressMediaIds
     ): MediaState {
-      val backupKey = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey()
+      val backupKey = SignalStore.svr.getOrCreateMasterKey().deriveBackupKey()
 
       val updatedAttachments = attachments.map {
         val state = if (inProgress.contains(it.dbAttachment.attachmentId)) {

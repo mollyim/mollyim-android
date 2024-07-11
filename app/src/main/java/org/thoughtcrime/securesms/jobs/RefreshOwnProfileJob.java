@@ -87,7 +87,7 @@ public class RefreshOwnProfileJob extends BaseJob {
       return;
     }
 
-    if (!SignalStore.registrationValues().hasUploadedProfile() && SignalStore.account().isPrimaryDevice()) {
+    if (!SignalStore.registration().hasUploadedProfile() && SignalStore.account().isPrimaryDevice()) {
       Log.i(TAG, "Registered but haven't uploaded profile yet.");
       return;
     }
@@ -96,7 +96,7 @@ public class RefreshOwnProfileJob extends BaseJob {
     ProfileAndCredential profileAndCredential = ProfileUtil.retrieveProfileSync(context, self, getRequestType(self), false);
     SignalServiceProfile profile              = profileAndCredential.getProfile();
 
-    SignalStore.registrationValues().clearNeedDownloadProfile();
+    SignalStore.registration().clearNeedDownloadProfile();
 
     if (Util.isEmpty(profile.getName()) &&
         Util.isEmpty(profile.getAvatar()) &&
@@ -112,7 +112,7 @@ public class RefreshOwnProfileJob extends BaseJob {
         Log.w(TAG, "We don't have a name locally, either!");
       }
 
-      SignalStore.registrationValues().clearNeedDownloadProfileAvatar();
+      SignalStore.registration().clearNeedDownloadProfileAvatar();
       return;
     }
 
@@ -193,6 +193,11 @@ public class RefreshOwnProfileJob extends BaseJob {
   private void setProfileCapabilities(@Nullable SignalServiceProfile.Capabilities capabilities) {
     if (capabilities == null) {
       return;
+    }
+
+    if (!Recipient.self().getDeleteSyncCapability().isSupported() && capabilities.isDeleteSync()) {
+      Log.d(TAG, "Transitioned to delete sync capable, notify linked devices in case we were the last one");
+      AppDependencies.getJobManager().add(new MultiDeviceProfileContentUpdateJob());
     }
 
     SignalDatabase.recipients().setCapabilities(Recipient.self().getId(), capabilities);

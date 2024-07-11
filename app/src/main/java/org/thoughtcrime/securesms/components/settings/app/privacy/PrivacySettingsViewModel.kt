@@ -94,7 +94,7 @@ class PrivacySettingsViewModel(
       biometricScreenLock = TextSecurePreferences.isBiometricScreenLockEnabled(application),
       screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(application),
       incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(application),
-      universalExpireTimer = SignalStore.settings().universalExpireTimer
+      universalExpireTimer = SignalStore.settings.universalExpireTimer
     )
   }
 

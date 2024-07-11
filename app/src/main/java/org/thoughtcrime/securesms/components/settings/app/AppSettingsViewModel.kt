@@ -16,8 +16,8 @@ class AppSettingsViewModel : ViewModel() {
     AppSettingsState(
       Recipient.self(),
       0,
-      TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account().isRegistered,
-      SignalStore.misc().isClientDeprecated
+      TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account.isRegistered,
+      SignalStore.misc.isClientDeprecated
     )
   )
 
@@ -39,8 +39,8 @@ class AppSettingsViewModel : ViewModel() {
   fun refreshDeprecatedOrUnregistered() {
     store.update {
       it.copy(
-        clientDeprecated = SignalStore.misc().isClientDeprecated,
-        userUnregistered = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account().isRegistered
+        clientDeprecated = SignalStore.misc.isClientDeprecated,
+        userUnregistered = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account.isRegistered
       )
     }
   }

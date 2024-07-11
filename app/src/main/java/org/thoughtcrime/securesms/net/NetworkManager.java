@@ -164,7 +164,7 @@ public class NetworkManager {
         if (proxyOrbotPort != socksPort) {
           if (proxyType == ProxyType.ORBOT) {
             if (configureProxy(new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, socksPort))) {
-              AppDependencies.restartAllNetworkConnections();
+              AppDependencies.resetNetwork(true);
             }
           }
           proxyOrbotPort = socksPort;

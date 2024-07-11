@@ -134,7 +134,7 @@ public final class RegistrationRepository {
         SignalStore.account().setDeviceId(response.getDeviceId());
         SignalStore.account().setAciIdentityKeysFromPrimaryDevice(response.getProvisionData().getAciIdentity());
         SignalStore.account().setPniIdentityKeyAfterChangeNumber(response.getProvisionData().getPniIdentity());
-        SignalStore.registrationValues().markNeedDownloadProfileAndAvatar();
+        SignalStore.registration().markNeedDownloadProfileAndAvatar();
         registerAccountInternal(new RegistrationData(registrationData.getCode(),
                                                      response.getProvisionData().getNumber(),
                                                      registrationData.getPassword(),
@@ -234,8 +234,7 @@ public final class RegistrationRepository {
 
     SvrRepository.onRegistrationComplete(masterKey, userPin, hasPin, setRegistrationLockEnabled);
 
-    AppDependencies.resetNetwork();
-    AppDependencies.getIncomingMessageObserver();
+    AppDependencies.resetNetwork(true);
     PreKeysSyncJob.enqueue();
   }
 
@@ -245,8 +244,8 @@ public final class RegistrationRepository {
                                        boolean setRegistrationLockEnabled)
       throws IOException
   {
-    SignalStore.registrationValues().clearNeedDownloadProfile();
-    SignalStore.registrationValues().clearNeedDownloadProfileAvatar();
+    SignalStore.registration().clearNeedDownloadProfile();
+    SignalStore.registration().clearNeedDownloadProfileAvatar();
     registerAccountInternal(
         registrationData,
         ACI.parseOrThrow(response.getVerifyAccountResponse().getUuid()),
@@ -314,7 +313,7 @@ public final class RegistrationRepository {
                          .map(BackupAuthCheckProcessor::new)
                          .doOnSuccess(processor -> {
                            Log.d(TAG, "Received SVR backup auth credential response.");
-                           if (SignalStore.svr().removeAuthTokens(processor.getInvalid())) {
+                           if (SignalStore.svr().removeSvr2AuthTokens(processor.getInvalid())) {
                              new BackupManager(context).dataChanged();
                            }
                          });

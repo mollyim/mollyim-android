@@ -5,7 +5,10 @@
 
 package org.thoughtcrime.securesms.backup.v2
 
+import android.Manifest
+import android.app.UiAutomation
 import android.content.Context
+import android.os.Environment
 import androidx.test.platform.app.InstrumentationRegistry
 import okio.ByteString.Companion.toByteString
 import org.junit.Assert
@@ -26,12 +29,17 @@ import org.thoughtcrime.securesms.backup.v2.proto.Chat
 import org.thoughtcrime.securesms.backup.v2.proto.ChatItem
 import org.thoughtcrime.securesms.backup.v2.proto.ChatUpdateMessage
 import org.thoughtcrime.securesms.backup.v2.proto.Contact
+import org.thoughtcrime.securesms.backup.v2.proto.ContactAttachment
+import org.thoughtcrime.securesms.backup.v2.proto.ContactMessage
 import org.thoughtcrime.securesms.backup.v2.proto.DistributionList
+import org.thoughtcrime.securesms.backup.v2.proto.DistributionListItem
 import org.thoughtcrime.securesms.backup.v2.proto.ExpirationTimerChatUpdate
 import org.thoughtcrime.securesms.backup.v2.proto.FilePointer
 import org.thoughtcrime.securesms.backup.v2.proto.Frame
+import org.thoughtcrime.securesms.backup.v2.proto.GiftBadge
 import org.thoughtcrime.securesms.backup.v2.proto.Group
 import org.thoughtcrime.securesms.backup.v2.proto.IndividualCall
+import org.thoughtcrime.securesms.backup.v2.proto.LinkPreview
 import org.thoughtcrime.securesms.backup.v2.proto.MessageAttachment
 import org.thoughtcrime.securesms.backup.v2.proto.ProfileChangeChatUpdate
 import org.thoughtcrime.securesms.backup.v2.proto.Quote
@@ -46,9 +54,12 @@ import org.thoughtcrime.securesms.backup.v2.proto.StandardMessage
 import org.thoughtcrime.securesms.backup.v2.proto.StickerPack
 import org.thoughtcrime.securesms.backup.v2.proto.Text
 import org.thoughtcrime.securesms.backup.v2.proto.ThreadMergeChatUpdate
+import org.thoughtcrime.securesms.backup.v2.stream.BackupExportWriter
 import org.thoughtcrime.securesms.backup.v2.stream.EncryptedBackupReader
 import org.thoughtcrime.securesms.backup.v2.stream.EncryptedBackupWriter
+import org.thoughtcrime.securesms.backup.v2.stream.PlainTextBackupWriter
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.kbs.MasterKey
 import org.whispersystems.signalservice.api.push.DistributionId
 import org.whispersystems.signalservice.api.push.ServiceId
@@ -69,6 +80,14 @@ import kotlin.time.Duration.Companion.days
  */
 class ImportExportTest {
   companion object {
+    /**
+     * Output the frames as a plaintext .binproto for sharing tests
+     *
+     * This only seems to work on API 28 emulators, You can find the generated files
+     * at /sdcard/backup-tests/
+     * */
+    val OUTPUT_FILES = false
+
     val SELF_ACI = ServiceId.ACI.from(UUID.fromString("77770000-b477-4f35-a824-d92987a63641"))
     val SELF_PNI = ServiceId.PNI.from(UUID.fromString("77771111-b014-41fb-bf73-05cb2ec52910"))
     const val SELF_E164 = "+10000000000"
@@ -77,7 +96,17 @@ class ImportExportTest {
 
     val defaultBackupInfo = BackupInfo(version = 1L, backupTimeMs = 123456L)
     val selfRecipient = Recipient(id = 1, self = Self())
-    val releaseNotes = Recipient(id = 2, releaseNotes = ReleaseNotes())
+    val myStory = Recipient(
+      id = 2,
+      distributionList = DistributionListItem(
+        distributionId = DistributionId.MY_STORY.asUuid().toByteArray().toByteString(),
+        distributionList = DistributionList(
+          name = DistributionId.MY_STORY.toString(),
+          privacyMode = DistributionList.PrivacyMode.ALL
+        )
+      )
+    )
+    val releaseNotes = Recipient(id = 3, releaseNotes = ReleaseNotes())
     val standardAccountData = AccountData(
       profileKey = SELF_PROFILE_KEY.serialize().toByteString(),
       username = "self.01",
@@ -85,9 +114,11 @@ class ImportExportTest {
       givenName = "Peter",
       familyName = "Parker",
       avatarUrlPath = "https://example.com/",
-      subscriberId = SubscriberId.generate().bytes.toByteString(),
-      subscriberCurrencyCode = "USD",
-      subscriptionManuallyCancelled = true,
+      donationSubscriberData = AccountData.SubscriberData(
+        subscriberId = SubscriberId.generate().bytes.toByteString(),
+        currencyCode = "USD",
+        manuallyCancelled = true
+      ),
       accountSettings = AccountData.AccountSettings(
         readReceipts = true,
         sealedSenderIndicators = true,
@@ -109,16 +140,15 @@ class ImportExportTest {
       )
     )
     val alice = Recipient(
-      id = 3,
+      id = 4,
       contact = Contact(
         aci = TestRecipientUtils.nextAci().toByteString(),
         pni = TestRecipientUtils.nextPni().toByteString(),
         username = "cool.01",
         e164 = 141255501234,
         blocked = false,
-        hidden = false,
-        registered = Contact.Registered.REGISTERED,
-        unregisteredTimestamp = 0L,
+        visibility = Contact.Visibility.VISIBLE,
+        registered = Contact.Registered(),
         profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
         profileSharing = true,
         profileGivenName = "Alexa",
@@ -128,9 +158,9 @@ class ImportExportTest {
     )
 
     /**
-     * When using standardFrames you must start recipient ids at 3.
+     * When using standardFrames you must start recipient ids at 4.
      */
-    private val standardFrames = arrayOf(defaultBackupInfo, standardAccountData, selfRecipient, releaseNotes)
+    private val standardFrames = arrayOf(defaultBackupInfo, standardAccountData, selfRecipient, myStory, releaseNotes)
   }
 
   private val context: Context
@@ -142,12 +172,12 @@ class ImportExportTest {
 
   @Before
   fun setup() {
-    SignalStore.svr().setMasterKey(MasterKey(MASTER_KEY), "1234")
-    SignalStore.account().setE164(SELF_E164)
-    SignalStore.account().setAci(SELF_ACI)
-    SignalStore.account().setPni(SELF_PNI)
-    SignalStore.account().generateAciIdentityKeyIfNecessary()
-    SignalStore.account().generatePniIdentityKeyIfNecessary()
+    SignalStore.svr.setMasterKey(MasterKey(MASTER_KEY), "1234")
+    SignalStore.account.setE164(SELF_E164)
+    SignalStore.account.setAci(SELF_ACI)
+    SignalStore.account.setPni(SELF_PNI)
+    SignalStore.account.generateAciIdentityKeyIfNecessary()
+    SignalStore.account.generatePniIdentityKeyIfNecessary()
   }
 
   @Test
@@ -159,7 +189,7 @@ class ImportExportTest {
   fun largeNumberOfRecipientsAndChats() {
     val recipients = ArrayList<Recipient>(5000)
     val chats = ArrayList<Chat>(5000)
-    var id = 3L
+    var id = 4L
     for (i in 0..5000) {
       val recipientId = id++
       recipients.add(
@@ -171,9 +201,8 @@ class ImportExportTest {
             username = "rec$i.01",
             e164 = 14125550000 + i,
             blocked = false,
-            hidden = false,
-            registered = Contact.Registered.REGISTERED,
-            unregisteredTimestamp = 0L,
+            visibility = Contact.Visibility.VISIBLE,
+            registered = Contact.Registered(),
             profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
             profileSharing = true,
             profileGivenName = "Test",
@@ -237,9 +266,8 @@ class ImportExportTest {
             username = if (random.trueWithProbability(0.2f)) "rec$i.01" else null,
             e164 = 14125550000 + i,
             blocked = random.trueWithProbability(0.1f),
-            hidden = random.trueWithProbability(0.1f),
-            registered = Contact.Registered.REGISTERED,
-            unregisteredTimestamp = 0L,
+            visibility = if (random.trueWithProbability(0.1f)) Contact.Visibility.HIDDEN else Contact.Visibility.VISIBLE,
+            registered = Contact.Registered(),
             profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
             profileSharing = random.trueWithProbability(0.9f),
             profileGivenName = "Test",
@@ -383,16 +411,15 @@ class ImportExportTest {
     importExport(
       *standardFrames,
       Recipient(
-        id = 3,
+        id = 4,
         contact = Contact(
           aci = TestRecipientUtils.nextAci().toByteString(),
           pni = TestRecipientUtils.nextPni().toByteString(),
           username = "cool.01",
           e164 = 141255501234,
           blocked = true,
-          hidden = true,
-          registered = Contact.Registered.REGISTERED,
-          unregisteredTimestamp = 0L,
+          visibility = Contact.Visibility.VISIBLE,
+          registered = Contact.Registered(),
           profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
           profileSharing = true,
           profileGivenName = "Alexa",
@@ -401,16 +428,15 @@ class ImportExportTest {
         )
       ),
       Recipient(
-        id = 4,
+        id = 5,
         contact = Contact(
           aci = null,
           pni = null,
           username = null,
           e164 = 141255501235,
           blocked = true,
-          hidden = true,
-          registered = Contact.Registered.NOT_REGISTERED,
-          unregisteredTimestamp = 1234568927398L,
+          visibility = Contact.Visibility.HIDDEN,
+          notRegistered = Contact.NotRegistered(unregisteredTimestamp = 1234568927398L),
           profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
           profileSharing = false,
           profileGivenName = "Peter",
@@ -426,7 +452,7 @@ class ImportExportTest {
     importExport(
       *standardFrames,
       Recipient(
-        id = 3,
+        id = 4,
         group = Group(
           masterKey = TestRecipientUtils.generateGroupMasterKey().toByteString(),
           whitelisted = true,
@@ -441,7 +467,7 @@ class ImportExportTest {
         )
       ),
       Recipient(
-        id = 4,
+        id = 5,
         group = Group(
           masterKey = TestRecipientUtils.generateGroupMasterKey().toByteString(),
           whitelisted = false,
@@ -463,37 +489,18 @@ class ImportExportTest {
     importExport(
       *standardFrames,
       Recipient(
-        id = 3,
+        id = 4,
         contact = Contact(
           aci = TestRecipientUtils.nextAci().toByteString(),
           pni = TestRecipientUtils.nextPni().toByteString(),
           username = "cool.01",
           e164 = 141255501234,
           blocked = true,
-          hidden = true,
-          registered = Contact.Registered.REGISTERED,
-          unregisteredTimestamp = 0L,
+          visibility = Contact.Visibility.HIDDEN,
+          registered = Contact.Registered(),
           profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
           profileSharing = true,
           profileGivenName = "Alexa",
-          profileFamilyName = "Kim",
-          hideStory = true
-        )
-      ),
-      Recipient(
-        id = 4,
-        contact = Contact(
-          aci = null,
-          pni = null,
-          username = null,
-          e164 = 141255501235,
-          blocked = true,
-          hidden = true,
-          registered = Contact.Registered.REGISTERED,
-          unregisteredTimestamp = 0L,
-          profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
-          profileSharing = true,
-          profileGivenName = "Peter",
           profileFamilyName = "Kim",
           hideStory = true
         )
@@ -504,11 +511,27 @@ class ImportExportTest {
           aci = null,
           pni = null,
           username = null,
+          e164 = 141255501235,
+          blocked = true,
+          visibility = Contact.Visibility.HIDDEN,
+          registered = Contact.Registered(),
+          profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
+          profileSharing = true,
+          profileGivenName = "Peter",
+          profileFamilyName = "Kim",
+          hideStory = true
+        )
+      ),
+      Recipient(
+        id = 6,
+        contact = Contact(
+          aci = null,
+          pni = null,
+          username = null,
           e164 = 141255501236,
           blocked = true,
-          hidden = true,
-          registered = Contact.Registered.REGISTERED,
-          unregisteredTimestamp = 0L,
+          visibility = Contact.Visibility.HIDDEN,
+          registered = Contact.Registered(),
           profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
           profileSharing = true,
           profileGivenName = "Father",
@@ -517,14 +540,15 @@ class ImportExportTest {
         )
       ),
       Recipient(
-        id = 6,
-        distributionList = DistributionList(
-          name = "Kim Family",
+        id = 7,
+        distributionList = DistributionListItem(
           distributionId = DistributionId.create().asUuid().toByteArray().toByteString(),
-          allowReplies = true,
-          deletionTimestamp = 0L,
-          privacyMode = DistributionList.PrivacyMode.ONLY_WITH,
-          memberRecipientIds = listOf(3, 4, 5)
+          distributionList = DistributionList(
+            name = "Kim Family",
+            allowReplies = true,
+            privacyMode = DistributionList.PrivacyMode.ONLY_WITH,
+            memberRecipientIds = listOf(3, 4, 5)
+          )
         )
       )
     )
@@ -533,16 +557,15 @@ class ImportExportTest {
   @Test
   fun deletedDistributionList() {
     val alexa = Recipient(
-      id = 3,
+      id = 4,
       contact = Contact(
         aci = TestRecipientUtils.nextAci().toByteString(),
         pni = TestRecipientUtils.nextPni().toByteString(),
         username = "cool.01",
         e164 = 141255501234,
         blocked = true,
-        hidden = true,
-        registered = Contact.Registered.REGISTERED,
-        unregisteredTimestamp = 0L,
+        visibility = Contact.Visibility.HIDDEN,
+        registered = Contact.Registered(),
         profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
         profileSharing = true,
         profileGivenName = "Alexa",
@@ -555,13 +578,9 @@ class ImportExportTest {
       alexa,
       Recipient(
         id = 6,
-        distributionList = DistributionList(
-          name = "Deleted list",
+        distributionList = DistributionListItem(
           distributionId = DistributionId.create().asUuid().toByteArray().toByteString(),
-          allowReplies = true,
-          deletionTimestamp = 12345L,
-          privacyMode = DistributionList.PrivacyMode.ONLY_WITH,
-          memberRecipientIds = listOf(3)
+          deletionTimestamp = 12345L
         )
       )
     )
@@ -580,16 +599,15 @@ class ImportExportTest {
     importExport(
       *standardFrames,
       Recipient(
-        id = 3,
+        id = 4,
         contact = Contact(
           aci = TestRecipientUtils.nextAci().toByteString(),
           pni = TestRecipientUtils.nextPni().toByteString(),
           username = "cool.01",
           e164 = 141255501234,
           blocked = false,
-          hidden = false,
-          registered = Contact.Registered.REGISTERED,
-          unregisteredTimestamp = 0L,
+          visibility = Contact.Visibility.VISIBLE,
+          registered = Contact.Registered(),
           profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
           profileSharing = true,
           profileGivenName = "Alexa",
@@ -598,7 +616,7 @@ class ImportExportTest {
         )
       ),
       Recipient(
-        id = 4,
+        id = 5,
         group = Group(
           masterKey = TestRecipientUtils.generateGroupMasterKey().toByteString(),
           whitelisted = true,
@@ -608,14 +626,13 @@ class ImportExportTest {
       ),
       Chat(
         id = 1,
-        recipientId = 3,
+        recipientId = 4,
         archived = true,
         pinnedOrder = 1,
         expirationTimerMs = 1.days.inWholeMilliseconds,
         muteUntilMs = System.currentTimeMillis(),
         markedUnread = true,
-        dontNotifyForMentionsIfMuted = true,
-        wallpaper = null
+        dontNotifyForMentionsIfMuted = true
       )
     )
   }
@@ -682,16 +699,15 @@ class ImportExportTest {
     importExport(
       *standardFrames,
       Recipient(
-        id = 3,
+        id = 4,
         contact = Contact(
           aci = startedAci,
           pni = TestRecipientUtils.nextPni().toByteString(),
           username = "cool.01",
           e164 = 141255501234,
           blocked = false,
-          hidden = false,
-          registered = Contact.Registered.REGISTERED,
-          unregisteredTimestamp = 0L,
+          visibility = Contact.Visibility.VISIBLE,
+          registered = Contact.Registered(),
           profileKey = TestRecipientUtils.generateProfileKey().toByteString(),
           profileSharing = true,
           profileGivenName = "Alexa",
@@ -700,7 +716,7 @@ class ImportExportTest {
         )
       ),
       Recipient(
-        id = 4,
+        id = 5,
         group = Group(
           masterKey = TestRecipientUtils.generateGroupMasterKey().toByteString(),
           whitelisted = true,
@@ -710,14 +726,13 @@ class ImportExportTest {
       ),
       Chat(
         id = 1,
-        recipientId = 3,
+        recipientId = 4,
         archived = true,
         pinnedOrder = 1,
         expirationTimerMs = 1.days.inWholeMilliseconds,
         muteUntilMs = System.currentTimeMillis(),
         markedUnread = true,
-        dontNotifyForMentionsIfMuted = true,
-        wallpaper = null
+        dontNotifyForMentionsIfMuted = true
       ),
       *individualCalls.toArray()
     )
@@ -1051,23 +1066,175 @@ class ImportExportTest {
                 incrementalMacChunkSize = 0
               ),
               wasDownloaded = false
+            )
+          )
+        )
+      )
+    )
+  }
+
+  @Test
+  fun linkPreviewMessages() {
+    var dateSent = System.currentTimeMillis()
+    val sendStatuses = enumerateSendStatuses(alice.id)
+    val incomingMessageDetails = enumerateIncomingMessageDetails(dateSent + 200)
+    val outgoingMessages = ArrayList<ChatItem>()
+    val incomingMessages = ArrayList<ChatItem>()
+    for (sendStatus in sendStatuses) {
+      outgoingMessages.add(
+        ChatItem(
+          chatId = 1,
+          authorId = selfRecipient.id,
+          dateSent = dateSent++,
+          expireStartDate = dateSent + 1000,
+          expiresInMs = TimeUnit.DAYS.toMillis(2),
+          sms = false,
+          outgoing = ChatItem.OutgoingMessageDetails(
+            sendStatus = listOf(sendStatus)
+          ),
+          standardMessage = StandardMessage(
+            text = Text(
+              body = "Text only body"
             ),
-            MessageAttachment(
-              pointer = FilePointer(
-                backupLocator = FilePointer.BackupLocator(
-                  "digestherebutimlazy",
-                  cdnNumber = 3,
+            linkPreview = listOf(
+              LinkPreview(
+                url = "https://signal.org/",
+                title = "Signal Messenger: Speak Freely",
+                description = "Say \"hello\" to a different messaging experience. An unexpected focus on privacy, combined with all the features you expect.",
+                date = System.currentTimeMillis(),
+                image = FilePointer(
+                  invalidAttachmentLocator = FilePointer.InvalidAttachmentLocator(),
+                  contentType = "image/png",
+                  width = 100,
+                  height = 200,
+                  caption = "Love this cool picture! Too bad u cant download it",
+                  incrementalMacChunkSize = 0
+                )
+              )
+            )
+          )
+        )
+      )
+    }
+    dateSent++
+    for (incomingDetail in incomingMessageDetails) {
+      incomingMessages.add(
+        ChatItem(
+          chatId = 1,
+          authorId = alice.id,
+          dateSent = dateSent++,
+          expireStartDate = dateSent + 1000,
+          expiresInMs = TimeUnit.DAYS.toMillis(2),
+          sms = false,
+          incoming = incomingDetail,
+          standardMessage = StandardMessage(
+            text = Text(
+              body = "Text only body"
+            ),
+            linkPreview = listOf(
+              LinkPreview(
+                url = "https://signal.org/",
+                title = "Signal Messenger: Speak Freely",
+                description = "Say \"hello\" to a different messaging experience. An unexpected focus on privacy, combined with all the features you expect.",
+                date = System.currentTimeMillis(),
+                image = FilePointer(
+                  invalidAttachmentLocator = FilePointer.InvalidAttachmentLocator(),
+                  contentType = "image/png",
+                  width = 100,
+                  height = 200,
+                  caption = "Love this cool picture! Too bad u cant download it",
+                  incrementalMacChunkSize = 0
+                )
+              )
+            )
+          )
+        )
+      )
+    }
+
+    importExport(
+      *standardFrames,
+      alice,
+      buildChat(alice, 1),
+      *outgoingMessages.toArray(),
+      *incomingMessages.toArray()
+    )
+  }
+
+  @Test
+  fun contactMessageWithAllFields() {
+    importExport(
+      *standardFrames,
+      alice,
+      buildChat(alice, 1),
+      ChatItem(
+        chatId = 1,
+        authorId = selfRecipient.id,
+        dateSent = 150L,
+        sms = false,
+        outgoing = ChatItem.OutgoingMessageDetails(
+          sendStatus = listOf(SendStatus(alice.id, deliveryStatus = SendStatus.Status.READ, lastStatusUpdateTimestamp = -1))
+        ),
+        contactMessage = ContactMessage(
+          contact = listOf(
+            ContactAttachment(
+              name = ContactAttachment.Name(
+                givenName = "Given",
+                familyName = "Family",
+                prefix = "Prefix",
+                suffix = "Suffix",
+                middleName = "Middle",
+                displayName = "Display Name"
+              ),
+              organization = "Organization",
+              email = listOf(
+                ContactAttachment.Email(
+                  value_ = "coolemail@gmail.com",
+                  label = "Label",
+                  type = ContactAttachment.Email.Type.HOME
+                ),
+                ContactAttachment.Email(
+                  value_ = "coolemail2@gmail.com",
+                  label = "Label2",
+                  type = ContactAttachment.Email.Type.MOBILE
+                )
+              ),
+              address = listOf(
+                ContactAttachment.PostalAddress(
+                  type = ContactAttachment.PostalAddress.Type.HOME,
+                  label = "Label",
+                  street = "Street",
+                  pobox = "POBOX",
+                  neighborhood = "Neighborhood",
+                  city = "City",
+                  region = "Region",
+                  postcode = "15213",
+                  country = "United States"
+                )
+              ),
+              number = listOf(
+                ContactAttachment.Phone(
+                  value_ = "+14155551234",
+                  type = ContactAttachment.Phone.Type.CUSTOM,
+                  label = "Label"
+                )
+              ),
+              avatar = FilePointer(
+                attachmentLocator = FilePointer.AttachmentLocator(
+                  cdnKey = "coolCdnKey",
+                  cdnNumber = 2,
+                  uploadTimestamp = System.currentTimeMillis(),
                   key = (1..32).map { it.toByte() }.toByteArray().toByteString(),
-                  digest = (1..64).map { it.toByte() }.toByteArray().toByteString(),
-                  size = 12345
+                  size = 12345,
+                  digest = (1..32).map { it.toByte() }.toByteArray().toByteString()
                 ),
                 contentType = "image/png",
+                fileName = "very_cool_picture.png",
                 width = 100,
                 height = 200,
-                caption = "Love this cool picture! Too bad u cant download it",
+                caption = "Love this cool picture!",
                 incrementalMacChunkSize = 0
-              ),
-              wasDownloaded = true
+              )
             )
           )
         )
@@ -1256,6 +1423,76 @@ class ImportExportTest {
     )
   }
 
+  @Test
+  fun giftBadgeMessage() {
+    var dateSentStart = 100L
+    importExport(
+      *standardFrames,
+      alice,
+      buildChat(alice, 1),
+      ChatItem(
+        chatId = 1,
+        authorId = alice.id,
+        dateSent = dateSentStart++,
+        incoming = ChatItem.IncomingMessageDetails(
+          dateReceived = dateSentStart,
+          dateServerSent = dateSentStart,
+          read = true,
+          sealedSender = true
+        ),
+        giftBadge = GiftBadge(
+          receiptCredentialPresentation = Util.getSecretBytes(32).toByteString(),
+          state = GiftBadge.State.OPENED
+        )
+      ),
+      ChatItem(
+        chatId = 1,
+        authorId = alice.id,
+        dateSent = dateSentStart++,
+        incoming = ChatItem.IncomingMessageDetails(
+          dateReceived = dateSentStart,
+          dateServerSent = dateSentStart,
+          read = true,
+          sealedSender = true
+        ),
+        giftBadge = GiftBadge(
+          receiptCredentialPresentation = Util.getSecretBytes(32).toByteString(),
+          state = GiftBadge.State.FAILED
+        )
+      ),
+      ChatItem(
+        chatId = 1,
+        authorId = alice.id,
+        dateSent = dateSentStart++,
+        incoming = ChatItem.IncomingMessageDetails(
+          dateReceived = dateSentStart,
+          dateServerSent = dateSentStart,
+          read = true,
+          sealedSender = true
+        ),
+        giftBadge = GiftBadge(
+          receiptCredentialPresentation = Util.getSecretBytes(32).toByteString(),
+          state = GiftBadge.State.REDEEMED
+        )
+      ),
+      ChatItem(
+        chatId = 1,
+        authorId = alice.id,
+        dateSent = dateSentStart++,
+        incoming = ChatItem.IncomingMessageDetails(
+          dateReceived = dateSentStart,
+          dateServerSent = dateSentStart,
+          read = true,
+          sealedSender = true
+        ),
+        giftBadge = GiftBadge(
+          receiptCredentialPresentation = Util.getSecretBytes(32).toByteString(),
+          state = GiftBadge.State.UNOPENED
+        )
+      )
+    )
+  }
+
   fun enumerateIncomingMessageDetails(dateSent: Long): List<ChatItem.IncomingMessageDetails> {
     val details = mutableListOf<ChatItem.IncomingMessageDetails>()
     details.add(
@@ -1361,8 +1598,7 @@ class ImportExportTest {
       expirationTimerMs = 0,
       muteUntilMs = 0,
       markedUnread = false,
-      dontNotifyForMentionsIfMuted = false,
-      wallpaper = null
+      dontNotifyForMentionsIfMuted = false
     )
   }
 
@@ -1371,27 +1607,17 @@ class ImportExportTest {
    * any standard frames (e.g. backup header).
    */
   private fun exportFrames(vararg objects: Any): ByteArray {
+    outputBinProto(*objects)
     val outputStream = ByteArrayOutputStream()
     val writer = EncryptedBackupWriter(
-      key = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey(),
-      aci = SignalStore.account().aci!!,
+      key = SignalStore.svr.getOrCreateMasterKey().deriveBackupKey(),
+      aci = SignalStore.account.aci!!,
       outputStream = outputStream,
       append = { mac -> outputStream.write(mac) }
     )
 
     writer.use {
-      for (obj in objects) {
-        when (obj) {
-          is BackupInfo -> writer.write(obj)
-          is AccountData -> writer.write(Frame(account = obj))
-          is Recipient -> writer.write(Frame(recipient = obj))
-          is Chat -> writer.write(Frame(chat = obj))
-          is ChatItem -> writer.write(Frame(chatItem = obj))
-          is AdHocCall -> writer.write(Frame(adHocCall = obj))
-          is StickerPack -> writer.write(Frame(stickerPack = obj))
-          else -> Assert.fail("invalid object $obj")
-        }
-      }
+      writer.writeFrames(*objects)
     }
     return outputStream.toByteArray()
   }
@@ -1402,7 +1628,7 @@ class ImportExportTest {
 
   private fun validate(importData: ByteArray): MessageBackup.ValidationResult {
     val factory = { ByteArrayInputStream(importData) }
-    val masterKey = SignalStore.svr().getOrCreateMasterKey()
+    val masterKey = SignalStore.svr.getOrCreateMasterKey()
     val key = MessageBackupKey(masterKey.serialize(), org.signal.libsignal.protocol.ServiceId.Aci.parseFromBinary(SELF_ACI.toByteArray()))
 
     return MessageBackup.validate(key, MessageBackup.Purpose.REMOTE_BACKUP, factory, importData.size.toLong())
@@ -1417,35 +1643,49 @@ class ImportExportTest {
    * 4. Assert that (A) and (B) are identical. Or, in other words, assert that importing and exporting again results in the original backup data.
    */
   private fun importExport(vararg objects: Any) {
-    val outputStream = ByteArrayOutputStream()
-    val writer = EncryptedBackupWriter(
-      key = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey(),
-      aci = SignalStore.account().aci!!,
-      outputStream = outputStream,
-      append = { mac -> outputStream.write(mac) }
-    )
+    val originalBackupData = exportFrames(*objects)
 
-    writer.use {
-      for (obj in objects) {
-        when (obj) {
-          is BackupInfo -> writer.write(obj)
-          is AccountData -> writer.write(Frame(account = obj))
-          is Recipient -> writer.write(Frame(recipient = obj))
-          is Chat -> writer.write(Frame(chat = obj))
-          is ChatItem -> writer.write(Frame(chatItem = obj))
-          is AdHocCall -> writer.write(Frame(adHocCall = obj))
-          is StickerPack -> writer.write(Frame(stickerPack = obj))
-          else -> Assert.fail("invalid object $obj")
-        }
-      }
-    }
-
-    val originalBackupData = outputStream.toByteArray()
-
-    BackupRepository.import(length = originalBackupData.size.toLong(), inputStreamFactory = { ByteArrayInputStream(originalBackupData) }, selfData = BackupRepository.SelfData(SELF_ACI, SELF_PNI, SELF_E164, SELF_PROFILE_KEY))
+    import(originalBackupData)
 
     val generatedBackupData = BackupRepository.export()
     compare(originalBackupData, generatedBackupData)
+  }
+
+  private fun BackupExportWriter.writeFrames(vararg objects: Any) {
+    for (obj in objects) {
+      when (obj) {
+        is BackupInfo -> write(obj)
+        is AccountData -> write(Frame(account = obj))
+        is Recipient -> write(Frame(recipient = obj))
+        is Chat -> write(Frame(chat = obj))
+        is ChatItem -> write(Frame(chatItem = obj))
+        is AdHocCall -> write(Frame(adHocCall = obj))
+        is StickerPack -> write(Frame(stickerPack = obj))
+        else -> Assert.fail("invalid object $obj")
+      }
+    }
+  }
+
+  private fun outputBinProto(vararg objects: Any) {
+    if (!OUTPUT_FILES) return
+
+    val outputStream = ByteArrayOutputStream()
+    val plaintextWriter = PlainTextBackupWriter(
+      outputStream = outputStream
+    )
+
+    plaintextWriter.use {
+      it.writeFrames(*objects)
+    }
+
+    grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+    val dir = File(Environment.getExternalStorageDirectory(), "backup-tests")
+    if (dir.mkdirs() || dir.exists()) {
+      FileOutputStream(File(dir, testName.methodName + ".binproto")).use {
+        it.write(outputStream.toByteArray())
+        it.flush()
+      }
+    }
   }
 
   private fun compare(import: ByteArray, export: ByteArray) {
@@ -1484,7 +1724,14 @@ class ImportExportTest {
     for (f in framesExported) {
       when {
         f.account != null -> accountImported.add(f.account!!)
-        f.recipient != null -> recipientsExported.add(f.recipient!!)
+        f.recipient != null -> {
+          val frameRecipient = f.recipient!!
+          if (frameRecipient.distributionList != null && frameRecipient.distributionList!!.distributionId == DistributionId.MY_STORY.asUuid().toByteArray().toByteString()) {
+            recipientsExported.add(frameRecipient.copy(distributionList = frameRecipient.distributionList!!.copyWithoutMembers()))
+          } else {
+            recipientsExported.add(f.recipient!!)
+          }
+        }
         f.chat != null -> chatsExported.add(f.chat!!)
         f.chatItem != null -> chatItemsExported.add(f.chatItem!!)
         f.adHocCall != null -> callsExported.add(f.adHocCall!!)
@@ -1497,6 +1744,14 @@ class ImportExportTest {
     prettyAssertEquals(chatItemsImported, chatItemsExported) { it.dateSent }
     prettyAssertEquals(callsImported, callsExported) { it.callId }
     prettyAssertEquals(stickersImported, stickersExported) { it.packId }
+  }
+
+  private fun DistributionListItem.copyWithoutMembers(): DistributionListItem {
+    return this.copy(
+      distributionList = this.distributionList?.copy(
+        memberRecipientIds = emptyList()
+      )
+    )
   }
 
   private inline fun <reified T : Any> prettyAssertEquals(import: List<T>, export: List<T>) {
@@ -1514,17 +1769,29 @@ class ImportExportTest {
 
   private inline fun <reified T : Any, R : Comparable<R>> prettyAssertEquals(import: List<T>, export: List<T>, crossinline selector: (T) -> R?) {
     if (import.size != export.size) {
-      var msg = StringBuilder()
+      val msg = StringBuilder()
+      msg.append("There's a different number of items in the lists!\n\n")
+
+      msg.append("Imported:\n")
       for (i in import) {
         msg.append(i)
         msg.append("\n")
       }
+      if (import.isEmpty()) {
+        msg.append("<None>")
+      }
+      msg.append("\n")
+      msg.append("Exported:\n")
       for (i in export) {
         msg.append(i)
         msg.append("\n")
       }
+      if (export.isEmpty()) {
+        msg.append("<None>")
+      }
       Assert.fail(msg.toString())
     }
+
     Assert.assertEquals(import.size, export.size)
     val sortedImport = import.sortedBy(selector)
     val sortedExport = export.sortedBy(selector)
@@ -1535,9 +1802,9 @@ class ImportExportTest {
   private fun readAllFrames(import: ByteArray, selfData: BackupRepository.SelfData): List<Frame> {
     val inputFactory = { ByteArrayInputStream(import) }
     val frameReader = EncryptedBackupReader(
-      key = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey(),
+      key = SignalStore.svr.getOrCreateMasterKey().deriveBackupKey(),
       aci = selfData.aci,
-      streamLength = import.size.toLong(),
+      length = import.size.toLong(),
       dataStream = inputFactory
     )
     val frames = ArrayList<Frame>()
@@ -1548,20 +1815,12 @@ class ImportExportTest {
     return frames
   }
 
-  private fun writeToOutputFile(importBytes: ByteArray, resultBytes: ByteArray? = null) {
-    val dir = File(context.filesDir, "backup-tests")
-    if (dir.mkdirs() || dir.exists()) {
-      FileOutputStream(File(dir, testName.methodName + ".import")).use {
-        it.write(importBytes)
-        it.flush()
-      }
+  private fun grantPermissions(vararg permissions: String?) {
+    if (!OUTPUT_FILES) return
 
-      if (resultBytes != null) {
-        FileOutputStream(File(dir, testName.methodName + ".result")).use {
-          it.write(resultBytes)
-          it.flush()
-        }
-      }
+    val auto: UiAutomation = InstrumentationRegistry.getInstrumentation().uiAutomation
+    for (perm in permissions) {
+      auto.grantRuntimePermissionAsUser(InstrumentationRegistry.getInstrumentation().targetContext.packageName, perm, android.os.Process.myUserHandle())
     }
   }
 }

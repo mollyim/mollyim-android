@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.groups.GroupsV2Authorization
 import org.thoughtcrime.securesms.groups.GroupsV2AuthorizationMemoryValueCache
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver
+import org.thoughtcrime.securesms.net.Networking
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor
 import org.thoughtcrime.securesms.payments.Payments
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess
@@ -86,7 +87,7 @@ class NetworkDependenciesModule(
   }
 
   val groupsV2Authorization: GroupsV2Authorization by lazy {
-    val authCache: GroupsV2Authorization.ValueCache = GroupsV2AuthorizationMemoryValueCache(SignalStore.groupsV2AciAuthorizationCache())
+    val authCache: GroupsV2Authorization.ValueCache = GroupsV2AuthorizationMemoryValueCache(SignalStore.groupsV2AciAuthorizationCache)
     GroupsV2Authorization(signalServiceAccountManager.groupsV2Api, authCache)
   }
 
@@ -120,8 +121,10 @@ class NetworkDependenciesModule(
 
   val okHttpClient: OkHttpClient by lazy {
     OkHttpClient.Builder()
+      .socketFactory(Networking.socketFactory)
+      .proxySelector(Networking.proxySelectorForSocks)
+      .dns(Networking.dns)
       .addInterceptor(StandardUserAgentInterceptor())
-      .dns(SignalServiceNetworkAccess.DNS)
       .build()
   }
 

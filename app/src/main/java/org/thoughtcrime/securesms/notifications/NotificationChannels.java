@@ -26,6 +26,7 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.RecipientTable.VibrateState;
@@ -35,7 +36,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.ConversationUtil;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
@@ -68,19 +68,18 @@ public class NotificationChannels {
   private static final String CONTACT_PREFIX    = "contact_";
   private static final String MESSAGES_PREFIX   = "messages_";
 
-  public static final String LOCKED_STATUS = "locked_status_v2";
-
   public final String CALLS                            = "calls_v3";
   public final String FAILURES                         = "failures";
   public final String APP_UPDATES                      = "app_updates";
   public final String BACKUPS                          = "backups_v2";
+  public static final String LOCKED_STATUS             = "locked_status_v2";
   public final String OTHER                            = "other_v3";
   public final String VOICE_NOTES                      = "voice_notes";
   public final String JOIN_EVENTS                      = "join_events";
   public final String BACKGROUND                       = "background_connection";
   public final String CALL_STATUS                      = "call_status";
   public final String APP_ALERTS                       = "app_alerts";
-  public static String ADDITIONAL_MESSAGE_NOTIFICATIONS = "additional_message_notifications";
+  public static final String ADDITIONAL_MESSAGE_NOTIFICATIONS = "additional_message_notifications";
 
   private static volatile NotificationChannels instance;
 
@@ -654,7 +653,7 @@ public class NotificationChannels {
 
     notificationManager.createNotificationChannels(Arrays.asList(messages, calls, failures, backups, lockedStatus, other, voiceNotes, joinEvents, background, callStatus, appAlerts, additionalMessageNotifications));
 
-    if (FeatureFlags.selfUpdater()) {
+    if (BuildConfig.MANAGES_MOLLY_UPDATES) {
       NotificationChannel appUpdates = new NotificationChannel(APP_UPDATES, context.getString(R.string.NotificationChannel_app_updates), NotificationManager.IMPORTANCE_DEFAULT);
       notificationManager.createNotificationChannel(appUpdates);
     } else {

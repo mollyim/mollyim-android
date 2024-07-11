@@ -69,7 +69,7 @@ import org.thoughtcrime.securesms.util.AlarmSleepTimer;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.EarlyMessageCache;
-import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.video.exo.GiphyMp4Cache;
@@ -120,7 +120,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
 
   @Override
   public @NonNull GroupsV2Operations provideGroupsV2Operations(@NonNull SignalServiceConfiguration signalServiceConfiguration) {
-    return new GroupsV2Operations(provideClientZkOperations(signalServiceConfiguration), FeatureFlags.groupLimits().getHardLimit());
+    return new GroupsV2Operations(provideClientZkOperations(signalServiceConfiguration), RemoteConfig.groupLimits().getHardLimit());
   }
 
   @Override
@@ -129,7 +129,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                            new DynamicCredentialsProvider(),
                                            BuildConfig.SIGNAL_AGENT,
                                            groupsV2Operations,
-                                           FeatureFlags.okHttpAutomaticRetry());
+                                           RemoteConfig.okHttpAutomaticRetry());
   }
 
   @Override
@@ -144,8 +144,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                             provideGroupsV2Operations(signalServiceConfiguration).getProfileOperations(),
                                             SignalExecutors.newCachedBoundedExecutor("signal-messages", ThreadUtil.PRIORITY_IMPORTANT_BACKGROUND_THREAD, 1, 16, 30),
                                             ByteUnit.KILOBYTES.toBytes(256),
-                                            FeatureFlags.okHttpAutomaticRetry(),
-                                            FeatureFlags.useRxMessageSending());
+                                            RemoteConfig.okHttpAutomaticRetry());
   }
 
   @Override
@@ -154,7 +153,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                             new DynamicCredentialsProvider(),
                                             BuildConfig.SIGNAL_AGENT,
                                             provideGroupsV2Operations(signalServiceConfiguration).getProfileOperations(),
-                                            FeatureFlags.okHttpAutomaticRetry());
+                                            RemoteConfig.okHttpAutomaticRetry());
   }
 
   @Override
@@ -297,7 +296,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
 
   @Override
   public @NonNull SignalWebSocket provideSignalWebSocket(@NonNull Supplier<SignalServiceConfiguration> signalServiceConfigurationSupplier, @NonNull Supplier<Network> libSignalNetworkSupplier) {
-    SleepTimer                   sleepTimer      = !SignalStore.account().isPushAvailable() || SignalStore.internalValues().isWebsocketModeForced() ? new AlarmSleepTimer(context) : new UptimeSleepTimer() ;
+    SleepTimer                   sleepTimer      = !SignalStore.account().isPushAvailable() || SignalStore.internal().isWebsocketModeForced() ? new AlarmSleepTimer(context) : new UptimeSleepTimer() ;
     SignalWebSocketHealthMonitor healthMonitor   = new SignalWebSocketHealthMonitor(context, sleepTimer);
     WebSocketShadowingBridge     bridge          = new DefaultWebSocketShadowingBridge(context);
     SignalWebSocket              signalWebSocket = new SignalWebSocket(provideWebSocketFactory(signalServiceConfigurationSupplier, healthMonitor, libSignalNetworkSupplier, bridge));
@@ -375,7 +374,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                 new DynamicCredentialsProvider(),
                                 BuildConfig.SIGNAL_AGENT,
                                 groupsV2Operations,
-                                FeatureFlags.okHttpAutomaticRetry());
+                                RemoteConfig.okHttpAutomaticRetry());
   }
 
   @Override
@@ -384,7 +383,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                 new DynamicCredentialsProvider(),
                                 BuildConfig.SIGNAL_AGENT,
                                 groupsV2Operations,
-                                FeatureFlags.okHttpAutomaticRetry());
+                                RemoteConfig.okHttpAutomaticRetry());
   }
 
   @Override
@@ -425,7 +424,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
 
       @Override
       public WebSocketConnection createUnidentifiedWebSocket() {
-        int shadowPercentage = FeatureFlags.libSignalWebSocketShadowingPercentage();
+        int shadowPercentage = RemoteConfig.libSignalWebSocketShadowingPercentage();
         if (shadowPercentage > 0) {
           return new ShadowingWebSocketConnection(
               "unauth-shadow",
@@ -439,7 +438,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
               bridge
           );
         }
-        if (FeatureFlags.libSignalWebSocketEnabled()) {
+        if (RemoteConfig.libSignalWebSocketEnabled()) {
           Network network = libSignalNetworkSupplier.get();
           return new LibSignalChatConnection(
               "libsignal-unauth",

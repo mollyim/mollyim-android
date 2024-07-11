@@ -13,7 +13,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
 
-internal class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
+class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   companion object {
     val TAG = Log.tag(BackupValues::class.java)
     private const val KEY_CREDENTIALS = "backup.credentials"
@@ -26,6 +26,7 @@ internal class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
 
     private const val KEY_NEXT_BACKUP_TIME = "backup.nextBackupTime"
     private const val KEY_LAST_BACKUP_TIME = "backup.lastBackupTime"
+    private const val KEY_LAST_BACKUP_MEDIA_SYNC_TIME = "backup.lastBackupMediaSyncTime"
     private const val KEY_BACKUP_FREQUENCY = "backup.backupFrequency"
 
     private const val KEY_CDN_BACKUP_DIRECTORY = "backup.cdn.directory"
@@ -59,8 +60,9 @@ internal class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
 
   var nextBackupTime: Long by longValue(KEY_NEXT_BACKUP_TIME, -1)
   var lastBackupTime: Long by longValue(KEY_LAST_BACKUP_TIME, -1)
+  var lastMediaSyncTime: Long by longValue(KEY_LAST_BACKUP_MEDIA_SYNC_TIME, -1)
   var backupFrequency: BackupFrequency by enumValue(KEY_BACKUP_FREQUENCY, BackupFrequency.MANUAL, BackupFrequency.Serializer)
-  var backupTier: MessageBackupTier by enumValue(KEY_BACKUP_TIER, MessageBackupTier.FREE, MessageBackupTier.Serializer)
+  var backupTier: MessageBackupTier? by enumValue(KEY_BACKUP_TIER, null, MessageBackupTier.Serializer)
 
   val totalBackupSize: Long get() = lastBackupProtoSize + usedBackupMediaSpace
 

@@ -2,12 +2,15 @@ package org.thoughtcrime.securesms.testing
 
 import okio.ByteString
 import okio.ByteString.Companion.toByteString
+import org.signal.core.util.Base64
+import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.buildWith
 import org.thoughtcrime.securesms.messages.TestMessage
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.whispersystems.signalservice.api.crypto.EnvelopeMetadata
+import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.internal.push.AttachmentPointer
 import org.whispersystems.signalservice.internal.push.BodyRange
 import org.whispersystems.signalservice.internal.push.Content
@@ -162,12 +165,12 @@ object MessageContentFuzzer {
                 conversation = if (conversation.isGroup) {
                   SyncMessage.DeleteForMe.ConversationIdentifier(threadGroupId = conversation.requireGroupId().decodedId.toByteString())
                 } else {
-                  SyncMessage.DeleteForMe.ConversationIdentifier(threadAci = conversation.requireAci().toString())
+                  SyncMessage.DeleteForMe.ConversationIdentifier(threadServiceId = conversation.requireAci().toString())
                 },
 
                 messages = conversationDeletes.map { (author, timestamp) ->
                   SyncMessage.DeleteForMe.AddressableMessage(
-                    authorAci = Recipient.resolved(author).requireAci().toString(),
+                    authorServiceId = Recipient.resolved(author).requireAci().toString(),
                     sentTimestamp = timestamp
                   )
                 }
@@ -184,23 +187,30 @@ object MessageContentFuzzer {
       .syncMessage(
         SyncMessage(
           deleteForMe = SyncMessage.DeleteForMe(
-            conversationDeletes = allDeletes.map { (conversationId, conversationDeletes, isFullDelete) ->
-              val conversation = Recipient.resolved(conversationId)
+            conversationDeletes = allDeletes.map { delete ->
+              val conversation = Recipient.resolved(delete.conversationId)
               SyncMessage.DeleteForMe.ConversationDelete(
                 conversation = if (conversation.isGroup) {
                   SyncMessage.DeleteForMe.ConversationIdentifier(threadGroupId = conversation.requireGroupId().decodedId.toByteString())
                 } else {
-                  SyncMessage.DeleteForMe.ConversationIdentifier(threadAci = conversation.requireAci().toString())
+                  SyncMessage.DeleteForMe.ConversationIdentifier(threadServiceId = conversation.requireAci().toString())
                 },
 
-                mostRecentMessages = conversationDeletes.map { (author, timestamp) ->
+                mostRecentMessages = delete.messages.map { (author, timestamp) ->
                   SyncMessage.DeleteForMe.AddressableMessage(
-                    authorAci = Recipient.resolved(author).requireAci().toString(),
+                    authorServiceId = Recipient.resolved(author).requireAci().toString(),
                     sentTimestamp = timestamp
                   )
                 },
 
-                isFullDelete = isFullDelete
+                mostRecentNonExpiringMessages = delete.nonExpiringMessages.map { (author, timestamp) ->
+                  SyncMessage.DeleteForMe.AddressableMessage(
+                    authorServiceId = Recipient.resolved(author).requireAci().toString(),
+                    sentTimestamp = timestamp
+                  )
+                },
+
+                isFullDelete = delete.isFullDelete
               )
             }
           )
@@ -220,10 +230,39 @@ object MessageContentFuzzer {
                 conversation = if (conversation.isGroup) {
                   SyncMessage.DeleteForMe.ConversationIdentifier(threadGroupId = conversation.requireGroupId().decodedId.toByteString())
                 } else {
-                  SyncMessage.DeleteForMe.ConversationIdentifier(threadAci = conversation.requireAci().toString())
+                  SyncMessage.DeleteForMe.ConversationIdentifier(threadServiceId = conversation.requireAci().toString())
                 }
               )
             }
+          )
+        )
+      ).build()
+  }
+
+  fun syncDeleteForMeAttachment(conversationId: RecipientId, message: Pair<RecipientId, Long>, uuid: UUID?, digest: ByteArray?, plainTextHash: String?): Content {
+    val conversation = Recipient.resolved(conversationId)
+
+    return Content
+      .Builder()
+      .syncMessage(
+        SyncMessage(
+          deleteForMe = SyncMessage.DeleteForMe(
+            attachmentDeletes = listOf(
+              SyncMessage.DeleteForMe.AttachmentDelete(
+                conversation = if (conversation.isGroup) {
+                  SyncMessage.DeleteForMe.ConversationIdentifier(threadGroupId = conversation.requireGroupId().decodedId.toByteString())
+                } else {
+                  SyncMessage.DeleteForMe.ConversationIdentifier(threadServiceId = conversation.requireAci().toString())
+                },
+                targetMessage = SyncMessage.DeleteForMe.AddressableMessage(
+                  authorServiceId = Recipient.resolved(message.first).requireAci().toString(),
+                  sentTimestamp = message.second
+                ),
+                uuid = uuid?.let { UuidUtil.toByteString(it) },
+                fallbackDigest = digest?.toByteString(),
+                fallbackPlaintextHash = plainTextHash?.let { Base64.decodeOrNull(it)?.toByteString() }
+              )
+            )
           )
         )
       ).build()
@@ -373,7 +412,9 @@ object MessageContentFuzzer {
   data class DeleteForMeSync(
     val conversationId: RecipientId,
     val messages: List<Pair<RecipientId, Long>>,
-    val isFullDelete: Boolean = true
+    val nonExpiringMessages: List<Pair<RecipientId, Long>> = emptyList(),
+    val isFullDelete: Boolean = true,
+    val attachments: List<Pair<Long, AttachmentTable.SyncAttachmentId>> = emptyList()
   ) {
     constructor(conversationId: RecipientId, vararg messages: Pair<RecipientId, Long>) : this(conversationId, messages.toList())
   }

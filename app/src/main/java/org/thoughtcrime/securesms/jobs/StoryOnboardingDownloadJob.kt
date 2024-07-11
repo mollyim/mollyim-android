@@ -49,7 +49,7 @@ class StoryOnboardingDownloadJob private constructor(parameters: Parameters) : B
     }
 
     fun enqueueIfNeeded() {
-      if (SignalStore.storyValues().hasDownloadedOnboardingStory) {
+      if (SignalStore.story.hasDownloadedOnboardingStory) {
         return
       }
 
@@ -66,17 +66,17 @@ class StoryOnboardingDownloadJob private constructor(parameters: Parameters) : B
   override fun onFailure() = Unit
 
   override fun onRun() {
-    if (!SignalStore.account().isRegistered) {
+    if (!SignalStore.account.isRegistered) {
       Log.i(TAG, "Not registered, skipping.")
       return
     }
 
-    if (SignalStore.storyValues().hasDownloadedOnboardingStory) {
+    if (SignalStore.story.hasDownloadedOnboardingStory) {
       Log.i(TAG, "Already downloaded onboarding story. Exiting.")
       return
     }
 
-    val releaseChannelRecipientId = SignalStore.releaseChannelValues().releaseChannelRecipientId
+    val releaseChannelRecipientId = SignalStore.releaseChannel.releaseChannelRecipientId
     if (releaseChannelRecipientId == null) {
       Log.w(TAG, "Cannot create story onboarding without release channel recipient.")
       throw Exception("No release channel recipient.")
@@ -155,7 +155,7 @@ class StoryOnboardingDownloadJob private constructor(parameters: Parameters) : B
     }
 
     Log.d(TAG, "Marking onboarding story downloaded.")
-    SignalStore.storyValues().hasDownloadedOnboardingStory = true
+    SignalStore.story.hasDownloadedOnboardingStory = true
 
     Log.i(TAG, "Enqueueing download jobs...")
     insertResults.forEach { insertResult ->
@@ -172,8 +172,8 @@ class StoryOnboardingDownloadJob private constructor(parameters: Parameters) : B
 
     val potentialOnboardingUrlLanguages = mutableListOf<String>()
 
-    if (SignalStore.settings().language != "zz") {
-      potentialOnboardingUrlLanguages += SignalStore.settings().language
+    if (SignalStore.settings.language != "zz") {
+      potentialOnboardingUrlLanguages += SignalStore.settings.language
     }
 
     for (index in 0 until localeList.size()) {

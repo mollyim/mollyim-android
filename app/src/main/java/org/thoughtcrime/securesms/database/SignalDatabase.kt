@@ -14,7 +14,7 @@ import org.thoughtcrime.securesms.database.model.AvatarPickerDatabase
 import java.io.File
 import java.lang.AssertionError
 
-open class SignalDatabase(private val context: Application, databaseSecret: DatabaseSecret, attachmentSecret: AttachmentSecret) :
+open class SignalDatabase(private val context: Application, databaseSecret: DatabaseSecret, attachmentSecret: AttachmentSecret, private val name: String = DATABASE_NAME) :
   SQLiteOpenHelper(
     context,
     DATABASE_NAME,
@@ -201,7 +201,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
 
   companion object {
     private val TAG = Log.tag(SignalDatabase::class.java)
-    private const val DATABASE_NAME = "signal.db"
+    const val DATABASE_NAME = "signal.db"
 
     @JvmStatic
     @Volatile

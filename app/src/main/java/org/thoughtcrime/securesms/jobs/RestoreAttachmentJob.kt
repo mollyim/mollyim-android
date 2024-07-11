@@ -29,7 +29,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.MmsException
 import org.thoughtcrime.securesms.notifications.v2.ConversationId.Companion.forConversation
 import org.thoughtcrime.securesms.transport.RetryLaterException
-import org.thoughtcrime.securesms.util.FeatureFlags
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.backup.MediaName
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
@@ -208,7 +208,7 @@ class RestoreAttachmentJob private constructor(
     attachmentId: AttachmentId,
     attachment: DatabaseAttachment
   ) {
-    val maxReceiveSize: Long = FeatureFlags.maxAttachmentReceiveSizeBytes()
+    val maxReceiveSize: Long = RemoteConfig.maxAttachmentReceiveSizeBytes
     val attachmentFile: File = SignalDatabase.attachments.getOrCreateTransferFile(attachmentId)
     var archiveFile: File? = null
     var useArchiveCdn = false
@@ -218,7 +218,7 @@ class RestoreAttachmentJob private constructor(
         throw MmsException("Attachment too large, failing download")
       }
 
-      useArchiveCdn = if (SignalStore.backup().backsUpMedia && (forceArchiveDownload || attachment.remoteLocation == null)) {
+      useArchiveCdn = if (SignalStore.backup.backsUpMedia && (forceArchiveDownload || attachment.remoteLocation == null)) {
         if (attachment.archiveMediaName.isNullOrEmpty()) {
           throw InvalidPartException("Invalid attachment configuration")
         }
@@ -246,7 +246,7 @@ class RestoreAttachmentJob private constructor(
 
         messageReceiver
           .retrieveArchivedAttachment(
-            SignalStore.svr().getOrCreateMasterKey().deriveBackupKey().deriveMediaSecrets(MediaName(attachment.archiveMediaName!!)),
+            SignalStore.svr.getOrCreateMasterKey().deriveBackupKey().deriveMediaSecrets(MediaName(attachment.archiveMediaName!!)),
             cdnCredentials,
             archiveFile,
             pointer,
@@ -279,14 +279,14 @@ class RestoreAttachmentJob private constructor(
       Log.w(TAG, "Experienced exception while trying to download an attachment.", e)
       markFailed(messageId, attachmentId)
     } catch (e: NonSuccessfulResponseCodeException) {
-      if (SignalStore.backup().backsUpMedia) {
+      if (SignalStore.backup.backsUpMedia) {
         if (e.code == 404 && !useArchiveCdn && attachment.archiveMediaName?.isNotEmpty() == true) {
           Log.i(TAG, "Retrying download from archive CDN")
           forceArchiveDownload = true
           retrieveAttachment(messageId, attachmentId, attachment)
           return
         } else if (e.code == 401 && useArchiveCdn) {
-          SignalStore.backup().cdnReadCredentials = null
+          SignalStore.backup.cdnReadCredentials = null
           throw RetryLaterException(e)
         }
       }
@@ -318,7 +318,7 @@ class RestoreAttachmentJob private constructor(
 
     return try {
       val remoteData: RemoteData = if (useArchiveCdn) {
-        val backupKey = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey()
+        val backupKey = SignalStore.svr.getOrCreateMasterKey().deriveBackupKey()
         val backupDirectories = BackupRepository.getCdnBackupDirectories().successOrThrow()
 
         RemoteData(
@@ -366,7 +366,8 @@ class RestoreAttachmentJob private constructor(
         attachment.videoGif,
         Optional.empty(),
         Optional.ofNullable(attachment.blurHash).map { it.hash },
-        attachment.uploadTimestamp
+        attachment.uploadTimestamp,
+        attachment.uuid
       )
     } catch (e: IOException) {
       Log.w(TAG, e)
@@ -383,7 +384,7 @@ class RestoreAttachmentJob private constructor(
       throw InvalidPartException("empty encrypted key")
     }
 
-    val backupKey = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey()
+    val backupKey = SignalStore.svr.getOrCreateMasterKey().deriveBackupKey()
     val backupDirectories = BackupRepository.getCdnBackupDirectories().successOrThrow()
     return try {
       val key = backupKey.deriveThumbnailTransitKey(attachment.getThumbnailMediaName())
@@ -410,7 +411,8 @@ class RestoreAttachmentJob private constructor(
         attachment.videoGif,
         Optional.empty(),
         Optional.ofNullable(attachment.blurHash).map { it.hash },
-        attachment.uploadTimestamp
+        attachment.uploadTimestamp,
+        attachment.uuid
       )
     } catch (e: IOException) {
       Log.w(TAG, e)
@@ -439,7 +441,7 @@ class RestoreAttachmentJob private constructor(
       return
     }
 
-    val maxThumbnailSize: Long = FeatureFlags.maxAttachmentReceiveSizeBytes()
+    val maxThumbnailSize: Long = RemoteConfig.maxAttachmentReceiveSizeBytes
     val thumbnailTransferFile: File = SignalDatabase.attachments.createArchiveThumbnailTransferFile()
     val thumbnailFile: File = SignalDatabase.attachments.createArchiveThumbnailTransferFile()
 
@@ -459,7 +461,7 @@ class RestoreAttachmentJob private constructor(
     Log.w(TAG, "Downloading thumbnail for $attachmentId mediaName=${attachment.getThumbnailMediaName()}")
     val stream = messageReceiver
       .retrieveArchivedAttachment(
-        SignalStore.svr().getOrCreateMasterKey().deriveBackupKey().deriveMediaSecrets(attachment.getThumbnailMediaName()),
+        SignalStore.svr.getOrCreateMasterKey().deriveBackupKey().deriveMediaSecrets(attachment.getThumbnailMediaName()),
         cdnCredentials,
         thumbnailTransferFile,
         pointer,

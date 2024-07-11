@@ -193,22 +193,22 @@ public class SignalServiceProfile {
     private boolean storage;
 
     @JsonProperty
-    private boolean paymentActivation;
+    private boolean deleteSync;
 
     @JsonCreator
     public Capabilities() {}
 
-    public Capabilities(boolean storage, boolean paymentActivation) {
-      this.storage           = storage;
-      this.paymentActivation = paymentActivation;
+    public Capabilities(boolean storage, boolean deleteSync) {
+      this.storage    = storage;
+      this.deleteSync = deleteSync;
     }
 
     public boolean isStorage() {
       return storage;
     }
 
-    public boolean isPaymentActivation() {
-      return paymentActivation;
+    public boolean isDeleteSync() {
+      return deleteSync;
     }
   }
 

@@ -45,10 +45,12 @@ class InAppPaymentSubscriberTable(
     private const val ID = "_id"
 
     /** The serialized subscriber id */
-    private const val SUBSCRIBER_ID = "subscriber_id"
+    @VisibleForTesting
+    const val SUBSCRIBER_ID = "subscriber_id"
 
     /** The currency code for this subscriber id */
-    private const val CURRENCY_CODE = "currency_code"
+    @VisibleForTesting
+    const val CURRENCY_CODE = "currency_code"
 
     /** The type of subscription used by this subscriber id */
     private const val TYPE = "type"
@@ -85,7 +87,7 @@ class InAppPaymentSubscriberTable(
         .values(InAppPaymentSubscriberSerializer.serialize(inAppPaymentSubscriberRecord))
         .run(conflictStrategy = SQLiteDatabase.CONFLICT_REPLACE)
 
-      SignalStore.donationsValues().setSubscriberCurrency(
+      SignalStore.inAppPayments.setSubscriberCurrency(
         inAppPaymentSubscriberRecord.currency,
         inAppPaymentSubscriberRecord.type
       )
@@ -150,7 +152,7 @@ class InAppPaymentSubscriberTable(
       val currencyCode = input.requireNonNullString(CURRENCY_CODE).takeIf { it.isNotEmpty() }
       return InAppPaymentSubscriberRecord(
         subscriberId = SubscriberId.deserialize(input.requireNonNullString(SUBSCRIBER_ID)),
-        currency = currencyCode?.let { Currency.getInstance(it) } ?: SignalStore.donationsValues().getSubscriptionCurrency(type),
+        currency = currencyCode?.let { Currency.getInstance(it) } ?: SignalStore.inAppPayments.getSubscriptionCurrency(type),
         type = type,
         requiresCancel = input.requireBoolean(REQUIRES_CANCEL) || currencyCode.isNullOrBlank(),
         paymentMethodType = InAppPaymentData.PaymentMethodType.fromValue(input.requireInt(PAYMENT_METHOD_TYPE)) ?: InAppPaymentData.PaymentMethodType.UNKNOWN

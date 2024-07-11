@@ -159,16 +159,21 @@ public abstract class AudioManagerCompat {
 
   @SuppressLint("WrongConstant")
   public boolean isWiredHeadsetOn() {
-    AudioDeviceInfo[] devices = audioManager.getDevices(AudioManager.GET_DEVICES_ALL);
-    for (AudioDeviceInfo device : devices) {
-      final int type = device.getType();
-      if (type == AudioDeviceInfo.TYPE_WIRED_HEADSET) {
-        return true;
-      } else if (type == AudioDeviceInfo.TYPE_USB_DEVICE) {
-        return true;
+    if (Build.VERSION.SDK_INT < 23) {
+      //noinspection deprecation
+      return audioManager.isWiredHeadsetOn();
+    } else {
+      AudioDeviceInfo[] devices = audioManager.getDevices(AudioManager.GET_DEVICES_ALL);
+      for (AudioDeviceInfo device : devices) {
+        final int type = device.getType();
+        if (type == AudioDeviceInfo.TYPE_WIRED_HEADSET) {
+          return true;
+        } else if (type == AudioDeviceInfo.TYPE_USB_DEVICE) {
+          return true;
+        }
       }
+      return false;
     }
-    return false;
   }
 
   public float ringVolumeWithMinimum() {

@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.backup;
 
 import android.content.Context;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +24,7 @@ public final class BackupPassphrase {
     String passphrase          = TextSecurePreferences.getBackupPassphrase(context);
     String encryptedPassphrase = TextSecurePreferences.getEncryptedBackupPassphrase(context);
 
-    if (passphrase == null && encryptedPassphrase == null) {
+    if (Build.VERSION.SDK_INT < 23 || (passphrase == null && encryptedPassphrase == null)) {
       return stripSpaces(passphrase);
     }
 
@@ -39,7 +40,7 @@ public final class BackupPassphrase {
   }
 
   public static void set(@NonNull Context context, @Nullable String passphrase) {
-    if (passphrase == null) {
+    if (passphrase == null || Build.VERSION.SDK_INT < 23) {
       TextSecurePreferences.setBackupPassphrase(context, passphrase);
       TextSecurePreferences.setEncryptedBackupPassphrase(context, null);
     } else {

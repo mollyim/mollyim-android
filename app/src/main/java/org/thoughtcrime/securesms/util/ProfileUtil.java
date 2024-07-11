@@ -17,7 +17,7 @@ import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
 import org.thoughtcrime.securesms.badges.models.Badge;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
-import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
+import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
@@ -38,8 +38,7 @@ import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.crypto.InvalidCiphertextException;
 import org.whispersystems.signalservice.api.crypto.ProfileCipher;
-import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess;
-import org.whispersystems.signalservice.api.crypto.UnidentifiedAccessPair;
+import org.whispersystems.signalservice.api.crypto.SealedSenderAccess;
 import org.whispersystems.signalservice.api.profiles.AvatarUploadParams;
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
@@ -118,7 +117,7 @@ public final class ProfileUtil {
 
     ServiceResponse<ProfileAndCredential> response = Single
         .fromCallable(() -> new SignalServiceAddress(pni))
-        .flatMap(address -> profileService.getProfile(address, Optional.empty(), Optional.empty(), requestType, Locale.getDefault()))
+        .flatMap(address -> profileService.getProfile(address, Optional.empty(), SealedSenderAccess.NONE, requestType, Locale.getDefault()))
         .onErrorReturn(t -> ServiceResponse.forUnknownError(t))
         .blockingGet();
 
@@ -137,12 +136,12 @@ public final class ProfileUtil {
                                                                                                 @NonNull SignalServiceProfile.RequestType requestType,
                                                                                                 boolean allowUnidentifiedAccess)
   {
-    ProfileService               profileService     = AppDependencies.getProfileService();
-    Optional<UnidentifiedAccess> unidentifiedAccess = allowUnidentifiedAccess ? getUnidentifiedAccess(context, recipient) : Optional.empty();
-    Optional<ProfileKey>         profileKey         = ProfileKeyUtil.profileKeyOptional(recipient.getProfileKey());
+    ProfileService       profileService     = AppDependencies.getProfileService();
+    SealedSenderAccess   sealedSenderAccess = allowUnidentifiedAccess ? SealedSenderAccessUtil.getSealedSenderAccessFor(recipient, false) : SealedSenderAccess.NONE;
+    Optional<ProfileKey> profileKey         = ProfileKeyUtil.profileKeyOptional(recipient.getProfileKey());
 
     return Single.fromCallable(() -> toSignalServiceAddress(context, recipient))
-                 .flatMap(address -> profileService.getProfile(address, profileKey, unidentifiedAccess, requestType, Locale.getDefault()).map(p -> new Pair<>(recipient, p)))
+                 .flatMap(address -> profileService.getProfile(address, profileKey, sealedSenderAccess, requestType, Locale.getDefault()).map(p -> new Pair<>(recipient, p)))
                  .onErrorReturn(t -> new Pair<>(recipient, ServiceResponse.forUnknownError(t)));
   }
 
@@ -334,7 +333,7 @@ public final class ProfileUtil {
                                     @NonNull List<Badge> badges)
       throws IOException
   {
-    if (SignalStore.registrationValues().needDownloadProfileOrAvatar()) {
+    if (SignalStore.registration().needDownloadProfileOrAvatar()) {
       // Prevent uploading an empty profile after linking a device, but before having a chance to pull the existing profile from the primary device
       Log.w(TAG, "Profile download pending. Skipping profile upload.");
       return;
@@ -367,7 +366,7 @@ public final class ProfileUtil {
                                                                                     avatar,
                                                                                     badgeIds,
                                                                                     SignalStore.phoneNumberPrivacy().isPhoneNumberSharingEnabled()).orElse(null);
-    SignalStore.registrationValues().markHasUploadedProfile();
+    SignalStore.registration().markHasUploadedProfile();
     if (!avatar.keepTheSame) {
       SignalDatabase.recipients().setProfileAvatar(Recipient.self().getId(), avatarPath);
     }
@@ -375,7 +374,7 @@ public final class ProfileUtil {
   }
 
   private static @Nullable PaymentAddress getSelfPaymentsAddressProtobuf() {
-    if (!SignalStore.paymentsValues().mobileCoinPaymentsEnabled()) {
+    if (!SignalStore.payments().mobileCoinPaymentsEnabled()) {
       return null;
     } else {
       IdentityKeyPair         identityKeyPair = SignalStore.account().getAciIdentityKey();
@@ -385,16 +384,6 @@ public final class ProfileUtil {
 
       return MobileCoinPublicAddressProfileUtil.signPaymentsAddress(publicAddress.serialize(), identityKeyPair);
     }
-  }
-
-  private static Optional<UnidentifiedAccess> getUnidentifiedAccess(@NonNull Context context, @NonNull Recipient recipient) {
-    Optional<UnidentifiedAccessPair> unidentifiedAccess = UnidentifiedAccessUtil.getAccessFor(context, recipient, false);
-
-    if (unidentifiedAccess.isPresent()) {
-      return unidentifiedAccess.get().getTargetUnidentifiedAccess();
-    }
-
-    return Optional.empty();
   }
 
   private static @NonNull SignalServiceAddress toSignalServiceAddress(@NonNull Context context, @NonNull Recipient recipient) throws IOException {

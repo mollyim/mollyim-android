@@ -16,7 +16,6 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.LoggingFragment;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.LabeledEditText;
-import org.thoughtcrime.securesms.registration.viewmodel.RegistrationViewModel;
 import org.thoughtcrime.securesms.util.navigation.SafeNavigation;
 import org.thoughtcrime.securesms.util.text.AfterTextChanged;
 
@@ -24,7 +23,7 @@ public final class LinkDeviceNameFragment extends LoggingFragment {
 
   private static final String TAG = Log.tag(LinkDeviceNameFragment.class);
 
-  private RegistrationViewModel viewModel;
+  // private RegistrationViewModel viewModel;
 
   private final LifecycleDisposable disposables = new LifecycleDisposable();
 
@@ -41,14 +40,15 @@ public final class LinkDeviceNameFragment extends LoggingFragment {
     View            linkDevice = view.findViewById(R.id.link_button);
 
     disposables.bindTo(getViewLifecycleOwner().getLifecycle());
-    viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
+    // viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
 
     deviceName.getInput().addTextChangedListener(new AfterTextChanged(editable -> {
       linkDevice.setEnabled(editable.length() > 0);
-      viewModel.setDeviceName(editable.toString());
+      // viewModel.setDeviceName(editable.toString());
     }));
     deviceName.setText(Build.MODEL);
 
-    linkDevice.setOnClickListener(v -> SafeNavigation.safeNavigate(Navigation.findNavController(v), LinkDeviceNameFragmentDirections.actionLinkDevice()));
+    // MOLLY: FIXME
+    // linkDevice.setOnClickListener(v -> SafeNavigation.safeNavigate(Navigation.findNavController(v), LinkDeviceNameFragmentDirections.actionLinkDevice()));
   }
 }

@@ -56,9 +56,9 @@ class AdvancedPrivacySettingsViewModel(
   }
 
   fun setCensorshipCircumventionEnabled(enabled: Boolean) {
-    SignalStore.settings().setCensorshipCircumventionEnabled(enabled)
-    SignalStore.misc().isServiceReachableWithoutCircumvention = false
-    AppDependencies.restartAllNetworkConnections()
+    SignalStore.settings.setCensorshipCircumventionEnabled(enabled)
+    SignalStore.misc.isServiceReachableWithoutCircumvention = false
+    AppDependencies.resetNetwork(restartMessageObserver = true)
     refresh()
   }
 
@@ -74,7 +74,7 @@ class AdvancedPrivacySettingsViewModel(
     val censorshipCircumventionState = getCensorshipCircumventionState()
 
     return AdvancedPrivacySettingsState(
-      isPushEnabled = SignalStore.account().isRegistered,
+      isPushEnabled = SignalStore.account.isRegistered,
       alwaysRelayCalls = TextSecurePreferences.isTurnOnly(AppDependencies.application),
       proxyEnabled = AppDependencies.networkManager.isProxyEnabled,
       censorshipCircumventionState = censorshipCircumventionState,
@@ -92,12 +92,12 @@ class AdvancedPrivacySettingsViewModel(
   private fun getCensorshipCircumventionState(): CensorshipCircumventionState {
     val countryCode: Int = PhoneNumberFormatter.getLocalCountryCode()
     val isCountryCodeCensoredByDefault: Boolean = AppDependencies.signalServiceNetworkAccess.isCountryCodeCensoredByDefault(countryCode)
-    val enabledState: SettingsValues.CensorshipCircumventionEnabled = SignalStore.settings().censorshipCircumventionEnabled
+    val enabledState: SettingsValues.CensorshipCircumventionEnabled = SignalStore.settings.censorshipCircumventionEnabled
     val hasInternet: Boolean = NetworkConstraint.isMet(AppDependencies.application)
     val websocketConnected: Boolean = AppDependencies.signalWebSocket.webSocketState.firstOrError().blockingGet() == WebSocketConnectionState.CONNECTED
 
     return when {
-      SignalStore.internalValues().allowChangingCensorshipSetting() -> {
+      SignalStore.internal.allowChangingCensorshipSetting() -> {
         CensorshipCircumventionState.AVAILABLE
       }
       isCountryCodeCensoredByDefault && enabledState == SettingsValues.CensorshipCircumventionEnabled.DISABLED -> {
@@ -129,7 +129,7 @@ class AdvancedPrivacySettingsViewModel(
         true
       }
       else -> {
-        SignalStore.settings().censorshipCircumventionEnabled == SettingsValues.CensorshipCircumventionEnabled.ENABLED
+        SignalStore.settings.censorshipCircumventionEnabled == SettingsValues.CensorshipCircumventionEnabled.ENABLED
       }
     }
   }

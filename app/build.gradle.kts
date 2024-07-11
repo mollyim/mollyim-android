@@ -19,11 +19,11 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1428
-val canonicalVersionName = "7.9.6"
+val canonicalVersionCode = 1433
+val canonicalVersionName = "7.11.0"
 val mollyRevision = 1
-
-val postFixSize = 100
+val currentHotfixVersion = 0
+val maxHotfixVersions = 100
 
 val selectableVariants = listOf(
   "prodFossWebsiteDebug",
@@ -83,6 +83,8 @@ android {
   flavorDimensions += listOf("environment", "license", "distribution")
   useLibrary("org.apache.http.legacy")
   testBuildType = "instrumentation"
+
+  android.bundle.language.enableSplit = false
 
   kotlinOptions {
     jvmTarget = signalKotlinJvmTarget
@@ -144,12 +146,12 @@ android {
     kotlinCompilerExtensionVersion = "1.5.4"
   }
 
-  if (mollyRevision < 0 || mollyRevision >= postFixSize) {
-    throw GradleException("Molly revision $mollyRevision out of range")
+  if (mollyRevision < 0 || currentHotfixVersion < 0 || (mollyRevision + currentHotfixVersion) >= maxHotfixVersions) {
+    throw GradleException("Molly revision $mollyRevision or Hotfix version $currentHotfixVersion out of range")
   }
 
   defaultConfig {
-    versionCode = canonicalVersionCode * postFixSize + mollyRevision
+    versionCode = (canonicalVersionCode * maxHotfixVersions) + mollyRevision + currentHotfixVersion
     versionName = if (ciEnabled) getCommitTag() else canonicalVersionName
 
     minSdk = signalMinSdkVersion
@@ -197,11 +199,11 @@ android {
     buildConfigField("String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/registration/generate.html\"")
     buildConfigField("String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/challenge/generate.html\"")
     buildConfigField("org.signal.libsignal.net.Network.Environment", "LIBSIGNAL_NET_ENV", "org.signal.libsignal.net.Network.Environment.PRODUCTION")
+    buildConfigField("int", "LIBSIGNAL_LOG_LEVEL", "org.signal.libsignal.protocol.logging.SignalProtocolLogger.INFO")
 
     // MOLLY: Rely on the built-in variables FLAVOR and BUILD_TYPE instead of BUILD_*_TYPE
     buildConfigField("String", "BADGE_STATIC_ROOT", "\"https://updates2.signal.org/static/badges/\"")
     buildConfigField("boolean", "TRACING_ENABLED", "false")
-    buildConfigField("boolean", "MESSAGE_BACKUP_RESTORE_ENABLED", "false")
 
     ndk {
       //noinspection ChromeOsAbiSupport
@@ -209,12 +211,6 @@ android {
     }
 
     resourceConfigurations += listOf()
-
-    bundle {
-      language {
-        enableSplit = false
-      }
-    }
 
     testInstrumentationRunner = "org.thoughtcrime.securesms.testing.SignalTestRunner"
     testInstrumentationRunnerArguments["clearPackageData"] = "true"
@@ -341,10 +337,10 @@ android {
       buildConfigField("String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/staging/registration/generate.html\"")
       buildConfigField("String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/staging/challenge/generate.html\"")
       buildConfigField("org.signal.libsignal.net.Network.Environment", "LIBSIGNAL_NET_ENV", "org.signal.libsignal.net.Network.Environment.STAGING")
+      buildConfigField("int", "LIBSIGNAL_LOG_LEVEL", "org.signal.libsignal.protocol.logging.SignalProtocolLogger.DEBUG")
 
       buildConfigField("String", "BUILD_ENVIRONMENT_TYPE", "\"Staging\"")
       buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_test_sngOd8FnXNkpce9nPXawKrJD00kIDngZkD\"")
-      buildConfigField("boolean", "MESSAGE_BACKUP_RESTORE_ENABLED", "true")
     }
   }
 
@@ -453,14 +449,13 @@ dependencies {
   implementation(libs.androidx.profileinstaller)
   implementation(libs.androidx.asynclayoutinflater)
   implementation(libs.androidx.asynclayoutinflater.appcompat)
+  implementation(libs.androidx.emoji2)
   implementation(libs.androidx.webkit)
   "gmsImplementation"(libs.firebase.messaging) {
     exclude(group = "com.google.firebase", module = "firebase-core")
     exclude(group = "com.google.firebase", module = "firebase-analytics")
     exclude(group = "com.google.firebase", module = "firebase-measurement-connector")
   }
-  "gmsImplementation"(libs.google.play.services.maps)
-  "gmsImplementation"(libs.google.play.services.auth)
   implementation(libs.bundles.media3)
   implementation(libs.conscrypt.android)
   implementation(libs.signal.aesgcmprovider)
@@ -485,6 +480,7 @@ dependencies {
   }
   implementation(libs.stream)
   implementation(libs.lottie)
+  implementation(libs.lottie.compose)
   implementation(libs.signal.android.database.sqlcipher)
   implementation(libs.androidx.sqlite)
   implementation(libs.google.ez.vcard) {
@@ -495,6 +491,7 @@ dependencies {
   implementation(libs.kotlinx.collections.immutable)
   implementation(libs.accompanist.permissions)
   implementation(libs.kotlin.stdlib.jdk8)
+  testImplementation(libs.kotlin.reflect.tests)
   "gmsImplementation"(libs.kotlinx.coroutines.play.services)
   implementation(libs.rxjava3.rxandroid)
   implementation(libs.rxjava3.rxkotlin)

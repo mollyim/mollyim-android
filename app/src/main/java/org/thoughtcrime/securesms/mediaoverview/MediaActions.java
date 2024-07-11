@@ -14,17 +14,16 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.MediaTable;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
-import org.thoughtcrime.securesms.jobs.MultiDeviceDeleteSendSyncJob;
+import org.thoughtcrime.securesms.jobs.MultiDeviceDeleteSyncJob;
 import org.thoughtcrime.securesms.permissions.Permissions;
+import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.AttachmentUtil;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.SaveAttachmentTask;
 import org.thoughtcrime.securesms.util.StorageUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.task.ProgressDialogAsyncTask;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -61,20 +60,8 @@ final class MediaActions {
   {
     int       recordCount    = mediaRecords.size();
     Resources res            = context.getResources();
-    String    confirmTitle   = res.getQuantityString(R.plurals.MediaOverviewActivity_Media_delete_confirm_title,
-                                                     recordCount,
-                                                     recordCount);
-
-    String    confirmMessage;
-    if (TextSecurePreferences.isMultiDevice(context) && FeatureFlags.deleteSyncEnabled()) {
-      confirmMessage = res.getQuantityString(R.plurals.MediaOverviewActivity_Media_delete_confirm_message_linked_device,
-                                             recordCount,
-                                             recordCount);
-    } else {
-      confirmMessage = res.getQuantityString(R.plurals.MediaOverviewActivity_Media_delete_confirm_message,
-                                             recordCount,
-                                             recordCount);
-    }
+    String    confirmTitle   = res.getQuantityString(R.plurals.MediaOverviewActivity_Media_delete_confirm_title, recordCount, recordCount);
+    String    confirmMessage = res.getQuantityString(R.plurals.MediaOverviewActivity_Media_delete_confirm_message, recordCount, recordCount);
 
     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context).setTitle(confirmTitle)
                                                                                 .setMessage(confirmMessage)
@@ -99,8 +86,8 @@ final class MediaActions {
             }
           }
 
-          if (FeatureFlags.deleteSyncEnabled() && Util.hasItems(deletedMessageRecords)) {
-            MultiDeviceDeleteSendSyncJob.enqueueMessageDeletes(deletedMessageRecords);
+          if (Recipient.self().getDeleteSyncCapability().isSupported() && Util.hasItems(deletedMessageRecords)) {
+            MultiDeviceDeleteSyncJob.enqueueMessageDeletes(deletedMessageRecords);
           }
 
           return null;

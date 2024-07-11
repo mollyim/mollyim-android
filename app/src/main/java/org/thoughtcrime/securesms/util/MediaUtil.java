@@ -12,6 +12,7 @@ import android.media.MediaDataSource;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Pair;
@@ -50,6 +51,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 public class MediaUtil {
@@ -134,6 +136,35 @@ public class MediaUtil {
     }
 
     return getCorrectedMimeType(type);
+  }
+
+  public static @NonNull Optional<String> getFileType(@NonNull Context context, Optional<String> fileName, Uri uri) {
+    if (fileName.isPresent()) {
+      String fileType = getFileType(fileName);
+      if (!fileType.isEmpty()) {
+        return Optional.of(fileType);
+      }
+    }
+
+    return Optional.ofNullable(MediaUtil.getExtension(context, uri));
+  }
+
+  private static @NonNull String getFileType(Optional<String> fileName) {
+    if (!fileName.isPresent()) return "";
+
+    String[] parts = fileName.get().split("\\.");
+
+    if (parts.length < 2) {
+      return "";
+    }
+
+    String suffix = parts[parts.length - 1];
+
+    if (suffix.length() <= 3) {
+      return suffix;
+    }
+
+    return "";
   }
 
   public static @Nullable String getExtension(@NonNull Context context, @Nullable Uri uri) {
@@ -383,12 +414,16 @@ public class MediaUtil {
     return OCTET.equals(contentType);
   }
 
+  public static boolean isDocumentType(String contentType) {
+    return !isImageOrVideoType(contentType) && !isGif(contentType) && !isLongTextType(contentType) && !isViewOnceType(contentType);
+  }
+
   public static boolean hasVideoThumbnail(@NonNull Context context, @Nullable Uri uri) {
     if (uri == null) {
       return false;
     }
 
-    if (BlobProvider.isAuthority(uri) && MediaUtil.isVideo(BlobProvider.getMimeType(uri))) {
+    if (BlobProvider.isAuthority(uri) && MediaUtil.isVideo(BlobProvider.getMimeType(uri)) && Build.VERSION.SDK_INT >= 23) {
       return true;
     }
 
@@ -433,7 +468,8 @@ public class MediaUtil {
                MediaUtil.isVideo(URLConnection.guessContentTypeFromName(uri.toString()))) {
       return ThumbnailUtils.createVideoThumbnail(uri.toString().replace("file://", ""),
                                                  MediaStore.Video.Thumbnails.MINI_KIND);
-    } else if (BlobProvider.isAuthority(uri) &&
+    } else if (Build.VERSION.SDK_INT >= 23   &&
+               BlobProvider.isAuthority(uri) &&
                MediaUtil.isVideo(BlobProvider.getMimeType(uri)))
     {
       try {
@@ -442,7 +478,8 @@ public class MediaUtil {
       } catch (IOException e) {
         Log.w(TAG, "Failed to extract frame for URI: " + uri, e);
       }
-    } else if (PartAuthority.isAttachmentUri(uri) &&
+    } else if (Build.VERSION.SDK_INT >= 23        &&
+               PartAuthority.isAttachmentUri(uri) &&
                MediaUtil.isVideoType(PartAuthority.getAttachmentContentType(context, uri)))
     {
       try {

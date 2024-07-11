@@ -130,7 +130,7 @@ public class OnboardingMegaphoneView extends FrameLayout {
     private static List<Integer> buildData() {
       List<Integer> data = new ArrayList<>();
 
-      if (SignalStore.onboarding().shouldShowStories() && SignalStore.storyValues().isFeatureDisabled()) {
+      if (SignalStore.onboarding().shouldShowStories() && SignalStore.story().isFeatureDisabled()) {
         data.add(TYPE_STORIES);
       }
 

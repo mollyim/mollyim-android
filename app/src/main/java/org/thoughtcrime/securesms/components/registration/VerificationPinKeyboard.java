@@ -49,7 +49,7 @@ public class VerificationPinKeyboard extends FrameLayout {
     initialize();
   }
 
-  @RequiresApi(api = 21)
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public VerificationPinKeyboard(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
     initialize();

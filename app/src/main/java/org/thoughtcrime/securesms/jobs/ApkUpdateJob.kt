@@ -22,7 +22,6 @@ import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.Networking
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.FileUtils
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.thoughtcrime.securesms.util.TextSecurePreferences
@@ -61,7 +60,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
 
   @Throws(IOException::class)
   public override fun onRun() {
-    if (!FeatureFlags.selfUpdater() || !TextSecurePreferences.isUpdateApkEnabled(context)) {
+    if (!BuildConfig.MANAGES_MOLLY_UPDATES || !TextSecurePreferences.isUpdateApkEnabled(context)) {
       Log.i(TAG, "In-app updater disabled! Exiting.")
       return
     }
@@ -80,10 +79,10 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     val request = Request.Builder().url(url).build()
 
     val responseBody: String = client.newCall(request).execute().use { response ->
-      if (!response.isSuccessful || response.body() == null) {
-        throw IOException("Failed to download F-droid repo index: " + response.message())
+      if (!response.isSuccessful || response.body == null) {
+        throw IOException("Failed to download F-droid repo index: " + response.message)
       }
-      response.body()!!.string()
+      response.body!!.string()
     }
 
     val repoIndex: RepoIndex = JsonUtils.fromJson(responseBody, RepoIndex::class.java)
@@ -140,11 +139,11 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
   }
 
   private fun getDownloadStatus(uri: Uri, remoteDigest: ByteArray): DownloadStatus {
-    val pendingDownloadId: Long = SignalStore.apkUpdate().downloadId
-    val pendingDigest: ByteArray? = SignalStore.apkUpdate().digest
+    val pendingDownloadId: Long = SignalStore.apkUpdate.downloadId
+    val pendingDigest: ByteArray? = SignalStore.apkUpdate.digest
 
     if (pendingDownloadId == -1L || pendingDigest == null || !MessageDigest.isEqual(pendingDigest, remoteDigest)) {
-      SignalStore.apkUpdate().clearDownloadAttributes()
+      SignalStore.apkUpdate.clearDownloadAttributes()
       return DownloadStatus(DownloadStatus.Status.MISSING, -1)
     }
 
@@ -165,7 +164,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
             DownloadStatus(DownloadStatus.Status.COMPLETE, downloadId)
           } else {
             Log.w(TAG, "Found downloadId $downloadId, but the digest doesn't match! Considering it missing.")
-            SignalStore.apkUpdate().clearDownloadAttributes()
+            SignalStore.apkUpdate.clearDownloadAttributes()
             DownloadStatus(DownloadStatus.Status.MISSING, downloadId)
           }
         } else {
@@ -191,7 +190,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     val downloadId = context.getDownloadManager().enqueue(downloadRequest)
     // DownloadManager will trigger [UpdateApkReadyListener] when finished via a broadcast
 
-    SignalStore.apkUpdate().setDownloadAttributes(downloadId, digest)
+    SignalStore.apkUpdate.setDownloadAttributes(downloadId, digest)
   }
 
   private fun handleDownloadComplete(downloadId: Long) {

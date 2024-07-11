@@ -33,6 +33,8 @@ fun MessageTable.getMessagesForBackup(backupTime: Long, archiveMedia: Boolean): 
       MessageTable.EXPIRE_STARTED,
       MessageTable.REMOTE_DELETED,
       MessageTable.UNIDENTIFIED,
+      MessageTable.LINK_PREVIEWS,
+      MessageTable.SHARED_CONTACTS,
       MessageTable.QUOTE_ID,
       MessageTable.QUOTE_AUTHOR,
       MessageTable.QUOTE_BODY,

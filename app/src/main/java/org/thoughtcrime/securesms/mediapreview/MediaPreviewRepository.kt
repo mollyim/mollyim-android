@@ -21,12 +21,12 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.media
 import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
-import org.thoughtcrime.securesms.jobs.MultiDeviceDeleteSendSyncJob
+import org.thoughtcrime.securesms.jobs.MultiDeviceDeleteSyncJob
 import org.thoughtcrime.securesms.longmessage.resolveBody
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.util.AttachmentUtil
-import org.thoughtcrime.securesms.util.FeatureFlags
 
 /**
  * Repository for accessing the attachments in the encrypted database.
@@ -85,8 +85,8 @@ class MediaPreviewRepository {
   fun localDelete(attachment: DatabaseAttachment): Completable {
     return Completable.fromRunnable {
       val deletedMessageRecord = AttachmentUtil.deleteAttachment(attachment)
-      if (deletedMessageRecord != null && FeatureFlags.deleteSyncEnabled()) {
-        MultiDeviceDeleteSendSyncJob.enqueueMessageDeletes(setOf(deletedMessageRecord))
+      if (deletedMessageRecord != null && Recipient.self().deleteSyncCapability.isSupported) {
+        MultiDeviceDeleteSyncJob.enqueueMessageDeletes(setOf(deletedMessageRecord))
       }
     }.subscribeOn(Schedulers.io())
   }

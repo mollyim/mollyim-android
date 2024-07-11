@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.components.emoji;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;

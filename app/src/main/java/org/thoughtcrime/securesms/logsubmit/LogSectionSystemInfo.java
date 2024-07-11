@@ -73,7 +73,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Memclass          : ").append(getMemoryClass(context)).append("\n");
     builder.append("MemInfo           : ").append(getMemoryInfo(context)).append("\n");
     builder.append("OS Host           : ").append(Build.HOST).append("\n");
-    builder.append("RecipientId       : ").append(locked ? "Unknown" : SignalStore.registrationValues().isRegistrationComplete() ? Recipient.self().getId() : "N/A").append("\n");
+    builder.append("RecipientId       : ").append(locked ? "Unknown" : SignalStore.registration().isRegistrationComplete() ? Recipient.self().getId() : "N/A").append("\n");
     builder.append("ACI               : ").append(locked ? "Unknown" : getCensoredAci(context)).append("\n");
     builder.append("Device ID         : ").append(locked ? "Unknown" : SignalStore.account().getDeviceId()).append("\n");
     builder.append("Censored          : ").append(locked ? "Unknown" : AppDependencies.getSignalServiceNetworkAccess().isCensored()).append("\n");
@@ -91,7 +91,6 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Server Time Offset: ").append(locked ? "Unknown" : getLastKnownServerTimeOffset()).append("\n");
     builder.append("Telecom           : ").append(locked ? "Unknown" : AndroidTelecomUtil.getTelecomSupported()).append("\n");
     builder.append("User-Agent        : ").append(StandardUserAgentInterceptor.USER_AGENT).append("\n");
-    builder.append("SlowNotifications : ").append(SlowNotificationHeuristics.isHavingDelayedNotifications()).append("\n");
     builder.append("IgnoringBatteryOpt: ").append(PowerManagerCompat.isIgnoringBatteryOptimizations(context)).append("\n");
     builder.append("BkgRestricted     : ").append(Build.VERSION.SDK_INT >= 28 ? DeviceProperties.isBackgroundRestricted(context) : "N/A").append("\n");
     builder.append("Data Saver        : ").append(DeviceProperties.getDataSaverState(context)).append("\n");
