@@ -15,6 +15,7 @@ permissions:
 
 env:
   TAG_REF: "${{ github.event.inputs.version || github.event.release.tag_name }}"
+  BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
 
 jobs:
   build:
@@ -22,7 +23,6 @@ jobs:
     runs-on: ubuntu-22.04
 
     env:
-      BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
 
     steps:
@@ -36,13 +36,16 @@ jobs:
 
       - name: Export CI environment variables
         run: |
+          cp -v "ci/$BUILD_ENV_FILE" .env
           for var in APP_TITLE APP_FILENAME PACKAGE_ID \
                      BUILD_VARIANTS FORCE_INTERNAL_USER_FLAG \
                      MAPS_API_KEY; do
             if [ -n "${!var}" ]; then
+              echo "Setting CI_$var=${!var}"
               echo "CI_$var=${!var}" >> $GITHUB_ENV
             fi
           done
+        working-directory: reproducible-builds
         env:
           APP_TITLE: ${{ vars.CI_APP_TITLE }}
           APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
@@ -52,7 +55,7 @@ jobs:
           MAPS_API_KEY: ${{ vars.CI_MAPS_API_KEY }}
 
       - name: Build release
-        run: docker-compose --env-file "ci/$BUILD_ENV_FILE" run assemble
+        run: docker-compose run assemble
         working-directory: reproducible-builds
 
       - uses: actions/upload-artifact@v4

@@ -32,6 +32,8 @@ COPY gradlew /molly/
 COPY gradle /molly/gradle/
 RUN /molly/gradlew --version
 
+ENV GRADLE_RO_DEP_CACHE=/.gradle-ro-cache
+
 COPY . /molly/
 WORKDIR /molly
 RUN git clean -df

@@ -12,6 +12,8 @@ on:
 
 env:
   TAG_REF: "${{ inputs.version || github.ref_name }}"
+  BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
+  HAVE_KEYSTORE: ${{ secrets.SECRET_KEYSTORE != '' }}
 
 jobs:
   build:
@@ -23,8 +25,6 @@ jobs:
       contents: read # to fetch code (actions/checkout)
 
     env:
-      BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
-      HAVE_KEYSTORE: ${{ secrets.SECRET_KEYSTORE != '' }}
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
 
     steps:
@@ -32,19 +32,29 @@ jobs:
         with:
           ref: "${{ env.TAG_REF }}"
 
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
       - name: Set up builder image
         run: docker-compose build
         working-directory: reproducible-builds
 
       - name: Export CI environment variables
         run: |
+          cp -v "ci/$BUILD_ENV_FILE" .env
           for var in APP_TITLE APP_FILENAME PACKAGE_ID \
                      BUILD_VARIANTS FORCE_INTERNAL_USER_FLAG \
                      MAPS_API_KEY; do
             if [ -n "${!var}" ]; then
+              echo "Setting CI_$var=${!var}"
               echo "CI_$var=${!var}" >> $GITHUB_ENV
             fi
           done
+        working-directory: reproducible-builds
         env:
           APP_TITLE: ${{ vars.CI_APP_TITLE }}
           APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
@@ -62,12 +72,12 @@ jobs:
 
       - name: Build without signing
         if: "env.HAVE_KEYSTORE == 'false'"
-        run: docker-compose --env-file "ci/$BUILD_ENV_FILE" run assemble
+        run: docker-compose run -v "$HOME/.gradle/caches:/.gradle-ro-cache:ro" assemble
         working-directory: reproducible-builds
 
       - name: Build and sign
         if: "env.HAVE_KEYSTORE == 'true'"
-        run: docker-compose --env-file "ci/$BUILD_ENV_FILE" run assemble
+        run: docker-compose run -v "$HOME/.gradle/caches:/.gradle-ro-cache:ro" assemble
         working-directory: reproducible-builds
         env:
           CI_KEYSTORE_PATH: certs/keystore.jks
