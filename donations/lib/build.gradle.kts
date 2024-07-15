@@ -10,8 +10,6 @@ android {
 dependencies {
   implementation(project(":core-util"))
 
-  implementation(libs.kotlin.reflect)
-  implementation(libs.jackson.module.kotlin)
   implementation(libs.jackson.core)
 
   testImplementation(testLibs.robolectric.robolectric) {

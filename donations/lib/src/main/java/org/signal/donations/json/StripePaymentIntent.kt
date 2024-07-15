@@ -1,6 +1,5 @@
 package org.signal.donations.json
 
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -10,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * See: https://stripe.com/docs/api/payment_intents/object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class StripePaymentIntent @JsonCreator constructor(
+data class StripePaymentIntent(
   @JsonProperty("id") val id: String,
   @JsonProperty("client_secret") val clientSecret: String,
   @JsonProperty("status") val status: StripeIntentStatus?,
