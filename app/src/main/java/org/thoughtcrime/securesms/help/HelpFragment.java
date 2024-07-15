@@ -39,7 +39,7 @@ public class HelpFragment extends LoggingFragment {
 
   public static final String START_CATEGORY_INDEX = "start_category_index";
   public static final int    PAYMENT_INDEX        = 6;
-  //public static final int  DONATION_INDEX       = 7;
+  public static final int    DONATION_INDEX       = 7;
   //public static final int  SMS_EXPORT_INDEX     = 8;
 
   private EditText                       problem;

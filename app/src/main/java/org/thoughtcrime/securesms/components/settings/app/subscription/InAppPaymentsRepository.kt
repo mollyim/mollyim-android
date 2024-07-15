@@ -30,7 +30,6 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.errors.Do
 import org.thoughtcrime.securesms.components.settings.app.subscription.errors.DonationErrorSource
 import org.thoughtcrime.securesms.components.settings.app.subscription.errors.toDonationError
 import org.thoughtcrime.securesms.components.settings.app.subscription.manage.DonationRedemptionJobStatus
-import org.thoughtcrime.securesms.components.settings.app.subscription.manage.DonationRedemptionJobWatcher
 import org.thoughtcrime.securesms.components.settings.app.subscription.manage.NonVerifiedMonthlyDonation
 import org.thoughtcrime.securesms.database.DatabaseObserver.InAppPaymentObserver
 import org.thoughtcrime.securesms.database.InAppPaymentTable
@@ -442,7 +441,7 @@ object InAppPaymentsRepository {
    */
   @WorkerThread
   fun hasPendingDonation(): Boolean {
-    return SignalDatabase.inAppPayments.hasPendingDonation() || DonationRedemptionJobWatcher.hasPendingRedemptionJob()
+    return SignalDatabase.inAppPayments.hasPendingDonation()
   }
 
   /**
@@ -452,8 +451,8 @@ object InAppPaymentsRepository {
     val jobStatusObservable: Observable<DonationRedemptionJobStatus> = when (type) {
       InAppPaymentType.UNKNOWN -> Observable.empty()
       InAppPaymentType.ONE_TIME_GIFT -> Observable.empty()
-      InAppPaymentType.ONE_TIME_DONATION -> DonationRedemptionJobWatcher.watchOneTimeRedemption()
-      InAppPaymentType.RECURRING_DONATION -> DonationRedemptionJobWatcher.watchSubscriptionRedemption()
+      InAppPaymentType.ONE_TIME_DONATION -> Observable.empty()
+      InAppPaymentType.RECURRING_DONATION -> Observable.empty()
       InAppPaymentType.RECURRING_BACKUP -> Observable.empty()
     }
 

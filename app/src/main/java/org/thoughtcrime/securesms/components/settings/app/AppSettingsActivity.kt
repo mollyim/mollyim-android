@@ -5,10 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.NavDirections
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.Subject
+import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.notifications.profiles.EditNotificationProfileScheduleFragmentArgs
+import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentComponent
+import org.thoughtcrime.securesms.components.settings.app.subscription.StripeRepository
 import org.thoughtcrime.securesms.help.HelpFragment
 import org.thoughtcrime.securesms.keyvalue.SettingsValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -25,9 +30,12 @@ private const val NOTIFICATION_CATEGORY = "android.intent.category.NOTIFICATION_
 private const val STATE_WAS_CONFIGURATION_UPDATED = "app.settings.state.configuration.updated"
 private const val EXTRA_PERFORM_ACTION_ON_CREATE = "extra_perform_action_on_create"
 
-class AppSettingsActivity : DSLSettingsActivity() {
+class AppSettingsActivity : DSLSettingsActivity(), InAppPaymentComponent {
 
   private var wasConfigurationUpdated = false
+
+  override val stripeRepository: StripeRepository by lazy { StripeRepository(this) }
+  override val googlePayResultPublisher: Subject<InAppPaymentComponent.GooglePayResult> = PublishSubject.create()
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
     if (intent?.hasExtra(ARG_NAV_GRAPH) != true) {
@@ -47,6 +55,8 @@ class AppSettingsActivity : DSLSettingsActivity() {
         StartLocation.PROXY -> AppSettingsFragmentDirections.actionDirectToNetworkPreferenceFragment()
         StartLocation.NOTIFICATIONS -> AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
         StartLocation.CHANGE_NUMBER -> AppSettingsFragmentDirections.actionDirectToChangeNumberFragment()
+        StartLocation.SUBSCRIPTIONS -> AppSettingsFragmentDirections.actionDirectToCheckout(InAppPaymentType.RECURRING_DONATION)
+        StartLocation.MANAGE_SUBSCRIPTIONS -> AppSettingsFragmentDirections.actionDirectToManageDonations()
         StartLocation.NOTIFICATION_PROFILES -> AppSettingsFragmentDirections.actionDirectToNotificationProfiles()
         StartLocation.CREATE_NOTIFICATION_PROFILE -> AppSettingsFragmentDirections.actionDirectToCreateNotificationProfiles()
         StartLocation.NOTIFICATION_PROFILE_DETAILS -> AppSettingsFragmentDirections.actionDirectToNotificationProfileDetails(
@@ -115,6 +125,7 @@ class AppSettingsActivity : DSLSettingsActivity() {
   @Suppress("DEPRECATION")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
+    googlePayResultPublisher.onNext(InAppPaymentComponent.GooglePayResult(requestCode, resultCode, data))
   }
 
   companion object {
@@ -144,6 +155,12 @@ class AppSettingsActivity : DSLSettingsActivity() {
 
     @JvmStatic
     fun changeNumber(context: Context): Intent = getIntentForStartLocation(context, StartLocation.CHANGE_NUMBER)
+
+    @JvmStatic
+    fun subscriptions(context: Context): Intent = getIntentForStartLocation(context, StartLocation.SUBSCRIPTIONS)
+
+    @JvmStatic
+    fun manageSubscriptions(context: Context): Intent = getIntentForStartLocation(context, StartLocation.MANAGE_SUBSCRIPTIONS)
 
     @JvmStatic
     fun notificationProfiles(context: Context): Intent = getIntentForStartLocation(context, StartLocation.NOTIFICATION_PROFILES)
@@ -187,9 +204,9 @@ class AppSettingsActivity : DSLSettingsActivity() {
     PROXY(3),
     NOTIFICATIONS(4),
     CHANGE_NUMBER(5),
-    // SUBSCRIPTIONS(6),
+    SUBSCRIPTIONS(6),
     // BOOST(7),
-    // MANAGE_SUBSCRIPTIONS(8),
+    MANAGE_SUBSCRIPTIONS(8),
     NOTIFICATION_PROFILES(9),
     CREATE_NOTIFICATION_PROFILE(10),
     NOTIFICATION_PROFILE_DETAILS(11),

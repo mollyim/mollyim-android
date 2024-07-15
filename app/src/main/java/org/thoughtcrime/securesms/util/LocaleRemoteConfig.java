@@ -41,6 +41,35 @@ public final class LocaleRemoteConfig {
     return isEnabledPartsPerMillion(releaseNoteUuid, countries);
   }
 
+  /**
+   * @return Whether Google Pay is disabled in this region
+   */
+  public static boolean isGooglePayDisabled() {
+    return isEnabledE164Start(RemoteConfig.googlePayDisabledRegions());
+  }
+
+  /**
+   * @return Whether credit cards are disabled in this region
+   */
+  public static boolean isCreditCardDisabled() {
+    return isEnabledE164Start(RemoteConfig.creditCardDisabledRegions());
+  }
+
+  /**
+   * @return Whether PayPal is disabled in this region
+   */
+  public static boolean isPayPalDisabled() {
+    return isEnabledE164Start(RemoteConfig.paypalDisabledRegions());
+  }
+
+  public static boolean isIdealEnabled() {
+    return isEnabledE164Start(RemoteConfig.idealEnabledRegions());
+  }
+
+  public static boolean isSepaEnabled() {
+    return isEnabledE164Start(RemoteConfig.sepaEnabledRegions());
+  }
+
   public static boolean isDeviceSpecificNotificationEnabled() {
     return isEnabledPartsPerMillion(RemoteConfig.DEVICE_SPECIFIC_NOTIFICATION_CONFIG, DeviceSpecificNotificationConfig.getCurrentConfig().getLocalePercent());
   }

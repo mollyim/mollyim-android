@@ -316,19 +316,21 @@ class InAppPaymentValues internal constructor(store: KeyValueStore) : SignalStor
     return Badges.fromDatabaseBadge(BadgeList.Badge.ADAPTER.decode(badgeBytes))
   }
 
-  fun setExpiredGiftBadge(badge: Badge?) {
-    if (badge != null) {
-      putBlob(EXPIRED_GIFT_BADGE, Badges.toDatabaseBadge(badge).encode())
-    } else {
-      remove(EXPIRED_GIFT_BADGE)
-    }
-  }
+  // MOLLY: TODO
+  // fun setExpiredGiftBadge(badge: Badge?) {
+  //   if (badge != null) {
+  //     putBlob(EXPIRED_GIFT_BADGE, Badges.toDatabaseBadge(badge).encode())
+  //   } else {
+  //     remove(EXPIRED_GIFT_BADGE)
+  //   }
+  // }
 
-  fun getExpiredGiftBadge(): Badge? {
-    val badgeBytes = getBlob(EXPIRED_GIFT_BADGE, null) ?: return null
-
-    return Badges.fromDatabaseBadge(BadgeList.Badge.ADAPTER.decode(badgeBytes))
-  }
+  // MOLLY: TODO
+  // fun getExpiredGiftBadge(): Badge? {
+  //   val badgeBytes = getBlob(EXPIRED_GIFT_BADGE, null) ?: return null
+  //
+  //   return Badges.fromDatabaseBadge(BadgeList.Badge.ADAPTER.decode(badgeBytes))
+  // }
 
   fun getLastKeepAliveLaunchTime(): Long {
     return getLong(KEY_LAST_KEEP_ALIVE_LAUNCH, 0L)

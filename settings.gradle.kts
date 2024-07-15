@@ -66,6 +66,8 @@ include(":device-transfer")
 //include(":device-transfer-app")
 include(":image-editor")
 //include(":image-editor-app")
+include(":donations")
+//include(":donations-app")
 include(":spinner")
 //include(":spinner-app")
 include(":contacts")
@@ -86,6 +88,9 @@ project(":device-transfer").projectDir = file("device-transfer/lib")
 
 project(":image-editor").projectDir = file("image-editor/lib")
 //project(":image-editor-app").projectDir = file("image-editor/app")
+
+project(":donations").projectDir = file("donations/lib")
+//project(":donations-app").projectDir = file("donations/app")
 
 project(":spinner").projectDir = file("spinner/lib")
 //project(":spinner-app").projectDir = file("spinner/app")

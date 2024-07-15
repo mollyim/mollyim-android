@@ -23,7 +23,7 @@ public final class NotificationIds {
   //public static final int LEGACY_SQLCIPHER_MIGRATION      = 494949;
   public static final int USER_NOTIFICATION_MIGRATION       = 525600;
   public static final int DEVICE_TRANSFER                   = 625420;
-  //public static final int DONOR_BADGE_FAILURE             = 630001;
+  public static final int DONOR_BADGE_FAILURE               = 630001;
   public static final int FCM_FETCH                         = 630002;
   //public static final int SMS_EXPORT_SERVICE              = 630003;
   //public static final int SMS_EXPORT_COMPLETE             = 630004;

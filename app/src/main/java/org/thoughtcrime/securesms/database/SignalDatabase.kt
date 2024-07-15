@@ -55,7 +55,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   val avatarPickerDatabase: AvatarPickerDatabase = AvatarPickerDatabase(context, this)
   val reactionTable: ReactionTable = ReactionTable(context, this)
   val notificationProfileDatabase: NotificationProfileDatabase = NotificationProfileDatabase(context, this)
-  val signalDonationReceiptTable: DonationReceiptTable = DonationReceiptTable(context, this)
+  val donationReceiptTable: DonationReceiptTable = DonationReceiptTable(context, this)
   val distributionListTables: DistributionListTables = DistributionListTables(context, this)
   val storySendTable: StorySendTable = StorySendTable(context, this)
   val cdsTable: CdsTable = CdsTable(context, this)
@@ -334,8 +334,8 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
 
     @get:JvmStatic
     @get:JvmName("donationReceipts")
-    val signalDonationReceipts: DonationReceiptTable
-      get() = instance!!.signalDonationReceiptTable
+    val donationReceipts: DonationReceiptTable
+      get() = instance!!.donationReceiptTable
 
     @get:JvmStatic
     @get:JvmName("drafts")

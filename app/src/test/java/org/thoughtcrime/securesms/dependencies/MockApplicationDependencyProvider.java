@@ -206,7 +206,7 @@ public class MockApplicationDependencyProvider implements AppDependencies.Provid
   }
 
   @Override
-  public @NonNull DonationsService provideSignalDonationsService(@NonNull SignalServiceConfiguration signalServiceConfiguration, @NonNull GroupsV2Operations groupsV2Operations) {
+  public @NonNull DonationsService provideDonationsService(@NonNull SignalServiceConfiguration signalServiceConfiguration, @NonNull GroupsV2Operations groupsV2Operations) {
     return null;
   }
 

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:viewBindingIgnore="true">
+
+    <ImageView
+        android:id="@+id/subscribe_bottom_sheet_handle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:importantForAccessibility="no"
+        app:srcCompat="@drawable/bottom_sheet_handle" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/subscribe_bottom_sheet_heart"
+                android:layout_width="76dp"
+                android:layout_height="74dp"
+                android:layout_marginTop="16dp"
+                android:importantForAccessibility="no"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_sustainer_heart" />
+
+            <TextView
+                android:id="@+id/subscribe_bottom_sheet_headline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dsl_settings_gutter"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="@dimen/dsl_settings_gutter"
+                android:gravity="center"
+                android:text="@string/SubscribeLearnMoreBottomSheetDialogFragment__signal_is_different"
+                android:textAppearance="@style/Signal.Text.HeadlineMedium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/subscribe_bottom_sheet_heart" />
+
+            <TextView
+                android:id="@+id/subscribe_bottom_sheet_subhead"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dsl_settings_gutter"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/dsl_settings_gutter"
+                android:text="@string/SubscribeLearnMoreBottomSheetDialogFragment__private_messaging"
+                android:textAppearance="@style/Signal.Text.BodyLarge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/subscribe_bottom_sheet_headline" />
+
+            <TextView
+                android:id="@+id/subscribe_bottom_sheet_the_team"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dsl_settings_gutter"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/dsl_settings_gutter"
+                android:text="@string/SubscribeLearnMoreBottomSheetDialogFragment__signal_is_supported_by"
+                android:textAppearance="@style/Signal.Text.BodyLarge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/subscribe_bottom_sheet_subhead" />
+
+            <TextView
+                android:id="@+id/subscribe_bottom_sheet_your_contribution"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dsl_settings_gutter"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/dsl_settings_gutter"
+                android:paddingBottom="36dp"
+                android:text="@string/SubscribeLearnMoreBottomSheetDialogFragment__if_you_can"
+                android:textAppearance="@style/Signal.Text.BodyLarge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/subscribe_bottom_sheet_the_team" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

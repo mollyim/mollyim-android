@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:paddingStart="@dimen/active_subscription_gutter_start"
+    android:paddingEnd="@dimen/dsl_settings_gutter">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <org.thoughtcrime.securesms.badges.BadgeImageView
+            android:id="@+id/my_support_badge"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            app:badge_size="xlarge"
+            app:layout_constraintBottom_toBottomOf="@id/my_support_expiry"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/my_support_title"
+            tools:src="@drawable/test_gradient" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/my_support_progress"
+            style="?circularProgressIndicatorStyle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:indicatorColor="@color/signal_colorOnSurfaceVariant"
+            app:indicatorSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/my_support_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="22dp"
+            android:textAppearance="@style/Signal.Text.BodyLarge"
+            app:layout_constraintEnd_toStartOf="@id/my_support_progress"
+            app:layout_constraintStart_toEndOf="@id/my_support_badge"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Subscription Name" />
+
+        <TextView
+            android:id="@+id/my_support_expiry"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="11dp"
+            android:textAppearance="@style/Signal.Text.BodyMedium"
+            android:textColor="@color/signal_text_secondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/my_support_progress"
+            app:layout_constraintStart_toEndOf="@id/my_support_badge"
+            app:layout_constraintTop_toBottomOf="@id/my_support_title"
+            tools:text="$400.00" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

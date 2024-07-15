@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/dsl_settings_gutter"
+    android:paddingEnd="@dimen/dsl_settings_gutter"
+    tools:viewBindingIgnore="true">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/subscription_currency_selection_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/currency_selection_background"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:minHeight="32dp"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:textAppearance="@style/Signal.Text.LabelMedium"
+        android:textColor="@color/currency_selector_text_color"
+        app:drawableEndCompat="@drawable/ic_chevron_16"
+        app:drawableTint="@color/signal_colorOutline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="USD" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

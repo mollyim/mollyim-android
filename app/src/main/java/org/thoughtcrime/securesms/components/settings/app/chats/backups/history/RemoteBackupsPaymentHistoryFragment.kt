@@ -216,7 +216,7 @@ private fun PaymentHistoryDetails(
       }
 
       Image(
-        painter = painterResource(id = R.drawable.ic_signal_logo_type),
+        painter = painterResource(id = R.drawable.ic_molly_logo),
         contentDescription = null,
         modifier = Modifier
           .align(alignment = Alignment.CenterHorizontally)

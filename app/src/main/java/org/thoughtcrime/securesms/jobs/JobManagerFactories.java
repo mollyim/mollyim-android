@@ -140,12 +140,12 @@ public final class JobManagerFactories {
       put(GroupCallPeekWorkerJob.KEY,                new GroupCallPeekWorkerJob.Factory());
       put(GroupRingCleanupJob.KEY,                   new GroupRingCleanupJob.Factory());
       put(GroupV2UpdateSelfProfileKeyJob.KEY,        new GroupV2UpdateSelfProfileKeyJob.Factory());
-      put("InAppPaymentAuthCheckJob",                new FailingJob.Factory());
+      put(InAppPaymentAuthCheckJob.KEY,              new InAppPaymentAuthCheckJob.Factory());
       put("InAppPaymentGiftSendJob",                 new FailingJob.Factory());
-      put("InAppPaymentKeepAliveJob",                new FailingJob.Factory());
-      put("InAppPaymentRecurringContextJob",         new FailingJob.Factory());
-      put("InAppPaymentOneTimeContextJob",           new FailingJob.Factory());
-      put("InAppPaymentRedemptionJob",               new FailingJob.Factory());
+      put(InAppPaymentKeepAliveJob.KEY,              new InAppPaymentKeepAliveJob.Factory());
+      put(InAppPaymentRecurringContextJob.KEY,       new InAppPaymentRecurringContextJob.Factory());
+      put(InAppPaymentOneTimeContextJob.KEY,         new InAppPaymentOneTimeContextJob.Factory());
+      put(InAppPaymentRedemptionJob.KEY,             new InAppPaymentRedemptionJob.Factory());
       put(IndividualSendJob.KEY,                     new IndividualSendJob.Factory());
       put(LeaveGroupV2Job.KEY,                       new LeaveGroupV2Job.Factory());
       put(LeaveGroupV2WorkerJob.KEY,                 new LeaveGroupV2WorkerJob.Factory());
@@ -228,7 +228,7 @@ public final class JobManagerFactories {
       put(StorageForcePushJob.KEY,                   new StorageForcePushJob.Factory());
       put(StorageSyncJob.KEY,                        new StorageSyncJob.Factory());
       put("SubscriptionKeepAliveJob",                new FailingJob.Factory());
-      put("SubscriptionReceiptCredentialsSubmissionJob", new FailingJob.Factory());
+      put("SubscriptionReceiptCredentialsSubmissionJob", new FailingJob.Factory()); // SubscriptionReceiptRequestResponseJob.java
       put(SubscriberIdMigrationJob.KEY,              new SubscriberIdMigrationJob.Factory());
       put(StoryOnboardingDownloadJob.KEY,            new StoryOnboardingDownloadJob.Factory());
       put(SubmitRateLimitPushChallengeJob.KEY,       new SubmitRateLimitPushChallengeJob.Factory());

@@ -41,6 +41,9 @@ data class Badge(
 ) : Parcelable, Key {
 
   fun isExpired(): Boolean = expirationTimestamp < System.currentTimeMillis() && expirationTimestamp > 0
+  fun isBoost(): Boolean = id == BOOST_BADGE_ID
+  fun isGift(): Boolean = id == GIFT_BADGE_ID
+  fun isSubscription(): Boolean = !isBoost() && !isGift()
 
   override fun updateDiskCacheKey(messageDigest: MessageDigest) {
     messageDigest.update(id.toByteArray(Key.CHARSET))
@@ -163,6 +166,9 @@ data class Badge(
   }
 
   companion object {
+    const val BOOST_BADGE_ID = "BOOST"
+    const val GIFT_BADGE_ID = "GIFT"
+
     private val SELECTION_CHANGED = Any()
 
     fun register(mappingAdapter: MappingAdapter, onBadgeClicked: OnBadgeClicked) {

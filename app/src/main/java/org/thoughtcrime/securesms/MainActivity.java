@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.signal.core.util.concurrent.LifecycleDisposable;
+import org.signal.donations.StripeApi;
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.conversationlist.RelinkDevicesReminderBottomSheetFragment;
@@ -186,6 +188,7 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
     handleGroupLinkInIntent(intent);
     handleSignalMeIntent(intent);
     handleCallLinkInIntent(intent);
+    handleDonateReturnIntent(intent);
   }
 
   private void handleGroupLinkInIntent(Intent intent) {
@@ -206,6 +209,13 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
     Uri data = intent.getData();
     if (data != null) {
       CommunicationActions.handlePotentialCallLinkUrl(this, data.toString());
+    }
+  }
+
+  private void handleDonateReturnIntent(Intent intent) {
+    Uri data = intent.getData();
+    if (data != null && data.toString().startsWith(StripeApi.RETURN_URL_IDEAL)) {
+      startActivity(AppSettingsActivity.manageSubscriptions(this));
     }
   }
 

@@ -203,6 +203,7 @@ android {
 
     // MOLLY: Rely on the built-in variables FLAVOR and BUILD_TYPE instead of BUILD_*_TYPE
     buildConfigField("String", "BADGE_STATIC_ROOT", "\"https://updates2.signal.org/static/badges/\"")
+    buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_live_6cmGZopuTsV8novGgJJW9JpC00vLIgtQ1D\"")
     buildConfigField("boolean", "TRACING_ENABLED", "false")
 
     ndk {
@@ -401,6 +402,7 @@ dependencies {
   implementation(project(":video"))
   implementation(project(":device-transfer"))
   implementation(project(":image-editor"))
+  implementation(project(":donations"))
   implementation(project(":contacts"))
   implementation(project(":qr"))
   implementation(project(":sticky-header-grid"))
@@ -456,6 +458,9 @@ dependencies {
     exclude(group = "com.google.firebase", module = "firebase-analytics")
     exclude(group = "com.google.firebase", module = "firebase-measurement-connector")
   }
+  "gmsImplementation"(libs.google.play.services.maps)
+  "gmsImplementation"(libs.google.play.services.auth)
+  "fossImplementation"(project(":libfakegms"))
   implementation(libs.bundles.media3)
   implementation(libs.conscrypt.android)
   implementation(libs.signal.aesgcmprovider)
@@ -503,7 +508,6 @@ dependencies {
   implementation(libs.molly.glide.webp.decoder)
   implementation(libs.gosimple.nbvcxz)
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
-  "fossImplementation"(project(":libfakegms"))
 
   "spinnerImplementation"(project(":spinner"))
 
