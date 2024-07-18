@@ -4,12 +4,15 @@ import ProtoUtil.isNotEmpty
 import android.content.Context
 import android.text.TextUtils
 import com.mobilecoin.lib.exceptions.SerializationException
+import okio.ByteString.Companion.toByteString
+import org.signal.core.util.Base64
 import org.signal.core.util.Hex
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
 import org.signal.core.util.toOptional
 import org.signal.libsignal.zkgroup.groups.GroupSecretParams
+import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation
 import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.PointerAttachment
 import org.thoughtcrime.securesms.attachments.TombstoneAttachment
@@ -37,6 +40,7 @@ import org.thoughtcrime.securesms.database.model.ParentStoryId.GroupReply
 import org.thoughtcrime.securesms.database.model.ReactionRecord
 import org.thoughtcrime.securesms.database.model.StickerRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
+import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge
 import org.thoughtcrime.securesms.database.model.toBodyRangeList
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.BadGroupIdException
@@ -1038,12 +1042,7 @@ object DataMessageProcessor {
       return null
     }
 
-    val authorAci = ServiceId.parseOrThrow(quote.authorAci!!)
-    if (authorAci.isUnknown) {
-      warn(timestamp, "Received quote from an unknown author! Ignoring...")
-      return null
-    }
-    val authorId = Recipient.externalPush(authorAci).id
+    val authorId = Recipient.externalPush(ServiceId.parseOrThrow(quote.authorAci!!)).id
     var quotedMessage = SignalDatabase.messages.getMessageFor(quote.id!!, authorId) as? MmsMessageRecord
 
     if (quotedMessage != null && !quotedMessage.isRemoteDelete) {
