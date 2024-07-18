@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.Base64;
-import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.LRUCache;
 
@@ -25,8 +24,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class EncryptedPreferences implements SharedPreferences {
-
-  private static final String TAG = Log.tag(EncryptedPreferences.class);
 
   private static final String NULL_VALUE = "__NULL__";
 
@@ -374,14 +371,7 @@ public class EncryptedPreferences implements SharedPreferences {
     synchronized (cache) {
       String encryptedValue = sharedPreferences.getString(key, null);
       if (encryptedValue != null) {
-        byte[] bytes;
-        try {
-          bytes = decrypt(key, encryptedValue, masterCipher);
-        } catch (SecurityException se) {
-          Log.e(TAG, "'" + key + "' reset to default: " + se);
-          cache.put(cacheKey, null);
-          return null;
-        }
+        byte[] bytes = decrypt(key, encryptedValue, masterCipher);
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         buffer.position(0);
         int typeId = buffer.getInt();
