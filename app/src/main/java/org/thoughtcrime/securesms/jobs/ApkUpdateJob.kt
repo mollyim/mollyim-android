@@ -121,6 +121,8 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     } else {
       Log.i(TAG, "No update needed. Current version ($currentVersionCode) is up to date.")
     }
+
+    SignalStore.apkUpdate.lastSuccessfulCheck = System.currentTimeMillis()
   }
 
   public override fun onShouldRetry(e: Exception): Boolean {

@@ -34,7 +34,7 @@ class HelpSettingsViewModel : ViewModel() {
     refreshState()
   }
 
-  private fun checkForUpdates() {
+  fun checkForUpdates() {
     ApkUpdateRefreshListener.scheduleIfAllowed(application)
     AppDependencies.jobManager.add(ApkUpdateJob())
   }
