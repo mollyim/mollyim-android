@@ -17,6 +17,8 @@ public class UiHintValues extends SignalStoreValues {
   private static final String HAS_SEEN_TEXT_FORMATTING_ALERT           = "uihints.text_formatting.has_seen_alert";
   private static final String HAS_NOT_SEEN_EDIT_MESSAGE_BETA_ALERT     = "uihints.edit_message.has_not_seen_beta_alert";
   private static final String HAS_SEEN_SAFETY_NUMBER_NUX               = "uihints.has_seen_safety_number_nux";
+  private static final String DISMISSED_BATTERY_SAVER_PROMPT           = "uihints.declined_battery_saver_prompt";
+  private static final String LAST_BATTERY_SAVER_PROMPT                = "uihints.last_battery_saver_prompt";
   private static final String HAS_COMPLETED_USERNAME_ONBOARDING        = "uihints.has_completed_username_onboarding";
   private static final String HAS_SEEN_DOUBLE_TAP_EDIT_EDUCATION_SHEET = "uihints.has_seen_double_tap_edit_education_sheet";
   private static final String DISMISSED_CONTACTS_PERMISSION_BANNER     = "uihints.dismissed_contacts_permission_banner";
@@ -116,6 +118,22 @@ public class UiHintValues extends SignalStoreValues {
 
   public void markHasSeenSafetyNumberUpdateNux() {
     putBoolean(HAS_SEEN_SAFETY_NUMBER_NUX, true);
+  }
+
+  public void markDismissedBatterySaverPrompt() {
+    putBoolean(DISMISSED_BATTERY_SAVER_PROMPT, true);
+  }
+
+  public boolean hasDismissedBatterySaverPrompt() {
+    return getBoolean(DISMISSED_BATTERY_SAVER_PROMPT, false);
+  }
+
+  public long getLastBatterySaverPrompt() {
+    return getLong(LAST_BATTERY_SAVER_PROMPT, 0);
+  }
+
+  public void setLastBatterySaverPrompt(long time) {
+    putLong(LAST_BATTERY_SAVER_PROMPT, time);
   }
 
   public void setHasSeenDoubleTapEditEducationSheet(boolean seen) {
