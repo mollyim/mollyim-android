@@ -40,6 +40,9 @@ class RemoteConfig_StaticValuesTest {
       "debugDiskValues",
       "debugPendingDiskValues",
       "internalUser",
+      "CRASH_PROMPT_CONFIG",
+      "PROMPT_BATTERY_SAVER",
+      "PROMPT_FOR_NOTIFICATION_LOGS",
       "DEVICE_SPECIFIC_NOTIFICATION_CONFIG"
     )
 

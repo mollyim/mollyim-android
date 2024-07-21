@@ -484,12 +484,7 @@ object RemoteConfig {
   /** Whether or not the user is an 'internal' one, which activates certain developer tools. */
   @JvmStatic
   @get:JvmName("internalUser")
-  val internalUser: Boolean by remoteValue(
-    key = "android.internalUser",
-    hotSwappable = true
-  ) { value ->
-    value.asBoolean(false) || Environment.IS_STAGING || BuildConfig.DEBUG || BuildConfig.FORCE_INTERNAL_USER_FLAG
-  }
+  val internalUser: Boolean = Environment.IS_STAGING || BuildConfig.DEBUG || BuildConfig.FORCE_INTERNAL_USER_FLAG
 
   /** The raw client expiration JSON string.  */
   @JvmStatic
