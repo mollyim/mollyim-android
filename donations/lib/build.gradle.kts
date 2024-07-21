@@ -5,6 +5,19 @@ plugins {
 
 android {
   namespace = "org.signal.donations"
+
+  flavorDimensions += "license"
+
+  productFlavors {
+    create("gms") {
+      dimension = "license"
+      isDefault = true
+    }
+
+    create("foss") {
+      dimension = "license"
+    }
+  }
 }
 
 dependencies {
@@ -16,6 +29,7 @@ dependencies {
     exclude(group = "com.google.protobuf", module = "protobuf-java")
   }
 
-  api(libs.google.play.services.wallet)
+  "gmsApi"(libs.google.play.services.wallet)
+  "fossApi"(project(":libfakegms"))
   api(libs.square.okhttp3)
 }
