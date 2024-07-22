@@ -89,7 +89,6 @@ public class SubmitDebugLogRepository {
     add(new LogSectionKeyPreferences());
     add(new LogSectionStories());
     add(new LogSectionPermissions());
-    add(new LogSectionTrace());
     add(new LogSectionThreads());
     add(new LogSectionThreadDump());
     if (RemoteConfig.internalUser()) {
