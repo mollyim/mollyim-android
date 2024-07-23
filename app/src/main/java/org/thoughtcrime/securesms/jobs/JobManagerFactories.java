@@ -95,7 +95,7 @@ public final class JobManagerFactories {
   public static Map<String, Job.Factory> getJobFactories(@NonNull Application application) {
     return new HashMap<String, Job.Factory>() {{
       put(AccountConsistencyWorkerJob.KEY,           new AccountConsistencyWorkerJob.Factory());
-      put(AllDataSyncRequestJob.KEY,                 new AllDataSyncRequestJob.Factory());
+      put("AllDataSyncRequestJob",                   new FailingJob.Factory());
       put(AnalyzeDatabaseJob.KEY,                    new AnalyzeDatabaseJob.Factory());
       put(ArchiveAttachmentJob.KEY,                  new ArchiveAttachmentJob.Factory());
       put(ArchiveAttachmentBackfillJob.KEY,          new ArchiveAttachmentBackfillJob.Factory());
@@ -179,7 +179,7 @@ public final class JobManagerFactories {
       put(PaymentNotificationSendJobV2.KEY,          new PaymentNotificationSendJobV2.Factory());
       put(PaymentSendJob.KEY,                        new PaymentSendJob.Factory());
       put(PaymentTransactionCheckJob.KEY,            new PaymentTransactionCheckJob.Factory());
-      put(PnpInitializeDevicesJob.KEY,               new PnpInitializeDevicesJob.Factory());
+      put("PnpInitializeDevicesJob",                 new FailingJob.Factory());
       put(PreKeysSyncJob.KEY,                        new PreKeysSyncJob.Factory());
       put("ExternalLaunchDonationJob",               new FailingJob.Factory());
       put(ProfileKeySendJob.KEY,                     new ProfileKeySendJob.Factory());

@@ -99,8 +99,8 @@ public class AccountManagerFactory {
   /**
    * Should only be used during registration when linking to an existing device.
    */
-  public static @NonNull SignalServiceAccountManager createForDeviceLink(@NonNull Context context,
-                                                                         @NonNull String password)
+  public @NonNull SignalServiceAccountManager createForDeviceLink(@NonNull Context context,
+                                                                  @NonNull String password)
   {
     // Limitation - We cannot detect the need to use a censored configuration for the link process, because the number (and hence country code) is unknown.
     // Perhaps offer a UI to select just the country, and obtain censorship configuration that way?

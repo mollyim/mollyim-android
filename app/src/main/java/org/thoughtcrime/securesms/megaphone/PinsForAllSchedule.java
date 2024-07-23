@@ -45,11 +45,7 @@ class PinsForAllSchedule implements MegaphoneSchedule {
       return false;
     }
 
-    if (SignalStore.svr().hasPin()) {
-      return false;
-    }
-
-    if (SignalStore.account().isLinkedDevice()) {
+    if (SignalStore.svr().hasPin() || SignalStore.account().isLinkedDevice()) {
       return false;
     }
 

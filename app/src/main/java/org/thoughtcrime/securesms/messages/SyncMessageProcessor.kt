@@ -1227,8 +1227,6 @@ object SyncMessageProcessor {
     }
 
     SignalStore.storageService.setStorageKeyFromPrimary(StorageKey(storageKey.toByteArray()))
-
-    AppDependencies.jobManager.add(StorageSyncJob())
   }
 
   @Throws(IOException::class)
@@ -1686,6 +1684,7 @@ object SyncMessageProcessor {
     }
   }
 
+  // MOLLY: FIXME
   private fun handleSynchronizePniChangeNumber(pniChangeNumber: PniChangeNumber, updatedPni: String?, envelopeTimestamp: Long) {
     if (SignalStore.account.isLinkedDevice) {
       log(envelopeTimestamp, "Primary device changed number. Synchronizing.")
@@ -1735,7 +1734,6 @@ object SyncMessageProcessor {
         true
       )
 
-      SignalStore.misc.hasPniInitializedDevices = true
       AppDependencies.groupsV2Authorization.clear()
     } catch (e: InvalidMessageException) {
       warn(envelopeTimestamp, "Invalid signed prekey received while synchronize number change", e)

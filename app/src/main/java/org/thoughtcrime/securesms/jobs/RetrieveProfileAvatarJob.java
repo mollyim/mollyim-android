@@ -105,7 +105,6 @@ public class RetrieveProfileAvatarJob extends BaseJob {
       }
     } else if (profileAvatar != null && profileAvatar.equals(recipient.resolve().getProfileAvatar())) {
       Log.w(TAG, "Already retrieved profile avatar: " + profileAvatar);
-      SignalStore.registration().clearNeedDownloadProfileAvatar();
       return;
     }
 
@@ -116,7 +115,6 @@ public class RetrieveProfileAvatarJob extends BaseJob {
         database.setProfileAvatar(recipient.getId(), profileAvatar);
       }
 
-      SignalStore.registration().clearNeedDownloadProfileAvatar();
       return;
     }
 
@@ -146,7 +144,6 @@ public class RetrieveProfileAvatarJob extends BaseJob {
     }
 
     database.setProfileAvatar(recipient.getId(), profileAvatar);
-    SignalStore.registration().clearNeedDownloadProfileAvatar();
   }
 
   @Override

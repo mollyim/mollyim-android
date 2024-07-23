@@ -291,7 +291,8 @@ object SvrRepository {
     masterKey: MasterKey?,
     userPin: String?,
     hasPinToRestore: Boolean,
-    setRegistrationLockEnabled: Boolean
+    setRegistrationLockEnabled: Boolean,
+    isLinkedDevice: Boolean,
   ) {
     Log.i(TAG, "[onRegistrationComplete] Starting", true)
     operationLock.withLock {
@@ -311,6 +312,10 @@ object SvrRepository {
         SignalStore.pin.resetPinReminders()
 
         AppDependencies.jobManager.add(ResetSvrGuessCountJob())
+      } else if (isLinkedDevice && masterKey != null) {
+        Log.i(TAG, "[onRegistrationComplete] Registration as linked device.", true)
+        SignalStore.storageService.setStorageKeyFromPrimary(masterKey.deriveStorageServiceKey())
+        SignalStore.svr.clearRegistrationLockAndPin()
       } else if (hasPinToRestore) {
         Log.i(TAG, "[onRegistrationComplete] Has a PIN to restore.", true)
         SignalStore.svr.clearRegistrationLockAndPin()

@@ -21,6 +21,8 @@ data class RegistrationState(
   val sessionId: String? = null,
   val enteredCode: String = "",
   val phoneNumber: Phonenumber.PhoneNumber? = fetchExistingE164FromValues(),
+  val linkDeviceName: String? = null,
+  val deviceLinkUrl: String? = null,
   val inProgress: Boolean = false,
   val isReRegister: Boolean = false,
   val recoveryPassword: String? = SignalStore.svr.getRecoveryPassword(),

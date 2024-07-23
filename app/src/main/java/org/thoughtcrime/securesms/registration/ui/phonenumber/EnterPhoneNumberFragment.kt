@@ -104,7 +104,14 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       R.layout.registration_country_code_dropdown_item,
       fragmentViewModel.supportedCountryPrefixes
     )
-    binding.registerButton.setOnClickListener { onRegistrationButtonClicked() }
+    binding.registerButton.setOnClickListener {
+      enableNetwork()
+      onRegistrationButtonClicked()
+    }
+    binding.linkButton.setOnClickListener {
+      enableNetwork()
+      findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.actionLinkDevice())
+    }
 
     binding.toolbar.title = ""
     val activity = requireActivity() as AppCompatActivity
@@ -413,8 +420,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
   private fun onRegistrationButtonClicked() {
     ViewUtil.hideKeyboard(requireContext(), phoneNumberInputLayout)
     sharedViewModel.setInProgress(true)
-    TextSecurePreferences.setHasSeenNetworkConfig(requireContext(), true)
-    AppDependencies.networkManager.setNetworkEnabled(true)
     val hasFcm = validateFcmStatus(requireContext())
     if (hasFcm) {
       sharedViewModel.uiState.observe(viewLifecycleOwner, FcmTokenRetrievedObserver())
@@ -434,6 +439,11 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
     }
   }
 
+  private fun enableNetwork() {
+    TextSecurePreferences.setHasSeenNetworkConfig(requireContext(), true)
+    AppDependencies.networkManager.setNetworkEnabled(true)
+  }
+
   private fun onFcmTokenRetrieved(value: RegistrationState) {
     if (value.phoneNumber == null) {
       fragmentViewModel.setError(EnterPhoneNumberState.Error.INVALID_PHONE_NUMBER)
@@ -451,6 +461,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
     }
     binding.countryCode.isEnabled = !showProgress
     binding.number.isEnabled = !showProgress
+    binding.linkButton.isEnabled = !showProgress
     binding.cancelButton.visible = !showProgress && isReRegister
   }
 

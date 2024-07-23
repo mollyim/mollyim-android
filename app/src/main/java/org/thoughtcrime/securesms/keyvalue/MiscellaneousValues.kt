@@ -154,11 +154,6 @@ class MiscellaneousValues internal constructor(store: KeyValueStore) : SignalSto
   var lastForegroundTime by longValue(LAST_FOREGROUND_TIME, 0)
 
   /**
-   * Whether or not we've done the initial "PNP Hello World" dance.
-   */
-  var hasPniInitializedDevices by booleanValue(PNI_INITIALIZED_DEVICES, true)
-
-  /**
    * Whether or not the user has linked devices.
    */
   var hasLinkedDevices by booleanValue(HAS_LINKED_DEVICES, false)

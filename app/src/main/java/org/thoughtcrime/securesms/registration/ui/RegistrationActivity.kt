@@ -75,8 +75,9 @@ class RegistrationActivity : BaseActivity() {
     } else {
       val isProfileNameEmpty = Recipient.self().profileName.isEmpty
       val isAvatarEmpty = !AvatarHelper.hasAvatar(this, Recipient.self().id)
-      val needsProfile = isProfileNameEmpty || isAvatarEmpty
-      val needsPin = !sharedViewModel.hasPin()
+      val isLinkedDevice = SignalStore.account.isLinkedDevice
+      val needsProfile = if (isLinkedDevice) false else isProfileNameEmpty || isAvatarEmpty
+      val needsPin = if (isLinkedDevice) false else !sharedViewModel.hasPin()
 
       Log.i(TAG, "Pin restore flow not required. Profile name: $isProfileNameEmpty | Profile avatar: $isAvatarEmpty | Needs PIN: $needsPin")
 

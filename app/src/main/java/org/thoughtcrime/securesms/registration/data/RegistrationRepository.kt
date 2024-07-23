@@ -210,7 +210,7 @@ object RegistrationRepository {
       TextSecurePreferences.setUnauthorizedReceived(context, false)
       NotificationManagerCompat.from(context).cancel(NotificationIds.UNREGISTERED_NOTIFICATION_ID)
 
-      SvrRepository.onRegistrationComplete(response.masterKey, response.pin, hasPin, reglockEnabled)
+      SvrRepository.onRegistrationComplete(response.masterKey, response.pin, hasPin, reglockEnabled, isLinkedDevice = SignalStore.account.isLinkedDevice)
 
       AppDependencies.resetNetwork(restartMessageObserver = true)
       PreKeysSyncJob.enqueue()

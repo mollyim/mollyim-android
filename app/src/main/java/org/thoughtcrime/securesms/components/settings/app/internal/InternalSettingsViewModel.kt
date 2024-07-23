@@ -55,11 +55,6 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     refresh()
   }
 
-  fun resetPnpInitializedState() {
-    SignalStore.misc.hasPniInitializedDevices = false
-    refresh()
-  }
-
   fun setUseBuiltInEmoji(enabled: Boolean) {
     preferenceDataStore.putBoolean(InternalValues.FORCE_BUILT_IN_EMOJI, enabled)
     refresh()
@@ -134,7 +129,6 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     delayResends = SignalStore.internal.delayResends(),
     disableStorageService = SignalStore.internal.storageServiceDisabled(),
     canClearOnboardingState = SignalStore.story.hasDownloadedOnboardingStory && Stories.isFeatureEnabled(),
-    pnpInitialized = SignalStore.misc.hasPniInitializedDevices,
     useConversationItemV2ForMedia = SignalStore.internal.useConversationItemV2Media(),
   )
 

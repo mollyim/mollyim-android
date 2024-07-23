@@ -79,6 +79,7 @@ import org.whispersystems.signalservice.internal.push.PaymentAddress;
 import org.whispersystems.signalservice.internal.push.ProfileAvatarData;
 import org.whispersystems.signalservice.internal.push.ProvisionMessage;
 import org.whispersystems.signalservice.internal.push.ProvisioningSocket;
+import org.whispersystems.signalservice.internal.push.ProvisioningUuid;
 import org.whispersystems.signalservice.internal.push.ProvisioningVersion;
 import org.whispersystems.signalservice.internal.push.PushServiceSocket;
 import org.whispersystems.signalservice.internal.push.RegistrationSessionMetadataResponse;
@@ -373,17 +374,6 @@ public class SignalServiceAccountManager {
     return pushServiceSocket.isIdentifierRegistered(identifier);
   }
 
-  /**
-   * Request a UUID from the server for linking as a new device.
-   * Called by the new device.
-   * @return The UUID, Base64 encoded
-   * @throws TimeoutException
-   * @throws IOException
-   */
-  public String getNewDeviceUuid() throws TimeoutException, IOException {
-    return provisioningSocket.getProvisioningUuid().uuid;
-  }
-
   @SuppressWarnings("SameParameterValue")
   public CdsiV2Service.Response getRegisteredUsersWithCdsi(Set<String> previousE164s,
                                                            Set<String> newE164s,
@@ -659,6 +649,17 @@ public class SignalServiceAccountManager {
 
   public String getNewDeviceVerificationCode() throws IOException {
     return this.pushServiceSocket.getNewDeviceVerificationCode();
+  }
+
+  /**
+   * Request a UUID from the server for linking as a new device.
+   * Called by the new device.
+   * @return The UUID, Base64 encoded
+   * @throws TimeoutException
+   * @throws IOException
+   */
+  public ProvisioningUuid requestNewDeviceUuid() throws TimeoutException, IOException {
+    return provisioningSocket.getProvisioningUuid();
   }
 
   /**

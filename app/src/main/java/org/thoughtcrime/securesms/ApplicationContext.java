@@ -71,12 +71,10 @@ import org.thoughtcrime.securesms.jobs.GroupRingCleanupJob;
 import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
 import org.thoughtcrime.securesms.jobs.LinkedDeviceInactiveCheckJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
-import org.thoughtcrime.securesms.jobs.PnpInitializeDevicesJob;
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob;
 import org.thoughtcrime.securesms.jobs.ProfileUploadJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RefreshSvrCredentialsJob;
-import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.jobs.RetrieveRemoteAnnouncementsJob;
 import org.thoughtcrime.securesms.jobs.StoryOnboardingDownloadJob;
@@ -242,7 +240,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addPostRender(CheckServiceReachabilityJob::enqueueIfNecessary)
                             .addPostRender(GroupV2UpdateSelfProfileKeyJob::enqueueForGroupsIfNecessary)
                             .addPostRender(StoryOnboardingDownloadJob.Companion::enqueueIfNeeded)
-                            .addPostRender(PnpInitializeDevicesJob::enqueueIfNecessary)
                             .addPostRender(() -> AppDependencies.getExoPlayerPool().getPoolStats().getMaxUnreserved())
                             .addPostRender(() -> AppDependencies.getRecipientCache().warmUp())
                             .addPostRender(AccountConsistencyWorkerJob::enqueueIfNecessary)
@@ -593,14 +590,9 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void ensureProfileUploaded() {
-    if (SignalStore.account().isRegistered()) {
-      if (SignalStore.registration().needDownloadProfileOrAvatar()) {
-        Log.w(TAG, "User has linked a device, but has not yet downloaded the profile. Downloading now.");
-        AppDependencies.getJobManager().add(new RefreshOwnProfileJob());
-      } else if (!SignalStore.registration().hasUploadedProfile() && !Recipient.self().getProfileName().isEmpty()) {
-        Log.w(TAG, "User has a profile, but has not uploaded one. Uploading now.");
-        AppDependencies.getJobManager().add(new ProfileUploadJob());
-      }
+    if (SignalStore.account().isRegistered() && !SignalStore.registration().hasUploadedProfile() && !Recipient.self().getProfileName().isEmpty()) {
+      Log.w(TAG, "User has a profile, but has not uploaded one. Uploading now.");
+      AppDependencies.getJobManager().add(new ProfileUploadJob());
     }
   }
 
