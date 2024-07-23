@@ -11,10 +11,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.i18n.phonenumbers.PhoneNumberUtil
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.signal.core.util.logging.Log
@@ -47,17 +49,15 @@ class EnterCodeFragment : LoggingFragment(R.layout.fragment_registration_enter_c
   private val TAG = Log.tag(EnterCodeFragment::class.java)
 
   private val sharedViewModel by activityViewModels<RegistrationViewModel>()
+  private val bottomSheet = ContactSupportBottomSheetFragment()
   private val binding: FragmentRegistrationEnterCodeBinding by ViewBinderDelegate(FragmentRegistrationEnterCodeBinding::bind)
 
   private lateinit var phoneStateListener: SignalStrengthPhoneStateListener
 
   private var autopilotCodeEntryActive = false
 
-  private val bottomSheet = ContactSupportBottomSheetFragment()
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
     setDebugLogSubmitMultiTapView(binding.verifyHeader)
 
     phoneStateListener = SignalStrengthPhoneStateListener(this, PhoneStateCallback())
@@ -128,29 +128,33 @@ class EnterCodeFragment : LoggingFragment(R.layout.fragment_registration_enter_c
     super.onResume()
     sharedViewModel.phoneNumber?.let {
       val formatted = PhoneNumberUtil.getInstance().format(it, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL)
-      binding.verificationSubheader.setText(requireContext().getString(R.string.RegistrationActivity_enter_the_code_we_sent_to_s, formatted))
+      binding.verificationSubheader.text = requireContext().getString(R.string.RegistrationActivity_enter_the_code_we_sent_to_s, formatted)
     }
   }
 
   private fun handleSessionErrorResponse(result: RegistrationResult) {
-    when (result) {
-      is VerificationCodeRequestResult.Success -> binding.keyboard.displaySuccess()
-      is VerificationCodeRequestResult.RateLimited -> presentRateLimitedDialog()
-      is VerificationCodeRequestResult.AttemptsExhausted -> presentAccountLocked()
-      is VerificationCodeRequestResult.RegistrationLocked -> presentRegistrationLocked(result.timeRemaining)
-      else -> presentGenericError(result)
+    viewLifecycleOwner.lifecycleScope.launch {
+      when (result) {
+        is VerificationCodeRequestResult.Success -> binding.keyboard.displaySuccess()
+        is VerificationCodeRequestResult.RateLimited -> presentRateLimitedDialog()
+        is VerificationCodeRequestResult.AttemptsExhausted -> presentAccountLocked()
+        is VerificationCodeRequestResult.RegistrationLocked -> presentRegistrationLocked(result.timeRemaining)
+        else -> presentGenericError(result)
+      }
     }
   }
 
   private fun handleRegistrationErrorResponse(result: RegisterAccountResult) {
-    when (result) {
-      is RegisterAccountResult.Success -> binding.keyboard.displaySuccess()
-      is RegisterAccountResult.RegistrationLocked -> presentRegistrationLocked(result.timeRemaining)
-      is RegisterAccountResult.AuthorizationFailed -> presentIncorrectCodeDialog()
-      is RegisterAccountResult.AttemptsExhausted -> presentAccountLocked()
-      is RegisterAccountResult.RateLimited -> presentRateLimitedDialog()
+    viewLifecycleOwner.lifecycleScope.launch {
+      when (result) {
+        is RegisterAccountResult.Success -> binding.keyboard.displaySuccess()
+        is RegisterAccountResult.RegistrationLocked -> presentRegistrationLocked(result.timeRemaining)
+        is RegisterAccountResult.AuthorizationFailed -> presentIncorrectCodeDialog()
+        is RegisterAccountResult.AttemptsExhausted -> presentAccountLocked()
+        is RegisterAccountResult.RateLimited -> presentRateLimitedDialog()
 
-      else -> presentGenericError(result)
+        else -> presentGenericError(result)
+      }
     }
   }
 
@@ -198,16 +202,19 @@ class EnterCodeFragment : LoggingFragment(R.layout.fragment_registration_enter_c
   private fun presentIncorrectCodeDialog() {
     sharedViewModel.incrementIncorrectCodeAttempts()
 
-    Toast.makeText(requireContext(), R.string.RegistrationActivity_incorrect_code, Toast.LENGTH_LONG).show()
-    binding.keyboard.displayFailure().addListener(object : AssertedSuccessListener<Boolean?>() {
-      override fun onSuccess(result: Boolean?) {
-        binding.callMeCountDown.setVisibility(View.VISIBLE)
-        binding.resendSmsCountDown.setVisibility(View.VISIBLE)
-        binding.wrongNumber.setVisibility(View.VISIBLE)
-        binding.code.clear()
-        binding.keyboard.displayKeyboard()
-      }
-    })
+    viewLifecycleOwner.lifecycleScope.launch {
+      Toast.makeText(requireContext(), R.string.RegistrationActivity_incorrect_code, Toast.LENGTH_LONG).show()
+
+      binding.keyboard.displayFailure().addListener(object : AssertedSuccessListener<Boolean?>() {
+        override fun onSuccess(result: Boolean?) {
+          binding.callMeCountDown.visibility = View.VISIBLE
+          binding.resendSmsCountDown.visibility = View.VISIBLE
+          binding.wrongNumber.visibility = View.VISIBLE
+          binding.code.clear()
+          binding.keyboard.displayKeyboard()
+        }
+      })
+    }
   }
 
   private fun presentGenericError(requestResult: RegistrationResult) {

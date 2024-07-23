@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -42,12 +39,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signal ကို အပ်ဒိတ်လုပ်နေသည်…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Molly ကို အပ်ဒိတ်လုပ်နေသည်…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">စကားဝှက်မသတ်မှတ်ရသေးပါ</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">စကားဝှက်ပိတ်မလား?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">ယင်းသည် Signal နှင့် စာတိုအသိပေးချက်များကို အမြဲဖွင့်ထားပါလိမ့်မည်။</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">ယင်းသည် Molly နှင့် စာတိုအသိပေးချက်များကို အမြဲဖွင့်ထားပါလိမ့်မည်။</string>
     <string name="ApplicationPreferencesActivity_disable">ပိတ်ထားပါ</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">ဆာဗာနှင့် ဆက်သွယ်၍မရပါ။</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">မှတ်ပုံတင်မှု ပိတ်ထားရန်အတွက် ပင်နံပါတ်များလိုအပ်ပါသည်။ ပင်နံပါတ်များ ပိတ်ရန် ကျေးဇူးပြု၍ မှတ်ပုံတင်မှုပိတ်ထားခြင်းကို ဦးစွာပြန်ဖွင့်ပါ။</string>
@@ -84,31 +81,31 @@
     <string name="AttachmentKeyboard_file">ဖိုင်</string>
     <string name="AttachmentKeyboard_contact">အဆက်အသွယ်</string>
     <string name="AttachmentKeyboard_location">တည်နေရာ</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal သည် သင်၏ဓာတ်ပုံနှင့် ဗီဒီယိုများကိုပြသရန် ခွင့်ပြုချက်လိုအပ်သည်</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly သည် သင်၏ဓာတ်ပုံနှင့် ဗီဒီယိုများကိုပြသရန် ခွင့်ပြုချက်လိုအပ်သည်</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">ဝင်ရောက် သုံးစွဲခွင့်ပြုရန်</string>
     <string name="AttachmentKeyboard_payment">ငွေပေးချေမှု</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">ရုပ်သံကိုဖွင့်ရန် သင့်တော်သည့် အက်ပ် မတွေ့ပါ။</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ဓာတ်ပုံ၊ ဗီဒီယို သို့မဟုတ် အသံ ပို့ရန်အတွက် သိုလှောင်မှုခွင့်ပြုချက်ကို Signal မှ ရရန် လိုအပ်သည်။ သို့သော် အမြဲတမ်းအတွက် ခွင့်မပြုပါဟု ရွေးထားပြီး ဖြစ်နေသဖြင့် အက်ပ် စက်တင်မီနူးသို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ သိုလှောင်မှုကို ခွင့်ပြုပေးပါ။</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">အဆက်အသွယ်များ၏ အချက်အလက်များကို ပို့နိုင်ရန်အတွက် အဆက်အသွယ်များ ခွင့်ပြုချက်ကို Signal မှ ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းအတွက် ခွင့်မပြုပါဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အက်ပ် စက်တင်မီနူးသို့သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ အဆက်အသွယ်များကို ခွင့်ပြုပေးပါ။</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">မိမိ၏ တည်နေရာကို ပို့နိုင်ရန် တည်နေရာ ခွင့်ပြုချက်ကို Signal မှ ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းအတွက် ခွင့်မပြုပါဟု ရွေးထားပြီး ဖြစ်နေသဖြင့် အက်ပ် စက်တင်မီနူးသို့သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ တည်နေရာကို ခွင့်ပြုပေးပါ။</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ဓာတ်ပုံ၊ ဗီဒီယို သို့မဟုတ် အသံ ပို့ရန်အတွက် သိုလှောင်မှုခွင့်ပြုချက်ကို Molly မှ ရရန် လိုအပ်သည်။ သို့သော် အမြဲတမ်းအတွက် ခွင့်မပြုပါဟု ရွေးထားပြီး ဖြစ်နေသဖြင့် အက်ပ် စက်တင်မီနူးသို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ သိုလှောင်မှုကို ခွင့်ပြုပေးပါ။</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">အဆက်အသွယ်များ၏ အချက်အလက်များကို ပို့နိုင်ရန်အတွက် အဆက်အသွယ်များ ခွင့်ပြုချက်ကို Molly မှ ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းအတွက် ခွင့်မပြုပါဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အက်ပ် စက်တင်မီနူးသို့သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ အဆက်အသွယ်များကို ခွင့်ပြုပေးပါ။</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">မိမိ၏ တည်နေရာကို ပို့နိုင်ရန် တည်နေရာ ခွင့်ပြုချက်ကို Molly မှ ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းအတွက် ခွင့်မပြုပါဟု ရွေးထားပြီး ဖြစ်နေသဖြင့် အက်ပ် စက်တင်မီနူးသို့သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ တည်နေရာကို ခွင့်ပြုပေးပါ။</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">သင့်တည်နေရာကို ဝင်ရောက်ခွင့်ပြုရန်</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">သင့်တည်နေရာကို ပေးပို့ရန်-</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">သင့်တည်နေရာကို ပေးပို့ရန် Signal ကို ဝင်ရောက်ခွင့်ပြုပါ။</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">သင့်တည်နေရာကို ပေးပို့ရန် Molly ကို ဝင်ရောက်ခွင့်ပြုပါ။</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">သင့်တည်နေရာကို ပေးပို့ရန် Signal သည် တည်နေရာဝင်ရောက်ခွင့် လိုအပ်ပါသည်။</string>
+    <string name="AttachmentManager_signal_needs_location_access">သင့်တည်နေရာကို ပေးပို့ရန် Molly သည် တည်နေရာဝင်ရောက်ခွင့် လိုအပ်ပါသည်။</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">သိုလှောင်ခန်းသို့ ဝင်ရောက်ခွင့်ပြုမည်</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">ဓာတ်ပုံနှင့် ဗီဒီယိုများကို ပြသရန်-</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">သင့်ဓာတ်ပုံနှင့် ဗီဒီယိုများကို ပြသရန် Signal သည် သိုလှောင်မှုသို့ ဝင်ရောက်ခွင့် လိုအပ်ပါသည်။</string>
+    <string name="AttachmentManager_signal_needs_storage_access">သင့်ဓာတ်ပုံနှင့် ဗီဒီယိုများကို ပြသရန် Molly သည် သိုလှောင်မှုသို့ ဝင်ရောက်ခွင့် လိုအပ်ပါသည်။</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s သည် ငွေပေးချေမှုများကို သက်ဝင်လုပ်ဆောင်ထားခြင်း မရှိသေးပါ </string>
@@ -274,7 +271,7 @@
     <string name="CameraContacts_no_signal_contacts">Signal အဆက်အသွယ်များ မရှိပါ</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Signal အဆက်အသွယ်များထံသို့ ကင်မရာခလုတ်နှိပ်၍သာ ဓာတ်ပုံပို့နိုင်သည်။ </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">သင်ရှာတဲ့သူကို မတွေ့ဘူးလား။</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Signal အသုံးပြုရန် ဖိတ်ခေါ်ပါ</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Molly အသုံးပြုရန် ဖိတ်ခေါ်ပါ</string>
     <string name="CameraContacts__menu_search">ရှာရန်</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -288,12 +285,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">မလုပ်လိုပါ</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Signal ကို အပ်ဒိတ်လုပ်ပါ။</string>
+    <string name="ClientDeprecatedActivity_update_signal">Molly ကို အပ်ဒိတ်လုပ်ပါ။</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">ဤအက်ပ် ဗားရှင်းသည် သုံးရန်အဆင်မပြေတော့ပါ။ မက်ဆေ့ခ်ျများ ဆက်လက်ပေးပို့ခြင်းနှင့် လက်ခံရရှိခြင်းအတွက် နောက်ဆုံးဗားရှင်းသို့ အပ်ဒိတ်လုပ်ပါ။</string>
     <string name="ClientDeprecatedActivity_update">အပ်ဒိတ် လုပ်</string>
     <string name="ClientDeprecatedActivity_dont_update">အပ်ဒိတ် မလုပ်</string>
     <string name="ClientDeprecatedActivity_warning">သတိပေးချက်</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">သင်၏ Signal ဗားရှင်း သက်တမ်းကုန်သွားပြီ။ သင်၏ မက်ဆေ့ချ်မှတ်တမ်းကို သင်ကြည့်နိုင်သော်လည်း အပ်ဒိတ် မလုပ်မချင်း မက်ဆေ့ချ်များပို့ခြင်း သို့မဟုတ် လက်ခံခြင်း မလုပ်နိုင်ပါ။</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">သင်၏ Molly ဗားရှင်း သက်တမ်းကုန်သွားပြီ။ သင်၏ မက်ဆေ့ချ်မှတ်တမ်းကို သင်ကြည့်နိုင်သော်လည်း အပ်ဒိတ် မလုပ်မချင်း မက်ဆေ့ချ်များပို့ခြင်း သို့မဟုတ် လက်ခံခြင်း မလုပ်နိုင်ပါ။</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Web browser ကိုရှာမတွေ့ပါ</string>
@@ -330,8 +327,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">စာတို %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal အော်ဒီယိုကောလ်ခေါ်ဆိုမှု %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal ဗီဒီယိုကောလ်ခေါ်ဆိုမှု %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Molly အော်ဒီယိုကောလ်ခေါ်ဆိုမှု %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Molly ဗီဒီယိုကောလ်ခေါ်ဆိုမှု %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -362,7 +359,7 @@
     <string name="ConversationItem_send_paused">ပေးပို့မှု ခေတ္တရပ်နေသည်</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">မလုံခြုံသောဖုန်းစာတိုပို့စနစ်ကိုပြန်သုံးမလား?</string>
     <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">မလုံခြုံသော ရုပ်သံပုံပါ စာပို့စနစ်ကို ပြန်သုံးမလား?</string>
-    <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">သင်ပေးပို့သော သူသည် Signal <b></b>မသုံးတော့သဖြင့် ဤနည်းလမ်းဖြင့် စာတိုကို ပေးပို့၍မရနိုင်ပါ။ \n\n ရိုးရိုးစာတိုစနစ်ဖြင့်ပေးပို့မလား?</string>
+    <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">သင်ပေးပို့သော သူသည် Signal <b/>မသုံးတော့သဖြင့် ဤနည်းလမ်းဖြင့် စာတိုကို ပေးပို့၍မရနိုင်ပါ။ \n\n ရိုးရိုးစာတိုစနစ်ဖြင့်ပေးပို့မလား?</string>
     <string name="ConversationItem_unable_to_open_media">ရုပ်သံ ကိုဖွင့်နိုင်သည့် app မရှိပါ။</string>
     <string name="ConversationItem_copied_text">ကူးပြီးပါပြီ %1$s</string>
     <string name="ConversationItem_from_s">%1$s မှ</string>
@@ -423,7 +420,7 @@
     <string name="ConversationActivity_transport_signal">Signal မက်ဆေ့ချ်</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">မက်ဆေ့ချ် ပို့ရန်</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Signal %1$s ကိုပြောင်းသုံးကြပါစို့</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Molly %1$s ကိုပြောင်းသုံးကြပါစို့</string>
     <string name="ConversationActivity_specify_recipient">ဆက်သွယ်လိုသည့်သူကို ရွေးချယ်ပါ</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">ပူးတွဲဖိုင်သည် သတ်မှတ်ဖိုင်အရွယ်အစားထက်ကြီးနေသည်။</string>
     <string name="ConversationActivity_unable_to_record_audio">အသံဖမ်း၍ မရနိုင်ပါ!</string>
@@ -442,18 +439,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">အသံမက်ဆေ့ဂျ်များ ပေးပို့ရန်-</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">အသံမက်ဆေ့ဂျ်များပို့ရန် Signal ကို သင့်မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">အသံမက်ဆေ့ဂျ်များပို့ရန် Molly ကို သင့်မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">အသံမက်ဆေ့ဂျ်ကို မှတ်တမ်းတင်ရန်အတွက် Signal သည် မိုက်ခရိုဖုန်းကို အသုံးပြုခွင့် လိုအပ်ပါသည်။</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">အသံဖိုင်များပို့နိုင်ရန် Signalမှ မိုက်ခရိုဖုန်းအား အသုံးပြုခွင့်ရရန် လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ မိုက်ခရိုဖုန်းကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">အသံမက်ဆေ့ဂျ်ကို မှတ်တမ်းတင်ရန်အတွက် Molly သည် မိုက်ခရိုဖုန်းကို အသုံးပြုခွင့် လိုအပ်ပါသည်။</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">အသံဖိုင်များပို့နိုင်ရန် Mollyမှ မိုက်ခရိုဖုန်းအား အသုံးပြုခွင့်ရရန် လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ မိုက်ခရိုဖုန်းကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%1$sဖုန်းခေါ်ဆိုမှုပြုနိုင်ရန် Signalမှ မိုက်ခရိုဖုန်း နှင့် ကင်မရာအား အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းတွက် ခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ မိုက်ခရိုဖုန်း နှင့် ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Signal မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးပါ။</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Signal မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးထားရန်လိုသည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Signal မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးထားရန်လိုသည်</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%1$sဖုန်းခေါ်ဆိုမှုပြုနိုင်ရန် Mollyမှ မိုက်ခရိုဖုန်း နှင့် ကင်မရာအား အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းတွက် ခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ မိုက်ခရိုဖုန်း နှင့် ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Molly မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးပါ။</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Molly မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးထားရန်လိုသည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Molly မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးထားရန်လိုသည်</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">အသံပါ ဗွီဒီယိုများကို ရိုက်ကူးရန် မိုက်ခရိုဖုန်းအသုံးပြုခွင့်ပေးပါ။</string>
     <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">ဗွီဒီယိုရိုက်ကူးရန် မိုက်ကရိုဖုန်းခွင့်ပြုချက်လိုအပ်ပါသည်။ သို့သော် ငြင်းဆိုခံရပါက အက်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ \"ခွင့်ပြုချက်များ\" ကို ရွေးချယ်ကာ \"မိုက်ခရိုဖုန်း\" နှင့် \"ကင်မရာ\" ကို အသုံးပြုနိုင်အောင် လုပ်ပါ။</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">ဗီဒီယိုရိုက်ကူးရန် Signal သည် မိုက်ကရိုဖုန်းအသုံးပြုခွင့် လိုအပ်သည်။</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">ဗီဒီယိုရိုက်ကူးရန် Molly သည် မိုက်ကရိုဖုန်းအသုံးပြုခွင့် လိုအပ်သည်။</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">မဟုတ်ပါ</string>
@@ -474,9 +471,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">ခေါ်ဆိုမှုစတင်ရန်-</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">ခေါ်ဆိုမှုစတင်ရန် Signal ကို သင့်မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">ခေါ်ဆိုမှုစတင်ရန် Molly ကို သင့်မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">ခေါ်ဆိုမှုတစ်ခုစတင်ရန် Signal သည် မိုက်ခရိုဖုန်းအသုံးပြုခွင့် လိုအပ်ပါသည်။</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">ခေါ်ဆိုမှုတစ်ခုစတင်ရန် Molly သည် မိုက်ခရိုဖုန်းအသုံးပြုခွင့် လိုအပ်ပါသည်။</string>
 
 
     <string name="ConversationActivity_join">ပူးပေါင်း</string>
@@ -490,9 +487,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">SMS မက်ဆေ့ချ်လုပ်ဆောင်ချက်ကို Signal တွင် မပံ့ပိုးပေးတော့ပါ။ ဤတွင် ဆက်လက်ဆွေးနွေးနိုင်ရန် %1$s အား Signal သို့ ဖိတ်ခေါ်ပါ။</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">ဤပုဂ္ဂိုလ်သည် Signal မသုံးတော့ပါ။ ဤနေရာတွင် ဆက်လက်ဆွေးနွေးနိုင်ရန် သူ့ကို Signal သို့ ဖိတ်ခေါ်ပါ။</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">ဤပုဂ္ဂိုလ်သည် Molly မသုံးတော့ပါ။ ဤနေရာတွင် ဆက်လက်ဆွေးနွေးနိုင်ရန် သူ့ကို Molly သို့ ဖိတ်ခေါ်ပါ။</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Signal သို့ ဖိတ်ခေါ်မည်</string>
+    <string name="ConversationActivity__invite_to_signal">Molly သို့ ဖိတ်ခေါ်မည်</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">မကြာမီ သင့်အား ထပ်မံသတိပေးပါမည်။</string>
 
@@ -573,13 +570,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">ဘလော့ခ်ထားပြီး</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Signal ကို အပ်ဒိတ်လုပ်ပါ။</string>
+    <string name="ConversationFragment__update_build">Molly ကို အပ်ဒိတ်လုပ်ပါ။</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Signal ကို ပြန်လည်၍မှတ်ပုံတင်ရန်</string>
+    <string name="ConversationFragment__reregister_signal">Molly ကို ပြန်လည်၍မှတ်ပုံတင်ရန်</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">အနောက်သို့ ပြန်သွားပါ။</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Signal ကို ဖွင့်ရန်</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Molly ကို ဖွင့်ရန်</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">အတည်ပြု၍ မရတော့ပါ</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -729,9 +726,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">ကျွန်ုပ်ကို မည်သူတို့က ဖုန်းနံပါတ်ဖြင့် ရှာနိုင်သနည်း။</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">သင့်ဖုန်းနံပါတ် ရှိသူတိုင်းသည် သင် Signal သုံးနေကြောင်း မြင်တွေ့နိုင်ပြီး သင်နှင့် ချက်(တ်)စတင်နိုင်ပါသည်။</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">သင့်ဖုန်းနံပါတ် ရှိသူတိုင်းသည် သင် Molly သုံးနေကြောင်း မြင်တွေ့နိုင်ပြီး သင်နှင့် ချက်(တ်)စတင်နိုင်ပါသည်။</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">သင် ၎င်းတို့ကို မက်ဆေ့ချ်မပို့ပါက သို့မဟုတ် ၎င်းတို့နှင့် ပြောလက်စ ချက်(တ်)တစ်ခု မရှိပါက သင် Signal သုံးနေကြောင်း မည်သူမျှ မြင်တွေ့ရမည်မဟုတ်ပါ။</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">သင် ၎င်းတို့ကို မက်ဆေ့ချ်မပို့ပါက သို့မဟုတ် ၎င်းတို့နှင့် ပြောလက်စ ချက်(တ်)တစ်ခု မရှိပါက သင် Molly သုံးနေကြောင်း မည်သူမျှ မြင်တွေ့ရမည်မဟုတ်ပါ။</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">အရံသိမ်းထားသည်များကို ပြန်ရယူမည်လား?</string>
@@ -765,7 +762,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">သင်၏ backup စကားဝှက်ကိုစစ်ဆေးပြီး ကိုက်ညီမှုရှိမရှိစစ်ဆေးပါ</string>
     <string name="BackupsPreferenceFragment__turn_on">ဖွင့်မည်</string>
     <string name="BackupsPreferenceFragment__turn_off">ပိတ်မည်</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"အရန်ကူးခြင်းတစ်ခုကို ပြန်ယူလိုလျှင် Signal မိတ္တူအသစ်ကိုထည့်သွင်းပါ။ အက်ပ်ကိုဖွင့်၍ \"အရန်ကူးထားခြင်းကိုပြန်ယူပါ\" ကို နှိပ်ပြီး အရန်ဖိုင်ကို ရှာဖွေရွေးပေးပါ။ %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"အရန်ကူးခြင်းတစ်ခုကို ပြန်ယူလိုလျှင် Molly မိတ္တူအသစ်ကိုထည့်သွင်းပါ။ အက်ပ်ကိုဖွင့်၍ \"အရန်ကူးထားခြင်းကိုပြန်ယူပါ\" ကို နှိပ်ပြီး အရန်ဖိုင်ကို ရှာဖွေရွေးပေးပါ။ %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">ထပ်မံလေ့လာရန်</string>
     <string name="BackupsPreferenceFragment__in_progress">ဆောင်ရွက်ဆဲ</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -773,7 +770,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d ထိလုပ်ဆောင်ပြီး…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% လုပ်ဆောင်ပြီး…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">သင်၏ အပလီကေးရှင်းပြင်ပ ဖုန်းထဲတွင် သိမ်းထားခွင့်အား Signal ကို ပေးရန်လိုအပ်ပါသည်။သို့သော် လုံးဝခွင့်မပြုပါဟု ရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ သိုလှောင်မှုခွင့်ပြုချက်ကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">သင်၏ အပလီကေးရှင်းပြင်ပ ဖုန်းထဲတွင် သိမ်းထားခွင့်အား Molly ကို ပေးရန်လိုအပ်ပါသည်။သို့သော် လုံးဝခွင့်မပြုပါဟု ရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ သိုလှောင်မှုခွင့်ပြုချက်ကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">ဘက်ခ်အပ်လုပ်ချိန် သတ်မှတ်ခြင်း</string>
 
@@ -840,7 +837,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">ချက်(တ်) ဆက်ရှင် ပြန်ဖွင့်ပြီး</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal သည် ဟိုဘက်သည်ဘက် ကုဒ်ပြောင်းဝှက်ခြင်းကို အသုံးပြုပြီး သင်၏ ချက်(တ်)ဆက်ရှင်ကို တစ်ခါတစ်ရံ ပြန်ဖွင့်ရန် လိုအပ်နိုင်သည်။ ၎င်းသည် သင့်ချက်(တ်)၏ လုံခြုံရေးကို မထိခိုက်စေပါ၊ သို့သော် သင်သည် ဤအဆက်အသွယ်ထံမှ မက်ဆေ့ခ်ျတစ်စောင်ကို လွတ်သွားနိုင်ပြီး ၎င်းတို့အား ပြန်လည်ပေးပို့ရန် တောင်းဆိုနိုင်သည်။</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly သည် ဟိုဘက်သည်ဘက် ကုဒ်ပြောင်းဝှက်ခြင်းကို အသုံးပြုပြီး သင်၏ ချက်(တ်)ဆက်ရှင်ကို တစ်ခါတစ်ရံ ပြန်ဖွင့်ရန် လိုအပ်နိုင်သည်။ ၎င်းသည် သင့်ချက်(တ်)၏ လုံခြုံရေးကို မထိခိုက်စေပါ၊ သို့သော် သင်သည် ဤအဆက်အသွယ်ထံမှ မက်ဆေ့ခ်ျတစ်စောင်ကို လွတ်သွားနိုင်ပြီး ၎င်းတို့အား ပြန်လည်ပေးပို့ရန် တောင်းဆိုနိုင်သည်။</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -854,9 +851,9 @@
     <!-- Bottom sheet description explaining that messages on linked devices are private -->
     <string name="LinkDeviceFragment__all_messaging_is_private">ချိတ်ထားသည့် စက်များတွင် မက်ဆေ့ချ်ဆက်သွယ်မှုအားလုံးမှာ သီးသန့်ဖြစ်ပါသည်</string>
     <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
-    <string name="LinkDeviceFragment__signal_messages_are_synchronized">သင့်မိုဘိုင်းဖုန်းနှင့် ချိတ်ပြီးသောအခါ Signal မက်ဆေ့ချ်များကို ထိုဖုန်းရှိ Signal နှင့် တူအောင်ညှိလိုက်သည်။ သင်၏ ယခင်မက်ဆေ့ချ်ပို့ခဲ့သော မှတ်တမ်းမှာ ပေါ်နေမည် မဟုတ်ပါ။</string>
+    <string name="LinkDeviceFragment__signal_messages_are_synchronized">သင့်မိုဘိုင်းဖုန်းနှင့် ချိတ်ပြီးသောအခါ Molly မက်ဆေ့ချ်များကို ထိုဖုန်းရှိ Molly နှင့် တူအောင်ညှိလိုက်သည်။ သင်၏ ယခင်မက်ဆေ့ချ်ပို့ခဲ့သော မှတ်တမ်းမှာ ပေါ်နေမည် မဟုတ်ပါ။</string>
     <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
-    <string name="LinkDeviceFragment__on_other_device_visit_signal">Signal ထည့်သွင်းရန် သင့်အခြားစက်တွင် %1$s သို့ သွားရောက်ပါ</string>
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">Molly ထည့်သွင်းရန် သင့်အခြားစက်တွင် %1$s သို့ သွားရောက်ပါ</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
     <!-- Header title listing out current linked devices -->
     <string name="LinkDeviceFragment__my_linked_devices">လင့်ခ်ချိတ်ထားသည့် စက်များ</string>
@@ -889,7 +886,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">သင့်အခြားစက််တွင် လင့်ခ်ချိတ်ခြင်းကို အပြီးသတ်ပါ</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">သင့်အခြားစက်တွင် Signal လင့်ခ်ချိတ်ခြင်းကို အပြီးသတ်ပါ။</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">သင့်အခြားစက်တွင် Molly လင့်ခ်ချိတ်ခြင်းကို အပြီးသတ်ပါ။</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">စက်ချိတ်ဆက်မှု မအောင်မြင်ပါ</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -917,10 +914,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">မပါရှိသေးသော Play Service များကို ရှာဖွေပါ</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">ဤဖုန်းသည် Play Services အသုံးပြု၍မရပါ။ Signal အသုံးမပြုသည့်အချိန်တွင် သတင်းစကားများပြန်လည် ထုတ်ယူရာတွင် အနှောက်အယှက်ပြုသည့်အတွက် ဘက်ထရီ အသုံးပြုမှုစောင့် ကြည့်သည့်စနစ်ကို ပိတ်ထားပေးပါ။</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">ဤဖုန်းသည် Play Services အသုံးပြု၍မရပါ။ Molly အသုံးမပြုသည့်အချိန်တွင် သတင်းစကားများပြန်လည် ထုတ်ယူရာတွင် အနှောက်အယှက်ပြုသည့်အတွက် ဘက်ထရီ အသုံးပြုမှုစောင့် ကြည့်သည့်စနစ်ကို ပိတ်ထားပေးပါ။</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">ယခု အသုံးပြုနေသော Signal ဗားရှင်း သက်တမ်းကုန်သွားပြီ။ မက်ဆေ့ခ်ျများပို့ရန်နှင့် လက်ခံရန် ယခု Update လုပ်ပါ။</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">ယခု အသုံးပြုနေသော Molly ဗားရှင်း သက်တမ်းကုန်သွားပြီ။ မက်ဆေ့ခ်ျများပို့ရန်နှင့် လက်ခံရန် ယခု Update လုပ်ပါ။</string>
     <string name="ExpiredBuildReminder_update_now">ယခု Update လုပ်ပါ။</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -930,8 +927,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">ကြည့်မည်။</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal ဆက်သွယ်မှု လုံးဝမလုပ်နိုင်ပါ။</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ကို Google Play Services ဖြင့် မှတ်ပုံတင်၍မရနိုင်ပါ။ Signal စာတိုနှင့် ဖုန်းခေါ်ဆိုမှု ကိုပိတ်လိုက်သည်။ ပြင်ဆင်ခြင်း &gt; အဆင့်မြင့်တွင် ပြန်လည်မှတ်ပုံတင်ကြည့်ပါ။</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Molly ဆက်သွယ်မှု လုံးဝမလုပ်နိုင်ပါ။</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ကို Google Play Services ဖြင့် မှတ်ပုံတင်၍မရနိုင်ပါ။ Molly စာတိုနှင့် ဖုန်းခေါ်ဆိုမှု ကိုပိတ်လိုက်သည်။ ပြင်ဆင်ခြင်း &gt; အဆင့်မြင့်တွင် ပြန်လည်မှတ်ပုံတင်ကြည့်ပါ။</string>
 
 
     <!-- GiphyActivity -->
@@ -1057,21 +1054,21 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">ပြစ်ချက်မှတ်တမ်းများသည် ပြဿနာကို စစ်ဆေးရှာဖွေရန်နှင့် ဖြေရှင်းရန် ကျွန်ုပ်တို့ကို အကူအညီပေးပြီး မည်သူဖြစ်ကြောင်း ခွဲခြားနိုင်သည့် အချက်အလက်များ မပါရှိပါ။</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal တွင် ပြဿနာတစ်ခု ဖြစ်ပေါ်နေပါသည်။ ပြစ်ချက်မှတ်တမ်း ပေးပို့မည်လား။</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly တွင် ပြဿနာတစ်ခု ဖြစ်ပေါ်နေပါသည်။ ပြစ်ချက်မှတ်တမ်း ပေးပို့မည်လား။</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">ဘက်ထရီ အကောင်းဆုံးချိန်ညှိမှုများကြောင့် အသိပေးချက်များ နှောင့်နှေးနိုင်ပါသည်</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">မက်ဆေ့ချ် အသိပေးချက်များ မနှောင့်နှေးကြောင်း သေချာစေရန် Signal အတွက် ဘက်ထရီ အကောင်းဆုံးချိန်ညှိမှုများကို ပိတ်ထားနိုင်ပါသည်။</string>
+    <string name="PromptBatterySaverBottomSheet__message">မက်ဆေ့ချ် အသိပေးချက်များ မနှောင့်နှေးကြောင်း သေချာစေရန် Molly အတွက် ဘက်ထရီ အကောင်းဆုံးချိန်ညှိမှုများကို ပိတ်ထားနိုင်ပါသည်။</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
-    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Notifications may be delayed due to battery optimizations</string>
+    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">ဘက်ထရီ အကောင်းဆုံးချိန်ညှိမှုများကြောင့် အသိပေးချက်များ နှောင့်နှေးနိုင်ပါသည်</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Disable battery optimizations for Signal to ensure that message notifications will not be delayed. Tap “Continue” to see device-specific instructions.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">မက်ဆေ့ချ် အသိပေးချက်များ မနှောင့်နှေးကြောင်း သေချာစေရန် Molly အတွက် ဘက်ထရီ အကောင်းဆုံးချိန်ညှိမှုများကို ပိတ်ထားနိုင်ပါသည်။ စက်အလိုက် ညွှန်ကြားချက်များကို ကြည့်ရန် \"ဆက်လုပ်ရန်\" ကိုနှိပ်ပါ။</string>
     <!-- Button to dismiss notification help prompt -->
-    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">No thanks</string>
+    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">မလုပ်လိုပါ</string>
     <!-- Button to continue and go to Signal support website -->
-    <string name="DeviceSpecificNotificationBottomSheet__continue">Continue</string>
+    <string name="DeviceSpecificNotificationBottomSheet__continue">ဆက်လုပ်ရန်</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">ဆက်လုပ်ရန်</string>
@@ -1319,12 +1316,12 @@
     <string name="InviteActivity_cancel">မလုပ်တော့ပါ</string>
     <string name="InviteActivity_sending">ပို့နေသည်…</string>
     <string name="InviteActivity_invitations_sent">ဖိတ်ကြားမှု ပြုလုပ်ပြီး!</string>
-    <string name="InviteActivity_invite_to_signal">Signal သုံးဖို့ဖိတ်ရန်</string>
+    <string name="InviteActivity_invite_to_signal">Molly သုံးဖို့ဖိတ်ရန်</string>
     <string name="InviteActivity_send_sms">SMS ပို့ရန် (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="other">%1$dစာ SMS ဖြင့် ဖိတ်ခေါ်မလား။</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Signal ကိုပြောင်းသုံးကြစို့ : %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Molly ကိုပြောင်းသုံးကြစို့ : %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">သင့်မှာမျှဝေစရာ app များရှိပုံမရပါ။</string>
 
     <!-- LearnMoreTextView -->
@@ -1338,7 +1335,7 @@
     <string name="LongMessageActivity_your_message">သင့် မက်ဆေ့ချ်</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">အင်တာနက်ဆက်သွယ်မှု နောက်ကွယ်တွင် ဖွင့်ထားသည်</string>
 
     <!-- MediaOverviewActivity -->
@@ -1402,10 +1399,10 @@
     <string name="MessageQuotesBottomSheet_replies">ပြန်စာများ</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Signal ဖုန်းခေါ်ဆိုမှုစတင်နေသည်</string>
+    <string name="NotificationBarManager__establishing_signal_call">Molly ဖုန်းခေါ်ဆိုမှုစတင်နေသည်</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Signal ကောလ် ဝန်ဆောင်မှုကို စတင်နေပါသည်</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Signal ဖုန်းခေါ်ဆိုခြင်း ဝန်ဆောင်မှုကို ရပ်ဆိုင်းနေသည်</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Molly ကောလ် ဝန်ဆောင်မှုကို စတင်နေပါသည်</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Molly ဖုန်းခေါ်ဆိုခြင်း ဝန်ဆောင်မှုကို ရပ်ဆိုင်းနေသည်</string>
     <string name="NotificationBarManager__cancel_call">ဖုန်းခေါ်နေခြင်း ရပ်ဆိုင်းမည်</string>
 
     <!-- NotificationsMegaphone -->
@@ -1711,7 +1708,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">မကြာမီတွင် SMS မက်ဆေ့ချ်များကို Signal မှ ပေးပို့၍ ရနိုင်တော့မည် မဟုတ်ပါ။ ဤတွင် ဆက်လက်ဆွေးနွေးနိုင်ရန် %1$s အား Signal သို့ ဖိတ်ခေါ်ပါ။</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Signal တွင် SMS မက်ဆေ့ချ်များကို ပေးပို့နိုင်တော့မည် မဟုတ်ပါ။ ဤတွင် ဆက်လက်ဆွေးနွေးနိုင်ရန် %1$s အား Signal သို့ ဖိတ်ခေါ်ပါ။</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Molly တွင် SMS မက်ဆေ့ချ်များကို ပေးပို့နိုင်တော့မည် မဟုတ်ပါ။ ဤတွင် ဆက်လက်ဆွေးနွေးနိုင်ရန် %1$s အား Molly သို့ ဖိတ်ခေါ်ပါ။</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">ငွေပေးချေမှု- %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -1789,7 +1786,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal အသုံးပြုသော ဖုန်းအားချိတ်မည်။</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">သင်သည် Signal သုံးသောဖုန်းအား 3rd party scanner ဖြင့်ချိတ်ဆက်အတည်ပြုနေပုံရသည်။ လုံခြုံမှုရှိစေရန် ကုဒ်အား Signal အတွင်းတွင်ပါသော scanner ဖြင့်ပြန်ဖတ်ပါ။</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR Code အားစစ်ဆေးနိုင်ရန် မိမိ ကင်မရာကို Signalမှ အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းတွက် ခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR Code အားစစ်ဆေးနိုင်ရန် မိမိ ကင်မရာကို Mollyမှ အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းတွက် ခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">ကင်မရာကို ခွင့်ပြုချက် မပေးထားဘဲ QR ကုတ်ကို စကန်ဖတ်၍ မရပါ</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1801,11 +1798,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">စကားဝှက် ထည့်ပါ။</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Signal ပုံသင်္ကေတ</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Molly ပုံသင်္ကေတ</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">စကားဝှက် တင်သွင်းပါ</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">စကားဝှက် မှားနေသည်</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Signal ကို ပြန်ဖွင့်ပါ</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - သော့ခတ် စကင်ရင်</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Molly ကို ပြန်ဖွင့်ပါ</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - သော့ခတ် စကင်ရင်</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">မြေပုံ</string>
@@ -1871,7 +1868,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">မက်ဆေ့ချ် ဆက်ပို့နိုင်ရန် အတည်ပြုပါ</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signal တွင် စပမ်းများကို တားဆီးရာ၌ ကူညီရန် အတည်ပြုမှုကို ပြီးအောင်လုပ်ပေးပါ။</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Molly တွင် စပမ်းများကို တားဆီးရာ၌ ကူညီရန် အတည်ပြုမှုကို ပြီးအောင်လုပ်ပေးပါ။</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">အတည်ပြုပြီးနောက် သင်သည် မက်ဆေ့ချ် ဆက်ပို့နိုင်ပါမည်။ ဆိုင်းငံ့ထားသည့် မက်ဆေ့ချ်များကိုလည်း အော်တိုပို့သွားပါမည်။</string>
 
     <!-- Recipient -->
@@ -1879,7 +1876,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">ကျွန်ုပ်၏ စတိုရီ</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Signal ကောလ်</string>
+    <string name="Recipient_signal_call">Molly ကောလ်</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">ဘလော့ခ်ရန်</string>
@@ -1905,8 +1902,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">ဤနေရာတွင်နှိပ်၍ သင့်ဗီဒီယိုကို ဖွင့်ပါ</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s သို့ ခေါ်ဆိုရန် Signal မှ သင့်ကင်မရာသုံးခွင့် လိုအပ်ပါသည်</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s သို့ ခေါ်ဆိုရန် Molly မှ သင့်ကင်မရာသုံးခွင့် လိုအပ်ပါသည်</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">ခေါ်ဆိုနေပါသည်…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">ပြန်လည်ချိတ်ဆက်နေသည် …</string>
@@ -1961,23 +1958,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">သင့်ကင်မရာ အသုံးပြုခွင့်ပေးပါ</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">ခေါ်ဆိုမှုစတင်ရန် သို့မဟုတ် ပါဝင်ရန် Signal ကို သင့် ကင်မရာနှင့် မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">ခေါ်ဆိုမှုစတင်ရန် သို့မဟုတ် ပါဝင်ရန် Molly ကို သင့် ကင်မရာနှင့် မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">ခေါ်ဆိုမှုစတင်ရန် သို့မဟုတ် ပါဝင်ရန် Signal ကို သင့် မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">ခေါ်ဆိုမှုစတင်ရန် သို့မဟုတ် ပါဝင်ရန် Molly ကို သင့် မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">ဗီဒီယိုရိုက်နိုင်ရန် Signal မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးပါ။</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">ဗီဒီယိုရိုက်နိုင်ရန် Molly မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးပါ။</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">ခေါ်ဆိုမှုတစ်ခုစတင်ရန် သို့မဟုတ် ပါဝင်ရန် Signal သည် မိုက်ခရိုဖုန်း အသုံးပြုခွင့် လိုအပ်သည်။</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">ခေါ်ဆိုမှုတစ်ခုစတင်ရန် သို့မဟုတ် ပါဝင်ရန် Molly သည် မိုက်ခရိုဖုန်း အသုံးပြုခွင့် လိုအပ်သည်။</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">ဓာတ်ပုံရိုက်ကူးရန် Signal သည် ကင်မရာအသုံးပြုခွင့် လိုအပ်ပါသည်</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">ဓာတ်ပုံရိုက်ကူးရန် Molly သည် ကင်မရာအသုံးပြုခွင့် လိုအပ်ပါသည်</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">ခေါ်ဆိုမှုတစ်ခု စတင်ရန် သို့မဟုတ် ပါဝင်ရန်-</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">သင့်ဗီဒီယိုကို ဖွင့်ရန်-</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Signal ခေါ်ဆိုမှု</string>
-    <string name="WebRtcCallView__signal_video_call">Signal ဗီဒီယိုကောလ်</string>
+    <string name="WebRtcCallView__signal_call">Molly ခေါ်ဆိုမှု</string>
+    <string name="WebRtcCallView__signal_video_call">Molly ဗီဒီယိုကောလ်</string>
     <string name="WebRtcCallView__start_call">စတင်ခေါ်ဆိုပါ</string>
     <string name="WebRtcCallView__join_call">ခေါ်ဆိုမှုထဲဝင်မယ်</string>
     <string name="WebRtcCallView__call_is_full">ခေါ်ဆိုမှုထဲ လူပြည့်နေပါပြီ</string>
@@ -2062,7 +2059,7 @@
     <!-- A dialog prompt to confirm you want to lower your hand -->
     <string name="CallOverflowPopupWindow__lower_your_hand">လက်ပြန်ချမည်လား။</string>
     <!-- A dialog button to confirm you would like to lower your hand -->
-    <string name="CallOverflowPopupWindow__lower_hand">Lower</string>
+    <string name="CallOverflowPopupWindow__lower_hand">လက်ပြန်ချမည်</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">မလုပ်တော့ပါ</string>
     <!-- A button to take you to a list of participants with raised hands -->
@@ -2178,7 +2175,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">၎င်းနံပတ်ကို အတည်ပြုရန်အတွက် အဝင်ဖုန်းတစ်ခု လက်ခံရရှိပါမည်</string>
     <string name="RegistrationActivity_edit_number">နံပါတ်ကို ပြင်မယ်</string>
     <string name="RegistrationActivity_missing_google_play_services">Google Play မရှိပါ</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">သင့်ဖုန်းတွင် Google Play Services လိုအပ်နေပါသည်။ သင် Signal ကို အသုံးပြုနိုင်ပါတယ် ဒီဖွဲ့စည်းပုံအကျိုးရလဒ်ကယုံကြည်ဖို့အတွက် ဒါမှမဟုတ် စွမ်းဆောင်ရည် ကောင်းဖို့အတွက်ဖြစ်နိုင်ပါတယ်။ \n\n သင်က ကျွမ်းကျင်အဆင့် မဟုတ်လျှင် Android Rom market ကို သွားရန် မလိုပါ။ သို့မဟုတ် အမှားတစ်ခုခုဟု ထင်ပါက ဖြေရှင်းပေးနိုင်ဖို့အတွက် support@signal.org သို့ ဆက်သွယ်ပေးပါ။</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">သင့်ဖုန်းတွင် Google Play Services လိုအပ်နေပါသည်။ သင် Molly ကို အသုံးပြုနိုင်ပါတယ် ဒီဖွဲ့စည်းပုံအကျိုးရလဒ်ကယုံကြည်ဖို့အတွက် ဒါမှမဟုတ် စွမ်းဆောင်ရည် ကောင်းဖို့အတွက်ဖြစ်နိုင်ပါတယ်။ \n\n သင်က ကျွမ်းကျင်အဆင့် မဟုတ်လျှင် Android Rom market ကို သွားရန် မလိုပါ။ သို့မဟုတ် အမှားတစ်ခုခုဟု ထင်ပါက ဖြေရှင်းပေးနိုင်ဖို့အတွက် support@molly.im သို့ ဆက်သွယ်ပေးပါ။</string>
     <string name="RegistrationActivity_i_understand">နားလည် လက်ခံပါသည်</string>
     <string name="RegistrationActivity_play_services_error">Google Play အသုံးပြု၍မရပါ</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Serivice ကို အဆင့်မြှင့်တင်နေခြင်း၊ သို့၊ အသုံးပြု၍ မရခြင်းဖြစ်နေပါသည်။ ပြန်လည် စမ်းသပ်ကြည့်ပါ။</string>
@@ -2196,7 +2193,7 @@
     <string name="RegistrationActivity_non_standard_number_format">စံပုံစံနှင့် မကိုက်ညီသည့် နံပါတ်</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">သင်ထည့်သွင်းထားသည့် နံပါတ် (%1$s) သည် စံပုံစံနှင့် မကိုက်ညီပုံပေါ်ပါသည်။\n\nသင်ဆိုလိုသည်မှာ %2$s ဟုတ်ပါသလား။</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - ဖုန်းနံပါတ် ပုံစံ</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - ဖုန်းနံပါတ် ပုံစံ</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">ကောလ် တောင်းဆိုပြီး</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2268,13 +2265,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">အဆက်အသွယ်များထဲသို့ ထည့်မည်</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Signal သုံးဖို့ ဖိတ်ရန်</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Molly သုံးဖို့ ဖိတ်ရန်</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal မက်ဆေ့ချ်</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal ခေါ်ဆိုမှု</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">အဆက်အသွယ်များထဲသို့ ထည့်မည်</string>
-    <string name="SharedContactView_invite_to_signal">Signal သုံးဖို့ ဖိတ်ရန်</string>
+    <string name="SharedContactView_invite_to_signal">Molly သုံးဖို့ ဖိတ်ရန်</string>
     <string name="SharedContactView_message">Signal မက်ဆေ့ချ်</string>
 
     <!-- SignalBottomActionBar -->
@@ -2405,11 +2402,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s ကို %2$s က ပိုင်ဆိုင်ပါသည်</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Signal ဗားရှင်းအသစ်</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Signal ဗားရှင်းအသစ် ရနိုင်ပါပြီ။ အပ်ဒိတ်လုပ်ရန် နှိပ်ပါ။</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Signal ကို အပ်ဒိတ်လုပ်ခြင်း မအောင်မြင်ပါ</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Molly ဗားရှင်းအသစ်</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Molly ဗားရှင်းအသစ် ရနိုင်ပါပြီ။ အပ်ဒိတ်လုပ်ရန် နှိပ်ပါ။</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Molly ကို အပ်ဒိတ်လုပ်ခြင်း မအောင်မြင်ပါ</string>
     <string name="ApkUpdateNotifications_failed_general_body">နောက်မှ ထပ်ကြိုးစားပါမည်။</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Signal ကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်လိုက်ပါပြီ</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Molly ကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်လိုက်ပါပြီ</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">သင်သည် ဗားရှင်း %1$s သို့ အလိုအလျောက် အပ်ဒိတ်လုပ်လိုက်ပါပြီ။</string>
 
     <!-- UntrustedSendDialog -->
@@ -2479,7 +2476,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">တို့တွေရဲ့ Signal လုံခြုံရေးနံပါတ်:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">သင့်မှာမျှဝေစရာ app များရှိပုံမရပါ။</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">ကလစ်ဘုတ် တွင်တိုက်ကြည့်စရာ လုံခြုံရေးနံပါတ်များ မရှိပါ</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR Code အားစစ်ဆေးနိုင်ရန် မိမိ ကင်မရာကို Signalမှ အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းတွက် ခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR Code အားစစ်ဆေးနိုင်ရန် မိမိ ကင်မရာကို Mollyမှ အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းတွက် ခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">ကင်မရာကို ခွင့်ပြုချက် မပေးထားဘဲ QR ကုတ်ကို စကန်ဖတ်၍ မရပါ</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s ၏ လုံခြုံရေးနံပါတ်ကို ကြည်ရှုရန် သင်မှအရင် မက်ဆေ့ချ်များကို ပေးပို့လက်ခံ ရပါမည်။</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2509,14 +2506,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">ဖွင့်ရန် နှိပ်ပါ။</string>
-    <string name="KeyCachingService_passphrase_cached">Signal ကိုဖွင့်လိုက်ပါပြီ</string>
-    <string name="KeyCachingService_lock">Lock Signal</string>
+    <string name="KeyCachingService_passphrase_cached">Molly ကိုဖွင့်လိုက်ပါပြီ</string>
+    <string name="KeyCachingService_lock">Lock Molly</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">သင်</string>
     <string name="MediaPreviewActivity_unssuported_media_type">ပံ့ပိုးမှုမပြုနိုင်သော ရုပ်၊သံ၊ပုံ ဖိုင်များ</string>
     <string name="MediaPreviewActivity_draft">မူကြမ်း</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">သင်၏ ပြင်ပသိုလှောင်ရာနေရာတွင် သိမ်းရန် သိုလှောင်မှုခွင့်ပြုချက်အား Signal ကို ပေးရန်လိုအပ်ပါသည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ သိုလှောင်မှုခွင့်ပြုချက်ကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">သင်၏ ပြင်ပသိုလှောင်ရာနေရာတွင် သိမ်းရန် သိုလှောင်မှုခွင့်ပြုချက်အား Molly ကို ပေးရန်လိုအပ်ပါသည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ သိုလှောင်မှုခွင့်ပြုချက်ကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">ခွင့်ပြုချက်မပေးထားပါက အပြင်ဘက်တွင် သိမ်းဆည်း၍မရပါ</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">စာကို ဖျက်မည်လား။</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">ဤမက်ဆေ့ကို အပြီးတိုင်ဖျက်သွားမည်။</string>
@@ -2558,7 +2555,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">စာပို့လွှတ်ရန် မအောင်မြင်။</string>
     <string name="MessageNotifier_error_delivering_message">စာပို့လွှတ်ခြင်း မှားယွင်းနေ</string>
     <string name="MessageNotifier_message_delivery_paused">မက်ဆေ့ချ် ပေးပို့မှု ဆိုင်းငံ့ထားပါသည်။</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal တွင် မက်ဆေ့ချ် ဆက်ပို့နိုင်ရန် အတည်ပြုပါ။</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Molly တွင် မက်ဆေ့ချ် ဆက်ပို့နိုင်ရန် အတည်ပြုပါ။</string>
     <string name="MessageNotifier_mark_all_as_read">အားလုံး ဖတ်ပြီးသား</string>
     <string name="MessageNotifier_mark_read">ဖတ်ပြီးသား</string>
     <string name="MessageNotifier_turn_off_these_notifications">၎င်းသတိပေးချက်များကို ပိတ်ပါ</string>
@@ -2580,7 +2577,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">သင့်စတစ်ကာကို %1$s ဖြင့် တုံ့ပြန်ခဲ့ပါသည်။</string>
     <string name="MessageNotifier_this_message_was_deleted">ဤမက်ဆေ့အား ဖျက်ပြီးပါပြီ။</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">အဆက်အသွယ်မှ​ Signal သို့ ဝင်ရောက်သည်ဆိုသည့် အသိပေးချက်များကို ပိတ်မည်လား? Signal &gt; အပြင်အဆင်များ &gt; အသိပေးချက်များ ထဲဝင်၍ ၎င်းအသိပေးချက်များကို ဖွင့်လို့ရပါသည်။</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">အဆက်အသွယ်မှ​ Molly သို့ ဝင်ရောက်သည်ဆိုသည့် အသိပေးချက်များကို ပိတ်မည်လား? Molly &gt; အပြင်အဆင်များ &gt; အသိပေးချက်များ ထဲဝင်၍ ၎င်းအသိပေးချက်များကို ဖွင့်လို့ရပါသည်။</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2619,7 +2616,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal လော့ခ်ကျသွားသည့်အခါ ချက်ချင်းမတုံ့ပြန်နိုင်ပါ!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly လော့ခ်ကျသွားသည့်အခါ ချက်ချင်းမတုံ့ပြန်နိုင်ပါ!</string>
     <string name="QuickResponseService_problem_sending_message">စာပို့ခြင်းအခက်အခဲ</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2639,7 +2636,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">မမှန်ကန်သောဖြတ်လမ်း</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">စာအသစ်</string>
     <string name="SingleRecipientNotificationBuilder_message_request">မက်ဆေ့ပို့ရန် တောင်းဆိုချက်</string>
     <string name="SingleRecipientNotificationBuilder_you">သင်</string>
@@ -2684,7 +2681,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">ဤစက်ကို မှတ်ပုံတင်ထားခြင်း မရှိတော့ပါ။ ၎င်းသည် သင့်ဖုန်းနံပါတ်ကို Signal ထံတွင် အခြားစက်တစ်လုံးဖြင့် မှတ်ပုံတင်ခဲ့ခြင်းကြောင့် ဖြစ်နိုင်သည်။</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">ဤစက်ကို မှတ်ပုံတင်ထားခြင်း မရှိတော့ပါ။ ၎င်းသည် သင့်ဖုန်းနံပါတ်ကို Molly ထံတွင် အခြားစက်တစ်လုံးဖြင့် မှတ်ပုံတင်ခဲ့ခြင်းကြောင့် ဖြစ်နိုင်သည်။</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">စက်ကို ပြန်လည်၍မှတ်ပုံတင်ရန်</string>
 
@@ -2697,10 +2694,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">ကောလ် ဖြေဆိုရန် Signal အား သင့်မိုက်ခရိုဖုန်းကို သုံးခွင့်ပေးပါ။</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">ကောလ် ဖြေဆိုရန် Molly အား သင့်မိုက်ခရိုဖုန်းကို သုံးခွင့်ပေးပါ။</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">ဗီဒီယိုကောလ် ဖြေဆိုရန် Signal အား သင့်မိုက်ခရိုဖုန်းနှင့် ကင်မရာကို သုံးခွင့်ပေးပါ။</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">ဖုန်းခေါ်ဆိုမှုပြုနိုင်ရန် Signalမှ မိုက်ခရိုဖုန်း နှင့် ကင်မရာအား အသုံးပြုခွင့် ရရန်လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ မိုက်ခရိုဖုန်း နှင့် ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">ဗီဒီယိုကောလ် ဖြေဆိုရန် Molly အား သင့်မိုက်ခရိုဖုန်းနှင့် ကင်မရာကို သုံးခွင့်ပေးပါ။</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">ဖုန်းခေါ်ဆိုမှုပြုနိုင်ရန် Mollyမှ မိုက်ခရိုဖုန်း နှင့် ကင်မရာအား အသုံးပြုခွင့် ရရန်လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ မိုက်ခရိုဖုန်း နှင့် ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">ချိတ်ဆက်ထားသော စက်ပေါ်တွင် ဖြေဆိုခဲ့ပါသည်။</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">ချိတ်ဆက်ထားသော စက်ပေါ်တွင် ငြင်းဆိုခဲ့ပါသည်။</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">ချိတ်ဆက်ထားသော စက်ပေါ်တွင် မအားပါ။</string>
@@ -2745,7 +2742,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">စကားဝှက်အသစ်ကိုထပ်ထည့်ပါ</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Signal သို့ ဖိတ်ခေါ်မည်</string>
+    <string name="contact_selection_activity__invite_to_signal">Molly သို့ ဖိတ်ခေါ်မည်</string>
     <string name="contact_selection_activity__new_group">အဖွဲ့သစ်</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">အဆက်အသွယ်များကို ပြန်လည်လုပ်ဆောင်ခြင်း</string>
@@ -2771,7 +2768,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">လိပ်စာတွင်ထည့်ရန်ဓာတ်ပုံ</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">အဆက်အသွယ်များ၏ အချက်အလက်များကို ပို့နိုင်ရန် Signalမှ အဆက်အသွယ်များအား အသုံးပြုခွင့် ရရန်လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ အဆက်အသွယ်များကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">အဆက်အသွယ်များ၏ အချက်အလက်များကို ပို့နိုင်ရန် Mollyမှ အဆက်အသွယ်များအား အသုံးပြုခွင့် ရရန်လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ အဆက်အသွယ်များကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">သင့်မိတ်ဆွေများစာရင်းများကို ပြန်လည်ထုတ်ယူ၍မရရှိနိုင်ပါ။ သင့်၏ အင်တာနက်ကွန်ယက်ကို ပြန်လည်စစ်ဆေးပါ။</string>
     <string name="ContactSelectionListFragment_username_not_found">သုံးစွဲသူအမည်မတွေ့ပါ</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s သည် Signal သုံးသူမဟုတ်ပါ။ သုံးစွဲသူအမည်ကို အပြည့်အဝ မှန်ကန်စွာ ဖြည့်ထားရန် သေချာစေပါ။"</string>
@@ -2799,7 +2796,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">သင့် အဆက်အသွယ်များကို အသုံးပြုခွင့်ပေးပါ။ သင့်အဆက်အသွယ်များကို ကုဒ်ပြောင်းဝှက်ထားပြီး Signal ဝန်ဆောင်မှုက မမြင်တွေ့ရပါ။</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">မိမိ၏ အဆက်အသွယ်များကို ပြသရန် Signal က အဆက်အသွယ်များကို ရယူရန်လိုသည်။</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">မိမိ၏ အဆက်အသွယ်များကို ပြသရန် Molly က အဆက်အသွယ်များကို ရယူရန်လိုသည်။</string>
     <string name="contact_selection_list_fragment__show_contacts">အဆက်အသွယ်များကို ပြသပါ။</string>
 
     <!-- contact_selection_list_item -->
@@ -2871,7 +2868,7 @@
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">ရွေးချယ်စရာများ</string>
     <!-- Update item button text shown for a profile name change. -->
-    <string name="ConversationUpdateItem_update">Update</string>
+    <string name="ConversationUpdateItem_update">အပ်ဒိတ်လုပ်မည်</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">ဖွင့်မယ် … ခေတ္တရပ်မယ်</string>
@@ -2900,7 +2897,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Bubble များသည် Android အင်္ဂါရပ်တစ်ခုဖြစ်ပြီး Signal ချက်(တ်)များအတွက် သင် ပိတ်နိုင်ပါသည်။</string>
+    <string name="BubbleOptOutTooltip__description">Bubble များသည် Android အင်္ဂါရပ်တစ်ခုဖြစ်ပြီး Molly ချက်(တ်)များအတွက် သင် ပိတ်နိုင်ပါသည်။</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3061,9 +3058,9 @@
     <string name="EditProfileFragment__group_description">အဖွဲ့ ဖော်ပြချက်</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Signal ကို အပ်ဒိတ်လုပ်ပါ။</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Molly ကို အပ်ဒိတ်လုပ်ပါ။</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">ဤ Signal ဗားရှင်းသည် သက်တမ်းကုန်သွားပါပြီ။ Signal ကို ဆက်လက်သုံးစွဲရန် ယခု အပ်ဒိတ်လုပ်ပေးပါ။</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">ဤ Molly ဗားရှင်းသည် သက်တမ်းကုန်သွားပါပြီ။ Molly ကို ဆက်လက်သုံးစွဲရန် ယခု အပ်ဒိတ်လုပ်ပေးပါ။</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">အပ်ဒိတ်မယ်</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3279,7 +3276,7 @@
     <string name="preferences__slow">အနှေး</string>
     <string name="preferences__help">အကူအညီ</string>
     <string name="preferences__advanced">အဆင့်မြင့်</string>
-    <string name="preferences__donate_to_signal">Signal ကို လှူဒါန်းရန်</string>
+    <string name="preferences__donate_to_signal">Molly ကို လှူဒါန်းရန်</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">ကိုယ်ရေးအချက်အလက်များ လုံခြုံမှု</string>
     <!-- Preference label for stories -->
@@ -3316,13 +3313,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">အက်ပ်အိုင်ကွန်နှင့် အမည်ကို \"%1$s\" ဟု ပြောင်းခြင်း</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">အက်ပ်အိုင်ကွန်နှင့် အမည်ကို ပြောင်းရန်အတွက် Signal ကို ပိတ်ရန် လိုအပ်ပါသည်။ အသိပေးချက်များတွင် ပုံသေ Signal အိုင်ကွန်နှင့် အမည်ကိုသာ အမြဲတမ်းပြသပါမည်။</string>
+    <string name="preferences__app_icon_dialog_description">အက်ပ်အိုင်ကွန်နှင့် အမည်ကို ပြောင်းရန်အတွက် Molly ကို ပိတ်ရန် လိုအပ်ပါသည်။ အသိပေးချက်များတွင် ပုံသေ Molly အိုင်ကွန်နှင့် အမည်ကိုသာ အမြဲတမ်းပြသပါမည်။</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">သင့်ဖုန်း၏ ပင်မမျက်နှာပြင်နှင့် အက်ပ်အံဆွဲတွင် မြင်တွေ့နိုင်မည့် အက်ပ်အိုင်ကွန်နှင့် အမည်တစ်ခုကို ရွေးချယ်ပါ။ အသိပေးချက်များတွင် ပုံသေ Signal အိုင်ကွန်နှင့် အမည်ကိုသာ အမြဲတမ်းပြသပါမည်။ ပိုမို လေ့လာရန်</string>
+    <string name="preferences__app_icon_warning_learn_more">သင့်ဖုန်း၏ ပင်မမျက်နှာပြင်နှင့် အက်ပ်အံဆွဲတွင် မြင်တွေ့နိုင်မည့် အက်ပ်အိုင်ကွန်နှင့် အမည်တစ်ခုကို ရွေးချယ်ပါ။ အသိပေးချက်များတွင် ပုံသေ Molly အိုင်ကွန်နှင့် အမည်ကိုသာ အမြဲတမ်းပြသပါမည်။ ပိုမို လေ့လာရန်</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">အက်ပ်အိုင်ကွန်များနှင့် အမည်များကို ပင်မမျက်နှာပြင်နှင့် အက်ပ်အံဆွဲတွင် မြင်တွေ့နိုင်ပါသည်။</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">အသိပေးချက်များတွင် ပုံသေ Signal အိုင်ကွန်နှင့် အမည်ကိုသာ အမြဲတမ်းပြသပါမည်။</string>
+    <string name="preferences__app_icon_notification_warning">အသိပေးချက်များတွင် ပုံသေ Molly အိုင်ကွန်နှင့် အမည်ကိုသာ အမြဲတမ်းပြသပါမည်။</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">ပိုမို လေ့လာရန်</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3409,7 +3406,7 @@
     <string name="preferences_communication__category_censorship_circumvention">ဆင်ဆာရှောင်တိမ်းမှု</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">ဆင်ဆာရှောင်တိမ်းမှု</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">ဒါကိုဖွင့်ထားပါက signal အနေဖြင့် ပိတ်ထားခြင်းများကို ကျော်သွားရန်ကြိုးစားပါလိမ့်မည်။ Signal အားပိတ်ထားသောနေရာတွင်အသုံးပြုနေခြင်းမဟုတ်ပါက ဒါကိုသုံးရန်မလိုပါ။</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">ဒါကိုဖွင့်ထားပါက signal အနေဖြင့် ပိတ်ထားခြင်းများကို ကျော်သွားရန်ကြိုးစားပါလိမ့်မည်။ Molly အားပိတ်ထားသောနေရာတွင်အသုံးပြုနေခြင်းမဟုတ်ပါက ဒါကိုသုံးရန်မလိုပါ။</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">သင့်ကိုယ်ပိုင်စာရင်း ၏ဖုန်းနံပါတ်အပေါ် မူတည်၍ ဆင်ဆာဖြတ်တောက်မှုရှောင်ကွင်းခြင်းကို ပြုလုပ်ပြီး ဖြစ်သည်။</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3461,7 +3458,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">ငွေပေးချေမှုများကို မိတ်ဆက်ခြင်း</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Signal သုံး၍ လုံခြုံရေးအလေးပေး ဒစ်ဂျစ်တယ်ငွေကြေးအသစ် MobileCoin ကို ပေးပို့လက်ခံလိုက်ပါ။ စတင်သုံးရန် ဖွင့်ပါ။</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Molly သုံး၍ လုံခြုံရေးအလေးပေး ဒစ်ဂျစ်တယ်ငွေကြေးအသစ် MobileCoin ကို ပေးပို့လက်ခံလိုက်ပါ။ စတင်သုံးရန် ဖွင့်ပါ။</string>
     <string name="PaymentsHomeFragment__activate_payments">ငွေပေးချေမှုများ ဖွင့်မယ်</string>
     <string name="PaymentsHomeFragment__activating_payments">ငွေပေးချေမှုများ ဖွင့်နေသည်…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">ငွေပေးချမှုလုပ်သည့် အကောင့် ပြန်ရယူမယ်</string>
@@ -3487,7 +3484,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">သင့်ဒေသတွင်း ငွေပေးချေမှုများ မရရှိနိုင်ပါ။</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">ငွေပေးချေမှုများ မလုပ်ဆောင်နိုင်ပါ။ နောက်မှ ပြန်စမ်းကြည့်ပေးပါ။</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">ငွေပေးချေမှုများကို ပိတ်မည်လား?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">သင်မှ ငွေပေးချေမှုများ ပိတ်ထားလျှင် Signal ထဲတွင် သင်မှ MobileCoin ပေးပို့လက်ခံရန် မရနိုင်ပါ။</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">သင်မှ ငွေပေးချေမှုများ ပိတ်ထားလျှင် Molly ထဲတွင် သင်မှ MobileCoin ပေးပို့လက်ခံရန် မရနိုင်ပါ။</string>
     <string name="PaymentsHomeFragment__deactivate">ပိတ်မယ်</string>
     <string name="PaymentsHomeFragment__continue">ဆက်လုပ်ရန်</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">လက်ကျန်ငွေ လက်ရှိမရနိုင်ပါ။</string>
@@ -3496,10 +3493,10 @@
     <string name="PaymentsHomeFragment__details">အသေးစိတ်အချက်အလက်များ</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoin ပေးပို့ရန်နှင့် လက်ခံရန် Signal ကို သင် သုံးနိုင်ပါသည်။ ငွေပေးချေမှုများအားလုံးသည် MobileCoins နှင့် MobileCoin Wallet အတွက် အသုံးပြုမှုစည်းကမ်းချက်များကို လိုက်နာရပါမည်။ ပြဿနာအချို့ကို သင် ကြုံတွေ့ရနိုင်ပြီး သင် ဆုံးရှုံးသွားသော ငွေပေးချေမှုများ သို့မဟုတ် လက်ကျန်ငွေများကို ပြန်လည်ရယူ၍မရနိုင်ပါ။ </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoin ပေးပို့ရန်နှင့် လက်ခံရန် Molly ကို သင် သုံးနိုင်ပါသည်။ ငွေပေးချေမှုများအားလုံးသည် MobileCoins နှင့် MobileCoin Wallet အတွက် အသုံးပြုမှုစည်းကမ်းချက်များကို လိုက်နာရပါမည်။ ပြဿနာအချို့ကို သင် ကြုံတွေ့ရနိုင်ပြီး သင် ဆုံးရှုံးသွားသော ငွေပေးချေမှုများ သို့မဟုတ် လက်ကျန်ငွေများကို ပြန်လည်ရယူ၍မရနိုင်ပါ။ </string>
     <string name="PaymentsHomeFragment__activate">ဖွင့်မယ်</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin ၏သတ်မှတ်ချက်များ ကြည့်ရှုမယ်</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Signal ထဲတွင် ငွေပေးချေမှုများ မလုပ်ဆောင်နိုင်တော့ပါ။ ငွေလဲလှယ်မှုတစ်ခုသို့ ငွေများလွှဲနိုင်ပါသည်၊ သို့သော် သင်မှ ငွေပေးချေမှုများ ပေးပို့လက်ခံလို့မရတော့ပါ၊​ ငွေလည်း ထည့်ပေါင်းလို့မရတော့ပါ။</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Molly ထဲတွင် ငွေပေးချေမှုများ မလုပ်ဆောင်နိုင်တော့ပါ။ ငွေလဲလှယ်မှုတစ်ခုသို့ ငွေများလွှဲနိုင်ပါသည်၊ သို့သော် သင်မှ ငွေပေးချေမှုများ ပေးပို့လက်ခံလို့မရတော့ပါ၊​ ငွေလည်း ထည့်ပေါင်းလို့မရတော့ပါ။</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3527,7 +3524,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">ခွင့်ပြုချက်များ ပေးရန်</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">သင် သိရှိသောသူများထံသို့ မက်ဆေ့ချ်ပို့ရန်အတွက် ကူညီပေးရန် Signal သည် ထိုခွင့်ပြုချက်များကို တောင်းခံပါမည်။ </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">သင် သိရှိသောသူများထံသို့ မက်ဆေ့ချ်ပို့ရန်အတွက် ကူညီပေးရန် Molly သည် ထိုခွင့်ပြုချက်များကို တောင်းခံပါမည်။ </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">အသိပေးချက်များ</string>
     <!-- Notifications permission row description -->
@@ -3616,9 +3613,9 @@
     <string name="PaymentsTransferFragment__invalid_address">အကြုံးမဝင်သော လိပ်စာ</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">သင်လွှဲပြောင်းရန် ကြိုးစားနေသည့် ပိုက်ဆံအိတ် wallet လိပ်စာ ကိုစစ်ပြီး ပြန်စမ်းကြည့်ပေးပါ။</string>
     <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">သင့်ပိုက်ဆံအိတ် wallet လိပ်စာသို့ သင်ကိုယ်တိုင် လွှဲလို့မရပါ။ သင့်အကောင့်မှ ပိုက်ဆံအိတ် wallet လိပ်စာ ကို ပံ့ပိုးသော ငွေလဲလှယ်မှုတစ်နေရာတွင် ရိုက်ထည့်ပေးပါ။</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR ကုဒ်ကို စကင်ဖတ်ရန် Signal မှ သင့် ကင်မရာသုံးခွင့် လိုအပ်ပါသည်။</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">QR ကုဒ်ဖတ်ရန် Signal မှ သင့်ကင်မရာသုံးခွင့် လိုအပ်ပါသည်။ အပြင်အဆင်များ သို့သွား၍ \"ခွင့်ပြုချက်များ\" ကိုရွေးပါ၊ ပြီးလျှင် \"ကင်မရာ\" ကို ဖွင့်ပါ။</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR ကုဒ်ကို စကင်ဖတ်ရန် Signal မှ သင့် ကင်မရာသုံးခွင့် လိုအပ်ပါသည်။</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR ကုဒ်ကို စကင်ဖတ်ရန် Molly မှ သင့် ကင်မရာသုံးခွင့် လိုအပ်ပါသည်။</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">QR ကုဒ်ဖတ်ရန် Molly မှ သင့်ကင်မရာသုံးခွင့် လိုအပ်ပါသည်။ အပြင်အဆင်များ သို့သွား၍ \"ခွင့်ပြုချက်များ\" ကိုရွေးပါ၊ ပြီးလျှင် \"ကင်မရာ\" ကို ဖွင့်ပါ။</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR ကုဒ်ကို စကင်ဖတ်ရန် Molly မှ သင့် ကင်မရာသုံးခွင့် လိုအပ်ပါသည်။</string>
     <string name="PaymentsTransferFragment__settings">အပြင်အဆင်များ</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -3957,17 +3954,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Signal အော်ဒီယိုကောလ် အဝင်</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly အော်ဒီယိုကောလ် အဝင်</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Signal ဗီဒီယိုကောလ် အဝင်</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Molly ဗီဒီယိုကောလ် အဝင်</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Signal အဖွဲ့ကောလ် အဝင်</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Molly အဖွဲ့ကောလ် အဝင်</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Signal အော်ဒီယိုကောလ် အထွက်</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Molly အော်ဒီယိုကောလ် အထွက်</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Signal ဗီဒီယိုကောလ် အထွက်</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Molly ဗီဒီယိုကောလ် အထွက်</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Signal အဖွဲ့ကောလ် အထွက်</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Molly အဖွဲ့ကောလ် အထွက်</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">လုပ်ဆောင်နေသည်…</string>
@@ -4014,9 +4011,9 @@
     <string name="BackupDialog_verify">စစ်ဆေးအတည်ပြုသည်</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">သင်၏အရန်ကူးထားသောစကားဝှက်ကို အောင်မြင်စွာထည့်ပြီးပါပြီ</string>
     <string name="BackupDialog_passphrase_was_not_correct">စကားဝှက်သည်မမှန်ပါ</string>
-    <string name="LocalBackupJob_creating_signal_backup">Signal ဘက်ခ်အပ် ဖန်တီးနေဆဲ…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Molly ဘက်ခ်အပ် ဖန်တီးနေဆဲ…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Signal ဘက်ခ်အပ် အတည်ပြုနေဆဲ…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Molly ဘက်ခ်အပ် အတည်ပြုနေဆဲ…</string>
     <string name="LocalBackupJobApi29_backup_failed">အရန်သိမ်းဆည်းမှုများ မအောင်မြင်ပါ</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">သင်၏ ဘက်ခ်အပ်လမ်းကြောင်းအား ဖျက်ထားသည် သို့မဟုတ် ရွှေ့ထားသည်။</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">သင်၏ အရန်သိမ်းဆည်းထားသောဖိုင်ကို သိမ်းဆည်းရန် အလွန်ကြီးမားသည်</string>
@@ -4031,15 +4028,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">(%1$02d:%2$02d) အကြာတွင် ဖုန်းခေါ်ရန်</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">ကုဒ် ပြန်ပို့ရန် (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Signal အကူအညီ ရယူမည်</string>
-    <string name="RegistrationActivity_code_support_subject">Signal မှတ်ပုံတင်ခြင်း Android အတွက် အတည်ပြုကုဒ်</string>
+    <string name="RegistrationActivity_contact_signal_support">Molly အကူအညီ ရယူမည်</string>
+    <string name="RegistrationActivity_code_support_subject">Molly မှတ်ပုံတင်ခြင်း Android အတွက် အတည်ပြုကုဒ်</string>
     <string name="RegistrationActivity_incorrect_code">ကုဒ် မှားနေပါသည်</string>
     <string name="BackupUtil_never">ဘယ်တော့မှ</string>
     <string name="BackupUtil_unknown">မသိ</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">ဖုန်းနံပါတ်</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">သင့်ဖုန်းနံပါတ်ကို မြင်နိုင်သူများနှင့် Signal တွင် ထိုနံပါတ်ဖြင့် သင့်ထံသို့ ဆက်သွယ်နိုင်သူများကို ရွေးချယ်ပါ။</string>
+    <string name="preferences_app_protection__choose_who_can_see">သင့်ဖုန်းနံပါတ်ကို မြင်နိုင်သူများနှင့် Molly တွင် ထိုနံပါတ်ဖြင့် သင့်ထံသို့ ဆက်သွယ်နိုင်သူများကို ရွေးချယ်ပါ။</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">ကျွန်ုပ်၏ ဖုန်းနံပါတ်ကို မြင်နိုင်သူများ</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4087,7 +4084,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">သင်သည် အကြိမ်များစွာ ကြိုးစားပြီးပါပြီ၊ နောင်အခါမှ ပြန်လည်ကြိုးစားပါ။</string>
     <string name="RegistrationActivity_error_connecting_to_service">ဝန်ဆောင်မှုနှင့် ဆက်သွယ်ရာတွင် အခက်အခဲဖြစ်နေသည်</string>
     <string name="preferences_chats__backups">အရန်သိမ်းဆည်းမှုများ</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Signal လော့ကျနေပါသည်</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Molly လော့ကျနေပါသည်</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">လော့ခ်ဖြည်ရန် စကင်ရင်ကို နှိပ်ပါ</string>
     <string name="Recipient_unknown">အမျိုးအမည်မသိ</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4142,19 +4139,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Android စက်အဟောင်းနှင့် ချိတ်ဆက်ရန် ပြင်ဆင်နေပါသည်…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">အချိန်ခဏယူနေပါသည်၊ မကြာမီရရှိပါမည်</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Android စက်အဟောင်းဖြင့် ချိတ်ရန် စောင့်နေပါသည်…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">သင့် Android စက်အဟောင်းဖြင့် ချိတ်ရန် Signal မှ တည်နေရာရှာဖွေခွင့် လိုအပ်ပါသည်။</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">သင့် Android စက်အဟောင်းဖြင့် ချိတ်ရန် Signal မှ တည်နေရာဝန်ဆောင်မှုများ ဖွင့်ထားရန် လိုအပ်ပါသည်။</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">သင့် Android စက်အဟောင်းအား ရှာဖွေချိတ်ဆက်ရန် Signal မှ ဝိုင်ဖိုင်ဖွင့်ထားခြင်း လိုအပ်ပါသည်။ ဝိုင်ဖိုင်ဖွင့်ထားရန်သာ လိုအပ်ပြီး ဝိုင်ဖိုင်လိုင်းပေါ်တက်ခြင်း မလိုအပ်ပါ။</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">တောင်းပန်ပါသည်၊ ကြည့်ရတာ ဤစက်သည် ဝိုင်ဖိုင်တိုက်ရိုက် ဝန်ဆောင်မှုအား မပံ့ပိုးပါ။ သင့် Android စက်အဟောင်းအား ရှာဖွေချိတ်ဆက်ရန် Signal မှ ဝိုင်ဖိုင်တိုက်ရိုက် အသုံးပြုရပါသည်။ သင့် Android စက်အဟောင်းမှ အကောင့်အား ပြန်လည်ရယူရန် နောက်ခံအရန်အား ပြန်လည်တည်ထောင်နိုင်ပါသည်။</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">သင့် Android စက်အဟောင်းဖြင့် ချိတ်ရန် Molly မှ တည်နေရာရှာဖွေခွင့် လိုအပ်ပါသည်။</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">သင့် Android စက်အဟောင်းဖြင့် ချိတ်ရန် Molly မှ တည်နေရာဝန်ဆောင်မှုများ ဖွင့်ထားရန် လိုအပ်ပါသည်။</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">သင့် Android စက်အဟောင်းအား ရှာဖွေချိတ်ဆက်ရန် Molly မှ ဝိုင်ဖိုင်ဖွင့်ထားခြင်း လိုအပ်ပါသည်။ ဝိုင်ဖိုင်ဖွင့်ထားရန်သာ လိုအပ်ပြီး ဝိုင်ဖိုင်လိုင်းပေါ်တက်ခြင်း မလိုအပ်ပါ။</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">တောင်းပန်ပါသည်၊ ကြည့်ရတာ ဤစက်သည် ဝိုင်ဖိုင်တိုက်ရိုက် ဝန်ဆောင်မှုအား မပံ့ပိုးပါ။ သင့် Android စက်အဟောင်းအား ရှာဖွေချိတ်ဆက်ရန် Molly မှ ဝိုင်ဖိုင်တိုက်ရိုက် အသုံးပြုရပါသည်။ သင့် Android စက်အဟောင်းမှ အကောင့်အား ပြန်လည်ရယူရန် နောက်ခံအရန်အား ပြန်လည်တည်ထောင်နိုင်ပါသည်။</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">နောက်ခံအရန်အား ပြန်လည်တည်ထောင်မယ်</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">သင့် Android စက်အဟောင်းဖြင့် ချိတ်ရန်ကြိုးစားနေစဥ် မမျှော်လင့်ထားသော ချို့ယွင်းချက်တစ်ခု ဖြစ်ခဲ့ပါသည်။</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Android စက်အသစ်အား ရှာဖွေနေပါသည်…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">သင့် Android စက်အသစ်ဖြင့် ချိတ်ရန် Signal မှ တည်နေရာအသုံးပြုရန်ခွင့် လိုအပ်ပါသည်။</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">သင့် Android စက်အသစ်ဖြင့် ချိတ်ရန် Signal မှ တည်နေရာဝန်ဆောင်မှုများ ဖွင့်ထားရန် လိုအပ်ပါသည်။</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">သင့် Android စက်အသစ်အား ရှာဖွေချိတ်ဆက်ရန် Signal မှ ဝိုင်ဖိုင်ဖွင့်ထားခြင်း လိုအပ်ပါသည်။ ဝိုင်ဖိုင်ဖွင့်ထားရန်သာ လိုအပ်ပြီး ဝိုင်ဖိုင်လိုင်းပေါ်တက်ခြင်း မလိုအပ်ပါ။</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">တောင်းပန်ပါသည်၊ ကြည့်ရတာ ဤစက်သည် ဝိုင်ဖိုင်တိုက်ရိုက် ဝန်ဆောင်မှုအား မပံ့ပိုးပါ။ သင့် Android စက်အသစ်အား ရှာဖွေချိတ်ဆက်ရန် Signal မှ ဝိုင်ဖိုင်တိုက်ရိုက် အသုံးပြုရပါသည်။ သင့် Android စက်အသစ်မှ အကောင့်အား ပြန်လည်ရယူရန် နောက်ခံအရန်အား တည်ထောင်နိုင်ပါသည်။</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">သင့် Android စက်အသစ်ဖြင့် ချိတ်ရန် Molly မှ တည်နေရာအသုံးပြုရန်ခွင့် လိုအပ်ပါသည်။</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">သင့် Android စက်အသစ်ဖြင့် ချိတ်ရန် Molly မှ တည်နေရာဝန်ဆောင်မှုများ ဖွင့်ထားရန် လိုအပ်ပါသည်။</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">သင့် Android စက်အသစ်အား ရှာဖွေချိတ်ဆက်ရန် Molly မှ ဝိုင်ဖိုင်ဖွင့်ထားခြင်း လိုအပ်ပါသည်။ ဝိုင်ဖိုင်ဖွင့်ထားရန်သာ လိုအပ်ပြီး ဝိုင်ဖိုင်လိုင်းပေါ်တက်ခြင်း မလိုအပ်ပါ။</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">တောင်းပန်ပါသည်၊ ကြည့်ရတာ ဤစက်သည် ဝိုင်ဖိုင်တိုက်ရိုက် ဝန်ဆောင်မှုအား မပံ့ပိုးပါ။ သင့် Android စက်အသစ်အား ရှာဖွေချိတ်ဆက်ရန် Molly မှ ဝိုင်ဖိုင်တိုက်ရိုက် အသုံးပြုရပါသည်။ သင့် Android စက်အသစ်မှ အကောင့်အား ပြန်လည်ရယူရန် နောက်ခံအရန်အား တည်ထောင်နိုင်ပါသည်။</string>
     <string name="OldDeviceTransferSetup__create_a_backup">နောက်ခံအရန်အား တည်ထောင်မယ်</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">သင့် Android စက်အသစ်ဖြင့် ချိတ်ရန်ကြိုးစားနေစဥ် မမျှော်လင့်ထားသော ချို့ယွင်းချက်တစ်ခု ဖြစ်ခဲ့ပါသည်။</string>
 
@@ -4195,7 +4192,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">ဒေတာများ လွှဲပြောင်းနေပါသည်</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">စက် ၂ ခုလုံးအား နီးကပ်စွာ ထားရှိပေးပါ။ စက်များမပိတ်၍ Signal အားဖွင့်ထားပါ။ လွှဲပြောင်းမှုများကို အစအဆုံး ကုဒ်ဖြင့်ပြောင်းလဲထားပါသည်။</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">စက် ၂ ခုလုံးအား နီးကပ်စွာ ထားရှိပေးပါ။ စက်များမပိတ်၍ Molly အားဖွင့်ထားပါ။ လွှဲပြောင်းမှုများကို အစအဆုံး ကုဒ်ဖြင့်ပြောင်းလဲထားပါသည်။</string>
     <string name="DeviceTransfer__d_messages_so_far">မက်ဆေ့ %1$d ခု လုပ်ဆောင်ပြီး…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">မက်ဆေ့ချ် %1$s%% စောင် ပြီးစီးပြီး…</string>
@@ -4209,7 +4206,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">အကောင့်ကို လွှဲပြောင်းမယ်</string>
     <string name="OldDeviceTransferInstructions__first_bullet">၁။</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">သင့် Android စက်အသစ်ပေါ်သို့ Signal ဒေါင်းလုပ်ဆွဲပါ</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">သင့် Android စက်အသစ်ပေါ်သို့ Molly ဒေါင်းလုပ်ဆွဲပါ</string>
     <string name="OldDeviceTransferInstructions__second_bullet">၂။</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"\"အကောင့် လွှဲပြောင်းမယ် သို့ ပြန်လည်ရယူမယ်\" ကိုနှိပ်ပါ"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">၃။</string>
@@ -4283,7 +4280,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">၎င်းလင့်ခ်ဖြင့် မည်သူမဆို အဖွဲ့၏အမည်နှင့်ဓာတ်ပုံကိုကြည့်ပြီး အဖွဲ့ထဲဝင်ရန် တောင်းဆိုနိုင်သည်။ သင်ယုံကြည်ရသောလူများနှင့် မျှဝေပါ။</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">ဤလင့်ခ်ဖြင့် မည်သူမဆို အဖွဲ့၏ အမည်နှင့်ဓာတ်ပုံကိုကြည့်ပြီး အဖွဲ့ထဲဝင်ရောက်နိုင်သည်။ သင်ယုံကြည်ရသောလူများနှင့်မျှဝေပါ။</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Signal မှတဆင့်မျှဝေမည်</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Molly မှတဆင့်မျှဝေမည်</string>
     <string name="GroupLinkBottomSheet_copy">ကူးမည်</string>
     <string name="GroupLinkBottomSheet_qr_code">QR ကုဒ်</string>
     <string name="GroupLinkBottomSheet_share">ဝေမျှမည်</string>
@@ -4462,7 +4459,7 @@
     <string name="payment_info_card_about_mobilecoin">MobileCoin အကြောင်း</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin သည် လုံခြုံရေးအလေးပေး ဒစ်ဂျစ်တယ်ငွေကြေးအသစ် ဖြစ်ပါသည်။</string>
     <string name="payment_info_card_adding_funds">ငွေဖြည့်နေသည်</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">သင့် ပိုက်ဆံအိတ် wallet လိပ်စာသို့ MobileCoin ပို့၍ Signal တွင် သုံးရန် ငွေဖြည့်နိုင်ပါသည်။</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">သင့် ပိုက်ဆံအိတ် wallet လိပ်စာသို့ MobileCoin ပို့၍ Molly တွင် သုံးရန် ငွေဖြည့်နိုင်ပါသည်။</string>
     <string name="payment_info_card_cashing_out">ငွေထုတ်ယူခြင်း</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">မည်သည့်အချိတ်မဆို MobileCoin ပံ့ပိုးသော ငွေလဲလှယ်သည့်နေရာတွင် MobileCoin ငွေထုတ်ယူလို့ရပါသည်။ ၎င်းငွေလဲလှယ်သည့်နေရာတွင် သင့်အကောင့်သို့ လွှဲလိုက်ပါ။</string>
     <string name="payment_info_card_hide_this_card">၎င်းကဒ်ကို ပုန်းမည်လား?</string>
@@ -4483,12 +4480,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">ပိုက်ဆံအိတ် Wallet ကို ပိတ်မယ်</string>
     <string name="DeactivateWalletFragment__your_balance">သင့်လက်ကျန်ငွေ</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">ပိုက်ဆံအိတ် Wallet ကို မပိတ်မီ အခြား ပိုက်ဆံအိတ် Wallet သို့ သင့်ငွေများကို လွှဲထားရန် အကြံပြုပါသည်။ ယခု မလွှဲထားလျှင် သင်မှ ငွေပေးချေမှုများ ပြန်ဖွင်ခဲ့သည့်အချိန်တွင် ၎င်းငွေများသည် Signal နှင့်ချိတ်ထားသော ပိုက်ဆံအိတ် Wallet တွင်ကျန်ရှိနေပါမည်။</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">ပိုက်ဆံအိတ် Wallet ကို မပိတ်မီ အခြား ပိုက်ဆံအိတ် Wallet သို့ သင့်ငွေများကို လွှဲထားရန် အကြံပြုပါသည်။ ယခု မလွှဲထားလျှင် သင်မှ ငွေပေးချေမှုများ ပြန်ဖွင်ခဲ့သည့်အချိန်တွင် ၎င်းငွေများသည် Molly နှင့်ချိတ်ထားသော ပိုက်ဆံအိတ် Wallet တွင်ကျန်ရှိနေပါမည်။</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">ကျန်ရှိသောလက်ကျန်ငွေကို လွှဲပြောင်းမယ်</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">မလွှဲဘဲ ပိတ်ပါမယ်</string>
     <string name="DeactivateWalletFragment__deactivate">ပိတ်မယ်</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">မလွှဲဘဲ ပိတ်မည်လား?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">သင်မှ ငွေပေးချေမှုများကို ပြန်ဖွင့်ခဲ့လျှင် သင့် လက်ကျန်ငွေသည် Signal နှင့် ချိတ်ထားသော သင့်ပိုက်ဆံအိတ် wallet ထဲတွင် ကျန်ရှိနေပါမည်။</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">သင်မှ ငွေပေးချေမှုများကို ပြန်ဖွင့်ခဲ့လျှင် သင့် လက်ကျန်ငွေသည် Molly နှင့် ချိတ်ထားသော သင့်ပိုက်ဆံအိတ် wallet ထဲတွင် ကျန်ရှိနေပါမည်။</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">ပိုက်ဆံအိတ် wallet ပိတ်ခြင်းတွင် ပျက်ကွက်မှုဖြစ်</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4781,7 +4778,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">လိုင်စင်များ</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">လိုက်နာဆောင်ရွက်ရမည့် အချက်များ</string>
-    <string name="HelpFragment__copyright_signal_messenger">မူပိုင်ခွင့် Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">မူပိုင်ခွင့် Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3 အတိုင်း ခွင့်ပြုထားသည်</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5224,9 +5221,9 @@
     <string name="MySupportPreference__learn_more">ပိုမိုလေ့လာရန်</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Signal ကို အပ်ဒိတ်လုပ်ပါ။</string>
+    <string name="UpdateSignalExpiredDialog__title">Molly ကို အပ်ဒိတ်လုပ်ပါ။</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">ဤ Signal ဗားရှင်းသည် သက်တမ်းကုန်သွားပါပြီ။ Signal ကို ဆက်လက်သုံးစွဲရန် ယခု အပ်ဒိတ်လုပ်ပေးပါ။</string>
+    <string name="UpdateSignalExpiredDialog__message">ဤ Molly ဗားရှင်းသည် သက်တမ်းကုန်သွားပါပြီ။ Molly ကို ဆက်လက်သုံးစွဲရန် ယခု အပ်ဒိတ်လုပ်ပေးပါ။</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">အပ်ဒိတ်မယ်</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5235,7 +5232,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">စက်ကို မှတ်ပုံမတင်ထားပါ</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">ဤစက်ကို မှတ်ပုံတင်ထားခြင်း မရှိတော့ပါ။ ဤစက်တွင် Signal ဆက်သုံးရန် ပြန်လည်၍မှတ်ပုံတင်ပါ။</string>
+    <string name="ReregisterSignalDialog__message">ဤစက်ကို မှတ်ပုံတင်ထားခြင်း မရှိတော့ပါ။ ဤစက်တွင် Molly ဆက်သုံးရန် ပြန်လည်၍မှတ်ပုံတင်ပါ။</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">ပြန်လည်၍မှတ်ပုံတင်ခြင်းပြုလုပ်မည်</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5529,7 +5526,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">ရွေးချယ်ထားသည်ကို ဖွင့်ရန် မအောင်မြင်ပါ။</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">အသိပေးချက်များကို ဖွင့်ရန်အတွက် Signal သည် ၎င်းတို့ကို ပြသရန် ခွင့်ပြုချက် လိုအပ်ပါသည်။</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">အသိပေးချက်များကို ဖွင့်ရန်အတွက် Molly သည် ၎င်းတို့ကို ပြသရန် ခွင့်ပြုချက် လိုအပ်ပါသည်။</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">ဖွင့်မည်</string>
 
@@ -6850,43 +6847,43 @@
 
     <!-- BackupAlertBottomSheet -->
     <!-- Sheet title when media backups have been disabled -->
-    <string name="BackupAlertBottomSheet__media_backups_are_off">Media backups are off</string>
+    <string name="BackupAlertBottomSheet__media_backups_are_off">မီဒီယာဘက်ခ်အပ်များကို ပိတ်ထားသည်</string>
     <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
     <plurals name="BackupAlertBottomSheet__your_signal_media_backup_plan">
-        <item quantity="other">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
+        <item quantity="other">သင့်ငွေပေးချေမှုကို ကျွန်ုပ်တို့ မလုပ်ဆောင်နိုင်ခဲ့သောကြောင့် သင်၏ Signal မီဒီယာ ဘက်ခ်အပ်အစီအစဉ်ကို ပယ်ဖျက်လိုက်ပါသည်။ သင့်ဘက်ခ်အပ်တွင် သိမ်းဆည်းထားသည့် မည်သည့်မီဒီယာကိုမဆို ဒေါင်းလုဒ်လုပ်ရန် သင့်တွင် အချိန် %1$d ရက်ရှိသည်။ %1$d ရက်ကြာပြီးနောက် သင်၏ ဘက်ခ်အပ်လုပ်ထားသောမီဒီယာကို ဖျက်လိုက်ပါမည်။</item>
     </plurals>
     <!-- Sheet body part 2 when media backups have been disabled. -->
-    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">You can begin paying for backups again at any time to continue backing up all your media. </string>
+    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">သင်၏မီဒီယာအားလုံးကို ဆက်လက်ဘက်ခ်အပ်လုပ်ရန် ဘက်ခ်အပ်လုပ်ခြင်းများအတွက် အချိန်မရွေး ထပ်မံငွေပေးချေနိုင်ပါသည်။ </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Your media will be deleted today</string>
+    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">သင်၏မီဒီယာကို ယနေ့ ဖျက်လိုက်ပါမည်</string>
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Your Signal media backup plan has been canceled because we couldn\'t process your payment. This is your last chance to download the media in your backup before it is deleted.</string>
+    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">သင့်ငွေပေးချေမှုကို ကျွန်ုပ်တို့ မလုပ်ဆောင်နိုင်ခဲ့သောကြောင့် သင်၏ Signal မီဒီယာ ဘက်ခ်အပ်အစီအစဉ်ကို ပယ်ဖျက်လိုက်ပါသည်။ မဖျက်မီ ဘက်ခ်အပ်လုပ်ထားသော မီဒီယာကို ဒေါင်းလုဒ်လုပ်ရန်အတွက် နောက်ဆုံးအခွင့်အရေးဖြစ်သည်။</string>
     <!-- Sheet title when user does not have enough space to download their backup -->
     <string name="BackupAlertBottomSheet__cant_complete_download">ဒေါင်းလုဒ်ကို အပြီးမသတ်နိုင်ပါ</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
     <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">သင့်စက်တွင် နေရာလွတ် အလုံအလောက်မရှိပါ။ သင့် ဘက်ခ်အပ်တွင် သိမ်းထားသောမီဒီယာကို ဒေါင်းလုဒ်လုပ်ရန် %1$s အထိ နေရာလွတ် ထွက်လာအောင် ရှင်းထုတ်ပါ။</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
     <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
-        <item quantity="other">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
+        <item quantity="other">\"ကျော်မည်\" ကို ရွေးချယ်ပါက သင်ဘက်ခ်အပ်လုပ်ထားသော မီဒီယာကို %1$d ရက်အတွင်း ဖျက်ပစ်ပါမည်။</item>
     </plurals>
     <!-- Sheet title when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__cant_process_backup_payment">Can\'t process backup payment</string>
+    <string name="BackupAlertBottomSheet__cant_process_backup_payment">ဘက်ခ်အပ်အတွက် ငွေပေးချေမှုကို လုပ်ဆောင်၍မရပါ</string>
     <!-- Sheet body when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">We\'re having trouble collecting your recurring monthly backup payment. Make sure your payment method is up to date. If it isn\'t, update it in Google Pay. Signal will try to process the payment again in a few days.</string>
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">သင်၏ ဘက်ခ်အပ်အတွက် လစဉ်ငွေပေးချေမှုကို ကောက်ခံရာတွင် ပြဿနာရှိနေပါသည်။ သင်၏ ငွေပေးချေမှုနည်းလမ်းသည် အပ်ဒိတ်ဖြစ်ကြောင်း သေချာပါစေ။ မဖြစ်ပါက Google Pay တွင် အပ်ဒိတ်လုပ်ပါ။ Signal က ရက်အနည်းငယ်အကြာတွင် ငွေပေးချေမှုကို ထပ်မံစီမံလုပ်ဆောင်ရန် ကြိုးစားပါမည်။</string>
     <!-- Sheet title for generic backup error -->
-    <string name="BackupAlertBottomSheet__couldnt_complete_backup">Couldn\'t complete backup</string>
+    <string name="BackupAlertBottomSheet__couldnt_complete_backup">ဘက်ခ်အပ်လုပ်ခြင်းကို အပြီးသတ်၍မရပါ။</string>
     <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
-    <string name="BackupAlertBottomSheet__your_device_hasnt">Your device hasn\'t completed a backup for %1$d days. Make sure your device is connected to wi-fi and tap \"Back up now.\" </string>
+    <string name="BackupAlertBottomSheet__your_device_hasnt">သင့်စက်သည် ဘက်ခ်အပ်လုပ်ခြင်း မပြီးမြောက်သည်မှာ %1$d ရက်ရှိပြီဖြစ်သည်။ သင့်စက်ပစ္စည်းကို wi-fi နှင့် ချိတ်ဆက်ထားကြောင်း သေချာစေပြီး \"ယခု ဘက်ခ်အပ်လုပ်မည်\" ကိုနှိပ်ပါ။ </string>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">ပိုမိုလေ့လာရန်</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip">ကျော်မည်</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Download media now</string>
+    <string name="BackupAlertBottomSheet__download_media_now">မီဒီယာကို ယခုဒေါင်းလုဒ်လုပ်ပါ</string>
     <!-- Secondary action button text to dismiss sheet, noting the user can download later -->
-    <string name="BackupAlertBottomSheet__download_later">Download later</string>
+    <string name="BackupAlertBottomSheet__download_later">နောက်မှ ဒေါင်းလုဒ်လုပ်ပါ</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Don\'t download media</string>
+    <string name="BackupAlertBottomSheet__dont_download_media">မီဒီယာကို ဒေါင်းလုဒ်မလုပ်ပါနှင့်</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7009,25 +7006,25 @@
     <!-- Title for frequency option DAILY for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__manually_back_up">လူကိုယ်တိုင် ဘက်ခ်အပ်</string>
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
-    <string name="PassphrasePromptActivity_help_prompt_body">Please enter your device pin, password or pattern.</string>
+    <string name="PassphrasePromptActivity_help_prompt_body">သင့်စက်၏ ပင်နံပါတ်၊ စကားဝှက် သို့မဟုတ် ပုံစံကို ထည့်ပါ။</string>
 
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">ဆက်သွားမည်</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Change backup type</string>
+    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">ဘက်ခ်အပ် အမျိုးအစားပြောင်းမည်</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">ပုံမှန်လှူဒါန်းငွေကို ပယ်ဖျက်ရန်</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
-    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">Confirm cancellation</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">ပယ်ဖျက်မှုကို အတည်ပြုမည်</string>
     <!-- Dialog body -->
-    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">You won\'t be charged again. Backups will be turned off at the end of your billing cycle. After that date you will have 30 days to download the media you\'re currently backing up.</string>
+    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">ထပ်မံ ငွေကောက်ခံမည်မဟုတ်ပါ။ သင့်ငွေပေးချေမှု စက်ဝန်းအဆုံးတွင် ဘက်ခ်အပ်များကို ပိတ်သွားပါမည်။ ထိုရက်စွဲပြီးနောက် သင်လက်ရှိ ဘက်ခ်အပ်လုပ်နေသော မီဒီယာကို ဒေါင်းလုဒ်လုပ်ရန် ရက်ပေါင်း ၃၀ အချိန်ရပါမည်။</string>
     <!-- Action button label to cancel subscription and download now -->
-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">Confirm and download now</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">အတည်ပြုပြီး ယခုဒေါင်းလုဒ်လုပ်မည်</string>
     <!-- Action button label to cancel subscription and download later -->
-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Confirm and download later</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">အတည်ပြုပြီး နောက်မှဒေါင်းလုဒ်လုပ်မည်</string>
     <!-- Action button label to keep current subscription -->
-    <string name="ConfirmBackupCancellationDialog__keep_subscription">Keep subscription</string>
+    <string name="ConfirmBackupCancellationDialog__keep_subscription">ပုံမှန်ငွေလှူဒါန်းမှုကို ဆက်လက်ပြုလုပ်မည်</string>
     <!-- EOF -->
 </resources>

@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -42,12 +39,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signal מתעדכן…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Molly מתעדכן…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">עדין לא הגדרת משפט־סיסמה!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">להשבית משפט־סיסמה?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">זה ישחרר נעילה של Signal והתראות הודעה באופן קבוע.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">זה ישחרר נעילה של Molly והתראות הודעה באופן קבוע.</string>
     <string name="ApplicationPreferencesActivity_disable">השבת</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">שגיאה בהתחברות לשרת!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">קודי PIN נדרשים עבור נעילת הרשמה. כדי להשבית קודי PIN, אנא השבת תחילה נעילת הרשמה.</string>
@@ -84,31 +81,31 @@
     <string name="AttachmentKeyboard_file">קובץ</string>
     <string name="AttachmentKeyboard_contact">איש קשר</string>
     <string name="AttachmentKeyboard_location">מיקום</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal צריכה הרשאה כדי להציג את התמונות והסרטונים שלך</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly צריכה הרשאה כדי להציג את התמונות והסרטונים שלך</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">התר גישה</string>
     <string name="AttachmentKeyboard_payment">תשלום</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">לא ניתן למצוא יישום לבחירת מדיה.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal דורש את הרשאת האחסון על מנת לצרף תמונות, סרטונים, או שמע, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal דורש הרשאת אנשי קשר על מנת לצרף מידע איש קשר, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal דורש הרשאת מיקום על מנת לצרף מיקום, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקום\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly דורש את הרשאת האחסון על מנת לצרף תמונות, סרטונים, או שמע, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly דורש הרשאת אנשי קשר על מנת לצרף מידע איש קשר, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly דורש הרשאת מיקום על מנת לצרף מיקום, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקום\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">מתן גישה למיקום שלך</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">כדי לשלוח את המיקום שלך:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">צריך לתת ל–Signal גישה כדי לשלוח את המיקום שלך.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">צריך לתת ל–Molly גישה כדי לשלוח את המיקום שלך.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Signal צריכה גישה למיקום כדי לשלוח את המיקום שלך.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Molly צריכה גישה למיקום כדי לשלוח את המיקום שלך.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">מתן גישה לאחסון</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">כדי להציג תמונות וסרטונים:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Signal צריכה גישה לאחסון כדי להציג את התמונות והסרטונים שלך.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Molly צריכה גישה לאחסון כדי להציג את התמונות והסרטונים שלך.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s לא הפעיל/ה תשלומים </string>
@@ -277,7 +274,7 @@
     <string name="CameraContacts_no_signal_contacts">אין אנשי קשר של Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">אתה יכול להשתמש רק בכפתור המצלמה כדי לשלוח תמונות אל אנשי קשר של Signal. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">אינך מוצא מה שאתה מחפש?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">הזמן איש קשר להצטרף אל Signal</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">הזמן איש קשר להצטרף אל Molly</string>
     <string name="CameraContacts__menu_search">חפש</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -291,12 +288,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">לא תודה</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">עדכן את Signal</string>
+    <string name="ClientDeprecatedActivity_update_signal">עדכן את Molly</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">גרסה זו של היישום אינה נתמכת יותר. כדי להמשיך לשלוח ולקבל הודעות, עדכן אל הגרסה האחרונה.</string>
     <string name="ClientDeprecatedActivity_update">עדכן</string>
     <string name="ClientDeprecatedActivity_dont_update">אל תעדכן</string>
     <string name="ClientDeprecatedActivity_warning">אזהרה</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">גרסת Signal שלך כבר לא בתוקף. אפשר לצפות בהיסטוריית ההודעות שלך אבל לא תהיה לך אפשרות לשלוח או לקבל הודעות עד לעדכון האפליקציה.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">גרסת Molly שלך כבר לא בתוקף. אפשר לצפות בהיסטוריית ההודעות שלך אבל לא תהיה לך אפשרות לשלוח או לקבל הודעות עד לעדכון האפליקציה.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">דפדפן רשת לא נמצא.</string>
@@ -333,8 +330,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">%1$s של הודעה</string>
-    <string name="ContactsDatabase_signal_call_s">שיחה קולית של Signal %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">שיחת וידאו של Signal %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">שיחה קולית של Molly %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">שיחת וידאו של Molly %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -432,7 +429,7 @@
     <string name="ConversationActivity_transport_signal">הודעת Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">שלח הודעה</string>
-    <string name="ConversationActivity_lets_switch_to_signal">בוא נחליף אל Signal %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">בוא נחליף אל Molly %1$s</string>
     <string name="ConversationActivity_specify_recipient">אנא בחר איש קשר</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">הצרופה חורגת ממגבלות הגודל עבור הסוג של ההודעה שאתה שולח.</string>
     <string name="ConversationActivity_unable_to_record_audio">לא היה ניתן להקליט שמע!</string>
@@ -451,18 +448,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">כדי לשלוח הודעות קוליות:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">כדי לשלוח הודעות קוליות, צריך לתת ל–Signal גישה למיקרופון שלך.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">כדי לשלוח הודעות קוליות, צריך לתת ל–Molly גישה למיקרופון שלך.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal צריכה גישה למיקרופון כדי להקליט הודעה קולית.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal דורש את הרשאת המיקרופון על מנת לשלוח הודעות שמע, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly צריכה גישה למיקרופון כדי להקליט הודעה קולית.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly דורש את הרשאת המיקרופון על מנת לשלוח הודעות שמע, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal צריך את ההרשאות של המיקרופון והמצלמה על מנת לחייג אל %1$s, אבל הן נדחו לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">כדי ללכוד תצלומים וסרטונים, התר אל Signal גישה אל המצלמה.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal צריך את הרשאת המצלמה כדי לצלם תצלומים או להקליט סרטונים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal צריך הרשאות מצלמה כדי לצלם תצלומים או להקליט סרטון</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly צריך את ההרשאות של המיקרופון והמצלמה על מנת לחייג אל %1$s, אבל הן נדחו לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">כדי ללכוד תצלומים וסרטונים, התר אל Molly גישה אל המצלמה.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly צריך את הרשאת המצלמה כדי לצלם תצלומים או להקליט סרטונים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly צריך הרשאות מצלמה כדי לצלם תצלומים או להקליט סרטון</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">אפשר את הרשאת המיקרופון כדי ללכוד סרטונים עם צליל.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal צריך הרשאות מיקרופון כדי להקליט סרטונים, אבל הן נדחו. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal צריך הרשאות מיקרופון כדי להקליט סרטונים.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly צריך הרשאות מיקרופון כדי להקליט סרטונים, אבל הן נדחו. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly צריך הרשאות מיקרופון כדי להקליט סרטונים.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
     <string name="ConversationActivity_no">לא</string>
@@ -483,9 +480,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">כדי להתחיל שיחה:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">כדי להתחיל שיחה, צריך לתת ל–Signal גישה למיקרופון שלך.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">כדי להתחיל שיחה, צריך לתת ל–Molly גישה למיקרופון שלך.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal צריכה גישה למיקרופון כדי להתחיל שיחה.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly צריכה גישה למיקרופון כדי להתחיל שיחה.</string>
 
 
     <string name="ConversationActivity_join">הצטרף</string>
@@ -499,9 +496,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">הודעות SMS כבר לא נתמכות ב–Signal. אפשר להזמין את %1$s ל–Signal כדי להשאיר את השיחה כאן.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">האדם הזה כבר לא משתמש ב–Signal. אפשר להזמין אותו או אותה ל–Signal כדי להשאיר את השיחה כאן.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">האדם הזה כבר לא משתמש ב–Molly. אפשר להזמין אותו או אותה ל–Molly כדי להשאיר את השיחה כאן.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">הזמנה אל Signal</string>
+    <string name="ConversationActivity__invite_to_signal">הזמנה אל Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">נזכיר לך שוב בקרוב.</string>
 
@@ -600,13 +597,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">חסום/ה</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">עדכן את Signal</string>
+    <string name="ConversationFragment__update_build">עדכן את Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">רישום מחדש של Signal</string>
+    <string name="ConversationFragment__reregister_signal">רישום מחדש של Molly</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">ניווט חזרה.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">פתיחת Signal</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">פתיחת Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">כבר לא מאומת</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -783,9 +780,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">מי יכול למצוא אותי לפי המספר שלי?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">כל מי שיש להם את מספר הטלפון שלך יראו אותך ב–Signal ויוכלו להתחיל איתך צ׳אט.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">כל מי שיש להם את מספר הטלפון שלך יראו אותך ב–Molly ויוכלו להתחיל איתך צ׳אט.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">אנשים לא יוכלו לראות אותך ב–Signal אלא אם שלחת להם הודעה או שיש לך צ\'אט קיים איתם.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">אנשים לא יוכלו לראות אותך ב–Molly אלא אם שלחת להם הודעה או שיש לך צ\'אט קיים איתם.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">לשחזר מגיבוי?</string>
@@ -819,7 +816,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">בחן את משפט־סיסמת הגיבוי שלך ווודא שהוא תואם</string>
     <string name="BackupsPreferenceFragment__turn_on">הפעל</string>
     <string name="BackupsPreferenceFragment__turn_off">כבה</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"כדי לשחזר גיבוי, התקן עותק חדש של Signal. פתח את היישום והקש על \"שחזר גיבוי\", לאחר מכן אתר קובץ גיבוי. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"כדי לשחזר גיבוי, התקן עותק חדש של Molly. פתח את היישום והקש על \"שחזר גיבוי\", לאחר מכן אתר קובץ גיבוי. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">למד עוד</string>
     <string name="BackupsPreferenceFragment__in_progress">בתהליך…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -827,7 +824,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d עד כה…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% עד כה…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal דורש הרשאת אחסון חיצוני על מנת ליצור גיבויים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly דורש הרשאת אחסון חיצוני על מנת ליצור גיבויים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">הגדרת זמן גיבוי</string>
 
@@ -894,7 +891,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">צ\'אט רוענן</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal משתמשת בהצפנה מקצה לקצה ויכול להיות שהיא תצטרך לרענן את הצ׳אט שלך מדי פעם. זה לא משפיע על אבטחת הצ׳אט שלך אבל ייתכן שפספסת הודעה מאיש הקשר הזה, ואפשר לבקש ממנו לשלוח אותה שוב.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly משתמשת בהצפנה מקצה לקצה ויכול להיות שהיא תצטרך לרענן את הצ׳אט שלך מדי פעם. זה לא משפיע על אבטחת הצ׳אט שלך אבל ייתכן שפספסת הודעה מאיש הקשר הזה, ואפשר לבקש ממנו לשלוח אותה שוב.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -908,9 +905,9 @@
     <!-- Bottom sheet description explaining that messages on linked devices are private -->
     <string name="LinkDeviceFragment__all_messaging_is_private">כל התכתבות במכשירים המקושרים היא פרטית</string>
     <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
-    <string name="LinkDeviceFragment__signal_messages_are_synchronized">הודעות Signal יסונכרנו עם Signal בטלפון הנייד שלך לאחר שהוא יקושר. היסטוריית ההודעות הקודמת שלך לא תופיע.</string>
+    <string name="LinkDeviceFragment__signal_messages_are_synchronized">הודעות Molly יסונכרנו עם Molly בטלפון הנייד שלך לאחר שהוא יקושר. היסטוריית ההודעות הקודמת שלך לא תופיע.</string>
     <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
-    <string name="LinkDeviceFragment__on_other_device_visit_signal">במכשיר האחר שלך, יש לבקר ב–%1$s כדי להתקין את Signal</string>
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">במכשיר האחר שלך, יש לבקר ב–%1$s כדי להתקין את Molly</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
     <!-- Header title listing out current linked devices -->
     <string name="LinkDeviceFragment__my_linked_devices">המכשירים המקושרים שלי</string>
@@ -943,7 +940,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">יש לסיים את הקישור במכשיר האחר שלך</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">יש לסיים את הקישור של Signal במכשיר האחר שלך.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">יש לסיים את הקישור של Molly במכשיר האחר שלך.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">קישור מכשיר נכשל</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -971,10 +968,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">מטב עבור שירותי Play חסרים</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">מכשיר זה אינו תומך בשירותי Play. הקש כדי להשבית מיטובי סוללה של מערכת שמונעים מ־Signal לאחזר הודעות בעת אי־פעילות.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">מכשיר זה אינו תומך בשירותי Play. הקש כדי להשבית מיטובי סוללה של מערכת שמונעים מ־Molly לאחזר הודעות בעת אי־פעילות.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">גרסה זו של Signal פגה. עדכן עכשיו כדי לשלוח ולקבל הודעות.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">גרסה זו של Molly פגה. עדכן עכשיו כדי לשלוח ולקבל הודעות.</string>
     <string name="ExpiredBuildReminder_update_now">עדכן עכשיו</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -987,8 +984,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">הצג</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">כישלון תקשורת קבוע של Signal!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal לא היה יכול להירשם עם שירותי Google Play. הודעות ושיחות של Signal הושבתו, אנא נסה להירשם מחדש בהגדרות &lt; מתקדם.</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">כישלון תקשורת קבוע של Molly!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly לא היה יכול להירשם עם שירותי Google Play. הודעות ושיחות של Molly הושבתו, אנא נסה להירשם מחדש בהגדרות &lt; מתקדם.</string>
 
 
     <!-- GiphyActivity -->
@@ -1153,21 +1150,21 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">יומני ניפוי באגים עוזרים לנו לאבחן ולתקן את הבעיה ולא מכילים מידע מזהה.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal נתקלה בבעיה. רוצה להגיש יומן ניפוי באגים?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly נתקלה בבעיה. רוצה להגיש יומן ניפוי באגים?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">התראות עשויות להתעכב בגלל אופטימיזציה של הסוללה</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">אפשר להשבית אופטימיזציה של הסוללה כדי ש‑Signal תוכל לוודא שהתראות על הודעות לא יעוכבו.</string>
+    <string name="PromptBatterySaverBottomSheet__message">אפשר להשבית אופטימיזציה של הסוללה כדי ש‑Molly תוכל לוודא שהתראות על הודעות לא יעוכבו.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
-    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Notifications may be delayed due to battery optimizations</string>
+    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">התראות עשויות להתעכב בגלל אופטימיזציה של הסוללה</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Disable battery optimizations for Signal to ensure that message notifications will not be delayed. Tap “Continue” to see device-specific instructions.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">אפשר להשבית אופטימיזציה של הסוללה כדי ש‑Molly תוכל לוודא שהתראות על הודעות לא יעוכבו. יש ללחוץ על ״המשך״ כדי לראות הוראות ספציפיות למכשיר.</string>
     <!-- Button to dismiss notification help prompt -->
-    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">No thanks</string>
+    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">לא תודה</string>
     <!-- Button to continue and go to Signal support website -->
-    <string name="DeviceSpecificNotificationBottomSheet__continue">Continue</string>
+    <string name="DeviceSpecificNotificationBottomSheet__continue">המשך</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">המשך</string>
@@ -1439,7 +1436,7 @@
     <string name="InviteActivity_cancel">בטל</string>
     <string name="InviteActivity_sending">שולח…</string>
     <string name="InviteActivity_invitations_sent">הזמנות נשלחו!</string>
-    <string name="InviteActivity_invite_to_signal">הזמן אל Signal</string>
+    <string name="InviteActivity_invite_to_signal">הזמן אל Molly</string>
     <string name="InviteActivity_send_sms">שלח מסרון (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">לשלוח הזמנה %1$d במסרון?</item>
@@ -1447,7 +1444,7 @@
         <item quantity="many">לשלוח %1$d הזמנות במסרון?</item>
         <item quantity="other">לשלוח %1$d הזמנות במסרון?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">בוא נחליף אל Signal: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">בוא נחליף אל Molly: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">נראה שאין לך יישומים כלשהם לשתף בהם.</string>
 
     <!-- LearnMoreTextView -->
@@ -1461,7 +1458,7 @@
     <string name="LongMessageActivity_your_message">ההודעה שלך</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">חיבור רקע מאופשר</string>
 
     <!-- MediaOverviewActivity -->
@@ -1540,10 +1537,10 @@
     <string name="MessageQuotesBottomSheet_replies">תשובות</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">מקים שיחת Signal</string>
+    <string name="NotificationBarManager__establishing_signal_call">מקים שיחת Molly</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">שירות השיחות של Signal מופעל</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">עוצר את שירות השיחות של Signal</string>
+    <string name="NotificationBarManager__starting_signal_call_service">שירות השיחות של Molly מופעל</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">עוצר את שירות השיחות של Molly</string>
     <string name="NotificationBarManager__cancel_call">בטל שיחה</string>
 
     <!-- NotificationsMegaphone -->
@@ -1879,7 +1876,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">בקרוב לא תהיה לך יותר אפשרות לשלוח הודעות SMS מ–Signal. אפשר להזמין את %1$s ל–Signal כדי להשאיר את השיחה כאן.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">אין לך יותר אפשרות לשלוח הודעות SMS ב–Signal. אפשר להזמין את %1$s ל–Signal כדי להשאיר את השיחה כאן.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">אין לך יותר אפשרות לשלוח הודעות SMS ב–Molly. אפשר להזמין את %1$s ל–Molly כדי להשאיר את השיחה כאן.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">תשלום: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -1969,7 +1966,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">לקשר מכשיר Signal?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">נראה שאתה מנסה לקשר מכשיר Signal ע״י שימוש בסורק צד־שלישי. למען הגנתך, אנא סרוק את הקוד שוב מתוך Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal צריך את הרשאת המצלמה על מנת לסרוק קוד QR, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly צריך את הרשאת המצלמה על מנת לסרוק קוד QR, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">לא היה ניתן לסרוק קוד QR ללא הרשאת המצלמה</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1984,11 +1981,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">הכנס משפט־סיסמה</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">איקון Signal</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">איקון Molly</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">הגש משפט־סיסמה</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">משפט־סיסמה בלתי תקף!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">שחרר נעילת Signal</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - מסך נעילה</string>
+    <string name="PassphrasePromptActivity_unlock_signal">שחרר נעילת Molly</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - מסך נעילה</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">מפה</string>
@@ -2057,7 +2054,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">וודא כדי להמשיך להתכתב</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">כדי לעזור למנוע זבל ב‏‏־Signal, אנא השלם וידוא.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">כדי לעזור למנוע זבל ב‏‏־Molly, אנא השלם וידוא.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">לאחר וידוא, אתה יכול להמשיך להתכתב. הודעות מושהות כלשהן יישלחו באופן אוטומטי.</string>
 
     <!-- Recipient -->
@@ -2065,7 +2062,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">הסטורי שלי</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">שיחת Signal</string>
+    <string name="Recipient_signal_call">שיחת Molly</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">חסימה</string>
@@ -2091,8 +2088,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">הקש כאן כדי להפעיל את צילום הוידאו שלך</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">כדי להתקשר אל %1$s, היישום Signal צריך גישה אל המצלמה שלך</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">כדי להתקשר אל %1$s, היישום Molly צריך גישה אל המצלמה שלך</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">מתקשר…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">מתחבר מחדש…</string>
@@ -2165,23 +2162,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">מתן גישה למצלמה שלך</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">כדי להתחיל או להצטרף לשיחה, צריך לתת ל–Signal גישה למצלמה ולמיקרופון שלך.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">כדי להתחיל או להצטרף לשיחה, צריך לתת ל–Molly גישה למצלמה ולמיקרופון שלך.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">כדי להתחיל או להצטרף לשיחה, צריך לתת ל–Signal גישה למיקרופון שלך.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">כדי להתחיל או להצטרף לשיחה, צריך לתת ל–Molly גישה למיקרופון שלך.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">כדי להפעיל וידאו, צריך לתת ל–Signal גישה למצלמה שלך.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">כדי להפעיל וידאו, צריך לתת ל–Molly גישה למצלמה שלך.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal צריכה הרשאות מיקרופון כדי להתחיל או להצטרף לשיחה.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly צריכה הרשאות מיקרופון כדי להתחיל או להצטרף לשיחה.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal צריכה גישה למצלמה כדי להפעיל את הווידאו שלך</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly צריכה גישה למצלמה כדי להפעיל את הווידאו שלך</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">כדי להתחיל או להצטרף לשיחה:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">כדי להפעיל וידאו:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">שיחת Signal</string>
-    <string name="WebRtcCallView__signal_video_call">שיחת וידאו של Signal</string>
+    <string name="WebRtcCallView__signal_call">שיחת Molly</string>
+    <string name="WebRtcCallView__signal_video_call">שיחת וידאו של Molly</string>
     <string name="WebRtcCallView__start_call">התחל שיחה</string>
     <string name="WebRtcCallView__join_call">הצטרף לשיחה</string>
     <string name="WebRtcCallView__call_is_full">השיחה מלאה</string>
@@ -2281,7 +2278,7 @@
     <!-- A dialog prompt to confirm you want to lower your hand -->
     <string name="CallOverflowPopupWindow__lower_your_hand">להוריד את היד?</string>
     <!-- A dialog button to confirm you would like to lower your hand -->
-    <string name="CallOverflowPopupWindow__lower_hand">Lower</string>
+    <string name="CallOverflowPopupWindow__lower_hand">הורדה</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">ביטול</string>
     <!-- A button to take you to a list of participants with raised hands -->
@@ -2424,7 +2421,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">תקבל שיחה כדי לוודא מספר זה.</string>
     <string name="RegistrationActivity_edit_number">ערוך מספר</string>
     <string name="RegistrationActivity_missing_google_play_services">שירותי Google Play חסרים</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">במכשיר זה חסרים שירותי Google Play. אתה יכול עדין להשתמש ב־Signal, אבל תצורה זו עשויה לגרום לאמינות מופחתת או לביצועים מופחתים.\n\nאם אינך משתמש מתקדם, אינך מריץ ROM של Android שהותקן לאחר רכישה, או שאתה מאמין שאתה רואה זאת בטעות, אנא צור קשר עם support@signal.org לעזרה באיתור תקלות.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">במכשיר זה חסרים שירותי Google Play. אתה יכול עדין להשתמש ב־Molly, אבל תצורה זו עשויה לגרום לאמינות מופחתת או לביצועים מופחתים.\n\nאם אינך משתמש מתקדם, אינך מריץ ROM של Android שהותקן לאחר רכישה, או שאתה מאמין שאתה רואה זאת בטעות, אנא צור קשר עם support@molly.im לעזרה באיתור תקלות.</string>
     <string name="RegistrationActivity_i_understand">אני מבין</string>
     <string name="RegistrationActivity_play_services_error">שגיאת שירותי Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">שירותי Google Play מתעדכנים או שהם בלתי זמינים באופן זמני. אנא נסה שוב.</string>
@@ -2442,7 +2439,7 @@
     <string name="RegistrationActivity_non_standard_number_format">תסדיר אי־תקני של מספר</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">המספר שהכנסת (%1$s) כנראה בתסדיר בלתי תקני.\n\nהאם התכוונת אל %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - תסדיר מספר טלפון</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - תסדיר מספר טלפון</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">שיחה התבקשה</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2517,13 +2514,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">הוסף לאנשי קשר</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">הזמן אל Signal</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">הזמן אל Molly</string>
     <string name="SharedContactDetailsActivity_signal_message">הודעת Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">שיחת Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">הוסף לאנשי קשר</string>
-    <string name="SharedContactView_invite_to_signal">הזמן אל Signal</string>
+    <string name="SharedContactView_invite_to_signal">הזמן אל Molly</string>
     <string name="SharedContactView_message">הודעת Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2654,11 +2651,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s שייך ל%2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">עדכון Signal</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">גרסה חדשה של Signal זמינה. יש ללחוץ כדי לעדכן.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">עדכון Signal נכשל</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">עדכון Molly</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">גרסה חדשה של Molly זמינה. יש ללחוץ כדי לעדכן.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">עדכון Molly נכשל</string>
     <string name="ApkUpdateNotifications_failed_general_body">ננסה שוב מאוחר יותר.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Signal עודכנה בהצלחה</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Molly עודכנה בהצלחה</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">עודכנת אוטומטית לגרסה %1$s.</string>
 
     <!-- UntrustedSendDialog -->
@@ -2731,7 +2728,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">מספר ביטחון Signal שלנו:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">נראה שאין לך יישומים לשתף בהם.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">מספר ביטחון להשוואה לא נמצא בלוח העריכה</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal צריך את הרשאת המצלמה על מנת לסרוק קוד QR, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly צריך את הרשאת המצלמה על מנת לסרוק קוד QR, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">לא היה ניתן לסרוק קוד QR ללא הרשאת מצלמה</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">אתה חייב תחילה להחליף הודעות על מנת להציג את מספר הביטחון של %1$s.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2761,14 +2758,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">גע כדי לפתוח.</string>
-    <string name="KeyCachingService_passphrase_cached">Signal אינו נעול</string>
-    <string name="KeyCachingService_lock">נעל את Signal</string>
+    <string name="KeyCachingService_passphrase_cached">Molly אינו נעול</string>
+    <string name="KeyCachingService_lock">נעל את Molly</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">אתה</string>
     <string name="MediaPreviewActivity_unssuported_media_type">סוג מדיה בלתי נתמך</string>
     <string name="MediaPreviewActivity_draft">טיוטה</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal צריך את הרשאת האחסון על מנת לשמור באחסון חיצוני, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly צריך את הרשאת האחסון על מנת לשמור באחסון חיצוני, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">לא היה ניתן לשמור באחסון חיצוני ללא הרשאות</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">למחוק הודעה?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">זה ימחק לצמיתות הודעה זו.</string>
@@ -2816,7 +2813,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">נכשל למסור הודעה.</string>
     <string name="MessageNotifier_error_delivering_message">שגיאה במסירת הודעה.</string>
     <string name="MessageNotifier_message_delivery_paused">מסירת הודעה הושהתה.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">וודא כדי להמשיך להתכתב ב־Signal.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">וודא כדי להמשיך להתכתב ב־Molly.</string>
     <string name="MessageNotifier_mark_all_as_read">סמן הכול כנקרא</string>
     <string name="MessageNotifier_mark_read">סמן כנקרא</string>
     <string name="MessageNotifier_turn_off_these_notifications">כבה התראות אלו</string>
@@ -2838,7 +2835,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">הגיב/ה %1$s לסטיקר שלך.</string>
     <string name="MessageNotifier_this_message_was_deleted">הודעה זו נמחקה.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">לכבות התראות של איש קשר הצטרף אל Signal? אתה יכול לאפשר אותן שוב דרך Signal &lt; הגדרות &lt; התראות.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">לכבות התראות של איש קשר הצטרף אל Molly? אתה יכול לאפשר אותן שוב דרך Molly &lt; הגדרות &lt; התראות.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2877,7 +2874,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">תגובה מהירה אינה זמינה כאשר Signal נעול!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">תגובה מהירה אינה זמינה כאשר Molly נעול!</string>
     <string name="QuickResponseService_problem_sending_message">בעיה בשליחת הודעה!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2897,7 +2894,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">קיצור דרך בלתי תקף</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">הודעה חדשה</string>
     <string name="SingleRecipientNotificationBuilder_message_request">בקשת הודעה</string>
     <string name="SingleRecipientNotificationBuilder_you">את/ה</string>
@@ -2945,7 +2942,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">המכשיר הזה כבר לא רשום. זה כנראה בגלל שרשמת את מספר הטלפון שלך ב–Signal על מכשיר אחר.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">המכשיר הזה כבר לא רשום. זה כנראה בגלל שרשמת את מספר הטלפון שלך ב–Molly על מכשיר אחר.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">רישום מכשיר מחדש</string>
 
@@ -2958,10 +2955,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">כדי לענות אל השיחה, תן אל Signal גישה אל המיקרופון שלך.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">כדי לענות אל השיחה, תן אל Molly גישה אל המיקרופון שלך.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">כדי לענות לשיחת וידאו, Signal צריכה גישה למיקרופון ולמצלמה שלך.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal דורש את ההרשאות של המיקרופון והמצלמה על מנת לבצע שיחות ולענות לשיחות, אבל הן נדחו לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">כדי לענות לשיחת וידאו, Molly צריכה גישה למיקרופון ולמצלמה שלך.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly דורש את ההרשאות של המיקרופון והמצלמה על מנת לבצע שיחות ולענות לשיחות, אבל הן נדחו לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">נענתה על מכשיר מקושר.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">נדחתה על מכשיר מקושר.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">תפוס על מכשיר מקושר.</string>
@@ -3006,7 +3003,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">חזור על משפט־סיסמה חדש</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">הזמן אל Signal</string>
+    <string name="contact_selection_activity__invite_to_signal">הזמן אל Molly</string>
     <string name="contact_selection_activity__new_group">קבוצה חדשה</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">רענון אנשי קשר</string>
@@ -3032,7 +3029,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">תמונת איש קשר</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal דורש את הרשאת אנשי הקשר על מנת להציג את אנשי הקשר שלך, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly דורש את הרשאת אנשי הקשר על מנת להציג את אנשי הקשר שלך, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">שגיאה באחזור אנשי קשר, בדוק את חיבור הרשת שלך</string>
     <string name="ContactSelectionListFragment_username_not_found">שם משתמש לא נמצא</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s לא משתמש/ת Signal. יש לבדוק את שם המשתמש ולנסות שוב."</string>
@@ -3063,7 +3060,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">צריך לאפשר גישה לאנשי הקשר שלך. אנשי הקשר שלך מוצפנים ואינם גלויים לשירות Signal.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal צריך הרשאה אל אנשי הקשר שלך על מנת להציגם.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly צריך הרשאה אל אנשי הקשר שלך על מנת להציגם.</string>
     <string name="contact_selection_list_fragment__show_contacts">הראה אנשי קשר</string>
 
     <!-- contact_selection_list_item -->
@@ -3141,7 +3138,7 @@
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">אפשרויות</string>
     <!-- Update item button text shown for a profile name change. -->
-    <string name="ConversationUpdateItem_update">Update</string>
+    <string name="ConversationUpdateItem_update">עדכן</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">נגן … השהה</string>
@@ -3170,7 +3167,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">בועות הן פיצ׳ר של Android שאפשר לכבות עבור צ׳אטים של Signal.</string>
+    <string name="BubbleOptOutTooltip__description">בועות הן פיצ׳ר של Android שאפשר לכבות עבור צ׳אטים של Molly.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">לא עכשיו</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3352,9 +3349,9 @@
     <string name="EditProfileFragment__group_description">תיאור קבוצה</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">עדכן את Signal</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">עדכן את Molly</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">גרסה זו של Signal כבר לא בתוקף. אפשר לעדכן עכשיו כדי להמשיך להשתמש ב–Signal.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">גרסה זו של Molly כבר לא בתוקף. אפשר לעדכן עכשיו כדי להמשיך להשתמש ב–Molly.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">עדכן</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3573,7 +3570,7 @@
     <string name="preferences__slow">איטי</string>
     <string name="preferences__help">עזרה</string>
     <string name="preferences__advanced">מתקדם</string>
-    <string name="preferences__donate_to_signal">ביצוע תרומה ל–Signal</string>
+    <string name="preferences__donate_to_signal">ביצוע תרומה ל–Molly</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">פרטיות</string>
     <!-- Preference label for stories -->
@@ -3610,13 +3607,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">שינוי סמל ושם אפליקציה ל״%1$s״</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">צריך לסגור את Signal כדי לשנות את סמל ושם האפליקציה. התראות יציגו תמיד את סמל ושם ברירת המחדל של Signal.</string>
+    <string name="preferences__app_icon_dialog_description">צריך לסגור את Molly כדי לשנות את סמל ושם האפליקציה. התראות יציגו תמיד את סמל ושם ברירת המחדל של Molly.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">בוחרים שם וסמל אפליקציה שיהיו גלויים במסך הבית ובמגירת האפליקציות של הטלפון שלך. התראות יציגו תמיד את סמל ושם ברירת המחדל של Signal. למידע נוסף</string>
+    <string name="preferences__app_icon_warning_learn_more">בוחרים שם וסמל אפליקציה שיהיו גלויים במסך הבית ובמגירת האפליקציות של הטלפון שלך. התראות יציגו תמיד את סמל ושם ברירת המחדל של Molly. למידע נוסף</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">סמלי ושמות אפליקציות גלויים במסך הבית ובמגירת האפליקציות.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">התראות יציגו תמיד את סמל ושם ברירת המחדל של Signal.</string>
+    <string name="preferences__app_icon_notification_warning">התראות יציגו תמיד את סמל ושם ברירת המחדל של Molly.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">למידע נוסף</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3709,7 +3706,7 @@
     <string name="preferences_communication__category_censorship_circumvention">עקיפת צנזורה</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">עקיפת צנזורה</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">אם מאופשר, Signal ינסה לעקוף צנזורה. אל תאפשר מאפיין זה אלא אם אתה במיקום שבו Signal מצונזר.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">אם מאופשר, Molly ינסה לעקוף צנזורה. אל תאפשר מאפיין זה אלא אם אתה במיקום שבו Molly מצונזר.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">עקיפת צנזורה הופעלה על סמך מספר הטלפון של החשבון שלך.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3761,7 +3758,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">נעים להכיר: תשלומים</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">משתמשים ב–Signal כדי לשלוח ולקבל MobileCoin, מטבע דיגיטלי חדש ממוקד פרטיות. אפשר להפעיל כדי להתחיל.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">משתמשים ב–Molly כדי לשלוח ולקבל MobileCoin, מטבע דיגיטלי חדש ממוקד פרטיות. אפשר להפעיל כדי להתחיל.</string>
     <string name="PaymentsHomeFragment__activate_payments">הפעל תשלומים</string>
     <string name="PaymentsHomeFragment__activating_payments">מפעיל תשלומים…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">שחזר חשבון תשלומים</string>
@@ -3787,7 +3784,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">תשלומים אינם זמינים באזור שלך.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">לא היה ניתן לאפשר תשלומים. נסה שוב מאוחר יותר.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">לבטל הפעלת תשלומים?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">לא תוכל לשלוח או לקבל MobileCoin ב־Signal אם תבטל הפעלת תשלומים.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">לא תוכל לשלוח או לקבל MobileCoin ב־Molly אם תבטל הפעלת תשלומים.</string>
     <string name="PaymentsHomeFragment__deactivate">בטל הפעלה</string>
     <string name="PaymentsHomeFragment__continue">המשך</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">מאזן אינו זמין כרגע.</string>
@@ -3796,10 +3793,10 @@
     <string name="PaymentsHomeFragment__details">פרטים</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">אפשר להשתמש ב–Signal כדי לשלוח ולקבל MobileCoin. כל התשלומים כפופים לתנאי השימוש עבור MobileCoin וארנק MobileCoin. יש סיכוי להיתקל בבעיות או תשלומים/יתרות שיאבדו לך ולא יהיה ניתן לשחזר. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">אפשר להשתמש ב–Molly כדי לשלוח ולקבל MobileCoin. כל התשלומים כפופים לתנאי השימוש עבור MobileCoin וארנק MobileCoin. יש סיכוי להיתקל בבעיות או תשלומים/יתרות שיאבדו לך ולא יהיה ניתן לשחזר. </string>
     <string name="PaymentsHomeFragment__activate">הפעל</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">הצג תנאי MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">תשלומים ב־Signal אינם זמינים יותר. אתה עדיין יכול להעביר כספים אל מסחר אבל אתה לא יכול יותר לשלוח ולקבל תשלומים או להוסיף כספים.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">תשלומים ב־Molly אינם זמינים יותר. אתה עדיין יכול להעביר כספים אל מסחר אבל אתה לא יכול יותר לשלוח ולקבל תשלומים או להוסיף כספים.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3827,7 +3824,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">הפעלת הרשאות</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">כדי שתהיה אפשרות לשלוח הודעות לאנשים שאת.ה מכיר.ה, Signal תבקש את ההרשאות האלה. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">כדי שתהיה אפשרות לשלוח הודעות לאנשים שאת.ה מכיר.ה, Molly תבקש את ההרשאות האלה. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">התראות</string>
     <!-- Notifications permission row description -->
@@ -3915,10 +3912,10 @@
     <string name="PaymentsTransferFragment__next">הבא</string>
     <string name="PaymentsTransferFragment__invalid_address">כתובת בלתי תקפה</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">בדוק את כתובת הארנק שאתה מנסה להעביר אליה ונסה שוב.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">אתה לא יכול להעביר אל כתובת הארנק של Signal של עצמך. הכנס את כתובת הארנק מהחשבון שלך במסחר נתמך.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">כדי לסרוק קוד QR, היישום Signal צריך גישה אל המצלמה.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal צריך את הרשאת המצלמה כדי ללכוד קוד QR. לך אל הגדרות, בחר \"הרשאות\", ואפשר את \"מצלמה\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">כדי לסרוק קוד QR, היישום Signal צריך גישה אל המצלמה.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">אתה לא יכול להעביר אל כתובת הארנק של Molly של עצמך. הכנס את כתובת הארנק מהחשבון שלך במסחר נתמך.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">כדי לסרוק קוד QR, היישום Molly צריך גישה אל המצלמה.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly צריך את הרשאת המצלמה כדי ללכוד קוד QR. לך אל הגדרות, בחר \"הרשאות\", ואפשר את \"מצלמה\".</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">כדי לסרוק קוד QR, היישום Molly צריך גישה אל המצלמה.</string>
     <string name="PaymentsTransferFragment__settings">הגדרות</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4284,17 +4281,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">שיחה קולית נכנסת של Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">שיחה קולית נכנסת של Molly</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">שיחת וידאו נכנסת של Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">שיחת וידאו נכנסת של Molly</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">שיחה קבוצתית נכנסת של Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">שיחה קבוצתית נכנסת של Molly</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">שיחה קולית של Signal מתקיימת עכשיו</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">שיחה קולית של Molly מתקיימת עכשיו</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">שיחת וידאו של Signal מתקיימת עכשיו</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">שיחת וידאו של Molly מתקיימת עכשיו</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">שיחה קבוצתית של Signal מתקיימת עכשיו</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">שיחה קבוצתית של Molly מתקיימת עכשיו</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">טוען…</string>
@@ -4341,9 +4338,9 @@
     <string name="BackupDialog_verify">וודא</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">הכנסת בהצלחה את משפט־סיסמת הגיבוי שלך</string>
     <string name="BackupDialog_passphrase_was_not_correct">משפט־הסיסמה לא היה נכון</string>
-    <string name="LocalBackupJob_creating_signal_backup">יוצר גיבוי Signal…</string>
+    <string name="LocalBackupJob_creating_signal_backup">יוצר גיבוי Molly…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">מאמתים גיבוי של Signal…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">מאמתים גיבוי של Molly…</string>
     <string name="LocalBackupJobApi29_backup_failed">גיבוי נכשל</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">תיקיית הגיבוי שלך נמחקה או הועברה.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">קובץ הגיבוי שלך גדול מדי לאחסון בכרך זה.</string>
@@ -4358,15 +4355,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">תתקשרו אלי (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">שליחה מחדש של קוד (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">צור קשר עם תמיכת Signal</string>
-    <string name="RegistrationActivity_code_support_subject">הרשמת Signal - קוד וידוא עבור Android</string>
+    <string name="RegistrationActivity_contact_signal_support">צור קשר עם תמיכת Molly</string>
+    <string name="RegistrationActivity_code_support_subject">הרשמת Molly - קוד וידוא עבור Android</string>
     <string name="RegistrationActivity_incorrect_code">קוד שגוי</string>
     <string name="BackupUtil_never">אף פעם</string>
     <string name="BackupUtil_unknown">בלתי ידוע</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">מספר טלפון</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">אפשר לבחור מי יוכל לראות את מספר הטלפון שלך ומי יוכל ליצור איתך קשר באמצעותו ב–Signal.</string>
+    <string name="preferences_app_protection__choose_who_can_see">אפשר לבחור מי יוכל לראות את מספר הטלפון שלך ומי יוכל ליצור איתך קשר באמצעותו ב–Molly.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">מי יכול לראות את המספר שלי</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4414,7 +4411,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">עשית יותר מדי ניסיונות. אנא נסה שוב מאוחר יותר.</string>
     <string name="RegistrationActivity_error_connecting_to_service">שגיאה בהתחברות אל שירות</string>
     <string name="preferences_chats__backups">גיבויים</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Signal נעול</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Molly נעול</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">הקש כדי לשחרר נעילה</string>
     <string name="Recipient_unknown">בלתי ידוע</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4469,19 +4466,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">מתכונן להתחבר אל מכשיר Android ישן…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">רק רגע, זה יהיה מוכן בקרוב</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">ממתין אל מכשיר Android ישן שיתחבר…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal צריך את הרשאת המיקום כדי לגלות ולהתחבר אל מכשיר ה־Android הישן שלך.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal צריך שירותי מיקום מופעלים כדי לגלות ולהתחבר אל מכשיר ה־Android הישן שלך.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal צריך Wi-Fi מופעל כדי לגלות להתחבר אל מכשיר ה־Android הישן שלך. Wi-Fi צריך להיות מופעל אבל הוא לא חייב להיות מחובר אל רשת Wi-Fi.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">סליחה, נראה שמכשיר זה אינו תומך ב־Wi-Fi Direct. היישום Signal משתמש ב־Wi-Fi Direct כדי לגלות להתחבר אל מכשיר Android הישן שלך. אתה עדין יכול לשחזר גיבוי כדי לשחזר את החשבון שלך ממכשיר ה־Android הישן שלך.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly צריך את הרשאת המיקום כדי לגלות ולהתחבר אל מכשיר ה־Android הישן שלך.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly צריך שירותי מיקום מופעלים כדי לגלות ולהתחבר אל מכשיר ה־Android הישן שלך.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly צריך Wi-Fi מופעל כדי לגלות להתחבר אל מכשיר ה־Android הישן שלך. Wi-Fi צריך להיות מופעל אבל הוא לא חייב להיות מחובר אל רשת Wi-Fi.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">סליחה, נראה שמכשיר זה אינו תומך ב־Wi-Fi Direct. היישום Molly משתמש ב־Wi-Fi Direct כדי לגלות להתחבר אל מכשיר Android הישן שלך. אתה עדין יכול לשחזר גיבוי כדי לשחזר את החשבון שלך ממכשיר ה־Android הישן שלך.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">שחזר גיבוי</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">שגיאה בלתי צפויה התרחשה בזמן ניסיון להתחבר אל מכשיר ה־Android הישן שלך.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">מחפש מכשיר Android חדש…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal צריך את הרשאת המיקום כדי לגלות ולהתחבר אל מכשיר ה־Android החדש שלך.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal צריך שירותי מיקום מופעלים כדי לגלות ולהתחבר אל מכשיר ה־Android החדש שלך.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal צריך Wi-Fi מופעל כדי לגלות להתחבר אל מכשיר ה־Android החדש שלך. Wi-Fi צריך להיות מופעל אבל הוא לא חייב להיות מחובר אל רשת Wi-Fi.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">סליחה, נראה שמכשיר זה אינו תומך ב־Wi-Fi Direct. היישום Signal משתמש ב־Wi-Fi Direct כדי לגלות להתחבר אל מכשיר Android החדש שלך. אתה עדין יכול ליצור גיבוי כדי לשחזר את החשבון שלך במכשיר ה־Android החדש שלך.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly צריך את הרשאת המיקום כדי לגלות ולהתחבר אל מכשיר ה־Android החדש שלך.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly צריך שירותי מיקום מופעלים כדי לגלות ולהתחבר אל מכשיר ה־Android החדש שלך.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly צריך Wi-Fi מופעל כדי לגלות להתחבר אל מכשיר ה־Android החדש שלך. Wi-Fi צריך להיות מופעל אבל הוא לא חייב להיות מחובר אל רשת Wi-Fi.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">סליחה, נראה שמכשיר זה אינו תומך ב־Wi-Fi Direct. היישום Molly משתמש ב־Wi-Fi Direct כדי לגלות להתחבר אל מכשיר Android החדש שלך. אתה עדין יכול ליצור גיבוי כדי לשחזר את החשבון שלך במכשיר ה־Android החדש שלך.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">צור גיבוי</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">שגיאה בלתי צפויה התרחשה בזמן ניסיון להתחבר אל מכשיר ה־Android החדש שלך.</string>
 
@@ -4522,7 +4519,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">מעביר נתונים</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">השאר את שני המכשירים קרובים זה לזה. אל תכבה את המכשירים והשאר את Signal פתוח. העברות מוצפנות מקצה־אל־קצה.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">השאר את שני המכשירים קרובים זה לזה. אל תכבה את המכשירים והשאר את Molly פתוח. העברות מוצפנות מקצה־אל־קצה.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d הודעות עד כה…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% מההודעות עד כה…</string>
@@ -4536,7 +4533,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">העבר חשבון</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">הורד את Signal במכשיר Android החדש שלך</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">הורד את Molly במכשיר Android החדש שלך</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"הקש על \"העבר או שחזר חשבון\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4610,7 +4607,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">כל אחד עם קישור זה יכול לראות את השם והתמונה של הקבוצה ולבקש להצטרף. שתף אותו עם אנשים שאתה בוטח בהם.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">כל אחד עם קישור זה יכול לראות את השם והתמונה של הקבוצה ולהצטרף אל הקבוצה. שתף אותו עם אנשים שאתה בוטח בהם.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">שתף באמצעות Signal</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">שתף באמצעות Molly</string>
     <string name="GroupLinkBottomSheet_copy">העתק</string>
     <string name="GroupLinkBottomSheet_qr_code">קוד QR:</string>
     <string name="GroupLinkBottomSheet_share">שתף</string>
@@ -4810,7 +4807,7 @@
     <string name="payment_info_card_about_mobilecoin">על אודות MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin הוא מטבע דיגיטלי ממוקד פרטיות חדש.</string>
     <string name="payment_info_card_adding_funds">הוספת כספים</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">אתה יכול להוסיף כספים לשימוש ב־Signal ע״י שליחת MobileCoin אל כתובת הארנק שלך.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">אתה יכול להוסיף כספים לשימוש ב־Molly ע״י שליחת MobileCoin אל כתובת הארנק שלך.</string>
     <string name="payment_info_card_cashing_out">פדיון</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">אתה יכול לפדות MobileCoin בכל זמן במסחר שתומך ב־MobileCoin. פשוט בצע העברה אל החשבון שלך במסחר הזה.</string>
     <string name="payment_info_card_hide_this_card">להסתיר כרטיס זה?</string>
@@ -4831,12 +4828,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">בטל הפעלת ארנק</string>
     <string name="DeactivateWalletFragment__your_balance">המאזן שלך</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">מומלץ להעביר את הכספים שלך לכתובת ארנק אחרת לפני ביטול ההפעלה של תשלומים. במקרה של בחירה לא להעביר את הכספים עכשיו, הם יישארו בארנק שמקושר אל Signal בעת הפעלה מחדש של תשלומים.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">מומלץ להעביר את הכספים שלך לכתובת ארנק אחרת לפני ביטול ההפעלה של תשלומים. במקרה של בחירה לא להעביר את הכספים עכשיו, הם יישארו בארנק שמקושר אל Molly בעת הפעלה מחדש של תשלומים.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">העבר מאזן נותר</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">בטל הפעלה בלי להעביר</string>
     <string name="DeactivateWalletFragment__deactivate">בטל הפעלה</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">לבטל הפעלה בלי להעביר?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">היתרה שלך תישאר בארנק שמקושר אל Signal במקרה של בחירה להפעיל מחדש את תשלומים.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">היתרה שלך תישאר בארנק שמקושר אל Molly במקרה של בחירה להפעיל מחדש את תשלומים.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">שגיאה בביטול הפעלת ארנק.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5135,7 +5132,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">רישיונות</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">תנאים ומדיניות פרטיות</string>
-    <string name="HelpFragment__copyright_signal_messenger">זכויות יוצרים Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">זכויות יוצרים Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">ברישיון תחת GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5605,9 +5602,9 @@
     <string name="MySupportPreference__learn_more">למידע נוסף</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">עדכן את Signal</string>
+    <string name="UpdateSignalExpiredDialog__title">עדכן את Molly</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">גרסה זו של Signal כבר לא בתוקף. אפשר לעדכן עכשיו כדי להמשיך להשתמש ב–Signal.</string>
+    <string name="UpdateSignalExpiredDialog__message">גרסה זו של Molly כבר לא בתוקף. אפשר לעדכן עכשיו כדי להמשיך להשתמש ב–Molly.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">עדכן</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5616,7 +5613,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">המכשיר לא רשום</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">המכשיר הזה כבר לא רשום. אפשר לרשום אותו מחדש כדי להמשיך להשתמש ב–Signal במכשיר הזה.</string>
+    <string name="ReregisterSignalDialog__message">המכשיר הזה כבר לא רשום. אפשר לרשום אותו מחדש כדי להמשיך להשתמש ב–Molly במכשיר הזה.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">רשום מחדש</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5910,7 +5907,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">נכשל בפתיחת בורר.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">כדי לאפשר התראות, Signal צריכה הרשאה להציג אותן.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">כדי לאפשר התראות, Molly צריכה הרשאה להציג אותן.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">הפעלה</string>
 
@@ -7312,49 +7309,49 @@
 
     <!-- BackupAlertBottomSheet -->
     <!-- Sheet title when media backups have been disabled -->
-    <string name="BackupAlertBottomSheet__media_backups_are_off">Media backups are off</string>
+    <string name="BackupAlertBottomSheet__media_backups_are_off">גיבויי המדיה כבויים</string>
     <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
     <plurals name="BackupAlertBottomSheet__your_signal_media_backup_plan">
-        <item quantity="one">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d day to download any media stored in your backup. After %1$d day, the media in your backup will be deleted.</item>
-        <item quantity="two">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
-        <item quantity="many">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
-        <item quantity="other">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
+        <item quantity="one">תכנית גיבוי המדיה שלך ב–Signal בוטלה כי לא הצלחנו לעבד את התשלום שלך. יש לך יום %1$d להוריד כל מדיה שמאוחסנת בגיבוי שלך. אחרי יום %1$d, המדיה בגיבוי שלך תימחק.</item>
+        <item quantity="two">תכנית גיבוי המדיה שלך ב–Signal בוטלה כי לא הצלחנו לעבד את התשלום שלך. יש לך יומיים להוריד כל מדיה שמאוחסנת בגיבוי שלך. אחרי יומיים, המדיה בגיבוי שלך תימחק.</item>
+        <item quantity="many">תכנית גיבוי המדיה שלך ב–Signal בוטלה כי לא הצלחנו לעבד את התשלום שלך. יש לך %1$d ימים להוריד כל מדיה שמאוחסנת בגיבוי שלך. אחרי %1$d ימים, המדיה בגיבוי שלך תימחק.</item>
+        <item quantity="other">תכנית גיבוי המדיה שלך ב–Signal בוטלה כי לא הצלחנו לעבד את התשלום שלך. יש לך %1$d ימים להוריד כל מדיה שמאוחסנת בגיבוי שלך. אחרי %1$d ימים, המדיה בגיבוי שלך תימחק.</item>
     </plurals>
     <!-- Sheet body part 2 when media backups have been disabled. -->
-    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">You can begin paying for backups again at any time to continue backing up all your media. </string>
+    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">אפשר לחזור לשלם על גיבויים בכל עת כדי להמשיך לגבות את כל המדיה שלך. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Your media will be deleted today</string>
+    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">המדיה שלך תימחק היום</string>
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Your Signal media backup plan has been canceled because we couldn\'t process your payment. This is your last chance to download the media in your backup before it is deleted.</string>
+    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">תכנית גיבוי המדיה שלך ב–Signal בוטלה כי לא הצלחנו לעבד את התשלום שלך. זו ההזדמנות האחרונה שלך להוריד את המדיה שבגיבוי שלך לפני שהיא נמחקת.</string>
     <!-- Sheet title when user does not have enough space to download their backup -->
     <string name="BackupAlertBottomSheet__cant_complete_download">לא ניתן להשלים את ההורדה</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
     <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">אין מספיק מקום פנוי במכשיר שלך. יש לפנות שטח של %1$s כדי להוריד את המדיה שמאוחסנת בגיבוי שלך.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
     <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
-        <item quantity="one">If you choose \"Skip\" the media in your backup will be deleted in %1$d day.</item>
-        <item quantity="two">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
-        <item quantity="many">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
-        <item quantity="other">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
+        <item quantity="one">בחירה ב״דילוג״ תגרום למחיקת המדיה בגיבוי שלך בעוד יום %1$d.</item>
+        <item quantity="two">בחירה ב״דילוג״ תגרום למחיקת המדיה בגיבוי שלך בעוד יומיים.</item>
+        <item quantity="many">בחירה ב״דילוג״ תגרום למחיקת המדיה בגיבוי שלך בעוד %1$d ימים.</item>
+        <item quantity="other">בחירה ב״דילוג״ תגרום למחיקת המדיה בגיבוי שלך בעוד %1$d ימים.</item>
     </plurals>
     <!-- Sheet title when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__cant_process_backup_payment">Can\'t process backup payment</string>
+    <string name="BackupAlertBottomSheet__cant_process_backup_payment">לא ניתן לעבד תשלום על גיבוי</string>
     <!-- Sheet body when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">We\'re having trouble collecting your recurring monthly backup payment. Make sure your payment method is up to date. If it isn\'t, update it in Google Pay. Signal will try to process the payment again in a few days.</string>
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">נתקלנו בבעיה באיסוף תשלום הגיבוי החודשי שלך. חשוב לוודא שאמצעי התשלום שלך מעודכן. אם לא, צריך לעדכן אותו ב–Google Play. Signal תנסה לעבד את התשלום שוב בעוד כמה ימים.</string>
     <!-- Sheet title for generic backup error -->
-    <string name="BackupAlertBottomSheet__couldnt_complete_backup">Couldn\'t complete backup</string>
+    <string name="BackupAlertBottomSheet__couldnt_complete_backup">לא היה ניתן להשלים את הגיבוי</string>
     <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
-    <string name="BackupAlertBottomSheet__your_device_hasnt">Your device hasn\'t completed a backup for %1$d days. Make sure your device is connected to wi-fi and tap \"Back up now.\" </string>
+    <string name="BackupAlertBottomSheet__your_device_hasnt">המכשיר שלך לא השלים גיבוי במשך %1$d ימים. חשוב לוודא שהמכשיר מחובר ל–Wi-Fi וללחוץ ״לגבות כעת״. </string>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">למידע נוסף</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip">דלג</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Download media now</string>
+    <string name="BackupAlertBottomSheet__download_media_now">הורדת מדיה כעת</string>
     <!-- Secondary action button text to dismiss sheet, noting the user can download later -->
-    <string name="BackupAlertBottomSheet__download_later">Download later</string>
+    <string name="BackupAlertBottomSheet__download_later">הורדה אחר כך</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Don\'t download media</string>
+    <string name="BackupAlertBottomSheet__dont_download_media">לא להוריד מדיה</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7477,25 +7474,25 @@
     <!-- Title for frequency option DAILY for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__manually_back_up">גיבוי ידני</string>
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
-    <string name="PassphrasePromptActivity_help_prompt_body">Please enter your device pin, password or pattern.</string>
+    <string name="PassphrasePromptActivity_help_prompt_body">יש להכניס את קוד ה–PIN, הסיסמה, או התבנית של המכשיר שלך.</string>
 
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">הבא</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Change backup type</string>
+    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">שינוי סוג גיבוי</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">ביטול מנוי</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
-    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">Confirm cancellation</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">אישור ביטול</string>
     <!-- Dialog body -->
-    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">You won\'t be charged again. Backups will be turned off at the end of your billing cycle. After that date you will have 30 days to download the media you\'re currently backing up.</string>
+    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">לא נחייב אותך שוב. הגיבויים יכובו בסוף מחזור החיוב הנוכחי שלך. אחרי התאריך הזה, יהיו לך 30 יום להוריד את המדיה שנמצאת בגיבוי כרגע.</string>
     <!-- Action button label to cancel subscription and download now -->
-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">Confirm and download now</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">אישור והורדה כעת</string>
     <!-- Action button label to cancel subscription and download later -->
-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Confirm and download later</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">אישור והורדה אחר כך</string>
     <!-- Action button label to keep current subscription -->
-    <string name="ConfirmBackupCancellationDialog__keep_subscription">Keep subscription</string>
+    <string name="ConfirmBackupCancellationDialog__keep_subscription">שמירה על מנוי</string>
     <!-- EOF -->
 </resources>

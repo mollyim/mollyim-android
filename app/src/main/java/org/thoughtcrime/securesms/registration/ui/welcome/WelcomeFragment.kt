@@ -47,7 +47,6 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome) 
       }
       Activity.RESULT_CANCELED -> {
         Log.w(TAG, "Backup restoration canceled.")
-        findNavController().popBackStack()
       }
       else -> Log.w(TAG, "Backup restoration activity ended with unknown result code: $resultCode")
     }
@@ -65,7 +64,7 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome) 
 
   private fun onContinueClicked() {
     if (Permissions.isRuntimePermissionsRequired() && !hasAllPermissions()) {
-      findNavController().safeNavigate(WelcomeFragmentDirections.actionWelcomeFragmentToGrantPermissionsV2Fragment(GrantPermissionsFragment.WelcomeAction.CONTINUE))
+      findNavController().safeNavigate(WelcomeFragmentDirections.actionWelcomeFragmentToGrantPermissionsFragment(GrantPermissionsFragment.WelcomeAction.CONTINUE))
     } else {
       sharedViewModel.maybePrefillE164(requireContext())
       findNavController().safeNavigate(WelcomeFragmentDirections.actionSkipRestore())
@@ -83,7 +82,7 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome) 
 
   private fun onTransferOrRestoreClicked() {
     if (Permissions.isRuntimePermissionsRequired() && !hasAllPermissions()) {
-      findNavController().safeNavigate(WelcomeFragmentDirections.actionWelcomeFragmentToGrantPermissionsV2Fragment(GrantPermissionsFragment.WelcomeAction.RESTORE_BACKUP))
+      findNavController().safeNavigate(WelcomeFragmentDirections.actionWelcomeFragmentToGrantPermissionsFragment(GrantPermissionsFragment.WelcomeAction.RESTORE_BACKUP))
     } else {
       sharedViewModel.setRegistrationCheckpoint(RegistrationCheckpoint.PERMISSIONS_GRANTED)
 

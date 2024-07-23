@@ -19,10 +19,10 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1433
-val canonicalVersionName = "7.11.0"
+val canonicalVersionCode = 1436
+val canonicalVersionName = "7.11.4"
 val mollyRevision = 1
-val currentHotfixVersion = 0
+val currentHotfixVersion = 1
 val maxHotfixVersions = 100
 
 val selectableVariants = listOf(

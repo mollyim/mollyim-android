@@ -117,7 +117,7 @@ private fun DonationPendingBottomSheetContent(
       modifier = Modifier.padding(bottom = 8.dp)
     )
 
-    val  textResource = if (badge.isSubscription()) {
+    val textResource = if (badge.isSubscription()) {
       R.string.DonationPendingBottomSheet__your_monthly_donation_is_pending
     } else {
       R.string.DonationPendingBottomSheet__your_one_time_donation_is_pending

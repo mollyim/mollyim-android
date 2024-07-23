@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -42,12 +39,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">მიმდინარეობს Signal-ის განახლება…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">მიმდინარეობს Molly-ის განახლება…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">შენ ჯერ არ დაგიყენებია პაროლფრაზა!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">გამოვრთოთ პაროლფრაზა?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">ეს სამუდამოდ განბლოკავს Signal-ს და მიმოწერის შეტყობინებებს.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">ეს სამუდამოდ განბლოკავს Molly-ს და მიმოწერის შეტყობინებებს.</string>
     <string name="ApplicationPreferencesActivity_disable">გამორთვა</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">სერვერთან დაკავშირებისას დაფიქსირდა შეცდომა!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">პინ-კოდი საჭიროა რეგისტრაციის ბლოკირებისთვის. პინ-კოდის გასათიშად, ჯერ უნდა გათიშო რეგისტრაციის ბლოკირება.</string>
@@ -84,31 +81,31 @@
     <string name="AttachmentKeyboard_file">ფაილი</string>
     <string name="AttachmentKeyboard_contact">კონტაქტი</string>
     <string name="AttachmentKeyboard_location">ადგილმდებარეობა</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">შენი ფოტოებისა და ვიდეოების საჩვენებლად Signal-ს ნებართვა სჭირდება</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">შენი ფოტოებისა და ვიდეოების საჩვენებლად Molly-ს ნებართვა სჭირდება</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">წვდომის მიცემა</string>
     <string name="AttachmentKeyboard_payment">ტრანზაქცია</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">მედიის ასარჩევი აპლიკაცია ვერ მოიძებნა.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">სურათების, ვიდეოების ან აუდიოს მისამაგრებლად Signal-ს მეხსიერებაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ გადახვიდე აპის პარამეტრების მენიუში, აირჩიე \"ნებართვები\" და გააქტიურე \"მეხსიერება\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">საკონტაქტო ინფორმაციის მისაბმელად Signal-ს კონტაქტებზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ გადახვიდე აპის პარამეტრების მენიუში, აირჩიე \"ნებართვები\" და გააქტიურე \"კონტაქტები\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">ადგილმდებარეობის საჩვენებლად Signal-ს ადგილმდებარეობაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიე \"ნებართვები\" და გააქტიურე \"ადგილმდებარეობა\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">სურათების, ვიდეოების ან აუდიოს მისამაგრებლად Molly-ს მეხსიერებაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ გადახვიდე აპის პარამეტრების მენიუში, აირჩიე \"ნებართვები\" და გააქტიურე \"მეხსიერება\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">საკონტაქტო ინფორმაციის მისაბმელად Molly-ს კონტაქტებზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ გადახვიდე აპის პარამეტრების მენიუში, აირჩიე \"ნებართვები\" და გააქტიურე \"კონტაქტები\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">ადგილმდებარეობის საჩვენებლად Molly-ს ადგილმდებარეობაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიე \"ნებართვები\" და გააქტიურე \"ადგილმდებარეობა\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">მიეცი წვდომა შენს ლოკაციაზე</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">შენი მდებარეობის გასაგზავნად:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">შენი მდებარეობის გასაგზავნად, მიეცი Signal-ს წვდომა.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">შენი მდებარეობის გასაგზავნად, მიეცი Molly-ს წვდომა.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Signal-ს შენი მდებარეობის გასაგზავნად ლოკაციაზე წვდომა სჭირდება.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Molly-ს შენი მდებარეობის გასაგზავნად ლოკაციაზე წვდომა სჭირდება.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">მეხსიერებაზე წვდომის მიცემა</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">ფოტოებისა და ვიდეოების საჩვენებლად:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">შენი ფოტოებისა და ვიდეოების საჩვენებლად Signal-ს მეხსიერებაზე წვდომა სჭირდება.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">შენი ფოტოებისა და ვიდეოების საჩვენებლად Molly-ს მეხსიერებაზე წვდომა სჭირდება.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s-ს ტრანზაქციები არ გაუაქტიურებია </string>
@@ -275,7 +272,7 @@
     <string name="CameraContacts_no_signal_contacts">Signal-ის კონტაქტები ვერ მოიძებნა</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">მხოლოდ კამერის ღილაკის გამოყენებით შეგიძლია Signal-ის კონტაქტებისთვის სურათების გადაგზავნა. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">ვერ პოულობ ვისაც ეძებ?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">მოიწვიე კონტაქტი Signal-ში</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">მოიწვიე კონტაქტი Molly-ში</string>
     <string name="CameraContacts__menu_search">ძიება</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -289,12 +286,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">არა, მადლობა</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Signal-ის განახლება</string>
+    <string name="ClientDeprecatedActivity_update_signal">Molly-ის განახლება</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">აპის ამ ვერსიას აღარ აქვს მხარდაჭერა. შეტყობინებების გაგზავნისა და მიღების გასაგრძელებლად გადმოწერე უახლესი ვერსია.</string>
     <string name="ClientDeprecatedActivity_update">განახლება</string>
     <string name="ClientDeprecatedActivity_dont_update">არ განაახლო</string>
     <string name="ClientDeprecatedActivity_warning">გაფრთხილება</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Signal-ის შენს ვერსიას ვადა გაუვიდა. შეგიძლია ნახო შენი შეტყობინებების ისტორია, მაგრამ სანამ აპს არ განაახლებ შეტყობინებების გაგზავნას ან მიღებას ვერ შეძლებ.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Molly-ის შენს ვერსიას ვადა გაუვიდა. შეგიძლია ნახო შენი შეტყობინებების ისტორია, მაგრამ სანამ აპს არ განაახლებ შეტყობინებების გაგზავნას ან მიღებას ვერ შეძლებ.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">ვებ ბრაუზერი ვერ მოიძებნა.</string>
@@ -331,8 +328,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">შეტყობინება %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal-ის ხმოვანი ზარი %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal-ის ვიდეო ზარი %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Molly-ის ხმოვანი ზარი %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Molly-ის ვიდეო ზარი %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -426,7 +423,7 @@
     <string name="ConversationActivity_transport_signal">Signal-ის შეტყობინება</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">შეტყობინების გაგზავნა</string>
-    <string name="ConversationActivity_lets_switch_to_signal">მოდი, გადავერთოთ Signal-ზე %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">მოდი, გადავერთოთ Molly-ზე %1$s</string>
     <string name="ConversationActivity_specify_recipient">გთხოვთ აირჩიო კონტაქტი</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">მიმაგრებული ფაილი აღემატება იმ შეტყობინების ზომების ლიმიტებს, რომლის გაგზავნასაც შენ ცდილობ.</string>
     <string name="ConversationActivity_unable_to_record_audio">აუდიოს ჩაწერა შეუძლებელია!</string>
@@ -445,18 +442,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">აუდიო შეტყობინებების გასაგზავნად:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">ხმოვანი შეტყობინებების გასაგზავნად, Signal-ს შენს მიკროფონზე წვდომა მიეცი.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">ხმოვანი შეტყობინებების გასაგზავნად, Molly-ს შენს მიკროფონზე წვდომა მიეცი.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">ხმოვანი შეტყობინების ჩასაწერად Signal-ს მიკროფონზე წვდომა სჭირდება.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">აუდიო შეტყობინებების გადასაგზავნად Signal-ს მიკროფონზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიო \"უფლებები\" და ჩართო \"მიკროფონი\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">ხმოვანი შეტყობინების ჩასაწერად Molly-ს მიკროფონზე წვდომა სჭირდება.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">აუდიო შეტყობინებების გადასაგზავნად Molly-ს მიკროფონზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიო \"უფლებები\" და ჩართო \"მიკროფონი\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%1$s-თან დასარეკად Signal-ს მიკროფონსა და კამერაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიო \"უფლებები\" და ჩართოთ \"მიკროფონი\" და \"კამერა\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">სურათების და ვიდეოების გადასაღებად, მიეცი Signal-ს წვდომა კამერაზე.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">სურათების და ვიდეოების გადასაღებად Signal-ს კამერაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიო \"უფლებები\" და ჩართოთ \"კამერა\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">სურათების და ვიდეოების გადასაღებლად Signal-ს კამერაზე წვდომის ნებართვა სჭირდება</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%1$s-თან დასარეკად Molly-ს მიკროფონსა და კამერაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიო \"უფლებები\" და ჩართოთ \"მიკროფონი\" და \"კამერა\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">სურათების და ვიდეოების გადასაღებად, მიეცი Molly-ს წვდომა კამერაზე.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">სურათების და ვიდეოების გადასაღებად Molly-ს კამერაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიო \"უფლებები\" და ჩართოთ \"კამერა\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">სურათების და ვიდეოების გადასაღებლად Molly-ს კამერაზე წვდომის ნებართვა სჭირდება</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">გააქტიურე მიკროფონზე წვდომის ნებართვა ხმიანი ვიდეოების გადასაღებად.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">ვიდეოების გადასაღებად Signal-ს სჭირდება მიკროფონზე წვდომის უფლება, მაგრამ იგი სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიო \"უფლებები\" და ჩართო \"მიკროფონი\" და \"კამერა\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">ვიდეოების გადასაღებად Signal-ს მიკროფონზე წვდომის ნებართვა სჭირდება.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">ვიდეოების გადასაღებად Molly-ს სჭირდება მიკროფონზე წვდომის უფლება, მაგრამ იგი სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპის პარამეტრების მენიუში, აირჩიო \"უფლებები\" და ჩართო \"მიკროფონი\" და \"კამერა\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">ვიდეოების გადასაღებად Molly-ს მიკროფონზე წვდომის ნებართვა სჭირდება.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">არა</string>
@@ -477,9 +474,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">ზარის დასაწყებად:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">ზარის დასაწყებად, Signal-ს შენს მიკროფონზე წვდომა მიეცი.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">ზარის დასაწყებად, Molly-ს შენს მიკროფონზე წვდომა მიეცი.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">ზარის დასაწყებად Signal-ს მიკროფონზე წვდომა სჭირდება.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">ზარის დასაწყებად Molly-ს მიკროფონზე წვდომა სჭირდება.</string>
 
 
     <string name="ConversationActivity_join">შემოუერთდი</string>
@@ -493,9 +490,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">SMS მიმოწერები Signal-ში აღარ არის ხელმისაწვდომი. მოიწვიე %1$s Signal-ში, რათა მიმოწერა აქ განაგრძოთ.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">ეს ადამიანი Signal-ს აღარ იყენებს. მოიწვიე ის Signal-ში, რათა მიმოწერა აქ განაგრძოთ.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">ეს ადამიანი Molly-ს აღარ იყენებს. მოიწვიე ის Molly-ში, რათა მიმოწერა აქ განაგრძოთ.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">მოიწვიე Signal-ში</string>
+    <string name="ConversationActivity__invite_to_signal">მოიწვიე Molly-ში</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">მალე ისევ შეგახსენებთ.</string>
 
@@ -582,13 +579,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">დაბლოკილია</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Signal-ის განახლება</string>
+    <string name="ConversationFragment__update_build">Molly-ის განახლება</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Signal-ის ხელახლა რეგისტრაცია</string>
+    <string name="ConversationFragment__reregister_signal">Molly-ის ხელახლა რეგისტრაცია</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">უკან გასვლა.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Signal-ის გახსნა</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Molly-ის გახსნა</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">ვერიფიცირებული აღარაა</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -747,9 +744,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">ვის შეუძლია ნომრით მიპოვოს?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">ნებისმიერს, ვისაც შენი მობილურის ნომერი აქვს, დაინახავს, რომ Signal-ზე ხარ და შენთან ჩატის წამოწყებას შეძლებს.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">ნებისმიერს, ვისაც შენი მობილურის ნომერი აქვს, დაინახავს, რომ Molly-ზე ხარ და შენთან ჩატის წამოწყებას შეძლებს.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">ვერავინ დაინახავს, რომ Signal-ზე ხარ, სანამ არ მისწერ ან თუ არსებული ჩატი არ გექნებათ.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">ვერავინ დაინახავს, რომ Molly-ზე ხარ, სანამ არ მისწერ ან თუ არსებული ჩატი არ გექნებათ.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">აღვადგინოთ სარეზერვო კოპიიდან?</string>
@@ -783,7 +780,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">გატესტე შენი სათადარიგო ასლების პაროლ-ფრაზა და დარწმუნდი, რომ ის შეესაბამება</string>
     <string name="BackupsPreferenceFragment__turn_on">ჩართვა</string>
     <string name="BackupsPreferenceFragment__turn_off">გამორთვა</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"სათადარიგო ასლის აღსადგენად გადმოწერე Signal-ის ახალი ვერსია. გახსენი აპლიკაცია და დააჭირე \"სარეზერვო ასლის აღდგენას\", შემდეგ იპოვე სათადარიგო ფაილი. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"სათადარიგო ასლის აღსადგენად გადმოწერე Molly-ის ახალი ვერსია. გახსენი აპლიკაცია და დააჭირე \"სარეზერვო ასლის აღდგენას\", შემდეგ იპოვე სათადარიგო ფაილი. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">გაიგე მეტი</string>
     <string name="BackupsPreferenceFragment__in_progress">იტვირთება…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -791,7 +788,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d ჯერ…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% ჯერ…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">სათადარიგო ასლების შესაქმნელად Signal-ი საჭიროებს გარე მეხსიერებაზე წვდომის ნებართვას, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „შენახვა“.</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">სათადარიგო ასლების შესაქმნელად Molly-ი საჭიროებს გარე მეხსიერებაზე წვდომის ნებართვას, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „შენახვა“.</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">დააყენე სარეზერვო კოპიების შექმნის დრო</string>
 
@@ -858,7 +855,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">ჩატის სესია განახლდა</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal-ი სრულ დაშიფვრას იყენებს, რის გამოც შეიძლება ზოგჯერ შენი ჩატის სესიის განახლება დასჭირდეს. ეს არ იმოქმედებს შენი ჩატის უსაფრთხოებაზე, მაგრამ შესაძლოა ამ კონტაქტისგან შეტყობინება გამოგრჩეს, რის შედეგადაც შესაძლოა მისთვის შეტყობინების ხელახლა გამოგზავნის თხოვნა მოგიწიოს.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly-ი სრულ დაშიფვრას იყენებს, რის გამოც შეიძლება ზოგჯერ შენი ჩატის სესიის განახლება დასჭირდეს. ეს არ იმოქმედებს შენი ჩატის უსაფრთხოებაზე, მაგრამ შესაძლოა ამ კონტაქტისგან შეტყობინება გამოგრჩეს, რის შედეგადაც შესაძლოა მისთვის შეტყობინების ხელახლა გამოგზავნის თხოვნა მოგიწიოს.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -872,9 +869,9 @@
     <!-- Bottom sheet description explaining that messages on linked devices are private -->
     <string name="LinkDeviceFragment__all_messaging_is_private">დაკავშირებულ მოწყობილობებზე ნებისმიერი მიმოწერა კონფიდენციალურია</string>
     <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
-    <string name="LinkDeviceFragment__signal_messages_are_synchronized">დაკავშირების შემდეგ Signal-ის შეტყობინებები შენს მობილურ ტელეფონში Signal-თან სინქრონიზდება. შენი წინა შეტყობინებების ისტორია არ გამოჩნდება.</string>
+    <string name="LinkDeviceFragment__signal_messages_are_synchronized">დაკავშირების შემდეგ Molly-ის შეტყობინებები შენს მობილურ ტელეფონში Molly-თან სინქრონიზდება. შენი წინა შეტყობინებების ისტორია არ გამოჩნდება.</string>
     <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
-    <string name="LinkDeviceFragment__on_other_device_visit_signal">შენს სხვა მოწყობილობაზე Signal-ის დასაყენებლად %1$s-ს ეწვიე</string>
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">შენს სხვა მოწყობილობაზე Molly-ის დასაყენებლად %1$s-ს ეწვიე</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
     <!-- Header title listing out current linked devices -->
     <string name="LinkDeviceFragment__my_linked_devices">ჩემი დაკავშირებული მოწყობილობები</string>
@@ -907,7 +904,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">დაასრულე შენს სხვა მოწყობილობასთან დაკავშირება</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">დაასრულე Signal-ის დაკავშირება შენს სხვა მოწყობილობასთან.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">დაასრულე Molly-ის დაკავშირება შენს სხვა მოწყობილობასთან.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">მოწყობილობის დაკავშირება ვერ მოხერხდა</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -935,10 +932,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">ოპტიმიზაცია გამოტოვებული Play Service-ებისთვის</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">ამ მოწყობილობას არ აქვს Play Services-ის მხარდაჭერა. დააჭირე, რათა გამორთო ბატარეის სისტემური ოპტიმიზაცია, რაც ხელს უშლის Signal-ს შეტყობინებების მოძიებაში, როცა აპლიკაციას არ იყენებ.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">ამ მოწყობილობას არ აქვს Play Services-ის მხარდაჭერა. დააჭირე, რათა გამორთო ბატარეის სისტემური ოპტიმიზაცია, რაც ხელს უშლის Molly-ს შეტყობინებების მოძიებაში, როცა აპლიკაციას არ იყენებ.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal-ის ამ ვერსიას ვადა გაუვიდა. განაახლე ახლავე, რათა გააგზავნო და მიიღო შეტყობინებები.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly-ის ამ ვერსიას ვადა გაუვიდა. განაახლე ახლავე, რათა გააგზავნო და მიიღო შეტყობინებები.</string>
     <string name="ExpiredBuildReminder_update_now">განაახლე ახლავე</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -949,8 +946,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">ნახვა</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal-ის კავშირის მუდმივი ხარვეზი!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">სიგნალმა ვერ მოახერხა Google Play Service-თან რეგისტრაცია. Signalს შეტყობინებები და ზარები გათიშულია, გთხოვთ სცადოთ ხელახალი რეგისტრაცია პარამეტრები &gt; დამატებითი.</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Molly-ის კავშირის მუდმივი ხარვეზი!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">სიგნალმა ვერ მოახერხა Google Play Service-თან რეგისტრაცია. Mollyს შეტყობინებები და ზარები გათიშულია, გთხოვთ სცადოთ ხელახალი რეგისტრაცია პარამეტრები &gt; დამატებითი.</string>
 
 
     <!-- GiphyActivity -->
@@ -1089,21 +1086,21 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">გამართვის ჟურნალები გვეხმარება პრობლემის დიაგნოსტიკასა და გამოსწორებაში და არ შეიცავს საიდენტიფიკაციო ინფორმაციას.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal-ი პრობლემას გადააწყდა. ატვირთოთ გამართვის ჟურნალი?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly-ი პრობლემას გადააწყდა. ატვირთოთ გამართვის ჟურნალი?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">შეტყობინებები შეიძლება ბატარეის ოპტიმიზაციის გამო დაგვიანდეს</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">შეგიძლია Signal-ისთვის ბატარეის ოპტიმიზაცია გამორთო, რათა დარწმუნდე, რომ შეტყობინებებზე ინფორმირება არ დაგვიანდება.</string>
+    <string name="PromptBatterySaverBottomSheet__message">შეგიძლია Molly-ისთვის ბატარეის ოპტიმიზაცია გამორთო, რათა დარწმუნდე, რომ შეტყობინებებზე ინფორმირება არ დაგვიანდება.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
-    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Notifications may be delayed due to battery optimizations</string>
+    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">შეტყობინებები შეიძლება ბატარეის ოპტიმიზაციის გამო დაგვიანდეს</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Disable battery optimizations for Signal to ensure that message notifications will not be delayed. Tap “Continue” to see device-specific instructions.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">შეგიძლია Molly-ისთვის ბატარეის ოპტიმიზაცია გამორთო, რათა დარწმუნდე, რომ შეტყობინებებზე ინფორმირება არ დაგვიანდება. მოწყობილობის სპეციფიკური ინსტრუქციების სანახავად დააჭირე \"გაგრძელება\"-ს.</string>
     <!-- Button to dismiss notification help prompt -->
-    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">No thanks</string>
+    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">არა, მადლობა</string>
     <!-- Button to continue and go to Signal support website -->
-    <string name="DeviceSpecificNotificationBottomSheet__continue">Continue</string>
+    <string name="DeviceSpecificNotificationBottomSheet__continue">გაგრძელება</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">გაგრძელება</string>
@@ -1359,13 +1356,13 @@
     <string name="InviteActivity_cancel">გაუქმება</string>
     <string name="InviteActivity_sending">იგზავნება…</string>
     <string name="InviteActivity_invitations_sent">მოსაწვევები გაგზავნილია!</string>
-    <string name="InviteActivity_invite_to_signal">მოიწვიე Signal-ში</string>
+    <string name="InviteActivity_invite_to_signal">მოიწვიე Molly-ში</string>
     <string name="InviteActivity_send_sms">SMS-ის გაგზავნა (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">გავაგზავნოთ %1$d SMS-მოწვევა?</item>
         <item quantity="other">გავაგზავნოთ %1$d SMS-მოწვევა?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">მოდი, Signal-ზე გადავიდეთ: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">მოდი, Molly-ზე გადავიდეთ: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">როგორც ჩანს, არ გაქვს ისეთი აპი, იქ რომ გადააზიარო.</string>
 
     <!-- LearnMoreTextView -->
@@ -1379,7 +1376,7 @@
     <string name="LongMessageActivity_your_message">შენი შეტყობინება</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">ფონური კავშირი ჩართულია</string>
 
     <!-- MediaOverviewActivity -->
@@ -1448,10 +1445,10 @@
     <string name="MessageQuotesBottomSheet_replies">პასუხები</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">ვახორციელებთ Signal-ის ზარს</string>
+    <string name="NotificationBarManager__establishing_signal_call">ვახორციელებთ Molly-ის ზარს</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">ვიწყებთ Signal-ის სერვისის ზარს</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">ვაჩერებთ Signal-ის სერვისის ზარს</string>
+    <string name="NotificationBarManager__starting_signal_call_service">ვიწყებთ Molly-ის სერვისის ზარს</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">ვაჩერებთ Molly-ის სერვისის ზარს</string>
     <string name="NotificationBarManager__cancel_call">ზარის გაუქმება</string>
 
     <!-- NotificationsMegaphone -->
@@ -1767,7 +1764,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">მალე SMS შეტყობინებების გაგზავნას Signal-იდან ვეღარ შეძლებ. მოიწვიე %1$s Signal-ში, რათა მიმოწერა აქ განაგრძოთ.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Signal-ით SMS შეტყობინებების გაგზავნას ვეღარ შეძლებ. მოიწვიე %1$s Signal-ში, რათა მიმოწერა აქ განაგრძოთ.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Molly-ით SMS შეტყობინებების გაგზავნას ვეღარ შეძლებ. მოიწვიე %1$s Molly-ში, რათა მიმოწერა აქ განაგრძოთ.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">ტრანზაქცია: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -1849,7 +1846,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">მივაბათ Signal-ს მოწყობილობა?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">როგორც ჩანს, Signal-ისთვის მოწყობილობის მიბმას მე-3 მხარის სკანერის გამოყენებით ცდილობ. შენი უსაფრთხოებისთვის გთხოვთ, ხელახლა დაასკანერო კოდი Signal-იდან.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-ს QR კოდის დასასკანერებლად კამერის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „კამერა“.</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly-ს QR კოდის დასასკანერებლად კამერის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „კამერა“.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">QR კოდის სკანირება კამერის ნებართვის გარეშე შეუძლებელია</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1862,11 +1859,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">შეიყვანე პაროლ-ფრაზა</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Signal-ის ხატულა</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Molly-ის ხატულა</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">პაროლ-ფრაზის დადასტურება</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">არასწორი პაროლ-ფრაზა!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Signal-ის გახსნა</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - დაბლოკილი ეკრანი</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Molly-ის გახსნა</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - დაბლოკილი ეკრანი</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">რუკა</string>
@@ -1933,7 +1930,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">გაიარე ვერიფიკაცია მიმოწერის გასაგრძელებლად</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signal-ზე სპამის თავიდან ასაცილებლად, გთხოვთ, დაასრულო ვერიფიკაცია.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Molly-ზე სპამის თავიდან ასაცილებლად, გთხოვთ, დაასრულო ვერიფიკაცია.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">ვერიფიკაციის გავლის შემდეგ მიმოწერის გაგრძელებას შეძლებ. ნებისმიერი შეჩერებული შეტყობინება ავტომატურად გაიგზავნება.</string>
 
     <!-- Recipient -->
@@ -1941,7 +1938,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">ჩემი Story-ი</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Signal-ის ზარი</string>
+    <string name="Recipient_signal_call">Molly-ის ზარი</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">დაბლოკვა</string>
@@ -1967,8 +1964,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">დააჭირე აქ შენი ვიდეოს ჩასართავად</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s-თან დასარეკად, Signal-ს შენს კამერაზე წვდომა დასჭირდება</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s-თან დასარეკად, Molly-ს შენს კამერაზე წვდომა დასჭირდება</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">ვრეკავთ…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">ხელახლა დაკავშირება…</string>
@@ -2029,23 +2026,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">შენს კამერაზე წვდომის მიცემა</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">ზარის დასაწყებად ან მასში შესასვლელად, Signal-ს შენს კამერასა და მიკროფონზე წვდომა სჭირდება.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">ზარის დასაწყებად ან მასში შესასვლელად, Molly-ს შენს კამერასა და მიკროფონზე წვდომა სჭირდება.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">ზარის დასაწყებად ან მასში შესასვლელად, Signal-ს შენს კამერასა და მიკროფონზე წვდომა მიეცი.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">ზარის დასაწყებად ან მასში შესასვლელად, Molly-ს შენს კამერასა და მიკროფონზე წვდომა მიეცი.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">ვიდეოს ჩასართავად, Signal-ს შენ კამერაზე წვდომა მიეცი.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">ვიდეოს ჩასართავად, Molly-ს შენ კამერაზე წვდომა მიეცი.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">ზარის დასაწყებად ან მასში შესასვლელად Signal-ს მიკროფონზე წვდომა სჭირდება.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">ზარის დასაწყებად ან მასში შესასვლელად Molly-ს მიკროფონზე წვდომა სჭირდება.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">ვიდეოს ჩასართვად Signal-ს კამერაზე წვდომა სჭირდება</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">ვიდეოს ჩასართვად Molly-ს კამერაზე წვდომა სჭირდება</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">ზარის წამოსაწყებად, ან მასში შესასვლელად:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">შენი ვიდეოს ჩასართავად:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Signal-ის ზარი</string>
-    <string name="WebRtcCallView__signal_video_call">Signal-ის ვიდეო ზარი</string>
+    <string name="WebRtcCallView__signal_call">Molly-ის ზარი</string>
+    <string name="WebRtcCallView__signal_video_call">Molly-ის ვიდეო ზარი</string>
     <string name="WebRtcCallView__start_call">ზარის დაწყება</string>
     <string name="WebRtcCallView__join_call">ზარზე შესვლა</string>
     <string name="WebRtcCallView__call_is_full">ზარი გადავსებულია</string>
@@ -2135,7 +2132,7 @@
     <!-- A dialog prompt to confirm you want to lower your hand -->
     <string name="CallOverflowPopupWindow__lower_your_hand">გსურს, ხელი ჩამოწიო?</string>
     <!-- A dialog button to confirm you would like to lower your hand -->
-    <string name="CallOverflowPopupWindow__lower_hand">Lower</string>
+    <string name="CallOverflowPopupWindow__lower_hand">ჩაწევა</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">გაუქმება</string>
     <!-- A button to take you to a list of participants with raised hands -->
@@ -2260,7 +2257,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">თქვენ მიიღებთ ზარს ამ ნომრის დასამოწმებლად.</string>
     <string name="RegistrationActivity_edit_number">ნომრის რედაქტირება</string>
     <string name="RegistrationActivity_missing_google_play_services">აკლია Google Play-ის სერვისები</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">ამ მოწყობილობას აკლია Google Play-ის სერვისები. შეგიძლიათ, კვლავ გამოიყენოთ Signal,მაგრამ ამ კონფიგურაციამ შეიძლება გამოიწვიოს საიმედოობის ან ფუნქციონირების შემცირება.\n\nთუ არ ხართ კვალიფიციური მომხმარებელი, არ სარგებლობთ გაყიდვისშემდგომი მომსახურების Android ROM-ით ან ფიქრობთ, რომ ამას შეცდომით ხედავთ, გთხოვთ დაუკავშირდეთ support@signal.org პრობლემების მოგვარებაში დასახმარებლად.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">ამ მოწყობილობას აკლია Google Play-ის სერვისები. შეგიძლიათ, კვლავ გამოიყენოთ Molly,მაგრამ ამ კონფიგურაციამ შეიძლება გამოიწვიოს საიმედოობის ან ფუნქციონირების შემცირება.\n\nთუ არ ხართ კვალიფიციური მომხმარებელი, არ სარგებლობთ გაყიდვისშემდგომი მომსახურების Android ROM-ით ან ფიქრობთ, რომ ამას შეცდომით ხედავთ, გთხოვთ დაუკავშირდეთ support@molly.im პრობლემების მოგვარებაში დასახმარებლად.</string>
     <string name="RegistrationActivity_i_understand">გასაგებია</string>
     <string name="RegistrationActivity_play_services_error">სერვისების ჩართვის შეცდომა</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">მიმდინარეობს Google Play-ის სერვისები ს განახლება ან ისინი დროებით მიუწვდომელია. გთხოვთ სცადოთ ხელახლა.</string>
@@ -2278,7 +2275,7 @@
     <string name="RegistrationActivity_non_standard_number_format">ნომრის არასტანდარტული ფორმატი</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">შენ მიერ შეყვანილი ნომერი (%1$s), როგორც ჩანს, არასტანდარტული ფორმატისაა. %2$s-ს გულისხმობდი?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android-ი - ტელეფონის ნომრის ფორმატი</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android-ი - ტელეფონის ნომრის ფორმატი</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">დარეკვა მოთხოვნილია</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2351,13 +2348,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">კონტაქტებში დამატება</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">მოიწვიე Signal-ში</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">მოიწვიე Molly-ში</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal-ის შეტყობინება</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal-ის ზარი</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">კონტაქტებში დამატება</string>
-    <string name="SharedContactView_invite_to_signal">მოიწვიე Signal-ში</string>
+    <string name="SharedContactView_invite_to_signal">მოიწვიე Molly-ში</string>
     <string name="SharedContactView_message">Signal-ის შეტყობინება</string>
 
     <!-- SignalBottomActionBar -->
@@ -2488,11 +2485,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s %2$s-ს ეკუთვნის</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Signal-ის განახლება</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Signal-ის ახალი ვერსია ხელმისაწვდომია. დააჭირე განახლებისთვის.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Signal-ის განახლება ვერ მოხერხდა</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Molly-ის განახლება</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Molly-ის ახალი ვერსია ხელმისაწვდომია. დააჭირე განახლებისთვის.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Molly-ის განახლება ვერ მოხერხდა</string>
     <string name="ApkUpdateNotifications_failed_general_body">მოგვიანებით ისევ ვცდით.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Signal-ი წარმატებით განახლდა</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Molly-ი წარმატებით განახლდა</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">შენ ავტომატურად გადახვედი %1$s ვერსიაზე.</string>
 
     <!-- UntrustedSendDialog -->
@@ -2563,7 +2560,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">ჩვენი Signal-ის უსაფრთხოების ნომერი:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">როგორც ჩანს, არ გაქვს ისეთი აპი, რითაც შეძლებ გაზიარებას.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">შესადარებელი უსაფრთხოების ნომერი ბუფერში ვერ მოიძებნა</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR კოდის დასასკანერებლად Signal-ს კამერაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „კამერა“.</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR კოდის დასასკანერებლად Molly-ს კამერაზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „კამერა“.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR კოდის სკანირება კამერის ნებართვის გარეშე შეუძლებელია</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s-ის უსაფრთხოების ნომრის სანახავად ჯერ შეტყობინებები უნდა გაცვალოთ.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2593,14 +2590,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">დააჭირე გასახსნელად.</string>
-    <string name="KeyCachingService_passphrase_cached">Signal-ი გახსნილია</string>
-    <string name="KeyCachingService_lock">Signal-ის დახურვა</string>
+    <string name="KeyCachingService_passphrase_cached">Molly-ი გახსნილია</string>
+    <string name="KeyCachingService_lock">Molly-ის დახურვა</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">შენ</string>
     <string name="MediaPreviewActivity_unssuported_media_type">შეუთავსებელი მედია-ფაილის ტიპი</string>
     <string name="MediaPreviewActivity_draft">მონახაზი</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">გარე მეხსიერებაში შესანახად Signal-ს შენახვის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „შენახვა“.</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">გარე მეხსიერებაში შესანახად Molly-ს შენახვის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „შენახვა“.</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">ნებართვების გარეშე გარე მეხსიერებაში შენახვა შეუძლებელია</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">წავშალოთ შეტყობინება?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">ეს ამ შეტყობინებას სამუდამოდ წაშლის.</string>
@@ -2644,7 +2641,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">შეტყობინების გაგზავნა ვერ მოხერხდა.</string>
     <string name="MessageNotifier_error_delivering_message">ხარვეზი შეტყობინების გაგზავნისას.</string>
     <string name="MessageNotifier_message_delivery_paused">შეტყობინების გაგზავნა შეჩერდა.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">გაიარე ვერიფიკაცია, რომ Signal-ზე მიმოწერა გააგრძელო.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">გაიარე ვერიფიკაცია, რომ Molly-ზე მიმოწერა გააგრძელო.</string>
     <string name="MessageNotifier_mark_all_as_read">ყველას წაკითხულად მონიშვნა.</string>
     <string name="MessageNotifier_mark_read">წაკითხულად მონიშვნა</string>
     <string name="MessageNotifier_turn_off_these_notifications">ამ შეტყობინებების გამორთვა</string>
@@ -2666,7 +2663,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">გამოეხმაურა %1$s შენს სტიკერს.</string>
     <string name="MessageNotifier_this_message_was_deleted">ეს შეტყობინება იქნა წაშლილი.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">გამოვრთოთ კონტაქტის Signal-ში დამატების შეტყობინებები? მათი ხელახლა ჩართვა შეგიძლია Signal &gt; პარამეტრები &gt; შეტყობინებები.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">გამოვრთოთ კონტაქტის Molly-ში დამატების შეტყობინებები? მათი ხელახლა ჩართვა შეგიძლია Molly &gt; პარამეტრები &gt; შეტყობინებები.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2705,7 +2702,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">სწრაფი პასუხი შეუძლებელია, როცა Signal-ი გამორთულია!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">სწრაფი პასუხი შეუძლებელია, როცა Molly-ი გამორთულია!</string>
     <string name="QuickResponseService_problem_sending_message">პრობლემა შეტყობინების გაგზავნისას!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2725,7 +2722,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">არასწორი მალსახმობი</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">ახალი შეტყობინება</string>
     <string name="SingleRecipientNotificationBuilder_message_request">მოთხოვნა მიმოწერაზე</string>
     <string name="SingleRecipientNotificationBuilder_you">შენ</string>
@@ -2771,7 +2768,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">ეს მოწყობილობა აღარ არის რეგისტრირებული. ეს სავარაუდოდ იმიტომ ხდება, რომ შენი ტელეფონის ნომერი Signal-ზე სხვა მოწყობილობაზე დაარეგისტრირე.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">ეს მოწყობილობა აღარ არის რეგისტრირებული. ეს სავარაუდოდ იმიტომ ხდება, რომ შენი ტელეფონის ნომერი Molly-ზე სხვა მოწყობილობაზე დაარეგისტრირე.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">ხელახლა დაარეგისტრირე მოწყობილობა</string>
 
@@ -2784,10 +2781,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">ზარზე პასუხისთვის მიეცი Signal-ს წვდომა შენს მიკროფონზე.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">ზარზე პასუხისთვის მიეცი Molly-ს წვდომა შენს მიკროფონზე.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">მიეცი Signal-ს წვდომა შენს მიკროფონსა და კამერაზე, რათა ვიდეო ზარს უპასუხო.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">ზარების განსახორციელებლად ან მისაღებად Signal-ს მიკროფონსა და კამერაზე წვდომის ნებართვა სჭირდება, მაგრამ ისინი სამუდამოდ იქნა უარყოფილია. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „მიკროფონი“ და „კამერა“.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">მიეცი Molly-ს წვდომა შენს მიკროფონსა და კამერაზე, რათა ვიდეო ზარს უპასუხო.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">ზარების განსახორციელებლად ან მისაღებად Molly-ს მიკროფონსა და კამერაზე წვდომის ნებართვა სჭირდება, მაგრამ ისინი სამუდამოდ იქნა უარყოფილია. გთხოვთ, შეხვიდე აპის პარამეტრებში, აირჩიო „ნებართვები“ და ჩართო „მიკროფონი“ და „კამერა“.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">ზარი მიღებულია დაკავშირებულ მოწყობილობაზე.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">ზარი უარყოფილია დაკავშირებულ მოწყობილობაზე.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">დაკავებაა დაკავშირებულ მოწყობილობაზე.</string>
@@ -2832,7 +2829,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">გაიმეორე ახალი პაროლ-ფრაზა</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">მოიწვიე Signal-ში</string>
+    <string name="contact_selection_activity__invite_to_signal">მოიწვიე Molly-ში</string>
     <string name="contact_selection_activity__new_group">ახალი ჯგუფი</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">კონტაქტების გადატვირთვა</string>
@@ -2858,7 +2855,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">კონტაქტის ფოტო</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">შენი კონტაქტების საჩვენებლად Signal-ს კონტაქტებზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპლიკაციის პარამეტრების მენიუში, აირჩიო „ნებართვები“ და ჩართო „კონტაქტები“.</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">შენი კონტაქტების საჩვენებლად Molly-ს კონტაქტებზე წვდომის ნებართვა სჭირდება, მაგრამ ის სამუდამოდ იქნა უარყოფილი. გთხოვთ, გადახვიდე აპლიკაციის პარამეტრების მენიუში, აირჩიო „ნებართვები“ და ჩართო „კონტაქტები“.</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">შეცდომა კონტაქტების მოძიებისას, შეამოწმე შენი ქსელის კავშირი</string>
     <string name="ContactSelectionListFragment_username_not_found">მომხმარებლის სახელი ვერ მოიძებნა</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s არაა Signal-ის მომხმარებელი. გთხოვთ, გადაამოწმო მომხმარებლის სახელი და თავიდან სცადო."</string>
@@ -2887,7 +2884,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">შენს კონტაქტებზე წვდომის მიცემა. შენი კონტაქტები დაშიფრულია და Signal-ის სერვისისთვის უხილავია.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-ს შენს კონტაქტებზე წვდომა სჭირდება, რათა ისინი აჩვენოს.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly-ს შენს კონტაქტებზე წვდომა სჭირდება, რათა ისინი აჩვენოს.</string>
     <string name="contact_selection_list_fragment__show_contacts">კონტაქტების ჩვენება</string>
 
     <!-- contact_selection_list_item -->
@@ -2961,7 +2958,7 @@
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">ოფციები</string>
     <!-- Update item button text shown for a profile name change. -->
-    <string name="ConversationUpdateItem_update">Update</string>
+    <string name="ConversationUpdateItem_update">განახლება</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">ჩართვა … დაპაუზება</string>
@@ -2990,7 +2987,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Bubbles-ი Android-ის ფუნქციაა, რომელიც შეგიძლია Signal-ის ჩატებისთვის გამორთო.</string>
+    <string name="BubbleOptOutTooltip__description">Bubbles-ი Android-ის ფუნქციაა, რომელიც შეგიძლია Molly-ის ჩატებისთვის გამორთო.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">ახლა არა</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3158,9 +3155,9 @@
     <string name="EditProfileFragment__group_description">ჯგუფის აღწერილობა</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Signal-ის განახლება</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Molly-ის განახლება</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Signal-ის ამ ვერსიას ვადა გაუვიდა. განაახლე ახლავე, რათა Signal-ის გამოყენება განაგრძო.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Molly-ის ამ ვერსიას ვადა გაუვიდა. განაახლე ახლავე, რათა Molly-ის გამოყენება განაგრძო.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">განახლება</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3377,7 +3374,7 @@
     <string name="preferences__slow">ნელი</string>
     <string name="preferences__help">დახმარება</string>
     <string name="preferences__advanced">დეტალური</string>
-    <string name="preferences__donate_to_signal">Signal-ისთვის დონაციის გაკეთება</string>
+    <string name="preferences__donate_to_signal">Molly-ისთვის დონაციის გაკეთება</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">კონფიდენციალურობა</string>
     <!-- Preference label for stories -->
@@ -3414,13 +3411,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">შეცვალე აპის ხატულა და სახელი „%1$s“-ზე</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">აპის ხატულასა და სახელის შესაცვლელად Signal-ი უნდა დაიხუროს. შეტყობინებები ყოველთვის გამოჩნდება Signal-ის ნაგულისხმევი ხატულათი და სახელით.</string>
+    <string name="preferences__app_icon_dialog_description">აპის ხატულასა და სახელის შესაცვლელად Molly-ი უნდა დაიხუროს. შეტყობინებები ყოველთვის გამოჩნდება Molly-ის ნაგულისხმევი ხატულათი და სახელით.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">აირჩიე აპის ხატულა და სახელი, რომელიც შენი ტელეფონის მთავარ ეკრანზე და აპის პანელზე გამოჩნდება. შეტყობინებები ყოველთვის გამოჩნდება Signal-ის ნაგულისხმევი ხატულათი და სახელით. გაიგე მეტი</string>
+    <string name="preferences__app_icon_warning_learn_more">აირჩიე აპის ხატულა და სახელი, რომელიც შენი ტელეფონის მთავარ ეკრანზე და აპის პანელზე გამოჩნდება. შეტყობინებები ყოველთვის გამოჩნდება Molly-ის ნაგულისხმევი ხატულათი და სახელით. გაიგე მეტი</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">აპის ხატულები და სახელები ხილვადია მთავარ ეკრანზე და აპის პანელზე.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">შეტყობინებები ყოველთვის გამოჩნდება Signal-ის ნაგულისხმევი ხატულათი და სახელით.</string>
+    <string name="preferences__app_icon_notification_warning">შეტყობინებები ყოველთვის გამოჩნდება Molly-ის ნაგულისხმევი ხატულათი და სახელით.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">გაიგე მეტი</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3509,7 +3506,7 @@
     <string name="preferences_communication__category_censorship_circumvention">ცენზურისთვის გვერდის ავლა</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">ცენზურისთვის გვერდის ავლა</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">თუ ამას ჩართავ, Signal-ი შეეცდება გვერდი აარიდოს ცენზურას. არ ჩართო ეს ფუნქცია, თუ არ იმყოფები ისეთ ადგილას, სადაც Signal-ი ცენზურადადებულია.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">თუ ამას ჩართავ, Molly-ი შეეცდება გვერდი აარიდოს ცენზურას. არ ჩართო ეს ფუნქცია, თუ არ იმყოფები ისეთ ადგილას, სადაც Molly-ი ცენზურადადებულია.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">ცენზურისთვის გვერდის ავლა გააქტიურებულია შენს მონაცემებში არსებული ტელეფონის ნომრის საფუძველზე.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3561,7 +3558,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">წარმოგიდგენთ გადახდებს</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">გამოიყენე Signal-ი ახალი, კონფიდენციალურობაზე ორიენტირებული, ციფრული ვალუტის MobileCoin-ის გასაგზავნად და მისაღებად. დასაწყებად გააქტიურე.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">გამოიყენე Molly-ი ახალი, კონფიდენციალურობაზე ორიენტირებული, ციფრული ვალუტის MobileCoin-ის გასაგზავნად და მისაღებად. დასაწყებად გააქტიურე.</string>
     <string name="PaymentsHomeFragment__activate_payments">ტრანზაქციების აქტივაცია</string>
     <string name="PaymentsHomeFragment__activating_payments">ვააქტიურებთ ტრანზაქციებს…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">ტრანზაქციების მონაცემების აღდგენა</string>
@@ -3587,7 +3584,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">ტრანზაქციები შენს რეგიონში ხელმისაწვდომი არაა.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">ტრანზაქციების ჩართვა ვერ მოხერხდა. მოგვიანებით კიდევ სცადე.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">გსურს ტრანზაქციების დეაქტივაცია?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">შენ ვერ შეძლებ MobileCoin-ის Signal-ში გაგზავანას ან მიღებას , თუ ტრანზაქციებს გამორთავ.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">შენ ვერ შეძლებ MobileCoin-ის Molly-ში გაგზავანას ან მიღებას , თუ ტრანზაქციებს გამორთავ.</string>
     <string name="PaymentsHomeFragment__deactivate">დეაქტივაცია</string>
     <string name="PaymentsHomeFragment__continue">გაგრძელება</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">ბალანსი ამჟამად ხელმისაწვდომი არაა.</string>
@@ -3596,10 +3593,10 @@
     <string name="PaymentsHomeFragment__details">Details</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">შეგიძლია Signal-ი MobileCoin-ის გასაგზავნად და მისაღებად გამოიყენო. ყველა გადახდა ექვემდებარება MobileCoins-ისა და MobileCoin Wallet-ის გამოყენების პირობებს. შეიძლება პრობლემები შეგექმნას და გადახდები ან ნაშთები, რომლებიც შეიძლება დაკარგო, ვერ აღდგება. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">შეგიძლია Molly-ი MobileCoin-ის გასაგზავნად და მისაღებად გამოიყენო. ყველა გადახდა ექვემდებარება MobileCoins-ისა და MobileCoin Wallet-ის გამოყენების პირობებს. შეიძლება პრობლემები შეგექმნას და გადახდები ან ნაშთები, რომლებიც შეიძლება დაკარგო, ვერ აღდგება. </string>
     <string name="PaymentsHomeFragment__activate">გააქტიურება</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin-ის პირობების ნახვა</string>
-    <string name="PaymentsHomeFragment__payments_not_available">ტრანზაქციები Signal-ში აღარ არის ხელმისაწვდომი. ისევ შეგიძლია თანხების გადარიცხვა ბირჟაზე, მაგრამ აღარ შეგიძლია ტრანზაქციების გაგზავნა და მიღება, ან თანხის დამატება.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">ტრანზაქციები Molly-ში აღარ არის ხელმისაწვდომი. ისევ შეგიძლია თანხების გადარიცხვა ბირჟაზე, მაგრამ აღარ შეგიძლია ტრანზაქციების გაგზავნა და მიღება, ან თანხის დამატება.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3627,7 +3624,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">ნებართვების დაშვება</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">იმისათვის, რომ შენს ნაცნობებთან მიმოწერაში დაგეხმაროთ, Signal-ი ამ ნებართვებს მოითხოვს. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">იმისათვის, რომ შენს ნაცნობებთან მიმოწერაში დაგეხმაროთ, Molly-ი ამ ნებართვებს მოითხოვს. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">შეტყობინებები</string>
     <!-- Notifications permission row description -->
@@ -3715,10 +3712,10 @@
     <string name="PaymentsTransferFragment__next">შემდეგი</string>
     <string name="PaymentsTransferFragment__invalid_address">არასწორი მისამართი</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">შეამოწმე საფულის მისამართი, რომელზეც ცდილობ გადარიცხვას და სცადე ხელახლა.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">შენი Signal-ის საფულის მისამართზე გადარიცხვა არ შეგიძლია. შეიყვანე საფულის მისამართი მხარდაჭერილი ბირჟის შენი ანგარიშიდან .</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR კოდის დასასკანირებლად Signal-ს კამერაზე წვდომა სჭირდება.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">QR კოდის დასასკანირებლად Signal-ს კამერაზე წვდომა სჭირდება. შედი პარამეტრებში, აირჩიე \"ნებართვები\" და ჩართე \"კამერა\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR კოდის დასასკანირებლად Signal-ს კამერაზე წვდომა სჭირდება.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">შენი Molly-ის საფულის მისამართზე გადარიცხვა არ შეგიძლია. შეიყვანე საფულის მისამართი მხარდაჭერილი ბირჟის შენი ანგარიშიდან .</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR კოდის დასასკანირებლად Molly-ს კამერაზე წვდომა სჭირდება.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">QR კოდის დასასკანირებლად Molly-ს კამერაზე წვდომა სჭირდება. შედი პარამეტრებში, აირჩიე \"ნებართვები\" და ჩართე \"კამერა\".</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR კოდის დასასკანირებლად Molly-ს კამერაზე წვდომა სჭირდება.</string>
     <string name="PaymentsTransferFragment__settings">Settings</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4066,17 +4063,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Signal-ის შემომავალი ხმოვანი ზარი</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly-ის შემომავალი ხმოვანი ზარი</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Signal-ის შემომავალი ვიდეო ზარი</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Molly-ის შემომავალი ვიდეო ზარი</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Signal-ის შემომავალი ჯგუფური ზარი</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Molly-ის შემომავალი ჯგუფური ზარი</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Signal-ის მიმდინარე ხმოვანი ზარი</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Molly-ის მიმდინარე ხმოვანი ზარი</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Signal-ის მიმდინარე ვიდეო ზარი</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Molly-ის მიმდინარე ვიდეო ზარი</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Signal-ის მიმდინარე ჯგუფის ზარი</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Molly-ის მიმდინარე ჯგუფის ზარი</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">იტვირთება…</string>
@@ -4123,9 +4120,9 @@
     <string name="BackupDialog_verify">ვერიფიკაცია</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">შენ წარმატებით შეიყვანე სარეზერვო კოპიების პაროლ-ფრაზა</string>
     <string name="BackupDialog_passphrase_was_not_correct">პაროლ-ფრაზა არასწორი იყო</string>
-    <string name="LocalBackupJob_creating_signal_backup">ვქმნით Signal-ის სარეზერვო კოპიებს…</string>
+    <string name="LocalBackupJob_creating_signal_backup">ვქმნით Molly-ის სარეზერვო კოპიებს…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">მიმდინარეობს Signal-ის სარეზერვო კოპიების ვერიფიცირება…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">მიმდინარეობს Molly-ის სარეზერვო კოპიების ვერიფიცირება…</string>
     <string name="LocalBackupJobApi29_backup_failed">სარეზერვო კოპიების შენახვა ვერ მოხერხდა</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">შენი სარეზერვო კოპიების შესანახი ადგილი იქნა წაშლილი ან გადატანილი.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">შენი სარეზერვო კოპიის ფაილი ზედმეტად დიდია აქ შესანახად.</string>
@@ -4140,15 +4137,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">დამირეკეთ (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">კოდის თავიდან გაგზავნა (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">დაუკავშირდით Signal-ის მხარდაჭერას</string>
-    <string name="RegistrationActivity_code_support_subject">Signal-ის რეგისტრაცია - დადასტურების კოდი Android-ითვის</string>
+    <string name="RegistrationActivity_contact_signal_support">დაუკავშირდით Molly-ის მხარდაჭერას</string>
+    <string name="RegistrationActivity_code_support_subject">Molly-ის რეგისტრაცია - დადასტურების კოდი Android-ითვის</string>
     <string name="RegistrationActivity_incorrect_code">არასწორი კოდი</string>
     <string name="BackupUtil_never">არასდროს</string>
     <string name="BackupUtil_unknown">უცნობი</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">ტელეფონის ნომერი</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">შეარჩიე, ვის შეუძლია ნახოს შენი ტელეფონის ნომერი და ვინ შეიძლება დაგიკავშირდეს Signal-ზე მისი დახმარებით.</string>
+    <string name="preferences_app_protection__choose_who_can_see">შეარჩიე, ვის შეუძლია ნახოს შენი ტელეფონის ნომერი და ვინ შეიძლება დაგიკავშირდეს Molly-ზე მისი დახმარებით.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">ვის შეუძლია ჩემი ნომრის ნახვა</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4196,7 +4193,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">თქვენ განახორციელეთ ძალიან ბევრი მცდელობა. გთხოვთ ხელახლა სცადოთ მოგვიანებით.</string>
     <string name="RegistrationActivity_error_connecting_to_service">სერვისთან დაკავშირების შეცდომა</string>
     <string name="preferences_chats__backups">სარეზერვო კოპიები</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Signal-ი დაბლოკილია</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Molly-ი დაბლოკილია</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">დააჭირე განბლოკვისთვის</string>
     <string name="Recipient_unknown">უცნობი</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4251,19 +4248,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">ვემზადებით ძველ Android მოწყობილობასთან დასაკავშირებლად…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">დაელოდე, მალე მზად უნდა იყოს</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">ველოდებით ძველ Android მოწყობილობას, რომ დავაკავშიროთ…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">შენი ძველი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად, Signal-ს მდებარეობაზე წვდომის ნებართვა სჭირდება.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-ს სჭირდება მდებარეობის სერვისების ჩართვა შენი ძველი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-ს სჭირდება ჩართული Wi-Fi შენი ძველი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად. Wi-Fi უნდა იყოს ჩართული, მაგრამ არ უნდა იყოს დაკავშირებული Wi-Fi ქსელთან.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ბოდიში, როგორც ჩანს, ამ მოწყობილობას არ აქვს Wi-Fi Direct-ის მხარდაჭერა. Signal-ი Wi-Fi Direct-ს შენი ძველი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად იყენებს. თუმცა შენი მონაცემების აღსადგენად, შეგიძლია შენი ძველი Android მოწყობილობის სარეზერვო კოპია აღადგინო.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">შენი ძველი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად, Molly-ს მდებარეობაზე წვდომის ნებართვა სჭირდება.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly-ს სჭირდება მდებარეობის სერვისების ჩართვა შენი ძველი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly-ს სჭირდება ჩართული Wi-Fi შენი ძველი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად. Wi-Fi უნდა იყოს ჩართული, მაგრამ არ უნდა იყოს დაკავშირებული Wi-Fi ქსელთან.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ბოდიში, როგორც ჩანს, ამ მოწყობილობას არ აქვს Wi-Fi Direct-ის მხარდაჭერა. Molly-ი Wi-Fi Direct-ს შენი ძველი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად იყენებს. თუმცა შენი მონაცემების აღსადგენად, შეგიძლია შენი ძველი Android მოწყობილობის სარეზერვო კოპია აღადგინო.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">სარეზერვო კოპიის აღდგენა</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">შენს ძველ Android მოწყობილობასთან დაკავშირების მცდელობისას მოხდა მოულოდნელი შეცდომა.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">ვეძებთ ახალ Android მოწყობილობას…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">შენი ახალი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად Signal-ს მდებარეობაზე წვდომის ნებართვა სჭირდება.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-ს სჭირდება ჩართული მდებარეობის სერვისები შენი ახალი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-ს სჭირდება ჩართული Wi-Fi შენი ახალი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად. Wi-Fi უნდა იყოს ჩართული, მაგრამ არ უნდა იყოს დაკავშირებული Wi-Fi ქსელთან.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ბოდიში, როგორც ჩანს, ამ მოწყობილობას არ აქვს Wi-Fi Direct-ის მხარდაჭერა. Signal-ი Wi-Fi Direct-ს შენი ახალი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად იყენებს. თუმცა შენი მონაცემების აღსადგენად, შენი ახალი Android მოწყობილობაზე შეგიძლია სარეზერვო კოპია შექმნა.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">შენი ახალი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად Molly-ს მდებარეობაზე წვდომის ნებართვა სჭირდება.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly-ს სჭირდება ჩართული მდებარეობის სერვისები შენი ახალი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly-ს სჭირდება ჩართული Wi-Fi შენი ახალი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად. Wi-Fi უნდა იყოს ჩართული, მაგრამ არ უნდა იყოს დაკავშირებული Wi-Fi ქსელთან.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ბოდიში, როგორც ჩანს, ამ მოწყობილობას არ აქვს Wi-Fi Direct-ის მხარდაჭერა. Molly-ი Wi-Fi Direct-ს შენი ახალი Android მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად იყენებს. თუმცა შენი მონაცემების აღსადგენად, შენი ახალი Android მოწყობილობაზე შეგიძლია სარეზერვო კოპია შექმნა.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">სარეზერვო კოპიის შექმნა</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">შენს ახალ Android მოწყობილობასთან დაკავშირების მცდელობისას მოხდა მოულოდნელი შეცდომა.</string>
 
@@ -4304,7 +4301,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">მონაცემთა გადატანა</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">ორივე მოწყობილობა ერთმანეთთან ახლოს გეჭიროს. არ გამორთო მოწყობილობები და Signal-ი გახსნილი გქონდეს. გადატანა ბოლომდეა დაშიფრული.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">ორივე მოწყობილობა ერთმანეთთან ახლოს გეჭიროს. არ გამორთო მოწყობილობები და Molly-ი გახსნილი გქონდეს. გადატანა ბოლომდეა დაშიფრული.</string>
     <string name="DeviceTransfer__d_messages_so_far">ჯერ-ჯერობი %1$d შეტყობინება…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">ჯერ-ჯერობით %%-დან %1$s შეტყობინება…</string>
@@ -4318,7 +4315,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">მონაცემების გადატანა</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">ჩამოტვირთე Signal-ი შენს ახალ Android მოწყობილობაზე</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">ჩამოტვირთე Molly-ი შენს ახალ Android მოწყობილობაზე</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"დააჭირე \"მონაცემების გადატანა ან აღდგენა\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4392,7 +4389,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">ნებისმიერს, ვისაც აქვს ეს ბმული, შეუძლია ნახოს ჯგუფის სახელი და ფოტო და მოითხოვოს გაწევრიანება. გაუზიარე ის ადამიანებს, რომლებსაც ენდობი.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">ნებისმიერს, ვისაც აქვს ეს ბმული, შეუძლია ნახოს ჯგუფის სახელი და ფოტო და შეუერთდეს ჯგუფს. გაუზიარე ის ადამიანებს, რომლებსაც ენდობი.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Signal-ით გაზიარება</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Molly-ით გაზიარება</string>
     <string name="GroupLinkBottomSheet_copy">დაკოპირება</string>
     <string name="GroupLinkBottomSheet_qr_code">QR კოდი</string>
     <string name="GroupLinkBottomSheet_share">გაზიარება</string>
@@ -4578,7 +4575,7 @@
     <string name="payment_info_card_about_mobilecoin">MobileCoin-ის შესახებ</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin-ი არის კონფიდენციალურობაზე ორიენტირებული ახალი ციფრული ვალუტა.</string>
     <string name="payment_info_card_adding_funds">თანხის დამატება</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">შეგიძლია Signal-ში გამოსაყენებლად თანხა დაამატო MobileCoin-ის შენი საფულის მისამართზე გაგზავნით.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">შეგიძლია Molly-ში გამოსაყენებლად თანხა დაამატო MobileCoin-ის შენი საფულის მისამართზე გაგზავნით.</string>
     <string name="payment_info_card_cashing_out">განაღდება</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">შეგიძლია გაანაღდო MobileCoin ნებისმიერ დროს იმ ბირჟაზე, რომელიც ემსახურება MobileCoin-ს. უბრალოდ გადარიცხე მაგ ბირჟის შენს ანგარიშზე.</string>
     <string name="payment_info_card_hide_this_card">დავმალოთ ეს ბარათი?</string>
@@ -4599,12 +4596,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">საფულის დეაქტივაცია</string>
     <string name="DeactivateWalletFragment__your_balance">შენი ბალანსი</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">გადახდების დეაქტივაციამდე რეკომენდებულია, შენი თანხები სხვა საფულის მისამართზე გადარიცხო. თუ გადაწყვეტ, რომ შენი თანხები ახლა არ გადარიცხო, ისინი დარჩება Signal-თან დაკავშირებულ შენს საფულეში, თუ გადახდებს ხელახლა გააქტიურებ.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">გადახდების დეაქტივაციამდე რეკომენდებულია, შენი თანხები სხვა საფულის მისამართზე გადარიცხო. თუ გადაწყვეტ, რომ შენი თანხები ახლა არ გადარიცხო, ისინი დარჩება Molly-თან დაკავშირებულ შენს საფულეში, თუ გადახდებს ხელახლა გააქტიურებ.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">დარჩენილი ბალანსის გადატანა</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">დეაქტივაცია გადატანის გარეშე</string>
     <string name="DeactivateWalletFragment__deactivate">დეაქტივაცია</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">გსურს გადატანის გარეშე დეაქტივაცია?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">თუ ტრანზაქციების ხელახლა გააქტიურებას გადაწყვეტ, შენი ბალანსი შენს საფულეში დარჩება, რომელიც Signal-თანაა დაკავშირებული.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">თუ ტრანზაქციების ხელახლა გააქტიურებას გადაწყვეტ, შენი ბალანსი შენს საფულეში დარჩება, რომელიც Molly-თანაა დაკავშირებული.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">საფულის დეაქტივაციისას ხარვეზი მოხდა.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4899,7 +4896,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">ლიცენზიები</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">პირობები &amp; კონფიდენციალურობის პოლიტიკა</string>
-    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">ლიცენზირებულია GNU AGPLv3-ით</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5351,9 +5348,9 @@
     <string name="MySupportPreference__learn_more">გაიგე მეტი</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Signal-ის განახლება</string>
+    <string name="UpdateSignalExpiredDialog__title">Molly-ის განახლება</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Signal-ის ამ ვერსიას ვადა გაუვიდა. განაახლე ახლავე, რათა Signal-ის გამოყენება განაგრძო.</string>
+    <string name="UpdateSignalExpiredDialog__message">Molly-ის ამ ვერსიას ვადა გაუვიდა. განაახლე ახლავე, რათა Molly-ის გამოყენება განაგრძო.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">განახლება</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5362,7 +5359,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">მოწყობილობა არ არის რეგისტრირებული</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">ეს მოწყობილობა აღარ არის რეგისტრირებული. ხელახლა დარეგისტრირდი, რომ გააგრძელო Signal-ის გამოყენება ამ მოწყობილობაზე.</string>
+    <string name="ReregisterSignalDialog__message">ეს მოწყობილობა აღარ არის რეგისტრირებული. ხელახლა დარეგისტრირდი, რომ გააგრძელო Molly-ის გამოყენება ამ მოწყობილობაზე.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">ხელახლა რეგისტრაცია</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5656,7 +5653,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">ამომრჩევის გახსნა ვერ მოხერხდა.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">შეტყობინებების ჩასართავად, Signal-ს მათი ჩვენების ნებართვა სჭირდება.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">შეტყობინებების ჩასართავად, Molly-ს მათი ჩვენების ნებართვა სჭირდება.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">ჩართვა</string>
 
@@ -7004,45 +7001,45 @@
 
     <!-- BackupAlertBottomSheet -->
     <!-- Sheet title when media backups have been disabled -->
-    <string name="BackupAlertBottomSheet__media_backups_are_off">Media backups are off</string>
+    <string name="BackupAlertBottomSheet__media_backups_are_off">მედია ფაილების სარეზერვო კოპირება გამორთულია</string>
     <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
     <plurals name="BackupAlertBottomSheet__your_signal_media_backup_plan">
-        <item quantity="one">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d day to download any media stored in your backup. After %1$d day, the media in your backup will be deleted.</item>
-        <item quantity="other">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
+        <item quantity="one">შენი Signal-ის მედია ფაილების სარეზერვო კოპირების გამოწერა გაუქმდა, რადგან შენი ტრანზაქციის დამუშავება ვერ მოვახერხეთ. შენს სარეზერვო კოპიებში შენახული მედია ფაილების გადმოსაწერად %1$d დღე გაქვს. %1$d დღის შემდეგ, შენს სარეზერვო კოპიებში არსებული მედია ფაილები წაიშლება.</item>
+        <item quantity="other">შენი Signal-ის მედია ფაილების სარეზერვო კოპირების გამოწერა გაუქმდა, რადგან შენი ტრანზაქციის დამუშავება ვერ მოვახერხეთ. შენს სარეზერვო კოპიებში შენახული მედია ფაილების გადმოსაწერად %1$d დღე გაქვს. %1$d დღის შემდეგ, შენს სარეზერვო კოპიებში არსებული მედია ფაილები წაიშლება.</item>
     </plurals>
     <!-- Sheet body part 2 when media backups have been disabled. -->
-    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">You can begin paying for backups again at any time to continue backing up all your media. </string>
+    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">ნებისმიერ დროს შეგიძლია სარეზერვო კოპირების საფასურის გადახდა ისევ დაიწყო, რათა შენი ყველა მედია ფაილის სარეზერვო კოპიების შექმნა გააგრძელო. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Your media will be deleted today</string>
+    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">შენი მედია ფაილები დღეს წაიშლება</string>
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Your Signal media backup plan has been canceled because we couldn\'t process your payment. This is your last chance to download the media in your backup before it is deleted.</string>
+    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">შენი Signal-ის მედია ფაილების სარეზერვო კოპირების გამოწერა გაუქმდა, რადგან შენი ტრანზაქციის დამუშავება ვერ მოვახერხეთ. შენს სარეზერვო კოპიებში არსებული მედია ფაილების წაშლამდე მათი გადმოწერისთვის ბოლო შანსი გაქვს.</string>
     <!-- Sheet title when user does not have enough space to download their backup -->
     <string name="BackupAlertBottomSheet__cant_complete_download">ჩამოტვირთვის დასრულება ვერ მოხერხდა</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
     <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">შენს მოწყობილობას საკმარისი თავისუფალი ადგილი არ აქვს. გაათავისუფლე %1$s-მდე ადგილი, რათა შენს სარეზერვო კოპიებში შენახული მედია ფაილების გადმოწერა შეძლო.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
     <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
-        <item quantity="one">If you choose \"Skip\" the media in your backup will be deleted in %1$d day.</item>
-        <item quantity="other">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
+        <item quantity="one">თუ აირჩევ მედია ფაილების სარეზერვო კოპიების შექმნის \"გამოტოვება\", ისინი %1$d დღეში წაიშლება.</item>
+        <item quantity="other">თუ აირჩევ მედია ფაილების სარეზერვო კოპიების შექმნის \"გამოტოვება\", ისინი %1$d დღეში წაიშლება.</item>
     </plurals>
     <!-- Sheet title when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__cant_process_backup_payment">Can\'t process backup payment</string>
+    <string name="BackupAlertBottomSheet__cant_process_backup_payment">სარეზერვო კოპირების ტრანზაქციის დამუშავება ვერ მოხერხდა</string>
     <!-- Sheet body when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">We\'re having trouble collecting your recurring monthly backup payment. Make sure your payment method is up to date. If it isn\'t, update it in Google Pay. Signal will try to process the payment again in a few days.</string>
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">შენი სარეზერვო კოპირების ყოველთვიური ტრანზაქციის მიღებას ვერ ვახერხებთ. დარწმუნდი, რომ შენი გადახდის მეთოდი განახლებულია. თუ არა, განაახლე ის Google Pay-ში. Signal-ი ტრანზაქციის დამუშავებას რამდენიმე დღეში ისევ ეცდება.</string>
     <!-- Sheet title for generic backup error -->
-    <string name="BackupAlertBottomSheet__couldnt_complete_backup">Couldn\'t complete backup</string>
+    <string name="BackupAlertBottomSheet__couldnt_complete_backup">სარეზერვო კოპირება ვერ მოხერხდა</string>
     <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
-    <string name="BackupAlertBottomSheet__your_device_hasnt">Your device hasn\'t completed a backup for %1$d days. Make sure your device is connected to wi-fi and tap \"Back up now.\" </string>
+    <string name="BackupAlertBottomSheet__your_device_hasnt">%1$d დღეა შენს მოწყობილობას სარეზერვო კოპიები არ შეუქმნია. დარწმუნდი, რომ შენი მოწყობილობა Wi-Fi-სთან დაკავშირებულია და დააჭირე \"სარეზერვო კოპიების შექმნა\". </string>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">გაიგე მეტი</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip">გამოტოვება</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Download media now</string>
+    <string name="BackupAlertBottomSheet__download_media_now">ჩამოტვირთე მედია ფაილები ახლა</string>
     <!-- Secondary action button text to dismiss sheet, noting the user can download later -->
-    <string name="BackupAlertBottomSheet__download_later">Download later</string>
+    <string name="BackupAlertBottomSheet__download_later">მოგვიანებით ჩამოტვირთვა</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Don\'t download media</string>
+    <string name="BackupAlertBottomSheet__dont_download_media">არ გადმოწერო მედია ფაილები</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7165,25 +7162,25 @@
     <!-- Title for frequency option DAILY for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__manually_back_up">შენით შექმენი სარეზერვო კოპია</string>
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
-    <string name="PassphrasePromptActivity_help_prompt_body">Please enter your device pin, password or pattern.</string>
+    <string name="PassphrasePromptActivity_help_prompt_body">გთხოვთ, შენი მოწყობილობის პინ-კოდი, პაროლი ან პატერნი შეიყვანო.</string>
 
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">შემდეგი</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Change backup type</string>
+    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">სარეზერვო კოპირების ტიპის შეცვლა</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">გამოწერის გაუქმება</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
-    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">Confirm cancellation</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">გაუქმების დადასტურება</string>
     <!-- Dialog body -->
-    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">You won\'t be charged again. Backups will be turned off at the end of your billing cycle. After that date you will have 30 days to download the media you\'re currently backing up.</string>
+    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">თანხა აღარ ჩამოგეჭრება. სარეზერვო კოპიების შექმნა შენი გადახდის ციკლის ბოლოს გამოირთვება. ამ თარიღის შემდეგ 30 დღე გექნება იმ მედია ფაილების ჩამოსატვირთად, რომლის სარეზერვო კოპირებასაც ახდენ.</string>
     <!-- Action button label to cancel subscription and download now -->
-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">Confirm and download now</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">დადასტურება და ახლავე ჩამოტვირთვა</string>
     <!-- Action button label to cancel subscription and download later -->
-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Confirm and download later</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">დადასტურება და მოგვიანებით ჩამოტვირთვა</string>
     <!-- Action button label to keep current subscription -->
-    <string name="ConfirmBackupCancellationDialog__keep_subscription">Keep subscription</string>
+    <string name="ConfirmBackupCancellationDialog__keep_subscription">გამოწერის შენარჩუნება</string>
     <!-- EOF -->
 </resources>

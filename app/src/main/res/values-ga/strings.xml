@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -42,12 +39,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Tá Signal ag nuashonrú…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Tá Molly ag nuashonrú…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Níl nath faire socraithe agat fós!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Díchumasaigh an nath faire?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Baineann sé seo glas de Signal agus de fógraí teachtaireachta go deo.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Baineann sé seo glas de Molly agus de fógraí teachtaireachta go deo.</string>
     <string name="ApplicationPreferencesActivity_disable">Díchumasaigh</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Tharla botún ag déanamh teagmháil leis an bhfreastalaí!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Tá UAP de dhíth chun glas clárúcháin a úsáid. Caithfidh tú an glas clárúcháin a dhíchumasú sula mbeidh tú in ann an UAP a dhíchumasú.</string>
@@ -84,31 +81,31 @@
     <string name="AttachmentKeyboard_file">Comhad</string>
     <string name="AttachmentKeyboard_contact">Teagmhálaí</string>
     <string name="AttachmentKeyboard_location">Suíomh</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Teastaíonn cead ó Signal chun do ghrianghraif agus físeáin a thaispeáint</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Teastaíonn cead ó Molly chun do ghrianghraif agus físeáin a thaispeáint</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Ceadaigh Rochtain</string>
     <string name="AttachmentKeyboard_payment">Íocaíocht</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Ní féidir teacht ar fheidhmchláirín chun meán a roghnú.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Tá gá ag Signal le cead stóras chun griangraif a thógáil, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Stóras\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Tá gá ag Signal le cead teagmhálaí chun eolas teagmhálaí a cheangail, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Teagmhálaí\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Tá gá ag Signal le cead áite i gcomhair do áit a cheangail, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Áit\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Tá gá ag Molly le cead stóras chun griangraif a thógáil, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Stóras\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Tá gá ag Molly le cead teagmhálaí chun eolas teagmhálaí a cheangail, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Teagmhálaí\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Tá gá ag Molly le cead áite i gcomhair do áit a cheangail, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Áit\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Tabhair cead rochtana ar do shuíomh</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Chun do shuíomh a sheoladh:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Tabhair cead rochtana do Signal chun do shuíomh a sheoladh.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Tabhair cead rochtana do Molly chun do shuíomh a sheoladh.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Teastaíonn rochtain ar shuíomh ó Signal chun do shuíomh a sheoladh.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Teastaíonn rochtain ar shuíomh ó Molly chun do shuíomh a sheoladh.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Ceadaigh rochtain ar stóras</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Chun grianghraif agus físeáin a thaispeáint:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Teastaíonn rochtain ar stóras ó Signal chun do ghrianghraif agus físeáin a thaispeáint.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Teastaíonn rochtain ar stóras ó Molly chun do ghrianghraif agus físeáin a thaispeáint.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">Níor ghníomhachtaigh %1$s Íocaíochtaí </string>
@@ -278,7 +275,7 @@
     <string name="CameraContacts_no_signal_contacts">Níl aon teagmhálaithe Signal ann</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Ní féidir feidhm a bhaint as cnaipe an cheamara chun grianghraif a sheoladh ach le teagmhálaithe ar Signal amháin. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Nach féidir an duine atá lorg agat a aimsiú?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Tabhair cuireadh do theagmhálaí chuig Signal</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Tabhair cuireadh do theagmhálaí chuig Molly</string>
     <string name="CameraContacts__menu_search">Cuardaigh</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -292,12 +289,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Ní raibh maith agaibh</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Nuashonraigh Signal</string>
+    <string name="ClientDeprecatedActivity_update_signal">Nuashonraigh Molly</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Ní thacaítear leis an leagan seo den aip a thuilleadh. Le leanúint le teachtaireachtaí a sheoladh agus a fháil, nuashonraigh chuig an leagan is déanaí.</string>
     <string name="ClientDeprecatedActivity_update">Nuashonraigh</string>
     <string name="ClientDeprecatedActivity_dont_update">Ná Nuashonraigh É</string>
     <string name="ClientDeprecatedActivity_warning">Rabhadh</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Tá do leagan de Signal as feidhm. Is féidir leat féachaint ar stair do theachtaireachtaí ach ní bheidh tú in ann teachtaireachtaí a sheoladh ná a fháil go dtí go ndéanfaidh tú nuashonrú.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Tá do leagan de Molly as feidhm. Is féidir leat féachaint ar stair do theachtaireachtaí ach ní bheidh tú in ann teachtaireachtaí a sheoladh ná a fháil go dtí go ndéanfaidh tú nuashonrú.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Níor aimsíodh aon líonléitheoir.</string>
@@ -334,8 +331,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Teachtaireacht %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Guthghlao Signal %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Físghlao Signal %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Guthghlao Molly %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Físghlao Molly %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -435,7 +432,7 @@
     <string name="ConversationActivity_transport_signal">Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Seol teachtaireacht</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Téimís i muinín Signal %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Téimís i muinín Molly %1$s</string>
     <string name="ConversationActivity_specify_recipient">Roghnaigh teagmhálaí</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Tá an ceangaltán ró-mhór don teachtaireacht atá á sheoladh agat.</string>
     <string name="ConversationActivity_unable_to_record_audio">Ní féidir fuaim a thaifeadadh!</string>
@@ -454,18 +451,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Chun teachtaireachtaí gutha a sheoladh:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Chun glórphoist a sheoladh, tabhair cead rochtana ar do mhicreafón do Signal.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Chun glórphoist a sheoladh, tabhair cead rochtana ar do mhicreafón do Molly.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Teastaíonn rochtain ar an micreafón ó Signal chun glórphost a thaifeadadh.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Tá gá ag Signal le cead micreafóin chun teachtaireachtaí fuaime a sheoladh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Teastaíonn rochtain ar an micreafón ó Molly chun glórphost a thaifeadadh.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Tá gá ag Molly le cead micreafóin chun teachtaireachtaí fuaime a sheoladh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Tá gá ag Signal le cead micreafóin agus cheamara chun %1$s a ghlaoigh, ach ní ceadaítear iad go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\" agus \"Ceamara\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Ceadaigh Signal do cheamara a úsáid chun grianghraif a thógáil nó físéan a dhéanamh.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Tá gá ag Signal le cead cheamara chun griangraif a thógáil nó físéan a dhéanamh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Ceamara\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Tá gá ag Signal le ceadanna cheamara chun griangraif a thógáil nó físéan a dhéanamh.</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Tá gá ag Molly le cead micreafóin agus cheamara chun %1$s a ghlaoigh, ach ní ceadaítear iad go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\" agus \"Ceamara\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Ceadaigh Molly do cheamara a úsáid chun grianghraif a thógáil nó físéan a dhéanamh.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Tá gá ag Molly le cead cheamara chun griangraif a thógáil nó físéan a dhéanamh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Ceamara\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Tá gá ag Molly le ceadanna cheamara chun griangraif a thógáil nó físéan a dhéanamh.</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Tabhair cead don aip an micreafón a úsáid chun físeáin le fuaim a thaifeadadh.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Tá ceadanna micreafóin de dhíth ar Signal chun físeáin a thaifeadadh, ach diúltaíodh dóibh. Lean ar aghaidh chuig socruithe na haipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\" agus \"Ceamara\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Tá ceadanna micreafóin de dhíth ar Signal chun físeáin a thaifeadadh.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Tá ceadanna micreafóin de dhíth ar Molly chun físeáin a thaifeadadh, ach diúltaíodh dóibh. Lean ar aghaidh chuig socruithe na haipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\" agus \"Ceamara\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Tá ceadanna micreafóin de dhíth ar Molly chun físeáin a thaifeadadh.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Níl</string>
@@ -486,9 +483,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Chun tosú ar ghlao:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Chun tosú ar ghlao, tabhair cead rochtana ar do mhicreafón do Signal.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Chun tosú ar ghlao, tabhair cead rochtana ar do mhicreafón do Molly.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Teastaíonn rochtain ar an micreafón ó Signal chun tosú ar ghlao.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Teastaíonn rochtain ar an micreafón ó Molly chun tosú ar ghlao.</string>
 
 
     <string name="ConversationActivity_join">Téigh le</string>
@@ -502,9 +499,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Ní thacaítear le cur teachtaireachtaí SMS in Signal a thuilleadh. Tabhair cuireadh do %1$s teacht isteach in Signal leis an gcomhrá a choinneáil anseo.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Níl Signal á úsáid ag an duine seo a thuilleadh. Tabhair cuireadh chun Signal don duine leis an gcomhrá a choinneáil anseo.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Níl Molly á úsáid ag an duine seo a thuilleadh. Tabhair cuireadh chun Molly don duine leis an gcomhrá a choinneáil anseo.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Tabhair cuireadh chuig Signal</string>
+    <string name="ConversationActivity__invite_to_signal">Tabhair cuireadh chuig Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Cuirfear i gcuimhne duit arís go luath.</string>
 
@@ -609,13 +606,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Bac curtha</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Nuashonraigh Signal</string>
+    <string name="ConversationFragment__update_build">Nuashonraigh Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Athchláraigh Signal</string>
+    <string name="ConversationFragment__reregister_signal">Athchláraigh Molly</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Déan nascleanúint siar.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Oscail Signal</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Oscail Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Ní fíoraithe a thuilleadh</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -801,9 +798,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Cé hiad na daoine ar féidir leo m\'uimhir a úsáid chun mise a aimsiú?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Aon duine a bhfuil d\'uimhir ghutháin aige/aici, feicfidh sé/sí go bhfuil tú ar Signal agus beidh sé/sí in ann tosú ar chomhrá leat.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Aon duine a bhfuil d\'uimhir ghutháin aige/aici, feicfidh sé/sí go bhfuil tú ar Molly agus beidh sé/sí in ann tosú ar chomhrá leat.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Beidh tú dofheicthe ar Signal ag daoine ach amháin má sheolann tú teachtaireacht chucu nó má tá comhrá ar siúl agat leo.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Beidh tú dofheicthe ar Molly ag daoine ach amháin má sheolann tú teachtaireacht chucu nó má tá comhrá ar siúl agat leo.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">An bhfuil fonn ort cúltaca a athchóiriú?</string>
@@ -837,7 +834,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Dearbháil do nath cúltaca agus deimhnigh go bhfuil siad mar an gcéanna</string>
     <string name="BackupsPreferenceFragment__turn_on">Cuir ar siúl</string>
     <string name="BackupsPreferenceFragment__turn_off">Múch</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Chun cúltaca a aischur, suiteáil cóip nua de Signal. Oscail an aip agus tapáil Aischuir cúltaca, ansin aimsigh comhad cúltaca. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Chun cúltaca a aischur, suiteáil cóip nua de Molly. Oscail an aip agus tapáil Aischuir cúltaca, ansin aimsigh comhad cúltaca. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Foghlaim tuilleadh</string>
     <string name="BackupsPreferenceFragment__in_progress">Ar bun…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -845,7 +842,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d go dtí seo…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% go dtí seo…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Éilíonn Signal cead stórais sheachtraigh chun cúltacaí a chruthú ach diúltaíodh go buan dó. Lean ar aghaidh chuig socruithe na haipe, roghnaigh \"Ceadanna\" agus cumasaigh \"Stóras\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Éilíonn Molly cead stórais sheachtraigh chun cúltacaí a chruthú ach diúltaíodh go buan dó. Lean ar aghaidh chuig socruithe na haipe, roghnaigh \"Ceadanna\" agus cumasaigh \"Stóras\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Socraigh am cúltacaithe</string>
 
@@ -912,7 +909,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Chat session refreshed</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Úsáideann Signal criptiú ó cheann ceann agus seans go mbeidh air do sheisiún comhrá a athnuachan uaireanta. Ní chuireann sé sin isteach ar shlándáil do chomhrá, ach is féidir gur chaill tú teachtaireacht ón teagmhálaí seo, agus is féidir leat iarraidh ar an duine sin í a sheoladh arís.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Úsáideann Molly criptiú ó cheann ceann agus seans go mbeidh air do sheisiún comhrá a athnuachan uaireanta. Ní chuireann sé sin isteach ar shlándáil do chomhrá, ach is féidir gur chaill tú teachtaireacht ón teagmhálaí seo, agus is féidir leat iarraidh ar an duine sin í a sheoladh arís.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -926,9 +923,9 @@
     <!-- Bottom sheet description explaining that messages on linked devices are private -->
     <string name="LinkDeviceFragment__all_messaging_is_private">Tá cur teachtaireachtaí ar ghléasanna nasctha príobháideach</string>
     <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
-    <string name="LinkDeviceFragment__signal_messages_are_synchronized">Déanfar teachtaireachtaí Signal a shioncronú le Signal ar do ghuthán póca tar éis nascadh leis. Ní thaispeánfar stair do theachtaireachtaí roimhe.</string>
+    <string name="LinkDeviceFragment__signal_messages_are_synchronized">Déanfar teachtaireachtaí Molly a shioncronú le Molly ar do ghuthán póca tar éis nascadh leis. Ní thaispeánfar stair do theachtaireachtaí roimhe.</string>
     <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
-    <string name="LinkDeviceFragment__on_other_device_visit_signal">Ar do ghléas eile, téigh chuig %1$s chun Signal a shuiteáil</string>
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">Ar do ghléas eile, téigh chuig %1$s chun Molly a shuiteáil</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
     <!-- Header title listing out current linked devices -->
     <string name="LinkDeviceFragment__my_linked_devices">Mo ghléasanna nasctha</string>
@@ -961,7 +958,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Críochnaigh nascadh ar do ghléas eile</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Críochnaigh nascadh le Signal ar do ghléas eile.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Críochnaigh nascadh le Molly ar do ghléas eile.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Theip ar nascadh an ghléis</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -989,10 +986,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optamaigh le haghaidh Play Services atá ar iarraidh</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Níl tacú sa ghléas seo do Play Services. Tapáil le hoptamú ceallra an chórais a dhíchumasú, rud a chuireann srian ar Signal teachtaireachtaí a aisghabháil agus é neamhghníomhach.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Níl tacú sa ghléas seo do Play Services. Tapáil le hoptamú ceallra an chórais a dhíchumasú, rud a chuireann srian ar Molly teachtaireachtaí a aisghabháil agus é neamhghníomhach.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Chuaigh an leagan seo de Signal i léig. Nuashonraigh anois é chun teachtaireachtaí a sheoladh agus a fháil.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Chuaigh an leagan seo de Molly i léig. Nuashonraigh anois é chun teachtaireachtaí a sheoladh agus a fháil.</string>
     <string name="ExpiredBuildReminder_update_now">Nuashonraigh anois é</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1006,8 +1003,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">Amharc</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Fadhb cumarsáid Signal buan!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Níorbh fhéidir le Signal clárú le Google Play Services. Díchumasaíodh teachtaireachtaí agus glaonna Signal, triail clárú arís i Socruithe &gt; Ardsocruithe.</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Fadhb cumarsáid Molly buan!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Níorbh fhéidir le Molly clárú le Google Play Services. Díchumasaíodh teachtaireachtaí agus glaonna Molly, triail clárú arís i Socruithe &gt; Ardsocruithe.</string>
 
 
     <!-- GiphyActivity -->
@@ -1185,21 +1182,21 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Cabhraíonn logaí dífhabhtaithe linn an fhadhb a dhiagnóisiú agus a réiteach, agus ní bhíonn faisnéis aitheantais iontu.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Bhí fadhb le Signal. Cuir isteach loga dífhabhtaithe?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Bhí fadhb le Molly. Cuir isteach loga dífhabhtaithe?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">D\'fhéadfaí go mbeadh moill ar fhógraí mar gheall ar bharrfheabhsú ceallra</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Is féidir leat barrfheabhsú ceallra a dhíchumasú le haghaidh Signal chun a chinntiú nach gcuirfear moill ar fhógraí teachtaireachtaí.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Is féidir leat barrfheabhsú ceallra a dhíchumasú le haghaidh Molly chun a chinntiú nach gcuirfear moill ar fhógraí teachtaireachtaí.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
-    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Notifications may be delayed due to battery optimizations</string>
+    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">D\'fhéadfaí go mbeadh moill ar fhógraí mar gheall ar bharrfheabhsú ceallra</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Disable battery optimizations for Signal to ensure that message notifications will not be delayed. Tap “Continue” to see device-specific instructions.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Díchumasaigh barrfheabhsú ceallra le haghaidh Molly chun a chinntiú nach gcuirfear moill ar fhógraí teachtaireachtaí. Tapáil \"Ar Aghaidh\" le treoracha a bhaineann go sonrach leis an ngléas a fheiceáil.</string>
     <!-- Button to dismiss notification help prompt -->
-    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">No thanks</string>
+    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Níl, go raibh maith agat</string>
     <!-- Button to continue and go to Signal support website -->
-    <string name="DeviceSpecificNotificationBottomSheet__continue">Continue</string>
+    <string name="DeviceSpecificNotificationBottomSheet__continue">Ar aghaidh</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Ar aghaidh</string>
@@ -1479,7 +1476,7 @@
     <string name="InviteActivity_cancel">Cealaigh</string>
     <string name="InviteActivity_sending">Ag seoladh…</string>
     <string name="InviteActivity_invitations_sent">Seoladh na cuirí!</string>
-    <string name="InviteActivity_invite_to_signal">Tabhair cuireadh chuig Signal</string>
+    <string name="InviteActivity_invite_to_signal">Tabhair cuireadh chuig Molly</string>
     <string name="InviteActivity_send_sms">Seol SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Seol %1$d chuireadh SMS?</item>
@@ -1488,7 +1485,7 @@
         <item quantity="many">Seol %1$d gcuireadh SMS?</item>
         <item quantity="other">Seol %1$d cuireadh SMS?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Téimís i muinín Signal: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Téimís i muinín Molly: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">Tá an dealramh air nach bhfuil aon fheidhmchláirín agat lena roinnt leis.</string>
 
     <!-- LearnMoreTextView -->
@@ -1502,7 +1499,7 @@
     <string name="LongMessageActivity_your_message">Do theachtaireacht</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">Nasc sa chúlra cumasaithe</string>
 
     <!-- MediaOverviewActivity -->
@@ -1586,10 +1583,10 @@
     <string name="MessageQuotesBottomSheet_replies">Freagraí</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Ag cruthú glao Signal</string>
+    <string name="NotificationBarManager__establishing_signal_call">Ag cruthú glao Molly</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Tosú ar sheirbhís glaonna Signal</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Stopadh sheirbhís glaonna Signal</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Tosú ar sheirbhís glaonna Molly</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Stopadh sheirbhís glaonna Molly</string>
     <string name="NotificationBarManager__cancel_call">Cealaigh an glao</string>
 
     <!-- NotificationsMegaphone -->
@@ -1935,7 +1932,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Ní bheidh tú in ann teachtaireachtaí SMS a sheoladh ó Signal a thuilleadh go luath. Tabhair cuireadh do %1$s teacht isteach in Signal leis an gcomhrá a choinneáil anseo.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Ní féidir leat teachtaireachtaí SMS a sheoladh in Signal a thuilleadh. Tabhair cuireadh do %1$s teacht isteach in Signal leis an gcomhrá a choinneáil anseo.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Ní féidir leat teachtaireachtaí SMS a sheoladh in Molly a thuilleadh. Tabhair cuireadh do %1$s teacht isteach in Molly leis an gcomhrá a choinneáil anseo.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Íocaíocht: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -2029,7 +2026,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Nasc gléas Signal?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Is cosúil go bhfuil tú ag iarraidh gléas Signal a nascadh le scanóir tríú páirtí. Ar mhaithe le do chosaint, scan an cód arís ó laistigh de Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Tá gá ag Signal cead cheamara chun QR code a scanadh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Ceamara\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Tá gá ag Molly cead cheamara chun QR code a scanadh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Ceamara\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Ní féidir QR code a scanadh gan cead Cheamara.</string>
 
     <!-- OutdatedBuildReminder -->
@@ -2045,11 +2042,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Cuir isteach nath faire</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Deilbhín Signal</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Deilbhín Molly</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Seol isteach an nath faire</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Nath faire neamhbhailí!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Díghlasáil Signal</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android — Scáileán Glasála</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Díghlasáil Molly</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android — Scáileán Glasála</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Léarscáil</string>
@@ -2119,7 +2116,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Verify to Continue Messaging</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Chun cabhrú le turscar ar Signal a chosc, comhlánaigh an fíorú.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Chun cabhrú le turscar ar Molly a chosc, comhlánaigh an fíorú.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Tar éis fíorú a dhéanamh, is féidir leat leanúint le cur teachtaireachtaí. Seolfar aon teachtaireachtaí a cuireadh ar sos go huathoibríoch.</string>
 
     <!-- Recipient -->
@@ -2127,7 +2124,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Mo Scéal</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Glao Signal</string>
+    <string name="Recipient_signal_call">Glao Molly</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Cuir bac</string>
@@ -2153,8 +2150,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Tapáil anseo chun fís a chur ar siúl</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Chun glaoch ar %1$s, ní mór do Signal cead a bheith aige chun do cheamara a rochtain</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Chun glaoch ar %1$s, ní mór do Molly cead a bheith aige chun do cheamara a rochtain</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">Glaoch…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Athnascadh…</string>
@@ -2233,23 +2230,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Ceadaigh rochtain ar do cheamara</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Tabhair cead rochtana ar do cheamara agus ar do mhicreafón do Signal chun tús a chur le glao nó chun dul isteach i nglao.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Tabhair cead rochtana ar do cheamara agus ar do mhicreafón do Molly chun tús a chur le glao nó chun dul isteach i nglao.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">Tabhair cead rochtana ar do mhicreafón do Signal chun tús a chur le glao nó chun dul isteach i nglao.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">Tabhair cead rochtana ar do mhicreafón do Molly chun tús a chur le glao nó chun dul isteach i nglao.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Tabhair cead rochtana ar do cheamara do Signal chun d\'fhíseán a chumasú.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Tabhair cead rochtana ar do cheamara do Molly chun d\'fhíseán a chumasú.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Teastaíonn ceadanna micreafóin ó Signal chun tús a chur le glao nó chun dul isteach i nglao.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Teastaíonn ceadanna micreafóin ó Molly chun tús a chur le glao nó chun dul isteach i nglao.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Teastaíonn rochtain ar an gceamara ó Signal chun d\'fhíseán a chumasú</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Teastaíonn rochtain ar an gceamara ó Molly chun d\'fhíseán a chumasú</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Chun tús a chur le glao nó chun dul isteach i nglao:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Chun d\'fhíseán a chumasú:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Glao Signal</string>
-    <string name="WebRtcCallView__signal_video_call">Físghlao Signal</string>
+    <string name="WebRtcCallView__signal_call">Glao Molly</string>
+    <string name="WebRtcCallView__signal_video_call">Físghlao Molly</string>
     <string name="WebRtcCallView__start_call">Tosaigh an glao</string>
     <string name="WebRtcCallView__join_call">Téigh isteach sa ghlao</string>
     <string name="WebRtcCallView__call_is_full">Call is Full</string>
@@ -2354,7 +2351,7 @@
     <!-- A dialog prompt to confirm you want to lower your hand -->
     <string name="CallOverflowPopupWindow__lower_your_hand">Ísligh do lámh?</string>
     <!-- A dialog button to confirm you would like to lower your hand -->
-    <string name="CallOverflowPopupWindow__lower_hand">Lower</string>
+    <string name="CallOverflowPopupWindow__lower_hand">Ísligh</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Cuir ar ceal</string>
     <!-- A button to take you to a list of participants with raised hands -->
@@ -2506,7 +2503,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Cuirfear glao ort chun an uimhir seo a dheimhniú.</string>
     <string name="RegistrationActivity_edit_number">Edit Number</string>
     <string name="RegistrationActivity_missing_google_play_services">Níl Google Play Services le fáil.</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Níl Seirbhísí Google Play ar fáil ar an ngléas seo. Is féidir leat Signal a úsáid mar sin féin, ach d\'fhéadfadh sé go mbeadh sé níos éagobhsaí nó níos moille.\n\nMura bhfuil tú i d\'ardúsáideoir, nó mura bhfuil ROM Android iardhíola agat, nó má chreideann tú gur botún é an teachtaireacht seo, déan teagmháil le support@signal.org chun cúnamh a fháil.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Níl Seirbhísí Google Play ar fáil ar an ngléas seo. Is féidir leat Molly a úsáid mar sin féin, ach d\'fhéadfadh sé go mbeadh sé níos éagobhsaí nó níos moille.\n\nMura bhfuil tú i d\'ardúsáideoir, nó mura bhfuil ROM Android iardhíola agat, nó má chreideann tú gur botún é an teachtaireacht seo, déan teagmháil le support@molly.im chun cúnamh a fháil.</string>
     <string name="RegistrationActivity_i_understand">Tuigim</string>
     <string name="RegistrationActivity_play_services_error">Botún le Play Services</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Tá Seirbhísí Google Play á nuashonrú, nó níl aon fháil orthu faoi láthair. Bain triail eile as.</string>
@@ -2524,7 +2521,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Formáid uimhreacha neamhchaighdeánach</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Is cosúil go bhfuil formáid neamhchaighdeánach ar an uimhir a chuir tú isteach (%1$s).\n\nAn raibh %2$s i gceist agat?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android — Formáid don Uimhir Ghutháin</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android — Formáid don Uimhir Ghutháin</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Glao iarrtha</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2600,13 +2597,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Cuir leis na teagmhálacha</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Tabhair cuireadh chuig Signal</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Tabhair cuireadh chuig Molly</string>
     <string name="SharedContactDetailsActivity_signal_message">Teachtaireacht Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Glao Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Cuir leis na teagmhálacha</string>
-    <string name="SharedContactView_invite_to_signal">Tabhair cuireadh chuig Signal</string>
+    <string name="SharedContactView_invite_to_signal">Tabhair cuireadh chuig Molly</string>
     <string name="SharedContactView_message">Teachtaireacht Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2737,11 +2734,11 @@
     <string name="ThreadRecord_s_belongs_to_s">Is le %2$s %1$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Nuashonrú Signal</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Tá leagan nua de Signal ar fáil. Tapáil lena nuashonrú.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Theip ar nuashonrú Signal</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Nuashonrú Molly</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Tá leagan nua de Molly ar fáil. Tapáil lena nuashonrú.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Theip ar nuashonrú Molly</string>
     <string name="ApkUpdateNotifications_failed_general_body">Triailfimid arís níos déanaí.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">D\'éirigh le nuashonrú Signal</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">D\'éirigh le nuashonrú Molly</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Nuashonraíodh go huathoibríoch chuig leagan %1$s.</string>
 
     <!-- UntrustedSendDialog -->
@@ -2815,7 +2812,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Ár uimhir shábhála Signal:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Tá an dealramh air nach bhfuil aon fheidhmchláirín agat lena roinnt leis.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Níl aon uimhir shábhála sa ghearrthaisce chun cuir i gcomórtas leis.</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Tá gá ag Signal cead cheamara chun QR code a scanadh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Ceamara\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Tá gá ag Molly cead cheamara chun QR code a scanadh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Ceamara\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Ní féidir QR code a scanadh gan cead Cheamara.</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Ní mór duit teachtaireachtaí a mhalartú ar dtús chun amharc ar uimhir sábháilteachta %1$s.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2845,14 +2842,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Tadhaill chun é a oscailt.</string>
-    <string name="KeyCachingService_passphrase_cached">Tá an glas bainte de Signal</string>
-    <string name="KeyCachingService_lock">Cuir Signal faoi ghlas</string>
+    <string name="KeyCachingService_passphrase_cached">Tá an glas bainte de Molly</string>
+    <string name="KeyCachingService_lock">Cuir Molly faoi ghlas</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Tusa</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Cineál meán nach dtugtar tacaíocht dó</string>
     <string name="MediaPreviewActivity_draft">Dréacht</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Tá Cead stórála ag teastáil ó Signal chun sábháil chuig stóras seachtrach, ach diúltaíodh go buan dó. Lean ar aghaidh chuig socruithe na haipe, roghnaigh \"Ceadanna\" agus cumasaigh \"Stóras\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Tá Cead stórála ag teastáil ó Molly chun sábháil chuig stóras seachtrach, ach diúltaíodh go buan dó. Lean ar aghaidh chuig socruithe na haipe, roghnaigh \"Ceadanna\" agus cumasaigh \"Stóras\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Ní féidir sábháil chuig stóras seachtrach gan ceadanna</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Scrios an teachtaireacht?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Scriosfar an teachtaireacht seo go buan leis sin.</string>
@@ -2902,7 +2899,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Theip ar an theachtaireacht a thabhairt.</string>
     <string name="MessageNotifier_error_delivering_message">Tharla botún ag tabhairt an teachtaireacht.</string>
     <string name="MessageNotifier_message_delivery_paused">Cuireadh seachadadh na teachtaireachta ar sos.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Fíoraigh chun leanúint le cur teachtaireachtaí ar Signal.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Fíoraigh chun leanúint le cur teachtaireachtaí ar Molly.</string>
     <string name="MessageNotifier_mark_all_as_read">Rianaigh uile mar léite</string>
     <string name="MessageNotifier_mark_read">Rianaigh mar léite</string>
     <string name="MessageNotifier_turn_off_these_notifications">Múch na fógraí seo</string>
@@ -2924,7 +2921,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Tugadh freagairt %1$s do do ghreamán.</string>
     <string name="MessageNotifier_this_message_was_deleted">Scriosadh an teachtaireacht seo.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Ar mhúch tú na fógraí gur thosaigh teagmhálaithe ag baint feidhm as Signal? Is féidir leat iad a chumasú arís i Signal &gt; Socruithe &gt; Fógraí.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Ar mhúch tú na fógraí gur thosaigh teagmhálaithe ag baint feidhm as Molly? Is féidir leat iad a chumasú arís i Molly &gt; Socruithe &gt; Fógraí.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2963,7 +2960,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Níl freagairt tapa le fáil agus Signal faoi ghlas.</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Níl freagairt tapa le fáil agus Molly faoi ghlas.</string>
     <string name="QuickResponseService_problem_sending_message">Tharla fadhb ag seoladh na teachtaireachta!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2983,7 +2980,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Aicearra neamhbhailí</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Teachtaireacht nua</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Iarratas Teachtaireachta</string>
     <string name="SingleRecipientNotificationBuilder_you">Tusa</string>
@@ -3032,7 +3029,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Níl an gléas seo cláraithe a thuilleadh. Is dócha gur chláraigh tú d’uimhir ghutháin le Signal ar ghléas eile is cúis leis.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Níl an gléas seo cláraithe a thuilleadh. Is dócha gur chláraigh tú d’uimhir ghutháin le Molly ar ghléas eile is cúis leis.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Athchláraigh an Gléas</string>
 
@@ -3045,10 +3042,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Chun an glao a fhreagairt, tabhair rochtain do Signal ar do mhicreafón.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Chun an glao a fhreagairt, tabhair rochtain do Molly ar do mhicreafón.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Tabhair rochtain do Signal ar do mhicreafón agus ceamara leis an bhfísghlao a fhreagairt.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Tá gá ag Signal le ceadanna micreafóin agus cheamara chun glaonna a chuir nó a fháil, ach ní ceadaítear iad go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\" agus \"Ceamara\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Tabhair rochtain do Molly ar do mhicreafón agus ceamara leis an bhfísghlao a fhreagairt.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Tá gá ag Molly le ceadanna micreafóin agus cheamara chun glaonna a chuir nó a fháil, ach ní ceadaítear iad go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\" agus \"Ceamara\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Freagartha ar ghléas nasctha.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Diúltaithe dó ar ghléas nasctha.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Gnóthach ar ghléas nasctha.</string>
@@ -3093,7 +3090,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Scríobh arís an nath faire nua</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Tabhair cuireadh chuig Signal</string>
+    <string name="contact_selection_activity__invite_to_signal">Tabhair cuireadh chuig Molly</string>
     <string name="contact_selection_activity__new_group">Baicle nua</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Athnuaigh teagmhálaithe</string>
@@ -3119,7 +3116,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Grianghraf den teagmhálaí</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Tá gá ag Signal le cead teagmhálaí chun teagmháláithe a léiriú, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Teagmhálaí\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Tá gá ag Molly le cead teagmhálaí chun teagmháláithe a léiriú, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Teagmhálaí\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Tharla earráid le teagmhálaithe a aisghabháil, seiceáil do nasc líonra</string>
     <string name="ContactSelectionListFragment_username_not_found">Níor aimsíodh an t-ainm úsáideora sin</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"Ní úsáideoir Signal é/í %1$s. Seiceáil an t-ainm úsáideora agus triail arís."</string>
@@ -3151,7 +3148,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Ceadaigh rochtain ar do theagmhálaithe. Tá do theagmhálaithe criptithe agus dofheicthe ag seirbhís Signal.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Tá gá ag Signal riochtain ar do theagmhálaithe chun iad a thaispeáint.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Tá gá ag Molly riochtain ar do theagmhálaithe chun iad a thaispeáint.</string>
     <string name="contact_selection_list_fragment__show_contacts">Táispeáin teagmhálaithe</string>
 
     <!-- contact_selection_list_item -->
@@ -3231,7 +3228,7 @@
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">Roghanna</string>
     <!-- Update item button text shown for a profile name change. -->
-    <string name="ConversationUpdateItem_update">Update</string>
+    <string name="ConversationUpdateItem_update">Nuashonraigh</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Seinn … Cuir ar sos</string>
@@ -3260,7 +3257,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Is gné de chuid Android iad bolgáin, ar féidir leat í a chasadh air nó as do chomhráite Signal.</string>
+    <string name="BubbleOptOutTooltip__description">Is gné de chuid Android iad bolgáin, ar féidir leat í a chasadh air nó as do chomhráite Molly.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Ní anois</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3449,9 +3446,9 @@
     <string name="EditProfileFragment__group_description">Group Description</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Nuashonraigh Signal</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Nuashonraigh Molly</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Tá an leagan seo de Signal imithe as feidhm. Nuashonraigh anois le leanúint le húsáid Signal.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Tá an leagan seo de Molly imithe as feidhm. Nuashonraigh anois le leanúint le húsáid Molly.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Nuashonraigh</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3671,7 +3668,7 @@
     <string name="preferences__slow">Mall</string>
     <string name="preferences__help">Cabhair</string>
     <string name="preferences__advanced">Ardroghanna</string>
-    <string name="preferences__donate_to_signal">Tabhair airgead do Signal</string>
+    <string name="preferences__donate_to_signal">Tabhair airgead do Molly</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Príobháideachas</string>
     <!-- Preference label for stories -->
@@ -3708,13 +3705,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Athraigh deilbhín agus ainm na haipe go \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Beidh ar Signal dúnadh chun deilbhín agus ainm na haipe a athrú. Taispeánfar deilbhín agus ainm réamhshocraithe Signal i gcónaí i bhFógraí.</string>
+    <string name="preferences__app_icon_dialog_description">Beidh ar Molly dúnadh chun deilbhín agus ainm na haipe a athrú. Taispeánfar deilbhín agus ainm réamhshocraithe Molly i gcónaí i bhFógraí.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Roghnaigh deilbhín agus ainm aipe, rud a bheidh infheicthe ar scáileán baile agus tarraiceán aipeanna do ghléis. Taispeánfar deilbhín agus ainm réamhshocraithe Signal i gcónaí i bhFógraí. Tuilleadh faisnéise</string>
+    <string name="preferences__app_icon_warning_learn_more">Roghnaigh deilbhín agus ainm aipe, rud a bheidh infheicthe ar scáileán baile agus tarraiceán aipeanna do ghléis. Taispeánfar deilbhín agus ainm réamhshocraithe Molly i gcónaí i bhFógraí. Tuilleadh faisnéise</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Tá deilbhíní agus ainmneacha aipe infheicthe ar an scáileán baile agus tarraiceán aipeanna.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Taispeánfar deilbhín agus ainm réamhshocraithe Signal i gcónaí i bhFógraí.</string>
+    <string name="preferences__app_icon_notification_warning">Taispeánfar deilbhín agus ainm réamhshocraithe Molly i gcónaí i bhFógraí.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Tuilleadh faisnéise</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3809,7 +3806,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Sárú na Cinsireachta</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Sárú na Cinsireachta</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Leis an rogha seo, déanfaidh Signal iarracht an chinsireacht a shárú. Ná húsáid an rogha seo mura bhfuil tú i dtír a dhéanann cinsireacht ar Signal.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Leis an rogha seo, déanfaidh Molly iarracht an chinsireacht a shárú. Ná húsáid an rogha seo mura bhfuil tú i dtír a dhéanann cinsireacht ar Molly.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Cuireadh sárú na cinsireachta i bhfeidhm bunaithe ar an uimhir ghutháin atá agat.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3861,7 +3858,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Tús Eolais ar Íocaíochtaí</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Úsáid Signal le MobileCoin a sheoladh agus a fháil, airgeadra digiteach úrnua atá dírithe ar phríobháideachas. Gníomhachtaigh le tosú air.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Úsáid Molly le MobileCoin a sheoladh agus a fháil, airgeadra digiteach úrnua atá dírithe ar phríobháideachas. Gníomhachtaigh le tosú air.</string>
     <string name="PaymentsHomeFragment__activate_payments">Gníomhachtaigh Íocaíochtaí</string>
     <string name="PaymentsHomeFragment__activating_payments">Íocaíochtaí á ngníomhachtú…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Aischuir an cuntas íocaíochtaí</string>
@@ -3887,7 +3884,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Níl íocaíochtaí ar fáil i do réigiún.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Níorbh fhéidir íocaíochtaí a chumasú. Triail arís níos déanaí.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Deactivate Payments?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">You will not be able to send or receive Mobilecoin in Signal if you deactivate payments.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">You will not be able to send or receive Mobilecoin in Molly if you deactivate payments.</string>
     <string name="PaymentsHomeFragment__deactivate">Díchumasaigh</string>
     <string name="PaymentsHomeFragment__continue">Ar Aghaidh</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Níl an t-iarmhéid ar fáil faoi láthair.</string>
@@ -3896,10 +3893,10 @@
     <string name="PaymentsHomeFragment__details">Mionsonraí</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Is féidir leat Signal a úsáid chun MobileCoin a sheoladh agus a fháil. Tá gach íocaíocht faoi réir Téarmaí Úsáide MobileCoin agus MobileCoin Wallet. Seans go mbeidh roinnt fadhbanna agat agus nach mbeidh tú in ann íocaíochtaí nó iarmhéideanna, a d\'fhéadfá a chailleadh, a fháil ar ais. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Is féidir leat Molly a úsáid chun MobileCoin a sheoladh agus a fháil. Tá gach íocaíocht faoi réir Téarmaí Úsáide MobileCoin agus MobileCoin Wallet. Seans go mbeidh roinnt fadhbanna agat agus nach mbeidh tú in ann íocaíochtaí nó iarmhéideanna, a d\'fhéadfá a chailleadh, a fháil ar ais. </string>
     <string name="PaymentsHomeFragment__activate">Cuir i ngníomh é</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Amharc ar théarmaí MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Payments in Signal is no longer available. You can still transfer funds to an exchange but you can no longer send and receive payments or add funds.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Payments in Molly is no longer available. You can still transfer funds to an exchange but you can no longer send and receive payments or add funds.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3927,7 +3924,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Tabhair Ceadanna</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Chun cabhrú leat teachtaireacht a sheoladh chuig daoine a bhfuil aithne agat orthu, iarrfaidh Signal na ceadanna seo. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Chun cabhrú leat teachtaireacht a sheoladh chuig daoine a bhfuil aithne agat orthu, iarrfaidh Molly na ceadanna seo. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Fógraí</string>
     <!-- Notifications permission row description -->
@@ -4015,10 +4012,10 @@
     <string name="PaymentsTransferFragment__next">Ar Aghaidh</string>
     <string name="PaymentsTransferFragment__invalid_address">Seoladh neamhbhailí</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Seiceáil seoladh an sparáin a bhfuil tú ag iarraidh aistriú chuige agus triail arís.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ní féidir leat aistriú chuig do sheoladh sparáin Signal féin. Cuir isteach seoladh an sparáin ó do chuntas ag malartán tacaithe.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Chun cód QR a scanadh, tá rochtain ar an gceamara ag teastáil ó Signal.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Teastaíonn Cead ceamara ó Signal chun cód QR a ghabháil. Téigh chuig socruithe, roghnaigh \"Ceadanna\", agus cumasaigh \"Ceamara\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Chun cód QR a scanadh, tá rochtain ar an gceamara ag teastáil ó Signal.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ní féidir leat aistriú chuig do sheoladh sparáin Molly féin. Cuir isteach seoladh an sparáin ó do chuntas ag malartán tacaithe.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Chun cód QR a scanadh, tá rochtain ar an gceamara ag teastáil ó Molly.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Teastaíonn Cead ceamara ó Molly chun cód QR a ghabháil. Téigh chuig socruithe, roghnaigh \"Ceadanna\", agus cumasaigh \"Ceamara\".</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Chun cód QR a scanadh, tá rochtain ar an gceamara ag teastáil ó Molly.</string>
     <string name="PaymentsTransferFragment__settings">Socruithe</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4393,17 +4390,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Guthghlao Signal isteach</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Guthghlao Molly isteach</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Físghlao Signal isteach</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Físghlao Molly isteach</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Glao grúpa Signal isteach</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Glao grúpa Molly isteach</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Guthghlao leanúnach Signal</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Guthghlao leanúnach Molly</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Físghlao leanúnach Signal</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Físghlao leanúnach Molly</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Grúpghlao leanúnach Signal</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Grúpghlao leanúnach Molly</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Ag luchtú…</string>
@@ -4450,9 +4447,9 @@
     <string name="BackupDialog_verify">Deimhnigh</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">D\'éirigh leat do phasfhrása cúltaca a chur isteach</string>
     <string name="BackupDialog_passphrase_was_not_correct">Ní raibh an pasfhrása ceart</string>
-    <string name="LocalBackupJob_creating_signal_backup">Cúltaca Signal á chruthú…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Cúltaca Molly á chruthú…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Cúltaca Signal á fhíorú…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Cúltaca Molly á fhíorú…</string>
     <string name="LocalBackupJobApi29_backup_failed">Theip ar an gCúltaca</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Scriosadh nó bogadh d\'eolaire cúltaca.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Tá do chomhad cúltaca rómhór le stóráil san imleabhar seo.</string>
@@ -4467,15 +4464,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Glaoigh orm (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Athsheol Cód (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Déan teagmháil le foireann tacaíochta Signal</string>
-    <string name="RegistrationActivity_code_support_subject">Clárúchán Signal — Cód Deimhniúcháin ar Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Déan teagmháil le foireann tacaíochta Molly</string>
+    <string name="RegistrationActivity_code_support_subject">Clárúchán Molly — Cód Deimhniúcháin ar Android</string>
     <string name="RegistrationActivity_incorrect_code">Cód mícheart</string>
     <string name="BackupUtil_never">Choíche</string>
     <string name="BackupUtil_unknown">Anaithnid</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Uimhir ghutháin</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Roghnaigh na daoine atá in ann d\'uimhir ghutháin a fheiceáil agus teagmháil a dhéanamh leat ar Signal léi.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Roghnaigh na daoine atá in ann d\'uimhir ghutháin a fheiceáil agus teagmháil a dhéanamh leat ar Molly léi.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Na daoine atá in ann m\'uimhir a fheiceáil</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4523,7 +4520,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Rinne tú an iomarca iarrachtaí. Bain triail eile as ar ball.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Earráid agus ceangal á bhunú leis an tseirbhís</string>
     <string name="preferences_chats__backups">Cúltacaithe</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Tá Signal faoi ghlas</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Tá Molly faoi ghlas</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">CNAG CHUN É A DHÍGHLASÁIL</string>
     <string name="Recipient_unknown">Anaithnid</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4578,19 +4575,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Nascadh le seanghléas Android á ullmhú…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Fan nóiméad, beidh sé réidh ar ball beag</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Ag fanacht leis an seanghléas Android nascadh…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Tá cead suímh ag teastáil ó Signal chun do sheanghléas Android a aimsiú agus nascadh leis.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Tá cumasú seirbhísí suímh ag teastáil ó Signal chun do sheanghléas Android a aimsiú agus nascadh leis.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Tá Wi-Fi air ag teastáil ó Signal chun do sheanghléas Android a aimsiú agus nascadh leis. Is gá Wi-Fi a bheith air ach ní gá dó a bheith nasctha le líonra Wi-Fi.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Ár leithscéal, is cosúil nach dtacaíonn an gléas seo le Wi-Fi Direct. Úsáideann Signal Wi-Fi Direct chun do sheanghléas Android a aimsiú agus nascadh leis. Is féidir leat cúltaca a aischur fós chun do chuntas a aischur ó do sheanghléas Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Tá cead suímh ag teastáil ó Molly chun do sheanghléas Android a aimsiú agus nascadh leis.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Tá cumasú seirbhísí suímh ag teastáil ó Molly chun do sheanghléas Android a aimsiú agus nascadh leis.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Tá Wi-Fi air ag teastáil ó Molly chun do sheanghléas Android a aimsiú agus nascadh leis. Is gá Wi-Fi a bheith air ach ní gá dó a bheith nasctha le líonra Wi-Fi.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Ár leithscéal, is cosúil nach dtacaíonn an gléas seo le Wi-Fi Direct. Úsáideann Molly Wi-Fi Direct chun do sheanghléas Android a aimsiú agus nascadh leis. Is féidir leat cúltaca a aischur fós chun do chuntas a aischur ó do sheanghléas Android.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Aischuir cúltaca</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Tharla earráid gan choinne agus iarracht á déanamh nascadh le do sheanghléas Android.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Gléas nua Android á chuardach…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Tá cead suímh ag teastáil ó Signal chun do ghléas nua Android a aimsiú agus nascadh leis.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Tá cumasú seirbhísí suímh ag teastáil ó Signal chun do ghléas nua Android a aimsiú agus nascadh leis.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Tá Wi-Fi air ag teastáil ó Signal chun do ghléas nua Android a aimsiú agus nascadh leis. Is gá Wi-Fi a bheith air ach ní gá dó a bheith nasctha le líonra Wi-Fi.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Ár leithscéal, is cosúil nach dtacaíonn an gléas seo le Wi-Fi Direct. Úsáideann Signal Wi-Fi Direct chun do ghléas nua Android a aimsiú agus nascadh leis. Is féidir leat cúltaca a chruthú fós chun do chuntas a aischur ar do ghléas nua Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Tá cead suímh ag teastáil ó Molly chun do ghléas nua Android a aimsiú agus nascadh leis.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Tá cumasú seirbhísí suímh ag teastáil ó Molly chun do ghléas nua Android a aimsiú agus nascadh leis.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Tá Wi-Fi air ag teastáil ó Molly chun do ghléas nua Android a aimsiú agus nascadh leis. Is gá Wi-Fi a bheith air ach ní gá dó a bheith nasctha le líonra Wi-Fi.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Ár leithscéal, is cosúil nach dtacaíonn an gléas seo le Wi-Fi Direct. Úsáideann Molly Wi-Fi Direct chun do ghléas nua Android a aimsiú agus nascadh leis. Is féidir leat cúltaca a chruthú fós chun do chuntas a aischur ar do ghléas nua Android.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Cruthaigh cúltaca</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Tharla earráid gan choinne agus iarracht á déanamh nascadh le do ghléas nua Android.</string>
 
@@ -4631,7 +4628,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Sonraí á nAistriú</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Coinnigh an dá ghléas gar dá chéile. Ná cas as na gléasanna agus coinnigh Signal oscailte. Tá traschur criptithe ó cheann ceann.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Coinnigh an dá ghléas gar dá chéile. Ná cas as na gléasanna agus coinnigh Molly oscailte. Tá traschur criptithe ó cheann ceann.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d teachtaireachtaí go nuige seo…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% de theachtaireachtaí go dtí seo…</string>
@@ -4645,7 +4642,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Cuntas a Aistriú</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Íosluchtaigh Signal ar do ghléas Android nua</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Íosluchtaigh Molly ar do ghléas Android nua</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Tapáil ar Traschuir nó aischuir an cuntas"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4719,7 +4716,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Is féidir le haon duine leis an nasc seo amharc ar ainm agus grianghraf an ghrúpa agus iarraidh ar dhul isteach ann. Comhroinn le daoine a bhfuil muinín agat astu é.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Is féidir le haon duine leis an nasc seo amharc ar ainm agus grianghraf an ghrúpa agus dul isteach sa ghrúpa. Comhroinn le daoine a bhfuil muinín agat astu é.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Comhroinn trí Signal</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Comhroinn trí Molly</string>
     <string name="GroupLinkBottomSheet_copy">Cóipeáil</string>
     <string name="GroupLinkBottomSheet_qr_code">Tagairt QR</string>
     <string name="GroupLinkBottomSheet_share">Comhroinn</string>
@@ -4926,7 +4923,7 @@
     <string name="payment_info_card_about_mobilecoin">Maidir le MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">Airgeadra digiteach úrnua atá dírithe ar phríobháideachas is ea MobileCoin.</string>
     <string name="payment_info_card_adding_funds">Adding Funds</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">You can add funds for use in Signal by sending MobileCoin to your wallet address.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">You can add funds for use in Molly by sending MobileCoin to your wallet address.</string>
     <string name="payment_info_card_cashing_out">Cashing out</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">You can cash out MobileCoin anytime on an exchange that supports MobileCoin. Just make a transfer to your account at that exchange.</string>
     <string name="payment_info_card_hide_this_card">Cuir an cárta seo i bhfolach?</string>
@@ -4947,12 +4944,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Díchumasaigh Sparán</string>
     <string name="DeactivateWalletFragment__your_balance">An t-iarmhéid agat</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Moltar duit do chistí a aistriú chuig seoladh sparáin eile roimh íocaíochtaí a dhíchumasú. Má roghnaíonn tú gan do chistí a aistriú anois, fanfaidh siad i do sparán atá nasctha le Signal má chumasaíonn tú íocaíochtaí arís.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Moltar duit do chistí a aistriú chuig seoladh sparáin eile roimh íocaíochtaí a dhíchumasú. Má roghnaíonn tú gan do chistí a aistriú anois, fanfaidh siad i do sparán atá nasctha le Molly má chumasaíonn tú íocaíochtaí arís.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Transfer Remaining Balance</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Deactivate Without Transferring</string>
     <string name="DeactivateWalletFragment__deactivate">Díchumasaigh</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Deactivate Without Transferring?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Fanfaidh d\'iarmhéid i do sparán atá nasctha le Signal má roghnaíonn tú íocaíochtaí a athghníomhachtú.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Fanfaidh d\'iarmhéid i do sparán atá nasctha le Molly má roghnaíonn tú íocaíochtaí a athghníomhachtú.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Tharla earráid le díghníomhachtú an sparáin.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5253,7 +5250,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Ceadúnais</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Téarmaí Úsáide ⁊ Polasaí Príobháideachais</string>
-    <string name="HelpFragment__copyright_signal_messenger">Cóipcheart Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Cóipcheart Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Ceadúnaithe faoi GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5732,9 +5729,9 @@
     <string name="MySupportPreference__learn_more">Tuilleadh faisnéise</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Nuashonraigh Signal</string>
+    <string name="UpdateSignalExpiredDialog__title">Nuashonraigh Molly</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Tá an leagan seo de Signal imithe as feidhm. Nuashonraigh anois le leanúint le húsáid Signal.</string>
+    <string name="UpdateSignalExpiredDialog__message">Tá an leagan seo de Molly imithe as feidhm. Nuashonraigh anois le leanúint le húsáid Molly.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Nuashonraigh</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5743,7 +5740,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Níl an gléas cláraithe</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Níl an gléas seo cláraithe a thuilleadh. Athchláraigh le leanúint le húsáid Signal ar an ngléas seo.</string>
+    <string name="ReregisterSignalDialog__message">Níl an gléas seo cláraithe a thuilleadh. Athchláraigh le leanúint le húsáid Molly ar an ngléas seo.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Athchláraigh</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6037,7 +6034,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Theip air an roghnóir a oscailt.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Chun fógraí a chumasú, teastaíonn cead ó Signal lena dtaispeáint.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Chun fógraí a chumasú, teastaíonn cead ó Molly lena dtaispeáint.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Cas orthu</string>
 
@@ -7466,51 +7463,51 @@
 
     <!-- BackupAlertBottomSheet -->
     <!-- Sheet title when media backups have been disabled -->
-    <string name="BackupAlertBottomSheet__media_backups_are_off">Media backups are off</string>
+    <string name="BackupAlertBottomSheet__media_backups_are_off">Tá cúltacaí meán casta as</string>
     <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
     <plurals name="BackupAlertBottomSheet__your_signal_media_backup_plan">
-        <item quantity="one">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d day to download any media stored in your backup. After %1$d day, the media in your backup will be deleted.</item>
-        <item quantity="two">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
-        <item quantity="few">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
-        <item quantity="many">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
-        <item quantity="other">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
+        <item quantity="one">Cuireadh do phlean Signal um chúltacú meán ar ceal toisc nárbh fhéidir linn d\'íocaíocht a phróiseáil. Tá %1$d lá agat le haon mheáin atá stóráilte i do chúltaca a íoslódáil. Tar éis %1$d lá, scriosfar na meáin i do chúltaca.</item>
+        <item quantity="two">Cuireadh do phlean Signal um chúltacú meán ar ceal toisc nárbh fhéidir linn d\'íocaíocht a phróiseáil. Tá %1$d lá agat le haon mheáin atá stóráilte i do chúltaca a íoslódáil. Tar éis %1$d lá, scriosfar na meáin i do chúltaca.</item>
+        <item quantity="few">Cuireadh do phlean Signal um chúltacú meán ar ceal toisc nárbh fhéidir linn d\'íocaíocht a phróiseáil. Tá %1$d lá agat le haon mheáin atá stóráilte i do chúltaca a íoslódáil. Tar éis %1$d lá, scriosfar na meáin i do chúltaca.</item>
+        <item quantity="many">Cuireadh do phlean Signal um chúltacú meán ar ceal toisc nárbh fhéidir linn d\'íocaíocht a phróiseáil. Tá %1$d lá agat le haon mheáin atá stóráilte i do chúltaca a íoslódáil. Tar éis %1$d lá, scriosfar na meáin i do chúltaca.</item>
+        <item quantity="other">Cuireadh do phlean Signal um chúltacú meán ar ceal toisc nárbh fhéidir linn d\'íocaíocht a phróiseáil. Tá %1$d lá agat le haon mheáin atá stóráilte i do chúltaca a íoslódáil. Tar éis %1$d lá, scriosfar na meáin i do chúltaca.</item>
     </plurals>
     <!-- Sheet body part 2 when media backups have been disabled. -->
-    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">You can begin paying for backups again at any time to continue backing up all your media. </string>
+    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Is féidir leat tosú ag íoc as cúltacaí arís am ar bith le leanúint le cúltacú do mheán uile. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Your media will be deleted today</string>
+    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Scriosfar do mheáin inniu</string>
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Your Signal media backup plan has been canceled because we couldn\'t process your payment. This is your last chance to download the media in your backup before it is deleted.</string>
+    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Cuireadh do phlean Signal um chúltacú meán ar ceal toisc nárbh fhéidir linn d\'íocaíocht a phróiseáil. Seo do dheis dheiridh na meáin i do chúltaca a íoslódáil sula scriosfar é.</string>
     <!-- Sheet title when user does not have enough space to download their backup -->
     <string name="BackupAlertBottomSheet__cant_complete_download">Ní féidir an íoslódáil a chur i gcrích</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
     <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Ní leor an spás saor i do ghléas. Saor suas le %1$s de spás leis na meáin atá stóráilte i do chúltaca a íoslódáil.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
     <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
-        <item quantity="one">If you choose \"Skip\" the media in your backup will be deleted in %1$d day.</item>
-        <item quantity="two">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
-        <item quantity="few">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
-        <item quantity="many">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
-        <item quantity="other">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
+        <item quantity="one">Má roghnaíonn tú \"Gabh thar\" scriosfar na meáin i do chúltaca i gceann %1$d lá.</item>
+        <item quantity="two">Má roghnaíonn tú \"Gabh thar\" scriosfar na meáin i do chúltaca i gceann %1$d lá.</item>
+        <item quantity="few">Má roghnaíonn tú \"Gabh thar\" scriosfar na meáin i do chúltaca i gceann %1$d lá.</item>
+        <item quantity="many">Má roghnaíonn tú \"Gabh thar\" scriosfar na meáin i do chúltaca i gceann %1$d lá.</item>
+        <item quantity="other">Má roghnaíonn tú \"Gabh thar\" scriosfar na meáin i do chúltaca i gceann %1$d lá..</item>
     </plurals>
     <!-- Sheet title when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__cant_process_backup_payment">Can\'t process backup payment</string>
+    <string name="BackupAlertBottomSheet__cant_process_backup_payment">Ní féidir an íocaíocht as cúltacú a phróiseáil</string>
     <!-- Sheet body when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">We\'re having trouble collecting your recurring monthly backup payment. Make sure your payment method is up to date. If it isn\'t, update it in Google Pay. Signal will try to process the payment again in a few days.</string>
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">Tá fadhb againn d\'íocaíocht mhíosúil athfhillteach as cúltacú a bhailiú. Cinntigh go bhfuil do mhodh íocaíochta suas chun dáta. Mura bhfuil, nuashonraigh in Google Pay é. Triailfidh Signal an íocaíocht a phróiseáil arís i gceann cúpla lá.</string>
     <!-- Sheet title for generic backup error -->
-    <string name="BackupAlertBottomSheet__couldnt_complete_backup">Couldn\'t complete backup</string>
+    <string name="BackupAlertBottomSheet__couldnt_complete_backup">Níorbh fhéidir an cúltaca a chur i gcrích</string>
     <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
-    <string name="BackupAlertBottomSheet__your_device_hasnt">Your device hasn\'t completed a backup for %1$d days. Make sure your device is connected to wi-fi and tap \"Back up now.\" </string>
+    <string name="BackupAlertBottomSheet__your_device_hasnt">Níor cuireadh cúltacú i gcrích ar do ghléas le %1$d lá anuas. Cinntigh go bhfuil do ghléas nasctha le wi-fi agus tapáil \"Cúltacaigh anois.\" </string>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Tuilleadh faisnéise</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip">Léim thar seo</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Download media now</string>
+    <string name="BackupAlertBottomSheet__download_media_now">Íoslódáil meáin anois</string>
     <!-- Secondary action button text to dismiss sheet, noting the user can download later -->
-    <string name="BackupAlertBottomSheet__download_later">Download later</string>
+    <string name="BackupAlertBottomSheet__download_later">Íoslódáil níos déanaí</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Don\'t download media</string>
+    <string name="BackupAlertBottomSheet__dont_download_media">Ná híoslódáil meáin</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7633,25 +7630,25 @@
     <!-- Title for frequency option DAILY for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__manually_back_up">Déan cúltaca de láimh</string>
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
-    <string name="PassphrasePromptActivity_help_prompt_body">Please enter your device pin, password or pattern.</string>
+    <string name="PassphrasePromptActivity_help_prompt_body">Cuir isteach UAP, pasfhocal, nó patrún do ghléis.</string>
 
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">Ar aghaidh</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Change backup type</string>
+    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Athraigh cineál cúltaca</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">Cuir Síntiús ar Ceal</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
-    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">Confirm cancellation</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">Deimhnigh cur ar ceal</string>
     <!-- Dialog body -->
-    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">You won\'t be charged again. Backups will be turned off at the end of your billing cycle. After that date you will have 30 days to download the media you\'re currently backing up.</string>
+    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">Ní ghearrfar síntiús ort arís. Casfar as cúltacaí ag deireadh do thimthrialla billeála. Tar éis an dáta sin, beidh 30 lá agat leis na meáin atá á gcúltacú agat faoi láthair a íoslódáil.</string>
     <!-- Action button label to cancel subscription and download now -->
-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">Confirm and download now</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">Deimhnigh agus íoslódáil anois</string>
     <!-- Action button label to cancel subscription and download later -->
-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Confirm and download later</string>
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Deimhnigh agus íoslódáil níos déanaí</string>
     <!-- Action button label to keep current subscription -->
-    <string name="ConfirmBackupCancellationDialog__keep_subscription">Keep subscription</string>
+    <string name="ConfirmBackupCancellationDialog__keep_subscription">Coinnigh an síntiús</string>
     <!-- EOF -->
 </resources>
