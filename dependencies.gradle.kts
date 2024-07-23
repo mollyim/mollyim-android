@@ -42,7 +42,7 @@ dependencyResolutionManagement {
 
       // Kotlin
       library("kotlin-stdlib-jdk8", "org.jetbrains.kotlin", "kotlin-stdlib-jdk8").versionRef("kotlin")
-      library("kotlin-reflect-tests", "org.jetbrains.kotlin", "kotlin-reflect").versionRef("kotlin")
+      library("kotlin-reflect", "org.jetbrains.kotlin", "kotlin-reflect").versionRef("kotlin")
       library("kotlin-gradle-plugin", "org.jetbrains.kotlin", "kotlin-gradle-plugin").versionRef("kotlin")
       library("kotlinx-coroutines-play-services", "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
 
@@ -133,7 +133,8 @@ dependencyResolutionManagement {
 
       // Third Party
       library("greenrobot-eventbus", "org.greenrobot:eventbus:3.0.0")
-      library("jackson-core", "com.fasterxml.jackson.core:jackson-databind:2.15.4")
+      library("jackson-core", "com.fasterxml.jackson.core:jackson-databind:2.17.2")
+      library("jackson-module-kotlin", "com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
       library("square-okhttp3", "com.squareup.okhttp3:okhttp:4.12.0")
       library("square-okhttp3-dnsoverhttps", "com.squareup.okhttp3:okhttp-dnsoverhttps:4.12.0")
       library("square-okio", "com.squareup.okio:okio:3.6.0")
