@@ -7,7 +7,7 @@ import java.util.UUID
 
 /** Response body for setting a username link on the service. */
 data class SetUsernameLinkResponseBody(
-  @JsonProperty("usernameLinkHandle")
+  @JsonProperty
   @JsonDeserialize(using = UuidDeserializer::class)
   val usernameLinkHandle: UUID
 )

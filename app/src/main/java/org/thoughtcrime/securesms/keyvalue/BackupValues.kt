@@ -150,7 +150,7 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   }
 
   class SerializedCredentials(
-    @JsonProperty("credentialsByDay")
+    @JsonProperty
     val credentialsByDay: Map<Long, ArchiveServiceCredential>
   )
 

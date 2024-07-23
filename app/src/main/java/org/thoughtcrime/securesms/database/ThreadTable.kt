@@ -8,6 +8,7 @@ import android.database.MergeCursor
 import android.net.Uri
 import androidx.core.content.contentValuesOf
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.json.JSONObject
 import org.jsoup.helper.StringUtil
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.SqlUtil
@@ -62,6 +63,7 @@ import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.JsonUtils
+import org.thoughtcrime.securesms.util.JsonUtils.SaneJSONObject
 import org.thoughtcrime.securesms.util.LRUCache
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.isScheduled
@@ -2037,9 +2039,22 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
       val messageExtras = if (messageExtraBytes != null) MessageExtras.ADAPTER.decode(messageExtraBytes) else null
       val extra: Extra? = if (extraString != null) {
         try {
-          JsonUtils.fromJson(extraString, Extra::class.java)
-        } catch (e: IOException) {
-          Log.w(TAG, "Failed to decode extras!")
+          val jsonObject = SaneJSONObject(JSONObject(extraString))
+          Extra(
+            isViewOnce = jsonObject.getBoolean("isRevealable"),
+            isSticker = jsonObject.getBoolean("isSticker"),
+            stickerEmoji = jsonObject.getString("stickerEmoji"),
+            isAlbum = jsonObject.getBoolean("isAlbum"),
+            isRemoteDelete = jsonObject.getBoolean("isRemoteDelete"),
+            isMessageRequestAccepted = jsonObject.getBoolean("isMessageRequestAccepted"),
+            isGv2Invite = jsonObject.getBoolean("isGv2Invite"),
+            groupAddedBy = jsonObject.getString("groupAddedBy"),
+            individualRecipientId = jsonObject.getString("individualRecipientId")!!,
+            bodyRanges = jsonObject.getString("bodyRanges"),
+            isScheduled = jsonObject.getBoolean("isScheduled"),
+            isRecipientHidden = jsonObject.getBoolean("isRecipientHidden")
+          )
+        } catch (exception: Exception) {
           null
         }
       } else {
@@ -2089,52 +2104,40 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
   }
 
   data class Extra(
-    @field:JsonProperty("isRevealable")
-    @get:JsonProperty("isRevealable")
+    @field:JsonProperty
     @param:JsonProperty("isRevealable")
     val isViewOnce: Boolean = false,
-    @field:JsonProperty("isSticker")
-    @get:JsonProperty("isSticker")
+    @field:JsonProperty
     @param:JsonProperty("isSticker")
     val isSticker: Boolean = false,
-    @field:JsonProperty("stickerEmoji")
-    @get:JsonProperty("stickerEmoji")
+    @field:JsonProperty
     @param:JsonProperty("stickerEmoji")
     val stickerEmoji: String? = null,
-    @field:JsonProperty("isAlbum")
-    @get:JsonProperty("isAlbum")
+    @field:JsonProperty
     @param:JsonProperty("isAlbum")
     val isAlbum: Boolean = false,
-    @field:JsonProperty("isRemoteDelete")
-    @get:JsonProperty("isRemoteDelete")
+    @field:JsonProperty
     @param:JsonProperty("isRemoteDelete")
     val isRemoteDelete: Boolean = false,
-    @field:JsonProperty("isMessageRequestAccepted")
-    @get:JsonProperty("isMessageRequestAccepted")
+    @field:JsonProperty
     @param:JsonProperty("isMessageRequestAccepted")
     val isMessageRequestAccepted: Boolean = true,
-    @field:JsonProperty("isGv2Invite")
-    @get:JsonProperty("isGv2Invite")
+    @field:JsonProperty
     @param:JsonProperty("isGv2Invite")
     val isGv2Invite: Boolean = false,
-    @field:JsonProperty("groupAddedBy")
-    @get:JsonProperty("groupAddedBy")
+    @field:JsonProperty
     @param:JsonProperty("groupAddedBy")
     val groupAddedBy: String? = null,
-    @field:JsonProperty("individualRecipientId")
-    @get:JsonProperty("individualRecipientId")
+    @field:JsonProperty
     @param:JsonProperty("individualRecipientId")
     val individualRecipientId: String,
-    @field:JsonProperty("bodyRanges")
-    @get:JsonProperty("bodyRanges")
+    @field:JsonProperty
     @param:JsonProperty("bodyRanges")
     val bodyRanges: String? = null,
-    @field:JsonProperty("isScheduled")
-    @get:JsonProperty("isScheduled")
+    @field:JsonProperty
     @param:JsonProperty("isScheduled")
     val isScheduled: Boolean = false,
-    @field:JsonProperty("isRecipientHidden")
-    @get:JsonProperty("isRecipientHidden")
+    @field:JsonProperty
     @param:JsonProperty("isRecipientHidden")
     val isRecipientHidden: Boolean = false
   ) {

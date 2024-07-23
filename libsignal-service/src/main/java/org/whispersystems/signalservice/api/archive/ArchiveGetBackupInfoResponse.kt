@@ -11,14 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Represents the response when fetching the archive backup info.
  */
 data class ArchiveGetBackupInfoResponse(
-  @JsonProperty("cdn")
+  @JsonProperty
   val cdn: Int?,
-  @JsonProperty("backupDir")
+  @JsonProperty
   val backupDir: String?,
-  @JsonProperty("mediaDir")
+  @JsonProperty
   val mediaDir: String?,
-  @JsonProperty("backupName")
+  @JsonProperty
   val backupName: String?,
-  @JsonProperty("usedSpace")
+  @JsonProperty
   val usedSpace: Long?
 )

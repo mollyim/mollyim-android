@@ -11,5 +11,5 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Request to copy and re-encrypt media from the attachments cdn into the backup cdn.
  */
 class BatchArchiveMediaRequest(
-  @JsonProperty("items") val items: List<ArchiveMediaRequest>
+  @JsonProperty val items: List<ArchiveMediaRequest>
 )

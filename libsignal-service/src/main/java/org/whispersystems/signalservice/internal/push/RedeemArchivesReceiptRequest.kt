@@ -1,5 +1,6 @@
 package org.whispersystems.signalservice.internal.push
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -9,4 +10,4 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param receiptCredentialPresentation base64-encoded no-newlines standard-character-set with-padding of the bytes of a [ReceiptCredentialPresentation] object
  */
-internal class RedeemArchivesReceiptRequest(@JsonProperty("receiptCredentialPresentation") val receiptCredentialPresentation: String)
+internal class RedeemArchivesReceiptRequest @JsonCreator constructor(@param:JsonProperty("receiptCredentialPresentation") val receiptCredentialPresentation: String)

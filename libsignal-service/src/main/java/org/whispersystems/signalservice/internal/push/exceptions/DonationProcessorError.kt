@@ -5,7 +5,7 @@
 
 package org.whispersystems.signalservice.internal.push.exceptions
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonCreator
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.ChargeFailure
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.Processor
@@ -14,9 +14,9 @@ import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.Pro
  * HTTP 440 Exception when something bad happens while updating a user's subscription level or
  * confirming a PayPal intent.
  */
-class DonationProcessorError(
-  @JsonProperty("processor") val processor: Processor,
-  @JsonProperty("chargeFailure") val chargeFailure: ChargeFailure
+class DonationProcessorError @JsonCreator constructor(
+  val processor: Processor,
+  val chargeFailure: ChargeFailure
 ) : NonSuccessfulResponseCodeException(440) {
   override fun toString(): String {
     return """

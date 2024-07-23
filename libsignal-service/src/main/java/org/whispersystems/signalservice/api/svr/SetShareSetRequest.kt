@@ -13,7 +13,7 @@ import org.whispersystems.signalservice.internal.push.ByteArraySerializerBase64N
  * Request body for setting a share-set on the service.
  */
 class SetShareSetRequest(
-  @JsonProperty("shareSet")
+  @JsonProperty
   @JsonSerialize(using = ByteArraySerializerBase64NoPadding::class)
   val shareSet: ByteArray
 )

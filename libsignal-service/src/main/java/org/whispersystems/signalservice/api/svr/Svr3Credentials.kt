@@ -15,13 +15,13 @@ import org.whispersystems.signalservice.internal.push.ByteArrayDeserializerBase6
  * for the (username, password, shareset) tuple.
  */
 class Svr3Credentials(
-  @JsonProperty("username")
+  @JsonProperty
   val username: String,
 
-  @JsonProperty("password")
+  @JsonProperty
   val password: String,
 
-  @JsonProperty("shareSet")
+  @JsonProperty
   @JsonDeserialize(using = ByteArrayDeserializerBase64::class)
   val shareSet: ByteArray?
 ) {

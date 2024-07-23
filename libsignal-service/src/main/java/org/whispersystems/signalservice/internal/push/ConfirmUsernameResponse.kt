@@ -7,10 +7,10 @@ import java.util.UUID
 
 /** Response body for confirming a username reservation. */
 class ConfirmUsernameResponse(
-  @JsonProperty("usernameHash")
+  @JsonProperty
   val usernameHash: String,
 
-  @JsonProperty("usernameLinkHandle")
+  @JsonProperty
   @JsonDeserialize(using = JsonUtil.UuidDeserializer::class)
   val usernameLinkHandle: UUID
 )

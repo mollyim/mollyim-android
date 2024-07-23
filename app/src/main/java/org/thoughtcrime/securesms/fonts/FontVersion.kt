@@ -2,8 +2,8 @@ package org.thoughtcrime.securesms.fonts
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.EncryptedStreamUtils
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
  * @param id The numeric ID of this version, retrieved from the server
  * @param path The UUID path of this version on disk, where supporting files will be stored.
  */
-data class FontVersion(@JsonProperty("id") val id: Long, @JsonProperty("path") val path: String) {
+data class FontVersion(val id: Long, val path: String) {
 
   companion object {
     val NONE = FontVersion(-1, "")
@@ -27,7 +27,7 @@ data class FontVersion(@JsonProperty("id") val id: Long, @JsonProperty("path") v
 
     private const val PATH = ".version"
 
-    private val objectMapper = ObjectMapper()
+    private val objectMapper = ObjectMapper().registerKotlinModule()
 
     /**
      * Retrieves the latest font version. This may hit the disk, network, or both, depending on when we last checked for a font version.

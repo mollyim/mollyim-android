@@ -66,6 +66,7 @@ tasks.whenTaskAdded {
 dependencies {
   api(libs.google.libphonenumber)
   api(libs.jackson.core)
+  api(libs.jackson.module.kotlin)
 
   implementation(libs.libsignal.client)
   api(libs.square.okhttp3)

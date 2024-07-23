@@ -5,7 +5,7 @@
 
 package org.whispersystems.signalservice.internal.push
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonCreator
 import okio.ByteString.Companion.encode
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -13,8 +13,8 @@ import java.nio.charset.StandardCharsets
 /**
  * Verify KBS auth credentials JSON response.
  */
-data class BackupV2AuthCheckResponse(
-  @JsonProperty("matches") private val matches: Map<String, Map<String, Any>>
+data class BackupV2AuthCheckResponse @JsonCreator constructor(
+  private val matches: Map<String, Map<String, Any>>
 ) {
   private val actualMatches = matches["matches"] ?: emptyMap()
 

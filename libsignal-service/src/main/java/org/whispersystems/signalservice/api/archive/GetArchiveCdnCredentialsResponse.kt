@@ -11,5 +11,5 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Get response with headers to use to read from archive cdn.
  */
 class GetArchiveCdnCredentialsResponse(
-  @JsonProperty("headers") val headers: Map<String, String>
+  @JsonProperty val headers: Map<String, String>
 )

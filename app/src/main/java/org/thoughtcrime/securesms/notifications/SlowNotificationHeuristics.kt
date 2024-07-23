@@ -8,7 +8,6 @@ package org.thoughtcrime.securesms.notifications
 import android.os.Build
 import android.text.TextUtils
 import androidx.annotation.WorkerThread
-import com.fasterxml.jackson.annotation.JsonProperty
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.database.LocalMetricsDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -206,10 +205,10 @@ object SlowNotificationHeuristics {
 }
 
 data class Configuration(
-  @JsonProperty("minimumEventAgeMs") val minimumEventAgeMs: Long,
-  @JsonProperty("minimumServiceEventCount") val minimumServiceEventCount: Int,
-  @JsonProperty("serviceStartFailurePercentage") val serviceStartFailurePercentage: Float,
-  @JsonProperty("weeklyFailedQueueDrains") val weeklyFailedQueueDrains: Int,
-  @JsonProperty("minimumMessageLatencyEvents") val minimumMessageLatencyEvents: Int,
-  @JsonProperty("messageLatencyPercentiles") val messageLatencyPercentiles: Map<Int, Long>
+  val minimumEventAgeMs: Long,
+  val minimumServiceEventCount: Int,
+  val serviceStartFailurePercentage: Float,
+  val weeklyFailedQueueDrains: Int,
+  val minimumMessageLatencyEvents: Int,
+  val messageLatencyPercentiles: Map<Int, Long>
 )

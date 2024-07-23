@@ -5,9 +5,10 @@
 
 package org.whispersystems.signalservice.internal.push
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * Localized bank transfer mandate.
  */
-class BankMandate(@JsonProperty("mandate") val mandate: String)
+class BankMandate @JsonCreator constructor(@JsonProperty("mandate") val mandate: String)

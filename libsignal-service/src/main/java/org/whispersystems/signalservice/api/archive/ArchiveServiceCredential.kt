@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * But you use these to make those.
  */
 class ArchiveServiceCredential(
-  @JsonProperty("credential")
+  @JsonProperty
   val credential: ByteArray,
-  @JsonProperty("redemptionTime")
+  @JsonProperty
   val redemptionTime: Long
 )

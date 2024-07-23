@@ -3,8 +3,10 @@ package org.signal.donations
 import android.net.Uri
 import android.os.Parcelable
 import androidx.annotation.WorkerThread
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.exc.InvalidDefinitionException
+import com.fasterxml.jackson.module.kotlin.jsonMapper
+import com.fasterxml.jackson.module.kotlin.kotlinModule
+import com.fasterxml.jackson.module.kotlin.readValue
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.parcelize.Parcelize
@@ -28,7 +30,9 @@ class StripeApi(
   private val okHttpClient: OkHttpClient
 ) {
 
-  private val objectMapper = ObjectMapper()
+  private val objectMapper = jsonMapper {
+    addModule(kotlinModule())
+  }
 
   companion object {
     private val TAG = Log.tag(StripeApi::class.java)
@@ -144,7 +148,7 @@ class StripeApi(
       StripeIntentAccessor.ObjectType.SETUP_INTENT -> get("setup_intents/${stripeIntentAccessor.intentId}?client_secret=${stripeIntentAccessor.intentClientSecret}&expand[0]=latest_attempt").use {
         val body = it.body?.string()
         try {
-          objectMapper.readValue(body!!, StripeSetupIntent::class.java)
+          objectMapper.readValue(body!!)
         } catch (e: InvalidDefinitionException) {
           Log.w(TAG, "Failed to parse JSON for StripeSetupIntent.")
           ResponseFieldLogger.logFields(objectMapper, body)
@@ -167,7 +171,7 @@ class StripeApi(
         val body = it.body?.string()
         try {
           Log.d(TAG, "Reading StripePaymentIntent from JSON")
-          objectMapper.readValue(body!!, StripePaymentIntent::class.java)
+          objectMapper.readValue(body!!)
         } catch (e: InvalidDefinitionException) {
           Log.w(TAG, "Failed to parse JSON for StripePaymentIntent.")
           ResponseFieldLogger.logFields(objectMapper, body)

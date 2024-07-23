@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets
  * }
  */
 class BackupV3AuthCheckResponse(
-  @JsonProperty("matches")
+  @JsonProperty
   private val matches: Map<String, MatchData>
 ) {
 
@@ -61,10 +61,10 @@ class BackupV3AuthCheckResponse(
   }
 
   class MatchData(
-    @JsonProperty("status")
+    @JsonProperty
     val status: String,
 
-    @JsonProperty("shareSet")
+    @JsonProperty
     @JsonDeserialize(using = ByteArrayDeserializerBase64::class)
     val shareSet: ByteArray
   ) {

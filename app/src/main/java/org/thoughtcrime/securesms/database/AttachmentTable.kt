@@ -2178,8 +2178,7 @@ class AttachmentTable(
     @JvmField
     val sentMediaQuality: Int = SentMediaQuality.STANDARD.code,
 
-    @field:JsonProperty("mp4Faststart")
-    @param:JsonProperty("mp4Faststart")
+    @JsonProperty("mp4Faststart")
     @JvmField
     val mp4FastStart: Boolean = false
   ) : Parcelable {

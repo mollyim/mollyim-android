@@ -393,58 +393,58 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
 
   data class FullRemoteMegaphone(val remoteMegaphone: RemoteMegaphone, val translation: TranslatedRemoteMegaphone)
 
-  class ReleaseNotes(@JsonProperty("announcements") val announcements: List<ReleaseNote>, @JsonProperty("megaphones") val megaphones: List<RemoteMegaphone>?)
+  data class ReleaseNotes(@JsonProperty val announcements: List<ReleaseNote>, @JsonProperty val megaphones: List<RemoteMegaphone>?)
 
-  class ReleaseNote(
-    @JsonProperty("uuid") val uuid: String,
-    @JsonProperty("countries") val countries: String?,
-    @JsonProperty("androidMinVersion") val androidMinVersion: String?,
-    @JsonProperty("link") val link: String?,
-    @JsonProperty("ctaId") val ctaId: String?,
-    @JsonProperty("includeBoostMessage") val includeBoostMessage: Boolean?
+  data class ReleaseNote(
+    @JsonProperty val uuid: String,
+    @JsonProperty val countries: String?,
+    @JsonProperty val androidMinVersion: String?,
+    @JsonProperty val link: String?,
+    @JsonProperty val ctaId: String?,
+    @JsonProperty val includeBoostMessage: Boolean?
   )
 
-  class RemoteMegaphone(
-    @JsonProperty("uuid") val uuid: String,
-    @JsonProperty("priority") val priority: Long,
-    @JsonProperty("countries") val countries: String?,
-    @JsonProperty("androidMinVersion") val androidMinVersion: String?,
-    @JsonProperty("dontShowBeforeEpochSeconds") val dontShowBeforeEpochSeconds: Long?,
-    @JsonProperty("dontShowAfterEpochSeconds") val dontShowAfterEpochSeconds: Long?,
-    @JsonProperty("showForNumberOfDays") val showForNumberOfDays: Long?,
-    @JsonProperty("conditionalId") val conditionalId: String?,
-    @JsonProperty("primaryCtaId") val primaryCtaId: String?,
-    @JsonProperty("secondaryCtaId") val secondaryCtaId: String?,
-    @JsonProperty("primaryCtaData") val primaryCtaData: JsonNode?,
-    @JsonProperty("secondaryCtaData") val secondaryCtaData: JsonNode?
+  data class RemoteMegaphone(
+    @JsonProperty val uuid: String,
+    @JsonProperty val priority: Long,
+    @JsonProperty val countries: String?,
+    @JsonProperty val androidMinVersion: String?,
+    @JsonProperty val dontShowBeforeEpochSeconds: Long?,
+    @JsonProperty val dontShowAfterEpochSeconds: Long?,
+    @JsonProperty val showForNumberOfDays: Long?,
+    @JsonProperty val conditionalId: String?,
+    @JsonProperty val primaryCtaId: String?,
+    @JsonProperty val secondaryCtaId: String?,
+    @JsonProperty val primaryCtaData: JsonNode?,
+    @JsonProperty val secondaryCtaData: JsonNode?
   )
 
-  class TranslatedReleaseNote(
-    @JsonProperty("uuid") val uuid: String,
-    @JsonProperty("media") val media: String?,
-    @JsonProperty("mediaWidth") val mediaWidth: String?,
-    @JsonProperty("mediaHeight") val mediaHeight: String?,
-    @JsonProperty("mediaContentType") val mediaContentType: String?,
-    @JsonProperty("linkText") val linkText: String?,
-    @JsonProperty("title") val title: String,
-    @JsonProperty("body") val body: String,
-    @JsonProperty("callToActionText") val callToActionText: String?,
-    @JsonProperty("bodyRanges") val bodyRanges: List<ReleaseNoteBodyRange>?
+  data class TranslatedReleaseNote(
+    @JsonProperty val uuid: String,
+    @JsonProperty val media: String?,
+    @JsonProperty val mediaWidth: String?,
+    @JsonProperty val mediaHeight: String?,
+    @JsonProperty val mediaContentType: String?,
+    @JsonProperty val linkText: String?,
+    @JsonProperty val title: String,
+    @JsonProperty val body: String,
+    @JsonProperty val callToActionText: String?,
+    @JsonProperty val bodyRanges: List<ReleaseNoteBodyRange>?
   )
 
   data class ReleaseNoteBodyRange(
-    @JsonProperty("style") val style: String?,
-    @JsonProperty("start") val start: Int?,
-    @JsonProperty("length") val length: Int?
+    @JsonProperty val style: String?,
+    @JsonProperty val start: Int?,
+    @JsonProperty val length: Int?
   )
 
-  class TranslatedRemoteMegaphone(
-    @JsonProperty("uuid") val uuid: String,
-    @JsonProperty("image") val image: String?,
-    @JsonProperty("title") val title: String,
-    @JsonProperty("body") val body: String,
-    @JsonProperty("primaryCtaText") val primaryCtaText: String?,
-    @JsonProperty("secondaryCtaText") val secondaryCtaText: String?
+  data class TranslatedRemoteMegaphone(
+    @JsonProperty val uuid: String,
+    @JsonProperty val image: String?,
+    @JsonProperty val title: String,
+    @JsonProperty val body: String,
+    @JsonProperty val primaryCtaText: String?,
+    @JsonProperty val secondaryCtaText: String?
   )
 
   class Factory : Job.Factory<RetrieveRemoteAnnouncementsJob> {

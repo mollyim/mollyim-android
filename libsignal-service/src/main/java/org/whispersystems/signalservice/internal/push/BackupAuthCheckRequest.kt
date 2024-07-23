@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Request body JSON for verifying stored KBS auth credentials.
  */
 class BackupAuthCheckRequest(
-  @JsonProperty("number")
+  @JsonProperty
   val number: String?,
 
-  @JsonProperty("passwords")
+  @JsonProperty
   val passwords: List<String>
 )

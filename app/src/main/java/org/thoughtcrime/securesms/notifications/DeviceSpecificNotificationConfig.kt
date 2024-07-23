@@ -28,11 +28,11 @@ object DeviceSpecificNotificationConfig {
    * @param version represents the version of the link being shown and should be incremented if the link or link content changes
    */
   data class Config(
-    @JsonProperty("model") val model: String = "",
-    @JsonProperty("showConditionCode") val showConditionCode: String = "has-slow-notifications",
-    @JsonProperty("link") val link: String = GENERAL_SUPPORT_URL,
-    @JsonProperty("localePercent") val localePercent: String = "*",
-    @JsonProperty("version") val version: Int = 0
+    @JsonProperty val model: String = "",
+    @JsonProperty val showConditionCode: String = "has-slow-notifications",
+    @JsonProperty val link: String = GENERAL_SUPPORT_URL,
+    @JsonProperty val localePercent: String = "*",
+    @JsonProperty val version: Int = 0
   ) {
     val showCondition: ShowCondition = ShowCondition.fromCode(showConditionCode)
   }

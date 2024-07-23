@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Response to archiving media, backup CDN number where media is located.
  */
 class ArchiveMediaResponse(
-  @JsonProperty("cdn") val cdn: Int
+  @JsonProperty val cdn: Int
 ) {
   enum class StatusCodes(val code: Int) {
     BadArguments(400),

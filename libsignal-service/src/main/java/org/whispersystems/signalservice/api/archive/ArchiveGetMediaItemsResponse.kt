@@ -11,14 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Response body for getting the media items stored in the user's archive.
  */
 class ArchiveGetMediaItemsResponse(
-  @JsonProperty("storedMediaObjects") val storedMediaObjects: List<StoredMediaObject>,
-  @JsonProperty("cursor") val backupDir: String?,
-  @JsonProperty("mediaDir") val mediaDir: String?,
-  @JsonProperty("cursor") val cursor: String?
+  @JsonProperty val storedMediaObjects: List<StoredMediaObject>,
+  @JsonProperty val backupDir: String?,
+  @JsonProperty val mediaDir: String?,
+  @JsonProperty val cursor: String?
 ) {
   class StoredMediaObject(
-    @JsonProperty("cdn") val cdn: Int,
-    @JsonProperty("mediaId") val mediaId: String,
-    @JsonProperty("objectLength") val objectLength: Long
+    @JsonProperty val cdn: Int,
+    @JsonProperty val mediaId: String,
+    @JsonProperty val objectLength: Long
   )
 }

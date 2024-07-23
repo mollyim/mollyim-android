@@ -11,12 +11,12 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Multi-response data for a batch archive media operation.
  */
 class BatchArchiveMediaResponse(
-  @JsonProperty("responses") val responses: List<BatchArchiveMediaItemResponse>
+  @JsonProperty val responses: List<BatchArchiveMediaItemResponse>
 ) {
   class BatchArchiveMediaItemResponse(
-    @JsonProperty("status") val status: Int?,
-    @JsonProperty("failureReason") val failureReason: String?,
-    @JsonProperty("cdn") val cdn: Int?,
-    @JsonProperty("mediaId") val mediaId: String
+    @JsonProperty val status: Int?,
+    @JsonProperty val failureReason: String?,
+    @JsonProperty val cdn: Int?,
+    @JsonProperty val mediaId: String
   )
 }

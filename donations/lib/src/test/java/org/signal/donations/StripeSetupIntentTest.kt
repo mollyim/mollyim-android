@@ -1,7 +1,9 @@
 package org.signal.donations
 
 import android.app.Application
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jsonMapper
+import com.fasterxml.jackson.module.kotlin.kotlinModule
+import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,9 +55,11 @@ class StripeSetupIntentTest {
 
   @Test
   fun `Given TEST_DATA, when I readValue, then I expect properly set fields`() {
-    val mapper = ObjectMapper()
+    val mapper = jsonMapper {
+      addModule(kotlinModule())
+    }
 
-    val intent = mapper.readValue(TEST_JSON, StripeSetupIntent::class.java)
+    val intent = mapper.readValue<StripeSetupIntent>(TEST_JSON)
 
     assertEquals(intent.id, "seti_1LyzgK2eZvKYlo2C3AhgI5IC")
     assertEquals(intent.clientSecret, "seti_1LyzgK2eZvKYlo2C3AhgI5IC_secret_MiQXAjP1ZBdORqQWNuJOcLqk9570HkA")

@@ -218,15 +218,15 @@ class SecureValueRecoveryV3(
   }
 
   class Svr3SessionData(
-    @JsonProperty("userPin")
+    @JsonProperty
     val userPin: String,
 
-    @JsonProperty("masterKey")
+    @JsonProperty
     @JsonSerialize(using = JsonUtil.MasterKeySerializer::class)
     @JsonDeserialize(using = JsonUtil.MasterKeyDeserializer::class)
     val masterKey: MasterKey,
 
-    @JsonProperty("shareSet")
+    @JsonProperty
     @JsonSerialize(using = ByteArraySerializerBase64NoPadding::class)
     @JsonDeserialize(using = ByteArrayDeserializerBase64::class)
     val shareSet: ByteArray?
