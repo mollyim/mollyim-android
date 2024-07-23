@@ -540,9 +540,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     } else if (itemId == R.id.menu_mark_all_read) {
       handleMarkAllRead();
       return true;
-    } else if (itemId == R.id.menu_invite) {
-      handleInvite();
-      return true;
     } else if (itemId == R.id.menu_notification_profile) {
       handleNotificationProfile();
       return true;
@@ -1091,10 +1088,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     }, none -> {
       endActionModeIfActive();
     });
-  }
-
-  private void handleInvite() {
-    getNavigator().goToInvite();
   }
 
   private void handleNotificationProfile() {

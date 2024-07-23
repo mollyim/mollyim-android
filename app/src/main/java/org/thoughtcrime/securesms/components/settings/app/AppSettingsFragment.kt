@@ -262,14 +262,6 @@ class AppSettingsFragment : DSLSettingsFragment(
         }
       )
 
-      clickPref(
-        title = DSLSettingsText.from(R.string.AppSettingsFragment__invite_your_friends),
-        icon = DSLSettingsIcon.from(R.drawable.symbol_invite_24),
-        onClick = {
-          findNavController().safeNavigate(R.id.action_appSettingsFragment_to_inviteActivity)
-        }
-      )
-
       if (RemoteConfig.internalUser) {
         dividerPref()
 
