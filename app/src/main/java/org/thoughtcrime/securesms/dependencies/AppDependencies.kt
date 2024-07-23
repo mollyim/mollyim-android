@@ -64,6 +64,8 @@ import java.util.function.Supplier
  */
 @SuppressLint("StaticFieldLeak")
 object AppDependencies {
+  // MOLLY: Ensure the app instance is always available for non-test runs, even before init() is called
+  private var _application: Application? = ApplicationContext.getInstance()
   private lateinit var provider: Provider
 
   // Needs special initialization because it needs to be created on the main thread
@@ -76,6 +78,7 @@ object AppDependencies {
       throw IllegalStateException("Already initialized!")
     }
 
+    _application = application
     AppDependencies.provider = provider
 
     _appForegroundObserver = provider.provideAppForegroundObserver()
@@ -88,8 +91,7 @@ object AppDependencies {
 
   @JvmStatic
   val application: Application
-    // MOLLY: Ensure the app instance is always returned, even before init() is called
-    get() = ApplicationContext.getInstance()
+    get() = _application!!
 
   @JvmStatic
   val appForegroundObserver: AppForegroundObserver
