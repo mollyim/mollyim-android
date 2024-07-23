@@ -70,6 +70,14 @@ public final class LocaleRemoteConfig {
     return isEnabledE164Start(RemoteConfig.sepaEnabledRegions());
   }
 
+  public static boolean isDelayedNotificationPromptEnabled() {
+    return RemoteConfig.internalUser() || isEnabledPartsPerMillion(RemoteConfig.PROMPT_FOR_NOTIFICATION_LOGS, RemoteConfig.promptForDelayedNotificationLogs());
+  }
+
+  public static boolean isBatterySaverPromptEnabled() {
+    return RemoteConfig.internalUser() || isEnabledPartsPerMillion(RemoteConfig.PROMPT_BATTERY_SAVER, RemoteConfig.promptBatterySaver());
+  }
+
   public static boolean isDeviceSpecificNotificationEnabled() {
     return isEnabledPartsPerMillion(RemoteConfig.DEVICE_SPECIFIC_NOTIFICATION_CONFIG, DeviceSpecificNotificationConfig.getCurrentConfig().getLocalePercent());
   }

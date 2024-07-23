@@ -209,13 +209,15 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         }
       )
 
-      clickPref(
-        title = DSLSettingsText.from(R.string.preferences_notifications__troubleshoot),
-        isEnabled = true,
-        onClick = {
-          PromptBatterySaverDialogFragment.show(childFragmentManager)
-        }
-      )
+      if (Build.VERSION.SDK_INT >= 23 && state.messageNotificationsState.troubleshootNotifications) {
+        clickPref(
+          title = DSLSettingsText.from(R.string.preferences_notifications__troubleshoot),
+          isEnabled = true,
+          onClick = {
+            PromptBatterySaverDialogFragment.show(childFragmentManager)
+          }
+        )
+      }
 
       if (Build.VERSION.SDK_INT < 30) {
         if (NotificationChannels.supported()) {

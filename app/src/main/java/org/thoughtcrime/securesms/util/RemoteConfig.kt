@@ -833,6 +833,32 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  const val PROMPT_FOR_NOTIFICATION_LOGS: String = "android.logs.promptNotifications"
+
+  @JvmStatic
+  @get:JvmName("promptForDelayedNotificationLogs")
+  val promptForDelayedNotificationLogs: String by remoteString(
+    key = RemoteConfig.PROMPT_FOR_NOTIFICATION_LOGS,
+    defaultValue = "*",
+    hotSwappable = true
+  )
+
+  val delayedNotificationsPromptConfig: String by remoteString(
+    key = "android.logs.promptNotificationsConfig",
+    defaultValue = "",
+    hotSwappable = true
+  )
+
+  const val PROMPT_BATTERY_SAVER: String = "android.promptBatterySaver"
+
+  @JvmStatic
+  @get:JvmName("promptBatterySaver")
+  val promptBatterySaver: String by remoteString(
+    key = PROMPT_BATTERY_SAVER,
+    defaultValue = "*",
+    hotSwappable = true
+  )
+
   const val DEVICE_SPECIFIC_NOTIFICATION_CONFIG: String = "android.deviceSpecificNotificationConfig"
 
   val deviceSpecificNotificationConfig: String by remoteString(
