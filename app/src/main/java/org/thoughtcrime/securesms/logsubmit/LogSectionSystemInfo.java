@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.emoji.EmojiFiles;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
+import org.thoughtcrime.securesms.notifications.SlowNotificationHeuristics;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
@@ -91,6 +92,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Server Time Offset: ").append(locked ? "Unknown" : getLastKnownServerTimeOffset()).append("\n");
     builder.append("Telecom           : ").append(locked ? "Unknown" : AndroidTelecomUtil.getTelecomSupported()).append("\n");
     builder.append("User-Agent        : ").append(StandardUserAgentInterceptor.USER_AGENT).append("\n");
+    builder.append("SlowNotifications : ").append(locked ? "Unknown" : SlowNotificationHeuristics.isHavingDelayedNotifications()).append("\n");
     builder.append("IgnoringBatteryOpt: ").append(PowerManagerCompat.isIgnoringBatteryOptimizations(context)).append("\n");
     builder.append("BkgRestricted     : ").append(Build.VERSION.SDK_INT >= 28 ? DeviceProperties.isBackgroundRestricted(context) : "N/A").append("\n");
     builder.append("Data Saver        : ").append(DeviceProperties.getDataSaverState(context)).append("\n");
