@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.biometric;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -81,6 +82,7 @@ public class BiometricDialogFragment extends DialogFragment {
     return instance;
   }
 
+  @SuppressLint("DiscouragedApi")
   public static boolean isDialogViewAttachedTo(@Nullable View container) {
     if (!(container instanceof ViewGroup)) {
       return false;
@@ -93,7 +95,7 @@ public class BiometricDialogFragment extends DialogFragment {
         alertTitleId   = container.getResources().getIdentifier("alertTitle", "id", container.getContext().getPackageName());
         alertTitleText = container.getResources().getText(R.string.BiometricDialogFragment__biometric_verification).toString();
       }
-      if (!(layout instanceof AlertDialogLayout)) {
+      if (!(layout instanceof ViewGroup)) {
         return false;
       }
       TextView alertTitle = layout.findViewById(alertTitleId);
