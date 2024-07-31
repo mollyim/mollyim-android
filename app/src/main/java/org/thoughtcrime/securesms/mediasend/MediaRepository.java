@@ -21,7 +21,7 @@ import com.annimon.stream.Stream;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.signal.core.util.SqlUtil;
@@ -74,7 +74,7 @@ public class MediaRepository {
                      return Collections.emptyList();
                    }
 
-                   return getMediaInBucket(ApplicationDependencies.getApplication(), Media.ALL_MEDIA_BUCKET_ID);
+                   return getMediaInBucket(AppDependencies.getApplication(), Media.ALL_MEDIA_BUCKET_ID);
                  })
                  .onErrorReturn(t -> {
                    Log.w(TAG, "Unable to get recent media", t);
@@ -275,7 +275,7 @@ public class MediaRepository {
         long   size        = cursor.getLong(cursor.getColumnIndexOrThrow(Images.Media.SIZE));
         long   duration    = !isImage ? cursor.getInt(cursor.getColumnIndexOrThrow(Video.Media.DURATION)) : 0;
 
-        media.add(fixMimeType(context, new Media(uri, mimetype, date, width, height, size, duration, false, false, Optional.of(bucketId), Optional.empty(), Optional.empty())));
+        media.add(fixMimeType(context, new Media(uri, mimetype, date, width, height, size, duration, false, false, Optional.of(bucketId), Optional.empty(), Optional.empty(), Optional.empty())));
       }
     }
 
@@ -366,7 +366,7 @@ public class MediaRepository {
       height = dimens.second;
     }
 
-    return new Media(media.getUri(), media.getMimeType(), media.getDate(), width, height, size, 0, media.isBorderless(), media.isVideoGif(), media.getBucketId(), media.getCaption(), Optional.empty());
+    return new Media(media.getUri(), media.getMimeType(), media.getDate(), width, height, size, 0, media.isBorderless(), media.isVideoGif(), media.getBucketId(), media.getCaption(), Optional.empty(), Optional.empty());
   }
 
   private Media getContentResolverPopulatedMedia(@NonNull Context context, @NonNull Media media) throws IOException {
@@ -392,7 +392,7 @@ public class MediaRepository {
       height = dimens.second;
     }
 
-    return new Media(media.getUri(), media.getMimeType(), media.getDate(), width, height, size, 0, media.isBorderless(), media.isVideoGif(), media.getBucketId(), media.getCaption(), Optional.empty());
+    return new Media(media.getUri(), media.getMimeType(), media.getDate(), width, height, size, 0, media.isBorderless(), media.isVideoGif(), media.getBucketId(), media.getCaption(), Optional.empty(), Optional.empty());
   }
 
   @VisibleForTesting

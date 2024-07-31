@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import org.thoughtcrime.securesms.R
@@ -14,11 +13,11 @@ import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
 import org.thoughtcrime.securesms.pin.RegistrationLockV2Dialog
-import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity
+import org.thoughtcrime.securesms.registration.ui.RegistrationActivity
 import org.thoughtcrime.securesms.util.PlayStoreUtil
 import org.thoughtcrime.securesms.util.ServiceUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
@@ -102,7 +101,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
 
       sectionHeaderPref(R.string.AccountSettingsFragment__account)
 
-      if (SignalStore.account().isRegistered) {
+      if (SignalStore.account.isRegistered) {
         clickPref(
           title = DSLSettingsText.from(R.string.AccountSettingsFragment__change_phone_number),
           isEnabled = state.isDeprecatedOrUnregistered() && !state.isLinkedDevice,
@@ -115,7 +114,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
       clickPref(
         title = DSLSettingsText.from(R.string.preferences_chats__transfer_account),
         summary = DSLSettingsText.from(R.string.preferences_chats__transfer_account_to_a_new_android_device),
-        isEnabled = state.isDeprecatedOrUnregistered(),
+        isEnabled = state.isDeprecatedOrUnregistered() && !state.isLinkedDevice,
         onClick = {
           Navigation.findNavController(requireView()).safeNavigate(R.id.action_accountSettingsFragment_to_oldDeviceTransferActivity)
         }
@@ -141,7 +140,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
           clickPref(
             title = DSLSettingsText.from(R.string.preferences_account_reregister),
             onClick = {
-              startActivity(RegistrationNavigationActivity.newIntentForReRegistration(requireContext()))
+              startActivity(RegistrationActivity.newIntentForReRegistration(requireContext()))
             }
           )
         }
@@ -153,7 +152,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
               .setTitle(R.string.preferences_account_delete_all_data_confirmation_title)
               .setMessage(R.string.preferences_account_delete_all_data_confirmation_message)
               .setPositiveButton(R.string.preferences_account_delete_all_data_confirmation_proceed) { _: DialogInterface, _: Int ->
-                if (!ServiceUtil.getActivityManager(ApplicationDependencies.getApplication()).clearApplicationUserData()) {
+                if (!ServiceUtil.getActivityManager(AppDependencies.application).clearApplicationUserData()) {
                   Toast.makeText(requireContext(), R.string.preferences_account_delete_all_data_failed, Toast.LENGTH_LONG).show()
                 }
               }
@@ -182,7 +181,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
   }
 
   private fun setPinRemindersEnabled(enabled: Boolean) {
-    SignalStore.pinValues().setPinRemindersEnabled(enabled)
+    SignalStore.pin.setPinRemindersEnabled(enabled)
     viewModel.refreshState()
   }
 }

@@ -11,7 +11,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadTable;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.keyvalue.KeepMessagesDuration;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 
@@ -85,7 +85,7 @@ public class TrimThreadsByDateManager extends TimedEventManager<TrimThreadsByDat
     @Override
     public void onReceiveUnlock(@NonNull Context context, @NonNull Intent intent) {
       Log.d(TAG, "onReceive()");
-      ApplicationDependencies.getTrimThreadsByDateManager().scheduleIfNecessary();
+      AppDependencies.getTrimThreadsByDateManager().scheduleIfNecessary();
     }
   }
 

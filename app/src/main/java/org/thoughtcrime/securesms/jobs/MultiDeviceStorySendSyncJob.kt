@@ -2,7 +2,7 @@ package org.thoughtcrime.securesms.jobs
 
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JsonJobData
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
@@ -11,7 +11,6 @@ import org.whispersystems.signalservice.api.messages.SignalServiceStoryMessageRe
 import org.whispersystems.signalservice.api.messages.multidevice.SentTranscriptMessage
 import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
-import java.lang.Exception
 import java.util.Optional
 import java.util.concurrent.TimeUnit
 
@@ -57,7 +56,7 @@ class MultiDeviceStorySendSyncJob private constructor(parameters: Parameters, pr
     val updateManifest = SignalDatabase.storySends.getLocalManifest(sentTimestamp)
     val recipientsSet: Set<SignalServiceStoryMessageRecipient> = updateManifest.toRecipientsSet()
     val transcriptMessage: SignalServiceSyncMessage = SignalServiceSyncMessage.forSentTranscript(buildSentTranscript(recipientsSet))
-    val sendMessageResult = ApplicationDependencies.getSignalServiceMessageSender().sendSyncMessage(transcriptMessage, Optional.empty())
+    val sendMessageResult = AppDependencies.signalServiceMessageSender.sendSyncMessage(transcriptMessage)
 
     Log.i(TAG, "Sent transcript message with ${recipientsSet.size} recipients")
 

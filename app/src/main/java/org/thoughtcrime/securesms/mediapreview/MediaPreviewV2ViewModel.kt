@@ -93,7 +93,7 @@ class MediaPreviewV2ViewModel : ViewModel() {
   }
 
   fun localDelete(context: Context, attachment: DatabaseAttachment): Completable {
-    return repository.localDelete(context, attachment).subscribeOn(Schedulers.io())
+    return repository.localDelete(attachment).subscribeOn(Schedulers.io())
   }
 
   fun jumpToFragment(context: Context, messageId: Long): Single<Intent> {
@@ -131,6 +131,7 @@ fun MediaTable.MediaRecord.toMedia(): Media? {
     attachment.videoGif,
     Optional.empty(),
     Optional.ofNullable(attachment.caption),
+    Optional.empty(),
     Optional.empty()
   )
 }

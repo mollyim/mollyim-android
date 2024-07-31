@@ -8,6 +8,7 @@ import org.thoughtcrime.securesms.blurhash.BlurHash
 import org.thoughtcrime.securesms.database.AttachmentTable.TransformProperties
 import org.thoughtcrime.securesms.stickers.StickerLocator
 import java.util.Objects
+import java.util.UUID
 
 class UriAttachment : Attachment {
 
@@ -46,6 +47,7 @@ class UriAttachment : Attachment {
     transformProperties = transformProperties
   )
 
+  @JvmOverloads
   constructor(
     dataUri: Uri,
     contentType: String,
@@ -63,7 +65,8 @@ class UriAttachment : Attachment {
     stickerLocator: StickerLocator?,
     blurHash: BlurHash?,
     audioHash: AudioHash?,
-    transformProperties: TransformProperties?
+    transformProperties: TransformProperties?,
+    uuid: UUID? = UUID.randomUUID()
   ) : super(
     contentType = contentType,
     transferState = transferState,
@@ -87,7 +90,8 @@ class UriAttachment : Attachment {
     stickerLocator = stickerLocator,
     blurHash = blurHash,
     audioHash = audioHash,
-    transformProperties = transformProperties
+    transformProperties = transformProperties,
+    uuid = uuid
   ) {
     uri = Objects.requireNonNull(dataUri)
   }

@@ -8,15 +8,15 @@ import androidx.annotation.Nullable;
 
 import org.signal.core.util.ListUtil;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
+import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.MessageTable.MarkedMessageInfo;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.database.model.StoryType;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.jobmanager.JsonJobData;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
+import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
@@ -100,7 +100,7 @@ public class SendViewedReceiptJob extends BaseJob {
    * maximum size.
    */
   public static void enqueue(long threadId, @NonNull RecipientId recipientId, List<MarkedMessageInfo> markedMessageInfos) {
-    JobManager                    jobManager      = ApplicationDependencies.getJobManager();
+    JobManager                    jobManager      = AppDependencies.getJobManager();
     List<List<MarkedMessageInfo>> messageIdChunks = ListUtil.chunk(markedMessageInfos, MAX_TIMESTAMPS);
 
     if (messageIdChunks.size() > 1) {
@@ -136,7 +136,7 @@ public class SendViewedReceiptJob extends BaseJob {
   public void onRun() throws IOException, UntrustedIdentityException {
 
     boolean canSendNonStoryReceipts = TextSecurePreferences.isReadReceiptsEnabled(context);
-    boolean canSendStoryReceipts    = SignalStore.storyValues().getViewedReceiptsEnabled();
+    boolean canSendStoryReceipts    = SignalStore.story().getViewedReceiptsEnabled();
 
     List<MessageId> foundMessageIds       = new LinkedList<>();
     List<Long>      messageSentTimestamps = new LinkedList<>();
@@ -201,14 +201,15 @@ public class SendViewedReceiptJob extends BaseJob {
       return;
     }
 
-    SignalServiceMessageSender  messageSender  = ApplicationDependencies.getSignalServiceMessageSender();
+    SignalServiceMessageSender  messageSender  = AppDependencies.getSignalServiceMessageSender();
     SignalServiceAddress        remoteAddress  = RecipientUtil.toSignalServiceAddress(context, recipient);
     SignalServiceReceiptMessage receiptMessage = new SignalServiceReceiptMessage(SignalServiceReceiptMessage.Type.VIEWED,
                                                                                  messageSentTimestamps,
                                                                                  timestamp);
 
     SendMessageResult result = messageSender.sendReceipt(remoteAddress,
-                                                         UnidentifiedAccessUtil.getAccessFor(context, Recipient.resolved(recipientId)),
+                                                         SealedSenderAccessUtil.getSealedSenderAccessFor(recipient,
+                                                                                                         () -> SignalDatabase.groups().getGroupSendFullToken(threadId, recipientId)),
                                                          receiptMessage,
                                                          recipient.getNeedsPniSignature());
 

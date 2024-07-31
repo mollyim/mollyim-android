@@ -14,7 +14,7 @@ import org.signal.core.util.SetUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
 import org.thoughtcrime.securesms.database.SignalDatabase;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
@@ -88,7 +88,7 @@ public class ContactsSyncAdapter extends AbstractThreadedSyncAdapter {
         ContactDiscovery.refresh(context, recipients, true);
       } catch (IOException e) {
         Log.w(TAG, "Failed to refresh! Scheduling for later.", e);
-        ApplicationDependencies.getJobManager().add(new DirectoryRefreshJob(true));
+        AppDependencies.getJobManager().add(new DirectoryRefreshJob(true));
       }
     } else {
       Log.i(TAG, "No new contacts. Just syncing system contact data.");

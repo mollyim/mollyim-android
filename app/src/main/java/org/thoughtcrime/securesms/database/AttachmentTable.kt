@@ -68,11 +68,12 @@ import org.thoughtcrime.securesms.blurhash.BlurHash
 import org.thoughtcrime.securesms.crypto.AttachmentSecret
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream
 import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream
+import org.thoughtcrime.securesms.database.MessageTable.SyncMessageId
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.messages
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.stickers
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.threads
 import org.thoughtcrime.securesms.database.model.databaseprotos.AudioWaveFormData
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.AttachmentDownloadJob
 import org.thoughtcrime.securesms.jobs.AttachmentUploadJob
 import org.thoughtcrime.securesms.jobs.GenerateAudioWaveFormJob
@@ -86,6 +87,7 @@ import org.thoughtcrime.securesms.util.JsonUtils.SaneJSONObject
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.StorageUtil
 import org.thoughtcrime.securesms.video.EncryptedMediaDataSource
+import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.internal.util.JsonUtil
 import java.io.File
 import java.io.FileNotFoundException
@@ -150,6 +152,8 @@ class AttachmentTable(
     const val ARCHIVE_THUMBNAIL_CDN = "archive_thumbnail_cdn"
     const val ARCHIVE_TRANSFER_FILE = "archive_transfer_file"
     const val ARCHIVE_TRANSFER_STATE = "archive_transfer_state"
+    const val THUMBNAIL_RESTORE_STATE = "thumbnail_restore_state"
+    const val ATTACHMENT_UUID = "attachment_uuid"
 
     const val ATTACHMENT_JSON_ALIAS = "attachment_json"
 
@@ -204,7 +208,9 @@ class AttachmentTable(
       ARCHIVE_MEDIA_NAME,
       ARCHIVE_MEDIA_ID,
       ARCHIVE_TRANSFER_FILE,
-      THUMBNAIL_FILE
+      THUMBNAIL_FILE,
+      THUMBNAIL_RESTORE_STATE,
+      ATTACHMENT_UUID
     )
 
     @JvmField
@@ -246,12 +252,14 @@ class AttachmentTable(
         $ARCHIVE_CDN INTEGER DEFAULT 0,
         $ARCHIVE_MEDIA_NAME TEXT DEFAULT NULL,
         $ARCHIVE_MEDIA_ID TEXT DEFAULT NULL,
-        $ARCHIVE_THUMBNAIL_MEDIA_ID TEXT DEFAULT NULL,
-        $ARCHIVE_THUMBNAIL_CDN INTEGER DEFAULT 0,
         $ARCHIVE_TRANSFER_FILE TEXT DEFAULT NULL,
         $ARCHIVE_TRANSFER_STATE INTEGER DEFAULT ${ArchiveTransferState.NONE.value},
+        $ARCHIVE_THUMBNAIL_CDN INTEGER DEFAULT 0,
+        $ARCHIVE_THUMBNAIL_MEDIA_ID TEXT DEFAULT NULL,
         $THUMBNAIL_FILE TEXT DEFAULT NULL,
-        $THUMBNAIL_RANDOM BLOB DEFAULT NULL
+        $THUMBNAIL_RANDOM BLOB DEFAULT NULL,
+        $THUMBNAIL_RESTORE_STATE INTEGER DEFAULT ${ThumbnailRestoreState.NONE.value},
+        $ATTACHMENT_UUID TEXT DEFAULT NULL
       )
       """
 
@@ -528,7 +536,7 @@ class AttachmentTable(
         .forEach { cursor ->
           val attachmentId = AttachmentId(cursor.requireLong(ID))
 
-          ApplicationDependencies.getJobManager().cancelAllInQueue(AttachmentDownloadJob.constructQueueString(attachmentId))
+          AppDependencies.jobManager.cancelAllInQueue(AttachmentDownloadJob.constructQueueString(attachmentId))
 
           deleteDataFileIfPossible(
             filePath = cursor.requireString(DATA_FILE),
@@ -647,6 +655,47 @@ class AttachmentTable(
     }
   }
 
+  fun deleteAttachments(toDelete: List<SyncAttachmentId>): List<SyncMessageId> {
+    val unhandled = mutableListOf<SyncMessageId>()
+    for (syncAttachmentId in toDelete) {
+      val messageId = SignalDatabase.messages.getMessageIdOrNull(syncAttachmentId.syncMessageId)
+      if (messageId != null) {
+        val attachments = readableDatabase
+          .select(ID, ATTACHMENT_UUID, REMOTE_DIGEST, DATA_HASH_END)
+          .from(TABLE_NAME)
+          .where("$MESSAGE_ID = ?", messageId)
+          .run()
+          .readToList {
+            SyncAttachment(
+              id = AttachmentId(it.requireLong(ID)),
+              uuid = UuidUtil.parseOrNull(it.requireString(ATTACHMENT_UUID)),
+              digest = it.requireBlob(REMOTE_DIGEST),
+              plaintextHash = it.requireString(DATA_HASH_END)
+            )
+          }
+
+        val byUuid: SyncAttachment? by lazy { attachments.firstOrNull { it.uuid != null && it.uuid == syncAttachmentId.uuid } }
+        val byDigest: SyncAttachment? by lazy { attachments.firstOrNull { it.digest != null && it.digest.contentEquals(syncAttachmentId.digest) } }
+        val byPlaintext: SyncAttachment? by lazy { attachments.firstOrNull { it.plaintextHash != null && it.plaintextHash == syncAttachmentId.plaintextHash } }
+
+        val attachmentToDelete = (byUuid ?: byDigest ?: byPlaintext)?.id
+        if (attachmentToDelete != null) {
+          if (attachments.size == 1) {
+            SignalDatabase.messages.deleteMessage(messageId)
+          } else {
+            deleteAttachment(attachmentToDelete)
+          }
+        } else {
+          Log.i(TAG, "Unable to locate sync attachment to delete for message:$messageId")
+        }
+      } else {
+        unhandled += syncAttachmentId.syncMessageId
+      }
+    }
+
+    return unhandled
+  }
+
   fun trimAllAbandonedAttachments() {
     val deleteCount = writableDatabase
       .delete(TABLE_NAME)
@@ -735,12 +784,34 @@ class AttachmentTable(
     notifyConversationListeners(threadId)
   }
 
+  fun setThumbnailTransferState(messageId: Long, attachmentId: AttachmentId, thumbnailRestoreState: ThumbnailRestoreState) {
+    writableDatabase
+      .update(TABLE_NAME)
+      .values(THUMBNAIL_RESTORE_STATE to thumbnailRestoreState.value)
+      .where("$ID = ?", attachmentId.id)
+      .run()
+
+    val threadId = messages.getThreadIdForMessage(messageId)
+    notifyConversationListeners(threadId)
+  }
+
   @Throws(MmsException::class)
   fun setTransferProgressFailed(attachmentId: AttachmentId, mmsId: Long) {
     writableDatabase
       .update(TABLE_NAME)
       .values(TRANSFER_STATE to TRANSFER_PROGRESS_FAILED)
       .where("$ID = ? AND $TRANSFER_STATE < $TRANSFER_PROGRESS_PERMANENT_FAILURE", attachmentId.id)
+      .run()
+
+    notifyConversationListeners(messages.getThreadIdForMessage(mmsId))
+  }
+
+  @Throws(MmsException::class)
+  fun setThumbnailRestoreProgressFailed(attachmentId: AttachmentId, mmsId: Long) {
+    writableDatabase
+      .update(TABLE_NAME)
+      .values(THUMBNAIL_RESTORE_STATE to ThumbnailRestoreState.PERMANENT_FAILURE.value)
+      .where("$ID = ? AND $THUMBNAIL_RESTORE_STATE != ?", attachmentId.id, ThumbnailRestoreState.FINISHED)
       .run()
 
     notifyConversationListeners(messages.getThreadIdForMessage(mmsId))
@@ -776,7 +847,7 @@ class AttachmentTable(
       // We don't look at hash_start here because that could result in us matching on a file that got compressed down to something smaller, effectively lowering
       // the quality of the attachment we received.
       val hashMatch: DataFileInfo? = readableDatabase
-        .select(ID, DATA_FILE, DATA_SIZE, DATA_RANDOM, DATA_HASH_START, DATA_HASH_END, TRANSFORM_PROPERTIES, UPLOAD_TIMESTAMP)
+        .select(ID, DATA_FILE, DATA_SIZE, DATA_RANDOM, DATA_HASH_START, DATA_HASH_END, TRANSFORM_PROPERTIES, UPLOAD_TIMESTAMP, ARCHIVE_CDN, ARCHIVE_MEDIA_NAME, ARCHIVE_MEDIA_ID)
         .from(TABLE_NAME)
         .where("$DATA_HASH_END = ? AND $DATA_HASH_END NOT NULL AND $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND $DATA_FILE NOT NULL", fileWriteResult.hash)
         .run()
@@ -792,6 +863,9 @@ class AttachmentTable(
         values.put(DATA_RANDOM, hashMatch.random)
         values.put(DATA_HASH_START, hashMatch.hashEnd)
         values.put(DATA_HASH_END, hashMatch.hashEnd)
+        values.put(ARCHIVE_CDN, hashMatch.archiveCdn)
+        values.put(ARCHIVE_MEDIA_NAME, hashMatch.archiveMediaName)
+        values.put(ARCHIVE_MEDIA_ID, hashMatch.archiveMediaId)
       } else {
         values.put(DATA_FILE, fileWriteResult.file.absolutePath)
         values.put(DATA_SIZE, fileWriteResult.length)
@@ -853,17 +927,13 @@ class AttachmentTable(
     writableDatabase.withinTransaction { db ->
       val values = contentValuesOf(
         THUMBNAIL_FILE to fileWriteResult.file.absolutePath,
-        THUMBNAIL_RANDOM to fileWriteResult.random
+        THUMBNAIL_RANDOM to fileWriteResult.random,
+        THUMBNAIL_RESTORE_STATE to ThumbnailRestoreState.FINISHED.value
       )
 
       db.update(TABLE_NAME)
         .values(values)
         .where("$ARCHIVE_MEDIA_ID = ?", archiveMediaId)
-        .run()
-
-      db.update(TABLE_NAME)
-        .values(TRANSFER_STATE to TRANSFER_RESTORE_OFFLOADED)
-        .where("$ID = ?", attachmentId.id)
         .run()
     }
 
@@ -1213,7 +1283,7 @@ class AttachmentTable(
 
   fun getDataFileInfo(attachmentId: AttachmentId): DataFileInfo? {
     return readableDatabase
-      .select(ID, DATA_FILE, DATA_SIZE, DATA_RANDOM, DATA_HASH_START, DATA_HASH_END, TRANSFORM_PROPERTIES, UPLOAD_TIMESTAMP)
+      .select(ID, DATA_FILE, DATA_SIZE, DATA_RANDOM, DATA_HASH_START, DATA_HASH_END, TRANSFORM_PROPERTIES, UPLOAD_TIMESTAMP, ARCHIVE_CDN, ARCHIVE_MEDIA_NAME, ARCHIVE_MEDIA_ID)
       .from(TABLE_NAME)
       .where("$ID = ?", attachmentId.id)
       .run()
@@ -1391,7 +1461,9 @@ class AttachmentTable(
               archiveThumbnailCdn = jsonObject.getInt(ARCHIVE_THUMBNAIL_CDN),
               archiveMediaName = jsonObject.getString(ARCHIVE_MEDIA_NAME),
               archiveMediaId = jsonObject.getString(ARCHIVE_MEDIA_ID),
-              hasArchiveThumbnail = !TextUtils.isEmpty(jsonObject.getString(THUMBNAIL_FILE))
+              hasArchiveThumbnail = !TextUtils.isEmpty(jsonObject.getString(THUMBNAIL_FILE)),
+              thumbnailRestoreState = ThumbnailRestoreState.deserialize(jsonObject.getInt(THUMBNAIL_RESTORE_STATE)),
+              uuid = UuidUtil.parseOrNull(jsonObject.getString(ATTACHMENT_UUID))
             )
           }
         }
@@ -1431,18 +1503,34 @@ class AttachmentTable(
     return readableDatabase.rawQuery(query, null)
   }
 
+  /**
+   * Sets the archive data for the specific attachment, as well as for any attachments that use the same underlying file.
+   */
   fun setArchiveData(attachmentId: AttachmentId, archiveCdn: Int, archiveMediaName: String, archiveMediaId: String, archiveThumbnailMediaId: String) {
-    writableDatabase
-      .update(TABLE_NAME)
-      .values(
-        ARCHIVE_CDN to archiveCdn,
-        ARCHIVE_MEDIA_ID to archiveMediaId,
-        ARCHIVE_MEDIA_NAME to archiveMediaName,
-        ARCHIVE_THUMBNAIL_MEDIA_ID to archiveThumbnailMediaId,
-        ARCHIVE_TRANSFER_STATE to ArchiveTransferState.FINISHED.value
-      )
-      .where("$ID = ?", attachmentId.id)
-      .run()
+    writableDatabase.withinTransaction { db ->
+      val dataFile = db
+        .select(DATA_FILE)
+        .from(TABLE_NAME)
+        .where("$ID = ?", attachmentId.id)
+        .run()
+        .readToSingleObject { it.requireString(DATA_FILE) }
+
+      if (dataFile == null) {
+        Log.w(TAG, "No data file found for attachment $attachmentId. Can't set archive data.")
+        return@withinTransaction
+      }
+
+      db.update(TABLE_NAME)
+        .values(
+          ARCHIVE_CDN to archiveCdn,
+          ARCHIVE_MEDIA_ID to archiveMediaId,
+          ARCHIVE_MEDIA_NAME to archiveMediaName,
+          ARCHIVE_THUMBNAIL_MEDIA_ID to archiveThumbnailMediaId,
+          ARCHIVE_TRANSFER_STATE to ArchiveTransferState.FINISHED.value
+        )
+        .where("$DATA_FILE = ?", dataFile)
+        .run()
+    }
   }
 
   fun updateArchiveCdnByMediaId(archiveMediaId: String, archiveCdn: Int): Int {
@@ -1692,6 +1780,7 @@ class AttachmentTable(
         put(CAPTION, attachment.caption)
         put(UPLOAD_TIMESTAMP, attachment.uploadTimestamp)
         put(BLUR_HASH, attachment.blurHash?.hash)
+        put(ATTACHMENT_UUID, attachment.uuid?.toString())
 
         attachment.stickerLocator?.let { sticker ->
           put(STICKER_PACK_ID, sticker.packId)
@@ -1746,6 +1835,8 @@ class AttachmentTable(
         put(ARCHIVE_MEDIA_NAME, attachment.archiveMediaName)
         put(ARCHIVE_MEDIA_ID, attachment.archiveMediaId)
         put(ARCHIVE_THUMBNAIL_MEDIA_ID, attachment.archiveThumbnailMediaId)
+        put(THUMBNAIL_RESTORE_STATE, ThumbnailRestoreState.NEEDS_RESTORE.value)
+        put(ATTACHMENT_UUID, attachment.uuid?.toString())
 
         attachment.stickerLocator?.let { sticker ->
           put(STICKER_PACK_ID, sticker.packId)
@@ -1789,7 +1880,7 @@ class AttachmentTable(
       // First we'll check if our file hash matches the starting or ending hash of any other attachments and has compatible transform properties.
       // We'll prefer the match with the most recent upload timestamp.
       val hashMatch: DataFileInfo? = readableDatabase
-        .select(ID, DATA_FILE, DATA_SIZE, DATA_RANDOM, DATA_HASH_START, DATA_HASH_END, TRANSFORM_PROPERTIES, UPLOAD_TIMESTAMP)
+        .select(ID, DATA_FILE, DATA_SIZE, DATA_RANDOM, DATA_HASH_START, DATA_HASH_END, TRANSFORM_PROPERTIES, UPLOAD_TIMESTAMP, ARCHIVE_CDN, ARCHIVE_MEDIA_NAME, ARCHIVE_MEDIA_ID)
         .from(TABLE_NAME)
         .where("$DATA_FILE NOT NULL AND ($DATA_HASH_START = ? OR $DATA_HASH_END = ?)", fileWriteResult.hash, fileWriteResult.hash)
         .run()
@@ -1819,6 +1910,9 @@ class AttachmentTable(
         contentValues.put(DATA_RANDOM, hashMatch.random)
         contentValues.put(DATA_HASH_START, fileWriteResult.hash)
         contentValues.put(DATA_HASH_END, hashMatch.hashEnd)
+        contentValues.put(ARCHIVE_CDN, hashMatch.archiveCdn)
+        contentValues.put(ARCHIVE_MEDIA_NAME, hashMatch.archiveMediaName)
+        contentValues.put(ARCHIVE_MEDIA_ID, hashMatch.archiveMediaId)
 
         if (hashMatch.transformProperties.skipTransform) {
           Log.i(TAG, "[insertAttachmentWithData] The hash match has a DATA_HASH_END and skipTransform=true, so skipping transform of the new file as well. (MessageId: $messageId, ${attachment.uri})")
@@ -1869,6 +1963,7 @@ class AttachmentTable(
       contentValues.put(CAPTION, attachment.caption)
       contentValues.put(UPLOAD_TIMESTAMP, uploadTemplate?.uploadTimestamp ?: 0)
       contentValues.put(TRANSFORM_PROPERTIES, transformProperties.serialize())
+      contentValues.put(ATTACHMENT_UUID, attachment.uuid?.toString())
 
       if (attachment.transformProperties?.videoEdited == true) {
         contentValues.putNull(BLUR_HASH)
@@ -1959,7 +2054,9 @@ class AttachmentTable(
       archiveThumbnailCdn = cursor.requireInt(ARCHIVE_THUMBNAIL_CDN),
       archiveMediaName = cursor.requireString(ARCHIVE_MEDIA_NAME),
       archiveMediaId = cursor.requireString(ARCHIVE_MEDIA_ID),
-      hasArchiveThumbnail = !cursor.isNull(THUMBNAIL_FILE)
+      hasArchiveThumbnail = !cursor.isNull(THUMBNAIL_FILE),
+      thumbnailRestoreState = ThumbnailRestoreState.deserialize(cursor.requireInt(THUMBNAIL_RESTORE_STATE)),
+      uuid = UuidUtil.parseOrNull(cursor.requireString(ATTACHMENT_UUID))
     )
   }
 
@@ -1980,7 +2077,10 @@ class AttachmentTable(
       hashStart = this.requireString(DATA_HASH_START),
       hashEnd = this.requireString(DATA_HASH_END),
       transformProperties = TransformProperties.parse(this.requireString(TRANSFORM_PROPERTIES)),
-      uploadTimestamp = this.requireLong(UPLOAD_TIMESTAMP)
+      uploadTimestamp = this.requireLong(UPLOAD_TIMESTAMP),
+      archiveCdn = this.requireInt(ARCHIVE_CDN),
+      archiveMediaName = this.requireString(ARCHIVE_MEDIA_NAME),
+      archiveMediaId = this.requireString(ARCHIVE_MEDIA_ID)
     )
   }
 
@@ -2043,7 +2143,10 @@ class AttachmentTable(
     val hashStart: String?,
     val hashEnd: String?,
     val transformProperties: TransformProperties,
-    val uploadTimestamp: Long
+    val uploadTimestamp: Long,
+    val archiveCdn: Int,
+    val archiveMediaName: String?,
+    val archiveMediaId: String?
   )
 
   @VisibleForTesting
@@ -2075,8 +2178,7 @@ class AttachmentTable(
     @JvmField
     val sentMediaQuality: Int = SentMediaQuality.STANDARD.code,
 
-    @field:JsonProperty("mp4Faststart")
-    @param:JsonProperty("mp4Faststart")
+    @JsonProperty("mp4Faststart")
     @JvmField
     val mp4FastStart: Boolean = false
   ) : Parcelable {
@@ -2166,6 +2268,29 @@ class AttachmentTable(
     }
   }
 
+  enum class ThumbnailRestoreState(val value: Int) {
+    /** No thumbnail downloaded. */
+    NONE(0),
+
+    /** The thumbnail needs to be restored still. */
+    NEEDS_RESTORE(1),
+
+    /** The restore of the thumbnail is in progress */
+    IN_PROGRESS(2),
+
+    /** Completely restored the thumbnail. */
+    FINISHED(3),
+
+    /** It is impossible to restore the thumbnail. */
+    PERMANENT_FAILURE(4);
+
+    companion object {
+      fun deserialize(value: Int): ThumbnailRestoreState {
+        return values().firstOrNull { it.value == value } ?: NONE
+      }
+    }
+  }
+
   /**
    * This maintains two different state paths for uploading attachments to the archive.
    *
@@ -2205,4 +2330,8 @@ class AttachmentTable(
       }
     }
   }
+
+  class SyncAttachmentId(val syncMessageId: SyncMessageId, val uuid: UUID?, val digest: ByteArray?, val plaintextHash: String?)
+
+  class SyncAttachment(val id: AttachmentId, val uuid: UUID?, val digest: ByteArray?, val plaintextHash: String?)
 }

@@ -6,7 +6,6 @@
 package org.whispersystems.signalservice.internal.push.exceptions
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.ChargeFailure
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.Processor
@@ -16,8 +15,8 @@ import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.Pro
  * confirming a PayPal intent.
  */
 class DonationProcessorError @JsonCreator constructor(
-  @JsonProperty("processor") val processor: Processor,
-  @JsonProperty("chargeFailure") val chargeFailure: ChargeFailure
+  val processor: Processor,
+  val chargeFailure: ChargeFailure
 ) : NonSuccessfulResponseCodeException(440) {
   override fun toString(): String {
     return """

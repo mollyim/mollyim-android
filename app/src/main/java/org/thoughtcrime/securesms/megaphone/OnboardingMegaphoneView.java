@@ -63,7 +63,7 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
     // MOLLY: New group card is replaced by stories, that is opt-in
     private static final int TYPE_STORIES    = 0;
-    private static final int TYPE_INVITE     = 1;
+    //private static final int TYPE_INVITE   = 1;
     private static final int TYPE_APPEARANCE = 2;
     private static final int TYPE_ADD_PHOTO  = 3;
 
@@ -99,7 +99,6 @@ public class OnboardingMegaphoneView extends FrameLayout {
       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.onboarding_megaphone_card, parent, false);
       switch (viewType) {
         case TYPE_STORIES:    return new StoriesViewHolder(view);
-        case TYPE_INVITE:     return new InviteCardViewHolder(view);
         case TYPE_APPEARANCE: return new AppearanceCardViewHolder(view);
         case TYPE_ADD_PHOTO:  return new AddPhotoCardViewHolder(view);
         default:              throw new IllegalStateException("Invalid viewType! " + viewType);
@@ -130,12 +129,8 @@ public class OnboardingMegaphoneView extends FrameLayout {
     private static List<Integer> buildData() {
       List<Integer> data = new ArrayList<>();
 
-      if (SignalStore.onboarding().shouldShowStories() && SignalStore.storyValues().isFeatureDisabled()) {
+      if (SignalStore.onboarding().shouldShowStories() && SignalStore.story().isFeatureDisabled()) {
         data.add(TYPE_STORIES);
-      }
-
-      if (SignalStore.onboarding().shouldShowInviteFriends()) {
-        data.add(TYPE_INVITE);
       }
 
       if (SignalStore.onboarding().shouldShowAddPhoto() && !SignalStore.misc().getHasEverHadAnAvatar()) {
@@ -220,38 +215,6 @@ public class OnboardingMegaphoneView extends FrameLayout {
     @Override
     void onCloseClicked() {
       SignalStore.onboarding().setShowStories(false);
-    }
-  }
-
-  private static class InviteCardViewHolder extends CardViewHolder {
-
-    public InviteCardViewHolder(@NonNull View itemView) {
-      super(itemView);
-    }
-
-    @Override
-    int getButtonStringRes() {
-      return R.string.Megaphones_invite_friends;
-    }
-
-    @Override
-    int getImageRes() {
-      return R.drawable.symbol_invite_24;
-    }
-
-    @Override
-    int getBackgroundColor() {
-      return R.color.onboarding_background_2;
-    }
-
-    @Override
-    void onActionClicked(@NonNull MegaphoneActionController controller) {
-      controller.onMegaphoneNavigationRequested(new Intent(controller.getMegaphoneActivity(), InviteActivity.class));
-    }
-
-    @Override
-    void onCloseClicked() {
-      SignalStore.onboarding().setShowInviteFriends(false);
     }
   }
 

@@ -4,7 +4,7 @@ import androidx.annotation.WorkerThread;
 
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.push.AccountManagerFactory;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
@@ -35,7 +35,7 @@ public final class SignalProxyUtil {
   private static boolean testWebsocketConnectionUnregistered(long timeout) {
     CountDownLatch              latch          = new CountDownLatch(1);
     AtomicBoolean               success        = new AtomicBoolean(false);
-    SignalServiceAccountManager accountManager = AccountManagerFactory.getInstance().createUnauthenticated(ApplicationDependencies.getApplication(), "", SignalServiceAddress.DEFAULT_DEVICE_ID, "");
+    SignalServiceAccountManager accountManager = AccountManagerFactory.getInstance().createUnauthenticated(AppDependencies.getApplication(), "", SignalServiceAddress.DEFAULT_DEVICE_ID, "");
 
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {

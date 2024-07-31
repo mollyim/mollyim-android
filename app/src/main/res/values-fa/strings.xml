@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ Copyright 2024 Signal Messenger, LLC
+  ~ SPDX-License-Identifier: AGPL-3.0-only
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -226,37 +227,37 @@
     <string name="CameraXFragment_change_camera_description">تغییر دوربین</string>
     <string name="CameraXFragment_open_gallery_description">باز کردن گالری</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">اجازۀ دسترسی بدهید</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">اجازه دسترسی به دوربین و میکروفن</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">اجازه دسترسی به دوربین</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">اجازۀ دسترسی به میکروفون‌تان</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">برای گرفتن عکس، به سیگنال اجازه دهید به دوربین دسترسی داشته باشد.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">برای ضبط عکس و ویدئو، به سیگنال اجازه دهید به دوربین شما دسترسی داشته باشد.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">برای گرفتن عکس و ویدیو، به سیگنال اجازه دهید به دوربین و میکروفن دسترسی داشته باشد.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">برای گرفتن ویدیوهای صدادار، به سیگنال اجازه دهید به میکروفن شما دسترسی داشته باشد.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">برای اسکن کد QR، به سیگنال اجازه دهید به دوربین دسترسی داشته باشد.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">سیگنال برای گرفتن عکس نیاز به دسترسی به دوربین دارد</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">سیگنال برای اسکن کردن کدهای QR نیاز به دسترسی به دوربین دارد</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">سیگنال برای گرفتن ویدیو نیاز به دسترسی به میکروفن دارد</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">برای گرفتن عکس در سیگنال:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">برای گرفتن عکس و ویدیو در سیگنال:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">برای گرفتن ویدیوهای صدادار:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">برای اسکن کردن کدهای QR:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">آخرین مخاطبین</string>
@@ -327,8 +328,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">ارسال پیام به %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">تماس صوتی سیگنال %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">تماس تصویری سیگنال %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -545,6 +546,8 @@
     <string name="ConversationFragment_delete_for_everyone">پاک کردن برای همه</string>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">پاک کردن در این دستگاه</string>
+    <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
+    <string name="ConversationFragment_delete">پاک کردن</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">پاک کردن در همه‌جا</string>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">این پیام برای همه در این گفتگو در صورتی که از نسخهٔ اخیر سیگنال استفاده کنند، پاک خواهد شد. آن‌ها قادر خواهند بود ببینند که شما پیامی را پاک کردید.</string>
@@ -646,6 +649,11 @@
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">این کار موجب پاک شدن دائمی گفتگوی انتخاب‌شده می‌شود.</item>
         <item quantity="other">این کار موجب پاک شدن دائمی همۀ %1$d گفتگوی انتخاب‌شده می‌شود.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">با این کار گفتگوی انتخابی برای همیشه از همه دستگاه‌های شما حذف می‌شود.</item>
+        <item quantity="other">با این کار همه %1$d گفتگوی انتخابی برای همیشه از همه دستگاه‌های شما حذف می‌شوند.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">در حال حذف</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -849,6 +857,61 @@
     <string name="DecryptionFailedDialog_chat_session_refreshed">نشست گفتگو تازه‌سازی شد</string>
     <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">سیگنال از رمزگذاری سرتاسر استفاده می‌کند و شاید گاهی نیاز به تازه‌سازی نشست گفتگو‌ی شما داشته باشد. این کار روی امنیت گفتگو‌‌ی شما تأثیری نمی‌گذارد، اما ممکن است شما پیامی را از این مخاطب از دست داده باشید، و می‌توانید از آن‌ها بخواهید که آن را دوباره ارسال کنند.</string>
 
+    <!-- LinkDeviceFragment -->
+    <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">از سیگنال روی دسکتاپ یا آی‌پد استفاده کنید. پیام‌های شما با دستگاه‌های متصل شما همگام‌سازی می‌شوند.</string>
+    <!-- Button prompting users to link a new device to their account -->
+    <string name="LinkDeviceFragment__link_a_new_device">اتصال دستگاه جدید</string>
+    <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
+    <string name="LinkDeviceFragment__messages_and_chat_info_are_protected">%1$s پیام‌ها و اطلاعات گفتگو با رمزگذاری سرتاسری در همه دستگاه‌ها محافظت می‌شوند</string>
+    <!-- Bottom sheet title explaining how Signal works on a linked device -->
+    <string name="LinkDeviceFragment__signal_on_desktop_ipad">سیگنال روی دسک‌تاپ یا آی‌پد</string>
+    <!-- Bottom sheet description explaining that messages on linked devices are private -->
+    <string name="LinkDeviceFragment__all_messaging_is_private">همۀ پیام‌ها در دستگاه‌های متصل خصوصی هستند</string>
+    <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
+    <string name="LinkDeviceFragment__signal_messages_are_synchronized">پس از متصل شدن تلفن، پیام‌های سیگنال با سیگنال در تلفن همراهتان همگام‌سازی می‌شوند. تاریخچه پیام‌های قبلی شما ظاهر نخواهد شد.</string>
+    <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">در دستگاه دیگر خود، برای نصب سیگنال به %1$s بروید</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
+    <!-- Header title listing out current linked devices -->
+    <string name="LinkDeviceFragment__my_linked_devices">دستگاه‌های متصل من</string>
+    <!-- Dialog confirmation to unlink a device -->
+    <string name="LinkDeviceFragment__unlink">قطع ارتباط</string>
+    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_unlinked">%1$s جدا شد</string>
+    <!-- Progress dialog message indicating that a device is currently being linked with an account -->
+    <string name="LinkDeviceFragment__linking_device">در حال اتصال دستگاه…</string>
+    <!-- Toast message shown after a device has been linked -->
+    <string name="LinkDeviceFragment__device_approved">دستگاه تأیید شد</string>
+    <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
+    <string name="LinkDeviceFragment__loading">در حال بارگیری…</string>
+    <!-- Text message shown when the user has no linked devices -->
+    <string name="LinkDeviceFragment__no_linked_devices">هیچ دستگاه متصلی وجود ندارد</string>
+    <!-- Title on biometrics prompt explaining what biometrics are being used for -->
+    <string name="LinkDeviceFragment__unlock_to_link">برای متصل کردن دستگاه، قفل را باز کنید</string>
+
+    <!-- AddLinkDeviceFragment -->
+    <!-- Description text shown on the QR code scanner when linking a device -->
+    <string name="AddLinkDeviceFragment__scan_the_qr_code">برای اتصال، کد QR نمایش‌داده‌شده در دستگاه را اسکن کنید.</string>
+    <!-- Bottom sheet title telling users to scan a qr code -->
+    <string name="AddLinkDeviceFragment__scan_qr_code">کد QR را اسکن کنید</string>
+    <!-- Bottom sheet description telling users how to scan a qr code -->
+    <string name="AddLinkDeviceFragment__use_this_device_to_scan_qr_code">از این دستگاه برای اسکن کد QR نمایش‌داده‌شده در دستگاهی که می‌خواهید متصل شود استفاده کنید</string>
+    <!-- Confirmation button to dismiss bottom sheet dialog -->
+    <string name="AddLinkDeviceFragment__okay">تأیید</string>
+    <!-- Dialog text describing the consequences of linking a device -->
+    <string name="AddLinkDeviceFragment__this_device_will_see_your_groups_contacts">این دستگاه قادر خواهد بود مخاطبین و گروه‌های شما را ببیند، به گفتگوهای شما دسترسی داشته باشد، و با نام شما پیام ارسال کند.</string>
+    <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
+    <string name="AddLinkDeviceFragment__finish_linking_on_other_device">اتصال را در دستگاه دیگر خود به پایان برسانید</string>
+    <!-- Bottom sheet description telling users to complete the linking process -->
+    <string name="AddLinkDeviceFragment__finish_linking_signal">اتصال سیگنال را در دستگاه دیگر خود به پایان برسانید.</string>
+    <!-- Title of dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__linking_device_failed">خطا در اتصال دستگاه جدید</string>
+    <!-- Text shown in a dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__this_qr_code_not_valid">کد QR معتبر نمی باشد. لطفا مطمئن شوید که در حال اسکن کد QR نمایش داده روی دستگاهی که قصد پیوند به آن را دارید می باشید.</string>
+    <!-- Button in dialog to retry linking a device with a qr code -->
+    <string name="AddLinkDeviceFragment__retry">تلاش مجدد</string>
+
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">جدا کردن \'%1$s\'؟</string>
     <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">با جدا کردن این دستگاه، دیگر قادر به ارسال و دریافت پیام نخواهد بود.</string>
@@ -1030,13 +1093,23 @@
     <!-- Message explaining that battery saver may delay notifications -->
     <string name="PromptBatterySaverBottomSheet__message">می‌توانید برای اطمینان از عدم تأخیر اعلان‌های پیام، بهینه‌سازی باتری را برای سیگنال غیرفعال کنید.</string>
 
+    <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
+    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">اعلان‌ها ممکن است به‌دلیل بهینه‌سازی باتری تأخیر داشته باشند</string>
+    <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">برای اطمینان از عدم تأخیر اعلان‌های پیام، بهینه‌سازی باتری را برای سیگنال غیرفعال کنید. برای مشاهده دستورالعمل‌های مخصوص دستگاه، روی «ادامه» ضربه بزنید.</string>
+    <!-- Button to dismiss notification help prompt -->
+    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">نه ممنون</string>
+    <!-- Button to continue and go to Signal support website -->
+    <string name="DeviceSpecificNotificationBottomSheet__continue">ادامه</string>
+
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">ادامه</string>
     <!-- Button to dismiss battery saver dialog prompt-->
-    <string name="PromptBatterySaverBottomSheet__dismiss">رد کردن</string>
+    <string name="PromptBatterySaverBottomSheet__no_thanks">نه ممنون</string>
+  <!-- Removed by excludeNonTranslatables <string name="PromptBatterySaverBottomSheet__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007318711#android_notifications_troubleshooting</string> -->
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">دعوت‌های در حال انتظار</string>
+    <string name="PendingMembersActivity_pending_group_invites">درخواست‌ها و دعوت‌ها</string>
     <string name="PendingMembersActivity_requests">درخواست‌ها</string>
     <string name="PendingMembersActivity_invites">دعوت‌ها</string>
     <string name="PendingMembersActivity_people_you_invited">افرادی که شما دعوت کردید</string>
@@ -1627,6 +1700,14 @@
     <string name="MessageRecord_you_activated_payments">شما پرداخت‌ها را فعال کردید</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s اکنون می‌تواند پرداخت‌ها را بپذیرد</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">جزئیات پرداخت در دسترس نیست</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">برای قالب‌های بیشتر لمس کنید</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">جزئیات پرداخت در دسترس نیست</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">جزئیات این پرداخت در دسترس نیست زیرا پیام‌های شما از منبعی بازیابی شده که شامل تاریخچه این پرداخت نبوده است. این امر بر موجودی کیف پول شما یا وضعیت پرداخت‌های گذشته تأثیری ندارد.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1686,6 +1767,8 @@
     <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">دیگر نمی‌توانید در سیگنال پیامک ارسال کنید. برای ادامه مکالمه در اینجا، %1$s را به سیگنال دعوت کنید.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">پرداخت: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">پرداخت</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">به‌عنوان هرزنامه گزارش شد</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -1869,7 +1952,8 @@
     <string name="RedPhone_ringing">در حال زنگ خوردن…</string>
     <string name="RedPhone_busy">مشغول</string>
     <string name="RedPhone_recipient_unavailable">گیرنده در دسترس نیست</string>
-    <string name="RedPhone_network_failed">خرابی شبکه!</string>
+    <!-- Error message shown during a call when a fatal network error occurs. -->
+    <string name="RedPhone_network_failed">خرابی شبکه! لطفاً اتصال شبکه خود را بررسی و دوباره امتحان کنید.</string>
     <string name="RedPhone_number_not_registered">شماره ثبت نشده است!</string>
     <string name="RedPhone_the_number_you_dialed_does_not_support_secure_voice">شماره‌ای که گرفتید از تماس امن پشتیبانی نمی‌کند!</string>
     <string name="RedPhone_got_it">فهمیدم</string>
@@ -1935,6 +2019,26 @@
     <string name="WebRtcCallActivity__removed_from_call">از تماس حذف شد</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">کسی شما را از تماس حذف کرده است.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">اجازه دسترسی به دوربین و میکروفن</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">اجازۀ دسترسی به میکروفون‌تان</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">اجازه دسترسی به دوربین</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">برای شروع یا پیوستن به تماس، به سیگنال اجازه دسترسی به دوربین و میکروفون را بدهید.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">برای شروع یا پیوستن به تماس، به سیگنال اجازه دسترسی به میکروفون را بدهید.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">برای فعال کردن ویدیو، اجازه دسترسی سیگنال به دوربین خود را بدهید.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">سیگنال برای شروع یا پیوستن به تماس به مجوزهای میکروفون نیاز دارد.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">سیگنال برای فعال کردن ویدیو نیاز به دسترسی به دوربین دارد</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">برای شروع یا پیوستن به تماس:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">برای فعال کردن ویدیو:</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">تماس سیگنال</string>
@@ -2028,22 +2132,41 @@
     <!-- A dialog prompt to confirm you want to lower your hand -->
     <string name="CallOverflowPopupWindow__lower_your_hand">دستتان را پایین می‌آورید؟</string>
     <!-- A dialog button to confirm you would like to lower your hand -->
-    <string name="CallOverflowPopupWindow__lower_hand">پایین آوردن دست</string>
+    <string name="CallOverflowPopupWindow__lower_hand">پایین آوردن</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">لغو</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">شما دستتان را بالا بردید</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">مشاهده</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">%1$s دستش را بالا برده است</item>
-        <item quantity="other">%1$s + %2$d دستشان را بالا برده‌اند</item>
+
+    <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s دست‌تان را بالا برده‌اید</string>
+    <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_multiple">
+        <item quantity="one">%1$s و %2$d دستشان را بالا برده‌اند</item>
+        <item quantity="other">%1$s و %2$d دستشان را بالا برده‌اند</item>
     </plurals>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
+    <!-- A notification to the user that one participant in the call successfully raised their hand. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_single">%1$s دستش را بالا برده است</string>
+    <!-- A notification to the user that two or more participants in the call successfully raised their hand. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_multiple">
+        <item quantity="one">%1$s و %2$d دستشان را بالا برده‌اند</item>
+        <item quantity="other">%1$s و %2$d دستشان را بالا برده‌اند</item>
+    </plurals>
+
+    <!-- A badge to show the user has their hand raised. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__collapsed_second_person_raised_hand_single">%1$s</string>
+    <!-- A badge to show the user and at least one other participant in the call have their hand raised. The placeholder is a number quantifying how many other hands are also raised, besides the user.  -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_second_person_raised_hands_multiple">
+        <item quantity="one">%1$s</item>
+        <item quantity="other">%1$s +%2$d</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_multiple">
         <item quantity="one">%1$s</item>
         <item quantity="other">%1$s +%2$d</item>
     </plurals>
@@ -2134,7 +2257,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">شما تماسی برای وارسی این شماره دریافت خواهید کرد.</string>
     <string name="RegistrationActivity_edit_number">ویرایش شماره</string>
     <string name="RegistrationActivity_missing_google_play_services">فاقد خدمات Google Play</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه فاقد خدمات Google Play است. شما می‌توانید به استفاده از سیگنال ادامه دهید، اما این پیکربندی می‌تواند باعث کاهش اطمینان‌پذیری یا عملکرد شود.\n\n اگر یک کاربر حرفه‌ای یا در حال اجرای یک ROM سفارشی اندروید نیستید یا فکر می‌کنید که این پیام به اشتباه به شما نشان داده شده است، برای دریافت کمک در فرآیند عیب‌یابی با support@signal.org تماس بگیرید.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه فاقد خدمات Google Play است. شما می‌توانید به استفاده از سیگنال ادامه دهید، اما این پیکربندی می‌تواند باعث کاهش اطمینان‌پذیری یا عملکرد شود.\n\n اگر یک کاربر حرفه‌ای یا در حال اجرای یک ROM سفارشی اندروید نیستید یا فکر می‌کنید که این پیام به اشتباه به شما نشان داده شده است، برای دریافت کمک در فرآیند عیب‌یابی با support@molly.im تماس بگیرید.</string>
     <string name="RegistrationActivity_i_understand">متوجهم</string>
     <string name="RegistrationActivity_play_services_error">خطای خدمات Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">خدمات Google Play در حال به‌روزرسانی است یا موقتاً در دسترس نیست. لطفاً دوباره تلاش کنید.</string>
@@ -2186,8 +2309,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">مشکلی در ثبت‌نام دارید؟</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• مطمئن شوید که تلفنتان برای دریافت پیامک یا تماس آنتن دارد\n • تأیید کنید که می‌توانید با این شماره تلفن تماس دریافت کنید\n • بررسی کنید که شماره تلفن خود را به‌درستی وارد کرده‌اید.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">برای اطلاعات بیشتر، لطفاً این مراحل عیب‌یابی را دنبال کنید یا با پشتیبانی تماس بگیرید</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">برای اطلاعات بیشتر، لطفاً %1$s یا %2$s را دنبال کنید</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">این مراحل عیب‌یابی</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2713,9 +2836,9 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">کسی از قلم افتاده است؟ تازه‌سازی کنید</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">آشنایان خود را در سیگنال پیدا کنید</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">اجازه دسترسی به مخاطبان</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">بیشتر</string>
 
@@ -2750,13 +2873,15 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">جستجو با نام کاربری</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">اجازه دسترسی به مخاطبان</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">برای پیدا کردن آشنایان در سیگنال:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">اجازۀ دسترسی بدهید</string>
+    <!-- Text on button to dismiss Signal\'s request for contact permissions -->
+    <string name="ContactSelectionListFragment__no_thanks">نه ممنون</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">اجازه دسترسی به مخاطبان خود را بدهید. مخاطبان شما رمزگذاری‌شده و برای سرویس سیگنال قابل‌مشاهده نیستند.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">سیگنال به دسترسی مخاطبین برای نمایش آن‌ها نیاز دارد.</string>
@@ -2832,6 +2957,8 @@
     <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">این شخص را حذف کرده‌اید، ارسال مجدد پیام به او موجب افزودن دوباره او به لیست شما می‌شود.</string>
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">گزینه‌ها</string>
+    <!-- Update item button text shown for a profile name change. -->
+    <string name="ConversationUpdateItem_update">به‌روزرسانی</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">پخش … توقف</string>
@@ -3337,8 +3464,12 @@
         <item quantity="other">این کار موجب کوتاه کردن دائمی همه گفتگوها به %1$s پیام اخیر می‌شود.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">این گزینه تمامی تاریخچهٔ پیام و رسانه را از روی دستگاه شما پاک می‌کند.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">با این کار کل تاریخچه پیام و رسانه از این دستگاه و هر دستگاه متصلی برای همیشه حذف می‌شود.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">آیا از پاک کردن کل تاریخچهٔ پیام‌ مطمئن هستید؟</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">کل تاریخچهٔ پیام‌ به طور دائم پاک خواهد شد. این کار بازگشت‌پذیر نیست.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">کل تاریخچه پیام برای همیشه از همه دستگاه‌ها حذف خواهد شد. این کار بازگشت‌پذیر نیست.</string>
     <string name="preferences_storage__delete_all_now">پاک کردن همه، اکنون</string>
     <string name="preferences_storage__forever">برای همیشه</string>
     <string name="preferences_storage__one_year">۱ سال</string>
@@ -3991,7 +4122,7 @@
     <string name="BackupDialog_passphrase_was_not_correct">گذرواژه نادرست بود</string>
     <string name="LocalBackupJob_creating_signal_backup">در حال ایجاد پشتیبان سیگنال…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">در حال تایید پشتیبان Signal…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">در حال تایید پشتیبان Molly…</string>
     <string name="LocalBackupJobApi29_backup_failed">پشتیبان‌گیری ناموفق بود</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">آدرس ذخیره‌سازی پشتیبان شما پاک شده یا به جای دیگری انتقال یافته است.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">حجم فایل پشتیبان شما برای نگهداری در این محل زیاد است.</string>
@@ -4093,8 +4224,15 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">به دسترسی به دستگاه قدیمی خود نیاز دارید.</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">بازگردانی از پشتیبان</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">پیام‌های خود را از یک پشتیبان محلی بازگردانی کنید. اگر هم‌اکنون بازگردانی نکنید، در آینده قادر به بازگردانی نخواهید بود.</string>
+    <string name="TransferOrRestoreFragment__restore_from_local_backup">بازیابی پشتیبان محلی</string>
+    <string name="TransferOrRestoreFragment__restore_from_signal_backup">بازیابی پشتیبان سیگنال</string>
+    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">همۀ پیام‌های متنی + رسانه ۳۰ روز گذشته خود را بازیابی کنید</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">گزینه‌های بیشتر</string>
+
+    <string name="TransferOrRestoreFragment__cancel">لغو</string>
+    <string name="TransferOrRestoreFragment__skip_transfer">ورود بدون انتقال</string>
+    <string name="TransferOrRestoreFragment__skip_transfer_description">ادامه بدون انتقال پیام‌ها و رسانه‌های خود</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">سیگنال را روی گوشی اندروید خود باز کنید</string>
@@ -4999,9 +5137,6 @@
     <!-- VectorAvatarCreationFragment -->
     <string name="VectorAvatarCreationFragment__select_a_color">یک رنگ انتخاب کنید</string>
 
-    <!-- ContactSelectionListItem -->
-    <string name="ContactSelectionListItem__sms">پیامک</string>
-
     <!-- Displayed in the toolbar when externally sharing text to multiple recipients -->
     <string name="ShareInterstitialActivity__share">اشتراک‌گذاری</string>
 
@@ -5035,7 +5170,8 @@
     </plurals>
     <!-- Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin -->
     <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">فقط مدیران می‌توانند در این گروه پیام ارسال کنند.</string>
-    <string name="MultiselectForwardFragment__limit_reached">به محدودیت رسیدید</string>
+    <!-- Error message shown when users try to choose more than 5 chats to send a message to -->
+    <string name="MultiselectForwardFragment__you_cant_select_more_chats">نمی‌توانید بیش از 5 گفتگو را انتخاب کنید</string>
 
     <!-- Media V2 -->
     <!-- Dialog message when sending a story via an add to group story button -->
@@ -5666,8 +5802,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">هنوز پاسخی داده نشده است</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">شما نمی‌توانید به این استوری پاسخ دهید زیرا دیگر عضو این گروه نیستید.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">به استوری واکنش نشان داد</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">به استوری واکنش نشان داد</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">به استوری واکنش نشان داد</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">بازدیدها</string>
     <!-- Label for story replies tab -->
@@ -6284,8 +6422,8 @@
     <string name="IdealTransferDetailsFragment__choose_your_bank">انتخاب بانک‌تان</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
     <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">کمک مالی خود را با %1$s تأیید کنید</string>
-    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__monthly_ideal_warning">برای راه‌اندازی کمک مالی مکرر خود، روی «ادامه» ضربه بزنید تا هزینه ۰,۰۱ یورو را با بانک خود تأیید کنید. این مبلغ به‌طور خودکار به شما برگردانده می‌شود و اجازه می‌دهد که کمک مالی شما به مبلغ ۵ یورو در ماه از حساب‌تان برداشت شود.</string>
+    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
+    <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">برای راه‌اندازی کمک مالی مکرر خود، روی «ادامه» ضربه بزنید تا هزینه ۰,۰۱ یورو را با بانک خود تأیید کنید. این مبلغ به‌طور خودکار به شما برگردانده می‌شود و امکان برداشت کمک مالی شما به مبلغ %1$s در ماه از حساب‌تان را فراهم می‌کند.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
     <string name="IdealTransferDetailsFragment__continue">ادامه</string>
 
@@ -6861,6 +6999,52 @@
     <!-- Notification title shown while downloading backup restore data -->
     <string name="BackupProgressService_title_downloading">در حال بارگیری داده‌های پشتیبان…</string>
 
+    <!-- BackupAlertBottomSheet -->
+    <!-- Sheet title when media backups have been disabled -->
+    <string name="BackupAlertBottomSheet__media_backups_are_off">پشتیبان‌گیری رسانه غیرفعال است</string>
+    <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
+    <plurals name="BackupAlertBottomSheet__your_signal_media_backup_plan">
+        <item quantity="one">طرح پشتیبان‌گیری رسانه سیگنال شما لغو شده است زیرا نتوانستیم پرداخت شما را پردازش کنیم. شما %1$d روز فرصت دارید تا هر رسانه ذخیره‌شده در نسخه پشتیبان خود را دانلود کنید. پس از %1$d روز، رسانه موجود در نسخه پشتیبان حذف خواهد شد.</item>
+        <item quantity="other">طرح پشتیبان‌گیری رسانه سیگنال شما لغو شده است زیرا نتوانستیم پرداخت شما را پردازش کنیم. شما %1$d روز فرصت دارید تا هر رسانه ذخیره‌شده در نسخه پشتیبان خود را دانلود کنید. پس از %1$d روز، رسانه موجود در نسخه پشتیبان حذف خواهد شد.</item>
+    </plurals>
+    <!-- Sheet body part 2 when media backups have been disabled. -->
+    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">برای ادامه پشتیبان‌گیری از تمام رسانه‌های خود، می‌توانید هر زمان که خواستید دوباره هزینه پشتیبان‌گیری خود را پرداخت کنید. </string>
+    <!-- Sheet title when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">رسانه شما امروز حذف خواهد شد</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">طرح پشتیبان‌گیری رسانه سیگنال شما لغو شده است زیرا نتوانستیم پرداخت شما را پردازش کنیم. این آخرین فرصت شما برای دانلود رسانه موجود در نسخه پشتیبان قبل از حذف آن است.</string>
+    <!-- Sheet title when user does not have enough space to download their backup -->
+    <string name="BackupAlertBottomSheet__cant_complete_download">دانلود انجام نشد</string>
+    <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
+    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">دستگاه شما فضای خالی کافی ندارد. برای دانلود رسانه ذخیره‌شده در نسخه پشتیبان خود، تا %1$s فضای ذخیره‌سازی خالی کنید.</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
+    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
+        <item quantity="one">اگر «رد کردن» را انتخاب کنید، رسانه موجود در نسخه پشتیبان شما ظرف %1$d روز حذف خواهد شد.</item>
+        <item quantity="other">اگر «رد کردن» را انتخاب کنید، رسانه موجود در نسخه پشتیبان شما ظرف %1$d روز حذف خواهد شد.</item>
+    </plurals>
+    <!-- Sheet title when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__cant_process_backup_payment">پرداخت پشتیبان‌گیری پردازش نمی‌شود</string>
+    <!-- Sheet body when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">در دریافت هزینه پشتیبان‌گیری ماهانه شما با مشکل روبرو هستیم. مطمئن شوید که روش پرداخت شما به‌روز است. در غیر این صورت، آن را در Google Play به‌روزرسانی کنید. سیگنال پردازش پرداخت را دوباره طی چند روز آینده امتحان خواهد کرد.</string>
+    <!-- Sheet title for generic backup error -->
+    <string name="BackupAlertBottomSheet__couldnt_complete_backup">پشتیبان‌گیری انجام نشد</string>
+    <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
+    <string name="BackupAlertBottomSheet__your_device_hasnt">دستگاه شما به‌‍مدت %1$d روز پشتیبان‌گیری نکرده است. مطمئن شوید که دستگاه به وای‌فای متصل است و روی «اکنون پشتیبان‌گیری شود» ضربه بزنید. </string>
+    <!-- Clickable text to learn more about the content of this bottom sheet -->
+    <string name="BackupAlertBottomSheet__learn_more">اطلاعات بیشتر</string>
+    <!-- Secondary action button text when user does not have enough free space to download their backup. -->
+    <string name="BackupAlertBottomSheet__skip">رد کردن</string>
+    <!-- Primary action button text prompting user to download their media -->
+    <string name="BackupAlertBottomSheet__download_media_now">اکنون رسانه را دانلود کنید</string>
+    <!-- Secondary action button text to dismiss sheet, noting the user can download later -->
+    <string name="BackupAlertBottomSheet__download_later">بعداً دانلود شود</string>
+    <!-- Secondary action button text to dismiss sheet, skipping media download -->
+    <string name="BackupAlertBottomSheet__dont_download_media">رسانه دانلود نشود</string>
+
+    <!-- BackupStatus -->
+    <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
+    <string name="BackupStatus__free_up_s_of_space_to_download_your_media">برای دانلود رسانه خود، %1$s فضای ذخیره‌سازی خالی کنید.</string>
+
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__credit_or_debit_card">کارت اعتباری یا دبیت کارت</string>
@@ -6874,6 +7058,12 @@
     <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__unknown">ناشناخته</string>
+    <!-- Row title for entering payment history -->
+    <string name="BackupsTypeSettingsFragment__payment_history">تاریخچه پرداخت</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">آخرین پشتیبان‌گیری در %1$s در %2$s انجام شده است.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -6884,6 +7074,113 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">پیام‌های قدیمی‌تر از مدت انتخاب‌شده برای همیشه پاک خواهند شد.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">پیام‌های بلندتر از طول انتخاب‌شده برای همیشه پاک خواهند شد.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">محدودیت‌هایی را برای دستگاه‌های متصل اعمال کنید</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">در صورت فعال بودن محدودیت‌های گفتگو، پیام‌ها از دستگاه‌های متصل نیز حذف می‌شود.</string>
 
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">اکنون حذف در همه دستگاه‌های شما همگام‌سازی می‌شود</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">وقتی پیام‌ها یا گفتگوها را پاک می‌کنید، از تلفن شما و دستگاه‌های متصل پاک می‌شوند.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">تأیید</string>
+
+    <!-- RemoteBackupsPaymentHistoryFragment -->
+    <!-- Title of the screen for payment history -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_history">تاریخچه پرداخت</string>
+    <!-- Description for backup rows -->
+    <string name="RemoteBackupsPaymentHistoryFragment__text_and_all_media_backup">پشتیبان‌گیری متن و تمام رسانه‌ها</string>
+    <!-- Title of the screen for payment details -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_details">جزئیات پرداخت</string>
+    <!-- Title of row specifying the type of backup -->
+    <string name="RemoteBackupsPaymentHistoryFragment__backup_type">نوع پشتیبان</string>
+    <!-- Title of row specifying the date the backup was paid on -->
+    <string name="RemoteBackupsPaymentHistoryFragment__date_paid">تاریخ پرداخت</string>
+    <!-- Button label to share the receipt -->
+    <string name="RemoteBackupsPaymentHistoryFragment__share">اشتراک‌گذاری</string>
+
+    <!-- RemoteBackupsSettingsFragment -->
+    <!-- Displayed on the title bar -->
+    <string name="RemoteBackupsSettingsFragment__signal_backups">پشتیبان‌های سیگنال</string>
+    <!-- Row label to launch payment history screen -->
+    <string name="RemoteBackupsSettingsFragment__payment_history">تاریخچه پرداخت</string>
+    <!-- Section header for backup information -->
+    <string name="RemoteBackupsSettingsFragment__backup_details">جزئیات پشتیبان</string>
+    <!-- Row label for backup size -->
+    <string name="RemoteBackupsSettingsFragment__backup_size">اندازه پشتیبان</string>
+    <!-- Row label for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__backup_frequency">تناوب پشتیبان</string>
+    <!-- Toggle row label for allowing backups to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__back_up_using_cellular">پشتیبان‌گیری با استفاده از اینترنت همراه</string>
+    <!-- Row label for cancelling and deleting backup -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">خاموش کردن و پاک کردن پشتیبان</string>
+    <!-- Snackbar text displayed when backup has been deleted and turned off -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted_and_turned_off">پشتیبان پاک و خاموش شد.</string>
+    <!-- Snackbar text displayed when backup type is downgraded -->
+    <string name="RemoteBackupsSettingsFragment__backup_type_changed_and_subcription_deleted">نوع پشتیبان تغییر کرد و اشتراک لغو شد</string>
+    <!-- Snackbar text displayed when backup subscription is cancelled -->
+    <string name="RemoteBackupsSettingsFragment__subscription_cancelled">اشتراک لغو شد</string>
+    <!-- Snackbar text displayed when backup is successfully downloaded -->
+    <string name="RemoteBackupsSettingsFragment__download_complete">دانلود کامل شد</string>
+    <!-- Title text in row detailing selected backup type -->
+    <string name="RemoteBackupsSettingsFragment__backup_type">نوع پشتیبان</string>
+    <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
+    <string name="RemoteBackupsSettingsFragment__backups_disabled">پشتیبان‌ها غیرفعال شده‌اند</string>
+    <!-- Format string for backup and cost. First placeholder is backup title, second is cost per month. -->
+    <string name="RemoteBackupsSettingsFragment__s_dot_s_per_month">%1$s · %2$s/ماه</string>
+    <!-- Button label to enable backups -->
+    <string name="RemoteBackupsSettingsFragment__enable_backups">فعال‌سازی پشتیبان‌ها</string>
+    <!-- Progress indicator subtext displayed when a backup is in progress -->
+    <string name="RemoteBackupsSettingsFragment__d_slash_d">%1$d/%2$d</string>
+    <!-- Title text in row detailing last backup -->
+    <string name="RemoteBackupsSettingsFragment__last_backup">آخرین پشتیبان‌گیری</string>
+    <!-- Subtext describing when a backup took place. First placeholder is the day, second is time. -->
+    <string name="RemoteBackupsSettingsFragment__s_at_s">%1$s در %2$s</string>
+    <!-- Subtext describing when a backup has never taken place. -->
+    <string name="RemoteBackupsSettingsFragment__never">هرگز</string>
+    <!-- Button label to perform a backup immediately -->
+    <string name="RemoteBackupsSettingsFragment__back_up_now">اکنون پشتیبان‌گیری شود</string>
+    <!-- Dialog title when confirming whether to turn off and deleting backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">پشتیبان‌ها خاموش و پاگ شوند؟</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__you_will_not_be_charged_again">دیگر هزینه‌ای از شما دریافت نمی‌شود. پشتیبان شما پاک خواهد شد و هیچ پشتیبان جدیدی ایجاد نخواهد شد.</string>
+    <!-- Confirmation action on dialog to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">خاموش و پاک کردن</string>
+    <!-- Text on dialog while user backup is being deleted -->
+    <string name="RemoteBackupsSettingsFragment__deleting_backup">در حال پاک کردن پشتیبان…</string>
+    <!-- Text on dialog when user backup is deleted -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted">پشتیبان پاک شد</string>
+    <!-- Subtitle for frequency option MANUAL for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__by_tapping_back_up_now">"با ضربه زدن روی «اکنون پشتیبان‌گیری شود»"</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__daily">روزانه</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__weekly">هفتگی</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__monthly">ماهانه</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__manually_back_up">پشتیبان‌گیری دستی</string>
+    <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
+    <string name="PassphrasePromptActivity_help_prompt_body">لطفا پین، رمز عبور یا الگوی دستگاه خود را وارد کنید.</string>
+
+    <!-- Primary action button label when selecting a backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__next">بعدی</string>
+    <!-- Primary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">تغییر نوع پشتیبان‌گیری</string>
+    <!-- Secondary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">لغو اشتراک</string>
+
+    <!-- ConfirmBackupCancellationDialog -->
+    <!-- Dialog title -->
+    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">تأیید لغو</string>
+    <!-- Dialog body -->
+    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">دیگر هزینه‌ای از شما دریافت نمی‌شود. پشتیبان‌گیری در پایان دوره پرداخت شما غیرفعال می‌شود. پس از آن تاریخ، ۳۰ روز فرصت دارید تا رسانه‌ای را که در حال حاضر از آن پشتیبان می‌گیرید دانلود کنید.</string>
+    <!-- Action button label to cancel subscription and download now -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">هم اکنون تأیید و دانلود شود</string>
+    <!-- Action button label to cancel subscription and download later -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">بعداً تأیید و دانلود شود</string>
+    <!-- Action button label to keep current subscription -->
+    <string name="ConfirmBackupCancellationDialog__keep_subscription">حفظ اشتراک</string>
     <!-- EOF -->
 </resources>

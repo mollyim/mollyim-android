@@ -26,7 +26,7 @@ import java.util.Arrays
 import java.util.Currency
 import java.util.Locale
 
-internal class PaymentsValues internal constructor(store: KeyValueStore) : SignalStoreValues(store) {
+class PaymentsValues internal constructor(store: KeyValueStore) : SignalStoreValues(store) {
 
   companion object {
     private val TAG = Log.tag(PaymentsValues::class.java)
@@ -219,8 +219,8 @@ internal class PaymentsValues internal constructor(store: KeyValueStore) : Signa
 
   fun showUpdatePinInfoCard(): Boolean {
     return if (userHasLargeBalance() &&
-      SignalStore.svr().hasPin() &&
-      !SignalStore.svr().hasOptedOut() && SignalStore.pinValues().keyboardType == PinKeyboardType.NUMERIC
+      SignalStore.svr.hasPin() &&
+      !SignalStore.svr.hasOptedOut() && SignalStore.pin.keyboardType == PinKeyboardType.NUMERIC
     ) {
       store.getBoolean(SHOW_CASHING_OUT_INFO_CARD, true)
     } else {
@@ -277,7 +277,7 @@ internal class PaymentsValues internal constructor(store: KeyValueStore) : Signa
   }
 
   private fun determineCurrency(): Currency {
-    val localE164: String = SignalStore.account().e164 ?: ""
+    val localE164: String = SignalStore.account.e164 ?: ""
 
     return Util.firstNonNull(
       CurrencyUtil.getCurrencyByE164(localE164),
@@ -332,7 +332,9 @@ internal class PaymentsValues internal constructor(store: KeyValueStore) : Signa
   }
 
   enum class WalletRestoreResult {
-    ENTROPY_CHANGED, ENTROPY_UNCHANGED, MNEMONIC_ERROR
+    ENTROPY_CHANGED,
+    ENTROPY_UNCHANGED,
+    MNEMONIC_ERROR
   }
 
   private fun userHasLargeBalance(): Boolean {

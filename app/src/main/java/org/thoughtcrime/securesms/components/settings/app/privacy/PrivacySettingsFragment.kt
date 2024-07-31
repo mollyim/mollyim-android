@@ -99,7 +99,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         title = DSLSettingsText.from(R.string.preferences__read_receipts),
         summary = DSLSettingsText.from(R.string.preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts),
         isChecked = state.readReceipts,
-        isEnabled = SignalStore.account().isPrimaryDevice,
+        isEnabled = SignalStore.account.isPrimaryDevice,
         onClick = {
           viewModel.setReadReceiptsEnabled(!state.readReceipts)
         }
@@ -109,7 +109,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         title = DSLSettingsText.from(R.string.preferences__typing_indicators),
         summary = DSLSettingsText.from(R.string.preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators),
         isChecked = state.typingIndicators,
-        isEnabled = SignalStore.account().isPrimaryDevice,
+        isEnabled = SignalStore.account.isPrimaryDevice,
         onClick = {
           viewModel.setTypingIndicatorsEnabled(!state.typingIndicators)
         }

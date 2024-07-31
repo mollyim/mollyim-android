@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ Copyright 2024 Signal Messenger, LLC
+  ~ SPDX-License-Identifier: AGPL-3.0-only
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -38,12 +39,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">A Signal frissít…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">A Molly frissít…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Még nem állítottál be jelmondatot!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Jelmondat letiltása?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ez véglegesen fel fogja oldani a Signalt és az üzenet értesítéseket.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ez véglegesen fel fogja oldani a Mollyt és az üzenet értesítéseket.</string>
     <string name="ApplicationPreferencesActivity_disable">Letiltás</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Hiba történt a kiszolgálóhoz történő kapcsolódás során!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">A regisztrációs zárhoz PIN kódra van szükség. A PIN kód letiltásához előbb ki kell kapcsolni a regisztrációs zárat.</string>
@@ -80,31 +81,31 @@
     <string name="AttachmentKeyboard_file">Fájl</string>
     <string name="AttachmentKeyboard_contact">Névjegy</string>
     <string name="AttachmentKeyboard_location">Hely</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">A Signalnak engedélyre van szüksége a fotók és videók megjelenítéséhez.</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">A Mollynak engedélyre van szüksége a fotók és videók megjelenítéséhez.</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Hozzáférés engedélyezése</string>
     <string name="AttachmentKeyboard_payment">Fizetés</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Nem található alkalmazás médiafájl kiválasztásához.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">A Signalnak szüksége van a Tárhely engedélyre, hogy fotókat, videókat vagy hangokat csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">A Signalnak szüksége van a Névjegyek engedélyre, hogy névjegy információt csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">A Signalnak szüksége van a Helyadatok engedélyre, hogy helyzetet csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Helyadatok\"-at.</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">A Mollynak szüksége van a Tárhely engedélyre, hogy fotókat, videókat vagy hangokat csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">A Mollynak szüksége van a Névjegyek engedélyre, hogy névjegy információt csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">A Mollynak szüksége van a Helyadatok engedélyre, hogy helyzetet csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Helyadatok\"-at.</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Engedélyezd a helyzetedhez való hozzáférést</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Helyzet elküldéséhez:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Adj hozzáférést a Signalnak a helyzeted elküldéséhez.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Adj hozzáférést a Mollynak a helyzeted elküldéséhez.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">A helyzeted elküldéséhez a Signalnak hozzá kell férnie a helyadatokhoz.</string>
+    <string name="AttachmentManager_signal_needs_location_access">A helyzeted elküldéséhez a Mollynak hozzá kell férnie a helyadatokhoz.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Hozzáférés engedélyezése a tárhelyhez</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Fotók és videók megjelenítése:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">A Signalnak hozzá kell férnie a tárhelyhez a fotók és videók megjelenítéséhez.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">A Mollynak hozzá kell férnie a tárhelyhez a fotók és videók megjelenítéséhez.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s nem aktiválta a Kifizetéseket </string>
@@ -226,37 +227,37 @@
     <string name="CameraXFragment_change_camera_description">Kamera váltása</string>
     <string name="CameraXFragment_open_gallery_description">Galéria megnyitása</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">Hozzáférés engedélyezése</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Engedélyezd a hozzáférést a kamerához és a mikrofonhoz</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">Engedélyezd a kamerához való hozzáférést</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">Hozzáférés engedélyezése a mikrofonodhoz</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Fotók készítéséhez engedélyezd a Signalnak a kamerához való hozzáférést.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Fotók és videók készítéséhez engedélyezd a Signalnak a kamerához való hozzáférést!</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Fotók és videók készítéséhez engedélyezd a Signalnak a kamerához és a mikrofonhoz való hozzáférést.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Hangos videók rögzítéséhez engedélyezd a Signalnak a mikrofonhoz való hozzáférést.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR-kód beolvasásához engedélyezd a Signalnak a kamerához való hozzáférést.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Fotók készítéséhez a Signalnak hozzá kell férnie a kamerához</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR-kód beolvasásához a Signalnak hozzá kell férnie a kamerához</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Videó rögzítéséhez a Signalnak hozzá kell férnie a mikrofonhoz</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Fotók rögzítése a Signalban:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Fotók és videók rögzítése a Signalban:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">Videók rögzítése hanggal:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">QR-kódok beolvasása:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Friss kontaktok</string>
@@ -271,7 +272,7 @@
     <string name="CameraContacts_no_signal_contacts">Nincs Signal kontakt</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">A kamera gombbal csak Signal kontaktoknak küldhetsz fotókat. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Nem találod, akit keresel?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Hívd meg egy ismerősödet Signalra!</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Hívd meg egy ismerősödet Mollyra!</string>
     <string name="CameraContacts__menu_search">Keresés</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -285,12 +286,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Nem, köszönöm</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Signal frissítése</string>
+    <string name="ClientDeprecatedActivity_update_signal">Molly frissítése</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Az app jelenlegi verziója elavult. Üzenetek küldése és fogadása előtt frissítened újabb verzióra.</string>
     <string name="ClientDeprecatedActivity_update">Frissítés</string>
     <string name="ClientDeprecatedActivity_dont_update">Nincs frissítés</string>
     <string name="ClientDeprecatedActivity_warning">Figyelmeztetés</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">A Signal általad használt verziója elavult. Megtekintheted a beszélgetés-előzményeket, de a frissítésig nem fogsz tudni üzeneteket küldeni és fogadni.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">A Molly általad használt verziója elavult. Megtekintheted a beszélgetés-előzményeket, de a frissítésig nem fogsz tudni üzeneteket küldeni és fogadni.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Nem található böngésző.</string>
@@ -327,8 +328,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Üzenet %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Molly hanghívás %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Molly videohívás %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -422,7 +423,7 @@
     <string name="ConversationActivity_transport_signal">Signal üzenet</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Üzenet küldése</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Váltsunk Signalra: %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Váltsunk Mollyra: %1$s</string>
     <string name="ConversationActivity_specify_recipient">Kérlek válassz egy kontaktot</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">A melléklet mérete meghaladja az adott típushoz tartozó mérethatárt.</string>
     <string name="ConversationActivity_unable_to_record_audio">Nem lehet hangot rögzíteni!</string>
@@ -441,18 +442,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Hangüzenetek küldéséhez:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Hangüzenetek küldéséhez adj hozzáférést a Signalnak a mikrofonodhoz.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Hangüzenetek küldéséhez adj hozzáférést a Mollynak a mikrofonodhoz.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Hangüzenet rögzítéséhez a Signalnak hozzá kell férnie a mikrofonhoz.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">A Signalnak szüksége van a Mikrofon engedélyre, hogy hangüzeneteket küldhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd az \"Mikrofon\"-t.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Hangüzenet rögzítéséhez a Mollynak hozzá kell férnie a mikrofonhoz.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">A Mollynak szüksége van a Mikrofon engedélyre, hogy hangüzeneteket küldhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd az \"Mikrofon\"-t.</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">A Signalnak szüksége van Mikrofon és Kamera engedélyekre %1$s felhívásához, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t és a \"Kamera\"-t.</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Fotók és videók készítéséhez engedélyezd a Signalnak a kamerához való hozzáférést!</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">A Signalnak szüksége van a Kamera engedélyre, hogy fotót vagy videót készíthessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">A Signalnak szüksége van Kamera engedélyekre fotók és videók készítéséhez</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">A Mollynak szüksége van Mikrofon és Kamera engedélyekre %1$s felhívásához, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t és a \"Kamera\"-t.</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Fotók és videók készítéséhez engedélyezd a Mollynak a kamerához való hozzáférést!</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">A Mollynak szüksége van a Kamera engedélyre, hogy fotót vagy videót készíthessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">A Mollynak szüksége van Kamera engedélyekre fotók és videók készítéséhez</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Engedélyezd a mikrofon-hozzáférést, hogy a videóhoz hangot is lehessen rögzíteni</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">A Signalnak szüksége van mikrofon-hozzáférési engedélyre, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t, valamint a \"Kamera\"-t.</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">A Signalnak mikrofon-hozzáférési engedélyre van szüksége videók rögzítéséhez.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">A Mollynak szüksége van mikrofon-hozzáférési engedélyre, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t, valamint a \"Kamera\"-t.</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">A Mollynak mikrofon-hozzáférési engedélyre van szüksége videók rögzítéséhez.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Nem</string>
@@ -473,9 +474,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Hívás indításához:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Hívás indításához adj hozzáférést a Signalnak a mikrofonodhoz.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Hívás indításához adj hozzáférést a Mollynak a mikrofonodhoz.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Hívás indításához a Signalnak hozzá kell férnie a mikrofonhoz.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Hívás indításához a Mollynak hozzá kell férnie a mikrofonhoz.</string>
 
 
     <string name="ConversationActivity_join">Csatlakozás</string>
@@ -489,9 +490,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">A Signal már nem támogatja az SMS-ek küldését. Hívd meg %1$s ismerősöd a Signal-szolgáltatásba, és beszélgessetek itt.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Ez a személy már nem használja a Signalt. Hívd meg őket a Signalba, és beszélgessetek itt.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Ez a személy már nem használja a Mollyt. Hívd meg őket a Mollyba, és beszélgessetek itt.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Meghívás a Signalra</string>
+    <string name="ConversationActivity__invite_to_signal">Meghívás a Mollyra</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Hamarosan ismét kapsz egy emlékeztetőt.</string>
 
@@ -545,6 +546,8 @@
     <string name="ConversationFragment_delete_for_everyone">Törlés mindenki számára</string>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">Törlés ezen a készüléken</string>
+    <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
+    <string name="ConversationFragment_delete">Törlés</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Törlés mindenhol</string>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Ez az üzenet a csevegés minden tagja számára törlésre kerül, ha a Signal legújabb verzióját használják. A többiek számára látható lesz, hogy töröltél egy üzenetet.</string>
@@ -576,13 +579,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Letiltva</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Signal frissítése</string>
+    <string name="ConversationFragment__update_build">Molly frissítése</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Újraregisztrálás a Signalra</string>
+    <string name="ConversationFragment__reregister_signal">Újraregisztrálás a Mollyra</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Visszalépés.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Signal megnyitása</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Molly megnyitása</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Már nem ellenőrzött</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -646,6 +649,11 @@
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">Ezzel véglegesen törlöd a kiválasztott csevegést.</item>
         <item quantity="other">Ezzel véglegesen törlöd az összes kiválasztott %1$d csevegést.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">Ez véglegesen törölni fogja a kiválasztott csevegést az összes eszközödről.</item>
+        <item quantity="other">Ez véglegesen törölni fogja mind a(z) %1$d kiválasztott csevegést az összes eszközödről.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Törlés</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -736,9 +744,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Ki találhat meg a telefonszámom alapján?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Bárki, aki tudja a telefonszámodat, látni fogja, hogy használod a Signalt, és csevegést kezdeményezhet veled.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Bárki, aki tudja a telefonszámodat, látni fogja, hogy használod a Mollyt, és csevegést kezdeményezhet veled.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Senki sem láthatja, hogy használod a Signalt, hacsak nem küldesz valakinek üzenetet, vagy nem folytatsz csevegést valakivel.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Senki sem láthatja, hogy használod a Mollyt, hacsak nem küldesz valakinek üzenetet, vagy nem folytatsz csevegést valakivel.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Visszaállítás biztonsági mentésből?</string>
@@ -772,7 +780,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Ellenőrzi, hogy a biztonsági mentés jelmondata megfelelő-e</string>
     <string name="BackupsPreferenceFragment__turn_on">Bekapcsolás</string>
     <string name="BackupsPreferenceFragment__turn_off">Kikapcsolás</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Egy biztonsági mentés visszaállításához először is telepítsd a Signalt! Nyisd meg az alkalmazást, koppints a \"Biztonsági mentés visszaállítása\" feliratra, majd keresd ki a biztonsági mentést tartalmazó fájlt! %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Egy biztonsági mentés visszaállításához először is telepítsd a Mollyt! Nyisd meg az alkalmazást, koppints a \"Biztonsági mentés visszaállítása\" feliratra, majd keresd ki a biztonsági mentést tartalmazó fájlt! %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Tudj meg többet!</string>
     <string name="BackupsPreferenceFragment__in_progress">Folyamatban…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -780,7 +788,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d eddig…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% eddig…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">A Signalnak külső tárhely engedélyre van szüksége ahhoz, hogy biztonsági mentést hozzon létre, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazás-beállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">A Mollynak külső tárhely engedélyre van szüksége ahhoz, hogy biztonsági mentést hozzon létre, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazás-beállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Állítsd be a biztonsági mentés idejét</string>
 
@@ -847,7 +855,62 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">A munkamenet alaphelyzetbe állt</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">A Signal végpontok közti titkosítást használ, és nagy ritkán újra be kell állítania a két végpont közti adatkapcsolatot. Ennek nincs hatása a biztonságra, de előfordulhat, hogy pont ezalatt nem kaptál meg egy üzenetet ettől a névjegytől. Ilyen esetben azt javasoljuk, hogy kérd meg partneredet az elveszett üzenetek újraküldésére.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">A Molly végpontok közti titkosítást használ, és nagy ritkán újra be kell állítania a két végpont közti adatkapcsolatot. Ennek nincs hatása a biztonságra, de előfordulhat, hogy pont ezalatt nem kaptál meg egy üzenetet ettől a névjegytől. Ilyen esetben azt javasoljuk, hogy kérd meg partneredet az elveszett üzenetek újraküldésére.</string>
+
+    <!-- LinkDeviceFragment -->
+    <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">A Signal használata asztali számítógépen vagy iPaden. Üzeneteid szinkronizálódnak a kapcsolt eszközökkel.</string>
+    <!-- Button prompting users to link a new device to their account -->
+    <string name="LinkDeviceFragment__link_a_new_device">Új eszköz összekapcsolása</string>
+    <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
+    <string name="LinkDeviceFragment__messages_and_chat_info_are_protected">%1$s Az üzeneteket és a csevegési információkat végpontok közötti titkosítás védi minden eszközön</string>
+    <!-- Bottom sheet title explaining how Signal works on a linked device -->
+    <string name="LinkDeviceFragment__signal_on_desktop_ipad">A Signal asztali számítógépen vagy iPaden</string>
+    <!-- Bottom sheet description explaining that messages on linked devices are private -->
+    <string name="LinkDeviceFragment__all_messaging_is_private">A kapcsolt eszközökön minden üzenet privát</string>
+    <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
+    <string name="LinkDeviceFragment__signal_messages_are_synchronized">A Molly-üzenetek szinkronizálva vannak a mobiltelefonodon megtalálható Mollylal, miután összekapcsolásra kerültek. A korábbi üzenetek előzményei nem jelennek meg.</string>
+    <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">A Molly telepítéséhez a másik eszközödön keresd fel a(z) %1$s weboldalt</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
+    <!-- Header title listing out current linked devices -->
+    <string name="LinkDeviceFragment__my_linked_devices">Kapcsolt eszközeim</string>
+    <!-- Dialog confirmation to unlink a device -->
+    <string name="LinkDeviceFragment__unlink">Társítás megszüntetése</string>
+    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_unlinked">%1$s leválasztva</string>
+    <!-- Progress dialog message indicating that a device is currently being linked with an account -->
+    <string name="LinkDeviceFragment__linking_device">Eszköz összekapcsolása…</string>
+    <!-- Toast message shown after a device has been linked -->
+    <string name="LinkDeviceFragment__device_approved">Eszköz jóváhagyva</string>
+    <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
+    <string name="LinkDeviceFragment__loading">Betöltés…</string>
+    <!-- Text message shown when the user has no linked devices -->
+    <string name="LinkDeviceFragment__no_linked_devices">Nincsenek kapcsolt eszközök</string>
+    <!-- Title on biometrics prompt explaining what biometrics are being used for -->
+    <string name="LinkDeviceFragment__unlock_to_link">Eszköz összekapcsolásához oldd fel a zárolást</string>
+
+    <!-- AddLinkDeviceFragment -->
+    <!-- Description text shown on the QR code scanner when linking a device -->
+    <string name="AddLinkDeviceFragment__scan_the_qr_code">Szkenneld be az eszközön megjelenített QR-kódot a társításhoz!</string>
+    <!-- Bottom sheet title telling users to scan a qr code -->
+    <string name="AddLinkDeviceFragment__scan_qr_code">QR kód beolvasása</string>
+    <!-- Bottom sheet description telling users how to scan a qr code -->
+    <string name="AddLinkDeviceFragment__use_this_device_to_scan_qr_code">Ezzel az eszközzel beolvashatod az összekapcsolni kívánt eszközön megjelenő QR-kódot</string>
+    <!-- Confirmation button to dismiss bottom sheet dialog -->
+    <string name="AddLinkDeviceFragment__okay">OK</string>
+    <!-- Dialog text describing the consequences of linking a device -->
+    <string name="AddLinkDeviceFragment__this_device_will_see_your_groups_contacts">Ez az eszköz a továbbiakban hozzáfér a Signal-csevegéseidhez, a névjegy- és csoportlistádhoz, valamint üzenetet tud küldeni a nevedben.</string>
+    <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
+    <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Fejezd be az összekapcsolást a másik eszközödön</string>
+    <!-- Bottom sheet description telling users to complete the linking process -->
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Fejezd be a Molly összekapcsolását a másik eszközödön.</string>
+    <!-- Title of dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__linking_device_failed">Készülék társítása sikertelen</string>
+    <!-- Text shown in a dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__this_qr_code_not_valid">Érvénytelen QR-kód. Ellenőrizd, hogy valóban a társítani kívánt készüléken megjelent QR-kódot olvasod be.</string>
+    <!-- Button in dialog to retry linking a device with a qr code -->
+    <string name="AddLinkDeviceFragment__retry">Újra</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">Társítás megszüntetése ezzel: \'%1$s\'?</string>
@@ -869,10 +932,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimalizálás hiányzó Play Szolgáltatásokra</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ez a készülék nem támogatja a Play Szolgáltatásokat. Koppints a rendszer akkumulátor-optimalizációinak letiltásához, ami megakadályozza a Signalt abban, hogy inaktív állapotban is letöltse az üzeneteket.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ez a készülék nem támogatja a Play Szolgáltatásokat. Koppints a rendszer akkumulátor-optimalizációinak letiltásához, ami megakadályozza a Mollyt abban, hogy inaktív állapotban is letöltse az üzeneteket.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Az általad használt Signal verziója elavult. Üzenetek küldéséhez és fogadásához frissíts most!</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Az általad használt Molly verziója elavult. Üzenetek küldéséhez és fogadásához frissíts most!</string>
     <string name="ExpiredBuildReminder_update_now">Frissítés most</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -883,8 +946,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">Megtekintés</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Elhúzódó Signal kommunikációs hiba!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">A Signal nem tudott beregisztrálni a Google Play Szolgáltatásokra. A Signal üzenetek és hívások ezért le lettek tiltva. Kérlek próbálj meg újraregisztrálni a Beállítások &gt; Haladó-ban!</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Elhúzódó Molly kommunikációs hiba!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">A Molly nem tudott beregisztrálni a Google Play Szolgáltatásokra. A Molly üzenetek és hívások ezért le lettek tiltva. Kérlek próbálj meg újraregisztrálni a Beállítások &gt; Haladó-ban!</string>
 
 
     <!-- GiphyActivity -->
@@ -1023,20 +1086,30 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">A hibakeresési naplók segítenek diagnosztizálni és kijavítani a problémát, és nem tartalmaznak azonosító információkat.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">A Signal problémába ütközött. Hibakeresési napló küldése?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">A Molly problémába ütközött. Hibakeresési napló küldése?</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Az akkumulátor optimalizálása miatt az értesítések késhetnek</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Letilthatod a Signalban az akkumulátoroptimalizálást, hogy az üzenetértesítések ne késsenek.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Letilthatod a Mollyban az akkumulátoroptimalizálást, hogy az üzenetértesítések ne késsenek.</string>
+
+    <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
+    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Az akkumulátor optimalizálása miatt az értesítések késhetnek</string>
+    <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Kapcsold ki a Mollyban az akkumulátoroptimalizálást, hogy az üzenetértesítések ne késsenek. Az eszközspecifikus utasítások megtekintéséhez koppints a „Folytatás” gombra.</string>
+    <!-- Button to dismiss notification help prompt -->
+    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Nem, köszönöm</string>
+    <!-- Button to continue and go to Signal support website -->
+    <string name="DeviceSpecificNotificationBottomSheet__continue">Tovább</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Tovább</string>
     <!-- Button to dismiss battery saver dialog prompt-->
-    <string name="PromptBatterySaverBottomSheet__dismiss">Elvetés</string>
+    <string name="PromptBatterySaverBottomSheet__no_thanks">Nem, köszönöm</string>
+  <!-- Removed by excludeNonTranslatables <string name="PromptBatterySaverBottomSheet__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007318711#android_notifications_troubleshooting</string> -->
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Függőben lévő csoportmeghívók</string>
+    <string name="PendingMembersActivity_pending_group_invites">Kérelmek &amp; meghívók</string>
     <string name="PendingMembersActivity_requests">Kérések</string>
     <string name="PendingMembersActivity_invites">Meghívók</string>
     <string name="PendingMembersActivity_people_you_invited">Általad meghívott személyek</string>
@@ -1283,13 +1356,13 @@
     <string name="InviteActivity_cancel">Mégse</string>
     <string name="InviteActivity_sending">Küldés…</string>
     <string name="InviteActivity_invitations_sent">Meghívók elküldve!</string>
-    <string name="InviteActivity_invite_to_signal">Meghívás a Signalra</string>
+    <string name="InviteActivity_invite_to_signal">Meghívás a Mollyra</string>
     <string name="InviteActivity_send_sms">SMS küldése (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Elküldesz %1$d SMS meghívót?</item>
         <item quantity="other">Elküldesz %1$d db SMS meghívót?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Váltsunk Signalra: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Váltsunk Mollyra: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">Úgy néz ki, hogy egy alkalmazásod sincs a megosztás kezeléséhez.</string>
 
     <!-- LearnMoreTextView -->
@@ -1303,7 +1376,7 @@
     <string name="LongMessageActivity_your_message">Saját üzenet</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">Háttérkapcsolat engedélyezve</string>
 
     <!-- MediaOverviewActivity -->
@@ -1372,10 +1445,10 @@
     <string name="MessageQuotesBottomSheet_replies">Válaszok</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Signal hívás létesítése</string>
+    <string name="NotificationBarManager__establishing_signal_call">Molly hívás létesítése</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Signal hívó szolgáltatás indítása</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">A Signal hívás szolgáltatás leállítása</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Molly hívó szolgáltatás indítása</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">A Molly hívás szolgáltatás leállítása</string>
     <string name="NotificationBarManager__cancel_call">Hívás megszakítása</string>
 
     <!-- NotificationsMegaphone -->
@@ -1627,6 +1700,14 @@
     <string name="MessageRecord_you_activated_payments">Aktiváltad a Kifizetéseket</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s mostantól fogadhat Kifizetéseket</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">A fizetési részletek nem állnak rendelkezésre</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Továbbiakért koppints</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">A fizetési adatok nem állnak rendelkezésre</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">A fizetés részletei nem állnak rendelkezésre, mert az üzeneteidet olyan forrásból állítottuk vissza, amely nem tartalmazta ezt a fizetési előzményt. Ez nincs hatással a tárcaegyenlegedre vagy a korábbi fizetések állapotára.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1683,9 +1764,11 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Hamarosan többé nem fogsz tudni SMS-eket küldeni a Signalból. Hívd meg %1$s ismerősöd a Signal-szolgáltatásba, és beszélgessetek itt.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">A továbbiakban nem küldhetsz SMS-eket a Signal-alkalmazásban. Hívd meg %1$s ismerősöd a Signal-szolgáltatásba, és beszélgessetek itt.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">A továbbiakban nem küldhetsz SMS-eket a Molly-alkalmazásban. Hívd meg %1$s ismerősöd a Molly-szolgáltatásba, és beszélgessetek itt.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Fizetés: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Kifizetés</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Megjelölve kéretlen üzenetként</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -1763,7 +1846,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal eszköz társítása?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Úgy tűnik, hogy egy harmadik féltől származó vonalkódolvasóval próbálsz Signal eszközt társítani. A saját védelmed érdekében kérlek szkenneld újra a kódot Signalon belül!</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">A Signalnak szüksége van a Kamera engedélyre, hogy QR kódot szkennelhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">A Mollynak szüksége van a Kamera engedélyre, hogy QR kódot szkennelhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nem lehet QR kódot szkennelni Kamera hozzáférési engedély nélkül</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1776,11 +1859,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Add meg a jelmondatot</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Signal ikon</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Molly ikon</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Jelmondat küldése</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Érvénytelen jelmondat!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Signal feloldása</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Képernyőzár</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Molly feloldása</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Képernyőzár</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Térkép</string>
@@ -1847,7 +1930,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Az üzenetküldés folytatásához ellenőrzés szükséges</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">A Signal hálózatán küldött kéretlen üzenetek megelőzése érdekében kérlek végezd el az alábbi ellenőrzést!</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">A Molly hálózatán küldött kéretlen üzenetek megelőzése érdekében kérlek végezd el az alábbi ellenőrzést!</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Az ellenőrzést követően folytathatod az üzenetküldést. Az összes felfüggesztett üzenetet automatikusan elküldjük.</string>
 
     <!-- Recipient -->
@@ -1855,7 +1938,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Történetem</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Signal-hívás</string>
+    <string name="Recipient_signal_call">Molly-hívás</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Letiltás</string>
@@ -1869,7 +1952,8 @@
     <string name="RedPhone_ringing">Kicseng…</string>
     <string name="RedPhone_busy">Foglalt</string>
     <string name="RedPhone_recipient_unavailable">A címzett nem elérhető</string>
-    <string name="RedPhone_network_failed">Hálózati hiba!</string>
+    <!-- Error message shown during a call when a fatal network error occurs. -->
+    <string name="RedPhone_network_failed">Hálózati hiba! Kérjük, ellenőrizd a hálózati kapcsolatot, és próbáld újra!</string>
     <string name="RedPhone_number_not_registered">A szám nincs regisztrálva!</string>
     <string name="RedPhone_the_number_you_dialed_does_not_support_secure_voice">Az általad tárcsázott szám nem támogatja a biztonságos hangátvitelt!</string>
     <string name="RedPhone_got_it">Rendben</string>
@@ -1880,8 +1964,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Koppintsd ide a videókép bekapcsolásához</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s hívásához a Signalnak hozzá kell férnie kamerádhoz</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s hívásához a Mollynak hozzá kell férnie kamerádhoz</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">Hívás…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Újracsatlakozás…</string>
@@ -1935,10 +2019,30 @@
     <string name="WebRtcCallActivity__removed_from_call">Eltávolítva a hívásból</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Valaki eltávolított téged a hívásból.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Engedélyezd a hozzáférést a kamerához és a mikrofonhoz</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Hozzáférés engedélyezése a mikrofonodhoz</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Engedélyezd a kamerához való hozzáférést</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Hívás indításához vagy híváshoz való csatlakozáshoz adj hozzáférést a Mollynak a kamerádhoz és a mikrofonodhoz.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">Hívás indításához vagy híváshoz való csatlakozáshoz adj hozzáférést a Mollynak a mikrofonodhoz.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">A videó engedélyezéséhez adj a Mollynak hozzáférést a kamerádhoz.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">A Mollynak mikrofonengedélyekre van szüksége ahhoz, hogy hívást kezdeményezzen vagy híváshoz csatlakozzon.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">A videó készítéséhez a Mollynak hozzá kell férnie a kamerádhoz</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">Hívás indításához vagy csatlakozáshoz:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">A videó engedélyezése:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Signal hívás</string>
-    <string name="WebRtcCallView__signal_video_call">Signal videóhívás</string>
+    <string name="WebRtcCallView__signal_call">Molly hívás</string>
+    <string name="WebRtcCallView__signal_video_call">Molly videóhívás</string>
     <string name="WebRtcCallView__start_call">Hívás indítása</string>
     <string name="WebRtcCallView__join_call">Belépés a hívásba</string>
     <string name="WebRtcCallView__call_is_full">A hívás betelt</string>
@@ -2028,24 +2132,43 @@
     <!-- A dialog prompt to confirm you want to lower your hand -->
     <string name="CallOverflowPopupWindow__lower_your_hand">Leteszed a kezed?</string>
     <!-- A dialog button to confirm you would like to lower your hand -->
-    <string name="CallOverflowPopupWindow__lower_hand">Kéz letétele</string>
+    <string name="CallOverflowPopupWindow__lower_hand">Letétel</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Mégse</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">Felemelted a kezed</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Megtekintés</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">%1$s felemelte a kezét</item>
+
+    <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s felemelted a kezed</string>
+    <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_multiple">
+        <item quantity="one">%1$s és %2$d felemelte a kezét</item>
         <item quantity="other">%1$s + %2$d felemelte a kezét</item>
     </plurals>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="one">%1$s</item>
-        <item quantity="other">%1$s + %2$d</item>
+    <!-- A notification to the user that one participant in the call successfully raised their hand. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_single">%1$s felemelte a kezét</string>
+    <!-- A notification to the user that two or more participants in the call successfully raised their hand. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_multiple">
+        <item quantity="one">%1$s + %2$d felemelte a kezét</item>
+        <item quantity="other">%1$s + %2$d felemelte a kezét</item>
+    </plurals>
+
+    <!-- A badge to show the user has their hand raised. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__collapsed_second_person_raised_hand_single">%1$s</string>
+    <!-- A badge to show the user and at least one other participant in the call have their hand raised. The placeholder is a number quantifying how many other hands are also raised, besides the user.  -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_second_person_raised_hands_multiple">
+        <item quantity="one">%1$s +%2$d</item>
+        <item quantity="other">%1$s+%2$d</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_multiple">
+        <item quantity="one">%1$s +%2$d</item>
+        <item quantity="other">%1$s+%2$d</item>
     </plurals>
 
     <!-- An accessibility label for screen readers on a view that can be expanded -->
@@ -2134,7 +2257,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">A számod megerősítése érdekében hamarosan egy hívást indítunk a megadott számra.</string>
     <string name="RegistrationActivity_edit_number">Szám szerkesztése</string>
     <string name="RegistrationActivity_missing_google_play_services">Hiányzó Google Play Szolgáltatások</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ezen a készüléken hiányzik a Google Play Szolgáltatások. Továbbra is használhatod a Signalt, de ez a konfiguráció csökkent megbízhatóságot vagy teljesítményt eredményezhet.\n\nHa nem egy hozzáértő felhasználó vagy, aki egy utángyártott Android ROM-ot futtat, vagy ez egy hibának tűnik neked, akkor kérlek vedd fel a kapcsolatot a probléma megoldása érdekében a support@signal.org -gal.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ezen a készüléken hiányzik a Google Play Szolgáltatások. Továbbra is használhatod a Mollyt, de ez a konfiguráció csökkent megbízhatóságot vagy teljesítményt eredményezhet.\n\nHa nem egy hozzáértő felhasználó vagy, aki egy utángyártott Android ROM-ot futtat, vagy ez egy hibának tűnik neked, akkor kérlek vedd fel a kapcsolatot a probléma megoldása érdekében a support@molly.im -gal.</string>
     <string name="RegistrationActivity_i_understand">Megértettem</string>
     <string name="RegistrationActivity_play_services_error">Play Szolgáltatások hiba</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">A Google Play Szolgáltatások épp frissítés alatt áll, vagy átmenetileg nem elérhető. Kérlek próbáld újra.</string>
@@ -2152,7 +2275,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Nem szabványos számformátum</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">A begépelt szám (%1$s) nem tűnik szabványos formátumúnak.\n\nNem erre gondoltál: %2$s ?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - Telefonszám formátum</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Telefonszám formátum</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Hívás kérve</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2186,8 +2309,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Problémáid vannak a regisztrációval?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Győződj meg róla, hogy telefonod rendelkezik térerővel az SMS vagy a hívás fogadásához\n • Erősítsd meg, hogy fogadhatsz-e hívást a számra\n • Ellenőrizd, hogy helyesen adtad-e meg a telefonszámod.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">További információért kövesd ezeket a hibaelhárítási lépéseket, vagy lépj kapcsolatba az ügyfélszolgálattal</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">További információért, kövesd a(z) %1$s vagy a(z) %2$s lépést</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">ezeket a hibaelhárítási lépéseket</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2225,13 +2348,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Hozzáadás a Névjegyzékhez</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Meghívás a Signalra</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Meghívás a Mollyra</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal üzenet</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal hívás</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Hozzáadás a névjegyzékhez</string>
-    <string name="SharedContactView_invite_to_signal">Meghívás a Signalra</string>
+    <string name="SharedContactView_invite_to_signal">Meghívás a Mollyra</string>
     <string name="SharedContactView_message">Signal üzenet</string>
 
     <!-- SignalBottomActionBar -->
@@ -2362,11 +2485,11 @@
     <string name="ThreadRecord_s_belongs_to_s">A(z) %1$s telefonszám %2$s felhasználóhoz tartozik</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Signal frissítés</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Megjelent a Signal új verziója. A frissítéshez koppints.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">A Signal frissítése sikertelen</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Molly frissítés</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Megjelent a Molly új verziója. A frissítéshez koppints.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">A Molly frissítése sikertelen</string>
     <string name="ApkUpdateNotifications_failed_general_body">Később újra megpróbáljuk.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Signal sikeresen frissítve</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Molly sikeresen frissítve</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Automatikusan frissítettél a(z) %1$s verzióra.</string>
 
     <!-- UntrustedSendDialog -->
@@ -2437,7 +2560,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Signal biztonsági számunk:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Úgy néz ki, egy alkalmazásod sem alkalmas a megosztás kezeléséhez.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">A vágólapon nem található biztonsági szám, amellyel össze lehetne hasonlítani</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">A Signalnak szüksége van a Kamera engedélyre, hogy QR kódot szkennelhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">A Mollynak szüksége van a Kamera engedélyre, hogy QR kódot szkennelhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Nem lehet QR kódot szkennelni Kamera engedély nélkül</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Ahhoz, hogy megtekinthesd %1$s biztonsági számát, előbb üzenetet kell váltanotok.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2467,14 +2590,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Koppints a megnyitáshoz!</string>
-    <string name="KeyCachingService_passphrase_cached">Signal feloldva</string>
-    <string name="KeyCachingService_lock">Signal zárolása</string>
+    <string name="KeyCachingService_passphrase_cached">Molly feloldva</string>
+    <string name="KeyCachingService_lock">Molly zárolása</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Te</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Nem támogatott médiatípus</string>
     <string name="MediaPreviewActivity_draft">Piszkozat</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">A Signalnak szüksége van a Tárhely engedélyre ahhoz, hogy külső tárolóra menthessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">A Mollynak szüksége van a Tárhely engedélyre ahhoz, hogy külső tárolóra menthessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nem lehet engedély nélkül menteni a külső tárolóra</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Törlöd az üzenetet?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Ez véglegesen törölni fogja ezt az üzenetet.</string>
@@ -2518,7 +2641,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Nem sikerült az üzenet kézbesítése.</string>
     <string name="MessageNotifier_error_delivering_message">Hiba történt az üzenet kézbesítése során.</string>
     <string name="MessageNotifier_message_delivery_paused">Üzenetek kézbesítése felfüggesztve</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">A Signal hálózatán történő üzenetküldéshez ellenőrzés szükséges.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">A Molly hálózatán történő üzenetküldéshez ellenőrzés szükséges.</string>
     <string name="MessageNotifier_mark_all_as_read">Összes megjelölése olvasottként</string>
     <string name="MessageNotifier_mark_read">Olvasottnak jelöl</string>
     <string name="MessageNotifier_turn_off_these_notifications">Értesítések kikapcsolása</string>
@@ -2540,7 +2663,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reagált a matricádra: %1$s.</string>
     <string name="MessageNotifier_this_message_was_deleted">Ez az üzenet ki lett törölve.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Kikapcsolod az új kontakt érhető el Signalon értesítést? Újra engedélyezheted a Signal &gt; Beállítások &gt; Értesítések menüpontban.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Kikapcsolod az új kontakt érhető el Mollyon értesítést? Újra engedélyezheted a Molly &gt; Beállítások &gt; Értesítések menüpontban.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2579,7 +2702,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">A gyors válasz nem érhető el, ha a Signal zárolva van!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">A gyors válasz nem érhető el, ha a Molly zárolva van!</string>
     <string name="QuickResponseService_problem_sending_message">Probléma lépett fel az üzenet küldése során!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2599,7 +2722,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Érvénytelen parancsikon</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Új üzenet</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Felkérés csevegésre</string>
     <string name="SingleRecipientNotificationBuilder_you">Te</string>
@@ -2645,7 +2768,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Ez az eszköz már nincs regisztrálva. Ennek valószínűleg az az oka, hogy egy másik eszközön regisztráltad a telefonszámod a Signalon.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Ez az eszköz már nincs regisztrálva. Ennek valószínűleg az az oka, hogy egy másik eszközön regisztráltad a telefonszámod a Mollyon.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Regisztráld újra az eszközt</string>
 
@@ -2658,10 +2781,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">A hívás fogadásához engedélyezd, hogy a Signal hozzáférhessen a mikrofonhoz!</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">A hívás fogadásához engedélyezd, hogy a Molly hozzáférhessen a mikrofonhoz!</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">A videohívás fogadásához engedélyezd, hogy a Signal hozzáférhessen a mikrofonhoz és a kamerához!</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">A Signalnak szüksége van a Mikrofon és Kamera engedélyekre, hogy képes legyen hívások indítására és fogadására, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t és a \"Kamera\"-t.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">A videohívás fogadásához engedélyezd, hogy a Molly hozzáférhessen a mikrofonhoz és a kamerához!</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">A Mollynak szüksége van a Mikrofon és Kamera engedélyekre, hogy képes legyen hívások indítására és fogadására, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t és a \"Kamera\"-t.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Fogadva egy társított eszközön.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Elutasítva egy társított eszközön.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Foglalt jelzés egy társított eszközön.</string>
@@ -2706,16 +2829,16 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Új jelmondat megismétlése</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Meghívás a Signalra</string>
+    <string name="contact_selection_activity__invite_to_signal">Meghívás a Mollyra</string>
     <string name="contact_selection_activity__new_group">Új csoport</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Névjegyek frissítése</string>
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Hiányzik valaki? Próbáld meg frissíteni</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Keress ismerősöket a Signalban</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Engedélyezd a névjegyeidhez való hozzáférést</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Továbbiak</string>
 
@@ -2732,7 +2855,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Kontakt fotó</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">A Signalnak szüksége van a Névjegyek engedélyre annak érdekében, hogy megjelenítse a névjegyeid, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">A Mollynak szüksége van a Névjegyek engedélyre annak érdekében, hogy megjelenítse a névjegyeid, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Hiba történt a névjegyek betöltése során, ellenőrizd a hálózati kapcsolatod</string>
     <string name="ContactSelectionListFragment_username_not_found">A felhasználónév nem található</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s nem Signal-felhasználó. Kérjük, ellenőrizd a felhasználónevet, majd próbáld újra."</string>
@@ -2750,16 +2873,18 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Keresés felhasználónév alapján</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">Hozzáférés engedélyezése a névjegyekhez</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Ismerősök keresése a Signalban:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">Hozzáférés engedélyezése</string>
+    <!-- Text on button to dismiss Signal\'s request for contact permissions -->
+    <string name="ContactSelectionListFragment__no_thanks">Nem, köszönöm</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Engedélyezd a névjegyeidhez való hozzáférést. A névjegyeid titkosítva vannak, és nem láthatók a Signal számára.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">A Signalnak szüksége van a névjegyeidhez való hozzáférésre annak érdekében, hogy megjelenítse őket.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">A Mollynak szüksége van a névjegyeidhez való hozzáférésre annak érdekében, hogy megjelenítse őket.</string>
     <string name="contact_selection_list_fragment__show_contacts">Kontaktok mutatása</string>
 
     <!-- contact_selection_list_item -->
@@ -2832,6 +2957,8 @@
     <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">Eltávolítottad ezt a személyt. Ha újból üzenetet küldesz neki, újra felveszed a listádra.</string>
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">Opciók</string>
+    <!-- Update item button text shown for a profile name change. -->
+    <string name="ConversationUpdateItem_update">Frissítés</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Lejátszás … Szünet</string>
@@ -2860,7 +2987,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">A Buborék egy Android funkció, amit letilthatsz a Signal-csevegések esetén.</string>
+    <string name="BubbleOptOutTooltip__description">A Buborék egy Android funkció, amit letilthatsz a Molly-csevegések esetén.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Később</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3028,9 +3155,9 @@
     <string name="EditProfileFragment__group_description">Csoportleírás</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Signal frissítése</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Molly frissítése</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">A Signal jelenlegi verziója lejárt. A Signal használatának folytatásához frissítsd most.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">A Molly jelenlegi verziója lejárt. A Molly használatának folytatásához frissítsd most.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Frissítés</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3247,7 +3374,7 @@
     <string name="preferences__slow">Lassú</string>
     <string name="preferences__help">Súgó</string>
     <string name="preferences__advanced">Haladó</string>
-    <string name="preferences__donate_to_signal">Adomány a Signal számára</string>
+    <string name="preferences__donate_to_signal">Adomány a Molly számára</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Adatvédelem</string>
     <!-- Preference label for stories -->
@@ -3284,13 +3411,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Módosítsd az alkalmazás ikonját és nevét a következőre: „%1$s”</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Az alkalmazás ikonjának és nevének módosításához be kell zárni a Signalt. Az Értesítések mindig az alapértelmezett Signal-ikont és nevet jelenítik meg.</string>
+    <string name="preferences__app_icon_dialog_description">Az alkalmazás ikonjának és nevének módosításához be kell zárni a Mollyt. Az Értesítések mindig az alapértelmezett Molly-ikont és nevet jelenítik meg.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Válassz ki egy alkalmazásikont és -nevet, amely látható lesz a telefon kezdőképernyőjén és a telepített alkalmazásaid listájában. Az Értesítések mindig az alapértelmezett Signal-ikont és nevet jelenítik meg. Tudj meg többet</string>
+    <string name="preferences__app_icon_warning_learn_more">Válassz ki egy alkalmazásikont és -nevet, amely látható lesz a telefon kezdőképernyőjén és a telepített alkalmazásaid listájában. Az Értesítések mindig az alapértelmezett Molly-ikont és nevet jelenítik meg. Tudj meg többet</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Az alkalmazások ikonjai és nevei a kezdőképernyőn és a telepített alkalmazásaid listájában láthatók.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Az Értesítések mindig az alapértelmezett Signal-ikont és nevet jelenítik meg.</string>
+    <string name="preferences__app_icon_notification_warning">Az Értesítések mindig az alapértelmezett Molly-ikont és nevet jelenítik meg.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Tudj meg többet</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3337,8 +3464,12 @@
         <item quantity="other">Ezzel véglegesen kitörlöd az összes csevegés régi üzeneteit, és csak a(z) %1$s legfrissebb marad meg.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Ez véglegesen törölni fogja eszközödről az üzenet-előzményeket és médiafájlokat.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">Ezzel véglegesen törlöd az összes üzenetelőzményt és médiafájlt erről és a kapcsolódó eszközökről.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Biztosan törölni szeretnéd az összes üzenet-előzményt?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">A teljes üzenet-előzmény törlésre kerül. A műveletet nem lehet visszavonni.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">A teljes üzenetelőzmény véglegesen törlésre kerül minden eszközről. Ez a művelet nem vonható vissza.</string>
     <string name="preferences_storage__delete_all_now">Összes törlése most</string>
     <string name="preferences_storage__forever">örökké</string>
     <string name="preferences_storage__one_year">1 év</string>
@@ -3375,7 +3506,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Cenzúramegkerülés</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Cenzúramegkerülés</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ha engedélyezed, a Signal megpróbálja megkerülni a cenzúrát. Ne engedélyezd ezt a funkciót, ha tartózkodási helyeden nem cenzúrázzák a Signalt!</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ha engedélyezed, a Molly megpróbálja megkerülni a cenzúrát. Ne engedélyezd ezt a funkciót, ha tartózkodási helyeden nem cenzúrázzák a Mollyt!</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Telefonszámod alapján bekapcsoltuk számodra a cenzúramegkerülés-funkciót.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3427,7 +3558,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Bemutatjuk a Fizetések szolgáltatást</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Küldj és fogadj MobileCoint a Signallal. A MobileCoin egy új, adatvédelemre fókuszáló digitális pénznem. Aktiváld, hogy kipróbálhasd!</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Küldj és fogadj MobileCoint a Mollylal. A MobileCoin egy új, adatvédelemre fókuszáló digitális pénznem. Aktiváld, hogy kipróbálhasd!</string>
     <string name="PaymentsHomeFragment__activate_payments">Fizetések aktiválása</string>
     <string name="PaymentsHomeFragment__activating_payments">Fizetések aktiválása…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Fizetési fiók helyreállítása</string>
@@ -3462,10 +3593,10 @@
     <string name="PaymentsHomeFragment__details">Részletek</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">A Signal segítségével küldhetsz és fogadhatsz MobileCoint. Minden fizetésre a MobileCoins és a MobileCoin Wallet felhasználási feltételei vonatkoznak. Előfordulhat, hogy hibákba futsz bele, és az elveszett fizetéseket és egyenlegeket nem lehet helyreállítani. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">A Molly segítségével küldhetsz és fogadhatsz MobileCoint. Minden fizetésre a MobileCoins és a MobileCoin Wallet felhasználási feltételei vonatkoznak. Előfordulhat, hogy hibákba futsz bele, és az elveszett fizetéseket és egyenlegeket nem lehet helyreállítani. </string>
     <string name="PaymentsHomeFragment__activate">Bekapcsolás</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin feltételek megtekintése</string>
-    <string name="PaymentsHomeFragment__payments_not_available">A továbbiakban nem érhető el a Fizetések a Signalban. Az egyenlegedet továbbra is átutalhatod egy tőzsdére, de a továbbiakban már nem fogsz tudni pénzt küldeni vagy fogadni, sem pedig feltölteni az egyenlegedet.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">A továbbiakban nem érhető el a Fizetések a Mollyban. Az egyenlegedet továbbra is átutalhatod egy tőzsdére, de a továbbiakban már nem fogsz tudni pénzt küldeni vagy fogadni, sem pedig feltölteni az egyenlegedet.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3493,7 +3624,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Jogosultságok engedélyezése</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">A Signal kérni fogja ezeket az engedélyeket, hogy segítsen üzenetet küldeni az ismerőseinek. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">A Molly kérni fogja ezeket az engedélyeket, hogy segítsen üzenetet küldeni az ismerőseinek. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Értesítések</string>
     <!-- Notifications permission row description -->
@@ -3581,10 +3712,10 @@
     <string name="PaymentsTransferFragment__next">Tovább</string>
     <string name="PaymentsTransferFragment__invalid_address">Érvénytelen cím</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Ellenőrizd a címzett tárcájának címét, majd próbáld újra!</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Nem utalhatsz a saját Signal tárcád címére. Add meg egy támogatott tőzsdéhez tartozó tárca címét!</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR kód beolvasásához a Signalnak szüksége van kamera-hozzáférésre.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">A Signalnak Kamera hozzáférésre van szüksége QR kódok beolvasásához. Nyisd meg a beállításokokat, válaszd ki az \"Engedélyek\" menüpontot, majd engedélyezd a \"Kamera\" hozzáférést!</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR kód beolvasásához engedélyezned kell, hogy a Signal hozzáférhessen kamerádhoz.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Nem utalhatsz a saját Molly tárcád címére. Add meg egy támogatott tőzsdéhez tartozó tárca címét!</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR kód beolvasásához a Mollynak szüksége van kamera-hozzáférésre.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">A Mollynak Kamera hozzáférésre van szüksége QR kódok beolvasásához. Nyisd meg a beállításokokat, válaszd ki az \"Engedélyek\" menüpontot, majd engedélyezd a \"Kamera\" hozzáférést!</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR kód beolvasásához engedélyezned kell, hogy a Molly hozzáférhessen kamerádhoz.</string>
     <string name="PaymentsTransferFragment__settings">Beállítások</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -3932,17 +4063,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Bejövő Signal-hanghívás</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Bejövő Molly-hanghívás</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Bejövő Signal-videóhívás</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Bejövő Molly-videóhívás</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Bejövő Signal csoporthívás</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Bejövő Molly csoporthívás</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Folyamatban lévő Signal-hanghívás</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Folyamatban lévő Molly-hanghívás</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Folyamatban lévő Signal-videohívás</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Folyamatban lévő Molly-videohívás</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Folyamatban lévő Signal-csoporthívás</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Folyamatban lévő Molly-csoporthívás</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Betöltés…</string>
@@ -3989,9 +4120,9 @@
     <string name="BackupDialog_verify">Hitelesítés</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">A biztonsági mentés jelmondat megadása sikeres volt</string>
     <string name="BackupDialog_passphrase_was_not_correct">A jelmondat nem megfelelő</string>
-    <string name="LocalBackupJob_creating_signal_backup">Signal biztonsági mentés létrehozása…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Molly biztonsági mentés létrehozása…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Signal biztonsági mentés ellenőrzése…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Molly biztonsági mentés ellenőrzése…</string>
     <string name="LocalBackupJobApi29_backup_failed">Sikertelen biztonsági mentés</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">A biztonsági mentéseket tartalmazó könyvtár törölve lett, vagy át lett helyezve.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">A biztonsági mentés mérete túl nagy ahhoz, hogy itt legyen létrehozva.</string>
@@ -4006,15 +4137,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Hívjon (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Kód újraküldése (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Kapcsolatfelvétel a Signal támogatással</string>
-    <string name="RegistrationActivity_code_support_subject">Signal regisztráció - megerősítő kód Androidhoz</string>
+    <string name="RegistrationActivity_contact_signal_support">Kapcsolatfelvétel a Molly támogatással</string>
+    <string name="RegistrationActivity_code_support_subject">Molly regisztráció - megerősítő kód Androidhoz</string>
     <string name="RegistrationActivity_incorrect_code">Helytelen kód</string>
     <string name="BackupUtil_never">Soha</string>
     <string name="BackupUtil_unknown">Ismeretlen</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Telefonszám</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Válaszd ki, hogy ki láthatja a telefonszámod, és ki léphet kapcsolatba veled a Signalon keresztül.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Válaszd ki, hogy ki láthatja a telefonszámod, és ki léphet kapcsolatba veled a Mollyon keresztül.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Ki láthatja a telefonszámomat?</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4062,7 +4193,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Túl sokszor próbálkoztál. Kérlek próbáld újra később!</string>
     <string name="RegistrationActivity_error_connecting_to_service">Hiba történt a szolgáltatáshoz történő csatlakozás során</string>
     <string name="preferences_chats__backups">Biztonsági mentések</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Signal zárolva</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Molly zárolva</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">KOPPINTS A FELOLDÁSHOZ</string>
     <string name="Recipient_unknown">Ismeretlen</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4093,8 +4224,15 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Hozzá kell férned a régi eszközödhöz.</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">Visszaállítás biztonsági mentésből</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Üzeneteid helyreállítása egy helyi mentésből. Ha nem állítod őket helyre most, akkor később már nem lesz rá lehetőséged.</string>
+    <string name="TransferOrRestoreFragment__restore_from_local_backup">Helyi biztonsági mentés visszaállítása</string>
+    <string name="TransferOrRestoreFragment__restore_from_signal_backup">Signal biztonsági mentésének visszaállítása</string>
+    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Az összes szöveges üzenet + az elmúlt 30 nap médiafájljának visszaállítása</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">További lehetőségek</string>
+
+    <string name="TransferOrRestoreFragment__cancel">Mégse</string>
+    <string name="TransferOrRestoreFragment__skip_transfer">Bejelentkezés átvitel nélkül</string>
+    <string name="TransferOrRestoreFragment__skip_transfer_description">Folytatás az üzenetek és a médiafájlok átvitele nélkül</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Nyisd meg a Signalt régi Android készülékeden!</string>
@@ -4110,19 +4248,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Előkészülés a régi Android eszközhöz csatlakozáshoz…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Kis türelmet, hamarosan készen van</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Várakozás a régi Android eszközre a csatlakozáshoz…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">A Signalnak szüksége van hely engedélyekre, hogy felderíthesse és csatlakozhasson régi Android eszközödhöz.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">A Signalnak szüksége van hely szolgáltatások engedélyezésére, hogy felderíthesse és csatlakozhasson régi Android eszközödhöz.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">A Signalnak szüksége Wi-Fi-re, hogy felderíthesse és csatlakozhasson régi Android eszközödhöz. A Wi-Finek bekapcsolva kell lennie, de nem muszáj csatlakozva lennie.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sajnáljuk, de úgy tűnik, hogy ez az eszköz nem támogatja a Wi-Fi Directet. A Signal Wi-Fi Directet használ, hogy felderítse és csatlakozzon régi Android eszközödhöz. Továbbra is használhatod a biztonsági mentés által létrehozott fájlokat, hogy a fiókodat áthozd régi Android eszközödről.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">A Mollynak szüksége van hely engedélyekre, hogy felderíthesse és csatlakozhasson régi Android eszközödhöz.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">A Mollynak szüksége van hely szolgáltatások engedélyezésére, hogy felderíthesse és csatlakozhasson régi Android eszközödhöz.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">A Mollynak szüksége Wi-Fi-re, hogy felderíthesse és csatlakozhasson régi Android eszközödhöz. A Wi-Finek bekapcsolva kell lennie, de nem muszáj csatlakozva lennie.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sajnáljuk, de úgy tűnik, hogy ez az eszköz nem támogatja a Wi-Fi Directet. A Molly Wi-Fi Directet használ, hogy felderítse és csatlakozzon régi Android eszközödhöz. Továbbra is használhatod a biztonsági mentés által létrehozott fájlokat, hogy a fiókodat áthozd régi Android eszközödről.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Biztonsági mentés visszaállítása</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Váratlan hiba történt a régi Android eszközödhöz történő csatlakozás során.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Az új Android eszköz keresése…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">A Signalnak helymeghatározás engedélyre van szüksége ahhoz, hogy felderíthesse új Android eszközödet, és csatlakozhasson hozzá.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">A Signalnak a helymeghatározás szolgáltatásra van szüksége ahhoz, hogy felderíthesse új Android eszközödet, és csatlakozhasson hozzá.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">A Signalnak Wi-Fi-re van szüksége, hogy felderíthesse új Android eszközödet és csatlakozhasson hozzá. A Wi-Finek bekapcsolt állapotban kell lennie, de nem muszáj hálózathoz csatlakoznia.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sajnáljuk, de úgy tűnik, hogy ez az eszköz nem támogatja a Wi-Fi Directet. A Signal Wi-Fi Directet használ, hogy felderítse és csatlakozzon új Android eszközödhöz. Továbbra is használhatod a biztonsági mentés által létrehozott fájlokat, hogy a fiókodat áthozd új Android eszközödre.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">A Mollynak helymeghatározás engedélyre van szüksége ahhoz, hogy felderíthesse új Android eszközödet, és csatlakozhasson hozzá.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">A Mollynak a helymeghatározás szolgáltatásra van szüksége ahhoz, hogy felderíthesse új Android eszközödet, és csatlakozhasson hozzá.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">A Mollynak Wi-Fi-re van szüksége, hogy felderíthesse új Android eszközödet és csatlakozhasson hozzá. A Wi-Finek bekapcsolt állapotban kell lennie, de nem muszáj hálózathoz csatlakoznia.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sajnáljuk, de úgy tűnik, hogy ez az eszköz nem támogatja a Wi-Fi Directet. A Molly Wi-Fi Directet használ, hogy felderítse és csatlakozzon új Android eszközödhöz. Továbbra is használhatod a biztonsági mentés által létrehozott fájlokat, hogy a fiókodat áthozd új Android eszközödre.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Biztonsági mentés létrehozása</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Váratlan hiba történt az új Android eszközödhöz történő csatlakozás során.</string>
 
@@ -4163,7 +4301,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Adat áttöltése</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Tartsd a két eszközt egymás közelében. Ne kapcsold ki egyik eszközt sem, és tartsd a Signalt nyitva. Az adatvitel végpontok közti titkosítással védett.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Tartsd a két eszközt egymás közelében. Ne kapcsold ki egyik eszközt sem, és tartsd a Mollyt nyitva. Az adatvitel végpontok közti titkosítással védett.</string>
     <string name="DeviceTransfer__d_messages_so_far">Eddig %1$d db üzenet…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">Eddig %1$s%% üzenet…</string>
@@ -4177,7 +4315,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Fiók átvitele</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Töltsd le a Signalt új Android eszközödre</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Töltsd le a Mollyt új Android eszközödre</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Koppints a \"Fiók átvitele vagy helyreállítása\" opcióra!"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4251,7 +4389,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Ezzel a hivatkozással bárki megtekintheti a csoport nevét, a tagok listáját, valamint csatlakozási kérelmet nyújthat be. Csak olyan személyekkel oszd meg, akikben megbízol.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Ezzel a hivatkozással bárki megtekintheti a csoport nevét, a tagok listáját, valamint csatlakozhat a csoporthoz. Csak olyan személyekkel oszd meg, akikben megbízol.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Megosztás Signallal</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Megosztás Mollylal</string>
     <string name="GroupLinkBottomSheet_copy">Másolás</string>
     <string name="GroupLinkBottomSheet_qr_code">QR kód</string>
     <string name="GroupLinkBottomSheet_share">Megosztás</string>
@@ -4437,7 +4575,7 @@
     <string name="payment_info_card_about_mobilecoin">A MobileCoin-ról</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">A MobileCoin egy új, adatvédelemre fókuszáló digitális pénznem.</string>
     <string name="payment_info_card_adding_funds">Feltöltés</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">A Signalban történő költekezéshez küldj MobileCoin-t a pénztárcád címére!</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">A Mollyban történő költekezéshez küldj MobileCoin-t a pénztárcád címére!</string>
     <string name="payment_info_card_cashing_out">Pénzkivét</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Bármikor hozzájuthatsz MobileCoin egyenlegedhez egy olyan tőzsde használatával, amely támogatja a MobileCoint. Egyszerűen indíts egy utalást a tőzsdéhez tartozó tárcád címére.</string>
     <string name="payment_info_card_hide_this_card">Elrejtsük ezt a kártyát?</string>
@@ -4458,12 +4596,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Tárca kikapcsolása</string>
     <string name="DeactivateWalletFragment__your_balance">Egyenleged</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">A fizetések kikapcsolása előtt javasolt a pénzösszegeidet egy másik tárca címére átutalni. Ha mégis úgy döntesz, hogy most nem utalod át az egyenleged, az továbbra is a Signalhoz kapcsolt tárcádban lesz. A fizetések újraaktiválásakor az egyenleg újra elérhető lesz.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">A fizetések kikapcsolása előtt javasolt a pénzösszegeidet egy másik tárca címére átutalni. Ha mégis úgy döntesz, hogy most nem utalod át az egyenleged, az továbbra is a Mollyhoz kapcsolt tárcádban lesz. A fizetések újraaktiválásakor az egyenleg újra elérhető lesz.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Maradék egyenleg átutalása</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Kikapcsolás átutalás nélkül</string>
     <string name="DeactivateWalletFragment__deactivate">Kikapcsolás</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Kikapcsolás átutalás nélkül?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Az egyenleg a Signalhoz kapcsolt tárcádban marad. A fizetések újraaktiválásakor az egyenleged újra elérhető lesz.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Az egyenleg a Mollyhoz kapcsolt tárcádban marad. A fizetések újraaktiválásakor az egyenleged újra elérhető lesz.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Hiba a tárca kikapcsolásakor.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4758,7 +4896,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Licencek</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Feltételek &amp; Adatvédelmi irányelvek</string>
-    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Licenc: GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -4999,9 +5137,6 @@
     <!-- VectorAvatarCreationFragment -->
     <string name="VectorAvatarCreationFragment__select_a_color">Szín választása</string>
 
-    <!-- ContactSelectionListItem -->
-    <string name="ContactSelectionListItem__sms">SMS</string>
-
     <!-- Displayed in the toolbar when externally sharing text to multiple recipients -->
     <string name="ShareInterstitialActivity__share">Megosztás</string>
 
@@ -5035,7 +5170,8 @@
     </plurals>
     <!-- Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin -->
     <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">Csak adminok küldhetnek üzenetet ebbe a csoportba.</string>
-    <string name="MultiselectForwardFragment__limit_reached">Korlát elérve</string>
+    <!-- Error message shown when users try to choose more than 5 chats to send a message to -->
+    <string name="MultiselectForwardFragment__you_cant_select_more_chats">Legfeljebb 5 csevegést választhatsz ki</string>
 
     <!-- Media V2 -->
     <!-- Dialog message when sending a story via an add to group story button -->
@@ -5212,9 +5348,9 @@
     <string name="MySupportPreference__learn_more">Tudj meg többet</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Signal frissítése</string>
+    <string name="UpdateSignalExpiredDialog__title">Molly frissítése</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">A Signal jelenlegi verziója lejárt. A Signal használatának folytatásához frissítsd most.</string>
+    <string name="UpdateSignalExpiredDialog__message">A Molly jelenlegi verziója lejárt. A Molly használatának folytatásához frissítsd most.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Frissítés</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5223,7 +5359,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Az eszköz nincs regisztrálva</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Ez az eszköz már nincs regisztrálva. Regisztráld újra, hogy továbbra is használhasd a Signalt ezen az eszközön.</string>
+    <string name="ReregisterSignalDialog__message">Ez az eszköz már nincs regisztrálva. Regisztráld újra, hogy továbbra is használhasd a Mollyt ezen az eszközön.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Újraregisztrálás</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5517,7 +5653,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Sikertelen tallózás.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Az értesítések engedélyezéséhez a Signalnak engedélyre van szüksége azok megjelenítéséhez.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Az értesítések engedélyezéséhez a Mollynak engedélyre van szüksége azok megjelenítéséhez.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Bekapcsolás</string>
 
@@ -5666,8 +5802,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">Még nem érkeztek reakciók</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">Nem válaszolhatsz erre a Történetre, mert már nem vagy tagja ennek a csoportnak.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Reagált a Történetre</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">Reagáltál a történetre</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">Reagált a történetre</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Megtekintések</string>
     <!-- Label for story replies tab -->
@@ -6284,8 +6422,8 @@
     <string name="IdealTransferDetailsFragment__choose_your_bank">Válaszd ki a bankot</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
     <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">Erősítsd meg az adományod a(z) %1$s banknál</string>
-    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__monthly_ideal_warning">Az ismétlődő adományozás beállításához koppints a Tovább gombra és erősítsd meg a 0,01 € összegű terhelést a bankodnál. Ez automatikusan visszatérítésre kerül, és lehetővé teszi, hogy a havi 5 € adományodat levonják a számládról.</string>
+    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
+    <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">Az ismétlődő adományozás beállításához koppints a Tovább gombra és erősítsd meg a 0,01 € összegű terhelést a bankodnál. Ez automatikusan visszatérítésre kerül, és lehetővé teszi, hogy a havi %1$s adományodat levonják a számládról.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
     <string name="IdealTransferDetailsFragment__continue">Tovább</string>
 
@@ -6861,6 +6999,52 @@
     <!-- Notification title shown while downloading backup restore data -->
     <string name="BackupProgressService_title_downloading">Biztonsági mentés adatainak letöltése…</string>
 
+    <!-- BackupAlertBottomSheet -->
+    <!-- Sheet title when media backups have been disabled -->
+    <string name="BackupAlertBottomSheet__media_backups_are_off">A médiafájlok biztonsági mentése ki van kapcsolva</string>
+    <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
+    <plurals name="BackupAlertBottomSheet__your_signal_media_backup_plan">
+        <item quantity="one">A médiafájlok biztonsági mentésére vonatkozó Signal-előfizetésedet töröltük, mert nem tudtuk feldolgozni a fizetésedet. %1$d napod van a biztonsági mentésben tárolt médiafájlok letöltésére. %1$d nap elteltével a biztonsági mentésben lévő médiafájl törlődik.</item>
+        <item quantity="other">A médiafájlok biztonsági mentésére vonatkozó Signal-csomagodat töröltük, mert nem tudtuk feldolgozni a fizetésedet. %1$d napod van a biztonsági mentésben tárolt médiafájlok letöltésére. %1$d nap elteltével a biztonsági mentésben lévő médiafájl törlődik.</item>
+    </plurals>
+    <!-- Sheet body part 2 when media backups have been disabled. -->
+    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Bármikor újra elkezdhetsz fizetni a biztonsági mentésekért, hogy folytathasd az összes médiafájl biztonsági mentését. </string>
+    <!-- Sheet title when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">A médiafájlod ma törlésre kerül</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">A médiafájlok biztonsági mentésére vonatkozó Signal-előfizetésedet töröltük, mert nem tudtuk feldolgozni a tranzakciót. Ez az utolsó lehetőséged arra, hogy letöltsd a biztonsági mentésben lévő médiafájlt, mielőtt törlésre kerül.</string>
+    <!-- Sheet title when user does not have enough space to download their backup -->
+    <string name="BackupAlertBottomSheet__cant_complete_download">A letöltés nem végezhető el</string>
+    <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
+    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Az eszközödön nincs elég szabad hely. Szabadíts fel akár %1$s helyet a biztonsági mentésben tárolt médiafájlok letöltéséhez.</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
+    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
+        <item quantity="one">Ha a „Kihagyás” lehetőséget választod, a biztonsági mentésben tárolt médiafájlok %1$d napon belül törlődnek.</item>
+        <item quantity="other">Ha a „Kihagyás” lehetőséget választod, a biztonsági mentésben tárolt médiafájlok %1$d napon belül törlődnek.</item>
+    </plurals>
+    <!-- Sheet title when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__cant_process_backup_payment">Nem sikerült feldolgozni a biztonsági mentésre vonatkozó tranzakciót</string>
+    <!-- Sheet body when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">Problémába ütköztünk az ismétlődő havi biztonsági mentésre vonatkozó tranzakció levonása során. Ellenőrizd, hogy a megadott fizetési mód naprakész-e. Ha nem az, frissítsd a Google Pay-jen. A Signal néhány napon belül újra megpróbálja feldolgozni a fizetést.</string>
+    <!-- Sheet title for generic backup error -->
+    <string name="BackupAlertBottomSheet__couldnt_complete_backup">Nem sikerült elvégezni a biztonsági mentést</string>
+    <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
+    <string name="BackupAlertBottomSheet__your_device_hasnt">Eszközöd %1$d napja nem végzett biztonsági mentést. Ellenőrizd, hogy az eszközöd csatlakozik-e wifi-hálózathoz, és koppints a „Biztonsági mentés most” lehetőségre. </string>
+    <!-- Clickable text to learn more about the content of this bottom sheet -->
+    <string name="BackupAlertBottomSheet__learn_more">Tudj meg többet</string>
+    <!-- Secondary action button text when user does not have enough free space to download their backup. -->
+    <string name="BackupAlertBottomSheet__skip">Kihagyás</string>
+    <!-- Primary action button text prompting user to download their media -->
+    <string name="BackupAlertBottomSheet__download_media_now">Médiafájl letöltése most</string>
+    <!-- Secondary action button text to dismiss sheet, noting the user can download later -->
+    <string name="BackupAlertBottomSheet__download_later">Letöltés később</string>
+    <!-- Secondary action button text to dismiss sheet, skipping media download -->
+    <string name="BackupAlertBottomSheet__dont_download_media">Nem töltöm le a médiafájlt</string>
+
+    <!-- BackupStatus -->
+    <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
+    <string name="BackupStatus__free_up_s_of_space_to_download_your_media">Szabadíts fel %1$s helyet a médiafájlok letöltéséhez.</string>
+
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Hitel- vagy betéti kártya</string>
@@ -6874,6 +7058,12 @@
     <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__unknown">Ismeretlen</string>
+    <!-- Row title for entering payment history -->
+    <string name="BackupsTypeSettingsFragment__payment_history">Fizetési előzmények</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Az utolsó biztonsági mentés dátuma: %1$s, %2$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -6884,6 +7074,113 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">A kiválasztott időpontnál régebbi üzenetek véglegesen törlődnek.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">A megadott hosszúságot meghaladó üzenetek véglegesen törlődnek.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Korlátozások alkalmazása a kapcsolt eszközökre</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Ha engedélyezve van, a csevegési korlátok a kapcsolt eszközökről is törlik az üzeneteket.</string>
 
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">A törlés mostantól az összes eszközödön szinkronizálva van</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">Amikor üzeneteket vagy csevegéseket törölsz, azok a telefonodról és az összes kapcsolt eszközről is törlésre kerülnek.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">OK</string>
+
+    <!-- RemoteBackupsPaymentHistoryFragment -->
+    <!-- Title of the screen for payment history -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_history">Fizetési előzmények</string>
+    <!-- Description for backup rows -->
+    <string name="RemoteBackupsPaymentHistoryFragment__text_and_all_media_backup">Szöveg és minden médiafájl biztonsági mentése</string>
+    <!-- Title of the screen for payment details -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_details">Fizetés részletei</string>
+    <!-- Title of row specifying the type of backup -->
+    <string name="RemoteBackupsPaymentHistoryFragment__backup_type">Biztonsági mentés típusa</string>
+    <!-- Title of row specifying the date the backup was paid on -->
+    <string name="RemoteBackupsPaymentHistoryFragment__date_paid">Fizetés dátuma</string>
+    <!-- Button label to share the receipt -->
+    <string name="RemoteBackupsPaymentHistoryFragment__share">Megosztás</string>
+
+    <!-- RemoteBackupsSettingsFragment -->
+    <!-- Displayed on the title bar -->
+    <string name="RemoteBackupsSettingsFragment__signal_backups">A Signal biztonsági mentései</string>
+    <!-- Row label to launch payment history screen -->
+    <string name="RemoteBackupsSettingsFragment__payment_history">Fizetési előzmények</string>
+    <!-- Section header for backup information -->
+    <string name="RemoteBackupsSettingsFragment__backup_details">Biztonsági mentés részletei</string>
+    <!-- Row label for backup size -->
+    <string name="RemoteBackupsSettingsFragment__backup_size">Biztonsági mentés mérete</string>
+    <!-- Row label for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__backup_frequency">Biztonsági mentés gyakorisága</string>
+    <!-- Toggle row label for allowing backups to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__back_up_using_cellular">Biztonsági mentés mobilhálózaton keresztül</string>
+    <!-- Row label for cancelling and deleting backup -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Biztonsági mentés kikapcsolása és törlése</string>
+    <!-- Snackbar text displayed when backup has been deleted and turned off -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted_and_turned_off">A biztonsági mentés törlésre és kikapcsolásra került.</string>
+    <!-- Snackbar text displayed when backup type is downgraded -->
+    <string name="RemoteBackupsSettingsFragment__backup_type_changed_and_subcription_deleted">A biztonsági mentés típusa megváltozott, és az előfizetés törlésre került</string>
+    <!-- Snackbar text displayed when backup subscription is cancelled -->
+    <string name="RemoteBackupsSettingsFragment__subscription_cancelled">Előfizetés törölve</string>
+    <!-- Snackbar text displayed when backup is successfully downloaded -->
+    <string name="RemoteBackupsSettingsFragment__download_complete">A letöltés kész</string>
+    <!-- Title text in row detailing selected backup type -->
+    <string name="RemoteBackupsSettingsFragment__backup_type">Biztonsági mentés típusa</string>
+    <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
+    <string name="RemoteBackupsSettingsFragment__backups_disabled">Biztonsági mentés kikapcsolva</string>
+    <!-- Format string for backup and cost. First placeholder is backup title, second is cost per month. -->
+    <string name="RemoteBackupsSettingsFragment__s_dot_s_per_month">%1$s · %2$s/hó</string>
+    <!-- Button label to enable backups -->
+    <string name="RemoteBackupsSettingsFragment__enable_backups">Biztonsági mentések bekapcsolása</string>
+    <!-- Progress indicator subtext displayed when a backup is in progress -->
+    <string name="RemoteBackupsSettingsFragment__d_slash_d">%1$d/%2$d</string>
+    <!-- Title text in row detailing last backup -->
+    <string name="RemoteBackupsSettingsFragment__last_backup">Utolsó biztonsági mentés</string>
+    <!-- Subtext describing when a backup took place. First placeholder is the day, second is time. -->
+    <string name="RemoteBackupsSettingsFragment__s_at_s">%1$s ekkor: %2$s</string>
+    <!-- Subtext describing when a backup has never taken place. -->
+    <string name="RemoteBackupsSettingsFragment__never">Soha</string>
+    <!-- Button label to perform a backup immediately -->
+    <string name="RemoteBackupsSettingsFragment__back_up_now">Biztonsági mentés készítése</string>
+    <!-- Dialog title when confirming whether to turn off and deleting backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Biztonsági mentések kikapcsolása és törlése?</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__you_will_not_be_charged_again">A számládat nem terheljük meg újra. A biztonsági másolat törlődik, és nem jön létre új biztonsági másolat.</string>
+    <!-- Confirmation action on dialog to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Kikapcsolás és törlés</string>
+    <!-- Text on dialog while user backup is being deleted -->
+    <string name="RemoteBackupsSettingsFragment__deleting_backup">Biztonsági mentés törlése…</string>
+    <!-- Text on dialog when user backup is deleted -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted">Biztonsági mentés törölve</string>
+    <!-- Subtitle for frequency option MANUAL for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__by_tapping_back_up_now">"A Mentés most lehetőségre koppintva"</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__daily">Naponta</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__weekly">Hetente</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__monthly">Havonta</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__manually_back_up">Manuális biztonsági mentés</string>
+    <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
+    <string name="PassphrasePromptActivity_help_prompt_body">Kérjük, add meg az eszköz PIN-kódját, jelszavát vagy mintáját.</string>
+
+    <!-- Primary action button label when selecting a backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__next">Tovább</string>
+    <!-- Primary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Biztonsági mentés típusának módosítása</string>
+    <!-- Secondary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">Előfizetés megszüntetése</string>
+
+    <!-- ConfirmBackupCancellationDialog -->
+    <!-- Dialog title -->
+    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">Törlés megerősítése</string>
+    <!-- Dialog body -->
+    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">Nem fogjuk újra megterhelni a számládat. A biztonsági mentéseket a számlázási ciklus végén kikapcsoljuk. Ezt a dátumot követően 30 nap áll rendelkezésedre a jelenleg biztonsági mentés alatt álló médiafájlok letöltésére.</string>
+    <!-- Action button label to cancel subscription and download now -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">Megerősítés és letöltés most</string>
+    <!-- Action button label to cancel subscription and download later -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Megerősítés és letöltés később</string>
+    <!-- Action button label to keep current subscription -->
+    <string name="ConfirmBackupCancellationDialog__keep_subscription">Előfizetés megtartása</string>
     <!-- EOF -->
 </resources>

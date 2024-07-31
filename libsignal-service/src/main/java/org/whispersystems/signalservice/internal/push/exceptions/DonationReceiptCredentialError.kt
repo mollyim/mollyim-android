@@ -6,7 +6,6 @@
 package org.whispersystems.signalservice.internal.push.exceptions
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.ChargeFailure
 
@@ -15,7 +14,7 @@ import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.Cha
  * a failed payment.
  */
 class DonationReceiptCredentialError @JsonCreator constructor(
-  @JsonProperty("chargeFailure") val chargeFailure: ChargeFailure
+  val chargeFailure: ChargeFailure
 ) : NonSuccessfulResponseCodeException(402) {
   override fun toString(): String {
     return """

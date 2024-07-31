@@ -277,7 +277,7 @@ open class SignalServiceNetworkAccess(context: Context) {
   )
 
   open fun getConfiguration(): SignalServiceConfiguration {
-    return getConfiguration(SignalStore.account().e164)
+    return getConfiguration(SignalStore.account.e164)
   }
 
   open fun getConfiguration(e164: String?): SignalServiceConfiguration {
@@ -287,7 +287,7 @@ open class SignalServiceNetworkAccess(context: Context) {
 
     val countryCode: Int = PhoneNumberUtil.getInstance().parse(e164, null).countryCode
 
-    return when (SignalStore.settings().censorshipCircumventionEnabled) {
+    return when (SignalStore.settings.censorshipCircumventionEnabled) {
       SettingsValues.CensorshipCircumventionEnabled.ENABLED -> {
         censorshipConfiguration[countryCode] ?: defaultCensoredConfiguration
       }
@@ -305,7 +305,7 @@ open class SignalServiceNetworkAccess(context: Context) {
   }
 
   fun isCensored(): Boolean {
-    return isCensored(SignalStore.account().e164)
+    return isCensored(SignalStore.account.e164)
   }
 
   fun isCensored(number: String?): Boolean {

@@ -9,7 +9,7 @@ import okio.HashingSink
 import okio.sink
 import org.signal.core.util.Hex
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.util.EncryptedStreamUtils
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
@@ -35,7 +35,7 @@ import java.util.regex.Pattern
 object S3 {
   private val TAG = Log.tag(S3::class.java)
 
-  private val okHttpClient = ApplicationDependencies.getSignalOkHttpClient()
+  private val okHttpClient by lazy { AppDependencies.signalOkHttpClient }
 
   const val DYNAMIC_PATH = "/dynamic"
   const val STATIC_PATH = "/static"
@@ -53,10 +53,10 @@ object S3 {
   fun getString(endpoint: String): String {
     getObject(endpoint).use { response ->
       if (!response.isSuccessful) {
-        throw NonSuccessfulResponseCodeException(response.code())
+        throw NonSuccessfulResponseCodeException(response.code)
       }
 
-      return response.body()?.string()?.trim() ?: throw IOException()
+      return response.body?.string()?.trim() ?: throw IOException()
     }
   }
 
@@ -110,13 +110,13 @@ object S3 {
       getObject(endpoint).use { response ->
         if (!response.isSuccessful) {
           return ServiceResponse.forApplicationError(
-            DefaultErrorMapper.getDefault().parseError(response.code()),
-            response.code(),
+            DefaultErrorMapper.getDefault().parseError(response.code),
+            response.code,
             ""
           )
         }
 
-        val source = response.body()?.source()
+        val source = response.body?.source()
 
         val outputStream = ByteArrayOutputStream()
 
@@ -166,7 +166,7 @@ object S3 {
       }
 
       getObject(objectPathOnNetwork).use { response ->
-        val source = response.body()?.source()
+        val source = response.body?.source()
 
         val outputStream: OutputStream = if (doNotEncrypt) {
           FileOutputStream(objectFileOnDisk)

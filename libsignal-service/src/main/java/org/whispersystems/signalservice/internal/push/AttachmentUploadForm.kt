@@ -7,18 +7,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 data class AttachmentUploadForm(
   @JvmField
-  @JsonProperty("cdn")
+  @JsonProperty
   val cdn: Int,
 
   @JvmField
-  @JsonProperty("key")
+  @JsonProperty
   val key: String,
 
   @JvmField
-  @JsonProperty("headers")
+  @JsonProperty
   val headers: Map<String, String>,
 
   @JvmField
-  @JsonProperty("signedUploadLocation")
+  @JsonProperty
   val signedUploadLocation: String
 )

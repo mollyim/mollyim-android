@@ -62,7 +62,7 @@ import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader.DecryptableUri;
 import org.thoughtcrime.securesms.mms.MediaConstraints;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.util.BottomSheetUtil;
-import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.MemoryFileDescriptor;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ViewUtil;
@@ -166,7 +166,8 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
     this.controlsContainer           = view.findViewById(R.id.camerax_controls_container);
     this.cameraXModePolicy           = CameraXModePolicy.acquire(requireContext(),
                                                         controller.getMediaConstraints(),
-                                                        requireArguments().getBoolean(IS_VIDEO_ENABLED, true));
+                                                        requireArguments().getBoolean(IS_VIDEO_ENABLED, true),
+                                                        requireArguments().getBoolean(IS_QR_SCAN_ENABLED, false));
     this.missingPermissionsContainer = view.findViewById(R.id.missing_permissions_container);
     this.missingPermissionsText      = view.findViewById(R.id.missing_permissions_text);
     this.allowAccessButton           = view.findViewById(R.id.allow_access_button);
@@ -177,7 +178,7 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
 
 
     previewView.setScaleType(PREVIEW_SCALE_TYPE);
-    if (FeatureFlags.customCameraXController()) {
+    if (RemoteConfig.customCameraXController()) {
       View focusIndicator = view.findViewById(R.id.camerax_focus_indicator);
       cameraController = new SignalCameraController(requireContext(), getViewLifecycleOwner(), previewView, focusIndicator);
     } else {
@@ -198,7 +199,7 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
 
     onOrientationChanged();
 
-    if (FeatureFlags.customCameraXController()) {
+    if (RemoteConfig.customCameraXController()) {
       cameraController.initializeAndBind(requireContext(), getViewLifecycleOwner());
     }
 
@@ -704,7 +705,7 @@ public class CameraXFragment extends LoggingFragment implements CameraFragment {
     @Override
     public void onOrientationChanged(int orientation) {
       if (cameraController != null) {
-        if (FeatureFlags.customCameraXController()) {
+        if (RemoteConfig.customCameraXController()) {
           cameraController.setImageRotation(orientation);
         }
       }

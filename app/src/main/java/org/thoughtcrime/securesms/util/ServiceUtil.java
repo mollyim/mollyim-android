@@ -109,12 +109,12 @@ public class ServiceUtil {
     return ContextCompat.getSystemService(context, KeyguardManager.class);
   }
 
-  public static AppOpsManager getAppOpsManager(@NonNull Context context) {
-    return ContextCompat.getSystemService(context, AppOpsManager.class);
-  }
-
   public static BluetoothManager getBluetoothManager(@NonNull Context context) {
     return ContextCompat.getSystemService(context, BluetoothManager.class);
+  }
+
+  public static AppOpsManager getAppOpsManager(@NonNull Context context) {
+    return ContextCompat.getSystemService(context, AppOpsManager.class);
   }
 
   public static DownloadManager getDownloadManager(@NonNull Context context) {

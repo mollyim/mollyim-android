@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Signal Messenger, LLC
+ * Copyright 2024 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -48,9 +48,9 @@ import kotlinx.coroutines.delay
 import org.signal.core.ui.theme.SignalTheme
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.webrtc.WebRtcCallViewModel
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.events.CallParticipant
 import org.thoughtcrime.securesms.events.GroupCallRaiseHandEvent
-import org.thoughtcrime.securesms.recipients.Recipient
 import java.util.concurrent.TimeUnit
 
 /**
@@ -65,10 +65,20 @@ object RaiseHandSnackbar {
   fun View(webRtcCallViewModel: WebRtcCallViewModel, showCallInfoListener: () -> Unit, modifier: Modifier = Modifier) {
     var expansionState by remember { mutableStateOf(ExpansionState(shouldExpand = false, forced = false)) }
 
-    val webRtcState by webRtcCallViewModel.callParticipantsState
+    val raisedHandsState by webRtcCallViewModel.callParticipantsState
       .toFlowable(BackpressureStrategy.LATEST)
       .map { state ->
-        val raisedHands = state.raisedHands.sortedByDescending { it.timestamp }
+        val raisedHands = state.raisedHands.sortedBy {
+          if (it.sender.isSelf) {
+            if (it.sender.isPrimary) {
+              0
+            } else {
+              1
+            }
+          } else {
+            it.timestamp
+          }
+        }
         val shouldExpand = RaiseHandState.shouldExpand(raisedHands)
         if (!expansionState.forced) {
           expansionState = ExpansionState(shouldExpand, false)
@@ -78,7 +88,7 @@ object RaiseHandSnackbar {
 
     val state by remember {
       derivedStateOf {
-        RaiseHandState(raisedHands = webRtcState, expansionState = expansionState)
+        RaiseHandState(raisedHands = raisedHandsState, expansionState = expansionState)
       }
     }
 
@@ -95,7 +105,7 @@ object RaiseHandSnackbar {
 @Composable
 private fun RaiseHandSnackbarPreview() {
   RaiseHand(
-    state = RaiseHandState(listOf(GroupCallRaiseHandEvent(Recipient.UNKNOWN, System.currentTimeMillis())))
+    state = RaiseHandState(listOf(GroupCallRaiseHandEvent(CallParticipant.EMPTY, System.currentTimeMillis())))
   )
 }
 
@@ -141,7 +151,9 @@ private fun RaiseHand(
             Icon(
               imageVector = ImageVector.vectorResource(id = R.drawable.symbol_raise_hand_24),
               contentDescription = null,
-              modifier = Modifier.align(Alignment.CenterVertically).padding(vertical = 8.dp)
+              modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding(vertical = 8.dp)
             )
 
             Text(
@@ -154,11 +166,10 @@ private fun RaiseHand(
                 .padding(vertical = 16.dp)
             )
             if (state.isExpanded) {
-              if (state.raisedHands.first().sender.isSelf) {
-                val context = LocalContext.current
+              if (state.raisedHands.any { it.sender.isSelf && it.sender.isPrimary }) {
                 TextButton(
                   onClick = {
-                    ApplicationDependencies.getSignalCallManager().raiseHand(false)
+                    AppDependencies.signalCallManager.raiseHand(false)
                   },
                   modifier = Modifier.wrapContentWidth(Alignment.End)
                 ) {
@@ -185,25 +196,43 @@ private fun getSnackbarText(state: RaiseHandState): String {
   if (state.isEmpty) {
     return ""
   }
+
+  val displayedName = getShortDisplayName(raisedHands = state.raisedHands)
+  val additionalHandsCount = state.raisedHands.size - 1
   return if (!state.isExpanded) {
-    pluralStringResource(id = R.plurals.CallRaiseHandSnackbar_raised_hands, count = state.raisedHands.size, getShortDisplayName(state.raisedHands), state.raisedHands.size - 1)
-  } else {
-    if (state.raisedHands.size == 1 && state.raisedHands.first().sender.isSelf) {
-      stringResource(id = R.string.CallOverflowPopupWindow__you_raised_your_hand)
+    if (state.raisedHands.size == 1) {
+      if (state.raisedHands.first().sender.isSelf) {
+        stringResource(id = R.string.CallRaiseHandSnackbar__collapsed_second_person_raised_hand_single, displayedName)
+      } else {
+        stringResource(id = R.string.CallRaiseHandSnackbar__collapsed_third_person_raised_hands_singular, displayedName)
+      }
     } else {
-      pluralStringResource(id = R.plurals.CallOverflowPopupWindow__raised_a_hand, count = state.raisedHands.size, state.raisedHands.first().sender.getShortDisplayName(LocalContext.current), state.raisedHands.size - 1)
+      if (state.raisedHands.first().sender.isSelf) {
+        pluralStringResource(id = R.plurals.CallRaiseHandSnackbar__collapsed_second_person_raised_hands_multiple, count = additionalHandsCount, displayedName, additionalHandsCount)
+      } else {
+        pluralStringResource(id = R.plurals.CallRaiseHandSnackbar__collapsed_third_person_raised_hands_multiple, count = additionalHandsCount, displayedName, additionalHandsCount)
+      }
+    }
+  } else {
+    if (state.raisedHands.size == 1) {
+      if (state.raisedHands.first().sender.isSelf) {
+        stringResource(id = R.string.CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single, displayedName)
+      } else {
+        stringResource(id = R.string.CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_single, displayedName)
+      }
+    } else {
+      if (state.raisedHands.first().sender.isSelf) {
+        pluralStringResource(id = R.plurals.CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_multiple, count = additionalHandsCount, displayedName, additionalHandsCount)
+      } else {
+        pluralStringResource(id = R.plurals.CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_multiple, count = additionalHandsCount, displayedName, additionalHandsCount)
+      }
     }
   }
 }
 
 @Composable
 private fun getShortDisplayName(raisedHands: List<GroupCallRaiseHandEvent>): String {
-  val recipient = raisedHands.first().sender
-  return if (recipient.isSelf) {
-    stringResource(id = R.string.CallParticipant__you)
-  } else {
-    recipient.getShortDisplayName(LocalContext.current)
-  }
+  return raisedHands.first().sender.getShortRecipientDisplayName(LocalContext.current)
 }
 
 private data class RaiseHandState(

@@ -18,7 +18,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.Mention
 import org.thoughtcrime.securesms.database.model.StoryType
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.StorySend
 import org.thoughtcrime.securesms.mediasend.CompositeMediaTransform
@@ -151,6 +151,21 @@ class MediaSelectionRepository(context: Context) {
           scheduleMessages(sendType, contacts.map { it.recipientId }, trimmedBody, updatedMedia, trimmedMentions, trimmedBodyRanges, isViewOnce, scheduledTime)
           emitter.onComplete()
         }
+      } else if (MediaUtil.isDocumentType(selectedMedia.first().mimeType)) {
+        Log.i(TAG, "Document. Skipping pre-upload.")
+        emitter.onSuccess(
+          MediaSendActivityResult(
+            recipientId = singleRecipient!!.id,
+            nonUploadedMedia = updatedMedia,
+            body = trimmedBody,
+            messageSendType = sendType,
+            isViewOnce = isViewOnce,
+            mentions = trimmedMentions,
+            bodyRanges = trimmedBodyRanges,
+            storyType = StoryType.NONE,
+            scheduledTime = scheduledTime
+          )
+        )
       } else {
         val splitMessage = MessageUtil.getSplitMessage(context, trimmedBody, sendType.calculateCharacters(trimmedBody).maxPrimaryMessageSize)
         val splitBody = splitMessage.body
@@ -295,7 +310,7 @@ class MediaSelectionRepository(context: Context) {
     scheduledDate: Long
   ) {
     val slideDeck = SlideDeck()
-    val context: Context = ApplicationDependencies.getApplication()
+    val context: Context = AppDependencies.application
 
     for (mediaItem in nonUploadedMedia) {
       if (MediaUtil.isVideoType(mediaItem.mimeType)) {
@@ -355,7 +370,7 @@ class MediaSelectionRepository(context: Context) {
       val isStory = contact.isStory || recipient.isDistributionList
 
       if (isStory && !recipient.isMyStory) {
-        SignalStore.storyValues().setLatestStorySend(StorySend.newSend(recipient))
+        SignalStore.story.setLatestStorySend(StorySend.newSend(recipient))
       }
 
       val storyType: StoryType = when {

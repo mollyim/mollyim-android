@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.components.settings
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,8 +50,10 @@ abstract class DSLSettingsBottomSheetFragment(
   private class EdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
     override fun createEdgeEffect(view: RecyclerView, direction: Int): EdgeEffect {
       return super.createEdgeEffect(view, direction).apply {
-        color =
-          requireNotNull(ContextCompat.getColor(view.context, R.color.settings_ripple_color))
+        if (Build.VERSION.SDK_INT > 21) {
+          color =
+            requireNotNull(ContextCompat.getColor(view.context, R.color.settings_ripple_color))
+        }
       }
     }
   }

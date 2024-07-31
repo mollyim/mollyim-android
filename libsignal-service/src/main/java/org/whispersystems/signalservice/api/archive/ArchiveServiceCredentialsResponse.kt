@@ -12,6 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * See [ArchiveServiceCredential].
  */
 class ArchiveServiceCredentialsResponse(
-  @JsonProperty("credentials")
+  @JsonProperty
   val credentials: Array<ArchiveServiceCredential>
 )

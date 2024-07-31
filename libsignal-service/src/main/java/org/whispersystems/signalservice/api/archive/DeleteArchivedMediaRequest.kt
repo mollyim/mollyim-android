@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Delete media from the backup cdn.
  */
 class DeleteArchivedMediaRequest(
-  @JsonProperty("mediaToDelete") val mediaToDelete: List<ArchivedMediaObject>
+  @JsonProperty val mediaToDelete: List<ArchivedMediaObject>
 ) {
   class ArchivedMediaObject(
-    @JsonProperty("cdn") val cdn: Int,
-    @JsonProperty("mediaId") val mediaId: String
+    @JsonProperty val cdn: Int,
+    @JsonProperty val mediaId: String
   )
 }

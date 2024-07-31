@@ -35,14 +35,17 @@ import javax.annotation.Nonnull;
 
 import okio.ByteString;
 
+import static com.fasterxml.jackson.module.kotlin.ExtensionsKt.registerKotlinModule;
+
 @SuppressWarnings("unused")
 public class JsonUtil {
 
   private static final String TAG = JsonUtil.class.getSimpleName();
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  private static final ObjectMapper objectMapper;
 
   static {
+    objectMapper = registerKotlinModule(new ObjectMapper());
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
 

@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.components.settings.app
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -10,6 +11,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.signal.core.util.isNotNullOrBlank
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
 import org.thoughtcrime.securesms.components.AvatarImageView
@@ -24,14 +26,18 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.components.settings.PreferenceViewHolder
+import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
+import org.thoughtcrime.securesms.components.settings.app.subscription.completed.TerminalDonationDelegate
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity
-import org.thoughtcrime.securesms.util.FeatureFlags
+import org.thoughtcrime.securesms.registration.ui.RegistrationActivity
 import org.thoughtcrime.securesms.util.PlayStoreUtil
+import org.thoughtcrime.securesms.util.RemoteConfig
+import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
@@ -50,6 +56,8 @@ class AppSettingsFragment : DSLSettingsFragment(
   private lateinit var reminderView: Stub<ReminderView>
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    viewLifecycleOwner.lifecycle.addObserver(TerminalDonationDelegate(childFragmentManager, viewLifecycleOwner))
+
     super.onViewCreated(view, savedInstanceState)
     reminderView = ViewUtil.findStubById(view, R.id.reminder_stub)
 
@@ -59,6 +67,7 @@ class AppSettingsFragment : DSLSettingsFragment(
   override fun bindAdapter(adapter: MappingAdapter) {
     adapter.registerFactory(BioPreference::class.java, LayoutFactory(::BioPreferenceViewHolder, R.layout.bio_preference_item))
     adapter.registerFactory(PaymentsPreference::class.java, LayoutFactory(::PaymentsPreferenceViewHolder, R.layout.dsl_payments_preference))
+    adapter.registerFactory(SubscriptionPreference::class.java, LayoutFactory(::SubscriptionPreferenceViewHolder, R.layout.dsl_preference_item))
 
     viewModel.state.observe(viewLifecycleOwner) { state ->
       adapter.submitList(getConfiguration(state).toMappingModelList())
@@ -105,7 +114,7 @@ class AppSettingsFragment : DSLSettingsFragment(
         PlayStoreUtil.openPlayStoreOrOurApkDownloadPage(requireContext())
       }
       R.id.reminder_action_re_register -> {
-        startActivity(RegistrationNavigationActivity.newIntentForReRegistration(requireContext()))
+        startActivity(RegistrationActivity.newIntentForReRegistration(requireContext()))
       }
     }
   }
@@ -129,7 +138,7 @@ class AppSettingsFragment : DSLSettingsFragment(
             findNavController().safeNavigate(R.id.action_appSettingsFragment_to_manageProfileActivity)
           },
           onQrButtonClicked = {
-            if (SignalStore.account().username != null) {
+            if (SignalStore.account.username != null) {
               findNavController().safeNavigate(R.id.action_appSettingsFragment_to_usernameLinkSettingsFragment)
             } else {
               findNavController().safeNavigate(R.id.action_appSettingsFragment_to_usernameEducationFragment)
@@ -149,9 +158,7 @@ class AppSettingsFragment : DSLSettingsFragment(
       clickPref(
         title = DSLSettingsText.from(R.string.preferences__linked_devices),
         icon = DSLSettingsIcon.from(R.drawable.symbol_devices_24),
-        onClick = {
-          findNavController().safeNavigate(R.id.action_appSettingsFragment_to_deviceActivity)
-        },
+        onClick = { findNavController().safeNavigate(R.id.action_appSettingsFragment_to_linkDeviceFragment) },
         isEnabled = state.isRegisteredAndUpToDate()
       )
 
@@ -223,9 +230,19 @@ class AppSettingsFragment : DSLSettingsFragment(
         }
       )
 
+      if (BuildConfig.MANAGES_MOLLY_UPDATES) {
+        clickPref(
+          title = DSLSettingsText.from("App updates"),
+          icon = DSLSettingsIcon.from(R.drawable.symbol_calendar_24),
+          onClick = {
+            findNavController().safeNavigate(R.id.action_appSettingsFragment_to_appUpdatesSettingsFragment)
+          }
+        )
+      }
+
       dividerPref()
 
-      if (SignalStore.paymentsValues().paymentsAvailability.showPaymentsMenu()) {
+      if (SignalStore.payments.paymentsAvailability.showPaymentsMenu()) {
         customPref(
           PaymentsPreference(
             unreadCount = state.unreadPaymentsCount
@@ -245,15 +262,7 @@ class AppSettingsFragment : DSLSettingsFragment(
         }
       )
 
-      clickPref(
-        title = DSLSettingsText.from(R.string.AppSettingsFragment__invite_your_friends),
-        icon = DSLSettingsIcon.from(R.drawable.symbol_invite_24),
-        onClick = {
-          findNavController().safeNavigate(R.id.action_appSettingsFragment_to_inviteActivity)
-        }
-      )
-
-      if (FeatureFlags.internalUser()) {
+      if (RemoteConfig.internalUser) {
         dividerPref()
 
         clickPref(
@@ -263,6 +272,44 @@ class AppSettingsFragment : DSLSettingsFragment(
           }
         )
       }
+    }
+  }
+
+  private fun copySubscriberIdToClipboard(): Boolean {
+    // TODO [alex] -- db access on main thread!
+    val subscriber = InAppPaymentsRepository.getSubscriber(InAppPaymentSubscriberRecord.Type.DONATION)
+    return if (subscriber == null) {
+      false
+    } else {
+      Toast.makeText(requireContext(), R.string.AppSettingsFragment__copied_subscriber_id_to_clipboard, Toast.LENGTH_LONG).show()
+      Util.copyToClipboard(requireContext(), subscriber.subscriberId.serialize())
+      true
+    }
+  }
+
+  private class SubscriptionPreference(
+    override val title: DSLSettingsText,
+    override val summary: DSLSettingsText? = null,
+    override val icon: DSLSettingsIcon? = null,
+    override val isEnabled: Boolean = true,
+    val isActive: Boolean = false,
+    val onClick: (Boolean) -> Unit,
+    val onLongClick: () -> Boolean
+  ) : PreferenceModel<SubscriptionPreference>() {
+    override fun areItemsTheSame(newItem: SubscriptionPreference): Boolean {
+      return true
+    }
+
+    override fun areContentsTheSame(newItem: SubscriptionPreference): Boolean {
+      return super.areContentsTheSame(newItem) && isActive == newItem.isActive
+    }
+  }
+
+  private class SubscriptionPreferenceViewHolder(itemView: View) : PreferenceViewHolder<SubscriptionPreference>(itemView) {
+    override fun bind(model: SubscriptionPreference) {
+      super.bind(model)
+      itemView.setOnClickListener { model.onClick(model.isActive) }
+      itemView.setOnLongClickListener { model.onLongClick() }
     }
   }
 
@@ -304,7 +351,7 @@ class AppSettingsFragment : DSLSettingsFragment(
       summaryView.visibility = View.VISIBLE
       avatarView.visibility = View.VISIBLE
 
-      if (SignalStore.account().username.isNotNullOrBlank()) {
+      if (SignalStore.account.username.isNotNullOrBlank()) {
         qrButton.visibility = View.VISIBLE
         qrButton.isClickable = true
         qrButton.setOnClickListener { model.onQrButtonClicked() }

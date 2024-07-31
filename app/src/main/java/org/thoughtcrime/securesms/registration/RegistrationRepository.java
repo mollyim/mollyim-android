@@ -22,12 +22,10 @@ import org.thoughtcrime.securesms.crypto.storage.SignalServiceAccountDataStoreIm
 import org.thoughtcrime.securesms.database.IdentityTable;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
-import org.thoughtcrime.securesms.jobs.AllDataSyncRequestJob;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob;
-import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.RotateCertificateJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.notifications.NotificationIds;
@@ -40,12 +38,9 @@ import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.account.PreKeyCollection;
-import org.whispersystems.signalservice.api.account.PreKeyUpload;
-import org.whispersystems.signalservice.api.kbs.MasterKey;
 import org.whispersystems.signalservice.api.push.ServiceId.ACI;
 import org.whispersystems.signalservice.api.push.ServiceId.PNI;
 import org.whispersystems.signalservice.api.push.ServiceId;
-import org.whispersystems.signalservice.api.push.ServiceIdType;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.util.Preconditions;
 import org.whispersystems.signalservice.internal.ServiceResponse;
@@ -110,7 +105,7 @@ public final class RegistrationRepository {
       try {
         registerAccountInternal(registrationData, response, setRegistrationLockEnabled);
 
-        JobManager jobManager = ApplicationDependencies.getJobManager();
+        JobManager jobManager = AppDependencies.getJobManager();
         jobManager.add(new DirectoryRefreshJob(false));
         jobManager.add(new RotateCertificateJob());
 
@@ -124,89 +119,36 @@ public final class RegistrationRepository {
     }).subscribeOn(Schedulers.io());
   }
 
-  public Single<ServiceResponse<LinkDeviceResponse>> registerAccountFromPrimaryDevice(@NonNull RegistrationData registrationData,
-                                                                                      @NonNull LinkDeviceResponse response)
-  {
-    return Single.<ServiceResponse<LinkDeviceResponse>>fromCallable(() -> {
-      try {
-        // We have to set the deviceId before setting the identity keys, or they will throw for not being a linked device
-        // But we also have to set the identity keys before calling registerAccountInternal, otherwise it will generate new ones when creating the prekeys
-        SignalStore.account().setDeviceId(response.getDeviceId());
-        SignalStore.account().setAciIdentityKeysFromPrimaryDevice(response.getProvisionData().getAciIdentity());
-        SignalStore.account().setPniIdentityKeyAfterChangeNumber(response.getProvisionData().getPniIdentity());
-        SignalStore.registrationValues().markNeedDownloadProfileAndAvatar();
-        registerAccountInternal(new RegistrationData(registrationData.getCode(),
-                                                     response.getProvisionData().getNumber(),
-                                                     registrationData.getPassword(),
-                                                     registrationData.getRegistrationId(),
-                                                     response.getProvisionData().getProfileKey() == null ? ProfileKeyUtil.createNew() : response.getProvisionData().getProfileKey(),
-                                                     registrationData.getFcmToken(),
-                                                     registrationData.getPniRegistrationId(),
-                                                     registrationData.getRecoveryPassword()),
-                                response.getProvisionData().getAci(),
-                                response.getProvisionData().getPni(),
-                                response.getAciPreKeys(),
-                                response.getPniPreKeys(),
-                                false,
-                                response.getDeviceId(),
-                                response.getDeviceName(),
-                                null,
-                                null,
-                                false);
-
-        JobManager jobManager = ApplicationDependencies.getJobManager();
-        jobManager.add(new RotateCertificateJob());
-        jobManager.add(new AllDataSyncRequestJob());
-        jobManager.add(new RefreshOwnProfileJob());
-
-        RotateSignedPreKeyListener.schedule(context);
-
-        return ServiceResponse.forResult(response, 200, null);
-      } catch (IOException e) {
-        return ServiceResponse.forUnknownError(e);
-      }
-    }).subscribeOn(Schedulers.io());
-  }
-
   @WorkerThread
   private void registerAccountInternal(@NonNull RegistrationData registrationData,
-                                       @NonNull ACI aci,
-                                       @NonNull PNI pni,
-                                       @Nullable PreKeyCollection aciPreKeyCollection,
-                                       @Nullable PreKeyCollection pniPreKeyCollection,
-                                       boolean hasPin,
-                                       int deviceId,
-                                       @Nullable String deviceName,
-                                       @Nullable MasterKey masterKey,
-                                       @Nullable String userPin,
+                                       @NonNull VerifyResponse response,
                                        boolean setRegistrationLockEnabled)
       throws IOException
   {
-    Preconditions.checkNotNull(aciPreKeyCollection, "Missing ACI prekey collection!");
-    Preconditions.checkNotNull(pniPreKeyCollection, "Missing PNI prekey collection!");
+    Preconditions.checkNotNull(response.getAciPreKeyCollection(), "Missing ACI prekey collection!");
+    Preconditions.checkNotNull(response.getPniPreKeyCollection(), "Missing PNI prekey collection!");
+
+    ACI     aci    = ACI.parseOrThrow(response.getVerifyAccountResponse().getUuid());
+    PNI     pni    = PNI.parseOrThrow(response.getVerifyAccountResponse().getPni());
+    boolean hasPin = response.getVerifyAccountResponse().isStorageCapable();
 
     SignalStore.account().setAci(aci);
     SignalStore.account().setPni(pni);
-    SignalStore.account().setDeviceId(deviceId);
-    SignalStore.account().setDeviceName(deviceName);
-    if (deviceId != SignalServiceAddress.DEFAULT_DEVICE_ID) {
-      TextSecurePreferences.setMultiDevice(context, true);
-    }
 
-    ApplicationDependencies.resetProtocolStores();
+    AppDependencies.resetProtocolStores();
 
-    ApplicationDependencies.getProtocolStore().aci().sessions().archiveAllSessions();
-    ApplicationDependencies.getProtocolStore().pni().sessions().archiveAllSessions();
+    AppDependencies.getProtocolStore().aci().sessions().archiveAllSessions();
+    AppDependencies.getProtocolStore().pni().sessions().archiveAllSessions();
     SenderKeyUtil.clearAllState();
 
-    SignalServiceAccountDataStoreImpl aciProtocolStore = ApplicationDependencies.getProtocolStore().aci();
+    SignalServiceAccountDataStoreImpl aciProtocolStore = AppDependencies.getProtocolStore().aci();
     PreKeyMetadataStore               aciMetadataStore = SignalStore.account().aciPreKeys();
 
-    SignalServiceAccountDataStoreImpl pniProtocolStore = ApplicationDependencies.getProtocolStore().pni();
+    SignalServiceAccountDataStoreImpl pniProtocolStore = AppDependencies.getProtocolStore().pni();
     PreKeyMetadataStore               pniMetadataStore = SignalStore.account().pniPreKeys();
 
-    storeSignedAndLastResortPreKeys(aciProtocolStore, aciMetadataStore, aciPreKeyCollection);
-    storeSignedAndLastResortPreKeys(pniProtocolStore, pniMetadataStore, pniPreKeyCollection);
+    storeSignedAndLastResortPreKeys(aciProtocolStore, aciMetadataStore, response.getAciPreKeyCollection());
+    storeSignedAndLastResortPreKeys(pniProtocolStore, pniMetadataStore, response.getPniPreKeyCollection());
 
     RecipientTable recipientTable = SignalDatabase.recipients();
     RecipientId    selfId         = Recipient.trustedPush(aci, pni, registrationData.getE164()).getId();
@@ -216,7 +158,7 @@ public final class RegistrationRepository {
     recipientTable.linkIdsForSelf(aci, pni, registrationData.getE164());
     recipientTable.setProfileKey(selfId, registrationData.getProfileKey());
 
-    ApplicationDependencies.getRecipientCache().clearSelf();
+    AppDependencies.getRecipientCache().clearSelf();
 
     SignalStore.account().setE164(registrationData.getE164());
     SignalStore.account().setFcmToken(registrationData.getFcmToken());
@@ -232,34 +174,10 @@ public final class RegistrationRepository {
     TextSecurePreferences.setUnauthorizedReceived(context, false);
     NotificationManagerCompat.from(context).cancel(NotificationIds.UNREGISTERED_NOTIFICATION_ID);
 
-    SvrRepository.onRegistrationComplete(masterKey, userPin, hasPin, setRegistrationLockEnabled);
+    SvrRepository.onRegistrationComplete(response.getMasterKey(), response.getPin(), hasPin, setRegistrationLockEnabled, SignalStore.account().isLinkedDevice());
 
-    ApplicationDependencies.closeConnections();
-    ApplicationDependencies.getIncomingMessageObserver();
+    AppDependencies.resetNetwork(true);
     PreKeysSyncJob.enqueue();
-  }
-
-  @WorkerThread
-  private void registerAccountInternal(@NonNull RegistrationData registrationData,
-                                       @NonNull VerifyResponse response,
-                                       boolean setRegistrationLockEnabled)
-      throws IOException
-  {
-    SignalStore.registrationValues().clearNeedDownloadProfile();
-    SignalStore.registrationValues().clearNeedDownloadProfileAvatar();
-    registerAccountInternal(
-        registrationData,
-        ACI.parseOrThrow(response.getVerifyAccountResponse().getUuid()),
-        PNI.parseOrThrow(response.getVerifyAccountResponse().getPni()),
-        response.getAciPreKeyCollection(),
-        response.getPniPreKeyCollection(),
-        response.getVerifyAccountResponse().isStorageCapable(),
-        SignalServiceAddress.DEFAULT_DEVICE_ID,
-        null,
-        response.getMasterKey(),
-        response.getPin(),
-        setRegistrationLockEnabled
-    );
   }
 
   public static PreKeyCollection generateSignedAndLastResortPreKeys(IdentityKeyPair identity, PreKeyMetadataStore metadataStore) {
@@ -314,7 +232,7 @@ public final class RegistrationRepository {
                          .map(BackupAuthCheckProcessor::new)
                          .doOnSuccess(processor -> {
                            Log.d(TAG, "Received SVR backup auth credential response.");
-                           if (SignalStore.svr().removeAuthTokens(processor.getInvalid())) {
+                           if (SignalStore.svr().removeSvr2AuthTokens(processor.getInvalid())) {
                              new BackupManager(context).dataChanged();
                            }
                          });

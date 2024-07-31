@@ -12,13 +12,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.core.Flowable
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.DeviceActivity
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.mediasend.CameraFragment
 import org.thoughtcrime.securesms.mediasend.Media
 import org.thoughtcrime.securesms.mediasend.v2.HudCommand
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionNavigator
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionNavigator.Companion.requestPermissionsForGallery
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionViewModel
 import org.thoughtcrime.securesms.mms.MediaConstraints
 import org.thoughtcrime.securesms.permissions.Permissions
@@ -93,7 +92,7 @@ class MediaCaptureFragment : Fragment(R.layout.fragment_container), CameraFragme
             .setTitle(R.string.MediaCaptureFragment_device_link_dialog_title)
             .setMessage(R.string.MediaCaptureFragment_device_link_dialog_body)
             .setPositiveButton(R.string.MediaCaptureFragment_device_link_dialog_continue) { d, _ ->
-              startActivity(DeviceActivity.getIntentForScanner(requireContext()))
+              startActivity(AppSettingsActivity.linkedDevices(requireContext()))
               requireActivity().finish()
             }
             .setNegativeButton(android.R.string.cancel, null)
@@ -160,10 +159,8 @@ class MediaCaptureFragment : Fragment(R.layout.fragment_container), CameraFragme
 
   override fun onGalleryClicked() {
     val controller = findNavController()
-    requestPermissionsForGallery {
-      captureChildFragment.fadeOutControls {
-        navigator.goToGallery(controller)
-      }
+    captureChildFragment.fadeOutControls {
+      navigator.goToGallery(controller)
     }
   }
 

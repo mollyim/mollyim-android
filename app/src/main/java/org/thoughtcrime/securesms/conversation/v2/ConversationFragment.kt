@@ -22,6 +22,7 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Browser
+import android.provider.ContactsContract
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
@@ -92,6 +93,7 @@ import org.signal.core.util.dp
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
 import org.signal.core.util.setActionItemTint
+import org.signal.donations.InAppPaymentType
 import org.signal.ringrtc.CallLinkRootKey
 import org.thoughtcrime.securesms.BlockUnblockDialog
 import org.thoughtcrime.securesms.GroupMembersDialog
@@ -103,6 +105,7 @@ import org.thoughtcrime.securesms.audio.AudioRecorder
 import org.thoughtcrime.securesms.components.AnimatingToggle
 import org.thoughtcrime.securesms.components.ComposeText
 import org.thoughtcrime.securesms.components.ConversationSearchBottomBar
+import org.thoughtcrime.securesms.components.DeleteSyncEducationDialog
 import org.thoughtcrime.securesms.components.HidingLinearLayout
 import org.thoughtcrime.securesms.components.InputAwareConstraintLayout
 import org.thoughtcrime.securesms.components.InputPanel
@@ -199,7 +202,7 @@ import org.thoughtcrime.securesms.database.model.Quote
 import org.thoughtcrime.securesms.database.model.StickerRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.databinding.V2ConversationFragmentBinding
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.GroupCallPeekEvent
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent
 import org.thoughtcrime.securesms.giph.mp4.GiphyMp4ItemDecoration
@@ -241,6 +244,7 @@ import org.thoughtcrime.securesms.messagedetails.MessageDetailsFragment
 import org.thoughtcrime.securesms.messagerequests.MessageRequestRepository
 import org.thoughtcrime.securesms.mms.AttachmentManager
 import org.thoughtcrime.securesms.mms.AudioSlide
+import org.thoughtcrime.securesms.mms.DocumentSlide
 import org.thoughtcrime.securesms.mms.GifSlide
 import org.thoughtcrime.securesms.mms.ImageSlide
 import org.thoughtcrime.securesms.mms.MediaConstraints
@@ -250,6 +254,7 @@ import org.thoughtcrime.securesms.mms.SlideDeck
 import org.thoughtcrime.securesms.mms.SlideFactory
 import org.thoughtcrime.securesms.mms.StickerSlide
 import org.thoughtcrime.securesms.mms.VideoSlide
+import org.thoughtcrime.securesms.nicknames.NicknameActivity
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity
 import org.thoughtcrime.securesms.permissions.Permissions
@@ -265,7 +270,7 @@ import org.thoughtcrime.securesms.recipients.RecipientExporter
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment
 import org.thoughtcrime.securesms.recipients.ui.disappearingmessages.RecipientDisappearingMessagesActivity
-import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity
+import org.thoughtcrime.securesms.registration.ui.RegistrationActivity
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageActivity
 import org.thoughtcrime.securesms.revealable.ViewOnceUtil
 import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
@@ -286,14 +291,15 @@ import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Debouncer
 import org.thoughtcrime.securesms.util.DeleteDialog
 import org.thoughtcrime.securesms.util.Dialogs
+import org.thoughtcrime.securesms.util.DoubleClickDebouncer
 import org.thoughtcrime.securesms.util.DrawableUtil
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil.getEditMessageThresholdHours
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil.isValidEditMessageSend
 import org.thoughtcrime.securesms.util.PlayStoreUtil
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SaveAttachmentUtil
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.StorageUtil
@@ -461,7 +467,9 @@ class ConversationFragment :
   private val conversationTooltips = ConversationTooltips(this)
   private val colorizer = Colorizer()
   private val textDraftSaveDebouncer = Debouncer(500)
-  private val recentEmojis: RecentEmojiPageModel by lazy { RecentEmojiPageModel(ApplicationDependencies.getApplication(), TextSecurePreferences.RECENT_STORAGE_KEY) }
+  private val doubleTapToEditDebouncer = DoubleClickDebouncer(200)
+  private val recentEmojis: RecentEmojiPageModel by lazy { RecentEmojiPageModel(AppDependencies.application, TextSecurePreferences.RECENT_STORAGE_KEY) }
+  private val nicknameEditActivityLauncher = registerForActivityResult(NicknameActivity.Contract()) {}
 
   private lateinit var layoutManager: ConversationLayoutManager
   private lateinit var markReadHelper: MarkReadHelper
@@ -567,6 +575,7 @@ class ConversationFragment :
     presentWallpaper(args.wallpaper)
     presentChatColors(args.chatColors)
     presentConversationTitle(viewModel.recipientSnapshot)
+    presentGroupConversationSubtitle(createGroupSubtitleString(viewModel.titleViewParticipantsSnapshot))
     presentActionBarMenu()
     presentStoryRing()
 
@@ -627,7 +636,7 @@ class ConversationFragment :
     groupCallViewModel.peekGroupCall()
 
     if (!args.conversationScreenType.isInBubble) {
-      ApplicationDependencies.getMessageNotifier().setVisibleThread(ConversationId.forConversation(args.threadId))
+      AppDependencies.messageNotifier.setVisibleThread(ConversationId.forConversation(args.threadId))
     }
 
     viewModel.updateIdentityRecordsInBackground()
@@ -646,7 +655,7 @@ class ConversationFragment :
       updateToggleButtonState()
     }
 
-    if (SignalStore.rateLimit().needsRecaptcha()) {
+    if (SignalStore.rateLimit.needsRecaptcha()) {
       RecaptchaProofBottomSheetFragment.show(childFragmentManager)
     }
   }
@@ -657,7 +666,7 @@ class ConversationFragment :
     ConversationUtil.refreshRecipientShortcuts()
 
     if (!args.conversationScreenType.isInBubble) {
-      ApplicationDependencies.getMessageNotifier().clearVisibleThread()
+      AppDependencies.messageNotifier.clearVisibleThread()
     }
 
     if (activity?.isFinishing == true) {
@@ -851,6 +860,10 @@ class ConversationFragment :
 
   //endregion
 
+  private fun createGroupSubtitleString(members: List<Recipient>): String {
+    return members.joinToString(", ") { r -> if (r.isSelf) getString(R.string.ConversationTitleView_you) else r.getDisplayName(requireContext()) }
+  }
+
   private fun observeConversationThread() {
     var firstRender = true
     disposables += viewModel
@@ -909,6 +922,12 @@ class ConversationFragment :
       .observeOn(AndroidSchedulers.mainThread())
       .distinctUntilChanged { r1, r2 -> r1 === r2 || r1.hasSameContent(r2) }
       .subscribeBy(onNext = this::onRecipientChanged)
+
+    disposables += viewModel.titleViewParticipants
+      .map { createGroupSubtitleString(it) }
+      .distinctUntilChanged()
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribeBy(onNext = this::presentGroupConversationSubtitle)
 
     disposables += viewModel.scrollButtonState
       .subscribeBy(onNext = this::presentScrollButtons)
@@ -1109,7 +1128,7 @@ class ConversationFragment :
       }
     })
 
-    ApplicationDependencies.getTypingStatusRepository().getTypists(args.threadId).observe(viewLifecycleOwner) {
+    AppDependencies.typingStatusRepository.getTypists(args.threadId).observe(viewLifecycleOwner) {
       val recipient = viewModel.recipientSnapshot ?: return@observe
 
       typingIndicatorAdapter.setState(
@@ -1124,7 +1143,7 @@ class ConversationFragment :
   }
 
   private fun presentStoryRing() {
-    if (SignalStore.storyValues().isFeatureDisabled) {
+    if (SignalStore.story.isFeatureDisabled) {
       return
     }
 
@@ -1195,7 +1214,7 @@ class ConversationFragment :
 
     if (mediaType == SlideFactory.MediaType.VCARD) {
       conversationActivityResultContracts.launchContactShareEditor(uri, viewModel.recipientSnapshot!!.chatColors)
-    } else if (mediaType == SlideFactory.MediaType.IMAGE || mediaType == SlideFactory.MediaType.GIF || mediaType == SlideFactory.MediaType.VIDEO) {
+    } else {
       val mimeType = MediaUtil.getMimeType(requireContext(), uri) ?: mediaType.toFallbackMimeType()
       val media = Media(
         uri,
@@ -1209,11 +1228,10 @@ class ConversationFragment :
         videoGif,
         Optional.empty(),
         Optional.empty(),
+        Optional.empty(),
         Optional.empty()
       )
       conversationActivityResultContracts.launchMediaEditor(listOf(media), recipientId, composeText.textTrimmed)
-    } else {
-      attachmentManager.setMedia(Glide.with(this), uri, mediaType, MediaConstraints.getPushMediaConstraints(), width, height)
     }
   }
 
@@ -1302,6 +1320,17 @@ class ConversationFragment :
     }
   }
 
+  private fun presentGroupConversationSubtitle(subtitle: String) {
+    val titleView = binding.conversationTitleView.root
+
+    if (subtitle.isBlank()) {
+      titleView.setGroupRecipientSubtitle(null)
+      return
+    }
+
+    titleView.setGroupRecipientSubtitle(subtitle)
+  }
+
   private fun presentConversationTitle(recipient: Recipient?) {
     if (recipient == null) {
       return
@@ -1310,6 +1339,7 @@ class ConversationFragment :
     val titleView = binding.conversationTitleView.root
 
     titleView.setTitle(Glide.with(this), recipient)
+
     if (recipient.expiresInSeconds > 0) {
       titleView.showExpiring(recipient)
     } else {
@@ -1460,7 +1490,7 @@ class ConversationFragment :
       is ShareOrDraftData.SetLocation -> attachmentManager.setLocation(data.location, MediaConstraints.getPushMediaConstraints())
       is ShareOrDraftData.SetEditMessage -> {
         composeText.setDraftText(data.draftText)
-        inputPanel.enterEditMessageMode(Glide.with(this), data.messageEdit, true)
+        inputPanel.enterEditMessageMode(Glide.with(this), data.messageEdit, true, data.clearQuote)
       }
 
       is ShareOrDraftData.SetMedia -> {
@@ -1509,7 +1539,7 @@ class ConversationFragment :
       return
     }
 
-    if (SignalStore.uiHints().hasNotSeenEditMessageBetaAlert()) {
+    if (SignalStore.uiHints.hasNotSeenEditMessageBetaAlert()) {
       Dialogs.showEditMessageBetaDialog(requireContext()) { handleSendEditMessage() }
       return
     }
@@ -1518,12 +1548,6 @@ class ConversationFragment :
     if (editMessage == null) {
       Log.w(TAG, "No edit message found, forcing exit")
       inputPanel.exitEditMessageMode()
-      return
-    }
-
-    if (!MessageConstraintsUtil.isWithinMaxEdits(editMessage)) {
-      Log.i(TAG, "Too many edits to the message")
-      Dialogs.showAlertDialog(requireContext(), null, resources.getQuantityString(R.plurals.ConversationActivity_edit_message_too_many_edits, MessageConstraintsUtil.MAX_EDIT_COUNT, MessageConstraintsUtil.MAX_EDIT_COUNT))
       return
     }
 
@@ -1664,7 +1688,7 @@ class ConversationFragment :
   }
 
   private fun initializeMediaKeyboard() {
-    val isSystemEmojiPreferred = SignalStore.settings().isPreferSystemEmoji
+    val isSystemEmojiPreferred = SignalStore.settings.isPreferSystemEmoji
     val keyboardMode: TextSecurePreferences.MediaKeyboardMode = TextSecurePreferences.getMediaKeyboardMode(requireContext())
 
     inputPanel.showMediaKeyboardToggle(true)
@@ -1672,7 +1696,7 @@ class ConversationFragment :
     val keyboardPage = when (keyboardMode) {
       TextSecurePreferences.MediaKeyboardMode.EMOJI -> if (isSystemEmojiPreferred) KeyboardPage.STICKER else KeyboardPage.EMOJI
       TextSecurePreferences.MediaKeyboardMode.STICKER -> KeyboardPage.STICKER
-      TextSecurePreferences.MediaKeyboardMode.GIF -> if (FeatureFlags.gifSearchAvailable()) KeyboardPage.GIF else KeyboardPage.STICKER
+      TextSecurePreferences.MediaKeyboardMode.GIF -> if (RemoteConfig.gifSearchAvailable) KeyboardPage.GIF else KeyboardPage.STICKER
     }
 
     inputPanel.setMediaKeyboardToggleMode(keyboardPage)
@@ -1803,7 +1827,7 @@ class ConversationFragment :
       return
     }
 
-    if (SignalStore.uiHints().hasNotSeenTextFormattingAlert() && bodyRanges != null && bodyRanges.ranges.isNotEmpty()) {
+    if (SignalStore.uiHints.hasNotSeenTextFormattingAlert() && bodyRanges != null && bodyRanges.ranges.isNotEmpty()) {
       Dialogs.showFormattedTextDialog(requireContext()) {
         sendMessage(body, mentions, bodyRanges, messageToEdit, quote, scheduledDate, slideDeck, contacts, clearCompose, linkPreviews, preUploadResults, bypassPreSendSafetyNumberCheck, isViewOnce, afterSendComplete)
       }
@@ -2196,6 +2220,7 @@ class ConversationFragment :
     ConversationDialogs.displayDeleteDialog(requireContext(), recipient) {
       messageRequestViewModel
         .onDelete()
+        .doAfterSuccess { activity?.finish() }
         .subscribeWithShowProgress("delete message request")
     }
   }
@@ -2259,13 +2284,20 @@ class ConversationFragment :
   }
 
   private fun handleEditMessage(conversationMessage: ConversationMessage) {
+    if (!MessageConstraintsUtil.isWithinMaxEdits(conversationMessage.messageRecord)) {
+      Log.i(TAG, "Too many edits to the message")
+      Dialogs.showAlertDialog(requireContext(), null, resources.getQuantityString(R.plurals.ConversationActivity_edit_message_too_many_edits, MessageConstraintsUtil.MAX_EDIT_COUNT, MessageConstraintsUtil.MAX_EDIT_COUNT))
+
+      return
+    }
+
     if (isSearchRequested) {
       searchMenuItem?.collapseActionView()
     }
 
     viewModel.resolveMessageToEdit(conversationMessage)
       .subscribeBy { updatedMessage ->
-        inputPanel.enterEditMessageMode(Glide.with(this), updatedMessage, false)
+        inputPanel.enterEditMessageMode(Glide.with(this), updatedMessage, false, false)
       }
       .addTo(disposables)
   }
@@ -2332,10 +2364,24 @@ class ConversationFragment :
 
   private fun handleViewPaymentDetails(conversationMessage: ConversationMessage) {
     val record: MmsMessageRecord = conversationMessage.messageRecord as? MmsMessageRecord ?: return
-    val payment = record.payment ?: return
+    val payment = record.payment
+    if (payment == null || record.isPaymentTombstone) {
+      showPaymentTombstoneLearnMoreDialog()
+      return
+    }
     if (record.isPaymentNotification) {
       startActivity(PaymentsActivity.navigateToPaymentDetails(requireContext(), payment.uuid))
     }
+  }
+
+  private fun showPaymentTombstoneLearnMoreDialog() {
+    val dialogBuilder = MaterialAlertDialogBuilder(requireContext())
+    dialogBuilder
+      .setTitle(R.string.PaymentTombstoneLearnMoreDialog_title)
+      .setMessage(R.string.PaymentTombstoneLearnMoreDialog_message)
+      .setPositiveButton(android.R.string.ok, null)
+
+    dialogBuilder.show()
   }
 
   private fun handleDisplayDetails(conversationMessage: ConversationMessage) {
@@ -2344,7 +2390,17 @@ class ConversationFragment :
   }
 
   private fun handleDeleteMessages(messageParts: Set<MultiselectPart>) {
+    if (DeleteSyncEducationDialog.shouldShow()) {
+      DeleteSyncEducationDialog
+        .show(childFragmentManager)
+        .subscribe { handleDeleteMessages(messageParts) }
+        .addTo(disposables)
+
+      return
+    }
+
     val records = messageParts.map(MultiselectPart::getMessageRecord).toSet()
+
     disposables += DeleteDialog.show(
       context = requireContext(),
       messageRecords = records
@@ -2734,16 +2790,24 @@ class ConversationFragment :
 
     override fun onItemDoubleClick(item: MultiselectPart) {
       Log.d(TAG, "onItemDoubleClick")
-      if (!isValidEditMessageSend(item.getMessageRecord(), System.currentTimeMillis())) {
+      onDoubleTapToEdit(item.conversationMessage)
+    }
+
+    private fun onDoubleTapToEdit(conversationMessage: ConversationMessage) {
+      if (!isValidEditMessageSend(conversationMessage.getMessageRecord(), System.currentTimeMillis())) {
         return
       }
 
-      if (SignalStore.uiHints().hasSeenDoubleTapEditEducationSheet) {
-        onDoubleTapEditEducationSheetNext(item.conversationMessage)
+      if (SignalStore.uiHints.hasSeenDoubleTapEditEducationSheet) {
+        onDoubleTapEditEducationSheetNext(conversationMessage)
         return
       }
 
-      DoubleTapEditEducationSheet(item).show(childFragmentManager, DoubleTapEditEducationSheet.KEY)
+      DoubleTapEditEducationSheet(conversationMessage).show(childFragmentManager, DoubleTapEditEducationSheet.KEY)
+    }
+
+    override fun onPaymentTombstoneClicked() {
+      this@ConversationFragment.showPaymentTombstoneLearnMoreDialog()
     }
 
     override fun onMessageWithErrorClicked(messageRecord: MessageRecord) {
@@ -2851,8 +2915,21 @@ class ConversationFragment :
       startActivity(RecipientExporter.export(recipient).asAddContactIntent())
     }
 
+    override fun onChangeProfileNameUpdateContact(recipient: Recipient) {
+      if (recipient.isSystemContact) {
+        startActivity(
+          Intent(Intent.ACTION_EDIT).apply {
+            setDataAndType(recipient.contactUri, ContactsContract.Contacts.CONTENT_ITEM_TYPE)
+          }
+        )
+      } else {
+        nicknameEditActivityLauncher.launch(NicknameActivity.Args(recipientId = recipient.id, focusNoteFirst = false))
+      }
+    }
+
     override fun onCallToAction(action: String) {
-      if ("username_edit" == action) {
+      if ("gift_badge" == action) {
+      } else if ("username_edit" == action) {
         startActivity(EditProfileActivity.getIntentForUsernameEdit(requireContext()))
       }
     }
@@ -2930,9 +3007,12 @@ class ConversationFragment :
       requireActivity().startActivity(MediaIntentFactory.create(requireActivity(), args), options.toBundle())
     }
 
-    override fun onEditedIndicatorClicked(messageRecord: MessageRecord) {
-      if (messageRecord.isOutgoing) {
-        EditMessageHistoryDialog.show(childFragmentManager, messageRecord.toRecipient.id, messageRecord)
+    override fun onEditedIndicatorClicked(conversationMessage: ConversationMessage) {
+      val messageRecord = conversationMessage.messageRecord
+      if (conversationMessage.messageRecord.isOutgoing) {
+        if (!doubleTapToEditDebouncer.onClick { EditMessageHistoryDialog.show(childFragmentManager, messageRecord.toRecipient.id, messageRecord) }) {
+          onDoubleTapToEdit(conversationMessage)
+        }
       } else {
         EditMessageHistoryDialog.show(childFragmentManager, messageRecord.fromRecipient.id, messageRecord)
       }
@@ -3515,6 +3595,7 @@ class ConversationFragment :
           MediaUtil.isVideoType(it.mimeType) -> VideoSlide(requireContext(), it.uri, it.size, it.isVideoGif, it.width, it.height, it.caption.orNull(), it.transformProperties.orNull())
           MediaUtil.isGif(it.mimeType) -> GifSlide(requireContext(), it.uri, it.size, it.width, it.height, it.isBorderless, it.caption.orNull())
           MediaUtil.isImageType(it.mimeType) -> ImageSlide(requireContext(), it.uri, it.mimeType, it.size, it.width, it.height, it.isBorderless, it.caption.orNull(), null, it.transformProperties.orNull())
+          MediaUtil.isDocumentType(it.mimeType) -> { DocumentSlide(requireContext(), it.uri, it.mimeType, it.size, it.fileName.orNull()) }
           else -> {
             Log.w(TAG, "Asked to send an unexpected mimeType: '${it.mimeType}'. Skipping.")
             null
@@ -3607,7 +3688,7 @@ class ConversationFragment :
     }
 
     override fun reRegisterAction() {
-      startActivity(RegistrationNavigationActivity.newIntentForReRegistration(requireContext()))
+      startActivity(RegistrationActivity.newIntentForReRegistration(requireContext()))
     }
 
     override fun reviewJoinRequestsAction() {
@@ -3629,7 +3710,7 @@ class ConversationFragment :
 
     @SuppressLint("InlinedApi")
     override fun changeBubbleSettingAction(disableSetting: Boolean) {
-      SignalStore.tooltips().markBubbleOptOutTooltipSeen()
+      SignalStore.tooltips.markBubbleOptOutTooltipSeen()
 
       if (disableSetting) {
         val intent = Intent(Settings.ACTION_APP_NOTIFICATION_BUBBLE_SETTINGS)
@@ -3682,7 +3763,7 @@ class ConversationFragment :
     }
 
     override fun onReRegisterClicked() {
-      startActivity(RegistrationNavigationActivity.newIntentForReRegistration(requireContext()))
+      startActivity(RegistrationActivity.newIntentForReRegistration(requireContext()))
     }
 
     override fun onCancelGroupRequestClicked() {
@@ -3790,7 +3871,7 @@ class ConversationFragment :
     override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
       if (event.action == KeyEvent.ACTION_DOWN) {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
-          if (SignalStore.settings().isEnterKeySends || event.isCtrlPressed) {
+          if (SignalStore.settings.isEnterKeySends || event.isCtrlPressed) {
             sendButton.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
             sendButton.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER))
             return true
@@ -3857,7 +3938,7 @@ class ConversationFragment :
         return
       }
 
-      val typingStatusSender = ApplicationDependencies.getTypingStatusSender()
+      val typingStatusSender = AppDependencies.typingStatusSender
       if (text.length == 0) {
         typingStatusSender.onTypingStoppedWithNotify(args.threadId)
       } else if (text.length < previousText.length && previousText.contains(text)) {

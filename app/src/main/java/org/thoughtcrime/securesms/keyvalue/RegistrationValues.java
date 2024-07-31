@@ -9,13 +9,12 @@ import java.util.List;
 
 public final class RegistrationValues extends SignalStoreValues {
 
-  private static final String REGISTRATION_COMPLETE = "registration.complete";
-  private static final String PIN_REQUIRED          = "registration.pin_required";
-  private static final String HAS_UPLOADED_PROFILE  = "registration.has_uploaded_profile";
-  private static final String SESSION_E164          = "registration.session_e164";
-  private static final String SESSION_ID            = "registration.session_id";
-  private static final String NEED_DOWNLOAD_PROFILE        = "registration.need_download_profile";
-  private static final String NEED_DOWNLOAD_PROFILE_AVATAR = "registration.need_download_profile_avatar";
+  private static final String REGISTRATION_COMPLETE       = "registration.complete";
+  private static final String PIN_REQUIRED                = "registration.pin_required";
+  private static final String HAS_UPLOADED_PROFILE        = "registration.has_uploaded_profile";
+  private static final String SESSION_E164                = "registration.session_e164";
+  private static final String SESSION_ID                  = "registration.session_id";
+  private static final String SKIPPED_TRANSFER_OR_RESTORE = "registration.has_skipped_transfer_or_restore";
 
   RegistrationValues(@NonNull KeyValueStore store) {
     super(store);
@@ -24,10 +23,9 @@ public final class RegistrationValues extends SignalStoreValues {
   public synchronized void onFirstEverAppLaunch() {
     getStore().beginWrite()
               .putBoolean(HAS_UPLOADED_PROFILE, false)
-              .putBoolean(NEED_DOWNLOAD_PROFILE, false)
-              .putBoolean(NEED_DOWNLOAD_PROFILE_AVATAR, false)
               .putBoolean(REGISTRATION_COMPLETE, false)
               .putBoolean(PIN_REQUIRED, true)
+              .putBoolean(SKIPPED_TRANSFER_OR_RESTORE, false)
               .commit();
   }
 
@@ -72,6 +70,18 @@ public final class RegistrationValues extends SignalStoreValues {
     putString(SESSION_ID, sessionId);
   }
 
+  public boolean hasSkippedTransferOrRestore() {
+    return getBoolean(SKIPPED_TRANSFER_OR_RESTORE, false);
+  }
+
+  public void markSkippedTransferOrRestore() {
+    putBoolean(SKIPPED_TRANSFER_OR_RESTORE, true);
+  }
+
+  public void clearSkippedTransferOrRestore() {
+    putBoolean(SKIPPED_TRANSFER_OR_RESTORE, false);
+  }
+
   @Nullable
   public String getSessionId() {
     return getString(SESSION_ID, null);
@@ -84,22 +94,5 @@ public final class RegistrationValues extends SignalStoreValues {
   @Nullable
   public String getSessionE164() {
     return getString(SESSION_E164, null);
-  }
-
-  public void markNeedDownloadProfileAndAvatar() {
-    putBoolean(NEED_DOWNLOAD_PROFILE, true);
-    putBoolean(NEED_DOWNLOAD_PROFILE_AVATAR, true);
-  }
-
-  public boolean needDownloadProfileOrAvatar() {
-    return getBoolean(NEED_DOWNLOAD_PROFILE, true) || getBoolean(NEED_DOWNLOAD_PROFILE_AVATAR, true);
-  }
-
-  public void clearNeedDownloadProfile() {
-    putBoolean(NEED_DOWNLOAD_PROFILE, false);
-  }
-
-  public void clearNeedDownloadProfileAvatar() {
-    putBoolean(NEED_DOWNLOAD_PROFILE_AVATAR, false);
   }
 }

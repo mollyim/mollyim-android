@@ -550,7 +550,7 @@ public final class ConversationUpdateItem extends FrameLayout
           eventListener.onBlockJoinRequest(conversationMessage.getMessageRecord().getFromRecipient());
         }
       });
-    } else if (conversationMessage.getMessageRecord().isPaymentsRequestToActivate() && !conversationMessage.getMessageRecord().isOutgoing() && !SignalStore.paymentsValues().mobileCoinPaymentsEnabled()) {
+    } else if (conversationMessage.getMessageRecord().isPaymentsRequestToActivate() && !conversationMessage.getMessageRecord().isOutgoing() && !SignalStore.payments().mobileCoinPaymentsEnabled()) {
       actionButton.setText(R.string.ConversationUpdateItem_activate_payments);
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
@@ -572,6 +572,14 @@ public final class ConversationUpdateItem extends FrameLayout
       actionButton.setOnClickListener(v -> {
         if (batchSelected.isEmpty() && eventListener != null) {
           eventListener.onReportSpamLearnMoreClicked();
+        }
+      });
+    } else if (conversationMessage.getMessageRecord().isProfileChange() && !conversationMessage.getMessageRecord().getFromRecipient().isSelf()) {
+      actionButton.setText(R.string.ConversationUpdateItem_update);
+      actionButton.setVisibility(VISIBLE);
+      actionButton.setOnClickListener(v -> {
+        if (batchSelected.isEmpty() && eventListener != null) {
+          eventListener.onChangeProfileNameUpdateContact(conversationMessage.getMessageRecord().getFromRecipient());
         }
       });
     } else if (conversationMessage.getMessageRecord().isMessageRequestAccepted()) {

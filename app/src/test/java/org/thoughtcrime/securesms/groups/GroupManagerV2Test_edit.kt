@@ -20,9 +20,11 @@ import org.robolectric.annotation.Config
 import org.signal.core.util.Hex
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.logging.Log
+import org.signal.libsignal.protocol.logging.SignalProtocolLogger
 import org.signal.libsignal.protocol.logging.SignalProtocolLoggerProvider
 import org.signal.libsignal.zkgroup.groups.GroupMasterKey
 import org.signal.libsignal.zkgroup.groups.GroupSecretParams
+import org.signal.storageservice.protos.groups.GroupChangeResponse
 import org.signal.storageservice.protos.groups.Member
 import org.signal.storageservice.protos.groups.local.DecryptedGroup
 import org.signal.storageservice.protos.groups.local.DecryptedMember
@@ -80,6 +82,7 @@ class GroupManagerV2Test_edit {
     ThreadUtil.enforceAssertions = false
     Log.initialize(SystemOutLogger())
     SignalProtocolLoggerProvider.setProvider(CustomSignalProtocolLogger())
+    SignalProtocolLoggerProvider.initializeLogging(SignalProtocolLogger.INFO)
 
     val clientZkOperations = ClientZkOperations(server.getServerPublicParams())
 
@@ -109,9 +112,9 @@ class GroupManagerV2Test_edit {
 
     every { groupTable.getGroup(groupId) } returns data.groupRecord
     every { groupTable.requireGroup(groupId) } returns data.groupRecord.get()
-    every { groupTable.update(any<GroupId.V2>(), any()) } returns Unit
+    every { groupTable.update(any<GroupId.V2>(), any(), any()) } returns Unit
     every { sendGroupUpdateHelper.sendGroupUpdate(masterKey, any(), any(), any()) } returns GroupManagerV2.RecipientAndThread(Recipient.UNKNOWN, 1)
-    every { groupsV2API.patchGroup(any(), any(), any()) } returns data.groupChange!!
+    every { groupsV2API.patchGroup(any(), any(), any()) } returns GroupChangeResponse(groupChange = data.groupChange!!)
   }
 
   private fun editGroup(perform: GroupManagerV2.GroupEditor.() -> Unit) {
@@ -120,7 +123,7 @@ class GroupManagerV2Test_edit {
 
   private fun then(then: (DecryptedGroup) -> Unit) {
     val decryptedGroupArg = slot<DecryptedGroup>()
-    verify { groupTable.update(groupId, capture(decryptedGroupArg)) }
+    verify { groupTable.update(groupId, capture(decryptedGroupArg), any()) }
     then(decryptedGroupArg.captured)
   }
 

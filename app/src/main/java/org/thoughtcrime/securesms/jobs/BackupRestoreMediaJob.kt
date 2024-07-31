@@ -6,9 +6,10 @@
 package org.thoughtcrime.securesms.jobs
 
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -42,32 +43,41 @@ class BackupRestoreMediaJob private constructor(parameters: Parameters) : BaseJo
   override fun onFailure() = Unit
 
   override fun onRun() {
-    if (!SignalStore.account().isRegistered) {
+    if (!SignalStore.account.isRegistered) {
       Log.e(TAG, "Not registered, cannot restore!")
       throw NotPushRegisteredException()
     }
 
-    val jobManager = ApplicationDependencies.getJobManager()
+    val jobManager = AppDependencies.jobManager
     val batchSize = 100
     val restoreTime = System.currentTimeMillis()
-    var restoreJobBatch: List<RestoreAttachmentJob>
+    var restoreJobBatch: List<Job>
     do {
       val attachmentBatch = SignalDatabase.attachments.getRestorableAttachments(batchSize)
       val messageIds = attachmentBatch.map { it.mmsId }.toSet()
       val messageMap = SignalDatabase.messages.getMessages(messageIds).associate { it.id to (it as MmsMessageRecord) }
       restoreJobBatch = SignalDatabase.attachments.getRestorableAttachments(batchSize).map { attachment ->
         val message = messageMap[attachment.mmsId]!!
-        RestoreAttachmentJob(
-          messageId = attachment.mmsId,
-          attachmentId = attachment.attachmentId,
-          manual = false,
-          forceArchiveDownload = true,
-          restoreMode = if (shouldRestoreFullSize(message, restoreTime, optimizeStorage = SignalStore.backup().optimizeStorage)) {
-            RestoreAttachmentJob.RestoreMode.ORIGINAL
-          } else {
-            RestoreAttachmentJob.RestoreMode.THUMBNAIL
-          }
-        )
+        if (shouldRestoreFullSize(message, restoreTime, SignalStore.backup.optimizeStorage)) {
+          RestoreAttachmentJob(
+            messageId = attachment.mmsId,
+            attachmentId = attachment.attachmentId,
+            manual = false,
+            forceArchiveDownload = true,
+            restoreMode = RestoreAttachmentJob.RestoreMode.ORIGINAL
+          )
+        } else {
+          SignalDatabase.attachments.setTransferState(
+            messageId = attachment.mmsId,
+            attachmentId = attachment.attachmentId,
+            transferState = AttachmentTable.TRANSFER_RESTORE_OFFLOADED
+          )
+          RestoreAttachmentThumbnailJob(
+            messageId = attachment.mmsId,
+            attachmentId = attachment.attachmentId,
+            highPriority = false
+          )
+        }
       }
       jobManager.addAll(restoreJobBatch)
     } while (restoreJobBatch.isNotEmpty())

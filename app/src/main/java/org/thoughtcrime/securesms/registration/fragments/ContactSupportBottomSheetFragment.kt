@@ -19,6 +19,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.FragmentManager
 import org.signal.core.ui.BottomSheets
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
@@ -80,7 +81,7 @@ class ContactSupportBottomSheetFragment : ComposeBottomSheetDialogFragment() {
   private fun buildClickableString(): AnnotatedString {
     val troubleshootingStepsString = stringResource(R.string.RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring)
     val contactSupportString = stringResource(R.string.RegistrationActivity_support_bottom_sheet_cta_contact_support_substring)
-    val completeString = stringResource(R.string.RegistrationActivity_support_bottom_sheet_body_call_to_action)
+    val completeString = stringResource(R.string.RegistrationActivity_support_bottom_sheet_body_call_to_action, troubleshootingStepsString, contactSupportString)
 
     val troubleshootingStartIndex = completeString.indexOf(troubleshootingStepsString)
     val troubleshootingEndIndex = troubleshootingStartIndex + troubleshootingStepsString.length
@@ -156,6 +157,12 @@ class ContactSupportBottomSheetFragment : ComposeBottomSheetDialogFragment() {
       getString(R.string.RegistrationActivity_code_support_subject),
       body
     )
+  }
+
+  fun showSafely(fm: FragmentManager, tag: String) {
+    if (!isAdded && !fm.isStateSaved) {
+      show(fm, tag)
+    }
   }
 
   companion object {

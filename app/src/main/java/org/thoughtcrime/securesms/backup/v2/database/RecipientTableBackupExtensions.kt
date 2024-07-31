@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.backup.v2.database
 
 import android.content.ContentValues
 import android.database.Cursor
+import androidx.core.content.contentValuesOf
 import okio.ByteString.Companion.toByteString
 import org.signal.core.util.Base64
 import org.signal.core.util.SqlUtil
@@ -44,13 +45,12 @@ import org.thoughtcrime.securesms.database.RecipientTable
 import org.thoughtcrime.securesms.database.RecipientTableCursorUtil
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.databaseprotos.RecipientExtras
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.profiles.ProfileName
-import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations
@@ -86,6 +86,8 @@ fun RecipientTable.getContactsForBackup(selfId: Long): BackupContactIterator {
       RecipientTable.PROFILE_FAMILY_NAME,
       RecipientTable.PROFILE_JOINED_NAME,
       RecipientTable.MUTE_UNTIL,
+      RecipientTable.CHAT_COLORS,
+      RecipientTable.CUSTOM_CHAT_COLORS_ID,
       RecipientTable.EXTRAS
     )
     .from(RecipientTable.TABLE_NAME)
@@ -164,8 +166,8 @@ fun RecipientTable.clearAllDataForBackupRestore() {
   SqlUtil.resetAutoIncrementValue(writableDatabase, RecipientTable.TABLE_NAME)
 
   RecipientId.clearCache()
-  ApplicationDependencies.getRecipientCache().clear()
-  ApplicationDependencies.getRecipientCache().clearSelf()
+  AppDependencies.recipientCache.clear()
+  AppDependencies.recipientCache.clearSelf()
 }
 
 fun RecipientTable.restoreContactFromBackup(contact: Contact): RecipientId {
@@ -176,23 +178,30 @@ fun RecipientTable.restoreContactFromBackup(contact: Contact): RecipientId {
   )
 
   val profileKey = contact.profileKey?.toByteArray()
+  val values = contentValuesOf(
+    RecipientTable.BLOCKED to contact.blocked,
+    RecipientTable.HIDDEN to (contact.visibility == Contact.Visibility.HIDDEN),
+    RecipientTable.TYPE to RecipientTable.RecipientType.INDIVIDUAL.id,
+    RecipientTable.PROFILE_FAMILY_NAME to contact.profileFamilyName.nullIfBlank(),
+    RecipientTable.PROFILE_GIVEN_NAME to contact.profileGivenName.nullIfBlank(),
+    RecipientTable.PROFILE_JOINED_NAME to ProfileName.fromParts(contact.profileGivenName.nullIfBlank(), contact.profileFamilyName.nullIfBlank()).toString().nullIfBlank(),
+    RecipientTable.PROFILE_KEY to if (profileKey == null) null else Base64.encodeWithPadding(profileKey),
+    RecipientTable.PROFILE_SHARING to contact.profileSharing.toInt(),
+    RecipientTable.USERNAME to contact.username,
+    RecipientTable.EXTRAS to contact.toLocalExtras().encode()
+  )
+
+  if (contact.registered != null) {
+    values.put(RecipientTable.UNREGISTERED_TIMESTAMP, 0L)
+    values.put(RecipientTable.REGISTERED, RecipientTable.RegisteredState.REGISTERED.id)
+  } else if (contact.notRegistered != null) {
+    values.put(RecipientTable.UNREGISTERED_TIMESTAMP, contact.notRegistered.unregisteredTimestamp)
+    values.put(RecipientTable.REGISTERED, RecipientTable.RegisteredState.NOT_REGISTERED.id)
+  }
 
   writableDatabase
     .update(RecipientTable.TABLE_NAME)
-    .values(
-      RecipientTable.BLOCKED to contact.blocked,
-      RecipientTable.HIDDEN to contact.hidden,
-      RecipientTable.TYPE to RecipientTable.RecipientType.INDIVIDUAL.id,
-      RecipientTable.PROFILE_FAMILY_NAME to contact.profileFamilyName.nullIfBlank(),
-      RecipientTable.PROFILE_GIVEN_NAME to contact.profileGivenName.nullIfBlank(),
-      RecipientTable.PROFILE_JOINED_NAME to ProfileName.fromParts(contact.profileGivenName.nullIfBlank(), contact.profileFamilyName.nullIfBlank()).toString().nullIfBlank(),
-      RecipientTable.PROFILE_KEY to if (profileKey == null) null else Base64.encodeWithPadding(profileKey),
-      RecipientTable.PROFILE_SHARING to contact.profileSharing.toInt(),
-      RecipientTable.REGISTERED to contact.registered.toLocalRegisteredState().id,
-      RecipientTable.USERNAME to contact.username,
-      RecipientTable.UNREGISTERED_TIMESTAMP to contact.unregisteredTimestamp,
-      RecipientTable.EXTRAS to contact.toLocalExtras().encode()
-    )
+    .values(values)
     .where("${RecipientTable.ID} = ?", id)
     .run()
 
@@ -201,7 +210,7 @@ fun RecipientTable.restoreContactFromBackup(contact: Contact): RecipientId {
 
 fun RecipientTable.restoreReleaseNotes(): RecipientId {
   val releaseChannelId: RecipientId = insertReleaseChannelRecipient()
-  SignalStore.releaseChannelValues().setReleaseChannelRecipientId(releaseChannelId)
+  SignalStore.releaseChannel.setReleaseChannelRecipientId(releaseChannelId)
 
   setProfileName(releaseChannelId, ProfileName.asGiven("Signal"))
   setMuted(releaseChannelId, Long.MAX_VALUE)
@@ -212,7 +221,7 @@ fun RecipientTable.restoreGroupFromBackup(group: Group): RecipientId {
   val masterKey = GroupMasterKey(group.masterKey.toByteArray())
   val groupId = GroupId.v2(masterKey)
 
-  val operations = ApplicationDependencies.getGroupsV2Operations().forGroup(GroupSecretParams.deriveFromMasterKey(masterKey))
+  val operations = AppDependencies.groupsV2Operations.forGroup(GroupSecretParams.deriveFromMasterKey(masterKey))
   val decryptedState = if (group.snapshot == null) {
     DecryptedGroup(revision = GroupsV2StateProcessor.RESTORE_PLACEHOLDER_REVISION)
   } else {
@@ -232,7 +241,7 @@ fun RecipientTable.restoreGroupFromBackup(group: Group): RecipientId {
   }
 
   val recipientId = writableDatabase.insert(RecipientTable.TABLE_NAME, null, values)
-  val restoredId = SignalDatabase.groups.create(masterKey, decryptedState)
+  val restoredId = SignalDatabase.groups.create(masterKey, decryptedState, groupSendEndorsements = null)
   if (restoredId != null) {
     SignalDatabase.groups.setShowAsStoryState(restoredId, group.storySendMode.toGroupShowAsStoryState())
   }
@@ -419,23 +428,28 @@ class BackupContactIterator(private val cursor: Cursor, private val selfId: Long
       return null
     }
 
+    val contactBuilder = Contact.Builder()
+      .aci(aci?.rawUuid?.toByteArray()?.toByteString())
+      .pni(pni?.rawUuid?.toByteArray()?.toByteString())
+      .username(cursor.requireString(RecipientTable.USERNAME))
+      .e164(cursor.requireString(RecipientTable.E164)?.e164ToLong())
+      .blocked(cursor.requireBoolean(RecipientTable.BLOCKED))
+      .visibility(if (cursor.requireBoolean(RecipientTable.HIDDEN)) Contact.Visibility.HIDDEN else Contact.Visibility.VISIBLE)
+      .profileKey(if (profileKey != null) Base64.decode(profileKey).toByteString() else null)
+      .profileSharing(cursor.requireBoolean(RecipientTable.PROFILE_SHARING))
+      .profileGivenName(cursor.requireString(RecipientTable.PROFILE_GIVEN_NAME).nullIfBlank())
+      .profileFamilyName(cursor.requireString(RecipientTable.PROFILE_FAMILY_NAME).nullIfBlank())
+      .hideStory(extras?.hideStory() ?: false)
+
+    if (registeredState == RecipientTable.RegisteredState.REGISTERED) {
+      contactBuilder.registered = Contact.Registered()
+    } else {
+      contactBuilder.notRegistered = Contact.NotRegistered(unregisteredTimestamp = cursor.requireLong(RecipientTable.UNREGISTERED_TIMESTAMP))
+    }
+
     return BackupRecipient(
       id = id,
-      contact = Contact(
-        aci = aci?.rawUuid?.toByteArray()?.toByteString(),
-        pni = pni?.rawUuid?.toByteArray()?.toByteString(),
-        username = cursor.requireString(RecipientTable.USERNAME),
-        e164 = cursor.requireString(RecipientTable.E164)?.e164ToLong(),
-        blocked = cursor.requireBoolean(RecipientTable.BLOCKED),
-        hidden = cursor.requireBoolean(RecipientTable.HIDDEN),
-        registered = registeredState.toContactRegisteredState(),
-        unregisteredTimestamp = cursor.requireLong(RecipientTable.UNREGISTERED_TIMESTAMP),
-        profileKey = if (profileKey != null) Base64.decode(profileKey).toByteString() else null,
-        profileSharing = cursor.requireBoolean(RecipientTable.PROFILE_SHARING),
-        profileGivenName = cursor.requireString(RecipientTable.PROFILE_GIVEN_NAME).nullIfBlank(),
-        profileFamilyName = cursor.requireString(RecipientTable.PROFILE_FAMILY_NAME).nullIfBlank(),
-        hideStory = extras?.hideStory() ?: false
-      )
+      contact = contactBuilder.build()
     )
   }
 
@@ -490,22 +504,6 @@ private fun String.e164ToLong(): Long? {
   return fixed.toLongOrNull()
 }
 
-private fun RecipientTable.RegisteredState.toContactRegisteredState(): Contact.Registered {
-  return when (this) {
-    RecipientTable.RegisteredState.REGISTERED -> Contact.Registered.REGISTERED
-    RecipientTable.RegisteredState.NOT_REGISTERED -> Contact.Registered.NOT_REGISTERED
-    RecipientTable.RegisteredState.UNKNOWN -> Contact.Registered.UNKNOWN
-  }
-}
-
-private fun Contact.Registered.toLocalRegisteredState(): RecipientTable.RegisteredState {
-  return when (this) {
-    Contact.Registered.REGISTERED -> RecipientTable.RegisteredState.REGISTERED
-    Contact.Registered.NOT_REGISTERED -> RecipientTable.RegisteredState.NOT_REGISTERED
-    Contact.Registered.UNKNOWN -> RecipientTable.RegisteredState.UNKNOWN
-  }
-}
-
 private fun GroupTable.ShowAsStoryState.toGroupStorySendMode(): Group.StorySendMode {
   return when (this) {
     GroupTable.ShowAsStoryState.ALWAYS -> Group.StorySendMode.ENABLED
@@ -525,6 +523,6 @@ private fun Group.StorySendMode.toGroupShowAsStoryState(): GroupTable.ShowAsStor
 private val Contact.formattedE164: String?
   get() {
     return e164?.let {
-      PhoneNumberFormatter.get(ApplicationDependencies.getApplication()).format(e164.toString())
+      PhoneNumberFormatter.get(AppDependencies.application).format(e164.toString())
     }
   }

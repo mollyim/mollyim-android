@@ -18,7 +18,7 @@ import org.thoughtcrime.securesms.database.model.addButton
 import org.thoughtcrime.securesms.database.model.addLink
 import org.thoughtcrime.securesms.database.model.addStyle
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JsonJobData
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
@@ -29,7 +29,8 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.releasechannel.ReleaseChannel
 import org.thoughtcrime.securesms.s3.S3
 import org.thoughtcrime.securesms.transport.RetryLaterException
-import org.thoughtcrime.securesms.util.LocaleFeatureFlags
+import org.thoughtcrime.securesms.util.LocaleRemoteConfig
+import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.internal.ServiceResponse
 import java.io.IOException
 import java.lang.Integer.max
@@ -54,12 +55,12 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
     @JvmStatic
     @JvmOverloads
     fun enqueue(force: Boolean = false) {
-      if (!SignalStore.account().isRegistered) {
+      if (!SignalStore.account.isRegistered) {
         Log.i(TAG, "Not registered, skipping.")
         return
       }
 
-      if (!force && System.currentTimeMillis() < SignalStore.releaseChannelValues().nextScheduledCheck) {
+      if (!force && System.currentTimeMillis() < SignalStore.releaseChannel.nextScheduledCheck) {
         Log.i(TAG, "Too soon to check for updated release notes")
         return
       }
@@ -74,7 +75,7 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
           .build()
       )
 
-      ApplicationDependencies.getJobManager()
+      AppDependencies.jobManager
         .startChain(CreateReleaseChannelJob.create())
         .then(job)
         .enqueue()
@@ -88,12 +89,12 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
   override fun onFailure() = Unit
 
   override fun onRun() {
-    if (!SignalStore.account().isRegistered) {
+    if (!SignalStore.account.isRegistered) {
       Log.i(TAG, "Not registered, skipping.")
       return
     }
 
-    val values = SignalStore.releaseChannelValues()
+    val values = SignalStore.releaseChannel
 
     if (values.releaseChannelRecipientId == null) {
       Log.w(TAG, "Release Channel recipient is null, this shouldn't happen, will try to create on next run")
@@ -142,7 +143,7 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
 
   @Suppress("UsePropertyAccessSyntax")
   private fun updateReleaseNotes(announcements: List<ReleaseNote>) {
-    val values = SignalStore.releaseChannelValues()
+    val values = SignalStore.releaseChannel
 
     if (Recipient.resolved(values.releaseChannelRecipientId!!).isBlocked) {
       Log.i(TAG, "Release channel is blocked, do not bother with updates")
@@ -170,7 +171,7 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
           false
         }
       }
-      .filter { it.countries == null || LocaleFeatureFlags.shouldShowReleaseNote(it.uuid, it.countries) }
+      .filter { it.countries == null || LocaleRemoteConfig.shouldShowReleaseNote(it.uuid, it.countries) }
       .sortedBy { it.androidMinVersion!!.toInt() }
       .map { resolveReleaseNote(it) }
       .toList()
@@ -232,15 +233,16 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
           media = note.translation.media,
           mediaWidth = note.translation.mediaWidth?.toIntOrNull() ?: 0,
           mediaHeight = note.translation.mediaHeight?.toIntOrNull() ?: 0,
-          mediaType = note.translation.mediaContentType ?: "image/webp"
+          mediaType = note.translation.mediaContentType ?: "image/webp",
+          mediaAttachmentUuid = UuidUtil.parseOrNull(note.releaseNote.uuid)
         )
 
         if (insertResult != null) {
           addedNewNotes = addedNewNotes || (note.releaseNote.includeBoostMessage ?: true)
           SignalDatabase.attachments.getAttachmentsForMessage(insertResult.messageId)
-            .forEach { ApplicationDependencies.getJobManager().add(AttachmentDownloadJob(insertResult.messageId, it.attachmentId, false)) }
+            .forEach { AppDependencies.jobManager.add(AttachmentDownloadJob(insertResult.messageId, it.attachmentId, false)) }
 
-          ApplicationDependencies.getMessageNotifier().updateNotification(context, ConversationId.forConversation(insertResult.threadId))
+          AppDependencies.messageNotifier.updateNotification(context, ConversationId.forConversation(insertResult.threadId))
           TrimThreadJob.enqueueAsync(insertResult.threadId)
 
           highestVersion = max(highestVersion, note.releaseNote.androidMinVersion!!.toInt())
@@ -309,7 +311,7 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
           SignalDatabase.remoteMegaphones.insert(record)
 
           if (record.imageUrl != null) {
-            ApplicationDependencies.getJobManager().add(FetchRemoteMegaphoneImageJob(record.uuid, record.imageUrl))
+            AppDependencies.jobManager.add(FetchRemoteMegaphoneImageJob(record.uuid, record.imageUrl))
           }
         }
       }
@@ -368,8 +370,8 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
 
     val potentialNoteUrls = mutableListOf<String>()
 
-    if (SignalStore.settings().language != "zz") {
-      potentialNoteUrls += "$this/${SignalStore.settings().language}.json"
+    if (SignalStore.settings.language != "zz") {
+      potentialNoteUrls += "$this/${SignalStore.settings.language}.json"
     }
 
     for (index in 0 until localeList.size()) {
@@ -391,58 +393,58 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
 
   data class FullRemoteMegaphone(val remoteMegaphone: RemoteMegaphone, val translation: TranslatedRemoteMegaphone)
 
-  class ReleaseNotes(@JsonProperty("announcements") val announcements: List<ReleaseNote>, @JsonProperty("megaphones") val megaphones: List<RemoteMegaphone>?)
+  data class ReleaseNotes(@JsonProperty val announcements: List<ReleaseNote>, @JsonProperty val megaphones: List<RemoteMegaphone>?)
 
-  class ReleaseNote(
-    @JsonProperty("uuid") val uuid: String,
-    @JsonProperty("countries") val countries: String?,
-    @JsonProperty("androidMinVersion") val androidMinVersion: String?,
-    @JsonProperty("link") val link: String?,
-    @JsonProperty("ctaId") val ctaId: String?,
-    @JsonProperty("includeBoostMessage") val includeBoostMessage: Boolean?
+  data class ReleaseNote(
+    @JsonProperty val uuid: String,
+    @JsonProperty val countries: String?,
+    @JsonProperty val androidMinVersion: String?,
+    @JsonProperty val link: String?,
+    @JsonProperty val ctaId: String?,
+    @JsonProperty val includeBoostMessage: Boolean?
   )
 
-  class RemoteMegaphone(
-    @JsonProperty("uuid") val uuid: String,
-    @JsonProperty("priority") val priority: Long,
-    @JsonProperty("countries") val countries: String?,
-    @JsonProperty("androidMinVersion") val androidMinVersion: String?,
-    @JsonProperty("dontShowBeforeEpochSeconds") val dontShowBeforeEpochSeconds: Long?,
-    @JsonProperty("dontShowAfterEpochSeconds") val dontShowAfterEpochSeconds: Long?,
-    @JsonProperty("showForNumberOfDays") val showForNumberOfDays: Long?,
-    @JsonProperty("conditionalId") val conditionalId: String?,
-    @JsonProperty("primaryCtaId") val primaryCtaId: String?,
-    @JsonProperty("secondaryCtaId") val secondaryCtaId: String?,
-    @JsonProperty("primaryCtaData") val primaryCtaData: JsonNode?,
-    @JsonProperty("secondaryCtaData") val secondaryCtaData: JsonNode?
+  data class RemoteMegaphone(
+    @JsonProperty val uuid: String,
+    @JsonProperty val priority: Long,
+    @JsonProperty val countries: String?,
+    @JsonProperty val androidMinVersion: String?,
+    @JsonProperty val dontShowBeforeEpochSeconds: Long?,
+    @JsonProperty val dontShowAfterEpochSeconds: Long?,
+    @JsonProperty val showForNumberOfDays: Long?,
+    @JsonProperty val conditionalId: String?,
+    @JsonProperty val primaryCtaId: String?,
+    @JsonProperty val secondaryCtaId: String?,
+    @JsonProperty val primaryCtaData: JsonNode?,
+    @JsonProperty val secondaryCtaData: JsonNode?
   )
 
-  class TranslatedReleaseNote(
-    @JsonProperty("uuid") val uuid: String,
-    @JsonProperty("media") val media: String?,
-    @JsonProperty("mediaWidth") val mediaWidth: String?,
-    @JsonProperty("mediaHeight") val mediaHeight: String?,
-    @JsonProperty("mediaContentType") val mediaContentType: String?,
-    @JsonProperty("linkText") val linkText: String?,
-    @JsonProperty("title") val title: String,
-    @JsonProperty("body") val body: String,
-    @JsonProperty("callToActionText") val callToActionText: String?,
-    @JsonProperty("bodyRanges") val bodyRanges: List<ReleaseNoteBodyRange>?
+  data class TranslatedReleaseNote(
+    @JsonProperty val uuid: String,
+    @JsonProperty val media: String?,
+    @JsonProperty val mediaWidth: String?,
+    @JsonProperty val mediaHeight: String?,
+    @JsonProperty val mediaContentType: String?,
+    @JsonProperty val linkText: String?,
+    @JsonProperty val title: String,
+    @JsonProperty val body: String,
+    @JsonProperty val callToActionText: String?,
+    @JsonProperty val bodyRanges: List<ReleaseNoteBodyRange>?
   )
 
   data class ReleaseNoteBodyRange(
-    @JsonProperty("style") val style: String?,
-    @JsonProperty("start") val start: Int?,
-    @JsonProperty("length") val length: Int?
+    @JsonProperty val style: String?,
+    @JsonProperty val start: Int?,
+    @JsonProperty val length: Int?
   )
 
-  class TranslatedRemoteMegaphone(
-    @JsonProperty("uuid") val uuid: String,
-    @JsonProperty("image") val image: String?,
-    @JsonProperty("title") val title: String,
-    @JsonProperty("body") val body: String,
-    @JsonProperty("primaryCtaText") val primaryCtaText: String?,
-    @JsonProperty("secondaryCtaText") val secondaryCtaText: String?
+  data class TranslatedRemoteMegaphone(
+    @JsonProperty val uuid: String,
+    @JsonProperty val image: String?,
+    @JsonProperty val title: String,
+    @JsonProperty val body: String,
+    @JsonProperty val primaryCtaText: String?,
+    @JsonProperty val secondaryCtaText: String?
   )
 
   class Factory : Job.Factory<RetrieveRemoteAnnouncementsJob> {

@@ -21,7 +21,7 @@ import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.PartProgressEvent
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JobLogger.format
@@ -34,7 +34,7 @@ import org.thoughtcrime.securesms.notifications.v2.ConversationId.Companion.forC
 import org.thoughtcrime.securesms.s3.S3
 import org.thoughtcrime.securesms.transport.RetryLaterException
 import org.thoughtcrime.securesms.util.AttachmentUtil
-import org.thoughtcrime.securesms.util.FeatureFlags
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.backup.MediaName
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
@@ -83,6 +83,26 @@ class AttachmentDownloadJob private constructor(
       val data = JsonJobData.deserialize(serializedData)
       val parsed = AttachmentId(data.getLong(KEY_ATTACHMENT_ID))
       return attachmentId == parsed
+    }
+
+    @JvmStatic
+    fun downloadAttachmentIfNeeded(databaseAttachment: DatabaseAttachment): String? {
+      if (databaseAttachment.transferState == AttachmentTable.TRANSFER_RESTORE_OFFLOADED) {
+        return RestoreAttachmentJob.restoreOffloadedAttachment(databaseAttachment)
+      } else if (databaseAttachment.transferState != AttachmentTable.TRANSFER_PROGRESS_STARTED &&
+        databaseAttachment.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE &&
+        databaseAttachment.transferState != AttachmentTable.TRANSFER_PROGRESS_PERMANENT_FAILURE
+      ) {
+        val downloadJob = AttachmentDownloadJob(
+          messageId = databaseAttachment.mmsId,
+          attachmentId = databaseAttachment.attachmentId,
+          manual = true,
+          forceArchiveDownload = false
+        )
+        AppDependencies.jobManager.add(downloadJob)
+        return downloadJob.id
+      }
+      return null
     }
   }
 
@@ -136,7 +156,7 @@ class AttachmentDownloadJob private constructor(
     doWork()
 
     if (!SignalDatabase.messages.isStory(messageId)) {
-      ApplicationDependencies.getMessageNotifier().updateNotification(context, forConversation(0))
+      AppDependencies.messageNotifier.updateNotification(context, forConversation(0))
     }
   }
 
@@ -178,9 +198,9 @@ class AttachmentDownloadJob private constructor(
 
     if ((attachment.cdn == Cdn.CDN_2 || attachment.cdn == Cdn.CDN_3) &&
       attachment.archiveMediaId == null &&
-      SignalStore.backup().backsUpMedia
+      SignalStore.backup.backsUpMedia
     ) {
-      ApplicationDependencies.getJobManager().add(ArchiveAttachmentJob(attachmentId))
+      AppDependencies.jobManager.add(ArchiveAttachmentJob(attachmentId))
     }
   }
 
@@ -202,7 +222,7 @@ class AttachmentDownloadJob private constructor(
     attachmentId: AttachmentId,
     attachment: DatabaseAttachment
   ) {
-    val maxReceiveSize: Long = FeatureFlags.maxAttachmentReceiveSizeBytes()
+    val maxReceiveSize: Long = RemoteConfig.maxAttachmentReceiveSizeBytes
     val attachmentFile: File = SignalDatabase.attachments.getOrCreateTransferFile(attachmentId)
     var archiveFile: File? = null
     var useArchiveCdn = false
@@ -212,7 +232,7 @@ class AttachmentDownloadJob private constructor(
         throw MmsException("Attachment too large, failing download")
       }
 
-      useArchiveCdn = if (SignalStore.backup().backsUpMedia && (forceArchiveDownload || attachment.remoteLocation == null)) {
+      useArchiveCdn = if (SignalStore.backup.backsUpMedia && (forceArchiveDownload || attachment.remoteLocation == null)) {
         if (attachment.archiveMediaName.isNullOrEmpty()) {
           throw InvalidPartException("Invalid attachment configuration")
         }
@@ -221,7 +241,7 @@ class AttachmentDownloadJob private constructor(
         false
       }
 
-      val messageReceiver = ApplicationDependencies.getSignalServiceMessageReceiver()
+      val messageReceiver = AppDependencies.signalServiceMessageReceiver
       val pointer = createAttachmentPointer(attachment, useArchiveCdn)
 
       val progressListener = object : SignalServiceAttachment.ProgressListener {
@@ -240,12 +260,13 @@ class AttachmentDownloadJob private constructor(
 
         messageReceiver
           .retrieveArchivedAttachment(
-            SignalStore.svr().getOrCreateMasterKey().deriveBackupKey().deriveMediaSecrets(MediaName(attachment.archiveMediaName!!)),
+            SignalStore.svr.getOrCreateMasterKey().deriveBackupKey().deriveMediaSecrets(MediaName(attachment.archiveMediaName!!)),
             cdnCredentials,
             archiveFile,
             pointer,
             attachmentFile,
             maxReceiveSize,
+            false,
             progressListener
           )
       } else {
@@ -272,14 +293,14 @@ class AttachmentDownloadJob private constructor(
       Log.w(TAG, "Experienced exception while trying to download an attachment.", e)
       markFailed(messageId, attachmentId)
     } catch (e: NonSuccessfulResponseCodeException) {
-      if (SignalStore.backup().backsUpMedia) {
+      if (SignalStore.backup.backsUpMedia) {
         if (e.code == 404 && !useArchiveCdn && attachment.archiveMediaName?.isNotEmpty() == true) {
           Log.i(TAG, "Retrying download from archive CDN")
           forceArchiveDownload = true
           retrieveAttachment(messageId, attachmentId, attachment)
           return
         } else if (e.code == 401 && useArchiveCdn) {
-          SignalStore.backup().cdnReadCredentials = null
+          SignalStore.backup.cdnReadCredentials = null
           throw RetryLaterException(e)
         }
       }
@@ -311,7 +332,7 @@ class AttachmentDownloadJob private constructor(
 
     return try {
       val remoteData: RemoteData = if (useArchiveCdn) {
-        val backupKey = SignalStore.svr().getOrCreateMasterKey().deriveBackupKey()
+        val backupKey = SignalStore.svr.getOrCreateMasterKey().deriveBackupKey()
         val backupDirectories = BackupRepository.getCdnBackupDirectories().successOrThrow()
 
         RemoteData(
@@ -338,7 +359,7 @@ class AttachmentDownloadJob private constructor(
       if (attachment.remoteDigest != null) {
         Log.i(TAG, "Downloading attachment with digest: " + Hex.toString(attachment.remoteDigest))
       } else {
-        Log.i(TAG, "Downloading attachment with no digest...")
+        throw InvalidPartException("Null remote digest for $attachmentId")
       }
 
       SignalServiceAttachmentPointer(
@@ -359,7 +380,8 @@ class AttachmentDownloadJob private constructor(
         attachment.videoGif,
         Optional.empty(),
         Optional.ofNullable(attachment.blurHash).map { it.hash },
-        attachment.uploadTimestamp
+        attachment.uploadTimestamp,
+        attachment.uuid
       )
     } catch (e: IOException) {
       Log.w(TAG, e)
@@ -378,9 +400,9 @@ class AttachmentDownloadJob private constructor(
   ) {
     try {
       S3.getObject(attachment.fileName!!).use { response ->
-        val body = response.body()
+        val body = response.body
         if (body != null) {
-          if (body.contentLength() > FeatureFlags.maxAttachmentReceiveSizeBytes()) {
+          if (body.contentLength() > RemoteConfig.maxAttachmentReceiveSizeBytes) {
             throw MmsException("Attachment too large, failing download")
           }
           SignalDatabase.attachments.finalizeAttachmentAfterDownload(messageId, attachmentId, (body.source() as Source).buffer().inputStream())

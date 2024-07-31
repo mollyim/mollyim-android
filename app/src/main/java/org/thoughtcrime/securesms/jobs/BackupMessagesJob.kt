@@ -12,7 +12,7 @@ import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.BackupV2Event
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobmanager.impl.WifiConstraint
@@ -36,15 +36,26 @@ class BackupMessagesJob private constructor(parameters: Parameters) : BaseJob(pa
 
     const val QUEUE = "BackupMessagesQueue"
 
-    fun enqueue() {
-      val jobManager = ApplicationDependencies.getJobManager()
-      jobManager.add(BackupMessagesJob())
+    /**
+     * Pruning abandoned remote media is relatively expensive, so we should
+     * not do this every time we backup.
+     */
+    fun enqueue(pruneAbandonedRemoteMedia: Boolean = false) {
+      val jobManager = AppDependencies.jobManager
+      if (pruneAbandonedRemoteMedia) {
+        jobManager
+          .startChain(BackupMessagesJob())
+          .then(SyncArchivedMediaJob())
+          .enqueue()
+      } else {
+        jobManager.add(BackupMessagesJob())
+      }
     }
   }
 
   constructor() : this(
     Parameters.Builder()
-      .addConstraint(if (SignalStore.backup().backupWithCellular) NetworkConstraint.KEY else WifiConstraint.KEY)
+      .addConstraint(if (SignalStore.backup.backupWithCellular) NetworkConstraint.KEY else WifiConstraint.KEY)
       .setMaxAttempts(3)
       .setMaxInstancesForFactory(1)
       .setQueue(QUEUE)
@@ -58,7 +69,7 @@ class BackupMessagesJob private constructor(parameters: Parameters) : BaseJob(pa
   override fun onFailure() = Unit
 
   private fun archiveAttachments(): Boolean {
-    if (!SignalStore.backup().backsUpMedia) return false
+    if (!SignalStore.backup.backsUpMedia) return false
 
     val batchSize = 100
     var needToBackfill = 0
@@ -92,7 +103,7 @@ class BackupMessagesJob private constructor(parameters: Parameters) : BaseJob(pa
       }
     }
     if (needToBackfill > 0) {
-      ApplicationDependencies.getJobManager().add(ArchiveAttachmentBackfillJob(totalCount = totalCount, progress = progress - needToBackfill))
+      AppDependencies.jobManager.add(ArchiveAttachmentBackfillJob(totalCount = totalCount, progress = progress - needToBackfill))
       return true
     }
     return false
@@ -112,7 +123,7 @@ class BackupMessagesJob private constructor(parameters: Parameters) : BaseJob(pa
 
   override fun onRun() {
     EventBus.getDefault().postSticky(BackupV2Event(type = BackupV2Event.Type.PROGRESS_MESSAGES, count = 0, estimatedTotalCount = 0))
-    val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(ApplicationDependencies.getApplication())
+    val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
 
     val outputStream = FileOutputStream(tempBackupFile)
     BackupRepository.export(outputStream = outputStream, append = { tempBackupFile.appendBytes(it) }, plaintext = false)
@@ -121,15 +132,15 @@ class BackupMessagesJob private constructor(parameters: Parameters) : BaseJob(pa
       BackupRepository.uploadBackupFile(it, tempBackupFile.length())
     }
     val needBackfill = archiveAttachments()
-    SignalStore.backup().lastBackupProtoSize = tempBackupFile.length()
+    SignalStore.backup.lastBackupProtoSize = tempBackupFile.length()
     if (!tempBackupFile.delete()) {
       Log.e(TAG, "Failed to delete temp backup file")
     }
-    SignalStore.backup().lastBackupTime = System.currentTimeMillis()
+    SignalStore.backup.lastBackupTime = System.currentTimeMillis()
     if (!needBackfill) {
       EventBus.getDefault().postSticky(BackupV2Event(BackupV2Event.Type.FINISHED, 0, 0))
       try {
-        SignalStore.backup().usedBackupMediaSpace = (BackupRepository.getRemoteBackupUsedSpace().successOrThrow() ?: 0)
+        SignalStore.backup.usedBackupMediaSpace = (BackupRepository.getRemoteBackupUsedSpace().successOrThrow() ?: 0)
       } catch (e: IOException) {
         Log.e(TAG, "Failed to update used space")
       }

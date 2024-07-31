@@ -6,7 +6,6 @@
 package org.whispersystems.signalservice.internal.push
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
 import org.signal.core.util.Base64
 import org.signal.libsignal.zkgroup.calllinks.CreateCallLinkCredentialRequest
 
@@ -14,7 +13,7 @@ import org.signal.libsignal.zkgroup.calllinks.CreateCallLinkCredentialRequest
  * Request body to create a call link credential response.
  */
 data class CreateCallLinkAuthRequest @JsonCreator constructor(
-  @JsonProperty("createCallLinkCredentialRequest") val createCallLinkCredentialRequest: String
+  val createCallLinkCredentialRequest: String
 ) {
   companion object {
     @JvmStatic

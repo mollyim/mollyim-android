@@ -1,8 +1,7 @@
 package org.thoughtcrime.securesms.jobs
 
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.net.NotPushRegisteredException
@@ -33,7 +32,7 @@ class MultiDeviceSubscriptionSyncRequestJob private constructor(parameters: Para
           .build()
       )
 
-      ApplicationDependencies.getJobManager().add(job)
+      AppDependencies.jobManager.add(job)
     }
   }
 
@@ -55,12 +54,9 @@ class MultiDeviceSubscriptionSyncRequestJob private constructor(parameters: Para
       return
     }
 
-    val messageSender = ApplicationDependencies.getSignalServiceMessageSender()
+    val messageSender = AppDependencies.signalServiceMessageSender
 
-    messageSender.sendSyncMessage(
-      SignalServiceSyncMessage.forFetchLatest(SignalServiceSyncMessage.FetchType.SUBSCRIPTION_STATUS),
-      UnidentifiedAccessUtil.getAccessForSync(context)
-    )
+    messageSender.sendSyncMessage(SignalServiceSyncMessage.forFetchLatest(SignalServiceSyncMessage.FetchType.SUBSCRIPTION_STATUS))
   }
 
   override fun onShouldRetry(e: Exception): Boolean {

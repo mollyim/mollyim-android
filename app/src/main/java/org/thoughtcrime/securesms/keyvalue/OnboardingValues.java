@@ -10,7 +10,6 @@ import java.util.List;
 public final class OnboardingValues extends SignalStoreValues {
 
   private static final String SHOW_STORIES        = "onboarding.stories_molly";
-  private static final String SHOW_INVITE_FRIENDS = "onboarding.invite_friends";
   private static final String SHOW_APPEARANCE     = "onboarding.appearance";
   private static final String SHOW_ADD_PHOTO      = "onboarding.add_photo";
 
@@ -21,7 +20,6 @@ public final class OnboardingValues extends SignalStoreValues {
   @Override
   void onFirstEverAppLaunch() {
     putBoolean(SHOW_STORIES, true);
-    putBoolean(SHOW_INVITE_FRIENDS, true);
     putBoolean(SHOW_APPEARANCE, true);
     putBoolean(SHOW_ADD_PHOTO, true);
   }
@@ -33,14 +31,12 @@ public final class OnboardingValues extends SignalStoreValues {
 
   public void clearAll() {
     setShowStories(false);
-    setShowInviteFriends(false);
     setShowAppearance(false);
     setShowAddPhoto(false);
   }
 
   public boolean hasOnboarding(@NonNull Context context) {
     return shouldShowStories()       ||
-           shouldShowInviteFriends() ||
            shouldShowAppearance()    ||
            shouldShowAddPhoto();
   }
@@ -51,14 +47,6 @@ public final class OnboardingValues extends SignalStoreValues {
 
   public boolean shouldShowStories(){
     return getBoolean(SHOW_STORIES, false);
-  }
-
-  public void setShowInviteFriends(boolean value) {
-    putBoolean(SHOW_INVITE_FRIENDS, value);
-  }
-
-  public boolean shouldShowInviteFriends() {
-    return getBoolean(SHOW_INVITE_FRIENDS, false);
   }
 
   public void setShowAppearance(boolean value) {

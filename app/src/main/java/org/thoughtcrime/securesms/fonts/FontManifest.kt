@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.util.EncryptedStreamUtils
 import java.io.File
@@ -14,7 +15,7 @@ import java.io.File
  * @param scripts A collection of supported scripts
  */
 data class FontManifest(
-  @JsonProperty("scripts") val scripts: FontScripts
+  val scripts: FontScripts
 ) {
   /**
    * A collection of supported scripts
@@ -29,23 +30,23 @@ data class FontManifest(
   data class FontScripts(
     @JsonProperty("latin-extended") val latinExtended: FontScript?,
     @JsonProperty("cyrillic-extended") val cyrillicExtended: FontScript?,
-    @JsonProperty("devanagari") val devanagari: FontScript?,
+    val devanagari: FontScript?,
     @JsonProperty("chinese-traditional-hk") val chineseTraditionalHk: FontScript?,
     @JsonProperty("chinese-traditional") val chineseTraditional: FontScript?,
     @JsonProperty("chinese-simplified") val chineseSimplified: FontScript?,
-    @JsonProperty("arabic") val arabic: FontScript?,
-    @JsonProperty("japanese") val japanese: FontScript?
+    val arabic: FontScript?,
+    val japanese: FontScript?
   )
 
   /**
    * A collection of fonts for a specific script
    */
   data class FontScript(
-    @JsonProperty("regular") val regular: String?,
-    @JsonProperty("bold") val bold: String?,
-    @JsonProperty("serif") val serif: String?,
-    @JsonProperty("script") val script: String?,
-    @JsonProperty("condensed") val condensed: String?,
+    val regular: String?,
+    val bold: String?,
+    val serif: String?,
+    val script: String?,
+    val condensed: String?
   )
 
   companion object {
@@ -53,7 +54,7 @@ data class FontManifest(
     private val TAG = Log.tag(FontManifest::class.java)
     private const val PATH = ".manifest"
 
-    private val objectMapper = ObjectMapper()
+    private val objectMapper = ObjectMapper().registerKotlinModule()
 
     /**
      * Gets the latest manifest object for the given version. This may hit the network, disk, or both, depending on whether we have

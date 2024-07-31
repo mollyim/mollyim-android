@@ -14,7 +14,7 @@ import org.signal.core.util.SetUtil;
 import org.signal.core.util.StringUtil;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.util.Pair;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.service.KeyCachingService;
@@ -80,7 +80,7 @@ public class PhoneNumberFormatter {
   }
 
   public static @NonNull String prettyPrint(@NonNull String e164) {
-    return StringUtil.forceLtr(get(ApplicationDependencies.getApplication()).prettyPrintFormat(e164));
+    return StringUtil.forceLtr(get(AppDependencies.getApplication()).prettyPrintFormat(e164));
   }
 
   public @NonNull String prettyPrintFormat(@NonNull String e164) {
@@ -102,7 +102,7 @@ public class PhoneNumberFormatter {
   }
 
   public static int getLocalCountryCode() {
-    Optional<PhoneNumber> localNumber = get(ApplicationDependencies.getApplication()).localNumber;
+    Optional<PhoneNumber> localNumber = get(AppDependencies.getApplication()).localNumber;
     return localNumber != null && localNumber.isPresent() ? localNumber.get().countryCode : 0;
   }
 

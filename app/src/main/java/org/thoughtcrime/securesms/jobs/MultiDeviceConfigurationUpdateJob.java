@@ -5,10 +5,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.jobmanager.JsonJobData;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
+import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
@@ -26,7 +25,8 @@ import java.util.Optional;
 
 public class MultiDeviceConfigurationUpdateJob extends BaseJob {
 
-  public static final String KEY = "MultiDeviceConfigurationUpdateJob";
+  public static final String KEY   = "MultiDeviceConfigurationUpdateJob";
+  public static final String QUEUE = "__MULTI_DEVICE_CONFIGURATION_UPDATE_JOB__";
 
   private static final String TAG = Log.tag(MultiDeviceConfigurationUpdateJob.class);
 
@@ -46,7 +46,7 @@ public class MultiDeviceConfigurationUpdateJob extends BaseJob {
                                            boolean linkPreviewsEnabled)
   {
     this(new Job.Parameters.Builder()
-                           .setQueue("__MULTI_DEVICE_CONFIGURATION_UPDATE_JOB__")
+                           .setQueue(QUEUE)
                            .addConstraint(NetworkConstraint.KEY)
                            .setMaxAttempts(10)
                            .build(),
@@ -101,12 +101,12 @@ public class MultiDeviceConfigurationUpdateJob extends BaseJob {
       return;
     }
 
-    SignalServiceMessageSender messageSender = ApplicationDependencies.getSignalServiceMessageSender();
+    SignalServiceMessageSender messageSender = AppDependencies.getSignalServiceMessageSender();
     messageSender.sendSyncMessage(SignalServiceSyncMessage.forConfiguration(new ConfigurationMessage(Optional.of(readReceiptsEnabled),
                                                                                                      Optional.of(unidentifiedDeliveryIndicatorsEnabled),
                                                                                                      Optional.of(typingIndicatorsEnabled),
-                                                                                                     Optional.of(linkPreviewsEnabled))),
-                              UnidentifiedAccessUtil.getAccessForSync(context));
+                                                                                                     Optional.of(linkPreviewsEnabled)))
+    );
   }
 
   @Override

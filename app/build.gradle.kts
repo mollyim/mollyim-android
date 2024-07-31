@@ -18,11 +18,11 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1421
-val canonicalVersionName = "7.8.1"
-val mollyRevision = 2
-
-val postFixSize = 100
+val canonicalVersionCode = 1436
+val canonicalVersionName = "7.11.4"
+val mollyRevision = 1
+val currentHotfixVersion = 1
+val maxHotfixVersions = 100
 
 val sourceVersionNameWithRevision = "${canonicalVersionName}-${mollyRevision}"
 
@@ -85,6 +85,8 @@ android {
   useLibrary("org.apache.http.legacy")
   testBuildType = "instrumentation"
 
+  android.bundle.language.enableSplit = false
+
   kotlinOptions {
     jvmTarget = signalKotlinJvmTarget
   }
@@ -142,15 +144,15 @@ android {
   }
 
   composeOptions {
-    kotlinCompilerExtensionVersion = "1.4.4"
+    kotlinCompilerExtensionVersion = "1.5.4"
   }
 
-  if (mollyRevision < 0 || mollyRevision >= postFixSize) {
-    throw GradleException("Molly revision $mollyRevision out of range")
+  if (mollyRevision < 0 || currentHotfixVersion < 0 || (mollyRevision + currentHotfixVersion) >= maxHotfixVersions) {
+    throw GradleException("Molly revision $mollyRevision or Hotfix version $currentHotfixVersion out of range")
   }
 
   defaultConfig {
-    versionCode = canonicalVersionCode * postFixSize + mollyRevision
+    versionCode = (canonicalVersionCode * maxHotfixVersions) + mollyRevision + currentHotfixVersion
     versionName = if (ciEnabled) getCommitTag() else sourceVersionNameWithRevision
 
     minSdk = signalMinSdkVersion
@@ -198,11 +200,12 @@ android {
     buildConfigField("String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/registration/generate.html\"")
     buildConfigField("String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/challenge/generate.html\"")
     buildConfigField("org.signal.libsignal.net.Network.Environment", "LIBSIGNAL_NET_ENV", "org.signal.libsignal.net.Network.Environment.PRODUCTION")
+    buildConfigField("int", "LIBSIGNAL_LOG_LEVEL", "org.signal.libsignal.protocol.logging.SignalProtocolLogger.INFO")
 
     // MOLLY: Rely on the built-in variables FLAVOR and BUILD_TYPE instead of BUILD_*_TYPE
     buildConfigField("String", "BADGE_STATIC_ROOT", "\"https://updates2.signal.org/static/badges/\"")
+    buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_live_6cmGZopuTsV8novGgJJW9JpC00vLIgtQ1D\"")
     buildConfigField("boolean", "TRACING_ENABLED", "false")
-    buildConfigField("boolean", "MESSAGE_BACKUP_RESTORE_ENABLED", "false")
 
     ndk {
       //noinspection ChromeOsAbiSupport
@@ -210,12 +213,6 @@ android {
     }
 
     resourceConfigurations += listOf()
-
-    bundle {
-      language {
-        enableSplit = false
-      }
-    }
 
     testInstrumentationRunner = "org.thoughtcrime.securesms.testing.SignalTestRunner"
     testInstrumentationRunnerArguments["clearPackageData"] = "true"
@@ -342,10 +339,10 @@ android {
       buildConfigField("String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/staging/registration/generate.html\"")
       buildConfigField("String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/staging/challenge/generate.html\"")
       buildConfigField("org.signal.libsignal.net.Network.Environment", "LIBSIGNAL_NET_ENV", "org.signal.libsignal.net.Network.Environment.STAGING")
+      buildConfigField("int", "LIBSIGNAL_LOG_LEVEL", "org.signal.libsignal.protocol.logging.SignalProtocolLogger.DEBUG")
 
       buildConfigField("String", "BUILD_ENVIRONMENT_TYPE", "\"Staging\"")
       buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_test_sngOd8FnXNkpce9nPXawKrJD00kIDngZkD\"")
-      buildConfigField("boolean", "MESSAGE_BACKUP_RESTORE_ENABLED", "true")
     }
   }
 
@@ -406,6 +403,7 @@ dependencies {
   implementation(project(":video"))
   implementation(project(":device-transfer"))
   implementation(project(":image-editor"))
+  implementation(project(":donations"))
   implementation(project(":contacts"))
   implementation(project(":qr"))
   implementation(project(":sticky-header-grid"))
@@ -454,6 +452,7 @@ dependencies {
   implementation(libs.androidx.profileinstaller)
   implementation(libs.androidx.asynclayoutinflater)
   implementation(libs.androidx.asynclayoutinflater.appcompat)
+  implementation(libs.androidx.emoji2)
   implementation(libs.androidx.webkit)
   "gmsImplementation"(libs.firebase.messaging) {
     exclude(group = "com.google.firebase", module = "firebase-core")
@@ -462,6 +461,7 @@ dependencies {
   }
   "gmsImplementation"(libs.google.play.services.maps)
   "gmsImplementation"(libs.google.play.services.auth)
+  "fossImplementation"(project(":libfakegms"))
   implementation(libs.bundles.media3)
   implementation(libs.conscrypt.android)
   implementation(libs.signal.aesgcmprovider)
@@ -486,6 +486,7 @@ dependencies {
   }
   implementation(libs.stream)
   implementation(libs.lottie)
+  implementation(libs.lottie.compose)
   implementation(libs.signal.android.database.sqlcipher)
   implementation(libs.androidx.sqlite)
   implementation(libs.google.ez.vcard) {
@@ -496,6 +497,9 @@ dependencies {
   implementation(libs.kotlinx.collections.immutable)
   implementation(libs.accompanist.permissions)
   implementation(libs.kotlin.stdlib.jdk8)
+  implementation(libs.kotlin.reflect)
+  "gmsImplementation"(libs.kotlinx.coroutines.play.services)
+  implementation(libs.jackson.module.kotlin)
   implementation(libs.rxjava3.rxandroid)
   implementation(libs.rxjava3.rxkotlin)
   implementation(libs.rxdogtag)
@@ -506,7 +510,6 @@ dependencies {
   implementation(libs.molly.glide.webp.decoder)
   implementation(libs.gosimple.nbvcxz)
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
-  "fossImplementation"(project(":libfakegms"))
 
   "spinnerImplementation"(project(":spinner"))
 

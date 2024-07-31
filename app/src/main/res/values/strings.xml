@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Signal Messenger, LLC
+  ~ SPDX-License-Identifier: AGPL-3.0-only
+  -->
+
 <!-- smartling.instruction_comments_enabled = on -->
 <resources>
     <!-- <string name="app_name" translatable="false">Signal</string> -->
@@ -325,8 +330,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Message %s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %s</string>
+    <string mollyify="true" name="ContactsDatabase_signal_call_s">Molly Voice Call %s</string>
+    <string mollyify="true" name="ContactsDatabase_signal_video_call_s">Molly Video Call %s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -439,7 +444,7 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">To send audio messages:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Signal access to your microphone.</string>
+    <string mollyify="true" name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">To send voice messages, allow Molly access to your microphone.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
     <string mollyify="true" name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
     <string mollyify="true" name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly requires the Microphone permission in order to send audio messages, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\".</string>
@@ -543,6 +548,8 @@
     <string name="ConversationFragment_delete_for_everyone">Delete for everyone</string>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">Delete on this device</string>
+    <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
+    <string name="ConversationFragment_delete">Delete</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Delete everywhere</string>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">This message will be deleted for everyone in the chat if they’re on a recent version of Signal. They will be able to see that you deleted a message.</string>
@@ -645,6 +652,11 @@
         <item quantity="one">This will permanently delete the selected chat.</item>
         <item quantity="other">This will permanently delete all %1$d selected chats.</item>
     </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">This will permanently delete the selected chat from all your devices.</item>
+        <item quantity="other">This will permanently delete all %1$d selected chats from all your devices.</item>
+    </plurals>
     <string name="ConversationListFragment_deleting">Deleting</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
         <item quantity="one">Deleting selected chat…</item>
@@ -734,9 +746,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Who can find me by number?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Anyone who has your phone number will see you\'re on Signal and can start chats with you.</string>
+    <string mollyify="true" name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Anyone who has your phone number will see you\'re on Molly and can start chats with you.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Nobody will be able to see you\'re on Signal unless you message them or have an existing chat with them.</string>
+    <string mollyify="true" name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Nobody will be able to see you\'re on Molly unless you message them or have an existing chat with them.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Restore from backup?</string>
@@ -845,7 +857,62 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Chat session refreshed</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal uses end-to-end encryption and it may need to refresh your chat session sometimes. This doesn\'t affect your chat\'s security, but you may have missed a message from this contact, and you can ask them to resend it.</string>
+    <string mollyify="true" name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly uses end-to-end encryption and it may need to refresh your chat session sometimes. This doesn\'t affect your chat\'s security, but you may have missed a message from this contact, and you can ask them to resend it.</string>
+
+    <!-- LinkDeviceFragment -->
+    <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Use Signal on desktop or iPad. Your messages will sync to your linked devices.</string>
+    <!-- Button prompting users to link a new device to their account -->
+    <string name="LinkDeviceFragment__link_a_new_device">Link a new device</string>
+    <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
+    <string name="LinkDeviceFragment__messages_and_chat_info_are_protected">%1$s Messages and chat info are protected by end-to-end encryption on all devices</string>
+    <!-- Bottom sheet title explaining how Signal works on a linked device -->
+    <string name="LinkDeviceFragment__signal_on_desktop_ipad">Signal on desktop or iPad</string>
+    <!-- Bottom sheet description explaining that messages on linked devices are private -->
+    <string name="LinkDeviceFragment__all_messaging_is_private">All messaging on linked devices is private</string>
+    <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
+    <string mollyify="true" name="LinkDeviceFragment__signal_messages_are_synchronized">Molly messages are synchronized with Molly on your mobile phone after it is linked. Your previous message history will not appear.</string>
+    <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
+    <string mollyify="true" name="LinkDeviceFragment__on_other_device_visit_signal">On your other device, visit %s to install Molly</string>
+    <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string>
+    <!-- Header title listing out current linked devices -->
+    <string name="LinkDeviceFragment__my_linked_devices">My linked devices</string>
+    <!-- Dialog confirmation to unlink a device -->
+    <string name="LinkDeviceFragment__unlink">Unlink</string>
+    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_unlinked">%s unlinked</string>
+    <!-- Progress dialog message indicating that a device is currently being linked with an account -->
+    <string name="LinkDeviceFragment__linking_device">Linking device…</string>
+    <!-- Toast message shown after a device has been linked -->
+    <string name="LinkDeviceFragment__device_approved">Device approved</string>
+    <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
+    <string name="LinkDeviceFragment__loading">Loading…</string>
+    <!-- Text message shown when the user has no linked devices -->
+    <string name="LinkDeviceFragment__no_linked_devices">No linked devices</string>
+    <!-- Title on biometrics prompt explaining what biometrics are being used for -->
+    <string name="LinkDeviceFragment__unlock_to_link">Unlock to link a device</string>
+
+    <!-- AddLinkDeviceFragment -->
+    <!-- Description text shown on the QR code scanner when linking a device -->
+    <string name="AddLinkDeviceFragment__scan_the_qr_code">Scan the QR code displayed on the device to link.</string>
+    <!-- Bottom sheet title telling users to scan a qr code -->
+    <string name="AddLinkDeviceFragment__scan_qr_code">Scan QR code</string>
+    <!-- Bottom sheet description telling users how to scan a qr code -->
+    <string name="AddLinkDeviceFragment__use_this_device_to_scan_qr_code">Use this device to scan the QR code displayed on the device you want to link</string>
+    <!-- Confirmation button to dismiss bottom sheet dialog -->
+    <string name="AddLinkDeviceFragment__okay">Okay</string>
+    <!-- Dialog text describing the consequences of linking a device -->
+    <string name="AddLinkDeviceFragment__this_device_will_see_your_groups_contacts">This device will be able to see your groups and contacts, access your chats, and send messages in your name.</string>
+    <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
+    <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Finish linking on your other device</string>
+    <!-- Bottom sheet description telling users to complete the linking process -->
+    <string mollyify="true" name="AddLinkDeviceFragment__finish_linking_signal">Finish linking Molly on your other device.</string>
+    <!-- Title of dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__linking_device_failed">Linking device failed</string>
+    <!-- Text shown in a dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__this_qr_code_not_valid">This QR code is not valid. Please make sure you are scanning the QR code that is displayed on the device you want to link.</string>
+    <!-- Button in dialog to retry linking a device with a qr code -->
+    <string name="AddLinkDeviceFragment__retry">Retry</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">Unlink \'%s\'?</string>
@@ -870,7 +937,7 @@
     <string mollyify="true" name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">This device does not support Play Services. Tap to disable system battery optimizations that prevent Molly from retrieving messages while inactive.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">This version of Signal has expired. Update now to send and receive messages.</string>
+    <string mollyify="true" name="ExpiredBuildReminder_this_version_of_signal_has_expired">This version of Molly has expired. Update now to send and receive messages.</string>
     <string name="ExpiredBuildReminder_update_now">Update now</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1028,13 +1095,23 @@
     <!-- Message explaining that battery saver may delay notifications -->
     <string mollyify="true" name="PromptBatterySaverBottomSheet__message">You can disable battery optimizations for Molly to ensure that message notifications will not be delayed.</string>
 
+    <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
+    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Notifications may be delayed due to battery optimizations</string>
+    <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
+    <string mollyify="true" name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Disable battery optimizations for Molly to ensure that message notifications will not be delayed. Tap “Continue” to see device-specific instructions.</string>
+    <!-- Button to dismiss notification help prompt -->
+    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">No thanks</string>
+    <!-- Button to continue and go to Signal support website -->
+    <string name="DeviceSpecificNotificationBottomSheet__continue">Continue</string>
+
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Continue</string>
     <!-- Button to dismiss battery saver dialog prompt-->
-    <string name="PromptBatterySaverBottomSheet__dismiss">Dismiss</string>
+    <string name="PromptBatterySaverBottomSheet__no_thanks">No thanks</string>
+    <string name="PromptBatterySaverBottomSheet__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007318711#android_notifications_troubleshooting</string>
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Pending group invites</string>
+    <string name="PendingMembersActivity_pending_group_invites">Requests &amp; invites</string>
     <string name="PendingMembersActivity_requests">Requests</string>
     <string name="PendingMembersActivity_invites">Invites</string>
     <string name="PendingMembersActivity_people_you_invited">People you invited</string>
@@ -1370,7 +1447,7 @@
     <string name="MessageQuotesBottomSheet_replies">Replies</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Establishing Signal call</string>
+    <string mollyify="true" name="NotificationBarManager__establishing_signal_call">Establishing Molly call</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string mollyify="true" name="NotificationBarManager__starting_signal_call_service">Starting Molly call service</string>
     <string mollyify="true" name="NotificationBarManager__stopping_signal_call_service">Stopping Molly call service</string>
@@ -1625,6 +1702,14 @@
     <string name="MessageRecord_you_activated_payments">You activated Payments</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%s can now accept Payments</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">Payment details are not available</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Tap for more</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">Payment details not available</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">This details of this payment are not available because your messages were restored from a source that did not contain this payment history. This does not affect your wallet balance or the status of past payments.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1684,6 +1769,8 @@
     <string mollyify="true" name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">You can no longer send SMS messages in Molly. Invite %1$s to Molly to keep the conversation here.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Payment: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Payment</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Reported as spam</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -1868,7 +1955,8 @@
     <string name="RedPhone_ringing">Ringing…</string>
     <string name="RedPhone_busy">Busy</string>
     <string name="RedPhone_recipient_unavailable">Recipient unavailable</string>
-    <string name="RedPhone_network_failed">Network failed!</string>
+    <!-- Error message shown during a call when a fatal network error occurs. -->
+    <string name="RedPhone_network_failed">Network failed! Please check network connection and try again.</string>
     <string name="RedPhone_number_not_registered">Number not registered!</string>
     <string name="RedPhone_the_number_you_dialed_does_not_support_secure_voice">The number you dialed does not support secure voice!</string>
     <string name="RedPhone_got_it">Got it</string>
@@ -1934,10 +2022,30 @@
     <string name="WebRtcCallActivity__removed_from_call">Removed from call</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Someone has removed you from the call.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Allow access to your microphone</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Allow access to your camera</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string mollyify="true" name="WebRtcCallActivity__to_start_call_camera_microphone">To start or join a call, allow Molly access to your camera and microphone.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string mollyify="true" name="WebRtcCallActivity__to_start_call_microphone">To start or join a call, allow Molly access to your microphone.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string mollyify="true" name="WebRtcCallActivity__to_enable_video_allow_camera">To enable your video, allow Molly access to your camera.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string mollyify="true" name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly needs microphone permissions to start or join a call.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string mollyify="true" name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly needs camera access to enable your video</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">To start or join a call:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">To enable your video:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Signal Call</string>
-    <string name="WebRtcCallView__signal_video_call">Signal Video Call</string>
+    <string mollyify="true" name="WebRtcCallView__signal_call">Molly Call</string>
+    <string mollyify="true" name="WebRtcCallView__signal_video_call">Molly Video Call</string>
     <string name="WebRtcCallView__start_call">Start Call</string>
     <string name="WebRtcCallView__join_call">Join Call</string>
     <string name="WebRtcCallView__call_is_full">Call is full</string>
@@ -2027,23 +2135,42 @@
     <!-- A dialog prompt to confirm you want to lower your hand -->
     <string name="CallOverflowPopupWindow__lower_your_hand">Lower your hand?</string>
     <!-- A dialog button to confirm you would like to lower your hand -->
-    <string name="CallOverflowPopupWindow__lower_hand">Lower hand</string>
+    <string name="CallOverflowPopupWindow__lower_hand">Lower</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Cancel</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">You raised your hand</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">View</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">%1$s has raised a hand</item>
-        <item quantity="other">%1$s + %2$d have raised a hand</item>
+
+    <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s raised a hand</string>
+    <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_multiple">
+        <item quantity="one">%1$s +%2$d raised a hand</item>
+        <item quantity="other">%1$s +%2$d raised a hand</item>
     </plurals>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
-        <item quantity="one">%1$s</item>
+    <!-- A notification to the user that one participant in the call successfully raised their hand. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_single">%1$s raised a hand</string>
+    <!-- A notification to the user that two or more participants in the call successfully raised their hand. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_multiple">
+        <item quantity="one">%1$s +%2$d raised a hand</item>
+        <item quantity="other">%1$s +%2$d raised a hand</item>
+    </plurals>
+
+    <!-- A badge to show the user has their hand raised. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__collapsed_second_person_raised_hand_single">%1$s</string>
+    <!-- A badge to show the user and at least one other participant in the call have their hand raised. The placeholder is a number quantifying how many other hands are also raised, besides the user.  -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_second_person_raised_hands_multiple">
+        <item quantity="one">%1$s +%2$d</item>
+        <item quantity="other">%1$s +%2$d</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_multiple">
+        <item quantity="one">%1$s +%2$d</item>
         <item quantity="other">%1$s +%2$d</item>
     </plurals>
 
@@ -2187,8 +2314,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Having trouble registering?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Make sure your phone has a cellular signal to receive your SMS or call\n • Confirm you can receive a phone call to the number\n • Check that you have entered your phone number correctly.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">For more information, please follow these troubleshooting steps or Contact Support</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">For more information, please follow %1$s or %2$s</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">these troubleshooting steps</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2541,7 +2668,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reacted %1$s to your sticker.</string>
     <string name="MessageNotifier_this_message_was_deleted">This message was deleted.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Turn off contact joined Signal notifications? You can enable them again in Signal > Settings > Notifications.</string>
+    <string mollyify="true" name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Turn off contact joined Molly notifications? You can enable them again in Molly > Settings > Notifications.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2756,6 +2883,8 @@
     <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
     <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <!-- Text on button to dismiss Signal\'s request for contact permissions -->
+    <string name="ContactSelectionListFragment__no_thanks">No thanks</string>
     <!-- Text asking for user\'s contact permission -->
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
 
@@ -2833,6 +2962,8 @@
     <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">You have removed this person, messaging them again will add them back to your list.</string>
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">Options</string>
+    <!-- Update item button text shown for a profile name change. -->
+    <string name="ConversationUpdateItem_update">Update</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Play … Pause</string>
@@ -3336,8 +3467,12 @@
         <item quantity="other">This will permanently trim all chats to the %1$s most recent messages.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">This will permanently delete all message history and media from your device.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">This will permanently delete all message history and media from this device and any linked devices.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Are you sure you want to delete all message history?</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">All message history will be permanently removed. This action cannot be undone.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">All message history will be permanently removed from all devices. This action cannot be undone.</string>
     <string name="preferences_storage__delete_all_now">Delete all now</string>
     <string name="preferences_storage__forever">Forever</string>
     <string name="preferences_storage__one_year">1 year</string>
@@ -4092,8 +4227,15 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">You need access to your old device.</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">Restore from backup</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Restore your messages from a local backup. If you don’t restore now, you won\'t be able to restore later.</string>
+    <string name="TransferOrRestoreFragment__restore_from_local_backup">Restore local backup</string>
+    <string name="TransferOrRestoreFragment__restore_from_signal_backup">Restore Signal backup</string>
+    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Restore all your text messages + your last 30 days of media</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">More options</string>
+
+    <string name="TransferOrRestoreFragment__cancel">Cancel</string>
+    <string name="TransferOrRestoreFragment__skip_transfer">Log in without transferring</string>
+    <string name="TransferOrRestoreFragment__skip_transfer_description">Continue without transferring your messages and media</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Open Signal on your old Android phone</string>
@@ -4278,7 +4420,7 @@
     <string name="ReviewCardDialogFragment__review_request">Review request</string>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
-        <item quantity="one">%1$d group member have the same name, review the member below and choose to take action.</item>
+        <item quantity="one">%1$d group member has the same name, review the member below and choose to take action.</item>
         <item quantity="other">%1$d group members have the same name, review the members below and choose to take action.</item>
     </plurals>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
@@ -4998,9 +5140,6 @@
     <!-- VectorAvatarCreationFragment -->
     <string name="VectorAvatarCreationFragment__select_a_color">Select a color</string>
 
-    <!-- ContactSelectionListItem -->
-    <string name="ContactSelectionListItem__sms">SMS</string>
-
     <!-- Displayed in the toolbar when externally sharing text to multiple recipients -->
     <string name="ShareInterstitialActivity__share">Share</string>
 
@@ -5034,7 +5173,8 @@
     </plurals>
     <!-- Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin -->
     <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">Only admins can send messages to this group.</string>
-    <string name="MultiselectForwardFragment__limit_reached">Limit reached</string>
+    <!-- Error message shown when users try to choose more than 5 chats to send a message to -->
+    <string name="MultiselectForwardFragment__you_cant_select_more_chats">You can\'t select more than 5 chats</string>
 
     <!-- Media V2 -->
     <!-- Dialog message when sending a story via an add to group story button -->
@@ -5665,8 +5805,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">No replies yet</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">You can\'t reply to this story because you\'re no longer a member of this group.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Reacted to the story</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">Reacted to the story</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">Reacted to the story</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Views</string>
     <!-- Label for story replies tab -->
@@ -6283,8 +6425,8 @@
     <string name="IdealTransferDetailsFragment__choose_your_bank">Choose your bank</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
     <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">Confirm your donation with %1$s</string>
-    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__monthly_ideal_warning">To setup your recurring donation tap continue to confirm a €0,01 charge with your bank. This will be automatically refunded and allows your €5/month donation to debited from your account.</string>
+    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
+    <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">To setup your recurring donation tap continue to confirm a €0,01 charge with your bank. This will be automatically refunded and allows your %1$s/month donation to debited from your account.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
     <string name="IdealTransferDetailsFragment__continue">Continue</string>
 
@@ -6860,6 +7002,52 @@
     <!-- Notification title shown while downloading backup restore data -->
     <string name="BackupProgressService_title_downloading">Downloading backup data…</string>
 
+    <!-- BackupAlertBottomSheet -->
+    <!-- Sheet title when media backups have been disabled -->
+    <string name="BackupAlertBottomSheet__media_backups_are_off">Media backups are off</string>
+    <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
+    <plurals name="BackupAlertBottomSheet__your_signal_media_backup_plan">
+        <item quantity="one">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d day to download any media stored in your backup. After %1$d day, the media in your backup will be deleted.</item>
+        <item quantity="other">Your Signal media backup plan has been canceled because we couldn\'t process your payment. You have %1$d days to download any media stored in your backup. After %1$d days, the media in your backup will be deleted.</item>
+    </plurals>
+    <!-- Sheet body part 2 when media backups have been disabled. -->
+    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">You can begin paying for backups again at any time to continue backing up all your media. </string>
+    <!-- Sheet title when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Your media will be deleted today</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Your Signal media backup plan has been canceled because we couldn\'t process your payment. This is your last chance to download the media in your backup before it is deleted.</string>
+    <!-- Sheet title when user does not have enough space to download their backup -->
+    <string name="BackupAlertBottomSheet__cant_complete_download">Can\'t complete download</string>
+    <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
+    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Your device does not have enough free space. Free up to %1$s of space to download the media stored in your backup.</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
+    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
+        <item quantity="one">If you choose \"Skip\" the media in your backup will be deleted in %1$d day.</item>
+        <item quantity="other">If you choose \"Skip\" the media in your backup will be deleted in %1$d days.</item>
+    </plurals>
+    <!-- Sheet title when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__cant_process_backup_payment">Can\'t process backup payment</string>
+    <!-- Sheet body when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">We\'re having trouble collecting your recurring monthly backup payment. Make sure your payment method is up to date. If it isn\'t, update it in Google Pay. Signal will try to process the payment again in a few days.</string>
+    <!-- Sheet title for generic backup error -->
+    <string name="BackupAlertBottomSheet__couldnt_complete_backup">Couldn\'t complete backup</string>
+    <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
+    <string name="BackupAlertBottomSheet__your_device_hasnt">Your device hasn\'t completed a backup for %1$d days. Make sure your device is connected to wi-fi and tap \"Back up now.\" </string>
+    <!-- Clickable text to learn more about the content of this bottom sheet -->
+    <string name="BackupAlertBottomSheet__learn_more">Learn more</string>
+    <!-- Secondary action button text when user does not have enough free space to download their backup. -->
+    <string name="BackupAlertBottomSheet__skip">Skip</string>
+    <!-- Primary action button text prompting user to download their media -->
+    <string name="BackupAlertBottomSheet__download_media_now">Download media now</string>
+    <!-- Secondary action button text to dismiss sheet, noting the user can download later -->
+    <string name="BackupAlertBottomSheet__download_later">Download later</string>
+    <!-- Secondary action button text to dismiss sheet, skipping media download -->
+    <string name="BackupAlertBottomSheet__dont_download_media">Don\'t download media</string>
+
+    <!-- BackupStatus -->
+    <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
+    <string name="BackupStatus__free_up_s_of_space_to_download_your_media">Free up %1$s of space to download your media.</string>
+
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Credit or debit card</string>
@@ -6873,6 +7061,12 @@
     <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__unknown">Unknown</string>
+    <!-- Row title for entering payment history -->
+    <string name="BackupsTypeSettingsFragment__payment_history">Payment history</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Your last backup was made on %1$s at %2$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -6883,6 +7077,113 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Messages older than the selected time will be permanently deleted.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Messages exceeding the selected length will be permanently deleted.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Apply limits to linked devices</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">When enabled, chat limits will also delete messages from your linked devices.</string>
 
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">Deleting is now synced across all of your devices</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">When you delete messages or chats, they will be deleted from your phone and linked devices.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">OK</string>
+
+    <!-- RemoteBackupsPaymentHistoryFragment -->
+    <!-- Title of the screen for payment history -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_history">Payment history</string>
+    <!-- Description for backup rows -->
+    <string name="RemoteBackupsPaymentHistoryFragment__text_and_all_media_backup">Text and all media backup</string>
+    <!-- Title of the screen for payment details -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_details">Payment details</string>
+    <!-- Title of row specifying the type of backup -->
+    <string name="RemoteBackupsPaymentHistoryFragment__backup_type">Backup type</string>
+    <!-- Title of row specifying the date the backup was paid on -->
+    <string name="RemoteBackupsPaymentHistoryFragment__date_paid">Date paid</string>
+    <!-- Button label to share the receipt -->
+    <string name="RemoteBackupsPaymentHistoryFragment__share">Share</string>
+
+    <!-- RemoteBackupsSettingsFragment -->
+    <!-- Displayed on the title bar -->
+    <string name="RemoteBackupsSettingsFragment__signal_backups">Signal Backups</string>
+    <!-- Row label to launch payment history screen -->
+    <string name="RemoteBackupsSettingsFragment__payment_history">Payment history</string>
+    <!-- Section header for backup information -->
+    <string name="RemoteBackupsSettingsFragment__backup_details">Backup details</string>
+    <!-- Row label for backup size -->
+    <string name="RemoteBackupsSettingsFragment__backup_size">Backup size</string>
+    <!-- Row label for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__backup_frequency">Backup frequency</string>
+    <!-- Toggle row label for allowing backups to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__back_up_using_cellular">Back up using cellular</string>
+    <!-- Row label for cancelling and deleting backup -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Turn off and delete backup</string>
+    <!-- Snackbar text displayed when backup has been deleted and turned off -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted_and_turned_off">Backup deleted and turned off.</string>
+    <!-- Snackbar text displayed when backup type is downgraded -->
+    <string name="RemoteBackupsSettingsFragment__backup_type_changed_and_subcription_deleted">Backup type changed and subscription cancelled</string>
+    <!-- Snackbar text displayed when backup subscription is cancelled -->
+    <string name="RemoteBackupsSettingsFragment__subscription_cancelled">Subscription cancelled</string>
+    <!-- Snackbar text displayed when backup is successfully downloaded -->
+    <string name="RemoteBackupsSettingsFragment__download_complete">Download complete</string>
+    <!-- Title text in row detailing selected backup type -->
+    <string name="RemoteBackupsSettingsFragment__backup_type">Backup type</string>
+    <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
+    <string name="RemoteBackupsSettingsFragment__backups_disabled">Backups disabled</string>
+    <!-- Format string for backup and cost. First placeholder is backup title, second is cost per month. -->
+    <string name="RemoteBackupsSettingsFragment__s_dot_s_per_month">%1$s · %2$s/month</string>
+    <!-- Button label to enable backups -->
+    <string name="RemoteBackupsSettingsFragment__enable_backups">Enable backups</string>
+    <!-- Progress indicator subtext displayed when a backup is in progress -->
+    <string name="RemoteBackupsSettingsFragment__d_slash_d">%1$d/%2$d</string>
+    <!-- Title text in row detailing last backup -->
+    <string name="RemoteBackupsSettingsFragment__last_backup">Last backup</string>
+    <!-- Subtext describing when a backup took place. First placeholder is the day, second is time. -->
+    <string name="RemoteBackupsSettingsFragment__s_at_s">%1$s at %2$s</string>
+    <!-- Subtext describing when a backup has never taken place. -->
+    <string name="RemoteBackupsSettingsFragment__never">Never</string>
+    <!-- Button label to perform a backup immediately -->
+    <string name="RemoteBackupsSettingsFragment__back_up_now">Back up now</string>
+    <!-- Dialog title when confirming whether to turn off and deleting backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Turn off and delete backups?</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__you_will_not_be_charged_again">You will not be charged again. Your backup will be deleted and no new backups will be created.</string>
+    <!-- Confirmation action on dialog to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Turn off and delete</string>
+    <!-- Text on dialog while user backup is being deleted -->
+    <string name="RemoteBackupsSettingsFragment__deleting_backup">Deleting backup…</string>
+    <!-- Text on dialog when user backup is deleted -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted">Backup deleted</string>
+    <!-- Subtitle for frequency option MANUAL for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__by_tapping_back_up_now">By tapping "Back up now"</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__daily">Daily</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__weekly">Weekly</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__monthly">Monthly</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__manually_back_up">Manually back up</string>
+    <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
+    <string name="PassphrasePromptActivity_help_prompt_body">Please enter your device pin, password or pattern.</string>
+
+    <!-- Primary action button label when selecting a backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__next">Next</string>
+    <!-- Primary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Change backup type</string>
+    <!-- Secondary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">Cancel subscription</string>
+
+    <!-- ConfirmBackupCancellationDialog -->
+    <!-- Dialog title -->
+    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">Confirm cancellation</string>
+    <!-- Dialog body -->
+    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">You won\'t be charged again. Backups will be turned off at the end of your billing cycle. After that date you will have 30 days to download the media you\'re currently backing up.</string>
+    <!-- Action button label to cancel subscription and download now -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">Confirm and download now</string>
+    <!-- Action button label to cancel subscription and download later -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Confirm and download later</string>
+    <!-- Action button label to keep current subscription -->
+    <string name="ConfirmBackupCancellationDialog__keep_subscription">Keep subscription</string>
     <!-- EOF -->
 </resources>

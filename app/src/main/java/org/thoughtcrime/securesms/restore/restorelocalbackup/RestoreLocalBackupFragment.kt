@@ -10,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -21,13 +23,13 @@ import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.BackupEvent
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
-import org.thoughtcrime.securesms.databinding.FragmentRestoreLocalBackupV2Binding
+import org.thoughtcrime.securesms.databinding.FragmentRestoreLocalBackupBinding
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.registration.fragments.RegistrationViewDelegate.setDebugLogSubmitMultiTapView
-import org.thoughtcrime.securesms.registration.fragments.RestoreBackupFragment.PassphraseAsYouTypeFormatter
 import org.thoughtcrime.securesms.restore.RestoreActivity
 import org.thoughtcrime.securesms.restore.RestoreRepository
 import org.thoughtcrime.securesms.restore.RestoreViewModel
+import org.thoughtcrime.securesms.util.BackupUtil
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.ViewModelFactory
@@ -38,7 +40,7 @@ import java.util.Locale
 /**
  * This fragment is used to monitor and manage an in-progress backup restore.
  */
-class RestoreLocalBackupFragment : LoggingFragment(R.layout.fragment_restore_local_backup_v2) {
+class RestoreLocalBackupFragment : LoggingFragment(R.layout.fragment_restore_local_backup) {
   private val navigationViewModel: RestoreViewModel by activityViewModels()
   private val restoreLocalBackupViewModel: RestoreLocalBackupViewModel by viewModels(
     factoryProducer = ViewModelFactory.factoryProducer {
@@ -46,21 +48,36 @@ class RestoreLocalBackupFragment : LoggingFragment(R.layout.fragment_restore_loc
       RestoreLocalBackupViewModel(fileBackupUri)
     }
   )
-  private val binding: FragmentRestoreLocalBackupV2Binding by ViewBinderDelegate(FragmentRestoreLocalBackupV2Binding::bind)
+  private val binding: FragmentRestoreLocalBackupBinding by ViewBinderDelegate(FragmentRestoreLocalBackupBinding::bind)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setDebugLogSubmitMultiTapView(binding.verifyHeader)
     Log.i(TAG, "Backup restore.")
 
+    if (navigationViewModel.getBackupFileUri() == null) {
+      Log.i(TAG, "No backup URI found, must navigate back to choose one.")
+      findNavController().navigateUp()
+      return
+    }
+
     binding.restoreButton.setOnClickListener { presentBackupPassPhrasePromptDialog() }
 
-    // TODO [regv2]: check for re-register and skip ahead to phone number entry
+    binding.cancelLocalRestoreButton.setOnClickListener {
+      findNavController().navigateUp()
+    }
 
-    if (SignalStore.settings().isBackupEnabled) {
+    if (SignalStore.settings.isBackupEnabled) {
       Log.i(TAG, "Backups enabled, so a backup must have been previously restored.")
       onBackupCompletedSuccessfully()
       return
+    }
+
+    restoreLocalBackupViewModel.backupReadError.observe(viewLifecycleOwner) { fileState ->
+      fileState?.let {
+        restoreLocalBackupViewModel.clearBackupFileStateError()
+        handleBackupFileStateError(it)
+      }
     }
 
     restoreLocalBackupViewModel.uiState.observe(viewLifecycleOwner) { fragmentState ->
@@ -73,9 +90,11 @@ class RestoreLocalBackupFragment : LoggingFragment(R.layout.fragment_restore_loc
       } else {
         presentProgressEnded()
       }
+    }
 
-      if (fragmentState.backupRestoreComplete) {
-        val importResult = fragmentState.backupImportResult
+    restoreLocalBackupViewModel.backupComplete.observe(viewLifecycleOwner) {
+      if (it.first) {
+        val importResult = it.second
         if (importResult == null) {
           onBackupCompletedSuccessfully()
         } else {
@@ -89,7 +108,6 @@ class RestoreLocalBackupFragment : LoggingFragment(R.layout.fragment_restore_loc
 
   private fun onBackupCompletedSuccessfully() {
     Log.d(TAG, "onBackupCompletedSuccessfully()")
-    SignalStore.internalValues().setForceEnterRestoreV2Flow(false)
     val activity = requireActivity() as RestoreActivity
     navigationViewModel.getNextIntent()?.let {
       Log.d(TAG, "Launching ${it.component}")
@@ -113,6 +131,18 @@ class RestoreLocalBackupFragment : LoggingFragment(R.layout.fragment_restore_loc
     restoreLocalBackupViewModel.onBackupProgressUpdate(event)
   }
 
+  private fun handleBackupFileStateError(fileState: BackupUtil.BackupFileState) {
+    @StringRes
+    val errorResId: Int = when (fileState) {
+      BackupUtil.BackupFileState.READABLE -> throw AssertionError("Unexpected error state.")
+      BackupUtil.BackupFileState.NOT_FOUND -> R.string.RestoreBackupFragment__backup_not_found
+      BackupUtil.BackupFileState.NOT_READABLE -> R.string.RestoreBackupFragment__backup_has_a_bad_extension
+      BackupUtil.BackupFileState.UNSUPPORTED_FILE_EXTENSION -> R.string.RestoreBackupFragment__backup_could_not_be_read
+    }
+
+    Toast.makeText(requireContext(), errorResId, Toast.LENGTH_LONG).show()
+  }
+
   private fun handleBackupImportError(importResult: RestoreRepository.BackupImportResult) {
     when (importResult) {
       RestoreRepository.BackupImportResult.FAILURE_VERSION_DOWNGRADE -> Toast.makeText(requireContext(), R.string.RegistrationActivity_backup_failure_downgrade, Toast.LENGTH_LONG).show()
@@ -125,7 +155,7 @@ class RestoreLocalBackupFragment : LoggingFragment(R.layout.fragment_restore_loc
   private fun presentProgressEnded() {
     binding.restoreButton.cancelSpinning()
     binding.cancelLocalRestoreButton.visible = true
-    binding.backupProgressText.text = ""
+    binding.backupProgressText.text = null
   }
 
   private fun presentRestoreProgress(backupProgressCount: Long) {

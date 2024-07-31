@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ Copyright 2024 Signal Messenger, LLC
+  ~ SPDX-License-Identifier: AGPL-3.0-only
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -38,12 +39,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signal 正在更新…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Molly 正在更新…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">您尚未設定一個密碼！</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">要停用密碼嗎？</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">這將永久解鎖 Signal 及訊息通知。</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">這將永久解鎖 Molly 及訊息通知。</string>
     <string name="ApplicationPreferencesActivity_disable">停用</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">連線到伺服器時發生錯誤！</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">註冊鎖定須要 PIN 碼。若要停用 PIN 碼，請先停用註冊鎖定。</string>
@@ -80,31 +81,31 @@
     <string name="AttachmentKeyboard_file">檔案</string>
     <string name="AttachmentKeyboard_contact">聯絡人</string>
     <string name="AttachmentKeyboard_location">位置</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal 需要獲取權限以顯示你的相片和影片</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly 需要獲取權限以顯示你的相片和影片</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">允許存取</string>
     <string name="AttachmentKeyboard_payment">付款</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">找不到應用程式以選取媒體。</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal 需要儲存裝置權限才可附加照片、影片或音訊，但已被永久拒絕。請前往應用程式設定功能表，選擇 「權限」，然後啟用 「儲存裝置」。</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal 需要聯絡人權限才可附加聯絡人資訊，但已被永久拒絕。請前往應用程式設定功能表，選擇「權限」，然後啟用 「聯絡人」。</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal 需要位置權限才可附加位置，但已被永久拒絕。請前往應用程式設定功能表，選擇「權限」，然後啟用 「位置」。</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly 需要儲存裝置權限才可附加照片、影片或音訊，但已被永久拒絕。請前往應用程式設定功能表，選擇 「權限」，然後啟用 「儲存裝置」。</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly 需要聯絡人權限才可附加聯絡人資訊，但已被永久拒絕。請前往應用程式設定功能表，選擇「權限」，然後啟用 「聯絡人」。</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly 需要位置權限才可附加位置，但已被永久拒絕。請前往應用程式設定功能表，選擇「權限」，然後啟用 「位置」。</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">允許存取你的位置</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">要傳送你的位置：</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">允許 Signal 存取權以發送你的位置。</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">允許 Molly 存取權以發送你的位置。</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Signal 需要位置存取權以傳送你的位置。</string>
+    <string name="AttachmentManager_signal_needs_location_access">Molly 需要位置存取權以傳送你的位置。</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">允許存取儲存空間</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">顯示相片和影片：</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Signal 需要獲取儲存空間的存取權以顯示你的相片和影片。</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Molly 需要獲取儲存空間的存取權以顯示你的相片和影片。</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s 尚未啟動付款 </string>
@@ -226,37 +227,37 @@
     <string name="CameraXFragment_change_camera_description">切換鏡頭</string>
     <string name="CameraXFragment_open_gallery_description">開啟圖片庫</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">允許存取</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">允許存取你的相機及麥克風</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">允許存取你的相機</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">允許連接你的麥克風</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">要拍攝相片，請允許 Signal 存取相機。</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">要拍照或錄影，請允許Signal存取相機。</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">要拍照及錄影，請允許 Signal 存取相機及麥克風。</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">要錄製有聲影片，請允許 Signal 存取你的麥克風。</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">要掃描二維碼，請允許 Signal 存取相機。</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal 需要相機存取權限以拍攝相片</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal 需要相機存取權限以掃描二維碼</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal 需要麥克風存取權限以錄製影片</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">要在 Signal 拍攝相片：</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">要在 Signal 拍照及錄影：</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">要錄製有聲影片：</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">要掃描二維碼：</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">最近的聯絡人</string>
@@ -270,7 +271,7 @@
     <string name="CameraContacts_no_signal_contacts">無 Signal 聯絡人</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">您僅可使用相機按鈕傳送照片給 Signal 聯絡人。 </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">找不到想要找的人嗎？</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">邀請聯絡人加入 Signal</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">邀請聯絡人加入 Molly</string>
     <string name="CameraContacts__menu_search">搜尋</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -284,12 +285,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">不必了</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">更新 Signal</string>
+    <string name="ClientDeprecatedActivity_update_signal">更新 Molly</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">此版本的應用程式已不再被支援。若要繼續傳送和接收訊息，請更新至最新版本。</string>
     <string name="ClientDeprecatedActivity_update">更新</string>
     <string name="ClientDeprecatedActivity_dont_update">不要更新</string>
     <string name="ClientDeprecatedActivity_warning">警告</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">你的 Signal 版本已過期。你可以瀏覽訊息紀錄，但無法傳送或接收訊息，直到你更新版本為止。</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">你的 Molly 版本已過期。你可以瀏覽訊息紀錄，但無法傳送或接收訊息，直到你更新版本為止。</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">找不到網頁瀏覽器</string>
@@ -326,8 +327,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">傳送訊息給 %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Molly 語音通話 %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Molly 視訊通話 %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -419,7 +420,7 @@
     <string name="ConversationActivity_transport_signal">Signal 訊息</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">傳送訊息</string>
-    <string name="ConversationActivity_lets_switch_to_signal">我們不如改用 Signal 吧 %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">我們不如改用 Molly 吧 %1$s</string>
     <string name="ConversationActivity_specify_recipient">請選擇一個聯絡人</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">附件超出您正在傳送的訊息類型的大小上限。</string>
     <string name="ConversationActivity_unable_to_record_audio">無法錄製音訊！</string>
@@ -438,18 +439,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">要傳送語音訊息：</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">如要傳送語音訊息，請允許 Signal 存取你的麥克風。</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">如要傳送語音訊息，請允許 Molly 存取你的麥克風。</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal 需要麥克風存取權限以錄製語音訊息。</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal需要存取咪高峰來傳送語音訊息，但您已經永久拒絕。請前往應用程式設定功能表，按「權限」，然後開啟「咪高峰」。</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly 需要麥克風存取權限以錄製語音訊息。</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly需要存取咪高峰來傳送語音訊息，但您已經永久拒絕。請前往應用程式設定功能表，按「權限」，然後開啟「咪高峰」。</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal需要存取咪高峰及相機來呼叫%1$s，但您已經永久拒絕。請前往應用程式設定功能表，按「權限」，然後開啟「咪高峰」和「相機」。</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">要拍照或錄影，請允許Signal存取相機。</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal需要存取相機來拍照或錄影，但您已經永久拒絕。請前往應用程式設定功能表，按「權限」，然後開啟「相機」。</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal 需要「相機」權限以拍攝照片或影片</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly需要存取咪高峰及相機來呼叫%1$s，但您已經永久拒絕。請前往應用程式設定功能表，按「權限」，然後開啟「咪高峰」和「相機」。</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">要拍照或錄影，請允許Molly存取相機。</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly需要存取相機來拍照或錄影，但您已經永久拒絕。請前往應用程式設定功能表，按「權限」，然後開啟「相機」。</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly 需要「相機」權限以拍攝照片或影片</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">請啟用咪高峰權限以擷取現場收音的影片。</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal 需要「咪高峰」權限以錄製影片，但已被拒絕。請前往應用程式設定，選擇「權限」，然後啟用「咪高峰」和「相機」。</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal 需要咪高峰權限以錄製影片。</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly 需要「咪高峰」權限以錄製影片，但已被拒絕。請前往應用程式設定，選擇「權限」，然後啟用「咪高峰」和「相機」。</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly 需要咪高峰權限以錄製影片。</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">否</string>
@@ -470,9 +471,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">要開始通話：</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">若要開始通話，請允許 Signal 存取你的麥克風。</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">若要開始通話，請允許 Molly 存取你的麥克風。</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal 需要麥克風存取權限才能發起通話。</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly 需要麥克風存取權限才能發起通話。</string>
 
 
     <string name="ConversationActivity_join">加入</string>
@@ -486,9 +487,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Signal 不再支援短訊功能。邀請 %1$s 加入 Signal 以繼續對話。</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">此人不再使用 Signal。邀請他們加入 Signal 以繼續對話。</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">此人不再使用 Molly。邀請他們加入 Molly 以繼續對話。</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">邀請加入 Signal</string>
+    <string name="ConversationActivity__invite_to_signal">邀請加入 Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">我們稍後會再次提醒你。</string>
 
@@ -536,6 +537,8 @@
     <string name="ConversationFragment_delete_for_everyone">為所有人刪除</string>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">由此裝置中刪除</string>
+    <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
+    <string name="ConversationFragment_delete">刪除</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">由所有裝置中刪除</string>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">如聊天中的成員均使用最新版本的 Signal，此訊息將在所有人的裝置上刪除，他們將會看見你刪除了一則訊息。</string>
@@ -567,13 +570,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">已封鎖</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">更新 Signal</string>
+    <string name="ConversationFragment__update_build">更新 Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">重新註冊 Signal</string>
+    <string name="ConversationFragment__reregister_signal">重新註冊 Molly</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">導向返回。</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">開啟 Signal</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">開啟 Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">已無驗證</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -635,6 +638,10 @@
     </plurals>
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="other">這將永久刪除共 %1$d 個選取的聊天。</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="other">這將從你所有裝置中永久刪除共 %1$d 則已選的聊天。</item>
     </plurals>
     <string name="ConversationListFragment_deleting">正在刪除</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -719,9 +726,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">誰可以透過電話號碼找到我？</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">任何擁有你電話號碼的人都會看到你在使用 Signal，並可以開始與你聊天。</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">任何擁有你電話號碼的人都會看到你在使用 Molly，並可以開始與你聊天。</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">除非你向對方傳送訊息或與對方已有聊天紀錄，否則沒有人能看到你使用 Signal。</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">除非你向對方傳送訊息或與對方已有聊天紀錄，否則沒有人能看到你使用 Molly。</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">要從備份還原嗎？</string>
@@ -755,7 +762,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">測試您的備份密碼並驗證是否相符</string>
     <string name="BackupsPreferenceFragment__turn_on">開啟</string>
     <string name="BackupsPreferenceFragment__turn_off">關閉</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"如要還原備份，在全新安裝 Signal 後，請開啟應用程式並輕觸「還原備份」，然後找出備份檔案位置。%1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"如要還原備份，在全新安裝 Molly 後，請開啟應用程式並輕觸「還原備份」，然後找出備份檔案位置。%1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">了解更多</string>
     <string name="BackupsPreferenceFragment__in_progress">進行中…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -763,7 +770,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">目前進度 %1$d…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">目前進度 %1$s%%…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal 需要外部儲存空間權限才可建立備份，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「儲存裝置」。</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly 需要外部儲存空間權限才可建立備份，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「儲存裝置」。</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">設定備份時間</string>
 
@@ -830,7 +837,62 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">聊天工作階段已重新整理</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal 使用端對端加密，偶爾或需重新整理您的聊天工作階段。這並不會影響您的聊天安全性，但您或許會錯過來自此聯絡人的一兩則訊息，您可請對方重新傳送。</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly 使用端對端加密，偶爾或需重新整理您的聊天工作階段。這並不會影響您的聊天安全性，但您或許會錯過來自此聯絡人的一兩則訊息，您可請對方重新傳送。</string>
+
+    <!-- LinkDeviceFragment -->
+    <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">在桌面電腦或 iPad 上使用 Signal。你的訊息將同步到已連結裝置。</string>
+    <!-- Button prompting users to link a new device to their account -->
+    <string name="LinkDeviceFragment__link_a_new_device">連結新的裝置</string>
+    <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
+    <string name="LinkDeviceFragment__messages_and_chat_info_are_protected">%1$s所有裝置上的訊息和聊天資訊均受端對端加密的保護</string>
+    <!-- Bottom sheet title explaining how Signal works on a linked device -->
+    <string name="LinkDeviceFragment__signal_on_desktop_ipad">在桌面電腦或 iPad 上的 Signal</string>
+    <!-- Bottom sheet description explaining that messages on linked devices are private -->
+    <string name="LinkDeviceFragment__all_messaging_is_private">所有在已連結裝置上的訊息均為私密</string>
+    <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
+    <string name="LinkDeviceFragment__signal_messages_are_synchronized">連結後，Molly 訊息會與手機上的 Molly 同步。之前的訊息紀錄將不會出現。</string>
+    <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">在你的其他裝置上，前往 %1$s 以安裝 Molly</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
+    <!-- Header title listing out current linked devices -->
+    <string name="LinkDeviceFragment__my_linked_devices">我的已連結裝置</string>
+    <!-- Dialog confirmation to unlink a device -->
+    <string name="LinkDeviceFragment__unlink">解除連結</string>
+    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_unlinked">%1$s已解除連結</string>
+    <!-- Progress dialog message indicating that a device is currently being linked with an account -->
+    <string name="LinkDeviceFragment__linking_device">正在連結裝置…</string>
+    <!-- Toast message shown after a device has been linked -->
+    <string name="LinkDeviceFragment__device_approved">裝置已核准</string>
+    <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
+    <string name="LinkDeviceFragment__loading">正在載入…</string>
+    <!-- Text message shown when the user has no linked devices -->
+    <string name="LinkDeviceFragment__no_linked_devices">沒有已連結裝置</string>
+    <!-- Title on biometrics prompt explaining what biometrics are being used for -->
+    <string name="LinkDeviceFragment__unlock_to_link">解鎖以連結裝置</string>
+
+    <!-- AddLinkDeviceFragment -->
+    <!-- Description text shown on the QR code scanner when linking a device -->
+    <string name="AddLinkDeviceFragment__scan_the_qr_code">掃描顯示在裝置上的二維碼以進行連結。</string>
+    <!-- Bottom sheet title telling users to scan a qr code -->
+    <string name="AddLinkDeviceFragment__scan_qr_code">掃描二維碼</string>
+    <!-- Bottom sheet description telling users how to scan a qr code -->
+    <string name="AddLinkDeviceFragment__use_this_device_to_scan_qr_code">使用此裝置來掃描你想連結的裝置上所顯示的二維碼</string>
+    <!-- Confirmation button to dismiss bottom sheet dialog -->
+    <string name="AddLinkDeviceFragment__okay">確定</string>
+    <!-- Dialog text describing the consequences of linking a device -->
+    <string name="AddLinkDeviceFragment__this_device_will_see_your_groups_contacts">此裝置可查看你的群組和聯絡人、存取你的聊天，以及以你的名義傳送訊息。</string>
+    <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
+    <string name="AddLinkDeviceFragment__finish_linking_on_other_device">在另一部裝置上完成連結</string>
+    <!-- Bottom sheet description telling users to complete the linking process -->
+    <string name="AddLinkDeviceFragment__finish_linking_signal">在你的另一部裝置上完成 Molly 連結。</string>
+    <!-- Title of dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__linking_device_failed">裝置連結失敗</string>
+    <!-- Text shown in a dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__this_qr_code_not_valid">此二維碼無效。請確認您所掃描的二維碼顯示於您想連結的裝置上。</string>
+    <!-- Button in dialog to retry linking a device with a qr code -->
+    <string name="AddLinkDeviceFragment__retry">重試</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">要取消連結「%1$s」嗎？</string>
@@ -852,10 +914,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">針對缺少 Play 服務的優化</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">此裝置不支援 Play 服務。輕觸以停用系統電量優化，以免干擾 Signal 閒置時擷取訊息。</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">此裝置不支援 Play 服務。輕觸以停用系統電量優化，以免干擾 Molly 閒置時擷取訊息。</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">此版本的 Signal 已過期。立即更新以傳送和接收訊息。</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">此版本的 Molly 已過期。立即更新以傳送和接收訊息。</string>
     <string name="ExpiredBuildReminder_update_now">立即更新</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -865,8 +927,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">檢視</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">永久性 Signal 通訊失敗！</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal 無法與 Google Play 服務註冊。Signal 訊息和通話已被停用，請到「設定」&gt;「進階」嘗試重新註冊。</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">永久性 Molly 通訊失敗！</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly 無法與 Google Play 服務註冊。Molly 訊息和通話已被停用，請到「設定」&gt;「進階」嘗試重新註冊。</string>
 
 
     <!-- GiphyActivity -->
@@ -992,20 +1054,30 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">除錯日誌可協助我們診斷並修正問題，而且不包含識別資料。</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal 遇到了問題。要提交除錯日誌嗎？</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly 遇到了問題。要提交除錯日誌嗎？</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">由於電池效能最佳化，通知可能會延遲</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">你可以停用 Signal 的電池效能最佳化設定，以確保訊息通知不會延遲。</string>
+    <string name="PromptBatterySaverBottomSheet__message">你可以停用 Molly 的電池效能最佳化設定，以確保訊息通知不會延遲。</string>
+
+    <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
+    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">由於電池效能最佳化，通知可能會延遲</string>
+    <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">停用 Molly 的電池效能最佳化設定，以確保訊息通知不會延遲。點按「繼續」查看特定裝置說明。</string>
+    <!-- Button to dismiss notification help prompt -->
+    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">不必了</string>
+    <!-- Button to continue and go to Signal support website -->
+    <string name="DeviceSpecificNotificationBottomSheet__continue">繼續</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">繼續</string>
     <!-- Button to dismiss battery saver dialog prompt-->
-    <string name="PromptBatterySaverBottomSheet__dismiss">解除</string>
+    <string name="PromptBatterySaverBottomSheet__no_thanks">不必了</string>
+  <!-- Removed by excludeNonTranslatables <string name="PromptBatterySaverBottomSheet__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007318711#android_notifications_troubleshooting</string> -->
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">尚待處理的群組邀請</string>
+    <string name="PendingMembersActivity_pending_group_invites">請求與邀請</string>
     <string name="PendingMembersActivity_requests">請求</string>
     <string name="PendingMembersActivity_invites">邀請</string>
     <string name="PendingMembersActivity_people_you_invited">您邀請的人</string>
@@ -1244,12 +1316,12 @@
     <string name="InviteActivity_cancel">取消</string>
     <string name="InviteActivity_sending">正在傳送…</string>
     <string name="InviteActivity_invitations_sent">邀請已傳送！</string>
-    <string name="InviteActivity_invite_to_signal">邀請加入 Signal</string>
+    <string name="InviteActivity_invite_to_signal">邀請加入 Molly</string>
     <string name="InviteActivity_send_sms">傳送短訊 (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="other">要傳送 %1$d 個短訊邀請嗎？</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">一齊轉用 Signal 咯：%1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">一齊轉用 Molly 咯：%1$s</string>
     <string name="InviteActivity_no_app_to_share_to">您似乎未有任何應用程式可作分享。</string>
 
     <!-- LearnMoreTextView -->
@@ -1263,7 +1335,7 @@
     <string name="LongMessageActivity_your_message">您的訊息</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">背景連線已啟用</string>
 
     <!-- MediaOverviewActivity -->
@@ -1327,10 +1399,10 @@
     <string name="MessageQuotesBottomSheet_replies">回覆</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">正在建立 Signal 通話</string>
+    <string name="NotificationBarManager__establishing_signal_call">正在建立 Molly 通話</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">正在開始 Signal 通話服務</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">正在停止 Signal 通話服務</string>
+    <string name="NotificationBarManager__starting_signal_call_service">正在開始 Molly 通話服務</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">正在停止 Molly 通話服務</string>
     <string name="NotificationBarManager__cancel_call">取消通話</string>
 
     <!-- NotificationsMegaphone -->
@@ -1574,6 +1646,14 @@
     <string name="MessageRecord_you_activated_payments">你啟動了付款</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">%1$s 現在可以接受付款</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">未能提供付款詳情</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">點按以獲取更多</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">未能提供付款詳情</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">未能提供此付款的詳細資訊，因為你的訊息是從不含此付款紀錄的來源所還原的。這不會影響你的錢包餘額或過去付款的狀態。</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1628,9 +1708,11 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">你很快將無法再於 Signal 傳送短訊。邀請 %1$s 加入 Signal 以繼續對話。</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">你無法再於 Signal 傳送短訊。邀請 %1$s 加入 Signal 以繼續對話。</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">你無法再於 Molly 傳送短訊。邀請 %1$s 加入 Molly 以繼續對話。</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">付款：%1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">付款</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">已舉報垃圾訊息</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -1704,7 +1786,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">要連結 Signal 裝置嗎？</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">您似乎正嘗試使用第三方掃描程式連結 Signal 裝置。為保護您的安全，請在 Signal 中再次掃描二維碼。</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal 需要相機權限才可掃描二維碼，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「相機」。</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly 需要相機權限才可掃描二維碼，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「相機」。</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">缺少「相機」權限下無法掃描二維碼</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1716,11 +1798,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">輸入密碼</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Signal 圖示</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Molly 圖示</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">提交密碼</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">密碼無效！</string>
-    <string name="PassphrasePromptActivity_unlock_signal">解除鎖定 Signal</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - 鎖定畫面</string>
+    <string name="PassphrasePromptActivity_unlock_signal">解除鎖定 Molly</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - 鎖定畫面</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">地圖</string>
@@ -1786,7 +1868,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">驗證以繼續傳訊</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">為協助防範 Signal 垃圾訊息，請先完成驗證。</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">為協助防範 Molly 垃圾訊息，請先完成驗證。</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">完成驗證後，您將可繼續傳訊。暫止的訊息將會自動傳送。</string>
 
     <!-- Recipient -->
@@ -1794,7 +1876,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">我的限時動態</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Signal 通話</string>
+    <string name="Recipient_signal_call">Molly 通話</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">封鎖</string>
@@ -1808,7 +1890,8 @@
     <string name="RedPhone_ringing">正在響鈴……</string>
     <string name="RedPhone_busy">忙碌</string>
     <string name="RedPhone_recipient_unavailable">對方事忙</string>
-    <string name="RedPhone_network_failed">網絡失敗！</string>
+    <!-- Error message shown during a call when a fatal network error occurs. -->
+    <string name="RedPhone_network_failed">網絡失敗！ 請檢查你的網路連線，然後再試一次。</string>
     <string name="RedPhone_number_not_registered">號碼尚未註冊！</string>
     <string name="RedPhone_the_number_you_dialed_does_not_support_secure_voice">您所撥打的號碼不支援安全語音！</string>
     <string name="RedPhone_got_it">我知道了</string>
@@ -1819,8 +1902,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">輕觸此處以開啟您的視像</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Signal 需要存取您的相機，以便與 %1$s 通話。</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly 需要存取您的相機，以便與 %1$s 通話。</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">正在撥號…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">正在重新連線…</string>
@@ -1868,10 +1951,30 @@
     <string name="WebRtcCallActivity__removed_from_call">已從通話中移除</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">有人將你從通話中移除。</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">允許存取你的相機及麥克風</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">允許連接你的麥克風</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">允許存取你的相機</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">要開始或加入通話，請允許 Molly 存取你的相機和麥克風。</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">要開始或加入通話，請允許 Molly 存取你的麥克風。</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">要啟用視訊，請允許 Molly 存取你的相機。</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly 需要麥克風權限以開始或加入通話。</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly 需要相機存取權限以啟用視訊</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">要開始或加入通話：</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">要啟用你的視訊：</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Signal 通話</string>
-    <string name="WebRtcCallView__signal_video_call">Signal 視像通話</string>
+    <string name="WebRtcCallView__signal_call">Molly 通話</string>
+    <string name="WebRtcCallView__signal_video_call">Molly 視像通話</string>
     <string name="WebRtcCallView__start_call">開始通話</string>
     <string name="WebRtcCallView__join_call">加入通話</string>
     <string name="WebRtcCallView__call_is_full">通話已滿座</string>
@@ -1956,21 +2059,38 @@
     <!-- A dialog prompt to confirm you want to lower your hand -->
     <string name="CallOverflowPopupWindow__lower_your_hand">要放下手？</string>
     <!-- A dialog button to confirm you would like to lower your hand -->
-    <string name="CallOverflowPopupWindow__lower_hand">放下手</string>
+    <string name="CallOverflowPopupWindow__lower_hand">放下</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">取消</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">你舉了手</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">檢視</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="other">%1$s + %2$d 舉了手</item>
+
+    <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s 舉了手</string>
+    <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_multiple">
+        <item quantity="other">%1$s +%2$d 舉了手</item>
     </plurals>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
+    <!-- A notification to the user that one participant in the call successfully raised their hand. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_single">%1$s 舉了手</string>
+    <!-- A notification to the user that two or more participants in the call successfully raised their hand. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_multiple">
+        <item quantity="other">%1$s +%2$d 舉了手</item>
+    </plurals>
+
+    <!-- A badge to show the user has their hand raised. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__collapsed_second_person_raised_hand_single">%1$s</string>
+    <!-- A badge to show the user and at least one other participant in the call have their hand raised. The placeholder is a number quantifying how many other hands are also raised, besides the user.  -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_second_person_raised_hands_multiple">
+        <item quantity="other">%1$s + %2$d</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_multiple">
         <item quantity="other">%1$s + %2$d</item>
     </plurals>
 
@@ -2055,7 +2175,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">你將會收到一個來電，以驗證此電話號碼。</string>
     <string name="RegistrationActivity_edit_number">修正電話號碼</string>
     <string name="RegistrationActivity_missing_google_play_services">缺少 Google Play 服務</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">此裝置未有安裝Google Play 服務。你仍可使用 Signal，但其可靠程度及運作表現可能會因這配置而減弱。\n\n 若你不是進階用戶，亦非營運 Android ROM 售後市場，或你認為這是錯誤訊息， 請聯絡 support@signal.org 協助解決疑難。</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">此裝置未有安裝Google Play 服務。你仍可使用 Molly，但其可靠程度及運作表現可能會因這配置而減弱。\n\n 若你不是進階用戶，亦非營運 Android ROM 售後市場，或你認為這是錯誤訊息， 請聯絡 support@molly.im 協助解決疑難。</string>
     <string name="RegistrationActivity_i_understand">我明白</string>
     <string name="RegistrationActivity_play_services_error">Play 服務錯誤</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play 服務正在更新，或暫時未能運作。請再試一次。</string>
@@ -2073,7 +2193,7 @@
     <string name="RegistrationActivity_non_standard_number_format">非標準號碼格式</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">您所輸入的號碼 (%1$s) 似乎並非標準格式。\n\n您是指 %2$s 嗎？</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - 電話號碼格式</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - 電話號碼格式</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">已請求撥號</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2106,8 +2226,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">註冊時遇到困難？</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• 確保你的手機有行動網路訊號以接收你的 SMS 短訊或電話\n • 確認你可以接到該號碼的電話\n • 檢查你輸入的電話號碼是否正確。</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">如需詳細資訊，請依照這些疑難排解步驟進行，或聯絡支援團隊</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">要了解更多資訊，請參考 %1$s 或聯絡 %2$s</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">這些疑難排解步驟</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2145,13 +2265,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">新增至通訊錄</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">邀請加入 Signal</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">邀請加入 Molly</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal 訊息</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal 通話</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">新增至通訊錄</string>
-    <string name="SharedContactView_invite_to_signal">邀請加入 Signal</string>
+    <string name="SharedContactView_invite_to_signal">邀請加入 Molly</string>
     <string name="SharedContactView_message">Signal 訊息</string>
 
     <!-- SignalBottomActionBar -->
@@ -2282,11 +2402,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s 是 %2$s 的手機號碼</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Signal 更新</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">新版本的 Signal 現已提供。 輕觸以更新。</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Signal 無法更新</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Molly 更新</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">新版本的 Molly 現已提供。 輕觸以更新。</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Molly 無法更新</string>
     <string name="ApkUpdateNotifications_failed_general_body">我們將稍後再試。</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Signal 已成功更新</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Molly 已成功更新</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">已自動更新到版本 %1$s。</string>
 
     <!-- UntrustedSendDialog -->
@@ -2356,7 +2476,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">我們的 Signal 安全碼：</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">您似乎未有任何應用程式可作分享。</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">在剪貼簿中找不到安全碼以作比對</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal 需要相機權限才可掃描二維碼，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「相機」。</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly 需要相機權限才可掃描二維碼，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「相機」。</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">缺少「相機」權限下無法掃描二維碼</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">您必須先交換訊息，以便檢視 %1$s 的安全碼。</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2386,14 +2506,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">輕按一下以開啟。</string>
-    <string name="KeyCachingService_passphrase_cached">Signal 已解除鎖定</string>
-    <string name="KeyCachingService_lock">鎖定 Signal</string>
+    <string name="KeyCachingService_passphrase_cached">Molly 已解除鎖定</string>
+    <string name="KeyCachingService_lock">鎖定 Molly</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">您</string>
     <string name="MediaPreviewActivity_unssuported_media_type">未支援的媒體類型</string>
     <string name="MediaPreviewActivity_draft">草稿</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal 需要儲存裝置權限才可儲存到外部儲存空間，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「儲存裝置」。</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly 需要儲存裝置權限才可儲存到外部儲存空間，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「儲存裝置」。</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">缺少權限下無法儲存到外部儲存空間</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">要刪除訊息嗎？</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">這將會永久刪除此訊息。</string>
@@ -2435,7 +2555,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">送遞訊息失敗。</string>
     <string name="MessageNotifier_error_delivering_message">送遞訊息時發生錯誤。</string>
     <string name="MessageNotifier_message_delivery_paused">訊息送遞已暫止。</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">驗證以繼續在 Signal 傳訊。</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">驗證以繼續在 Molly 傳訊。</string>
     <string name="MessageNotifier_mark_all_as_read">全部標記為已讀</string>
     <string name="MessageNotifier_mark_read">標記為已讀</string>
     <string name="MessageNotifier_turn_off_these_notifications">關閉這些通知</string>
@@ -2457,7 +2577,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">對你的貼圖表達了 %1$s 心情。</string>
     <string name="MessageNotifier_this_message_was_deleted">此訊息已被刪除。</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">要關閉聯絡人加入 Signal 的通知嗎？您可在 Signal &gt;「設定」&gt;「通知」中再次啟用。</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">要關閉聯絡人加入 Molly 的通知嗎？您可在 Molly &gt;「設定」&gt;「通知」中再次啟用。</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2496,7 +2616,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal 在鎖定時無法使用快速回應！</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly 在鎖定時無法使用快速回應！</string>
     <string name="QuickResponseService_problem_sending_message">傳送訊息時發生問題！</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2516,7 +2636,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">捷徑無效</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">新訊息</string>
     <string name="SingleRecipientNotificationBuilder_message_request">訊息請求</string>
     <string name="SingleRecipientNotificationBuilder_you">您</string>
@@ -2561,7 +2681,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">此裝置已不再註冊。通常是因為你已在另一部裝置上使用你的電話號碼註冊 Signal。</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">此裝置已不再註冊。通常是因為你已在另一部裝置上使用你的電話號碼註冊 Molly。</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">重新註冊裝置</string>
 
@@ -2574,10 +2694,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">若要接聽通話，請授予 Signal 存取您的咪高峰。</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">若要接聽通話，請授予 Molly 存取您的咪高峰。</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">若要接聽視訊通話，請允許 Signal 存取你的麥克風和相機。</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal 需要咪高峰和相機權限才可致電或接聽通話，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「咪高峰」和「相機」。</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">若要接聽視訊通話，請允許 Molly 存取你的麥克風和相機。</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly 需要咪高峰和相機權限才可致電或接聽通話，但已被永久拒絕。請前往應用程式設定，選擇「權限」，然後啟用「咪高峰」和「相機」。</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">已在連結的裝置上接聽。</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">已在連結的裝置上拒接。</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">在連結的裝置上繁忙中。</string>
@@ -2622,16 +2742,16 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">重複輸入新的密碼</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">邀請加入 Signal</string>
+    <string name="contact_selection_activity__invite_to_signal">邀請加入 Molly</string>
     <string name="contact_selection_activity__new_group">建立新群組</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">重新整理聯絡人</string>
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">找不到某人？嘗試重新整理</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">在 Signal 上尋找你認識的人</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">允許存取你的通訊錄</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">更多</string>
 
@@ -2648,7 +2768,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">聯絡人照片</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal 需要聯絡人權限才可顯示您的聯絡人，但已被永久拒絕。請前往應用程式設定功能表，選擇「權限」，然後啟用「聯絡人」。</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly 需要聯絡人權限才可顯示您的聯絡人，但已被永久拒絕。請前往應用程式設定功能表，選擇「權限」，然後啟用「聯絡人」。</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">提取聯絡人時發生錯誤，請檢查您的網絡連線</string>
     <string name="ContactSelectionListFragment_username_not_found">找不到用戶名稱</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"「%1$s」並非 Signal 使用者。請檢查用戶名稱，然後再試一次。"</string>
@@ -2665,16 +2785,18 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">以用戶名稱搜尋</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">允許存取通訊錄</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">要在 Signal 上尋找你認識的人：</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">允許存取</string>
+    <!-- Text on button to dismiss Signal\'s request for contact permissions -->
+    <string name="ContactSelectionListFragment__no_thanks">不必了</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">允許存取你的通訊錄。你的通訊錄已加密，Signal 服務無法看到。</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal 需要存取您的聯絡人以便為您顯示。</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly 需要存取您的聯絡人以便為您顯示。</string>
     <string name="contact_selection_list_fragment__show_contacts">顯示聯絡人</string>
 
     <!-- contact_selection_list_item -->
@@ -2745,6 +2867,8 @@
     <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">你已移除此人，再次傳送訊息給他們會將對方加回你的清單。</string>
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">選項</string>
+    <!-- Update item button text shown for a profile name change. -->
+    <string name="ConversationUpdateItem_update">更新</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">播放 … 暫停</string>
@@ -2773,7 +2897,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">氣泡是一項 Android 功能，您可為 Signal 聊天將其關閉。</string>
+    <string name="BubbleOptOutTooltip__description">氣泡是一項 Android 功能，您可為 Molly 聊天將其關閉。</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">現在不要</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -2934,9 +3058,9 @@
     <string name="EditProfileFragment__group_description">群組描述</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">更新 Signal</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">更新 Molly</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">此版本的 Signal 已過期。請立即更新以繼續使用 Signal。</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">此版本的 Molly 已過期。請立即更新以繼續使用 Molly。</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">更新</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3152,7 +3276,7 @@
     <string name="preferences__slow">慢</string>
     <string name="preferences__help">說明</string>
     <string name="preferences__advanced">進階</string>
-    <string name="preferences__donate_to_signal">捐款給 Signal</string>
+    <string name="preferences__donate_to_signal">捐款給 Molly</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">私隱</string>
     <!-- Preference label for stories -->
@@ -3189,13 +3313,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">將應用程式圖示和名稱更改為「%1$s」</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Signal 需要關閉才能更改應用程式圖示和名稱。通知依然會以預設的 Signal 圖示和名稱來顯示。</string>
+    <string name="preferences__app_icon_dialog_description">Molly 需要關閉才能更改應用程式圖示和名稱。通知依然會以預設的 Molly 圖示和名稱來顯示。</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">選擇應用程式圖示和名稱，這將顯示在手機的主螢幕和應用抽屜中。通知依然會以預設的 Signal 圖示和名稱來顯示。了解 更多</string>
+    <string name="preferences__app_icon_warning_learn_more">選擇應用程式圖示和名稱，這將顯示在手機的主螢幕和應用抽屜中。通知依然會以預設的 Molly 圖示和名稱來顯示。了解 更多</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">應用程式圖示和名稱可在手機的主螢幕和應用抽屜中見到。</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">通知依然會以預設的 Signal 圖示和名稱來顯示。</string>
+    <string name="preferences__app_icon_notification_warning">通知依然會以預設的 Molly 圖示和名稱來顯示。</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">了解 更多</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3241,8 +3365,12 @@
         <item quantity="other">這將會永久刪減所有聊天至最近 %1$s 則訊息。</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">這操作將會從你的裝置永久刪除所有訊息紀錄和多媒體。</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">這將永久刪除此裝置和任何已連結裝置上的所有訊息紀錄和多媒體。</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">你確定要刪除所有訊息紀錄嗎？</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">所有訊息紀錄將會被永久移除。此動作將無法復原。</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">所有訊息紀錄將會從所有裝置中永久移除。此動作無法復原。</string>
     <string name="preferences_storage__delete_all_now">立即全部刪除</string>
     <string name="preferences_storage__forever">永久</string>
     <string name="preferences_storage__one_year">1 年</string>
@@ -3278,7 +3406,7 @@
     <string name="preferences_communication__category_censorship_circumvention">審查規避</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">審查規避</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">一旦啟用，Signal 會嘗試規避審查。除非您所在地方會審查 Signal，否則不要使用此功能。</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">一旦啟用，Molly 會嘗試規避審查。除非您所在地方會審查 Molly，否則不要使用此功能。</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">根據您的電話號碼，我們已啟用審查規避功能。</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3330,7 +3458,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">付款功能登場</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">使用 Signal 傳送和接收 MobileCoin：一種注重私隱的全新電子貨幣。立即啟動便可以開始使用。</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">使用 Molly 傳送和接收 MobileCoin：一種注重私隱的全新電子貨幣。立即啟動便可以開始使用。</string>
     <string name="PaymentsHomeFragment__activate_payments">啟用付款</string>
     <string name="PaymentsHomeFragment__activating_payments">正在啟用付款…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">還原付款帳戶</string>
@@ -3356,7 +3484,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">付款不適用於您的地區。</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">無法啟用付款。請稍後再試。</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">要停用付款嗎？</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">若您停用付款，您將無法在 Signal 中發送或接收 MobileCoin。</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">若您停用付款，您將無法在 Molly 中發送或接收 MobileCoin。</string>
     <string name="PaymentsHomeFragment__deactivate">停用</string>
     <string name="PaymentsHomeFragment__continue">繼續</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">餘額目前未能提供。</string>
@@ -3365,10 +3493,10 @@
     <string name="PaymentsHomeFragment__details">詳細資料</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">你可使用 Signal 收發 MobileCoin。所有付款均受 MobileCoin 和 MobileCoin Wallet 的使用條款約束。你或許會遇到一些問題，以及你可能遺失付款或餘額而無法還原。 </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">你可使用 Molly 收發 MobileCoin。所有付款均受 MobileCoin 和 MobileCoin Wallet 的使用條款約束。你或許會遇到一些問題，以及你可能遺失付款或餘額而無法還原。 </string>
     <string name="PaymentsHomeFragment__activate">啟用</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">檢視 MobileCoin 條款</string>
-    <string name="PaymentsHomeFragment__payments_not_available">付款已不再在 Signal 上可用。您仍可轉移款項至交易平台，惟您不再能發送和接收付款或增加款項。</string>
+    <string name="PaymentsHomeFragment__payments_not_available">付款已不再在 Molly 上可用。您仍可轉移款項至交易平台，惟您不再能發送和接收付款或增加款項。</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3396,7 +3524,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">允許存取權限</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">為協助你向認識的人發送訊息，Signal 將請求此等權限。 </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">為協助你向認識的人發送訊息，Molly 將請求此等權限。 </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">通知</string>
     <!-- Notifications permission row description -->
@@ -3484,10 +3612,10 @@
     <string name="PaymentsTransferFragment__next">下一步</string>
     <string name="PaymentsTransferFragment__invalid_address">位址無效</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">請檢查您嘗試轉移至該處的錢包位址，然後再試一次。</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">您不能轉移至您自己的 Signal 錢包位址。請輸入您在支援的交易平台上所屬帳戶的錢包位址。</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Signal 需要存取相機，以便掃描二維碼。</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal 需要相機權限才可擷取二維碼。請前往設定，選擇「權限」，然後啟用「相機」。</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Signal 需要存取相機，以便掃描二維碼。</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">您不能轉移至您自己的 Molly 錢包位址。請輸入您在支援的交易平台上所屬帳戶的錢包位址。</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Molly 需要存取相機，以便掃描二維碼。</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly 需要相機權限才可擷取二維碼。請前往設定，選擇「權限」，然後啟用「相機」。</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Molly 需要存取相機，以便掃描二維碼。</string>
     <string name="PaymentsTransferFragment__settings">設定</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -3826,17 +3954,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Signal 語音通話來電</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly 語音通話來電</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Signal 視訊通話來電</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Molly 視訊通話來電</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Signal 群組來電</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Molly 群組來電</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Signal 語音通話進行中</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Molly 語音通話進行中</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Signal 視訊通話進行中</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Molly 視訊通話進行中</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Signal 群組通話進行中</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Molly 群組通話進行中</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">正在載入…</string>
@@ -3883,9 +4011,9 @@
     <string name="BackupDialog_verify">驗證</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">您已成功輸入您的備份密碼</string>
     <string name="BackupDialog_passphrase_was_not_correct">密碼不正確</string>
-    <string name="LocalBackupJob_creating_signal_backup">正在建立 Signal 備份…</string>
+    <string name="LocalBackupJob_creating_signal_backup">正在建立 Molly 備份…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">正在驗證 Signal 備份…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">正在驗證 Molly 備份…</string>
     <string name="LocalBackupJobApi29_backup_failed">備份失敗</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">您的備份目錄已被刪除或移動。</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">您的備份檔太大，無法在此磁碟機中儲存。</string>
@@ -3900,15 +4028,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">打電話給我 (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">重新傳送驗證碼 (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">聯絡 Signal 支援</string>
-    <string name="RegistrationActivity_code_support_subject">Signal 註冊 — Android 用的驗證碼</string>
+    <string name="RegistrationActivity_contact_signal_support">聯絡 Molly 支援</string>
+    <string name="RegistrationActivity_code_support_subject">Molly 註冊 — Android 用的驗證碼</string>
     <string name="RegistrationActivity_incorrect_code">錯誤編號</string>
     <string name="BackupUtil_never">永不</string>
     <string name="BackupUtil_unknown">未知</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">電話號碼</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">選擇誰可以看到你的電話號碼，以及誰可以透過電話號碼在 Signal 與你聯絡。</string>
+    <string name="preferences_app_protection__choose_who_can_see">選擇誰可以看到你的電話號碼，以及誰可以透過電話號碼在 Molly 與你聯絡。</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">誰可以看到我的號碼</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -3956,7 +4084,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">你已嘗試多次。請稍後再試。</string>
     <string name="RegistrationActivity_error_connecting_to_service">服務連線錯誤</string>
     <string name="preferences_chats__backups">備份</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Signal 已鎖定</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Molly 已鎖定</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">輕觸以解除鎖定</string>
     <string name="Recipient_unknown">未知</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -3987,8 +4115,15 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">您需要用到您的舊裝置。</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">從備份還原</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">從本機備份還原您的訊息。若您現在不進行還原，之後將不能還原。</string>
+    <string name="TransferOrRestoreFragment__restore_from_local_backup">還原本機備份</string>
+    <string name="TransferOrRestoreFragment__restore_from_signal_backup">還原 Signal 備份</string>
+    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">還原你的所有文字訊息 + 最近 30 天的媒體內容</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">更多選項</string>
+
+    <string name="TransferOrRestoreFragment__cancel">取消</string>
+    <string name="TransferOrRestoreFragment__skip_transfer">登入而不作轉移</string>
+    <string name="TransferOrRestoreFragment__skip_transfer_description">不轉移訊息及媒體並繼續</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">在您舊的 Android 電話上開啟 Signal</string>
@@ -4004,19 +4139,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">正在準備連接舊的 Android 裝置…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">請等一下，應該快好了</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">正在等候舊的 Android 裝置連接…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal 需要「位置」權限以探索並連接您舊的 Android 裝置。</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal 需要啟用定位服務以探索並連接您舊的 Android 裝置。</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal 需要開啟 Wi-Fi 以探索並連接您舊的 Android 裝置。需要開啟 Wi-Fi，惟不需要連接到 Wi-Fi 網絡。</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，此裝置似乎不支援 Wi-Fi Direct。Signal 使用 Wi-Fi Direct 以探索並連接您舊的 Android 裝置。您仍可還原備份，以便從您舊的 Android 裝置還原您的帳戶。</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly 需要「位置」權限以探索並連接您舊的 Android 裝置。</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly 需要啟用定位服務以探索並連接您舊的 Android 裝置。</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly 需要開啟 Wi-Fi 以探索並連接您舊的 Android 裝置。需要開啟 Wi-Fi，惟不需要連接到 Wi-Fi 網絡。</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，此裝置似乎不支援 Wi-Fi Direct。Molly 使用 Wi-Fi Direct 以探索並連接您舊的 Android 裝置。您仍可還原備份，以便從您舊的 Android 裝置還原您的帳戶。</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">還原備份</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">嘗試連接您舊的 Android 裝置時發生未預期的錯誤。</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">正在搜尋新的 Android 裝置…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal 需要「位置」權限以探索並連接您新的 Android 裝置。</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal 需要啟用定位服務以探索並連接您新的 Android 裝置。</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal 需要開啟 Wi-Fi 以探索並連接您新的 Android 裝置。需要開啟 Wi-Fi，惟不需要連接到 Wi-Fi 網絡。</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，此裝置似乎不支援 Wi-Fi Direct。Signal 使用 Wi-Fi Direct 以探索並連接您新的 Android 裝置。您仍可建立備份，以便在您新的 Android 裝置上還原您的帳戶。</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly 需要「位置」權限以探索並連接您新的 Android 裝置。</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly 需要啟用定位服務以探索並連接您新的 Android 裝置。</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly 需要開啟 Wi-Fi 以探索並連接您新的 Android 裝置。需要開啟 Wi-Fi，惟不需要連接到 Wi-Fi 網絡。</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，此裝置似乎不支援 Wi-Fi Direct。Molly 使用 Wi-Fi Direct 以探索並連接您新的 Android 裝置。您仍可建立備份，以便在您新的 Android 裝置上還原您的帳戶。</string>
     <string name="OldDeviceTransferSetup__create_a_backup">建立備份</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">嘗試連接您新的 Android 裝置時發生未預期的錯誤。</string>
 
@@ -4057,7 +4192,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">正在轉移資料</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">讓兩台裝置保持接近。不要關閉裝置並保持 Signal 開啟。轉移已經端對端加密。</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">讓兩台裝置保持接近。不要關閉裝置並保持 Molly 開啟。轉移已經端對端加密。</string>
     <string name="DeviceTransfer__d_messages_so_far">目前為止 %1$d 則訊息…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">訊息目前進度 %1$s%%…</string>
@@ -4071,7 +4206,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">轉移帳戶</string>
     <string name="OldDeviceTransferInstructions__first_bullet">一、</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">在您新的 Android 裝置上下載 Signal</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">在您新的 Android 裝置上下載 Molly</string>
     <string name="OldDeviceTransferInstructions__second_bullet">二、</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"輕觸「轉移或還原帳戶」"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">三、</string>
@@ -4145,7 +4280,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">任何人憑此連結將可檢視群組的名稱和照片並請求加入。請與您信任的人分享此連結。</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">任何人憑此連結將可檢視群組的名稱和照片並加入群組。請與您信任的人分享此連結。</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">透過 Signal 分享</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">透過 Molly 分享</string>
     <string name="GroupLinkBottomSheet_copy">複製</string>
     <string name="GroupLinkBottomSheet_qr_code">二維碼</string>
     <string name="GroupLinkBottomSheet_share">分享</string>
@@ -4324,7 +4459,7 @@
     <string name="payment_info_card_about_mobilecoin">關於 MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin 是一種注重隱私的全新數位貨幣。</string>
     <string name="payment_info_card_adding_funds">增加款項</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">您可傳送 MobileCoin 到您的錢包位址，以增加款項在 Signal 中使用。</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">您可傳送 MobileCoin 到您的錢包位址，以增加款項在 Molly 中使用。</string>
     <string name="payment_info_card_cashing_out">提取款項</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">您可隨時在支援 MobileCoin 的交易平台上提取 MobileCoin，只需進行一筆轉移至您在該交易平台上的帳戶即可。</string>
     <string name="payment_info_card_hide_this_card">要隱藏此卡片嗎？</string>
@@ -4345,12 +4480,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">停用錢包</string>
     <string name="DeactivateWalletFragment__your_balance">您的餘額</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">我們建議你在停用付款之前，將你的資金轉移到另一個錢包位址。若你現在選擇不作轉移，當你重新啟用付款時，你的款項將會保留在已連結至 Signal 的錢包中。</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">我們建議你在停用付款之前，將你的資金轉移到另一個錢包位址。若你現在選擇不作轉移，當你重新啟用付款時，你的款項將會保留在已連結至 Molly 的錢包中。</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">轉移尚餘款項</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">停用而不轉移</string>
     <string name="DeactivateWalletFragment__deactivate">停用</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">要停用而不作轉移嗎？</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">若你選擇重新啟用付款，你的餘額將會保留在已連結至 Signal 的錢包中。</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">若你選擇重新啟用付款，你的餘額將會保留在已連結至 Molly 的錢包中。</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">停用錢包時發生錯誤。</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4643,7 +4778,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">許可證</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">使用條款與私隱政策</string>
-    <string name="HelpFragment__copyright_signal_messenger">Signal Messenger 版權所有</string>
+    <string name="HelpFragment__copyright_signal_messenger">Molly Messenger 版權所有</string>
     <string name="HelpFragment__licenced_under_the_agplv3">依據 GNU AGPLv3 的條款授權</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -4881,9 +5016,6 @@
     <!-- VectorAvatarCreationFragment -->
     <string name="VectorAvatarCreationFragment__select_a_color">選取一種色彩</string>
 
-    <!-- ContactSelectionListItem -->
-    <string name="ContactSelectionListItem__sms">短訊</string>
-
     <!-- Displayed in the toolbar when externally sharing text to multiple recipients -->
     <string name="ShareInterstitialActivity__share">分享</string>
 
@@ -4913,7 +5045,8 @@
     </plurals>
     <!-- Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin -->
     <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">只有管理員可以向此群組傳送訊息。</string>
-    <string name="MultiselectForwardFragment__limit_reached">已達上限</string>
+    <!-- Error message shown when users try to choose more than 5 chats to send a message to -->
+    <string name="MultiselectForwardFragment__you_cant_select_more_chats">你不得選取超過 5 個聊天</string>
 
     <!-- Media V2 -->
     <!-- Dialog message when sending a story via an add to group story button -->
@@ -5088,9 +5221,9 @@
     <string name="MySupportPreference__learn_more">了解更多</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">更新 Signal</string>
+    <string name="UpdateSignalExpiredDialog__title">更新 Molly</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">此版本的 Signal 已過期。請立即更新以繼續使用 Signal。</string>
+    <string name="UpdateSignalExpiredDialog__message">此版本的 Molly 已過期。請立即更新以繼續使用 Molly。</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">更新</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5099,7 +5232,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">裝置未註冊</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">此裝置已不再註冊。重新註冊以在此裝置繼續使用 Signal。</string>
+    <string name="ReregisterSignalDialog__message">此裝置已不再註冊。重新註冊以在此裝置繼續使用 Molly。</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">重新註冊</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5393,7 +5526,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">無法開啟挑選器。</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">要啟用通知，Signal 需要顯示通知的權限。</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">要啟用通知，Molly 需要顯示通知的權限。</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">開啟</string>
 
@@ -5510,7 +5643,7 @@
     <!-- Used to join views and replies when both exist on a story item -->
     <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
     <!-- Displayed when viewing a post you sent -->
-    <string name="StoryViewerPageFragment__you">您</string>
+    <string name="StoryViewerPageFragment__you">你</string>
     <!-- Displayed when viewing a story sent to a group, placeholders are person who sent the story and the group name -->
     <string name="StoryViewerPageFragment__s_to_s">%1$s 至 %2$s</string>
     <!-- Displayed when viewing a post from another user with no replies -->
@@ -5539,8 +5672,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">未有回覆</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">由於你不再是這群組的成員，因此你無法回覆此限時動態。</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">對限時動態表達了心情</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">對限時動態表達了心情</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">對限時動態表達了心情</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">觀看</string>
     <!-- Label for story replies tab -->
@@ -6140,8 +6275,8 @@
     <string name="IdealTransferDetailsFragment__choose_your_bank">選擇你的銀行</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
     <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">與 %1$s 確認你的捐款</string>
-    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__monthly_ideal_warning">要設定你的定期捐款，請點選「繼續」以向銀行確認 €0.01 的費用。這筆款項將自動退還，並允許從你的帳戶中扣除每月 €5 的捐款。</string>
+    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
+    <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">要設定你的定期捐款，請點選「繼續」以向銀行確認 €0.01 的費用。這筆款項將自動退還，並允許從你的帳戶中扣除每月 %1$s 的捐款。</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
     <string name="IdealTransferDetailsFragment__continue">繼續</string>
 
@@ -6710,6 +6845,50 @@
     <!-- Notification title shown while downloading backup restore data -->
     <string name="BackupProgressService_title_downloading">正在下載備份資料…</string>
 
+    <!-- BackupAlertBottomSheet -->
+    <!-- Sheet title when media backups have been disabled -->
+    <string name="BackupAlertBottomSheet__media_backups_are_off">媒體備份已關閉</string>
+    <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
+    <plurals name="BackupAlertBottomSheet__your_signal_media_backup_plan">
+        <item quantity="other">由於我們無法處理你的付款，你的 Signal 媒體備份計畫已被取消。你有 %1$d 天時間下載備份中儲存的任何媒體。%1$d 天後，你備份中的媒體將會被刪除。</item>
+    </plurals>
+    <!-- Sheet body part 2 when media backups have been disabled. -->
+    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">你可以隨時重新開始支付備份費用，以繼續備份所有媒體。 </string>
+    <!-- Sheet title when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">你的媒體將會在今天刪除</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">由於我們無法處理你的付款，你的 Signal 媒體備份計畫已被取消。若要下載備份內的媒體，這是刪除備份之前的最後機會。</string>
+    <!-- Sheet title when user does not have enough space to download their backup -->
+    <string name="BackupAlertBottomSheet__cant_complete_download">無法完成下載</string>
+    <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
+    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">你的裝置沒有足夠的可用空間。釋放多達 %1$s 的空間來下載儲存在備份中的多媒體。</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
+    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
+        <item quantity="other">如果你選擇「跳過」，備份內的媒體將在 %1$d 天後刪除。</item>
+    </plurals>
+    <!-- Sheet title when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__cant_process_backup_payment">未能處理備份付款</string>
+    <!-- Sheet body when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">我們在收取你每月定期備份付款時遇到問題。請確定你的付款方式仍然有效。若已失效，請到 Google Pay 更新過時的資訊。Signal 將於數天內再次嘗試處理付款。</string>
+    <!-- Sheet title for generic backup error -->
+    <string name="BackupAlertBottomSheet__couldnt_complete_backup">無法完成備份</string>
+    <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
+    <string name="BackupAlertBottomSheet__your_device_hasnt">你的裝置已有 %1$d 天沒有完成備份。確保你的裝置已連線至 Wi-Fi，然後點按「立即備份」。 </string>
+    <!-- Clickable text to learn more about the content of this bottom sheet -->
+    <string name="BackupAlertBottomSheet__learn_more">了解更多</string>
+    <!-- Secondary action button text when user does not have enough free space to download their backup. -->
+    <string name="BackupAlertBottomSheet__skip">略過</string>
+    <!-- Primary action button text prompting user to download their media -->
+    <string name="BackupAlertBottomSheet__download_media_now">立即下載媒體</string>
+    <!-- Secondary action button text to dismiss sheet, noting the user can download later -->
+    <string name="BackupAlertBottomSheet__download_later">稍後下載</string>
+    <!-- Secondary action button text to dismiss sheet, skipping media download -->
+    <string name="BackupAlertBottomSheet__dont_download_media">不下載媒體</string>
+
+    <!-- BackupStatus -->
+    <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
+    <string name="BackupStatus__free_up_s_of_space_to_download_your_media">釋放 %1$s 的空間來下載你的多媒體。</string>
+
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__credit_or_debit_card">信用卡或簽帳金融卡</string>
@@ -6723,6 +6902,12 @@
     <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__unknown">未知</string>
+    <!-- Row title for entering payment history -->
+    <string name="BackupsTypeSettingsFragment__payment_history">付款紀錄</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">你上次備份是在 %1$s 的 %2$s 進行的。</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -6733,6 +6918,113 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">訊息早於所選時間將被永久刪除。</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">訊息超過所選數量將被永久刪除。</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">為已連結裝置設定上限</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">啟用後，聊天訊息量上限也會應用在已連結裝置並刪除訊息。</string>
 
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">現已在你所有裝置上同步刪除</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">當你刪除訊息或聊天時，它們將從你的手機和已連結裝置中刪除。</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">確定</string>
+
+    <!-- RemoteBackupsPaymentHistoryFragment -->
+    <!-- Title of the screen for payment history -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_history">付款紀錄</string>
+    <!-- Description for backup rows -->
+    <string name="RemoteBackupsPaymentHistoryFragment__text_and_all_media_backup">文字和所有多媒體備份</string>
+    <!-- Title of the screen for payment details -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_details">付款詳情</string>
+    <!-- Title of row specifying the type of backup -->
+    <string name="RemoteBackupsPaymentHistoryFragment__backup_type">備份類型</string>
+    <!-- Title of row specifying the date the backup was paid on -->
+    <string name="RemoteBackupsPaymentHistoryFragment__date_paid">付款日期</string>
+    <!-- Button label to share the receipt -->
+    <string name="RemoteBackupsPaymentHistoryFragment__share">分享</string>
+
+    <!-- RemoteBackupsSettingsFragment -->
+    <!-- Displayed on the title bar -->
+    <string name="RemoteBackupsSettingsFragment__signal_backups">Signal 備份</string>
+    <!-- Row label to launch payment history screen -->
+    <string name="RemoteBackupsSettingsFragment__payment_history">付款紀錄</string>
+    <!-- Section header for backup information -->
+    <string name="RemoteBackupsSettingsFragment__backup_details">備份詳細資料</string>
+    <!-- Row label for backup size -->
+    <string name="RemoteBackupsSettingsFragment__backup_size">備份大小</string>
+    <!-- Row label for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__backup_frequency">備份頻率</string>
+    <!-- Toggle row label for allowing backups to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__back_up_using_cellular">使用行動數據備份</string>
+    <!-- Row label for cancelling and deleting backup -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">關閉並刪除備份</string>
+    <!-- Snackbar text displayed when backup has been deleted and turned off -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted_and_turned_off">已刪除並關閉備份。</string>
+    <!-- Snackbar text displayed when backup type is downgraded -->
+    <string name="RemoteBackupsSettingsFragment__backup_type_changed_and_subcription_deleted">備份類型已變更且定期贊助已取消</string>
+    <!-- Snackbar text displayed when backup subscription is cancelled -->
+    <string name="RemoteBackupsSettingsFragment__subscription_cancelled">訂閱已取消</string>
+    <!-- Snackbar text displayed when backup is successfully downloaded -->
+    <string name="RemoteBackupsSettingsFragment__download_complete">下載完成</string>
+    <!-- Title text in row detailing selected backup type -->
+    <string name="RemoteBackupsSettingsFragment__backup_type">備份類型</string>
+    <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
+    <string name="RemoteBackupsSettingsFragment__backups_disabled">備份已停用</string>
+    <!-- Format string for backup and cost. First placeholder is backup title, second is cost per month. -->
+    <string name="RemoteBackupsSettingsFragment__s_dot_s_per_month">%1$s · %2$s /月</string>
+    <!-- Button label to enable backups -->
+    <string name="RemoteBackupsSettingsFragment__enable_backups">啟用備份</string>
+    <!-- Progress indicator subtext displayed when a backup is in progress -->
+    <string name="RemoteBackupsSettingsFragment__d_slash_d">%1$d/%2$d</string>
+    <!-- Title text in row detailing last backup -->
+    <string name="RemoteBackupsSettingsFragment__last_backup">上次備份</string>
+    <!-- Subtext describing when a backup took place. First placeholder is the day, second is time. -->
+    <string name="RemoteBackupsSettingsFragment__s_at_s">%1$s %2$s</string>
+    <!-- Subtext describing when a backup has never taken place. -->
+    <string name="RemoteBackupsSettingsFragment__never">永不</string>
+    <!-- Button label to perform a backup immediately -->
+    <string name="RemoteBackupsSettingsFragment__back_up_now">立即備份</string>
+    <!-- Dialog title when confirming whether to turn off and deleting backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">要關閉並刪除備份嗎？</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__you_will_not_be_charged_again">你將不會再被收取費用。你的備份將被刪除，並且不會建立新的備份。</string>
+    <!-- Confirmation action on dialog to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">關閉並刪除</string>
+    <!-- Text on dialog while user backup is being deleted -->
+    <string name="RemoteBackupsSettingsFragment__deleting_backup">正在刪除備份…</string>
+    <!-- Text on dialog when user backup is deleted -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted">備份已刪除</string>
+    <!-- Subtitle for frequency option MANUAL for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__by_tapping_back_up_now">"透過點按「立即備份」"</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__daily">每日</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__weekly">每週</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__monthly">每月</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__manually_back_up">手動備份</string>
+    <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
+    <string name="PassphrasePromptActivity_help_prompt_body">請輸入你的裝置 PIN 碼、密碼或圖案。</string>
+
+    <!-- Primary action button label when selecting a backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__next">下一步</string>
+    <!-- Primary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">更改備份類型</string>
+    <!-- Secondary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">取消定期贊助</string>
+
+    <!-- ConfirmBackupCancellationDialog -->
+    <!-- Dialog title -->
+    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">確定取消</string>
+    <!-- Dialog body -->
+    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">我們將不會再向你收取費用。備份將在計費週期結束時關閉。在此日期之後，你將有 30 天的時間下載目前正在備份的媒體。</string>
+    <!-- Action button label to cancel subscription and download now -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">立即確認並下載</string>
+    <!-- Action button label to cancel subscription and download later -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">稍後確認並下載</string>
+    <!-- Action button label to keep current subscription -->
+    <string name="ConfirmBackupCancellationDialog__keep_subscription">保留定期贊助</string>
     <!-- EOF -->
 </resources>

@@ -43,14 +43,14 @@ import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectFor
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragmentArgs
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.StoryViewState
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
 import org.thoughtcrime.securesms.main.SearchBinder
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
 import org.thoughtcrime.securesms.permissions.Permissions
-import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity
+import org.thoughtcrime.securesms.registration.ui.RegistrationActivity
 import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
 import org.thoughtcrime.securesms.stories.StoryTextPostModel
 import org.thoughtcrime.securesms.stories.StoryViewerArgs
@@ -111,7 +111,7 @@ class StoriesLandingFragment : DSLSettingsFragment(layoutId = R.layout.stories_l
     initializeSearchAction()
     viewModel.markStoriesRead()
 
-    ApplicationDependencies.getExpireStoriesManager().scheduleIfNecessary()
+    AppDependencies.expireStoriesManager.scheduleIfNecessary()
     EventBus.getDefault().register(this)
   }
 
@@ -187,7 +187,7 @@ class StoriesLandingFragment : DSLSettingsFragment(layoutId = R.layout.stories_l
       }
 
       R.id.reminder_action_re_register -> {
-        startActivity(RegistrationNavigationActivity.newIntentForReRegistration(requireContext()))
+        startActivity(RegistrationActivity.newIntentForReRegistration(requireContext()))
       }
     }
   }

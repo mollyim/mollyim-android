@@ -11,6 +11,7 @@ import android.graphics.PointF
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -201,16 +202,18 @@ class CustomChatColorCreatorPageFragment :
       }
     }
 
-    if (page == 1 && SignalStore.chatColorsValues().shouldShowGradientTooltip) {
+    if (page == 1 && SignalStore.chatColors.shouldShowGradientTooltip) {
       view.post {
-        SignalStore.chatColorsValues().shouldShowGradientTooltip = false
+        SignalStore.chatColors.shouldShowGradientTooltip = false
         val contentView = layoutInflater.inflate(R.layout.gradient_tool_tooltip, view as ViewGroup, false)
         val popupWindow = PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
         popupWindow.isOutsideTouchable = false
         popupWindow.isFocusable = true
 
-        popupWindow.elevation = ViewUtil.dpToPx(8).toFloat()
+        if (Build.VERSION.SDK_INT > 21) {
+          popupWindow.elevation = ViewUtil.dpToPx(8).toFloat()
+        }
 
         popupWindow.showAsDropDown(gradientTool, 0, -gradientTool.measuredHeight + ViewUtil.dpToPx(48))
       }

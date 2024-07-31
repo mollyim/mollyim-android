@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.util;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 

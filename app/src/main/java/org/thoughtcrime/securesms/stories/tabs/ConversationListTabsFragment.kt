@@ -89,7 +89,7 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
   }
 
   private fun updateTabsVisibility() {
-    if (SignalStore.settings().useCompactNavigationBar) {
+    if (SignalStore.settings.useCompactNavigationBar) {
       smallConstraintSet.applyTo(binding.root)
       binding.root.minHeight = 48.dp
     } else {
@@ -119,7 +119,7 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
       it.visible = Stories.isFeatureEnabled()
     }
 
-    if (SignalStore.settings().useCompactNavigationBar) {
+    if (SignalStore.settings.useCompactNavigationBar) {
       listOf(
         binding.callsTabLabel,
         binding.chatsTabLabel,

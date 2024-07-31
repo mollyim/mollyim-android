@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ Copyright 2024 Signal Messenger, LLC
+  ~ SPDX-License-Identifier: AGPL-3.0-only
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -38,12 +39,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Το Signal αναβαθμίζεται…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Το Molly αναβαθμίζεται…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Δεν έχεις ορίσει ακόμα συνθηματικό!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Απενεργοποίηση συνθηματικού;</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Αυτό θα ξεκλειδώσει μόνιμα το Signal και τις ειδοποιήσεις μηνυμάτων.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Αυτό θα ξεκλειδώσει μόνιμα το Molly και τις ειδοποιήσεις μηνυμάτων.</string>
     <string name="ApplicationPreferencesActivity_disable">Απενεργοποίηση</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Σφάλμα κατά τη σύνδεση με τον διακομιστή!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Τα PIN χρειάζονται για το κλείδωμα εγγραφής. Για να απενεργοποιήσεις τα PIN, πρέπει πρώτα να απενεργοποιήσεις το κλείδωμα εγγραφής.</string>
@@ -80,16 +81,16 @@
     <string name="AttachmentKeyboard_file">Αρχείο</string>
     <string name="AttachmentKeyboard_contact">Επαφή</string>
     <string name="AttachmentKeyboard_location">Τοποθεσία</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Το Signal χρειάζεται άδεια για να εμφανίσει τις φωτογραφίες και τα βίντεό σου</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Το Molly χρειάζεται άδεια για να εμφανίσει τις φωτογραφίες και τα βίντεό σου</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Να δοθεί πρόσβαση</string>
     <string name="AttachmentKeyboard_payment">Πληρωμή</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Δεν μπορεί να βρεθεί εφαρμογή για επιλογή πολυμέσων.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Το Signal χρειάζεται τα δικαιώματα Αποθηκευτικού Χώρου για την επισύναψη φωτογραφιών, βίντεο ή κομματιών ήχου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε τον «Αποθηκευτικό Χώρο».</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Το Signal χρειάζεται τα δικαιώματα Επαφών για την επισύναψη πληροφοριών επαφών, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε τις «Επαφές».</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Το Signal χρειάζεται τα δικαιώματα Τοποθεσίας για την επισύναψη τοποθεσιών, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε την «Τοποθεσία».</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Το Molly χρειάζεται τα δικαιώματα Αποθηκευτικού Χώρου για την επισύναψη φωτογραφιών, βίντεο ή κομματιών ήχου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε τον «Αποθηκευτικό Χώρο».</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Το Molly χρειάζεται τα δικαιώματα Επαφών για την επισύναψη πληροφοριών επαφών, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε τις «Επαφές».</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Το Molly χρειάζεται τα δικαιώματα Τοποθεσίας για την επισύναψη τοποθεσιών, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε την «Τοποθεσία».</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Να δοθεί πρόσβαση στην τοποθεσία σου</string>
@@ -98,13 +99,13 @@
     <!-- Alert dialog description asking for location permission -->
     <string name="AttachmentManager_signal_allow_signal_access_location">Να δοθεί πρόσβαση στο Singal για αποστολή της τοποθεσίας σου.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Το Signal χρειάζεται πρόσβαση στην τοποθεσία σου για να στείλει την τοποθεσία σου.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Το Molly χρειάζεται πρόσβαση στην τοποθεσία σου για να στείλει την τοποθεσία σου.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Να δοθεί πρόσβαση στον αποθηκευτικό χώρο</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Για την προβολή φωτογραφιών και βίντεο:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Το Signal χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για να εμφανίσει τις φωτογραφίες και τα βίντεό σου.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Το Molly χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για να εμφανίσει τις φωτογραφίες και τα βίντεό σου.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">Ο χρήστης %1$s δεν έχει ενεργοποιήσει τις πληρωμές </string>
@@ -226,37 +227,37 @@
     <string name="CameraXFragment_change_camera_description">Αλλαγή κάμερας</string>
     <string name="CameraXFragment_open_gallery_description">Άνοιγμα συλλογής</string>
     <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
+    <string name="CameraXFragment_allow_access">Να δοθεί πρόσβαση</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Να δοθεί πρόσβαση στην κάμερα και στο μικρόφωνο</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+    <string name="CameraXFragment_allow_access_camera">Να δοθεί πρόσβαση στην κάμερα</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+    <string name="CameraXFragment_allow_access_microphone">Να δοθεί πρόσβαση στο μικρόφωνο</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">To capture photos, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Για να τραβήξεις φωτογραφίες, δώσε στο Signal πρόσβαση στην κάμερα.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Για να τραβήξεις φωτογραφίες και βίντεο, δώσε στο Signal πρόσβαση στην κάμερα.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Για να τραβήξεις φωτογραφίες και βίντεο, δώσε στο Signal πρόσβαση στην κάμερα και στο μικρόφωνο.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Για να τραβήξεις βίντεο με ήχο, δώσε στο Signal πρόσβαση στο μικρόφωνο.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Για να σαρώσεις έναν κωδικό QR, δώσε στο Signal πρόσβαση στην κάμερά.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Το Signal χρειάζεται πρόσβαση στην κάμερα για τη λήψη φωτογραφιών</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Το Signal χρειάζεται πρόσβαση στην κάμερα για τη σάρωση κωδικών QR</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Το Signal χρειάζεται πρόσβαση στο μικρόφωνο για τη λήψη βίντεο</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Για τη λήψη φωτογραφιών στο Signal:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Για τη λήψη φωτογραφιών και βίντεο στο Signal:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+    <string name="CameraXFragment_to_capture_videos">Για τη λήψη βίντεο με ήχο:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+    <string name="CameraXFragment_to_scan_qr_codes">Για τη σάρωση κωδικών QR:</string>
 
     <!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Πρόσφατες επαφές</string>
@@ -271,7 +272,7 @@
     <string name="CameraContacts_no_signal_contacts">Δεν υπάρχουν επαφές Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Μπορείς να στείλεις φωτογραφίες σε επαφές Signal μόνο χρησιμοποιώντας το κουμπί της κάμερας. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Δεν βρήκες αυτόν ή αυτήν που ψάχνεις;</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Προσκάλεσε μια επαφή σου να έρθει στο Signal</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Προσκάλεσε μια επαφή σου να έρθει στο Molly</string>
     <string name="CameraContacts__menu_search">Αναζήτηση</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -285,12 +286,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Όχι, ευχαριστώ</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Αναβάθμιση του Signal</string>
+    <string name="ClientDeprecatedActivity_update_signal">Αναβάθμιση του Molly</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Αυτή η έκδοση της εφαρμογής δεν υποστηρίζεται πιά. Για να συνεχίσεις να στέλνεις και να λαμβάνεις μηνύματα, αναβάθμισε στην πιο πρόσφατη έκδοση.</string>
     <string name="ClientDeprecatedActivity_update">Ενημέρωση</string>
     <string name="ClientDeprecatedActivity_dont_update">Να μην αναβαθμιστεί</string>
     <string name="ClientDeprecatedActivity_warning">Προσοχή</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Η έκδοση του Signal έχει λήξει. Μπορείς να δεις το ιστορικό μηνυμάτων αλλά δεν θα μπορείς να στέλνεις ή να λαμβάνεις μηνύματα μέχρι να κάνεις αναβάθμιση.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Η έκδοση του Molly έχει λήξει. Μπορείς να δεις το ιστορικό μηνυμάτων αλλά δεν θα μπορείς να στέλνεις ή να λαμβάνεις μηνύματα μέχρι να κάνεις αναβάθμιση.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Δεν βρέθηκε περιηγητής.</string>
@@ -327,8 +328,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Μήνυμα %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Φωνητική κλήση Molly %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Βιντεοκλήση Molly %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -422,7 +423,7 @@
     <string name="ConversationActivity_transport_signal">Μήνυμα Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Αποστολή μηνύματος</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Έλα να χρησιμοποιήσουμε το Signal %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Έλα να χρησιμοποιήσουμε το Molly %1$s</string>
     <string name="ConversationActivity_specify_recipient">Επίλεξε μια επαφή</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Το συνημμένο υπερβαίνει τα όρια μεγέθους για τον τύπο μηνύματος που στέλνεις.</string>
     <string name="ConversationActivity_unable_to_record_audio">Η ηχογράφηση απέτυχε!</string>
@@ -441,18 +442,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Για να στείλεις ηχητικά μηνύματα:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Για να στείλεις φωνητικά μηνύματα, δώσε στο Signal πρόσβαση στο μικρόφωνο.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Για να στείλεις φωνητικά μηνύματα, δώσε στο Molly πρόσβαση στο μικρόφωνο.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Το Signal χρειάζεται πρόσβαση στο μικρόφωνο για ηχογράφηση φωνητικού μηνύματος.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Το Signal χρειάζεται τα δικαιώματα μικροφώνου για την αποστολή μηνυμάτων ήχου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επίλεξε τα «Δικαιώματα», και ενεργοποίησε το «Μικρόφωνο».</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Το Molly χρειάζεται πρόσβαση στο μικρόφωνο για ηχογράφηση φωνητικού μηνύματος.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Το Molly χρειάζεται τα δικαιώματα μικροφώνου για την αποστολή μηνυμάτων ήχου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επίλεξε τα «Δικαιώματα», και ενεργοποίησε το «Μικρόφωνο».</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Το Signal χρειάζεται τα δικαιώματα μικροφώνου και κάμερας για να καλέσεις τον/την %1$s, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε το «Μικρόφωνο» και «Κάμερα».</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Για να τραβήξεις φωτογραφίες και βίντεο, δώσε στο Signal πρόσβαση στην κάμερα.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Το Signal χρειάζεται τα δικαιώματα κάμερας για τη λήψη φωτογραφίων και βίντεο, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε την «Κάμερα».</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Το Signal χρειάζεται τα δικαιώματα κάμερας για λήψη φωτογραφιών ή βίντεο</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Το Molly χρειάζεται τα δικαιώματα μικροφώνου και κάμερας για να καλέσεις τον/την %1$s, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε το «Μικρόφωνο» και «Κάμερα».</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Για να τραβήξεις φωτογραφίες και βίντεο, δώσε στο Molly πρόσβαση στην κάμερα.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Το Molly χρειάζεται τα δικαιώματα κάμερας για τη λήψη φωτογραφίων και βίντεο, αλλά αυτά δεν έχουν δοθεί μόνιμα. Πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα «Δικαιώματα», και ενεργοποίησε την «Κάμερα».</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Το Molly χρειάζεται τα δικαιώματα κάμερας για λήψη φωτογραφιών ή βίντεο</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Ενεργοποίησε την άδεια μικροφώνου για λήψη βίντεο με ήχο.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Το Signal χρειάζεται τα δικαιώματα μικροφώνου για τη λήψη βίντεο , αλλά αυτά δεν έχουν δοθεί. Πήγαινε στις ρυθμίσεις εφαρμογών, επίλεξε τα «Δικαιώματα», και ενεργοποίησε το «Μικρόφωνο» και την «Κάμερα».</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Το Signal χρειάζεται τα δικαιώματα μικροφώνου για να τραβήξει βίντεο.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Το Molly χρειάζεται τα δικαιώματα μικροφώνου για τη λήψη βίντεο , αλλά αυτά δεν έχουν δοθεί. Πήγαινε στις ρυθμίσεις εφαρμογών, επίλεξε τα «Δικαιώματα», και ενεργοποίησε το «Μικρόφωνο» και την «Κάμερα».</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Το Molly χρειάζεται τα δικαιώματα μικροφώνου για να τραβήξει βίντεο.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Όχι</string>
@@ -473,9 +474,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Για να ξεκινήσεις μία κλήση:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Για να ξεκινήσεις μια κλήση, δώσε στο Signal την πρόσβαση στο μικρόφωνο.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Για να ξεκινήσεις μια κλήση, δώσε στο Molly την πρόσβαση στο μικρόφωνο.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Το Signal χρειάζεται πρόσβαση στο μικρόφωνο για να ξεκινήσει μια κλήση.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Το Molly χρειάζεται πρόσβαση στο μικρόφωνο για να ξεκινήσει μια κλήση.</string>
 
 
     <string name="ConversationActivity_join">Μπες στην κλήση</string>
@@ -489,9 +490,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Η ανταλλαγή μηνυμάτων SMS δεν υποστηρίζεται πλέον στο Signal. Προσκάλεσε τον χρήστη %1$s στο Signal για να κρατήσεις εδώ τη συνομιλία.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Αυτό το άτομο δεν χρησιμοποιεί πλέον το Signal. Προσκάλεσέ το στο Signal για να κρατήσεις εδώ τη συνομιλία.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Αυτό το άτομο δεν χρησιμοποιεί πλέον το Molly. Προσκάλεσέ το στο Molly για να κρατήσεις εδώ τη συνομιλία.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Πρόσκληση στο Signal</string>
+    <string name="ConversationActivity__invite_to_signal">Πρόσκληση στο Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Θα σου το θυμίσουμε ξανά σύντομα.</string>
 
@@ -545,6 +546,8 @@
     <string name="ConversationFragment_delete_for_everyone">Διαγραφή για όλους</string>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">Διαγραφή από αυτή τη συσκευή</string>
+    <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
+    <string name="ConversationFragment_delete">Διαγραφή</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Διαγραφή από όλες τις συσκευές</string>
     <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Αυτό το μήνυμα θα διαγραφεί για όλα τα άτομα στη συνομιλία, αν έχουν μια πρόσφατη έκδοση του Signal. Θα μπορούν να δουν ότι διέγραψες ένα μήνυμα.</string>
@@ -576,13 +579,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Λίστα αποκλεισμού</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Αναβάθμιση του Signal</string>
+    <string name="ConversationFragment__update_build">Αναβάθμιση του Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Νέα εγγραφή στο Signal</string>
+    <string name="ConversationFragment__reregister_signal">Νέα εγγραφή στο Molly</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Περιήγηση προς τα πίσω.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Άνοιγμα Signal</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Άνοιγμα Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Δεν έχει πλέον επαλήθευση</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -646,6 +649,11 @@
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">Η επιλεγμένη συνομιλία θα διαγραφεί οριστικά.</item>
         <item quantity="other">Και οι %1$d επιλεγμένες συνομιλίες θα διαγραφούν οριστικά.</item>
+    </plurals>
+    <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
+        <item quantity="one">Αυτή η ενέργεια θα διαγράψει οριστικά και την επιλεγμένη συνομιλία από όλες σου τις συσκευές.</item>
+        <item quantity="other">Αυτή η ενέργεια θα διαγράψει οριστικά όλες τις %1$d επιλεγμένες συνομιλίες από όλες σου τις συσκευές.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">Γίνεται διαγραφή</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
@@ -736,9 +744,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Ποιοί μπορούν να με βρουν με τον αριθμό μου;</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Όποιος έχει τον αριθμό τηλεφώνου σου θα βλέπει ότι είσαι στο Signal και θα μπορεί να ξεκινήσει συνομιλία μαζί σου.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Όποιος έχει τον αριθμό τηλεφώνου σου θα βλέπει ότι είσαι στο Molly και θα μπορεί να ξεκινήσει συνομιλία μαζί σου.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Κανείς δεν θα μπορεί να δει ότι είσαι στο Signal εκτός και αν στείλεις μήνυμα ή δεν έχεις ήδη μια συνομιλία μαζί του.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Κανείς δεν θα μπορεί να δει ότι είσαι στο Molly εκτός και αν στείλεις μήνυμα ή δεν έχεις ήδη μια συνομιλία μαζί του.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Επαναφορά από αντίγραφο ασφαλείας;</string>
@@ -772,7 +780,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Δοκίμασε το συνθηματικό του αντιγράφου ασφαλείας σου και επιβεβαίωσε ότι ταιριάζει.</string>
     <string name="BackupsPreferenceFragment__turn_on">Ενεργοποίηση</string>
     <string name="BackupsPreferenceFragment__turn_off">Απενεργοποίηση</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Για να ανακτήσεις ένα αντίγραφο ασφαλείας, εγκατέστησε από την αρχή το Signal. Άνοιξε την εφαρμογή, πάτα \"Επαναφορά αντίγραφου ασφαλείας\" και εντόπισε ένα αρχείο - αντίγραφο ασφαλείας. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Για να ανακτήσεις ένα αντίγραφο ασφαλείας, εγκατέστησε από την αρχή το Molly. Άνοιξε την εφαρμογή, πάτα \"Επαναφορά αντίγραφου ασφαλείας\" και εντόπισε ένα αρχείο - αντίγραφο ασφαλείας. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Μάθε περισσότερα</string>
     <string name="BackupsPreferenceFragment__in_progress">Σε εξέλιξη…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -780,7 +788,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d μέχρι τώρα…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% μέχρι τώρα…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Το Signal χρειάζεται τα δικαιώματα πρόσβασης εξωτερικής μνήμης για τη δημιουργία αντιγράφων ασφαλείας, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Το Molly χρειάζεται τα δικαιώματα πρόσβασης εξωτερικής μνήμης για τη δημιουργία αντιγράφων ασφαλείας, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Ορισμός ώρας δημιουργίας αντίγραφου ασφαλείας</string>
 
@@ -847,7 +855,62 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Η συνομιλία ανανεώθηκε</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Το Signal χρησιμοποιεί κρυπτογράφηση από άκρο σε άκρο και ίσως χρειάζεται να ανανεώσει τη συνέδρια της συνομιλίας σου μερικές φορές. Αυτό δεν επηρεάζει την ασφάλεια της συνομιλίας, αλλά ίσως χάσεις κάποιο μήνυμα από αυτή την επαφή, οπότε μπορείς να του/της ζητήσεις να το ξαναστείλει.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Το Molly χρησιμοποιεί κρυπτογράφηση από άκρο σε άκρο και ίσως χρειάζεται να ανανεώσει τη συνέδρια της συνομιλίας σου μερικές φορές. Αυτό δεν επηρεάζει την ασφάλεια της συνομιλίας, αλλά ίσως χάσεις κάποιο μήνυμα από αυτή την επαφή, οπότε μπορείς να του/της ζητήσεις να το ξαναστείλει.</string>
+
+    <!-- LinkDeviceFragment -->
+    <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Χρησιμοποίησε το Signal σε υπολογιστή ή iPad. Τα μηνύματά σου θα συγχρονιστούν στις συνδεδεμένες συσκευές σου.</string>
+    <!-- Button prompting users to link a new device to their account -->
+    <string name="LinkDeviceFragment__link_a_new_device">Σύνδεση νέας συσκευής</string>
+    <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
+    <string name="LinkDeviceFragment__messages_and_chat_info_are_protected">%1$s Τα μηνύματα και οι πληροφορίες συνομιλίας προστατεύονται με κρυπτογράφηση από άκρο σε άκρο σε όλες τις συσκευές</string>
+    <!-- Bottom sheet title explaining how Signal works on a linked device -->
+    <string name="LinkDeviceFragment__signal_on_desktop_ipad">Signal στον υπολογιστή ή το iPad</string>
+    <!-- Bottom sheet description explaining that messages on linked devices are private -->
+    <string name="LinkDeviceFragment__all_messaging_is_private">Όλα τα μηνύματα στις συνδεδεμένες συσκευές είναι ιδιωτικά</string>
+    <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
+    <string name="LinkDeviceFragment__signal_messages_are_synchronized">Τα μηνύματα Molly συγχρονίζονται με το Molly στο τηλέφωνό σου, αφού αυτό συνδεθεί. Το προηγούμενο ιστορικό μηνυμάτων σου δεν θα εμφανιστεί.</string>
+    <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">Στην άλλη συσκευή σου, επισκέψου το %1$s για να εγκαταστήσεις το Molly</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
+    <!-- Header title listing out current linked devices -->
+    <string name="LinkDeviceFragment__my_linked_devices">Οι συνδεδεμένες συσκευές μου</string>
+    <!-- Dialog confirmation to unlink a device -->
+    <string name="LinkDeviceFragment__unlink">Αποσύνδεση</string>
+    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_unlinked">%1$s αποσυνδέθηκε</string>
+    <!-- Progress dialog message indicating that a device is currently being linked with an account -->
+    <string name="LinkDeviceFragment__linking_device">Σύνδεση συσκευής…</string>
+    <!-- Toast message shown after a device has been linked -->
+    <string name="LinkDeviceFragment__device_approved">Η συσκευή εγκρίθηκε</string>
+    <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
+    <string name="LinkDeviceFragment__loading">Φόρτωση…</string>
+    <!-- Text message shown when the user has no linked devices -->
+    <string name="LinkDeviceFragment__no_linked_devices">Δεν υπάρχουν συνδεδεμένες συσκευές</string>
+    <!-- Title on biometrics prompt explaining what biometrics are being used for -->
+    <string name="LinkDeviceFragment__unlock_to_link">Ξεκλείδωμα για σύνδεση συσκευής</string>
+
+    <!-- AddLinkDeviceFragment -->
+    <!-- Description text shown on the QR code scanner when linking a device -->
+    <string name="AddLinkDeviceFragment__scan_the_qr_code">Σκάναρε το QR code που εμφανίζεται στη συσκευή για να γίνει η σύνδεση.</string>
+    <!-- Bottom sheet title telling users to scan a qr code -->
+    <string name="AddLinkDeviceFragment__scan_qr_code">Σκανάρισμα κωδικού QR</string>
+    <!-- Bottom sheet description telling users how to scan a qr code -->
+    <string name="AddLinkDeviceFragment__use_this_device_to_scan_qr_code">Χρησιμοποίησε αυτή τη συσκευή για να σκανάρεις τον κωδικό QR που εμφανίζεται στη συσκευή που θέλεις να συνδέσεις</string>
+    <!-- Confirmation button to dismiss bottom sheet dialog -->
+    <string name="AddLinkDeviceFragment__okay">Εντάξει</string>
+    <!-- Dialog text describing the consequences of linking a device -->
+    <string name="AddLinkDeviceFragment__this_device_will_see_your_groups_contacts">Αυτή η συσκευή θα μπορεί να βλέπει τις ομάδες και τις επαφές σου, να έχει πρόσβαση στις συνομιλίες σου και να στέλνει μηνύματα σαν να είναι εσύ.</string>
+    <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
+    <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Ολοκλήρωσε τη σύνδεση στην άλλη συσκευή σου</string>
+    <!-- Bottom sheet description telling users to complete the linking process -->
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Ολοκλήρωσε τη σύνδεση του Molly στην άλλη συσκευή σου.</string>
+    <!-- Title of dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__linking_device_failed">Αποτυχία σύνδεσης συσκευής</string>
+    <!-- Text shown in a dialog when the QR code being scanned is invalid -->
+    <string name="AddLinkDeviceFragment__this_qr_code_not_valid">Αυτός ο κωδικός QR δεν είναι έγκυρος. Βεβαιώσου ότι σκανάρεις τον κωδικό QR που εμφανίζεται στη συσκευή που θέλεις να συνδέσεις.</string>
+    <!-- Button in dialog to retry linking a device with a qr code -->
+    <string name="AddLinkDeviceFragment__retry">Επανάληψη</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">Αποσύνδεση του \'%1$s\';</string>
@@ -869,10 +932,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Βελτιστοποίηση για τις υπηρεσίες Play που λείπουν</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Αυτή η συσκευή δεν υποστηρίζει τις υπηρεσίες Play. Πάτα για απενεργοποίηση των βελτιστοποιήσεων μπαταρίας του συστήματος που εμποδίζουν το Signal από το να λαμβάνει μηνύματα όταν είναι ανενεργό.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Αυτή η συσκευή δεν υποστηρίζει τις υπηρεσίες Play. Πάτα για απενεργοποίηση των βελτιστοποιήσεων μπαταρίας του συστήματος που εμποδίζουν το Molly από το να λαμβάνει μηνύματα όταν είναι ανενεργό.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Αυτή η έκδοση Signal έχει λήξει. Αναβάθμισε τώρα για να στείλεις και να λάβεις μηνύματα.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Αυτή η έκδοση Molly έχει λήξει. Αναβάθμισε τώρα για να στείλεις και να λάβεις μηνύματα.</string>
     <string name="ExpiredBuildReminder_update_now">Αναβάθμιση τώρα</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -883,8 +946,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">Εμφάνιση</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Μόνιμη αποτυχία επικοινωνίας του Signal!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Το Signal δεν μπόρεσε να εγγραφτεί στις Υπηρεσίες Google Play. Τα μηνύματα και οι κλήσεις του Signal έχουν απενεργοποιηθεί. Παρακαλώ προσπάθησε να επανεγγραφτείς στις Ρυθμίσεις &gt; Προχωρημένες Ρυθμίσεις.</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Μόνιμη αποτυχία επικοινωνίας του Molly!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Το Molly δεν μπόρεσε να εγγραφτεί στις Υπηρεσίες Google Play. Τα μηνύματα και οι κλήσεις του Molly έχουν απενεργοποιηθεί. Παρακαλώ προσπάθησε να επανεγγραφτείς στις Ρυθμίσεις &gt; Προχωρημένες Ρυθμίσεις.</string>
 
 
     <!-- GiphyActivity -->
@@ -1023,20 +1086,30 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Τα αρχεία συμβάντων αποσφαλμάτωσης βοηθούν να διαγνώσουμε και να διορθώσουμε το πρόβλημα και δεν περιλαμβάνουν πληροφορίες ταυτοποίησης.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Το Signal αντιμετώπισε πρόβλημα. Αποστολή αρχείου συμβάντων αποσφαλμάτωσης;</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Το Molly αντιμετώπισε πρόβλημα. Αποστολή αρχείου συμβάντων αποσφαλμάτωσης;</string>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Οι ειδοποιήσεις ενδέχεται να καθυστερήσουν λόγω βελτιστοποιήσεων της μπαταρίας</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Μπορείς να απενεργοποιήσεις τις βελτιστοποιήσεις μπαταρίας για το Signal για να διασφαλίσεις ότι οι ειδοποιήσεις μηνυμάτων δεν θα καθυστερούν.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Μπορείς να απενεργοποιήσεις τις βελτιστοποιήσεις μπαταρίας για το Molly για να διασφαλίσεις ότι οι ειδοποιήσεις μηνυμάτων δεν θα καθυστερούν.</string>
+
+    <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
+    <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Οι ειδοποιήσεις ενδέχεται να καθυστερήσουν λόγω βελτιστοποιήσεων της μπαταρίας</string>
+    <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Απενεργοποίησε τις βελτιστοποιήσεις μπαταρίας για το Molly για να διασφαλίσεις ότι οι ειδοποιήσεις μηνυμάτων δεν θα καθυστερούν. Πάτα \"Συνέχεια\" για να δεις τις οδηγίες που αφορούν την εκάστοτε συσκευή.</string>
+    <!-- Button to dismiss notification help prompt -->
+    <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Όχι, ευχαριστώ</string>
+    <!-- Button to continue and go to Signal support website -->
+    <string name="DeviceSpecificNotificationBottomSheet__continue">Συνέχεια</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Συνέχεια</string>
     <!-- Button to dismiss battery saver dialog prompt-->
-    <string name="PromptBatterySaverBottomSheet__dismiss">Απόρριψη</string>
+    <string name="PromptBatterySaverBottomSheet__no_thanks">Όχι, ευχαριστώ</string>
+  <!-- Removed by excludeNonTranslatables <string name="PromptBatterySaverBottomSheet__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007318711#android_notifications_troubleshooting</string> -->
 
     <!-- PendingMembersActivity -->
-    <string name="PendingMembersActivity_pending_group_invites">Προσκλήσεις σε ομάδες που εκκρεμούν</string>
+    <string name="PendingMembersActivity_pending_group_invites">Αιτήματα &amp; προσκλήσεις</string>
     <string name="PendingMembersActivity_requests">Αιτήματα</string>
     <string name="PendingMembersActivity_invites">Προσκλήσεις</string>
     <string name="PendingMembersActivity_people_you_invited">Άτομα που έχεις προσκαλέσει</string>
@@ -1283,13 +1356,13 @@
     <string name="InviteActivity_cancel">Ακύρωση</string>
     <string name="InviteActivity_sending">Στέλνεται…</string>
     <string name="InviteActivity_invitations_sent">Οι προσκλήσεις στάλθηκαν!</string>
-    <string name="InviteActivity_invite_to_signal">Πρόσκληση στο Signal</string>
+    <string name="InviteActivity_invite_to_signal">Πρόσκληση στο Molly</string>
     <string name="InviteActivity_send_sms">Αποστολή SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Αποστολή %1$d πρόσκλησης με SMS;</item>
         <item quantity="other">Αποστολή %1$d προσκλήσεων με SMS;</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Έλα να χρησιμοποιήσουμε το Signal: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Έλα να χρησιμοποιήσουμε το Molly: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">Φαίνεται πως δεν έχεις κάποια εφαρμογή στην οποία μπορείς να μοιραστείς.</string>
 
     <!-- LearnMoreTextView -->
@@ -1303,7 +1376,7 @@
     <string name="LongMessageActivity_your_message">Το μήνυμά σου</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">Η σύνδεση στο παρασκήνιο ενεργοποιήθηκε</string>
 
     <!-- MediaOverviewActivity -->
@@ -1372,10 +1445,10 @@
     <string name="MessageQuotesBottomSheet_replies">Απαντήσεις</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Γίνεται κλήση Signal</string>
+    <string name="NotificationBarManager__establishing_signal_call">Γίνεται κλήση Molly</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Έναρξη υπηρεσίας κλήσεων Signal</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Η υπηρεσία κλήσεων του Signal σταματάει</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Έναρξη υπηρεσίας κλήσεων Molly</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Η υπηρεσία κλήσεων του Molly σταματάει</string>
     <string name="NotificationBarManager__cancel_call">Ακύρωση κλήσης</string>
 
     <!-- NotificationsMegaphone -->
@@ -1627,6 +1700,14 @@
     <string name="MessageRecord_you_activated_payments">Ενεργοποίησες τις πληρωμές</string>
     <!-- Message to inform sender that recipient can now accept payments -->
     <string name="MessageRecord_can_accept_payments">Ο χρήστης %1$s μπορεί να αποδεχτεί πληρωμές</string>
+    <!-- Message shown to inform user that a payment is missing details due to restore -->
+    <string name="MessageRecord_payments_restore_tombstone">Τα στοιχεία πληρωμής δεν είναι διαθέσιμα</string>
+    <!-- Message shown to inform user to tap the payment to learn more about why the details arent available -->
+    <string name="MessageRecord_payments_restore_tombstone_tap_more">Πάτα για περισσότερα</string>
+    <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
+    <string name="PaymentTombstoneLearnMoreDialog_title">Τα στοιχεία πληρωμής δεν είναι διαθέσιμα</string>
+    <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
+    <string name="PaymentTombstoneLearnMoreDialog_message">Τα στοιχεία αυτής της πληρωμής δεν είναι διαθέσιμα, επειδή τα μηνύματά σου αποκαταστάθηκαν από μια πηγή που δεν περιείχε αυτό το ιστορικό πληρωμών. Αυτό δεν επηρεάζει το υπόλοιπο του πορτοφολιού σου ή την κατάσταση των προηγούμενων πληρωμών.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1683,9 +1764,11 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Σύντομα, δεν θα μπορείς πια να στείλεις μηνύματα SMS στο Signal. Προσκάλεσε τον χρήστη %1$s στο Signal για να κρατήσεις εδώ τη συνομιλία.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Δεν θα μπορείς πια να στείλεις μηνύματα SMS στο Signal. Προσκάλεσε τον χρήστη %1$s στο Signal για να κρατήσεις εδώ τη συνομιλία.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Δεν θα μπορείς πια να στείλεις μηνύματα SMS στο Molly. Προσκάλεσε τον χρήστη %1$s στο Molly για να κρατήσεις εδώ τη συνομιλία.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Πληρωμή: %1$s</string>
+    <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+    <string name="MessageRecord__payment_tombstone">Πληρωμή</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Έγινε αναφορά ως ανεπιθύμητο</string>
     <!-- Update message shown in chat after accept a message request -->
@@ -1763,7 +1846,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Σύνδεση κάποιας συσκευής Signal;</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Φαίνεται πως προσπαθείς να συνδέσεις μια συσκευή Signal χρησιμοποιώντας κάποιο άλλο πρόγραμμα σκαναρίσματος. Για την προστασία σου, παρακαλώ σκάναρε ξανά τον κωδικό μέσω του Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Το Signal χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Το Molly χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Δεν μπορούμε να σκανάρουμε QR κωδικούς χωρίς τα δικαιώματα Κάμερας</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1776,11 +1859,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Εισαγωγή συνθηματικού</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Εικονίδιο Signal</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Εικονίδιο Molly</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Καταχώρηση συνθηματικού</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Μη έγκυρο συνθηματικό!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Ξεκλείδωσε το Signal</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Κλείδωμα οθόνης</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Ξεκλείδωσε το Molly</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Κλείδωμα οθόνης</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Χάρτης</string>
@@ -1847,7 +1930,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Επιβεβαίωσε για να συνεχίσεις να συνομιλείς</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Για να περιορίσουμε το spam στο Signal, παρακαλούμε ολοκλήρωσε την επιβεβαίωση.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Για να περιορίσουμε το spam στο Molly, παρακαλούμε ολοκλήρωσε την επιβεβαίωση.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Αφού επιβεβαιώσεις, θα μπορέσεις να συνεχίσεις να στέλνεις μηνύματα. Όσα μηνύματα βρίσκονται σε αναμονή θα αποσταλλούν αυτόματα.</string>
 
     <!-- Recipient -->
@@ -1855,7 +1938,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Η ιστορία μου</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Κλήση Signal</string>
+    <string name="Recipient_signal_call">Κλήση Molly</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Αποκλεισμός</string>
@@ -1869,7 +1952,8 @@
     <string name="RedPhone_ringing">Χτυπάει…</string>
     <string name="RedPhone_busy">Απασχολημένος/η</string>
     <string name="RedPhone_recipient_unavailable">Μη διαθέσιμος αποδέκτης</string>
-    <string name="RedPhone_network_failed">Αποτυχία δικτύου!</string>
+    <!-- Error message shown during a call when a fatal network error occurs. -->
+    <string name="RedPhone_network_failed">Αποτυχία δικτύου! Έλεγξε τη σύνδεση στο δίκτυο και προσπάθησε ξανά.</string>
     <string name="RedPhone_number_not_registered">Ο αριθμός δεν είναι εγγεγραμμένος!</string>
     <string name="RedPhone_the_number_you_dialed_does_not_support_secure_voice">Ο αριθμός που κάλεσες δεν υποστηρίζει ασφαλή φωνή!</string>
     <string name="RedPhone_got_it">Εντάξει</string>
@@ -1880,8 +1964,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Πάτα εδώ για να ενεργοποιήσεις το βίντεό σου</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Για να καλέσεις τον/την %1$s, το Signal χρειάζεται πρόσβαση στην κάμερά σου</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Για να καλέσεις τον/την %1$s, το Molly χρειάζεται πρόσβαση στην κάμερά σου</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">Καλεί…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Επανασύνδεση…</string>
@@ -1935,10 +2019,30 @@
     <string name="WebRtcCallActivity__removed_from_call">Αφαιρέθηκε από την κλήση</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Κάποιος σε αφαίρεσε από την κλήση.</string>
+    <!-- Dialog title asking users for camera and microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Να δοθεί πρόσβαση στην κάμερα και στο μικρόφωνο</string>
+    <!-- Dialog title asking users for microphone permission -->
+    <string name="WebRtcCallActivity__allow_access_microphone">Να δοθεί πρόσβαση στο μικρόφωνο</string>
+    <!-- Dialog title asking users for camera permission -->
+    <string name="WebRtcCallActivity__allow_access_camera">Να δοθεί πρόσβαση στην κάμερα</string>
+    <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Για να ξεκινήσεις ή να μπεις σε μια κλήση, δώσε στο Molly πρόσβαση στην κάμερα και στο μικρόφωνό σου.</string>
+    <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__to_start_call_microphone">Για να ξεκινήσεις ή να μπεις σε μια κλήση, δώσε στο Molly πρόσβαση στο μικρόφωνό σου.</string>
+    <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Για να ενεργοποιήσεις το βίντεο, δώσε στο Molly πρόσβαση στην κάμερά σου.</string>
+    <!-- Toast describing why microphone permissions are needed to start or join a call -->
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Το Molly χρειάζεται τα δικαιώματα μικροφώνου για να ξεκινήσεις ή να μπεις σε μία συνομιλία.</string>
+    <!-- Toast describing why camera permissions are needed to enable a video in a call -->
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Το Molly χρειάζεται πρόσβαση στην κάμερα για ενεργοποίηση του βίντεο</string>
+    <!-- Dialog description that will explain the steps needed to give microphone permissions -->
+    <string name="WebRtcCallActivity__to_start_call">Για να ξεκινήσεις ή να μπεις σε μία κλήση:</string>
+    <!-- Dialog description that will explain the steps needed to give camera permissions -->
+    <string name="WebRtcCallActivity__to_enable_video">Για να ενεργοποιήσεις το βίντεο:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Κλήση Signal</string>
-    <string name="WebRtcCallView__signal_video_call">Βιντεοκλήση Signal</string>
+    <string name="WebRtcCallView__signal_call">Κλήση Molly</string>
+    <string name="WebRtcCallView__signal_video_call">Βιντεοκλήση Molly</string>
     <string name="WebRtcCallView__start_call">Έναρξη κλήσης</string>
     <string name="WebRtcCallView__join_call">Είσοδος στην κλήση</string>
     <string name="WebRtcCallView__call_is_full">Η κλήση είναι γεμάτη</string>
@@ -2028,22 +2132,41 @@
     <!-- A dialog prompt to confirm you want to lower your hand -->
     <string name="CallOverflowPopupWindow__lower_your_hand">Θες να κατεβάσεις το χέρι σου;</string>
     <!-- A dialog button to confirm you would like to lower your hand -->
-    <string name="CallOverflowPopupWindow__lower_hand">Κατέβασε το χέρι σου</string>
+    <string name="CallOverflowPopupWindow__lower_hand">Κατέβασέ το</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Ακύρωση</string>
-    <!-- A notification to the user that they successfully raised their hand -->
-    <string name="CallOverflowPopupWindow__you_raised_your_hand">Σήκωσες το χέρι σου</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Εμφάνιση</string>
 
-    <!-- A notification to the user that one or more participants in the call successfully raised their hand. In the singular case, it is a name. In the plural case, it is a name or "You" -->
-    <plurals name="CallOverflowPopupWindow__raised_a_hand">
-        <item quantity="one">Ο χρήστης %1$s σήκωσε χέρι</item>
-        <item quantity="other">Οι χρήστες %1$s + %2$d σήκωσαν χέρι</item>
+
+    <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s σήκωσες το χέρι σου</string>
+    <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_multiple">
+        <item quantity="one">%1$s + %2$d χρήστης σηκώσατε το χέρι σας</item>
+        <item quantity="other">%1$s + %2$d χρήστες σηκώσατε το χέρι σας</item>
     </plurals>
 
-    <!-- A badge to show how many hands are raised. The first string may be a name or "You" -->
-    <plurals name="CallRaiseHandSnackbar_raised_hands">
+    <!-- A notification to the user that one participant in the call successfully raised their hand. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_single">Ο χρήστης %1$s σήκωσε το χέρι του</string>
+    <!-- A notification to the user that two or more participants in the call successfully raised their hand. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__expanded_third_person_raised_a_hand_multiple">
+        <item quantity="one">Οι χρήστες %1$s +%2$d σήκωσαν το χέρι τους</item>
+        <item quantity="other">Οι χρήστες %1$s + %2$d σήκωσαν το χέρι τους</item>
+    </plurals>
+
+    <!-- A badge to show the user has their hand raised. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
+    <string name="CallRaiseHandSnackbar__collapsed_second_person_raised_hand_single">%1$s</string>
+    <!-- A badge to show the user and at least one other participant in the call have their hand raised. The placeholder is a number quantifying how many other hands are also raised, besides the user.  -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_second_person_raised_hands_multiple">
+        <item quantity="one">%1$s</item>
+        <item quantity="other">%1$s +%2$d</item>
+    </plurals>
+
+    <!-- A badge to show how many hands are raised. The placeholder string is a name. -->
+    <string name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_singular">%1$s</string>
+    <!-- A badge to show how many hands are raised. The first placeholder is a name. The second placeholder is a number quantifying how many other hands are also raised, in addition to the name. -->
+    <plurals name="CallRaiseHandSnackbar__collapsed_third_person_raised_hands_multiple">
         <item quantity="one">%1$s</item>
         <item quantity="other">%1$s +%2$d</item>
     </plurals>
@@ -2134,7 +2257,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Θα λάβεις μια κλήση για την επαλήθευση αυτού του αριθμού.</string>
     <string name="RegistrationActivity_edit_number">Επεξεργασία αριθμού</string>
     <string name="RegistrationActivity_missing_google_play_services">Υπηρεσίες Google Play που λείπουν</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Αυτή η συσκευή δεν έχει τις Υπηρεσίες Google Play. Μπορείς και πάλι να χρησιμοποιήσεις το Signal, αλλά αυτή η διαμόρφωση μπορεί να οδηγήσει σε μειωμένη αξιοπιστία και επιδόσεις.\n\nΑν δεν είσαι προηγμένος/η χρήστης, αν δεν έχεις εγκαταστήσει κάποιο εναλλακτικό Android ROM, ή αν νομίζεις πως βλέπεις αυτό το μήνυμα από λάθος, παρακαλώ επικοινώνησε με το support@signal.org για να σε βοηθήσουμε με την αποσφαλμάτωση.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Αυτή η συσκευή δεν έχει τις Υπηρεσίες Google Play. Μπορείς και πάλι να χρησιμοποιήσεις το Molly, αλλά αυτή η διαμόρφωση μπορεί να οδηγήσει σε μειωμένη αξιοπιστία και επιδόσεις.\n\nΑν δεν είσαι προηγμένος/η χρήστης, αν δεν έχεις εγκαταστήσει κάποιο εναλλακτικό Android ROM, ή αν νομίζεις πως βλέπεις αυτό το μήνυμα από λάθος, παρακαλώ επικοινώνησε με το support@molly.im για να σε βοηθήσουμε με την αποσφαλμάτωση.</string>
     <string name="RegistrationActivity_i_understand">Καταλαβαίνω</string>
     <string name="RegistrationActivity_play_services_error">Σφάλμα υπηρεσιών Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Οι υπηρεσίες Google Play αναβαθμίζονται ή είναι προσωρινά μη διαθέσιμες. Παρακαλώ ξαναπροσπάθησε.</string>
@@ -2152,7 +2275,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Μη-τυπική μορφή αριθμού</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Ο αριθμός που έγραψες (%1$s) φαίνεται να μην έχει μια τυπική μορφή.n\nΜήπως εννοούσες %2$s;</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - Μορφή αριθμού τηλεφώνου</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Μορφή αριθμού τηλεφώνου</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Ζητήθηκε κλήση</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2186,8 +2309,8 @@
     <string name="RegistrationActivity_support_bottom_sheet_title">Αντιμετωπίζεις προβλήματα με την εγγραφή;</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• Βεβαιώσου ότι το τηλέφωνό σου διαθέτει σήμα κινητής τηλεφωνίας για να λάβεις το SMS ή την κλήση σου \n • Επιβεβαίωσε ότι μπορείς να δεχτείς τηλεφωνικές κλήσεις στον αριθμό \n • Έλεγξε ότι έχεις εισαγάγει σωστά τον αριθμό τηλεφώνου σου.</string>
-    <!--    A call to action for a user having trouble entering the verification to seek further help. -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Για περισσότερες πληροφορίες, ακολούθησε αυτά τα βήματα αντιμετώπισης προβλημάτων ή Επικοινώνησε με την Υποστήριξη</string>
+    <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">Για περισσότερες πληροφορίες, ακολούθησε τα εξής: %1$s ή %2$s</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">αυτά τα βήματα αντιμετώπισης προβλημάτων</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
@@ -2225,13 +2348,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Προσθήκη στις επαφές</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Πρόσκληση στο Signal</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Πρόσκληση στο Molly</string>
     <string name="SharedContactDetailsActivity_signal_message">Μήνυμα Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Κλήση Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Προσθήκη στις επαφές</string>
-    <string name="SharedContactView_invite_to_signal">Πρόσκληση στο Signal</string>
+    <string name="SharedContactView_invite_to_signal">Πρόσκληση στο Molly</string>
     <string name="SharedContactView_message">Μήνυμα Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2362,11 +2485,11 @@
     <string name="ThreadRecord_s_belongs_to_s">Ο αριθμός %1$s ανήκει στον χρήστη %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Αναβάθμιση Signal</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Μια νέα έκδοση του Signal είναι διαθέσιμη. Πάτα για ενημέρωση.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Αποτυχία ενημέρωσης Signal</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Αναβάθμιση Molly</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Μια νέα έκδοση του Molly είναι διαθέσιμη. Πάτα για ενημέρωση.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Αποτυχία ενημέρωσης Molly</string>
     <string name="ApkUpdateNotifications_failed_general_body">Θα προσπαθήσουμε ξανά αργότερα.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Το Signal ενημερώθηκε με επιτυχία</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Το Molly ενημερώθηκε με επιτυχία</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Έγινε αυτόματη ενημέρωση της εφαρμογής σου στην έκδοση %1$s.</string>
 
     <!-- UntrustedSendDialog -->
@@ -2437,7 +2560,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Ο αριθμός ασφαλείας μας:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Φαινεται πως δεν έχεις κάποια εφαρμογή με την οποία να μπορείς να μοιραστείς.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Δε βρέθηκε αριθμός ασφαλείας στο πρόχειρο για να γίνει σύγκριση</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Το Signal χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Το Molly χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Δεν μπορούμε να σκανάρουμε τον QR κωδικό χωρίς τα δικαιώματα Κάμερας</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Θα πρέπει πρώτα να ανταλλάξετε μηνύματα για να δείς τον αριθμό ασφαλείας του/της %1$s.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2467,14 +2590,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Πάτα για άνοιγμα.</string>
-    <string name="KeyCachingService_passphrase_cached">Το Signal ξεκλειδώθηκε</string>
-    <string name="KeyCachingService_lock">Κλείδωμα του Signal</string>
+    <string name="KeyCachingService_passphrase_cached">Το Molly ξεκλειδώθηκε</string>
+    <string name="KeyCachingService_lock">Κλείδωμα του Molly</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Εσύ</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Μη υποστηριζόμενος τύπος πολυμέσων</string>
     <string name="MediaPreviewActivity_draft">Πρόχειρο</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Το Signal χρειάζεται τα δικαιώματα Αποθηκευτικού Χώρου για αποθήκευση στην εξωτερική μνήμη, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Το Molly χρειάζεται τα δικαιώματα Αποθηκευτικού Χώρου για αποθήκευση στην εξωτερική μνήμη, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Αδυναμία αποθήκευσης στην εξωτερική μνήμη χωρίς δικαιώματα</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Διαγραφή μηνύματος;</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Αυτή η επιλογή θα διαγράψει οριστικά αυτό το μήνυμα.</string>
@@ -2518,7 +2641,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Αποτυχία παράδοσης του μηνύματος.</string>
     <string name="MessageNotifier_error_delivering_message">Σφάλμα κατά την παράδοση του μηνύματος.</string>
     <string name="MessageNotifier_message_delivery_paused">Αποστολή μηνύματος σε παύση.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Επαληθεύστε για να συνεχίσετε να αποστέλλετε μηνύματα στο Signal.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Επαληθεύστε για να συνεχίσετε να αποστέλλετε μηνύματα στο Molly.</string>
     <string name="MessageNotifier_mark_all_as_read">Σημείωση όλων ως αναγνωσμένα</string>
     <string name="MessageNotifier_mark_read">Σημείωση ως αναγνωσμένο</string>
     <string name="MessageNotifier_turn_off_these_notifications">Απενεργοποίηση αυτών των ειδοποιήσεων</string>
@@ -2540,7 +2663,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Αντέδρασε με %1$s στο αυτοκόλλητό σου.</string>
     <string name="MessageNotifier_this_message_was_deleted">Αυτό το μήνυμα διαγράφηκε.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Απενεργοποίηση των ειδοποιήσεων για επαφές που έρχονται στο Signal; Μπορείς να τις ενεργοποιήσεις ξανά στο Signal &gt; Ρυθμίσεις &gt; Ειδοποιήσεις.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Απενεργοποίηση των ειδοποιήσεων για επαφές που έρχονται στο Molly; Μπορείς να τις ενεργοποιήσεις ξανά στο Molly &gt; Ρυθμίσεις &gt; Ειδοποιήσεις.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2579,7 +2702,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Η γρήγορη απάντηση δεν είναι διαθέσιμη όταν το Signal είναι κλειδωμένο!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Η γρήγορη απάντηση δεν είναι διαθέσιμη όταν το Molly είναι κλειδωμένο!</string>
     <string name="QuickResponseService_problem_sending_message">Πρόβλημα με την αποστολή μηνύματος!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2599,7 +2722,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Μη έγκυρη συντόμευση</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Νέο μήνυμα</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Αίτημα μηνύματος</string>
     <string name="SingleRecipientNotificationBuilder_you">Εσύ</string>
@@ -2645,7 +2768,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Αυτή η συσκευή δεν είναι πλέον εγγεγραμμένη. Αυτό συνέβη μάλλον επειδή καταχώρησες τον αριθμό τηλεφώνου σου στο Signal σε άλλη συσκευή.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Αυτή η συσκευή δεν είναι πλέον εγγεγραμμένη. Αυτό συνέβη μάλλον επειδή καταχώρησες τον αριθμό τηλεφώνου σου στο Molly σε άλλη συσκευή.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Επανεγγραφή συσκευής</string>
 
@@ -2658,10 +2781,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Για να απαντήσεις στη κλήση, δώσε στο Signal πρόσβαση στο μικρόφωνο.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Για να απαντήσεις στη κλήση, δώσε στο Molly πρόσβαση στο μικρόφωνο.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Για να απαντήσεις στη βιντεοκλήση, δώσε στο Signal πρόσβαση στο μικρόφωνο και στην κάμερα.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Το Signal χρειάζεται τα δικαιώματα Μικροφώνου και Κάμερας για την πραγματοποίηση κλήσεων, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\" και \"Κάμερα\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Για να απαντήσεις στη βιντεοκλήση, δώσε στο Molly πρόσβαση στο μικρόφωνο και στην κάμερα.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Το Molly χρειάζεται τα δικαιώματα Μικροφώνου και Κάμερας για την πραγματοποίηση κλήσεων, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\" και \"Κάμερα\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Απαντήθηκε από συνδεμένη συσκευή.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Απορρίφθηκε απο συνδεμένη συσκευή.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Απασχολημένος/η από συνδεμένη συσκευή.</string>
@@ -2706,16 +2829,16 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Νέο συνθηματικό (ξανά)</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Πρόσκληση στο Signal</string>
+    <string name="contact_selection_activity__invite_to_signal">Πρόσκληση στο Molly</string>
     <string name="contact_selection_activity__new_group">Νέα ομάδα</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Ανανέωση επαφών</string>
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">Λείπει κάποια επαφή; Κάνε ανανέωση</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Find people you know on Signal</string>
+    <string name="contact_selection_activity__find_people_you_know">Βρες άτομα που γνωρίζεις στο Signal</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Allow access to your contacts</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Να δοθεί πρόσβαση στις επαφές</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Περισσότερα</string>
 
@@ -2732,7 +2855,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Φωτογραφία επαφής</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Το Signal χρειάζεται τα δικαιώματα Επαφών για την εμφάνιση των επαφών σου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Το Molly χρειάζεται τα δικαιώματα Επαφών για την εμφάνιση των επαφών σου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Σφάλμα κατά τη λήψη επαφών, έλεγξε τη σύνδεσή σου στο δίκτυο</string>
     <string name="ContactSelectionListFragment_username_not_found">Το όνομα χρήστη δε βρέθηκε</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"Ο/Η \"%1$s\" δεν είναι χρήστης του Signal. Παρακαλώ επιβεβαίωσε το όνομα χρήστη και ξαναδοκίμασε."</string>
@@ -2750,16 +2873,18 @@
     <!-- Text on row item to find user by username -->
     <string name="ContactSelectionListFragment__find_by_username">Αναζήτηση ως όνομα χρήστη</string>
     <!-- Dialog title asking users for contact permission -->
-    <string name="ContactSelectionListFragment_allow_access_contacts">Allow access to contacts</string>
+    <string name="ContactSelectionListFragment_allow_access_contacts">Να δοθεί πρόσβαση στις επαφές</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">To find people you know on Signal:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Για να βρεις άτομα που γνωρίζεις στο Signal:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
-    <string name="ContactSelectionListFragment__allow_access">Allow access</string>
+    <string name="ContactSelectionListFragment__allow_access">Να δοθεί πρόσβαση</string>
+    <!-- Text on button to dismiss Signal\'s request for contact permissions -->
+    <string name="ContactSelectionListFragment__no_thanks">Όχι, ευχαριστώ</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Να δοθεί πρόσβαση στις επαφές σου. Οι επαφές σου είναι κρυπτογραφημένες και δεν είναι ορατές στην υπηρεσία Signal.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Το Signal χρειάζεται πρόσβαση στις επαφές σου για να μπορέσει να τις εμφανίσει.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Το Molly χρειάζεται πρόσβαση στις επαφές σου για να μπορέσει να τις εμφανίσει.</string>
     <string name="contact_selection_list_fragment__show_contacts">Εμφάνιση επαφών</string>
 
     <!-- contact_selection_list_item -->
@@ -2832,6 +2957,8 @@
     <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">Έχεις καταργήσει αυτό το άτομο, αν του στείλεις ξανά μήνυμα θα το προσθέσεις ξανά στη λίστα σου.</string>
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">Επιλογές</string>
+    <!-- Update item button text shown for a profile name change. -->
+    <string name="ConversationUpdateItem_update">Ενημέρωση</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Αναπαραγωγή … Παύση</string>
@@ -2860,7 +2987,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Τα Bubbles είναι ένα χαρακτηριστικό του Android που μπορείς να απενεργοποιήσεις για συνομιλίες Signal</string>
+    <string name="BubbleOptOutTooltip__description">Τα Bubbles είναι ένα χαρακτηριστικό του Android που μπορείς να απενεργοποιήσεις για συνομιλίες Molly</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Όχι τώρα</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3028,9 +3155,9 @@
     <string name="EditProfileFragment__group_description">Περιγραφή ομάδας</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Αναβάθμιση του Signal</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Αναβάθμιση του Molly</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Αυτή η έκδοση Signal έχει λήξει. Αναβάθμισε τώρα για να συνεχίσεις να χρησιμοποιείς το Signal.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Αυτή η έκδοση Molly έχει λήξει. Αναβάθμισε τώρα για να συνεχίσεις να χρησιμοποιείς το Molly.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Ενημέρωση</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3247,7 +3374,7 @@
     <string name="preferences__slow">Αργό</string>
     <string name="preferences__help">Βοήθεια</string>
     <string name="preferences__advanced">Για προχωρημένους</string>
-    <string name="preferences__donate_to_signal">Κάνε μια δωρεά στο Signal</string>
+    <string name="preferences__donate_to_signal">Κάνε μια δωρεά στο Molly</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Ιδιωτικότητα</string>
     <!-- Preference label for stories -->
@@ -3284,13 +3411,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Αλλαγή του εικονιδίου και ονόματος της εφαρμογής σε \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Θα πρέπει να κλείσεις το Signal για να αλλάξεις το εικονίδιο και το όνομα της εφαρμογής. Οι ειδοποιήσεις θα εμφανίζουν πάντα το προεπιλεγμένο εικονίδιο και το όνομα Signal.</string>
+    <string name="preferences__app_icon_dialog_description">Θα πρέπει να κλείσεις το Molly για να αλλάξεις το εικονίδιο και το όνομα της εφαρμογής. Οι ειδοποιήσεις θα εμφανίζουν πάντα το προεπιλεγμένο εικονίδιο και το όνομα Molly.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Επίλεξε ένα εικονίδιο και ένα όνομα της εφαρμογής, τα οποία θα είναι ορατά στην αρχική οθόνη και στο συρτάρι εφαρμογών του τηλεφώνου σου. Οι ειδοποιήσεις θα εμφανίζουν πάντα το προεπιλεγμένο εικονίδιο και το όνομα Signal. Μάθε περισσότερα</string>
+    <string name="preferences__app_icon_warning_learn_more">Επίλεξε ένα εικονίδιο και ένα όνομα της εφαρμογής, τα οποία θα είναι ορατά στην αρχική οθόνη και στο συρτάρι εφαρμογών του τηλεφώνου σου. Οι ειδοποιήσεις θα εμφανίζουν πάντα το προεπιλεγμένο εικονίδιο και το όνομα Molly. Μάθε περισσότερα</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Τα εικονίδια και τα ονόματα εφαρμογών είναι ορατά στην αρχική οθόνη και στο συρτάρι εφαρμογών.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Οι ειδοποιήσεις θα εμφανίζουν πάντα το προεπιλεγμένο εικονίδιο και το όνομα Signal.</string>
+    <string name="preferences__app_icon_notification_warning">Οι ειδοποιήσεις θα εμφανίζουν πάντα το προεπιλεγμένο εικονίδιο και το όνομα Molly.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Μάθε περισσότερα</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3337,8 +3464,12 @@
         <item quantity="other">Περιορίζει όλες τις συνομιλίες στα %1$s πιο πρόσφατα μηνύματα.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Με αυτή την ενέργεια, θα διαγραφεί μόνιμα όλο το ιστορικό μηνυμάτων και τα πολυμέσα από τη συσκευή σου.</string>
+    <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
+    <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device_linked_device">Αυτό θα διαγράψει μόνιμα όλο το ιστορικό μηνυμάτων και τα πολυμέσα από τη συσκευή σου και τυχόν συνδεδεμένες συσκευές.</string>
     <string name="preferences_storage__are_you_sure_you_want_to_delete_all_message_history">Θέλεις σίγουρα να διαγράψεις όλο το ιστορικό των μηνυμάτων;</string>
     <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone">Όλο το ιστορικό των μηνυμάτων θα αφαιρεθεί μόνιμα. Δεν θα έχεις τη δυνατότητα να αναιρέσεις την ενέργεια.</string>
+    <!-- Secondary warning dialog message about deleting all chat message history from everything everywhere including linked devices -->
+    <string name="preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone_linked_device">Όλο το ιστορικό των μηνυμάτων θα αφαιρεθεί μόνιμα από όλες τις συσκευές. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</string>
     <string name="preferences_storage__delete_all_now">Διαγραφή όλων τώρα</string>
     <string name="preferences_storage__forever">Για πάντα</string>
     <string name="preferences_storage__one_year">1 έτος</string>
@@ -3375,7 +3506,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Παράκαμψη λογοκρισίας</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Παράκαμψη λογοκρισίας</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Αν είναι ενεργοποιημένο, το Signal θα προσπαθήσει να παρακάμψει την λογοκρισία. Μην ενεργοποιήσεις αυτή την επιλογή εκτός και αν βρίσκεσαι σε περιοχή όπου το Signal έχει λογοκριθεί/μπλοκαριστεί.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Αν είναι ενεργοποιημένο, το Molly θα προσπαθήσει να παρακάμψει την λογοκρισία. Μην ενεργοποιήσεις αυτή την επιλογή εκτός και αν βρίσκεσαι σε περιοχή όπου το Molly έχει λογοκριθεί/μπλοκαριστεί.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Η παράκαμψη λογοκρισίας ενεργοποιήθηκε βάσει του αριθμού τηλεφώνου του λογαριασμού σου.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3427,7 +3558,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Παρουσίαση των πληρωμών</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Ενεργοποίησε το MobileCoin, ένα νέο ψηφιακό νόμισμα με εστίαση στο απόρρητο, για να στέλνεις και να δέχεσαι στο Signal.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Ενεργοποίησε το MobileCoin, ένα νέο ψηφιακό νόμισμα με εστίαση στο απόρρητο, για να στέλνεις και να δέχεσαι στο Molly.</string>
     <string name="PaymentsHomeFragment__activate_payments">Ενεργοποίηση πληρωμών</string>
     <string name="PaymentsHomeFragment__activating_payments">Ενεργοποίηση πληρωμών…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Επαναφορά λογαριασμού πληρωμών</string>
@@ -3453,7 +3584,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Οι πληρωμές δεν είναι διαθέσιμες στην περιοχή σας.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Δεν ήταν δυνατή η ενεργοποίηση πληρωμών. Δοκιμάστε ξανά αργότερα.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Απενεργοποίηση πληρωμών;</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Δεν θα μπορείτε να στείλετε ή να λάβετε MobileCoin στο Signal εάν απενεργοποιήσετε τις πληρωμές.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Δεν θα μπορείτε να στείλετε ή να λάβετε MobileCoin στο Molly εάν απενεργοποιήσετε τις πληρωμές.</string>
     <string name="PaymentsHomeFragment__deactivate">Απενεργοποίηση</string>
     <string name="PaymentsHomeFragment__continue">Συνέχεια</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Το υπόλοιπο δεν είναι διαθέσιμο αυτήν τη στιγμή.</string>
@@ -3462,10 +3593,10 @@
     <string name="PaymentsHomeFragment__details">Λεπτομέρειες</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Μπορείς να χρησιμοποιήσεις το Signal για να στέλνεις και να λαμβάνεις MobileCoin. Όλες οι πληρωμές υπόκεινται στους Όρους Χρήσης για τα MobileCoin και το πορτοφόλι MobileCoin. Ενδέχεται να αντιμετωπίσεις ορισμένα ζητήματα και οι πληρωμές ή τα υπόλοιπα που μπορεί να χάσεις δεν μπορούν να ανακτηθούν. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Μπορείς να χρησιμοποιήσεις το Molly για να στέλνεις και να λαμβάνεις MobileCoin. Όλες οι πληρωμές υπόκεινται στους Όρους Χρήσης για τα MobileCoin και το πορτοφόλι MobileCoin. Ενδέχεται να αντιμετωπίσεις ορισμένα ζητήματα και οι πληρωμές ή τα υπόλοιπα που μπορεί να χάσεις δεν μπορούν να ανακτηθούν. </string>
     <string name="PaymentsHomeFragment__activate">Ενεργοποίηση</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Προβολή όρων MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Οι πληρωμές στο Signal δεν είναι πλέον διαθέσιμες. Μπορείτε ακόμα να μεταφέρετε χρήματα προς ένα ανταλλακτήριο, αλλά δεν μπορείτε πλέον να στέλνετε και να λαμβάνετε πληρωμές ή να προσθέτετε χρήματα.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Οι πληρωμές στο Molly δεν είναι πλέον διαθέσιμες. Μπορείτε ακόμα να μεταφέρετε χρήματα προς ένα ανταλλακτήριο, αλλά δεν μπορείτε πλέον να στέλνετε και να λαμβάνετε πληρωμές ή να προσθέτετε χρήματα.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3493,7 +3624,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Να δοθούν δικαιώματα</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Η Signal θα ζητήσει αυτές τις άδειες, για να σε βοηθήσει να στέλνεις μηνύματα σε άτομα που γνωρίζεις. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Η Molly θα ζητήσει αυτές τις άδειες, για να σε βοηθήσει να στέλνεις μηνύματα σε άτομα που γνωρίζεις. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Ειδοποιήσεις</string>
     <!-- Notifications permission row description -->
@@ -3581,10 +3712,10 @@
     <string name="PaymentsTransferFragment__next">Επόμενο</string>
     <string name="PaymentsTransferFragment__invalid_address">Μη έγκυρη διεύθυνση</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Ελέγξτε τη διεύθυνση πορτοφολιού στην οποία προσπαθείτε να μεταφέρετε και δοκιμάστε ξανά.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Δεν μπορείτε να πραγματοποιήσετε μεταφορά στη δική σας διεύθυνση πορτοφολιού Signal. Εισαγάγετε τη διεύθυνση πορτοφολιού στον λογαριασμό σας σε ένα υποστηριζόμενο ανταλλακτήριο.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Για να σαρώσει έναν κωδικό QR, το Signal χρειάζεται πρόσβαση στην κάμερα.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Το Signal χρειάζεται την άδεια της κάμερας για να καταγράψει έναν κωδικό QR. Μεταβείτε στις ρυθμίσεις, επιλέξτε Άδειες και ενεργοποιήστε την Κάμερα.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Για να σαρώσετε έναν κωδικό QR, το Signal χρειάζεται πρόσβαση στην κάμερά σας.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Δεν μπορείτε να πραγματοποιήσετε μεταφορά στη δική σας διεύθυνση πορτοφολιού Molly. Εισαγάγετε τη διεύθυνση πορτοφολιού στον λογαριασμό σας σε ένα υποστηριζόμενο ανταλλακτήριο.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Για να σαρώσει έναν κωδικό QR, το Molly χρειάζεται πρόσβαση στην κάμερα.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Το Molly χρειάζεται την άδεια της κάμερας για να καταγράψει έναν κωδικό QR. Μεταβείτε στις ρυθμίσεις, επιλέξτε Άδειες και ενεργοποιήστε την Κάμερα.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Για να σαρώσετε έναν κωδικό QR, το Molly χρειάζεται πρόσβαση στην κάμερά σας.</string>
     <string name="PaymentsTransferFragment__settings">Ρυθμίσεις</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -3932,17 +4063,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Εισερχόμενη ηχητική κλήση Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Εισερχόμενη ηχητική κλήση Molly</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Εισερχόμενη βιντεοκλήση Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Εισερχόμενη βιντεοκλήση Molly</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Εισερχόμενη ομαδική κλήση Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Εισερχόμενη ομαδική κλήση Molly</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Ηχητική κλήση Signal σε εξέλιξη</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Ηχητική κλήση Molly σε εξέλιξη</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Βιντεοκλήση Signal σε εξέλιξη</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Βιντεοκλήση Molly σε εξέλιξη</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Ομαδική κλήση Signal σε εξέλιξη</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Ομαδική κλήση Molly σε εξέλιξη</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Φόρτωση…</string>
@@ -3989,9 +4120,9 @@
     <string name="BackupDialog_verify">Επιβεβαίωση</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Εισάγατε το συνθηματικό αντιγράφου ασφαλείας με επιτυχία</string>
     <string name="BackupDialog_passphrase_was_not_correct">Το συνθηματικό δεν ήταν σωστό</string>
-    <string name="LocalBackupJob_creating_signal_backup">Δημιουργείται το αντίγραφο ασφαλείας Signal…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Δημιουργείται το αντίγραφο ασφαλείας Molly…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Επιβεβαίωση αντιγράφου ασφαλείας Signal…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Επιβεβαίωση αντιγράφου ασφαλείας Molly…</string>
     <string name="LocalBackupJobApi29_backup_failed">Ή δημιουργία αντίγραφου ασφαλείας απέτυχε</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Ο φάκελος αντίγραφων ασφαλείας έχει διαγραφεί ή μετακινηθεί.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Το αρχείο - αντίγραφο ασφαλείας είναι πολύ μεγάλο για να αποθηκευτεί σε αυτή τη συσκευή.</string>
@@ -4006,15 +4137,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Κάλεσέ με (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Επαναποστολή κωδικού σε(%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Επικοινωνία με την Υποστήριξη Signal</string>
-    <string name="RegistrationActivity_code_support_subject">Εγγραφή Signal - Κωδικός επαλήθευσης για Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Επικοινωνία με την Υποστήριξη Molly</string>
+    <string name="RegistrationActivity_code_support_subject">Εγγραφή Molly - Κωδικός επαλήθευσης για Android</string>
     <string name="RegistrationActivity_incorrect_code">Λάθος κωδικός</string>
     <string name="BackupUtil_never">Ποτέ</string>
     <string name="BackupUtil_unknown">Άγνωστο</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Αριθμός τηλεφώνου</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Επίλεξε ποια άτομα μπορούν να δουν τον αριθμό τηλεφώνου σου και ποια μπορούν να τον χρησιμοποιήσουν για να επικοινωνήσουν μαζί σου στο Signal.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Επίλεξε ποια άτομα μπορούν να δουν τον αριθμό τηλεφώνου σου και ποια μπορούν να τον χρησιμοποιήσουν για να επικοινωνήσουν μαζί σου στο Molly.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Ποιοι χρήστες μπορούν να δουν τον αριθμό μου</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4062,7 +4193,7 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Προσπάθησες πάρα πολλές φορές. Παρακαλώ ξαναδοκίμασε αργότερα.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Σφάλμα κατά τη σύνδεση στην υπηρεσία</string>
     <string name="preferences_chats__backups">Αντίγραφα ασφαλείας</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Το Signal είναι κλειδωμένο</string>
+    <string name="prompt_passphrase_activity__signal_is_locked">Το Molly είναι κλειδωμένο</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">ΠΑΤΑ ΓΙΑ ΞΕΚΛΕΙΔΩΜΑ</string>
     <string name="Recipient_unknown">Άγνωστο</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4093,8 +4224,15 @@
     <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Χρειάζεται να έχεις πρόσβαση στη παλιά σου συσκευή.</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">Επαναφορά από αντίγραφο ασφαλείας</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Επανάφερε τα μηνύματά σου από ένα τοπικό αντίγραφο ασφαλείας. Αν δεν τα επαναφέρεις τώρα, δε θα μπορείς να τα επαναφέρεις αργότερα.</string>
+    <string name="TransferOrRestoreFragment__restore_from_local_backup">Επαναφορά τοπικού αντιγράφου ασφαλείας</string>
+    <string name="TransferOrRestoreFragment__restore_from_signal_backup">Επαναφορά αντίγραφου ασφαλείας Signal</string>
+    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Επαναφορά όλων των μηνυμάτων κειμένου + των πολυμέσων των τελευταίων 30 ημερών</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">Περισσότερες επιλογές</string>
+
+    <string name="TransferOrRestoreFragment__cancel">Ακύρωση</string>
+    <string name="TransferOrRestoreFragment__skip_transfer">Σύνδεση χωρίς μεταφορά</string>
+    <string name="TransferOrRestoreFragment__skip_transfer_description">Συνέχεια χωρίς μεταφορά μηνυμάτων και πολυμέσων</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
     <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Άνοιξε το Signal στη παλιά σου συσκευή Android</string>
@@ -4110,19 +4248,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Προετοιμαζόμαστε να συνδεθούμε με τη παλιά συσκευή Android…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Θα πάρει μερικές στιγμές, θα είμαστε έτοιμοι σύντομα</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Περιμένουμε να συνδεθεί η παλιά συσκευή Android…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Το Signal χρειάζεται την άδεια τοποθεσίας για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Το Signal χρειάζεται να έχεις την τοποθεσία ενεργοποιημένη για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Το Signal χρειάζεται ενεργοποιημένο το Wi-Fi για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android. Το Wi-Fi χρειάζεται να είναι ενεργοποιημένο αλλά δεν χρειάζεται να είναι συνδεδεμένο σε κάποιο δίκτυο Wi-Fi.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Συγγνώμη, φαίνεται πως αυτή η συσκευή δεν υποστηρίζει το Wi-Fi Direct. Το Signal χρησιμοποιεί το Wi-Fi Direct για να ανακαλύψει και να συνδεθεί με τη παλιά σου συσκευή Android. Μπορείς παρ\' όλα αυτά να επαναφέρεις ένα αντίγραφο ασφαλείας, για να επαναφέρεις τον λογαριασμό σου από τη παλιά σου συσκευή Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Το Molly χρειάζεται την άδεια τοποθεσίας για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Το Molly χρειάζεται να έχεις την τοποθεσία ενεργοποιημένη για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Το Molly χρειάζεται ενεργοποιημένο το Wi-Fi για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android. Το Wi-Fi χρειάζεται να είναι ενεργοποιημένο αλλά δεν χρειάζεται να είναι συνδεδεμένο σε κάποιο δίκτυο Wi-Fi.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Συγγνώμη, φαίνεται πως αυτή η συσκευή δεν υποστηρίζει το Wi-Fi Direct. Το Molly χρησιμοποιεί το Wi-Fi Direct για να ανακαλύψει και να συνδεθεί με τη παλιά σου συσκευή Android. Μπορείς παρ\' όλα αυτά να επαναφέρεις ένα αντίγραφο ασφαλείας, για να επαναφέρεις τον λογαριασμό σου από τη παλιά σου συσκευή Android.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Επαναφορά αντίγραφου ασφαλείας</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Συνέβη ένα μη αναμενόμενο σφάλμα κατά την απόπειρα σύνδεσης στη παλιά σου συσκευή Android.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Αναζητούμε τη νέα συσκευή Android…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Το Signal χρειάζεται την άδεια τοποθεσίας για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Το Signal χρειάζεται να έχεις την τοποθεσία ενεργοποιημένη για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Το Signal χρειάζεται ενεργοποιημένο το Wi-Fi για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android. Το Wi-Fi χρειάζεται να είναι ενεργοποιημένο αλλά δεν χρειάζεται να είναι συνδεδεμένο σε κάποιο δίκτυο Wi-Fi.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Συγγνώμη, φαίνεται πως αυτή η συσκευή δεν υποστηρίζει το Wi-Fi Direct. Το Signal χρησιμοποιεί το Wi-Fi Direct για να ανακαλύψει και να συνδεθεί με τη νέα σου συσκευή Android. Μπορείς παρ\' όλα αυτά να επαναφέρεις ένα αντίγραφο ασφαλείας, για να επαναφέρεις τον λογαριασμό σου από τη παλιά σου συσκευή Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Το Molly χρειάζεται την άδεια τοποθεσίας για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Το Molly χρειάζεται να έχεις την τοποθεσία ενεργοποιημένη για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Το Molly χρειάζεται ενεργοποιημένο το Wi-Fi για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android. Το Wi-Fi χρειάζεται να είναι ενεργοποιημένο αλλά δεν χρειάζεται να είναι συνδεδεμένο σε κάποιο δίκτυο Wi-Fi.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Συγγνώμη, φαίνεται πως αυτή η συσκευή δεν υποστηρίζει το Wi-Fi Direct. Το Molly χρησιμοποιεί το Wi-Fi Direct για να ανακαλύψει και να συνδεθεί με τη νέα σου συσκευή Android. Μπορείς παρ\' όλα αυτά να επαναφέρεις ένα αντίγραφο ασφαλείας, για να επαναφέρεις τον λογαριασμό σου από τη παλιά σου συσκευή Android.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Δημιουργία αντίγραφου ασφαλείας</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Συνέβη ένα μη αναμενόμενο σφάλμα κατά την απόπειρα σύνδεσης στη νέα σου συσκευή Android.</string>
 
@@ -4163,7 +4301,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Μεταφορά δεδομένων</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Κράτα και τις δύο συσκευές κοντά τη μια στην άλλη. Μην απενεργοποιήσεις τις συσκευές και άφησε το Signal ανοιχτό. Οι μεταφορές είναι κρυπτογραφημένες από άκρο σε άκρο.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Κράτα και τις δύο συσκευές κοντά τη μια στην άλλη. Μην απενεργοποιήσεις τις συσκευές και άφησε το Molly ανοιχτό. Οι μεταφορές είναι κρυπτογραφημένες από άκρο σε άκρο.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d μηνύματα μέχρι τώρα…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% των μηνυμάτων μέχρι τώρα…</string>
@@ -4177,7 +4315,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Μεταφορά Λογαριασμού</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Κατέβασε το Signal στη νέα σου συσκευή Android</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Κατέβασε το Molly στη νέα σου συσκευή Android</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Πάτα \"Μεταφορά ή επαναφορά λογαριασμού\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4251,7 +4389,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Με αυτό τον σύνδεσμο, οποιοσδήποτε μπορεί να δεί το όνομα και τη φωτογραφία της ομάδας, και να ζητήσει να μπει σε αυτήν. Μοιράσου τον μόνο με άτομα που εμπιστεύεσαι.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Με αυτό τον σύνδεσμο, οποιοσδήποτε μπορεί να δεί το όνομα και τη φωτογραφία της ομάδας, και να μπει σε αυτήν. Μοιράσου τον μόνο με άτομα που εμπιστεύεσαι.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Μοιράσου μέσω Signal</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Μοιράσου μέσω Molly</string>
     <string name="GroupLinkBottomSheet_copy">Αντιγραφή</string>
     <string name="GroupLinkBottomSheet_qr_code">Κωδικός QR</string>
     <string name="GroupLinkBottomSheet_share">Μοιράσου</string>
@@ -4437,7 +4575,7 @@
     <string name="payment_info_card_about_mobilecoin">Σχετικά με το MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">Το MobileCoin είναι ένα νέο ψηφιακό νόμισμα που επικεντρώνεται στο απόρρητο.</string>
     <string name="payment_info_card_adding_funds">Προσθήκη χρημάτων</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Μπορείτε να προσθέσετε χρήματα για χρήση στο Signal στέλνοντας MobileCoin στη διεύθυνση πορτοφολιού σας.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Μπορείτε να προσθέσετε χρήματα για χρήση στο Molly στέλνοντας MobileCoin στη διεύθυνση πορτοφολιού σας.</string>
     <string name="payment_info_card_cashing_out">Εξαργύρωση</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Μπορείτε να εξαργυρώσετε MobileCoin ανά πάσα στιγμή σε ένα ανταλλακτήριο που υποστηρίζει το MobileCoin. Απλά κάντε μεταφορά στον λογαριασμό σας στο εν λόγω ανταλλακτήριο.</string>
     <string name="payment_info_card_hide_this_card">Απόκρυψη αυτής της κάρτας;</string>
@@ -4458,12 +4596,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Απενεργοποίηση Πορτοφολιού</string>
     <string name="DeactivateWalletFragment__your_balance">Το Υπόλοιπό Σας</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Συνιστάται να μεταφέρεις τα χρήματά σου σε άλλη διεύθυνση πορτοφολιού πριν απενεργοποιήσεις τις πληρωμές. Εάν επιλέξεις να μη μεταφέρεις τα χρήματά σου τώρα, θα παραμείνουν στο πορτοφόλι σου που είναι συνδεδεμένο με το Signal εάν ενεργοποιήσεις εκ νέου τις πληρωμές.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Συνιστάται να μεταφέρεις τα χρήματά σου σε άλλη διεύθυνση πορτοφολιού πριν απενεργοποιήσεις τις πληρωμές. Εάν επιλέξεις να μη μεταφέρεις τα χρήματά σου τώρα, θα παραμείνουν στο πορτοφόλι σου που είναι συνδεδεμένο με το Molly εάν ενεργοποιήσεις εκ νέου τις πληρωμές.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Μεταφορά εναπομείναντος υπολοίπου</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Απενεργοποίηση χωρίς μεταφορά</string>
     <string name="DeactivateWalletFragment__deactivate">Απενεργοποίηση</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Απενεργοποίηση χωρίς μεταφορά;</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Το υπόλοιπό σου θα παραμείνει στο πορτοφόλι που είναι συνδεδεμένο με το Signal, εάν επιλέξεις να ενεργοποιήσεις εκ νέου τις πληρωμές.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Το υπόλοιπό σου θα παραμείνει στο πορτοφόλι που είναι συνδεδεμένο με το Molly, εάν επιλέξεις να ενεργοποιήσεις εκ νέου τις πληρωμές.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Σφάλμα κατά την απενεργοποίηση πορτοφολιού.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4758,7 +4896,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Άδειες</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Όροι &amp; Πολιτική Απορρήτου</string>
-    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Υπό τους όρους της άδειας GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -4773,7 +4911,7 @@
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
-    <string name="ChatColorSelectionFragment__auto">Αυτόματο</string>
+    <string name="ChatColorSelectionFragment__auto">Αυτ.</string>
     <string name="ChatColorSelectionFragment__use_custom_colors">Χρήση προσαρμοσένων χρωμάτων</string>
     <string name="ChatColorSelectionFragment__chat_color">Χρώμα συνομιλίας</string>
     <string name="ChatColorSelectionFragment__edit">Eπεξεργασία</string>
@@ -4999,9 +5137,6 @@
     <!-- VectorAvatarCreationFragment -->
     <string name="VectorAvatarCreationFragment__select_a_color">Επιλογή χρώματος</string>
 
-    <!-- ContactSelectionListItem -->
-    <string name="ContactSelectionListItem__sms">SMS</string>
-
     <!-- Displayed in the toolbar when externally sharing text to multiple recipients -->
     <string name="ShareInterstitialActivity__share">Μοιράσου</string>
 
@@ -5035,7 +5170,8 @@
     </plurals>
     <!-- Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin -->
     <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">Μόνο οι διαχειριστές μπορούν να στέλνουν μηνύματα σε αυτή την ομάδα.</string>
-    <string name="MultiselectForwardFragment__limit_reached">Το όριο ξεπεράστηκε</string>
+    <!-- Error message shown when users try to choose more than 5 chats to send a message to -->
+    <string name="MultiselectForwardFragment__you_cant_select_more_chats">Δεν μπορείς να επιλέξεις πάνω από 5 συνομιλίες</string>
 
     <!-- Media V2 -->
     <!-- Dialog message when sending a story via an add to group story button -->
@@ -5212,9 +5348,9 @@
     <string name="MySupportPreference__learn_more">Μάθε περισσότερα</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Αναβάθμιση του Signal</string>
+    <string name="UpdateSignalExpiredDialog__title">Αναβάθμιση του Molly</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Αυτή η έκδοση Signal έχει λήξει. Αναβάθμισε τώρα για να συνεχίσεις να χρησιμοποιείς το Signal.</string>
+    <string name="UpdateSignalExpiredDialog__message">Αυτή η έκδοση Molly έχει λήξει. Αναβάθμισε τώρα για να συνεχίσεις να χρησιμοποιείς το Molly.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Ενημέρωση</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5223,7 +5359,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Η συσκευή δεν είναι καταχωρημένη</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Αυτή η συσκευή δεν είναι πλέον καταχωρημένη. Κάνε επανεγγραφή για να συνεχίσεις να χρησιμοποιείς το Signal σε αυτήν τη συσκευή.</string>
+    <string name="ReregisterSignalDialog__message">Αυτή η συσκευή δεν είναι πλέον καταχωρημένη. Κάνε επανεγγραφή για να συνεχίσεις να χρησιμοποιείς το Molly σε αυτήν τη συσκευή.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Επανεγγραφή</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5517,7 +5653,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Αποτυχία ανοίγματος επιλογέα.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Για να ενεργοποιήσεις τις ειδοποιήσεις, το Signal χρειάζεται άδεια για να τις εμφανίσει.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Για να ενεργοποιήσεις τις ειδοποιήσεις, το Molly χρειάζεται άδεια για να τις εμφανίσει.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Ενεργοποίηση</string>
 
@@ -5666,8 +5802,10 @@
     <string name="StoryGroupReplyFragment__no_replies_yet">Καμία απάντηση ακόμα</string>
     <!-- Displayed when no longer a group member -->
     <string name="StoryGroupReplyFragment__you_cant_reply">Δεν μπορείς να απαντήσεις σε αυτήν την ιστορία γιατί δεν είσαι πια μέλος της ομάδας.</string>
-    <!-- Displayed for each user that reacted to a story when viewing replies -->
-    <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Αντέδρασε στην ιστορία</string>
+    <!-- Displayed for when you reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">Αντέδρασες στην ιστορία</string>
+    <!-- Displayed for other users that reacted to a story when viewing replies -->
+    <string name="StoryGroupReactionReplyItem__someone_reacted_to_the_story">Αντέδρασε στην ιστορία</string>
     <!-- Label for story views tab -->
     <string name="StoryViewsAndRepliesDialogFragment__views">Προβολές</string>
     <!-- Label for story replies tab -->
@@ -6284,8 +6422,8 @@
     <string name="IdealTransferDetailsFragment__choose_your_bank">Διάλεξε την τράπεζά σου</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
     <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">%1$s: Επιβεβαίωσε τη δωρεά σου</string>
-    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__monthly_ideal_warning">Για να ρυθμίσεις την επαναλαμβανόμενη δωρεά σου, πάτα \"Συνέχεια\" για να επιβεβαιώσεις μια χρέωση 0,01 € στην τράπεζά σου. Το ποσό θα επιστραφεί αυτόματα και θα επιτρέψει τη χρέωση της δωρεάς σου για 5€/μήνα από τον λογαριασμό σου.</string>
+    <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
+    <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">Για να ρυθμίσεις την επαναλαμβανόμενη δωρεά σου, πάτα \"Συνέχεια\" για να επιβεβαιώσεις μια χρέωση 0,01 € στην τράπεζά σου. Το ποσό θα επιστραφεί αυτόματα και θα επιτρέψει τη χρέωση της δωρεάς σου για %1$s/μήνα από τον λογαριασμό σου.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
     <string name="IdealTransferDetailsFragment__continue">Συνέχεια</string>
 
@@ -6861,6 +6999,52 @@
     <!-- Notification title shown while downloading backup restore data -->
     <string name="BackupProgressService_title_downloading">Λήψη δεδομένων αντιγράφου ασφαλείας…</string>
 
+    <!-- BackupAlertBottomSheet -->
+    <!-- Sheet title when media backups have been disabled -->
+    <string name="BackupAlertBottomSheet__media_backups_are_off">Η δημιουργία αντιγράφων ασφαλείας των πολυμέσων είναι απενεργοποιημένη</string>
+    <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
+    <plurals name="BackupAlertBottomSheet__your_signal_media_backup_plan">
+        <item quantity="one">Το πρόγραμμα δημιουργίας αντιγράφων ασφαλείας των πολυμέσων Signal ακυρώθηκε επειδή δεν μπορέσαμε να επεξεργαστούμε την πληρωμή σου. Έχεις %1$d ημέρα για να κατεβάσεις όλα τα πολυμέσα που είναι αποθηκευμένα ως αντίγραφα ασφαλείας. Μετά από %1$d ημέρα, τα πολυμέσα στο αντίγραφο ασφαλείας σου θα διαγραφούν.</item>
+        <item quantity="other">Το πρόγραμμα δημιουργίας αντιγράφων ασφαλείας των πολυμέσων Signal ακυρώθηκε επειδή δεν μπορέσαμε να επεξεργαστούμε την πληρωμή σου. Έχεις %1$d ημέρες για να κατεβάσεις όλα τα πολυμέσα που είναι αποθηκευμένα ως αντίγραφα ασφαλείας. Μετά από %1$d ημέρες, τα πολυμέσα στο αντίγραφο ασφαλείας σου θα διαγραφούν.</item>
+    </plurals>
+    <!-- Sheet body part 2 when media backups have been disabled. -->
+    <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Μπορείς να αρχίσετε να πληρώνετε ξανά για τα αντίγραφα ασφαλείας ανά πάσα στιγμή για να συνεχίσεις να δημιουργείς αντίγραφα ασφαλείας για όλα τα πολυμέσα σου. </string>
+    <!-- Sheet title when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Τα πολυμέσα σου θα διαγραφούν σήμερα</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted today -->
+    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Το πρόγραμμα δημιουργίας αντιγράφων ασφαλείας των πολυμέσων Signal ακυρώθηκε επειδή δεν μπορέσαμε να επεξεργαστούμε την πληρωμή σου. Αυτή είναι η τελευταία σου ευκαιρία να κατεβάσετε τα πολυμέσα σου ως αντίγραφα ασφαλείας πριν διαγραφούν.</string>
+    <!-- Sheet title when user does not have enough space to download their backup -->
+    <string name="BackupAlertBottomSheet__cant_complete_download">Δεν είναι δυνατή η ολοκλήρωση της λήψης</string>
+    <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
+    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Η συσκευή σου δεν διαθέτει αρκετό ελεύθερο χώρο. Απελευθέρωσε έως και %1$s χώρου και κάνε λήψη των πολυμέσων που είναι αποθηκευμένα ως αντίγραφα ασφαλείας.</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
+    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
+        <item quantity="one">Αν επιλέξεις \"Παράλειψη\", τα πολυμέσα στο αντίγραφο ασφαλείας θα διαγραφούν σε %1$d ημέρα.</item>
+        <item quantity="other">Αν επιλέξεις \"Παράλειψη\", τα πολυμέσα στο αντίγραφο ασφαλείας θα διαγραφούν σε %1$d ημέρες.</item>
+    </plurals>
+    <!-- Sheet title when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__cant_process_backup_payment">Δεν ήταν δυνατή η διαδικασία πληρωμής της δημιουργίας αντιγράφων ασφαλείας</string>
+    <!-- Sheet body when user payment failed to process -->
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">Έχουμε δυσκολίες με το να λάβουμε την επαναλαμβανόμενη πληρωμή για τη μηνιαία δημιουργία αντιγράφων ασφαλείας. Επιβεβαίωσε πως η μέθοδος πληρωμής είναι επικαιροποιημένη. Αν δεν είναι, επικαιροποίησέ την στο Google Pay. Το Signal θα προσπαθήσει να πραγματοποιήσει αυτή τη πληρωμή ξανά σε μερικές ημέρες.</string>
+    <!-- Sheet title for generic backup error -->
+    <string name="BackupAlertBottomSheet__couldnt_complete_backup">Δεν ήταν δυνατή η ολοκλήρωση δημιουργίας αντιγράφων ασφαλείας</string>
+    <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
+    <string name="BackupAlertBottomSheet__your_device_hasnt">Η συσκευή σου δεν έχει ολοκληρώσει τη δημιουργία αντιγράφων ασφαλείας για %1$d ημέρες. Βεβαιώσου ότι η συσκευή σου είναι συνδεδεμένη σε wi-fi και πατήστε \"Δημιουργία αντιγράφων ασφαλείας τώρα.\" </string>
+    <!-- Clickable text to learn more about the content of this bottom sheet -->
+    <string name="BackupAlertBottomSheet__learn_more">Μάθε περισσότερα</string>
+    <!-- Secondary action button text when user does not have enough free space to download their backup. -->
+    <string name="BackupAlertBottomSheet__skip">Παράλειψη</string>
+    <!-- Primary action button text prompting user to download their media -->
+    <string name="BackupAlertBottomSheet__download_media_now">Λήψη πολυμέσων τώρα</string>
+    <!-- Secondary action button text to dismiss sheet, noting the user can download later -->
+    <string name="BackupAlertBottomSheet__download_later">Λήψη αργότερα</string>
+    <!-- Secondary action button text to dismiss sheet, skipping media download -->
+    <string name="BackupAlertBottomSheet__dont_download_media">Να μην γίνει λήψη των πολυμέσων</string>
+
+    <!-- BackupStatus -->
+    <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
+    <string name="BackupStatus__free_up_s_of_space_to_download_your_media">Απελευθέρωσε έως και %1$s χώρου και κάνε λήψη των πολυμέσων σου.</string>
+
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Πιστωτική ή χρεωστική κάρτα</string>
@@ -6874,6 +7058,12 @@
     <string name="BackupsTypeSettingsFragment__paypal">PayPal</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__unknown">Άγνωστο</string>
+    <!-- Row title for entering payment history -->
+    <string name="BackupsTypeSettingsFragment__payment_history">Ιστορικό πληρωμών</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Το τελευταίο σου αντίγραφο ασφαλείας έγινε στις %1$s στις %2$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -6884,6 +7074,113 @@
     <string name="ManageStorageSettingsFragment_keep_messages_duration_warning">Τα μηνύματα που είναι παλαιότερα από τον επιλεγμένο χρόνο θα διαγραφούν οριστικά.</string>
     <!-- Warning message at the bottom of a settings screen indicating how messages will be deleted based on user\'s selection (limit is a number like 500 or 5,000) -->
     <string name="ManageStorageSettingsFragment_chat_length_limit_warning">Τα μηνύματα που υπερβαίνουν το επιλεγμένο μέγεθος θα διαγραφούν οριστικά.</string>
+    <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_title">Εφαρμογή ορίων σε συνδεδεμένες συσκευές</string>
+    <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Όταν η επιλογή είναι ενεργοποιημένη, τα όρια συνομιλίας θα διαγράφουν επίσης μηνύματα από τις συνδεδεμένες συσκευές σου.</string>
 
+    <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_title">Η διαγραφή έχει συγχρονιστεί με όλες τις συσκευές σου</string>
+    <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_message">Όταν διαγράφεις μηνύματα ή συνομιλίες, θα διαγραφούν από το τηλέφωνό σου και από τις συνδεδεμένες συσκευές.</string>
+    <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
+    <string name="DeleteSyncEducation_acknowledge_button">OK</string>
+
+    <!-- RemoteBackupsPaymentHistoryFragment -->
+    <!-- Title of the screen for payment history -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_history">Ιστορικό πληρωμών</string>
+    <!-- Description for backup rows -->
+    <string name="RemoteBackupsPaymentHistoryFragment__text_and_all_media_backup">Αντίγραφα ασφαλείας κειμένου και όλων των πολυμέσων</string>
+    <!-- Title of the screen for payment details -->
+    <string name="RemoteBackupsPaymentHistoryFragment__payment_details">Στοιχεία πληρωμής</string>
+    <!-- Title of row specifying the type of backup -->
+    <string name="RemoteBackupsPaymentHistoryFragment__backup_type">Τύπος αντιγράφου ασφαλείας</string>
+    <!-- Title of row specifying the date the backup was paid on -->
+    <string name="RemoteBackupsPaymentHistoryFragment__date_paid">Ημερομηνία πληρωμής</string>
+    <!-- Button label to share the receipt -->
+    <string name="RemoteBackupsPaymentHistoryFragment__share">Μοιράσου</string>
+
+    <!-- RemoteBackupsSettingsFragment -->
+    <!-- Displayed on the title bar -->
+    <string name="RemoteBackupsSettingsFragment__signal_backups">Αντίγραφα ασφαλείας Signal</string>
+    <!-- Row label to launch payment history screen -->
+    <string name="RemoteBackupsSettingsFragment__payment_history">Ιστορικό πληρωμών</string>
+    <!-- Section header for backup information -->
+    <string name="RemoteBackupsSettingsFragment__backup_details">Λεπτομέρειες αντιγράφου ασφαλείας</string>
+    <!-- Row label for backup size -->
+    <string name="RemoteBackupsSettingsFragment__backup_size">Μέγεθος αντίγραφου ασφαλείας</string>
+    <!-- Row label for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__backup_frequency">Συχνότητα αντιγράφου ασφαλείας</string>
+    <!-- Toggle row label for allowing backups to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__back_up_using_cellular">Αντίγραφο ασφαλείας με δεδομένα κινητής</string>
+    <!-- Row label for cancelling and deleting backup -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Απενεργοποίηση και διαγραφή αντιγράφων ασφαλείας</string>
+    <!-- Snackbar text displayed when backup has been deleted and turned off -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted_and_turned_off">Το αντίγραφο ασφαλείας διαγράφηκε και απενεργοποιήθηκε.</string>
+    <!-- Snackbar text displayed when backup type is downgraded -->
+    <string name="RemoteBackupsSettingsFragment__backup_type_changed_and_subcription_deleted">Ο τύπος αντιγράφου ασφαλείας άλλαξε και η συνδρομή ακυρώθηκε</string>
+    <!-- Snackbar text displayed when backup subscription is cancelled -->
+    <string name="RemoteBackupsSettingsFragment__subscription_cancelled">Η συνδρομή ακυρώθηκε</string>
+    <!-- Snackbar text displayed when backup is successfully downloaded -->
+    <string name="RemoteBackupsSettingsFragment__download_complete">Η λήψη ολοκληρώθηκε</string>
+    <!-- Title text in row detailing selected backup type -->
+    <string name="RemoteBackupsSettingsFragment__backup_type">Τύπος αντιγράφου ασφαλείας</string>
+    <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
+    <string name="RemoteBackupsSettingsFragment__backups_disabled">Τα αντίγραφα ασφαλείας απενεργοποιήθηκαν</string>
+    <!-- Format string for backup and cost. First placeholder is backup title, second is cost per month. -->
+    <string name="RemoteBackupsSettingsFragment__s_dot_s_per_month">%1$s · %2$s/μήνα</string>
+    <!-- Button label to enable backups -->
+    <string name="RemoteBackupsSettingsFragment__enable_backups">Ενεργοποίηση αντίγραφων ασφαλείας</string>
+    <!-- Progress indicator subtext displayed when a backup is in progress -->
+    <string name="RemoteBackupsSettingsFragment__d_slash_d">%1$d/%2$d</string>
+    <!-- Title text in row detailing last backup -->
+    <string name="RemoteBackupsSettingsFragment__last_backup">Τελευταίο αντίγραφο ασφαλείας</string>
+    <!-- Subtext describing when a backup took place. First placeholder is the day, second is time. -->
+    <string name="RemoteBackupsSettingsFragment__s_at_s">%1$s στις %2$s</string>
+    <!-- Subtext describing when a backup has never taken place. -->
+    <string name="RemoteBackupsSettingsFragment__never">Ποτέ</string>
+    <!-- Button label to perform a backup immediately -->
+    <string name="RemoteBackupsSettingsFragment__back_up_now">Δημιουργία αντίγραφου τώρα</string>
+    <!-- Dialog title when confirming whether to turn off and deleting backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Απενεργοποίηση και διαγραφή αντιγράφων ασφαλείας;</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__you_will_not_be_charged_again">Δεν θα χρεωθείς ξανά. Το αντίγραφο ασφαλείας σου θα διαγραφεί και δεν θα δημιουργηθούν νέα αντίγραφα ασφαλείας.</string>
+    <!-- Confirmation action on dialog to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Απενεργοποίηση και διαγραφή</string>
+    <!-- Text on dialog while user backup is being deleted -->
+    <string name="RemoteBackupsSettingsFragment__deleting_backup">Διαγραφή αντιγράφων ασφαλείας…</string>
+    <!-- Text on dialog when user backup is deleted -->
+    <string name="RemoteBackupsSettingsFragment__backup_deleted">Το αντίγραφο ασφαλείας διαγράφηκε</string>
+    <!-- Subtitle for frequency option MANUAL for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__by_tapping_back_up_now">"Πατώντας Δημιουργία αντίγραφου τώρα"</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__daily">Καθημερινά</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__weekly">Κάθε εβδομάδα</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__monthly">Μηνιαία</string>
+    <!-- Title for frequency option DAILY for backup frequency -->
+    <string name="RemoteBackupsSettingsFragment__manually_back_up">Δημιουργία αντιγράφων ασφαλείας χειροκίνητα</string>
+    <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
+    <string name="PassphrasePromptActivity_help_prompt_body">Γράψε τον κωδικό PIN, τον κωδικό πρόσβασης ή το μοτίβο της συσκευής σου.</string>
+
+    <!-- Primary action button label when selecting a backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__next">Επόμενο</string>
+    <!-- Primary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Αλλαγή τύπου αντιγράφων ασφαλείας</string>
+    <!-- Secondary action button label when selecting a backup tier with a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">Ακύρωση συνδρομής</string>
+
+    <!-- ConfirmBackupCancellationDialog -->
+    <!-- Dialog title -->
+    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">Επιβεβαίωση ακύρωσης</string>
+    <!-- Dialog body -->
+    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">Δεν θα χρεωθείς ξανά. Η δημιουργία αντιγράφων ασφαλείας θα απενεργοποιηθεί στο τέλος του κύκλου χρέωσης. Μετά από αυτή την ημερομηνία θα έχεις 30 ημέρες για να κατεβάσεις τα πολυμέσα για τα οποία δημιουργείς αντίγραφα ασφαλείας αυτήν τη στιγμή.</string>
+    <!-- Action button label to cancel subscription and download now -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">Επιβεβαίωση και λήψη τώρα</string>
+    <!-- Action button label to cancel subscription and download later -->
+    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Επιβεβαίωση και λήψη αργότερα</string>
+    <!-- Action button label to keep current subscription -->
+    <string name="ConfirmBackupCancellationDialog__keep_subscription">Διατήρηση συνδρομής</string>
     <!-- EOF -->
 </resources>

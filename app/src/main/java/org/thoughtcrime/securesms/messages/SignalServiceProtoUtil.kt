@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.messages
 import ProtoUtil.isNotEmpty
 import com.squareup.wire.Message
 import okio.ByteString
+import okio.ByteString.Companion.toByteString
 import org.signal.core.util.orNull
 import org.signal.libsignal.protocol.message.DecryptionErrorMessage
 import org.signal.libsignal.zkgroup.groups.GroupMasterKey
@@ -13,8 +14,8 @@ import org.thoughtcrime.securesms.attachments.PointerAttachment
 import org.thoughtcrime.securesms.database.model.StoryType
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.stickers.StickerLocator
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.MediaUtil
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.InvalidMessageStructureException
 import org.whispersystems.signalservice.api.crypto.EnvelopeMetadata
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer
@@ -26,8 +27,10 @@ import org.whispersystems.signalservice.internal.push.DataMessage
 import org.whispersystems.signalservice.internal.push.DataMessage.Payment
 import org.whispersystems.signalservice.internal.push.GroupContextV2
 import org.whispersystems.signalservice.internal.push.StoryMessage
+import org.whispersystems.signalservice.internal.push.SyncMessage
 import org.whispersystems.signalservice.internal.push.SyncMessage.Sent
 import org.whispersystems.signalservice.internal.push.TypingMessage
+import org.whispersystems.signalservice.internal.util.Util
 import java.util.Optional
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -168,7 +171,7 @@ object SignalServiceProtoUtil {
   }
 
   fun List<AttachmentPointer>.toPointersWithinLimit(): List<Attachment> {
-    return mapNotNull { it.toPointer() }.take(FeatureFlags.maxAttachmentCount())
+    return mapNotNull { it.toPointer() }.take(RemoteConfig.maxAttachmentCount)
   }
 
   fun AttachmentPointer.toPointer(stickerLocator: StickerLocator? = null): Attachment? {
@@ -190,6 +193,11 @@ object SignalServiceProtoUtil {
 
   fun Long.toMobileCoinMoney(): Money {
     return Money.picoMobileCoin(this)
+  }
+
+  fun SyncMessage.Builder.pad(length: Int = 512): SyncMessage.Builder {
+    padding(Util.getRandomLengthSecretBytes(length).toByteString())
+    return this
   }
 
   @Suppress("UNCHECKED_CAST")

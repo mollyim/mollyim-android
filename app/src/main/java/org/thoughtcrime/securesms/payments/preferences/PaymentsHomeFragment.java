@@ -37,7 +37,7 @@ import org.thoughtcrime.securesms.payments.backup.RecoveryPhraseStates;
 import org.thoughtcrime.securesms.payments.backup.confirm.PaymentsRecoveryPhraseConfirmFragment;
 import org.thoughtcrime.securesms.payments.preferences.model.InfoCard;
 import org.thoughtcrime.securesms.payments.preferences.model.PaymentItem;
-import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity;
+import org.thoughtcrime.securesms.registration.ui.RegistrationActivity;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.PlayStoreUtil;
 import org.thoughtcrime.securesms.util.SpanUtil;
@@ -62,15 +62,15 @@ public class PaymentsHomeFragment extends LoggingFragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    long    paymentLockTimestamp = SignalStore.paymentsValues().getPaymentLockTimestamp();
+    long    paymentLockTimestamp = SignalStore.payments().getPaymentLockTimestamp();
     boolean enablePaymentLock    = PaymentsHomeFragmentArgs.fromBundle(getArguments()).getEnablePaymentLock();
-    boolean showPaymentLock      = SignalStore.paymentsValues().getPaymentLockSkipCount() < MAX_PAYMENT_LOCK_SKIP_COUNT &&
+    boolean showPaymentLock      = SignalStore.payments().getPaymentLockSkipCount() < MAX_PAYMENT_LOCK_SKIP_COUNT &&
                                    (System.currentTimeMillis() >= paymentLockTimestamp);
 
     if (enablePaymentLock && showPaymentLock) {
       long waitUntil = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(DAYS_UNTIL_REPROMPT_PAYMENT_LOCK);
 
-      SignalStore.paymentsValues().setPaymentLockTimestamp(waitUntil);
+      SignalStore.payments().setPaymentLockTimestamp(waitUntil);
       new MaterialAlertDialogBuilder(requireContext())
           .setTitle(getString(R.string.PaymentsHomeFragment__turn_on))
           .setMessage(getString(R.string.PaymentsHomeFragment__add_an_additional_layer))
@@ -83,8 +83,8 @@ public class PaymentsHomeFragment extends LoggingFragment {
   }
 
   private void setSkipCount() {
-      int skipCount = SignalStore.paymentsValues().getPaymentLockSkipCount();
-      SignalStore.paymentsValues().setPaymentLockSkipCount(++skipCount);
+      int skipCount = SignalStore.payments().getPaymentLockSkipCount();
+      SignalStore.payments().setPaymentLockSkipCount(++skipCount);
   }
 
   @Override
@@ -110,7 +110,7 @@ public class PaymentsHomeFragment extends LoggingFragment {
     addMoney.setOnClickListener(v -> {
       if (viewModel.isEnclaveFailurePresent()) {
         showUpdateIsRequiredDialog();
-      } else if (SignalStore.paymentsValues().getPaymentsAvailability().isSendAllowed()) {
+      } else if (SignalStore.payments().getPaymentsAvailability().isSendAllowed()) {
         SafeNavigation.safeNavigate(Navigation.findNavController(v), PaymentsHomeFragmentDirections.actionPaymentsHomeToPaymentsAddMoney());
       } else {
         showPaymentsDisabledDialog();
@@ -119,7 +119,7 @@ public class PaymentsHomeFragment extends LoggingFragment {
     sendMoney.setOnClickListener(v -> {
       if (viewModel.isEnclaveFailurePresent()) {
         showUpdateIsRequiredDialog();
-      } else if (SignalStore.paymentsValues().getPaymentsAvailability().isSendAllowed()) {
+      } else if (SignalStore.payments().getPaymentsAvailability().isSendAllowed()) {
         SafeNavigation.safeNavigate(Navigation.findNavController(v), PaymentsHomeFragmentDirections.actionPaymentsHomeToPaymentRecipientSelectionFragment());
       } else {
         showPaymentsDisabledDialog();
@@ -158,11 +158,11 @@ public class PaymentsHomeFragment extends LoggingFragment {
 
     viewModel.getBalance().observe(getViewLifecycleOwner(), balanceAmount -> {
       balance.setMoney(balanceAmount);
-      if (SignalStore.paymentsValues().getShowSaveRecoveryPhrase() &&
-          !SignalStore.paymentsValues().getUserConfirmedMnemonic() &&
+      if (SignalStore.payments().getShowSaveRecoveryPhrase() &&
+          !SignalStore.payments().getUserConfirmedMnemonic() &&
           !balanceAmount.isEqualOrLessThanZero()) {
         SafeNavigation.safeNavigate(NavHostFragment.findNavController(this), PaymentsHomeFragmentDirections.actionPaymentsHomeToPaymentsBackup().setRecoveryPhraseState(RecoveryPhraseStates.FIRST_TIME_NON_ZERO_BALANCE_WITH_MNEMONIC_NOT_CONFIRMED));
-        SignalStore.paymentsValues().setShowSaveRecoveryPhrase(false);
+        SignalStore.payments().setShowSaveRecoveryPhrase(false);
       }
     });
 
@@ -230,7 +230,7 @@ public class PaymentsHomeFragment extends LoggingFragment {
           });
           break;
         case ACTIVATED:
-          if (!SignalStore.paymentsValues().isPaymentLockEnabled()) {
+          if (!SignalStore.payments().isPaymentLockEnabled()) {
             SafeNavigation.safeNavigate(NavHostFragment.findNavController(this), R.id.action_paymentsHome_to_securitySetup);
           }
           return;
@@ -262,7 +262,7 @@ public class PaymentsHomeFragment extends LoggingFragment {
           if (actionId == R.id.reminder_action_update_now) {
             PlayStoreUtil.openPlayStoreOrOurApkDownloadPage(requireContext());
           } else if (actionId == R.id.reminder_action_re_register) {
-            startActivity(RegistrationNavigationActivity.newIntentForReRegistration(requireContext()));
+            startActivity(RegistrationActivity.newIntentForReRegistration(requireContext()));
           }
         });
       } else {
@@ -305,7 +305,7 @@ public class PaymentsHomeFragment extends LoggingFragment {
       return true;
     } else if (item.getItemId() == R.id.payments_home_fragment_menu_view_recovery_phrase) {
       SafeNavigation.safeNavigate(NavHostFragment.findNavController(this),
-                                  PaymentsHomeFragmentDirections.actionPaymentsHomeToPaymentsBackup().setRecoveryPhraseState(SignalStore.paymentsValues().isMnemonicConfirmed() ?
+                                  PaymentsHomeFragmentDirections.actionPaymentsHomeToPaymentsBackup().setRecoveryPhraseState(SignalStore.payments().isMnemonicConfirmed() ?
                                                                                         RecoveryPhraseStates.FROM_PAYMENTS_MENU_WITH_MNEMONIC_CONFIRMED :
                                                                                         RecoveryPhraseStates.FROM_PAYMENTS_MENU_WITH_MNEMONIC_NOT_CONFIRMED));
       return true;

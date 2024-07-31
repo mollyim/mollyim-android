@@ -14,11 +14,10 @@ import org.signal.libsignal.protocol.InvalidMessageException;
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
 import org.whispersystems.signalservice.api.backup.BackupKey;
-import org.whispersystems.signalservice.api.backup.MediaId;
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream;
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil;
 import org.whispersystems.signalservice.api.crypto.ProfileCipherInputStream;
-import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess;
+import org.whispersystems.signalservice.api.crypto.SealedSenderAccess;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.ProgressListener;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
@@ -44,6 +43,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -98,7 +98,7 @@ public class SignalServiceMessageReceiver {
 
   public ListenableFuture<ProfileAndCredential> retrieveProfile(SignalServiceAddress address,
                                                                 Optional<ProfileKey> profileKey,
-                                                                Optional<UnidentifiedAccess> unidentifiedAccess,
+                                                                @Nullable SealedSenderAccess sealedSenderAccess,
                                                                 SignalServiceProfile.RequestType requestType,
                                                                 Locale locale)
   {
@@ -115,16 +115,16 @@ public class SignalServiceMessageReceiver {
       }
 
       if (requestType == SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL) {
-        return socket.retrieveVersionedProfileAndCredential(aci, profileKey.get(), unidentifiedAccess, locale);
+        return socket.retrieveVersionedProfileAndCredential(aci, profileKey.get(), sealedSenderAccess, locale);
       } else {
-        return FutureTransformers.map(socket.retrieveVersionedProfile(aci, profileKey.get(), unidentifiedAccess, locale), profile -> {
+        return FutureTransformers.map(socket.retrieveVersionedProfile(aci, profileKey.get(), sealedSenderAccess, locale), profile -> {
           return new ProfileAndCredential(profile,
                                           SignalServiceProfile.RequestType.PROFILE,
                                           Optional.empty());
         });
       }
     } else {
-      return FutureTransformers.map(socket.retrieveProfile(address, unidentifiedAccess, locale), profile -> {
+      return FutureTransformers.map(socket.retrieveProfile(address, sealedSenderAccess, locale), profile -> {
         return new ProfileAndCredential(profile,
                                         SignalServiceProfile.RequestType.PROFILE,
                                         Optional.empty());
@@ -146,8 +146,8 @@ public class SignalServiceMessageReceiver {
     return new FileInputStream(destination);
   }
 
-  public Single<ServiceResponse<IdentityCheckResponse>> performIdentityCheck(@Nonnull IdentityCheckRequest request, @Nonnull Optional<UnidentifiedAccess> unidentifiedAccess, @Nonnull ResponseMapper<IdentityCheckResponse> responseMapper) {
-    return socket.performIdentityCheck(request, unidentifiedAccess, responseMapper);
+  public Single<ServiceResponse<IdentityCheckResponse>> performIdentityCheck(@Nonnull IdentityCheckRequest request, @Nonnull ResponseMapper<IdentityCheckResponse> responseMapper) {
+    return socket.performIdentityCheck(request, responseMapper);
   }
 
   /**
@@ -190,10 +190,11 @@ public class SignalServiceMessageReceiver {
                                                 @Nonnull SignalServiceAttachmentPointer pointer,
                                                 @Nonnull File attachmentDestination,
                                                 long maxSizeBytes,
+                                                boolean ignoreDigest,
                                                 @Nullable ProgressListener listener)
       throws IOException, InvalidMessageException, MissingConfigurationException
   {
-    if (pointer.getDigest().isEmpty()) {
+    if (!ignoreDigest && pointer.getDigest().isEmpty()) {
       throw new InvalidMessageException("No attachment digest!");
     }
 
@@ -213,13 +214,19 @@ public class SignalServiceMessageReceiver {
     return AttachmentCipherInputStream.createForAttachment(attachmentDestination,
                                                            pointer.getSize().orElse(0),
                                                            pointer.getKey(),
-                                                           pointer.getDigest().get(),
+                                                           ignoreDigest ? null : pointer.getDigest().get(),
                                                            null,
-                                                           0);
+                                                           0,
+                                                           ignoreDigest);
   }
 
   public void retrieveBackup(int cdnNumber, Map<String, String> headers, String cdnPath, File destination, ProgressListener listener) throws MissingConfigurationException, IOException {
     socket.retrieveBackup(cdnNumber, headers, cdnPath, destination, 1_000_000_000L, listener);
+  }
+
+  @Nullable
+  public ZonedDateTime getCdnLastModifiedTime(int cdnNumber, Map<String, String> headers, String cdnPath) throws MissingConfigurationException, IOException {
+    return socket.getCdnLastModifiedTime(cdnNumber, headers, cdnPath);
   }
 
   public InputStream retrieveSticker(byte[] packId, byte[] packKey, int stickerId)

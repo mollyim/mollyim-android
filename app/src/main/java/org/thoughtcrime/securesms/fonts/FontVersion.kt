@@ -2,8 +2,8 @@ package org.thoughtcrime.securesms.fonts
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.EncryptedStreamUtils
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
  * @param id The numeric ID of this version, retrieved from the server
  * @param path The UUID path of this version on disk, where supporting files will be stored.
  */
-data class FontVersion(@JsonProperty("id") val id: Long, @JsonProperty("path") val path: String) {
+data class FontVersion(val id: Long, val path: String) {
 
   companion object {
     val NONE = FontVersion(-1, "")
@@ -27,7 +27,7 @@ data class FontVersion(@JsonProperty("id") val id: Long, @JsonProperty("path") v
 
     private const val PATH = ".version"
 
-    private val objectMapper = ObjectMapper()
+    private val objectMapper = ObjectMapper().registerKotlinModule()
 
     /**
      * Retrieves the latest font version. This may hit the disk, network, or both, depending on when we last checked for a font version.
@@ -35,7 +35,7 @@ data class FontVersion(@JsonProperty("id") val id: Long, @JsonProperty("path") v
     @WorkerThread
     fun get(context: Context): FontVersion {
       val fromDisk = fromDisk(context)
-      val version: FontVersion = if (System.currentTimeMillis() - SignalStore.storyValues().lastFontVersionCheck > VERSION_CHECK_INTERVAL) {
+      val version: FontVersion = if (System.currentTimeMillis() - SignalStore.story.lastFontVersionCheck > VERSION_CHECK_INTERVAL) {
         Log.i(TAG, "Timeout interval exceeded, checking network for new font version.")
 
         val fromNetwork = fromNetwork()
@@ -51,7 +51,7 @@ data class FontVersion(@JsonProperty("id") val id: Long, @JsonProperty("path") v
             writeVersionToDisk(context, fromNetwork) ?: NONE
           } else {
             Log.i(TAG, "Network version is the same as our local version.")
-            SignalStore.storyValues().lastFontVersionCheck = System.currentTimeMillis()
+            SignalStore.story.lastFontVersionCheck = System.currentTimeMillis()
             fromDisk
           }
         } else {
@@ -82,7 +82,7 @@ data class FontVersion(@JsonProperty("id") val id: Long, @JsonProperty("path") v
         File(Fonts.getDirectory(context), fontVersion.path).mkdir()
 
         Log.i(TAG, "Wrote version ${fontVersion.id} to disk.")
-        SignalStore.storyValues().lastFontVersionCheck = System.currentTimeMillis()
+        SignalStore.story.lastFontVersionCheck = System.currentTimeMillis()
         fontVersion
       } catch (e: Exception) {
         Log.e(TAG, "Failed to write new font version to disk", e)

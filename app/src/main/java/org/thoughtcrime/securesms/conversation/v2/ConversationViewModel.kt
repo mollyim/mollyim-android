@@ -52,7 +52,7 @@ import org.thoughtcrime.securesms.database.model.ReactionRecord
 import org.thoughtcrime.securesms.database.model.StickerRecord
 import org.thoughtcrime.securesms.database.model.StoryViewState
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob
 import org.thoughtcrime.securesms.keyboard.KeyboardUtil
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -101,6 +101,17 @@ class ConversationViewModel(
     get() = scrollButtonStateStore.state.unreadCount
 
   val recipient: Observable<Recipient> = recipientRepository.conversationRecipient
+  val titleViewParticipants: Observable<List<Recipient>> = recipient.filter { it.isGroup }.switchMap { groupRecipient ->
+    val firstTenIds = groupRecipient.participantIds
+      .take(10)
+      .sortedBy { it == Recipient.self().id }
+
+    Observable.combineLatest(
+      firstTenIds.map { Recipient.observable(it) }
+    ) { objects ->
+      objects.toList() as List<Recipient>
+    }
+  }
 
   private val _conversationThreadState: Subject<ConversationThreadState> = BehaviorSubject.create()
   val conversationThreadState: Single<ConversationThreadState> = _conversationThreadState.firstOrError()
@@ -120,6 +131,10 @@ class ConversationViewModel(
 
   @Volatile
   var recipientSnapshot: Recipient? = null
+    private set
+
+  @Volatile
+  var titleViewParticipantsSnapshot: List<Recipient> = emptyList()
     private set
 
   val isPushAvailable: Boolean
@@ -167,6 +182,11 @@ class ConversationViewModel(
         recipientSnapshot = it
       }
 
+    disposables += titleViewParticipants
+      .subscribeBy {
+        titleViewParticipantsSnapshot = it
+      }
+
     val chatColorsDataObservable: Observable<ChatColorsDrawable.ChatColorsData> = Observable.combineLatest(
       recipient.map { it.chatColors }.distinctUntilChanged(),
       chatBounds.distinctUntilChanged()
@@ -199,14 +219,14 @@ class ConversationViewModel(
           controller.onDataInvalidated()
         }
 
-        ApplicationDependencies.getDatabaseObserver().registerMessageUpdateObserver(messageUpdateObserver)
-        ApplicationDependencies.getDatabaseObserver().registerMessageInsertObserver(threadId, messageInsertObserver)
-        ApplicationDependencies.getDatabaseObserver().registerConversationObserver(threadId, conversationObserver)
+        AppDependencies.databaseObserver.registerMessageUpdateObserver(messageUpdateObserver)
+        AppDependencies.databaseObserver.registerMessageInsertObserver(threadId, messageInsertObserver)
+        AppDependencies.databaseObserver.registerConversationObserver(threadId, conversationObserver)
 
         emitter.setCancellable {
-          ApplicationDependencies.getDatabaseObserver().unregisterObserver(messageUpdateObserver)
-          ApplicationDependencies.getDatabaseObserver().unregisterObserver(messageInsertObserver)
-          ApplicationDependencies.getDatabaseObserver().unregisterObserver(conversationObserver)
+          AppDependencies.databaseObserver.unregisterObserver(messageUpdateObserver)
+          AppDependencies.databaseObserver.unregisterObserver(messageInsertObserver)
+          AppDependencies.databaseObserver.unregisterObserver(conversationObserver)
         }
       }
     }.subscribeOn(Schedulers.io()).subscribe()
@@ -240,8 +260,8 @@ class ConversationViewModel(
         conversationRecipient = recipient,
         messageRequestState = messageRequestRepository.getMessageRequestState(recipient, threadId),
         groupRecord = groupRecord.orNull(),
-        isClientExpired = SignalStore.misc().isClientDeprecated,
-        isUnauthorized = TextSecurePreferences.isUnauthorizedReceived(ApplicationDependencies.getApplication()),
+        isClientExpired = SignalStore.misc.isClientDeprecated,
+        isUnauthorized = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application),
       )
     }.doOnNext {
       hasMessageRequestStateSubject.onNext(it.messageRequestState)

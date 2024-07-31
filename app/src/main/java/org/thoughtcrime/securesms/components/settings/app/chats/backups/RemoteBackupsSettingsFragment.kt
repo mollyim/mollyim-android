@@ -5,7 +5,6 @@
 
 package org.thoughtcrime.securesms.components.settings.app.chats.backups
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.compose.foundation.background
@@ -13,12 +12,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
+import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
@@ -28,16 +32,20 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.fragment.findNavController
+import kotlinx.collections.immutable.persistentListOf
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -50,12 +58,14 @@ import org.signal.core.ui.Scaffolds
 import org.signal.core.ui.SignalPreview
 import org.signal.core.ui.Snackbars
 import org.signal.core.ui.Texts
+import org.signal.core.util.money.FiatMoney
+import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.v2.BackupFrequency
 import org.thoughtcrime.securesms.backup.v2.BackupV2Event
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
-import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsFlowActivity
-import org.thoughtcrime.securesms.backup.v2.ui.subscription.getTierDetails
+import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
+import org.thoughtcrime.securesms.components.settings.app.subscription.donate.CheckoutFlowActivity
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
@@ -63,12 +73,12 @@ import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.viewModel
+import java.math.BigDecimal
+import java.util.Currency
 import java.util.Locale
 
 /**
  * Remote backups settings fragment.
- *
- * TODO [message-backups] -- All copy in this file is non-final
  */
 class RemoteBackupsSettingsFragment : ComposeFragment() {
 
@@ -78,11 +88,11 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
 
   @Composable
   override fun FragmentContent() {
-    val state by viewModel.state
+    val state by viewModel.state.collectAsState()
     val callbacks = remember { Callbacks() }
 
     RemoteBackupsSettingsContent(
-      messageBackupTier = state.messageBackupsTier,
+      messageBackupsType = state.messageBackupsType,
       lastBackupTimestamp = state.lastBackupTimestamp,
       canBackUpUsingCellular = state.canBackUpUsingCellular,
       backupsFrequency = state.backupsFrequency,
@@ -101,7 +111,7 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     }
 
     override fun onEnableBackupsClick() {
-      startActivity(Intent(requireContext(), MessageBackupsFlowActivity::class.java))
+      startActivity(CheckoutFlowActivity.createIntent(requireContext(), InAppPaymentType.RECURRING_BACKUP))
     }
 
     override fun onBackUpUsingCellularClick(canUseCellular: Boolean) {
@@ -109,7 +119,7 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     }
 
     override fun onViewPaymentHistory() {
-      // TODO [message-backups] Navigate to payment history
+      findNavController().safeNavigate(R.id.action_remoteBackupsSettingsFragment_to_remoteBackupsPaymentHistoryFragment)
     }
 
     override fun onBackupNowClick() {
@@ -154,6 +164,11 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     super.onViewCreated(view, savedInstanceState)
     EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
   }
+
+  override fun onResume() {
+    super.onResume()
+    viewModel.refresh()
+  }
 }
 
 /**
@@ -176,7 +191,7 @@ private interface ContentCallbacks {
 
 @Composable
 private fun RemoteBackupsSettingsContent(
-  messageBackupTier: MessageBackupTier?,
+  messageBackupsType: MessageBackupsType?,
   lastBackupTimestamp: Long,
   canBackUpUsingCellular: Boolean,
   backupsFrequency: BackupFrequency,
@@ -191,7 +206,7 @@ private fun RemoteBackupsSettingsContent(
   }
 
   Scaffolds.Settings(
-    title = "Signal Backups",
+    title = stringResource(id = R.string.RemoteBackupsSettingsFragment__signal_backups),
     onNavigationClick = contentCallbacks::onNavigationClick,
     navigationIconPainter = painterResource(id = R.drawable.symbol_arrow_left_24),
     snackbarHost = {
@@ -204,16 +219,16 @@ private fun RemoteBackupsSettingsContent(
     ) {
       item {
         BackupTypeRow(
-          messageBackupTier = messageBackupTier,
+          messageBackupsType = messageBackupsType,
           onEnableBackupsClick = contentCallbacks::onEnableBackupsClick,
           onChangeBackupsTypeClick = contentCallbacks::onBackupsTypeClick
         )
       }
 
-      if (messageBackupTier == null) {
+      if (messageBackupsType == null) {
         item {
           Rows.TextRow(
-            text = "Payment history",
+            text = stringResource(id = R.string.RemoteBackupsSettingsFragment__payment_history),
             onClick = contentCallbacks::onViewPaymentHistory
           )
         }
@@ -223,7 +238,7 @@ private fun RemoteBackupsSettingsContent(
         }
 
         item {
-          Texts.SectionHeader(text = "Backup Details")
+          Texts.SectionHeader(text = stringResource(id = R.string.RemoteBackupsSettingsFragment__backup_details))
         }
 
         if (backupProgress == null || backupProgress.type == BackupV2Event.Type.FINISHED) {
@@ -243,12 +258,12 @@ private fun RemoteBackupsSettingsContent(
           Rows.TextRow(text = {
             Column {
               Text(
-                text = "Backup size",
+                text = stringResource(id = R.string.RemoteBackupsSettingsFragment__backup_size),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
               )
               Text(
-                text = Util.getPrettyFileSize(backupSize ?: 0),
+                text = Util.getPrettyFileSize(backupSize),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
               )
@@ -261,7 +276,7 @@ private fun RemoteBackupsSettingsContent(
             text = {
               Column {
                 Text(
-                  text = "Backup frequency",
+                  text = stringResource(id = R.string.RemoteBackupsSettingsFragment__backup_frequency),
                   style = MaterialTheme.typography.bodyLarge,
                   color = MaterialTheme.colorScheme.onSurface
                 )
@@ -279,7 +294,7 @@ private fun RemoteBackupsSettingsContent(
         item {
           Rows.ToggleRow(
             checked = canBackUpUsingCellular,
-            text = "Back up using cellular",
+            text = stringResource(id = R.string.RemoteBackupsSettingsFragment__back_up_using_cellular),
             onCheckChanged = contentCallbacks::onBackUpUsingCellularClick
           )
         }
@@ -290,7 +305,7 @@ private fun RemoteBackupsSettingsContent(
 
         item {
           Rows.TextRow(
-            text = "Turn off and delete backup",
+            text = stringResource(id = R.string.RemoteBackupsSettingsFragment__turn_off_and_delete_backup),
             foregroundTint = MaterialTheme.colorScheme.error,
             onClick = contentCallbacks::onTurnOffAndDeleteBackupsClick
           )
@@ -315,7 +330,26 @@ private fun RemoteBackupsSettingsContent(
         onDismiss = contentCallbacks::onDialogDismissed
       )
     }
+
+    RemoteBackupsSettingsState.Dialog.DELETING_BACKUP, RemoteBackupsSettingsState.Dialog.BACKUP_DELETED -> {
+      DeletingBackupDialog(
+        backupDeleted = requestedDialog == RemoteBackupsSettingsState.Dialog.BACKUP_DELETED,
+        onDismiss = contentCallbacks::onDialogDismissed
+      )
+    }
   }
+
+  val snackbarMessageId = remember(requestedSnackbar) {
+    when (requestedSnackbar) {
+      RemoteBackupsSettingsState.Snackbar.NONE -> -1
+      RemoteBackupsSettingsState.Snackbar.BACKUP_DELETED_AND_TURNED_OFF -> R.string.RemoteBackupsSettingsFragment__backup_deleted_and_turned_off
+      RemoteBackupsSettingsState.Snackbar.BACKUP_TYPE_CHANGED_AND_SUBSCRIPTION_CANCELLED -> R.string.RemoteBackupsSettingsFragment__backup_type_changed_and_subcription_deleted
+      RemoteBackupsSettingsState.Snackbar.SUBSCRIPTION_CANCELLED -> R.string.RemoteBackupsSettingsFragment__subscription_cancelled
+      RemoteBackupsSettingsState.Snackbar.DOWNLOAD_COMPLETE -> R.string.RemoteBackupsSettingsFragment__download_complete
+    }
+  }
+
+  val snackbarText = if (snackbarMessageId == -1) "" else stringResource(id = snackbarMessageId)
 
   LaunchedEffect(requestedSnackbar) {
     when (requestedSnackbar) {
@@ -323,28 +357,8 @@ private fun RemoteBackupsSettingsContent(
         snackbarHostState.currentSnackbarData?.dismiss()
       }
 
-      RemoteBackupsSettingsState.Snackbar.BACKUP_DELETED_AND_TURNED_OFF -> {
-        snackbarHostState.showSnackbar(
-          "Backup deleted and turned off"
-        )
-      }
-
-      RemoteBackupsSettingsState.Snackbar.BACKUP_TYPE_CHANGED_AND_SUBSCRIPTION_CANCELLED -> {
-        snackbarHostState.showSnackbar(
-          "Backup type changed and subscription cancelled"
-        )
-      }
-
-      RemoteBackupsSettingsState.Snackbar.SUBSCRIPTION_CANCELLED -> {
-        snackbarHostState.showSnackbar(
-          "Subscription cancelled"
-        )
-      }
-
-      RemoteBackupsSettingsState.Snackbar.DOWNLOAD_COMPLETE -> {
-        snackbarHostState.showSnackbar(
-          "Download complete"
-        )
+      else -> {
+        snackbarHostState.showSnackbar(snackbarText)
       }
     }
     contentCallbacks.onSnackbarDismissed()
@@ -353,16 +367,14 @@ private fun RemoteBackupsSettingsContent(
 
 @Composable
 private fun BackupTypeRow(
-  messageBackupTier: MessageBackupTier?,
+  messageBackupsType: MessageBackupsType?,
   onEnableBackupsClick: () -> Unit,
   onChangeBackupsTypeClick: () -> Unit
 ) {
-  val messageBackupsType = if (messageBackupTier != null) getTierDetails(messageBackupTier) else null
-
   Row(
     modifier = Modifier
       .fillMaxWidth()
-      .clickable(enabled = messageBackupTier != null, onClick = onChangeBackupsTypeClick)
+      .clickable(enabled = messageBackupsType != null, onClick = onChangeBackupsTypeClick)
       .padding(horizontal = dimensionResource(id = R.dimen.core_ui__gutter))
       .padding(top = 16.dp, bottom = 14.dp)
   ) {
@@ -370,14 +382,14 @@ private fun BackupTypeRow(
       modifier = Modifier.weight(1f)
     ) {
       Text(
-        text = "Backup type",
+        text = stringResource(id = R.string.RemoteBackupsSettingsFragment__backup_type),
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSurface
       )
 
       if (messageBackupsType == null) {
         Text(
-          text = "Backups disabled",
+          text = stringResource(id = R.string.RemoteBackupsSettingsFragment__backups_disabled),
           style = MaterialTheme.typography.bodyMedium,
           color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -388,14 +400,14 @@ private fun BackupTypeRow(
         }
 
         Text(
-          text = "${messageBackupsType.title} · $formattedCurrency/month"
+          text = stringResource(id = R.string.RemoteBackupsSettingsFragment__s_dot_s_per_month, messageBackupsType.title, formattedCurrency)
         )
       }
     }
 
     if (messageBackupsType == null) {
       Buttons.Small(onClick = onEnableBackupsClick) {
-        Text(text = "Enable backups")
+        Text(text = stringResource(id = R.string.RemoteBackupsSettingsFragment__enable_backups))
       }
     }
   }
@@ -417,11 +429,14 @@ private fun InProgressBackupRow(
       if (totalProgress == null || totalProgress == 0) {
         LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
       } else {
-        LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), progress = ((progress ?: 0) / totalProgress).toFloat())
+        LinearProgressIndicator(
+          modifier = Modifier.fillMaxWidth(),
+          progress = { ((progress ?: 0) / totalProgress).toFloat() }
+        )
       }
 
       Text(
-        text = "$progress/$totalProgress",
+        text = stringResource(R.string.RemoteBackupsSettingsFragment__d_slash_d, progress ?: 0, totalProgress ?: 0),
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurfaceVariant
       )
@@ -443,7 +458,7 @@ private fun LastBackupRow(
       modifier = Modifier.weight(1f)
     ) {
       Text(
-        text = "Last backup",
+        text = stringResource(id = R.string.RemoteBackupsSettingsFragment__last_backup),
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSurface
       )
@@ -460,13 +475,13 @@ private fun LastBackupRow(
         }
 
         Text(
-          text = "$day at $time",
+          text = stringResource(id = R.string.RemoteBackupsSettingsFragment__s_at_s, day, time),
           style = MaterialTheme.typography.bodyMedium,
           color = MaterialTheme.colorScheme.onSurfaceVariant
         )
       } else {
         Text(
-          text = "Never",
+          text = stringResource(id = R.string.RemoteBackupsSettingsFragment__never),
           style = MaterialTheme.typography.bodyMedium,
           color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -474,7 +489,7 @@ private fun LastBackupRow(
     }
 
     Buttons.Small(onClick = onBackupNowClick) {
-      Text(text = "Back up now")
+      Text(text = stringResource(id = R.string.RemoteBackupsSettingsFragment__back_up_now))
     }
   }
 }
@@ -485,14 +500,68 @@ private fun TurnOffAndDeleteBackupsDialog(
   onDismiss: () -> Unit
 ) {
   Dialogs.SimpleAlertDialog(
-    title = "Turn off and delete backups?",
-    body = "You will not be charged again. Your backup will be deleted and no new backups will be created.",
-    confirm = "Turn off and delete",
+    title = stringResource(id = R.string.RemoteBackupsSettingsFragment__turn_off_and_delete_backups),
+    body = stringResource(id = R.string.RemoteBackupsSettingsFragment__you_will_not_be_charged_again),
+    confirm = stringResource(id = R.string.RemoteBackupsSettingsFragment__turn_off_and_delete),
     dismiss = stringResource(id = android.R.string.cancel),
     confirmColor = MaterialTheme.colorScheme.error,
     onConfirm = onConfirm,
     onDismiss = onDismiss
   )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun DeletingBackupDialog(
+  backupDeleted: Boolean,
+  onDismiss: () -> Unit
+) {
+  BasicAlertDialog(
+    onDismissRequest = onDismiss,
+    properties = DialogProperties(
+      dismissOnBackPress = false,
+      dismissOnClickOutside = false
+    )
+  ) {
+    Surface(
+      shape = AlertDialogDefaults.shape,
+      color = AlertDialogDefaults.containerColor
+    ) {
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .defaultMinSize(minWidth = 232.dp)
+          .padding(bottom = 60.dp)
+      ) {
+        if (backupDeleted) {
+          Icon(
+            painter = painterResource(id = R.drawable.symbol_check_light_24),
+            contentDescription = null,
+            tint = Color(0xFF09B37B),
+            modifier = Modifier
+              .padding(top = 58.dp, bottom = 9.dp)
+              .size(48.dp)
+          )
+          Text(
+            text = stringResource(id = R.string.RemoteBackupsSettingsFragment__backup_deleted),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+          )
+        } else {
+          CircularProgressIndicator(
+            modifier = Modifier
+              .padding(top = 64.dp, bottom = 20.dp)
+              .size(48.dp)
+          )
+          Text(
+            text = stringResource(id = R.string.RemoteBackupsSettingsFragment__deleting_backup),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+          )
+        }
+      }
+    }
+  }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -515,7 +584,7 @@ private fun BackupFrequencyDialog(
           .fillMaxWidth()
       ) {
         Text(
-          text = "Backup frequency",
+          text = stringResource(id = R.string.RemoteBackupsSettingsFragment__backup_frequency),
           style = MaterialTheme.typography.headlineMedium,
           modifier = Modifier.padding(24.dp)
         )
@@ -525,7 +594,7 @@ private fun BackupFrequencyDialog(
             selected = selected == it,
             text = getTextForFrequency(backupsFrequency = it),
             label = when (it) {
-              BackupFrequency.MANUAL -> "By tapping \"Back up now\""
+              BackupFrequency.MANUAL -> stringResource(id = R.string.RemoteBackupsSettingsFragment__by_tapping_back_up_now)
               else -> null
             },
             modifier = Modifier
@@ -556,10 +625,10 @@ private fun BackupFrequencyDialog(
 @Composable
 private fun getTextForFrequency(backupsFrequency: BackupFrequency): String {
   return when (backupsFrequency) {
-    BackupFrequency.DAILY -> "Daily"
-    BackupFrequency.WEEKLY -> "Weekly"
-    BackupFrequency.MONTHLY -> "Monthly"
-    BackupFrequency.MANUAL -> "Manually back up"
+    BackupFrequency.DAILY -> stringResource(id = R.string.RemoteBackupsSettingsFragment__daily)
+    BackupFrequency.WEEKLY -> stringResource(id = R.string.RemoteBackupsSettingsFragment__weekly)
+    BackupFrequency.MONTHLY -> stringResource(id = R.string.RemoteBackupsSettingsFragment__monthly)
+    BackupFrequency.MANUAL -> stringResource(id = R.string.RemoteBackupsSettingsFragment__manually_back_up)
   }
 }
 
@@ -568,7 +637,7 @@ private fun getTextForFrequency(backupsFrequency: BackupFrequency): String {
 private fun RemoteBackupsSettingsContentPreview() {
   Previews.Preview {
     RemoteBackupsSettingsContent(
-      messageBackupTier = null,
+      messageBackupsType = null,
       lastBackupTimestamp = -1,
       canBackUpUsingCellular = false,
       backupsFrequency = BackupFrequency.MANUAL,
@@ -586,7 +655,12 @@ private fun RemoteBackupsSettingsContentPreview() {
 private fun BackupTypeRowPreview() {
   Previews.Preview {
     BackupTypeRow(
-      messageBackupTier = MessageBackupTier.PAID,
+      messageBackupsType = MessageBackupsType(
+        tier = MessageBackupTier.FREE,
+        title = "Free",
+        pricePerMonth = FiatMoney(BigDecimal.ZERO, Currency.getInstance("USD")),
+        features = persistentListOf()
+      ),
       onChangeBackupsTypeClick = {},
       onEnableBackupsClick = {}
     )
@@ -618,6 +692,17 @@ private fun TurnOffAndDeleteBackupsDialogPreview() {
   Previews.Preview {
     TurnOffAndDeleteBackupsDialog(
       onConfirm = {},
+      onDismiss = {}
+    )
+  }
+}
+
+@SignalPreview
+@Composable
+private fun DeleteBackupDialogPreview() {
+  Previews.Preview {
+    DeletingBackupDialog(
+      backupDeleted = true,
       onDismiss = {}
     )
   }

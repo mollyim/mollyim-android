@@ -10,8 +10,8 @@ import com.google.android.gms.security.ProviderInstaller;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.push.ServiceId.ACI;
 import org.whispersystems.signalservice.api.push.ServiceId.PNI;
@@ -46,7 +46,7 @@ public class AccountManagerFactory {
                                                                   int deviceId,
                                                                   @NonNull String password)
   {
-    if (ApplicationDependencies.getSignalServiceNetworkAccess().isCensored(e164)) {
+    if (AppDependencies.getSignalServiceNetworkAccess().isCensored(e164)) {
       SignalExecutors.BOUNDED.execute(() -> {
         try {
           ProviderInstaller.installIfNeeded(context);
@@ -56,15 +56,15 @@ public class AccountManagerFactory {
       });
     }
 
-    return new SignalServiceAccountManager(ApplicationDependencies.getSignalServiceNetworkAccess().getConfiguration(e164),
+    return new SignalServiceAccountManager(AppDependencies.getSignalServiceNetworkAccess().getConfiguration(e164),
                                            aci,
                                            pni,
                                            e164,
                                            deviceId,
                                            password,
                                            BuildConfig.SIGNAL_AGENT,
-                                           FeatureFlags.okHttpAutomaticRetry(),
-                                           FeatureFlags.groupLimits().getHardLimit());
+                                           RemoteConfig.okHttpAutomaticRetry(),
+                                           RemoteConfig.groupLimits().getHardLimit());
   }
 
   /**
@@ -85,33 +85,33 @@ public class AccountManagerFactory {
       });
     }
 
-    return new SignalServiceAccountManager(ApplicationDependencies.getSignalServiceNetworkAccess().getConfiguration(e164),
+    return new SignalServiceAccountManager(AppDependencies.getSignalServiceNetworkAccess().getConfiguration(e164),
                                            null,
                                            null,
                                            e164,
                                            deviceId,
                                            password,
                                            BuildConfig.SIGNAL_AGENT,
-                                           FeatureFlags.okHttpAutomaticRetry(),
-                                           FeatureFlags.groupLimits().getHardLimit());
+                                           RemoteConfig.okHttpAutomaticRetry(),
+                                           RemoteConfig.groupLimits().getHardLimit());
   }
 
   /**
    * Should only be used during registration when linking to an existing device.
    */
-  public static @NonNull SignalServiceAccountManager createForDeviceLink(@NonNull Context context,
-                                                                         @NonNull String password)
+  public @NonNull SignalServiceAccountManager createForDeviceLink(@NonNull Context context,
+                                                                  @NonNull String password)
   {
     // Limitation - We cannot detect the need to use a censored configuration for the link process, because the number (and hence country code) is unknown.
     // Perhaps offer a UI to select just the country, and obtain censorship configuration that way?
-    return new SignalServiceAccountManager(ApplicationDependencies.getSignalServiceNetworkAccess().getConfiguration(null),
+    return new SignalServiceAccountManager(AppDependencies.getSignalServiceNetworkAccess().getConfiguration(null),
                                            null,
                                            null,
                                            null,
                                            SignalServiceAddress.DEFAULT_DEVICE_ID,
                                            password,
                                            BuildConfig.SIGNAL_AGENT,
-                                           FeatureFlags.okHttpAutomaticRetry(),
-                                           FeatureFlags.groupLimits().getHardLimit());
+                                           RemoteConfig.okHttpAutomaticRetry(),
+                                           RemoteConfig.groupLimits().getHardLimit());
   }
 }

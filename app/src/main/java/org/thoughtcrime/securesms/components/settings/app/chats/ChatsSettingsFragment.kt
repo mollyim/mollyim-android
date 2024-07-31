@@ -1,16 +1,16 @@
 package org.thoughtcrime.securesms.components.settings.app.chats
 
-import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsFlowActivity
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
+import org.thoughtcrime.securesms.components.settings.app.subscription.donate.CheckoutFlowActivity
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.FeatureFlags
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -37,7 +37,7 @@ class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__ch
         title = DSLSettingsText.from(R.string.preferences__generate_link_previews),
         summary = DSLSettingsText.from(R.string.preferences__retrieve_link_previews_from_websites_for_messages),
         isChecked = state.generateLinkPreviews,
-        isEnabled = SignalStore.account().isPrimaryDevice,
+        isEnabled = SignalStore.account.isPrimaryDevice,
         onClick = {
           viewModel.setGenerateLinkPreviewsEnabled(!state.generateLinkPreviews)
         }
@@ -85,7 +85,7 @@ class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__ch
 
       sectionHeaderPref(R.string.preferences_chats__backups)
 
-      if (FeatureFlags.messageBackups() || state.remoteBackupsEnabled) {
+      if (RemoteConfig.messageBackups || state.remoteBackupsEnabled) {
         clickPref(
           title = DSLSettingsText.from("Signal Backups"), // TODO [message-backups] -- Finalized copy
           summary = DSLSettingsText.from(if (state.remoteBackupsEnabled) R.string.arrays__enabled else R.string.arrays__disabled),
@@ -93,7 +93,7 @@ class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__ch
             if (state.remoteBackupsEnabled) {
               Navigation.findNavController(requireView()).safeNavigate(R.id.action_chatsSettingsFragment_to_remoteBackupsSettingsFragment)
             } else {
-              startActivity(Intent(requireContext(), MessageBackupsFlowActivity::class.java))
+              startActivity(CheckoutFlowActivity.createIntent(requireContext(), InAppPaymentType.RECURRING_BACKUP))
             }
           }
         )

@@ -1,15 +1,16 @@
 package org.thoughtcrime.securesms.components.settings.app.help
 
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.signal.core.util.dp
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -49,25 +50,16 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
         summary = DSLSettingsText.from(BuildConfig.VERSION_NAME)
       )
 
-      if (FeatureFlags.selfUpdater()) {
-        switchPref(
-          title = DSLSettingsText.from(R.string.preferences__autoupdate_molly),
-          summary = DSLSettingsText.from(R.string.preferences__periodically_check_for_new_releases_and_ask_to_install_them),
-          isChecked = state.updateApkEnabled,
-          onClick = {
-            viewModel.setUpdateApkEnabled(!state.updateApkEnabled)
-          }
+      if (!BuildConfig.MANAGES_MOLLY_UPDATES) {
+        noPadTextPref(
+          title = DSLSettingsText.from(
+            R.string.HelpSettingsFragment_for_updates_please_check_your_app_store,
+            DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
+            DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant))
+          )
         )
 
-        switchPref(
-          title = DSLSettingsText.from(R.string.preferences__include_beta_updates),
-          summary = DSLSettingsText.from(R.string.preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs),
-          isChecked = state.includeBetaEnabled,
-          isEnabled = state.updateApkEnabled,
-          onClick = {
-            viewModel.setIncludeBetaEnabled(!state.includeBetaEnabled)
-          }
-        )
+        space(16.dp)
       }
 
       switchPref(

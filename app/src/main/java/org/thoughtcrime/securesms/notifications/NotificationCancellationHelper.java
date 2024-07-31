@@ -13,7 +13,7 @@ import com.annimon.stream.Stream;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.SignalDatabase;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.notifications.v2.DefaultMessageNotifier;
 import org.thoughtcrime.securesms.notifications.v2.ConversationId;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -53,27 +53,31 @@ public final class NotificationCancellationHelper {
    * bubble notifications that do not have unread messages in them.
    */
   public static void cancelAllMessageNotifications(@NonNull Context context, @NonNull Set<Integer> stickyNotifications) {
-    try {
-      NotificationManager     notifications       = ServiceUtil.getNotificationManager(context);
-      StatusBarNotification[] activeNotifications = notifications.getActiveNotifications();
-      int                     activeCount         = 0;
+    if (Build.VERSION.SDK_INT >= 23) {
+      try {
+        NotificationManager     notifications       = ServiceUtil.getNotificationManager(context);
+        StatusBarNotification[] activeNotifications = notifications.getActiveNotifications();
+        int                     activeCount         = 0;
 
-      for (StatusBarNotification activeNotification : activeNotifications) {
-        if (isSingleThreadNotification(activeNotification)) {
-          activeCount++;
-          if (!stickyNotifications.contains(activeNotification.getId()) && cancel(context, activeNotification.getId())) {
-            activeCount--;
+        for (StatusBarNotification activeNotification : activeNotifications) {
+          if (isSingleThreadNotification(activeNotification)) {
+            activeCount++;
+            if (!stickyNotifications.contains(activeNotification.getId()) && cancel(context, activeNotification.getId())) {
+              activeCount--;
+            }
           }
         }
-      }
 
-      if (activeCount == 0) {
-        cancelLegacy(context, NotificationIds.MESSAGE_SUMMARY);
+        if (activeCount == 0) {
+          cancelLegacy(context, NotificationIds.MESSAGE_SUMMARY);
+        }
+      } catch (Throwable e) {
+        // XXX Appears to be a ROM bug, see #6043
+        Log.w(TAG, "Canceling all notifications.", e);
+        ServiceUtil.getNotificationManager(context).cancelAll();
       }
-    } catch (Throwable e) {
-      // XXX Appears to be a ROM bug, see #6043
-      Log.w(TAG, "Canceling all notifications.", e);
-      ServiceUtil.getNotificationManager(context).cancelAll();
+    } else {
+      cancelLegacy(context, NotificationIds.MESSAGE_SUMMARY);
     }
   }
 
@@ -182,7 +186,7 @@ public final class NotificationCancellationHelper {
     }
 
     Long                     threadId            = SignalDatabase.threads().getThreadIdFor(recipientId);
-    Optional<ConversationId> focusedThread       = ApplicationDependencies.getMessageNotifier().getVisibleThread();
+    Optional<ConversationId> focusedThread       = AppDependencies.getMessageNotifier().getVisibleThread();
     Long                     focusedThreadId     = focusedThread.map(ConversationId::getThreadId).orElse(null);
     Long                     focusedGroupStoryId = focusedThread.map(ConversationId::getGroupStoryId).orElse(null);
 

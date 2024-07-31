@@ -17,7 +17,7 @@ import org.signal.libsignal.zkgroup.backups.BackupAuthCredentialRequest
  * Represents the request body when setting the archive backupId.
  */
 class ArchiveSetBackupIdRequest(
-  @JsonProperty("backupAuthCredentialRequest")
+  @JsonProperty
   @JsonSerialize(using = BackupAuthCredentialRequestSerializer::class)
   val backupAuthCredentialRequest: BackupAuthCredentialRequest
 ) {

@@ -2,8 +2,8 @@ package org.thoughtcrime.securesms.fonts
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.util.EncryptedStreamUtils
 import java.io.File
@@ -12,13 +12,13 @@ import java.io.File
  * FontFileMap links a network font name (e.g. Inter-Bold.ttf) to a UUID used as an on-disk filename.
  * These mappings are encoded into JSON and stored on disk in a file called .map
  */
-data class FontFileMap(@JsonProperty("map") val map: Map<String, String>) {
+data class FontFileMap(val map: Map<String, String>) {
 
   companion object {
 
     private val TAG = Log.tag(FontFileMap::class.java)
     private const val PATH = ".map"
-    private val objectMapper = ObjectMapper()
+    private val objectMapper = ObjectMapper().registerKotlinModule()
 
     /**
      * Adds the given mapping to the .map file.

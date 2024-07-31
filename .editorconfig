@@ -4,6 +4,17 @@ root = true
 indent_size = 2
 ktlint_standard_trailing-comma-on-call-site = disable
 ktlint_standard_trailing-comma-on-declaration-site = disable
-ktlink_standard_spacing-between-declarations-with-annotations = disable
+ktlint_standard_spacing-between-declarations-with-annotations = disable
 ktlint_code_style = intellij_idea
 ktlint_standard_class-naming = disabled
+
+# below rules disabled during ktlint version migration because they were preexisting but should be corrected and re-enabled ASAP
+ktlint_function_naming_ignore_when_annotated_with = Composable
+ktlint_standard_property-naming = disabled
+ktlint_standard_enum-wrapping = disabled
+ktlint_standard_multiline-if-else = disabled
+ktlint_standard_backing-property-naming = disabled
+ktlint_standard_statement-wrapping = disabled
+internal:ktlint-suppression = disabled
+ktlint_standard_unnecessary-parentheses-before-trailing-lambda = disabled
+ktlint_standard_value-parameter-comment = disabled

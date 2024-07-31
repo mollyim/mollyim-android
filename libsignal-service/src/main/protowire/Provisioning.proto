@@ -3,7 +3,7 @@
  *
  * Licensed according to the LICENSE file in this repository.
  */
-syntax = "proto2";
+syntax = "proto3";
 
 package signalservice;
 
@@ -11,7 +11,7 @@ option java_package         = "org.whispersystems.signalservice.internal.push";
 option java_outer_classname = "ProvisioningProtos";
 
 message ProvisioningUuid {
-  optional string uuid = 1;
+  string uuid = 1;
 }
 
 message ProvisionEnvelope {

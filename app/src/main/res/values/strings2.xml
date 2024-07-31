@@ -75,6 +75,7 @@
     <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">If your device can’t scan the QR code, you can manually enter the link encoded in the QR code.</string>
     <string name="enter_device_link_dialog__url" translatable="false">sgnl://linkdevice?uuid=UUID&amp;pub_key=PUBKEY</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Delete and disable debug log?</string>
+    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">For updates, please check your app store. This version does not include an in-app updater.</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly needs the contacts and media permissions to help you find your friends and send messages. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly needs the contacts permission to help you find your friends. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
     <string name="DozeReminder_optimize_for_timely_notifications">Optimize for timely notifications</string>
@@ -115,4 +116,5 @@
     <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Receive notifications for messages or missed calls when the app is locked.</string>
     <string name="NotificationsSettingsFragment__push_notifications_unavailable">Push notifications unavailable</string>
     <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">Sorry, this feature requires push notifications delivered via FCM or UnifiedPush, which are currently unavailable.</string>
+    <string name="AppUpdatesSettingsFragment__last_checked_s">Last checked: %s</string>
 </resources>

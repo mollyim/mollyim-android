@@ -1,3 +1,8 @@
+/*
+ * Copyright 2024 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -61,6 +66,7 @@ tasks.whenTaskAdded {
 dependencies {
   api(libs.google.libphonenumber)
   api(libs.jackson.core)
+  api(libs.jackson.module.kotlin)
 
   implementation(libs.libsignal.client)
   api(libs.square.okhttp3)

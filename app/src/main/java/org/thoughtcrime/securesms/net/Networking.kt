@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.net
 
 import okhttp3.Dns
 import java.io.IOException
+import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.Proxy
 import java.net.ProxySelector
@@ -10,21 +11,14 @@ import java.net.URI
 import javax.net.SocketFactory
 
 object Networking {
+
   @JvmStatic
   var isEnabled: Boolean = false
 
-  private fun throwIfDisabled() {
-    if (!isEnabled) throw IOException("Network is disabled")
-  }
-
   @JvmStatic
   val socketFactory: SocketFactory = ProxySocketFactory {
-    throwIfDisabled()
-    proxy.also {
-      if (it == DUMMY_PROXY) {
-        throw IOException("Proxy socket address not available yet")
-      }
-    }
+    ensureNetworkEnabled()
+    proxy.also { validateProxyAddress(it) }
   }
 
   @JvmStatic
@@ -48,15 +42,15 @@ object Networking {
    * connection without a proxy.
    */
   @JvmStatic
-  val proxy
-    get(): Proxy {
+  val proxy: Proxy
+    get() {
       val currentSocksProxy = socksProxy ?: return Proxy.NO_PROXY
       return currentSocksProxy.makeProxy() ?: DUMMY_PROXY
     }
 
   @JvmStatic
   val proxySelectorForSocks = object : ProxySelector() {
-    val systemDefault = getDefault()
+    private val systemDefault = getDefault()
 
     override fun select(uri: URI?): List<Proxy> {
       return if (socksProxy != null) {
@@ -67,31 +61,35 @@ object Networking {
       }
     }
 
-    override fun connectFailed(uri: URI?, sa: SocketAddress?, ioe: IOException?) = systemDefault.connectFailed(uri, sa, ioe)
+    override fun connectFailed(uri: URI?, sa: SocketAddress?, ioe: IOException?) =
+      systemDefault.connectFailed(uri, sa, ioe)
   }
 
   @JvmStatic
-  val dns = Dns { hostname ->
-    throwIfDisabled()
-    if (socksProxy == null) {
-      systemResolver.lookup(hostname)
-    } else {
-      dohResolver.lookup(hostname)
-    }
+  val dns: Dns = DnsProxyAware()
+
+  private fun ensureNetworkEnabled() {
+    if (!isEnabled) throw IOException("Network is disabled")
   }
 
-  private val cloudflare: Dns = DohClient("https://1.1.1.1/dns-query", socketFactory, proxySelectorForSocks)
+  private fun validateProxyAddress(proxy: Proxy) {
+    if (proxy == DUMMY_PROXY) throw IOException("Proxy socket address not available yet")
+  }
 
-  private val quad9: Dns = DohClient("https://9.9.9.9/dns-query", socketFactory, proxySelectorForSocks)
+  private class DnsProxyAware : Dns {
+    private val cloudflare: Dns = DohClient("https://1.1.1.1/dns-query", socketFactory, proxySelectorForSocks)
+    private val quad9: Dns = DohClient("https://9.9.9.9/dns-query", socketFactory, proxySelectorForSocks)
 
-  private val systemResolver: Dns = SequentialDns(
-    Dns.SYSTEM,
-    cloudflare,
-    quad9,
-  )
+    private val systemDnsResolver: Dns = SequentialDns(Dns.SYSTEM, cloudflare, quad9)
+    private val dohDnsResolver: Dns = SequentialDns(cloudflare, quad9)
 
-  private val dohResolver: Dns = SequentialDns(
-    cloudflare,
-    quad9,
-  )
+    override fun lookup(hostname: String): List<InetAddress> {
+      ensureNetworkEnabled()
+      return if (socksProxy == null) {
+        systemDnsResolver.lookup(hostname)
+      } else {
+        dohDnsResolver.lookup(hostname)
+      }
+    }
+  }
 }

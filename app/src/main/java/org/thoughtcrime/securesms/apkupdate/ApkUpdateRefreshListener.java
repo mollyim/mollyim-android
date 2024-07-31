@@ -9,10 +9,10 @@ package org.thoughtcrime.securesms.apkupdate;
 import android.content.Context;
 
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobs.ApkUpdateJob;
 import org.thoughtcrime.securesms.service.PersistentAlarmManagerListener;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.concurrent.TimeUnit;
@@ -34,7 +34,7 @@ public class ApkUpdateRefreshListener extends PersistentAlarmManagerListener {
 
     if (scheduledTime != 0) {
       Log.i(TAG, "Queueing APK update job...");
-      ApplicationDependencies.getJobManager().add(new ApkUpdateJob());
+      AppDependencies.getJobManager().add(new ApkUpdateJob());
     }
 
     long newTime = System.currentTimeMillis() + INTERVAL;
@@ -44,7 +44,7 @@ public class ApkUpdateRefreshListener extends PersistentAlarmManagerListener {
   }
 
   public static void scheduleIfAllowed(Context context) {
-    if (FeatureFlags.selfUpdater()) {
+    if (BuildConfig.MANAGES_MOLLY_UPDATES) {
       new ApkUpdateRefreshListener().onReceive(context, getScheduleIntent());
     }
   }

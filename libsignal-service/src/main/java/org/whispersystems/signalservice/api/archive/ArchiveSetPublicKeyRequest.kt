@@ -17,7 +17,7 @@ import org.signal.libsignal.protocol.ecc.ECPublicKey
  * Represents the request body when setting the archive public key.
  */
 class ArchiveSetPublicKeyRequest(
-  @JsonProperty("backupIdPublicKey")
+  @JsonProperty
   @JsonSerialize(using = PublicKeySerializer::class)
   val backupIdPublicKey: ECPublicKey
 ) {

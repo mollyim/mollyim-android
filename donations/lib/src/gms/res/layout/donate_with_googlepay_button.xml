@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44sp"
+    android:layout_marginTop="2sp"
+    android:layout_marginBottom="2sp"
+    android:background="@drawable/donate_with_google_pay_rounded_background"
+    android:clickable="true"
+    android:contentDescription="@string/donate_with_googlepay_button_content_description"
+    android:focusable="true"
+    android:padding="2sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:duplicateParentState="true"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:duplicateParentState="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/donate_with_googlepay_button_content" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:duplicateParentState="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/googlepay_button_overlay" />
+</RelativeLayout>

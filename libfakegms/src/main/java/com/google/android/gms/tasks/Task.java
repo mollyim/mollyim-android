@@ -9,6 +9,10 @@ public class Task<TResult> {
     return null;
   }
 
+  public <X extends Throwable> TResult getResult(Class<X> clazz) throws X {
+    return null;
+  }
+
   public Exception getException() {
     return new UnsupportedOperationException();
   }

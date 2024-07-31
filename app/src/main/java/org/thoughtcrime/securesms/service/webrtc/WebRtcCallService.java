@@ -23,11 +23,11 @@ import org.signal.core.util.PendingIntentFlags;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.TelephonyUtil;
 import org.thoughtcrime.securesms.webrtc.CallNotificationBuilder;
 import org.thoughtcrime.securesms.webrtc.UncaughtExceptionHandlerManager;
@@ -88,7 +88,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
   private boolean                         stopping                   = false;
 
   public synchronized static void update(@NonNull Context context, int type, @NonNull RecipientId recipientId, boolean isVideoCall) {
-    if (FeatureFlags.useActiveCallManager()) {
+    if (RemoteConfig.useActiveCallManager()) {
       ActiveCallManager.update(context, type, recipientId, isVideoCall);
 
       return;
@@ -104,7 +104,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
   }
 
   public static void denyCall(@NonNull Context context) {
-    if (FeatureFlags.useActiveCallManager()) {
+    if (RemoteConfig.useActiveCallManager()) {
       ActiveCallManager.denyCall();
       return;
     }
@@ -113,7 +113,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
   }
 
   public static void hangup(@NonNull Context context) {
-    if (FeatureFlags.useActiveCallManager()) {
+    if (RemoteConfig.useActiveCallManager()) {
       ActiveCallManager.hangup();
       return;
     }
@@ -122,7 +122,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
   }
 
   public synchronized static void stop(@NonNull Context context) {
-    if (FeatureFlags.useActiveCallManager()) {
+    if (RemoteConfig.useActiveCallManager()) {
       ActiveCallManager.stop();
       return;
     }
@@ -134,7 +134,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
   }
 
   public synchronized static @NonNull PendingIntent denyCallIntent(@NonNull Context context) {
-    if (FeatureFlags.useActiveCallManager()) {
+    if (RemoteConfig.useActiveCallManager()) {
       return ActiveCallManager.denyCallIntent(context);
     }
 
@@ -142,7 +142,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
   }
 
   public synchronized static @NonNull PendingIntent hangupIntent(@NonNull Context context) {
-    if (FeatureFlags.useActiveCallManager()) {
+    if (RemoteConfig.useActiveCallManager()) {
       return ActiveCallManager.hangupIntent(context);
     }
 
@@ -150,7 +150,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
   }
 
   public synchronized static void sendAudioManagerCommand(@NonNull Context context, @NonNull AudioManagerCommand command) {
-    if (FeatureFlags.useActiveCallManager()) {
+    if (RemoteConfig.useActiveCallManager()) {
       ActiveCallManager.sendAudioManagerCommand(context, command);
       return;
     }
@@ -162,7 +162,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
   }
 
   public synchronized static void changePowerButtonReceiver(@NonNull Context context, boolean register) {
-    if (FeatureFlags.useActiveCallManager()) {
+    if (RemoteConfig.useActiveCallManager()) {
       ActiveCallManager.changePowerButtonReceiver(context, register);
       return;
     }
@@ -178,7 +178,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
   public void onCreate() {
     Log.v(TAG, "onCreate");
     super.onCreate();
-    this.callManager                   = ApplicationDependencies.getSignalCallManager();
+    this.callManager                   = AppDependencies.getSignalCallManager();
     this.hangUpRtcOnDeviceCallAnswered = new HangUpRtcOnPstnCallAnsweredListener();
     this.lastNotificationId            = INVALID_NOTIFICATION_ID;
 
@@ -418,14 +418,14 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
     public void stop() {
       keepRunning = false;
       ThreadUtil.cancelRunnableOnMain(webSocketKeepAliveTask);
-      ApplicationDependencies.getIncomingMessageObserver().removeKeepAliveToken(WEBSOCKET_KEEP_ALIVE_TOKEN);
+      AppDependencies.getIncomingMessageObserver().removeKeepAliveToken(WEBSOCKET_KEEP_ALIVE_TOKEN);
     }
 
     @MainThread
     @Override
     public void run() {
       if (keepRunning) {
-        ApplicationDependencies.getIncomingMessageObserver().registerKeepAliveToken(WEBSOCKET_KEEP_ALIVE_TOKEN);
+        AppDependencies.getIncomingMessageObserver().registerKeepAliveToken(WEBSOCKET_KEEP_ALIVE_TOKEN);
         ThreadUtil.runOnMainDelayed(this, REQUEST_WEBSOCKET_STAY_OPEN_DELAY);
       }
     }
@@ -437,8 +437,8 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
       ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
       NetworkInfo         activeNetworkInfo   = connectivityManager.getActiveNetworkInfo();
 
-      ApplicationDependencies.getSignalCallManager().networkChange(activeNetworkInfo != null && activeNetworkInfo.isConnected());
-      ApplicationDependencies.getSignalCallManager().dataModeUpdate();
+      AppDependencies.getSignalCallManager().networkChange(activeNetworkInfo != null && activeNetworkInfo.isConnected());
+      AppDependencies.getSignalCallManager().dataModeUpdate();
     }
   }
 
@@ -446,7 +446,7 @@ public final class WebRtcCallService extends Service implements SignalAudioManag
     @Override
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
       if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
-        ApplicationDependencies.getSignalCallManager().screenOff();
+        AppDependencies.getSignalCallManager().screenOff();
       }
     }
   }

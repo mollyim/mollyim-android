@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import okio.HashingSink
 import okio.blackholeSink
 import okio.buffer
@@ -134,14 +136,14 @@ object EmojiFiles {
     }
   }
 
-  class Version(@JsonProperty("version") val version: Int, @JsonProperty("uuid") val uuid: UUID, @JsonProperty("density") val density: String) {
+  class Version(@JsonProperty val version: Int, @JsonProperty val uuid: UUID, @JsonProperty val density: String) {
 
     fun getFile(context: Context, uuid: UUID): File = File(getDirectory(context), uuid.toString())
 
     private fun getDirectory(context: Context): File = File(context.getEmojiDirectory(), this.uuid.toString()).apply { mkdir() }
 
     companion object {
-      private val objectMapper = ObjectMapper()
+      private val objectMapper = ObjectMapper().registerKotlinModule()
 
       @JvmStatic
       @JvmOverloads
@@ -210,17 +212,17 @@ object EmojiFiles {
     }
   }
 
-  class Name(@JsonProperty("name") val name: String, @JsonProperty("uuid") val uuid: UUID) {
+  class Name(@JsonProperty val name: String, @JsonProperty val uuid: UUID) {
     companion object {
       @JvmStatic
       fun forEmojiDataJson(): Name = Name(EMOJI_JSON, UUID.randomUUID())
     }
   }
 
-  class NameCollection(@JsonProperty("versionUuid") val versionUuid: UUID, @JsonProperty("names") val names: List<Name>) {
+  class NameCollection(@JsonProperty val versionUuid: UUID, @JsonProperty val names: List<Name>) {
     companion object {
 
-      private val objectMapper = ObjectMapper()
+      private val objectMapper = ObjectMapper().registerKotlinModule()
 
       @JvmStatic
       fun read(context: Context, version: Version): NameCollection {
@@ -257,16 +259,16 @@ object EmojiFiles {
     fun getUUIDForName(name: String): UUID? = names.firstOrNull { it.name == name }?.uuid
   }
 
-  class JumboCollection(@JsonProperty("versionUuid") val versionUuid: UUID, @JsonProperty("names") val names: List<Name>) {
+  class JumboCollection(@JsonProperty val versionUuid: UUID, @JsonProperty val names: List<Name>) {
     companion object {
 
-      private val objectMapper = ObjectMapper()
+      private val objectMapper = ObjectMapper().registerKotlinModule()
 
       @JvmStatic
       fun read(context: Context, version: Version): JumboCollection {
         try {
           getInputStream(context, context.getJumboFile(version.uuid)).use {
-            return objectMapper.readValue(it, JumboCollection::class.java)
+            return objectMapper.readValue(it)
           }
         } catch (e: Exception) {
           return JumboCollection(version.uuid, listOf())

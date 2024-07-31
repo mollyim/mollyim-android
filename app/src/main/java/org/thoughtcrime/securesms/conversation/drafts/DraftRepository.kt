@@ -30,7 +30,7 @@ import org.thoughtcrime.securesms.database.model.MessageId
 import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyboard.KeyboardUtil
 import org.thoughtcrime.securesms.mediasend.Media
 import org.thoughtcrime.securesms.mms.GifSlide
@@ -50,7 +50,7 @@ import java.io.IOException
 import java.util.concurrent.Executor
 
 class DraftRepository(
-  private val context: Context = ApplicationDependencies.getApplication(),
+  private val context: Context = AppDependencies.application,
   private val threadTable: ThreadTable = SignalDatabase.threads,
   private val draftTable: DraftTable = SignalDatabase.drafts,
   private val saveDraftsExecutor: Executor = SerialMonoLifoExecutor(SignalExecutors.BOUNDED),
@@ -132,6 +132,11 @@ class DraftRepository(
 
       val draftText: CharSequence? = drafts.firstOrNull { it.type == DraftTable.Draft.TEXT }?.let { updatedText ?: it.value }
 
+      val messageEdit: ConversationMessage? = drafts.firstOrNull { it.type == DraftTable.Draft.MESSAGE_EDIT }?.let { loadDraftMessageEditInternal(it.value) }
+      if (messageEdit != null) {
+        return ShareOrDraftData.SetEditMessage(messageEdit, draftText, clearQuote = drafts.none { it.type == DraftTable.Draft.QUOTE }) to drafts
+      }
+
       val location: SignalPlace? = drafts.firstOrNull { it.type == DraftTable.Draft.LOCATION }?.let { SignalPlace.deserialize(it.value) }
       if (location != null) {
         return ShareOrDraftData.SetLocation(location, draftText) to drafts
@@ -140,11 +145,6 @@ class DraftRepository(
       val quote: ConversationMessage? = drafts.firstOrNull { it.type == DraftTable.Draft.QUOTE }?.let { loadDraftQuoteInternal(it.value) }
       if (quote != null) {
         return ShareOrDraftData.SetQuote(quote, draftText) to drafts
-      }
-
-      val messageEdit: ConversationMessage? = drafts.firstOrNull { it.type == DraftTable.Draft.MESSAGE_EDIT }?.let { loadDraftMessageEditInternal(it.value) }
-      if (messageEdit != null) {
-        return ShareOrDraftData.SetEditMessage(messageEdit, draftText) to drafts
       }
 
       if (draftText != null) {
@@ -248,6 +248,6 @@ class DraftRepository(
     data class SetText(val text: CharSequence) : ShareOrDraftData
     data class SetLocation(val location: SignalPlace, val draftText: CharSequence?) : ShareOrDraftData
     data class SetQuote(val quote: ConversationMessage, val draftText: CharSequence?) : ShareOrDraftData
-    data class SetEditMessage(val messageEdit: ConversationMessage, val draftText: CharSequence?) : ShareOrDraftData
+    data class SetEditMessage(val messageEdit: ConversationMessage, val draftText: CharSequence?, val clearQuote: Boolean) : ShareOrDraftData
   }
 }

@@ -7,7 +7,7 @@ import androidx.annotation.WorkerThread;
 import androidx.core.util.Consumer;
 
 import org.signal.core.util.concurrent.SignalExecutors;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.giph.model.GiphyImage;
 import org.thoughtcrime.securesms.net.ContentProxySelector;
 import org.thoughtcrime.securesms.providers.BlobProvider;
@@ -30,7 +30,7 @@ final class GiphyMp4Repository {
   private final OkHttpClient client;
 
   GiphyMp4Repository() {
-    this.client = ApplicationDependencies.getOkHttpClient().newBuilder().proxySelector(new ContentProxySelector()).build();
+    this.client = AppDependencies.getOkHttpClient().newBuilder().proxySelector(new ContentProxySelector()).build();
   }
 
   void saveToBlob(@NonNull GiphyImage giphyImage, boolean isForMms, @NonNull Consumer<GiphyMp4SaveResult> resultConsumer) {
@@ -64,7 +64,7 @@ final class GiphyMp4Repository {
         return BlobProvider.getInstance()
                            .forData(response.body().byteStream(), response.body().contentLength())
                            .withMimeType(mime)
-                           .createForSingleSessionOnDisk(ApplicationDependencies.getApplication());
+                           .createForSingleSessionOnDisk(AppDependencies.getApplication());
       } else {
         throw new IOException("Unexpected response code: " + response.code());
       }

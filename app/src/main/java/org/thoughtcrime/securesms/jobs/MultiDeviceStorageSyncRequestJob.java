@@ -4,8 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
@@ -56,10 +55,9 @@ public class MultiDeviceStorageSyncRequestJob extends BaseJob {
       return;
     }
 
-    SignalServiceMessageSender messageSender = ApplicationDependencies.getSignalServiceMessageSender();
+    SignalServiceMessageSender messageSender = AppDependencies.getSignalServiceMessageSender();
 
-    messageSender.sendSyncMessage(SignalServiceSyncMessage.forFetchLatest(SignalServiceSyncMessage.FetchType.STORAGE_MANIFEST),
-                                  UnidentifiedAccessUtil.getAccessForSync(context));
+    messageSender.sendSyncMessage(SignalServiceSyncMessage.forFetchLatest(SignalServiceSyncMessage.FetchType.STORAGE_MANIFEST));
   }
 
   @Override

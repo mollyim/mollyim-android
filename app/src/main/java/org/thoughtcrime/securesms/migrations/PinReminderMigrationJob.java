@@ -34,8 +34,8 @@ public class PinReminderMigrationJob extends MigrationJob {
   @Override
   void performMigration() {
     boolean value = SecurePreferenceManager.getSecurePreferences(context).getBoolean("pref_signal_enable_pinv2_reminders", true);
-    SignalStore.pinValues().setPinRemindersEnabled(value);
-    SignalStore.pinValues().setNextReminderIntervalToAtMost(TimeUnit.DAYS.toMillis(3));
+    SignalStore.pin().setPinRemindersEnabled(value);
+    SignalStore.pin().setNextReminderIntervalToAtMost(TimeUnit.DAYS.toMillis(3));
   }
 
   @Override

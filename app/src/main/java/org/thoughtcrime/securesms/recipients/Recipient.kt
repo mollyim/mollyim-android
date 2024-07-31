@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.recipients
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
@@ -14,15 +13,12 @@ import org.signal.core.util.logging.Log
 import org.signal.core.util.nullIfBlank
 import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.avatar.fallback.FallbackAvatar
 import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto
-import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto
-import org.thoughtcrime.securesms.contacts.avatars.GeneratedContactPhoto
 import org.thoughtcrime.securesms.contacts.avatars.GroupRecordContactPhoto
 import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto
-import org.thoughtcrime.securesms.contacts.avatars.ResourceContactPhoto
 import org.thoughtcrime.securesms.contacts.avatars.SystemContactPhoto
-import org.thoughtcrime.securesms.contacts.avatars.TransparentContactPhoto
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.conversation.colors.ChatColors.Id.Auto
@@ -31,7 +27,7 @@ import org.thoughtcrime.securesms.database.RecipientTable.MentionSetting
 import org.thoughtcrime.securesms.database.RecipientTable.MissingRecipientException
 import org.thoughtcrime.securesms.database.RecipientTable.PhoneNumberSharingState
 import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState
-import org.thoughtcrime.securesms.database.RecipientTable.UnidentifiedAccessMode
+import org.thoughtcrime.securesms.database.RecipientTable.SealedSenderAccessMode
 import org.thoughtcrime.securesms.database.RecipientTable.VibrateState
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.DistributionListId
@@ -39,7 +35,7 @@ import org.thoughtcrime.securesms.database.model.GroupRecord
 import org.thoughtcrime.securesms.database.model.ProfileAvatarFileDetails
 import org.thoughtcrime.securesms.database.model.RecipientRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.RecipientExtras
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
@@ -47,7 +43,6 @@ import org.thoughtcrime.securesms.phonenumbers.NumberUtil
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
-import org.thoughtcrime.securesms.util.AvatarUtil
 import org.thoughtcrime.securesms.util.UsernameUtil.isValidUsernameForSearch
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
@@ -103,7 +98,7 @@ class Recipient(
   val hiddenState: HiddenState = HiddenState.NOT_HIDDEN,
   val lastProfileFetchTime: Long = 0,
   private val notificationChannelValue: String? = null,
-  private val unidentifiedAccessModeValue: UnidentifiedAccessMode = UnidentifiedAccessMode.UNKNOWN,
+  private val sealedSenderAccessModeValue: SealedSenderAccessMode = SealedSenderAccessMode.UNKNOWN,
   private val capabilities: RecipientRecord.Capabilities = RecipientRecord.Capabilities.UNKNOWN,
   val storageId: ByteArray? = null,
   val mentionSetting: MentionSetting = MentionSetting.ALWAYS_NOTIFY,
@@ -248,7 +243,7 @@ class Recipient(
       null
     } else if (groupIdValue != null && groupAvatarId.isPresent) {
       GroupRecordContactPhoto(groupIdValue, groupAvatarId.get())
-    } else if (systemContactPhoto != null && SignalStore.settings().isPreferSystemContactPhotos) {
+    } else if (systemContactPhoto != null && SignalStore.settings.isPreferSystemContactPhotos) {
       SystemContactPhoto(id, systemContactPhoto, 0)
     } else if (profileAvatar != null && profileAvatarFileDetails.hasFile()) {
       ProfileContactPhoto(this)
@@ -257,10 +252,6 @@ class Recipient(
     } else {
       null
     }
-
-  /** A photo you can use as a fallback if [contactPhoto] fails to load. */
-  val fallbackContactPhoto: FallbackContactPhoto
-    get() = getFallbackContactPhoto(DEFAULT_FALLBACK_PHOTO_PROVIDER)
 
   /** The URI of the ringtone that should be used when receiving a message from this recipient, if set. */
   val messageRingtone: Uri? by lazy {
@@ -324,13 +315,13 @@ class Recipient(
   val notificationChannel: String? = if (!NotificationChannels.supported()) null else notificationChannelValue
 
   /** The user's payment capability. */
-  val paymentActivationCapability: Capability = capabilities.paymentActivation
+  val deleteSyncCapability: Capability = capabilities.deleteSync
 
   /** The state around whether we can send sealed sender to this user. */
-  val unidentifiedAccessMode: UnidentifiedAccessMode = if (pni.isPresent && pni == serviceId) {
-    UnidentifiedAccessMode.DISABLED
+  val sealedSenderAccessMode: SealedSenderAccessMode = if (pni.isPresent && pni == serviceId) {
+    SealedSenderAccessMode.DISABLED
   } else {
-    unidentifiedAccessModeValue
+    sealedSenderAccessModeValue
   }
 
   /** The wallpaper to render as the chat background, if present. */
@@ -341,7 +332,7 @@ class Recipient(
       } else if (isReleaseNotes) {
         null
       } else {
-        SignalStore.wallpaper().getWallpaper()
+        SignalStore.wallpaper.getWallpaper()
       }
     }
 
@@ -350,7 +341,7 @@ class Recipient(
 
   /** A cheap way to check if wallpaper is set without doing any unnecessary proto parsing. */
   val hasWallpaper: Boolean
-    get() = wallpaperValue != null || SignalStore.wallpaper().hasWallpaperSet()
+    get() = wallpaperValue != null || SignalStore.wallpaper.hasWallpaperSet()
 
   /** The color of the chat bubbles to use in a chat with this recipient. */
   val chatColors: ChatColors
@@ -360,7 +351,7 @@ class Recipient(
       } else if (chatColorsValue != null) {
         autoChatColor
       } else {
-        val global = SignalStore.chatColorsValues().chatColors
+        val global = SignalStore.chatColors.chatColors
         if (global != null && global.id !is Auto) {
           global
         } else {
@@ -460,7 +451,7 @@ class Recipient(
   /** The name to show for a group. It will be the group name if present, otherwise we default to a list of shortened member names. */
   fun getGroupName(context: Context): String? {
     return if (groupIdValue != null && Util.isEmpty(groupName)) {
-      val selfId = ApplicationDependencies.getRecipientCache().getSelfId()
+      val selfId = AppDependencies.recipientCache.getSelfId()
       val others = participantIdsValue
         .filter { id: RecipientId -> id != selfId }
         .take(MAX_MEMBER_NAMES)
@@ -609,45 +600,29 @@ class Recipient(
     }
   }
 
-  fun getFallbackContactPhotoDrawable(context: Context?, inverted: Boolean): Drawable {
-    return getFallbackContactPhotoDrawable(context, inverted, DEFAULT_FALLBACK_PHOTO_PROVIDER, AvatarUtil.UNDEFINED_SIZE)
-  }
-
-  fun getFallbackContactPhotoDrawable(context: Context?, inverted: Boolean, fallbackPhotoProvider: FallbackPhotoProvider?, targetSize: Int): Drawable {
-    return getFallbackContactPhoto(Util.firstNonNull(fallbackPhotoProvider, DEFAULT_FALLBACK_PHOTO_PROVIDER), targetSize).asDrawable(context!!, avatarColor, inverted)
-  }
-
-  fun getSmallFallbackContactPhotoDrawable(context: Context?, inverted: Boolean, fallbackPhotoProvider: FallbackPhotoProvider?, targetSize: Int): Drawable {
-    return getFallbackContactPhoto(Util.firstNonNull(fallbackPhotoProvider, DEFAULT_FALLBACK_PHOTO_PROVIDER), targetSize).asSmallDrawable(context!!, avatarColor, inverted)
-  }
-
-  fun getFallbackContactPhoto(fallbackPhotoProvider: FallbackPhotoProvider): FallbackContactPhoto {
-    return getFallbackContactPhoto(fallbackPhotoProvider, AvatarUtil.UNDEFINED_SIZE)
-  }
-
-  private fun getFallbackContactPhoto(fallbackPhotoProvider: FallbackPhotoProvider, targetSize: Int): FallbackContactPhoto {
+  fun getFallbackAvatar(): FallbackAvatar {
     return if (isSelf) {
-      fallbackPhotoProvider.photoForLocalNumber
+      FallbackAvatar.Resource.Local(avatarColor)
     } else if (isResolving) {
-      fallbackPhotoProvider.photoForResolvingRecipient
+      FallbackAvatar.Transparent
     } else if (isDistributionList) {
-      fallbackPhotoProvider.photoForDistributionList
+      FallbackAvatar.Resource.DistributionList(avatarColor)
     } else if (isCallLink) {
-      fallbackPhotoProvider.photoForCallLink
+      FallbackAvatar.Resource.CallLink(avatarColor)
     } else if (groupIdValue != null) {
-      fallbackPhotoProvider.photoForGroup
+      FallbackAvatar.Resource.Group(avatarColor)
     } else if (isGroup) {
-      fallbackPhotoProvider.photoForGroup
+      FallbackAvatar.Resource.Group(avatarColor)
     } else if (groupName.isNotNullOrBlank()) {
-      fallbackPhotoProvider.getPhotoForRecipientWithName(groupName, targetSize)
+      FallbackAvatar.forTextOrDefault(groupName, avatarColor, FallbackAvatar.Resource.Group(avatarColor))
     } else if (!nickname.isEmpty) {
-      fallbackPhotoProvider.getPhotoForRecipientWithName(nickname.toString(), targetSize)
+      FallbackAvatar.forTextOrDefault(nickname.toString(), avatarColor)
     } else if (systemContactName.isNotNullOrBlank()) {
-      fallbackPhotoProvider.getPhotoForRecipientWithName(systemContactName, targetSize)
+      FallbackAvatar.forTextOrDefault(systemContactName, avatarColor)
     } else if (!profileName.isEmpty) {
-      fallbackPhotoProvider.getPhotoForRecipientWithName(profileName.toString(), targetSize)
+      FallbackAvatar.forTextOrDefault(profileName.toString(), avatarColor)
     } else {
-      fallbackPhotoProvider.photoForRecipientWithoutName
+      FallbackAvatar.Resource.Person(avatarColor)
     }
   }
 
@@ -666,7 +641,7 @@ class Recipient(
 
   /** Returns a live, observable copy of this recipient. */
   fun live(): LiveRecipient {
-    return ApplicationDependencies.getRecipientCache().getLive(id)
+    return AppDependencies.recipientCache.getLive(id)
   }
 
   enum class HiddenState(private val value: Int) {
@@ -785,7 +760,7 @@ class Recipient(
       systemProfileName == other.systemProfileName &&
       profileAvatar == other.profileAvatar &&
       notificationChannelValue == other.notificationChannelValue &&
-      unidentifiedAccessModeValue == other.unidentifiedAccessModeValue &&
+      sealedSenderAccessModeValue == other.sealedSenderAccessModeValue &&
       storageId.contentEquals(other.storageId) &&
       mentionSetting == other.mentionSetting &&
       wallpaperValue == other.wallpaperValue &&
@@ -818,30 +793,6 @@ class Recipient(
     return id.hashCode()
   }
 
-  open class FallbackPhotoProvider {
-    open val photoForLocalNumber: FallbackContactPhoto
-      get() = ResourceContactPhoto(R.drawable.ic_note_34, R.drawable.ic_note_24)
-
-    open val photoForResolvingRecipient: FallbackContactPhoto
-      get() = TransparentContactPhoto()
-
-    open val photoForGroup: FallbackContactPhoto
-      get() = ResourceContactPhoto(R.drawable.ic_group_outline_34, R.drawable.ic_group_outline_20, R.drawable.ic_group_outline_48)
-
-    open val photoForRecipientWithoutName: FallbackContactPhoto
-      get() = ResourceContactPhoto(R.drawable.ic_profile_outline_40, R.drawable.ic_profile_outline_20, R.drawable.ic_profile_outline_48)
-
-    val photoForDistributionList: FallbackContactPhoto
-      get() = ResourceContactPhoto(R.drawable.symbol_stories_24, R.drawable.symbol_stories_24, R.drawable.symbol_stories_24)
-
-    val photoForCallLink: FallbackContactPhoto
-      get() = ResourceContactPhoto(R.drawable.symbol_video_24, R.drawable.symbol_video_24, R.drawable.symbol_video_24)
-
-    open fun getPhotoForRecipientWithName(name: String, targetSize: Int): FallbackContactPhoto {
-      return GeneratedContactPhoto(name, R.drawable.ic_profile_outline_40, targetSize)
-    }
-  }
-
   private class MissingAddressError(recipientId: RecipientId) : AssertionError("Missing address for " + recipientId.serialize())
 
   companion object {
@@ -849,9 +800,6 @@ class Recipient(
 
     @JvmField
     val UNKNOWN = Recipient()
-
-    @JvmField
-    val DEFAULT_FALLBACK_PHOTO_PROVIDER = FallbackPhotoProvider()
 
     private const val MAX_MEMBER_NAMES = 10
 
@@ -863,7 +811,7 @@ class Recipient(
     @JvmStatic
     @AnyThread
     fun live(id: RecipientId): LiveRecipient {
-      return ApplicationDependencies.getRecipientCache().getLive(id)
+      return AppDependencies.recipientCache.getLive(id)
     }
 
     /**
@@ -1077,11 +1025,11 @@ class Recipient(
 
     @JvmStatic
     fun self(): Recipient {
-      return ApplicationDependencies.getRecipientCache().getSelf()
+      return AppDependencies.recipientCache.getSelf()
     }
 
     /** Whether we've set a recipient for 'self' yet. We do this during registration. */
     val isSelfSet: Boolean
-      get() = ApplicationDependencies.getRecipientCache().getSelfId() != null
+      get() = AppDependencies.recipientCache.getSelfId() != null
   }
 }

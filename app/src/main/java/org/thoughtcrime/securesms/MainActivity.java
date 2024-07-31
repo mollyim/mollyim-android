@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +17,17 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.signal.core.util.concurrent.LifecycleDisposable;
+import org.signal.donations.StripeApi;
+import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment;
+import org.thoughtcrime.securesms.components.DeviceSpecificNotificationBottomSheet;
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.conversationlist.RelinkDevicesReminderBottomSheetFragment;
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceExitActivity;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor;
+import org.thoughtcrime.securesms.notifications.VitalsViewModel;
 import org.thoughtcrime.securesms.stories.Stories;
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTab;
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTabRepository;
@@ -44,6 +50,7 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
 
   private VoiceNoteMediaController      mediaController;
   private ConversationListTabsViewModel conversationListTabsViewModel;
+  private VitalsViewModel               vitalsViewModel;
 
   private final LifecycleDisposable lifecycleDisposable = new LifecycleDisposable();
 
@@ -93,6 +100,28 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
 
     conversationListTabsViewModel = new ViewModelProvider(this, factory).get(ConversationListTabsViewModel.class);
     updateTabVisibility();
+
+    vitalsViewModel = new ViewModelProvider(this).get(VitalsViewModel.class);
+
+    lifecycleDisposable.add(
+        vitalsViewModel
+            .getVitalsState()
+            .subscribe(this::presentVitalsState)
+    );
+  }
+
+  @SuppressLint("NewApi")
+  private void presentVitalsState(VitalsViewModel.State state) {
+    switch (state) {
+      case NONE:
+        break;
+      case PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG:
+        DeviceSpecificNotificationBottomSheet.show(getSupportFragmentManager());
+        break;
+      case PROMPT_GENERAL_BATTERY_SAVER_DIALOG:
+        PromptBatterySaverDialogFragment.show(getSupportFragmentManager());
+        break;
+    }
   }
 
   @Override
@@ -137,6 +166,8 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
     }
 
     updateTabVisibility();
+
+    vitalsViewModel.checkSlowNotificationHeuristics();
   }
 
   @Override
@@ -186,6 +217,7 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
     handleGroupLinkInIntent(intent);
     handleSignalMeIntent(intent);
     handleCallLinkInIntent(intent);
+    handleDonateReturnIntent(intent);
   }
 
   private void handleGroupLinkInIntent(Intent intent) {
@@ -206,6 +238,13 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
     Uri data = intent.getData();
     if (data != null) {
       CommunicationActions.handlePotentialCallLinkUrl(this, data.toString());
+    }
+  }
+
+  private void handleDonateReturnIntent(Intent intent) {
+    Uri data = intent.getData();
+    if (data != null && data.toString().startsWith(StripeApi.RETURN_URL_IDEAL)) {
+      startActivity(AppSettingsActivity.manageSubscriptions(this));
     }
   }
 

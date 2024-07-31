@@ -10,6 +10,8 @@ import android.os.Parcel
 import org.signal.core.util.Base64
 import org.thoughtcrime.securesms.blurhash.BlurHash
 import org.thoughtcrime.securesms.database.AttachmentTable
+import org.thoughtcrime.securesms.stickers.StickerLocator
+import java.util.UUID
 
 class ArchivedAttachment : Attachment {
 
@@ -44,8 +46,10 @@ class ArchivedAttachment : Attachment {
     blurHash: String?,
     voiceNote: Boolean,
     borderless: Boolean,
+    stickerLocator: StickerLocator?,
     gif: Boolean,
-    quote: Boolean
+    quote: Boolean,
+    uuid: UUID?
   ) : super(
     contentType = contentType ?: "",
     quote = quote,
@@ -66,10 +70,11 @@ class ArchivedAttachment : Attachment {
     incrementalMacChunkSize = incrementalMacChunkSize ?: 0,
     uploadTimestamp = 0,
     caption = caption,
-    stickerLocator = null,
+    stickerLocator = stickerLocator,
     blurHash = BlurHash.parseOrNull(blurHash),
     audioHash = null,
-    transformProperties = null
+    transformProperties = null,
+    uuid = uuid
   ) {
     this.archiveCdn = archiveCdn ?: Cdn.CDN_3.cdnNumber
     this.archiveMediaName = archiveMediaName

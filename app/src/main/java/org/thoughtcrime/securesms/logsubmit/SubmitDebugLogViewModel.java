@@ -21,7 +21,7 @@ import org.signal.paging.PagingConfig;
 import org.signal.paging.PagingController;
 import org.signal.paging.ProxyPagingController;
 import org.thoughtcrime.securesms.database.LogDatabase;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.util.SingleLiveEvent;
 
 import java.util.ArrayList;
@@ -59,9 +59,9 @@ public class SubmitDebugLogViewModel extends ViewModel {
 
       try {
         Log.blockUntilAllWritesFinished();
-        LogDatabase.getInstance(ApplicationDependencies.getApplication()).logs().trimToSize();
+        LogDatabase.getInstance(AppDependencies.getApplication()).logs().trimToSize();
 
-        dataSource = new LogDataSource(ApplicationDependencies.getApplication(), staticLines, firstViewTime);
+        dataSource = new LogDataSource(AppDependencies.getApplication(), staticLines, firstViewTime);
       } catch (IllegalStateException e) {
         dataSource = new PagedDataSource<Long, LogLine>() {
           @Override
@@ -85,7 +85,6 @@ public class SubmitDebugLogViewModel extends ViewModel {
           }
         };
       }
-
       PagingConfig  config     = new PagingConfig.Builder().setPageSize(100)
                                                            .setBufferPages(3)
                                                            .setStartIndex(0)

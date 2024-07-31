@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.dependencies;
 import androidx.annotation.NonNull;
 
 import org.signal.core.util.concurrent.DeadlockDetector;
+import org.signal.libsignal.net.Network;
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations;
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
@@ -42,14 +43,13 @@ import org.whispersystems.signalservice.api.services.CallLinksService;
 import org.whispersystems.signalservice.api.services.DonationsService;
 import org.whispersystems.signalservice.api.services.ProfileService;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
-import org.whispersystems.signalservice.internal.websocket.LibSignalNetwork;
 
 import java.util.function.Supplier;
 
 import static org.mockito.Mockito.mock;
 
 @SuppressWarnings("ConstantConditions")
-public class MockApplicationDependencyProvider implements ApplicationDependencies.Provider {
+public class MockApplicationDependencyProvider implements AppDependencies.Provider {
   @Override
   public @NonNull GroupsV2Operations provideGroupsV2Operations(@NonNull SignalServiceConfiguration signalServiceConfiguration) {
     return null;
@@ -87,7 +87,7 @@ public class MockApplicationDependencyProvider implements ApplicationDependencie
 
   @Override
   public @NonNull JobManager provideJobManager() {
-    return mock(JobManager.class);
+    return null;
   }
 
   @Override
@@ -181,7 +181,7 @@ public class MockApplicationDependencyProvider implements ApplicationDependencie
   }
 
   @Override
-  public @NonNull SignalWebSocket provideSignalWebSocket(@NonNull Supplier<SignalServiceConfiguration> signalServiceConfigurationSupplier, @NonNull Supplier<LibSignalNetwork> libSignalNetworkSupplier) {
+  public @NonNull SignalWebSocket provideSignalWebSocket(@NonNull Supplier<SignalServiceConfiguration> signalServiceConfigurationSupplier, @NonNull Supplier<Network> libSignalNetworkSupplier) {
     return null;
   }
 
@@ -206,7 +206,7 @@ public class MockApplicationDependencyProvider implements ApplicationDependencie
   }
 
   @Override
-  public @NonNull DonationsService provideSignalDonationsService(@NonNull SignalServiceConfiguration signalServiceConfiguration, @NonNull GroupsV2Operations groupsV2Operations) {
+  public @NonNull DonationsService provideDonationsService(@NonNull SignalServiceConfiguration signalServiceConfiguration, @NonNull GroupsV2Operations groupsV2Operations) {
     return null;
   }
 
@@ -235,7 +235,7 @@ public class MockApplicationDependencyProvider implements ApplicationDependencie
   }
 
   @Override
-  public @NonNull LibSignalNetwork provideLibsignalNetwork(@NonNull SignalServiceConfiguration config) {
+  public @NonNull Network provideLibsignalNetwork(@NonNull SignalServiceConfiguration config) {
     return null;
   }
 }

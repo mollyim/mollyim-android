@@ -9,7 +9,7 @@ import android.content.Context
 import android.net.Uri
 import org.signal.core.util.getDownloadManager
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.ApkUpdateJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.FileUtils
@@ -31,24 +31,24 @@ object ApkUpdateInstaller {
    * [userInitiated] = true, and then everything installs.
    */
   fun installOrPromptForInstall(context: Context, downloadId: Long, userInitiated: Boolean) {
-    if (downloadId != SignalStore.apkUpdate().downloadId) {
-      Log.w(TAG, "DownloadId doesn't match the one we're waiting for (current: $downloadId, expected: ${SignalStore.apkUpdate().downloadId})! We likely have newer data. Ignoring.")
+    if (downloadId != SignalStore.apkUpdate.downloadId) {
+      Log.w(TAG, "DownloadId doesn't match the one we're waiting for (current: $downloadId, expected: ${SignalStore.apkUpdate.downloadId})! We likely have newer data. Ignoring.")
       ApkUpdateNotifications.dismissInstallPrompt(context)
-      ApplicationDependencies.getJobManager().add(ApkUpdateJob())
+      AppDependencies.jobManager.add(ApkUpdateJob())
       return
     }
 
-    val digest = SignalStore.apkUpdate().digest
+    val digest = SignalStore.apkUpdate.digest
     if (digest == null) {
       Log.w(TAG, "DownloadId matches, but digest is null! Inconsistent state. Failing and clearing state.")
-      SignalStore.apkUpdate().clearDownloadAttributes()
+      SignalStore.apkUpdate.clearDownloadAttributes()
       ApkUpdateNotifications.showInstallFailed(context, ApkUpdateNotifications.FailureReason.UNKNOWN)
       return
     }
 
     if (!isMatchingDigest(context, downloadId, digest)) {
       Log.w(TAG, "DownloadId matches, but digest does not! Bad download or inconsistent state. Failing and clearing state.")
-      SignalStore.apkUpdate().clearDownloadAttributes()
+      SignalStore.apkUpdate.clearDownloadAttributes()
       ApkUpdateNotifications.showInstallFailed(context, ApkUpdateNotifications.FailureReason.UNKNOWN)
       return
     }
