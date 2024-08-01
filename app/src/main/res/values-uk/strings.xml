@@ -46,7 +46,7 @@
     <string name="ApplicationPreferencesActivity_disable_passphrase">Вимкнути фразу-пароль?</string>
     <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Це назавжди розблокує Molly та сповіщення повідомлень.</string>
     <string name="ApplicationPreferencesActivity_disable">Вимкнути</string>
-    <string name="ApplicationPreferencesActivity_error_connecting_to_server">Помилка підключення до сервера!</string>
+    <string name="ApplicationPreferencesActivity_error_connecting_to_server">Помилка під час з\'єднання із сервером!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN-коди необхідні для блокування реєстрації. Для вимкнення PIN-кодів спершу необхідно вимкнути блокування реєстрації.</string>
     <string name="ApplicationPreferencesActivity_pin_created">PIN створений.</string>
     <string name="ApplicationPreferencesActivity_pin_disabled">PIN вимкнений.</string>
@@ -438,7 +438,7 @@
     <string name="ConversationActivity_admins">адміністратори</string>
     <string name="ConversationActivity_message_an_admin">Написати повідомлення адміністратору</string>
     <string name="ConversationActivity_cant_start_group_call">Неможливо почати груповий виклик</string>
-    <string name="ConversationActivity_only_admins_of_this_group_can_start_a_call">Починати виклики можуть лише адміністратори цієї групи.</string>
+    <string name="ConversationActivity_only_admins_of_this_group_can_start_a_call">Починати виклики можуть тільки адміністратори цієї групи.</string>
     <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Немає програми на вашому пристрої, що може відкрити це посилання.</string>
     <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Ваш запит на приєднання надіслано до адміністраторів групи. Ви отримаєте повідомлення, коли вони відреагують.</string>
     <string name="ConversationActivity_cancel_request">Відкликати запит</string>
@@ -767,7 +767,7 @@
     <string name="CreateProfileActivity_error_setting_profile_photo">Не вдалося встановити фото профілю</string>
     <string name="CreateProfileActivity_problem_setting_profile">Не вдалося встановити профіль</string>
     <string name="CreateProfileActivity_set_up_your_profile">Налаштувати ваш профайл</string>
-    <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Ваш профіль і зміни в ньому бачитимуть ваші співрозмовники, контакти та групи.</string>
+    <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Ваш профіль і зміни в ньому бачать ваші співрозмовники, контакти й групи.</string>
     <string name="CreateProfileActivity_set_avatar_description">Установити зображення профілю</string>
 
     <!-- ProfileCreateFragment -->
@@ -812,8 +812,8 @@
     <string name="BackupsPreferenceFragment__backup_folder">Папка для резервних копій</string>
     <!-- Title for a preference item allowing the user to selected the hour of the day when their chats are backed up. -->
     <string name="BackupsPreferenceFragment__backup_time">Час резервного копіювання</string>
-    <string name="BackupsPreferenceFragment__verify_backup_passphrase">Перевірити парольну фразу резервної копії</string>
-    <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Випробуйте парольну фразу своєї резервної копії і переконайтеся, що вона збігається</string>
+    <string name="BackupsPreferenceFragment__verify_backup_passphrase">Перевірити пароль</string>
+    <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Введіть пароль від своєї резервної копії, щоб перевірити його правильність</string>
     <string name="BackupsPreferenceFragment__turn_on">Увімкнути</string>
     <string name="BackupsPreferenceFragment__turn_off">Вимкнути</string>
     <string name="BackupsPreferenceFragment__to_restore_a_backup">"Щоб відновити інформацію з резервної копії, встановіть застосунок Molly ще раз. Відкрийте його й натисніть «Відновити з резервної копії», потім виберіть збережений файл резервної копії. %1$s"</string>
@@ -1427,6 +1427,12 @@
     <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Записати: торкніться й утримуйте. Надіслати: відпустіть</string>
     <!-- When editing a message, label shown above the text input field in the composer -->
     <string name="InputPanel_edit_message">Редагування повідомлення</string>
+    <!-- Dialog title shown if users are about to discard their draft message -->
+    <string name="InputPanel__discard_draft">Відхилити чернетку?</string>
+    <!-- Dialog message explaining their action cannot be reversed -->
+    <string name="InputPanel__this_action_cant_be_undone">This action can\'t be undone.</string>
+    <!-- Button inside an alert dialog confirming the deletion of their draft -->
+    <string name="InputPanel__discard">Відхилити</string>
 
     <!-- InviteActivity -->
     <string name="InviteActivity_share">Поділитися</string>
@@ -2073,7 +2079,7 @@
     <!-- RedPhone -->
     <string name="RedPhone_answering">Відповідаємо…</string>
     <string name="RedPhone_ending_call">Завершення виклику…</string>
-    <string name="RedPhone_ringing">Дзвонимо…</string>
+    <string name="RedPhone_ringing">Лунає дзвінок…</string>
     <string name="RedPhone_busy">Зайнято</string>
     <string name="RedPhone_recipient_unavailable">Одержувач недоступний</string>
     <!-- Error message shown during a call when a fatal network error occurs. -->
@@ -2092,7 +2098,7 @@
     <string name="WebRtcCallActivity__signal_s">Виклик у Molly: %1$s</string>
     <string name="WebRtcCallActivity__calling">Здійснюємо виклик…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
-    <string name="WebRtcCallActivity__reconnecting">Повторне з’єднання…</string>
+    <string name="WebRtcCallActivity__reconnecting">Триває відновлення з\'єднання…</string>
     <!-- Title for dialog warning about lacking bluetooth permissions during a call -->
     <string name="WebRtcCallActivity__bluetooth_permission_denied">Доступ до Bluetooth не отримано</string>
     <!-- Message for dialog warning about lacking bluetooth permissions during a call and references the permission needed by name -->
@@ -2184,7 +2190,7 @@
     <string name="WebRtcCallView__call_is_full">Немає місць</string>
     <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">У виклику вже бере участь максимальна кількість учасників: %1$d. Спробуйте пізніше.</string>
     <string name="WebRtcCallView__your_video_is_off">Відео вимкнено</string>
-    <string name="WebRtcCallView__reconnecting">Повторне з’єднання…</string>
+    <string name="WebRtcCallView__reconnecting">Триває відновлення з\'єднання…</string>
     <string name="WebRtcCallView__joining">Приєднання…</string>
     <string name="WebRtcCallView__disconnected">Від\'єднано</string>
     <!-- Utilized in the lobby before joining a call link -->
@@ -2214,13 +2220,13 @@
         <item quantity="other">%1$s, %2$s та %3$d інших будуть оповіщені</item>
     </plurals>
 
-    <string name="WebRtcCallView__ringing_s">Дзвонимо користувачу %1$s</string>
-    <string name="WebRtcCallView__ringing_s_and_s">Дзвонимо користувачам %1$s і %2$s</string>
+    <string name="WebRtcCallView__ringing_s">У користувача %1$s лунає дзвінок</string>
+    <string name="WebRtcCallView__ringing_s_and_s">У користувачів %1$s і %2$s лунає дзвінок</string>
     <plurals name="WebRtcCallView__ringing_s_s_and_d_others">
-        <item quantity="one">Дзвонимо користувачам %1$s, %2$s і ще %3$d</item>
-        <item quantity="few">Дзвонимо користувачам %1$s, %2$s і ще %3$d</item>
-        <item quantity="many">Дзвонимо користувачам %1$s, %2$s і ще %3$d</item>
-        <item quantity="other">Дзвонимо користувачам %1$s, %2$s і ще %3$d</item>
+        <item quantity="one">У користувачів %1$s, %2$s і ще %3$d лунає дзвінок</item>
+        <item quantity="few">У користувачів %1$s, %2$s і ще %3$d лунає дзвінок</item>
+        <item quantity="many">У користувачів %1$s, %2$s і ще %3$d лунає дзвінок</item>
+        <item quantity="other">У користувачів %1$s, %2$s і ще %3$d лунає дзвінок</item>
     </plurals>
 
     <string name="WebRtcCallView__s_is_calling_you">Вам дзвонить %1$s</string>
@@ -2336,7 +2342,7 @@
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">Особистого чату з %1$s немає</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
-    <string name="AboutSheet__s_is_in_your_system_contacts">%1$s є в контактах вашого телефона</string>
+    <string name="AboutSheet__s_is_in_your_system_contacts">%1$s є в контактах телефона</string>
     <!-- Notice in a row when user has no groups in common -->
     <string name="AboutSheet__you_have_no_groups_in_common">Ви не маєте спільних груп</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
@@ -3299,7 +3305,7 @@
     <string name="message_recipients_list_item__resend">Надіслати знову</string>
 
     <!-- Displayed in a toast when user long presses an item in MyStories -->
-    <string name="MyStoriesFragment__copied_sent_timestamp_to_clipboard">Часовий відбиток скопійовано до буфера обміну.</string>
+    <string name="MyStoriesFragment__copied_sent_timestamp_to_clipboard">Часову позначку скопійовано в буфер обміну.</string>
     <!-- Displayed when there are no outgoing stories -->
     <string name="MyStoriesFragment__updates_to_your_story_will_show_up_here">Тут будуть оновлення вашої історії.</string>
 
@@ -3524,8 +3530,8 @@
     <!-- preferences.xml -->
     <string name="preferences_beta">Бета</string>
     <string name="preferences__sms_mms">SMS і MMS</string>
-    <string name="preferences__pref_use_address_book_photos">Використовуйте фотографії з адресної книги</string>
-    <string name="preferences__display_contact_photos_from_your_address_book_if_available">Показувати фотографії контактів з вашої адресної книги, якщо вони доступні</string>
+    <string name="preferences__pref_use_address_book_photos">Використовувати фото з адресної книги</string>
+    <string name="preferences__display_contact_photos_from_your_address_book_if_available">За наявності показувати фото контактів з вашої адресної книги</string>
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
     <string name="preferences__pref_keep_muted_chats_archived">Залишати чати з вимкненими сповіщеннями в архіві</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
@@ -3681,7 +3687,7 @@
         <item quantity="other">%1$s повідомлення</item>
     </plurals>
 
-    <string name="preferences_storage__custom">Користувацький</string>
+    <string name="preferences_storage__custom">Своя кількість</string>
     <string name="preferences_advanced__use_system_emoji">Використовувати системні емоджі</string>
     <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Ретранслювати всі виклики через сервер Signal, щоби ваш контакт не міг розкрити вашу IP-адресу. Увімкнення цієї функції знизить якість виклику.</string>
     <string name="preferences_advanced__always_relay_calls">Завжди ретранслювати виклики</string>
@@ -3726,7 +3732,7 @@
     <string name="preferences_only_use_a_proxy_if">Використовуйте проксі тільки якщо ви не можете підключитися до Signal через мобільні дані або Wi-Fi.</string>
     <string name="preferences_share">Поділитися</string>
     <string name="preferences_save">Зберегти</string>
-    <string name="preferences_connecting_to_proxy">Підключаємося до проксі…</string>
+    <string name="preferences_connecting_to_proxy">Триває з\'єднання з проксі-сервером…</string>
     <string name="preferences_connected_to_proxy">Під\'єднано до проксі</string>
     <string name="preferences_connection_failed">З\'єднання не вдалася!</string>
     <string name="preferences_couldnt_connect_to_the_proxy">Помилка з\'єднання із проксі. Перевірте адресу проксі і спробуйте ще раз.</string>
@@ -3751,7 +3757,7 @@
 
 
     <!-- Payments -->
-    <string name="PaymentsActivityFragment__all_activity">Вся активність</string>
+    <string name="PaymentsActivityFragment__all_activity">Усі операції</string>
     <string name="PaymentsAllActivityFragment__all">Усі</string>
     <string name="PaymentsAllActivityFragment__sent">Надіслано</string>
     <string name="PaymentsAllActivityFragment__received">Отримано</string>
@@ -3874,7 +3880,7 @@
     <string name="PaymentsAddMoneyFragment__add_funds">Додати кошти</string>
     <string name="PaymentsAddMoneyFragment__your_wallet_address">Адреса вашого гаманця</string>
     <string name="PaymentsAddMoneyFragment__copy">Копіювати</string>
-    <string name="PaymentsAddMoneyFragment__copied_to_clipboard">Скопійовано до буфера обміну</string>
+    <string name="PaymentsAddMoneyFragment__copied_to_clipboard">Скопійовано в буфер обміну</string>
     <string name="PaymentsAddMoneyFragment__to_add_funds">Щоб додати кошти — надішліть MobileCoin на адресу вашого гаманця. Розпочніть платіж з вашого облікового запису на біржі, що підтримує MobileCoin, зіскануйте QR-код, а потім скопіюйте адресу вашого гаманця.</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsAddMoneyFragment__learn_more__information" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_from_exchange</string> -->
 
@@ -4295,12 +4301,12 @@
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Завантаження…</string>
-    <string name="CallNotificationBuilder_connecting">З’єднання…</string>
+    <string name="CallNotificationBuilder_connecting">Триває з\'єднання…</string>
     <string name="Permissions_permission_required">Необхідний дозвіл</string>
     <string name="Permissions_continue">Продовжити</string>
     <string name="Permissions_not_now">Не зараз</string>
     <string name="SQLCipherMigrationHelper_migrating_signal_database">Міграція бази даних Signal</string>
-    <string name="enter_backup_passphrase_dialog__backup_passphrase">Фраза-пароль резервної копії</string>
+    <string name="enter_backup_passphrase_dialog__backup_passphrase">Пароль</string>
     <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Резервна копія буду збережена у зовнішньому сховищі та зашифрована за допомогою наведеної нижче фрази-паролю. Ви повинні використати її для відновлення резервної копії.</string>
     <string name="backup_enable_dialog__you_must_have_this_passphrase">Вам знадобиться цей пароль, щоб відновити дані з резервної копії.</string>
     <string name="backup_enable_dialog__folder">Папка</string>
@@ -4323,7 +4329,7 @@
     <string name="RegistrationActivity_restore_from_backup">Відновити з резервної копії?</string>
     <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">Відновити ваші повідомлення та медіа-файли із локальної резервної копії. Якщо Ви не бажаєте цього робити зараз, це можна зробити потім.</string>
     <string name="RegistrationActivity_backup_size_s">Розмір резервної копії: %1$s</string>
-    <string name="RegistrationActivity_backup_timestamp_s">Мітка часу резервної копії: %1$s</string>
+    <string name="RegistrationActivity_backup_timestamp_s">Часова позначка резервної копії: %1$s</string>
     <string name="BackupDialog_enable_local_backups">Увімкнути локальне резервне копіювання?</string>
     <string name="BackupDialog_enable_backups">Увімкнути</string>
     <string name="BackupDialog_please_acknowledge_your_understanding_by_marking_the_confirmation_check_box">Підтвердьте, що вам усе зрозуміло, поставивши галочку.</string>
@@ -4332,11 +4338,11 @@
     <string name="BackupDialog_delete_backups_statement">Видалити резервні копії</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">Щоб увімкнути резервне копіювання, оберіть папку. У ній будуть зберігатися нові резервні копії.</string>
     <string name="BackupDialog_choose_folder">Обрати папку</string>
-    <string name="BackupDialog_copied_to_clipboard">Скопійовано до буфера обміну</string>
+    <string name="BackupDialog_copied_to_clipboard">Скопійовано в буфер обміну</string>
     <string name="BackupDialog_no_file_picker_available">Відсутня програма для вибору файлів.</string>
-    <string name="BackupDialog_enter_backup_passphrase_to_verify">Введіть вашу резервну копію фрази-паролю щоб перевірити її</string>
+    <string name="BackupDialog_enter_backup_passphrase_to_verify">Ваш пароль від резервної копії</string>
     <string name="BackupDialog_verify">Підтвердження</string>
-    <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Ви успішно ввели фразу-пароль своєї резервної копії</string>
+    <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Ваш пароль від резервної копії правильний</string>
     <string name="BackupDialog_passphrase_was_not_correct">Фраза-пароль була неправильна</string>
     <string name="LocalBackupJob_creating_signal_backup">Створення резервної копії Molly…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
@@ -4409,7 +4415,7 @@
     <string name="RegistrationActivity_too_many_attempts">Забагато спроб</string>
     <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Ви зробили забагато невдалих спроб введення PIN-коду для блокування реєстрації. Ви знову зможете ввести код через день.</string>
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Ви зробили надто багато спроб. Будь ласка, спробуйте ще раз пізніше</string>
-    <string name="RegistrationActivity_error_connecting_to_service">Помилка підключення до сервісу</string>
+    <string name="RegistrationActivity_error_connecting_to_service">Помилка з\'єднання із сервісом</string>
     <string name="preferences_chats__backups">Резервне копіювання</string>
     <string name="prompt_passphrase_activity__signal_is_locked">Molly заблоковано</string>
     <string name="prompt_passphrase_activity__tap_to_unlock">НАТИСНІТЬ ДЛЯ РОЗБЛОКУВАННЯ</string>
@@ -4487,7 +4493,7 @@
     <string name="DeviceTransferSetup__grant_location_permission">Надати доступ до місцеположення</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Увімкнути геодані</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Увімкнути Wi-Fi</string>
-    <string name="DeviceTransferSetup__error_connecting">Приєднання З\'єднання</string>
+    <string name="DeviceTransferSetup__error_connecting">Помилка під час з\'єднання</string>
     <string name="DeviceTransferSetup__retry">Повторити</string>
     <string name="DeviceTransferSetup__submit_debug_logs">Надіслати журнали налагодження</string>
     <string name="DeviceTransferSetup__verify_code">Перевірити код</string>
@@ -4556,7 +4562,7 @@
     <string name="DeviceToDeviceTransferService_status_ready">Підготовка до підключення до вашого іншого Android-пристрою…</string>
     <string name="DeviceToDeviceTransferService_status_starting_up">Підготовка до підключення до вашого іншого Android-пристрою…</string>
     <string name="DeviceToDeviceTransferService_status_discovery">Пошук іншого Android-пристрою…</string>
-    <string name="DeviceToDeviceTransferService_status_network_connected">Підключення до вашого іншого Android-пристрою…</string>
+    <string name="DeviceToDeviceTransferService_status_network_connected">Триває з\'єднання з іншим пристроєм з ОС Android…</string>
     <string name="DeviceToDeviceTransferService_status_verification_required">Необхідна перевірка</string>
     <string name="DeviceToDeviceTransferService_status_service_connected">Переносимо акаунт…</string>
 
@@ -4588,7 +4594,7 @@
     <!-- Dialog message shown when removing someone from a group with group link being active to indicate they will not be able to rejoin -->
     <string name="RecipientBottomSheet_remove_s_from_the_group_they_will_not_be_able_to_rejoin">Вилучити %1$s з групи? Користувач більше не зможе приєднатись за посиланням групи.</string>
     <string name="RecipientBottomSheet_remove">Вилучити</string>
-    <string name="RecipientBottomSheet_copied_to_clipboard">Скопійовано до буфера обміну</string>
+    <string name="RecipientBottomSheet_copied_to_clipboard">Скопійовано в буфер обміну</string>
 
     <string name="GroupRecipientListItem_admin">Адміністратор</string>
     <!-- Button text to approve a user that has requested to join a group -->
@@ -4611,7 +4617,7 @@
     <string name="GroupLinkBottomSheet_copy">Копіювати</string>
     <string name="GroupLinkBottomSheet_qr_code">QR-код</string>
     <string name="GroupLinkBottomSheet_share">Поділитися</string>
-    <string name="GroupLinkBottomSheet_copied_to_clipboard">Скопійовано до буфера обміну</string>
+    <string name="GroupLinkBottomSheet_copied_to_clipboard">Скопійовано в буфер обміну</string>
     <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">Це посилання в даний момент не доступне</string>
 
     <!-- VoiceNotePlaybackPreparer -->
@@ -4675,7 +4681,7 @@
     <!-- Displayed when a recent name change has occurred. First placeholder is new short name, second is previous name, third is new name. -->
     <string name="ReviewCard__s_recently_changed">Користувач %1$s недавно змінив ім\'я профілю з %2$s на %3$s</string>
     <!-- Displayed when a review user is in your system contacts. Placeholder is short name. -->
-    <string name="ReviewCard__s_is_in_your_system_contacts">%1$s є в контактах вашого телефона</string>
+    <string name="ReviewCard__s_is_in_your_system_contacts">%1$s є в контактах телефона</string>
 
     <!-- CallParticipantsListUpdatePopupWindow -->
     <string name="CallParticipantsListUpdatePopupWindow__s_joined">Приєднався: %1$s</string>
@@ -4727,7 +4733,7 @@
     <!-- Title of progress dialog shown when a user deletes their account and the process has left all groups -->
     <string name="DeleteAccountFragment__deleting_account">Видаляємо акаунт…</string>
     <!-- Message of progress dialog shown when a user deletes their account and the process is canceling their subscription -->
-    <string name="DeleteAccountFragment__canceling_your_subscription">Скасування передплати…</string>
+    <string name="DeleteAccountFragment__canceling_your_subscription">Скасовуємо вашу підписку…</string>
     <!-- Message of progress dialog shown when a user deletes their account and the process is leaving groups -->
     <string name="DeleteAccountFragment__depending_on_the_number_of_groups">В залежності від кількості груп це може зайняти декілька хвилин</string>
     <!-- Message of progress dialog shown when a user deletes their account and the process has left all groups -->
@@ -4940,7 +4946,7 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">Запросити друзів</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">ID підписника скопійовано до буфера обміну</string>
+    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">Ідентифікатор підписника скопійовано в буфер обміну</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">Акаунт</string>
@@ -5062,7 +5068,7 @@
     <!-- Notification preference option header -->
     <string name="NotificationsSettingsFragment__profiles">Профілі</string>
     <!-- Notification preference summary text -->
-    <string name="NotificationsSettingsFragment__create_a_profile_to_receive_notifications_only_from_people_and_groups_you_choose">Створіть профіль для отримання сповіщень лише від людей та груп, яких ви обираєте.</string>
+    <string name="NotificationsSettingsFragment__create_a_profile_to_receive_notifications_only_from_people_and_groups_you_choose">Створіть профіль і отримуйте сповіщення лише від обраних людей і груп.</string>
 
     <!-- NotificationProfilesFragment -->
     <!-- Title for notification profiles screen that shows all existing profiles; Title with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -5522,16 +5528,16 @@
 
     <string name="ImageView__badge">Значок</string>
 
-    <string name="SubscribeFragment__cancel_subscription">Скасувати передплату</string>
+    <string name="SubscribeFragment__cancel_subscription">Скасувати підписку</string>
     <string name="SubscribeFragment__confirm_cancellation">Підтвердити скасування?</string>
-    <string name="SubscribeFragment__you_wont_be_charged_again">Плата більше не стягуватиметься. Ваш значок буде вилучено з профілю після закінчення періоду передплати.</string>
+    <string name="SubscribeFragment__you_wont_be_charged_again">Оплата більше не стягуватиметься. Значок буде вилучено з профілю, коли спливе період підписки.</string>
     <string name="SubscribeFragment__not_now">Не зараз</string>
-    <string name="SubscribeFragment__confirm">Підтвердження</string>
-    <string name="SubscribeFragment__update_subscription">Оновити передплату</string>
-    <string name="SubscribeFragment__your_subscription_has_been_cancelled">Вашу передплату скасовано.</string>
-    <string name="SubscribeFragment__update_subscription_question">Оновити передплату?</string>
+    <string name="SubscribeFragment__confirm">Підтвердити</string>
+    <string name="SubscribeFragment__update_subscription">Змінити підписку</string>
+    <string name="SubscribeFragment__your_subscription_has_been_cancelled">Вашу підписку скасовано.</string>
+    <string name="SubscribeFragment__update_subscription_question">Змінити підписку?</string>
     <string name="SubscribeFragment__update">Оновити</string>
-    <string name="SubscribeFragment__you_will_be_charged_the_full_amount_s_of">Сьогодні з вас буде стягнуто повну суму (%1$s) передплати. Ваша передплата поновлюватиметься щомісяця.</string>
+    <string name="SubscribeFragment__you_will_be_charged_the_full_amount_s_of">Сьогодні з вас буде стягнуто повну суму (%1$s) нової підписки. Ми стягуватимемо таку суму щомісяця.</string>
 
     <string name="Subscription__s_per_month">%1$s/місяць</string>
     <!-- Shown when a subscription is active and isn\'t going to expire at the end of the term -->
@@ -5568,7 +5574,7 @@
     <!-- Heading for receipts area of manage subscriptions page -->
     <!-- Heading for my subscription area of manage subscriptions page -->
     <string name="ManageDonationsFragment__my_support">Моя підтримка</string>
-    <string name="ManageDonationsFragment__manage_subscription">Керувати передплатою</string>
+    <string name="ManageDonationsFragment__manage_subscription">Керувати підпискою</string>
     <!-- Label for Donation Receipts button -->
     <string name="ManageDonationsFragment__donation_receipts">Підтвердження ваших донатів</string>
     <string name="ManageDonationsFragment__badges">Значки</string>
@@ -5638,11 +5644,11 @@
     <!-- Copy displayed when badge expires after a payment failure and we have a displayable charge failure reason -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled_s">Регулярний щомісячний донат було скасовано. %1$s Ваш значок %2$s більше не відображається в профілі.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Ви можете продовжувати використовувати Signal. Якщо ви бажаєте підтримати застосунок і повторно активувати свій значок, ви можете поновити передплату.</string>
-    <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Поновити передплату</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Поновити підписку</string>
     <!-- Button label to send user to Google Pay website -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__go_to_google_pay">До Google Pay</string>
 
-    <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Неможливо опрацювати платіж передплати</string>
+    <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Неможливо опрацювати платіж за підпискою</string>
     <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">У нас виникли проблеми зі списанням платежу Підтримувача Signal. Упевніться, що дані платіжного засобу вірні. Якщо ні — оновіть їх у Google Pay. Signal ще раз спробує здійснити списання коштів за декілька днів.</string>
     <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Не показувати знов</string>
 
@@ -5671,9 +5677,9 @@
     <string name="DonationsErrors__your_payment_was_processed_but">Ваш донат було оброблено, але Signal не вдалося надіслати повідомлення з ним. Будь ласка, зверніться до служби підтримки.</string>
     <string name="DonationsErrors__your_badge_could_not">Не вдалося додати значок до вашого профілю, але, можливо, з вас було стягнуто плату. Будь ласка, зверніться до служби підтримки.</string>
     <string name="DonationsErrors__your_payment_is_still">Ваш донат ще обробляється. Обробка може зайняти кілька хвилин в залежності від вашого з\'єднання.</string>
-    <string name="DonationsErrors__failed_to_cancel_subscription">Не вдалося скасувати передплату</string>
-    <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">Для скасування передплати потрібне підключення до інтернету.</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Ваш пристрій не підтримує Google Pay, тому ви не можете оформити передплату, щоб отримати значок. Ви все ще можете підтримати Signal, зробивши пожертву на нашому вебсайті.</string>
+    <string name="DonationsErrors__failed_to_cancel_subscription">Не вдалося скасувати підписку</string>
+    <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">Для скасування підписки потрібне з\'єднання з інтернетом.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Ваш пристрій не підтримує Google Pay, тому ви не можете оформити підписку, щоб отримати значок. Але ви маєте змогу підтримати Signal, зробивши донат на нашому вебсайті.</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Помилка мережі. Перевірте з\'єднання та спробуйте ще.</string>
     <string name="NetworkFailure__retry">Повторити</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -5915,13 +5921,13 @@
     <string name="ReleaseNotes__signal_release_notes_and_news">Оновлення та новини Signal</string>
 
     <!-- Donation receipts activity title -->
-    <string name="DonationReceiptListFragment__all_activity">Вся активність</string>
+    <string name="DonationReceiptListFragment__all_activity">Усі операції</string>
     <!-- Donation receipts all tab label -->
     <string name="DonationReceiptListFragment__all">Усі</string>
     <!-- Donation receipts recurring tab label -->
-    <string name="DonationReceiptListFragment__recurring">Поточні</string>
+    <string name="DonationReceiptListFragment__recurring">Щомісяця</string>
     <!-- Donation receipts one-time tab label -->
-    <string name="DonationReceiptListFragment__one_time">Разові донати</string>
+    <string name="DonationReceiptListFragment__one_time">Разово</string>
     <!-- Donation receipts gift tab -->
     <string name="DonationReceiptListFragment__for_a_friend">За друга</string>
     <!-- Donation receipts gift tab label -->
@@ -6043,7 +6049,7 @@
     <!-- Displayed when viewing a post that has failed to send -->
     <string name="StoryViewerPageFragment__send_failed">Не вдалося надіслати. Натисніть, щоб повторити</string>
     <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
-    <string name="StoryViewerPageFragment__reply_to_group">Відповісти в групі</string>
+    <string name="StoryViewerPageFragment__reply_to_group">Відповідь групі</string>
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">Ще немає переглядів</string>
     <!-- Displayed when user has disabled receipts -->
@@ -6089,7 +6095,7 @@
         <item quantity="other">%1$d глядача</item>
     </plurals>
     <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
-    <string name="MyStorySettingsFragment__view">Детальніше</string>
+    <string name="MyStorySettingsFragment__view">Показати</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">Хто може дивитися цю історію</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -6108,9 +6114,9 @@
         <item quantity="other">Приховано від %1$d людини</item>
     </plurals>
     <!-- Privacy setting title for only sharing your story with specified connections -->
-    <string name="MyStorySettingsFragment__only_share_with">Ділитися тільки з…</string>
+    <string name="MyStorySettingsFragment__only_share_with">Обрані глядачі</string>
     <!-- Privacy setting description for only sharing your story with specified connections -->
-    <string name="MyStorySettingsFragment__only_share_with_selected_people">Ділитися тільки з вибраними людьми</string>
+    <string name="MyStorySettingsFragment__only_share_with_selected_people">Показувати тільки обраним людям</string>
     <!-- Summary of clickable option displaying how many people you have included to send to in your story -->
     <plurals name="MyStorySettingsFragment__d_people">
         <item quantity="one">%1$d особи</item>
@@ -6178,7 +6184,7 @@
     <!-- Title for screen allowing user to exclude "My Story" entries from specific people -->
     <string name="ChangeMyStoryMembershipFragment__all_except">Усі, крім…</string>
     <!-- Title for screen allowing user to only share "My Story" entries with specific people -->
-    <string name="ChangeMyStoryMembershipFragment__only_share_with">Ділитися тільки з…</string>
+    <string name="ChangeMyStoryMembershipFragment__only_share_with">Обрані глядачі</string>
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">Готово</string>
     <!-- Dialog title for removing a group story -->
@@ -6247,9 +6253,9 @@
     <!-- Choose groups bottom sheet title -->
     <string name="ChooseGroupStoryBottomSheet__choose_groups">Обрати групи</string>
     <!-- Displayed when copying group story reply text to clipboard -->
-    <string name="StoryGroupReplyFragment__copied_to_clipboard">Скопійовано до буфера обміну</string>
+    <string name="StoryGroupReplyFragment__copied_to_clipboard">Скопійовано в буфер обміну</string>
     <!-- Displayed in story caption when content is longer than 5 lines -->
-    <string name="StoryViewerPageFragment__see_more">Докладніше</string>
+    <string name="StoryViewerPageFragment__see_more">Читати далі</string>
     <!-- Displayed in toast after sending a direct reply -->
     <string name="StoryDirectReplyDialogFragment__sending_reply">Надсилаємо відповідь…</string>
     <!-- Displayed in the viewer when a story is no longer available -->
@@ -6345,7 +6351,7 @@
     <!-- Expired gift sheet not now button -->
     <string name="ExpiredGiftSheetConfiguration__not_now">Не зараз</string>
     <!-- My Story label designating that we will only share with the selected viewers. -->
-    <string name="ContactSearchItems__only_share_with">Ділитися тільки з</string>
+    <string name="ContactSearchItems__only_share_with">Обрані глядачі</string>
     <!-- Label under name for custom stories -->
     <plurals name="ContactSearchItems__custom_story_d_viewers">
         <item quantity="one">Індивідуальна історія · %1$d глядач</item>
@@ -6493,7 +6499,7 @@
     <!-- All connections except option for initial My Story settings configuration shown when sending to My Story for the first time -->
     <string name="ChooseInitialMyStoryMembershipFragment__all_except">Усі, крім…</string>
     <!-- Only with selected connections option for initial My Story settings configuration shown when sending to My Story for the first time -->
-    <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Ділитися тільки з…</string>
+    <string name="ChooseInitialMyStoryMembershipFragment__only_share_with">Обрані глядачі</string>
 
     <!-- Story info header sent heading -->
     <string name="StoryInfoHeader__sent">Надіслано</string>
@@ -6581,11 +6587,11 @@
     <!-- Dialog title when a user tries to donate while they already have a pending donation. -->
     <string name="DonateToSignalFragment__you_have_a_donation_pending">Ваш попередній донат ще не надійшов</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
-    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_monthly">Опрацювання банківських переказів може займати від 1 до 14 робочих днів. Просимо вас дочекатися проведення платежу, перш ніж оновлювати передплату.</string>
+    <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_monthly">Опрацювання банківських переказів може займати від 1 до 14 робочих днів. Просимо вас дочекатися проведення платежу, перш ніж оновлювати підписку.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
     <string name="DonateToSignalFragment__bank_transfers_usually_take_1_business_day_to_process_onetime">Опрацювання банківських переказів може займати від 1 до 14 робочих днів. Просимо вас дочекатися проведення платежу, перш ніж робити новий донат.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
-    <string name="DonateToSignalFragment__your_payment_is_still_being_processed_monthly">Ваш донат ще обробляється. Обробка може зайняти кілька хвилин в залежності від вашого з\'єднання. Будь ласка, зачекайте на проведення платежу, перш ніж оновлювати передплату.</string>
+    <string name="DonateToSignalFragment__your_payment_is_still_being_processed_monthly">Опрацювання вашого донату ще триває. Воно може зайняти кілька хвилин — швидкість залежить від вашого з\'єднання. Просимо вас дочекатися проведення платежу, перш ніж оновлювати підписку.</string>
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
     <string name="DonateToSignalFragment__your_payment_is_still_being_processed_onetime">Ваш донат ще обробляється. Обробка може зайняти кілька хвилин в залежності від вашого з\'єднання. Будь ласка, зачекайте на проведення платежу, перш ніж робити новий донат.</string>
     <!-- Dialog body when a user opens the manage donations main screen and they have a pending iDEAL donation -->
@@ -6974,9 +6980,9 @@
 
     <!-- Call state update popups -->
     <!-- Displayed when the user enables group call ringing -->
-    <string name="CallStateUpdatePopupWindow__ringing_on">Здійснення викликів увімкнено</string>
+    <string name="CallStateUpdatePopupWindow__ringing_on">Дзвінок увімкнено</string>
     <!-- Displayed when the user disables group call ringing -->
-    <string name="CallStateUpdatePopupWindow__ringing_off">Здійснення викликів вимкнено</string>
+    <string name="CallStateUpdatePopupWindow__ringing_off">Дзвінок вимкнено</string>
     <!-- Displayed when the user cannot enable group call ringing -->
     <string name="CallStateUpdatePopupWindow__group_is_too_large">Група завелика для здійснення викликів її учасникам</string>
     <!-- Displayed when the user turns on their mic -->
@@ -7015,7 +7021,7 @@
 
     <!-- CallLinkInfoSheet -->
     <!-- Sheet title -->
-    <string name="CallLinkInfoSheet__call_info">Відомості про виклик</string>
+    <string name="CallLinkInfoSheet__call_info">Про цей виклик</string>
     <!-- Dialog title for removing or blocking participants -->
     <string name="CallLinkInfoSheet__remove_s_from_the_call">Видалити користувача %1$s з виклику?</string>
     <!-- Dialog action to remove participant from the call -->
@@ -7047,7 +7053,7 @@
     <!-- Displayed when we can\'t find a suitable way to open the system share picker -->
     <string name="CreateCallLinkBottomSheetDialogFragment__failed_to_open_share_sheet">Не вдається поділитися посиланням на виклик.</string>
     <!-- Displayed when we copy the call link to the clipboard -->
-    <string name="CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard">Скопійовано у буфер обміну</string>
+    <string name="CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard">Скопійовано в буфер обміну</string>
 
     <!-- CallLinkIncomingRequestSheet -->
     <!-- Displayed as line item in sheet for approving or denying a single user -->
@@ -7072,7 +7078,7 @@
     <string name="ChooseNavigationBarStyleFragment__compact">Компактний</string>
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
-    <string name="EditMessageHistoryDialog_title">Правки</string>
+    <string name="EditMessageHistoryDialog_title">Попередній текст</string>
     <!-- Title of dialog shown alerting user that edit message is in beta only -->
     <string name="SendingEditMessageBetaOnlyDialog_title">Змінити повідомлення</string>
     <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
@@ -7215,7 +7221,7 @@
     <!-- Bottom sheet dialog shown when a monthly donation fails to renew, learn more used in placeholder for body for dialog. -->
     <string name="MonthlyDonationCanceled__learn_more">Подробиці</string>
     <!-- Bottom sheet dialog shown when a monthly donation fails to renew, primary button to renew subscription with new data -->
-    <string name="MonthlyDonationCanceled__renew_button">Поновити передплату</string>
+    <string name="MonthlyDonationCanceled__renew_button">Поновити підписку</string>
     <!-- Bottom sheet dialog shown when a monthly donation fails to renew, second button to dismiss the dialog entirely -->
     <string name="MonthlyDonationCanceled__not_now_button">Не зараз</string>
 
@@ -7430,9 +7436,9 @@
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
     <string name="RemoteBackupsSettingsFragment__backup_deleted_and_turned_off">Резервну копію видалено, копіювання вимкнено.</string>
     <!-- Snackbar text displayed when backup type is downgraded -->
-    <string name="RemoteBackupsSettingsFragment__backup_type_changed_and_subcription_deleted">Тип резервного копіювання змінено, а підписку скасовано</string>
+    <string name="RemoteBackupsSettingsFragment__backup_type_changed_and_subcription_deleted">Тип резервного копіювання змінено, а передплату скасовано</string>
     <!-- Snackbar text displayed when backup subscription is cancelled -->
-    <string name="RemoteBackupsSettingsFragment__subscription_cancelled">Підписку скасовано</string>
+    <string name="RemoteBackupsSettingsFragment__subscription_cancelled">Передплату скасовано</string>
     <!-- Snackbar text displayed when backup is successfully downloaded -->
     <string name="RemoteBackupsSettingsFragment__download_complete">Завантаження завершено</string>
     <!-- Title text in row detailing selected backup type -->

@@ -193,10 +193,10 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                               initializeLogging(false);
                               Log.i(TAG, "onCreateUnlock()");
                             })
+                            .addBlocking("app-dependencies", this::initializeAppDependencies)
                             .addBlocking("security-provider", this::initializeSecurityProvider)
                             .addBlocking("crash-handling", this::initializeCrashHandling)
                             .addBlocking("rx-init", this::initializeRx)
-                            .addBlocking("app-dependencies", this::initializeAppDependencies)
                             .addBlocking("scrubber", () -> Scrubber.setIdentifierHmacKeyProvider(() -> SignalStore.svr().getOrCreateMasterKey().deriveLoggingKey()))
                             .addBlocking("network-settings", this::initializeNetworkSettings)
                             .addBlocking("first-launch", this::initializeFirstEverAppLaunch)

@@ -104,6 +104,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Flowable;
@@ -447,6 +448,10 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   public void peekGroupCall(@NonNull RecipientId id) {
+    peekGroupCall(id, null);
+  }
+
+  public void peekGroupCall(@NonNull RecipientId id, @Nullable Consumer<PeekInfo> onWillUpdateCallFromPeek) {
     if (callManager == null) {
       Log.i(TAG, "Unable to peekGroupCall, call manager is null");
       return;
@@ -465,6 +470,10 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
           Long threadId = SignalDatabase.threads().getThreadIdFor(group.getId());
 
           if (threadId != null) {
+            if (onWillUpdateCallFromPeek != null) {
+              onWillUpdateCallFromPeek.accept(peekInfo);
+            }
+
             SignalDatabase.calls()
                           .updateGroupCallFromPeek(threadId,
                                                    peekInfo.getEraId(),
