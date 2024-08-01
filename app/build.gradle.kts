@@ -32,7 +32,6 @@ val selectableVariants = listOf(
   "prodFossStoreRelease",
   "prodGmsWebsiteDebug",
   "prodGmsWebsiteRelease",
-  "prodGmsWebsiteCanary",
   "prodGmsWebsiteInstrumentation",
   "prodGmsWebsiteSpinner",
   "stagingFossWebsiteDebug",
@@ -264,13 +263,6 @@ android {
     }
 
     create("spinner") {
-      initWith(getByName("debug"))
-      isDefault = false
-      isMinifyEnabled = false
-      matchingFallbacks += "debug"
-    }
-
-    create("canary") {
       initWith(getByName("debug"))
       isDefault = false
       isMinifyEnabled = false
@@ -517,8 +509,6 @@ dependencies {
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
 
   "spinnerImplementation"(project(":spinner"))
-
-  "canaryImplementation"(libs.square.leakcanary)
 
   "instrumentationImplementation"(libs.androidx.fragment.testing) {
     exclude(group = "androidx.test", module = "core")
