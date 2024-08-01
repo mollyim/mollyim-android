@@ -142,6 +142,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
 
       fragmentState.phoneNumberFormatter?.let {
         bindPhoneNumberFormatter(it)
+        phoneNumberInputLayout.requestFocus()
       }
 
       if (fragmentViewModel.isEnteredNumberValid(fragmentState)) {
@@ -180,7 +181,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       }
       phoneNumberInputLayout.addTextChangedListener(formatter)
       currentPhoneNumberFormatter = formatter
-      Log.d(TAG, "Updating phone number formatter in fragment")
+      Log.d(TAG, "Updated phone number formatter in fragment")
     }
   }
 

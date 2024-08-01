@@ -18,8 +18,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1436
-val canonicalVersionName = "7.11.4"
+val canonicalVersionCode = 1439
+val canonicalVersionName = "7.12.4"
 val mollyRevision = 1
 val currentHotfixVersion = 1
 val maxHotfixVersions = 100
@@ -33,7 +33,6 @@ val selectableVariants = listOf(
   "prodFossStoreRelease",
   "prodGmsWebsiteDebug",
   "prodGmsWebsiteRelease",
-  "prodGmsWebsiteCanary",
   "prodGmsWebsiteInstrumentation",
   "prodGmsWebsiteSpinner",
   "stagingFossWebsiteDebug",
@@ -130,7 +129,7 @@ android {
 
   packagingOptions {
     resources {
-      excludes += setOf("LICENSE.txt", "LICENSE", "NOTICE", "asm-license.txt", "META-INF/LICENSE", "META-INF/LICENSE.md", "META-INF/NOTICE", "META-INF/LICENSE-notice.md", "META-INF/proguard/androidx-annotations.pro", "libsignal_jni.dylib", "signal_jni.dll")
+      excludes += setOf("LICENSE.txt", "LICENSE", "NOTICE", "asm-license.txt", "META-INF/LICENSE", "META-INF/LICENSE.md", "META-INF/NOTICE", "META-INF/LICENSE-notice.md", "META-INF/proguard/androidx-annotations.pro", "libsignal_jni.dylib", "signal_jni.dll", "libsignal_jni_testing.dylib", "signal_jni_testing.dll")
     }
     jniLibs {
       // MOLLY: Compress native libs by default as APK is not split on ABIs
@@ -270,13 +269,6 @@ android {
       isMinifyEnabled = false
       matchingFallbacks += "debug"
     }
-
-    create("canary") {
-      initWith(getByName("debug"))
-      isDefault = false
-      isMinifyEnabled = false
-      matchingFallbacks += "debug"
-    }
   }
 
   productFlavors {
@@ -377,6 +369,12 @@ android {
       val selected = variant.name in selectableVariants
       if (!(selected && buildVariants.toRegex().containsMatchIn(variant.name))) {
         variant.enable = false
+      }
+    }
+    onVariants { variant ->
+      // Include the test-only library on debug builds.
+      if (variant.buildType != "debug") {
+        variant.packaging.jniLibs.excludes.add("**/libsignal_jni_testing.so")
       }
     }
   }
@@ -512,8 +510,6 @@ dependencies {
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
 
   "spinnerImplementation"(project(":spinner"))
-
-  "canaryImplementation"(libs.square.leakcanary)
 
   "instrumentationImplementation"(libs.androidx.fragment.testing) {
     exclude(group = "androidx.test", module = "core")
