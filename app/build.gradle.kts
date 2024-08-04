@@ -19,7 +19,7 @@ apply {
 }
 
 val canonicalVersionCode = 1439
-val canonicalVersionName = "7.12.4"
+val canonicalVersionName = "7.12.3"
 val mollyRevision = 2
 val currentHotfixVersion = 1
 val maxHotfixVersions = 100
