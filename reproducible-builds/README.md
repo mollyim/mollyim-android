@@ -33,7 +33,7 @@ git checkout $VERSION
 # Before proceeding, you should open this tutorial (README.md file) and review the instructions.
 
 # Build the APK using the Docker environment
-docker-compose up --build
+docker compose up --build
 
 # Download the official APK
 wget https://github.com/mollyim/mollyim-android/releases/download/$VERSION/Molly-$VERSION.apk
@@ -48,7 +48,7 @@ python apkdiff/apkdiff.py Molly-$VERSION.apk outputs/apk/prodGmsWebsite/release/
 python apkdiff/apkdiff.py Molly-$VERSION-FOSS.apk outputs/apk/prodFossWebsite/release/Molly-unsigned-$VERSION-FOSS.apk
 
 # Clean up the Docker environment
-docker-compose down
+docker compose down
 ```
 
 If you get `APKs match`, you have **successfully verified** that the official release matches with your own self-built version of Molly. Congratulations!

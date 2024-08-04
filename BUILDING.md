@@ -54,7 +54,7 @@ You can build Molly using GitHub Actions, either with GitHub-hosted public runne
 
 ## Building Using the CLI
 
-If you prefer building Molly locally on your computer, you can follow these steps, which are essentially the same procedure as in the [Reproducible Build guide](reproducible-builds/README.md). You have the option to customize the build by exporting environment variables or saving them in a `.env` file before running `docker-compose`.
+If you prefer building Molly locally on your computer, you can follow these steps, which are essentially the same procedure as in the [Reproducible Build guide](reproducible-builds/README.md). You have the option to customize the build by exporting environment variables or saving them in a `.env` file before running `docker compose`.
 
 ### Steps
 
@@ -76,14 +76,14 @@ export CI_APP_TITLE="Molly"
 export CI_PACKAGE_ID="im.molly.app"
 
 # Build the APK using Docker environment
-docker-compose up --build
+docker compose up --build
 
 # Optionally, save environment variables in a .env file for future builds
 echo "CI_APP_TITLE=Molly" >> .env
 echo "CI_PACKAGE_ID=im.molly.app" >> .env
 
 # Shut down the Docker environment after use
-docker-compose down
+docker compose down
 ```
 
 The built APKs will be available in the `output/apk` directory. Make sure to [sign the APKs](#signing-the-apks) before installation.
