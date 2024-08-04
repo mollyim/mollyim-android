@@ -41,10 +41,10 @@ object V238_AddGroupSendEndorsementsColumns : SignalDatabaseMigration {
 
         val previews = JSONArray(serializedPreviews)
         for (i in 0 until previews.length()) {
-          val preview = previews.getJSONObject(i)
-          if (preview.has("attachmentId")) {
-            val attachmentId = preview.getJSONObject("attachmentId")
-            if (attachmentId.has("id")) {
+          val preview = previews.optJSONObject(i)
+          if (preview != null) {
+            val attachmentId = preview.optJSONObject("attachmentId")
+            if (attachmentId != null && attachmentId.has("id")) {
               val rowId = attachmentId.getLong("id")
               val newAttachmentId = JSONObject()
               newAttachmentId.put("rowId", rowId)
@@ -79,12 +79,12 @@ object V238_AddGroupSendEndorsementsColumns : SignalDatabaseMigration {
 
         val contacts = JSONArray(serializedContacts)
         for (i in 0 until contacts.length()) {
-          val contact = contacts.getJSONObject(i)
-          if (contact.has("avatar")) {
-            val avatar = contact.getJSONObject("avatar")
-            if (avatar.has("attachmentId")) {
-              val attachmentId = avatar.getJSONObject("attachmentId")
-              if (attachmentId.has("id")) {
+          val contact = contacts.optJSONObject(i)
+          if (contact != null) {
+            val avatar = contact.optJSONObject("avatar")
+            if (avatar != null) {
+              val attachmentId = avatar.optJSONObject("attachmentId")
+              if (attachmentId != null && attachmentId.has("id")) {
                 val rowId = attachmentId.getLong("id")
                 val newAttachmentId = JSONObject()
                 newAttachmentId.put("rowId", rowId)
