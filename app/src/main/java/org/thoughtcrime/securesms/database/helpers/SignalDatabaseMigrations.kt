@@ -195,6 +195,7 @@ object SignalDatabaseMigrations {
     235 to V235_AttachmentUuidColumn,
     236 to V236_FixInAppSubscriberCurrencyIfAble,
     237 to V237_ResetGroupForceUpdateTimestamps,
+    // MOLLY: Use 238 to fix the incorrect JSON serialization of AttachmentId
     238 to V238_AddGroupSendEndorsementsColumns
   )
 
