@@ -63,6 +63,9 @@ subprojects {
       usesService(limiterService)
     }
   }
+
+  // MOLLY: Add task `./gradlew allDeps` to list all dependencies for each configuration
+  tasks.register<DependencyReportTask>("allDeps") { }
 }
 
 tasks.register("clean", Delete::class) {
