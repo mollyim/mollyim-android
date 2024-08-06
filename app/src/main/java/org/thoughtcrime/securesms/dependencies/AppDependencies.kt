@@ -217,8 +217,9 @@ object AppDependencies {
   val webSocketObserver: Observable<WebSocketConnectionState> = _webSocketObserver
 
   @JvmStatic
-  val networkManager: NetworkManager
-    get() = provider.provideNetworkManager()
+  val networkManager: NetworkManager by lazy {
+    provider.provideNetworkManager()
+  }
 
   private val _networkModule = resettableLazy {
     NetworkDependenciesModule(application, provider, _webSocketObserver)

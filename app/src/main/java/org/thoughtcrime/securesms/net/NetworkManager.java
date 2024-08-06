@@ -53,10 +53,6 @@ public class NetworkManager {
     return new NetworkManager(ApplicationContext.getInstance(), OrbotHelper.get(context));
   }
 
-  public boolean isNetworkEnabled() {
-    return Networking.isEnabled();
-  }
-
   public void setNetworkEnabled(boolean enabled) {
     Networking.setEnabled(enabled);
     if (enabled) {
