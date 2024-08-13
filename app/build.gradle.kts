@@ -565,42 +565,42 @@ fun assertIsGitRepo() {
 }
 
 fun getLastCommitTimestamp(): String {
-  assertIsGitRepo()
-
-  ByteArrayOutputStream().use { stdout ->
+  val stdout = ByteArrayOutputStream()
+  return try {
     exec {
       commandLine = listOf("git", "log", "-1", "--pretty=format:%ct000")
       standardOutput = stdout
     }
-
-    return stdout.toString().trim()
+    stdout.toString().trim()
+  } catch (e: Throwable) {
+    logger.warn("Failed to get Git commit timestamp: ${e.message}. Using mtime of current build script.")
+    buildFile.lastModified().toString()
   }
 }
 
 fun getGitHash(): String {
-  assertIsGitRepo()
-
-  ByteArrayOutputStream().use { stdout ->
+  val stdout = ByteArrayOutputStream()
+  return try {
     exec {
       commandLine = listOf("git", "rev-parse", "--short=12", "HEAD")
       standardOutput = stdout
     }
-
-    return stdout.toString().trim()
+    stdout.toString().trim()
+  } catch (e: Throwable) {
+    logger.warn("Failed to get Git commit hash: ${e.message}. Using default value.")
+    "abc123def456"
   }
 }
 
 fun getCommitTag(): String {
   assertIsGitRepo()
 
-  ByteArrayOutputStream().use { stdout ->
-    exec {
-      commandLine = listOf("git", "describe", "--tags", "--exact-match")
-      standardOutput = stdout
-    }
-
-    return stdout.toString().trim().takeIf { it.isNotEmpty() } ?: "untagged"
+  val stdout = ByteArrayOutputStream()
+  exec {
+    commandLine = listOf("git", "describe", "--tags", "--exact-match")
+    standardOutput = stdout
   }
+  return stdout.toString().trim().takeIf { it.isNotEmpty() } ?: "untagged"
 }
 
 tasks.withType<Test>().configureEach {
