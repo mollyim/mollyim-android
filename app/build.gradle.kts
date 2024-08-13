@@ -169,9 +169,10 @@ android {
 
     vectorDrawables.useSupportLibrary = true
 
-    // MOLLY: Ensure to add any new URLs to SignalServiceNetworkAccess.HOSTNAMES list
-    buildConfigField("long", "BUILD_TIMESTAMP", getLastCommitTimestamp() + "L")
+    // MOLLY: BUILD_TIMESTAMP may be zero in debug builds.
+    buildConfigField("long", "BUILD_OR_ZERO_TIMESTAMP", getLastCommitTimestamp() + "L")
     buildConfigField("String", "GIT_HASH", "\"${getGitHash()}\"")
+    // MOLLY: Ensure to add any new URLs to SignalServiceNetworkAccess.HOSTNAMES list
     buildConfigField("String", "SIGNAL_URL", "\"https://chat.signal.org\"")
     buildConfigField("String", "STORAGE_URL", "\"https://storage.signal.org\"")
     buildConfigField("String", "SIGNAL_CDN_URL", "\"https://cdn.signal.org\"")
@@ -246,6 +247,9 @@ android {
         "proguard/proguard-automation.pro",
         "proguard/proguard.cfg"
       )
+
+      buildConfigField("long", "BUILD_OR_ZERO_TIMESTAMP", "0L")
+      buildConfigField("String", "GIT_HASH", "\"abc123def456\"")
     }
 
     getByName("release") {
