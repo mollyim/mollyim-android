@@ -468,7 +468,6 @@ class InAppPaymentValues internal constructor(store: KeyValueStore) : SignalStor
       } else {
         markBackupSubscriptionpManuallyCancelled()
 
-        // TODO [message-backups] -- Handle downgrades?
         SignalStore.backup.areBackupsEnabled = false
         SignalStore.backup.backupTier = null
       }

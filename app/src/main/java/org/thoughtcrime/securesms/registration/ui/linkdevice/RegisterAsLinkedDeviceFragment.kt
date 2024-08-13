@@ -59,7 +59,7 @@ class RegisterAsLinkedDeviceFragment : LoggingFragment(R.layout.fragment_registr
   }
 
   private fun attemptDeviceLink() {
-    sharedViewModel.clearNetworkError()
+    sharedViewModel.networkErrorShown()
     sharedViewModel.attemptDeviceLink(requireContext(), ::registrationErrorHandler)
   }
 

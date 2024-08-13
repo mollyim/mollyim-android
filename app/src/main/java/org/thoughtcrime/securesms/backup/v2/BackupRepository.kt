@@ -46,7 +46,6 @@ import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsTypeFe
 import org.thoughtcrime.securesms.components.settings.app.subscription.RecurringInAppPaymentRepository
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider
-import org.thoughtcrime.securesms.database.DistributionListTables
 import org.thoughtcrime.securesms.database.KeyValueDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
@@ -104,6 +103,20 @@ object BackupRepository {
         SignalStore.backup.clearAllCredentials()
       }
     }
+  }
+
+  @WorkerThread
+  fun canAccessRemoteBackupSettings(): Boolean {
+    // TODO [message-backups]
+
+    // We need to check whether the user can access remote backup settings.
+
+    // 1. Do they have a receipt they need to be able to view?
+    // 2. Do they have a backup they need to be able to manage?
+
+    // The easy thing to do here would actually be to set a ui hint.
+
+    return SignalStore.backup.areBackupsEnabled
   }
 
   @WorkerThread
@@ -181,7 +194,7 @@ object BackupRepository {
     }
   }
 
-  fun export(outputStream: OutputStream, append: (ByteArray) -> Unit, plaintext: Boolean = false) {
+  fun export(outputStream: OutputStream, append: (ByteArray) -> Unit, plaintext: Boolean = false, currentTime: Long = System.currentTimeMillis()) {
     val eventTimer = EventTimer()
     val dbSnapshot: SignalDatabase = createSignalDatabaseSnapshot()
     val signalStoreSnapshot: SignalStore = createSignalStoreSnapshot()
@@ -198,7 +211,7 @@ object BackupRepository {
         )
       }
 
-      val exportState = ExportState(backupTime = System.currentTimeMillis(), allowMediaBackup = SignalStore.backup.backsUpMedia)
+      val exportState = ExportState(backupTime = currentTime, allowMediaBackup = SignalStore.backup.backsUpMedia)
 
       writer.use {
         writer.write(
@@ -249,20 +262,19 @@ object BackupRepository {
     }
   }
 
-  fun export(plaintext: Boolean = false): ByteArray {
+  /**
+   * Exports to a blob in memory. Should only be used for testing.
+   */
+  fun debugExport(plaintext: Boolean = false, currentTime: Long = System.currentTimeMillis()): ByteArray {
     val outputStream = ByteArrayOutputStream()
-    export(outputStream = outputStream, append = { mac -> outputStream.write(mac) }, plaintext = plaintext)
+    export(outputStream = outputStream, append = { mac -> outputStream.write(mac) }, plaintext = plaintext, currentTime = currentTime)
     return outputStream.toByteArray()
   }
 
-  fun validate(length: Long, inputStreamFactory: () -> InputStream, selfData: SelfData): ValidationResult {
-    val masterKey = SignalStore.svr.getOrCreateMasterKey()
-    val key = MessageBackupKey(masterKey.serialize(), Aci.parseFromBinary(selfData.aci.toByteArray()))
-
-    return MessageBackup.validate(key, MessageBackup.Purpose.REMOTE_BACKUP, inputStreamFactory, length)
-  }
-
-  fun import(length: Long, inputStreamFactory: () -> InputStream, selfData: SelfData, plaintext: Boolean = false) {
+  /**
+   * @return The time the backup was created, or null if the backup could not be read.
+   */
+  fun import(length: Long, inputStreamFactory: () -> InputStream, selfData: SelfData, plaintext: Boolean = false): ImportResult {
     val eventTimer = EventTimer()
 
     val backupKey = SignalStore.svr.getOrCreateMasterKey().deriveBackupKey()
@@ -281,10 +293,10 @@ object BackupRepository {
     val header = frameReader.getHeader()
     if (header == null) {
       Log.e(TAG, "Backup is missing header!")
-      return
+      return ImportResult.Failure
     } else if (header.version > VERSION) {
       Log.e(TAG, "Backup version is newer than we understand: ${header.version}")
-      return
+      return ImportResult.Failure
     }
 
     // Note: Without a transaction, bad imports could lead to lost data. But because we have a transaction,
@@ -302,9 +314,6 @@ object BackupRepository {
       val selfId: RecipientId = SignalDatabase.recipients.getAndPossiblyMerge(selfData.aci, selfData.pni, selfData.e164, pniVerified = true, changeSelf = true)
       SignalDatabase.recipients.setProfileKey(selfId, selfData.profileKey)
       SignalDatabase.recipients.setProfileSharing(selfId, true)
-
-      // Add back my story after clearing data
-      DistributionListTables.insertInitialDistributionListAtCreationTime(it)
 
       eventTimer.emit("setup")
       val backupState = BackupState(backupKey)
@@ -367,6 +376,14 @@ object BackupRepository {
     }
 
     Log.d(TAG, "import() ${eventTimer.stop().summary}")
+    return ImportResult.Success(backupTime = header.backupTimeMs)
+  }
+
+  fun validate(length: Long, inputStreamFactory: () -> InputStream, selfData: SelfData): ValidationResult {
+    val masterKey = SignalStore.svr.getOrCreateMasterKey()
+    val key = MessageBackupKey(masterKey.serialize(), Aci.parseFromBinary(selfData.aci.toByteArray()))
+
+    return MessageBackup.validate(key, MessageBackup.Purpose.REMOTE_BACKUP, inputStreamFactory, length)
   }
 
   fun listRemoteMediaObjects(limit: Int, cursor: String? = null): NetworkResult<ArchiveGetMediaItemsResponse> {
@@ -945,3 +962,8 @@ class BackupMetadata(
   val usedSpace: Long,
   val mediaCount: Long
 )
+
+sealed class ImportResult {
+  data class Success(val backupTime: Long) : ImportResult()
+  data object Failure : ImportResult()
+}

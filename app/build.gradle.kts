@@ -18,11 +18,11 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1439
-val canonicalVersionName = "7.12.3"
-val mollyRevision = 3
-val currentHotfixVersion = 1
+val canonicalVersionCode = 1443
+val canonicalVersionName = "7.13.3"
+val currentHotfixVersion = 0
 val maxHotfixVersions = 100
+val mollyRevision = 1
 
 val sourceVersionNameWithRevision = "${canonicalVersionName}-${mollyRevision}"
 
@@ -373,7 +373,7 @@ android {
     }
     onVariants { variant ->
       // Include the test-only library on debug builds.
-      if (variant.buildType != "debug") {
+      if (variant.buildType != "instrumentation") {
         variant.packaging.jniLibs.excludes.add("**/libsignal_jni_testing.so")
       }
     }
@@ -549,6 +549,7 @@ dependencies {
   androidTestImplementation(testLibs.mockito.kotlin)
   androidTestImplementation(testLibs.mockk.android)
   androidTestImplementation(testLibs.square.okhttp.mockserver)
+  androidTestImplementation(testLibs.diff.utils)
 
   androidTestUtil(testLibs.androidx.test.orchestrator)
 }

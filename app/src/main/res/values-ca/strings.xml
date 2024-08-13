@@ -167,6 +167,8 @@
     <string name="CreditCardFragment__donate_s">Fer donació de %1$s</string>
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">Fer donació de %1$s/mes</string>
+    <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
+    <string name="CreditCardFragment__pay_s_month">Fer donació de %1$s/mes</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -216,6 +218,24 @@
     <string name="BucketedThreadMedia_Large">Grossa</string>
     <string name="BucketedThreadMedia_Medium">Mitjana</string>
     <string name="BucketedThreadMedia_Small">Petita</string>
+
+    <!-- CallInfoView -->
+    <!-- Unknown people row text when the only people in the call are unknowns -->
+    <plurals name="CallInfoView__d_people">
+        <item quantity="one">%1$d persona</item>
+        <item quantity="other">%1$d persones</item>
+    </plurals>
+    <!-- Unknown people row, placeholder is the number of unknown people in the call -->
+    <plurals name="CallInfoView__plus_d_people">
+        <item quantity="one">+%1$d persona</item>
+        <item quantity="other">+%1$d persones</item>
+    </plurals>
+    <!-- Unknown people row icon content description -->
+    <string name="CallInfoView__more_information">Més informació</string>
+    <!-- Unknown people row info dialog message -->
+    <string name="CallInfoView__before_joining_a_call">Abans d\'unir-te a una trucada, només podràs veure els noms d\'aquelles persones que tinguis desades com a contactes al teu telèfon, amb les quals estàs en un grup o amb les quals ja has xatejat. Un cop t\'hagis unit a la trucada, veuràs els noms i les fotos de tothom.</string>
+    <!-- Unknown people row info dialog action to close the dialog -->
+    <string name="CallInfoView__got_it">Entesos</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -768,6 +788,16 @@
     <!-- Backup has an unsupported file extension -->
     <string name="RestoreBackupFragment__backup_has_a_bad_extension">La còpia de seguretat té una extensió incorrecta.</string>
 
+    <!-- CreateBackupBottomSheet -->
+    <!-- Bottom sheet title -->
+    <string name="CreateBackupBottomSheet__create_backup">Crea una còpia de seguretat</string>
+    <!-- Bottom sheet message -->
+    <string name="CreateBackupBottomSheet__depending_on_the_size">Depenent de la mida de la teva còpia de seguretat, això pot trigar força estona. Mentre es fa la còpia de seguretat, podràs continuar utilitzant el teu telèfon com de costum.</string>
+    <!-- Action button to dismiss sheet and back up later -->
+    <string name="CreateBackupBottomSheet__back_up_later">Fes una còpia de seguretat més tard</string>
+    <!-- Action button to dismiss sheet and back up now -->
+    <string name="CreateBackupBottomSheet__back_up_now">Fes-ne una còpia de seguretat ara</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">Còpies de seguretat de xats</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Les còpies de seguretat s\'encripten amb una contrasenya i es desen al dispositiu.</string>
@@ -1087,6 +1117,9 @@
     <string name="PromptLogsSlowNotificationsDialog__message">Els registres de depuració ens ajuden a diagnosticar i solucionar el problema i no contenen informació que pugui identificar-te.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">Hi ha hagut un problema a Molly. Vols enviar un registre de depuració?</string>
+    <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+    <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">És possible que no estiguis rebent missatges. Vols enviar un registre de depuració?</string>
+
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Les notificacions poden retardar-se a causa dels processos d\'optimització de la bateria</string>
@@ -1101,6 +1134,13 @@
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">No, gràcies.</string>
     <!-- Button to continue and go to Signal support website -->
     <string name="DeviceSpecificNotificationBottomSheet__continue">Continuar</string>
+
+    <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_title">És possible que no estiguis rebent missatges</string>
+    <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_body">Reiniciar el dispositiu pot ajudar a resoldre el problema de rebuda de missatges. Si el problema persisteix, posa\'t en contacte amb el servei de suport de Molly.</string>
+    <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
+    <string name="ConnectivityWarningBottomSheet_dismiss_button">Entesos</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Continuar</string>
@@ -1194,6 +1234,44 @@
     <string name="ManageGroupActivity_invite_now">Convida ara</string>
     <string name="ManageGroupActivity_more">més</string>
     <string name="ManageGroupActivity_add_group_description">Afegiu-hi una descripció del grup.</string>
+
+    <!-- MoreTransferOrRestoreOptionsSheet -->
+    <!-- Row title for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Transfereix des d\'un dispositiu d\'Android</string>
+    <!-- Row description for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Transfereix el teu compte i missatges des del teu antic dispositiu Android.</string>
+    <!-- Row title for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Inicia sessió sense transferir</string>
+    <!-- Row description for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Continua sense transferir els teus missatges i arxius multimèdia</string>
+    <!-- Row title for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Restaurar la còpia de seguretat local</string>
+    <!-- Row description for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Restaurar els teus missatges des d\'una còpia de seguretat del teu dispositiu.</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Progress dialog label when downloading a backup -->
+    <string name="RemoteRestoreActivity__downloading_backup">S\'està descarregant la còpia de seguretat…</string>
+    <!-- Progress dialog label when restoring a backup -->
+    <string name="RemoteRestoreActivity__restoring_messages">Restaurant els missatges…</string>
+    <!-- Progress dialog label while awaiting updates -->
+    <string name="RemoteRestoreActivity__restoring">S\'està restaurant…</string>
+    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+    <string name="RemoteRestoreActivity__s_of_s_s">%1$s de %2$s (%3$s)</string>
+    <!-- Feature list media label for paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_media">Tots els teus arxius multimèdia</string>
+    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+    <string name="RemoteRestoreActivity__your_last_d_days_of_media">Els teus darrers %1$d dies d\'arxius multimèdia</string>
+    <!-- Feature list message label for free and paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_messages">Tots els teus missatges</string>
+    <!-- Screen title for restoring from backup -->
+    <string name="RemoteRestoreActivity__restore_from_backup">Restaura des d\'una còpia de seguretat</string>
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <string name="RemoteRestoreActivity__only_media_sent_or_received">Només s\'inclouen els arxius enviats o rebuts durant els darrers %1$d dies.</string>
+    <!-- Section title for explaining what your backup includes -->
+    <string name="RemoteRestoreActivity__your_backup_includes">La teva còpia de seguretat inclou:</string>
+    <!-- Primary action button copy for starting restoration -->
+    <string name="RemoteRestoreActivity__restore_backup">Restaura la còpia de seguretat</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Notifica\'m les mencions</string>
@@ -1350,7 +1428,7 @@
     <!-- Dialog title shown if users are about to discard their draft message -->
     <string name="InputPanel__discard_draft">Descartar l\'esborrany?</string>
     <!-- Dialog message explaining their action cannot be reversed -->
-    <string name="InputPanel__this_action_cant_be_undone">This action can\'t be undone.</string>
+    <string name="InputPanel__this_action_cant_be_undone">Aquesta acció no es pot desfer.</string>
     <!-- Button inside an alert dialog confirming the deletion of their draft -->
     <string name="InputPanel__discard">Descarta</string>
 
@@ -3269,10 +3347,6 @@
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Enviar registre de depuració de Signal per a Android</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Notificacions lentes</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__crash_category">Ha deixat de funcionar</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Envia</string>
     <!-- Action to decline to submit logs -->
@@ -4712,7 +4786,12 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">Convideu-hi amistats</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">S\'ha copiat l\'identificador del subscriptor al porta-retalls.</string>
+    <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">S\'ha copiat l\'identificador del donant al porta-retalls.</string>
+    <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">S\'ha copiat les còpies de seguretat del subscriptor al porta-retalls.</string>
+    <!-- String displayed in a toast when a subscriber id is not present for a given type -->
+    <string name="AppSettingsFragment__no_subscriber_id_set">No s\'ha establert cap identificador de subscriptor</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">Compte</string>
@@ -5401,7 +5480,24 @@
     <string name="Subscription__contact_support">Contacteu amb l\'Assistència</string>
     <string name="Subscription__get_a_s_badge">Obtenir una insígnia %1$s</string>
 
-    <string name="SubscribeFragment__processing_payment">S\'està processant la donació…</string>
+    <!-- *PaymentInProgressFragment strings -->
+    <string name="InAppPaymentInProgressFragment__processing_donation">S\'està processant la donació…</string>
+    <string name="InAppPaymentInProgressFragment__processing_payment">Es processa el pagament…</string>
+
+    <!-- InAppPaymentErrors -->
+    <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
+    <string name="InAppPaymentErrors__error_processing_payment">S\'ha produït un error en processar el pagament.</string>
+    <!-- Displayed as a message in a dialog or notification when a payment setup error happens. -->
+    <string name="InAppPaymentErrors__your_payment_couldnt_be_processed">El pagament no s\'ha pogut processar i no se t\'ha cobrat. Si us plau, torna-ho a provar.</string>
+    <!-- Displayed as a message in a dialog when we timeout waiting for a payment to be processed and token to be redeemed -->
+    <string name="InAppPaymentErrors__your_payment_is_still">El pagament encara s\'està processant. Això pot trigar uns quants minuts segons la connexió.</string>
+    <!-- Displayed as a message in a dialog or notification when stripe decline code issuer not available for backup payment. -->
+    <string name="InAppPaymentErrors__StripeDeclineCode__try_completing_the_payment_again">Proveu de tornar a completar el pagament o poseu-vos en contacte amb el banc per obtenir-ne més informació.</string>
+    <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification as a message. -->
+    <string name="InAppPaymentErrors__StripeFailureCode__this_payment_was_revoked">El titular del compte ha revocat aquest pagament i no s\'ha pogut processar. No se t\'ha efectuat el càrrec.</string>
+    <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification as a message.-->
+    <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">Hi ha hagut un error en processar aquest pagament, torna-ho a provar.</string>
+
     <!-- Displayed in notification when user payment fails to process on Stripe -->
     <string name="DonationsErrors__error_processing_payment">S\'ha produït un error en processar la donació</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
@@ -7066,6 +7162,10 @@
     <string name="BackupsTypeSettingsFragment__unknown">Desconegut</string>
     <!-- Row title for entering payment history -->
     <string name="BackupsTypeSettingsFragment__payment_history">Historial de pagaments</string>
+    <!-- Row description detailing renewal information. First placeholder is formatted price. Second placeholder is formatted date. -->
+    <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/ mes · Renovacions %2$s</string>
+    <!-- Row title to change or cancel subscription -->
+    <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Canviar o cancel·lar la subscripció</string>
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
@@ -7170,6 +7270,55 @@
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
     <string name="PassphrasePromptActivity_help_prompt_body">Introdueix el PIN, la contrasenya o el patró del teu dispositiu.</string>
 
+    <!-- MessageBackupsCheckoutSheet -->
+    <!-- Sheet title. Placeholder is formatted price. -->
+    <string name="MessageBackupsCheckoutSheet__pay_s_per_month">Pagar %1$s/mes a Signal</string>
+    <!-- Sheet subtitle -->
+    <string name="MessageBackupsCheckoutSheet__youll_get">Obtindràs:</string>
+
+    <!-- MessageBackupsEducationScreen -->
+    <!-- Screen subtitle underneath large headline title -->
+    <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Fes una còpia de seguretat dels teus missatges i arxius multimèdia utilitzant el servei d\'emmagatzematge xifrat d\'extrem a extrem de Signal. No perdis mai cap missatge quan et canviïs el telèfon o tornis a instal·lar Signal.</string>
+    <!-- Backups feature label for e2e encryption -->
+    <string name="MessageBackupsEducationScreen__end_to_end_encrypted">Xifrat d\'extrem a extrem</string>
+    <!-- Backups feature label for informing the user that this feature is completely optional -->
+    <string name="MessageBackupsEducationScreen__optional_always">Opcional, sempre</string>
+    <!-- Backups feature label for informing the user that they can delete their backup at any time -->
+    <string name="MessageBackupsEducationScreen__delete_your_backup_anytime">Elimina la teva còpia de seguretat en qualsevol moment</string>
+    <!-- Action button label to proceed with backups activation -->
+    <string name="MessageBackupsEducationScreen__enable_backups">Activa les còpies de seguretat</string>
+    <!-- Action button label to learn more -->
+    <string name="MessageBackupsEducationScreen__learn_more">Més informació</string>
+
+    <!-- MessageBackupsPinConfirmationScreen -->
+    <!-- Screen title -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_pin">Marqueu el PIN</string>
+    <!-- Screen subtitle -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_signal_pin_to_enable_backups">Introdueix el teu PIN de Signal per activar les còpies de seguretat</string>
+    <!-- Action button to confirm pin entry and continue -->
+    <string name="MessageBackupsPinConfirmationScreen__next">Següent</string>
+    <!-- Action button to switch keyboard type -->
+    <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">Canviar teclat</string>
+
+    <!-- MessageBackupsPinEducationScreen -->
+    <!-- Screen headline -->
+    <string name="MessageBackupsPinEducationScreen__pins_protect_your_backup">Els PIN protegeixen la teva còpia de seguretat</string>
+    <!-- Notice about pin length. Placeholder is recommended pin length -->
+    <string name="MessageBackupsPinEducationScreen__your_signal_pin_lets_you">El teu PIN de Signal et permet restaurar la teva còpia de seguretat quan tornis a instal·lar Signal. Et recomanem utilitzar un PIN que tingui com a mínim %1$d dígits.</string>
+    <!-- Notice about changing your pin. -->
+    <string name="MessageBackupsPinEducationScreen__if_you_forget_your_pin">Si oblides el teu PIN, no podràs restaurar la teva còpia de seguretat. Pots canviar el teu PIN en qualsevol moment des d\'ajustos.</string>
+    <!-- Action button label to utilize current pin -->
+    <string name="MessageBackupsPinEducationScreen__use_current_signal_pin">Utilitzar el PIN de Signal actual</string>
+    <!-- Action button to create a new pin -->
+    <string name="MessageBackupsPinEducationScreen__create_new_pin">Crea un PIN nou</string>
+
+    <!-- MessagesBackupsTypeSelectionScreen -->
+    <!-- Screen headline -->
+    <string name="MessagesBackupsTypeSelectionScreen__choose_your_backup_plan">Tria el teu pla de còpia de seguretat</string>
+    <!-- Screen subhead -->
+    <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Totes les còpies de seguretat estan xifrades d\'extrem a extrem. Signal és una organització sense ànim de lucre: pagar per les còpies de seguretat ens ajuda a poder continuar endavant.</string>
+    <!-- Screen subhead highlighted read-more button -->
+    <string name="MessageBackupsTypeSelectionScreen__read_more">Llegiu-ne més.</string>
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">Següent</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->

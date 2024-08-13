@@ -195,7 +195,7 @@ public final class ConversationUpdateItem extends FrameLayout
                       shouldCollapse(messageRecord, nextMessageRecord),
                       hasWallpaper);
 
-    presentActionButton(hasWallpaper, conversationMessage.getMessageRecord().isBoostRequest());
+    presentActionButton(hasWallpaper, conversationMessage.getMessageRecord().isReleaseChannelDonationRequest());
 
     updateSelectedState();
   }

@@ -63,7 +63,7 @@ class DeviceSpecificNotificationBottomSheet : ComposeBottomSheetDialogFragment()
 }
 
 @Composable
-fun DeviceSpecificSheet(onContinue: () -> Unit = {}, onDismiss: () -> Unit = {}) {
+private fun DeviceSpecificSheet(onContinue: () -> Unit = {}, onDismiss: () -> Unit = {}) {
   return Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier.fillMaxWidth().wrapContentSize(Alignment.Center)
@@ -111,7 +111,7 @@ fun DeviceSpecificSheet(onContinue: () -> Unit = {}, onDismiss: () -> Unit = {})
 
 @SignalPreview
 @Composable
-fun DeviceSpecificSheetPreview() {
+private fun DeviceSpecificSheetPreview() {
   Previews.BottomSheetPreview {
     DeviceSpecificSheet()
   }

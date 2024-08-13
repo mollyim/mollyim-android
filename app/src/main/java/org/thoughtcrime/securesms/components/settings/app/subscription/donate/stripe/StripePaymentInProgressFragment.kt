@@ -19,6 +19,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.logging.Log
+import org.signal.donations.InAppPaymentType
 import org.signal.donations.StripeApi
 import org.signal.donations.StripeIntentAccessor
 import org.thoughtcrime.securesms.R
@@ -68,9 +69,11 @@ class StripePaymentInProgressFragment : DialogFragment(R.layout.donation_in_prog
         InAppPaymentProcessorAction.PROCESS_NEW_IN_APP_PAYMENT -> {
           viewModel.processNewDonation(args.inAppPayment!!, this::handleSecure3dsAction)
         }
+
         InAppPaymentProcessorAction.UPDATE_SUBSCRIPTION -> {
           viewModel.updateSubscription(args.inAppPayment!!)
         }
+
         InAppPaymentProcessorAction.CANCEL_SUBSCRIPTION -> {
           viewModel.cancelSubscription(args.inAppPaymentType.requireSubscriberType())
         }
@@ -85,8 +88,8 @@ class StripePaymentInProgressFragment : DialogFragment(R.layout.donation_in_prog
 
   private fun presentUiState(stage: InAppPaymentProcessorStage) {
     when (stage) {
-      InAppPaymentProcessorStage.INIT -> binding.progressCardStatus.setText(R.string.SubscribeFragment__processing_payment)
-      InAppPaymentProcessorStage.PAYMENT_PIPELINE -> binding.progressCardStatus.setText(R.string.SubscribeFragment__processing_payment)
+      InAppPaymentProcessorStage.INIT -> binding.progressCardStatus.text = getProcessingStatus()
+      InAppPaymentProcessorStage.PAYMENT_PIPELINE -> binding.progressCardStatus.text = getProcessingStatus()
       InAppPaymentProcessorStage.FAILED -> {
         viewModel.onEndAction()
         findNavController().popBackStack()
@@ -102,6 +105,7 @@ class StripePaymentInProgressFragment : DialogFragment(R.layout.donation_in_prog
           )
         )
       }
+
       InAppPaymentProcessorStage.COMPLETE -> {
         viewModel.onEndAction()
         findNavController().popBackStack()
@@ -117,16 +121,25 @@ class StripePaymentInProgressFragment : DialogFragment(R.layout.donation_in_prog
           )
         )
       }
+
       InAppPaymentProcessorStage.CANCELLING -> binding.progressCardStatus.setText(R.string.StripePaymentInProgressFragment__cancelling)
     }
   }
 
+  private fun getProcessingStatus(): String {
+    return if (args.inAppPaymentType == InAppPaymentType.RECURRING_BACKUP) {
+      getString(R.string.InAppPaymentInProgressFragment__processing_payment)
+    } else {
+      getString(R.string.InAppPaymentInProgressFragment__processing_donation)
+    }
+  }
   private fun handleSecure3dsAction(secure3dsAction: StripeApi.Secure3DSAction, inAppPayment: InAppPaymentTable.InAppPayment): Single<StripeIntentAccessor> {
     return when (secure3dsAction) {
       is StripeApi.Secure3DSAction.NotNeeded -> {
         Log.d(TAG, "No 3DS action required.")
         Single.just(StripeIntentAccessor.NO_ACTION_REQUIRED)
       }
+
       is StripeApi.Secure3DSAction.ConfirmRequired -> {
         Log.d(TAG, "3DS action required. Displaying dialog...")
         Single.create { emitter ->

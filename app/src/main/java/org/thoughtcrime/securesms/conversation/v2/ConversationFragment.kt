@@ -1688,13 +1688,12 @@ class ConversationFragment :
   }
 
   private fun initializeMediaKeyboard() {
-    val isSystemEmojiPreferred = SignalStore.settings.isPreferSystemEmoji
     val keyboardMode: TextSecurePreferences.MediaKeyboardMode = TextSecurePreferences.getMediaKeyboardMode(requireContext())
 
     inputPanel.showMediaKeyboardToggle(true)
 
     val keyboardPage = when (keyboardMode) {
-      TextSecurePreferences.MediaKeyboardMode.EMOJI -> if (isSystemEmojiPreferred) KeyboardPage.STICKER else KeyboardPage.EMOJI
+      TextSecurePreferences.MediaKeyboardMode.EMOJI -> KeyboardPage.EMOJI
       TextSecurePreferences.MediaKeyboardMode.STICKER -> KeyboardPage.STICKER
       TextSecurePreferences.MediaKeyboardMode.GIF -> if (RemoteConfig.gifSearchAvailable) KeyboardPage.GIF else KeyboardPage.STICKER
     }
@@ -1727,35 +1726,35 @@ class ConversationFragment :
       inputPanel.isRecordingInLockedMode -> {
         buttonToggle.display(sendButton)
         quickAttachment.show()
-        inlineAttachment.hide()
+        inlineAttachment.hide(true)
       }
 
       inputPanel.inEditMessageMode() -> {
         buttonToggle.display(sendEditButton)
-        quickAttachment.hide()
-        inlineAttachment.hide()
+        quickAttachment.hide(false)
+        inlineAttachment.hide(false)
       }
 
       draftViewModel.voiceNoteDraft != null -> {
         buttonToggle.display(sendButton)
-        quickAttachment.hide()
-        inlineAttachment.hide()
+        quickAttachment.hide(true)
+        inlineAttachment.hide(true)
       }
 
       composeText.text.isNullOrBlank() && !attachmentManager.isAttachmentPresent -> {
         buttonToggle.display(binding.conversationInputPanel.attachButton)
         quickAttachment.show()
-        inlineAttachment.hide()
+        inlineAttachment.hide(true)
       }
 
       else -> {
         buttonToggle.display(sendButton)
-        quickAttachment.hide()
+        quickAttachment.hide(true)
 
         if (!attachmentManager.isAttachmentPresent && !linkPreviewViewModel.hasLinkPreviewUi) {
           inlineAttachment.show()
         } else {
-          inlineAttachment.hide()
+          inlineAttachment.hide(true)
         }
       }
     }

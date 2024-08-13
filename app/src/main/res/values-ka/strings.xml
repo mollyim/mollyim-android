@@ -167,6 +167,8 @@
     <string name="CreditCardFragment__donate_s">გააკეთე დონაცია %1$s</string>
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">გააკეთე დონაცია %1$s/თვეში</string>
+    <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
+    <string name="CreditCardFragment__pay_s_month">გააკეთე დონაცია %1$s/თვეში</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -216,6 +218,24 @@
     <string name="BucketedThreadMedia_Large">დიდი</string>
     <string name="BucketedThreadMedia_Medium">საშუალო</string>
     <string name="BucketedThreadMedia_Small">პატარა</string>
+
+    <!-- CallInfoView -->
+    <!-- Unknown people row text when the only people in the call are unknowns -->
+    <plurals name="CallInfoView__d_people">
+        <item quantity="one">%1$d ადამიანი</item>
+        <item quantity="other">%1$d ადამიანი</item>
+    </plurals>
+    <!-- Unknown people row, placeholder is the number of unknown people in the call -->
+    <plurals name="CallInfoView__plus_d_people">
+        <item quantity="one">+%1$d ადამიანი</item>
+        <item quantity="other">+%1$d ადამიანი</item>
+    </plurals>
+    <!-- Unknown people row icon content description -->
+    <string name="CallInfoView__more_information">მეტი ინფორმაცია</string>
+    <!-- Unknown people row info dialog message -->
+    <string name="CallInfoView__before_joining_a_call">ზარზე შესვლამდე შეგიძლია ნახო მხოლოდ სატელეფონო კონტაქტების სახელები, იმ ადამიანების სახელები, რომლებთანაც ჯგუფში ხარ ან ერთი ერთზე მიმოწერა გაქვს. როგორც კი ზარზე შეხვალ, ყველას სახელსა და ფოტოს ნახავ.</string>
+    <!-- Unknown people row info dialog action to close the dialog -->
+    <string name="CallInfoView__got_it">გასაგებია</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -768,6 +788,16 @@
     <!-- Backup has an unsupported file extension -->
     <string name="RestoreBackupFragment__backup_has_a_bad_extension">სარეზერვო კოპიების აქვს შეუთავსებელი გაფართოება.</string>
 
+    <!-- CreateBackupBottomSheet -->
+    <!-- Bottom sheet title -->
+    <string name="CreateBackupBottomSheet__create_backup">სარეზერვო კოპიის შექმნა</string>
+    <!-- Bottom sheet message -->
+    <string name="CreateBackupBottomSheet__depending_on_the_size">შენი სარეზერვო კოპიების ზომიდან გამომდინარე, ამას შეიძლება დიდი დრო დასჭირდეს. სანამ სარეზერვო კოპიები იქმნება, შეგიძლია შენი მობილური ჩვეულებისამებრ გამოიყენო.</string>
+    <!-- Action button to dismiss sheet and back up later -->
+    <string name="CreateBackupBottomSheet__back_up_later">სარეზერვო კოპიების მოგვიანებით შექმნა</string>
+    <!-- Action button to dismiss sheet and back up now -->
+    <string name="CreateBackupBottomSheet__back_up_now">სარეზერვო კოპიის ახლავე შექმნა</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">ჩატის სარეზერვო კოპიები</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">სარეზერვო კოპიები პაროლ-ფრაზითაა დაშიფრული და შენს მოწყობილობაში ინახება.</string>
@@ -1087,6 +1117,9 @@
     <string name="PromptLogsSlowNotificationsDialog__message">გამართვის ჟურნალები გვეხმარება პრობლემის დიაგნოსტიკასა და გამოსწორებაში და არ შეიცავს საიდენტიფიკაციო ინფორმაციას.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly-ი პრობლემას გადააწყდა. ატვირთოთ გამართვის ჟურნალი?</string>
+    <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+    <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">შეიძლება შეტყობინებებს ვერ იღებდე. გსურს გაუმართაობის რეესტრის ატვირთვა?</string>
+
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">შეტყობინებები შეიძლება ბატარეის ოპტიმიზაციის გამო დაგვიანდეს</string>
@@ -1101,6 +1134,13 @@
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">არა, მადლობა</string>
     <!-- Button to continue and go to Signal support website -->
     <string name="DeviceSpecificNotificationBottomSheet__continue">გაგრძელება</string>
+
+    <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_title">შეიძლება შეტყობინებებს ვერ იღებდე</string>
+    <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_body">შეტყობინების მიღების პრობლემის მოგვარებაში შენი მოწყობილობის გადატვირთვა დაგეხმარება. თუ პრობლემა ისევ გექნება, Molly-ის მხარდაჭერის გუნდს დაუკავშირდი.</string>
+    <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
+    <string name="ConnectivityWarningBottomSheet_dismiss_button">გასაგებია</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">გაგრძელება</string>
@@ -1194,6 +1234,44 @@
     <string name="ManageGroupActivity_invite_now">მოიწვიე ახლა</string>
     <string name="ManageGroupActivity_more">მეტი</string>
     <string name="ManageGroupActivity_add_group_description">ჯგუფის აღწერის დამატება…</string>
+
+    <!-- MoreTransferOrRestoreOptionsSheet -->
+    <!-- Row title for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Android მოწყობილობიდან გადმოტანა</string>
+    <!-- Row description for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">გადმოიტანე შენი მონაცემები და შეტყობინებები ძველი Android მოწყობილობიდან.</string>
+    <!-- Row title for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">სისტემაში შესვლა გადატანის გარეშე</string>
+    <!-- Row description for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">განაგრძე შენი შეტყობინებების და მედია ფაილების გადატანის გარეშე</string>
+    <!-- Row title for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">ადგილობრივი სარეზერვო კოპიების აღდგენა</string>
+    <!-- Row description for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">აღადგინე შენი შეტყობინებები შენს მოწყობილობაში შენახული სარეზერვო კოპიების ფაილიდან.</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Progress dialog label when downloading a backup -->
+    <string name="RemoteRestoreActivity__downloading_backup">მიმდინარეობს სარეზერვო კოპიების გადმოწერა…</string>
+    <!-- Progress dialog label when restoring a backup -->
+    <string name="RemoteRestoreActivity__restoring_messages">მიმდინარეობს შეტყობინებების აღდგენა…</string>
+    <!-- Progress dialog label while awaiting updates -->
+    <string name="RemoteRestoreActivity__restoring">მიმდინარეობს აღდგენა…</string>
+    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+    <string name="RemoteRestoreActivity__s_of_s_s">%2$s-დან %1$s (%3$s)</string>
+    <!-- Feature list media label for paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_media">შენი ყველა მედია ფაილი</string>
+    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+    <string name="RemoteRestoreActivity__your_last_d_days_of_media">ბოლო %1$d დღის მედია ფაილები</string>
+    <!-- Feature list message label for free and paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_messages">შენი ყველა შეტყობინება</string>
+    <!-- Screen title for restoring from backup -->
+    <string name="RemoteRestoreActivity__restore_from_backup">სარეზერვო კოპიიდან აღდგენა</string>
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <string name="RemoteRestoreActivity__only_media_sent_or_received">შედის მხოლოდ ბოლო %1$d დღის განმავლობაში გაგზავნილი ან მიღებული მედია ფაილები.</string>
+    <!-- Section title for explaining what your backup includes -->
+    <string name="RemoteRestoreActivity__your_backup_includes">შენს სარეზერვო კოპირებაში შედის:</string>
+    <!-- Primary action button copy for starting restoration -->
+    <string name="RemoteRestoreActivity__restore_backup">სარეზერვო კოპიების აღდგენა</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">შემატყობინეთ, როცა მომნიშნავენ</string>
@@ -3269,10 +3347,6 @@
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android-ის გამართვის ჟურნალის ატვირთვა</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">შეტყობინებების ჩვენება</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__crash_category">Crash</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Submit</string>
     <!-- Action to decline to submit logs -->
@@ -4712,7 +4786,12 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">მოიწვიე მეგობრები</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">გამომწერის ID დაკოპირებულია ბუფერში</string>
+    <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">დონაციის გამომწერის ID ბუფერში დაკოპირდა</string>
+    <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">სარეზერვო კოპირების გამომწერის ID ბუფერში დაკოპირდა</string>
+    <!-- String displayed in a toast when a subscriber id is not present for a given type -->
+    <string name="AppSettingsFragment__no_subscriber_id_set">გამომწერის ID დაყენებული არ არის</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">მონაცემები</string>
@@ -4860,7 +4939,7 @@
     <!-- Summary for stories preference to launch into story privacy settings -->
     <string name="PrivacySettingsFragment__payment_lock_require_lock">მოითხოვე Android-ის ეკრანის დაბლოკვა ან თითის ანაბეჭდი თანხის გადასატანად</string>
     <!-- Alert dialog title when payment lock cannot be enabled -->
-    <string name="PrivacySettingsFragment__cant_enable_title">ტრანზაქციის უზრუნველყოფის ჩართვა ვერ მოხერხდა</string>
+    <string name="PrivacySettingsFragment__cant_enable_title">ტრანზაქციის დაცვის ჩართვა ვერ მოხერხდა</string>
     <!-- Alert dialog description to setup screen lock or fingerprint in phone settings -->
     <string name="PrivacySettingsFragment__cant_enable_description">ტრანზაქციის უზრუნველყოფის გამოსაყენებლად, ჯერ შენი ტელეფონის პარამეტრებში ეკრანის დაბლოკვა ან თითის ანაბეჭდის ID უნდა ჩართო.</string>
     <!-- Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings -->
@@ -5401,7 +5480,24 @@
     <string name="Subscription__contact_support">მხარდაჭერის გუნდთან დაკავშირება</string>
     <string name="Subscription__get_a_s_badge">მიიღე %1$s ემბლემა</string>
 
-    <string name="SubscribeFragment__processing_payment">მიმდინარეობს დონაციის დამუშავება…</string>
+    <!-- *PaymentInProgressFragment strings -->
+    <string name="InAppPaymentInProgressFragment__processing_donation">მიმდინარეობს დონაციის დამუშავება…</string>
+    <string name="InAppPaymentInProgressFragment__processing_payment">ვამუშავებთ ტრანზაქციას…</string>
+
+    <!-- InAppPaymentErrors -->
+    <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
+    <string name="InAppPaymentErrors__error_processing_payment">ტრანზაქციის დამუშავებისას ხარვეზი მოხდა</string>
+    <!-- Displayed as a message in a dialog or notification when a payment setup error happens. -->
+    <string name="InAppPaymentErrors__your_payment_couldnt_be_processed">შენი ტრანზაქცია ვერ დამუშავდა და თანხა არ ჩამოგეჭრა. გთხოვთ კიდევ სცადო.</string>
+    <!-- Displayed as a message in a dialog when we timeout waiting for a payment to be processed and token to be redeemed -->
+    <string name="InAppPaymentErrors__your_payment_is_still">შენი ტრანზაქცია ჯერ კიდევ მუშავდება. ამას შეიძლება რამოდენიმე წუთი დასჭირდეს, რაც შენს ინტერნეტ კავშირზეა დამოკიდებული.</string>
+    <!-- Displayed as a message in a dialog or notification when stripe decline code issuer not available for backup payment. -->
+    <string name="InAppPaymentErrors__StripeDeclineCode__try_completing_the_payment_again">თავიდან სცადე გადახდა ან დაუკავშირდი შენს ბანკს დამატებითი ინფორმაციისთვის.</string>
+    <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification as a message. -->
+    <string name="InAppPaymentErrors__StripeFailureCode__this_payment_was_revoked">ეს გადახდა ანგარიშის მფლობელმა გააუქმა და მისი დამუშავება ვერ მოხერხდა. საფასური არ ჩამოგჭრია.</string>
+    <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification as a message.-->
+    <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">ამ გადახდის დამუშავებისას შეცდომა მოხდა, გთხოვთ, თავიდან სცადო.</string>
+
     <!-- Displayed in notification when user payment fails to process on Stripe -->
     <string name="DonationsErrors__error_processing_payment">დონაციის დამუშავებისას მოხდა შეცდომა</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
@@ -7066,6 +7162,10 @@
     <string name="BackupsTypeSettingsFragment__unknown">უცნობი</string>
     <!-- Row title for entering payment history -->
     <string name="BackupsTypeSettingsFragment__payment_history">ტრანზაქციის ისტორია</string>
+    <!-- Row description detailing renewal information. First placeholder is formatted price. Second placeholder is formatted date. -->
+    <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/თვეში · განახლდება %2$s-ს</string>
+    <!-- Row title to change or cancel subscription -->
+    <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">გამოწერის შეცვლა ან გაუქმება</string>
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
@@ -7170,6 +7270,55 @@
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
     <string name="PassphrasePromptActivity_help_prompt_body">გთხოვთ, შენი მოწყობილობის პინ-კოდი, პაროლი ან პატერნი შეიყვანო.</string>
 
+    <!-- MessageBackupsCheckoutSheet -->
+    <!-- Sheet title. Placeholder is formatted price. -->
+    <string name="MessageBackupsCheckoutSheet__pay_s_per_month">გადაუხადე %1$s/თვეში Signal-ს</string>
+    <!-- Sheet subtitle -->
+    <string name="MessageBackupsCheckoutSheet__youll_get">შენ მიიღებ:</string>
+
+    <!-- MessageBackupsEducationScreen -->
+    <!-- Screen subtitle underneath large headline title -->
+    <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">შექმენი შენი შეტყობინებების და მედია ფაილების სარეზერვო კოპიები და გამოიყენე Signal-ის უსაფრთხო, ბოლომდე დაშიფრული შენახვის სერვისი. არასდროს დაკარგო შეტყობინებები, როდესაც ახალ მობილურს იყიდი ან Signal-ს თავიდან დააყენებ.</string>
+    <!-- Backups feature label for e2e encryption -->
+    <string name="MessageBackupsEducationScreen__end_to_end_encrypted">ბოლომდე დაშიფრული</string>
+    <!-- Backups feature label for informing the user that this feature is completely optional -->
+    <string name="MessageBackupsEducationScreen__optional_always">ყოველთვის ნებაყოფლობითი</string>
+    <!-- Backups feature label for informing the user that they can delete their backup at any time -->
+    <string name="MessageBackupsEducationScreen__delete_your_backup_anytime">წაშალე შენი სარეზერვო კოპიები ნებისმიერ დროს</string>
+    <!-- Action button label to proceed with backups activation -->
+    <string name="MessageBackupsEducationScreen__enable_backups">სარეზერვო კოპირების ჩართვა</string>
+    <!-- Action button label to learn more -->
+    <string name="MessageBackupsEducationScreen__learn_more">გაიგე მეტი</string>
+
+    <!-- MessageBackupsPinConfirmationScreen -->
+    <!-- Screen title -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_pin">შეიყვანე შენი პინ-კოდი</string>
+    <!-- Screen subtitle -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_signal_pin_to_enable_backups">შეიყვანე შენი Signal-ის პინ-კოდი სარეზერვო კოპიების ჩასართავად</string>
+    <!-- Action button to confirm pin entry and continue -->
+    <string name="MessageBackupsPinConfirmationScreen__next">შემდეგი</string>
+    <!-- Action button to switch keyboard type -->
+    <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">კლავიატურის გადართვა</string>
+
+    <!-- MessageBackupsPinEducationScreen -->
+    <!-- Screen headline -->
+    <string name="MessageBackupsPinEducationScreen__pins_protect_your_backup">პინ-კოდი შენს სარეზერვო კოპიებს იცავს</string>
+    <!-- Notice about pin length. Placeholder is recommended pin length -->
+    <string name="MessageBackupsPinEducationScreen__your_signal_pin_lets_you">შენი Signal-ის პინ-კოდი საშუალებას გაძლევს, Signal-ის თავიდან გადმოწერისას შენი სარეზერვო კოპიები აღადგინო. გირჩევთ, მინიმუმ %1$d ციფრიანი პინ-კოდი გამოიყენო.</string>
+    <!-- Notice about changing your pin. -->
+    <string name="MessageBackupsPinEducationScreen__if_you_forget_your_pin">თუ შენი პინ-კოდი დაგავიწყდება, სარეზერვო კოპიების აღდგენას ვეღარ შეძლებ. შენი პინ-კოდის შეცვლა პარამეტრებიდან ნებისმიერ დროს შეგიძლია.</string>
+    <!-- Action button label to utilize current pin -->
+    <string name="MessageBackupsPinEducationScreen__use_current_signal_pin">გამოიყენე მიმდინარე Signal-ის პინ-კოდი</string>
+    <!-- Action button to create a new pin -->
+    <string name="MessageBackupsPinEducationScreen__create_new_pin">შექმენი ახალი პინ-კოდი</string>
+
+    <!-- MessagesBackupsTypeSelectionScreen -->
+    <!-- Screen headline -->
+    <string name="MessagesBackupsTypeSelectionScreen__choose_your_backup_plan">აირჩიე სარეზერვო კოპირების ტარიფი</string>
+    <!-- Screen subhead -->
+    <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">ყველა სარეზერვო კოპია ბოლომდე დაშიფრულია. Signal-ი არაკომერციულია—სარეზერვო კოპირებაში თანხის გადახდა ჩვენი მისიის მხარდაჭერაში გვეხმარება.</string>
+    <!-- Screen subhead highlighted read-more button -->
+    <string name="MessageBackupsTypeSelectionScreen__read_more">წაიკითე მეტი</string>
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">შემდეგი</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->

@@ -82,7 +82,7 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
       composable(route = MessageBackupsScreen.PIN_EDUCATION.name) {
         MessageBackupsPinEducationScreen(
           onNavigationClick = viewModel::goToPreviousScreen,
-          onGeneratePinClick = {},
+          onCreatePinClick = {},
           onUseCurrentPinClick = viewModel::goToNextScreen,
           recommendedPinSize = 16 // TODO [message-backups] This value should come from some kind of config
         )
@@ -243,6 +243,8 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
   }
 
   override fun onSubscriptionCancelled(inAppPaymentType: InAppPaymentType) {
+    viewModel.onCancellationComplete()
+
     if (!findNavController().popBackStack()) {
       requireActivity().finishAfterTransition()
     }

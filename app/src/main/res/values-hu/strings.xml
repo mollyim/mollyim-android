@@ -167,6 +167,8 @@
     <string name="CreditCardFragment__donate_s">%1$s adományozása</string>
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">Adományozz %1$s/hónap összeget</string>
+    <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
+    <string name="CreditCardFragment__pay_s_month">Adományozz %1$s/hónap összeget</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -216,6 +218,24 @@
     <string name="BucketedThreadMedia_Large">Nagy</string>
     <string name="BucketedThreadMedia_Medium">Közepes</string>
     <string name="BucketedThreadMedia_Small">Kicsi</string>
+
+    <!-- CallInfoView -->
+    <!-- Unknown people row text when the only people in the call are unknowns -->
+    <plurals name="CallInfoView__d_people">
+        <item quantity="one">%1$d személy</item>
+        <item quantity="other">%1$d személy</item>
+    </plurals>
+    <!-- Unknown people row, placeholder is the number of unknown people in the call -->
+    <plurals name="CallInfoView__plus_d_people">
+        <item quantity="one">+%1$d személy</item>
+        <item quantity="other">+%1$d személy</item>
+    </plurals>
+    <!-- Unknown people row icon content description -->
+    <string name="CallInfoView__more_information">További információ</string>
+    <!-- Unknown people row info dialog message -->
+    <string name="CallInfoView__before_joining_a_call">Mielőtt csatlakoznál egy híváshoz, csak azon telefonos névjegyek nevét láthatod, akikkel egy csoportban vagy, vagy akikkel 1:1 arányban csevegtél. Miután csatlakoztál a híváshoz, látni fogod az összes nevet és fényképet.</string>
+    <!-- Unknown people row info dialog action to close the dialog -->
+    <string name="CallInfoView__got_it">Rendben</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -768,6 +788,16 @@
     <!-- Backup has an unsupported file extension -->
     <string name="RestoreBackupFragment__backup_has_a_bad_extension">A biztonsági mentés kiterjesztése nem megfelelő.</string>
 
+    <!-- CreateBackupBottomSheet -->
+    <!-- Bottom sheet title -->
+    <string name="CreateBackupBottomSheet__create_backup">Biztonsági mentés létrehozása</string>
+    <!-- Bottom sheet message -->
+    <string name="CreateBackupBottomSheet__depending_on_the_size">A biztonsági másolat méretétől függően ez hosszú ideig tarthat. A biztonsági mentés közben a szokásos módon használhatod a telefonodat.</string>
+    <!-- Action button to dismiss sheet and back up later -->
+    <string name="CreateBackupBottomSheet__back_up_later">Biztonsági mentés később</string>
+    <!-- Action button to dismiss sheet and back up now -->
+    <string name="CreateBackupBottomSheet__back_up_now">Biztonsági mentés készítése</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">Csevegés biztonsági mentése</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">A biztonsági mentések egy jelszóval titkosítva vannak, és a saját eszközöd tárolja őket.</string>
@@ -1087,6 +1117,9 @@
     <string name="PromptLogsSlowNotificationsDialog__message">A hibakeresési naplók segítenek diagnosztizálni és kijavítani a problémát, és nem tartalmaznak azonosító információkat.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">A Molly problémába ütközött. Hibakeresési napló küldése?</string>
+    <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+    <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Lehet, hogy nem kapsz üzeneteket. Hibanapló küldése?</string>
+
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Az akkumulátor optimalizálása miatt az értesítések késhetnek</string>
@@ -1101,6 +1134,13 @@
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Nem, köszönöm</string>
     <!-- Button to continue and go to Signal support website -->
     <string name="DeviceSpecificNotificationBottomSheet__continue">Tovább</string>
+
+    <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_title">Lehet, hogy nem kapsz üzeneteket</string>
+    <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_body">Az eszköz újraindítása segíthet megoldani az üzenetkézbesítési problémát. Ha a probléma továbbra is fennáll, fordulj a Molly ügyfélszolgálatához.</string>
+    <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
+    <string name="ConnectivityWarningBottomSheet_dismiss_button">Rendben</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Tovább</string>
@@ -1194,6 +1234,44 @@
     <string name="ManageGroupActivity_invite_now">Meghívás most</string>
     <string name="ManageGroupActivity_more">tovább</string>
     <string name="ManageGroupActivity_add_group_description">Csoportleírás hozzáadása…</string>
+
+    <!-- MoreTransferOrRestoreOptionsSheet -->
+    <!-- Row title for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Átvitel Android eszközről</string>
+    <!-- Row description for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Vidd át a fiókodat és az üzeneteidet régi Android-eszközödről.</string>
+    <!-- Row title for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Bejelentkezés átvitel nélkül</string>
+    <!-- Row description for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Folytatás az üzenetek és a médiafájlok átvitele nélkül</string>
+    <!-- Row title for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Helyi biztonsági mentés visszaállítása</string>
+    <!-- Row description for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Állítsd vissza az üzeneteidet az eszközödre mentett biztonsági fájlból.</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Progress dialog label when downloading a backup -->
+    <string name="RemoteRestoreActivity__downloading_backup">Biztonsági mentés letöltése…</string>
+    <!-- Progress dialog label when restoring a backup -->
+    <string name="RemoteRestoreActivity__restoring_messages">Üzenetek visszaállítása…</string>
+    <!-- Progress dialog label while awaiting updates -->
+    <string name="RemoteRestoreActivity__restoring">Visszaállítás…</string>
+    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+    <string name="RemoteRestoreActivity__s_of_s_s">%1$s/%2$s (%3$s)</string>
+    <!-- Feature list media label for paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_media">Az összes médiafájlod</string>
+    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+    <string name="RemoteRestoreActivity__your_last_d_days_of_media">Médiafájljaid az elmúlt %1$d napból</string>
+    <!-- Feature list message label for free and paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_messages">Az összes üzeneted</string>
+    <!-- Screen title for restoring from backup -->
+    <string name="RemoteRestoreActivity__restore_from_backup">Visszaállítás biztonsági mentésből</string>
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <string name="RemoteRestoreActivity__only_media_sent_or_received">Csak az elmúlt %1$d napban küldött vagy fogadott médiafájlokat tartalmazza.</string>
+    <!-- Section title for explaining what your backup includes -->
+    <string name="RemoteRestoreActivity__your_backup_includes">A biztonsági másolat a következőket tartalmazza:</string>
+    <!-- Primary action button copy for starting restoration -->
+    <string name="RemoteRestoreActivity__restore_backup">Biztonsági mentés visszaállítása</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Értesítsen említés esetén</string>
@@ -1350,7 +1428,7 @@
     <!-- Dialog title shown if users are about to discard their draft message -->
     <string name="InputPanel__discard_draft">Piszkozat elvetése?</string>
     <!-- Dialog message explaining their action cannot be reversed -->
-    <string name="InputPanel__this_action_cant_be_undone">This action can\'t be undone.</string>
+    <string name="InputPanel__this_action_cant_be_undone">Ez a művelet nem vonható vissza.</string>
     <!-- Button inside an alert dialog confirming the deletion of their draft -->
     <string name="InputPanel__discard">Elvetés</string>
 
@@ -3269,10 +3347,6 @@
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">A Signal Android hibajavítási naplójának benyújtása</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Lassú értesítések</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__crash_category">Összeomlás</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Küldés</string>
     <!-- Action to decline to submit logs -->
@@ -4712,7 +4786,12 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">Hívd meg barátaidat!</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">Előfizető azonosítója a vágólapra másolva</string>
+    <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">Előfizetői donor azonosítója a vágólapra másolva</string>
+    <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">Biztonsági mentések előfizető azonosítója a vágólapra másolva</string>
+    <!-- String displayed in a toast when a subscriber id is not present for a given type -->
+    <string name="AppSettingsFragment__no_subscriber_id_set">Nincs még beállítva előfizetői azonosító</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">Fiók</string>
@@ -5401,7 +5480,24 @@
     <string name="Subscription__contact_support">Kapcsolatfelvétel a támogatással</string>
     <string name="Subscription__get_a_s_badge">Szerezz egy %1$s jelvényt</string>
 
-    <string name="SubscribeFragment__processing_payment">Adomány feldolgozása…</string>
+    <!-- *PaymentInProgressFragment strings -->
+    <string name="InAppPaymentInProgressFragment__processing_donation">Adomány feldolgozása…</string>
+    <string name="InAppPaymentInProgressFragment__processing_payment">Fizetés feldolgozása…</string>
+
+    <!-- InAppPaymentErrors -->
+    <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
+    <string name="InAppPaymentErrors__error_processing_payment">Hiba történt a fizetés feldolgozása során</string>
+    <!-- Displayed as a message in a dialog or notification when a payment setup error happens. -->
+    <string name="InAppPaymentErrors__your_payment_couldnt_be_processed">Fizetésed feldolgozása sikertelen, nem került összeg levonásra. Kérjük, próbáld újra!</string>
+    <!-- Displayed as a message in a dialog when we timeout waiting for a payment to be processed and token to be redeemed -->
+    <string name="InAppPaymentErrors__your_payment_is_still">A fizetés feldolgozása folyamatban. Ez a kapcsolatod sebességétől függően eltarthat egy ideig.</string>
+    <!-- Displayed as a message in a dialog or notification when stripe decline code issuer not available for backup payment. -->
+    <string name="InAppPaymentErrors__StripeDeclineCode__try_completing_the_payment_again">Próbáld meg újra végrehajtani a fizetési tranzakciót, vagy keresd fel bankodat további információért!</string>
+    <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification as a message. -->
+    <string name="InAppPaymentErrors__StripeFailureCode__this_payment_was_revoked">Ezt a fizetést a számlabirtokos visszavonta, és nem sikerült feldolgozni. A számládat nem terhelték meg.</string>
+    <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification as a message.-->
+    <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">Hiba történt a fizetés feldolgozása közben. Kérjük, próbáld újra.</string>
+
     <!-- Displayed in notification when user payment fails to process on Stripe -->
     <string name="DonationsErrors__error_processing_payment">Hiba történt az adomány feldolgozása közben</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
@@ -7022,7 +7118,7 @@
     <!-- Sheet title when user does not have enough space to download their backup -->
     <string name="BackupAlertBottomSheet__cant_complete_download">A letöltés nem végezhető el</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Az eszközödön nincs elég szabad hely. Szabadíts fel akár %1$s helyet a biztonsági mentésben tárolt médiafájlok letöltéséhez.</string>
+    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Az eszközödön nincs elég szabad hely. Szabadíts fel %1$s helyet a biztonsági mentésben tárolt médiafájlok letöltéséhez.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
     <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
         <item quantity="one">Ha a „Kihagyás” lehetőséget választod, a biztonsági mentésben tárolt médiafájlok %1$d napon belül törlődnek.</item>
@@ -7066,6 +7162,10 @@
     <string name="BackupsTypeSettingsFragment__unknown">Ismeretlen</string>
     <!-- Row title for entering payment history -->
     <string name="BackupsTypeSettingsFragment__payment_history">Fizetési előzmények</string>
+    <!-- Row description detailing renewal information. First placeholder is formatted price. Second placeholder is formatted date. -->
+    <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/hó · Megújul: %2$s</string>
+    <!-- Row title to change or cancel subscription -->
+    <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Előfizetés módosítása vagy lemondása</string>
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
@@ -7170,6 +7270,55 @@
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
     <string name="PassphrasePromptActivity_help_prompt_body">Kérjük, add meg az eszköz PIN-kódját, jelszavát vagy mintáját.</string>
 
+    <!-- MessageBackupsCheckoutSheet -->
+    <!-- Sheet title. Placeholder is formatted price. -->
+    <string name="MessageBackupsCheckoutSheet__pay_s_per_month">Fizess %1$s összeget havonta a Signalnak</string>
+    <!-- Sheet subtitle -->
+    <string name="MessageBackupsCheckoutSheet__youll_get">Ezt kapod érte:</string>
+
+    <!-- MessageBackupsEducationScreen -->
+    <!-- Screen subtitle underneath large headline title -->
+    <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Készíts biztonsági másolatot az üzeneteidről és a médiafájljaidról, és használd a Signal biztonságos, végpontok közötti titkosított tárolási szolgáltatását. Soha ne veszíts el egy üzenetet sem új telefon vásárlásakor vagy a Signal újratelepítésekor.</string>
+    <!-- Backups feature label for e2e encryption -->
+    <string name="MessageBackupsEducationScreen__end_to_end_encrypted">Végponttól végpontig titkosítva</string>
+    <!-- Backups feature label for informing the user that this feature is completely optional -->
+    <string name="MessageBackupsEducationScreen__optional_always">Sosem kötelező</string>
+    <!-- Backups feature label for informing the user that they can delete their backup at any time -->
+    <string name="MessageBackupsEducationScreen__delete_your_backup_anytime">A biztonsági másolatok bármikor törölhetők</string>
+    <!-- Action button label to proceed with backups activation -->
+    <string name="MessageBackupsEducationScreen__enable_backups">Biztonsági mentések bekapcsolása</string>
+    <!-- Action button label to learn more -->
+    <string name="MessageBackupsEducationScreen__learn_more">Tudj meg többet</string>
+
+    <!-- MessageBackupsPinConfirmationScreen -->
+    <!-- Screen title -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_pin">Add meg PIN kódodat</string>
+    <!-- Screen subtitle -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_signal_pin_to_enable_backups">A biztonsági mentések engedélyezéséhez add meg a Signal PIN-kódodat</string>
+    <!-- Action button to confirm pin entry and continue -->
+    <string name="MessageBackupsPinConfirmationScreen__next">Tovább</string>
+    <!-- Action button to switch keyboard type -->
+    <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">Billentyűzet váltása</string>
+
+    <!-- MessageBackupsPinEducationScreen -->
+    <!-- Screen headline -->
+    <string name="MessageBackupsPinEducationScreen__pins_protect_your_backup">PIN-kód védi a biztonsági másolatodat</string>
+    <!-- Notice about pin length. Placeholder is recommended pin length -->
+    <string name="MessageBackupsPinEducationScreen__your_signal_pin_lets_you">A Signal PIN-kódod lehetővé teszi a biztonsági másolat visszaállítását a Signal újratelepítésekor. Azt javasoljuk, hogy legalább %1$d számjegyből álló PIN-kódot használj.</string>
+    <!-- Notice about changing your pin. -->
+    <string name="MessageBackupsPinEducationScreen__if_you_forget_your_pin">Ha elfelejted a PIN-kódodat, nem tudod visszaállítani a biztonsági másolatot. A PIN-kódot bármikor módosíthatod a beállításokban.</string>
+    <!-- Action button label to utilize current pin -->
+    <string name="MessageBackupsPinEducationScreen__use_current_signal_pin">Jelenlegi Signal PIN-kód használata</string>
+    <!-- Action button to create a new pin -->
+    <string name="MessageBackupsPinEducationScreen__create_new_pin">Új PIN létrehozása</string>
+
+    <!-- MessagesBackupsTypeSelectionScreen -->
+    <!-- Screen headline -->
+    <string name="MessagesBackupsTypeSelectionScreen__choose_your_backup_plan">Válassz csomagot a biztonsági mentéshez!</string>
+    <!-- Screen subhead -->
+    <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Minden biztonsági mentés végponttól végpontig titkosított. A Signal egy nonprofit szervezet – azzal, hogy fizetsz a biztonsági mentésekért, segíted küldetésünket.</string>
+    <!-- Screen subhead highlighted read-more button -->
+    <string name="MessageBackupsTypeSelectionScreen__read_more">További információk</string>
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">Tovább</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->

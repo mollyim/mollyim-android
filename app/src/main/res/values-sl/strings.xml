@@ -167,6 +167,8 @@
     <string name="CreditCardFragment__donate_s">Donirajte %1$s</string>
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">Donirajte %1$s/mesec</string>
+    <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
+    <string name="CreditCardFragment__pay_s_month">Donirajte %1$s/mesec</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -216,6 +218,28 @@
     <string name="BucketedThreadMedia_Large">Velike</string>
     <string name="BucketedThreadMedia_Medium">Srednje</string>
     <string name="BucketedThreadMedia_Small">Majhne</string>
+
+    <!-- CallInfoView -->
+    <!-- Unknown people row text when the only people in the call are unknowns -->
+    <plurals name="CallInfoView__d_people">
+        <item quantity="one">%1$d oseba</item>
+        <item quantity="two">%1$d osebi</item>
+        <item quantity="few">%1$d osebe</item>
+        <item quantity="other">%1$d ljudi</item>
+    </plurals>
+    <!-- Unknown people row, placeholder is the number of unknown people in the call -->
+    <plurals name="CallInfoView__plus_d_people">
+        <item quantity="one">%1$d oseba</item>
+        <item quantity="two">%1$d osebi</item>
+        <item quantity="few">%1$d osebe</item>
+        <item quantity="other">%1$d oseb</item>
+    </plurals>
+    <!-- Unknown people row icon content description -->
+    <string name="CallInfoView__more_information">Več informacij</string>
+    <!-- Unknown people row info dialog message -->
+    <string name="CallInfoView__before_joining_a_call">Preden se pridružite klicu, lahko vidite le imena telefonskih stikov, ljudi, s katerimi ste v skupini, ali ljudi, s katerimi ste klepetali ena na ena. Ko se boste pridružili klicu, boste videli vsa imena in fotografije.</string>
+    <!-- Unknown people row info dialog action to close the dialog -->
+    <string name="CallInfoView__got_it">Razumem</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -804,6 +828,16 @@
     <!-- Backup has an unsupported file extension -->
     <string name="RestoreBackupFragment__backup_has_a_bad_extension">Varnostna kopija ima napačno končnico.</string>
 
+    <!-- CreateBackupBottomSheet -->
+    <!-- Bottom sheet title -->
+    <string name="CreateBackupBottomSheet__create_backup">Ustvari varnostno kopijo</string>
+    <!-- Bottom sheet message -->
+    <string name="CreateBackupBottomSheet__depending_on_the_size">Glede na velikost varnostne kopije lahko to traja zelo dolgo. Med varnostnim kopiranjem lahko telefon uporabljate kot običajno.</string>
+    <!-- Action button to dismiss sheet and back up later -->
+    <string name="CreateBackupBottomSheet__back_up_later">Varnostno kopijo izdelaj pozneje</string>
+    <!-- Action button to dismiss sheet and back up now -->
+    <string name="CreateBackupBottomSheet__back_up_now">Izdelaj varnostno kopijo</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">Varnostno kopiranje klepetov</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Varnostne kopije so zaklenjene z geslom in shranjene na vaši napravi.</string>
@@ -1151,6 +1185,9 @@
     <string name="PromptLogsSlowNotificationsDialog__message">Sistemske zabeležbe nam pomagajo diagnosticirati in odpraviti težavo ter ne vsebujejo identifikacijskih podatkov.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly je naletel na težavo. Želite poslati sistemsko zabeležbo?</string>
+    <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+    <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Morda ne prejemate sporočil. Želite poslati sistemsko zabeležbo?</string>
+
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Obvestila so lahko zakasnjena zaradi optimizacije baterije</string>
@@ -1165,6 +1202,13 @@
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Ne, hvala</string>
     <!-- Button to continue and go to Signal support website -->
     <string name="DeviceSpecificNotificationBottomSheet__continue">Nadaljuj</string>
+
+    <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_title">Morda ne prejemate sporočil</string>
+    <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_body">Ponovni zagon naprave lahko pomaga rešiti težavo z dostavo sporočil. Če se ta težava nadaljuje, se obrnite na Mollyovo podporo.</string>
+    <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
+    <string name="ConnectivityWarningBottomSheet_dismiss_button">Razumem</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Nadaljuj</string>
@@ -1266,6 +1310,44 @@
     <string name="ManageGroupActivity_invite_now">Povabi zdaj</string>
     <string name="ManageGroupActivity_more">več</string>
     <string name="ManageGroupActivity_add_group_description">Dodaj opis skupine …</string>
+
+    <!-- MoreTransferOrRestoreOptionsSheet -->
+    <!-- Row title for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Prenos iz druge naprave Android</string>
+    <!-- Row description for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Prenesite račun in sporočila iz stare naprave Android.</string>
+    <!-- Row title for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Prijava brez prenosa</string>
+    <!-- Row description for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Nadaljujte brez prenosa sporočil in medijev</string>
+    <!-- Row title for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Obnovitev lokalne varnostne kopije</string>
+    <!-- Row description for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Obnovite sporočila iz varnostne kopije, ki ste jo shranili v napravo.</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Progress dialog label when downloading a backup -->
+    <string name="RemoteRestoreActivity__downloading_backup">Prenos varnostne kopije …</string>
+    <!-- Progress dialog label when restoring a backup -->
+    <string name="RemoteRestoreActivity__restoring_messages">Obnovitev sporočil …</string>
+    <!-- Progress dialog label while awaiting updates -->
+    <string name="RemoteRestoreActivity__restoring">Obnavljanje …</string>
+    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+    <string name="RemoteRestoreActivity__s_of_s_s">%1$s od %2$s (%3$s)</string>
+    <!-- Feature list media label for paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_media">Vse vaše medije</string>
+    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+    <string name="RemoteRestoreActivity__your_last_d_days_of_media">Vaši mediji v zadnjih %1$d dneh</string>
+    <!-- Feature list message label for free and paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_messages">Vsa vaša sporočila</string>
+    <!-- Screen title for restoring from backup -->
+    <string name="RemoteRestoreActivity__restore_from_backup">Obnovi iz varnostne kopije</string>
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <string name="RemoteRestoreActivity__only_media_sent_or_received">Vključeni so samo mediji, poslani ali prejeti v zadnjih %1$d dneh.</string>
+    <!-- Section title for explaining what your backup includes -->
+    <string name="RemoteRestoreActivity__your_backup_includes">Vaša varnostna kopija vključuje:</string>
+    <!-- Primary action button copy for starting restoration -->
+    <string name="RemoteRestoreActivity__restore_backup">Obnovi iz varnostne kopije</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Obveščaj me o omembah</string>
@@ -3463,10 +3545,6 @@
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signalova sistemska zabeležba v sistemu Android</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Počasna obvestila</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__crash_category">Zrušitev</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Oddaj</string>
     <!-- Action to decline to submit logs -->
@@ -4946,7 +5024,12 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">Povabite svoje prijatelje_ice</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">Številka naročnika je bila prekopirana v odložišče.</string>
+    <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">Številka naročnika donatorja je bila prekopirana v odložišče</string>
+    <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">Številka naročnika varnostne kopije je bila prekopirana v odložišče</string>
+    <!-- String displayed in a toast when a subscriber id is not present for a given type -->
+    <string name="AppSettingsFragment__no_subscriber_id_set">Številka naročnika ni nastavljena</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">Račun</string>
@@ -5655,7 +5738,24 @@
     <string name="Subscription__contact_support">Kontaktiraj center za podporo</string>
     <string name="Subscription__get_a_s_badge">Podari značko uporabniku_ci %1$s</string>
 
-    <string name="SubscribeFragment__processing_payment">Obdelava donacije …</string>
+    <!-- *PaymentInProgressFragment strings -->
+    <string name="InAppPaymentInProgressFragment__processing_donation">Obdelava donacije …</string>
+    <string name="InAppPaymentInProgressFragment__processing_payment">Obdelava plačila …</string>
+
+    <!-- InAppPaymentErrors -->
+    <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
+    <string name="InAppPaymentErrors__error_processing_payment">Napaka pri obdelavi plačila.</string>
+    <!-- Displayed as a message in a dialog or notification when a payment setup error happens. -->
+    <string name="InAppPaymentErrors__your_payment_couldnt_be_processed">Vaše plačilo ni moglo biti obdelano, zato vam znesek ni bil zaračunan. Prosimo, poskusite znova.</string>
+    <!-- Displayed as a message in a dialog when we timeout waiting for a payment to be processed and token to be redeemed -->
+    <string name="InAppPaymentErrors__your_payment_is_still">Plačilo je še vedno v obdelavi. To lahko traja nekaj minut, odvisno od vaše povezave.</string>
+    <!-- Displayed as a message in a dialog or notification when stripe decline code issuer not available for backup payment. -->
+    <string name="InAppPaymentErrors__StripeDeclineCode__try_completing_the_payment_again">Ponovno poskusite z izvedbo plačila ali pa se obrnite na svojo banko.</string>
+    <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification as a message. -->
+    <string name="InAppPaymentErrors__StripeFailureCode__this_payment_was_revoked">To plačilo je imetnik računa preklical in ga ni bilo mogoče obdelati. Nismo vam zaračunali.</string>
+    <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification as a message.-->
+    <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">Med obdelavo tega plačila je prišlo do napake, poskusite znova.</string>
+
     <!-- Displayed in notification when user payment fails to process on Stripe -->
     <string name="DonationsErrors__error_processing_payment">Napaka pri obdelavi donacije</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
@@ -7332,7 +7432,7 @@
     <!-- Sheet title when user does not have enough space to download their backup -->
     <string name="BackupAlertBottomSheet__cant_complete_download">Prenosa ni mogoče dokončati</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Vaša naprava nima dovolj prostora. Sprostite do %1$s prostora za prenos medijev, shranjenih v varnostni kopiji.</string>
+    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Vaša naprava nima dovolj prostora. Sprostite %1$s prostora za prenos medijev, shranjenih v varnostni kopiji.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
     <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
         <item quantity="one">Če izberete \"Preskoči\", bodo mediji v varnostni kopiji izbrisani v %1$d dnevu.</item>
@@ -7378,6 +7478,10 @@
     <string name="BackupsTypeSettingsFragment__unknown">Neznano</string>
     <!-- Row title for entering payment history -->
     <string name="BackupsTypeSettingsFragment__payment_history">Zgodovina plačil</string>
+    <!-- Row description detailing renewal information. First placeholder is formatted price. Second placeholder is formatted date. -->
+    <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/mesec · Obnovitev: %2$s</string>
+    <!-- Row title to change or cancel subscription -->
+    <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Sprememba ali preklic naročnine</string>
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
@@ -7482,6 +7586,55 @@
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
     <string name="PassphrasePromptActivity_help_prompt_body">Vnesite pin, geslo ali vzorec naprave.</string>
 
+    <!-- MessageBackupsCheckoutSheet -->
+    <!-- Sheet title. Placeholder is formatted price. -->
+    <string name="MessageBackupsCheckoutSheet__pay_s_per_month">Plačajte %1$s/mesec za Signal</string>
+    <!-- Sheet subtitle -->
+    <string name="MessageBackupsCheckoutSheet__youll_get">Dobili boste:</string>
+
+    <!-- MessageBackupsEducationScreen -->
+    <!-- Screen subtitle underneath large headline title -->
+    <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Varnostno kopirajte svoja sporočila in medije z uporabo Signalove varne, od konca do konca šifrirane storitve shranjevanja. Nikoli ne izgubite sporočila, ko dobite nov telefon ali ponovno namestite Signal.</string>
+    <!-- Backups feature label for e2e encryption -->
+    <string name="MessageBackupsEducationScreen__end_to_end_encrypted">Šifrirano od konca do konca</string>
+    <!-- Backups feature label for informing the user that this feature is completely optional -->
+    <string name="MessageBackupsEducationScreen__optional_always">Neobvezno, vedno</string>
+    <!-- Backups feature label for informing the user that they can delete their backup at any time -->
+    <string name="MessageBackupsEducationScreen__delete_your_backup_anytime">Kadarkoli izbrišite varnostno kopijo</string>
+    <!-- Action button label to proceed with backups activation -->
+    <string name="MessageBackupsEducationScreen__enable_backups">Dovoli varnostno kopiranje</string>
+    <!-- Action button label to learn more -->
+    <string name="MessageBackupsEducationScreen__learn_more">Preberite več</string>
+
+    <!-- MessageBackupsPinConfirmationScreen -->
+    <!-- Screen title -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_pin">Vnesite svoj PIN</string>
+    <!-- Screen subtitle -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_signal_pin_to_enable_backups">Vnesite svoj Signalov PIN, da omogočite varnostno kopiranje</string>
+    <!-- Action button to confirm pin entry and continue -->
+    <string name="MessageBackupsPinConfirmationScreen__next">Naprej</string>
+    <!-- Action button to switch keyboard type -->
+    <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">Preklopi tipkovnico</string>
+
+    <!-- MessageBackupsPinEducationScreen -->
+    <!-- Screen headline -->
+    <string name="MessageBackupsPinEducationScreen__pins_protect_your_backup">PIN zaščiti vašo varnostno kopijo</string>
+    <!-- Notice about pin length. Placeholder is recommended pin length -->
+    <string name="MessageBackupsPinEducationScreen__your_signal_pin_lets_you">S Signalovim PIN-om lahko obnovite varnostno kopijo, ko znova namestite Signal. Priporočamo, da uporabite PIN, ki ima vsaj %1$d številk.</string>
+    <!-- Notice about changing your pin. -->
+    <string name="MessageBackupsPinEducationScreen__if_you_forget_your_pin">Če pozabite svoj PIN, ne boste mogli obnoviti varnostne kopije. PIN lahko kadarkoli spremenite v nastavitvah.</string>
+    <!-- Action button label to utilize current pin -->
+    <string name="MessageBackupsPinEducationScreen__use_current_signal_pin">Uporabi trenutni Signalov PIN</string>
+    <!-- Action button to create a new pin -->
+    <string name="MessageBackupsPinEducationScreen__create_new_pin">Ustvari nov PIN</string>
+
+    <!-- MessagesBackupsTypeSelectionScreen -->
+    <!-- Screen headline -->
+    <string name="MessagesBackupsTypeSelectionScreen__choose_your_backup_plan">Izberite načrt varnostnega kopiranja</string>
+    <!-- Screen subhead -->
+    <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Vse varnostne kopije so šifrirane od konca do konca. Signal je neprofitna organizacija—plačevanje varnostnih kopij pomaga podpirati naše poslanstvo.</string>
+    <!-- Screen subhead highlighted read-more button -->
+    <string name="MessageBackupsTypeSelectionScreen__read_more">Preberite več</string>
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">Naprej</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
