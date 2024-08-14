@@ -1,0 +1,25 @@
+name: Disk cleanup
+description: "Free up disk space by removing unused pre-installed software."
+runs:
+  using: composite
+  steps:
+    - name: Free up disk space
+      shell: bash
+      run: |
+        echo "Disk space before cleanup:"
+        df -h /
+
+        echo "Removing unused software..."
+        sudo rm -rf \
+          /opt/google/chrome \
+          /opt/microsoft/msedge \
+          /opt/microsoft/powershell \
+          /usr/lib/mono \
+          /usr/local/.ghcup \
+          /usr/local/share/chromium \
+          /usr/local/share/powershell \
+          /usr/share/dotnet \
+          /usr/share/swift \
+
+        echo "Disk space after cleanup:"
+        df -h /
