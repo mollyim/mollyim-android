@@ -11,7 +11,12 @@ dependencyResolutionManagement {
   repositories {
     google()
     mavenCentral()
-    mavenLocal()
+    mavenLocal {
+      content {
+        includeGroup("im.molly")
+        includeGroup("org.signal")
+      }
+    }
     maven {
       url = uri("https://raw.githubusercontent.com/mollyim/maven/master/argon2/releases/")
       content {
