@@ -25,7 +25,7 @@
     <string name="NetworkPreferenceFragment_missing_orbot_app">Applicazione Orbot mancante</string>
     <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">L\'host che hai digitato non è valido</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Un numero di porta valido è compreso tra 0 e 65535</string>
-    <string name="ProxyManager_successfully_started_orbot">Orbot ha iniziato</string>
+    <string name="ProxyManager_successfully_started_orbot">Orbot avviato</string>
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">I contatti eliminati possono comunque chiamarti o inviarti messaggi, a meno che siano bloccati.</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">La discussione con %1$s verrà eliminata e %1$s verrà rimossa dai contatti del dispositivo.</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">La tua discussione con %1$s verrà eliminata.</string>
@@ -73,7 +73,7 @@
     <string name="preferences__include_beta_updates">Includi gli aggiornamenti beta</string>
     <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Le versioni beta sono destinate a scopi di test e possono contenere errori</string>
     <string name="BiometricDialogFragment__biometric_verification">Verifica biometrica</string>
-    <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Conferma che sei devvero tu per usare Molly</string>
+    <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Conferma che sei davvero tu per usare Molly</string>
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Blocca l\'accesso di Molly con l\'impronta digitale o il riconoscimento del volto</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Nessuna funzione biometrica disponibile su questo dispositivo</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Prima di tutto, imposta la biometria nelle impostazioni Android</string>
@@ -112,4 +112,6 @@
     <string name="preferences_appearance__navigation_bar">Barra di navigazione</string>
     <string name="preferences_appearance__show_calls">Mostra chiamate</string>
     <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Commutatore per mostrare o nascondere l\'icona sulla barra di navigazione</string>
+    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Per aggiornare l\'app, controlla il tuo store delle applicazioni. Questa versione non comprende gli aggiornamenti automatici.</string>
+    <string name="AppUpdatesSettingsFragment__last_checked_s">Ultimo controllo: %s</string>
 </resources>
