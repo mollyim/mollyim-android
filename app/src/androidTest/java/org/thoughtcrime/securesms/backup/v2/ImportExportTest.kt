@@ -13,6 +13,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import okio.ByteString.Companion.toByteString
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
@@ -78,6 +79,7 @@ import kotlin.time.Duration.Companion.days
  * Test the import and export of message backup frames to make sure what
  * goes in, comes out.
  */
+@Ignore("Deprecated")
 class ImportExportTest {
   companion object {
     /**
@@ -585,7 +587,7 @@ class ImportExportTest {
       )
     )
     import(importData)
-    val exported = BackupRepository.export()
+    val exported = BackupRepository.debugExport()
     val expected = exportFrames(
       *standardFrames,
       alexa
@@ -1010,7 +1012,7 @@ class ImportExportTest {
       expirationNotStarted
     )
     import(importData)
-    val exported = BackupRepository.export()
+    val exported = BackupRepository.debugExport()
     val expected = exportFrames(
       *standardFrames,
       alice,
@@ -1647,7 +1649,7 @@ class ImportExportTest {
 
     import(originalBackupData)
 
-    val generatedBackupData = BackupRepository.export()
+    val generatedBackupData = BackupRepository.debugExport()
     compare(originalBackupData, generatedBackupData)
   }
 

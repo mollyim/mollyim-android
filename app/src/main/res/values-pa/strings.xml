@@ -167,6 +167,8 @@
     <string name="CreditCardFragment__donate_s">%1$s ਦਾਨ ਦਿਓ</string>
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">%1$s/ਮਹੀਨਾ ਦਾਨ ਦਿਓ</string>
+    <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
+    <string name="CreditCardFragment__pay_s_month">%1$s/ਮਹੀਨਾ ਦਾਨ ਦਿਓ</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -216,6 +218,24 @@
     <string name="BucketedThreadMedia_Large">ਵੱਡਾ</string>
     <string name="BucketedThreadMedia_Medium">ਦਰਮਿਆਨਾ</string>
     <string name="BucketedThreadMedia_Small">ਛੋਟਾ</string>
+
+    <!-- CallInfoView -->
+    <!-- Unknown people row text when the only people in the call are unknowns -->
+    <plurals name="CallInfoView__d_people">
+        <item quantity="one">%1$d ਵਿਅਕਤੀ</item>
+        <item quantity="other">%1$d ਲੋਕ</item>
+    </plurals>
+    <!-- Unknown people row, placeholder is the number of unknown people in the call -->
+    <plurals name="CallInfoView__plus_d_people">
+        <item quantity="one">+%1$d ਵਿਅਕਤੀ</item>
+        <item quantity="other">+%1$d ਲੋਕ</item>
+    </plurals>
+    <!-- Unknown people row icon content description -->
+    <string name="CallInfoView__more_information">ਹੋਰ ਜਾਣਕਾਰੀ</string>
+    <!-- Unknown people row info dialog message -->
+    <string name="CallInfoView__before_joining_a_call">ਕਿਸੇ ਕਾਲ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਤੁਸੀਂ ਸਿਰਫ਼ ਉਹਨਾਂ ਲੋਕਾਂ ਦੇ ਨਾਮ ਦੇਖ ਸਕਦੇ ਹੋ ਜਿਹਨਾਂ ਦਾ ਨੰਬਰ ਤੁਹਾਡੇ ਫ਼ੋਨ ਦੇ ਸੰਪਰਕਾਂ ਵਿੱਚ ਮੌਜੂਦ ਹੈ, ਜਿਹਨਾਂ ਨਾਲ ਤੁਸੀਂ ਇੱਕ ਗਰੁੱਪ ਵਿੱਚ ਹੋ ਜਾਂ ਜਿਹਨਾਂ ਲੋਕਾਂ ਨਾਲ ਤੁਸੀਂ ਸਿੱਧਾ ਚੈਟ ਕੀਤੀ ਹੈ। ਇੱਕ ਵਾਰ ਜਦੋਂ ਤੁਸੀਂ ਕਾਲ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋ ਜਾਂਦੇ ਹੋ ਤਾਂ ਤੁਹਾਨੂੰ ਸਾਰਿਆਂ ਦੇ ਨਾਮ ਅਤੇ ਫ਼ੋਟੋਆਂ ਦਿਖਾਈ ਦੇਣਗੀਆਂ।</string>
+    <!-- Unknown people row info dialog action to close the dialog -->
+    <string name="CallInfoView__got_it">ਸਮਝ ਗਏ</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -768,6 +788,16 @@
     <!-- Backup has an unsupported file extension -->
     <string name="RestoreBackupFragment__backup_has_a_bad_extension">ਬੈਕਅੱਪ ਦੀ ਐਕਸਟੈਂਸ਼ਨ ਖ਼ਰਾਬ ਹੈ।</string>
 
+    <!-- CreateBackupBottomSheet -->
+    <!-- Bottom sheet title -->
+    <string name="CreateBackupBottomSheet__create_backup">ਬੈਕਅੱਪ ਬਣਾਓ</string>
+    <!-- Bottom sheet message -->
+    <string name="CreateBackupBottomSheet__depending_on_the_size">ਤੁਹਾਡੇ ਬੈਕਅੱਪ ਦੇ ਆਕਾਰ \'ਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹੋਏ, ਇਸ ਵਿੱਚ ਕਾਫੀ ਸਮਾਂ ਲੱਗ ਸਕਦਾ ਹੈ। ਬੈਕਅੱਪ ਦੀ ਪ੍ਰਕਿਰਿਆ ਚੱਲਣ ਦੌਰਾਨ ਤੁਸੀਂ ਆਮ ਵਾਂਗ ਆਪਣੇ ਫ਼ੋਨ ਦੀ ਵਰਤੋਂ ਕਰ ਸਕਦੇ ਹੋ।</string>
+    <!-- Action button to dismiss sheet and back up later -->
+    <string name="CreateBackupBottomSheet__back_up_later">ਬਾਅਦ ਵਿੱਚ ਬੈਕਅੱਪ ਲਓ</string>
+    <!-- Action button to dismiss sheet and back up now -->
+    <string name="CreateBackupBottomSheet__back_up_now">ਹੁਣ ਬੈਕਅੱਪ ਲਓ</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">ਚੈਟ ਬੈਕਅੱਪ</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">ਬੈਕਅੱਪ ਇੱਕ ਪਾਸਫ਼੍ਰੇਜ਼ ਨਾਲ ਇਨਕ੍ਰਿਪਟ ਕੀਤੇ ਅਤੇ ਤੁਹਾਡੀ ਡਿਵਾਈਸ \'ਤੇ ਸਟੋਰ ਕੀਤੇ ਜਾਂਦੇ ਹਨ।</string>
@@ -1087,6 +1117,9 @@
     <string name="PromptLogsSlowNotificationsDialog__message">ਡੀਬੱਗ ਲੌਗ ਸਮੱਸਿਆ ਦਾ ਨਿਦਾਨ ਕਰਨ ਅਤੇ ਉਸਨੂੰ ਹੱਲ ਕਰਨ ਵਿੱਚ ਸਾਡੀ ਮਦਦ ਕਰਦੇ ਹਨ ਅਤੇ ਇਸ ਵਿੱਚ ਤੁਹਾਡੀ ਪਛਾਣ ਕਰਨ ਵਾਲੀ ਜਾਣਕਾਰੀ ਸ਼ਾਮਲ ਨਹੀਂ ਹੁੰਦੀ ਹੈ।</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly ਵਿੱਚ ਕੋਈ ਸਮੱਸਿਆ ਆਈ ਹੈ। ਕੀ ਤੁਸੀਂ ਡੀਬੱਗ ਲੌਗ ਦਰਜ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+    <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+    <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਤੁਹਾਨੂੰ ਸੁਨੇਹੇ ਪ੍ਰਾਪਤ ਨਾ ਹੋ ਰਹੇ ਹੋਣ। ਕੀ ਤੁਸੀਂ ਡੀਬੱਗ ਲੌਗ ਦਰਜ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">ਬੈਟਰੀ ਅਨੁਕੂਲਤਾ ਦੇ ਕਾਰਨ ਸੂਚਨਾਵਾਂ ਆਉਣ ਵਿੱਚ ਦੇਰੀ ਹੋ ਸਕਦੀ ਹੈ</string>
@@ -1101,6 +1134,13 @@
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">ਨਹੀਂ ਧੰਨਵਾਦ</string>
     <!-- Button to continue and go to Signal support website -->
     <string name="DeviceSpecificNotificationBottomSheet__continue">ਜਾਰੀ ਰੱਖੋ</string>
+
+    <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_title">ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਤੁਹਾਨੂੰ ਸੁਨੇਹੇ ਪ੍ਰਾਪਤ ਨਾ ਹੋ ਰਹੇ ਹੋਣ</string>
+    <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_body">ਆਪਣੇ ਡਿਵਾਈਸ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਕੇ ਤੁਹਾਨੂੰ ਸੁਨੇਹਿਆਂ ਦੀ ਡਿਲੀਵਰੀ ਦੀ ਸਮੱਸਿਆ ਨੂੰ ਹੱਲ ਕਰਨ ਵਿੱਚ ਮਦਦ ਮਿਲ ਸਕਦੀ ਹੈ। ਜੇ ਇਹ ਸਮੱਸਿਆ ਜਾਰੀ ਰਹਿੰਦੀ ਹੈ, ਤਾਂ Molly ਦੀ ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।</string>
+    <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
+    <string name="ConnectivityWarningBottomSheet_dismiss_button">ਸਮਝ ਗਏ</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">ਜਾਰੀ ਰੱਖੋ</string>
@@ -1194,6 +1234,44 @@
     <string name="ManageGroupActivity_invite_now">ਹੁਣੇ ਸੱਦਾ ਦਿਓ</string>
     <string name="ManageGroupActivity_more">ਹੋਰ</string>
     <string name="ManageGroupActivity_add_group_description">ਗਰੁੱਪ ਦੀ ਜਾਣਕਾਰੀ ਜੋੜੋ…</string>
+
+    <!-- MoreTransferOrRestoreOptionsSheet -->
+    <!-- Row title for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Android ਡਿਵਾਈਸ ਤੋਂ ਟ੍ਰਾਂਸਫਰ ਕਰੋ</string>
+    <!-- Row description for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">ਆਪਣੇ ਪੁਰਾਣੇ Android ਡਿਵਾਈਸ ਤੋਂ ਆਪਣਾ ਖਾਤਾ ਅਤੇ ਸੁਨੇਹੇ ਟ੍ਰਾਂਸਫਰ ਕਰੋ।</string>
+    <!-- Row title for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">ਟ੍ਰਾਂਸਫਰ ਕੀਤੇ ਬਿਨਾਂ ਲੌਗ ਇਨ ਕਰੋ</string>
+    <!-- Row description for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">ਆਪਣੇ ਸੁਨੇਹੇ ਅਤੇ ਮੀਡੀਆ ਟ੍ਰਾਂਸਫਰ ਕੀਤੇ ਬਿਨਾਂ ਜਾਰੀ ਰੱਖੋ</string>
+    <!-- Row title for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">ਸਥਾਨਕ ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰੋ</string>
+    <!-- Row description for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">ਇੱਕ ਬੈਕਅੱਪ ਫ਼ਾਈਲ ਤੋਂ ਆਪਣੇ ਸੁਨੇਹਿਆਂ ਨੂੰ ਰੀਸਟੋਰ ਕਰੋ ਜੋ ਤੁਸੀਂ ਆਪਣੇ ਡਿਵਾਈਸ \'ਤੇ ਸੁਰੱਖਿਅਤ ਕੀਤੀ ਸੀ।</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Progress dialog label when downloading a backup -->
+    <string name="RemoteRestoreActivity__downloading_backup">ਬੈਕਅੱਪ ਡਾਊਨਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
+    <!-- Progress dialog label when restoring a backup -->
+    <string name="RemoteRestoreActivity__restoring_messages">ਸੁਨੇਹਿਆਂ ਨੂੰ ਰੀਸਟੋਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
+    <!-- Progress dialog label while awaiting updates -->
+    <string name="RemoteRestoreActivity__restoring">ਰੀਸਟੋਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
+    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+    <string name="RemoteRestoreActivity__s_of_s_s">%2$s ਵਿੱਚੋਂ %1$s (%3$s)</string>
+    <!-- Feature list media label for paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_media">ਤੁਹਾਡਾ ਸਾਰਾ ਮੀਡੀਆ</string>
+    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+    <string name="RemoteRestoreActivity__your_last_d_days_of_media">ਤੁਹਾਡਾ ਪਿਛਲੇ %1$d ਦਿਨਾਂ ਦਾ ਮੀਡੀਆ</string>
+    <!-- Feature list message label for free and paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_messages">ਤੁਹਾਡੇ ਸਾਰੇ ਸੁਨੇਹੇ</string>
+    <!-- Screen title for restoring from backup -->
+    <string name="RemoteRestoreActivity__restore_from_backup">ਬੈਕਅੱਪ ਤੋਂ ਰੀਸਟੋਰ ਕਰੋ</string>
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <string name="RemoteRestoreActivity__only_media_sent_or_received">ਸਿਰਫ਼ ਪਿਛਲੇ %1$d ਦਿਨਾਂ ਵਿੱਚ ਭੇਜਿਆ ਜਾਂ ਪ੍ਰਾਪਤ ਹੋਇਆ ਮੀਡੀਆ ਸ਼ਾਮਲ ਹੈ।</string>
+    <!-- Section title for explaining what your backup includes -->
+    <string name="RemoteRestoreActivity__your_backup_includes">ਤੁਹਾਡੇ ਬੈਕਅੱਪ ਵਿੱਚ ਸ਼ਾਮਲ ਹੈ:</string>
+    <!-- Primary action button copy for starting restoration -->
+    <string name="RemoteRestoreActivity__restore_backup">ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰੋ</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">ਹਵਾਲਿਆਂ ਲਈ ਮੈਨੂੰ ਸੂਚਿਤ ਕਰੋ</string>
@@ -3269,10 +3347,6 @@
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android ਡੀਬੱਗ ਲੌਗ ਸਪੁਰਦਗੀ</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">ਸੂਚਨਾਵਾਂ ਆਉਣ ਵਿੱਚ ਦੇਰੀ</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__crash_category">ਕਰੈਸ਼</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">ਦਰਜ ਕਰੋ</string>
     <!-- Action to decline to submit logs -->
@@ -4712,7 +4786,12 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">ਆਪਣੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">ਸਬਸਕ੍ਰਾਈਬਰ ID ਨੂੰ ਕਲਿੱਪਬੋਰਡ \'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
+    <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">ਦਾਨੀ ਦੀ ਸਬਸਕ੍ਰਾਈਬਰ ID ਨੂੰ ਕਲਿੱਪਬੋਰਡ \'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
+    <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">ਬੈਕਅੱਪ ਦੇ ਸਬਸਕ੍ਰਾਈਬਰ ID ਨੂੰ ਕਲਿੱਪਬੋਰਡ \'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
+    <!-- String displayed in a toast when a subscriber id is not present for a given type -->
+    <string name="AppSettingsFragment__no_subscriber_id_set">ਕੋਈ ਸਬਸਕ੍ਰਾਈਬਰ ID ਸੈੱਟ ਨਹੀਂ ਕੀਤਾ ਗਿਆ</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">ਖਾਤਾ</string>
@@ -5401,7 +5480,24 @@
     <string name="Subscription__contact_support">ਸਹਾਇਤਾ ਦੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
     <string name="Subscription__get_a_s_badge">%1$s ਬੈਜ ਹਾਸਲ ਕਰੋ</string>
 
-    <string name="SubscribeFragment__processing_payment">ਦਾਨ ਉੱਤੇ ਕਾਰਵਾਈ ਹੋ ਰਹੀ ਹੈ…</string>
+    <!-- *PaymentInProgressFragment strings -->
+    <string name="InAppPaymentInProgressFragment__processing_donation">ਦਾਨ ਉੱਤੇ ਕਾਰਵਾਈ ਹੋ ਰਹੀ ਹੈ…</string>
+    <string name="InAppPaymentInProgressFragment__processing_payment">ਭੁਗਤਾਨ ਉੱਤੇ ਕਾਰਵਾਈ ਹੋ ਰਹੀ ਹੈ…</string>
+
+    <!-- InAppPaymentErrors -->
+    <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
+    <string name="InAppPaymentErrors__error_processing_payment">ਭੁਗਾਤਨ ਉੱਤੇ ਕਾਰਵਾਈ ਕਰਨ ਦੌਰਾਨ ਕੋਈ ਗੜਬੜੀ ਪੇਸ਼ ਆਈ</string>
+    <!-- Displayed as a message in a dialog or notification when a payment setup error happens. -->
+    <string name="InAppPaymentErrors__your_payment_couldnt_be_processed">ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਉੱਤੇ ਕਾਰਵਾਈ ਨਹੀਂ ਕਰ ਸਕੇ ਅਤੇ ਤੁਹਾਡੇ ਤੋਂ ਕੋਈ ਖਰਚਾ ਨਹੀਂ ਲਿਆ ਗਿਆ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ ਕਰੋ।</string>
+    <!-- Displayed as a message in a dialog when we timeout waiting for a payment to be processed and token to be redeemed -->
+    <string name="InAppPaymentErrors__your_payment_is_still">ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਉੱਤੇ ਹਾਲੇ ਵੀ ਕਾਰਵਾਈ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ। ਤੁਹਾਡੇ ਕਨੈਕਸ਼ਨ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹੋਏ ਇਸ ਵਿੱਚ ਕੁਝ ਮਿੰਟ ਲੱਗ ਸਕਦੇ ਹਨ।</string>
+    <!-- Displayed as a message in a dialog or notification when stripe decline code issuer not available for backup payment. -->
+    <string name="InAppPaymentErrors__StripeDeclineCode__try_completing_the_payment_again">ਭੁਗਤਾਨ ਨੂੰ ਦੁਬਾਰਾ ਪੂਰਾ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ਆਪਣੇ ਬੈਂਕ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।</string>
+    <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification as a message. -->
+    <string name="InAppPaymentErrors__StripeFailureCode__this_payment_was_revoked">ਇਹ ਭੁਗਤਾਨ ਖਾਤਾ ਧਾਰਕ ਦੁਆਰਾ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ ਸੀ ਅਤੇ ਅਸੀਂ ਇਸ ਉੱਤੇ ਕਾਰਵਾਈ ਨਹੀਂ ਕਰ ਸਕੇ। ਤੁਹਾਡੇ ਤੋਂ ਕੋਈ ਖਰਚਾ ਨਹੀਂ ਲਿਆ ਗਿਆ ਹੈ।</string>
+    <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification as a message.-->
+    <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">ਇਸ ਭੁਗਤਾਨ ਉੱਤੇ ਕਾਰਵਾਈ ਕਰਦੇ ਸਮੇਂ ਕੋਈ ਗੜਬੜ ਹੋ ਗਈ ਸੀ, ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+
     <!-- Displayed in notification when user payment fails to process on Stripe -->
     <string name="DonationsErrors__error_processing_payment">ਦਾਨ ਉੱਤੇ ਕਾਰਵਾਈ ਕਰਨ ਵੇਲੇ ਗੜਬੜ ਹੋਈ</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
@@ -7066,6 +7162,10 @@
     <string name="BackupsTypeSettingsFragment__unknown">ਅਣਜਾਣ</string>
     <!-- Row title for entering payment history -->
     <string name="BackupsTypeSettingsFragment__payment_history">ਭੁਗਤਾਨ ਦਾ ਇਤਿਹਾਸ</string>
+    <!-- Row description detailing renewal information. First placeholder is formatted price. Second placeholder is formatted date. -->
+    <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/ਮਹੀਨਾ · ਰੀਨਿਊ ਹੋਣ ਦੀ ਮਿਤੀ %2$s</string>
+    <!-- Row title to change or cancel subscription -->
+    <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨੂੰ ਬਦਲੋ ਜਾਂ ਰੱਦ ਕਰੋ</string>
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
@@ -7170,6 +7270,55 @@
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
     <string name="PassphrasePromptActivity_help_prompt_body">ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਡਿਵਾਈਸ PIN, ਪਾਸਵਰਡ ਜਾਂ ਪੈਟਰਨ ਦਾਖਲ ਕਰੋ।</string>
 
+    <!-- MessageBackupsCheckoutSheet -->
+    <!-- Sheet title. Placeholder is formatted price. -->
+    <string name="MessageBackupsCheckoutSheet__pay_s_per_month">Signal ਨੂੰ %1$s/ਮਹੀਨਾ ਦਾ ਭੁਗਤਾਨ ਕਰੋ</string>
+    <!-- Sheet subtitle -->
+    <string name="MessageBackupsCheckoutSheet__youll_get">ਤੁਹਾਨੂੰ ਇਹ ਸਹੂਲਤਾਂ ਮਿਲਣਗੀਆਂ:</string>
+
+    <!-- MessageBackupsEducationScreen -->
+    <!-- Screen subtitle underneath large headline title -->
+    <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Signal\'s ਦੀ ਸੁਰੱਖਿਅਤ, ਸਿਰੇ-ਤੋਂ-ਸਿਰੇ ਤੱਕ ਇਨਕ੍ਰਿਪਟਡ ਸਟੋਰੇਜ ਸੇਵਾ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋਏ ਆਪਣੇ ਸੁਨੇਹਿਆਂ ਅਤੇ ਮੀਡੀਆ ਦਾ ਬੈਕਅੱਪ ਲਓ। ਜਦੋਂ ਤੁਸੀਂ ਨਵਾਂ ਫ਼ੋਨ ਲੈਂਦੇ ਹੋ ਜਾਂ Signal ਨੂੰ ਦੁਬਾਰਾ ਇੰਸਟਾਲ ਕਰਦੇ ਹੋ ਤਾਂ ਕੋਈ ਵੀ ਪੁਰਾਣਾ ਸੁਨੇਹਾ ਨਾ ਗੁਆਓ।</string>
+    <!-- Backups feature label for e2e encryption -->
+    <string name="MessageBackupsEducationScreen__end_to_end_encrypted">ਸਿਰੇ-ਤੋਂ-ਸਿਰੇ ਤੱਕ ਇਨਕ੍ਰਿਪਟਡ</string>
+    <!-- Backups feature label for informing the user that this feature is completely optional -->
+    <string name="MessageBackupsEducationScreen__optional_always">ਵਿਕਲਪਿਕ, ਹਮੇਸ਼ਾ</string>
+    <!-- Backups feature label for informing the user that they can delete their backup at any time -->
+    <string name="MessageBackupsEducationScreen__delete_your_backup_anytime">ਕਿਸੇ ਵੀ ਸਮੇਂ ਆਪਣਾ ਬੈਕਅੱਪ ਮਿਟਾਓ</string>
+    <!-- Action button label to proceed with backups activation -->
+    <string name="MessageBackupsEducationScreen__enable_backups">ਬੈਕਅੱਪ ਨੂੰ ਸਮਰੱਥ ਕਰੋ</string>
+    <!-- Action button label to learn more -->
+    <string name="MessageBackupsEducationScreen__learn_more">ਹੋਰ ਜਾਣੋ</string>
+
+    <!-- MessageBackupsPinConfirmationScreen -->
+    <!-- Screen title -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_pin">ਆਪਣਾ PIN ਦਰਜ ਕਰੋ</string>
+    <!-- Screen subtitle -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_signal_pin_to_enable_backups">ਬੈਕਅੱਪ ਨੂੰ ਸਮਰੱਥ ਬਣਾਉਣ ਲਈ ਆਪਣਾ Signal PIN ਦਰਜ ਕਰੋ</string>
+    <!-- Action button to confirm pin entry and continue -->
+    <string name="MessageBackupsPinConfirmationScreen__next">ਅੱਗੇ</string>
+    <!-- Action button to switch keyboard type -->
+    <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">ਕੀਬੋਰਡ ਬਦਲੋ</string>
+
+    <!-- MessageBackupsPinEducationScreen -->
+    <!-- Screen headline -->
+    <string name="MessageBackupsPinEducationScreen__pins_protect_your_backup">PIN ਤੁਹਾਡੇ ਬੈਕਅੱਪ ਦੀ ਰੱਖਿਆ ਕਰਦੇ ਹਨ</string>
+    <!-- Notice about pin length. Placeholder is recommended pin length -->
+    <string name="MessageBackupsPinEducationScreen__your_signal_pin_lets_you">ਜਦੋਂ ਤੁਸੀਂ Signal ਨੂੰ ਮੁੜ-ਇੰਸਟਾਲ ਕਰਦੇ ਹੋ ਤਾਂ ਤੁਹਾਡਾ Signal PIN ਤੁਹਾਨੂੰ ਆਪਣਾ ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰਨ ਦਿੰਦਾ ਹੈ। ਅਸੀਂ ਘੱਟੋ-ਘੱਟ %1$d ਅੰਕਾਂ ਵਾਲਾ PIN ਵਰਤਣ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕਰਦੇ ਹਾਂ।</string>
+    <!-- Notice about changing your pin. -->
+    <string name="MessageBackupsPinEducationScreen__if_you_forget_your_pin">ਜੇਕਰ ਤੁਸੀਂ ਆਪਣਾ PIN ਭੁੱਲ ਜਾਂਦੇ ਹੋ, ਤਾਂ ਤੁਸੀਂ ਆਪਣਾ ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਨਹੀਂ ਕਰ ਸਕੋਗੇ। ਤੁਸੀਂ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਜਾ ਕੇ ਕਿਸੇ ਵੀ ਸਮੇਂ ਆਪਣਾ PIN ਬਦਲ ਸਕਦੇ ਹੋ।</string>
+    <!-- Action button label to utilize current pin -->
+    <string name="MessageBackupsPinEducationScreen__use_current_signal_pin">ਮੌਜੂਦਾ Signal PIN ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
+    <!-- Action button to create a new pin -->
+    <string name="MessageBackupsPinEducationScreen__create_new_pin">ਨਵਾਂ PIN ਬਣਾਓ</string>
+
+    <!-- MessagesBackupsTypeSelectionScreen -->
+    <!-- Screen headline -->
+    <string name="MessagesBackupsTypeSelectionScreen__choose_your_backup_plan">ਆਪਣਾ ਬੈਕਅੱਪ ਪਲਾਨ ਚੁਣੋ</string>
+    <!-- Screen subhead -->
+    <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">ਸਾਰੇ ਬੈਕਅੱਪ ਸਿਰੇ-ਤੋਂ-ਸਿਰੇ ਤੱਕ ਇਨਕ੍ਰਿਪਟਡ ਹੁੰਦੇ ਹਨ। Signal ਇੱਕ ਗੈਰ-ਲਾਭਕਾਰੀ ਕੰਪਨੀ ਹੈ—ਬੈਕਅੱਪ ਲਈ ਭੁਗਤਾਨ ਕਰਨ ਨਾਲ ਸਾਡੇ ਮਿਸ਼ਨ ਨੂੰ ਜਾਰੀ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਮਿਲਦੀ ਹੈ।</string>
+    <!-- Screen subhead highlighted read-more button -->
+    <string name="MessageBackupsTypeSelectionScreen__read_more">ਹੋਰ ਪੜ੍ਹੋ</string>
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">ਅੱਗੇ</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->

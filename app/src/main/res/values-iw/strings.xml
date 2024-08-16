@@ -167,6 +167,8 @@
     <string name="CreditCardFragment__donate_s">תרומה של %1$s</string>
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">תרומה של %1$s/בחודש</string>
+    <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
+    <string name="CreditCardFragment__pay_s_month">תרומה של %1$s/בחודש</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -216,6 +218,28 @@
     <string name="BucketedThreadMedia_Large">גדול</string>
     <string name="BucketedThreadMedia_Medium">בינוני</string>
     <string name="BucketedThreadMedia_Small">קטן</string>
+
+    <!-- CallInfoView -->
+    <!-- Unknown people row text when the only people in the call are unknowns -->
+    <plurals name="CallInfoView__d_people">
+        <item quantity="one">איש %1$d</item>
+        <item quantity="two">%1$d אנשים</item>
+        <item quantity="many">%1$d אנשים</item>
+        <item quantity="other">%1$d אנשים</item>
+    </plurals>
+    <!-- Unknown people row, placeholder is the number of unknown people in the call -->
+    <plurals name="CallInfoView__plus_d_people">
+        <item quantity="one">+אדם %1$d</item>
+        <item quantity="two">+%1$d אנשים</item>
+        <item quantity="many">+%1$d אנשים</item>
+        <item quantity="other">+%1$d אנשים</item>
+    </plurals>
+    <!-- Unknown people row icon content description -->
+    <string name="CallInfoView__more_information">עוד מידע</string>
+    <!-- Unknown people row info dialog message -->
+    <string name="CallInfoView__before_joining_a_call">לפני הצטרפות לשיחה, אפשר לראות רק את השמות של משתתפים שהם אנשי קשר שלך בטלפון, שנמצאים איתך בקבוצה, או ששוחחת איתם אחד על אחד. תהיה לך אפשרות לראות את כל השמות והתמונות לאחר שהצטרפת לשיחה.</string>
+    <!-- Unknown people row info dialog action to close the dialog -->
+    <string name="CallInfoView__got_it">הבנתי</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -804,6 +828,16 @@
     <!-- Backup has an unsupported file extension -->
     <string name="RestoreBackupFragment__backup_has_a_bad_extension">לגיבוי יש סיומת גרועה.</string>
 
+    <!-- CreateBackupBottomSheet -->
+    <!-- Bottom sheet title -->
+    <string name="CreateBackupBottomSheet__create_backup">צור גיבוי</string>
+    <!-- Bottom sheet message -->
+    <string name="CreateBackupBottomSheet__depending_on_the_size">בהתאם לגודל הגיבוי שלך, זה עשוי להימשך זמן רב. אפשר להשתמש בטלפון שלך כרגיל בזמן שהגיבוי מתבצע.</string>
+    <!-- Action button to dismiss sheet and back up later -->
+    <string name="CreateBackupBottomSheet__back_up_later">לגבות אחר כך</string>
+    <!-- Action button to dismiss sheet and back up now -->
+    <string name="CreateBackupBottomSheet__back_up_now">לגבות כעת</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">גיבויי צ׳אטים</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">גיבויים מוצפנים עם משפט־סיסמה ומאוחסנים במכשיר שלך.</string>
@@ -1151,6 +1185,9 @@
     <string name="PromptLogsSlowNotificationsDialog__message">יומני ניפוי באגים עוזרים לנו לאבחן ולתקן את הבעיה ולא מכילים מידע מזהה.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly נתקלה בבעיה. רוצה להגיש יומן ניפוי באגים?</string>
+    <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+    <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">יתכן שאינך מקבל/ת הודעות. רוצה להגיש יומן ניפוי באגים?</string>
+
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">התראות עשויות להתעכב בגלל אופטימיזציה של הסוללה</string>
@@ -1165,6 +1202,13 @@
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">לא תודה</string>
     <!-- Button to continue and go to Signal support website -->
     <string name="DeviceSpecificNotificationBottomSheet__continue">המשך</string>
+
+    <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_title">יתכן שאינך מקבל/ת הודעות</string>
+    <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_body">הפעלה מחדש של המכשיר שלך עשויה לפתור את בעיית מסירת ההודעות. אם הבעיה הזו נמשכת, יש ליצור קשר עם התמיכה של Molly.</string>
+    <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
+    <string name="ConnectivityWarningBottomSheet_dismiss_button">הבנתי</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">המשך</string>
@@ -1266,6 +1310,44 @@
     <string name="ManageGroupActivity_invite_now">הזמן עכשיו</string>
     <string name="ManageGroupActivity_more">עוד</string>
     <string name="ManageGroupActivity_add_group_description">הוסף תיאור קבוצה…</string>
+
+    <!-- MoreTransferOrRestoreOptionsSheet -->
+    <!-- Row title for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">העבר ממכשיר Android</string>
+    <!-- Row description for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">העברת החשבון וההודעות שלך ממכשיר ה–Android הישן שלך.</string>
+    <!-- Row title for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">להתחבר בלי להעביר</string>
+    <!-- Row description for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">להמשיך בלי להעביר את ההודעות והמדיה שלך</string>
+    <!-- Row title for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">שחזור גיבוי מקומי</string>
+    <!-- Row description for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">שחזור ההודעות שלך מקובץ גיבוי ששמרת במכשיר שלך.</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Progress dialog label when downloading a backup -->
+    <string name="RemoteRestoreActivity__downloading_backup">מורידים גיבוי…</string>
+    <!-- Progress dialog label when restoring a backup -->
+    <string name="RemoteRestoreActivity__restoring_messages">משחזרים הודעות…</string>
+    <!-- Progress dialog label while awaiting updates -->
+    <string name="RemoteRestoreActivity__restoring">משחזרים…</string>
+    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+    <string name="RemoteRestoreActivity__s_of_s_s">%1$s מתוך %2$s (%3$s)</string>
+    <!-- Feature list media label for paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_media">כל המדיה שלך</string>
+    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+    <string name="RemoteRestoreActivity__your_last_d_days_of_media">%1$d ימי המדיה האחרונים שלך</string>
+    <!-- Feature list message label for free and paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_messages">כל ההודעות שלך</string>
+    <!-- Screen title for restoring from backup -->
+    <string name="RemoteRestoreActivity__restore_from_backup">שחזר מגיבוי</string>
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <string name="RemoteRestoreActivity__only_media_sent_or_received">רק מדיה שנשלחה או התקבלה ב–%1$d הימים האחרונים כלולה.</string>
+    <!-- Section title for explaining what your backup includes -->
+    <string name="RemoteRestoreActivity__your_backup_includes">הגיבוי שלך כולל את:</string>
+    <!-- Primary action button copy for starting restoration -->
+    <string name="RemoteRestoreActivity__restore_backup">שחזר גיבוי</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">יידע אותי לגבי אזכורים</string>
@@ -3463,10 +3545,6 @@
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">הגשת יומן ניפוי באגים של Signal Android</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">התראות איטיות</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__crash_category">קריסה</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">הגש</string>
     <!-- Action to decline to submit logs -->
@@ -4946,7 +5024,12 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">הזמן את חבריך</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">זהות מינוי הועתקה ללוח.</string>
+    <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">מזהה המנוי של התורמ/ת הועתק ללוח</string>
+    <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">מזהה המנוי של הגיבויים הועתק ללוח</string>
+    <!-- String displayed in a toast when a subscriber id is not present for a given type -->
+    <string name="AppSettingsFragment__no_subscriber_id_set">לא הוגדר מזהה מנוי</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">חשבון</string>
@@ -5655,7 +5738,24 @@
     <string name="Subscription__contact_support">צור קשר עם תמיכה</string>
     <string name="Subscription__get_a_s_badge">קבלת תג %1$s</string>
 
-    <string name="SubscribeFragment__processing_payment">תרומה בעיבוד…</string>
+    <!-- *PaymentInProgressFragment strings -->
+    <string name="InAppPaymentInProgressFragment__processing_donation">תרומה בעיבוד…</string>
+    <string name="InAppPaymentInProgressFragment__processing_payment">מעבד תשלום…</string>
+
+    <!-- InAppPaymentErrors -->
+    <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
+    <string name="InAppPaymentErrors__error_processing_payment">שגיאה בעיבוד תשלום</string>
+    <!-- Displayed as a message in a dialog or notification when a payment setup error happens. -->
+    <string name="InAppPaymentErrors__your_payment_couldnt_be_processed">לא ניתן היה לעבד את התשלום שלך ולא חויבת. כדאי לנסות שוב.</string>
+    <!-- Displayed as a message in a dialog when we timeout waiting for a payment to be processed and token to be redeemed -->
+    <string name="InAppPaymentErrors__your_payment_is_still">התשלום שלך עדין מעובד. זה יכול לקחת מספר דקות בהתאם לחיבור שלך.</string>
+    <!-- Displayed as a message in a dialog or notification when stripe decline code issuer not available for backup payment. -->
+    <string name="InAppPaymentErrors__StripeDeclineCode__try_completing_the_payment_again">נסה להשלים את התשלום שוב או צור קשר עם הבנק שלך בשביל עוד מידע.</string>
+    <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification as a message. -->
+    <string name="InAppPaymentErrors__StripeFailureCode__this_payment_was_revoked">התשלום הזה בוטל על ידי בעל החשבון ולא ניתן היה לעבד אותו. לא חויבת.</string>
+    <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification as a message.-->
+    <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">אירעה שגיאה בעת עיבוד התשלום הזה, יש לנסות שוב.</string>
+
     <!-- Displayed in notification when user payment fails to process on Stripe -->
     <string name="DonationsErrors__error_processing_payment">שגיאה בעיבוד תרומה</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
@@ -7378,6 +7478,10 @@
     <string name="BackupsTypeSettingsFragment__unknown">בלתי ידוע</string>
     <!-- Row title for entering payment history -->
     <string name="BackupsTypeSettingsFragment__payment_history">היסטוריית תשלומים</string>
+    <!-- Row description detailing renewal information. First placeholder is formatted price. Second placeholder is formatted date. -->
+    <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/חודש · מתחדש %2$s</string>
+    <!-- Row title to change or cancel subscription -->
+    <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">שינוי או ביטול מנוי</string>
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
@@ -7482,6 +7586,55 @@
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
     <string name="PassphrasePromptActivity_help_prompt_body">יש להכניס את קוד ה–PIN, הסיסמה, או התבנית של המכשיר שלך.</string>
 
+    <!-- MessageBackupsCheckoutSheet -->
+    <!-- Sheet title. Placeholder is formatted price. -->
+    <string name="MessageBackupsCheckoutSheet__pay_s_per_month">תשלום של %1$s לחודש ל–Signal</string>
+    <!-- Sheet subtitle -->
+    <string name="MessageBackupsCheckoutSheet__youll_get">מקבלים:</string>
+
+    <!-- MessageBackupsEducationScreen -->
+    <!-- Screen subtitle underneath large headline title -->
+    <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">אפשר לגבות את ההודעות והמדיה ששלך באמצעות שירות האחסון המוצפן מקצה לקצה של Signal. ככה, לא מאבדים אף הודעה כשמחליפים טלפון או מתקינים מחדש את Signal.</string>
+    <!-- Backups feature label for e2e encryption -->
+    <string name="MessageBackupsEducationScreen__end_to_end_encrypted">מוצפן מקצה לקצה</string>
+    <!-- Backups feature label for informing the user that this feature is completely optional -->
+    <string name="MessageBackupsEducationScreen__optional_always">אופציונלי, תמיד</string>
+    <!-- Backups feature label for informing the user that they can delete their backup at any time -->
+    <string name="MessageBackupsEducationScreen__delete_your_backup_anytime">אפשר למחוק את הגיבוי בכל עת</string>
+    <!-- Action button label to proceed with backups activation -->
+    <string name="MessageBackupsEducationScreen__enable_backups">אפשר גיבויים</string>
+    <!-- Action button label to learn more -->
+    <string name="MessageBackupsEducationScreen__learn_more">למידע נוסף</string>
+
+    <!-- MessageBackupsPinConfirmationScreen -->
+    <!-- Screen title -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_pin">הכנס את ה־PIN שלך</string>
+    <!-- Screen subtitle -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_signal_pin_to_enable_backups">יש להזין את קוד ה–PIN של Signal כדי לאפשר גיבויים</string>
+    <!-- Action button to confirm pin entry and continue -->
+    <string name="MessageBackupsPinConfirmationScreen__next">הבא</string>
+    <!-- Action button to switch keyboard type -->
+    <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">החלפת מקלדת</string>
+
+    <!-- MessageBackupsPinEducationScreen -->
+    <!-- Screen headline -->
+    <string name="MessageBackupsPinEducationScreen__pins_protect_your_backup">קודי PIN מגינים על הגיבוי שלך</string>
+    <!-- Notice about pin length. Placeholder is recommended pin length -->
+    <string name="MessageBackupsPinEducationScreen__your_signal_pin_lets_you">ה–PIN שלך ב–Signal מאפשר לך לשחזר את הגיבוי שלך בעת התקנה מחדש של האפליקציה. אנחנו ממליצים להשתמש בקוד PIN שמכיל לפחות %1$d ספרות.</string>
+    <!-- Notice about changing your pin. -->
+    <string name="MessageBackupsPinEducationScreen__if_you_forget_your_pin">אם שכחת את ה–PIN, לא תהיה לך אפשרות לשחזר את הגיבוי שלך. אפשר לשנות את קוד ה–PIN שלך בכל עת בהגדרות.</string>
+    <!-- Action button label to utilize current pin -->
+    <string name="MessageBackupsPinEducationScreen__use_current_signal_pin">שימוש ב–PIN נוכחי של Signal</string>
+    <!-- Action button to create a new pin -->
+    <string name="MessageBackupsPinEducationScreen__create_new_pin">צור PIN חדש</string>
+
+    <!-- MessagesBackupsTypeSelectionScreen -->
+    <!-- Screen headline -->
+    <string name="MessagesBackupsTypeSelectionScreen__choose_your_backup_plan">בחירת תכנית הגיבוי שלך</string>
+    <!-- Screen subhead -->
+    <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">כל הגיבויים מוצפנים מקצה לקצה. Signal היא ארגון ללא מטרות רווח—התשלום על גיבויים עוזר לתמוך במשימה שלנו.</string>
+    <!-- Screen subhead highlighted read-more button -->
+    <string name="MessageBackupsTypeSelectionScreen__read_more">קרא עוד</string>
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">הבא</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->

@@ -167,6 +167,8 @@
     <string name="CreditCardFragment__donate_s">Lahjoita %1$s</string>
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">Lahjoita %1$s/kuukausi</string>
+    <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
+    <string name="CreditCardFragment__pay_s_month">Lahjoita %1$s/kuukausi</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -216,6 +218,24 @@
     <string name="BucketedThreadMedia_Large">Suuri</string>
     <string name="BucketedThreadMedia_Medium">Keskikokoinen</string>
     <string name="BucketedThreadMedia_Small">Pieni</string>
+
+    <!-- CallInfoView -->
+    <!-- Unknown people row text when the only people in the call are unknowns -->
+    <plurals name="CallInfoView__d_people">
+        <item quantity="one">%1$d henkilöä</item>
+        <item quantity="other">%1$d henkilöä</item>
+    </plurals>
+    <!-- Unknown people row, placeholder is the number of unknown people in the call -->
+    <plurals name="CallInfoView__plus_d_people">
+        <item quantity="one">+%1$d henkilö</item>
+        <item quantity="other">+%1$d henkilöä</item>
+    </plurals>
+    <!-- Unknown people row icon content description -->
+    <string name="CallInfoView__more_information">Näytä lisää</string>
+    <!-- Unknown people row info dialog message -->
+    <string name="CallInfoView__before_joining_a_call">Ennen puheluun liittymistä näet nimet vain ihmisistä, jotka ovat puhelimen yhteystiedoissa, kanssasi yhteisen ryhmän jäseniä, tai niistä, joiden kanssa olet keskustellut kahden. Näet kaikki nimet ja kuvat, kun olet liittynyt puheluun.</string>
+    <!-- Unknown people row info dialog action to close the dialog -->
+    <string name="CallInfoView__got_it">Selvä</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -768,6 +788,16 @@
     <!-- Backup has an unsupported file extension -->
     <string name="RestoreBackupFragment__backup_has_a_bad_extension">Varmuuskopiolla on väärä tiedostopääte.</string>
 
+    <!-- CreateBackupBottomSheet -->
+    <!-- Bottom sheet title -->
+    <string name="CreateBackupBottomSheet__create_backup">Luo varmuuskopio</string>
+    <!-- Bottom sheet message -->
+    <string name="CreateBackupBottomSheet__depending_on_the_size">Varmuuskopion koosta riippuen tämä voi kestää pitkään. Voit käyttää puhelinta tavalliseen tapaan varmuuskopioinnin aikana.</string>
+    <!-- Action button to dismiss sheet and back up later -->
+    <string name="CreateBackupBottomSheet__back_up_later">Varmuuskopioi myöhemmin</string>
+    <!-- Action button to dismiss sheet and back up now -->
+    <string name="CreateBackupBottomSheet__back_up_now">Varmuuskopioi nyt</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">Keskustelujen varmuuskopiot</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Varmuuskopio salataan salalauseella ja tallennetaan laitteeseen.</string>
@@ -1087,6 +1117,9 @@
     <string name="PromptLogsSlowNotificationsDialog__message">Virheenkorjauslokit auttavat meitä diagnosoimaan ja korjaamaan ongelman, eivätkä ne sisällä tunnistetietoja.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly kohtasi ongelman. Lähetetäänkö virheenkorjausloki?</string>
+    <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+    <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Et ehkä saa viestejä. Lähetetäänkö vianetsintäloki?</string>
+
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Akun käytön optimointi voi aiheuttaa viiveitä ilmoituksissa</string>
@@ -1101,6 +1134,13 @@
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Ei kiitos</string>
     <!-- Button to continue and go to Signal support website -->
     <string name="DeviceSpecificNotificationBottomSheet__continue">Jatka</string>
+
+    <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_title">Et ehkä saa viestejä</string>
+    <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_body">Laitteen uudelleenkäynnistäminen voi auttaa ratkaisemaan viestien toimitusongelman. Jos ongelma jatkuu, ota yhteyttä Molly-tukeen.</string>
+    <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
+    <string name="ConnectivityWarningBottomSheet_dismiss_button">Selvä</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Jatka</string>
@@ -1194,6 +1234,44 @@
     <string name="ManageGroupActivity_invite_now">Kutsu nyt</string>
     <string name="ManageGroupActivity_more">lisää</string>
     <string name="ManageGroupActivity_add_group_description">Lisää ryhmän kuvaus…</string>
+
+    <!-- MoreTransferOrRestoreOptionsSheet -->
+    <!-- Row title for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Siirrä Android-laitteesta</string>
+    <!-- Row description for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Siirrä tilisi ja viestit vanhasta Android-laitteestasi.</string>
+    <!-- Row title for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Kirjaudu sisään ilman siirtoa</string>
+    <!-- Row description for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Jatka ilman viestien ja median siirtoa</string>
+    <!-- Row title for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Palauta paikallinen varmuuskopio</string>
+    <!-- Row description for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Palauta viestisi laitteellesi tallentamastasi varmuuskopiotiedostosta.</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Progress dialog label when downloading a backup -->
+    <string name="RemoteRestoreActivity__downloading_backup">Ladataan varmuuskopiota…</string>
+    <!-- Progress dialog label when restoring a backup -->
+    <string name="RemoteRestoreActivity__restoring_messages">Palautetaan viestejä…</string>
+    <!-- Progress dialog label while awaiting updates -->
+    <string name="RemoteRestoreActivity__restoring">Palautetaan…</string>
+    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+    <string name="RemoteRestoreActivity__s_of_s_s">%1$s/%2$s (%3$s)</string>
+    <!-- Feature list media label for paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_media">Kaikki mediasisältösi</string>
+    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+    <string name="RemoteRestoreActivity__your_last_d_days_of_media">Mediasisältö viimeisten %1$d päivän ajalta</string>
+    <!-- Feature list message label for free and paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_messages">Kaikki viestisi</string>
+    <!-- Screen title for restoring from backup -->
+    <string name="RemoteRestoreActivity__restore_from_backup">Palauta varmuuskopiosta</string>
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <string name="RemoteRestoreActivity__only_media_sent_or_received">Mukana on vain viimeisten %1$d päivän aikana lähetetty tai vastaanotettu media.</string>
+    <!-- Section title for explaining what your backup includes -->
+    <string name="RemoteRestoreActivity__your_backup_includes">Varmuuskopio sisältää:</string>
+    <!-- Primary action button copy for starting restoration -->
+    <string name="RemoteRestoreActivity__restore_backup">Palauta varmuuskopio</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Ilmoita minulle maininnoista</string>
@@ -3269,10 +3347,6 @@
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Androidin virheenkorjauslokin lähetys</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Hitaat ilmoitukset</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__crash_category">Kaatuminen</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Lähetä</string>
     <!-- Action to decline to submit logs -->
@@ -4712,7 +4786,12 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">Kutsu ystäviäsi</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">Tilaajatunnus kopioitu leikepöydälle</string>
+    <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">Lahjoittaja-tilaajatunnus kopioitu leikepöydälle</string>
+    <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">Varmuuskopio-tilaajatunnus kopioitu leikepöydälle</string>
+    <!-- String displayed in a toast when a subscriber id is not present for a given type -->
+    <string name="AppSettingsFragment__no_subscriber_id_set">Tilaajatunnusta ei asetettu</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">Tili</string>
@@ -5401,7 +5480,24 @@
     <string name="Subscription__contact_support">Ota yhteyttä tukeen</string>
     <string name="Subscription__get_a_s_badge">Hanki %1$s-merkki</string>
 
-    <string name="SubscribeFragment__processing_payment">Käsitellään lahjoitusta…</string>
+    <!-- *PaymentInProgressFragment strings -->
+    <string name="InAppPaymentInProgressFragment__processing_donation">Käsitellään lahjoitusta…</string>
+    <string name="InAppPaymentInProgressFragment__processing_payment">Käsitellään maksua…</string>
+
+    <!-- InAppPaymentErrors -->
+    <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
+    <string name="InAppPaymentErrors__error_processing_payment">Virhe käsiteltäessä maksua</string>
+    <!-- Displayed as a message in a dialog or notification when a payment setup error happens. -->
+    <string name="InAppPaymentErrors__your_payment_couldnt_be_processed">Maksua ei voitu käsitellä, eikä sinua ei ole veloitettu. Ole hyvä ja yritä uudelleen.</string>
+    <!-- Displayed as a message in a dialog when we timeout waiting for a payment to be processed and token to be redeemed -->
+    <string name="InAppPaymentErrors__your_payment_is_still">Maksua käsitellään vielä. Tämä voi kestää muutamia minuutteja yhteydestäsi riippuen.</string>
+    <!-- Displayed as a message in a dialog or notification when stripe decline code issuer not available for backup payment. -->
+    <string name="InAppPaymentErrors__StripeDeclineCode__try_completing_the_payment_again">Yritä suorittaa maksu uudelleen tai ole yhteydessä pankkiisi saadaksesi lisätietoja.</string>
+    <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification as a message. -->
+    <string name="InAppPaymentErrors__StripeFailureCode__this_payment_was_revoked">Tilin omistaja peruutti tämän maksun, eikä sitä voitu käsitellä. Sinua ei veloitettu.</string>
+    <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification as a message.-->
+    <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">Maksun käsittelyssä tapahtui virhe. Yritä uudelleen.</string>
+
     <!-- Displayed in notification when user payment fails to process on Stripe -->
     <string name="DonationsErrors__error_processing_payment">Virhe lahjoituksen käsittelyssä</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
@@ -7066,6 +7162,10 @@
     <string name="BackupsTypeSettingsFragment__unknown">Tuntematon</string>
     <!-- Row title for entering payment history -->
     <string name="BackupsTypeSettingsFragment__payment_history">Maksuhistoria</string>
+    <!-- Row description detailing renewal information. First placeholder is formatted price. Second placeholder is formatted date. -->
+    <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s / kk · Uusiutuu %2$s</string>
+    <!-- Row title to change or cancel subscription -->
+    <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Muuta tilausta tai peruuta se</string>
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
@@ -7170,6 +7270,55 @@
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
     <string name="PassphrasePromptActivity_help_prompt_body">Anna laitteesi PIN-koodi, salasana tai kuvio.</string>
 
+    <!-- MessageBackupsCheckoutSheet -->
+    <!-- Sheet title. Placeholder is formatted price. -->
+    <string name="MessageBackupsCheckoutSheet__pay_s_per_month">Maksa Signalille %1$s/kuukausi</string>
+    <!-- Sheet subtitle -->
+    <string name="MessageBackupsCheckoutSheet__youll_get">Saat:</string>
+
+    <!-- MessageBackupsEducationScreen -->
+    <!-- Screen subtitle underneath large headline title -->
+    <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Varmuuskopioi viestit ja mediasisältö käyttämällä Signalin turvallista, päästä päähän salattua tallennuspalvelua. Älä koskaan menetä viestiä, kun hankit uuden puhelimen tai asennat Signalin uudelleen.</string>
+    <!-- Backups feature label for e2e encryption -->
+    <string name="MessageBackupsEducationScreen__end_to_end_encrypted">Päästä päähän salattu</string>
+    <!-- Backups feature label for informing the user that this feature is completely optional -->
+    <string name="MessageBackupsEducationScreen__optional_always">Aina valinnainen</string>
+    <!-- Backups feature label for informing the user that they can delete their backup at any time -->
+    <string name="MessageBackupsEducationScreen__delete_your_backup_anytime">Poista varmuuskopio milloin tahansa</string>
+    <!-- Action button label to proceed with backups activation -->
+    <string name="MessageBackupsEducationScreen__enable_backups">Ota varmuuskopiot käyttöön</string>
+    <!-- Action button label to learn more -->
+    <string name="MessageBackupsEducationScreen__learn_more">Lue lisää</string>
+
+    <!-- MessageBackupsPinConfirmationScreen -->
+    <!-- Screen title -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_pin">Syötä tunnusluku</string>
+    <!-- Screen subtitle -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_signal_pin_to_enable_backups">Anna Signal-PIN-koodi ottaaksesi varmuuskopiot käyttöön</string>
+    <!-- Action button to confirm pin entry and continue -->
+    <string name="MessageBackupsPinConfirmationScreen__next">Seuraava</string>
+    <!-- Action button to switch keyboard type -->
+    <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">Vaihda näppäimistöä</string>
+
+    <!-- MessageBackupsPinEducationScreen -->
+    <!-- Screen headline -->
+    <string name="MessageBackupsPinEducationScreen__pins_protect_your_backup">PIN-koodit suojaavat varmuuskopiotasi</string>
+    <!-- Notice about pin length. Placeholder is recommended pin length -->
+    <string name="MessageBackupsPinEducationScreen__your_signal_pin_lets_you">Signal-PIN-koodin avulla voit palauttaa varmuuskopion, kun asennat Signalin uudelleen. Suosittelemme käyttämään PIN-koodia, jossa on vähintään %1$d numeroa.</string>
+    <!-- Notice about changing your pin. -->
+    <string name="MessageBackupsPinEducationScreen__if_you_forget_your_pin">Jos unohdat PIN-koodin, et voi palauttaa varmuuskopiota. Voit muuttaa PIN-koodin milloin tahansa asetuksista.</string>
+    <!-- Action button label to utilize current pin -->
+    <string name="MessageBackupsPinEducationScreen__use_current_signal_pin">Käytä Signalin nykyistä PIN-koodia</string>
+    <!-- Action button to create a new pin -->
+    <string name="MessageBackupsPinEducationScreen__create_new_pin">Luo uusi tunnusluku</string>
+
+    <!-- MessagesBackupsTypeSelectionScreen -->
+    <!-- Screen headline -->
+    <string name="MessagesBackupsTypeSelectionScreen__choose_your_backup_plan">Valitse varmuuskopioinnin tilaus</string>
+    <!-- Screen subhead -->
+    <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Kaikki varmuuskopiot salataan päästä päähän. Signal on voittoa tavoittelematon organisaatio. Varmuuskopioinnin maksullisuus tukee tehtäväämme.</string>
+    <!-- Screen subhead highlighted read-more button -->
+    <string name="MessageBackupsTypeSelectionScreen__read_more">Lue lisää</string>
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">Seuraava</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->

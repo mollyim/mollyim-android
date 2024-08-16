@@ -82,6 +82,7 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
   private fun updateViewState(state: RegistrationState) {
     if (state.networkError != null) {
       genericErrorDialog()
+      registrationViewModel.networkErrorShown()
     } else if (!state.canSkipSms) {
       findNavController().safeNavigate(ReRegisterWithPinFragmentDirections.actionReRegisterWithPinFragmentToEnterPhoneNumberFragment())
     } else if (state.isRegistrationLockEnabled && state.svrTriesRemaining == 0) {
@@ -90,6 +91,11 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
     } else {
       presentProgress(state.inProgress)
       presentTriesRemaining(state.svrTriesRemaining)
+    }
+
+    state.registerAccountError?.let { error ->
+      registrationErrorHandler(error)
+      registrationViewModel.registerAccountErrorShown()
     }
   }
 
@@ -126,8 +132,7 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
       pin = pin,
       wrongPinHandler = {
         reRegisterViewModel.markIncorrectGuess()
-      },
-      registrationErrorHandler = ::registrationErrorHandler
+      }
     )
   }
 
@@ -196,6 +201,7 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
   }
 
   private fun onNeedHelpClicked() {
+    Log.i(TAG, "User clicked need help dialog.")
     val message = if (reRegisterViewModel.isLocalVerification) R.string.ReRegisterWithPinFragment_need_help_local else R.string.PinRestoreEntryFragment_your_pin_is_a_d_digit_code
 
     MaterialAlertDialogBuilder(requireContext())
@@ -217,6 +223,7 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
   }
 
   private fun onSkipClicked() {
+    Log.i(TAG, "User clicked the skip PIN button.")
     val message = if (reRegisterViewModel.isLocalVerification) R.string.ReRegisterWithPinFragment_skip_local else R.string.PinRestoreEntryFragment_if_you_cant_remember_your_pin
 
     MaterialAlertDialogBuilder(requireContext())
@@ -251,7 +258,7 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
 
   private fun registrationErrorHandler(result: RegisterAccountResult) {
     when (result) {
-      is RegisterAccountResult.Success -> Log.d(TAG, "Register account was successful.")
+      is RegisterAccountResult.Success -> throw IllegalStateException("Register account error handler called on successful response!")
       is RegisterAccountResult.AuthorizationFailed,
       is RegisterAccountResult.MalformedRequest,
       is RegisterAccountResult.UnknownError,

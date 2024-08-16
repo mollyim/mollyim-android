@@ -357,7 +357,8 @@ public class Util {
       return 0;
     }
 
-    long buildAge                   = currentTime - BuildConfig.BUILD_TIMESTAMP;
+    long buildTimestamp             = BuildConfig.BUILD_OR_ZERO_TIMESTAMP;
+    long buildAge                   = (buildTimestamp > 0) ? currentTime - buildTimestamp : 0;
     long timeUntilBuildDeprecation  = BUILD_LIFESPAN - buildAge;
     long timeUntilRemoteDeprecation = RemoteDeprecation.getTimeUntilDeprecation(currentTime);
 

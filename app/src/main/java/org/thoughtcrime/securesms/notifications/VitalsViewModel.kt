@@ -12,7 +12,12 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig.ShowCondition
+import org.thoughtcrime.securesms.util.ConnectivityWarning
+import org.thoughtcrime.securesms.util.NetworkUtil
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.days
 
 /**
  * View model for checking for various app vitals, like slow notifications and crashes.
@@ -41,26 +46,32 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
 
   private fun checkHeuristics(): Single<State> {
     return Single.fromCallable {
-      var state = State.NONE
-      when (SlowNotificationHeuristics.showCondition()) {
-        DeviceSpecificNotificationConfig.ShowCondition.ALWAYS -> {
-          if (SlowNotificationHeuristics.shouldShowDialog()) {
-            state = State.PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG
-          }
-        }
-        DeviceSpecificNotificationConfig.ShowCondition.HAS_BATTERY_OPTIMIZATION_ON -> {
-          if (SlowNotificationHeuristics.isBatteryOptimizationsOn()) {
-            state = State.PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG
-          }
-        }
-        DeviceSpecificNotificationConfig.ShowCondition.HAS_SLOW_NOTIFICATIONS -> {
-          if (SlowNotificationHeuristics.isHavingDelayedNotifications() && SlowNotificationHeuristics.shouldPromptBatterySaver()) {
-            state = State.PROMPT_GENERAL_BATTERY_SAVER_DIALOG
-          }
-        }
+      val deviceSpecificCondition = SlowNotificationHeuristics.getDeviceSpecificShowCondition()
+
+      if (deviceSpecificCondition == ShowCondition.ALWAYS && SlowNotificationHeuristics.shouldShowDeviceSpecificDialog()) {
+        return@fromCallable State.PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG
       }
 
-      return@fromCallable state
+      if (deviceSpecificCondition == ShowCondition.HAS_BATTERY_OPTIMIZATION_ON && SlowNotificationHeuristics.shouldShowDeviceSpecificDialog() && SlowNotificationHeuristics.isBatteryOptimizationsOn()) {
+        return@fromCallable State.PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG
+      }
+
+      if (deviceSpecificCondition == ShowCondition.HAS_SLOW_NOTIFICATIONS && SlowNotificationHeuristics.shouldPromptBatterySaver()) {
+        return@fromCallable State.PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG
+      }
+
+      if (SlowNotificationHeuristics.isHavingDelayedNotifications() && SlowNotificationHeuristics.shouldPromptBatterySaver()) {
+        return@fromCallable State.PROMPT_GENERAL_BATTERY_SAVER_DIALOG
+      }
+
+      val timeSinceLastConnection = System.currentTimeMillis() - SignalStore.misc.lastWebSocketConnectTime
+      val timeSinceLastConnectionWarning = System.currentTimeMillis() - SignalStore.misc.lastConnectivityWarningTime
+
+      if (ConnectivityWarning.isEnabled && timeSinceLastConnection > ConnectivityWarning.threshold && timeSinceLastConnectionWarning > 14.days.inWholeMilliseconds && NetworkUtil.isConnected(context)) {
+        return@fromCallable State.PROMPT_CONNECTIVITY_WARNING
+      }
+
+      return@fromCallable State.NONE
     }.subscribeOn(Schedulers.io())
   }
 
@@ -68,5 +79,6 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
     NONE,
     PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG,
     PROMPT_GENERAL_BATTERY_SAVER_DIALOG,
+    PROMPT_CONNECTIVITY_WARNING,
   }
 }

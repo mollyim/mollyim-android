@@ -18,11 +18,11 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1439
-val canonicalVersionName = "7.12.3"
-val mollyRevision = 3
+val canonicalVersionCode = 1443
+val canonicalVersionName = "7.13.4"
 val currentHotfixVersion = 1
 val maxHotfixVersions = 100
+val mollyRevision = 1
 
 val sourceVersionNameWithRevision = "${canonicalVersionName}-${mollyRevision}"
 
@@ -169,9 +169,10 @@ android {
 
     vectorDrawables.useSupportLibrary = true
 
-    // MOLLY: Ensure to add any new URLs to SignalServiceNetworkAccess.HOSTNAMES list
-    buildConfigField("long", "BUILD_TIMESTAMP", getLastCommitTimestamp() + "L")
+    // MOLLY: BUILD_TIMESTAMP may be zero in debug builds.
+    buildConfigField("long", "BUILD_OR_ZERO_TIMESTAMP", getLastCommitTimestamp() + "L")
     buildConfigField("String", "GIT_HASH", "\"${getGitHash()}\"")
+    // MOLLY: Ensure to add any new URLs to SignalServiceNetworkAccess.HOSTNAMES list
     buildConfigField("String", "SIGNAL_URL", "\"https://chat.signal.org\"")
     buildConfigField("String", "STORAGE_URL", "\"https://storage.signal.org\"")
     buildConfigField("String", "SIGNAL_CDN_URL", "\"https://cdn.signal.org\"")
@@ -246,6 +247,9 @@ android {
         "proguard/proguard-automation.pro",
         "proguard/proguard.cfg"
       )
+
+      buildConfigField("long", "BUILD_OR_ZERO_TIMESTAMP", "0L")
+      buildConfigField("String", "GIT_HASH", "\"abc123def456\"")
     }
 
     getByName("release") {
@@ -373,7 +377,7 @@ android {
     }
     onVariants { variant ->
       // Include the test-only library on debug builds.
-      if (variant.buildType != "debug") {
+      if (variant.buildType != "instrumentation") {
         variant.packaging.jniLibs.excludes.add("**/libsignal_jni_testing.so")
       }
     }
@@ -549,6 +553,7 @@ dependencies {
   androidTestImplementation(testLibs.mockito.kotlin)
   androidTestImplementation(testLibs.mockk.android)
   androidTestImplementation(testLibs.square.okhttp.mockserver)
+  androidTestImplementation(testLibs.diff.utils)
 
   androidTestUtil(testLibs.androidx.test.orchestrator)
 }
@@ -560,42 +565,42 @@ fun assertIsGitRepo() {
 }
 
 fun getLastCommitTimestamp(): String {
-  assertIsGitRepo()
-
-  ByteArrayOutputStream().use { stdout ->
+  val stdout = ByteArrayOutputStream()
+  return try {
     exec {
       commandLine = listOf("git", "log", "-1", "--pretty=format:%ct000")
       standardOutput = stdout
     }
-
-    return stdout.toString().trim()
+    stdout.toString().trim()
+  } catch (e: Throwable) {
+    logger.warn("Failed to get Git commit timestamp: ${e.message}. Using mtime of current build script.")
+    buildFile.lastModified().toString()
   }
 }
 
 fun getGitHash(): String {
-  assertIsGitRepo()
-
-  ByteArrayOutputStream().use { stdout ->
+  val stdout = ByteArrayOutputStream()
+  return try {
     exec {
       commandLine = listOf("git", "rev-parse", "--short=12", "HEAD")
       standardOutput = stdout
     }
-
-    return stdout.toString().trim()
+    stdout.toString().trim()
+  } catch (e: Throwable) {
+    logger.warn("Failed to get Git commit hash: ${e.message}. Using default value.")
+    "abc123def456"
   }
 }
 
 fun getCommitTag(): String {
   assertIsGitRepo()
 
-  ByteArrayOutputStream().use { stdout ->
-    exec {
-      commandLine = listOf("git", "describe", "--tags", "--exact-match")
-      standardOutput = stdout
-    }
-
-    return stdout.toString().trim().takeIf { it.isNotEmpty() } ?: "untagged"
+  val stdout = ByteArrayOutputStream()
+  exec {
+    commandLine = listOf("git", "describe", "--tags", "--exact-match")
+    standardOutput = stdout
   }
+  return stdout.toString().trim().takeIf { it.isNotEmpty() } ?: "untagged"
 }
 
 tasks.withType<Test>().configureEach {

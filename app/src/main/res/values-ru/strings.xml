@@ -167,6 +167,8 @@
     <string name="CreditCardFragment__donate_s">Пожертвовать %1$s</string>
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">Жертвовать %1$s/месяц</string>
+    <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
+    <string name="CreditCardFragment__pay_s_month">Жертвовать %1$s/месяц</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -216,6 +218,28 @@
     <string name="BucketedThreadMedia_Large">Большие</string>
     <string name="BucketedThreadMedia_Medium">Средние</string>
     <string name="BucketedThreadMedia_Small">Маленькие</string>
+
+    <!-- CallInfoView -->
+    <!-- Unknown people row text when the only people in the call are unknowns -->
+    <plurals name="CallInfoView__d_people">
+        <item quantity="one">%1$d человека</item>
+        <item quantity="few">%1$d человек</item>
+        <item quantity="many">%1$d людей</item>
+        <item quantity="other">%1$d людей</item>
+    </plurals>
+    <!-- Unknown people row, placeholder is the number of unknown people in the call -->
+    <plurals name="CallInfoView__plus_d_people">
+        <item quantity="one">+%1$d человек</item>
+        <item quantity="few">+%1$d человека</item>
+        <item quantity="many">+%1$d человек</item>
+        <item quantity="other">+%1$d человека</item>
+    </plurals>
+    <!-- Unknown people row icon content description -->
+    <string name="CallInfoView__more_information">Больше информации</string>
+    <!-- Unknown people row info dialog message -->
+    <string name="CallInfoView__before_joining_a_call">Перед тем как присоединиться к звонку, вы можете видеть только имена контактов телефона, людей, с которыми состоите в группе, или тех, с кем общались в чате 1:1. Вы увидите все имена и фото, как только присоединитесь к звонку.</string>
+    <!-- Unknown people row info dialog action to close the dialog -->
+    <string name="CallInfoView__got_it">Понятно</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -804,6 +828,16 @@
     <!-- Backup has an unsupported file extension -->
     <string name="RestoreBackupFragment__backup_has_a_bad_extension">У резервной копии неподдерживаемое расширение файла.</string>
 
+    <!-- CreateBackupBottomSheet -->
+    <!-- Bottom sheet title -->
+    <string name="CreateBackupBottomSheet__create_backup">Создать резервную копию</string>
+    <!-- Bottom sheet message -->
+    <string name="CreateBackupBottomSheet__depending_on_the_size">Из-за большого размера резервной копии это может занять много времени. Во время резервного копирования вы можете пользоваться своим телефоном как обычно.</string>
+    <!-- Action button to dismiss sheet and back up later -->
+    <string name="CreateBackupBottomSheet__back_up_later">Создать резервную копию позже</string>
+    <!-- Action button to dismiss sheet and back up now -->
+    <string name="CreateBackupBottomSheet__back_up_now">Создать резервную копию</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">Резервные копии чатов</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Резервные копии шифруются парольной фразой и хранятся на вашем устройстве.</string>
@@ -1151,6 +1185,9 @@
     <string name="PromptLogsSlowNotificationsDialog__message">Журналы отладки помогают нам диагностировать и устранять проблему и не содержат идентифицирующей информации.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">Возникла проблема в Molly. Отправить журналы отладки?</string>
+    <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+    <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Возможно, вы не получаете сообщения. Отправить журналы отладки?</string>
+
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Уведомления могут приходить с задержкой в связи с оптимизацией работы батареи</string>
@@ -1165,6 +1202,13 @@
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Нет, спасибо</string>
     <!-- Button to continue and go to Signal support website -->
     <string name="DeviceSpecificNotificationBottomSheet__continue">Продолжить</string>
+
+    <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_title">Возможно, вы не получаете сообщения</string>
+    <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_body">Перезагрузка устройства может помочь решить проблему с доставкой сообщений. Если проблема не решается, свяжитесь с Поддержкой Molly.</string>
+    <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
+    <string name="ConnectivityWarningBottomSheet_dismiss_button">Понятно</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">Продолжить</string>
@@ -1266,6 +1310,44 @@
     <string name="ManageGroupActivity_invite_now">Пригласить сейчас</string>
     <string name="ManageGroupActivity_more">далее</string>
     <string name="ManageGroupActivity_add_group_description">Добавить описание группы…</string>
+
+    <!-- MoreTransferOrRestoreOptionsSheet -->
+    <!-- Row title for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Перенести с Android-устройства</string>
+    <!-- Row description for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Перенесите свою учётную запись и сообщения с вашего старого устройства на Android.</string>
+    <!-- Row title for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Авторизоваться без переноса</string>
+    <!-- Row description for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Продолжить без переноса ваших сообщений и медиафайлов</string>
+    <!-- Row title for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Восстановить локальную резервную копию</string>
+    <!-- Row description for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Восстановите свои сообщения из файла резервной копии, сохранённого на вашем устройстве.</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Progress dialog label when downloading a backup -->
+    <string name="RemoteRestoreActivity__downloading_backup">Загружаем резервную копию…</string>
+    <!-- Progress dialog label when restoring a backup -->
+    <string name="RemoteRestoreActivity__restoring_messages">Восстанавливаем сообщения…</string>
+    <!-- Progress dialog label while awaiting updates -->
+    <string name="RemoteRestoreActivity__restoring">Восстановление…</string>
+    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+    <string name="RemoteRestoreActivity__s_of_s_s">%1$s из %2$s (%3$s)</string>
+    <!-- Feature list media label for paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_media">Все ваши медиафайлы</string>
+    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+    <string name="RemoteRestoreActivity__your_last_d_days_of_media">Ваши медиафайлы за последние %1$d дней</string>
+    <!-- Feature list message label for free and paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_messages">Все ваши сообщения</string>
+    <!-- Screen title for restoring from backup -->
+    <string name="RemoteRestoreActivity__restore_from_backup">Восстановить из резервной копии</string>
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <string name="RemoteRestoreActivity__only_media_sent_or_received">Учитываются только медиафайлы, отправленные или полученные за последние %1$d дней.</string>
+    <!-- Section title for explaining what your backup includes -->
+    <string name="RemoteRestoreActivity__your_backup_includes">Резервное копирование включает:</string>
+    <!-- Primary action button copy for starting restoration -->
+    <string name="RemoteRestoreActivity__restore_backup">Восстановить резервную копию</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Уведомлять меня об упоминаниях</string>
@@ -3463,10 +3545,6 @@
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Отправка журнала отладки Signal Android</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">Уведомления приходят с задержкой</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__crash_category">Сбой</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">Отправить</string>
     <!-- Action to decline to submit logs -->
@@ -4946,7 +5024,12 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">Пригласить друзей</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">Идентификатор подписчика был скопирован в буфер обмена.</string>
+    <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">Идентификатор подписчика на пожертвования был скопирован в буфер обмена</string>
+    <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">Идентификатор подписчика на резервные копии была скопирована в буфер обмена</string>
+    <!-- String displayed in a toast when a subscriber id is not present for a given type -->
+    <string name="AppSettingsFragment__no_subscriber_id_set">Идентификатор подписчика не установлен</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">Учётная запись</string>
@@ -5655,7 +5738,24 @@
     <string name="Subscription__contact_support">Связаться с поддержкой</string>
     <string name="Subscription__get_a_s_badge">Получите значок «%1$s»</string>
 
-    <string name="SubscribeFragment__processing_payment">Обработка пожертвования…</string>
+    <!-- *PaymentInProgressFragment strings -->
+    <string name="InAppPaymentInProgressFragment__processing_donation">Обработка пожертвования…</string>
+    <string name="InAppPaymentInProgressFragment__processing_payment">Обрабатываем платёж…</string>
+
+    <!-- InAppPaymentErrors -->
+    <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
+    <string name="InAppPaymentErrors__error_processing_payment">Ошибка обработки платежа</string>
+    <!-- Displayed as a message in a dialog or notification when a payment setup error happens. -->
+    <string name="InAppPaymentErrors__your_payment_couldnt_be_processed">Не удалось обработать ваш платёж, и с вас не была взята плата. Пожалуйста, попробуйте ещё раз.</string>
+    <!-- Displayed as a message in a dialog when we timeout waiting for a payment to be processed and token to be redeemed -->
+    <string name="InAppPaymentErrors__your_payment_is_still">Ваш платёж всё ещё обрабатывается. Это может занять несколько минут в зависимости от вашего соединения.</string>
+    <!-- Displayed as a message in a dialog or notification when stripe decline code issuer not available for backup payment. -->
+    <string name="InAppPaymentErrors__StripeDeclineCode__try_completing_the_payment_again">Попробуйте завершить платёж ещё раз или свяжитесь со своим банком для получения дополнительной информации.</string>
+    <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification as a message. -->
+    <string name="InAppPaymentErrors__StripeFailureCode__this_payment_was_revoked">Данный платёж был отозван владельцем счёта и не был обработан. Средства не были списаны.</string>
+    <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification as a message.-->
+    <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">Произошла ошибка при обработке платежа. Пожалуйста, попробуйте ещё раз.</string>
+
     <!-- Displayed in notification when user payment fails to process on Stripe -->
     <string name="DonationsErrors__error_processing_payment">Ошибка обработки пожертвования</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
@@ -7332,7 +7432,7 @@
     <!-- Sheet title when user does not have enough space to download their backup -->
     <string name="BackupAlertBottomSheet__cant_complete_download">Не удаётся завершить загрузку</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">На вашем устройстве недостаточно места на диске. Освободите до %1$s места для загрузки медиафайлов, хранящихся в резервной копии.</string>
+    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">На вашем устройстве недостаточно места на диске. Освободите %1$s места для загрузки медиафайлов, хранящихся в резервной копии.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
     <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
         <item quantity="one">Если вы выберете «Пропустить», медиафайлы из резервной копии будут удалены через %1$d день.</item>
@@ -7378,6 +7478,10 @@
     <string name="BackupsTypeSettingsFragment__unknown">Неизвестно</string>
     <!-- Row title for entering payment history -->
     <string name="BackupsTypeSettingsFragment__payment_history">История платежей</string>
+    <!-- Row description detailing renewal information. First placeholder is formatted price. Second placeholder is formatted date. -->
+    <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/месяц · Продлится %2$s</string>
+    <!-- Row title to change or cancel subscription -->
+    <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Изменить или отменить подписку</string>
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
@@ -7482,6 +7586,55 @@
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
     <string name="PassphrasePromptActivity_help_prompt_body">Пожалуйста, введите Пин-код, пароль или графический ключ вашего устройства.</string>
 
+    <!-- MessageBackupsCheckoutSheet -->
+    <!-- Sheet title. Placeholder is formatted price. -->
+    <string name="MessageBackupsCheckoutSheet__pay_s_per_month">Платите Signal %1$s/месяц</string>
+    <!-- Sheet subtitle -->
+    <string name="MessageBackupsCheckoutSheet__youll_get">Вы получите:</string>
+
+    <!-- MessageBackupsEducationScreen -->
+    <!-- Screen subtitle underneath large headline title -->
+    <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Создавайте резервные копии своих сообщений и медиафайлов с помощью службы безопасного хранения Signal, защищённой сквозным шифрованием. Вы не потеряете ни одно сообщение при покупке нового телефона или переустановке Signal.</string>
+    <!-- Backups feature label for e2e encryption -->
+    <string name="MessageBackupsEducationScreen__end_to_end_encrypted">Защищено сквозным шифрованием</string>
+    <!-- Backups feature label for informing the user that this feature is completely optional -->
+    <string name="MessageBackupsEducationScreen__optional_always">Всегда можно отключить</string>
+    <!-- Backups feature label for informing the user that they can delete their backup at any time -->
+    <string name="MessageBackupsEducationScreen__delete_your_backup_anytime">Удаляйте резервные копии в любое время</string>
+    <!-- Action button label to proceed with backups activation -->
+    <string name="MessageBackupsEducationScreen__enable_backups">Включить резервные копии</string>
+    <!-- Action button label to learn more -->
+    <string name="MessageBackupsEducationScreen__learn_more">Узнать больше</string>
+
+    <!-- MessageBackupsPinConfirmationScreen -->
+    <!-- Screen title -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_pin">Введите свой PIN-код</string>
+    <!-- Screen subtitle -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_signal_pin_to_enable_backups">Введите Пин-код Signal, чтобы включить резервное копирование</string>
+    <!-- Action button to confirm pin entry and continue -->
+    <string name="MessageBackupsPinConfirmationScreen__next">Далее</string>
+    <!-- Action button to switch keyboard type -->
+    <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">Переключить клавиатуру</string>
+
+    <!-- MessageBackupsPinEducationScreen -->
+    <!-- Screen headline -->
+    <string name="MessageBackupsPinEducationScreen__pins_protect_your_backup">Пин-коды защищают резервные копии</string>
+    <!-- Notice about pin length. Placeholder is recommended pin length -->
+    <string name="MessageBackupsPinEducationScreen__your_signal_pin_lets_you">Пин-код Signal позволяет восстановить резервную копию при повторной установке Signal. Мы рекомендуем использовать Пин-код, содержащий не менее %1$d цифр.</string>
+    <!-- Notice about changing your pin. -->
+    <string name="MessageBackupsPinEducationScreen__if_you_forget_your_pin">Если вы забудете свой Пин-код, вы не сможете восстановить резервную копию. Вы можете изменить свой Пин-код в любое время в настройках.</string>
+    <!-- Action button label to utilize current pin -->
+    <string name="MessageBackupsPinEducationScreen__use_current_signal_pin">Использовать текущий Пин-код Signal</string>
+    <!-- Action button to create a new pin -->
+    <string name="MessageBackupsPinEducationScreen__create_new_pin">Создать новый PIN-код</string>
+
+    <!-- MessagesBackupsTypeSelectionScreen -->
+    <!-- Screen headline -->
+    <string name="MessagesBackupsTypeSelectionScreen__choose_your_backup_plan">Выберите план резервного копирования</string>
+    <!-- Screen subhead -->
+    <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Все резервные копии защищены сквозным шифрованием. Signal — это некоммерческая организация, и платное резервное копирование помогает нам выполнять свою миссию.</string>
+    <!-- Screen subhead highlighted read-more button -->
+    <string name="MessageBackupsTypeSelectionScreen__read_more">Читать далее</string>
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">Далее</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->

@@ -167,6 +167,8 @@
     <string name="CreditCardFragment__donate_s">%1$s 기부</string>
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">월 %1$s 기부</string>
+    <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
+    <string name="CreditCardFragment__pay_s_month">월 %1$s 기부</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -216,6 +218,22 @@
     <string name="BucketedThreadMedia_Large">크게</string>
     <string name="BucketedThreadMedia_Medium">중간</string>
     <string name="BucketedThreadMedia_Small">작게</string>
+
+    <!-- CallInfoView -->
+    <!-- Unknown people row text when the only people in the call are unknowns -->
+    <plurals name="CallInfoView__d_people">
+        <item quantity="other">%1$d명</item>
+    </plurals>
+    <!-- Unknown people row, placeholder is the number of unknown people in the call -->
+    <plurals name="CallInfoView__plus_d_people">
+        <item quantity="other">외 %1$d명</item>
+    </plurals>
+    <!-- Unknown people row icon content description -->
+    <string name="CallInfoView__more_information">자세한 정보</string>
+    <!-- Unknown people row info dialog message -->
+    <string name="CallInfoView__before_joining_a_call">통화에 참여하기 전에는 휴대폰 연락처, 그룹에 함께 속한 사용자, 1:1 대화를 한 적 있는 사용자의 이름만 표시됩니다. 통화에 참여하면 모든 이름과 사진이 표시됩니다.</string>
+    <!-- Unknown people row info dialog action to close the dialog -->
+    <string name="CallInfoView__got_it">확인</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -750,6 +768,16 @@
     <!-- Backup has an unsupported file extension -->
     <string name="RestoreBackupFragment__backup_has_a_bad_extension">백업의 확장자가 올바르지 않습니다.</string>
 
+    <!-- CreateBackupBottomSheet -->
+    <!-- Bottom sheet title -->
+    <string name="CreateBackupBottomSheet__create_backup">백업 생성</string>
+    <!-- Bottom sheet message -->
+    <string name="CreateBackupBottomSheet__depending_on_the_size">백업 용량에 따라 시간이 더 오래 걸릴 수 있습니다. 백업하는 동안 평상시처럼 휴대폰을 사용하셔도 됩니다.</string>
+    <!-- Action button to dismiss sheet and back up later -->
+    <string name="CreateBackupBottomSheet__back_up_later">나중에 백업</string>
+    <!-- Action button to dismiss sheet and back up now -->
+    <string name="CreateBackupBottomSheet__back_up_now">지금 백업</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">대화 백업</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">백업된 파일들은 암호화되어서 기기에 저장됩니다.</string>
@@ -1055,6 +1083,9 @@
     <string name="PromptLogsSlowNotificationsDialog__message">디버그 로그를 제출하면 문제를 진단하고 수정하는 데 도움이 됩니다. 디버그 로그에는 식별 정보가 포함되지 않습니다.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly에 오류가 발생했습니다. 디버그 로그를 제출할까요?</string>
+    <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+    <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">메시지가 수신되지 않을 수 있습니다. 디버그 로그를 제출할까요?</string>
+
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">배터리 최적화로 인해 알림이 지연될 수 있습니다.</string>
@@ -1069,6 +1100,13 @@
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">아니요</string>
     <!-- Button to continue and go to Signal support website -->
     <string name="DeviceSpecificNotificationBottomSheet__continue">계속</string>
+
+    <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_title">메시지가 수신되지 않을 수 있습니다.</string>
+    <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
+    <string name="ConnectivityWarningBottomSheet_body">기기를 다시 시작하면 메시지 전송 문제를 해결하는 데 도움이 될 수도 있습니다. 문제가 지속되면 Molly 지원팀에 연락해 주세요.</string>
+    <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
+    <string name="ConnectivityWarningBottomSheet_dismiss_button">확인</string>
 
     <!-- Button to continue to try and disable battery saver -->
     <string name="PromptBatterySaverBottomSheet__continue">계속</string>
@@ -1158,6 +1196,44 @@
     <string name="ManageGroupActivity_invite_now">지금 초대하기</string>
     <string name="ManageGroupActivity_more">더</string>
     <string name="ManageGroupActivity_add_group_description">그룹 설명 추가하기…</string>
+
+    <!-- MoreTransferOrRestoreOptionsSheet -->
+    <!-- Row title for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Android 기기에서 전송</string>
+    <!-- Row description for transfer option -->
+    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">이전 Android 기기에서 내 계정과 메시지를 전송합니다.</string>
+    <!-- Row title for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">전송하지 않고 로그인</string>
+    <!-- Row description for logging in without transfer -->
+    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">메시지와 미디어를 전송하지 않고 계속</string>
+    <!-- Row title for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">로컬 백업 복원</string>
+    <!-- Row description for restoring from local backup -->
+    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">내 기기에 저장한 백업 파일에서 내 메시지를 복원합니다.</string>
+
+    <!-- RemoteRestoreActivity -->
+    <!-- Progress dialog label when downloading a backup -->
+    <string name="RemoteRestoreActivity__downloading_backup">백업을 다운로드하는 중…</string>
+    <!-- Progress dialog label when restoring a backup -->
+    <string name="RemoteRestoreActivity__restoring_messages">메시지를 복원하는 중…</string>
+    <!-- Progress dialog label while awaiting updates -->
+    <string name="RemoteRestoreActivity__restoring">복원 중…</string>
+    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+    <string name="RemoteRestoreActivity__s_of_s_s">%1$s/%2$s(%3$s)</string>
+    <!-- Feature list media label for paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_media">모든 미디어</string>
+    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+    <string name="RemoteRestoreActivity__your_last_d_days_of_media">지난 %1$d일간의 미디어</string>
+    <!-- Feature list message label for free and paid tier -->
+    <string name="RemoteRestoreActivity__all_of_your_messages">모든 메시지</string>
+    <!-- Screen title for restoring from backup -->
+    <string name="RemoteRestoreActivity__restore_from_backup">백업에서 복원</string>
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <string name="RemoteRestoreActivity__only_media_sent_or_received">지난 %1$d일간 보내거나 받은 미디어만 포함합니다.</string>
+    <!-- Section title for explaining what your backup includes -->
+    <string name="RemoteRestoreActivity__your_backup_includes">백업 내용:</string>
+    <!-- Primary action button copy for starting restoration -->
+    <string name="RemoteRestoreActivity__restore_backup">백업 복원</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">멘션 알림</string>
@@ -3172,10 +3248,6 @@
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android 디버그 로그 제출</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__slow_notifications_category">느린 알림</string>
-    <!-- Category to organize the support email sent -->
-    <string name="DebugLogsPromptDialogFragment__crash_category">충돌</string>
     <!-- Action to submit logs and take user to send an e-mail -->
     <string name="DebugLogsPromptDialogFragment__submit">제출</string>
     <!-- Action to decline to submit logs -->
@@ -4595,7 +4667,12 @@
 
     <!-- AppSettingsFragment -->
     <string name="AppSettingsFragment__invite_your_friends">친구 초대하기</string>
-    <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">구독자 ID를 클립보드에 복사함</string>
+    <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">기부자 구독 ID를 클립보드에 복사했습니다.</string>
+    <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">백업 구독자 ID를 클립보드에 복사했습니다.</string>
+    <!-- String displayed in a toast when a subscriber id is not present for a given type -->
+    <string name="AppSettingsFragment__no_subscriber_id_set">설정된 구독자 ID가 없습니다.</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">계정</string>
@@ -5274,7 +5351,24 @@
     <string name="Subscription__contact_support">지원에 문의</string>
     <string name="Subscription__get_a_s_badge">%1$s 배지 받기</string>
 
-    <string name="SubscribeFragment__processing_payment">기부를 처리하는 중…</string>
+    <!-- *PaymentInProgressFragment strings -->
+    <string name="InAppPaymentInProgressFragment__processing_donation">기부를 처리하는 중…</string>
+    <string name="InAppPaymentInProgressFragment__processing_payment">결제를 처리하는 중…</string>
+
+    <!-- InAppPaymentErrors -->
+    <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
+    <string name="InAppPaymentErrors__error_processing_payment">결제 처리 오류</string>
+    <!-- Displayed as a message in a dialog or notification when a payment setup error happens. -->
+    <string name="InAppPaymentErrors__your_payment_couldnt_be_processed">결제를 처리하지 못했으며 요금이 청구되지 않았습니다. 다시 시도하세요.</string>
+    <!-- Displayed as a message in a dialog when we timeout waiting for a payment to be processed and token to be redeemed -->
+    <string name="InAppPaymentErrors__your_payment_is_still">구독을 아직 처리하는 중입니다. 연결 상태에 따라 몇 분이 소요될 수 있습니다.</string>
+    <!-- Displayed as a message in a dialog or notification when stripe decline code issuer not available for backup payment. -->
+    <string name="InAppPaymentErrors__StripeDeclineCode__try_completing_the_payment_again">결제를 다시 시도하거나 은행에 자세한 정보를 문의하세요.</string>
+    <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification as a message. -->
+    <string name="InAppPaymentErrors__StripeFailureCode__this_payment_was_revoked">예금주가 이 송금을 취소하여 처리할 수 없습니다. 요금이 청구되지 않았습니다.</string>
+    <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification as a message.-->
+    <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">결제를 처리하는 동안 오류가 발행했습니다. 다시 시도하세요.</string>
+
     <!-- Displayed in notification when user payment fails to process on Stripe -->
     <string name="DonationsErrors__error_processing_payment">기부 처리 오류</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
@@ -6910,6 +7004,10 @@
     <string name="BackupsTypeSettingsFragment__unknown">알 수 없음</string>
     <!-- Row title for entering payment history -->
     <string name="BackupsTypeSettingsFragment__payment_history">결제 기록</string>
+    <!-- Row description detailing renewal information. First placeholder is formatted price. Second placeholder is formatted date. -->
+    <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/월 · %2$s 갱신</string>
+    <!-- Row title to change or cancel subscription -->
+    <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">구독 변경 또는 취소</string>
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
@@ -7014,6 +7112,55 @@
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
     <string name="PassphrasePromptActivity_help_prompt_body">기기 PIN, 암호 또는 패턴을 입력하세요.</string>
 
+    <!-- MessageBackupsCheckoutSheet -->
+    <!-- Sheet title. Placeholder is formatted price. -->
+    <string name="MessageBackupsCheckoutSheet__pay_s_per_month">Signal에 매달 %1$s 지불</string>
+    <!-- Sheet subtitle -->
+    <string name="MessageBackupsCheckoutSheet__youll_get">혜택:</string>
+
+    <!-- MessageBackupsEducationScreen -->
+    <!-- Screen subtitle underneath large headline title -->
+    <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Signal의 안전한 엔드투엔드 암호화 저장소 서비스를 사용하여 메시지와 미디어를 백업하세요. 새 휴대폰을 구매하거나 Signal을 다시 설치하는 경우에도 메시지를 손실할 염려가 없습니다.</string>
+    <!-- Backups feature label for e2e encryption -->
+    <string name="MessageBackupsEducationScreen__end_to_end_encrypted">엔드투엔드 암호화</string>
+    <!-- Backups feature label for informing the user that this feature is completely optional -->
+    <string name="MessageBackupsEducationScreen__optional_always">항상 선택 가능</string>
+    <!-- Backups feature label for informing the user that they can delete their backup at any time -->
+    <string name="MessageBackupsEducationScreen__delete_your_backup_anytime">언제나 백업 삭제 가능</string>
+    <!-- Action button label to proceed with backups activation -->
+    <string name="MessageBackupsEducationScreen__enable_backups">백업 활성화</string>
+    <!-- Action button label to learn more -->
+    <string name="MessageBackupsEducationScreen__learn_more">자세히 알아보기</string>
+
+    <!-- MessageBackupsPinConfirmationScreen -->
+    <!-- Screen title -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_pin">PIN 입력</string>
+    <!-- Screen subtitle -->
+    <string name="MessageBackupsPinConfirmationScreen__enter_your_signal_pin_to_enable_backups">Signal PIN을 입력하여 백업을 활성화하세요.</string>
+    <!-- Action button to confirm pin entry and continue -->
+    <string name="MessageBackupsPinConfirmationScreen__next">다음</string>
+    <!-- Action button to switch keyboard type -->
+    <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">키보드 전환</string>
+
+    <!-- MessageBackupsPinEducationScreen -->
+    <!-- Screen headline -->
+    <string name="MessageBackupsPinEducationScreen__pins_protect_your_backup">PIN을 사용한 백업 보호</string>
+    <!-- Notice about pin length. Placeholder is recommended pin length -->
+    <string name="MessageBackupsPinEducationScreen__your_signal_pin_lets_you">Signal 재설치 시 Signal PIN을 사용하여 백업을 복원할 수 있습니다. %1$d자리 이상의 PIN을 사용하는 것이 좋습니다.</string>
+    <!-- Notice about changing your pin. -->
+    <string name="MessageBackupsPinEducationScreen__if_you_forget_your_pin">PIN을 잊어버리면 백업을 복원할 수 없습니다. 설정에서 언제든지 PIN을 변경할 수 있습니다.</string>
+    <!-- Action button label to utilize current pin -->
+    <string name="MessageBackupsPinEducationScreen__use_current_signal_pin">현재 Signal PIN 사용</string>
+    <!-- Action button to create a new pin -->
+    <string name="MessageBackupsPinEducationScreen__create_new_pin">새로운 PIN 만들기</string>
+
+    <!-- MessagesBackupsTypeSelectionScreen -->
+    <!-- Screen headline -->
+    <string name="MessagesBackupsTypeSelectionScreen__choose_your_backup_plan">백업 플랜 선택</string>
+    <!-- Screen subhead -->
+    <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">모든 백업 내용은 엔드투엔드로 암호화됩니다. Signal은 비영리 단체입니다. 백업 요금은 Signal의 사명을 지원하는 데 사용됩니다.</string>
+    <!-- Screen subhead highlighted read-more button -->
+    <string name="MessageBackupsTypeSelectionScreen__read_more">더 읽기</string>
     <!-- Primary action button label when selecting a backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__next">다음</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->

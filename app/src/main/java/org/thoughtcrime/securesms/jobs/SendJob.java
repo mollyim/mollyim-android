@@ -34,7 +34,7 @@ public abstract class SendJob extends BaseJob {
   public final void onRun() throws Exception {
     if (SignalStore.misc().isClientDeprecated()) {
       throw new TextSecureExpiredException(String.format("TextSecure expired (build %d, now %d)",
-                                                         BuildConfig.BUILD_TIMESTAMP,
+                                                         BuildConfig.BUILD_OR_ZERO_TIMESTAMP,
                                                          System.currentTimeMillis()));
     }
 

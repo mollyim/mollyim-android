@@ -15,7 +15,7 @@ dependencyResolutionManagement {
       version("exoplayer", "2.19.0")
       version("glide", "4.15.1")
       version("kotlin", "1.9.20")
-      version("libsignal-client", "0.52.2")
+      version("libsignal-client", "0.52.5")
       version("mp4parser", "1.9.39")
       version("android-gradle-plugin", "8.4.0")
       version("accompanist", "0.28.0")
@@ -211,6 +211,7 @@ dependencyResolutionManagement {
       library("mockk-android", "io.mockk:mockk-android:1.13.2")
 
       library("conscrypt-openjdk-uber", "org.conscrypt:conscrypt-openjdk-uber:2.5.2")
+      library("diff-utils", "io.github.java-diff-utils:java-diff-utils:4.12")
     }
 
     create("lintLibs") {
