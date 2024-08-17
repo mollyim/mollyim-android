@@ -38,7 +38,9 @@ object MollySocketRequest {
 
   fun discoverMollySocketServer(): Boolean {
     try {
-      val url = URL(SignalStore.unifiedpush.mollySocketUrl)
+      val url = SignalStore.unifiedpush.mollySocketUrl?.let {
+        URL(it)
+      } ?: return false
       val request = Request.Builder().url(url).build()
       val client = AppDependencies.okHttpClient.newBuilder().build()
       client.newCall(request).execute().use { response ->
@@ -78,7 +80,10 @@ object MollySocketRequest {
         )
       } ?: return RegistrationStatus.NO_DEVICE
 
-      val url = URL(SignalStore.unifiedpush.mollySocketUrl)
+      val url = SignalStore.unifiedpush.mollySocketUrl?.let {
+        URL(it)
+      } ?: return RegistrationStatus.NO_MOLLYSOCKET
+
       val postBody = RequestBody.create(JsonMediaType, JsonUtils.toJson(data))
       val request = Request.Builder().url(url).post(postBody).build()
       val client = AppDependencies.okHttpClient.newBuilder().build()

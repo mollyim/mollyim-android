@@ -9,7 +9,8 @@ enum class RegistrationStatus(private val formatted: String) {
   INVALID_ENDPOINT("invalid_endpoint"),
   INTERNAL_ERROR("internal_error"),
   NO_DEVICE("_1"),
-  NO_ENDPOINT("_2");
+  NO_ENDPOINT("_2"),
+  NO_MOLLYSOCKET("_3");
 
   override fun toString(): String {
     return formatted
@@ -40,6 +41,9 @@ fun RegistrationStatus.saveStatus() {
     RegistrationStatus.NO_ENDPOINT,
     RegistrationStatus.INTERNAL_ERROR -> {
       SignalStore.unifiedpush.mollySocketInternalError = true
+    }
+    RegistrationStatus.NO_MOLLYSOCKET -> {
+      // Do nothing, the mollysocket url is already null
     }
   }
 }
