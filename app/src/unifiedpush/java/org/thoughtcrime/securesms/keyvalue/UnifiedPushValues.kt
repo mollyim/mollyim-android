@@ -18,6 +18,7 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val UNIFIEDPUSH_ENABLED = "unifiedpush.enabled"
     private const val UNIFIEDPUSH_PENDING = "unifiedpush.pending"
     private const val UNIFIEDPUSH_AIR_GAPED = "unifiedpush.air_gaped"
+    private const val UNIFIEDPUSH_PINGED = "unifiedpush.pinged"
   }
 
   override fun onFirstEverAppLaunch() = Unit
@@ -50,6 +51,11 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
 
   var airGaped: Boolean by booleanValue(UNIFIEDPUSH_AIR_GAPED, false)
 
+  // This is set to true by default to avoid warning previous users,
+  // It is set to false when registering a new device in
+  // im.molly.unifiedpush.device.MollySocketLinkedDevice
+  var pinged: Boolean by booleanValue(UNIFIEDPUSH_PINGED, true)
+
   var mollySocketUrl: String? by stringValue(MOLLYSOCKET_URL, null)
 
   var mollySocketFound: Boolean by booleanValue(MOLLYSOCKET_OK, false)
@@ -66,12 +72,15 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
       SignalStore.unifiedpush.pending -> UnifiedPushStatus.PENDING
       SignalStore.unifiedpush.device == null -> UnifiedPushStatus.LINK_DEVICE_ERROR
       SignalStore.unifiedpush.endpoint == null -> UnifiedPushStatus.MISSING_ENDPOINT
+      SignalStore.unifiedpush.airGaped &&
+        !SignalStore.unifiedpush.pinged -> UnifiedPushStatus.AIR_GAPED_NOT_PINGED
       SignalStore.unifiedpush.airGaped -> UnifiedPushStatus.AIR_GAPED
       SignalStore.unifiedpush.mollySocketUrl.isNullOrBlank() ||
         !SignalStore.unifiedpush.mollySocketFound -> UnifiedPushStatus.SERVER_NOT_FOUND_AT_URL
       SignalStore.unifiedpush.mollySocketInternalError -> UnifiedPushStatus.INTERNAL_ERROR
       SignalStore.unifiedpush.forbiddenUuid -> UnifiedPushStatus.FORBIDDEN_UUID
       SignalStore.unifiedpush.forbiddenEndpoint -> UnifiedPushStatus.FORBIDDEN_ENDPOINT
+      !SignalStore.unifiedpush.pinged -> UnifiedPushStatus.NOT_PINGED
       else -> UnifiedPushStatus.OK
     }
 }

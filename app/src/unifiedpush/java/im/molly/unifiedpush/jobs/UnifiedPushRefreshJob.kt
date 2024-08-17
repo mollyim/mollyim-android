@@ -69,6 +69,7 @@ class UnifiedPushRefreshJob private constructor(parameters: Parameters) : BaseJo
       UnifiedPushStatus.MISSING_ENDPOINT,
       UnifiedPushStatus.NO_DISTRIBUTOR,
       UnifiedPushStatus.LINK_DEVICE_ERROR,
+      UnifiedPushStatus.AIR_GAPED_NOT_PINGED,
       UnifiedPushStatus.SERVER_NOT_FOUND_AT_URL-> {
         Log.i(TAG, "UnifiedPush enabled, but this is currently unavailable. Status=$status.")
         reInitializeNotificationServices()
@@ -81,6 +82,7 @@ class UnifiedPushRefreshJob private constructor(parameters: Parameters) : BaseJo
       // We try to register to MollySocket server,
       // Then re-init the services
       UnifiedPushStatus.PENDING,
+      UnifiedPushStatus.NOT_PINGED,
       UnifiedPushStatus.FORBIDDEN_UUID,
       UnifiedPushStatus.FORBIDDEN_ENDPOINT,
       UnifiedPushStatus.INTERNAL_ERROR -> {

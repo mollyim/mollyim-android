@@ -45,7 +45,9 @@ class UnifiedPushReceiver : MessagingReceiver() {
     val msg = message.toString(Charsets.UTF_8)
     if (msg.contains("\"test\":true")) {
       Log.d(TAG, "Test message received.")
+      SignalStore.unifiedpush.pinged = true
       UnifiedPushNotificationBuilder(context).setNotificationTest()
+      AppDependencies.jobManager.add(UnifiedPushRefreshJob())
       return
     }
     if (KeyCachingService.isLocked()) {

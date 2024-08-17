@@ -38,6 +38,7 @@ class MollySocketLinkedDevice(val context: Context) {
     }
     device = SignalStore.unifiedpush.device
       ?: run {
+        SignalStore.unifiedpush.pinged = false
         newDevice()
         SignalStore.unifiedpush.device
       }

@@ -154,6 +154,8 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationsSe
       UnifiedPushStatus.FORBIDDEN_ENDPOINT -> getString(R.string.UnifiedPushSettingsFragment__status_summary_forbidden_endpoint)
       UnifiedPushStatus.NO_DISTRIBUTOR -> getString(R.string.UnifiedPushSettingsFragment__status_summary_no_distributor)
       UnifiedPushStatus.PENDING -> getString(R.string.UnifiedPushSettingsFragment__status_summary_pending)
+      UnifiedPushStatus.AIR_GAPED_NOT_PINGED -> getString(R.string.UnifiedPushSettingsFragment__status_summary_air_gaped_not_pinged)
+      UnifiedPushStatus.NOT_PINGED -> getString(R.string.UnifiedPushSettingsFragment__status_summary_not_pinged)
       UnifiedPushStatus.OK -> getString(R.string.UnifiedPushSettingsFragment__ok)
       UnifiedPushStatus.INTERNAL_ERROR -> getString(R.string.UnifiedPushSettingsFragment__status_summary_internal_error)
       UnifiedPushStatus.UNKNOWN -> getString(R.string.UnifiedPushSettingsFragment__status_summary_unknown_error)
