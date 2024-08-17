@@ -24,6 +24,11 @@ class UnifiedPushNotificationBuilder(val context: Context) {
     ).build()
   }
 
+  fun setNotificationDeviceLimitExceeded() {
+    (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+      .notify(NOTIFICATION_ID_UNIFIEDPUSH, getNotification(context.getString(R.string.UnifiedPushNotificationBuilder__mollysocket_device_limit_exceed)))
+  }
+
   fun setNotificationMollySocketRegistrationChanged() {
     (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
       .notify(NOTIFICATION_ID_UNIFIEDPUSH, getNotification(context.getString(R.string.UnifiedPushNotificationBuilder__mollysocket_registration_changed)))

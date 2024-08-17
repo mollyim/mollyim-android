@@ -156,6 +156,7 @@
     <string name="UnifiedPushSettingsFragment__status_summary_unknown_error">Unknown error</string>
     <string name="UnifiedPushSettingsFragment__air_gaped_summary">Enable if your MollySocket server can\'t be reach on the Internet. You will have to register the connection manually</string>
     <string name="UnifiedPushNotificationBuilder__title">UnifiedPush</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_device_limit_exceed">You have reached the limit of allowed linked devices: we can\'t link your MollySocket server. Please remove a linked device and try again.</string>
     <string name="UnifiedPushNotificationBuilder__mollysocket_registration_changed">Your registration on MollySocket isn\'t valid anymore. Try to remove the linked device and register again.</string>
     <string name="UnifiedPushNotificationBuilder__endpoint_changed_airgaped">Your UnifiedPush endpoint has changed. You must update your connection on MollySocket.</string>
     <string name="UnifiedPushNotificationBuilder__endpoint_changed_error">An error occurred while changing your UnifiedPush endpoint. Try to register again to MollySocket.</string>

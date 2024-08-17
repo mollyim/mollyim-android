@@ -2,6 +2,7 @@ package im.molly.unifiedpush.device
 
 import android.content.Context
 import im.molly.unifiedpush.model.MollyDevice
+import im.molly.unifiedpush.util.UnifiedPushNotificationBuilder
 import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.util.KeyHelper
@@ -18,6 +19,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.account.AccountAttributes
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
+import org.whispersystems.signalservice.internal.push.DeviceLimitExceededException
 import java.io.IOException
 import java.nio.charset.Charset
 
@@ -72,6 +74,9 @@ class MollySocketLinkedDevice(val context: Context) {
         deviceId = deviceId,
         password = password
       )
+    } catch (e: DeviceLimitExceededException) {
+      Log.w(TAG, "The account already have 5 linked devices.")
+      UnifiedPushNotificationBuilder(context).setNotificationDeviceLimitExceeded()
     } catch (e: IOException) {
       Log.e(TAG, "Encountered an IOException", e)
     }
