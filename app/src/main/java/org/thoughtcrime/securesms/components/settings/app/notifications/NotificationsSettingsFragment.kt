@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
+import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.components.settings.PreferenceViewHolder
@@ -335,10 +336,12 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         }
       )
 
+      val unifiedPushEnabled = state.notificationDeliveryMethod == NotificationDeliveryMethod.UNIFIEDPUSH
       clickPref(
         title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__unifiedpush),
         summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__unifiedpushDescription),
-        isEnabled = state.notificationDeliveryMethod == NotificationDeliveryMethod.UNIFIEDPUSH,
+        isEnabled = unifiedPushEnabled,
+        iconEnd = if (unifiedPushEnabled && !state.unifiedPushOk) DSLSettingsIcon.from(R.drawable.ic_alert) else null,
         onClick = {
           findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_unifiedPushFragment)
         }

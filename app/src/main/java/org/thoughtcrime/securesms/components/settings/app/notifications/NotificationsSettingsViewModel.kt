@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import im.molly.unifiedpush.jobs.UnifiedPushRefreshJob
+import im.molly.unifiedpush.model.UnifiedPushStatus
 
 import im.molly.unifiedpush.util.UnifiedPushHelper
 import org.signal.core.util.concurrent.SignalExecutors
@@ -177,7 +178,8 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     notifyWhileLocked = TextSecurePreferences.isPassphraseLockNotificationsEnabled(AppDependencies.application) && SignalStore.account.pushAvailable,
     canEnableNotifyWhileLocked = SignalStore.account.pushAvailable,
     notifyWhenContactJoinsSignal = SignalStore.settings.isNotifyWhenContactJoinsSignal,
-    notificationDeliveryMethod = SignalStore.settings.notificationDeliveryMethod
+    notificationDeliveryMethod = SignalStore.settings.notificationDeliveryMethod,
+    unifiedPushOk = UnifiedPushHelper.isUnifiedPushAvailable()
   )
 
   private fun canEnableNotifications(): Boolean {

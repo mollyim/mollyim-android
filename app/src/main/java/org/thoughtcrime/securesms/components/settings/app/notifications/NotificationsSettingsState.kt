@@ -10,7 +10,8 @@ data class NotificationsSettingsState(
   val notifyWhileLocked: Boolean,
   val canEnableNotifyWhileLocked: Boolean,
   val notifyWhenContactJoinsSignal: Boolean,
-  val notificationDeliveryMethod: NotificationDeliveryMethod
+  val notificationDeliveryMethod: NotificationDeliveryMethod,
+  val unifiedPushOk: Boolean,
 )
 
 data class MessageNotificationsState(
