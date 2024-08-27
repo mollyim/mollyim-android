@@ -977,11 +977,12 @@ object RemoteConfig {
   )
 
   /** Make CDSI lookups via libsignal-net instead of native websocket.  */
-  val useLibsignalNetForCdsiLookup: Boolean by remoteBoolean(
-    key = "android.cds.libsignal.4",
-    defaultValue = false,
-    hotSwappable = true
-  )
+  // val useLibsignalNetForCdsiLookup: Boolean by remoteBoolean(
+  //   key = "android.cds.libsignal.4",
+  //   defaultValue = false,
+  //   hotSwappable = true
+  // )
+  val useLibsignalNetForCdsiLookup: Boolean = false
 
   /** The lifespan of a linked device (i.e. the time it can be inactive for before it expires), in milliseconds.  */
   @JvmStatic
@@ -999,13 +1000,14 @@ object RemoteConfig {
    */
   @JvmStatic
   @get:JvmName("messageBackups")
-  val messageBackups: Boolean by remoteValue(
-    key = "android.messageBackups",
-    hotSwappable = false,
-    active = false  // MOLLY: Test before setting to true
-  ) { value ->
-    value.asBoolean(false)
-  }
+  // val messageBackups: Boolean by remoteValue(
+  //   key = "android.messageBackups",
+  //   hotSwappable = false,
+  //   active = false
+  // ) { value ->
+  //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || value.asBoolean(false)
+  // }
+  val messageBackups: Boolean = false
 
   /** Whether or not to use the custom CameraX controller class  */
   @JvmStatic
@@ -1019,23 +1021,24 @@ object RemoteConfig {
   /** Whether unauthenticated chat web socket is backed by libsignal-net  */
   @JvmStatic
   @get:JvmName("libSignalWebSocketEnabled")
-  val libSignalWebSocketEnabled: Boolean by remoteBoolean(
-    key = "android.libsignalWebSocketEnabled",
-    defaultValue = false,
-    hotSwappable = false,
-    active = false  // MOLLY: Test before setting to true
-  )
+  // val libSignalWebSocketEnabled: Boolean by remoteBoolean(
+  //   key = "android.libsignalWebSocketEnabled",
+  //   defaultValue = false,
+  //   hotSwappable = false
+  // )
+  val libSignalWebSocketEnabled: Boolean = false
 
   /** Whether or not to launch the restore activity after registration is complete, rather than before.  */
   @JvmStatic
   @get:JvmName("restoreAfterRegistration")
-  val restoreAfterRegistration: Boolean by remoteValue(
-    key = "android.registration.restorePostRegistration",
-    hotSwappable = false,
-    active = false  // MOLLY: Test before setting to true
-  ) { value ->
-    value.asBoolean(false)
-  }
+  // val restoreAfterRegistration: Boolean by remoteValue(
+  //   key = "android.registration.restorePostRegistration",
+  //   hotSwappable = false,
+  //   active = false
+  // ) { value ->
+  //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || value.asBoolean(false)
+  // }
+  val restoreAfterRegistration: Boolean = false
 
   /**
    * Percentage [0, 100] of web socket requests that will be "shadowed" by sending
@@ -1043,14 +1046,14 @@ object RemoteConfig {
    */
   @JvmStatic
   @get:JvmName("libSignalWebSocketShadowingPercentage")
-  val libSignalWebSocketShadowingPercentage: Int by remoteValue(
-    key = "android.libsignalWebSocketShadowingPercentage",
-    hotSwappable = false,
-    active = false
-  ) { value ->
-    val remote = value.asInteger(0)
-    remote.coerceIn(0, 100)
-  }
+  // val libSignalWebSocketShadowingPercentage: Int by remoteValue(
+  //   key = "android.libsignalWebSocketShadowingPercentage",
+  //   hotSwappable = false
+  // ) { value ->
+  //   val remote = value.asInteger(0)
+  //   remote.coerceIn(0, 100)
+  // }
+  val libSignalWebSocketShadowingPercentage: Int = 0
 
   @JvmStatic
   val backgroundMessageProcessInterval: Long by remoteValue(

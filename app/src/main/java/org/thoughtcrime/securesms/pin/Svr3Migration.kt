@@ -13,7 +13,7 @@ object Svr3Migration {
    * Whether we should read from SVR3. This is a compile-time flag because it affects what happens pre-registration.
    * It only exists so that we can merge this in before SVR3 is ready server-side. This flag will be removed once we actually launch SVR3 support.
    */
-  const val shouldReadFromSvr3 = false
+  const val shouldReadFromSvr3 = false  // MOLLY: TODO
 
   /**
    * Whether or not you should write to SVR3. If [shouldWriteToSvr2] is also enabled, you should write to SVR3 first.
