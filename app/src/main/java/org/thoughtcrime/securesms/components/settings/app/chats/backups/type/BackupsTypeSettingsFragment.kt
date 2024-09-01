@@ -5,6 +5,9 @@
 
 package org.thoughtcrime.securesms.components.settings.app.chats.backups.type
 
+import android.os.Bundle
+import android.view.View
+import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,9 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
-import kotlinx.collections.immutable.persistentListOf
 import org.signal.core.ui.Previews
 import org.signal.core.ui.Rows
 import org.signal.core.ui.Scaffolds
@@ -28,16 +33,16 @@ import org.signal.core.util.money.FiatMoney
 import org.signal.donations.InAppPaymentType
 import org.signal.donations.PaymentSourceType
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.CheckoutFlowActivity
+import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentCheckoutLauncher.createBackupsCheckoutLauncher
 import org.thoughtcrime.securesms.compose.ComposeFragment
+import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.viewModel
 import java.math.BigDecimal
-import java.util.Currency
 import java.util.Locale
 
 /**
@@ -45,8 +50,22 @@ import java.util.Locale
  */
 class BackupsTypeSettingsFragment : ComposeFragment() {
 
+  companion object {
+    const val REQUEST_KEY = "BackupsTypeSettingsFragment__result"
+  }
+
   private val viewModel: BackupsTypeSettingsViewModel by viewModel {
     BackupsTypeSettingsViewModel()
+  }
+
+  private lateinit var checkoutLauncher: ActivityResultLauncher<InAppPaymentType>
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    checkoutLauncher = createBackupsCheckoutLauncher { backUpLater ->
+      findNavController().popBackStack()
+      setFragmentResult(REQUEST_KEY, bundleOf(REQUEST_KEY to backUpLater))
+    }
   }
 
   @Composable
@@ -73,7 +92,7 @@ class BackupsTypeSettingsFragment : ComposeFragment() {
     }
 
     override fun onChangeOrCancelSubscriptionClick() {
-      startActivity(CheckoutFlowActivity.createIntent(requireContext(), InAppPaymentType.RECURRING_BACKUP))
+      checkoutLauncher.launch(InAppPaymentType.RECURRING_BACKUP)
     }
   }
 
@@ -142,8 +161,18 @@ private fun BackupsTypeRow(
   nextRenewalTimestamp: Long
 ) {
   val resources = LocalContext.current.resources
-  val formattedAmount = remember(messageBackupsType.pricePerMonth) {
-    FiatMoneyUtil.format(resources, messageBackupsType.pricePerMonth, FiatMoneyUtil.formatOptions().trimZerosAfterDecimal())
+  val formattedAmount = remember(messageBackupsType) {
+    val amount = when (messageBackupsType) {
+      is MessageBackupsType.Paid -> messageBackupsType.pricePerMonth
+      else -> FiatMoney(BigDecimal.ZERO, SignalStore.inAppPayments.getSubscriptionCurrency(InAppPaymentSubscriberRecord.Type.BACKUP))
+    }
+
+    FiatMoneyUtil.format(resources, amount, FiatMoneyUtil.formatOptions().trimZerosAfterDecimal())
+  }
+
+  val title = when (messageBackupsType) {
+    is MessageBackupsType.Paid -> stringResource(id = R.string.MessageBackupsTypeSelectionScreen__text_plus_all_your_media)
+    is MessageBackupsType.Free -> pluralStringResource(id = R.plurals.MessageBackupsTypeSelectionScreen__text_plus_d_days_of_media, count = messageBackupsType.mediaRetentionDays, messageBackupsType.mediaRetentionDays)
   }
 
   val renewal = remember(nextRenewalTimestamp) {
@@ -152,7 +181,7 @@ private fun BackupsTypeRow(
 
   Rows.TextRow(text = {
     Column {
-      Text(text = messageBackupsType.title)
+      Text(text = title)
       Text(
         text = stringResource(id = R.string.BackupsTypeSettingsFragment__s_month_renews_s, formattedAmount, renewal),
         style = MaterialTheme.typography.bodyMedium,
@@ -193,11 +222,8 @@ private fun BackupsTypeSettingsContentPreview() {
   Previews.Preview {
     BackupsTypeSettingsContent(
       state = BackupsTypeSettingsState(
-        messageBackupsType = MessageBackupsType(
-          tier = MessageBackupTier.FREE,
-          pricePerMonth = FiatMoney(BigDecimal.ZERO, Currency.getInstance("USD")),
-          title = "Free",
-          features = persistentListOf()
+        messageBackupsType = MessageBackupsType.Free(
+          mediaRetentionDays = 30
         )
       ),
       contentCallbacks = object : ContentCallbacks {}

@@ -734,7 +734,7 @@ public class SignalServiceAccountManager {
                                          AccountAttributes attributes,
                                          PreKeyCollection aciPreKeys, PreKeyCollection pniPreKeys,
                                          @Nullable String fcmToken)
-      throws IOException
+      throws IOException, InvalidKeyException
   {
     int deviceId = this.pushServiceSocket.finishNewDeviceRegistration(provisioningCode, attributes, aciPreKeys, pniPreKeys, fcmToken);
     if (credentials instanceof StaticCredentialsProvider) {

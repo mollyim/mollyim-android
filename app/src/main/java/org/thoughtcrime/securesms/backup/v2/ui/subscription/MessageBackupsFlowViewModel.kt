@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.signal.core.util.money.FiatMoney
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
@@ -25,6 +26,7 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaym
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.gateway.GatewayOrderStrategy
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.PinKeyboardType
@@ -33,6 +35,7 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.kbs.PinHashUtil.verifyLocalPinHash
 import org.whispersystems.signalservice.internal.push.SubscriptionsConfiguration
+import java.math.BigDecimal
 
 class MessageBackupsFlowViewModel : ViewModel() {
   private val internalStateFlow = MutableStateFlow(
@@ -64,23 +67,21 @@ class MessageBackupsFlowViewModel : ViewModel() {
 
   fun goToNextScreen() {
     val pinSnapshot = pinState.value
-    internalPinState.value = ""
 
     internalStateFlow.update {
-      val nextScreen = when (it.screen) {
-        MessageBackupsScreen.EDUCATION -> MessageBackupsScreen.PIN_EDUCATION
-        MessageBackupsScreen.PIN_EDUCATION -> MessageBackupsScreen.PIN_CONFIRMATION
-        MessageBackupsScreen.PIN_CONFIRMATION -> validatePinAndUpdateState(pinSnapshot)
-        MessageBackupsScreen.TYPE_SELECTION -> validateTypeAndUpdateState(it.selectedMessageBackupTier!!)
+      when (it.screen) {
+        MessageBackupsScreen.EDUCATION -> it.copy(screen = MessageBackupsScreen.PIN_EDUCATION)
+        MessageBackupsScreen.PIN_EDUCATION -> it.copy(screen = MessageBackupsScreen.PIN_CONFIRMATION)
+        MessageBackupsScreen.PIN_CONFIRMATION -> validatePinAndUpdateState(it, pinSnapshot)
+        MessageBackupsScreen.TYPE_SELECTION -> validateTypeAndUpdateState(it)
         MessageBackupsScreen.CHECKOUT_SHEET -> validateGatewayAndUpdateState(it)
         MessageBackupsScreen.CREATING_IN_APP_PAYMENT -> error("This is driven by an async coroutine.")
-        MessageBackupsScreen.CANCELLATION_DIALOG -> MessageBackupsScreen.PROCESS_CANCELLATION
-        MessageBackupsScreen.PROCESS_PAYMENT -> MessageBackupsScreen.COMPLETED
-        MessageBackupsScreen.PROCESS_CANCELLATION -> MessageBackupsScreen.COMPLETED
+        MessageBackupsScreen.CANCELLATION_DIALOG -> it.copy(screen = MessageBackupsScreen.PROCESS_CANCELLATION)
+        MessageBackupsScreen.PROCESS_PAYMENT -> it.copy(screen = MessageBackupsScreen.COMPLETED)
+        MessageBackupsScreen.PROCESS_CANCELLATION -> it.copy(screen = MessageBackupsScreen.COMPLETED)
+        MessageBackupsScreen.PROCESS_FREE -> it.copy(screen = MessageBackupsScreen.COMPLETED)
         MessageBackupsScreen.COMPLETED -> error("Unsupported state transition from terminal state COMPLETED")
       }
-
-      it.copy(screen = nextScreen)
     }
   }
 
@@ -98,6 +99,7 @@ class MessageBackupsFlowViewModel : ViewModel() {
           MessageBackupsScreen.CREATING_IN_APP_PAYMENT -> MessageBackupsScreen.TYPE_SELECTION
           MessageBackupsScreen.PROCESS_PAYMENT -> MessageBackupsScreen.TYPE_SELECTION
           MessageBackupsScreen.PROCESS_CANCELLATION -> MessageBackupsScreen.TYPE_SELECTION
+          MessageBackupsScreen.PROCESS_FREE -> MessageBackupsScreen.TYPE_SELECTION
           MessageBackupsScreen.CANCELLATION_DIALOG -> MessageBackupsScreen.TYPE_SELECTION
           MessageBackupsScreen.COMPLETED -> error("Unsupported state transition from terminal state COMPLETED")
         }
@@ -126,8 +128,13 @@ class MessageBackupsFlowViewModel : ViewModel() {
     internalStateFlow.update { it.copy(selectedPaymentMethod = paymentMethod) }
   }
 
-  fun onMessageBackupTierUpdated(messageBackupTier: MessageBackupTier) {
-    internalStateFlow.update { it.copy(selectedMessageBackupTier = messageBackupTier) }
+  fun onMessageBackupTierUpdated(messageBackupTier: MessageBackupTier, messageBackupTierLabel: String) {
+    internalStateFlow.update {
+      it.copy(
+        selectedMessageBackupTier = messageBackupTier,
+        selectedMessageBackupTierLabel = messageBackupTierLabel
+      )
+    }
   }
 
   fun onCancellationComplete() {
@@ -139,42 +146,56 @@ class MessageBackupsFlowViewModel : ViewModel() {
     }
   }
 
-  private fun validatePinAndUpdateState(pin: String): MessageBackupsScreen {
+  private fun validatePinAndUpdateState(state: MessageBackupsFlowState, pin: String): MessageBackupsFlowState {
     val pinHash = SignalStore.svr.localPinHash
 
-    if (pinHash == null || TextUtils.isEmpty(pin) || pin.length < SvrConstants.MINIMUM_PIN_LENGTH) return MessageBackupsScreen.PIN_CONFIRMATION
+    if (pinHash == null || TextUtils.isEmpty(pin) || pin.length < SvrConstants.MINIMUM_PIN_LENGTH) {
+      return state.copy(
+        screen = MessageBackupsScreen.PIN_CONFIRMATION,
+        displayIncorrectPinError = true
+      )
+    }
 
     if (!verifyLocalPinHash(pinHash, pin)) {
-      return MessageBackupsScreen.PIN_CONFIRMATION
+      return state.copy(
+        screen = MessageBackupsScreen.PIN_CONFIRMATION,
+        displayIncorrectPinError = true
+      )
     }
-    return MessageBackupsScreen.TYPE_SELECTION
+
+    internalPinState.value = ""
+    return state.copy(
+      screen = MessageBackupsScreen.TYPE_SELECTION,
+      displayIncorrectPinError = false
+    )
   }
 
-  private fun validateTypeAndUpdateState(tier: MessageBackupTier): MessageBackupsScreen {
-    return when (tier) {
+  private fun validateTypeAndUpdateState(state: MessageBackupsFlowState): MessageBackupsFlowState {
+    return when (state.selectedMessageBackupTier!!) {
       MessageBackupTier.FREE -> {
         if (SignalStore.backup.backupTier == MessageBackupTier.PAID) {
           isDowngrading = true
-          MessageBackupsScreen.PROCESS_CANCELLATION
+          state.copy(screen = MessageBackupsScreen.PROCESS_CANCELLATION)
         } else {
           SignalStore.backup.areBackupsEnabled = true
           SignalStore.backup.backupTier = MessageBackupTier.FREE
 
-          // TODO [message-backups] -- Trigger backup now?
-          MessageBackupsScreen.COMPLETED
+          state.copy(screen = MessageBackupsScreen.PROCESS_FREE)
         }
       }
-      MessageBackupTier.PAID -> MessageBackupsScreen.CHECKOUT_SHEET
+      MessageBackupTier.PAID -> state.copy(screen = MessageBackupsScreen.CHECKOUT_SHEET)
     }
   }
 
-  private fun validateGatewayAndUpdateState(state: MessageBackupsFlowState): MessageBackupsScreen {
+  private fun validateGatewayAndUpdateState(state: MessageBackupsFlowState): MessageBackupsFlowState {
     val backupsType = state.availableBackupTypes.first { it.tier == state.selectedMessageBackupTier }
 
     viewModelScope.launch(Dispatchers.IO) {
       withContext(Dispatchers.Main) {
         internalStateFlow.update { it.copy(inAppPayment = null) }
       }
+
+      val currency = SignalStore.inAppPayments.getSubscriptionCurrency(InAppPaymentSubscriberRecord.Type.BACKUP)
 
       SignalDatabase.inAppPayments.clearCreated()
       val id = SignalDatabase.inAppPayments.insert(
@@ -184,8 +205,8 @@ class MessageBackupsFlowViewModel : ViewModel() {
         endOfPeriod = null,
         inAppPaymentData = InAppPaymentData(
           badge = null,
-          label = backupsType.title,
-          amount = backupsType.pricePerMonth.toFiatValue(),
+          label = state.selectedMessageBackupTierLabel!!,
+          amount = if (backupsType is MessageBackupsType.Paid) backupsType.pricePerMonth.toFiatValue() else FiatMoney(BigDecimal.ZERO, currency).toFiatValue(),
           level = SubscriptionsConfiguration.BACKUPS_LEVEL.toLong(),
           recipientId = Recipient.self().id.serialize(),
           paymentMethodType = state.selectedPaymentMethod!!,
@@ -202,6 +223,6 @@ class MessageBackupsFlowViewModel : ViewModel() {
       }
     }
 
-    return MessageBackupsScreen.CREATING_IN_APP_PAYMENT
+    return state.copy(screen = MessageBackupsScreen.CREATING_IN_APP_PAYMENT)
   }
 }

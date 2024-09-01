@@ -3,10 +3,8 @@ package org.thoughtcrime.securesms.jobs;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
-import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.net.Networking;
@@ -75,7 +73,6 @@ public class ServiceOutageDetectionJob extends BaseJob {
       }
 
       TextSecurePreferences.setLastOutageCheckTime(context, System.currentTimeMillis());
-      EventBus.getDefault().post(new ReminderUpdateEvent());
     } catch (UnknownHostException e) {
       throw new RetryLaterException(e);
     }
@@ -91,7 +88,6 @@ public class ServiceOutageDetectionJob extends BaseJob {
     Log.i(TAG, "Service status check could not complete. Assuming success to avoid false positives due to bad network.");
     TextSecurePreferences.setServiceOutage(context, false);
     TextSecurePreferences.setLastOutageCheckTime(context, System.currentTimeMillis());
-    EventBus.getDefault().post(new ReminderUpdateEvent());
   }
 
   public static final class Factory implements Job.Factory<ServiceOutageDetectionJob> {

@@ -14,15 +14,15 @@ import org.thoughtcrime.securesms.database.model.AvatarPickerDatabase
 import java.io.File
 import java.lang.AssertionError
 
-open class SignalDatabase(private val context: Application, databaseSecret: DatabaseSecret, attachmentSecret: AttachmentSecret, private val name: String = DATABASE_NAME) :
+open class SignalDatabase(private val context: Application, databaseSecret: DatabaseSecret, attachmentSecret: AttachmentSecret, name: String = DATABASE_NAME) :
   SQLiteOpenHelper(
     context,
-    DATABASE_NAME,
+    name,
     databaseSecret.asString(),
     null,
     SignalDatabaseMigrations.DATABASE_VERSION,
     0,
-    SqlCipherErrorHandler(DATABASE_NAME),
+    SqlCipherErrorHandler(name),
     SqlCipherDatabaseHook(),
     true
   ),
@@ -273,7 +273,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
           instance!!.messageTable.deleteAbandonedMessages()
           instance!!.messageTable.trimEntriesForExpiredMessages()
           instance!!.reactionTable.deleteAbandonedReactions()
-          instance!!.searchTable.fullyResetTables()
+          instance!!.searchTable.fullyResetTables(useTransaction = false)
           instance!!.rawWritableDatabase.execSQL("DROP TABLE IF EXISTS key_value")
           instance!!.rawWritableDatabase.execSQL("DROP TABLE IF EXISTS megaphone")
           instance!!.rawWritableDatabase.execSQL("DROP TABLE IF EXISTS job_spec")

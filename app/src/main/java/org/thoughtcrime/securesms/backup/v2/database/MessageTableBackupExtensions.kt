@@ -8,7 +8,7 @@ package org.thoughtcrime.securesms.backup.v2.database
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.select
-import org.thoughtcrime.securesms.backup.v2.BackupState
+import org.thoughtcrime.securesms.backup.v2.ImportState
 import org.thoughtcrime.securesms.database.MessageTable
 import org.thoughtcrime.securesms.database.MessageTypes
 import java.util.concurrent.TimeUnit
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 private val TAG = Log.tag(MessageTable::class.java)
 private const val BASE_TYPE = "base_type"
 
-fun MessageTable.getMessagesForBackup(backupTime: Long, archiveMedia: Boolean): ChatItemExportIterator {
+fun MessageTable.getMessagesForBackup(backupTime: Long, mediaBackupEnabled: Boolean): ChatItemExportIterator {
   val cursor = readableDatabase
     .select(
       MessageTable.ID,
@@ -66,11 +66,11 @@ fun MessageTable.getMessagesForBackup(backupTime: Long, archiveMedia: Boolean): 
     .orderBy("${MessageTable.DATE_RECEIVED} ASC")
     .run()
 
-  return ChatItemExportIterator(cursor, 100, archiveMedia)
+  return ChatItemExportIterator(cursor, 100, mediaBackupEnabled)
 }
 
-fun MessageTable.createChatItemInserter(backupState: BackupState): ChatItemImportInserter {
-  return ChatItemImportInserter(writableDatabase, backupState, 100)
+fun MessageTable.createChatItemInserter(importState: ImportState): ChatItemImportInserter {
+  return ChatItemImportInserter(writableDatabase, importState, 100)
 }
 
 fun MessageTable.clearAllDataForBackupRestore() {

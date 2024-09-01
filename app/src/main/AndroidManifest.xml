@@ -81,6 +81,15 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+
+    <!-- For services -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <!-- For vestigial telecom integration service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
 
     <application android:name=".ApplicationContext"
                  android:icon="@mipmap/ic_launcher"
@@ -105,9 +114,7 @@
     <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
     <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
     <meta-data android:name="firebase_messaging_auto_init_enabled" android:value="false" />
-
-    <meta-data android:name="android.webkit.WebView.MetricsOptOut"
-               android:value="true" />
+    <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
 
     <activity android:name=".WebRtcCallActivity"
               android:theme="@style/TextSecure.DarkTheme.WebRTCCall"
@@ -120,7 +127,19 @@
               android:launchMode="singleTask"
               android:exported="false" />
 
-    <activity android:name=".messagerequests.CalleeMustAcceptMessageRequestActivity"
+        <activity
+            android:name=".components.webrtc.v2.CallActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true"
+            android:taskAffinity=".calling"
+            android:theme="@style/TextSecure.DarkTheme.WebRTCCall"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity android:name=".messagerequests.CalleeMustAcceptMessageRequestActivity"
               android:theme="@style/TextSecure.DarkNoActionBar"
               android:noHistory="true"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
@@ -1057,13 +1076,14 @@
     <service
         android:enabled="true"
         android:name=".service.webrtc.WebRtcCallService"
-        android:foregroundServiceType="camera|microphone"
+        android:foregroundServiceType="dataSync"
         android:exported="false"/>
 
     <service
         android:enabled="true"
         android:exported="false"
-        android:name=".service.KeyCachingService" />
+        android:name=".service.KeyCachingService"
+        android:foregroundServiceType="remoteMessaging"/>
 
     <service
         android:enabled="true"
@@ -1073,6 +1093,7 @@
     <service
         android:enabled="true"
         android:name=".messages.IncomingMessageObserver$ForegroundService"
+        android:foregroundServiceType="remoteMessaging"
         android:exported="false"/>
 
     <service
@@ -1083,6 +1104,7 @@
     <service
         android:name=".service.webrtc.AndroidCallConnectionService"
         android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE"
+        android:foregroundServiceType="phoneCall"
         android:exported="true">
         <intent-filter>
             <action android:name="android.telecom.ConnectionService" />
@@ -1122,14 +1144,17 @@
 
     <service
         android:name=".service.GenericForegroundService"
+        android:foregroundServiceType="dataSync"
         android:exported="false"/>
 
     <service
         android:name=".service.AttachmentProgressService"
+        android:foregroundServiceType="dataSync"
         android:exported="false"/>
 
     <service
         android:name=".service.BackupProgressService"
+        android:foregroundServiceType="dataSync"
         android:exported="false"/>
 
     <service
@@ -1138,6 +1163,7 @@
 
     <service
         android:name=".gcm.FcmFetchForegroundService"
+        android:foregroundServiceType="remoteMessaging"
         android:exported="false"/>
 
     <!-- MOLLY: FcmReceiveService moved to gms/AndroidManifest.xml -->
@@ -1311,7 +1337,7 @@
     <service
         android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService"
         android:exported="false"
-        android:foregroundServiceType="camera|microphone" />
+        android:foregroundServiceType="dataSync|microphone" />
 
     <receiver android:name=".service.webrtc.ActiveCallManager$ActiveCallServiceReceiver" android:exported="false">
         <intent-filter>

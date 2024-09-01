@@ -73,7 +73,7 @@ public final class SettingsValues extends SignalStoreValues {
 
   private final SingleLiveEvent<String> onConfigurationSettingChanged = new SingleLiveEvent<>();
 
-  SettingsValues(@NonNull KeyValueStore store) {
+  SettingsValues(@NonNull KeyValueStore store, Context context) {
     super(store);
   }
 

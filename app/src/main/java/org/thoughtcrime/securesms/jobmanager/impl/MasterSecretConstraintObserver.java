@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;
 import org.thoughtcrime.securesms.service.KeyCachingService;
@@ -27,11 +28,11 @@ public class MasterSecretConstraintObserver implements ConstraintObserver {
 
     filter.addAction(KeyCachingService.CLEAR_KEY_EVENT);
 
-    application.registerReceiver(new BroadcastReceiver() {
+    ContextCompat.registerReceiver(application, new BroadcastReceiver() {
       @Override
       public void onReceive(Context context, Intent intent) {
         notifier.onConstraintMet(REASON);
       }
-    }, filter, KeyCachingService.KEY_PERMISSION, null);
+    }, filter, KeyCachingService.KEY_PERMISSION, null, ContextCompat.RECEIVER_NOT_EXPORTED);
   }
 }

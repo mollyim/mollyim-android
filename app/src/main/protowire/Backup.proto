@@ -63,7 +63,7 @@ message AccountData {
     bool linkPreviews = 4;
     bool notDiscoverableByPhoneNumber = 5;
     bool preferContactAvatars = 6;
-    uint32 universalExpireTimer = 7; // 0 means no universal expire timer.
+    uint32 universalExpireTimerSeconds = 7; // 0 means no universal expire timer.
     repeated string preferredReactionEmoji = 8;
     bool displayBadgesOnProfile = 9;
     bool keepMutedChatsArchived = 10;
@@ -75,6 +75,7 @@ message AccountData {
     bool hasCompletedUsernameOnboarding = 16;
     PhoneNumberSharingMode phoneNumberSharingMode = 17;
     ChatStyle defaultChatStyle = 18;
+    repeated ChatStyle.CustomChatColor customChatColors = 19;
   }
 
   message SubscriberData {
@@ -156,7 +157,7 @@ message Group {
   // We would use Groups.proto if we could, but we want a plaintext version to improve export readability.
   // For documentation, defer to Groups.proto. The only name change is Group -> GroupSnapshot to avoid the naming conflict.
   message GroupSnapshot {
-    bytes publicKey = 1;
+    reserved /*publicKey*/ 1;  // The field is deprecated in the context of static group state
     GroupAttributeBlob title = 2;
     GroupAttributeBlob description = 11;
     string avatarUrl = 3;
@@ -342,23 +343,46 @@ message ChatItem {
 }
 
 message SendStatus {
-  enum Status {
-    UNKNOWN = 0;
-    FAILED = 1;
-    PENDING = 2;
-    SENT = 3;
-    DELIVERED = 4;
-    READ = 5;
-    VIEWED = 6;
-    SKIPPED = 7; // e.g. user in group was blocked, so we skipped sending to them
+  message Pending {}
+
+  message Sent {
+    bool sealedSender = 1;
+  }
+
+  message Delivered {
+    bool sealedSender = 1;
+  }
+
+  message Read {
+    bool sealedSender = 1;
+  }
+
+  message Viewed {
+    bool sealedSender = 1;
+  }
+
+  // e.g. user in group was blocked, so we skipped sending to them
+  message Skipped {}
+
+  message Failed {
+    oneof reason {
+      bool network = 1;
+      bool identityKeyMismatch = 2;
+    }
   }
 
   uint64 recipientId = 1;
-  Status deliveryStatus = 2;
-  bool networkFailure = 3;
-  bool identityKeyMismatch = 4;
-  bool sealedSender = 5;
-  uint64 lastStatusUpdateTimestamp = 6; // the time the status was last updated -- if from a receipt, it should be the sentTime of the receipt
+  uint64 timestamp = 2; // the time the status was last updated -- if from a receipt, it should be the sentTime of the receipt
+
+  oneof deliveryStatus {
+    Pending pending = 3;
+    Sent sent = 4;
+    Delivered delivered = 5;
+    Read read = 6;
+    Viewed viewed = 7;
+    Skipped skipped = 8;
+    Failed failed = 9;
+  }
 }
 
 message Text {
@@ -651,8 +675,11 @@ message Reaction {
   string emoji = 1;
   uint64 authorId = 2;
   uint64 sentTimestamp = 3;
+  // Optional because some clients may not track this data
   optional uint64 receivedTimestamp = 4;
-  uint64 sortOrder = 5; // A higher sort order means that a reaction is more recent
+  // A higher sort order means that a reaction is more recent. Some clients may export this as
+  // incrementing numbers (e.g. 1, 2, 3), others as timestamps.
+  uint64 sortOrder = 5;
 }
 
 message ChatUpdateMessage {
@@ -748,6 +775,9 @@ message SimpleChatUpdate {
     PAYMENT_ACTIVATION_REQUEST = 11;
     UNSUPPORTED_PROTOCOL_MESSAGE = 12;
     REPORTED_SPAM = 13;
+    BLOCKED = 14;
+    UNBLOCKED = 15;
+    ACCEPTED = 16;
   }
 
   Type type = 1;
@@ -756,7 +786,7 @@ message SimpleChatUpdate {
 // For 1:1 chat updates only.
 // For group thread updates use GroupExpirationTimerUpdate.
 message ExpirationTimerChatUpdate {
-  uint32 expiresInMs = 1; // 0 means the expiration timer was disabled
+  uint64 expiresInMs = 1; // 0 means the expiration timer was disabled
 }
 
 message ProfileChangeChatUpdate {
@@ -1022,7 +1052,7 @@ message GroupV2MigrationDroppedMembersUpdate {
 
 // For 1:1 timer updates, use ExpirationTimerChatUpdate.
 message GroupExpirationTimerUpdate {
-  uint32 expiresInMs = 1; // 0 means the expiration timer was disabled
+  uint64 expiresInMs = 1; // 0 means the expiration timer was disabled
   optional bytes updaterAci = 2;
 }
 
@@ -1034,8 +1064,17 @@ message StickerPack {
 message ChatStyle {
   message Gradient {
     uint32 angle = 1; // degrees
-    repeated uint32 colors = 2;
+    repeated fixed32 colors = 2;
     repeated float positions = 3; // percent from 0 to 1
+  }
+
+  message CustomChatColor {
+    uint64 id = 1;
+
+    oneof color {
+      fixed32 solid = 2;
+      Gradient gradient = 3;
+    }
   }
 
   message AutomaticBubbleColor {
@@ -1098,10 +1137,14 @@ message ChatStyle {
   }
 
   oneof bubbleColor {
-    BubbleColorPreset bubbleColorPreset = 3;
-    Gradient bubbleGradient = 4;
-    uint32 bubbleSolidColor = 5;
-    // Bubble setting is automatically determined based on the wallpaper setting.
-    AutomaticBubbleColor autoBubbleColor = 6;
+    // Bubble setting is automatically determined based on the wallpaper setting,
+    // or `SOLID_ULTRAMARINE` for `noWallpaper`
+    AutomaticBubbleColor autoBubbleColor = 3;
+    BubbleColorPreset bubbleColorPreset = 4;
+
+    // See AccountSettings.customChatColors
+    uint64 customColorId = 5;
   }
+
+  bool dimWallpaperInDarkMode = 7;
 }

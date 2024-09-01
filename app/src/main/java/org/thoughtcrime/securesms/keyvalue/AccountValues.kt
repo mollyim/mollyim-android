@@ -1,6 +1,6 @@
 package org.thoughtcrime.securesms.keyvalue
 
-import androidx.annotation.VisibleForTesting
+import android.content.Context
 import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKey
@@ -26,10 +26,11 @@ import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.api.util.toByteArray
 import java.security.SecureRandom
 
-class AccountValues internal constructor(store: KeyValueStore) : SignalStoreValues(store) {
+class AccountValues internal constructor(store: KeyValueStore, context: Context) : SignalStoreValues(store) {
 
   companion object {
     private val TAG = Log.tag(AccountValues::class.java)
+
     // MOLLY: Ensure all keys below are parametrized with the account number
     private const val KEY_SERVICE_PASSWORD = "account.1.service_password"
     private const val KEY_REGISTRATION_ID = "account.1.registration_id"
@@ -50,15 +51,10 @@ class AccountValues internal constructor(store: KeyValueStore) : SignalStoreValu
     private const val KEY_PNI_ACTIVE_SIGNED_PREKEY_ID = "account.1.pni_active_signed_prekey_id"
     private const val KEY_PNI_LAST_SIGNED_PREKEY_ROTATION_TIME = "account.1.pni_last_signed_prekey_rotation_time"
     private const val KEY_PNI_NEXT_ONE_TIME_PREKEY_ID = "account.1.pni_next_one_time_prekey_id"
-
-    @VisibleForTesting
-    const val KEY_E164 = "account.1.e164"
-    @VisibleForTesting
-    const val KEY_ACI = "account.1.aci"
-    @VisibleForTesting
-    const val KEY_PNI = "account.1.pni"
-    @VisibleForTesting
-    const val KEY_IS_REGISTERED = "account.1.is_registered"
+    private const val KEY_E164 = "account.1.e164"
+    private const val KEY_ACI = "account.1.aci"
+    private const val KEY_PNI = "account.1.pni"
+    private const val KEY_IS_REGISTERED = "account.1.is_registered"
 
     // MOLLY: Leave these keys untouched to preserve compatibility with Signal backups
     private const val KEY_ACI_IDENTITY_PUBLIC_KEY = "account.aci_identity_public_key"
@@ -71,7 +67,6 @@ class AccountValues internal constructor(store: KeyValueStore) : SignalStoreValu
     private const val KEY_PNI_NEXT_KYBER_PREKEY_ID = "account.pni_next_kyber_prekey_id"
     private const val KEY_PNI_LAST_RESORT_KYBER_PREKEY_ID = "account.pni_last_resort_kyber_prekey_id"
     private const val KEY_PNI_LAST_RESORT_KYBER_PREKEY_ROTATION_TIME = "account.pni_last_resort_kyber_prekey_rotation_time"
-
     private const val KEY_USERNAME = "account.username"
     private const val KEY_USERNAME_LINK_ENTROPY = "account.username_link_entropy"
     private const val KEY_USERNAME_LINK_SERVER_ID = "account.username_link_server_id"
@@ -81,7 +76,7 @@ class AccountValues internal constructor(store: KeyValueStore) : SignalStoreValu
 
   init {
     if (!store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)) {
-      migrateFromSharedPrefs()
+      migrateFromSharedPrefs(context)
     }
 
     store.getString(KEY_PNI, null)?.let { pni ->
@@ -450,10 +445,9 @@ class AccountValues internal constructor(store: KeyValueStore) : SignalStoreValu
     AppDependencies.groupsV2Authorization.clear()
   }
 
-  private fun migrateFromSharedPrefs() {
+  private fun migrateFromSharedPrefs(context: Context) {
     Log.i(TAG, "Migrating account values from shared prefs:")
 
-    val context = AppDependencies.application
     val sharedPrefs = SecurePreferenceManager.getSecurePreferences(context)
     val identitySharedPrefs = EncryptedPreferences.create(context, "SecureSMS-Preferences")
 

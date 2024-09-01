@@ -46,6 +46,7 @@ class InAppPaymentKeepAliveJob private constructor(
 
     private val TIMEOUT = 3.days
 
+    const val KEEP_ALIVE = "keep-alive"
     private const val DATA_TYPE = "type"
 
     fun create(type: InAppPaymentSubscriberRecord.Type): Job {
@@ -121,14 +122,15 @@ class InAppPaymentKeepAliveJob private constructor(
       return
     }
 
-    if (SignalDatabase.inAppPayments.hasPending(type.inAppPaymentType)) {
-      info(type, "Already trying to redeem $type. Exiting.")
-      return
-    }
-
     val activeInAppPayment = getActiveInAppPayment(subscriber, subscription)
     if (activeInAppPayment == null) {
       warn(type, "Failed to generate active in-app payment. Exiting")
+      return
+    }
+
+    if (activeInAppPayment.state == InAppPaymentTable.State.END) {
+      warn(type, "Active in-app payment is in the END state. Cannot proceed.")
+      warn(type, "Active in-app payment cancel state: ${activeInAppPayment.data.cancellation}")
       return
     }
 
@@ -258,6 +260,17 @@ class InAppPaymentKeepAliveJob private constructor(
 
       MultiDeviceSubscriptionSyncRequestJob.enqueue()
       SignalDatabase.inAppPayments.getById(inAppPaymentId)
+    } else if (current.state == InAppPaymentTable.State.PENDING && current.data.error?.data_ == KEEP_ALIVE) {
+      info(type, "Found failed keep-alive. Retrying.")
+      SignalDatabase.inAppPayments.update(
+        current.copy(
+          data = current.data.copy(
+            error = null
+          )
+        )
+      )
+
+      SignalDatabase.inAppPayments.getById(current.id)
     } else {
       current
     }

@@ -937,7 +937,7 @@ object RemoteConfig {
   @JvmStatic
   @get:JvmName("useActiveCallManager")
   val useActiveCallManager: Boolean by remoteBoolean(
-    key = "android.calling.useActiveCallManager.5",
+    key = "android.calling.useActiveCallManager.6",
     defaultValue = false,
     hotSwappable = false
   )
@@ -1008,15 +1008,6 @@ object RemoteConfig {
   //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || value.asBoolean(false)
   // }
   val messageBackups: Boolean = false
-
-  /** Whether or not to use the custom CameraX controller class  */
-  @JvmStatic
-  @get:JvmName("customCameraXController")
-  val customCameraXController: Boolean by remoteBoolean(
-    key = "android.cameraXCustomController",
-    defaultValue = false,
-    hotSwappable = true
-  )
 
   /** Whether unauthenticated chat web socket is backed by libsignal-net  */
   @JvmStatic
@@ -1090,6 +1081,14 @@ object RemoteConfig {
     key = "android.connectivityWarningConfig",
     defaultValue = "",
     hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("useNewCallApi")
+  val newCallUi: Boolean by remoteBoolean(
+    key = "android.newCallUi",
+    defaultValue = false,
+    hotSwappable = false
   )
 
   // endregion

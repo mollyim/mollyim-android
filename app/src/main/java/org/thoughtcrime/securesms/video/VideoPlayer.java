@@ -25,7 +25,6 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.annotation.OptIn;
 import androidx.media3.common.C;
 import androidx.media3.common.MediaItem;
@@ -48,7 +47,6 @@ import org.thoughtcrime.securesms.mediapreview.MediaPreviewPlayerControlView;
 import org.thoughtcrime.securesms.mms.VideoSlide;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 @OptIn(markerClass = UnstableApi.class)
 public class VideoPlayer extends FrameLayout {
@@ -288,9 +286,15 @@ public class VideoPlayer extends FrameLayout {
     return 0L;
   }
 
-  public long getPlaybackPositionUs() {
+  /**
+   * After calling {@link #setPlaybackPosition}, the underlying {@link Player} resets the current position to 0.
+   * We manually store the offset of where we clipped to, and add that here.
+   *
+   * @return the current playback position, rounded to the nearest millisecond
+   */
+  public long getTruePlaybackPosition() {
     if (this.exoPlayer != null) {
-      return TimeUnit.MILLISECONDS.toMicros(this.exoPlayer.getCurrentPosition());
+      return this.exoPlayer.getCurrentPosition() + Math.round(clippedStartUs / 1000.0);
     }
     return -1L;
   }

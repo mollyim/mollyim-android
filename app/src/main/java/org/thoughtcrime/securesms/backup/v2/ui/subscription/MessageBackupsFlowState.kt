@@ -12,6 +12,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.PinKeyboardType
 
 data class MessageBackupsFlowState(
+  val selectedMessageBackupTierLabel: String? = null,
   val selectedMessageBackupTier: MessageBackupTier? = SignalStore.backup.backupTier,
   val currentMessageBackupTier: MessageBackupTier? = SignalStore.backup.backupTier,
   val availableBackupTypes: List<MessageBackupsType> = emptyList(),
@@ -20,5 +21,6 @@ data class MessageBackupsFlowState(
   val pinKeyboardType: PinKeyboardType = SignalStore.pin.keyboardType,
   val inAppPayment: InAppPaymentTable.InAppPayment? = null,
   val startScreen: MessageBackupsScreen,
-  val screen: MessageBackupsScreen = startScreen
+  val screen: MessageBackupsScreen = startScreen,
+  val displayIncorrectPinError: Boolean = false
 )
