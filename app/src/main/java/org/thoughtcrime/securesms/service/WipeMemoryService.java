@@ -182,6 +182,13 @@ public class WipeMemoryService extends IntentService {
     super.onLowMemory();
   }
 
+  @Override
+  public void onTimeout(int startId) {
+    notifyLowMemory();
+    Log.i(TAG, "onTimeout()");
+    super.onTimeout(startId);
+  }
+
   private void notifyLowMemory() {
     lowMemory = true;
   }

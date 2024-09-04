@@ -1087,11 +1087,6 @@
 
     <service
         android:enabled="true"
-        android:exported="false"
-        android:name=".service.WipeMemoryService" />
-
-    <service
-        android:enabled="true"
         android:name=".messages.IncomingMessageObserver$ForegroundService"
         android:foregroundServiceType="remoteMessaging"
         android:exported="false"/>
@@ -1167,6 +1162,11 @@
         android:exported="false"/>
 
     <!-- MOLLY: FcmReceiveService moved to gms/AndroidManifest.xml -->
+
+    <service
+        android:name=".service.WipeMemoryService"
+        android:exported="false"
+        android:foregroundServiceType="remoteMessaging" />
 
     <receiver android:name=".notifications.MarkReadReceiver"
               android:enabled="true"
