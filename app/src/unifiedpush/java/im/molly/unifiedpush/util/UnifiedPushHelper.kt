@@ -4,12 +4,11 @@ import android.content.Context
 import im.molly.unifiedpush.device.MollySocketLinkedDevice
 import im.molly.unifiedpush.model.UnifiedPushStatus
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.unifiedpush.android.connector.ChooseDialog
-import org.unifiedpush.android.connector.NoDistributorDialog
-import org.unifiedpush.android.connector.RegistrationDialogContent
+import org.unifiedpush.android.connector.INSTANCE_DEFAULT
 import org.unifiedpush.android.connector.UnifiedPush
+import org.unifiedpush.android.connector.ui.SelectDistributorDialogBuilder
+import org.unifiedpush.android.connector.ui.UnifiedPushFunctions
 
 object UnifiedPushHelper {
   private val TAG = Log.tag(UnifiedPushHelper::class.java)
@@ -33,16 +32,16 @@ object UnifiedPushHelper {
   fun registerAppWithDialogIfNeeded(context: Context) {
     checkDistributorPresence(context)
     if (SignalStore.unifiedpush.status == UnifiedPushStatus.MISSING_ENDPOINT) {
-      val dialogContent = RegistrationDialogContent(
-        noDistributorDialog = NoDistributorDialog(
-          title = context.getString(R.string.UnifiedPush_RegistrationDialog_NoDistrib_title),
-          message = context.getString(R.string.UnifiedPush_RegistrationDialog_NoDistrib_message),
-          okButton = context.getString(R.string.UnifiedPush_RegistrationDialog_NoDistrib_ok),
-          ignoreButton = context.getString(R.string.UnifiedPush_RegistrationDialog_NoDistrib_ignore)
-        ),
-        chooseDialog = ChooseDialog(context.getString(R.string.UnifiedPush_RegistrationDialog_Choose_title))
-      )
-      UnifiedPush.registerAppWithDialog(context, registrationDialogContent = dialogContent)
+      object : SelectDistributorDialogBuilder(
+        context,
+        listOf(INSTANCE_DEFAULT),
+        object : UnifiedPushFunctions {
+          override fun getAckDistributor(): String? = UnifiedPush.getAckDistributor(context)
+          override fun getDistributors(): List<String> = UnifiedPush.getDistributors(context)
+          override fun registerApp(instance: String) = UnifiedPush.registerApp(context, instance)
+          override fun saveDistributor(distributor: String) = UnifiedPush.saveDistributor(context, distributor)
+        },
+      ){}.show()
     }
   }
 

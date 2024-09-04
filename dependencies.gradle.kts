@@ -137,7 +137,8 @@ dependencyResolutionManagement {
       library("molly-glide-webp-decoder", "im.molly:glide-webp-decoder:1.3.2-2")
 
       // UnifiedPush
-      library("unifiedpush-connector", "com.github.UnifiedPush:android-connector:2.4.0")
+      library("unifiedpush-connector", "org.unifiedpush.android:connector:2.5.0")
+      library("unifiedpush-connector-ui", "org.unifiedpush.android:connector-ui:1.1.0-rc2")
 
       // Third Party
       library("greenrobot-eventbus", "org.greenrobot:eventbus:3.0.0")

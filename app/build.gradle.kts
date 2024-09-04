@@ -535,6 +535,7 @@ dependencies {
   implementation(libs.gosimple.nbvcxz)
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
   implementation(libs.unifiedpush.connector)
+  implementation(libs.unifiedpush.connector.ui)
 
   "gmsImplementation"(project(":billing"))
 
