@@ -87,5 +87,36 @@
         <item quantity="many">%d зв\'язаних пристроїв</item>
         <item quantity="other">%d зв\'язаних пристроїв</item>
     </plurals>
+    <string name="preferences_appearance__navigation_bar">Панель навігації</string>
+    <string name="preferences_appearance__show_calls">Показати виклики</string>
+    <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Перемкнути відображення на панелі навігації</string>
+    <string name="Megaphones_turn_on_stories">Увімкнути історії</string>
+    <string name="EnableAppUpdatesMegaphone_check_for_updates_automatically">Автоматично перевіряти наявність оновлень?</string>
+    <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">Ви отримуватимете сповіщення коли оновлення стане доступним</string>
+    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Для оновлення, будь ласка, перевірте ваш магазин застосунків. Ця версія застосунку не містить вбудованого оновлювача.</string>
+    <string name="EnableAppUpdatesMegaphone_check_for_updates">Перевіряти наявність оновлень</string>
+    <string name="EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them">Molly може періодично перевіряти наявність нових випусків і просити вас встановити їх.</string>
+    <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s не зареєстрований у Signal</string>
+    <string name="TimeDurationPickerDialog_single_letter_second_abbreviation">с</string>
+    <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">Налаштування PIN не можна змінити з прив\'язаного пристрою</string>
+    <string name="DeviceListItem_device_d">Пристрій №%d</string>
+    <string name="RegistrationActivity_enter_a_name_for_this_device">Введіть назву цього пристрою</string>
+    <string name="RegistrationActivity_device_name_description">Назва пристрою</string>
+    <string name="RegistrationActivity_link">Посилання</string>
+    <string name="NotificationsSettingsFragment__new_activity_while_locked">Нова активність під час блокування</string>
+    <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Отримуйте сповіщення про повідомлення або пропущені дзвінки, коли додаток заблоковано.</string>
+    <string name="RegistrationActivity_link_timeout">Вичерпано час очікування основного пристрою. Підготуйте пристрій до сканування QR-коду, потім спробуйте ще раз</string>
+    <string name="RegistrationActivity_provider_declined">Постачальник відмовився надіслати вам код підтвердження, ймовірно, через правила запобігання шахрайству.</string>
+    <string name="DeviceListItem_this_device">Цей пристрій</string>
+    <string name="DeviceListItem_registered_s">Зареєстровано %s</string>
+    <string name="RegistrationActivity_link_device">Посилання на наявний пристрій</string>
+    <string name="DeviceListItem_primary">Основний</string>
+    <string name="RegistrationActivity_scan_this_qr_using_your_primary_device">Зіскануйте цей QR-код за допомогою основного пристрою</string>
+    <string name="RegistrationActivity_copied_to_clipboard">Скопійовано до буфера обміну</string>
+    <string name="RegistrationActivity_link_error">Виникла помилка під час спроби підʼєднати пристрій. Перевірте підключення до мережі та повторіть спробу</string>
+    <string name="RegistrationActivity_link_retry">Повторити спробу привʼязки</string>
+    <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">Вибачте, ця функція вимагає push-сповіщень через FCM або UnifiedPush, які наразі недоступні.</string>
+    <string name="NotificationsSettingsFragment__push_notifications_unavailable">Push-сповіщення недоступні</string>
+    <string name="AppUpdatesSettingsFragment__last_checked_s">Остання перевірка: %s</string>
     <string name="prompt_passphrase_activity__molly_is_locked">Molly заблоковано</string>
 </resources>
