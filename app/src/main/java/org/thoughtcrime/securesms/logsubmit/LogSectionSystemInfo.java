@@ -96,7 +96,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("IgnoringBatteryOpt: ").append(PowerManagerCompat.isIgnoringBatteryOptimizations(context)).append("\n");
     builder.append("BkgRestricted     : ").append(Build.VERSION.SDK_INT >= 28 ? DeviceProperties.isBackgroundRestricted(context) : "N/A").append("\n");
     builder.append("Data Saver        : ").append(DeviceProperties.getDataSaverState(context)).append("\n");
-    builder.append("APNG Animation    : ").append(DeviceProperties.shouldAllowApngStickerAnimation(context)).append("\n");
+    builder.append("APNG Animation    : ").append(locked ? "Unknown" : DeviceProperties.shouldAllowApngStickerAnimation(context)).append("\n");
     if (BuildConfig.MANAGES_MOLLY_UPDATES) {
       builder.append("Update Check URL  : ").append(BuildConfig.FDROID_UPDATE_URL).append("\n");
     }

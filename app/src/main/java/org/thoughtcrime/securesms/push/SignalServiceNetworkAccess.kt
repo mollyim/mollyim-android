@@ -33,7 +33,7 @@ open class SignalServiceNetworkAccess(context: Context) {
   companion object {
     private val TAG = Log.tag(SignalServiceNetworkAccess::class.java)
 
-    // MOLLY: DNS moved to Network object. Add new hostnames to HOSTNAMES below.
+    // MOLLY: DNS object moved to Networking.kt
 
     private fun String.stripProtocol(): String {
       return this.removePrefix("https://")
@@ -48,7 +48,9 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val COUNTRY_CODE_UZBEKISTAN = 998
     private const val COUNTRY_CODE_RUSSIA = 7
     private const val COUNTRY_CODE_VENEZUELA = 58
+    private const val COUNTRY_CODE_PAKISTAN = 92
 
+    // MOLLY: Add new hostnames and URLs to HOSTNAMES below
     private const val G_HOST = "reflector-nrgwuv7kwq-uc.a.run.app"
     private const val F_SERVICE_HOST = "chat-signal.global.ssl.fastly.net"
     private const val F_STORAGE_HOST = "storage.signal.org.global.prod.fastly.net"
@@ -57,7 +59,6 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val F_CDN3_HOST = "cdn3-signal.global.ssl.fastly.net"
     private const val F_CDSI_HOST = "cdsi-signal.global.ssl.fastly.net"
     private const val F_SVR2_HOST = "svr2-signal.global.ssl.fastly.net"
-
     private const val HTTPS_WWW_GOOGLE_COM = "https://www.google.com"
     private const val HTTPS_ANDROID_CLIENTS_GOOGLE_COM = "https://android.clients.google.com"
     private const val HTTPS_CLIENTS_3_GOOGLE_COM = "https://clients3.google.com"
@@ -72,6 +73,8 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val HTTPS_WWW_GOOGLE_COM_OM = "https://www.google.com.om"
     private const val HTTPS_WWW_GOOGLE_COM_QA = "https://www.google.com.qa"
     private const val HTTPS_WWW_GOOGLE_CO_UZ = "https://www.google.co.uz"
+    private const val HTTPS_WWW_GOOGLE_CO_VE = "https://www.google.co.ve"
+    private const val HTTPS_WWW_GOOGLE_COM_PK = "https://www.google.com.pk"
 
     @JvmField
     val HOSTNAMES = setOf(
@@ -108,6 +111,8 @@ open class SignalServiceNetworkAccess(context: Context) {
       HTTPS_WWW_GOOGLE_COM_OM.stripProtocol(),
       HTTPS_WWW_GOOGLE_COM_QA.stripProtocol(),
       HTTPS_WWW_GOOGLE_CO_UZ.stripProtocol(),
+      HTTPS_WWW_GOOGLE_CO_VE.stripProtocol(),
+      HTTPS_WWW_GOOGLE_COM_PK.stripProtocol(),
     )
 
     private val GMAPS_CONNECTION_SPEC = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
@@ -241,14 +246,17 @@ open class SignalServiceNetworkAccess(context: Context) {
       listOf(HostConfig(HTTPS_WWW_GOOGLE_CO_UZ, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_VENEZUELA to buildGConfiguration(
-      listOf(HostConfig("https://www.google.co.ve", G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_CO_VE, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
+    ),
+    COUNTRY_CODE_PAKISTAN to buildGConfiguration(
+      listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_PK, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_IRAN to fConfig,
     COUNTRY_CODE_CUBA to fConfig,
     COUNTRY_CODE_RUSSIA to fConfig
   )
 
-  private val defaultCensoredConfiguration: SignalServiceConfiguration = buildGConfiguration(baseGHostConfigs)
+  private val defaultCensoredConfiguration: SignalServiceConfiguration = buildGConfiguration(baseGHostConfigs) + fConfig
 
   private val defaultCensoredCountryCodes: Set<Int> = setOf(
     COUNTRY_CODE_EGYPT,
@@ -257,7 +265,10 @@ open class SignalServiceNetworkAccess(context: Context) {
     COUNTRY_CODE_QATAR,
     COUNTRY_CODE_IRAN,
     COUNTRY_CODE_CUBA,
-    COUNTRY_CODE_UZBEKISTAN
+    COUNTRY_CODE_UZBEKISTAN,
+    COUNTRY_CODE_RUSSIA,
+    COUNTRY_CODE_VENEZUELA,
+    COUNTRY_CODE_PAKISTAN
   )
 
   open val uncensoredConfiguration: SignalServiceConfiguration = SignalServiceConfiguration(

@@ -55,7 +55,7 @@ class AppSettingsActivity : DSLSettingsActivity(), InAppPaymentComponent {
         StartLocation.PROXY -> AppSettingsFragmentDirections.actionDirectToNetworkPreferenceFragment()
         StartLocation.NOTIFICATIONS -> AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
         StartLocation.CHANGE_NUMBER -> AppSettingsFragmentDirections.actionDirectToChangeNumberFragment()
-        StartLocation.SUBSCRIPTIONS -> AppSettingsFragmentDirections.actionDirectToCheckout(InAppPaymentType.RECURRING_DONATION)
+        StartLocation.SUBSCRIPTIONS -> AppSettingsFragmentDirections.actionDirectToManageDonations().setDirectToCheckoutType(InAppPaymentType.RECURRING_DONATION)
         StartLocation.MANAGE_SUBSCRIPTIONS -> AppSettingsFragmentDirections.actionDirectToManageDonations()
         StartLocation.NOTIFICATION_PROFILES -> AppSettingsFragmentDirections.actionDirectToNotificationProfiles()
         StartLocation.CREATE_NOTIFICATION_PROFILE -> AppSettingsFragmentDirections.actionDirectToCreateNotificationProfiles()

@@ -29,10 +29,22 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
-import org.signal.core.util.concurrent.subscribeWithSubject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.rx3.asFlow
 import org.signal.core.util.orNull
 import org.signal.paging.ProxyPagingController
-import org.thoughtcrime.securesms.components.reminder.Reminder
+import org.thoughtcrime.securesms.banner.Banner
+import org.thoughtcrime.securesms.banner.banners.BubbleOptOutBanner
+import org.thoughtcrime.securesms.banner.banners.GroupsV1MigrationSuggestionsBanner
+import org.thoughtcrime.securesms.banner.banners.OutdatedBuildBanner
+import org.thoughtcrime.securesms.banner.banners.PendingGroupJoinRequestsBanner
+import org.thoughtcrime.securesms.banner.banners.ServiceOutageBanner
+import org.thoughtcrime.securesms.banner.banners.UnauthorizedBanner
 import org.thoughtcrime.securesms.contactshare.Contact
 import org.thoughtcrime.securesms.conversation.ConversationMessage
 import org.thoughtcrime.securesms.conversation.ScheduledMessagesRepository
@@ -42,6 +54,7 @@ import org.thoughtcrime.securesms.conversation.v2.data.ConversationElementKey
 import org.thoughtcrime.securesms.conversation.v2.items.ChatColorsDrawable
 import org.thoughtcrime.securesms.database.DatabaseObserver
 import org.thoughtcrime.securesms.database.MessageTable
+import org.thoughtcrime.securesms.database.model.GroupRecord
 import org.thoughtcrime.securesms.database.model.IdentityRecord
 import org.thoughtcrime.securesms.database.model.Mention
 import org.thoughtcrime.securesms.database.model.MessageId
@@ -72,7 +85,6 @@ import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.thoughtcrime.securesms.util.rx.RxStore
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import org.whispersystems.signalservice.api.push.ServiceId
-import java.util.Optional
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration
 
@@ -81,7 +93,7 @@ import kotlin.time.Duration
  */
 class ConversationViewModel(
   val threadId: Long,
-  private val requestedStartingPosition: Int,
+  requestedStartingPosition: Int,
   initialChatColors: ChatColors,
   private val repository: ConversationRepository,
   recipientRepository: ConversationRecipientRepository,
@@ -152,8 +164,7 @@ class ConversationViewModel(
   val messageRequestState: MessageRequestState
     get() = hasMessageRequestStateSubject.value ?: MessageRequestState()
 
-  private val refreshReminder: Subject<Unit> = PublishSubject.create()
-  val reminder: Observable<Optional<Reminder>>
+  private val groupRecordFlow: Flow<GroupRecord>
 
   private val refreshIdentityRecords: Subject<Unit> = PublishSubject.create()
   private val identityRecordsStore: RxStore<IdentityRecordsState> = RxStore(IdentityRecordsState())
@@ -268,12 +279,11 @@ class ConversationViewModel(
     }
     inputReadyState = _inputReadyState.observeOn(AndroidSchedulers.mainThread())
 
-    recipientRepository.conversationRecipient.map { Unit }.subscribeWithSubject(refreshReminder, disposables)
-
-    reminder = Observable.combineLatest(refreshReminder.startWithItem(Unit), recipientRepository.groupRecord) { _, groupRecord -> groupRecord }
+    groupRecordFlow = recipientRepository.groupRecord
       .subscribeOn(Schedulers.io())
-      .flatMapMaybe { groupRecord -> repository.getReminder(groupRecord.orNull()) }
       .observeOn(AndroidSchedulers.mainThread())
+      .asFlow()
+      .mapNotNull { it.orNull() }
 
     Observable.combineLatest(
       refreshIdentityRecords.startWithItem(Unit).observeOn(Schedulers.io()),
@@ -298,16 +308,38 @@ class ConversationViewModel(
       })
   }
 
+  @OptIn(ExperimentalCoroutinesApi::class)
+  fun getBannerFlows(context: Context, unauthorizedFlow: Flow<UnauthorizedBanner>, serviceOutageStatusFlow: Flow<ServiceOutageBanner>, groupJoinClickListener: () -> Unit, onAddMembers: () -> Unit, onNoThanks: () -> Unit, bubbleClickListener: (Boolean) -> Unit): List<Flow<Banner>> {
+    val pendingGroupJoinFlow: Flow<PendingGroupJoinRequestsBanner> = merge(
+      flow {
+        emit(PendingGroupJoinRequestsBanner(false, 0, {}, {}))
+      },
+      groupRecordFlow.flatMapConcat { PendingGroupJoinRequestsBanner.createFlow(it.actionableRequestingMembersCount, groupJoinClickListener) }
+    )
+
+    val groupV1SuggestionsFlow = merge(
+      flow {
+        emit(GroupsV1MigrationSuggestionsBanner(0, {}, {}))
+      },
+      groupRecordFlow.flatMapConcat { GroupsV1MigrationSuggestionsBanner.createFlow(it.gv1MigrationSuggestions.size, onAddMembers, onNoThanks) }
+    )
+
+    return listOf(
+      OutdatedBuildBanner.createFlow(context, OutdatedBuildBanner.ExpiryStatus.EXPIRED_ONLY),
+      unauthorizedFlow,
+      serviceOutageStatusFlow,
+      pendingGroupJoinFlow,
+      groupV1SuggestionsFlow,
+      BubbleOptOutBanner.createFlow(inBubble = repository.isInBubble, bubbleClickListener)
+    )
+  }
+
   fun onChatBoundsChanged(bounds: Rect) {
     chatBounds.onNext(bounds)
   }
 
   fun setSearchQuery(query: String?) {
     _searchQuery.onNext(query ?: "")
-  }
-
-  fun refreshReminder() {
-    refreshReminder.onNext(Unit)
   }
 
   fun onDismissReview() {

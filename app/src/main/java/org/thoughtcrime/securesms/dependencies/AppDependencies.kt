@@ -7,6 +7,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.Subject
 import okhttp3.OkHttpClient
+import org.signal.core.util.billing.BillingApi
 import org.signal.core.util.concurrent.DeadlockDetector
 import org.signal.core.util.resettableLazy
 import org.signal.libsignal.net.Network
@@ -207,6 +208,11 @@ object AppDependencies {
     provider.provideAndroidCallAudioManager()
   }
 
+  @JvmStatic
+  val billingApi: BillingApi by lazy {
+    provider.provideBillingApi()
+  }
+
   private val _webSocketObserver: Subject<WebSocketConnectionState> = BehaviorSubject.create()
 
   /**
@@ -347,5 +353,6 @@ object AppDependencies {
     fun provideScheduledMessageManager(): ScheduledMessageManager
     fun provideNetworkManager(): NetworkManager
     fun provideLibsignalNetwork(config: SignalServiceConfiguration): Network
+    fun provideBillingApi(): BillingApi
   }
 }

@@ -45,6 +45,7 @@ import org.signal.core.util.groupBy
 import org.signal.core.util.isNull
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readToList
+import org.signal.core.util.readToSingleLong
 import org.signal.core.util.readToSingleObject
 import org.signal.core.util.requireBlob
 import org.signal.core.util.requireBoolean
@@ -292,6 +293,15 @@ class AttachmentTable(
   }
 
   @Throws(IOException::class)
+  fun getAttachmentStream(localArchivableAttachment: LocalArchivableAttachment): InputStream {
+    return try {
+      getDataStream(localArchivableAttachment.file, localArchivableAttachment.random, 0)
+    } catch (e: FileNotFoundException) {
+      throw IOException("No stream for: ${localArchivableAttachment.file}", e)
+    } ?: throw IOException("No stream for: ${localArchivableAttachment.file}")
+  }
+
+  @Throws(IOException::class)
   fun getAttachmentThumbnailStream(attachmentId: AttachmentId, offset: Long): InputStream {
     return try {
       getThumbnailStream(attachmentId, offset)
@@ -441,6 +451,24 @@ class AttachmentTable(
       .run()
   }
 
+  fun getLocalArchivableAttachments(): List<LocalArchivableAttachment> {
+    return readableDatabase
+      .select(*PROJECTION)
+      .from(TABLE_NAME)
+      .where("$REMOTE_KEY IS NOT NULL AND $REMOTE_DIGEST IS NOT NULL AND $DATA_FILE IS NOT NULL")
+      .orderBy("$ID DESC")
+      .run()
+      .readToList {
+        LocalArchivableAttachment(
+          file = File(it.requireNonNullString(DATA_FILE)),
+          random = it.requireNonNullBlob(DATA_RANDOM),
+          size = it.requireLong(DATA_SIZE),
+          remoteDigest = it.requireBlob(REMOTE_DIGEST)!!,
+          remoteKey = it.requireBlob(REMOTE_KEY)!!
+        )
+      }
+  }
+
   fun getRestorableAttachments(batchSize: Int): List<DatabaseAttachment> {
     return readableDatabase
       .select(*PROJECTION)
@@ -448,9 +476,38 @@ class AttachmentTable(
       .where("$TRANSFER_STATE = ?", TRANSFER_NEEDS_RESTORE.toString())
       .limit(batchSize)
       .orderBy("$ID DESC")
-      .run().readToList {
-        it.readAttachments()
-      }.flatten()
+      .run()
+      .readToList {
+        it.readAttachment()
+      }
+  }
+
+  fun getLocalRestorableAttachments(batchSize: Int): List<LocalRestorableAttachment> {
+    return readableDatabase
+      .select(*PROJECTION)
+      .from(TABLE_NAME)
+      .where("$REMOTE_KEY IS NOT NULL AND $REMOTE_DIGEST IS NOT NULL AND $TRANSFER_STATE = ?", TRANSFER_NEEDS_RESTORE.toString())
+      .limit(batchSize)
+      .orderBy("$ID DESC")
+      .run()
+      .readToList {
+        LocalRestorableAttachment(
+          attachmentId = AttachmentId(it.requireLong(ID)),
+          mmsId = it.requireLong(MESSAGE_ID),
+          size = it.requireLong(DATA_SIZE),
+          remoteDigest = it.requireBlob(REMOTE_DIGEST)!!,
+          remoteKey = it.requireBlob(REMOTE_KEY)!!
+        )
+      }
+  }
+
+  fun getTotalRestorableAttachmentSize(): Long {
+    return readableDatabase
+      .select("SUM($DATA_SIZE)")
+      .from(TABLE_NAME)
+      .where("$TRANSFER_STATE = ?", TRANSFER_NEEDS_RESTORE.toString())
+      .run()
+      .readToSingleLong()
   }
 
   /**
@@ -1624,10 +1681,14 @@ class AttachmentTable(
   @Throws(FileNotFoundException::class)
   private fun getDataStream(attachmentId: AttachmentId, offset: Long): InputStream? {
     val dataInfo = getDataFileInfo(attachmentId) ?: return null
+    return getDataStream(dataInfo.file, dataInfo.random, offset)
+  }
 
+  @Throws(FileNotFoundException::class)
+  private fun getDataStream(file: File, random: ByteArray, offset: Long): InputStream? {
     return try {
-      if (dataInfo.random.size == 32) {
-        ModernDecryptingPartInputStream.createFor(attachmentSecret, dataInfo.random, dataInfo.file, offset)
+      if (random.size == 32) {
+        ModernDecryptingPartInputStream.createFor(attachmentSecret, random, file, offset)
       } else {
         return null
       }
@@ -1838,6 +1899,7 @@ class AttachmentTable(
         put(ARCHIVE_THUMBNAIL_MEDIA_ID, attachment.archiveThumbnailMediaId)
         put(THUMBNAIL_RESTORE_STATE, ThumbnailRestoreState.NEEDS_RESTORE.value)
         put(ATTACHMENT_UUID, attachment.uuid?.toString())
+        put(BLUR_HASH, attachment.blurHash?.hash)
 
         attachment.stickerLocator?.let { sticker ->
           put(STICKER_PACK_ID, sticker.packId)
@@ -2335,4 +2397,20 @@ class AttachmentTable(
   class SyncAttachmentId(val syncMessageId: SyncMessageId, val uuid: UUID?, val digest: ByteArray?, val plaintextHash: String?)
 
   class SyncAttachment(val id: AttachmentId, val uuid: UUID?, val digest: ByteArray?, val plaintextHash: String?)
+
+  class LocalArchivableAttachment(
+    val file: File,
+    val random: ByteArray,
+    val size: Long,
+    val remoteDigest: ByteArray,
+    val remoteKey: ByteArray
+  )
+
+  class LocalRestorableAttachment(
+    val attachmentId: AttachmentId,
+    val mmsId: Long,
+    val size: Long,
+    val remoteDigest: ByteArray,
+    val remoteKey: ByteArray
+  )
 }

@@ -52,6 +52,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -61,6 +62,9 @@ object InAppPaymentsRepository {
 
   private const val JOB_PREFIX = "InAppPayments__"
   private val TAG = Log.tag(InAppPaymentsRepository::class.java)
+
+  private val backupExpirationTimeout = 30.days
+  private val backupExpirationDeletion = 60.days
 
   private val temporaryErrorProcessor = PublishProcessor.create<Pair<InAppPaymentTable.InAppPaymentId, Throwable>>()
 
@@ -346,6 +350,32 @@ object InAppPaymentsRepository {
     }
   }
 
+  /**
+   * Determines if we are in the timeout period to display the "your backup will be deleted today" message
+   */
+  @WorkerThread
+  fun getExpiredBackupDeletionState(): ExpiredBackupDeletionState {
+    val inAppPayment = SignalDatabase.inAppPayments.getByLatestEndOfPeriod(InAppPaymentType.RECURRING_BACKUP)
+    if (inAppPayment == null) {
+      Log.w(TAG, "InAppPayment for recurring backup not found for last day check. Clearing check.")
+      SignalStore.inAppPayments.showLastDayToDownloadMediaDialog = false
+      return ExpiredBackupDeletionState.NONE
+    }
+
+    val now = SignalStore.misc.estimatedServerTime.milliseconds
+    val lastEndOfPeriod = inAppPayment.endOfPeriod
+    val displayDialogStart = lastEndOfPeriod + backupExpirationTimeout
+    val displayDialogEnd = lastEndOfPeriod + backupExpirationDeletion
+
+    return if (now in displayDialogStart..displayDialogEnd) {
+      ExpiredBackupDeletionState.DELETE_TODAY
+    } else if (now > displayDialogEnd) {
+      ExpiredBackupDeletionState.EXPIRED
+    } else {
+      ExpiredBackupDeletionState.NONE
+    }
+  }
+
   @JvmStatic
   @WorkerThread
   fun setShouldCancelSubscriptionBeforeNextSubscribeAttempt(subscriber: InAppPaymentSubscriberRecord, shouldCancel: Boolean) {
@@ -375,18 +405,28 @@ object InAppPaymentsRepository {
 
   /**
    * Retrieves whether or not we should force a cancel before next subscribe attempt for in app payments of the given
-   * type. This method will first check the database, and then fall back on the deprecated SignalStore value.
+   * type. This method will first check the database, and then fall back on the deprecated SignalStore value. This method
+   * will also access and check the current subscriber data, if it exists.
    */
   @JvmStatic
   @WorkerThread
   fun getShouldCancelSubscriptionBeforeNextSubscribeAttempt(subscriberType: InAppPaymentSubscriberRecord.Type): Boolean {
     val latestSubscriber = getSubscriber(subscriberType)
 
-    return latestSubscriber?.requiresCancel ?: if (subscriberType == InAppPaymentSubscriberRecord.Type.DONATION) {
+    val localState = latestSubscriber?.requiresCancel ?: if (subscriberType == InAppPaymentSubscriberRecord.Type.DONATION) {
       SignalStore.inAppPayments.shouldCancelSubscriptionBeforeNextSubscribeAttempt
     } else {
       false
     }
+
+    if (latestSubscriber != null) {
+      val remoteState = AppDependencies.donationsService.getSubscription(latestSubscriber.subscriberId)
+      val result = remoteState.result.getOrNull() ?: return localState
+
+      return result.activeSubscription?.isCanceled ?: localState
+    }
+
+    return localState
   }
 
   /**
@@ -621,5 +661,11 @@ object InAppPaymentsRepository {
       InAppPaymentData.PaymentMethodType.IDEAL -> DonationProcessor.STRIPE
       InAppPaymentData.PaymentMethodType.PAYPAL -> DonationProcessor.PAYPAL
     }
+  }
+
+  enum class ExpiredBackupDeletionState {
+    NONE,
+    DELETE_TODAY,
+    EXPIRED
   }
 }

@@ -21,6 +21,6 @@ android {
 
 dependencies {
     implementation project(':core-util')
-    implementation libs.androidx.annotation
+    implementation libs.androidx.fragment
     lintChecks project(':lintchecks')
 }

@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  --><!-- smartling.instruction_comments_enabled = on --><resources>
+  -->
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -39,12 +42,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Molly uppdateras…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Signal uppdateras…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Du har inte angivit ett lösenord än!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Inaktivera lösenord?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Detta låser upp Molly och meddelandeaviseringar permanent.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Detta låser upp Signal och meddelandeaviseringar permanent.</string>
     <string name="ApplicationPreferencesActivity_disable">Inaktivera</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Fel vid anslutning till server!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN-koder krävs för registreringslås. För att inaktivera PIN-koder, inaktivera först registreringslåset.</string>
@@ -81,31 +84,45 @@
     <string name="AttachmentKeyboard_file">Fil</string>
     <string name="AttachmentKeyboard_contact">Kontakt</string>
     <string name="AttachmentKeyboard_location">Plats</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly behöver behörighet för att visa dina foton och videor</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal behöver behörighet för att visa dina foton och videor</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Tillåt åtkomst</string>
     <string name="AttachmentKeyboard_payment">Betalning</string>
+    <!-- Text in a button that allows users to manage which media Signal has access to -->
+    <string name="AttachmentKeyboard_manage">Hantera</string>
+    <!-- Option in menu to select more photos that Signal will have access to -->
+    <string name="AttachmentKeyboard_select_more_photos">Välj fler foton</string>
+    <!-- Option in menu to go to settings -->
+    <string name="AttachmentKeyboard_go_to_settings">Gå till inställningar</string>
+    <!-- Text explaining that Signal has limited access to photos -->
+    <string name="AttachmentKeyboard_signal_has_limited_access">Signal har begränsad åtkomst till foton eller videor</string>
+    <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
+    <string name="AttachmentKeyboard_no_photos_found">Inga foton hittades. Välj foton och videor som ska visas här eller ändra behörigheter</string>
+
+    <!-- MediaGalleryFragment -->
+    <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
+    <string name="MediaGalleryFragment__no_photos_found">Inga foton eller videor hittades. Signal har endast tillgång till foton och videor som du valt.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Kan inte hitta app för att välja media.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly behöver behörigheten Lagring för att bifoga bilder, video och ljud men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly behöver behörigheten Kontakter för att bifoga kontaktinformation men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly behöver behörigheten Plats för att bifoga platser men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Plats\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal behöver behörigheten Lagring för att bifoga bilder, video och ljud men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal behöver behörigheten Kontakter för att bifoga kontaktinformation men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal behöver behörigheten Plats för att bifoga platser men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Plats\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Tillåt åtkomst till din plats</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Så här skickar du din plats:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Ge Molly tillåtelse att skicka din plats.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Ge Signal tillåtelse att skicka din plats.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Molly behöver platsåtkomst för att skicka din plats.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Signal behöver platsåtkomst för att skicka din plats.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Tillåt åtkomst till lagring</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">För att visa foton och videor:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Molly behöver åtkomst till lagring för att visa dina foton och videor.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Signal behöver åtkomst för att visa dina foton och videor.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s har inte aktiverat betalningar </string>
@@ -292,7 +309,7 @@
     <string name="CameraContacts_no_signal_contacts">Inga Signal-kontakter</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Du kan bara använda kameraknappen för att skicka foton till Signal-kontakter. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Kan du inte hitta den du letar efter?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Bjud in en kontakt för att gå med i Molly</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Bjud in en kontakt för att gå med i Signal</string>
     <string name="CameraContacts__menu_search">Sök</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -306,12 +323,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Nej tack</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Uppdatera Molly</string>
+    <string name="ClientDeprecatedActivity_update_signal">Uppdatera Signal</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Denna version av appen stöds inte längre. För att fortsätta skicka och ta emot meddelanden, uppdatera till den senaste versionen.</string>
     <string name="ClientDeprecatedActivity_update">Uppdatera</string>
     <string name="ClientDeprecatedActivity_dont_update">Uppdatera inte</string>
     <string name="ClientDeprecatedActivity_warning">Varning</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Din version av Molly har upphört att gälla. Du kan visa din meddelandehistorik men du kan inte skicka eller ta emot meddelanden förrän du uppdaterar.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Din version av Signal har upphört att gälla. Du kan visa din meddelandehistorik men du kan inte skicka eller ta emot meddelanden förrän du uppdaterar.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Ingen webbläsare hittades.</string>
@@ -348,8 +365,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Meddelande %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Molly-röstsamtal %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Molly-videosamtal %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal-röstsamtal %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal-videosamtal %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -443,7 +460,7 @@
     <string name="ConversationActivity_transport_signal">Signal-meddelande</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Skicka meddelande</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Låt oss använda Molly %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Låt oss använda Signal %1$s</string>
     <string name="ConversationActivity_specify_recipient">Välj en kontakt</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Bilagan överskrider storleksgränserna för den typ av meddelande du skickar.</string>
     <string name="ConversationActivity_unable_to_record_audio">Det går inte att spela in ljud!</string>
@@ -460,20 +477,20 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="ConversationActivity_allow_access_microphone">Tillåt åtkomst till din mikrofon</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
-    <string name="ConversationActivity_signal_to_send_audio_messages">Så här skickar du ljudmeddelanden:</string>
+    <string name="ConversationActivity_signal_to_send_audio_messages">Så här skickar du röstmeddelanden:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">För att skicka röstmeddelanden behöver du ge Molly åtkomst till din mikrofon.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">För att skicka röstmeddelanden behöver du ge Signal åtkomst till din mikrofon.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly behöver åtkomst till mikrofonen för att spela in ett röstmeddelande.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly behöver behörigheten Mikrofon för att skicka ljudmeddelanden men den avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Mikrofon\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal behöver åtkomst till mikrofonen för att spela in ett röstmeddelande.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal behöver behörigheten Mikrofon för att skicka ljudmeddelanden men den avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Mikrofon\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly behöver behörigheterna Mikrofon och Kamera för att ringa%1$s men de har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och Kamera\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">För att fånga fotografier och video, tillåt Molly att tillgå kameran.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly behöver behörigheten Kamera för att ta bilder och filma men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly behöver behörigheten Kamera för att ta bilder och filma</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal behöver behörigheterna Mikrofon och Kamera för att ringa%1$s men de har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och Kamera\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">För att fånga fotografier och video, tillåt Signal att tillgå kameran.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal behöver behörigheten Kamera för att ta bilder och filma men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal behöver behörigheten Kamera för att ta bilder och filma</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Aktivera behörigheten Mikrofon för att spela in videor med ljud.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly behöver mikrofonbehörigheter för att spela in videor men de har avfärdats. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly behöver behörigheten Mikrofon för att filma.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal behöver mikrofonbehörigheter för att spela in videor men de har avfärdats. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal behöver behörigheten Mikrofon för att filma.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Nej</string>
@@ -494,9 +511,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Så här startar du ett samtal:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">För att starta ett samtal behöver du ge Molly åtkomst till mikrofonen.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">För att starta ett samtal behöver du ge Signal åtkomst till mikrofonen.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly behöver åtkomst till mikrofonen för att starta ett samtal.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal behöver åtkomst till mikrofonen för att starta ett samtal.</string>
 
 
     <string name="ConversationActivity_join">Gå med</string>
@@ -510,9 +527,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Sms-meddelanden stöds inte längre i Signal. Bjud in %1$s till Signal för att hålla konversationen här.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Den här personen använder inte längre Molly. Bjud in dem till Molly för att hålla konversationen här.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Den här personen använder inte längre Signal. Bjud in dem till Signal för att hålla konversationen här.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Bjud in till Molly</string>
+    <string name="ConversationActivity__invite_to_signal">Bjud in till Signal</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Du kommer snart att bli påmind igen.</string>
 
@@ -599,13 +616,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Blockerade</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Uppdatera Molly</string>
+    <string name="ConversationFragment__update_build">Uppdatera Signal</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Registrera om Molly</string>
+    <string name="ConversationFragment__reregister_signal">Registrera om Signal</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Navigera tillbaka.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Öppna Molly</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Öppna Signal</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Inte längre verifierad</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -764,9 +781,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Vem kan hitta mig med nummer?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Alla som har ditt telefonnummer ser att du är på Molly och kan börja chatta med dig.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Alla som har ditt telefonnummer ser att du är på Signal och kan börja chatta med dig.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Ingen kommer att kunna se att du är på Molly om du inte skickar ett meddelande eller har en befintlig chatt med dem.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Ingen kommer att kunna se att du är på Signal om du inte skickar ett meddelande eller har en befintlig chatt med dem.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Återställ från säkerhetskopia?</string>
@@ -798,6 +815,41 @@
     <!-- Action button to dismiss sheet and back up now -->
     <string name="CreateBackupBottomSheet__back_up_now">Säkerhetskopiera nu</string>
 
+    <!-- Headline text for a bottom sheet dialog shown when the restoration of the media backup fails. -->
+    <string name="RestoreMediaFailedBottomSheet__Cant_restore_media">Det går inte att återställa media</string>
+    <!-- Help text for a bottom sheet dialog shown when the restoration of the media backup fails, displayed while the app is calculating the amount of disk space required. -->
+    <string name="RestoreMediaFailedBottomSheet__Your_device_does_not_have_enough_free_space_placeholder">Din enhet har inte tillräckligt med ledigt utrymme. Frigör lagringsutrymme för att återställa dina media.\n\nOm du väljer Hoppa över återställning kommer media i säkerhetskopian att tas bort nästa gång enheten skapar en ny säkerhetskopia.</string>
+    <!-- Help text for a bottom sheet dialog shown when the restoration of the media backup fails, displayed once the app knows how much disk space is required. The placeholder is a filesize, such as "1.23 GB." -->
+    <string name="RestoreMediaFailedBottomSheet__Your_device_does_not_have_enough_free_space">Din enhet har inte tillräckligt med ledigt utrymme. Frigör %1$s utrymme för att återställa dina media.\n\nOm du väljer Hoppa över återställning kommer media i säkerhetskopian att tas bort nästa gång enheten skapar en ny säkerhetskopia.</string>
+    <!-- Confirmation button to dismiss bottom sheet dialog without aborting the restoration process. -->
+    <string name="RestoreMediaFailedBottomSheet__Okay">OK</string>
+    <!-- Negative button on a bottom sheet dialog shown when the restoration of the media backup fails. This aborts the restoration process. -->
+    <string name="RestoreMediaFailedBottomSheet__Skip_restore">Hoppa över återställning</string>
+    <!-- Accessibility content description for the "Backup Error" icon -->
+    <string name="RestoreMediaFailedBottomSheet__Backup_error_icon_content_description">Ikon för säkerhetskopieringsfel</string>
+
+    <!-- Banner text that is displayed at the top of the app when trying to restore more media than the device\'s memory has space for. -->
+    <string name="RestoreMediaErrorBanner__Free_up_storage_space">Frigör lagringsutrymme för att återställa dina media.</string>
+    <!-- Banner text that is displayed at the top of the app when trying to restore more media than the device\'s memory has space for. The placeholder is a filesize, such as "1.23 GB." -->
+    <string name="RestoreMediaErrorBanner__Free_up_of_space">Frigör %1$s utrymme för att återställa dina media.</string>
+
+    <!-- Remote media restoration in-process status title. -->
+    <string name="RestoreMediaReminder__Restoring_media">Återställer media</string>
+    <!-- Remote media restoration in-process description. The first to placeholders are filesizes, such as "865 MB" and "2.3 GB". The final placeholder is a whole number representing the percentage progress. -->
+    <string name="RestoreMediaReminder__Progress_filesize">%1$s av %2$s (%3$d %%)</string>
+    <!-- Remote media restoration paused status title. -->
+    <string name="RestoreMediaReminder__Restoring_media_paused">Återställning av media pausad</string>
+    <!-- Remote media restoration paused status description for when the restore is paused because unmetered connectivity, such as WiFi, is unavailable. -->
+    <string name="RestoreMediaReminder__Waiting_for_Wifi">Väntar på wifi …</string>
+    <!-- Remote media restoration paused status description for when the restore is paused because internet is unavailable. -->
+    <string name="RestoreMediaReminder__Waiting_for_internet_connection">Väntar på internetuppkoppling …</string>
+    <!-- Remote media restoration paused status description for when the device\'s battery is low -->
+    <string name="RestoreMediaReminder__low_battery">Låg batterinivå. Ladda din enhet.</string>
+    <!-- Remote media restoration call to action when the device is out of space. The placeholder string is a file size, such as "1.23 GB". -->
+    <string name="RestoreMediaReminder__Free_up_space">Frigör %1$s för att återställa din media.</string>
+    <!-- Button label to abort media restoration -->
+    <string name="RestoreMediaReminder__Skip_restore">Hoppa över återställning</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">Säkerhetskopior av chattar</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Säkerhetskopior krypteras med ett lösenord och lagras på din enhet.</string>
@@ -810,7 +862,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Testa ditt lösenord för säkerhetskopian och kontrollera att den matchar</string>
     <string name="BackupsPreferenceFragment__turn_on">Aktivera</string>
     <string name="BackupsPreferenceFragment__turn_off">Inaktivera</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"För att återställa en säkerhetskopia, installera en ny kopia av Molly. Öppna appen och tryck på \"Återställ säkerhetskopia\" och leta reda på en säkerhetskopia. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"För att återställa en säkerhetskopia, installera en ny kopia av Signal. Öppna appen och tryck på \"Återställ säkerhetskopia\" och leta reda på en säkerhetskopia. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Läs mer</string>
     <string name="BackupsPreferenceFragment__in_progress">Pågående…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -818,7 +870,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d hittills…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% hittills…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly behöver behörigheten Lagring för att skapa säkerhetskopior men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal behöver behörigheten Lagring för att skapa säkerhetskopior men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Ställ in säkerhetskopieringstid</string>
 
@@ -885,7 +937,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Chattsessionen uppdaterad</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly använder ände-till-ände-kryptering och det kan behöva uppdateras din chattsession ibland. Detta påverkar inte din chatts säkerhet, men du kan ha missat ett meddelande från den här kontakten och du kan behöva be dem skicka det igen.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal använder ände-till-ände-kryptering och det kan behöva uppdateras din chattsession ibland. Detta påverkar inte din chatts säkerhet, men du kan ha missat ett meddelande från den här kontakten och du kan behöva be dem skicka det igen.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -899,9 +951,9 @@
     <!-- Bottom sheet description explaining that messages on linked devices are private -->
     <string name="LinkDeviceFragment__all_messaging_is_private">Alla meddelanden på länkade enheter är privata</string>
     <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
-    <string name="LinkDeviceFragment__signal_messages_are_synchronized">Molly-meddelanden synkroniseras med Molly på din mobiltelefon efter att den har länkats. Din tidigare meddelandehistorik kommer inte att visas.</string>
+    <string name="LinkDeviceFragment__signal_messages_are_synchronized">Signal-meddelanden synkroniseras med Signal på din mobiltelefon efter att den har länkats. Din tidigare meddelandehistorik kommer inte att visas.</string>
     <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
-    <string name="LinkDeviceFragment__on_other_device_visit_signal">Besök %1$s på din andra enhet för att installera Molly</string>
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">Besök %1$s på den enhet som du vill länka för att installera Signal</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
     <!-- Header title listing out current linked devices -->
     <string name="LinkDeviceFragment__my_linked_devices">Mina länkade enheter</string>
@@ -934,7 +986,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Slutför länkningen på din andra enhet</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Slutför länkningen av Molly på din andra enhet.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Slutför länkningen av Signal på din andra enhet.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Det gick inte att länka enhet</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -962,10 +1014,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimera för avsaknad av Play-tjänster</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Enheten stöder inte Play-tjänster. Tryck för att inaktivera systembatterioptimeringar som hindrar Molly från att hämta meddelanden vid inaktivitet.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Enheten stöder inte Play-tjänster. Tryck för att inaktivera systembatterioptimeringar som hindrar Signal från att hämta meddelanden vid inaktivitet.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Denna version av Molly har upphört att gälla. Uppdatera nu för att skicka och ta emot meddelanden.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Denna version av Signal har upphört att gälla. Uppdatera nu för att skicka och ta emot meddelanden.</string>
     <string name="ExpiredBuildReminder_update_now">Uppdatera nu</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -976,8 +1028,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">Visa</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Permanent kommunikationsfel med Molly!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly kunde inte registrera sig på Google Play-tjänster. Molly-meddelanden och -samtal har inaktiverats, försök att återregistrera i Inställningar &gt; Avancerat.</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Permanent kommunikationsfel med Signal!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal kunde inte registrera sig på Google Play-tjänster. Signal-meddelanden och -samtal har inaktiverats, försök att återregistrera i Inställningar &gt; Avancerat.</string>
 
 
     <!-- GiphyActivity -->
@@ -1116,7 +1168,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Felsökningsloggar hjälper oss att diagnostisera och åtgärda problemet och innehåller inte identifierande information.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly stötte på ett problem. Skicka felsökningslogg?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal stötte på ett problem. Skicka felsökningslogg?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Du kanske inte får några meddelanden. Skicka felsökningslogg?</string>
 
@@ -1124,12 +1176,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Aviseringar kan försenas på grund av batterioptimeringar</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Du kan inaktivera batterioptimeringar för Molly för att säkerställa att meddelandeaviseringar inte försenas.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Du kan inaktivera batterioptimeringar för Signal för att säkerställa att meddelandeaviseringar inte försenas.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Aviseringar kan försenas på grund av batterioptimeringar</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Inaktivera batterioptimeringar för Molly för att säkerställa att meddelandeaviseringar inte försenas. Tryck på Fortsätt för att se enhetsspecifika instruktioner.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Inaktivera batterioptimeringar för Signal för att säkerställa att meddelandeaviseringar inte försenas. Tryck på Fortsätt för att se enhetsspecifika instruktioner.</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Nej tack</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1138,7 +1190,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">Du kanske inte får några meddelanden</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">Om du startar om enheten kan det hjälpa dig att lösa problemet med leverans av meddelanden. Kontakta Molly-support om problemet kvarstår.</string>
+    <string name="ConnectivityWarningBottomSheet_body">Om du startar om enheten kan det hjälpa dig att lösa problemet med leverans av meddelanden. Kontakta Signal-support om problemet kvarstår.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">Uppfattat</string>
 
@@ -1440,13 +1492,13 @@
     <string name="InviteActivity_cancel">Avbryt</string>
     <string name="InviteActivity_sending">Skickar…</string>
     <string name="InviteActivity_invitations_sent">Inbjudningar skickade!</string>
-    <string name="InviteActivity_invite_to_signal">Bjud in till Molly</string>
+    <string name="InviteActivity_invite_to_signal">Bjud in till Signal</string>
     <string name="InviteActivity_send_sms">Skicka SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Skicka %1$d SMS-inbjudan?</item>
         <item quantity="other">Skicka %1$d SMS-inbjudningar?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Låt oss använda Molly: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Låt oss använda Signal: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">Verkar som att du inte har några appar att dela till.</string>
 
     <!-- LearnMoreTextView -->
@@ -1460,7 +1512,7 @@
     <string name="LongMessageActivity_your_message">Ditt meddelande</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">Bakgrundsanslutning etablerad</string>
 
     <!-- MediaOverviewActivity -->
@@ -1529,10 +1581,10 @@
     <string name="MessageQuotesBottomSheet_replies">Svar</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Upprättar Molly-samtal</string>
+    <string name="NotificationBarManager__establishing_signal_call">Upprättar Signal-samtal</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Startar Molly-samtalstjänsten</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Avbryter Molly-samtalstjänsten</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Startar Signal-samtalstjänsten</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Avbryter Signal-samtalstjänsten</string>
     <string name="NotificationBarManager__cancel_call">Avbryt samtal</string>
 
     <!-- NotificationsMegaphone -->
@@ -1848,7 +1900,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Snart kommer du inte längre att kunna skicka sms från Signal. Bjud in %1$s till Signal för att hålla konversationen här.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Du kan inte längre skicka sms i Molly. Bjud in %1$s till Molly för att hålla konversationen här.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Du kan inte längre skicka sms i Signal. Bjud in %1$s till Signal för att hålla konversationen här.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Betalning: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -1930,7 +1982,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Länka en Signal-enhet?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Det verkar som att du försöker länka en Signal-enhet med hjälp av en tredjepartsskanner. För din säkerhet, skanna koden igen inifrån Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly behöver behörigheten Kamera för att skanna QR-koder men det har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal behöver behörigheten Kamera för att skanna QR-koder men det har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Det går inte att skanna en QR-kod utan behörigheten Kamera</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1943,11 +1995,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Ange lösenord</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Molly-ikon</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Signal-ikon</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Skicka lösenord</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Fel lösenord!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Lås upp Molly</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Låsskärm</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Lås upp Signal</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Låsskärm</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Karta</string>
@@ -2014,7 +2066,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Verifiera för att fortsätta skicka meddelanden</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">För att förhindra skräppost på Molly, slutför verifieringen.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">För att förhindra skräppost på Signal, slutför verifieringen.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Efter verifiering kan du fortsätta skicka meddelanden. Alla pausade meddelanden skickas automatiskt.</string>
 
     <!-- Recipient -->
@@ -2022,7 +2074,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Min Story</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Molly-samtal</string>
+    <string name="Recipient_signal_call">Signal-samtal</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Blockera</string>
@@ -2046,10 +2098,20 @@
     <!-- Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons. -->
     <!-- Body text for the Valentine\'s Day donation megaphone. -->
 
+    <!-- CallScreenTopBar -->
+    <!-- Content description for navigation icon -->
+    <string name="CallScreenTopBar__go_back">Gå tillbaka</string>
+    <!-- Content description for info icon -->
+    <string name="CallScreenTopBar__call_information">Samtalsinformation</string>
+
+    <!-- CallScreenPreJoinOverlay -->
+    <!-- Displayed when users camera is disabled -->
+    <string name="CallScreenPreJoinOverlay__your_camera_is_off">Din kamera är avstängd</string>
+
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Tryck här för att aktivera din video</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">För att ringa %1$s behöver Molly åtkomst till din kamera</string>
-    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">För att ringa %1$s behöver Signal åtkomst till din kamera</string>
+    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
     <string name="WebRtcCallActivity__calling">Ringer…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Återansluter…</string>
@@ -2110,23 +2172,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Tillåt åtkomst till din kamera</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">För att starta eller gå med i ett samtal måste du ge Molly åtkomst till kameran och mikrofonen.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">För att starta eller gå med i ett samtal måste du ge Signal åtkomst till kameran och mikrofonen.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">För att starta ett samtal behöver du ge Molly åtkomst till mikrofonen.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">För att starta ett samtal behöver du ge Signal åtkomst till mikrofonen.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">För att aktivera din video måste du ge Molly åtkomst till din kamera.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">För att aktivera din video måste du ge Signal åtkomst till din kamera.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly behöver mikrofonbehörigheter för att starta eller gå med i ett samtal.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal behöver mikrofonbehörigheter för att starta eller gå med i ett samtal.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly behöver kameraåtkomst för att aktivera din video</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal behöver kameraåtkomst för att aktivera din video</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Så här startar du eller går med i ett samtal:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Så här aktiverar du din video:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Molly-samtal</string>
-    <string name="WebRtcCallView__signal_video_call">Molly-videosamtal</string>
+    <string name="WebRtcCallView__signal_call">Signal-samtal</string>
+    <string name="WebRtcCallView__signal_video_call">Signal-videosamtal</string>
     <string name="WebRtcCallView__start_call">Starta samtal</string>
     <string name="WebRtcCallView__join_call">Gå med i samtalet</string>
     <string name="WebRtcCallView__call_is_full">Samtalet är fullt</string>
@@ -2195,6 +2257,8 @@
     <string name="WebRtcCallView__additional_actions">Ytterligare åtgärder</string>
     <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">Avsluta samtal</string>
+    <!-- Content description for toggling group ring state -->
+    <string name="WebRtcCallView__toggle_group_ringing">Växla gruppringning</string>
 
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">Ett UI-fel inträffade. Rapportera detta fel till utvecklarna.</string>
@@ -2341,7 +2405,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Du får ett samtal för att verifiera detta nummer.</string>
     <string name="RegistrationActivity_edit_number">Ändra nummer</string>
     <string name="RegistrationActivity_missing_google_play_services">Saknar Google Play-tjänster</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Denna enhet saknar Google Play-tjänster. Du kan fortfarande använda Molly men denna konfiguration kan leda till minskad tillförlitlighet eller prestanda.\n\nOm du inte är en avancerad användare, inte använder en egenhändigt modifierad Android ROM eller tror att du ser detta på grund av ett fel, kontakta support@molly.im för hjälp med felsökning.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Denna enhet saknar Google Play-tjänster. Du kan fortfarande använda Signal men denna konfiguration kan leda till minskad tillförlitlighet eller prestanda.\n\nOm du inte är en avancerad användare, inte använder en egenhändigt modifierad Android ROM eller tror att du ser detta på grund av ett fel, kontakta support@signal.org för hjälp med felsökning.</string>
     <string name="RegistrationActivity_i_understand">Jag förstår</string>
     <string name="RegistrationActivity_play_services_error">Fel på Google Play-tjänster</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play-tjänster uppdateras eller är tillfälligt otillgängliga. Försök igen.</string>
@@ -2359,7 +2423,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Icke-standardiserat sifferformat</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Siffran du angav (%1$s) verkar vara ett icke-standardformat.\n\nMenade du %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Telefonnummerformat</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - Telefonnummerformat</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Samtal begärt</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2432,13 +2496,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Lägg till i kontakter</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Bjud in till Molly</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Bjud in till Signal</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal-meddelande</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal-samtal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Lägg till i kontakter</string>
-    <string name="SharedContactView_invite_to_signal">Bjud in till Molly</string>
+    <string name="SharedContactView_invite_to_signal">Bjud in till Signal</string>
     <string name="SharedContactView_message">Signal-meddelande</string>
 
     <!-- SignalBottomActionBar -->
@@ -2569,11 +2633,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s tillhör %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Molly-uppdatering</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">En ny version av Molly är tillgänglig. Tryck för att uppdatera.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Det gick inte att uppdatera Molly</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Signal-uppdatering</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">En ny version av Signal är tillgänglig. Tryck för att uppdatera.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Det gick inte att uppdatera Signal</string>
     <string name="ApkUpdateNotifications_failed_general_body">Vi försöker igen senare.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly har uppdaterats</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal har uppdaterats</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Du uppdaterades automatiskt till version %1$s.</string>
 
     <!-- UntrustedSendDialog -->
@@ -2644,7 +2708,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Vårt säkerhetsnummer för Signal:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Verkar som att du inte har några appar att dela till.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Inga säkerhetsnummer att jämföra med hittades i urklipp</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly behöver behörigheten Kamera för att skanna QR-koder men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal behöver behörigheten Kamera för att skanna QR-koder men den har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Det går inte att skanna en QR-kod utan behörigheten Kamera</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Du måste först utbyta meddelanden för att kunna se %1$ss säkerhetsnummer.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2674,14 +2738,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Tryck för att öppna.</string>
-    <string name="KeyCachingService_passphrase_cached">Molly är olåst</string>
-    <string name="KeyCachingService_lock">Lås Molly</string>
+    <string name="KeyCachingService_passphrase_cached">Signal är olåst</string>
+    <string name="KeyCachingService_lock">Lås Signal</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Du</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Mediatypen stöds inte</string>
     <string name="MediaPreviewActivity_draft">Utkast</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly behöver behörigheten Lagring för att spara i extern lagring men det har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal behöver behörigheten Lagring för att spara i extern lagring men det har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Kan inte spara i extern lagring utan behörighet</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Ta bort meddelande?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Detta tar bort detta meddelande permanent.</string>
@@ -2725,7 +2789,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Det gick inte att leverera meddelandet.</string>
     <string name="MessageNotifier_error_delivering_message">Fel vid leverans av meddelande.</string>
     <string name="MessageNotifier_message_delivery_paused">Meddelandeleverans har pausats.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifiera för att fortsätta skicka meddelanden på Molly.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifiera för att fortsätta skicka meddelanden på Signal.</string>
     <string name="MessageNotifier_mark_all_as_read">Markera alla som lästa</string>
     <string name="MessageNotifier_mark_read">Läst</string>
     <string name="MessageNotifier_turn_off_these_notifications">Inaktivera dessa aviseringar</string>
@@ -2747,7 +2811,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reagerade %1$s på ditt klistermärke.</string>
     <string name="MessageNotifier_this_message_was_deleted">Detta meddelande togs bort.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Inaktivera Molly-aviseringar när kontakter ansluter sig? Du kan aktivera dem igen i Molly &gt; Inställningar &gt; Aviseringar.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Inaktivera Signal-aviseringar när kontakter ansluter sig? Du kan aktivera dem igen i Signal &gt; Inställningar &gt; Aviseringar.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2786,7 +2850,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Snabbsvar är otillgängligt när Molly är låst!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Snabbsvar är otillgängligt när Signal är låst!</string>
     <string name="QuickResponseService_problem_sending_message">Problem med att skicka meddelandet!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2806,7 +2870,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Ogiltig genväg</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Nytt meddelande</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Meddelandeförfrågan</string>
     <string name="SingleRecipientNotificationBuilder_you">Du</string>
@@ -2852,7 +2916,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Den här enheten är inte längre registrerad. Detta beror troligen på att du registrerade ditt telefonnummer med Molly på en annan enhet.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Den här enheten är inte längre registrerad. Detta beror troligen på att du registrerade ditt telefonnummer med Signal på en annan enhet.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Registrera om enheten</string>
 
@@ -2865,10 +2929,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">För att svara på samtalet, ge Molly åtkomst till din mikrofon.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">För att svara på samtalet, ge Signal åtkomst till din mikrofon.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Ge Molly åtkomst till din mikrofon och kamera för att svara på videosamtalet.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly behöver behörigheterna Mikrofon och Kamera för att ringa och ta emot samtal, men de har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och \"Kamera\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Ge Signal åtkomst till din mikrofon och kamera för att svara på videosamtalet.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal behöver behörigheterna Mikrofon och Kamera för att ringa och ta emot samtal, men de har avfärdats permanent. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och \"Kamera\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Besvarades på en länkad enhet.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Avböjde på en länkad enhet.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Upptagen på en länkad enhet.</string>
@@ -2913,7 +2977,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Upprepa nytt lösenord</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Bjud in till Molly</string>
+    <string name="contact_selection_activity__invite_to_signal">Bjud in till Signal</string>
     <string name="contact_selection_activity__new_group">Ny grupp</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Uppdatera kontakter</string>
@@ -2939,7 +3003,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Kontaktfoto</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly behöver behörigheten Kontakter för att bifoga kontaktinformation men det har avfärdats permanent. Fortsätt till menyn för appinställningar, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal behöver behörigheten Kontakter för att bifoga kontaktinformation men det har avfärdats permanent. Fortsätt till menyn för appinställningar, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Ett fel inträffade med att hämta kontakter, kontrollera din nätverksanslutning</string>
     <string name="ContactSelectionListFragment_username_not_found">Användarnamn hittades inte</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" är inte en Signal-användare. Kontrollera användarnamnet och försök igen."</string>
@@ -2968,7 +3032,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Tillåt åtkomst till dina kontakter. Dina kontakter är krypterade och är inte synliga för Signal-tjänsten.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly behöver åtkomst till dina kontakter för att visa dem.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal behöver åtkomst till dina kontakter för att visa dem.</string>
     <string name="contact_selection_list_fragment__show_contacts">Visa kontakter</string>
 
     <!-- contact_selection_list_item -->
@@ -3071,7 +3135,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Bubblor är en Android-funktion som du kan stänga av för Molly-chattar.</string>
+    <string name="BubbleOptOutTooltip__description">Bubblor är en Android-funktion som du kan stänga av för Signal-chattar.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Inte nu</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3239,9 +3303,9 @@
     <string name="EditProfileFragment__group_description">Gruppbeskrivning</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Uppdatera Molly</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Uppdatera Signal</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Denna version av Molly har upphört att gälla. Uppdatera nu för att fortsätta använda Molly.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Denna version av Signal har upphört att gälla. Uppdatera nu för att fortsätta använda Signal.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Uppdatera</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3454,7 +3518,7 @@
     <string name="preferences__slow">Långsam</string>
     <string name="preferences__help">Hjälp</string>
     <string name="preferences__advanced">Avancerat</string>
-    <string name="preferences__donate_to_signal">Donera till Molly</string>
+    <string name="preferences__donate_to_signal">Donera till Signal</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Integritet</string>
     <!-- Preference label for stories -->
@@ -3491,13 +3555,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Ändra appikon och namn till \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Molly måste stängas för att ändra appikonen och namn. Aviseringar visar alltid standardikonen för Molly och namn.</string>
+    <string name="preferences__app_icon_dialog_description">Signal måste stängas för att ändra appikonen och namn. Aviseringar visar alltid standardikonen för Signal och namn.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Välj en appikon och ett namn som kommer att synas på telefonens startskärm och app-låda. Aviseringar visar alltid standardikonen för Molly och namn. Läs mer</string>
+    <string name="preferences__app_icon_warning_learn_more">Välj en appikon och ett namn som kommer att synas på telefonens startskärm och app-låda. Aviseringar visar alltid standardikonen för Signal och namn. Läs mer</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Appikoner och namn syns på startskärmen och app-lådan.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Aviseringar visar alltid standardikonen för Molly och namn.</string>
+    <string name="preferences__app_icon_notification_warning">Aviseringar visar alltid standardikonen för Signal och namn.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Läs mer</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3586,7 +3650,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Censur kringgående</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Censur kringgående</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Om påslaget så kommer Molly försöka kringgå censur. Slå bara på denna funktion om du är på en plats där Molly censureras.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Om påslaget så kommer Signal försöka kringgå censur. Slå bara på denna funktion om du är på en plats där Signal censureras.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Kringgå censur har aktiverats baserat på ditt kontos telefonnummer</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3638,7 +3702,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Vi introducerar betalningar</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Använd Molly för att skicka och ta emot MobileCoin, en ny digital valuta med integritetsfokus. Aktivera integreringen för att komma igång.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Använd Signal för att skicka och ta emot MobileCoin, en ny digital valuta med integritetsfokus. Aktivera integreringen för att komma igång.</string>
     <string name="PaymentsHomeFragment__activate_payments">Aktivera betalningar</string>
     <string name="PaymentsHomeFragment__activating_payments">Aktiverar betalningar…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Återställ betalningskontot</string>
@@ -3664,7 +3728,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Betalningar är inte tillgängliga i din region.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Det gick inte att aktivera betalningar. Försök igen senare.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Inaktivera betalningar?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Du kommer inte att kunna skicka eller ta emot MobileCoin i Molly om du inaktiverar betalningar.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Du kommer inte att kunna skicka eller ta emot MobileCoin i Signal om du inaktiverar betalningar.</string>
     <string name="PaymentsHomeFragment__deactivate">Inaktivera</string>
     <string name="PaymentsHomeFragment__continue">Fortsätt</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Saldo är för närvarande inte tillgängligt.</string>
@@ -3673,10 +3737,10 @@
     <string name="PaymentsHomeFragment__details">Detaljer</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Du kan använda Molly för att skicka och ta emot MobileCoin. Alla betalningar omfattas av användarvillkoren för MobileCoins och MobileCoin Wallet. Du kan stöta på vissa problem och betalningar eller saldon du kan förlora kan inte återställas. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Du kan använda Signal för att skicka och ta emot MobileCoin. Alla betalningar omfattas av användarvillkoren för MobileCoins och MobileCoin Wallet. Du kan stöta på vissa problem och betalningar eller saldon du kan förlora kan inte återställas. </string>
     <string name="PaymentsHomeFragment__activate">Aktivera</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Visa MobileCoin-villkor</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Betalningar i Molly är inte längre tillgängliga. Du kan fortfarande överföra pengar till en börs men du kan inte längre skicka och ta emot betalningar eller lägga till pengar.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Betalningar i Signal är inte längre tillgängliga. Du kan fortfarande överföra pengar till en börs men du kan inte längre skicka och ta emot betalningar eller lägga till pengar.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3704,7 +3768,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Tillåt behörigheter</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">För att hjälpa dig att skicka meddelanden till personer du känner kommer Molly att begära dessa behörigheter. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">För att hjälpa dig att skicka meddelanden till personer du känner kommer Signal att begära dessa behörigheter. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Aviseringar</string>
     <!-- Notifications permission row description -->
@@ -3727,6 +3791,10 @@
     <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1, Tryck på Inställningar nedan</string>
     <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
     <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Tillåt behörigheten</string>
+    <!-- Sheet describing step 2 on how to give permissions by tapping permissions in their settings -->
+    <string name="PermissionDeniedBottomSheet__2_tap_permissions">2, Tryck på Behörigheter</string>
+    <!-- Sheet describing step 3 on how to give permissions for photos and videos in settings where %s will be replaced with an image of a checked button -->
+    <string name="PermissionDeniedBottomSheet__3_allow_permission">3, %1$s Tillåt behörigheten Foton och videor</string>
     <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
     <string name="PermissionDeniedBottomSheet__settings">Inställningar</string>
 
@@ -3792,10 +3860,10 @@
     <string name="PaymentsTransferFragment__next">Nästa</string>
     <string name="PaymentsTransferFragment__invalid_address">Ogiltig adress</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Kontrollera plånboksadressen du försöker överföra till och försök igen.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Du kan inte överföra till din egen Molly-plånboksadress. Ange plånboksadressen från ditt konto vid en växling som stöds.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">För att skanna en QR-kod behöver Molly åtkomst till kameran.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly behöver behörigheten Kamera för att skanna en QR-kod. Gå till inställningar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">För att skanna en QR-kod behöver Molly åtkomst till kameran.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Du kan inte överföra till din egen Signal-plånboksadress. Ange plånboksadressen från ditt konto vid en växling som stöds.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">För att skanna en QR-kod behöver Signal åtkomst till kameran.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal behöver behörigheten Kamera för att skanna en QR-kod. Gå till inställningar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">För att skanna en QR-kod behöver Signal åtkomst till kameran.</string>
     <string name="PaymentsTransferFragment__settings">Inställningar</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4143,17 +4211,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Inkommande Molly-röstsamtal</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Inkommande Signal-röstsamtal</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Inkommande Molly-videosamtal</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Inkommande Signal-videosamtal</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Inkommande Molly-gruppsamtal</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Inkommande Signal-gruppsamtal</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Pågående Molly-röstsamtal</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Pågående Signal-röstsamtal</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Pågående Molly-videosamtal</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Pågående Signal-videosamtal</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Pågående Molly-gruppsamtal</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Pågående Signal-gruppsamtal</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Hämtar in…</string>
@@ -4200,9 +4268,9 @@
     <string name="BackupDialog_verify">Verifiera</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Du har angett ditt lösenord för säkerhetskopian</string>
     <string name="BackupDialog_passphrase_was_not_correct">Lösenordet var inte korrekt</string>
-    <string name="LocalBackupJob_creating_signal_backup">Skapar Molly-säkerhetskopia…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Skapar Signal-säkerhetskopia…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Verifierar Molly-säkerhetskopia …</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Verifierar Signal-säkerhetskopia …</string>
     <string name="LocalBackupJobApi29_backup_failed">Säkerhetskopieringen misslyckades</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Din mapp för säkerhetskopior har tagits bort eller flyttats.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Din säkerhetskopieringsfil är för stor för att lagras på denna volym.</string>
@@ -4217,15 +4285,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Ring mig (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Skicka kod igen (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Kontakta Molly-support</string>
-    <string name="RegistrationActivity_code_support_subject">Molly-registrering - Verifieringskod för Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Kontakta Signal-support</string>
+    <string name="RegistrationActivity_code_support_subject">Signal-registrering - Verifieringskod för Android</string>
     <string name="RegistrationActivity_incorrect_code">Felaktig kod</string>
     <string name="BackupUtil_never">Aldrig</string>
     <string name="BackupUtil_unknown">Okänd</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Telefonnummer</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Välj vem som kan se ditt telefonnummer och vem som kan använda det för att kontakta dig på Molly.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Välj vem som kan se ditt telefonnummer och vem som kan använda det för att kontakta dig på Signal.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Vem kan se mitt nummer</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4253,6 +4321,8 @@
     <string name="preferences_app_protection__screen_lock">Skärmlås</string>
     <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Lås åtkomst till Signal med Android-skärmlås eller -fingeravtryck</string>
     <string name="preferences_app_protection__screen_lock_inactivity_timeout">Skärmlåsets tidsgräns för inaktivitet</string>
+    <!-- Snackbar text shown when trying to enable screen lock but the user does not have a password or biometrics enabled -->
+    <string name="preferences_app_protection__to_use_screen_lock">Om du vill använda skärmlåset anger du en pinkod, ett mönster eller ett lösenord på den här enheten.</string>
     <string name="preferences_app_protection__signal_pin">Signal PIN-kod</string>
     <string name="preferences_app_protection__create_a_pin">Skapa en PIN-kod</string>
     <string name="preferences_app_protection__change_your_pin">Ändra din PIN-kod</string>
@@ -4273,8 +4343,41 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Du har gjort för många försök. Försök igen senare.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Fel vid anslutning till tjänst</string>
     <string name="preferences_chats__backups">Säkerhetskopior</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">Molly är låst</string>
-    <string name="prompt_passphrase_activity__tap_to_unlock">TRYCK FÖR ATT LÅSA UPP</string>
+    <!-- Title text shown when Signal is locked and needs to be unlocked -->
+    <string name="prompt_passphrase_activity__unlock_signal">Lås upp Signal</string>
+    <!-- Description text explaining how to unlock Signal -->
+    <string name="prompt_passphrase_activity__use_your_android_device">Använd låsinställningarna för din Android-enhet för att låsa upp Signal.</string>
+    <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Skärmlåset är på och Signal är säkrad med enhetens låsinställningar. Lås upp Signal på samma sätt som du normalt skulle låsa upp din telefon, t.ex. med ansiktsigenkänning, fingeravtryck, pinkod, lösenord eller mönster.</string>
+    <!-- Button in a dialog that will contact Signal support if pressed -->
+    <string name="prompt_passphrase_activity__contact_support">Kontakta supporten</string>
+    <!-- Button text to try again after unlocking has previously failed -->
+    <string name="prompt_passphrase_activity__try_again">Försök igen</string>
+
+    <!-- ScreenLockSettingsFragment -->
+    <!-- Text shown when screen lock is not enabled -->
+    <string name="ScreenLockSettingsFragment__off">Av</string>
+    <!-- Text shown with toggle that when switched on will enable screen lock -->
+    <string name="ScreenLockSettingsFragment__use_screen_lock">Använd skärmlås</string>
+    <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
+    <string name="ScreenLockSettingsFragment__your_android_device">Låsinställningarna på din Android-enhet kommer att behövas för att låsa upp Signal när du lämnar eller byter app. Förhandsvisning av aviseringar visar inte meddelandeinnehåll när låset är aktiverat.</string>
+    <!-- Title text explaining when users should start the screen lock -->
+    <string name="ScreenLockSettingsFragment__start_screen_lock">Starta skärmlås</string>
+    <!-- Option text explaining that screen lock should start immediately -->
+    <string name="ScreenLockSettingsFragment__immediately">Omedelbart</string>
+    <!-- Option text explaining that screen lock should start after 1 minute of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_1_min">Efter 1 minut</string>
+    <!-- Option text explaining that screen lock should start after 5 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_5_min">Efter 5 minuter</string>
+    <!-- Option text explaining that screen lock should start after 30 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_30_min">Efter 30 minuter</string>
+    <!-- Option text explaining that screen lock should start at a custom time set by the user -->
+    <string name="ScreenLockSettingsFragment__custom_time">Anpassad tid</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Använd Signal-skärmlås</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Stäng av Signal-skärmlåset</string>
+
     <string name="Recipient_unknown">Okänt</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
     <string name="Recipient_deleted_account">Raderat konto</string>
@@ -4328,19 +4431,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Förbereder för anslutning till gammal Android-enhet…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Det tar ett stund, borde vara klart snart</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Väntar på att en gammal Android-enhet ska ansluta…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly behöver platsbehörighet för att upptäcka och ansluta till din gamla Android-enhet.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly behöver platstjänster aktiverade för att upptäcka och ansluta till din gamla Android-enhet.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Wi-Fi behöver vara aktiverat för att Molly ska upptäcka och ansluta till din gamla Android-enhet. Wi-Fi måste vara på men det behöver inte vara anslutet till ett Wi-Fi-nätverk.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Tyvärr verkar den här enheten inte stöda Wi-Fi Direct. Molly använder Wi-Fi Direct för att upptäcka och ansluta till din gamla Android-enhet. Du kan fortfarande återställa en säkerhetskopia för att återställa ditt konto från din gamla Android-enhet.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal behöver platsbehörighet för att upptäcka och ansluta till din gamla Android-enhet.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal behöver platstjänster aktiverade för att upptäcka och ansluta till din gamla Android-enhet.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Wi-Fi behöver vara aktiverat för att Signal ska upptäcka och ansluta till din gamla Android-enhet. Wi-Fi måste vara på men det behöver inte vara anslutet till ett Wi-Fi-nätverk.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Tyvärr verkar den här enheten inte stöda Wi-Fi Direct. Signal använder Wi-Fi Direct för att upptäcka och ansluta till din gamla Android-enhet. Du kan fortfarande återställa en säkerhetskopia för att återställa ditt konto från din gamla Android-enhet.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Återställ en säkerhetskopia</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ett oväntat fel uppstod när du försökte ansluta till din gamla Android-enhet.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Söker efter en ny Android-enhet…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly behöver platsbehörighet för att upptäcka och ansluta till din nya Android-enhet.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly behöver platstjänster aktiverade för att upptäcka och ansluta till din nya Android-enhet.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Wi-Fi behöver vara aktiverat för att Molly ska upptäcka och ansluta till din nya Android-enhet. Wi-Fi måste vara aktiverat men det behöver inte vara anslutet till ett Wi-Fi-nätverk.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Tyvärr verkar den här enheten inte stöda Wi-Fi Direct. Molly använder Wi-Fi Direct för att upptäcka och ansluta till din nya Android-enhet. Du kan fortfarande skapa en säkerhetskopia för att återställa ditt konto på din nya Android-enhet.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal behöver platsbehörighet för att upptäcka och ansluta till din nya Android-enhet.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal behöver platstjänster aktiverade för att upptäcka och ansluta till din nya Android-enhet.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Wi-Fi behöver vara aktiverat för att Signal ska upptäcka och ansluta till din nya Android-enhet. Wi-Fi måste vara aktiverat men det behöver inte vara anslutet till ett Wi-Fi-nätverk.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Tyvärr verkar den här enheten inte stöda Wi-Fi Direct. Signal använder Wi-Fi Direct för att upptäcka och ansluta till din nya Android-enhet. Du kan fortfarande skapa en säkerhetskopia för att återställa ditt konto på din nya Android-enhet.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Skapa en säkerhetskopia</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ett oväntat fel uppstod när du försökte ansluta till din nya Android-enhet.</string>
 
@@ -4381,7 +4484,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Överför data</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Håll båda enheterna nära varandra. Stäng inte av enheterna och håll Molly öppen. Överföringarna är ände-till-ände-krypterade.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Håll båda enheterna nära varandra. Stäng inte av enheterna och håll Signal öppen. Överföringarna är ände-till-ände-krypterade.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d meddelanden hittills…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% av meddelanden hittills…</string>
@@ -4395,7 +4498,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Överför konto</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Hämta Molly på din nya Android-enhet</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Hämta Signal på din nya Android-enhet</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Tryck på \"Överför eller återställ konto\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4469,7 +4572,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Alla med denna länk kan se gruppens namn och foto och begära att gå med. Dela det med personer du litar på.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Alla som har denna länk kan se gruppens namn och foto och gå med i gruppen. Dela det med personer du litar på.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Dela via Molly</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Dela via Signal</string>
     <string name="GroupLinkBottomSheet_copy">Kopiera</string>
     <string name="GroupLinkBottomSheet_qr_code">QR Kod</string>
     <string name="GroupLinkBottomSheet_share">Dela</string>
@@ -4655,7 +4758,7 @@
     <string name="payment_info_card_about_mobilecoin">Om MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin är en ny integritetsfokuserad digital valuta.</string>
     <string name="payment_info_card_adding_funds">Lägga till pengar</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Du kan lägga till pengar för användning i Molly genom att skicka MobileCoin till din plånboksadress.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Du kan lägga till pengar för användning i Signal genom att skicka MobileCoin till din plånboksadress.</string>
     <string name="payment_info_card_cashing_out">Utbetalning</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Du kan betala ut MobileCoin när som helst på ett börs som stöder MobileCoin. Gör bara en överföring till ditt konto vid växlingen.</string>
     <string name="payment_info_card_hide_this_card">Dölj detta kort?</string>
@@ -4676,12 +4779,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Inaktivera plånbok</string>
     <string name="DeactivateWalletFragment__your_balance">Ditt saldo</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Det rekommenderas att du överför dina pengar till en annan plånboksadress innan du inaktiverar betalningar. Om du väljer att inte överföra dina pengar nu förblir de kvar i din plånbok kopplad till Molly om du återaktiverar betalningar.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Det rekommenderas att du överför dina pengar till en annan plånboksadress innan du inaktiverar betalningar. Om du väljer att inte överföra dina pengar nu förblir de kvar i din plånbok kopplad till Signal om du återaktiverar betalningar.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Överför återstående saldo</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Inaktivera utan att överföra</string>
     <string name="DeactivateWalletFragment__deactivate">Inaktivera</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Inaktivera utan att överföra?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Ditt saldo finns kvar i din plånbok kopplad till Molly om du väljer att återaktivera betalningar.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Ditt saldo finns kvar i din plånbok kopplad till Signal om du väljer att återaktivera betalningar.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Fel vid inaktivering av plånbok.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4901,7 +5004,7 @@
 
     <!-- ChatsSettingsFragment -->
     <string name="ChatsSettingsFragment__keyboard">Tangentbord</string>
-    <string name="ChatsSettingsFragment__enter_key_sends">Enter-tangenten skickar</string>
+    <string name="ChatsSettingsFragment__send_with_enter">Skicka med Retur</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">Meddelanden</string>
@@ -4925,8 +5028,8 @@
     <string name="PrivacySettingsFragment__blocked">Blockerade</string>
     <!-- Settings label that shows the number blocked contacts -->
     <plurals name="PrivacySettingsFragment__d_contacts">
-        <item quantity="one">%1$d kontakt</item>
-        <item quantity="other">%1$d kontakter</item>
+        <item quantity="one">%1$d kontakt eller grupp</item>
+        <item quantity="other">%1$d kontakter eller grupper</item>
     </plurals>
     <string name="PrivacySettingsFragment__messaging">Meddelanden</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Försvinnande meddelanden</string>
@@ -4981,7 +5084,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Licenser</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Villkor &amp; integritetspolicy</string>
-    <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Licensierad under GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5131,7 +5234,7 @@
     <string name="PermissionsSettingsFragment__only_admins">Endast administratörer</string>
     <string name="PermissionsSettingsFragment__who_can_add_new_members">Vem kan lägga till nya medlemmar?</string>
     <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">Vem kan redigera denna grupps information?</string>
-    <string name="PermissionsSettingsFragment__who_can_send_messages">Vem kan skicka meddelanden?</string>
+    <string name="PermissionsSettingsFragment__who_can_send_messages">Vem kan skicka meddelanden och starta samtal?</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
     <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Tysta aviseringar</string>
@@ -5433,9 +5536,9 @@
     <string name="MySupportPreference__learn_more">Läs mer</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Uppdatera Molly</string>
+    <string name="UpdateSignalExpiredDialog__title">Uppdatera Signal</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Denna version av Molly har upphört att gälla. Uppdatera nu för att fortsätta använda Molly.</string>
+    <string name="UpdateSignalExpiredDialog__message">Denna version av Signal har upphört att gälla. Uppdatera nu för att fortsätta använda Signal.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Uppdatera</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5444,7 +5547,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Enheten är inte registrerad</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Den här enheten är inte längre registrerad. Registrera om för att fortsätta använda Molly på den här enheten.</string>
+    <string name="ReregisterSignalDialog__message">Den här enheten är inte längre registrerad. Registrera om för att fortsätta använda Signal på den här enheten.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Registrera igen</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5755,7 +5858,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Det gick inte att öppna väljaren.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">För att aktivera aviseringar behöver Molly behörighet för att visa dem.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">För att aktivera aviseringar behöver Signal behörighet för att visa dem.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Aktivera</string>
 
@@ -7142,6 +7245,14 @@
     <string name="BackupAlertBottomSheet__download_later">Ladda ner senare</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
     <string name="BackupAlertBottomSheet__dont_download_media">Ladda inte ner media</string>
+    <!-- Dialog title for last chance to download backup -->
+    <string name="BackupAlertBottomSheet__media_will_be_deleted">Media kommer att tas bort</string>
+    <!-- Dialog message for last chance to download backup -->
+    <string name="BackupAlertBottomSheet__the_media_stored_in_your_backup">Media som finns lagrade i din säkerhetskopia kommer att tas bort permanent idag. Detta är din sista chans att ladda ner dem.</string>
+    <!-- Dialog action to download now -->
+    <string name="BackupAlertBottomSheet__download">Hämta</string>
+    <!-- Dialog action to not download now -->
+    <string name="BackupAlertBottomSheet__dont_download">Ladda inte ner</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7184,6 +7295,20 @@
     <string name="ManageStorageSettingsFragment_apply_limits_title">Tillämpa gränser för länkade enheter</string>
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">När det är aktiverat kommer gränser för chattlängd också att radera meddelanden från dina länkade enheter.</string>
+    <!-- Setting section title header for storage optimization -->
+    <string name="ManageStorageSettingsFragment__on_device_storage">Lagring på enheten</string>
+    <!-- Setting row title for storage optimization -->
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimera lagring på enheten</string>
+    <!-- Setting row explanation for storage optimization -->
+    <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Oanvända mediafiler kommer att avlastas, men kan laddas ner från din säkerhetskopia när som helst.</string>
+
+    <!-- UpgradeToEnableOptimizedStorageSheet -->
+    <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
+    <string name="UpgradeToEnableOptimizedStorageSheet__upgrade_to_enable_this_feature">Uppgradera för att aktivera denna funktion</string>
+    <!-- Subtitle of bottom sheet detailing that the user must upgrade to enable storage optimization -->
+    <string name="UpgradeToEnableOptimizedStorageSheet__storage_optimization_can_only_be_used">Lagringsoptimering kan endast användas med den betalda nivån av Säkerhetskopiering av Signal. Uppgradera din säkerhetskopieringsplan för att börja använda den här funktionen.</string>
+    <!-- Primary action to launch upgrade flow -->
+    <string name="UpgradeToEnableOptimizedStorageSheet__upgrade_now">Uppgradera nu</string>
 
     <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_title">Radering synkroniseras nu mellan alla dina enheter</string>
@@ -7229,6 +7354,8 @@
     <string name="RemoteBackupsSettingsFragment__subscription_cancelled">Abonnemang uppsagt</string>
     <!-- Snackbar text displayed when backup is successfully downloaded -->
     <string name="RemoteBackupsSettingsFragment__download_complete">Nerladdning slutförd</string>
+    <!-- Snackbar text displayed when backup will be created overnight -->
+    <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Säkerhetskopia kommer att skapas över natten.</string>
     <!-- Title text in row detailing selected backup type -->
     <string name="RemoteBackupsSettingsFragment__backup_type">Typ av säkerhetskopia</string>
     <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
@@ -7299,6 +7426,8 @@
     <string name="MessageBackupsPinConfirmationScreen__next">Nästa</string>
     <!-- Action button to switch keyboard type -->
     <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">Växla tangentbord</string>
+    <!-- Action button to create a new pin if we type the incorrect one -->
+    <string name="MessageBackupsPinConfirmationScreen__create_new_pin">Skapa ny PIN-kod</string>
 
     <!-- MessageBackupsPinEducationScreen -->
     <!-- Screen headline -->
@@ -7325,6 +7454,30 @@
     <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Ändra typ av säkerhetskopiering</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">Avbryt abonnemang</string>
+    <!-- MessageBackupsType block amount for free tier -->
+    <string name="MessageBackupsTypeSelectionScreen__free">Gratis</string>
+    <!-- MessageBackupsType block amount for paid tier. Placeholder is formatted currency amount. -->
+    <string name="MessageBackupsTypeSelectionScreen__s_month">%1$s/månad</string>
+    <!-- Title for free tier -->
+    <string name="MessageBackupsTypeSelectionScreen__text_plus_all_your_media">Textmeddelanden + alla dina media</string>
+    <!-- Title for paid tier. Placeholder is days of media retention. -->
+    <plurals name="MessageBackupsTypeSelectionScreen__text_plus_d_days_of_media">
+        <item quantity="one">Textmeddelanden + senaste %1$d dagens media</item>
+        <item quantity="other">Textmeddelanden + senaste %1$d dagarnas media</item>
+    </plurals>
+    <!-- Description text for text history feature -->
+    <string name="MessageBackupsTypeSelectionScreen__full_text_message_backup">Fullständig säkerhetskopiering av textmeddelanden</string>
+    <!-- Description text for paid tier media retention -->
+    <string name="MessageBackupsTypeSelectionScreen__full_media_backup">Fullständig säkerhetskopiering av media</string>
+    <!-- Description text for storage space for paid tier media. Placeholder 1 is for byte amount, placeholder 2 is for a photo count estimate -->
+    <string name="MessageBackupsTypeSelectionScreen__s_of_storage_s_photos">%1$s lagringsutrymme (%2$s foton)</string>
+    <!-- Description text for thanks -->
+    <string name="MessageBackupsTypeSelectionScreen__thanks_for_supporting_signal">Tack för att du stöder Signal!</string>
+    <!-- Description text for free tier media retention. Placeholder is retention day count. -->
+    <plurals name="MessageBackupsTypeSelectionScreen__last_d_days_of_media">
+        <item quantity="one">Senaste %1$d dagens media</item>
+        <item quantity="other">Senaste %1$d dagarnas media</item>
+    </plurals>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
@@ -7337,5 +7490,8 @@
     <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Bekräfta och ladda ner senare</string>
     <!-- Action button label to keep current subscription -->
     <string name="ConfirmBackupCancellationDialog__keep_subscription">Behåll abonnemang</string>
+
+    <!-- Accessible content description for the reminder view, describing the icon in the view. -->
+    <string name="ReminderView_icon_content_description">Påminnelseikon</string>
     <!-- EOF -->
 </resources>

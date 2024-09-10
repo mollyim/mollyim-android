@@ -18,9 +18,9 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1443
-val canonicalVersionName = "7.13.4"
-val currentHotfixVersion = 1
+val canonicalVersionCode = 1451
+val canonicalVersionName = "7.15.4"
+val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
 
@@ -127,13 +127,29 @@ android {
     targetCompatibility = signalJavaVersion
   }
 
-  packagingOptions {
-    resources {
-      excludes += setOf("LICENSE.txt", "LICENSE", "NOTICE", "asm-license.txt", "META-INF/LICENSE", "META-INF/LICENSE.md", "META-INF/NOTICE", "META-INF/LICENSE-notice.md", "META-INF/proguard/androidx-annotations.pro", "libsignal_jni.dylib", "signal_jni.dll", "libsignal_jni_testing.dylib", "signal_jni_testing.dll")
-    }
+  packaging {
     jniLibs {
+      excludes += setOf(
+        "**/*.dylib",
+        "**/*.dll"
+      )
       // MOLLY: Compress native libs by default as APK is not split on ABIs
       useLegacyPackaging = true
+    }
+    resources {
+      excludes += setOf(
+        "LICENSE.txt",
+        "LICENSE",
+        "NOTICE",
+        "asm-license.txt",
+        "META-INF/LICENSE",
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE",
+        "META-INF/LICENSE-notice.md",
+        "META-INF/proguard/androidx-annotations.pro",
+        "**/*.dylib",
+        "**/*.dll"
+      )
     }
   }
 
@@ -441,6 +457,7 @@ dependencies {
   implementation(libs.androidx.lifecycle.viewmodel.savedstate)
   implementation(libs.androidx.lifecycle.common.java8)
   implementation(libs.androidx.lifecycle.reactivestreams.ktx)
+  implementation(libs.androidx.lifecycle.runtime.compose)
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.camera.core)
   implementation(libs.androidx.camera.camera2)
@@ -501,6 +518,7 @@ dependencies {
   implementation(libs.kotlin.stdlib.jdk8)
   implementation(libs.kotlin.reflect)
   "gmsImplementation"(libs.kotlinx.coroutines.play.services)
+  implementation(libs.kotlinx.coroutines.rx3)
   implementation(libs.jackson.module.kotlin)
   implementation(libs.rxjava3.rxandroid)
   implementation(libs.rxjava3.rxkotlin)
@@ -512,6 +530,8 @@ dependencies {
   implementation(libs.molly.glide.webp.decoder)
   implementation(libs.gosimple.nbvcxz)
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
+
+  "gmsImplementation"(project(":billing"))
 
   "spinnerImplementation"(project(":spinner"))
 

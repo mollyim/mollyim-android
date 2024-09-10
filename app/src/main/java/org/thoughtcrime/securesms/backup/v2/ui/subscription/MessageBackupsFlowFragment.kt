@@ -13,16 +13,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.fragment.findNavController
 import io.reactivex.rxjava3.processors.PublishProcessor
 import org.signal.donations.InAppPaymentType
+import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentCheckoutDelegate
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentProcessorAction
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.Nav
 import org.thoughtcrime.securesms.database.InAppPaymentTable
+import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.viewModel
 
@@ -57,14 +60,19 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
       skipPartiallyExpanded = true
     )
 
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     LaunchedEffect(Unit) {
       navController.setLifecycleOwner(this@MessageBackupsFlowFragment)
 
-      requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-          viewModel.goToPreviousScreen()
+      requireActivity().onBackPressedDispatcher.addCallback(
+        lifecycleOwner,
+        object : OnBackPressedCallback(true) {
+          override fun handleOnBackPressed() {
+            viewModel.goToPreviousScreen()
+          }
         }
-      })
+      )
     }
 
     Nav.Host(
@@ -91,10 +99,12 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
       composable(route = MessageBackupsScreen.PIN_CONFIRMATION.name) {
         MessageBackupsPinConfirmationScreen(
           pin = pin,
+          isPinIncorrect = state.displayIncorrectPinError,
           onPinChanged = viewModel::onPinEntryUpdated,
           pinKeyboardType = state.pinKeyboardType,
           onPinKeyboardTypeSelected = viewModel::onPinKeyboardTypeUpdated,
-          onNextClick = viewModel::goToNextScreen
+          onNextClick = viewModel::goToNextScreen,
+          onCreateNewPinClick = this@MessageBackupsFlowFragment::createANewPin
         )
       }
 
@@ -103,7 +113,15 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
           currentBackupTier = state.currentMessageBackupTier,
           selectedBackupTier = state.selectedMessageBackupTier,
           availableBackupTypes = state.availableBackupTypes,
-          onMessageBackupsTierSelected = viewModel::onMessageBackupTierUpdated,
+          onMessageBackupsTierSelected = { tier ->
+            val type = state.availableBackupTypes.first { it.tier == tier }
+            val label = when (type) {
+              is MessageBackupsType.Free -> requireContext().resources.getQuantityString(R.plurals.MessageBackupsTypeSelectionScreen__text_plus_d_days_of_media, type.mediaRetentionDays, type.mediaRetentionDays)
+              is MessageBackupsType.Paid -> requireContext().getString(R.string.MessageBackupsTypeSelectionScreen__text_plus_all_your_media)
+            }
+
+            viewModel.onMessageBackupTierUpdated(tier, label)
+          },
           onNavigationClick = viewModel::goToPreviousScreen,
           onReadMoreClicked = {},
           onCancelSubscriptionClicked = viewModel::displayCancellationDialog,
@@ -112,7 +130,7 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
 
         if (state.screen == MessageBackupsScreen.CHECKOUT_SHEET) {
           MessageBackupsCheckoutSheet(
-            messageBackupsType = state.availableBackupTypes.first { it.tier == state.selectedMessageBackupTier!! },
+            messageBackupsType = state.availableBackupTypes.filterIsInstance<MessageBackupsType.Paid>().first { it.tier == state.selectedMessageBackupTier!! },
             availablePaymentMethods = state.availablePaymentMethods,
             sheetState = checkoutSheetState,
             onDismissRequest = {
@@ -178,6 +196,12 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
         return@LaunchedEffect
       }
 
+      if (state.screen == MessageBackupsScreen.PROCESS_FREE) {
+        checkoutDelegate.setActivityResult(InAppPaymentProcessorAction.UPDATE_SUBSCRIPTION, InAppPaymentType.RECURRING_BACKUP)
+        viewModel.goToNextScreen()
+        return@LaunchedEffect
+      }
+
       val routeScreen = MessageBackupsScreen.valueOf(route)
       if (routeScreen.isAfter(state.screen)) {
         navController.popBackStack()
@@ -185,6 +209,11 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
         navController.navigate(state.screen.name)
       }
     }
+  }
+
+  private fun createANewPin() {
+    viewModel.onPinEntryUpdated("")
+    startActivity(CreateSvrPinActivity.getIntentForPinChangeFromSettings(requireContext()))
   }
 
   private fun cancelSubscription() {
@@ -258,5 +287,9 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
 
   override fun navigateToDonationPending(inAppPayment: InAppPaymentTable.InAppPayment) {
     // TODO [message-backups] What do? Are we even supporting bank transfers?
+  }
+
+  override fun exitCheckoutFlow() {
+    requireActivity().finishAfterTransition()
   }
 }

@@ -39,6 +39,7 @@ import org.thoughtcrime.securesms.pin.SvrWrongPinException
 import org.thoughtcrime.securesms.registration.RegistrationData
 import org.thoughtcrime.securesms.registration.RegistrationUtil
 import org.thoughtcrime.securesms.registration.data.LinkDeviceRepository
+import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.data.network.BackupAuthCheckResult
 import org.thoughtcrime.securesms.registration.data.network.Challenge
@@ -402,14 +403,17 @@ class RegistrationViewModel : ViewModel() {
             nextVerificationAttempt = RegistrationRepository.deriveTimestamp(networkResult.headers, networkResult.body.nextVerificationAttempt),
             allowedToRequestCode = networkResult.body.allowedToRequestCode,
             challengesRequested = Challenge.parse(networkResult.body.requestedInformation),
-            verified = networkResult.body.verified
+            verified = networkResult.body.verified,
+            inProgress = false
           )
         }
       },
       errorHandler = { error ->
+        Log.d(TAG, "Setting ${error::class.simpleName} as session creation error.")
         store.update {
           it.copy(
-            sessionCreationError = error
+            sessionCreationError = error,
+            inProgress = false
           )
         }
       }
@@ -820,7 +824,11 @@ class RegistrationViewModel : ViewModel() {
 
   private suspend fun onSuccessfulRegistration(context: Context, registrationData: RegistrationData, remoteResult: RegistrationRepository.AccountRegistrationResult, reglockEnabled: Boolean) {
     Log.v(TAG, "onSuccessfulRegistration()")
-    RegistrationRepository.registerAccountLocally(context, registrationData, remoteResult, reglockEnabled)
+    val metadata = LocalRegistrationMetadataUtil.createLocalRegistrationMetadata(SignalStore.account.aciIdentityKey, SignalStore.account.pniIdentityKey, registrationData, remoteResult, reglockEnabled)
+    if (RemoteConfig.restoreAfterRegistration) {
+      SignalStore.registration.localRegistrationMetadata = metadata
+    }
+    RegistrationRepository.registerAccountLocally(context, metadata)
 
     if (reglockEnabled) {
       SignalStore.onboarding.clearAll()
@@ -1026,7 +1034,10 @@ class RegistrationViewModel : ViewModel() {
           return metadata
         }
 
-        else -> errorHandler(sessionResult)
+        else -> {
+          Log.d(TAG, "Handling error during session creation.")
+          errorHandler(sessionResult)
+        }
       }
       return null
     }

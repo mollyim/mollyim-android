@@ -102,6 +102,8 @@ import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.MuteDialog
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.audio.AudioRecorder
+import org.thoughtcrime.securesms.banner.banners.ServiceOutageBanner
+import org.thoughtcrime.securesms.banner.banners.UnauthorizedBanner
 import org.thoughtcrime.securesms.components.AnimatingToggle
 import org.thoughtcrime.securesms.components.ComposeText
 import org.thoughtcrime.securesms.components.ConversationSearchBottomBar
@@ -204,7 +206,6 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.databinding.V2ConversationFragmentBinding
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.GroupCallPeekEvent
-import org.thoughtcrime.securesms.events.ReminderUpdateEvent
 import org.thoughtcrime.securesms.giph.mp4.GiphyMp4ItemDecoration
 import org.thoughtcrime.securesms.giph.mp4.GiphyMp4PlaybackController
 import org.thoughtcrime.securesms.giph.mp4.GiphyMp4PlaybackPolicy
@@ -222,6 +223,7 @@ import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationInfoBotto
 import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationSuggestionsDialog
 import org.thoughtcrime.securesms.groups.v2.GroupBlockJoinRequestResult
 import org.thoughtcrime.securesms.invites.InviteActions
+import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob
 import org.thoughtcrime.securesms.keyboard.KeyboardPage
 import org.thoughtcrime.securesms.keyboard.KeyboardPagerFragment
 import org.thoughtcrime.securesms.keyboard.KeyboardPagerViewModel
@@ -301,6 +303,7 @@ import org.thoughtcrime.securesms.util.MessageConstraintsUtil.isValidEditMessage
 import org.thoughtcrime.securesms.util.PlayStoreUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SaveAttachmentUtil
+import org.thoughtcrime.securesms.util.SharedPreferencesLifecycleObserver
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.StorageUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
@@ -1005,17 +1008,40 @@ class ConversationFragment :
       VoiceMessageRecordingSessionCallbacks()
     )
 
-    binding.conversationBanner.listener = ConversationBannerListener()
-    viewModel
-      .reminder
-      .subscribeBy { reminder ->
-        if (reminder.isPresent) {
-          binding.conversationBanner.showReminder(reminder.get())
-        } else {
-          binding.conversationBanner.clearReminder()
+    val conversationBannerListener = ConversationBannerListener()
+    binding.conversationBanner.listener = conversationBannerListener
+
+    val unauthorizedProducer = UnauthorizedBanner.Producer(requireContext())
+    val serviceOutageProducer = ServiceOutageBanner.Producer(requireContext())
+    lifecycle.addObserver(
+      SharedPreferencesLifecycleObserver(
+        requireContext(),
+        mapOf(
+          TextSecurePreferences.UNAUTHORIZED_RECEIVED to { unauthorizedProducer.queryAndEmit() },
+          TextSecurePreferences.SERVICE_OUTAGE to { serviceOutageProducer.queryAndEmit() }
+        )
+      )
+    )
+
+    val bannerFlows = viewModel.getBannerFlows(
+      context = requireContext(),
+      unauthorizedFlow = unauthorizedProducer.flow,
+      serviceOutageStatusFlow = serviceOutageProducer.flow,
+      groupJoinClickListener = conversationBannerListener::reviewJoinRequestsAction,
+      onAddMembers = {
+        conversationGroupViewModel.groupRecordSnapshot?.let { groupRecord ->
+          GroupsV1MigrationSuggestionsDialog.show(requireActivity(), groupRecord.id.requireV2(), groupRecord.gv1MigrationSuggestions)
         }
-      }
-      .addTo(disposables)
+      },
+      onNoThanks = conversationGroupViewModel::onSuggestedMembersBannerDismissed,
+      bubbleClickListener = conversationBannerListener::changeBubbleSettingAction
+    )
+
+    binding.conversationBanner.collectAndShowBanners(bannerFlows)
+
+    if (TextSecurePreferences.getServiceOutage(context)) {
+      AppDependencies.jobManager.add(ServiceOutageDetectionJob())
+    }
 
     viewModel
       .identityRecordsObservable
@@ -1426,6 +1452,7 @@ class ConversationFragment :
   private fun presentScrollButtons(scrollButtonState: ConversationScrollButtonState) {
     Log.d(TAG, "Update scroll state $scrollButtonState")
     binding.scrollToBottom.setUnreadCount(scrollButtonState.unreadCount)
+    binding.scrollToMention.setUnreadCount(0)
     binding.scrollToMention.isShown = scrollButtonState.hasMentions && scrollButtonState.showScrollButtons
     binding.scrollToBottom.isShown = scrollButtonState.showScrollButtons
   }
@@ -2928,6 +2955,7 @@ class ConversationFragment :
 
     override fun onCallToAction(action: String) {
       if ("gift_badge" == action) {
+        // MOLLY: No action
       } else if ("username_edit" == action) {
         startActivity(EditProfileActivity.getIntentForUsernameEdit(requireContext()))
       }
@@ -3331,12 +3359,12 @@ class ConversationFragment :
           }
         }
 
-        requireActivity().registerReceiver(pinnedShortcutReceiver, IntentFilter(ACTION_PINNED_SHORTCUT))
+        ContextCompat.registerReceiver(requireActivity(), pinnedShortcutReceiver, IntentFilter(ACTION_PINNED_SHORTCUT), ContextCompat.RECEIVER_EXPORTED)
       }
 
       viewModel.getContactPhotoIcon(requireContext(), Glide.with(this@ConversationFragment))
         .subscribe { infoCompat ->
-          val intent = Intent(ACTION_PINNED_SHORTCUT)
+          val intent = Intent(ACTION_PINNED_SHORTCUT).apply { `package` = requireContext().packageName }
           val callback = PendingIntent.getBroadcast(requireContext(), 902, intent, PendingIntentFlags.mutable())
           ShortcutManagerCompat.requestPinShortcut(requireContext(), infoCompat, callback.intentSender)
         }
@@ -3591,12 +3619,12 @@ class ConversationFragment :
 
       val slides: List<Slide> = result.nonUploadedMedia.mapNotNull {
         when {
-          MediaUtil.isVideoType(it.mimeType) -> VideoSlide(requireContext(), it.uri, it.size, it.isVideoGif, it.width, it.height, it.caption.orNull(), it.transformProperties.orNull())
-          MediaUtil.isGif(it.mimeType) -> GifSlide(requireContext(), it.uri, it.size, it.width, it.height, it.isBorderless, it.caption.orNull())
-          MediaUtil.isImageType(it.mimeType) -> ImageSlide(requireContext(), it.uri, it.mimeType, it.size, it.width, it.height, it.isBorderless, it.caption.orNull(), null, it.transformProperties.orNull())
-          MediaUtil.isDocumentType(it.mimeType) -> { DocumentSlide(requireContext(), it.uri, it.mimeType, it.size, it.fileName.orNull()) }
+          MediaUtil.isVideoType(it.contentType) -> VideoSlide(requireContext(), it.uri, it.size, it.isVideoGif, it.width, it.height, it.caption.orNull(), it.transformProperties.orNull())
+          MediaUtil.isGif(it.contentType) -> GifSlide(requireContext(), it.uri, it.size, it.width, it.height, it.isBorderless, it.caption.orNull())
+          MediaUtil.isImageType(it.contentType) -> ImageSlide(requireContext(), it.uri, it.contentType, it.size, it.width, it.height, it.isBorderless, it.caption.orNull(), null, it.transformProperties.orNull())
+          MediaUtil.isDocumentType(it.contentType) -> { DocumentSlide(requireContext(), it.uri, it.contentType, it.size, it.fileName.orNull()) }
           else -> {
-            Log.w(TAG, "Asked to send an unexpected mimeType: '${it.mimeType}'. Skipping.")
+            Log.w(TAG, "Asked to send an unexpected mimeType: '${it.contentType}'. Skipping.")
             null
           }
         }
@@ -3613,7 +3641,8 @@ class ConversationFragment :
         contacts = emptyList(),
         clearCompose = true,
         linkPreviews = emptyList(),
-        isViewOnce = result.isViewOnce
+        isViewOnce = result.isViewOnce,
+        bypassPreSendSafetyNumberCheck = true
       ) {
         viewModel.deleteSlideData(slides)
       }
@@ -3632,7 +3661,8 @@ class ConversationFragment :
         clearCompose = true,
         linkPreviews = emptyList(),
         preUploadResults = result.preUploadResults,
-        isViewOnce = result.isViewOnce
+        isViewOnce = result.isViewOnce,
+        bypassPreSendSafetyNumberCheck = true
       )
     }
 
@@ -4194,11 +4224,6 @@ class ConversationFragment :
   @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
   fun onGroupCallPeekEvent(groupCallPeekEvent: GroupCallPeekEvent) {
     groupCallViewModel.onGroupCallPeekEvent(groupCallPeekEvent)
-  }
-
-  @Subscribe(threadMode = ThreadMode.MAIN)
-  fun onReminderUpdateEvent(reminderUpdateEvent: ReminderUpdateEvent) {
-    viewModel.refreshReminder()
   }
 
   @Subscribe(threadMode = ThreadMode.MAIN)

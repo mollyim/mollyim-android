@@ -28,6 +28,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.concurrent.SignalExecutors;
@@ -239,7 +240,7 @@ public class KeyCachingService extends Service {
     builder.setContentTitle(getString(R.string.KeyCachingService_passphrase_cached));
     builder.setContentText(getString(R.string.KeyCachingService_signal_passphrase_cached));
     builder.setSmallIcon(R.drawable.ic_molly_cached);
-    builder.setColor(getResources().getColor(R.color.core_ultramarine));
+    builder.setColor(ContextCompat.getColor(this, R.color.signal_light_colorSecondary));
     builder.setWhen(0);
     builder.setPriority(NotificationCompat.PRIORITY_LOW);
     builder.setCategory(NotificationCompat.CATEGORY_STATUS);

@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  --><!-- smartling.instruction_comments_enabled = on --><resources>
+  -->
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -85,6 +88,20 @@
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">اجازۀ دسترسی بدهید</string>
     <string name="AttachmentKeyboard_payment">پرداخت</string>
+    <!-- Text in a button that allows users to manage which media Signal has access to -->
+    <string name="AttachmentKeyboard_manage">مدیریت</string>
+    <!-- Option in menu to select more photos that Signal will have access to -->
+    <string name="AttachmentKeyboard_select_more_photos">انتخاب عکس‌های بیشتر</string>
+    <!-- Option in menu to go to settings -->
+    <string name="AttachmentKeyboard_go_to_settings">به تنظیمات بروید</string>
+    <!-- Text explaining that Signal has limited access to photos -->
+    <string name="AttachmentKeyboard_signal_has_limited_access">سیگنال دسترسی محدودی به عکس‌ها یا ویدیوها دارد</string>
+    <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
+    <string name="AttachmentKeyboard_no_photos_found">عکسی یافت نشد، عکس‌ها و ویدیوها را انتخاب کنید تا اینجا نمایش داده شوند یا مجوزها را تغییر دهید</string>
+
+    <!-- MediaGalleryFragment -->
+    <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
+    <string name="MediaGalleryFragment__no_photos_found">هیچ عکس یا ویدیویی یافت نشد. سیگنال فقط به عکس‌ها و ویدیوهایی که انتخاب کرده‌اید دسترسی دارد.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">برنامه‌ای برای انتخاب رسانه پیدا نشد.</string>
@@ -105,7 +122,7 @@
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">برای نمایش عکس‌ها و ویدیوها:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">سیگنال برای نمایش عکس‌ها و ویدیوهایتان باید به فضای ذخیره‌سازی دسترسی داشته باشد.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">سیگنال برای نمایش عکس‌ها و ویدیوهایتان نیاز به دسترسی دارد.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s پرداخت‌ها را فعال نکرده است </string>
@@ -798,6 +815,41 @@
     <!-- Action button to dismiss sheet and back up now -->
     <string name="CreateBackupBottomSheet__back_up_now">اکنون پشتیبان‌گیری شود</string>
 
+    <!-- Headline text for a bottom sheet dialog shown when the restoration of the media backup fails. -->
+    <string name="RestoreMediaFailedBottomSheet__Cant_restore_media">رسانه بازیابی نشد</string>
+    <!-- Help text for a bottom sheet dialog shown when the restoration of the media backup fails, displayed while the app is calculating the amount of disk space required. -->
+    <string name="RestoreMediaFailedBottomSheet__Your_device_does_not_have_enough_free_space_placeholder">دستگاه شما فضای خالی کافی ندارد. برای بازیابی رسانه خود، فضا آزاد کنید.\n\nاگر «رد کردن بازیابی» را انتخاب کنید، دفعه بعد که دستگاه شما پشتیبان‌گیری جدید انجام دهد، رسانه موجود در نسخه پشتیبان شما حذف می‌شود.</string>
+    <!-- Help text for a bottom sheet dialog shown when the restoration of the media backup fails, displayed once the app knows how much disk space is required. The placeholder is a filesize, such as "1.23 GB." -->
+    <string name="RestoreMediaFailedBottomSheet__Your_device_does_not_have_enough_free_space">دستگاه شما فضای خالی کافی ندارد. برای بازیابی رسانه خود، %1$s فضا آزاد کنید.\n\nاگر «رد کردن بازیابی» را انتخاب کنید، دفعه بعد که دستگاه شما پشتیبان‌گیری جدید انجام دهد، رسانه موجود در نسخه پشتیبان شما حذف می‌شود.</string>
+    <!-- Confirmation button to dismiss bottom sheet dialog without aborting the restoration process. -->
+    <string name="RestoreMediaFailedBottomSheet__Okay">تأیید</string>
+    <!-- Negative button on a bottom sheet dialog shown when the restoration of the media backup fails. This aborts the restoration process. -->
+    <string name="RestoreMediaFailedBottomSheet__Skip_restore">رد کردن بازیابی</string>
+    <!-- Accessibility content description for the "Backup Error" icon -->
+    <string name="RestoreMediaFailedBottomSheet__Backup_error_icon_content_description">آیکون خطای پشتیبان‌گیری</string>
+
+    <!-- Banner text that is displayed at the top of the app when trying to restore more media than the device\'s memory has space for. -->
+    <string name="RestoreMediaErrorBanner__Free_up_storage_space">برای بازیابی رسانه خود، فضا آزاد کنید.</string>
+    <!-- Banner text that is displayed at the top of the app when trying to restore more media than the device\'s memory has space for. The placeholder is a filesize, such as "1.23 GB." -->
+    <string name="RestoreMediaErrorBanner__Free_up_of_space">برای بازیابی رسانه خود، %1$s فضا آزاد کنید.</string>
+
+    <!-- Remote media restoration in-process status title. -->
+    <string name="RestoreMediaReminder__Restoring_media">در حال بازیابی رسانه</string>
+    <!-- Remote media restoration in-process description. The first to placeholders are filesizes, such as "865 MB" and "2.3 GB". The final placeholder is a whole number representing the percentage progress. -->
+    <string name="RestoreMediaReminder__Progress_filesize">%1$s از %2$s (%3$d%%)</string>
+    <!-- Remote media restoration paused status title. -->
+    <string name="RestoreMediaReminder__Restoring_media_paused">بازیابی رسانه متوقف شد</string>
+    <!-- Remote media restoration paused status description for when the restore is paused because unmetered connectivity, such as WiFi, is unavailable. -->
+    <string name="RestoreMediaReminder__Waiting_for_Wifi">در انتظار وای‌فای…</string>
+    <!-- Remote media restoration paused status description for when the restore is paused because internet is unavailable. -->
+    <string name="RestoreMediaReminder__Waiting_for_internet_connection">در انتظار اتصال به اینترنت…</string>
+    <!-- Remote media restoration paused status description for when the device\'s battery is low -->
+    <string name="RestoreMediaReminder__low_battery">شارژ باتری کم است. دستگاه خود را شارژ کنید.</string>
+    <!-- Remote media restoration call to action when the device is out of space. The placeholder string is a file size, such as "1.23 GB". -->
+    <string name="RestoreMediaReminder__Free_up_space">برای بازیابی رسانه خود، %1$s آزاد کنید.</string>
+    <!-- Button label to abort media restoration -->
+    <string name="RestoreMediaReminder__Skip_restore">رد کردن بازیابی</string>
+
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">پشتیبان‌های گفتگو</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">پشتیبان‌ها با یک گذرواژه رمزگذاری شده و روی دستگاه شما ذخیره می‌شوند.</string>
@@ -901,7 +953,7 @@
     <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
     <string name="LinkDeviceFragment__signal_messages_are_synchronized">پس از متصل شدن تلفن، پیام‌های سیگنال با سیگنال در تلفن همراهتان همگام‌سازی می‌شوند. تاریخچه پیام‌های قبلی شما ظاهر نخواهد شد.</string>
     <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
-    <string name="LinkDeviceFragment__on_other_device_visit_signal">در دستگاه دیگر خود، برای نصب سیگنال به %1$s بروید</string>
+    <string name="LinkDeviceFragment__on_other_device_visit_signal">در دستگاهی که می‌خواهید پیوند دهید، برای نصب سیگنال به %1$s بروید</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
     <!-- Header title listing out current linked devices -->
     <string name="LinkDeviceFragment__my_linked_devices">دستگاه‌های متصل من</string>
@@ -2046,6 +2098,16 @@
     <!-- Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons. -->
     <!-- Body text for the Valentine\'s Day donation megaphone. -->
 
+    <!-- CallScreenTopBar -->
+    <!-- Content description for navigation icon -->
+    <string name="CallScreenTopBar__go_back">رفتن به عقب</string>
+    <!-- Content description for info icon -->
+    <string name="CallScreenTopBar__call_information">اطلاعات تماس</string>
+
+    <!-- CallScreenPreJoinOverlay -->
+    <!-- Displayed when users camera is disabled -->
+    <string name="CallScreenPreJoinOverlay__your_camera_is_off">دوربین شما خاموش است</string>
+
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">برای فعال‌سازی ویدئو اینجا ضربه بزنید</string>
     <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">برای تماس با%1$s، سیگنال به دسترسی دوربین شما نیاز دارد</string>
@@ -2195,6 +2257,8 @@
     <string name="WebRtcCallView__additional_actions">اقدامات بیشتر</string>
     <!-- Content description for end-call button -->
     <string name="WebRtcCallView__end_call">پایان دادن به تماس</string>
+    <!-- Content description for toggling group ring state -->
+    <string name="WebRtcCallView__toggle_group_ringing">تغییر وضعیت زنگ گروه</string>
 
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">خطای رابط کاربری رخ داد. لطفاً این خطا را به توسعه‌دهندگان گزارش کنید.</string>
@@ -2341,7 +2405,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">شما تماسی برای وارسی این شماره دریافت خواهید کرد.</string>
     <string name="RegistrationActivity_edit_number">ویرایش شماره</string>
     <string name="RegistrationActivity_missing_google_play_services">فاقد خدمات Google Play</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه فاقد خدمات Google Play است. شما می‌توانید به استفاده از سیگنال ادامه دهید، اما این پیکربندی می‌تواند باعث کاهش اطمینان‌پذیری یا عملکرد شود.\n\n اگر یک کاربر حرفه‌ای یا در حال اجرای یک ROM سفارشی اندروید نیستید یا فکر می‌کنید که این پیام به اشتباه به شما نشان داده شده است، برای دریافت کمک در فرآیند عیب‌یابی با support@molly.im تماس بگیرید.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه فاقد خدمات Google Play است. شما می‌توانید به استفاده از سیگنال ادامه دهید، اما این پیکربندی می‌تواند باعث کاهش اطمینان‌پذیری یا عملکرد شود.\n\n اگر یک کاربر حرفه‌ای یا در حال اجرای یک ROM سفارشی اندروید نیستید یا فکر می‌کنید که این پیام به اشتباه به شما نشان داده شده است، برای دریافت کمک در فرآیند عیب‌یابی با support@signal.org تماس بگیرید.</string>
     <string name="RegistrationActivity_i_understand">متوجهم</string>
     <string name="RegistrationActivity_play_services_error">خطای خدمات Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">خدمات Google Play در حال به‌روزرسانی است یا موقتاً در دسترس نیست. لطفاً دوباره تلاش کنید.</string>
@@ -3727,6 +3791,10 @@
     <string name="PermissionDeniedBottomSheet__1_tap_settings_below">۱. در زیر روی «تنظیمات» بزنید</string>
     <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
     <string name="PermissionDeniedBottomSheet__2_allow_permission">۲. %1$s اجازه دادن</string>
+    <!-- Sheet describing step 2 on how to give permissions by tapping permissions in their settings -->
+    <string name="PermissionDeniedBottomSheet__2_tap_permissions">۲. روی «مجوزها» ضربه بزنید</string>
+    <!-- Sheet describing step 3 on how to give permissions for photos and videos in settings where %s will be replaced with an image of a checked button -->
+    <string name="PermissionDeniedBottomSheet__3_allow_permission">۳. %1$s به «عکس‌ها و ویدیوها» اجازه داده شود</string>
     <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
     <string name="PermissionDeniedBottomSheet__settings">تنظیمات</string>
 
@@ -4202,7 +4270,7 @@
     <string name="BackupDialog_passphrase_was_not_correct">گذرواژه نادرست بود</string>
     <string name="LocalBackupJob_creating_signal_backup">در حال ایجاد پشتیبان سیگنال…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">در حال تایید پشتیبان Molly…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">در حال تایید پشتیبان Signal…</string>
     <string name="LocalBackupJobApi29_backup_failed">پشتیبان‌گیری ناموفق بود</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">آدرس ذخیره‌سازی پشتیبان شما پاک شده یا به جای دیگری انتقال یافته است.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">حجم فایل پشتیبان شما برای نگهداری در این محل زیاد است.</string>
@@ -4253,6 +4321,8 @@
     <string name="preferences_app_protection__screen_lock">قفل صفحه</string>
     <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">قفل کردن دسترسی به سیگنال با قفل صفحهٔ اندروید یا اثر انگشت</string>
     <string name="preferences_app_protection__screen_lock_inactivity_timeout">مهلت قفل صفحه</string>
+    <!-- Snackbar text shown when trying to enable screen lock but the user does not have a password or biometrics enabled -->
+    <string name="preferences_app_protection__to_use_screen_lock">برای استفاده از قفل صفحه، یک پین، الگو یا رمز عبور را در این دستگاه تنظیم کنید.</string>
     <string name="preferences_app_protection__signal_pin">پین سیگنال</string>
     <string name="preferences_app_protection__create_a_pin">یک پین جدید ایجاد کنید</string>
     <string name="preferences_app_protection__change_your_pin">پین خود را تغییر دهید</string>
@@ -4273,8 +4343,41 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">تلاش‌های ناموفق بیش از حد زیاد بودند. لطفاً بعداً دوباره امتحان کنید.</string>
     <string name="RegistrationActivity_error_connecting_to_service">خطا در برقراری ارتباط با سرویس</string>
     <string name="preferences_chats__backups">پشتیبان‌ها</string>
-    <string name="prompt_passphrase_activity__signal_is_locked">سیگنال قفل است</string>
-    <string name="prompt_passphrase_activity__tap_to_unlock">برای باز کردن قفل ضربه بزنید</string>
+    <!-- Title text shown when Signal is locked and needs to be unlocked -->
+    <string name="prompt_passphrase_activity__unlock_signal">باز کردن قفل سیگنال</string>
+    <!-- Description text explaining how to unlock Signal -->
+    <string name="prompt_passphrase_activity__use_your_android_device">از تنظیمات قفل دستگاه اندروید خود برای باز کردن قفل سیگنال استفاده کنید.</string>
+    <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
+    <string name="prompt_passphrase_activity__screen_lock_is_on">قفل صفحه روشن است و سیگنال با تنظیمات قفل دستگاه شما ایمن شده است. قفل سیگنال را به همان روشی باز کنید که معمولاً قفل گوشی خود را باز می‌کنید، مثل باز کردن قفل با چهره، باز کردن قفل با اثر انگشت، پین، رمز عبور یا الگو.</string>
+    <!-- Button in a dialog that will contact Signal support if pressed -->
+    <string name="prompt_passphrase_activity__contact_support">ارتباط با پشتیبانی</string>
+    <!-- Button text to try again after unlocking has previously failed -->
+    <string name="prompt_passphrase_activity__try_again">دوباره امتحان کنید</string>
+
+    <!-- ScreenLockSettingsFragment -->
+    <!-- Text shown when screen lock is not enabled -->
+    <string name="ScreenLockSettingsFragment__off">خاموش</string>
+    <!-- Text shown with toggle that when switched on will enable screen lock -->
+    <string name="ScreenLockSettingsFragment__use_screen_lock">استفاده از قفل صفحه</string>
+    <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
+    <string name="ScreenLockSettingsFragment__your_android_device">برای باز کردن قفل سیگنال هنگام خروج از برنامه یا تغییر برنامه، تنظیمات قفل دستگاه اندروید شما الزامی است. وقتی قفل باشد، پیش‌نمایش‌ اعلان‌ها محتوای پیام را نشان نمی‌دهند.</string>
+    <!-- Title text explaining when users should start the screen lock -->
+    <string name="ScreenLockSettingsFragment__start_screen_lock">شروع قفل صفحه</string>
+    <!-- Option text explaining that screen lock should start immediately -->
+    <string name="ScreenLockSettingsFragment__immediately">فوراً</string>
+    <!-- Option text explaining that screen lock should start after 1 minute of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_1_min">بعد از ۱ دقیقه</string>
+    <!-- Option text explaining that screen lock should start after 5 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_5_min">بعد از ۵ دقیقه</string>
+    <!-- Option text explaining that screen lock should start after 30 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_30_min">بعد از ۳۰ دقیقه</string>
+    <!-- Option text explaining that screen lock should start at a custom time set by the user -->
+    <string name="ScreenLockSettingsFragment__custom_time">زمان دلخواه</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">استفاده از قفل صفحه سیگنال</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">خاموش کردن قفل صفحه سیگنال</string>
+
     <string name="Recipient_unknown">ناشناخته</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
     <string name="Recipient_deleted_account">حساب پاک‌شده</string>
@@ -4901,7 +5004,7 @@
 
     <!-- ChatsSettingsFragment -->
     <string name="ChatsSettingsFragment__keyboard">صفحه‌کلید</string>
-    <string name="ChatsSettingsFragment__enter_key_sends">ارسال با کلید Enter</string>
+    <string name="ChatsSettingsFragment__send_with_enter">ارسال با enter</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">پیام‌ها</string>
@@ -4925,8 +5028,8 @@
     <string name="PrivacySettingsFragment__blocked">مسدودشده</string>
     <!-- Settings label that shows the number blocked contacts -->
     <plurals name="PrivacySettingsFragment__d_contacts">
-        <item quantity="one">%1$d مخاطب</item>
-        <item quantity="other">%1$d مخاطب</item>
+        <item quantity="one">%1$d مخاطب یا گروه</item>
+        <item quantity="other">%1$d مخاطب یا گروه</item>
     </plurals>
     <string name="PrivacySettingsFragment__messaging">‌پیام‌رسانی</string>
     <string name="PrivacySettingsFragment__disappearing_messages">پیام‌های ناپدید شونده</string>
@@ -5131,7 +5234,7 @@
     <string name="PermissionsSettingsFragment__only_admins">فقط مدیران</string>
     <string name="PermissionsSettingsFragment__who_can_add_new_members">چه کسی می‌تواند اعضای جدید اضافه کند؟</string>
     <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">چه کسی می‌تواند اطلاعات این گروه را ویرایش کند؟</string>
-    <string name="PermissionsSettingsFragment__who_can_send_messages">چه کسی ‌می‌تواند پیام ارسال کنند؟</string>
+    <string name="PermissionsSettingsFragment__who_can_send_messages">چه کسی می‌تواند پیام ارسال کند و تماس برقرار کند؟</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
     <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">بی‌صدا کردن اعلان‌ها</string>
@@ -7142,6 +7245,14 @@
     <string name="BackupAlertBottomSheet__download_later">بعداً دانلود شود</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
     <string name="BackupAlertBottomSheet__dont_download_media">رسانه دانلود نشود</string>
+    <!-- Dialog title for last chance to download backup -->
+    <string name="BackupAlertBottomSheet__media_will_be_deleted">رسانه حذف خواهد شد</string>
+    <!-- Dialog message for last chance to download backup -->
+    <string name="BackupAlertBottomSheet__the_media_stored_in_your_backup">رسانه ذخیره‌شده در نسخه پشتیبان شما امروز برای همیشه حذف خواهد شد. این آخرین فرصت شما برای دانلود آن است.</string>
+    <!-- Dialog action to download now -->
+    <string name="BackupAlertBottomSheet__download">بارگیری</string>
+    <!-- Dialog action to not download now -->
+    <string name="BackupAlertBottomSheet__dont_download">دانلود نشود</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7184,6 +7295,20 @@
     <string name="ManageStorageSettingsFragment_apply_limits_title">محدودیت‌هایی را برای دستگاه‌های متصل اعمال کنید</string>
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">در صورت فعال بودن محدودیت‌های گفتگو، پیام‌ها از دستگاه‌های متصل نیز حذف می‌شود.</string>
+    <!-- Setting section title header for storage optimization -->
+    <string name="ManageStorageSettingsFragment__on_device_storage">فضای ذخیره‌سازی در دستگاه</string>
+    <!-- Setting row title for storage optimization -->
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">بهینه‌سازی فضای ذخیره‌سازی در دستگاه</string>
+    <!-- Setting row explanation for storage optimization -->
+    <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">رسانه‌های استفاده‌نشده پاک می‌شوند، اما می‌توانید هر زمانی که خواستید از نسخه پشتیبان خود دانلودشان کنید.</string>
+
+    <!-- UpgradeToEnableOptimizedStorageSheet -->
+    <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
+    <string name="UpgradeToEnableOptimizedStorageSheet__upgrade_to_enable_this_feature">برای فعال کردن این قابلیت، به‌روزرسانی کنید</string>
+    <!-- Subtitle of bottom sheet detailing that the user must upgrade to enable storage optimization -->
+    <string name="UpgradeToEnableOptimizedStorageSheet__storage_optimization_can_only_be_used">بهینه‌سازی فضای ذخیره‌سازی فقط با نسخه پولی پشتیبان‌گیری سیگنال امکان‌پذیر است. برای استفاده از این قابلیت، طرح پشتیبان‌گیری خود را ارتقا دهید.</string>
+    <!-- Primary action to launch upgrade flow -->
+    <string name="UpgradeToEnableOptimizedStorageSheet__upgrade_now">اکنون ارتقا داده شود</string>
 
     <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_title">اکنون حذف در همه دستگاه‌های شما همگام‌سازی می‌شود</string>
@@ -7229,6 +7354,8 @@
     <string name="RemoteBackupsSettingsFragment__subscription_cancelled">اشتراک لغو شد</string>
     <!-- Snackbar text displayed when backup is successfully downloaded -->
     <string name="RemoteBackupsSettingsFragment__download_complete">دانلود کامل شد</string>
+    <!-- Snackbar text displayed when backup will be created overnight -->
+    <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">پشتیبان‌گیری در طول شب انجام می‌شود.</string>
     <!-- Title text in row detailing selected backup type -->
     <string name="RemoteBackupsSettingsFragment__backup_type">نوع پشتیبان</string>
     <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
@@ -7299,6 +7426,8 @@
     <string name="MessageBackupsPinConfirmationScreen__next">بعدی</string>
     <!-- Action button to switch keyboard type -->
     <string name="MessageBackupsPinConfirmationScreen__switch_keyboard">تغییر صفحه‌کلید</string>
+    <!-- Action button to create a new pin if we type the incorrect one -->
+    <string name="MessageBackupsPinConfirmationScreen__create_new_pin">ایجاد پین جدید</string>
 
     <!-- MessageBackupsPinEducationScreen -->
     <!-- Screen headline -->
@@ -7325,6 +7454,30 @@
     <string name="MessageBackupsTypeSelectionScreen__change_backup_type">تغییر نوع پشتیبان‌گیری</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">لغو اشتراک</string>
+    <!-- MessageBackupsType block amount for free tier -->
+    <string name="MessageBackupsTypeSelectionScreen__free">رایگان</string>
+    <!-- MessageBackupsType block amount for paid tier. Placeholder is formatted currency amount. -->
+    <string name="MessageBackupsTypeSelectionScreen__s_month">%1$s در ماه</string>
+    <!-- Title for free tier -->
+    <string name="MessageBackupsTypeSelectionScreen__text_plus_all_your_media">پیامک + همه رسانه‌هایتان</string>
+    <!-- Title for paid tier. Placeholder is days of media retention. -->
+    <plurals name="MessageBackupsTypeSelectionScreen__text_plus_d_days_of_media">
+        <item quantity="one">پیامک + %1$d روز رسانه</item>
+        <item quantity="other">پیامک + %1$d روز رسانه</item>
+    </plurals>
+    <!-- Description text for text history feature -->
+    <string name="MessageBackupsTypeSelectionScreen__full_text_message_backup">پشتیبان‌گیری کامل پیامک</string>
+    <!-- Description text for paid tier media retention -->
+    <string name="MessageBackupsTypeSelectionScreen__full_media_backup">پشتیبان‌گیری کامل رسانه</string>
+    <!-- Description text for storage space for paid tier media. Placeholder 1 is for byte amount, placeholder 2 is for a photo count estimate -->
+    <string name="MessageBackupsTypeSelectionScreen__s_of_storage_s_photos">%1$s فضای ذخیره‌سازی (%2$s عکس)</string>
+    <!-- Description text for thanks -->
+    <string name="MessageBackupsTypeSelectionScreen__thanks_for_supporting_signal">قدردان حمایتتان از سیگنال هستیم!</string>
+    <!-- Description text for free tier media retention. Placeholder is retention day count. -->
+    <plurals name="MessageBackupsTypeSelectionScreen__last_d_days_of_media">
+        <item quantity="one">%1$d روز آخر رسانه</item>
+        <item quantity="other">%1$d روز آخر رسانه</item>
+    </plurals>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
@@ -7337,5 +7490,8 @@
     <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">بعداً تأیید و دانلود شود</string>
     <!-- Action button label to keep current subscription -->
     <string name="ConfirmBackupCancellationDialog__keep_subscription">حفظ اشتراک</string>
+
+    <!-- Accessible content description for the reminder view, describing the icon in the view. -->
+    <string name="ReminderView_icon_content_description">آیکون یادآوری</string>
     <!-- EOF -->
 </resources>

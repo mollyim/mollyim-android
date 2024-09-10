@@ -31,6 +31,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import org.signal.core.util.logging.Log;
 
@@ -511,8 +512,9 @@ public class OrbotHelper implements ProxyHelper {
         if (orbot != null) {
             isInstalled = true;
             handler.postDelayed(onStatusTimeout, statusTimeoutMs);
-            context.registerReceiver(orbotStatusReceiver,
-                    new IntentFilter(OrbotHelper.ACTION_STATUS));
+            ContextCompat.registerReceiver(context, orbotStatusReceiver,
+                                           new IntentFilter(OrbotHelper.ACTION_STATUS),
+                                           ContextCompat.RECEIVER_EXPORTED);
             context.sendBroadcast(orbot);
         } else {
             isInstalled = false;
@@ -523,39 +525,6 @@ public class OrbotHelper implements ProxyHelper {
         }
 
         return (isInstalled);
-    }
-
-    /**
-     * Given that init() returned false, calling installOrbot()
-     * will trigger an attempt to install Orbot from an available
-     * distribution channel (e.g., the Play Store). Only call this
-     * if the user is expecting it, such as in response to tapping
-     * a dialog button or an action bar item.
-     * <p>
-     * Note that installation may take a long time, even if
-     * the user is proceeding with the installation, due to network
-     * speeds, waiting for user input, and so on. Either specify
-     * a long timeout, or consider the timeout to be merely advisory
-     * and use some other user input to cause you to try
-     * init() again after, presumably, Orbot has been installed
-     * and configured by the user.
-     * <p>
-     * If the user does install Orbot, we will attempt init()
-     * again automatically. Hence, you will probably need user input
-     * to tell you when the user has gotten Orbot up and going.
-     *
-     * @param host the Activity that is triggering this work
-     */
-    public void installOrbot(Activity host) {
-        handler.postDelayed(onInstallTimeout, installTimeoutMs);
-
-        IntentFilter filter =
-                new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
-
-        filter.addDataScheme("package");
-
-        context.registerReceiver(orbotInstallReceiver, filter);
-        host.startActivity(OrbotHelper.getOrbotInstallIntent(context));
     }
 
     private BroadcastReceiver orbotStatusReceiver = new BroadcastReceiver() {
