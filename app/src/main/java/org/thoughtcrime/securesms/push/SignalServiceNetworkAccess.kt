@@ -51,6 +51,7 @@ class SignalServiceNetworkAccess(context: Context) {
     private const val COUNTRY_CODE_OMAN = 968
     private const val COUNTRY_CODE_QATAR = 974
     private const val COUNTRY_CODE_IRAN = 98
+    private const val COUNTRY_CODE_CHINA = 86
     private const val COUNTRY_CODE_CUBA = 53
     private const val COUNTRY_CODE_UZBEKISTAN = 998
     private const val COUNTRY_CODE_VENEZUELA = 58
@@ -285,6 +286,7 @@ class SignalServiceNetworkAccess(context: Context) {
       listOf(HostConfig(HTTPS_WWW_GOOGLE_COM_PK, G_HOST, GMAIL_CONNECTION_SPEC)) + baseGHostConfigs
     ),
     COUNTRY_CODE_IRAN to fConfig,
+    COUNTRY_CODE_CHINA to fConfig,
     COUNTRY_CODE_CUBA to fConfig
   )
 
@@ -296,6 +298,7 @@ class SignalServiceNetworkAccess(context: Context) {
     COUNTRY_CODE_OMAN,
     COUNTRY_CODE_QATAR,
     COUNTRY_CODE_IRAN,
+    COUNTRY_CODE_CHINA,
     COUNTRY_CODE_CUBA,
     COUNTRY_CODE_UZBEKISTAN,
     COUNTRY_CODE_VENEZUELA,
