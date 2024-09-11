@@ -34,10 +34,6 @@ class LinkDeviceLearnMoreBottomSheetFragment : ComposeBottomSheetDialogFragment(
 
   override val peekHeightPercentage: Float = 0.8f
 
-  companion object {
-    const val SIGNAL_DOWNLOAD_URL = "https://signal.org/download"
-  }
-
   @Composable
   override fun SheetContent() {
     LearnMoreSheet()
@@ -47,9 +43,10 @@ class LinkDeviceLearnMoreBottomSheetFragment : ComposeBottomSheetDialogFragment(
 @Composable
 fun LearnMoreSheet() {
   val context = LocalContext.current
-  val downloadUrl = stringResource(id = R.string.LinkDeviceFragment__signal_download_url)
-  val fullString = stringResource(id = R.string.LinkDeviceFragment__on_other_device_visit_signal, downloadUrl)
-  val spanned = SpanUtil.urlSubsequence(fullString, downloadUrl, LinkDeviceLearnMoreBottomSheetFragment.SIGNAL_DOWNLOAD_URL)
+  val downloadUrl = stringResource(R.string.install_url)
+  val linkText = downloadUrl.removePrefix("https://")
+  val fullString = stringResource(id = R.string.LinkDeviceFragment__for_android_devices_visit_s_to_install_molly, linkText)
+  val spanned = SpanUtil.urlSubsequence(fullString, linkText, downloadUrl)
 
   return Column(
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -67,16 +64,20 @@ fun LearnMoreSheet() {
     )
     Text(
       style = MaterialTheme.typography.titleLarge,
-      text = stringResource(R.string.LinkDeviceFragment__signal_on_desktop_ipad),
+      text = stringResource(R.string.LinkDeviceFragment__molly_on_another_device),
       modifier = Modifier.padding(horizontal = 32.dp, vertical = 8.dp)
     )
     LinkedDeviceInformationRow(
       painterResource(R.drawable.symbol_lock_24),
-      stringResource(R.string.LinkDeviceFragment__all_messaging_is_private)
+      stringResource(R.string.LinkDeviceFragment__messaging_is_private_on_all_linked_devices)
     )
     LinkedDeviceInformationRow(
       painterResource(R.drawable.ic_replies_outline_20),
-      stringResource(R.string.LinkDeviceFragment__signal_messages_are_synchronized)
+      stringResource(R.string.LinkDeviceFragment__once_linked_new_messages_sync_across_devices)
+    )
+    LinkedDeviceInformationRow(
+      painterResource(R.drawable.symbol_devices_24),
+      stringResource(R.string.LinkDeviceFragment__molly_supports_linking_to_other_android_devices)
     )
     Row(modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp, start = 40.dp, end = 32.dp)) {
       Icon(

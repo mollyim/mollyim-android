@@ -218,7 +218,7 @@ fun DeviceDescriptionScreen(
       tint = Color.Unspecified
     )
     Text(
-      text = stringResource(id = R.string.LinkDeviceFragment__use_signal_on_desktop_ipad),
+      text = stringResource(id = R.string.LinkDeviceFragment__use_molly_on_another_devices),
       textAlign = TextAlign.Center,
       modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 12.dp, bottom = 4.dp)
     )
