@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -42,12 +39,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signal กำลังปรับรุ่น…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Molly กำลังปรับรุ่น…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">คุณยังไม่ได้ตั้งวลีรหัสผ่าน</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">ปิดใช้งานวลีรหัสผ่านหรือไม่?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signal และการแจ้งเตือนข้อความจะถูกปลดล็อกอย่างถาวร</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly และการแจ้งเตือนข้อความจะถูกปลดล็อกอย่างถาวร</string>
     <string name="ApplicationPreferencesActivity_disable">ปิดใช้งาน</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">รหัส PIN นั้นจำเป็นสำหรับการล็อกการลงทะเบียน เพื่อจะเลิกใช้ PIN ให้เลิกล็อกการลงทะเบียนก่อน</string>
@@ -84,7 +81,7 @@
     <string name="AttachmentKeyboard_file">แฟ้ม</string>
     <string name="AttachmentKeyboard_contact">ผู้ติดต่อ</string>
     <string name="AttachmentKeyboard_location">ตำแหน่งที่ตั้ง</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงเพื่อแสดงรูปและวิดีโอของคุณ</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly จำเป็นต้องได้รับสิทธิ์เข้าถึงเพื่อแสดงรูปและวิดีโอของคุณ</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">อนุญาตให้เข้าถึง</string>
     <string name="AttachmentKeyboard_payment">การจ่ายเงิน</string>
@@ -95,7 +92,7 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">ไปที่การตั้งค่า</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Signal ได้รับสิทธิ์จำกัดในการเข้าถึงรูปภาพหรือวิดีโอของคุณ</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Molly ได้รับสิทธิ์จำกัดในการเข้าถึงรูปภาพหรือวิดีโอของคุณ</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">ไม่พบรูปภาพ เลือกรูปและวิดีโอที่คุณอนุญาตให้ปรากฏที่นี่หรือเปลี่ยนสิทธิ์การเข้าถึง</string>
 
@@ -105,24 +102,24 @@
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">ไม่พบแอปสำหรับเลือกสื่อ</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">เพื่อที่จะแนบรูปภาพ วิดีโอ หรือเสียง Signal ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">เพื่อที่จะแนบข้อมูลผู้ติดต่อ Signal ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">เพื่อที่จะแนบข้อมูลตำแหน่งที่ตั้ง Signal ต้องได้รับอนุญาตให้เข้าถึงตำแหน่งที่ตั้ง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ตำแหน่งที่ตั้ง\"</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">เพื่อที่จะแนบรูปภาพ วิดีโอ หรือเสียง Molly ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">เพื่อที่จะแนบข้อมูลผู้ติดต่อ Molly ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">เพื่อที่จะแนบข้อมูลตำแหน่งที่ตั้ง Molly ต้องได้รับอนุญาตให้เข้าถึงตำแหน่งที่ตั้ง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ตำแหน่งที่ตั้ง\"</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">อนุญาตให้เข้าถึงตำแหน่งที่ตั้งของคุณ</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">ในการส่งตำแหน่งที่ตั้งของคุณ:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">อนุญาตให้ Signal ส่งข้อมูลตำแหน่งของคุณ</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">อนุญาตให้ Molly ส่งข้อมูลตำแหน่งของคุณ</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Signal จำเป็นต้องได้รับสิทธิ์การเข้าถึงตำแหน่งที่ตั้งเพื่อส่งพิกัดของคุณ</string>
+    <string name="AttachmentManager_signal_needs_location_access">Molly จำเป็นต้องได้รับสิทธิ์การเข้าถึงตำแหน่งที่ตั้งเพื่อส่งพิกัดของคุณ</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">อนุญาตให้เข้าถึงพื้นที่จัดเก็บ</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">ในการแสดงรูปและวิดีโอ:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Signal จำเป็นต้องได้รับสิทธิ์การเข้าถึงเพื่อแสดงรูปและวิดีโอของคุณ</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Molly จำเป็นต้องได้รับสิทธิ์การเข้าถึงเพื่อแสดงรูปและวิดีโอของคุณ</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s ยังไม่ได้เปิดใช้การชำระเงิน </string>
@@ -306,7 +303,7 @@
     <string name="CameraContacts_no_signal_contacts">ไม่มีรายชื่อใน Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">คุณสามารถใช้ปุ่มกล้องสำหรับส่งรูปให้รายชื่อผู้ติดต่อใน Signal เท่านั้น </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">ไม่พบรายชื่อที่คุณมองหาหรือ?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">ส่งคำเชิญให้รายชื่อผู้ติดต่อมาใช้ Signal</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">ส่งคำเชิญให้รายชื่อผู้ติดต่อมาใช้ Molly</string>
     <string name="CameraContacts__menu_search">ค้นหา</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -320,12 +317,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">ไม่ ขอบคุณ</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">ปรับรุ่น Signal</string>
+    <string name="ClientDeprecatedActivity_update_signal">ปรับรุ่น Molly</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">แอปรุ่นนี้ไม่ได้รับการสนับสนุนอีกต่อไปแล้ว หากต้องการรับและส่งข้อความต่อ ให้ปรับรุ่นเป็นรุ่นล่าสุด</string>
     <string name="ClientDeprecatedActivity_update">ปรับรุ่น</string>
     <string name="ClientDeprecatedActivity_dont_update">ไม่ปรับรุ่น</string>
     <string name="ClientDeprecatedActivity_warning">คำเตือน</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Signal เวอร์ชันที่คุณใช้อยู่หมดอายุแล้ว คุณสามารถดูประวัติการส่งข้อความได้ แต่จะไม่สามารถส่งหรือรับข้อความได้อีกจนกว่าจะอัปเดต</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Molly เวอร์ชันที่คุณใช้อยู่หมดอายุแล้ว คุณสามารถดูประวัติการส่งข้อความได้ แต่จะไม่สามารถส่งหรือรับข้อความได้อีกจนกว่าจะอัปเดต</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">ไม่เจอเว็บเบราว์เซอร์</string>
@@ -362,8 +359,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">ข้อความ %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">การโทรด้วยเสียงบน Signal %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">การวิดีโอคอลบน Signal %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">การโทรด้วยเสียงบน Molly %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">การวิดีโอคอลบน Molly %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -455,7 +452,7 @@
     <string name="ConversationActivity_transport_signal">ข้อความ Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">ส่งข้อความ</string>
-    <string name="ConversationActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Signal กันเถอะ %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Molly กันเถอะ %1$s</string>
     <string name="ConversationActivity_specify_recipient">โปรดเลือกผู้ติดต่อ</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">แฟ้มแนบมีขนาดใหญ่เกินกำหนดสำหรับชนิดของข้อความที่คุณกำลังจะส่ง</string>
     <string name="ConversationActivity_unable_to_record_audio">ไม่สามารถอัดเสียงได้!</string>
@@ -474,18 +471,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">วิธีส่งข้อความเสียง:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">อนุญาตให้ Signal เข้าถึงไมโครโฟนของคุณเพื่อส่งข้อความเสียง</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">อนุญาตให้ Molly เข้าถึงไมโครโฟนของคุณเพื่อส่งข้อความเสียง</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงไมโครโฟนเพื่อบันทึกข้อความเสียง</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">เพื่อจะส่งข้อความเสียง Signal ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\"</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly จำเป็นต้องได้รับสิทธิ์เข้าถึงไมโครโฟนเพื่อบันทึกข้อความเสียง</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">เพื่อจะส่งข้อความเสียง Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\"</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">เพื่อที่จะโทรหา %1$s Signal ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">อนุญาต Signal ให้ใช้กล้องเพื่อถ่ายรูปและวิดีโอ</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">เพื่อที่จะถ่ายรูปหรือวิดีโอ Signal ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายรูปและวิดีโอ</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">เพื่อที่จะโทรหา %1$s Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">อนุญาต Molly ให้ใช้กล้องเพื่อถ่ายรูปและวิดีโอ</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">เพื่อที่จะถ่ายรูปหรือวิดีโอ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายรูปและวิดีโอ</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">อนุญาตให้เปิดใช้งานไมโครโฟนเพื่อถ่ายภาพวิดีโอพร้อมเสียง</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">เพื่อจะอัดภาพวิดีโอ Signal ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนเพื่ออัดภาพวิดีโอ</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">เพื่อจะอัดภาพวิดีโอ Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนเพื่ออัดภาพวิดีโอ</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">ไม่</string>
@@ -506,9 +503,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">ในการเริ่มต้นการโทร:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">อนุญาตให้ Signal เข้าถึงไมโครโฟนของคุณเพื่อเริ่มต้นการโทร</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">อนุญาตให้ Molly เข้าถึงไมโครโฟนของคุณเพื่อเริ่มต้นการโทร</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงไมโครโฟนเพื่อเริ่มต้นการโทร</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly จำเป็นต้องได้รับสิทธิ์เข้าถึงไมโครโฟนเพื่อเริ่มต้นการโทร</string>
 
 
     <string name="ConversationActivity_join">เข้าร่วม</string>
@@ -522,9 +519,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Signal ไม่รองรับการส่งข้อความ SMS อีกต่อไป ชวน %1$s มาใช้ Signal เพื่อการติดต่อสื่อสารที่ไม่ขาดตอน</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">ผู้ติดต่อคนนี้ไม่ได้ใช้ Signal แล้ว ชวนเพื่อนมาใช้ Signal เพื่อการติดต่อสื่อสารที่ไม่ขาดตอน</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">ผู้ติดต่อคนนี้ไม่ได้ใช้ Molly แล้ว ชวนเพื่อนมาใช้ Molly เพื่อการติดต่อสื่อสารที่ไม่ขาดตอน</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">เชิญมาใช้ Signal</string>
+    <string name="ConversationActivity__invite_to_signal">เชิญมาใช้ Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">เราจะแจ้งให้คุณทราบอีกครั้งเร็วๆ นี้</string>
 
@@ -605,13 +602,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">ถูกบล็อก</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">ปรับรุ่น Signal</string>
+    <string name="ConversationFragment__update_build">ปรับรุ่น Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">ลงทะเบียน Signal อีกครั้ง</string>
+    <string name="ConversationFragment__reregister_signal">ลงทะเบียน Molly อีกครั้ง</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">กลับไป</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">เปิด Signal</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">เปิด Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">ไม่ได้อยู่ในสถานะยืนยันแล้ว</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -761,9 +758,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">ใครบ้างที่สามารถค้นหาฉันด้วยหมายเลขโทรศัพท์ได้</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">ผู้ใช้ที่มีหมายเลขโทรศัพท์ของคุณจะเห็นว่าคุณใช้งาน Signal และจะสามารถเริ่มแชทกับคุณได้</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">ผู้ใช้ที่มีหมายเลขโทรศัพท์ของคุณจะเห็นว่าคุณใช้งาน Molly และจะสามารถเริ่มแชทกับคุณได้</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">จะไม่มีใครเห็นว่าคุณใช้งาน Signal เว้นแต่ว่าคุณจะส่งข้อความหาหรือเคยแชทกับผู้ใช้คนนั้น</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">จะไม่มีใครเห็นว่าคุณใช้งาน Molly เว้นแต่ว่าคุณจะส่งข้อความหาหรือเคยแชทกับผู้ใช้คนนั้น</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">กู้คืนจากข้อมูลสำรองหรือไม่?</string>
@@ -842,7 +839,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">ทดสอบวลีรหัสผ่านสำหรับข้อมูลสำรองของคุณและตรวจยืนยันว่ามันตรงกัน</string>
     <string name="BackupsPreferenceFragment__turn_on">เปิด</string>
     <string name="BackupsPreferenceFragment__turn_off">ปิด</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"เพื่อกู้คืนข้อมูลสำรอง คุณต้องติดตั้ง Signal ใหม่ เปิดแอป แตะ \"กู้คืนข้อมูลสำรอง\" และระบุแฟ้มสำรองข้อมูล %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"เพื่อกู้คืนข้อมูลสำรอง คุณต้องติดตั้ง Molly ใหม่ เปิดแอป แตะ \"กู้คืนข้อมูลสำรอง\" และระบุแฟ้มสำรองข้อมูล %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">เรียนรู้เพิ่มเติม</string>
     <string name="BackupsPreferenceFragment__in_progress">อยู่ระหว่างดำเนินการ…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -850,7 +847,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d แล้ว…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% ในตอนนี้…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">เพื่อที่จะสำรองข้อมูล Signal ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูลภายนอก แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">เพื่อที่จะสำรองข้อมูล Molly ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูลภายนอก แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">ตั้งเวลาสำรองข้อมูล</string>
 
@@ -917,7 +914,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">รีเฟรชแชทเซสชันใหม่แล้ว</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal ใช้การเข้ารหัสตั้งแต่ต้นทางถึงปลายทางและอาจต้องเริ่มต้นแชทเซสชันใหม่ให้คุณในบางครั้ง กระบวนการนี้ไม่มีผลต่อความปลอดภัยของแชทคุณ แต่อาจทำให้คุณไม่ได้รับข้อความบางข้อความจากผู้ติดต่อคนนี้ โดยคุณสามารถขอให้ผู้ติดต่อส่งข้อความอีกครั้ง</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly ใช้การเข้ารหัสตั้งแต่ต้นทางถึงปลายทางและอาจต้องเริ่มต้นแชทเซสชันใหม่ให้คุณในบางครั้ง กระบวนการนี้ไม่มีผลต่อความปลอดภัยของแชทคุณ แต่อาจทำให้คุณไม่ได้รับข้อความบางข้อความจากผู้ติดต่อคนนี้ โดยคุณสามารถขอให้ผู้ติดต่อส่งข้อความอีกครั้ง</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -966,7 +963,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">ดำเนินการเชื่อมโยงให้เสร็จสิ้นบนอุปกรณ์อีกเครื่อง</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">โปรดดำเนินการเชื่อมโยง Signal ให้เสร็จสิ้นบนอุปกรณ์อีกเครื่อง</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">โปรดดำเนินการเชื่อมโยง Molly ให้เสร็จสิ้นบนอุปกรณ์อีกเครื่อง</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">การเชื่อมโยงอุปกรณ์ไม่สำเร็จ</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -994,10 +991,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">ปรับปรุงการทำงานให้รับกับการไม่มี Play Services</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">อุปกรณ์นี้ไม่รองรับ Play Services แตะเพื่อปิดใช้งานการปรับประสิทธิภาพแบตเตอรีซึ่งจะทำให้ Signal ไม่สามารถรับข้อความได้ในขณะที่ไม่ได้เปิดแอปบนหน้าจอ</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">อุปกรณ์นี้ไม่รองรับ Play Services แตะเพื่อปิดใช้งานการปรับประสิทธิภาพแบตเตอรีซึ่งจะทำให้ Molly ไม่สามารถรับข้อความได้ในขณะที่ไม่ได้เปิดแอปบนหน้าจอ</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal รุ่นนี้หมดอายุแล้ว ปรับรุ่นเดี๋ยวนี้เพื่อรับและส่งข้อความ</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly รุ่นนี้หมดอายุแล้ว ปรับรุ่นเดี๋ยวนี้เพื่อรับและส่งข้อความ</string>
     <string name="ExpiredBuildReminder_update_now">ปรับรุ่นเดี๋ยวนี้</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1007,8 +1004,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">ดู</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">การสื่อสารของ Signal ล้มเหลวอย่างถาวร!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ไม่สามารถลงทะเบียนกับ Google Play Services การใช้งานข้อความและการโทร Signal ได้ถูกปิดใช้งาน กรุณาลองลงทะเบียนอีกครั้งใน การตั้งค่า &gt; ขั้นสูง</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">การสื่อสารของ Molly ล้มเหลวอย่างถาวร!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ไม่สามารถลงทะเบียนกับ Google Play Services การใช้งานข้อความและการโทร Molly ได้ถูกปิดใช้งาน กรุณาลองลงทะเบียนอีกครั้งใน การตั้งค่า &gt; ขั้นสูง</string>
 
 
     <!-- GiphyActivity -->
@@ -1134,7 +1131,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">บันทึกดีบักจะช่วยให้เราสามารถตรวจสอบและแก้ไขปัญหาได้ โดยที่ในบันทึกจะไม่มีข้อมูลที่ใช้ระบุตัวตน</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">พบปัญหาในการใช้งาน Signal คุณต้องการส่งบันทึกดีบักหรือไม่</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">พบปัญหาในการใช้งาน Molly คุณต้องการส่งบันทึกดีบักหรือไม่</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">พบปัญหาที่อาจทำให้คุณไม่ได้รับข้อความ คุณต้องการส่งบันทึกดีบักหรือไม่</string>
 
@@ -1142,12 +1139,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">การแจ้งเตือนอาจล่าช้าเนื่องจากการเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">คุณสามารถปิดใช้งานการเพิ่มประสิทธิภาพแบตเตอรี่สำหรับแอป Signal เพื่อป้องกันไม่ให้การแจ้งเตือนข้อความความล่าช้าได้</string>
+    <string name="PromptBatterySaverBottomSheet__message">คุณสามารถปิดใช้งานการเพิ่มประสิทธิภาพแบตเตอรี่สำหรับแอป Molly เพื่อป้องกันไม่ให้การแจ้งเตือนข้อความความล่าช้าได้</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">การแจ้งเตือนอาจล่าช้าเนื่องจากการเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">ปิดใช้งานการเพิ่มประสิทธิภาพแบตเตอรี่สำหรับแอป Signal เพื่อป้องกันไม่ให้การแจ้งเตือนข้อความล่าช้า แตะ \"ดำเนินการต่อ\" เพื่อดูคำแนะนำสำหรับอุปกรณ์แต่ละประเภท</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">ปิดใช้งานการเพิ่มประสิทธิภาพแบตเตอรี่สำหรับแอป Molly เพื่อป้องกันไม่ให้การแจ้งเตือนข้อความล่าช้า แตะ \"ดำเนินการต่อ\" เพื่อดูคำแนะนำสำหรับอุปกรณ์แต่ละประเภท</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">ไม่ ขอบคุณ</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1156,7 +1153,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">พบปัญหาที่อาจทำให้คุณไม่ได้รับข้อความ</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">การรีสตาร์ทอุปกรณ์อาจช่วยแก้ไขปัญหาเกี่ยวกับการรับข้อความได้ โปรดติดต่อฝ่ายสนับสนุนของ Signal หากคุณยังพบปัญหาอยู่</string>
+    <string name="ConnectivityWarningBottomSheet_body">การรีสตาร์ทอุปกรณ์อาจช่วยแก้ไขปัญหาเกี่ยวกับการรับข้อความได้ โปรดติดต่อฝ่ายสนับสนุนของ Molly หากคุณยังพบปัญหาอยู่</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">เข้าใจแล้ว</string>
 
@@ -1450,12 +1447,12 @@
     <string name="InviteActivity_cancel">ยกเลิก</string>
     <string name="InviteActivity_sending">กำลังส่ง…</string>
     <string name="InviteActivity_invitations_sent">ส่งคำเชิญแล้ว!</string>
-    <string name="InviteActivity_invite_to_signal">เชิญมาใช้ Signal</string>
+    <string name="InviteActivity_invite_to_signal">เชิญมาใช้ Molly</string>
     <string name="InviteActivity_send_sms">ส่ง SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="other">ส่งคำเชิญทาง %1$dSMS หรือไม่?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Signal กัน: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Molly กัน: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">ดูเหมือนว่าคุณไม่มีแอปอะไรที่จะแบ่งปันได้</string>
 
     <!-- LearnMoreTextView -->
@@ -1469,7 +1466,7 @@
     <string name="LongMessageActivity_your_message">ข้อความของคุณ</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">เปิดใช้งานให้การเชื่อมต่อทำงานเบื้องหลัง</string>
 
     <!-- MediaOverviewActivity -->
@@ -1533,10 +1530,10 @@
     <string name="MessageQuotesBottomSheet_replies">ตอบกลับ</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">กำลังต่อสาย Signal</string>
+    <string name="NotificationBarManager__establishing_signal_call">กำลังต่อสาย Molly</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">เริ่มบริการโทร Signal</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">หยุดบริการโทร Signal</string>
+    <string name="NotificationBarManager__starting_signal_call_service">เริ่มบริการโทร Molly</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">หยุดบริการโทร Molly</string>
     <string name="NotificationBarManager__cancel_call">ยกเลิกการโทร</string>
 
     <!-- NotificationsMegaphone -->
@@ -1842,7 +1839,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">อีกไม่นาน คุณจะไม่สามารถส่งข้อความ SMS ด้วย Signal ได้อีกต่อไป ชวน %1$s มาใช้ Signal เพื่อการติดต่อสื่อสารที่ไม่ขาดตอน</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">คุณไม่สามารถส่งข้อความ SMS ด้วย Signal ได้อีกต่อไป ชวน %1$s มาใช้ Signal เพื่อการติดต่อสื่อสารที่ไม่ขาดตอน</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">คุณไม่สามารถส่งข้อความ SMS ด้วย Molly ได้อีกต่อไป ชวน %1$s มาใช้ Molly เพื่อการติดต่อสื่อสารที่ไม่ขาดตอน</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">การชำระเงิน: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -1920,7 +1917,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">เชื่อมโยงกับอุปกรณ์ Signal หรือไม่?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">ดูเหมือนคุณพยายามเชื่อมโยงอุปกรณ์ Signal โดยใช้แอปสแกนภายนอก กรุณาสแกนรหัสอีกครั้งจากภายในแอป Signal ทั้งนี้เพื่อการคุ้มครองตัวคุณเอง</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">เพื่อที่จะสแกนรหัส QR ได้ Signal ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">เพื่อที่จะสแกนรหัส QR ได้ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">ไม่สามารถสแกนรหัส QR ได้หากไม่ได้รับอนุญาตให้เข้าถึงกล้อง</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1932,11 +1929,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">ใส่วลีรหัสผ่าน</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">ไอคอน Signal</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">ไอคอน Molly</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">ส่งวลีรหัสผ่าน</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">วลีรหัสผ่านไม่ถูกต้อง!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">ปลดล็อก Signal</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - หน้าล็อก</string>
+    <string name="PassphrasePromptActivity_unlock_signal">ปลดล็อก Molly</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - หน้าล็อก</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">แผนที่</string>
@@ -2002,7 +1999,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">ตรวจยืนยันเพื่อรับส่งข้อความต่อ</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">เพื่อช่วยป้องกันสแปมบน Signal โปรดตรวจยืนยันให้สำเร็จ</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">เพื่อช่วยป้องกันสแปมบน Molly โปรดตรวจยืนยันให้สำเร็จ</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">หลังตรวจยืนยัน คุณจะรับส่งข้อความได้ต่อ ข้อความใดๆ ที่หยุดอยู่ชั่วคราว จะถูกส่งโดยอัตโนมัติ</string>
 
     <!-- Recipient -->
@@ -2010,7 +2007,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">สตอรี่ของฉัน</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">สาย Signal</string>
+    <string name="Recipient_signal_call">สาย Molly</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">บล็อก</string>
@@ -2046,8 +2043,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">แตะเพื่อเปิดวิดีโอของคุณ</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">เพื่อจะโทรหา %1$s Signal จำเป็นต้องเข้าถึงกล้องของคุณ</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">เพื่อจะโทรหา %1$s Molly จำเป็นต้องเข้าถึงกล้องของคุณ</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">กำลังโทร…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">กำลังเชื่อมต่อใหม่…</string>
@@ -2102,23 +2099,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">อนุญาตให้เข้าถึงกล้องของคุณ</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">อนุญาตให้ Signal เข้าถึงกล้องและไมโครโฟนของคุณเพื่อเริ่มต้นหรือเข้าร่วมการโทร</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">อนุญาตให้ Molly เข้าถึงกล้องและไมโครโฟนของคุณเพื่อเริ่มต้นหรือเข้าร่วมการโทร</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">อนุญาตให้ Signal เข้าถึงไมโครโฟนของคุณเพื่อเริ่มต้นหรือเข้าร่วมการโทร</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">อนุญาตให้ Molly เข้าถึงไมโครโฟนของคุณเพื่อเริ่มต้นหรือเข้าร่วมการโทร</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">อนุญาตให้ Signal เข้าถึงกล้องของคุณเพื่อเปิดใช้งานวิดีโอ</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">อนุญาตให้ Molly เข้าถึงกล้องของคุณเพื่อเปิดใช้งานวิดีโอ</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงไมโครโฟนเพื่อเริ่มต้นหรือเข้าร่วมการโทร</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly จำเป็นต้องได้รับสิทธิ์เข้าถึงไมโครโฟนเพื่อเริ่มต้นหรือเข้าร่วมการโทร</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงกล้องเพื่อเปิดใช้งานวิดีโอ</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly จำเป็นต้องได้รับสิทธิ์เข้าถึงกล้องเพื่อเปิดใช้งานวิดีโอ</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">วิธีการเริ่มต้นหรือเข้าร่วมการโทร:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">วิธีการเปิดใช้งานวิดีโอ:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">โทร Signal</string>
-    <string name="WebRtcCallView__signal_video_call">โทรวิดีโอ Signal</string>
+    <string name="WebRtcCallView__signal_call">โทร Molly</string>
+    <string name="WebRtcCallView__signal_video_call">โทรวิดีโอ Molly</string>
     <string name="WebRtcCallView__start_call">เริ่มโทร</string>
     <string name="WebRtcCallView__join_call">เข้าร่วมการโทร</string>
     <string name="WebRtcCallView__call_is_full">ห้องเต็ม</string>
@@ -2321,7 +2318,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">คุณจะได้รับสายโทรเข้าเพื่อยืนยันหมายเลขนี้</string>
     <string name="RegistrationActivity_edit_number">แก้ไขหมายเลข</string>
     <string name="RegistrationActivity_missing_google_play_services">ไม่พบ Google Play Services</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">อุปกรณ์นี้ไม่มี Google Play Services คุณยังสามารถใช้งาน Signal ได้ แต่ในการติดตั้งแบบนี้อาจมีเสถียรภาพหรือประสิทธิภาพที่ลดลง\n\nหากคุณไม่ได้เป็นผู้ใช้งานขั้นสูง หรือไม่ได้ใช้รอมแอนดรอยด์จากผู้ผลิตอื่น หรือเชื่อว่าคุณได้เห็นข้อความนี้เนื่องจากความผิดพลาด โปรดติดต่อ support@signal.org สำหรับความช่วยเหลือในการแก้ปัญหา</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">อุปกรณ์นี้ไม่มี Google Play Services คุณยังสามารถใช้งาน Molly ได้ แต่ในการติดตั้งแบบนี้อาจมีเสถียรภาพหรือประสิทธิภาพที่ลดลง\n\nหากคุณไม่ได้เป็นผู้ใช้งานขั้นสูง หรือไม่ได้ใช้รอมแอนดรอยด์จากผู้ผลิตอื่น หรือเชื่อว่าคุณได้เห็นข้อความนี้เนื่องจากความผิดพลาด โปรดติดต่อ support@molly.im สำหรับความช่วยเหลือในการแก้ปัญหา</string>
     <string name="RegistrationActivity_i_understand">ฉันเข้าใจ</string>
     <string name="RegistrationActivity_play_services_error">ข้อผิดพลาดเกี่ยวกับ Play Services</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services กำลังปรับรุ่นหรือใช้ไม่ได้ชั่วคราว โปรดลองอีกครั้ง</string>
@@ -2339,7 +2336,7 @@
     <string name="RegistrationActivity_non_standard_number_format">ฟอร์แมทหมายเลขที่ไม่มีมาตรฐาน</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">ตัวเลขที่คุณป้อน (%1$s) เป็นฟอร์แมทที่ไม่ได้มาตรฐาน\n\n คุณต้องการใส่ %2$sหรือเปล่า</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - ฟอร์แมทหมายเลขโทรศัพท์</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - ฟอร์แมทหมายเลขโทรศัพท์</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">ส่งคำขอการโทรแล้ว</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2411,13 +2408,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">เพิ่มลงในรายชื่อผู้ติดต่อ</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">เชิญมาใช้ Signal</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">เชิญมาใช้ Molly</string>
     <string name="SharedContactDetailsActivity_signal_message">ข้อความ Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">สาย Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">เพิ่มลงในรายชื่อผู้ติดต่อ</string>
-    <string name="SharedContactView_invite_to_signal">เชิญมาใช้ Signal</string>
+    <string name="SharedContactView_invite_to_signal">เชิญมาใช้ Molly</string>
     <string name="SharedContactView_message">ข้อความ Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2548,11 +2545,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s เป็นหมายเลขโทรศัพท์ของ %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">ปรับรุ่น Signal</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Signal เวอร์ชันใหม่พร้อมให้บริการแล้ว แตะเพื่ออัปเดต</string>
-    <string name="ApkUpdateNotifications_failed_general_title">อัปเดต Signal ไม่สำเร็จ</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">ปรับรุ่น Molly</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Molly เวอร์ชันใหม่พร้อมให้บริการแล้ว แตะเพื่ออัปเดต</string>
+    <string name="ApkUpdateNotifications_failed_general_title">อัปเดต Molly ไม่สำเร็จ</string>
     <string name="ApkUpdateNotifications_failed_general_body">เราจะลองใหม่อีกครั้งในภายหลัง</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">อัปเดต Signal เรียบร้อยแล้ว</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">อัปเดต Molly เรียบร้อยแล้ว</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">ได้รับการอัปเดตอัตโนมัติเป็นเวอร์ชัน %1$s เรียบร้อยแล้ว</string>
 
     <!-- UntrustedSendDialog -->
@@ -2622,7 +2619,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">หมายเลขความปลอดภัยของ Signal ของเรา:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">ดูเหมือนคุณไม่มีแอปอะไรที่จะแบ่งปันได้</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">ไม่พบหมายเลขความปลอดภัยที่จะเปรียบเทียบในคลิปบอร์ด</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">เพื่อที่จะสแกนรหัส QR ได้ Signal ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">เพื่อที่จะสแกนรหัส QR ได้ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">สแกนรหัส QR ไม่ได้ หากไม่ได้รับอนุญาตให้เข้าถึงกล้อง</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">คุณจะต้องแลกเปลี่ยนข้อความกันก่อนเพื่อที่จะดูหมายเลขความปลอดภัยของ %1$s</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2652,14 +2649,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">แตะเพื่อเปิด</string>
-    <string name="KeyCachingService_passphrase_cached">Signal ถูกปลดล็อก</string>
-    <string name="KeyCachingService_lock">ล็อก Signal</string>
+    <string name="KeyCachingService_passphrase_cached">Molly ถูกปลดล็อก</string>
+    <string name="KeyCachingService_lock">ล็อก Molly</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">คุณ</string>
     <string name="MediaPreviewActivity_unssuported_media_type">ชนิดสื่อที่ไม่รองรับ</string>
     <string name="MediaPreviewActivity_draft">ร่าง</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">เพื่อที่จะบันทึกข้อมูลลงที่เก็บข้อมูลภายนอก Signal ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">เพื่อที่จะบันทึกข้อมูลลงที่เก็บข้อมูลภายนอก Molly ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">ไม่สามารถบันทึกลงที่เก็บข้อมูลภายนอกได้ หากไม่ได้รับอนุญาต</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">ลบข้อความหรือไม่</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">การดำเนินการนี้จะลบข้อความนี้โดยถาวร</string>
@@ -2701,7 +2698,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">ส่งข้อความล้มเหลว</string>
     <string name="MessageNotifier_error_delivering_message">เกิดข้อผิดพลาดระหว่างส่งข้อความ</string>
     <string name="MessageNotifier_message_delivery_paused">การส่งข้อความถูกหยุดชั่วคราว</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">ตรวจยืนยันเพื่อรับส่งข้อความต่อใน Signal</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">ตรวจยืนยันเพื่อรับส่งข้อความต่อใน Molly</string>
     <string name="MessageNotifier_mark_all_as_read">ทำเครื่องหมายทั้งหมดว่าอ่านแล้ว</string>
     <string name="MessageNotifier_mark_read">ทำเครื่องหมายว่าอ่านแล้ว</string>
     <string name="MessageNotifier_turn_off_these_notifications">ปิดการแจ้งเตือนเหล่านี้</string>
@@ -2723,7 +2720,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">แสดงความรู้สึก %1$s ต่อสติกเกอร์ของคุณ</string>
     <string name="MessageNotifier_this_message_was_deleted">ข้อความนี้ถูกลบแล้ว</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">ปิดการแจ้งเตือนเมื่อผู้ติดต่อได้เข้าร่วม Signal? คุณสามารถเปิดมันได้อีกครั้งในSignal &gt; Settings &gt; Notifications.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">ปิดการแจ้งเตือนเมื่อผู้ติดต่อได้เข้าร่วม Molly? คุณสามารถเปิดมันได้อีกครั้งในMolly &gt; Settings &gt; Notifications.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2762,7 +2759,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">การตอบด่วนใช้ไม่ได้ถ้า Signal ถูกล็อคอยู่</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">การตอบด่วนใช้ไม่ได้ถ้า Molly ถูกล็อคอยู่</string>
     <string name="QuickResponseService_problem_sending_message">เกิดปัญหาในการส่งข้อความ!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2782,7 +2779,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">ปุ่มลัดใช้ไม่ได้</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">ข้อความใหม่</string>
     <string name="SingleRecipientNotificationBuilder_message_request">คำขอส่งข้อความ</string>
     <string name="SingleRecipientNotificationBuilder_you">คุณ</string>
@@ -2827,7 +2824,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">อุปกรณ์เครื่องนี้ไม่ได้ลงทะเบียนอีกต่อไป นี่น่าจะเป็นเพราะคุณลงทะเบียนหมายเลขโทรศัพท์นี้กับ Signal ไว้บนอุปกรณ์เครื่องอื่น</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">อุปกรณ์เครื่องนี้ไม่ได้ลงทะเบียนอีกต่อไป นี่น่าจะเป็นเพราะคุณลงทะเบียนหมายเลขโทรศัพท์นี้กับ Molly ไว้บนอุปกรณ์เครื่องอื่น</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">ลงทะเบียนอุปกรณ์อีกครั้ง</string>
 
@@ -2840,10 +2837,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">หากต้องการรับสาย ต้องให้สิทธิ์ Signal เข้าถึงไมโครโฟนของคุณ</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">หากต้องการรับสาย ต้องให้สิทธิ์ Molly เข้าถึงไมโครโฟนของคุณ</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">อนุญาตให้ Signal เข้าถึงไมโครโฟนและกล้องของคุณเพื่อรับสายวิดีโอคอล</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">เพื่อที่จะโทรออกและรับสาย Signal ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">อนุญาตให้ Molly เข้าถึงไมโครโฟนและกล้องของคุณเพื่อรับสายวิดีโอคอล</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">เพื่อที่จะโทรออกและรับสาย Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">มีการรับสายบนอุปกรณ์ที่เชื่อมโยงอยู่</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">ถูกปฏิเสธสายบนอุปกรณ์ที่เชื่อมโยงอยู่</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">ติดสายบนอุปกรณ์ที่เชื่อมโยงอยู่</string>
@@ -2888,7 +2885,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">ใส่วลีรหัสผ่านใหม่อีกครั้ง</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">เชิญมาใช้ Signal</string>
+    <string name="contact_selection_activity__invite_to_signal">เชิญมาใช้ Molly</string>
     <string name="contact_selection_activity__new_group">กลุ่มใหม่</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">รีเฟรชรายชื่อผู้ติดต่อ</string>
@@ -2914,7 +2911,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">ภาพของผู้ติดต่อ</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">เพื่อที่จะแสดงผู้ติดต่อของคุณ Signal ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">เพื่อที่จะแสดงผู้ติดต่อของคุณ Molly ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">เกิดข้อผิดพลาดระหว่างดึงผู้ติดต่อ ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ</string>
     <string name="ContactSelectionListFragment_username_not_found">ไม่พบชื่อผู้ใช้</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s ไม่ใช่ผู้ใช้ Signal โปรดตรวจสอบชื่อผู้ใช้และลองอีกครั้ง"</string>
@@ -2942,7 +2939,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">อนุญาตให้เข้าถึงรายชื่อผู้ติดต่อของคุณ โดยรายชื่อผู้ติดต่อของคุณจะได้รับการเข้ารหัสและไม่ถูกเปิดเผยต่อบริการของ Signal</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อจะแสดงข้อมูลเหล่านั้นได้</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อจะแสดงข้อมูลเหล่านั้นได้</string>
     <string name="contact_selection_list_fragment__show_contacts">แสดงผู้ติดต่อ</string>
 
     <!-- contact_selection_list_item -->
@@ -3043,7 +3040,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">การแจ้งเตือนข้อความแบบ Bubble เป็นฟีเจอร์ของ Android ที่คุณปิดได้สำหรับการแชทของ Signal</string>
+    <string name="BubbleOptOutTooltip__description">การแจ้งเตือนข้อความแบบ Bubble เป็นฟีเจอร์ของ Android ที่คุณปิดได้สำหรับการแชทของ Molly</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">ไม่ใช่ตอนนี้</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3204,9 +3201,9 @@
     <string name="EditProfileFragment__group_description">คำอธิบายกลุ่ม</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">ปรับรุ่น Signal</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">ปรับรุ่น Molly</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Signal เวอร์ชันนี้หมดอายุแล้ว อัปเดต Signal ตอนนี้เพื่อใช้งานต่อ</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Molly เวอร์ชันนี้หมดอายุแล้ว อัปเดต Molly ตอนนี้เพื่อใช้งานต่อ</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">ปรับรุ่น</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3418,7 +3415,7 @@
     <string name="preferences__slow">ช้า</string>
     <string name="preferences__help">ช่วยเหลือ</string>
     <string name="preferences__advanced">ขั้นสูง</string>
-    <string name="preferences__donate_to_signal">บริจาคให้ Signal</string>
+    <string name="preferences__donate_to_signal">บริจาคให้ Molly</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">ความเป็นส่วนตัว</string>
     <!-- Preference label for stories -->
@@ -3455,13 +3452,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">เปลี่ยนไอคอนและชื่อของแอปเป็น \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Signal ต้องปิดแอปก่อน จึงจะเปลี่ยนไอคอนและชื่อของแอปได้ โดยระบบจะแสดงชื่อและไอคอนเริ่มต้นของแอป Signal ในการแจ้งเตือนเสมอ</string>
+    <string name="preferences__app_icon_dialog_description">Molly ต้องปิดแอปก่อน จึงจะเปลี่ยนไอคอนและชื่อของแอปได้ โดยระบบจะแสดงชื่อและไอคอนเริ่มต้นของแอป Molly ในการแจ้งเตือนเสมอ</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">เลือกไอคอนและชื่อของแอป ซึ่งจะแสดงในหน้าจอหลักและลิ้นชักแอปของโทรศัพท์คุณ โดยระบบจะแสดงชื่อและไอคอนเริ่มต้นของแอป Signal ในการแจ้งเตือนเสมอ เรียนรู้เพิ่มเติม</string>
+    <string name="preferences__app_icon_warning_learn_more">เลือกไอคอนและชื่อของแอป ซึ่งจะแสดงในหน้าจอหลักและลิ้นชักแอปของโทรศัพท์คุณ โดยระบบจะแสดงชื่อและไอคอนเริ่มต้นของแอป Molly ในการแจ้งเตือนเสมอ เรียนรู้เพิ่มเติม</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">ไอคอนและชื่อของแอปจะแสดงในหน้าจอหลักและลิ้นชักแอป</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">โดยระบบจะแสดงชื่อและไอคอนเริ่มต้นของแอป Signal ในการแจ้งเตือนเสมอ</string>
+    <string name="preferences__app_icon_notification_warning">โดยระบบจะแสดงชื่อและไอคอนเริ่มต้นของแอป Molly ในการแจ้งเตือนเสมอ</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">เรียนรู้เพิ่มเติม</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3548,7 +3545,7 @@
     <string name="preferences_communication__category_censorship_circumvention">การหลบเลี่ยงการปิดกั้น</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">การหลบเลี่ยงการปิดกั้น</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">หากเปิดใช้ Signal จะพยายามหลบเลี่ยงการปิดกั้นข้อมูล อย่าเปิดใช้ความสามารถนี้ เว้นแต่ว่าคุณอยู่ในที่ที่ Signal ถูกปิดกั้น</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">หากเปิดใช้ Molly จะพยายามหลบเลี่ยงการปิดกั้นข้อมูล อย่าเปิดใช้ความสามารถนี้ เว้นแต่ว่าคุณอยู่ในที่ที่ Molly ถูกปิดกั้น</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">การหลบเลี่ยงการปิดกั้นถูกเปิดใช้ เนื่องจากหมายเลขโทรศัพท์ของบัญชีของคุณ</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3600,7 +3597,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">ขอแนะนำการชำระเงิน</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">ใช้ Signal เพื่อส่งและรับ MobileCoin ซึ่งเป็นสกุลเงินดิจิทัลใหม่ที่เน้นความเป็นส่วนตัว เปิดใช้งานเพื่อเริ่มต้น</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">ใช้ Molly เพื่อส่งและรับ MobileCoin ซึ่งเป็นสกุลเงินดิจิทัลใหม่ที่เน้นความเป็นส่วนตัว เปิดใช้งานเพื่อเริ่มต้น</string>
     <string name="PaymentsHomeFragment__activate_payments">ใช้การชำระเงิน</string>
     <string name="PaymentsHomeFragment__activating_payments">กำลังเปิดใช้การชำระเงิน…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">เรียกคืนบัญชีชำระเงิน</string>
@@ -3626,7 +3623,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">การชำระเงินไม่มีให้ใช้ในภูมิภาคของคุณ</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">ไม่สามารถเปิดใช้งานการชำระเงินได้ ลองอีกครั้งภายหลัง</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">หยุดใช้การจ่ายเงินหรือไม่?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">คุณจะไม่สามารถส่งหรือรับ Mobilecoin ใน Signal ได้ ถ้าคุณปิดใช้งานการชำระเงิน</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">คุณจะไม่สามารถส่งหรือรับ Mobilecoin ใน Molly ได้ ถ้าคุณปิดใช้งานการชำระเงิน</string>
     <string name="PaymentsHomeFragment__deactivate">หยุดใช้</string>
     <string name="PaymentsHomeFragment__continue">ทำต่อ</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">ไม่มียอดคงเหลือในขณะนี้</string>
@@ -3635,10 +3632,10 @@
     <string name="PaymentsHomeFragment__details">รายละเอียด</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">คุณสามารถใช้ Signal เพื่อส่งและรับ MobileCoin การชำระเงินทั้งหมดอยู่ภายใต้เงื่อนไขการใช้งานสำหรับ MobileCoin และ MobileCoin Wallet คุณอาจพบปัญหาบางประการ และการชำระเงินหรือยอดคงเหลืออาจสูญหายไปโดยกู้คืนมาไม่ได้ </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">คุณสามารถใช้ Molly เพื่อส่งและรับ MobileCoin การชำระเงินทั้งหมดอยู่ภายใต้เงื่อนไขการใช้งานสำหรับ MobileCoin และ MobileCoin Wallet คุณอาจพบปัญหาบางประการ และการชำระเงินหรือยอดคงเหลืออาจสูญหายไปโดยกู้คืนมาไม่ได้ </string>
     <string name="PaymentsHomeFragment__activate">เปิดใช้</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">ดูเงื่อนไข MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">ไม่สามารถชำระเงินใน Signal ได้อีกต่อไป คุณยังสามารถโอนเงินไปยังตลาดหลักทรัพย์ได้ แต่คุณจะไม่สามารถส่งและรับการชำระเงินหรือเพิ่มเงินได้อีก</string>
+    <string name="PaymentsHomeFragment__payments_not_available">ไม่สามารถชำระเงินใน Molly ได้อีกต่อไป คุณยังสามารถโอนเงินไปยังตลาดหลักทรัพย์ได้ แต่คุณจะไม่สามารถส่งและรับการชำระเงินหรือเพิ่มเงินได้อีก</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3666,7 +3663,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">การอนุญาตสิทธิ์</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">เพื่อให้คุณสามารถส่งข้อความหาผู้ติดต่อที่รู้จัก Signal จะขอสิทธิ์การเข้าถึงต่อไปนี้ </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">เพื่อให้คุณสามารถส่งข้อความหาผู้ติดต่อที่รู้จัก Molly จะขอสิทธิ์การเข้าถึงต่อไปนี้ </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">การแจ้งเตือน</string>
     <!-- Notifications permission row description -->
@@ -3758,10 +3755,10 @@
     <string name="PaymentsTransferFragment__next">ถัดไป</string>
     <string name="PaymentsTransferFragment__invalid_address">ที่อยู่ไม่ถูกต้อง</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">ตรวจสอบที่อยู่กระเป๋าเงินที่คุณพยายามจะโอนเงินไปและลองอีกครั้ง</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">คุณไม่สามารถโอนไปยังที่อยู่กระเป๋าเงิน Signal ของคุณเองได้ ป้อนที่อยู่กระเป๋าเงินจากบัญชีของคุณที่ตลาดหลักทรัพย์ที่รองรับ</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">เพื่อสแกนรหัส QR Signal จำเป็นต้องเข้าถึงกล้องของคุณ</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อจับภาพรหัส QR ไปที่การตั้งค่า เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">เพื่อสแกนรหัส QR Signal จำเป็นต้องเข้าถึงกล้องของคุณ</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">คุณไม่สามารถโอนไปยังที่อยู่กระเป๋าเงิน Molly ของคุณเองได้ ป้อนที่อยู่กระเป๋าเงินจากบัญชีของคุณที่ตลาดหลักทรัพย์ที่รองรับ</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">เพื่อสแกนรหัส QR Molly จำเป็นต้องเข้าถึงกล้องของคุณ</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อจับภาพรหัส QR ไปที่การตั้งค่า เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">เพื่อสแกนรหัส QR Molly จำเป็นต้องเข้าถึงกล้องของคุณ</string>
     <string name="PaymentsTransferFragment__settings">การตั้งค่า</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4100,17 +4097,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">สายโทรเสียง Signal ขาเข้า</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">สายโทรเสียง Molly ขาเข้า</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">วิดีโอคอล Signal ขาเข้า</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">วิดีโอคอล Molly ขาเข้า</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">โทรกลุ่ม Signal ที่กำลังเรียกเข้า</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">โทรกลุ่ม Molly ที่กำลังเรียกเข้า</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">สายโทรเสียง Signal ที่ใช้งานอยู่</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">สายโทรเสียง Molly ที่ใช้งานอยู่</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">วิดีโอคอล Signal ที่ใช้งานอยู่</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">วิดีโอคอล Molly ที่ใช้งานอยู่</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">สายโทรกลุ่ม Signal ที่ใช้งานอยู่</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">สายโทรกลุ่ม Molly ที่ใช้งานอยู่</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">กำลังโหลด…</string>
@@ -4157,9 +4154,9 @@
     <string name="BackupDialog_verify">ตรวจยืนยัน</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">คุณได้ป้อนวลีรหัสผ่านสำหรับข้อมูลสำรองของคุณเสร็จแล้ว</string>
     <string name="BackupDialog_passphrase_was_not_correct">วลีรหัสผ่านไม่ถูกต้อง</string>
-    <string name="LocalBackupJob_creating_signal_backup">กำลังสร้างข้อมูลสำรอง Signal…</string>
+    <string name="LocalBackupJob_creating_signal_backup">กำลังสร้างข้อมูลสำรอง Molly…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">กำลังตรวจยืนยันข้อมูลสำรอง Signal…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">กำลังตรวจยืนยันข้อมูลสำรอง Molly…</string>
     <string name="LocalBackupJobApi29_backup_failed">สำรองข้อมูลไม่สำเร็จ</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">ไดเรกทอรีสำหรับข้อมูลสำรองของคุณถูกลบหรือย้าย</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">แฟ้มสำรองของคุณใหญ่เกินที่จะจัดเก็บไว้ในนี้ได้</string>
@@ -4174,15 +4171,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">โทรหาฉัน (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">ส่งรหัสอีกครั้งใน (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">ติดต่อทีมซัพพอร์ตของ Signal</string>
-    <string name="RegistrationActivity_code_support_subject">การลงทะเบียน Signal - รหัสตรวจยืนยันสำหรับ Android</string>
+    <string name="RegistrationActivity_contact_signal_support">ติดต่อทีมซัพพอร์ตของ Molly</string>
+    <string name="RegistrationActivity_code_support_subject">การลงทะเบียน Molly - รหัสตรวจยืนยันสำหรับ Android</string>
     <string name="RegistrationActivity_incorrect_code">รหัสไม่ถูกต้อง</string>
     <string name="BackupUtil_never">ไม่เลย</string>
     <string name="BackupUtil_unknown">ไม่ทราบ</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">หมายเลขโทรศัพท์</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">เลือกว่าจะให้ใครเห็นหมายเลขโทรศัพท์ของคุณและใช้หมายเลขโทรศัพท์นั้นติดต่อคุณบน Signal ได้</string>
+    <string name="preferences_app_protection__choose_who_can_see">เลือกว่าจะให้ใครเห็นหมายเลขโทรศัพท์ของคุณและใช้หมายเลขโทรศัพท์นั้นติดต่อคุณบน Molly ได้</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">คนที่สามารถเห็นหมายเลขโทรศัพท์ของฉัน</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4233,11 +4230,11 @@
     <string name="RegistrationActivity_error_connecting_to_service">เกิดข้อผิดพลาดในการเชื่อมต่อกับบริการ</string>
     <string name="preferences_chats__backups">ข้อมูลสำรอง</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">ปลดล็อก Signal</string>
+    <string name="prompt_passphrase_activity__unlock_signal">ปลดล็อก Molly</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">ปลดล็อก Signal โดยใช้รูปแบบการล็อกอุปกรณ์ Android ที่คุณตั้งค่าไว้</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">ปลดล็อก Molly โดยใช้รูปแบบการล็อกอุปกรณ์ Android ที่คุณตั้งค่าไว้</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">กำลังใช้งานการล็อกหน้าจอพร้อมรักษาความปลอดภัยให้ Signal ด้วยรูปแบบการล็อกอุปกรณ์ที่คุณตั้งค่าไว้ คุณสามารถปลดล็อก Signal โดยใช้วิธีเดียวกับที่ใช้ปลดล็อกโทรศัพท์ ไม่ว่าจะด้วยการสแกนใบหน้า, สแกนลายนิ้วมือ, ระบุ PIN, รหัสผ่าน หรือรูปแบบการวาดเส้น</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">กำลังใช้งานการล็อกหน้าจอพร้อมรักษาความปลอดภัยให้ Molly ด้วยรูปแบบการล็อกอุปกรณ์ที่คุณตั้งค่าไว้ คุณสามารถปลดล็อก Molly โดยใช้วิธีเดียวกับที่ใช้ปลดล็อกโทรศัพท์ ไม่ว่าจะด้วยการสแกนใบหน้า, สแกนลายนิ้วมือ, ระบุ PIN, รหัสผ่าน หรือรูปแบบการวาดเส้น</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">ติดต่อฝ่ายสนับสนุน</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4249,7 +4246,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">ใช้การล็อกหน้าจอ</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">ระบบจะใช้รูปแบบการล็อกที่คุณตั้งค่าไว้บนอุปกรณ์ Android มาปลดล็อก Signal เมื่อคุณสลับหรือปิดแอป โดยแถบการแจ้งเตือนจะไม่แสดงเนื้อหาของข้อความในระหว่างที่แอปถูกล็อก</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">ระบบจะใช้รูปแบบการล็อกที่คุณตั้งค่าไว้บนอุปกรณ์ Android มาปลดล็อก Molly เมื่อคุณสลับหรือปิดแอป โดยแถบการแจ้งเตือนจะไม่แสดงเนื้อหาของข้อความในระหว่างที่แอปถูกล็อก</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">เริ่มล็อกหน้าจอ</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4263,9 +4260,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">กำหนดเวลาเอง</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">ใช้การล็อกหน้าจอของ Signal</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">ใช้การล็อกหน้าจอของ Molly</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">ปิดใช้การล็อกหน้าจอของ Signal</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">ปิดใช้การล็อกหน้าจอของ Molly</string>
 
     <string name="Recipient_unknown">ไม่ทราบ</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4320,19 +4317,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">กำลังเตรียมเชื่อมต่อไปยังอุปกรณ์ Android เครื่องเก่า</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">จะพร้อมในไม่ช้า กรุณารอสักครู่</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">กำลังรอการเชื่อมต่อจากอุปกรณ์ Android เครื่องเก่า</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal จำเป็นต้องได้รับอนุญาตในการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องเก่าของคุณ</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal จำเป็นต้องเปิดใช้งานบริการการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องเก่าของคุณ</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal จำเป็นต้องเปิด Wi-Fi- เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ ซึ่ง Wi-Fi จำเป้นต้องเปิดไว้แต่ไม่จำเป็นต้องเชื่อมต่อกับเครือข่าย Wi-Fi</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ขออภัย อุปกรณ์ของคุณไม่รองรับ Wi-Fi Direct โดย Signal จะใช้ Wi-Fi Direct เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ คุณจะยังสามารถกู้คืนข้อมูลสำรองเพื่อกู้คืนบัญชีผู้ใช้ของคุณจากอุปกรณ์ Android เครื่องเก่าของคุณ</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly จำเป็นต้องได้รับอนุญาตในการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องเก่าของคุณ</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly จำเป็นต้องเปิดใช้งานบริการการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องเก่าของคุณ</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly จำเป็นต้องเปิด Wi-Fi- เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ ซึ่ง Wi-Fi จำเป้นต้องเปิดไว้แต่ไม่จำเป็นต้องเชื่อมต่อกับเครือข่าย Wi-Fi</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ขออภัย อุปกรณ์ของคุณไม่รองรับ Wi-Fi Direct โดย Molly จะใช้ Wi-Fi Direct เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ คุณจะยังสามารถกู้คืนข้อมูลสำรองเพื่อกู้คืนบัญชีผู้ใช้ของคุณจากอุปกรณ์ Android เครื่องเก่าของคุณ</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">กู้คืนข้อมูลสำรอง</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">เกิดความผิดพลาดที่ไม่คาดคิดขึ้นขณะที่พยายามจะเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">กำลังค้นหาอุปกรณ์ Android เครื่องใหม่…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal จำเป็นต้องได้รับอนุญาตในการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องใหม่ของคุณ</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal จำเป็นต้องเปิดใช้งานบริการการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องใหม่ของคุณ</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal จำเป็นต้องเปิด Wi-Fi- เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ ซึ่ง Wi-Fi จำเป้นต้องเปิดไว้แต่ไม่จำเป็นต้องเชื่อมต่อกับเครือข่าย Wi-Fi</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ขออภัย อุปกรณ์ของคุณไม่รองรับ Wi-Fi Direct โดย Signal จะใช้ Wi-Fi Direct เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ คุณจะยังสามารถกู้คืนข้อมูลสำรองเพื่อกู้คืนบัญชีผู้ใช้ของคุณจากอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly จำเป็นต้องได้รับอนุญาตในการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องใหม่ของคุณ</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly จำเป็นต้องเปิดใช้งานบริการการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องใหม่ของคุณ</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly จำเป็นต้องเปิด Wi-Fi- เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ ซึ่ง Wi-Fi จำเป้นต้องเปิดไว้แต่ไม่จำเป็นต้องเชื่อมต่อกับเครือข่าย Wi-Fi</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ขออภัย อุปกรณ์ของคุณไม่รองรับ Wi-Fi Direct โดย Molly จะใช้ Wi-Fi Direct เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ คุณจะยังสามารถกู้คืนข้อมูลสำรองเพื่อกู้คืนบัญชีผู้ใช้ของคุณจากอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
     <string name="OldDeviceTransferSetup__create_a_backup">สร้างข้อมูลสำรอง</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">เกิดความผิดพลาดที่ไม่คาดคิดขึ้นขณะที่พยายามจะเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
 
@@ -4373,7 +4370,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">กำลังถ่ายโอนข้อมูล</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">ทำให้แน่ใจว่าอุปกรณ์ทั้งคู่อยู่ใกล้กัน อย่าปิดเครื่องใด และให้เปิด Signal อยู่ตลอดเวลา การถ่ายโอนนั้นจะถูกเข้ารหัสลับตั้งแต่ต้นทางถึงปลายทาง</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">ทำให้แน่ใจว่าอุปกรณ์ทั้งคู่อยู่ใกล้กัน อย่าปิดเครื่องใด และให้เปิด Molly อยู่ตลอดเวลา การถ่ายโอนนั้นจะถูกเข้ารหัสลับตั้งแต่ต้นทางถึงปลายทาง</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d ข้อความจนถึงตอนนี้…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% ของข้อความในตอนนี้…</string>
@@ -4387,7 +4384,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">ถ่ายโอนบัญชี</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">ดาวน์โหลด Signal บนอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">ดาวน์โหลด Molly บนอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"แตะบน \"ถ่ายโอนหรือกู้คืนบัญชี\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4461,7 +4458,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">ทุกคนที่มีลิงก์นี้สามารถมองเห็นชื่อกลุ่ม รูปกลุ่ม และสามารถขอเข้าร่วมกลุ่มได้ แบ่งปันลิงก์นี้ให้กับผู้คนที่คุณไว้ใจ</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">ทุกคนที่มีลิงก์นี้สามารถมองเห็นชื่อกลุ่ม รูปกลุ่ม และสามารถขอเข้าร่วมกลุ่มได้ แบ่งปันลิงก์นี้ให้กับผู้คนที่คุณไว้ใจ</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">แบ่งปันผ่าน Signal</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">แบ่งปันผ่าน Molly</string>
     <string name="GroupLinkBottomSheet_copy">คัดลอก</string>
     <string name="GroupLinkBottomSheet_qr_code">รหัส QR</string>
     <string name="GroupLinkBottomSheet_share">แบ่งปัน</string>
@@ -4640,7 +4637,7 @@
     <string name="payment_info_card_about_mobilecoin">เกี่ยวกับ MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin เป็นเงินดิจิทัลสกุลใหม่ที่เน้นเรื่องความเป็นส่วนตัว</string>
     <string name="payment_info_card_adding_funds">การเติมเงิน</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">คุณสามารถเพิ่มเงินสำหรับใช้ใน Signal ได้โดยการส่ง MobileCoin ไปยังที่อยู่กระเป๋าเงินของคุณ</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">คุณสามารถเพิ่มเงินสำหรับใช้ใน Molly ได้โดยการส่ง MobileCoin ไปยังที่อยู่กระเป๋าเงินของคุณ</string>
     <string name="payment_info_card_cashing_out">การถอนออกเป็นเงินสด</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">คุณสามารถถอน MobileCoin เป็นเงินสดได้ตลอดเวลาในตลาดหลักทรัพย์ที่รองรับ MobileCoin เพียงแค่โอนเงินไปยังบัญชีในตลาดหลักทรัพย์นั้น</string>
     <string name="payment_info_card_hide_this_card">ซ่อนบัตรนี้หรือไม่?</string>
@@ -4661,12 +4658,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">หยุดใช้กระเป๋าเงิน</string>
     <string name="DeactivateWalletFragment__your_balance">ยอดของคุณ</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">ขอแนะนำให้คุณโอนเงินของคุณไปยังที่อยู่กระเป๋าเงินอื่นก่อนปิดใช้งานการชำระเงิน หากคุณเลือกที่จะไม่โอนเงินตอนนี้ เงินจะคงอยู่ในกระเป๋าเงินที่เชื่อมโยงกับ Signal หากคุณกลับมาเปิดใช้งานการชำระเงินอีกครั้ง</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">ขอแนะนำให้คุณโอนเงินของคุณไปยังที่อยู่กระเป๋าเงินอื่นก่อนปิดใช้งานการชำระเงิน หากคุณเลือกที่จะไม่โอนเงินตอนนี้ เงินจะคงอยู่ในกระเป๋าเงินที่เชื่อมโยงกับ Molly หากคุณกลับมาเปิดใช้งานการชำระเงินอีกครั้ง</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">โอนยอดคงเหลือที่เหลือ</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">หยุดใช้งานโดยไม่ถ่ายโอน</string>
     <string name="DeactivateWalletFragment__deactivate">หยุดใช้</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">หยุดใช้งานโดยไม่ถ่ายโอนหรือไม่?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">ยอดคงเหลือจะคงอยู่ในกระเป๋าเงินของคุณที่เชื่อมโยงกับ Signal หากคุณเลือกกลับมาเปิดใช้งานการชำระเงินอีกครั้ง</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">ยอดคงเหลือจะคงอยู่ในกระเป๋าเงินของคุณที่เชื่อมโยงกับ Molly หากคุณเลือกกลับมาเปิดใช้งานการชำระเงินอีกครั้ง</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">เกิดข้อผิดพาดในการปิดใช้งานกระเป๋าเงิน</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4964,7 +4961,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">ใบอนุญาต</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">เงื่อนไขและนโยบายความเป็นส่วนตัว</string>
-    <string name="HelpFragment__copyright_signal_messenger">ลิขสิทธิ์ Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">ลิขสิทธิ์ Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">เผยแพร่ภายใต้สัญญาอนุญาต GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5407,9 +5404,9 @@
     <string name="MySupportPreference__learn_more">เรียนรู้เพิ่มเติม</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">ปรับรุ่น Signal</string>
+    <string name="UpdateSignalExpiredDialog__title">ปรับรุ่น Molly</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Signal เวอร์ชันนี้หมดอายุแล้ว อัปเดต Signal ตอนนี้เพื่อใช้งานต่อ</string>
+    <string name="UpdateSignalExpiredDialog__message">Molly เวอร์ชันนี้หมดอายุแล้ว อัปเดต Molly ตอนนี้เพื่อใช้งานต่อ</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">ปรับรุ่น</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5418,7 +5415,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">อุปกรณ์ไม่ได้ลงทะเบียน</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">อุปกรณ์เครื่องนี้ไม่ได้ลงทะเบียนอีกต่อไป โปรดลงทะเบียนอีกครั้งเพื่อใช้งาน Signal บนอุปกรณ์เครื่องนี้</string>
+    <string name="ReregisterSignalDialog__message">อุปกรณ์เครื่องนี้ไม่ได้ลงทะเบียนอีกต่อไป โปรดลงทะเบียนอีกครั้งเพื่อใช้งาน Molly บนอุปกรณ์เครื่องนี้</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">ลงทะเบียนอีกรอบ</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5729,7 +5726,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">การเปิดตัวเลือกล้มเหลว</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">เปิดใช้งานโดยอนุญาตให้ Signal ได้รับสิทธิ์การเข้าถึงเพื่อแสดงการแจ้งเตือน</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">เปิดใช้งานโดยอนุญาตให้ Molly ได้รับสิทธิ์การเข้าถึงเพื่อแสดงการแจ้งเตือน</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">เปิดใช้งาน</string>
 

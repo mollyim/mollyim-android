@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -42,12 +39,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signal កំពុងធ្វើបច្ចុប្បន្នភាព…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Molly កំពុងធ្វើបច្ចុប្បន្នភាព…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">អ្នកមិនទាន់បានកំណត់ឃ្លាសម្ងាត់ទេ!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">បិទឃ្លាសម្ងាត់?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">វានឹងដោះសោ Signal និងសារជូនដំណឹងជាអចិន្ត្រៃយ៍។</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">វានឹងដោះសោ Molly និងសារជូនដំណឹងជាអចិន្ត្រៃយ៍។</string>
     <string name="ApplicationPreferencesActivity_disable">បិទចោល</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">បញ្ហាភ្ជាប់ទៅម៉ាស៊ីនមេ!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN ត្រូវបានទាមទារសម្រាប់ការចុះឈ្មោះចាក់សោ។ ដើម្បីបិទកូដ PIN សូមបិទការចុះឈ្មោះចាក់សោ។</string>
@@ -84,7 +81,7 @@
     <string name="AttachmentKeyboard_file">ឯកសារ</string>
     <string name="AttachmentKeyboard_contact">ទំនាក់ទំនង</string>
     <string name="AttachmentKeyboard_location">ទីតាំង</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal ត្រូវការការអនុញ្ញាតដើម្បីបង្ហាញរូបថត និងវីដេអូរបស់អ្នក</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly ត្រូវការការអនុញ្ញាតដើម្បីបង្ហាញរូបថត និងវីដេអូរបស់អ្នក</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">អនុញ្ញាតចូលប្រើប្រាស់</string>
     <string name="AttachmentKeyboard_payment">ការទូទាត់</string>
@@ -95,7 +92,7 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">ទៅកាន់ ការកំណត់</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Signal មានសិទ្ធិចូលប្រើរូបថត ឬវីដេអូនៅមានកម្រិត</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Molly មានសិទ្ធិចូលប្រើរូបថត ឬវីដេអូនៅមានកម្រិត</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">រកមិនឃើញរូបថតទេ សូមជ្រើសរើសរូបថត និងវីដេអូ ដើម្បីបង្ហាញនៅទីនេះ ឬផ្លាស់ប្តូរការអនុញ្ញាត</string>
 
@@ -105,24 +102,24 @@
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">មិនអាចស្វែងរកកម្មវិធីដើម្បីជ្រើសរើសព័ត៌មាន</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal ទាមទារសិទ្ធិប្រើប្រាស់អង្គរក្សាទុកដើម្បីភ្ជាប់រូបថត វីដេអូ ឬសំឡេង ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់របស់ប្រព័ន្ធ ជ្រើសរើស \"អនុញ្ញាត\" និងបើក \"អង្គរក្សាទុក\" ។</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal ទាមទារសិទ្ធិប្រើប្រាស់បញ្ជីទំនាក់ទំនងដើម្បីភ្ជាប់ព័ត៌មានបញ្ជីទំនាក់ទំនង ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់របស់ប្រព័ន្ធ ជ្រើសរើស \"អនុញ្ញាត\" និងបើក \"បញ្ជីទំនាក់ទំនង\" ។</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signalត្រូវការសិទ្ធិប្រើប្រាស់ទីតាំងដើម្បីភ្ជាប់ទីតាំង ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់ជ្រើសរើស \"អនុញ្ញាត\" និងបើក \"ទីតាំង\" ។</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly ទាមទារសិទ្ធិប្រើប្រាស់អង្គរក្សាទុកដើម្បីភ្ជាប់រូបថត វីដេអូ ឬសំឡេង ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់របស់ប្រព័ន្ធ ជ្រើសរើស \"អនុញ្ញាត\" និងបើក \"អង្គរក្សាទុក\" ។</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly ទាមទារសិទ្ធិប្រើប្រាស់បញ្ជីទំនាក់ទំនងដើម្បីភ្ជាប់ព័ត៌មានបញ្ជីទំនាក់ទំនង ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់របស់ប្រព័ន្ធ ជ្រើសរើស \"អនុញ្ញាត\" និងបើក \"បញ្ជីទំនាក់ទំនង\" ។</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Mollyត្រូវការសិទ្ធិប្រើប្រាស់ទីតាំងដើម្បីភ្ជាប់ទីតាំង ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់ជ្រើសរើស \"អនុញ្ញាត\" និងបើក \"ទីតាំង\" ។</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">អនុញ្ញាតឱ្យចូលប្រើទីតាំងរបស់អ្នក</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">ដើម្បីផ្ញើទីតាំងរបស់អ្នក៖</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">អនុញ្ញាតឱ្យ Signal ចូលផ្ញើទីតាំងរបស់អ្នក។</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">អនុញ្ញាតឱ្យ Molly ចូលផ្ញើទីតាំងរបស់អ្នក។</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Signal ត្រូវការសិទ្ធិចូលប្រើទីតាំងដើម្បីផ្ញើទីតាំងរបស់អ្នក។</string>
+    <string name="AttachmentManager_signal_needs_location_access">Molly ត្រូវការសិទ្ធិចូលប្រើទីតាំងដើម្បីផ្ញើទីតាំងរបស់អ្នក។</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">អនុញ្ញាតឱ្យចូលប្រើកន្លែងផ្ទុក</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">ដើម្បីបង្ហាញរូបថត និងវីដេអូ៖</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Signal ត្រូវការសិទ្ធិចូលប្រើដើម្បីបង្ហាញរូបថត និងវីដេអូរបស់អ្នក។</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Molly ត្រូវការសិទ្ធិចូលប្រើដើម្បីបង្ហាញរូបថត និងវីដេអូរបស់អ្នក។</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s មិនទាន់បានបើកដំណើរការការបង់ប្រាក់ </string>
@@ -306,7 +303,7 @@
     <string name="CameraContacts_no_signal_contacts">គ្មានបញ្ជីទំនាក់ទំនង Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">អ្នកអាចប្រើប៊ូតុងកាមេរ៉ា ដើម្បីផ្ញើរូបភាពទៅបញ្ជីទំនាក់ទំនង Signal តែប៉ុណ្ណោះ។ </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">មិនអាចស្វែងរកមនុស្សដែលអ្នកកំពុងរក?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">អញ្ជើញអ្នកទំនាក់ទំនងមកចូលរួម Signal</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">អញ្ជើញអ្នកទំនាក់ទំនងមកចូលរួម Molly</string>
     <string name="CameraContacts__menu_search">ស្វែងរក</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -320,12 +317,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">ទេ អរគុណ</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">ដំឡើង Signal</string>
+    <string name="ClientDeprecatedActivity_update_signal">ដំឡើង Molly</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">កំណែកម្មវិធីនេះមិនត្រូវបានគាំទ្រទៀតទេ។ ដើម្បីបន្តការផ្ញើនិងទទួលសារធ្វើបច្ចុប្បន្នភាពទៅកំណែចុងក្រោយ។</string>
     <string name="ClientDeprecatedActivity_update">បច្ចុប្បន្នភាព</string>
     <string name="ClientDeprecatedActivity_dont_update">កុំធ្វើបច្ចុប្បន្នភាព</string>
     <string name="ClientDeprecatedActivity_warning">ព្រមាន</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">កំណែ Signal របស់អ្នកបានផុតកំណត់ហើយ។ អ្នកអាចមើលប្រវត្តិសាររបស់អ្នកបាន ប៉ុន្តែអ្នកនឹងមិនអាចផ្ញើ ឬទទួលសារបានទេ រហូតទាល់តែអ្នកដំឡើងកំណែសិន។</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">កំណែ Molly របស់អ្នកបានផុតកំណត់ហើយ។ អ្នកអាចមើលប្រវត្តិសាររបស់អ្នកបាន ប៉ុន្តែអ្នកនឹងមិនអាចផ្ញើ ឬទទួលសារបានទេ រហូតទាល់តែអ្នកដំឡើងកំណែសិន។</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">ទំព័រវែបសាយរកមិនឃើញ.</string>
@@ -362,8 +359,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">សារ %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">ការហៅជាសំឡេងតាម Signal %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">ការហៅជាវីដេអូតាម Signal %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">ការហៅជាសំឡេងតាម Molly %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">ការហៅជាវីដេអូតាម Molly %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -455,7 +452,7 @@
     <string name="ConversationActivity_transport_signal">សារ Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">ផ្ញើសារ</string>
-    <string name="ConversationActivity_lets_switch_to_signal">តោះដូរទៅកាន់ Signal %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">តោះដូរទៅកាន់ Molly %1$s</string>
     <string name="ConversationActivity_specify_recipient">សូមជ្រើសរើសលេខទំនាក់ទំនង១</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">ឯកសារភ្ជាប់លើសទំហំកំណត់ សម្រាប់ប្រភេទសារដែលអ្នកកំពុងផ្ញើ។</string>
     <string name="ConversationActivity_unable_to_record_audio">មិនអាចថតសំឡេងបាន!</string>
@@ -474,18 +471,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">ដើម្បីផ្ញើសារជាសំឡេង៖</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">ដើម្បីផ្ញើសារជាសំឡេង សូមអនុញ្ញាតឱ្យ Signal ចូលប្រើមីក្រូហ្វូនរបស់អ្នក។</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">ដើម្បីផ្ញើសារជាសំឡេង សូមអនុញ្ញាតឱ្យ Molly ចូលប្រើមីក្រូហ្វូនរបស់អ្នក។</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal ត្រូវការសិទ្ធិចូលប្រើមីក្រូហ្វូនដើម្បីថតសារជាសំឡេង។</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal សុំសិទ្ធិប្រើប្រាស់ម៉ៃក្រូហ្វូន ដើម្បីផ្ញើសារជាសំឡេង, ប៉ុន្តែ វាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់កម្មវិធី, ជ្រើសរើស \"ការអនុញ្ញាត\", និងបើក \"ប្រដាប់ស្រូបសំឡេង\"។</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly ត្រូវការសិទ្ធិចូលប្រើមីក្រូហ្វូនដើម្បីថតសារជាសំឡេង។</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly សុំសិទ្ធិប្រើប្រាស់ម៉ៃក្រូហ្វូន ដើម្បីផ្ញើសារជាសំឡេង, ប៉ុន្តែ វាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់កម្មវិធី, ជ្រើសរើស \"ការអនុញ្ញាត\", និងបើក \"ប្រដាប់ស្រូបសំឡេង\"។</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signalត្រូវការសិទ្ធិប្រើប្រាស់ម៉ៃក្រូហ្វូន និងកាមេរ៉ាដើម្បីហៅទៅកាន់ %1$s, ប៉ុន្តែពួកវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់ជ្រើសរើស \"អនុញ្ញាត\" ហើយបើក \"ម៉ៃក្រូហ្វូន\" និង \"កាមេរ៉ា\"។</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ដើម្បីថតរូបភាព និងវីដេអូ, សូមអនុញ្ញាត Signal ចូលប្រើប្រាស់កាមេរ៉ា។</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signalត្រូវការសិទ្ធិប្រើប្រាស់កាមេរ៉ាដើម្បីថតរូប ឬវីដេអូ ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់ជ្រើសរើស \"អនុញ្ញាត\" ហើយបើក \"កាមេរ៉ា\"។</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal​ សុំសិទ្ធិប្រើប្រាស់កាមេរ៉ា ដើម្បីថតរូបភាព ឬវីដេអូ</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Mollyត្រូវការសិទ្ធិប្រើប្រាស់ម៉ៃក្រូហ្វូន និងកាមេរ៉ាដើម្បីហៅទៅកាន់ %1$s, ប៉ុន្តែពួកវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់ជ្រើសរើស \"អនុញ្ញាត\" ហើយបើក \"ម៉ៃក្រូហ្វូន\" និង \"កាមេរ៉ា\"។</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ដើម្បីថតរូបភាព និងវីដេអូ, សូមអនុញ្ញាត Molly ចូលប្រើប្រាស់កាមេរ៉ា។</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Mollyត្រូវការសិទ្ធិប្រើប្រាស់កាមេរ៉ាដើម្បីថតរូប ឬវីដេអូ ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅការកំណត់ជ្រើសរើស \"អនុញ្ញាត\" ហើយបើក \"កាមេរ៉ា\"។</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly​ សុំសិទ្ធិប្រើប្រាស់កាមេរ៉ា ដើម្បីថតរូបភាព ឬវីដេអូ</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">បើកការអនុញ្ញាតមីក្រូហ្វូន ដើម្បីចាប់យកវីដេអូជាមួយសំឡេង។</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal ត្រូវការការអនុញ្ញាតមីក្រូហ្វូន ដើម្បីថតវីដេអូ តែវាត្រូវបានបដិសេធ។ សូមបន្តក្នុងការកំណត់កម្មវិធី ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"មីក្រូហ្វូន\" និង \"កាមេរ៉ា\"។</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal ត្រូវការការអនុញ្ញាត ដើម្បីថតវីដេអូ។</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly ត្រូវការការអនុញ្ញាតមីក្រូហ្វូន ដើម្បីថតវីដេអូ តែវាត្រូវបានបដិសេធ។ សូមបន្តក្នុងការកំណត់កម្មវិធី ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"មីក្រូហ្វូន\" និង \"កាមេរ៉ា\"។</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly ត្រូវការការអនុញ្ញាត ដើម្បីថតវីដេអូ។</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">ទេ</string>
@@ -506,9 +503,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">ដើម្បីចាប់ផ្តើមការហៅទូរសព្ទ៖</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">ដើម្បីចាប់ផ្តើមការហៅទូរសព្ទ សូមអនុញ្ញាតឱ្យ Signal ចូលប្រើមីក្រូហ្វូនរបស់អ្នក។</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">ដើម្បីចាប់ផ្តើមការហៅទូរសព្ទ សូមអនុញ្ញាតឱ្យ Molly ចូលប្រើមីក្រូហ្វូនរបស់អ្នក។</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal ត្រូវការសិទ្ធិចូលប្រើមីក្រូហ្វូនដើម្បីចាប់ផ្តើមការហៅទូរសព្ទ។</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly ត្រូវការសិទ្ធិចូលប្រើមីក្រូហ្វូនដើម្បីចាប់ផ្តើមការហៅទូរសព្ទ។</string>
 
 
     <string name="ConversationActivity_join">ចូលរួម</string>
@@ -522,9 +519,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">មិនអាចផ្ញើសារជាអក្សរបាននៅក្នុង Signal ទៀតទេ។ បបួល %1$s ឲ្យប្រើ Signal ដើម្បីរក្សាការសន្ទនានៅទីនេះ។</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">បុគ្គលនេះលែងប្រើ Signal ហើយ។ អញ្ជើញគាត់ឱ្យប្រើ Signal ដើម្បីរក្សាការសន្ទនានៅទីនេះ។</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">បុគ្គលនេះលែងប្រើ Molly ហើយ។ អញ្ជើញគាត់ឱ្យប្រើ Molly ដើម្បីរក្សាការសន្ទនានៅទីនេះ។</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">អញ្ជើញចូលប្រើSignal</string>
+    <string name="ConversationActivity__invite_to_signal">អញ្ជើញចូលប្រើMolly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">អ្នកនឹងត្រូវបានរំលឹកម្តងទៀតក្នុងពេលឆាប់ៗនេះ។</string>
 
@@ -605,13 +602,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">បានទប់ស្កាត់</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">ដំឡើង Signal</string>
+    <string name="ConversationFragment__update_build">ដំឡើង Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">ចុះឈ្មោះ Signal ឡើងវិញ</string>
+    <string name="ConversationFragment__reregister_signal">ចុះឈ្មោះ Molly ឡើងវិញ</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">ត្រឡប់ទៅក្រោយ។</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">បើក Signal</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">បើក Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">លែងបានផ្ទៀងផ្ទាត់ទៀតហើយ</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -761,9 +758,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">តើនរណាខ្លះអាចរកខ្ញុំតាមលេខទូរសព្ទបាន?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">នរណាក៏ដោយដែលមានលេខទូរសព្ទរបស់អ្នកនឹងមើលឃើញអ្នកនៅលើ Signal ហើយអាចចាប់ផ្តើមជជែកជាមួយអ្នកបាន។</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">នរណាក៏ដោយដែលមានលេខទូរសព្ទរបស់អ្នកនឹងមើលឃើញអ្នកនៅលើ Molly ហើយអាចចាប់ផ្តើមជជែកជាមួយអ្នកបាន។</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">គ្មាននរណាម្នាក់អាចមើលឃើញអ្នកនៅលើ Signal ទេ លើកលែងតែអ្នកផ្ញើសារទៅពួកគេ ឬមានការជជែកដែលមានស្រាប់ជាមួយពួកគេ។</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">គ្មាននរណាម្នាក់អាចមើលឃើញអ្នកនៅលើ Molly ទេ លើកលែងតែអ្នកផ្ញើសារទៅពួកគេ ឬមានការជជែកដែលមានស្រាប់ជាមួយពួកគេ។</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">ស្តារចេញពីការបម្រុងទុក?</string>
@@ -842,7 +839,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">សាកល្បងឃ្លាសម្ងាត់បម្រុងទុករបស់អ្នក និងផ្ទៀងផ្ទាត់ថាវាត្រូវគ្នា</string>
     <string name="BackupsPreferenceFragment__turn_on">បើក</string>
     <string name="BackupsPreferenceFragment__turn_off">បិទ</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"ដើម្បីស្តារការបម្រុងទុក ដំឡើងកម្មវិធី Signal ថ្មី។ បើកកម្មវិធី និងចុច \"ស្តារការបម្រុងទុក\" បន្ទាប់មកជ្រើសរើសទីតាំងឯកសារបម្រុងទុក។ %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"ដើម្បីស្តារការបម្រុងទុក ដំឡើងកម្មវិធី Molly ថ្មី។ បើកកម្មវិធី និងចុច \"ស្តារការបម្រុងទុក\" បន្ទាប់មកជ្រើសរើសទីតាំងឯកសារបម្រុងទុក។ %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">សិក្សាបន្ថែម</string>
     <string name="BackupsPreferenceFragment__in_progress">កំពុងដំណើរការ…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -850,7 +847,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d ឥឡូវនេះ …</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% ឥឡូវនេះ​…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal ត្រូវការសិទ្ធិប្រើប្រាស់អង្គរក្សាទុកខាងក្រៅដើម្បីបង្កើតការស្តារឡើងវិញ ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ ការជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"អង្គរក្សាទុក\"។</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly ត្រូវការសិទ្ធិប្រើប្រាស់អង្គរក្សាទុកខាងក្រៅដើម្បីបង្កើតការស្តារឡើងវិញ ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ ការជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"អង្គរក្សាទុក\"។</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">កំណត់ពេលវេលាបម្រុងទុក</string>
 
@@ -917,7 +914,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">វគ្គឈែតត្រូវបានផ្ទុកឡើងវិញ</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal ប្រើប្រាស់កូដនីយកម្មសងខាង ហើយជួនកាល​វាអាចត្រូវការផ្ទុកឡើងវិញ​នូវវគ្គឈែតរបស់អ្នក។ នេះមិនប៉ះពាល់សន្តិសុខនៃការឈែតរបស់អ្នកទេ តែអ្នកអាចខកខានសារមួយពីលេខទំនាក់ទំនងនេះ និងអ្នកអាចសុំគេឲ្យផ្ញើម្តងទៀត។</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly ប្រើប្រាស់កូដនីយកម្មសងខាង ហើយជួនកាល​វាអាចត្រូវការផ្ទុកឡើងវិញ​នូវវគ្គឈែតរបស់អ្នក។ នេះមិនប៉ះពាល់សន្តិសុខនៃការឈែតរបស់អ្នកទេ តែអ្នកអាចខកខានសារមួយពីលេខទំនាក់ទំនងនេះ និងអ្នកអាចសុំគេឲ្យផ្ញើម្តងទៀត។</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -966,7 +963,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">បញ្ចប់ការភ្ជាប់នៅលើឧបករណ៍ផ្សេងទៀតរបស់អ្នក</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">បញ្ចប់ការភ្ជាប់ Signal នៅលើឧបករណ៍ផ្សេងទៀតរបស់អ្នក។</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">បញ្ចប់ការភ្ជាប់ Molly នៅលើឧបករណ៍ផ្សេងទៀតរបស់អ្នក។</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">ការភ្ជាប់ឧបករណ៍បានបរាជ័យ</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -994,10 +991,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">បង្កើនប្រសិទ្ធភាពសម្រាប់ការបាត់ Play Services</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">ឧបករណ៍នេះ មិនគាំទ្រ Play Services។ ចុច ដើម្បីបិទការបង្កើនប្រសិទ្ធិភាពប្រព័ន្ធថ្ម ដែលរារាំង Signal ពីទាញយកសារនានា នៅពេលឧបករណ៍ទុកចោល។</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">ឧបករណ៍នេះ មិនគាំទ្រ Play Services។ ចុច ដើម្បីបិទការបង្កើនប្រសិទ្ធិភាពប្រព័ន្ធថ្ម ដែលរារាំង Molly ពីទាញយកសារនានា នៅពេលឧបករណ៍ទុកចោល។</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">កំណែ Signal នេះបានផុតកំណត់។ ធ្វើបច្ចុប្បន្នភាពឥឡូវ ដើម្បីផ្ញើ និងទទួលសារ។</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">កំណែ Molly នេះបានផុតកំណត់។ ធ្វើបច្ចុប្បន្នភាពឥឡូវ ដើម្បីផ្ញើ និងទទួលសារ។</string>
     <string name="ExpiredBuildReminder_update_now">ធ្វើបច្ចុប្បន្នភាពឥឡូវនេះ</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1007,8 +1004,8 @@
     <string name="PendingGroupJoinRequestsReminder_view">បង្ហាញ</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">ការបរាជ័យក្នុងការទំនាក់ទំនង Signal អចិន្រ្តៃយ៍!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal មិនអាចចុះឈ្មោះជាមួយ Google Play Services។ ការផ្ញើសារ​ និងការហៅចេញSignal ត្រូវបានបិទ សូមព្យាយាមចុះឈ្មោះសារជាថ្មីក្នុង ការកំណត់ &gt; កម្រិតខ្ពស់។</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">ការបរាជ័យក្នុងការទំនាក់ទំនង Molly អចិន្រ្តៃយ៍!</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly មិនអាចចុះឈ្មោះជាមួយ Google Play Services។ ការផ្ញើសារ​ និងការហៅចេញMolly ត្រូវបានបិទ សូមព្យាយាមចុះឈ្មោះសារជាថ្មីក្នុង ការកំណត់ &gt; កម្រិតខ្ពស់។</string>
 
 
     <!-- GiphyActivity -->
@@ -1134,7 +1131,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">កំណត់ហេតុបញ្ហាជួយឲ្យយើងវិភាគ និងដោះស្រាយបញ្ហានេះ ហើយមិនមានព័ត៌មានកំណត់អត្តសញ្ញាណទេ។</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal បានជួបប្រទះបញ្ហាមួយ។ ដាក់បញ្ជូនកំណត់ហេតុបំបាត់បញ្ហា?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly បានជួបប្រទះបញ្ហាមួយ។ ដាក់បញ្ជូនកំណត់ហេតុបំបាត់បញ្ហា?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">អ្នកប្រហែលជាមិនទទួលបានសារទេ។ ដាក់បញ្ជូនកំណត់ត្រាបញ្ហា?</string>
 
@@ -1142,12 +1139,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">ការជូនដំណឹងអាចនឹងពន្យារពេល ដោយសារការបង្កើនប្រសិទ្ធភាពថ្ម</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">អ្នកអាចបិទការបង្កើនប្រសិទ្ធភាពថ្មសម្រាប់ Signal ដើម្បីធានាថាការជូនដំណឹងអំពីសារនឹងមិនត្រូវបានពន្យារពេលឡើយ។</string>
+    <string name="PromptBatterySaverBottomSheet__message">អ្នកអាចបិទការបង្កើនប្រសិទ្ធភាពថ្មសម្រាប់ Molly ដើម្បីធានាថាការជូនដំណឹងអំពីសារនឹងមិនត្រូវបានពន្យារពេលឡើយ។</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">ការជូនដំណឹងអាចនឹងពន្យារពេល ដោយសារការបង្កើនប្រសិទ្ធភាពថ្ម</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">បិទការបង្កើនប្រសិទ្ធភាពថ្មសម្រាប់ Signal ដើម្បីធានាថាការជូនដំណឹងអំពីសារនឹងមិនត្រូវបានពន្យារពេលឡើយ។ ចុច “បន្ត” ដើម្បីមើលការណែនាំអំពីឧបករណ៍ជាក់លាក់។</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">បិទការបង្កើនប្រសិទ្ធភាពថ្មសម្រាប់ Molly ដើម្បីធានាថាការជូនដំណឹងអំពីសារនឹងមិនត្រូវបានពន្យារពេលឡើយ។ ចុច “បន្ត” ដើម្បីមើលការណែនាំអំពីឧបករណ៍ជាក់លាក់។</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">ទេ អរគុណ</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1156,7 +1153,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">អ្នកប្រហែលជាមិនទទួលបានសារទេ</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">ការចាប់ផ្តើមឧបករណ៍របស់អ្នកឡើងវិញអាចជួយដោះស្រាយបញ្ហានៃការបញ្ជូនសារ។ ប្រសិនបើបញ្ហានេះនៅតែបន្ត សូមទាក់ទងផ្នែកជំនួយរបស់ Signal។</string>
+    <string name="ConnectivityWarningBottomSheet_body">ការចាប់ផ្តើមឧបករណ៍របស់អ្នកឡើងវិញអាចជួយដោះស្រាយបញ្ហានៃការបញ្ជូនសារ។ ប្រសិនបើបញ្ហានេះនៅតែបន្ត សូមទាក់ទងផ្នែកជំនួយរបស់ Molly។</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">យល់ហើយ</string>
 
@@ -1450,12 +1447,12 @@
     <string name="InviteActivity_cancel">បោះបង់</string>
     <string name="InviteActivity_sending">កំពុងផ្ញើ…</string>
     <string name="InviteActivity_invitations_sent">លិខិតអញ្ជើញបានផ្ញើ!</string>
-    <string name="InviteActivity_invite_to_signal">អញ្ជើញចូលប្រើSignal</string>
+    <string name="InviteActivity_invite_to_signal">អញ្ជើញចូលប្រើMolly</string>
     <string name="InviteActivity_send_sms">ផ្ញើសារ SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="other">ផ្ញើសារ SMS អញ្ជើញ %1$d ?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">តោះដូរទៅប្រើSignal ៖ %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">តោះដូរទៅប្រើMolly ៖ %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">វាហាក់ដូចជាមិនមានកម្មវិធីណាមួយដើម្បីចែករំលែក។</string>
 
     <!-- LearnMoreTextView -->
@@ -1469,7 +1466,7 @@
     <string name="LongMessageActivity_your_message">សាររបស់អ្នក</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">បានបើកការតភ្ជាប់ពីក្រោយ</string>
 
     <!-- MediaOverviewActivity -->
@@ -1533,10 +1530,10 @@
     <string name="MessageQuotesBottomSheet_replies">ការឆ្លើយតប</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">ការហៅចេញ តាមSignal</string>
+    <string name="NotificationBarManager__establishing_signal_call">ការហៅចេញ តាមMolly</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">ចាប់ផ្តើមសេវាកម្មហៅទូរសព្ទរបស់ Signal</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">បញ្ឈប់សេវាកម្មការហៅ Signal</string>
+    <string name="NotificationBarManager__starting_signal_call_service">ចាប់ផ្តើមសេវាកម្មហៅទូរសព្ទរបស់ Molly</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">បញ្ឈប់សេវាកម្មការហៅ Molly</string>
     <string name="NotificationBarManager__cancel_call">បោះបង់ការហៅ</string>
 
     <!-- NotificationsMegaphone -->
@@ -1842,7 +1839,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">អ្នកនឹងមិនអាចផ្ញើសារជាអក្សរពី Signal បានទៀតទេក្នុងពេលឆាប់ៗនេះ។ បបួល %1$s ឲ្យប្រើ Signal ដើម្បីរក្សាការសន្ទនានៅទីនេះ។</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">អ្នកមិនអាចផ្ញើសារជាអក្សរនៅក្នុង Signal ទៀតទេ។ បបួល %1$s ឲ្យប្រើ Signal ដើម្បីរក្សាការសន្ទនានៅទីនេះ។</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">អ្នកមិនអាចផ្ញើសារជាអក្សរនៅក្នុង Molly ទៀតទេ។ បបួល %1$s ឲ្យប្រើ Molly ដើម្បីរក្សាការសន្ទនានៅទីនេះ។</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">ការបង់ប្រាក់៖ %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -1920,7 +1917,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">ភ្ជាប់ឧបករណ៍ Signal ១?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">អ្នកហាក់ដូចជាព្យាយាមភ្ជាប់ឧបករណ៍Signal ដោយប្រើកម្មវិធីស្កែនជនទី3។ ដើម្បីការពារសុវត្ថិភាពរបស់អ្នក សូមស្កែនកូដម្តងទៀត នៅក្នុងកម្មវិធីSignal ។</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signalត្រូវការសិទ្ធិប្រើប្រាស់កាមេរ៉ាដើម្បីស្កេនកូដ QR ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"កាមេរ៉ា\"។</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Mollyត្រូវការសិទ្ធិប្រើប្រាស់កាមេរ៉ាដើម្បីស្កេនកូដ QR ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"កាមេរ៉ា\"។</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">មិនអាចស្កេនកូដ QR ដោយគ្មានការអនុញ្ញាតសិទ្ធិប្រើប្រាស់កាមេរ៉ា</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1932,11 +1929,11 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">បញ្ចូលឃ្លាសម្ងាត់</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">រូប Signal</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">រូប Molly</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">បញ្ជូនឃ្លាសម្ងាត់</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">ឃ្លាសម្ងាត់មិនត្រឹមត្រូវ!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">ដោះសោរSignal</string>
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - អេក្រង់ចាក់សោ</string>
+    <string name="PassphrasePromptActivity_unlock_signal">ដោះសោរMolly</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - អេក្រង់ចាក់សោ</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">ផែនទី</string>
@@ -2002,7 +1999,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">ផ្ទៀងផ្ទាត់ដើម្បីបន្តផ្ញើសារ</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">ដើម្បីជួយបង្ការសារឥតបានការនៅលើ Signal សូមបញ្ចប់ការផ្ទៀងផ្ទាត់។</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">ដើម្បីជួយបង្ការសារឥតបានការនៅលើ Molly សូមបញ្ចប់ការផ្ទៀងផ្ទាត់។</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">បន្ទាប់ពីការផ្ទៀងផ្ទាត់ អ្នកអាចបន្តផ្ញើសារ។ សារដែលបានផ្អាកណាមួយ នឹងត្រូវផ្ញើដោយស្វ័យប្រវត្តិ។</string>
 
     <!-- Recipient -->
@@ -2010,7 +2007,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">រឿងរ៉ាវរបស់ខ្ញុំ</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">ការហៅតាម Signal</string>
+    <string name="Recipient_signal_call">ការហៅតាម Molly</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">ទប់ស្កាត់</string>
@@ -2046,8 +2043,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">ចុច​ នៅទីនេះ ដើម្បីបើកវីដេអូរបស់អ្នក</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">ដើម្បីហៅទៅ%1$s, Signal ត្រូវការចូលប្រើប្រាស់កាមេរ៉ារបស់អ្នក</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">ដើម្បីហៅទៅ%1$s, Molly ត្រូវការចូលប្រើប្រាស់កាមេរ៉ារបស់អ្នក</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">កំពុងហៅ…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">កំពុងតភ្ជាប់ម្តងទៀត…</string>
@@ -2102,23 +2099,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">អនុញ្ញាតឱ្យចូលប្រើកាមេរ៉ារបស់អ្នក</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">ដើម្បីចាប់ផ្តើម ឬចូលរួមការហៅទូរសព្ទ សូមអនុញ្ញាតឱ្យ Signal ចូលប្រើកាមេរ៉ា និងមីក្រូហ្វូនរបស់អ្នក។</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">ដើម្បីចាប់ផ្តើម ឬចូលរួមការហៅទូរសព្ទ សូមអនុញ្ញាតឱ្យ Molly ចូលប្រើកាមេរ៉ា និងមីក្រូហ្វូនរបស់អ្នក។</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">ដើម្បីចាប់ផ្តើម ឬចូលរួមការហៅទូរសព្ទ សូមអនុញ្ញាតឱ្យ Signal ចូលប្រើមីក្រូហ្វូនរបស់អ្នក។</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">ដើម្បីចាប់ផ្តើម ឬចូលរួមការហៅទូរសព្ទ សូមអនុញ្ញាតឱ្យ Molly ចូលប្រើមីក្រូហ្វូនរបស់អ្នក។</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">ដើម្បីបើកវីដេអូរបស់អ្នក សូមអនុញ្ញាតឱ្យ Signal ចូលប្រើកាមេរ៉ារបស់អ្នក។</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">ដើម្បីបើកវីដេអូរបស់អ្នក សូមអនុញ្ញាតឱ្យ Molly ចូលប្រើកាមេរ៉ារបស់អ្នក។</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal ត្រូវការសិទ្ធិអនុញ្ញាតឱ្យចូលប្រើមីក្រូហ្វូនដើម្បីចាប់ផ្តើម ឬចូលរួមការហៅ។</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly ត្រូវការសិទ្ធិអនុញ្ញាតឱ្យចូលប្រើមីក្រូហ្វូនដើម្បីចាប់ផ្តើម ឬចូលរួមការហៅ។</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal ត្រូវការសិទ្ធិចូលប្រើកាមេរ៉ាដើម្បីបើកវីដេអូរបស់អ្នក</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly ត្រូវការសិទ្ធិចូលប្រើកាមេរ៉ាដើម្បីបើកវីដេអូរបស់អ្នក</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">ដើម្បីចាប់ផ្តើម ឬចូលរួមការហៅ៖</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">ដើម្បីបើកវីដេអូរបស់អ្នក៖</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">ការហៅ Signal</string>
-    <string name="WebRtcCallView__signal_video_call">ការហៅវីដេអូ Signal</string>
+    <string name="WebRtcCallView__signal_call">ការហៅ Molly</string>
+    <string name="WebRtcCallView__signal_video_call">ការហៅវីដេអូ Molly</string>
     <string name="WebRtcCallView__start_call">ចាប់ផ្តើមការហៅ</string>
     <string name="WebRtcCallView__join_call">ចូលរួមការហៅ</string>
     <string name="WebRtcCallView__call_is_full">ការហៅពេញ</string>
@@ -2321,7 +2318,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">អ្នកនឹងទទួលបានការហៅមួយដើម្បីផ្ទៀងផ្ទាត់លេខនេះ។</string>
     <string name="RegistrationActivity_edit_number">កែប្រែលេខ</string>
     <string name="RegistrationActivity_missing_google_play_services">រកមិនឃើញ Google Play Services</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">ឧបករណ៍នេះមិនមាន Google Play Services។ អ្នកនៅតែអាចប្រើប្រាស់Signalបាន ប៉ុន្តែលទ្ធផលការកំណត់នេះអាចកាត់បន្ថយទំនុកចិត្ត ឬល្បឿន។ \n\n បើអ្នកមិនមែនជាអ្នកប្រើប្រាស់កម្រិតខ្ពស់ទេ មិនប្រើប្រាស់ Android ROM ផ្សេង ឬជឿជាក់ថាអ្នកកំពុងឃើញបញ្ហានេះ សូមទំនាក់ទំនង support@signal.org សម្រាប់ជួយក្នុងការដោះស្រាយបញ្ហា។</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">ឧបករណ៍នេះមិនមាន Google Play Services។ អ្នកនៅតែអាចប្រើប្រាស់Mollyបាន ប៉ុន្តែលទ្ធផលការកំណត់នេះអាចកាត់បន្ថយទំនុកចិត្ត ឬល្បឿន។ \n\n បើអ្នកមិនមែនជាអ្នកប្រើប្រាស់កម្រិតខ្ពស់ទេ មិនប្រើប្រាស់ Android ROM ផ្សេង ឬជឿជាក់ថាអ្នកកំពុងឃើញបញ្ហានេះ សូមទំនាក់ទំនង support@molly.im សម្រាប់ជួយក្នុងការដោះស្រាយបញ្ហា។</string>
     <string name="RegistrationActivity_i_understand">ខ្ញុំយល់</string>
     <string name="RegistrationActivity_play_services_error">Play Services មានបញ្ហាា</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services កំពុងធ្វើបច្ចុប្បន្នភាព ឬមិនអាចប្រើបានជាបណ្តោះអាសន្ន។ សូមព្យាយាមម្តងទៀត។</string>
@@ -2339,7 +2336,7 @@
     <string name="RegistrationActivity_non_standard_number_format">ទម្រង់លេខមិនស្តង់ដារ</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">លេខដែលអ្នកបានបញ្ចូល (%1$s) មានទម្រង់លេខមិនស្តង់ដារ.\n\nតើអ្នកមានន័យថា %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - ទម្រង់លេខទូរស័ព្ទ</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - ទម្រង់លេខទូរស័ព្ទ</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">បានស្នើសុំការហៅ</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2411,13 +2408,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">បន្ថែមចូល បញ្ជីទំនាក់ទំនង</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">អញ្ជើញចូលប្រើSignal</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">អញ្ជើញចូលប្រើMolly</string>
     <string name="SharedContactDetailsActivity_signal_message">សារ Signal </string>
     <string name="SharedContactDetailsActivity_signal_call">ការហៅSignal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">បន្ថែមចូល បញ្ជីទំនាក់ទំនង</string>
-    <string name="SharedContactView_invite_to_signal">អញ្ជើញចូលប្រើSignal</string>
+    <string name="SharedContactView_invite_to_signal">អញ្ជើញចូលប្រើMolly</string>
     <string name="SharedContactView_message">សារ Signal </string>
 
     <!-- SignalBottomActionBar -->
@@ -2548,11 +2545,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s ជាលេខរបស់ %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">បច្ចុប្បន្នភាព Signal</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Signal មានកំណែថ្មីមួយ។ ចុចដើម្បីដំឡើងកំណែ។</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Signal មិនអាចដំឡើងកំណែបានទេ</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">បច្ចុប្បន្នភាព Molly</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Molly មានកំណែថ្មីមួយ។ ចុចដើម្បីដំឡើងកំណែ។</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Molly មិនអាចដំឡើងកំណែបានទេ</string>
     <string name="ApkUpdateNotifications_failed_general_body">យើងនឹងព្យាយាមម្តងទៀតនៅពេលក្រោយ។</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Signal ត្រូវបានដំឡើងកំណែដោយជោគជ័យ</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Molly ត្រូវបានដំឡើងកំណែដោយជោគជ័យ</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">អ្នកត្រូវបានដំឡើងកំណែដោយស្វ័យប្រវត្តិទៅកំណែ %1$s។</string>
 
     <!-- UntrustedSendDialog -->
@@ -2622,7 +2619,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">លេខសុវត្ថិភាព Signalរបស់យើង៖</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">អ្នកហាក់ដូចជាមិនមានកម្មវិធីណាមួយដើម្បីចែករំលែក។</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">ពុំមានលេខសុវត្ថិភាព ដើម្បីប្រៀបធៀបក្នុង clipboard</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signalត្រូវការសិទ្ធិប្រើប្រាស់កាមេរ៉ាដើម្បីស្កេនកូដ QR ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"កាមេរ៉ា\"។</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Mollyត្រូវការសិទ្ធិប្រើប្រាស់កាមេរ៉ាដើម្បីស្កេនកូដ QR ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"កាមេរ៉ា\"។</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">មិនអាចស្កេនកូដ QR ដោយគ្មានការអនុញ្ញាតសិទ្ធប្រើប្រាស់កាមេរ៉ា</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">ដំបូង អ្នកត្រូវផ្លាស់ប្តូរសារ ដើម្បីបង្ហាញលេខសុវត្ថិភាពរបស់ %1$s។</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2652,14 +2649,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">ចុច ដើម្បីបើក។</string>
-    <string name="KeyCachingService_passphrase_cached">Signal បានដោះសោ</string>
-    <string name="KeyCachingService_lock">ចាក់សោរSignal</string>
+    <string name="KeyCachingService_passphrase_cached">Molly បានដោះសោ</string>
+    <string name="KeyCachingService_lock">ចាក់សោរMolly</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">អ្នក</string>
     <string name="MediaPreviewActivity_unssuported_media_type">ប្រភេទឯកសារមិនគាំទ្រ</string>
     <string name="MediaPreviewActivity_draft">ព្រាង</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signalត្រូវការសិទ្ធិប្រើប្រាស់អង្គរក្សាទុកដើម្បីរក្សាឯកសារក្នុងអង្គរក្សាទុកខាងក្រៅ ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"អង្គរក្សាទុក\"។</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Mollyត្រូវការសិទ្ធិប្រើប្រាស់អង្គរក្សាទុកដើម្បីរក្សាឯកសារក្នុងអង្គរក្សាទុកខាងក្រៅ ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"អង្គរក្សាទុក\"។</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">មិនអាចរក្សាទុកក្នុងអង្គរក្សាទុកខាងក្រៅ ដោយគ្មានការអនុញ្ញាត</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">លុបសារ?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">វានឹងលុបសារនេះជារៀងរហូត។</string>
@@ -2701,7 +2698,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">ការបញ្ជូនសារបរាជ័យ។</string>
     <string name="MessageNotifier_error_delivering_message">ការបញ្ជូនសារមានបញ្ហា។</string>
     <string name="MessageNotifier_message_delivery_paused">ការបញ្ជូនសារត្រូវបានផ្អាក។</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">ផ្ទៀងផ្ទាត់ដើម្បីបន្តផ្ញើសារលើ Signal។</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">ផ្ទៀងផ្ទាត់ដើម្បីបន្តផ្ញើសារលើ Molly។</string>
     <string name="MessageNotifier_mark_all_as_read">សម្គាល់ថាបានអានទាំងអស់</string>
     <string name="MessageNotifier_mark_read">សម្គាល់ថាបានអាន</string>
     <string name="MessageNotifier_turn_off_these_notifications">បិទសារជូនដំណឹងទាំងនេះ</string>
@@ -2723,7 +2720,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">បានប្រតិកម្ម %1$s ទៅនឹងស្ទីគ័ររបស់អ្នក។</string>
     <string name="MessageNotifier_this_message_was_deleted">សារនេះត្រូវបានលុប។</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">បិទសារជូនដំណឹងលេខទំនាក់ទំនងចូលរួម Signal? អ្នកអាចបើកវាម្តងទៀតក្នុង Signal &gt; ការកំណត់ &gt; សារជូនដំណឹង។</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">បិទសារជូនដំណឹងលេខទំនាក់ទំនងចូលរួម Molly? អ្នកអាចបើកវាម្តងទៀតក្នុង Molly &gt; ការកំណត់ &gt; សារជូនដំណឹង។</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2762,7 +2759,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">មិនមានការឆ្លើយតបភ្លាមៗ នៅពេល Signal ត្រូវបានចាក់សោរ!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">មិនមានការឆ្លើយតបភ្លាមៗ នៅពេល Molly ត្រូវបានចាក់សោរ!</string>
     <string name="QuickResponseService_problem_sending_message">សារដែលបានបញ្ជូនមានបញ្ហា!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2782,7 +2779,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">រូបតំណាងផ្លូវកាត់មិនត្រឹមត្រូវ</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">សារថ្មី</string>
     <string name="SingleRecipientNotificationBuilder_message_request">សារស្នើសុំ</string>
     <string name="SingleRecipientNotificationBuilder_you">អ្នក</string>
@@ -2827,7 +2824,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">លែងចុះឈ្មោះឧបករណ៍នេះទៀតហើយ។ ទំនងជាអ្នកបានចុះឈ្មោះលេខទូរសព្ទរបស់អ្នកជាមួយ Signal នៅលើឧបករណ៍ផ្សេង។</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">លែងចុះឈ្មោះឧបករណ៍នេះទៀតហើយ។ ទំនងជាអ្នកបានចុះឈ្មោះលេខទូរសព្ទរបស់អ្នកជាមួយ Molly នៅលើឧបករណ៍ផ្សេង។</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">ចុះឈ្មោះឧបករណ៍ឡើងវិញ</string>
 
@@ -2840,10 +2837,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">ដើម្បីឆ្លើយតបការហៅ សូមឲ្យ Signal ប្រើប្រាស់ម៉ៃក្រូហ្វូនរបស់អ្នក។</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">ដើម្បីឆ្លើយតបការហៅ សូមឲ្យ Molly ប្រើប្រាស់ម៉ៃក្រូហ្វូនរបស់អ្នក។</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">ដើម្បីលើកទទួលការហៅជាវីដេអូ សូមឲ្យ Signal ប្រើប្រាស់មីក្រូហ្វូន និងកាមេរ៉ារបស់អ្នក។</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signalត្រូវការសិទ្ធិប្រើប្រាស់ម៉ៃក្រូហ្វូន និងកាមេរ៉ា ដើម្បីហៅចេញ ឬទទួលការហៅចូល ប៉ុន្តែពួកវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"ម៉ៃក្រូហ្វូន\" និង \"កាមេរ៉ា\"។</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">ដើម្បីលើកទទួលការហៅជាវីដេអូ សូមឲ្យ Molly ប្រើប្រាស់មីក្រូហ្វូន និងកាមេរ៉ារបស់អ្នក។</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Mollyត្រូវការសិទ្ធិប្រើប្រាស់ម៉ៃក្រូហ្វូន និងកាមេរ៉ា ដើម្បីហៅចេញ ឬទទួលការហៅចូល ប៉ុន្តែពួកវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅកាន់ ការកំណត់ ជ្រើសរើស \"ការអនុញ្ញាត\" និងបើក \"ម៉ៃក្រូហ្វូន\" និង \"កាមេរ៉ា\"។</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">បានឆ្លើយលើឧបករណ៍ដែលបានតភ្ជាប់។</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">បានបដិសេធលើឧបករណ៍ដែលបានតភ្ជាប់។</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">ជាប់រវល់លើឧបករណ៍ដែលបានតភ្ជាប់។</string>
@@ -2888,7 +2885,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">ឃ្លាសម្ងាត់ថ្មីម្តងទៀត</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">អញ្ជើញចូលប្រើSignal</string>
+    <string name="contact_selection_activity__invite_to_signal">អញ្ជើញចូលប្រើMolly</string>
     <string name="contact_selection_activity__new_group">ក្រុមថ្មី</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">ផ្ទុកឈ្មោះទំនាក់ទំនងឡើងវិញ</string>
@@ -2914,7 +2911,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">រូបភាពទំនាក់ទំនង</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signalត្រូវការសិទ្ធិប្រើប្រាស់បញ្ជី​ទំនាក់ទំនង ដើម្បីបង្ហាញបញ្ជីទំនាក់ទំនងរបស់អ្នក ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅ ការកំណត់ ជ្រើសរើស \"អនុញ្ញាត\" និងបើក \"បញ្ជីទំនាក់ទំនង\"។</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Mollyត្រូវការសិទ្ធិប្រើប្រាស់បញ្ជី​ទំនាក់ទំនង ដើម្បីបង្ហាញបញ្ជីទំនាក់ទំនងរបស់អ្នក ប៉ុន្តែវាត្រូវបានបដិសេធរហូត។ សូមបន្តទៅ ការកំណត់ ជ្រើសរើស \"អនុញ្ញាត\" និងបើក \"បញ្ជីទំនាក់ទំនង\"។</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">មានបញ្ហាក្នុងការទាញយកបញ្ជីទំនាក់ទំនង, សូមពិនិត្យការតភ្ជាប់បណ្តាញរបស់អ្នក</string>
     <string name="ContactSelectionListFragment_username_not_found">រកមិនឃើញឈ្មោះអ្នកប្រើ</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s មិនមែនជាអ្នកប្រើ Signal ទេ។ សូមពិនិត្យឈ្មោះអ្នកប្រើ រួចព្យាយាមម្តងទៀត។"</string>
@@ -2942,7 +2939,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">អនុញ្ញាតឱ្យចូលប្រើបញ្ជីទំនាក់ទំនងរបស់អ្នក។ បញ្ជីទំនាក់ទំនងរបស់អ្នកត្រូវបានអ៊ីនគ្រីប និងមិនអាចមើលឃើញដោយសេវាកម្ម Signal បានទេ។</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal ត្រូវការចូលប្រើប្រាស់បញ្ជីទំនាក់ទំនងរបស់អ្នក ដើម្បីបង្ហាញវា។</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly ត្រូវការចូលប្រើប្រាស់បញ្ជីទំនាក់ទំនងរបស់អ្នក ដើម្បីបង្ហាញវា។</string>
     <string name="contact_selection_list_fragment__show_contacts">បង្ហាញបញ្ជីលេខទំនាក់ទំនង</string>
 
     <!-- contact_selection_list_item -->
@@ -3043,7 +3040,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Bubbles ជាមុខងារមួយរបស់ Android ដែលអ្នកអាចបិទសម្រាប់ការជជែក Signal។</string>
+    <string name="BubbleOptOutTooltip__description">Bubbles ជាមុខងារមួយរបស់ Android ដែលអ្នកអាចបិទសម្រាប់ការជជែក Molly។</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">ពេលក្រោយ</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3204,9 +3201,9 @@
     <string name="EditProfileFragment__group_description">ការពិពណ៌នាពីក្រុម</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">ដំឡើង Signal</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">ដំឡើង Molly</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">កំណែ Signal នេះបានផុតកំណត់ហើយ។ ដំឡើងកំណែឥឡូវនេះដើម្បីបន្តប្រើប្រាស់ Signal។</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">កំណែ Molly នេះបានផុតកំណត់ហើយ។ ដំឡើងកំណែឥឡូវនេះដើម្បីបន្តប្រើប្រាស់ Molly។</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">បច្ចុប្បន្នភាព</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3418,7 +3415,7 @@
     <string name="preferences__slow">យឺត</string>
     <string name="preferences__help">ជំនួយ</string>
     <string name="preferences__advanced">កម្រិតខ្ពស់</string>
-    <string name="preferences__donate_to_signal">បរិច្ចាគទៅ Signal</string>
+    <string name="preferences__donate_to_signal">បរិច្ចាគទៅ Molly</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">ឯកជនភាព</string>
     <!-- Preference label for stories -->
@@ -3455,13 +3452,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">ប្តូរឈ្មោះ និងរូបកម្មវិធីទៅជា \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">ត្រូវបិទ Signal ដើម្បីប្តូរឈ្មោះ និងរូបកម្មវិធី។ ការជូនដំណឹងនឹងបង្ហាញឈ្មោះ និងរូបកម្មវិធី Signal លំនាំដើមជានិច្ច។</string>
+    <string name="preferences__app_icon_dialog_description">ត្រូវបិទ Molly ដើម្បីប្តូរឈ្មោះ និងរូបកម្មវិធី។ ការជូនដំណឹងនឹងបង្ហាញឈ្មោះ និងរូបកម្មវិធី Molly លំនាំដើមជានិច្ច។</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">ជ្រើសរើសឈ្មោះ និងរូបកម្មវិធីដែលនឹងអាចមើលឃើញបាននៅលើអេក្រង់ទំព័រដើម និងថតកម្មវិធីរបស់ទូរសព្ទអ្នក។ ការជូនដំណឹងនឹងបង្ហាញឈ្មោះ និងរូបកម្មវិធី Signal លំនាំដើមជានិច្ច។ ស្វែងយល់បន្ថែម</string>
+    <string name="preferences__app_icon_warning_learn_more">ជ្រើសរើសឈ្មោះ និងរូបកម្មវិធីដែលនឹងអាចមើលឃើញបាននៅលើអេក្រង់ទំព័រដើម និងថតកម្មវិធីរបស់ទូរសព្ទអ្នក។ ការជូនដំណឹងនឹងបង្ហាញឈ្មោះ និងរូបកម្មវិធី Molly លំនាំដើមជានិច្ច។ ស្វែងយល់បន្ថែម</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">ឈ្មោះ និងរូបកម្មវិធីអាចមើលឃើញបាននៅលើអេក្រង់ទំព័រដើម និងថតកម្មវិធី។</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">ការជូនដំណឹងនឹងបង្ហាញឈ្មោះ និងរូបកម្មវិធី Signal លំនាំដើមជានិច្ច។</string>
+    <string name="preferences__app_icon_notification_warning">ការជូនដំណឹងនឹងបង្ហាញឈ្មោះ និងរូបកម្មវិធី Molly លំនាំដើមជានិច្ច។</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">ស្វែងយល់បន្ថែម</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3548,7 +3545,7 @@
     <string name="preferences_communication__category_censorship_circumvention">ការចៀសវាងការឃ្លាំមើល</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">ការចៀសវាងការឃ្លាំមើល</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">បើសិនបើក Signalនឹងព្យាយាមចៀសវាងការឃ្លាំមើល។ កុំបើកមុខងារនេះ លុះត្រាអ្នកកំពុងស្ថិតនៅទីតាំងដែល Signal ត្រូវបានឃ្លាំមើល។</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">បើសិនបើក Mollyនឹងព្យាយាមចៀសវាងការឃ្លាំមើល។ កុំបើកមុខងារនេះ លុះត្រាអ្នកកំពុងស្ថិតនៅទីតាំងដែល Molly ត្រូវបានឃ្លាំមើល។</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">ការចៀសវាងការឃ្លាំមើល ត្រូវបានដំណើរការ ផ្អែកលើលេខទូរស័ព្ទរបស់គណនីអ្នក។</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3600,7 +3597,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">សូមណែនាំអំពីការបង់ប្រាក់</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">ប្រើប្រាស់ Signal ដើម្បីផ្ញើ និងទទួល MobileCoin ដែលជារូបិយបណ្ណឌីជីថលថ្មីមួយផ្តោតលើឯកជនភាព។ បើកដំណើរការ ដើម្បីចាប់ផ្តើម។</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">ប្រើប្រាស់ Molly ដើម្បីផ្ញើ និងទទួល MobileCoin ដែលជារូបិយបណ្ណឌីជីថលថ្មីមួយផ្តោតលើឯកជនភាព។ បើកដំណើរការ ដើម្បីចាប់ផ្តើម។</string>
     <string name="PaymentsHomeFragment__activate_payments">បើកដំណើរការការទូទាត់</string>
     <string name="PaymentsHomeFragment__activating_payments">កំពុងបើកដំណើរការ ការទូទាត់…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">ស្តារគណនីទូទាត់</string>
@@ -3626,7 +3623,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">ការទូទាត់មិនមាននៅក្នុងតំបន់របស់អ្នកទេ។</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">មិនអាចបើកការទូទាត់។ សាកល្បងម្តងទៀតពេលក្រោយ។</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">បិទដំណើរការ ការទូទាត់?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">អ្នកនឹងមិនអាចផ្ញើនិងទទួល Mobilecoin ក្នុង Signal ​បើអ្នកបិទដំណើរការ ការទូទាត់។</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">អ្នកនឹងមិនអាចផ្ញើនិងទទួល Mobilecoin ក្នុង Molly ​បើអ្នកបិទដំណើរការ ការទូទាត់។</string>
     <string name="PaymentsHomeFragment__deactivate">បិទ</string>
     <string name="PaymentsHomeFragment__continue">បន្ត</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">សមតុល្យ មិនមានទេបច្ចុប្បន្ននេះ។</string>
@@ -3635,10 +3632,10 @@
     <string name="PaymentsHomeFragment__details">លម្អិត</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">អ្នកអាចប្រើ Signal ដើម្បីផ្ញើ និងទទួល MobileCoin។ ការបង់ប្រាក់ទាំងអស់ត្រូវអនុវត្តតាមលក្ខខណ្ឌប្រើប្រាស់សម្រាប់ MobileCoins និង MobileCoin Wallet។ អ្នកអាចនឹងជួបប្រទះបញ្ហាមួយចំនួន ហើយការបង់ប្រាក់ ឬសមតុល្យដែលអ្នកអាចនឹងបាត់បង់ មិនអាចស្តារមកវិញបានទេ។ </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">អ្នកអាចប្រើ Molly ដើម្បីផ្ញើ និងទទួល MobileCoin។ ការបង់ប្រាក់ទាំងអស់ត្រូវអនុវត្តតាមលក្ខខណ្ឌប្រើប្រាស់សម្រាប់ MobileCoins និង MobileCoin Wallet។ អ្នកអាចនឹងជួបប្រទះបញ្ហាមួយចំនួន ហើយការបង់ប្រាក់ ឬសមតុល្យដែលអ្នកអាចនឹងបាត់បង់ មិនអាចស្តារមកវិញបានទេ។ </string>
     <string name="PaymentsHomeFragment__activate">ធ្វើឱ្យសកម្ម</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">មើលលក្ខខណ្ឌ MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">ការទូទាត់នៅក្នុង Signal លែងមានហើយ។ អ្នកនៅតែអាចផ្ទេរប្រាក់ទៅកន្លែងប្តូរប្រាក់បាន ប៉ុន្តែអ្នកមិនអាចផ្ញើ និងទទួលការទូទាត់ ឬបន្ថែមថវិកាបានទេ។</string>
+    <string name="PaymentsHomeFragment__payments_not_available">ការទូទាត់នៅក្នុង Molly លែងមានហើយ។ អ្នកនៅតែអាចផ្ទេរប្រាក់ទៅកន្លែងប្តូរប្រាក់បាន ប៉ុន្តែអ្នកមិនអាចផ្ញើ និងទទួលការទូទាត់ ឬបន្ថែមថវិកាបានទេ។</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3666,7 +3663,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">បើកការអនុញ្ញាត</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">ដើម្បីជួយអ្នកក្នុងការផ្ញើសារទៅកាន់មនុស្សដែលអ្នកស្គាល់ Signal នឹងស្នើសុំការអនុញ្ញាតទាំងនេះ។ </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">ដើម្បីជួយអ្នកក្នុងការផ្ញើសារទៅកាន់មនុស្សដែលអ្នកស្គាល់ Molly នឹងស្នើសុំការអនុញ្ញាតទាំងនេះ។ </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">ការជូនដំណឹង</string>
     <!-- Notifications permission row description -->
@@ -3758,10 +3755,10 @@
     <string name="PaymentsTransferFragment__next">បន្ទាប់</string>
     <string name="PaymentsTransferFragment__invalid_address">អាសយដ្ឋានមិនត្រឹមត្រូវ</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">ពិនិត្យអាសយដ្ឋានកាបូប ដែលអ្នកព្យាយាមផ្ទេរទៅ ហើយសាកល្បងម្តងទៀត។</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">អ្នកមិនអាចផ្ទេរទៅអាសយដ្ឋានកាបូប Signal ខ្លួនឯងទេ។ បញ្ចូលអាសយដ្ឋានកាបូបពីគណនីរបស់អ្នក នៅការផ្លាស់ប្តូរដែលគាំទ្រ។</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">ដើម្បីស្កេនកូដ QR Signal ត្រូវការប្រើប្រាស់កាមេរ៉ា។</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal​ត្រូវការសិទ្ធិប្រើប្រាស់កាមេរ៉ា ដើម្បថតកូដ QR ។ ចូលទៅ ការកំណត់​ ជ្រើសរើស \"អនុញ្ញាត\" ហើយបើក \"កាមេរ៉ា\"។</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Signal ត្រូវការប្រើប្រាស់កាមេរ៉ា ដើម្បីស្គែន QR Code។</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">អ្នកមិនអាចផ្ទេរទៅអាសយដ្ឋានកាបូប Molly ខ្លួនឯងទេ។ បញ្ចូលអាសយដ្ឋានកាបូបពីគណនីរបស់អ្នក នៅការផ្លាស់ប្តូរដែលគាំទ្រ។</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">ដើម្បីស្កេនកូដ QR Molly ត្រូវការប្រើប្រាស់កាមេរ៉ា។</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly​ត្រូវការសិទ្ធិប្រើប្រាស់កាមេរ៉ា ដើម្បថតកូដ QR ។ ចូលទៅ ការកំណត់​ ជ្រើសរើស \"អនុញ្ញាត\" ហើយបើក \"កាមេរ៉ា\"។</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Molly ត្រូវការប្រើប្រាស់កាមេរ៉ា ដើម្បីស្គែន QR Code។</string>
     <string name="PaymentsTransferFragment__settings">ការកំណត់</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4100,17 +4097,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">ការហៅចូលជាសំឡេងតាម Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">ការហៅចូលជាសំឡេងតាម Molly</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">ការហៅចូលជាវីដេអូតាម Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">ការហៅចូលជាវីដេអូតាម Molly</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">ការហៅចូល Signal ជាក្រុម</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">ការហៅចូល Molly ជាក្រុម</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">កំពុងហៅជាសំឡេងតាម Signal</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">កំពុងហៅជាសំឡេងតាម Molly</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">កំពុងហៅជាវីដេអូតាម Signal</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">កំពុងហៅជាវីដេអូតាម Molly</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">កំពុងហៅជាក្រុមតាម Signal</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">កំពុងហៅជាក្រុមតាម Molly</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">កំពុងផ្ទុក…</string>
@@ -4157,9 +4154,9 @@
     <string name="BackupDialog_verify">ផ្ទៀងផ្ទាត់</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">អ្នកបានបញ្ចូលឃ្លាសម្ងាត់បម្រុងទុករបស់អ្នកដោយជោគជ័យ</string>
     <string name="BackupDialog_passphrase_was_not_correct">ឃ្លាសម្ងាត់មិនត្រឹមត្រូវ</string>
-    <string name="LocalBackupJob_creating_signal_backup">កំពុងបង្កើតការបម្រុងទុក Signal…</string>
+    <string name="LocalBackupJob_creating_signal_backup">កំពុងបង្កើតការបម្រុងទុក Molly…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">កំពុងផ្ទៀងផ្ទាត់ការបម្រុងទុក Signal…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">កំពុងផ្ទៀងផ្ទាត់ការបម្រុងទុក Molly…</string>
     <string name="LocalBackupJobApi29_backup_failed">ការបម្រុងទុកបរាជ័យ</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">ថតឯកសារបម្រុងទុករបស់អ្នក ត្រូវបានលុបចោល ឬប្តូរទីតាំង។</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">ឯកសារបម្រុងទុករបស់អ្នក រក្សាទុកនៅទីតាំងនេះ​ មានទំហំធំពេក។</string>
@@ -4174,15 +4171,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">ហៅមកខ្ញុំ (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">ផ្ញើលេខកូដឡើងវិញ (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">ទាក់ទងជំនួយ Signal</string>
-    <string name="RegistrationActivity_code_support_subject">ការចុះឈ្មោះ Signal - ការផ្ទៀងផ្ទាត់កូដសម្រាប់ Android</string>
+    <string name="RegistrationActivity_contact_signal_support">ទាក់ទងជំនួយ Molly</string>
+    <string name="RegistrationActivity_code_support_subject">ការចុះឈ្មោះ Molly - ការផ្ទៀងផ្ទាត់កូដសម្រាប់ Android</string>
     <string name="RegistrationActivity_incorrect_code">លេខកូដមិនត្រឹមត្រូវ</string>
     <string name="BackupUtil_never">មិនធ្លាប់</string>
     <string name="BackupUtil_unknown">មិនស្គាល់</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">លេខទូរសព្ទ</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">ជ្រើសរើសអ្នកដែលអាចមើលឃើញលេខទូរសព្ទរបស់អ្នក និងអ្នកណាដែលអាចប្រើវាទាក់ទងអ្នកបាននៅលើ Signal។</string>
+    <string name="preferences_app_protection__choose_who_can_see">ជ្រើសរើសអ្នកដែលអាចមើលឃើញលេខទូរសព្ទរបស់អ្នក និងអ្នកណាដែលអាចប្រើវាទាក់ទងអ្នកបាននៅលើ Molly។</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">អ្នកដែលអាចមើលឃើញលេខរបស់ខ្ញុំ</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4233,11 +4230,11 @@
     <string name="RegistrationActivity_error_connecting_to_service">បញ្ហាការតភ្ជាប់សេវា</string>
     <string name="preferences_chats__backups">បម្រុងទុក</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">ដោះសោ Signal</string>
+    <string name="prompt_passphrase_activity__unlock_signal">ដោះសោ Molly</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">ប្រើការកំណត់ចាក់សោឧបករណ៍ Android របស់អ្នកដើម្បីដោះសោ Signal។</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">ប្រើការកំណត់ចាក់សោឧបករណ៍ Android របស់អ្នកដើម្បីដោះសោ Molly។</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">ការចាក់សោអេក្រង់ត្រូវបានបើក ហើយ Signal ត្រូវបានធានាសុវត្ថិភាពដោយការកំណត់ចាក់សោឧបករណ៍របស់អ្នក។ ដោះសោ Signal តាមធម្មតា តាមវិធីដូចគ្នានឹងពេលដែលអ្នកដោះសោទូរសព្ទរបស់អ្នក ពោលគឺអាចជាការដោះសោមុខ ដោះសោតាមស្នាមម្រាមដៃ លេខកូដសម្ងាត់ ពាក្យសម្ងាត់ ឬលំនាំគំនូស។</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">ការចាក់សោអេក្រង់ត្រូវបានបើក ហើយ Molly ត្រូវបានធានាសុវត្ថិភាពដោយការកំណត់ចាក់សោឧបករណ៍របស់អ្នក។ ដោះសោ Molly តាមធម្មតា តាមវិធីដូចគ្នានឹងពេលដែលអ្នកដោះសោទូរសព្ទរបស់អ្នក ពោលគឺអាចជាការដោះសោមុខ ដោះសោតាមស្នាមម្រាមដៃ លេខកូដសម្ងាត់ ពាក្យសម្ងាត់ ឬលំនាំគំនូស។</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">ទាក់ទងផ្នែកជំនួយ</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4249,7 +4246,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">ប្រើការចាក់សោអេក្រង់</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">នឹងតម្រូវឱ្យមានការកំណត់ចាក់សោឧបករណ៍ Android របស់អ្នក ដើម្បីដោះសោ Signal នៅពេលអ្នកចេញពី ឬប្តូរកម្មវិធី។ នៅពេលចាក់សោ នៅក្នុងផ្នែកមើលការជូនដំណឹងជាមុន វានឹងមិនបង្ហាញខ្លឹមសាររបស់សារនោះទេ។</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">នឹងតម្រូវឱ្យមានការកំណត់ចាក់សោឧបករណ៍ Android របស់អ្នក ដើម្បីដោះសោ Molly នៅពេលអ្នកចេញពី ឬប្តូរកម្មវិធី។ នៅពេលចាក់សោ នៅក្នុងផ្នែកមើលការជូនដំណឹងជាមុន វានឹងមិនបង្ហាញខ្លឹមសាររបស់សារនោះទេ។</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">ចាប់ផ្តើមចាក់សោអេក្រង់</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4263,9 +4260,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">កំណត់រយៈពេលខ្លួនឯង</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">ប្រើការចាក់សោអេក្រង់ Signal</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">ប្រើការចាក់សោអេក្រង់ Molly</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">បិទការចាក់សោអេក្រង់ Signal</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">បិទការចាក់សោអេក្រង់ Molly</string>
 
     <string name="Recipient_unknown">មិនស្គាល់</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4320,19 +4317,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">កំពុងរៀបចំតភ្ជាប់ទៅឧបករណ៍​ Android ចាស់…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">ចំណាយពេលបន្តិច គួរតែរួចរាល់ឆាប់ៗនេះ</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">កំពុងរង់ចាំឧបករណ៍ Android ចាស់ដើម្បីតភ្ជាប់…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal ត្រូវការការអនុញ្ញាតទីតាំង ដើម្បីរកមើលនិងតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ចាស់របស់អ្នក។</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal ត្រូវការបើកសេវាកម្មទីតាំង ដើម្បីរកមើលនិងតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ចាស់របស់អ្នក។</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal ត្រូវការបើក Wi-Fi ដើម្បីរកមើលនិងតភ្ជាប់ជាមួយឧបករណ៍​ Android ចាស់របស់អ្នក។ Wi-Fi ត្រូវតែបើក ប៉ុន្តែវាមិនចាំបាច់តភ្ជាប់បណ្តាញ Wi-Fi ទេ។</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">សុំទោស ហាក់បីដូចជាឧបករណ៍នេះមិនគាំទ្រ Wi-Fi Direct។ Signal ប្រើប្រាស់ Wi-Fi Direct ដើម្បីរកមើលនិងតភ្ជាប់ឧបករណ៍ Android ចាស់របស់អ្នក។ អ្នកនៅតែអាចស្តារការបម្រុងទុកឡើងវិញ ដើម្បីស្តារគណនីរបស់អ្នកចេញពីឧបករណ៍ Android ចាស់របស់អ្នក។</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly ត្រូវការការអនុញ្ញាតទីតាំង ដើម្បីរកមើលនិងតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ចាស់របស់អ្នក។</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly ត្រូវការបើកសេវាកម្មទីតាំង ដើម្បីរកមើលនិងតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ចាស់របស់អ្នក។</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly ត្រូវការបើក Wi-Fi ដើម្បីរកមើលនិងតភ្ជាប់ជាមួយឧបករណ៍​ Android ចាស់របស់អ្នក។ Wi-Fi ត្រូវតែបើក ប៉ុន្តែវាមិនចាំបាច់តភ្ជាប់បណ្តាញ Wi-Fi ទេ។</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">សុំទោស ហាក់បីដូចជាឧបករណ៍នេះមិនគាំទ្រ Wi-Fi Direct។ Molly ប្រើប្រាស់ Wi-Fi Direct ដើម្បីរកមើលនិងតភ្ជាប់ឧបករណ៍ Android ចាស់របស់អ្នក។ អ្នកនៅតែអាចស្តារការបម្រុងទុកឡើងវិញ ដើម្បីស្តារគណនីរបស់អ្នកចេញពីឧបករណ៍ Android ចាស់របស់អ្នក។</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">ស្តារការបម្រុងទុកមួយ</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">កំហុសមិនរំពឹងទុកមួយកើតឡើង នៅពេលព្យាយាមតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ចាស់របស់អ្នក។</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">កំពុងស្វែងរកឧបករណ៍ Android ថ្មី…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal ត្រូវការការអនុញ្ញាតទីតាំង ដើម្បីរកមើលនិងតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ថ្មីរបស់អ្នក។</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal ត្រូវការបើកសេវាកម្មទីតាំង ដើម្បីរកមើលនិងតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ថ្មីរបស់អ្នក។</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal ត្រូវការបើក Wi-Fi ដើម្បីរកមើលនិងតភ្ជាប់ជាមួយឧបករណ៍​ Android ថ្មីរបស់អ្នក។ Wi-Fi ត្រូវតែបើក ប៉ុន្តែវាមិនចាំបាច់តភ្ជាប់បណ្តាញ Wi-Fi ទេ។</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">សុំទោស ហាក់បីដូចជាឧបករណ៍នេះមិនគាំទ្រ Wi-Fi Direct។ Signal ប្រើប្រាស់ Wi-Fi Direct ដើម្បីរកមើលនិងតភ្ជាប់ឧបករណ៍ Android ថ្មីរបស់អ្នក។ អ្នកនៅតែអាចស្តារការបម្រុងទុកឡើងវិញ ដើម្បីស្តារគណនីរបស់អ្នកចេញពីឧបករណ៍ Android ថ្មីរបស់អ្នក។</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly ត្រូវការការអនុញ្ញាតទីតាំង ដើម្បីរកមើលនិងតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ថ្មីរបស់អ្នក។</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly ត្រូវការបើកសេវាកម្មទីតាំង ដើម្បីរកមើលនិងតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ថ្មីរបស់អ្នក។</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly ត្រូវការបើក Wi-Fi ដើម្បីរកមើលនិងតភ្ជាប់ជាមួយឧបករណ៍​ Android ថ្មីរបស់អ្នក។ Wi-Fi ត្រូវតែបើក ប៉ុន្តែវាមិនចាំបាច់តភ្ជាប់បណ្តាញ Wi-Fi ទេ។</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">សុំទោស ហាក់បីដូចជាឧបករណ៍នេះមិនគាំទ្រ Wi-Fi Direct។ Molly ប្រើប្រាស់ Wi-Fi Direct ដើម្បីរកមើលនិងតភ្ជាប់ឧបករណ៍ Android ថ្មីរបស់អ្នក។ អ្នកនៅតែអាចស្តារការបម្រុងទុកឡើងវិញ ដើម្បីស្តារគណនីរបស់អ្នកចេញពីឧបករណ៍ Android ថ្មីរបស់អ្នក។</string>
     <string name="OldDeviceTransferSetup__create_a_backup">បង្កើតការបម្រុងទុកមួយ</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">កំហុសមិនរំពឹងទុកមួយកើតឡើង នៅពេលព្យាយាមតភ្ជាប់ទៅកាន់ឧបករណ៍ Android ថ្មីរបស់អ្នក។</string>
 
@@ -4373,7 +4370,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">កំពុងផ្ទេរទិន្នន័យ</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">សូមទុកឧបករណ៍ទាំងពីរនៅជិតគ្នា។ កុំបិទឧបករណ៍ណាមួយ ហើយបើកកម្មវិធី Signal ។ ការផ្ទេរគឺមានកូដនីយកម្មសងខាង។</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">សូមទុកឧបករណ៍ទាំងពីរនៅជិតគ្នា។ កុំបិទឧបករណ៍ណាមួយ ហើយបើកកម្មវិធី Molly ។ ការផ្ទេរគឺមានកូដនីយកម្មសងខាង។</string>
     <string name="DeviceTransfer__d_messages_so_far">សារចំនួន %1$d</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">សារចំនួន %1$s%%</string>
@@ -4387,7 +4384,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">បញ្ជូនគណនី</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">ទាញយក Signal លើឧបករណ៍ Android ថ្មីរបស់អ្នក</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">ទាញយក Molly លើឧបករណ៍ Android ថ្មីរបស់អ្នក</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"ចុចលើពាក្យ \"ផ្ទេរចេញ​ ឬស្ដារគណនីមកវិញ\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4461,7 +4458,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">អ្នកដែលមានតំណរភ្ជាប់នេះនឹងអាចមើលឃើញឈ្មោះក្រុម រូបថត និងស្មើសុំចូលក្រុមបាន។ សូមចែករំលែកតែជាមួយអ្នកដែលទុកចិត្ត។</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">អ្នកដែលមានតំណរភ្ជាប់នេះនឹងអាចមើលឃើញឈ្មោះក្រុម រូបថត និងចូលក្រុមបាន។ សូមចែករំលែកតែជាមួយអ្នកដែលទុកចិត្ត។</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">ចែករំលែកតាមរយៈ Signal</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">ចែករំលែកតាមរយៈ Molly</string>
     <string name="GroupLinkBottomSheet_copy">ចម្លង</string>
     <string name="GroupLinkBottomSheet_qr_code">កូដ QR</string>
     <string name="GroupLinkBottomSheet_share">ចែករំលែក</string>
@@ -4640,7 +4637,7 @@
     <string name="payment_info_card_about_mobilecoin">អំពី MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin គឺជារូបិយបណ្ណឌីជីថលថ្មីមួយដែលផ្តោតលើឯកជនភាព។</string>
     <string name="payment_info_card_adding_funds">បន្ថែមសាច់ប្រាក់</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">អ្នកអាចដាក់លុយដើម្បីប្រើនៅក្នុង Signal ដោយផ្ញើ MobileCoin ទៅកាន់អាសយដ្ឋានកាបូបរបស់អ្នក។</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">អ្នកអាចដាក់លុយដើម្បីប្រើនៅក្នុង Molly ដោយផ្ញើ MobileCoin ទៅកាន់អាសយដ្ឋានកាបូបរបស់អ្នក។</string>
     <string name="payment_info_card_cashing_out">ដកប្រាក់</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">អ្នកអាចដកប្រាក់ចេញ MobileCoin គ្រប់ពេលវេលានៅកន្លែងប្តូរប្រាក់ដែលគាំទ្រ MobileCoin ។ គ្រាន់តែធ្វើការផ្ទេរប្រាក់ទៅកាន់គណនីរបស់អ្នកនៅកន្លែងប្តូរប្រាក់នោះ។</string>
     <string name="payment_info_card_hide_this_card">លាក់កាតនេះ?</string>
@@ -4661,12 +4658,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">បិទដំណើរការ Wallet</string>
     <string name="DeactivateWalletFragment__your_balance">សមតុល្យរបស់អ្នក</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">អ្នកគួរតែផ្ទេរប្រាក់របស់អ្នកទៅកាន់អាសយដ្ឋានកាបូបមួយផ្សេងទៀត មុនពេលបិទដំណើរការការបង់ប្រាក់។ ប្រសិនបើអ្នកជ្រើសរើសមិនផ្ទេរប្រាក់របស់អ្នកឥឡូវនេះទេ ប្រាក់នោះនឹងនៅតែមាននៅក្នុងកាបូបរបស់អ្នកដែលបានភ្ជាប់ជាមួយ Signal ប្រសិនបើអ្នកសម្រេចឲ្យការបង់ប្រាក់បើកដំណើរការឡើងវិញ។</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">អ្នកគួរតែផ្ទេរប្រាក់របស់អ្នកទៅកាន់អាសយដ្ឋានកាបូបមួយផ្សេងទៀត មុនពេលបិទដំណើរការការបង់ប្រាក់។ ប្រសិនបើអ្នកជ្រើសរើសមិនផ្ទេរប្រាក់របស់អ្នកឥឡូវនេះទេ ប្រាក់នោះនឹងនៅតែមាននៅក្នុងកាបូបរបស់អ្នកដែលបានភ្ជាប់ជាមួយ Molly ប្រសិនបើអ្នកសម្រេចឲ្យការបង់ប្រាក់បើកដំណើរការឡើងវិញ។</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">ផ្ទេរសមតុល្យដែលនៅសល់</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">បិទដំណើរការដោយមិនចាំបាច់ផ្ទេរ</string>
     <string name="DeactivateWalletFragment__deactivate">បិទ</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">បិទដំណើរការដោយមិនចាំបាច់ផ្ទេរ?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">សមតុល្យរបស់អ្នកនឹងនៅតែមាននៅក្នុងកាបូបរបស់អ្នកដែលបានភ្ជាប់ជាមួយ Signal ប្រសិនបើអ្នកសម្រេចឲ្យការបង់ប្រាក់បើកដំណើរការឡើងវិញ។</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">សមតុល្យរបស់អ្នកនឹងនៅតែមាននៅក្នុងកាបូបរបស់អ្នកដែលបានភ្ជាប់ជាមួយ Molly ប្រសិនបើអ្នកសម្រេចឲ្យការបង់ប្រាក់បើកដំណើរការឡើងវិញ។</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">មានបញ្ហាក្នុងការបិទកាបូបលុយ</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4964,7 +4961,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">អាជ្ញាបណ្ណ</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">លក្ខខណ្ឌ &amp; គោលនយោបាយឯកជនភាព</string>
-    <string name="HelpFragment__copyright_signal_messenger">កម្មសិទ្ធបញ្ញា Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">កម្មសិទ្ធបញ្ញា Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">មានអាជ្ញាបណ្ណក្រោម GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5407,9 +5404,9 @@
     <string name="MySupportPreference__learn_more">ស្វែងយល់បន្ថែម</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">ដំឡើង Signal</string>
+    <string name="UpdateSignalExpiredDialog__title">ដំឡើង Molly</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">កំណែ Signal នេះបានផុតកំណត់ហើយ។ ដំឡើងកំណែឥឡូវនេះដើម្បីបន្តប្រើប្រាស់ Signal។</string>
+    <string name="UpdateSignalExpiredDialog__message">កំណែ Molly នេះបានផុតកំណត់ហើយ។ ដំឡើងកំណែឥឡូវនេះដើម្បីបន្តប្រើប្រាស់ Molly។</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">បច្ចុប្បន្នភាព</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5418,7 +5415,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">ឧបករណ៍មិនបានចុះឈ្មោះទេ</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">លែងចុះឈ្មោះឧបករណ៍នេះទៀតហើយ។ ចុះឈ្មោះឡើងវិញដើម្បីបន្តប្រើប្រាស់ Signal នៅលើឧបករណ៍នេះ។</string>
+    <string name="ReregisterSignalDialog__message">លែងចុះឈ្មោះឧបករណ៍នេះទៀតហើយ។ ចុះឈ្មោះឡើងវិញដើម្បីបន្តប្រើប្រាស់ Molly នៅលើឧបករណ៍នេះ។</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">ចុះឈ្មោះម្តងទៀត</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5729,7 +5726,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">បរាជ័យក្នុងការបើកសារ</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">ដើម្បីបើកការជូនដំណឹង Signal ត្រូវការការអនុញ្ញាតដើម្បីបង្ហាញពួកវា។</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">ដើម្បីបើកការជូនដំណឹង Molly ត្រូវការការអនុញ្ញាតដើម្បីបង្ហាញពួកវា។</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">បើក</string>
 

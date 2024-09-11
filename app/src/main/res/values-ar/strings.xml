@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -84,7 +81,7 @@
     <string name="AttachmentKeyboard_file">ملف</string>
     <string name="AttachmentKeyboard_contact">جهة الاتصال</string>
     <string name="AttachmentKeyboard_location">الموقع</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">يحتاج Signal إلى إذن لإظهار الصور ومقاطع الفيديو الخاصة بك</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">يحتاج Molly إلى إذن لإظهار الصور ومقاطع الفيديو الخاصة بك</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">إعطاء الصلاحية</string>
     <string name="AttachmentKeyboard_payment">عملية الدفع</string>
@@ -377,8 +374,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">رسالة %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">مكالمة Signal بالصوت %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">مكالمة Signal بالفيديو %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">مكالمة Molly بالصوت %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">مكالمة Molly بالفيديو %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -2741,7 +2738,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">ستأتيك مكالمة هاتفية للتحقق من هذا الرقم.</string>
     <string name="RegistrationActivity_edit_number">تعديل الرقم</string>
     <string name="RegistrationActivity_missing_google_play_services">خدمات Google Play غير موجودة</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">خدمات Google Play غير موجودة في هذا الجهاز. لا زال بإمكانك استخدام سيجنال، ولكن هذا الضبط قد يؤدي إلى ضعف في موثوقية أو أداء البرنامج ان لم تكن مستخدما متقدما، أو لم تكن مشغلا ل Android ROM من سوق ثانوية، أو تعتقد أن رؤيتك لهذه الرسالة ناجم عن خطأ، يرجى التواصل مع support@signal.org للمساعدة فى اكتشاف المشكلة واصلاحها.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">خدمات Google Play غير موجودة في هذا الجهاز. لا زال بإمكانك استخدام سيجنال، ولكن هذا الضبط قد يؤدي إلى ضعف في موثوقية أو أداء البرنامج ان لم تكن مستخدما متقدما، أو لم تكن مشغلا ل Android ROM من سوق ثانوية، أو تعتقد أن رؤيتك لهذه الرسالة ناجم عن خطأ، يرجى التواصل مع support@molly.im للمساعدة فى اكتشاف المشكلة واصلاحها.</string>
     <string name="RegistrationActivity_i_understand">فهمت</string>
     <string name="RegistrationActivity_play_services_error">خطأ في خدمات Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">جاري تحديث خدمات Google Play أو أنها غير موجودة مؤقتاً. يرجى المحاولة مجدداً.</string>
@@ -3287,7 +3284,7 @@
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">للإجابة على المكالمة، يجب عليك منح ترخيص الوصول إلى ميكروفونك.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">للرّد على مكالمة الفيديو، يُرجى منح Signal ترخيص الوصول إلى الميكروفون و الكاميرا على هاتفك.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">للرّد على مكالمة الفيديو، يُرجى منح Molly ترخيص الوصول إلى الميكروفون و الكاميرا على هاتفك.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">يحتاج سيجنال إلى أذونات الميكروفون والكاميرا من أجل استقبال أو تلقّي المكالمات، ولكن الإذن لم يُمنح بشكل دائم. الرجاء زيارة إعدادات التطبيق، واختيار \"الأذونات\"، ثم تفعيل \"الميكروفون\" و\"الكاميرا\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">أجاب عبر جهاز مرتبط.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">رُفض عبر جهاز مرتبط.</string>
