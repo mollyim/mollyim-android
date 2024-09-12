@@ -28,7 +28,6 @@ import org.signal.core.ui.SignalPreview
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.permissions.Permissions
-import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
 /**
  * Fragment that allows users to scan a QR code from their camera to link a device
@@ -44,19 +43,15 @@ class AddLinkDeviceFragment : ComposeFragment() {
     val navController: NavController by remember { mutableStateOf(findNavController()) }
     val cameraPermissionState: PermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
-    if (!state.seenIntroSheet) {
-      navController.safeNavigate(R.id.action_addLinkDeviceFragment_to_linkDeviceIntroBottomSheet)
-      viewModel.markIntroSheetSeen()
-    }
-
-    if ((state.qrCodeFound || state.qrCodeInvalid) && navController.currentDestination?.id == R.id.linkDeviceIntroBottomSheet) {
-      navController.popBackStack()
-    }
-
     MainScreen(
       state = state,
       navController = navController,
       hasPermissions = cameraPermissionState.status.isGranted,
+      linkWithoutQrCode = state.linkWithoutQrCode,
+      onLinkDeviceWithUrl = { url ->
+        viewModel.onQrCodeScanned(url)
+        viewModel.addDevice()
+      },
       onRequestPermissions = { askPermissions() },
       onShowFrontCamera = { viewModel.showFrontCamera() },
       onQrCodeScanned = { data -> viewModel.onQrCodeScanned(data) },
@@ -91,6 +86,8 @@ private fun MainScreen(
   state: LinkDeviceSettingsState,
   navController: NavController? = null,
   hasPermissions: Boolean = false,
+  linkWithoutQrCode: Boolean = false,
+  onLinkDeviceWithUrl: (String) -> Unit = {},
   onRequestPermissions: () -> Unit = {},
   onShowFrontCamera: () -> Unit = {},
   onQrCodeScanned: (String) -> Unit = {},
@@ -101,31 +98,44 @@ private fun MainScreen(
   onLinkDeviceFailure: () -> Unit = {}
 ) {
   Scaffolds.Settings(
-    title = "",
+    title = if (linkWithoutQrCode) stringResource(id = R.string.DeviceAddFragment__link_without_scanning) else "",
     onNavigationClick = { navController?.popBackStack() },
     navigationIconPainter = painterResource(id = R.drawable.ic_x),
     navigationContentDescription = stringResource(id = R.string.Material3SearchToolbar__close),
     actions = {
-      IconButton(onClick = { onShowFrontCamera() }) {
-        Icon(painterResource(id = R.drawable.symbol_switch_24), contentDescription = null)
+      if (!linkWithoutQrCode) {
+        IconButton(onClick = { onShowFrontCamera() }) {
+          Icon(painterResource(id = R.drawable.symbol_switch_24), contentDescription = null)
+        }
       }
     }
   ) { contentPadding: PaddingValues ->
-    LinkDeviceQrScanScreen(
-      hasPermission = hasPermissions,
-      onRequestPermissions = onRequestPermissions,
-      showFrontCamera = state.showFrontCamera,
-      qrCodeFound = state.qrCodeFound,
-      qrCodeInvalid = state.qrCodeInvalid,
-      onQrCodeScanned = onQrCodeScanned,
-      onQrCodeAccepted = onQrCodeApproved,
-      onQrCodeDismissed = onQrCodeDismissed,
-      onQrCodeRetry = onQrCodeRetry,
-      linkDeviceResult = state.linkDeviceResult,
-      onLinkDeviceSuccess = onLinkDeviceSuccess,
-      onLinkDeviceFailure = onLinkDeviceFailure,
-      modifier = Modifier.padding(contentPadding)
-    )
+    if (!linkWithoutQrCode) {
+      LinkDeviceQrScanScreen(
+        hasPermission = hasPermissions,
+        onRequestPermissions = onRequestPermissions,
+        showFrontCamera = state.showFrontCamera,
+        qrCodeFound = state.qrCodeFound,
+        qrCodeInvalid = state.qrCodeInvalid,
+        onQrCodeScanned = onQrCodeScanned,
+        onQrCodeAccepted = onQrCodeApproved,
+        onQrCodeDismissed = onQrCodeDismissed,
+        onQrCodeRetry = onQrCodeRetry,
+        linkDeviceResult = state.linkDeviceResult,
+        onLinkDeviceSuccess = onLinkDeviceSuccess,
+        onLinkDeviceFailure = onLinkDeviceFailure,
+        modifier = Modifier.padding(contentPadding)
+      )
+    } else {
+      LinkDeviceManualEntryScreen(
+        onLinkDeviceWithUrl = onLinkDeviceWithUrl,
+        qrCodeFound = state.qrCodeFound,
+        linkDeviceResult = state.linkDeviceResult,
+        onLinkDeviceSuccess = onLinkDeviceSuccess,
+        onLinkDeviceFailure = onLinkDeviceFailure,
+        modifier = Modifier.padding(contentPadding)
+      )
+    }
   }
 }
 

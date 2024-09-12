@@ -244,12 +244,8 @@
         android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceFragment"
         android:label="link_device_fragment">
         <action
-            android:id="@+id/action_linkDeviceFragment_to_addLinkDeviceFragment"
-            app:destination="@id/addLinkDeviceFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            android:id="@+id/action_linkDeviceFragment_to_linkDeviceIntroBottomSheet"
+            app:destination="@id/linkDeviceIntroBottomSheet" />
         <action
             android:id="@+id/action_linkDeviceFragment_to_linkDeviceFinishedSheet"
             app:destination="@id/linkDeviceFinishedSheet" />
@@ -268,13 +264,18 @@
         android:id="@+id/addLinkDeviceFragment"
         android:name="org.thoughtcrime.securesms.linkdevice.AddLinkDeviceFragment"
         android:label="link_device_add_fragment">
-        <action
-            android:id="@+id/action_addLinkDeviceFragment_to_linkDeviceIntroBottomSheet"
-            app:destination="@id/linkDeviceIntroBottomSheet" />
     </fragment>
     <dialog
         android:id="@+id/linkDeviceIntroBottomSheet"
-        android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceIntroBottomSheet" />
+        android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceIntroBottomSheet">
+        <action
+            android:id="@+id/action_linkDeviceIntroBottomSheet_to_addLinkDeviceFragment"
+            app:destination="@id/addLinkDeviceFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </dialog>
 
     <!-- Payments -->
     <activity

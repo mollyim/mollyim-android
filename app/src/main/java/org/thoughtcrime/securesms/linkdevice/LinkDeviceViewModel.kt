@@ -104,12 +104,9 @@ class LinkDeviceViewModel : ViewModel() {
     }
   }
 
-  fun markIntroSheetSeen() {
+  fun requestLinkWithoutQrCode(value: Boolean) {
     _state.update {
-      it.copy(
-        seenIntroSheet = true,
-        showFrontCamera = null
-      )
+      it.copy(linkWithoutQrCode = value)
     }
   }
 

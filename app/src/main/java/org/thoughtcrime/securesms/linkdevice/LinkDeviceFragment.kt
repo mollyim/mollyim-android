@@ -93,7 +93,7 @@ class LinkDeviceFragment : ComposeFragment() {
 
     biometricDeviceLockLauncher = registerForActivityResult(BiometricDeviceLockContract()) { result: Int ->
       if (result == BiometricDeviceAuthentication.AUTHENTICATED) {
-        findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_addLinkDeviceFragment)
+        findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
       }
     }
 
@@ -148,7 +148,7 @@ class LinkDeviceFragment : ComposeFragment() {
           if (biometricAuth.canAuthenticate()) {
             biometricAuth.authenticate(requireContext(), true) { biometricDeviceLockLauncher.launch(getString(R.string.LinkDeviceFragment__unlock_to_link)) }
           } else {
-            navController.safeNavigate(R.id.action_linkDeviceFragment_to_addLinkDeviceFragment)
+            navController.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
           }
         },
         setDeviceToRemove = { device -> viewModel.setDeviceToRemove(device) },
@@ -171,7 +171,7 @@ class LinkDeviceFragment : ComposeFragment() {
 
     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
       Log.i(TAG, "Authentication succeeded")
-      findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_addLinkDeviceFragment)
+      findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
     }
 
     override fun onAuthenticationFailed() {
