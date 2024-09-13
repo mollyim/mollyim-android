@@ -711,6 +711,27 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  /** Whether the Oboe ADM should be used or not.  */
+  val oboeDeployment: Boolean by remoteBoolean(
+    key = "android.calling.oboeDeployment",
+    defaultValue = false,
+    hotSwappable = false
+  )
+
+  /** A comma-separated list of models that should use the Java ADM instead of the Oboe ADM.  */
+  val useJavaAdmModels: String by remoteString(
+    key = "android.calling.useJavaAdmList",
+    defaultValue = "",
+    hotSwappable = true
+  )
+
+  /** A comma-separated list of models that should use software AEC for calling with the Oboe ADM.  */
+  val useSoftwareAecForOboeModels: String by remoteString(
+    key = "android.calling.useSoftwareAecForOboe",
+    defaultValue = "",
+    hotSwappable = true
+  )
+
   /** A comma-separated list of manufacturers that *should* use Telecom for calling.  */
   val telecomManufacturerAllowList: String by remoteString(
     key = "android.calling.telecomAllowList",
@@ -1084,9 +1105,17 @@ object RemoteConfig {
   )
 
   @JvmStatic
-  @get:JvmName("useNewCallApi")
+  @get:JvmName("newCallUi")
   val newCallUi: Boolean by remoteBoolean(
     key = "android.newCallUi",
+    defaultValue = false,
+    hotSwappable = false
+  )
+
+  @JvmStatic
+  @get:JvmName("useHevcEncoder")
+  val useHevcEncoder: Boolean by remoteBoolean(
+    key = "android.useHevcEncoder",
     defaultValue = false,
     hotSwappable = false
   )

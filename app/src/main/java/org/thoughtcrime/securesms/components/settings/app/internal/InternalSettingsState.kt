@@ -21,4 +21,5 @@ data class InternalSettingsState(
   val disableStorageService: Boolean,
   val canClearOnboardingState: Boolean,
   val useConversationItemV2ForMedia: Boolean,
+  val hevcEncoding: Boolean
 )

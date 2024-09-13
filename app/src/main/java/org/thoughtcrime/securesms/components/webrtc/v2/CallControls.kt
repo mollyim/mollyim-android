@@ -11,12 +11,20 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -24,6 +32,8 @@ import org.signal.core.ui.DarkPreview
 import org.signal.core.ui.Previews
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.webrtc.CallParticipantsState
+import org.thoughtcrime.securesms.components.webrtc.ToggleButtonOutputState
+import org.thoughtcrime.securesms.components.webrtc.WebRtcAudioDevice
 import org.thoughtcrime.securesms.components.webrtc.WebRtcAudioOutput
 import org.thoughtcrime.securesms.components.webrtc.WebRtcControls
 import org.thoughtcrime.securesms.events.WebRtcViewModel
@@ -41,15 +51,48 @@ fun CallControls(
 ) {
   val isPortrait = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT
 
+  val density = LocalDensity.current
+  val padBottom = with(density) { WindowInsets.navigationBars.getBottom(density).toDp() }
+  var bottom by remember {
+    mutableStateOf(padBottom)
+  }
+
+  if (padBottom != 0.dp) {
+    bottom = padBottom
+  }
+
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = spacedBy(30.dp),
-    modifier = modifier.navigationBarsPadding()
+    modifier = modifier.padding(bottom = bottom)
   ) {
     Row(
       horizontalArrangement = spacedBy(20.dp)
     ) {
-      // TODO [alex] -- Audio output toggle
+      if (callControlsState.displayAudioOutputToggle) {
+        val outputState = remember {
+          ToggleButtonOutputState().apply {
+            isEarpieceAvailable = callControlsState.isEarpieceAvailable
+            isWiredHeadsetAvailable = callControlsState.isWiredHeadsetAvailable
+            isBluetoothHeadsetAvailable = callControlsState.isBluetoothHeadsetAvailable
+          }
+        }
+
+        LaunchedEffect(callControlsState.isEarpieceAvailable, callControlsState.isWiredHeadsetAvailable, callControlsState.isBluetoothHeadsetAvailable) {
+          outputState.apply {
+            isEarpieceAvailable = callControlsState.isEarpieceAvailable
+            isWiredHeadsetAvailable = callControlsState.isWiredHeadsetAvailable
+            isBluetoothHeadsetAvailable = callControlsState.isBluetoothHeadsetAvailable
+          }
+        }
+
+        CallAudioToggleButton(
+          outputState = outputState,
+          contentDescription = stringResource(id = R.string.WebRtcAudioOutputToggle__audio_output),
+          onSelectedDeviceChanged = callControlsCallback::onSelectedAudioDeviceChanged,
+          onSheetDisplayChanged = callControlsCallback::onAudioDeviceSheetDisplayChanged
+        )
+      }
 
       val hasCameraPermission = ContextCompat.checkSelfPermission(LocalContext.current, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
       if (callControlsState.displayVideoToggle) {
@@ -128,6 +171,8 @@ fun CallControlsPreview() {
  * Callbacks for call controls actions.
  */
 interface CallControlsCallback {
+  fun onAudioDeviceSheetDisplayChanged(displayed: Boolean)
+  fun onSelectedAudioDeviceChanged(audioDevice: WebRtcAudioDevice)
   fun onVideoToggleClick(enabled: Boolean)
   fun onMicToggleClick(enabled: Boolean)
   fun onGroupRingingToggleClick(enabled: Boolean, allowed: Boolean)
@@ -136,6 +181,8 @@ interface CallControlsCallback {
   fun onEndCallClick()
 
   object Empty : CallControlsCallback {
+    override fun onAudioDeviceSheetDisplayChanged(displayed: Boolean) = Unit
+    override fun onSelectedAudioDeviceChanged(audioDevice: WebRtcAudioDevice) = Unit
     override fun onVideoToggleClick(enabled: Boolean) = Unit
     override fun onMicToggleClick(enabled: Boolean) = Unit
     override fun onGroupRingingToggleClick(enabled: Boolean, allowed: Boolean) = Unit
@@ -151,6 +198,9 @@ interface CallControlsCallback {
  * sources so we don't need to listen to multiple here.
  */
 data class CallControlsState(
+  val isEarpieceAvailable: Boolean = false,
+  val isBluetoothHeadsetAvailable: Boolean = false,
+  val isWiredHeadsetAvailable: Boolean = false,
   val skipHiddenState: Boolean = true,
   val displayAudioOutputToggle: Boolean = false,
   val audioOutput: WebRtcAudioOutput = WebRtcAudioOutput.HANDSET,
@@ -183,6 +233,9 @@ data class CallControlsState(
       }
 
       return CallControlsState(
+        isEarpieceAvailable = webRtcControls.isEarpieceAvailableForAudioToggle,
+        isBluetoothHeadsetAvailable = webRtcControls.isBluetoothHeadsetAvailableForAudioToggle,
+        isWiredHeadsetAvailable = webRtcControls.isWiredHeadsetAvailableForAudioToggle,
         skipHiddenState = !(webRtcControls.isFadeOutEnabled || webRtcControls == WebRtcControls.PIP || webRtcControls.displayErrorControls()),
         displayAudioOutputToggle = webRtcControls.displayAudioToggle(),
         audioOutput = webRtcControls.audioOutput,

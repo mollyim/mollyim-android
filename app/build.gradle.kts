@@ -18,8 +18,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1451
-val canonicalVersionName = "7.15.4"
+val canonicalVersionCode = 1456
+val canonicalVersionName = "7.16.4"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -45,6 +45,7 @@ val signalBuildToolsVersion: String by rootProject.extra
 val signalCompileSdkVersion: String by rootProject.extra
 val signalTargetSdkVersion: Int by rootProject.extra
 val signalMinSdkVersion: Int by rootProject.extra
+val signalNdkVersion: String by rootProject.extra
 val signalJavaVersion: JavaVersion by rootProject.extra
 val signalKotlinJvmTarget: String by rootProject.extra
 
@@ -79,6 +80,7 @@ android {
 
   buildToolsVersion = signalBuildToolsVersion
   compileSdkVersion = signalCompileSdkVersion
+  ndkVersion = signalNdkVersion
 
   flavorDimensions += listOf("environment", "license", "distribution")
   useLibrary("org.apache.http.legacy")

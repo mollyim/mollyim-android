@@ -98,8 +98,10 @@ public class VoiceNotePlaybackService extends MediaSessionService {
   public void onTaskRemoved(Intent rootIntent) {
     super.onTaskRemoved(rootIntent);
 
-    mediaSession.getPlayer().stop();
-    mediaSession.getPlayer().clearMediaItems();
+    if (mediaSession != null) {
+      mediaSession.getPlayer().stop();
+      mediaSession.getPlayer().clearMediaItems();
+    }
   }
 
   @Override
@@ -107,11 +109,13 @@ public class VoiceNotePlaybackService extends MediaSessionService {
     player.removeListener(playerEventListener);
     if (mediaSession != null) {
       AppDependencies.getDatabaseObserver().unregisterObserver(attachmentDeletionObserver);
-      keyClearedReceiver.unregister();
       player.release();
+
       mediaSession.release();
       mediaSession = null;
+
       clearListener();
+      keyClearedReceiver.unregister();
     }
     super.onDestroy();
   }

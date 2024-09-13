@@ -170,6 +170,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     const val SMS_SUBSCRIPTION_ID = "subscription_id"
     const val EXPIRES_IN = "expires_in"
     const val EXPIRE_STARTED = "expire_started"
+    const val EXPIRE_TIMER_VERSION = "expire_timer_version"
     const val NOTIFIED = "notified"
     const val NOTIFIED_TIMESTAMP = "notified_timestamp"
     const val UNIDENTIFIED = "unidentified"
@@ -265,7 +266,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         $LATEST_REVISION_ID INTEGER DEFAULT NULL REFERENCES $TABLE_NAME ($ID) ON DELETE CASCADE,
         $ORIGINAL_MESSAGE_ID INTEGER DEFAULT NULL REFERENCES $TABLE_NAME ($ID) ON DELETE CASCADE,
         $REVISION_NUMBER INTEGER DEFAULT 0,
-        $MESSAGE_EXTRAS BLOB DEFAULT NULL
+        $MESSAGE_EXTRAS BLOB DEFAULT NULL,
+        $EXPIRE_TIMER_VERSION INTEGER DEFAULT 1 NOT NULL
       )
     """
 
@@ -322,6 +324,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       SMS_SUBSCRIPTION_ID,
       EXPIRES_IN,
       EXPIRE_STARTED,
+      EXPIRE_TIMER_VERSION,
       NOTIFIED,
       QUOTE_ID,
       QUOTE_AUTHOR,
@@ -2429,6 +2432,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val timestamp = cursor.requireLong(DATE_SENT)
       val subscriptionId = cursor.requireInt(SMS_SUBSCRIPTION_ID)
       val expiresIn = cursor.requireLong(EXPIRES_IN)
+      val expireTimerVersion = cursor.requireInt(EXPIRE_TIMER_VERSION)
       val viewOnce = cursor.requireLong(VIEW_ONCE) == 1L
       val threadId = cursor.requireLong(THREAD_ID)
       val threadRecipient = Recipient.resolved(threads.getRecipientIdForThreadId(threadId)!!)
@@ -2505,7 +2509,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         OutgoingMessage.expirationUpdateMessage(
           threadRecipient = threadRecipient,
           sentTimeMillis = timestamp,
-          expiresIn = expiresIn
+          expiresIn = expiresIn,
+          expireTimerVersion = expireTimerVersion
         )
       } else if (MessageTypes.isPaymentsNotification(outboxType)) {
         OutgoingMessage.paymentNotificationMessage(
@@ -2564,6 +2569,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
           attachments = attachments,
           timestamp = timestamp,
           expiresIn = expiresIn,
+          expireTimerVersion = expireTimerVersion,
           viewOnce = viewOnce,
           distributionType = distributionType,
           storyType = storyType,
@@ -2996,6 +3002,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     contentValues.put(DATE_RECEIVED, editedMessage?.dateReceived ?: System.currentTimeMillis())
     contentValues.put(SMS_SUBSCRIPTION_ID, message.subscriptionId)
     contentValues.put(EXPIRES_IN, editedMessage?.expiresIn ?: message.expiresIn)
+    contentValues.put(EXPIRE_TIMER_VERSION, editedMessage?.expireTimerVersion ?: message.expireTimerVersion)
     contentValues.put(VIEW_ONCE, message.isViewOnce)
     contentValues.put(FROM_RECIPIENT_ID, Recipient.self().id.serialize())
     contentValues.put(FROM_DEVICE_ID, SignalStore.account.deviceId)
@@ -5252,6 +5259,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val subscriptionId = cursor.requireInt(SMS_SUBSCRIPTION_ID)
       val expiresIn = cursor.requireLong(EXPIRES_IN)
       val expireStarted = cursor.requireLong(EXPIRE_STARTED)
+      val expireTimerVersion = cursor.requireInt(EXPIRE_TIMER_VERSION)
       val unidentified = cursor.requireBoolean(UNIDENTIFIED)
       val isViewOnce = cursor.requireBoolean(VIEW_ONCE)
       val remoteDelete = cursor.requireBoolean(REMOTE_DELETED)
@@ -5334,6 +5342,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         subscriptionId,
         expiresIn,
         expireStarted,
+        expireTimerVersion,
         isViewOnce,
         hasReadReceipt,
         quote,

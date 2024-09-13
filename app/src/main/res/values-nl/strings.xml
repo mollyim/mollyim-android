@@ -195,11 +195,11 @@
     <!-- BlockUnblockDialog -->
     <string name="BlockUnblockDialog_block_and_leave_s">%1$s blokkeren en verlaten?</string>
     <string name="BlockUnblockDialog_block_s">%1$s blokkeren?</string>
-    <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Je zult niet langer berichten of meldingen van deze groep ontvangen, en de leden kunnen je niet opnieuw aan de groep toevoegen.</string>
-    <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Groepsleden zullen je niet langer aan deze groep kunnen toevoegen.</string>
-    <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Groepsleden zullen je weer aan deze groep kunnen toevoegen.</string>
+    <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Je zult niet langer berichten of meldingen van deze groep ontvangen, en de leden kunnen je niet opnieuw toevoegen aan de groep.</string>
+    <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Groepsleden zullen je niet langer kunnen toevoegen aan deze groep.</string>
+    <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Groepsleden zullen je weer kunnen toevoegen aan deze groep.</string>
     <!-- Text that is shown when unblocking a Signal contact -->
-    <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Jullie zullen weer berichten naar elkaar kunnen sturen, kunnen bellen, en je profielnaam, -foto en -omschrijving zullen voor hem of haar weer worden bijgewerkt.</string>
+    <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Jullie zullen weer berichten naar elkaar kunnen sturen en kunnen bellen, en je profielnaam, -foto en -omschrijving zullen weer met hen worden gedeeld.</string>
     <!-- Text that is shown when unblocking an SMS contact -->
     <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">Jullie zullen weer berichten naar elkaar kunnen sturen.</string>
     <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Geblokkeerde personen kunnen je niet bellen en geen berichten sturen.</string>
@@ -341,7 +341,7 @@
     <!-- Title on dialog when call link url cannot be parsed -->
     <string name="CommunicationActions_invalid_link">Ongeldige link</string>
     <!-- Message on dialog when call link url cannot be parsed -->
-    <string name="CommunicationActions_this_is_not_a_valid_call_link">Dit is geen geldige oproeplink. Ga na dat je de volledige link gebruikt met de juiste karakters voordat je probeert deel te nemen.</string>
+    <string name="CommunicationActions_this_is_not_a_valid_call_link">Dit is geen geldige oproeplink. Zorg dat je de volledige link gebruikt met de juiste karakters voordat je probeert deel te nemen.</string>
 
     <!-- ConfirmIdentityDialog -->
 
@@ -461,7 +461,7 @@
     <string name="ConversationActivity_specify_recipient">Kies een contact</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Bijlage overschrijdt de maximale grootte voor het type bericht dat je wilt verzenden.</string>
     <string name="ConversationActivity_unable_to_record_audio">Kan audio niet opnemen!</string>
-    <string name="ConversationActivity_you_cant_send_messages_to_this_group">Omdat je niet langer lid bent van deze groep ontvang je geen nieuwe berichten en kun je geen berichten verzenden.</string>
+    <string name="ConversationActivity_you_cant_send_messages_to_this_group">Omdat je geen lid meer bent van deze groep ontvang je geen nieuwe berichten en kun je geen berichten verzenden.</string>
     <string name="ConversationActivity_only_s_can_send_messages">Alleen %1$s kunnen berichten verzenden.</string>
     <string name="ConversationActivity_admins">beheerders</string>
     <string name="ConversationActivity_message_an_admin">Bericht sturen naar een beheerder</string>
@@ -552,10 +552,10 @@
         <item quantity="one">Geselecteerd bericht verwijderen?</item>
         <item quantity="other">Geselecteerde berichten verwijderen?</item>
     </plurals>
-    <string name="ConversationFragment_save_to_sd_card">Onversleuteld opslaan?</string>
+    <string name="ConversationFragment_save_to_sd_card">Opslaan in telefoonopslag?</string>
     <plurals name="ConversationFragment_saving_n_media_to_storage_warning">
-        <item quantity="one">Als je dit bestand opslaat op de telefoonopslag wordt het onversleuteld opgeslagen waardoor alle apps op je apparaat toegang krijgen tot dit bestand.\n\nToch doorgaan?</item>
-        <item quantity="other">Als je deze %1$d bestanden opslaat op de telefoonopslag worden ze onversleuteld opgeslagen waardoor alle apps op je apparaat toegang krijgen tot deze bestanden.\n\nToch doorgaan?</item>
+        <item quantity="one">Als je dit bestand opslaat in de telefoonopslag kunnen andere apps op je apparaat toegang krijgen tot dit bestand.\n\nToch doorgaan?</item>
+        <item quantity="other">Als je deze %1$d bestanden opslaat in de telefoonopslag kunnen andere apps op je apparaat toegang krijgen tot deze bestanden.\n\nToch doorgaan?</item>
     </plurals>
     <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
         <item quantity="one">Fout tijdens het opslaan van de bijlage op de telefoonopslag.</item>
@@ -588,8 +588,8 @@
     <string name="ConversationFragment_quoted_message_not_found">Oorspronkelijk bericht niet gevonden</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Oorspronkelijk bericht niet langer beschikbaar.</string>
     <string name="ConversationFragment_failed_to_open_message">Openen van bericht is mislukt</string>
-    <string name="ConversationFragment_you_can_swipe_to_the_right_reply">Je kunt elk bericht naar rechts vegen om snel een reactie te schijven</string>
-    <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Je kunt elk bericht naar links vegen om snel een reactie te schijven</string>
+    <string name="ConversationFragment_you_can_swipe_to_the_right_reply">Je kunt elk bericht naar rechts vegen om snel te antwoorden</string>
+    <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Je kunt elk bericht naar links vegen om snel te antwoorden</string>
     <string name="ConversationFragment_view_once_media_is_deleted_after_sending">Eenmaligeweergave-media worden verwijderd na verzenden</string>
     <string name="ConversationFragment_you_already_viewed_this_message">Je hebt dit bericht al bekeken</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Je kunt in deze chat notities voor jezelf achterlaten. Alle nieuwe notities worden gesynchroniseerd met apparaten die gekoppeld zijn met je account.</string>
@@ -605,7 +605,7 @@
     <!-- Dialog title for block group link join requests -->
     <string name="ConversationFragment__block_request">Verzoek blokkeren?</string>
     <!-- Dialog message for block group link join requests -->
-    <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s zal niet langer via de groepslink lid kunnen worden of kunnen verzoeken om lid te worden van deze groep. Deze persoon kan nog wel handmatig aan de groep worden toegevoegd.</string>
+    <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s zal niet langer via de groepslink lid kunnen worden of kunnen verzoeken om lid te worden van deze groep. Deze persoon kan nog wel handmatig worden toegevoegd aan de groep.</string>
     <!-- Dialog confirm block request button -->
     <string name="ConversationFragment__block_request_button">Verzoek blokkeren</string>
     <!-- Dialog cancel block request button -->
@@ -878,7 +878,7 @@
     <string name="CustomDefaultPreference_none">Geen</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Het maken van een foto vereist toestemming om de camera te gebruiken.</string>
+    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Om een foto te maken is toestemming om de camera te gebruiken nodig.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Om je galerij te kunnen weergeven is toestemming om de opslag te gebruiken nodig.</string>
 
     <!-- DateUtils -->
@@ -979,7 +979,7 @@
     <!-- Confirmation button to dismiss bottom sheet dialog -->
     <string name="AddLinkDeviceFragment__okay">Oké</string>
     <!-- Dialog text describing the consequences of linking a device -->
-    <string name="AddLinkDeviceFragment__this_device_will_see_your_groups_contacts">Dit apparaat zal je groepen en contacten kunnen inzien, toegang krijgen tot je chats en berichten in jouw naam kunnen versturen.</string>
+    <string name="AddLinkDeviceFragment__this_device_will_see_your_groups_contacts">Dit apparaat zal je groepen en contacten kunnen inzien, toegang krijgen tot je chats en berichten uit jouw naam kunnen versturen.</string>
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Voltooi het koppelen op je andere apparaat</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
@@ -1025,7 +1025,7 @@
     <string name="PendingGroupJoinRequestsReminder_view">Weergeven</string>
 
     <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Pertinente Molly-communicatiefout!</string>
+    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Permanente Molly-communicatiefout!</string>
     <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly was niet in staat zich bij Google Play Services te registreren. Molly-berichten en -oproepen zijn nu uitgeschakeld, probeer opnieuw te registreren via Instellingen &gt; Privacy &gt; Geavanceerd.</string>
 
 
@@ -1035,9 +1035,9 @@
     <!-- GiphyFragmentPageAdapter -->
 
     <!-- AddToGroupActivity -->
-    <string name="AddToGroupActivity_add_member">Persoon aan de groep toevoegen?</string>
-    <string name="AddToGroupActivity_add_s_to_s">%1$s aan de groep ‘%2$s’ toevoegen?</string>
-    <string name="AddToGroupActivity_s_added_to_s">%1$s aan de groep ‘%2$s’ toegevoegd.</string>
+    <string name="AddToGroupActivity_add_member">Lid toevoegen?</string>
+    <string name="AddToGroupActivity_add_s_to_s">%1$s toevoegen aan de groep ‘%2$s’?</string>
+    <string name="AddToGroupActivity_s_added_to_s">%1$s is toegevoegd aan de groep ‘%2$s’.</string>
     <string name="AddToGroupActivity_add_to_group">Aan groep toevoegen</string>
     <string name="AddToGroupActivity_add_to_groups">Aan groepen toevoegen</string>
     <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Deze persoon kan niet worden toegevoegd aan een verouderde groep.</string>
@@ -1054,7 +1054,7 @@
 
     <!-- GV2 access levels -->
     <string name="GroupManagement_access_level_anyone">Iedereen</string>
-    <string name="GroupManagement_access_level_all_members">Alle groepsleden</string>
+    <string name="GroupManagement_access_level_all_members">Alle leden</string>
     <string name="GroupManagement_access_level_only_admins">Uitsluitend beheerders</string>
     <string name="GroupManagement_access_level_no_one">Niemand</string>
   <!-- Removed by excludeNonTranslatables <string name="GroupManagement_access_level_unknown" translatable="false">Unknown</string> -->
@@ -1074,7 +1074,7 @@
     </plurals>
     <!-- Dialog message shown when you are attempting to add a single contact to a group and you don\'t have enough information about them to do it automatically, so must do it via an invite instead. Placeholder is name/username/phone number. -->
     <string name="GroupManagement_invite_single_user">‘%1$s’ kan niet direct door jou worden toegevoegd aan de groep.\n\nIn plaats daarvan heeft deze persoon een uitnodiging gekregen om lid te worden van de groep, en zal geen groepsberichten kunnen zien totdat die de uitnodiging heeft geaccepteerd.</string>
-    <string name="GroupManagement_invite_multiple_users">Deze personen kunnen niet direct door jou aan de groep worden toegevoegd.\n\n In plaats daarvan hebben ze een uitnodiging gekregen om lid te worden van de groep, en ze zullen geen groepsberichten kunnen zien totdat ze de uitnodiging hebben geaccepteerd.</string>
+    <string name="GroupManagement_invite_multiple_users">Deze personen kunnen niet direct door jou worden toegevoegd aan de groep.\n\n In plaats daarvan hebben ze een uitnodiging gekregen om lid te worden van de groep, en ze zullen geen groepsberichten kunnen zien totdat ze de uitnodiging hebben geaccepteerd.</string>
 
     <!-- GroupsV1MigrationLearnMoreBottomSheetDialogFragment -->
     <string name="GroupsV1MigrationLearnMore_what_are_new_groups">Wat zijn ‘nieuwe-stijl’ groepen?</string>
@@ -1082,12 +1082,12 @@
     <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Alle chatgeschiedenis en media van voor het omzetten zijn behouden gebleven.</string>
     <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">Om weer lid te worden van deze groep zul je een uitnodiging moeten accepteren. Je zult geen berichten van deze groep ontvangen zolang je dat nog niet hebt gedaan.</string>
     <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
-        <item quantity="one">Dit groepslid zal opnieuw een uitnodiging om tot de groep toe te treden moeten accepteren en zal geen berichten krijgen zolang dit is geaccepteerd:</item>
-        <item quantity="other">Deze groepsleden zullen opnieuw een uitnodiging om tot de groep toe te treden moeten accepteren en zullen geen berichten krijgen zolang ze dit hebben geaccepteerd:</item>
+        <item quantity="one">Dit lid zal opnieuw een uitnodiging om tot de groep toe te treden moeten accepteren en zal geen berichten krijgen zolang dit is geaccepteerd:</item>
+        <item quantity="other">Deze leden zullen opnieuw een uitnodiging om tot de groep toe te treden moeten accepteren en zullen geen berichten krijgen zolang ze dit hebben geaccepteerd:</item>
     </plurals>
     <plurals name="GroupsV1MigrationLearnMore_these_members_were_removed_from_the_group">
-        <item quantity="one">Dit groepslid is verwijderd uit de groep en kan niet opnieuw toetreden totdat hij Signal heeft bijgewerkt:</item>
-        <item quantity="other">Deze groepsleden zijn verwijderd uit de groep en kunnen niet opnieuw toetreden totdat ze Signal hebben bijgewerkt:</item>
+        <item quantity="one">Dit lid is verwijderd uit de groep en kan niet opnieuw toetreden totdat die Signal heeft bijgewerkt:</item>
+        <item quantity="other">Deze leden zijn verwijderd uit de groep en kunnen niet opnieuw toetreden totdat ze Signal hebben bijgewerkt:</item>
     </plurals>
 
     <!-- GroupsV1MigrationInitiationBottomSheetDialogFragment -->
@@ -1098,45 +1098,45 @@
     <string name="GroupsV1MigrationInitiation_encountered_a_network_error">Er is een netwerkfout opgetreden. Probeer het later opnieuw.</string>
     <string name="GroupsV1MigrationInitiation_failed_to_upgrade">Omzetten is mislukt.</string>
     <plurals name="GroupsV1MigrationInitiation_these_members_will_need_to_accept_an_invite">
-        <item quantity="one">Dit groepslid zal een uitnodiging ontvangen om tot de groep toe te treden en hij of zij zal geen berichten ontvangen zolang hij of zij die uitnodiging nog niet geaccepteerd heeft:</item>
-        <item quantity="other">Deze groepsleden zullen een uitnodiging ontvangen om tot de groep toe te treden en ze zullen geen berichten ontvangen zolang ze die uitnodiging nog niet geaccepteerd hebben:</item>
+        <item quantity="one">Dit lid zal een uitnodiging ontvangen om tot de groep toe te treden en hij of zij zal geen berichten ontvangen zolang hij of zij die uitnodiging nog niet geaccepteerd heeft:</item>
+        <item quantity="other">Deze leden zullen een uitnodiging ontvangen om tot de groep toe te treden en ze zullen geen berichten ontvangen zolang ze die uitnodiging nog niet geaccepteerd hebben:</item>
     </plurals>
     <plurals name="GroupsV1MigrationInitiation_these_members_are_not_capable_of_joining_new_groups">
-        <item quantity="one">Dit groepslid is niet in staat om tot nieuwe-stijl groepen toe te treden en wordt daarom verwijderd uit de groep:</item>
-        <item quantity="other">Deze groepsleden zijn niet in staat om tot nieuwe-stijl groepen toe te treden en worden daarom verwijderd uit de groep:</item>
+        <item quantity="one">Dit lid is niet in staat om tot nieuwe-stijl groepen toe te treden en wordt daarom verwijderd uit de groep:</item>
+        <item quantity="other">Deze leden zijn niet in staat om tot nieuwe-stijl groepen toe te treden en worden daarom verwijderd uit de groep:</item>
     </plurals>
 
     <!-- GroupsV1MigrationSuggestionsReminder -->
     <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
-        <item quantity="one">%1$d groepslid kon bij het omzetten van de groep in een nieuwe-stijl groep niet automatisch opnieuw worden toegevoegd. Wil je hem of haar nu alsnog toevoegen?</item>
-        <item quantity="other">%1$d groepsleden konden bij het omzetten van de groep in een nieuwe-stijl groep niet automatisch opnieuw worden toegevoegd. Wil je ze nu alsnog toevoegen?</item>
+        <item quantity="one">%1$d lid kon bij het omzetten van de groep in een nieuwe-stijl groep niet automatisch opnieuw worden toegevoegd. Wil je hem of haar nu alsnog toevoegen?</item>
+        <item quantity="other">%1$d leden konden bij het omzetten van de groep in een nieuwe-stijl groep niet automatisch opnieuw worden toegevoegd. Wil je ze nu alsnog toevoegen?</item>
     </plurals>
     <plurals name="GroupsV1MigrationSuggestionsReminder_add_members">
-        <item quantity="one">Groepslid toevoegen</item>
-        <item quantity="other">Groepsleden toevoegen</item>
+        <item quantity="one">Lid toevoegen</item>
+        <item quantity="other">Leden toevoegen</item>
     </plurals>
     <string name="GroupsV1MigrationSuggestionsReminder_no_thanks">Nee bedankt</string>
 
     <!-- GroupsV1MigrationSuggestionsDialog -->
     <plurals name="GroupsV1MigrationSuggestionsDialog_add_members_question">
-        <item quantity="one">Groepslid toevoegen?</item>
-        <item quantity="other">Groepsleden toevoegen?</item>
+        <item quantity="one">Lid toevoegen?</item>
+        <item quantity="other">Leden toevoegen?</item>
     </plurals>
     <plurals name="GroupsV1MigrationSuggestionsDialog_these_members_couldnt_be_automatically_added">
-        <item quantity="one">Dit groepslid kon bij het omzetten van een groep in een nieuwe-stijl groep niet automatisch worden toegevoegd.</item>
-        <item quantity="other">Deze groepsleden konden bij het omzetten van een groep in een nieuwe-stijl groep niet automatisch worden toegevoegd.</item>
+        <item quantity="one">Dit lid kon bij het omzetten van een groep in een nieuwe-stijl groep niet automatisch worden toegevoegd.</item>
+        <item quantity="other">Deze leden konden bij het omzetten van een groep in een nieuwe-stijl groep niet automatisch worden toegevoegd.</item>
     </plurals>
     <plurals name="GroupsV1MigrationSuggestionsDialog_add_members">
-        <item quantity="one">Groepslid toevoegen</item>
-        <item quantity="other">Groepsleden toevoegen</item>
+        <item quantity="one">Lid toevoegen</item>
+        <item quantity="other">Leden toevoegen</item>
     </plurals>
     <plurals name="GroupsV1MigrationSuggestionsDialog_failed_to_add_members_try_again_later">
-        <item quantity="one">Het toevoegen van een groepslid is mislukt. Probeer het later opnieuw.</item>
-        <item quantity="other">Het toevoegen van groepsleden is mislukt. Probeer het later opnieuw.</item>
+        <item quantity="one">Het toevoegen van een lid is mislukt. Probeer het later opnieuw.</item>
+        <item quantity="other">Het toevoegen van leden is mislukt. Probeer het later opnieuw.</item>
     </plurals>
     <plurals name="GroupsV1MigrationSuggestionsDialog_cannot_add_members">
-        <item quantity="one">Een groepslid kon niet worden toegevoegd.</item>
-        <item quantity="other">Groepsleden konden niet worden toegevoegd.</item>
+        <item quantity="one">Een lid kon niet worden toegevoegd.</item>
+        <item quantity="other">Leden konden niet worden toegevoegd.</item>
     </plurals>
 
     <!-- LeaveGroupDialog -->
@@ -1229,11 +1229,11 @@
     <string name="AddMembersActivity__done">Klaar</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Deze persoon kan niet worden toegevoegd aan verouderde groepen.</string>
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="one">%1$s toevoegen aan %2$s?</item>
-        <item quantity="other">%3$d leden toevoegen aan %2$s?</item>
+        <item quantity="one">%1$s toevoegen aan de groep ‘%2$s’?</item>
+        <item quantity="other">%3$d leden toevoegen aan de groep ‘%2$s’?</item>
     </plurals>
     <string name="AddMembersActivity__add">Toevoegen</string>
-    <string name="AddMembersActivity__add_members">Groepsleden toevoegen</string>
+    <string name="AddMembersActivity__add_members">Leden toevoegen</string>
 
     <!-- AddGroupDetailsFragment -->
     <string name="AddGroupDetailsFragment__name_this_group">Geef deze groep een naam</string>
@@ -1409,8 +1409,8 @@
     <!-- GV2 Invite Revoke confirmation dialog -->
     <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">Wil je de uitnodiging die je naar %1$s hebt gestuurd intrekken?</string>
     <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
-        <item quantity="one">Wil je de uitnodiging intrekken die door %1$s verstuurd is?</item>
-        <item quantity="other">Wil je %2$d uitnodigingen intrekken die door %1$s verstuurd zijn?</item>
+        <item quantity="one">Wil je de uitnodiging die door %1$s is verstuurd intrekken?</item>
+        <item quantity="other">Wil je %2$d uitnodigingen die door %1$s zijn verstuurd intrekken?</item>
     </plurals>
 
     <!-- GroupJoinBottomSheetDialogFragment -->
@@ -1431,7 +1431,7 @@
     <!-- Message shown when you try to get information for a group via link but an unknown issue occurred -->
     <string name="GroupJoinBottomSheetDialogFragment_joining_via_this_link_failed_try_joining_again_later">Lid worden via deze link is mislukt. Probeer het later opnieuw.</string>
 
-    <string name="GroupJoinBottomSheetDialogFragment_direct_join">Wil je lid worden van deze groep en je naam en profielfoto met de andere leden delen?</string>
+    <string name="GroupJoinBottomSheetDialogFragment_direct_join">Wil je lid worden van deze groep en je profielnaam, -foto en -omschrijving met de andere leden delen?</string>
     <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Een beheerder van deze groep moet eerst je verzoek om lid te worden goedkeuren voordat je lid kunt worden van deze groep. Wanneer je verzoekt om lid te worden zullen je profielnaam, -foto en -omschrijving direct zichtbaar zijn voor de groepsleden.</string>
     <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
         <item quantity="one">Groep · %1$d lid</item>
@@ -1457,7 +1457,7 @@
     <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_are_not_currently_a_member_of_the_group">Je bent momenteel geen lid van deze groep.</string>
 
     <!-- GV2 Request confirmation dialog -->
-    <string name="RequestConfirmationDialog_add_s_to_the_group">‘%1$s’ toevoegen aan de groep?</string>
+    <string name="RequestConfirmationDialog_add_s_to_the_group">%1$s toevoegen aan de groep?</string>
     <string name="RequestConfirmationDialog_deny_request_from_s">Verzoek van ‘%1$s’ afwijzen?</string>
     <!-- Confirm dialog message shown when deny a group link join request and group link is enabled. -->
     <string name="RequestConfirmationDialog_deny_request_from_s_they_will_not_be_able_to_request">Wil je het lidmaatschapsverzoek van ‘%1$s’ afwijzen? Als je dit doet dan kan deze persoon niet opnieuw via de groepslink verzoeken om lid te worden van de groep.</string>
@@ -1510,7 +1510,7 @@
 
     <!-- MessageRetrievalService -->
     <string name="MessageRetrievalService_signal">Molly</string>
-    <string name="MessageRetrievalService_background_connection_enabled">Berichten ontvangen in de achtergrond is actief</string>
+    <string name="MessageRetrievalService_background_connection_enabled">Berichten ontvangen op de achtergrond is actief</string>
 
     <!-- MediaOverviewActivity -->
     <string name="MediaOverviewActivity_Media">Media</string>
@@ -1674,8 +1674,8 @@
     <string name="MessageRecord_s_removed_you_from_the_group">%1$s heeft je verwijderd uit de groep.</string>
     <string name="MessageRecord_you_left_the_group">Je hebt de groep verlaten.</string>
     <string name="MessageRecord_s_left_the_group">%1$s heeft de groep verlaten.</string>
-    <string name="MessageRecord_you_are_no_longer_in_the_group">Je bent niet langer lid van de groep.</string>
-    <string name="MessageRecord_s_is_no_longer_in_the_group">%1$s is niet langer lid van de groep.</string>
+    <string name="MessageRecord_you_are_no_longer_in_the_group">Je bent geen lid meer van deze groep.</string>
+    <string name="MessageRecord_s_is_no_longer_in_the_group">%1$s is geen lid meer van deze groep.</string>
 
     <!-- GV2 role change -->
     <string name="MessageRecord_you_made_s_an_admin">Je hebt %1$s een beheerder gemaakt.</string>
@@ -1752,11 +1752,11 @@
     <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">De instelling voor wie het groepslidmaatschap kan bewerken is op ‘%1$s’ ingesteld.</string>
 
     <!-- GV2 announcement group change -->
-    <string name="MessageRecord_you_allow_all_members_to_send">Je hebt de groepsinstellingen aangepast zodat alle groepsleden berichten kunnen verzenden en oproepen kunnen beginnen.</string>
+    <string name="MessageRecord_you_allow_all_members_to_send">Je hebt de groepsinstellingen aangepast zodat alle leden berichten kunnen verzenden en oproepen kunnen beginnen.</string>
     <string name="MessageRecord_you_allow_only_admins_to_send">Je hebt de groepsinstellingen aangepast zodat uitsluitend beheerders berichten kunnen verzenden en oproepen kunnen beginnen.</string>
-    <string name="MessageRecord_s_allow_all_members_to_send">%1$s heeft de groepsinstellingen aangepast zodat alle groepsleden berichten kunnen verzenden en oproepen kunnen beginnen.</string>
+    <string name="MessageRecord_s_allow_all_members_to_send">%1$s heeft de groepsinstellingen aangepast zodat alle leden berichten kunnen verzenden en oproepen kunnen beginnen.</string>
     <string name="MessageRecord_s_allow_only_admins_to_send">%1$s heeft de groepsinstellingen aangepast zodat uitsluitend beheerders berichten kunnen verzenden en oproepen kunnen beginnen.</string>
-    <string name="MessageRecord_allow_all_members_to_send">De groepsinstellingen zijn aangepast zodat alle groepsleden berichten kunnen verzenden en oproepen kunnen beginnen.</string>
+    <string name="MessageRecord_allow_all_members_to_send">De groepsinstellingen zijn aangepast zodat alle leden berichten kunnen verzenden en oproepen kunnen beginnen.</string>
     <string name="MessageRecord_allow_only_admins_to_send">De groepsinstellingen zijn aangepast zodat uitsluitend beheerders berichten kunnen verzenden en oproepen kunnen beginnen.</string>
 
     <!-- GV2 group link invite access level change -->
@@ -1795,11 +1795,11 @@
     </plurals>
 
     <!-- GV2 group link approvals -->
-    <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s heeft je verzoek om lid te worden van de groep gehonoreerd.</string>
-    <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s heeft het verzoek van %2$s om lid te worden van de groep gehonoreerd.</string>
-    <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">Je hebt een verzoek van %1$s om lid te worden van de groep gehonoreerd.</string>
-    <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">Je verzoek om lid te worden van de groep is door een beheerder gehonoreerd.</string>
-    <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">Een verzoek van %1$s om lid te worden van de groep is gehonoreerd.</string>
+    <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s heeft je verzoek om lid te worden van de groep goedgekeurd.</string>
+    <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s heeft het verzoek van %2$s om lid te worden van de groep goedgekeurd.</string>
+    <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">Je hebt een verzoek van %1$s om lid te worden van de groep goedgekeurd.</string>
+    <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">Je verzoek om lid te worden van de groep is door een beheerder goedgekeurd.</string>
+    <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">Een verzoek van %1$s om lid te worden van de groep is goedgekeurd.</string>
 
     <!-- GV2 group link deny -->
     <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Je verzoek om lid te worden van de groep is door een beheerder afgewezen.</string>
@@ -1822,7 +1822,7 @@
     <!-- Update item message shown when we merge two threads together. First placeholder is a name, second placeholder is a phone number. -->
     <string name="MessageRecord_your_message_history_with_s_and_their_number_s_has_been_merged">Je chatgeschiedenis met %1$s en diens nummer %2$s zijn samengevoegd.</string>
     <!-- Update item message shown when we merge two threads together and we don\'t know the phone number of the other thread. The placeholder is a person\'s name. -->
-    <string name="MessageRecord_your_message_history_with_s_and_another_chat_has_been_merged">Je chatgeschiedenis met %1$s en een andere chat met hem of haar zijn samengevoegd.</string>
+    <string name="MessageRecord_your_message_history_with_s_and_another_chat_has_been_merged">Je chatgeschiedenis met %1$s en een andere chat met deze persoon zijn samengevoegd.</string>
     <!-- Update item message shown when you find out a phone number belongs to a person you had a conversation with. First placeholder is a phone number, second placeholder is a name. -->
     <string name="MessageRecord_s_belongs_to_s">%1$s is van %2$s</string>
     <!-- Message to notify sender that activate payments request has been sent to the recipient -->
@@ -1909,26 +1909,26 @@
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Accepteren</string>
-    <string name="MessageRequestBottomView_continue">Gesprek voortzetten</string>
+    <string name="MessageRequestBottomView_continue">Doorgaan</string>
     <string name="MessageRequestBottomView_delete">Verwijderen</string>
     <string name="MessageRequestBottomView_block">Blokkeren</string>
     <string name="MessageRequestBottomView_unblock">Deblokkeren</string>
     <!-- Text explaining a message request from someone you\'ve removed before -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_you_removed_them_before">Wil je berichten van %1$s ontvangen, en sta je toe dat diegene je profielnaam, -foto en -omschrijving kan zien? Je hebt deze persoon in het verleden verwijderd.</string>
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Wil je berichten van %1$s ontvangen, en sta je toe dat diegene je profielnaam, -foto en -omschrijving kan zien? Personen weten niet dat je hun berichten hebt gezien totdat je het gespreksverzoek hebt geaccepteerd.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_you_removed_them_before">Wil je berichten van %1$s ontvangen en je profielnaam, -foto en -omschrijving met diegene delen? Je hebt deze persoon in het verleden verwijderd.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Wil je berichten van %1$s ontvangen en je profielnaam, -foto en -omschrijving met diegene delen? Personen weten niet dat je hun berichten hebt gezien totdat je het gespreksverzoek hebt geaccepteerd.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Wil je berichten van %1$s ontvangen, en sta je toe dat diegene je profielnaam, -foto en -omschrijving kan zien? Totdat je deze persoon hebt gedeblokkeerd, zul je geen berichten ontvangen.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Wil je berichten van %1$s ontvangen en je profielnaam, -foto en -omschrijving met diegene delen? Totdat je deze persoon hebt gedeblokkeerd, zul je geen berichten ontvangen.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Wil je berichten van %1$s ontvangen? Totdat je diegene hebt gedeblokkeerd, zul je geen berichten ontvangen.</string>
     <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Wil je updates en nieuws van %1$s ontvangen? Je zult geen berichten ontvangen totdat je diegene hebt gedeblokkeerd.</string>
-    <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Wil je je profielnaam, -foto en -omschrijving voor deze groep zichtbaar maken om je chat met de groep voort te kunnen zetten?</string>
+    <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Wil je je profielnaam, -foto en -omschrijving met de andere leden delen om je chat met de groep voort te kunnen zetten?</string>
     <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">Dit is een verouderde groep en deze kan niet meer gebruikt worden. Maak een nieuwe groep om nieuwe functies zoals @vermeldingen en beheerders te activeren.</string>
     <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">Deze verouderde groep kan niet langer gebruikt worden omdat die te veel leden heeft. Het maximum ledenaantal voor een groep is %1$d.</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">Doorgaan met deze chat met %1$s en je naam en profielfoto met hen delen?</string>
-    <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Wil je lid worden van deze groep, en sta je toe dat alle leden van de groep je profielnaam, -foto en -omschrijving kunnen zien? Leden van de groep weten niet dat je hun berichten hebt gezien totdat je het gespreksverzoek hebt geaccepteerd.</string>
-    <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">Wil je lid worden van deze groep, en sta je toe dat alle leden van de groep je profielnaam, -foto en -omschrijving kunnen zien? Je kunt hun berichten nog niet zien totdat je de uitnodiging hebt geaccepteerd.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Wil je lid worden van deze groep en je profielnaam, -foto en -omschrijving met de andere leden delen? Leden van de groep weten niet dat je hun berichten hebt gezien totdat je het gespreksverzoek hebt geaccepteerd.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">Wil je lid worden van deze groep en je profielnaam, -foto en -omschrijving met de andere leden delen? Je kunt hun berichten nog niet zien totdat je de uitnodiging hebt geaccepteerd.</string>
     <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Wil je lid worden van deze groep? Leden van de groep weten niet dat je hun berichten hebt gezien totdat je het gespreksverzoek hebt geaccepteerd.</string>
-    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Wil je weer berichten van deze groep ontvangen en sta je toe dat alle leden je profielnaam, -foto en -omschrijving kunnen zien? Totdat je de groep hebt gedeblokkeerd, zul je geen berichten ontvangen.</string>
+    <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Wil je deze groep deblokkeren en je profielnaam, -foto en -omschrijving met de leden delen? Totdat je de groep hebt gedeblokkeerd, zul je geen berichten ontvangen.</string>
   <!-- Removed by excludeNonTranslatables <string name="MessageRequestBottomView_legacy_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <string name="MessageRequestProfileView_view">Weergeven</string>
     <string name="MessageRequestProfileView_member_of_one_group">Lid van %1$s</string>
@@ -1945,12 +1945,12 @@
     </plurals>
     <!-- Describes the number of people invited to a group. Nested inside of the string MessageRequestProfileView_members_and_invited -->
     <plurals name="MessageRequestProfileView_invited">
-        <item quantity="one">+ %1$d genodigde</item>
-        <item quantity="other">+ %1$d genodigden</item>
+        <item quantity="one">+ %1$d uitgenodigd</item>
+        <item quantity="other">+ %1$d uitgenodigd</item>
     </plurals>
     <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
-        <item quantity="one">%1$d extra groep</item>
-        <item quantity="other">%1$d extra groepen</item>
+        <item quantity="one">%1$d andere groep</item>
+        <item quantity="other">%1$d andere groepen</item>
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">Rapporteren</string>
@@ -1974,7 +1974,7 @@
     <string name="DeviceProvisioningActivity_content_progress_no_device">Geen apparaat gevonden.</string>
     <string name="DeviceProvisioningActivity_content_progress_network_error">Netwerkfout.</string>
     <string name="DeviceProvisioningActivity_content_progress_key_error">Ongeldige QR-code.</string>
-    <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">Sorry, je hebt al te veel apparaten gekoppeld, probeer er eerst enkele te verwijderen</string>
+    <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">Sorry, je hebt al te veel apparaten gekoppeld. Probeer er enkele te verwijderen.</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Sorry, dit is geen geldige QR-code om een apparaat te koppelen.</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Een Signal-apparaat koppelen?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Het lijkt erop dat je een Signal-apparaat wilt koppelen met behulp van een externe scanner. Scan voor de veiligheid de code opnieuw vanuit Signal.</string>
@@ -2021,7 +2021,7 @@
         <item quantity="one">Je hebt nog %1$d poging over. Wanneer je geen pogingen meer hebt, kun je een nieuwe pincode aanmaken. Je kunt je opnieuw registreren en je account gebruiken maar je verliest wel een aantal opgeslagen instellingen, zoals je profielinformatie.</item>
         <item quantity="other">Je hebt nog %1$d pogingen over. Wanneer je geen pogingen meer hebt, kun je een nieuwe pincode aanmaken. Je kunt je opnieuw registreren en je account gebruiken maar je verliest wel een aantal opgeslagen instellingen, zoals je profielinformatie.</item>
     </plurals>
-    <string name="PinRestoreEntryFragment_signal_registration_need_help_with_pin">Signal-registratie - Ik heb hulp nodig bij de Signal-pincode op een Android-apparaat</string>
+    <string name="PinRestoreEntryFragment_signal_registration_need_help_with_pin">Signal-registratie - Hulp nodig met de Signal-pincode op een Android-apparaat</string>
 
     <!-- PinRestoreLockedFragment -->
     <string name="PinRestoreLockedFragment_create_your_pin">Pincode aanmaken</string>
@@ -2115,7 +2115,7 @@
     <!-- Title for dialog warning about lacking bluetooth permissions during a call -->
     <string name="WebRtcCallActivity__bluetooth_permission_denied">Bluetooth-machtiging is nog niet gegeven</string>
     <!-- Message for dialog warning about lacking bluetooth permissions during a call and references the permission needed by name -->
-    <string name="WebRtcCallActivity__please_enable_the_nearby_devices_permission_to_use_bluetooth_during_a_call">Als je bluetooth wilt gebruiken tijdens oproepen, dan is het nodig dat je Signal machtigt om ‘Nabije apparaten’ te vinden.</string>
+    <string name="WebRtcCallActivity__please_enable_the_nearby_devices_permission_to_use_bluetooth_during_a_call">Om bluetooth te gebruiken tijdens oproepen moet je de machtiging ‘Apparaten in de buurt’ voor Signal inschakelen.</string>
     <!-- Positive action for bluetooth warning dialog to open settings -->
     <string name="WebRtcCallActivity__open_settings">Instellingen openen</string>
     <!-- Negative action for bluetooth warning dialog to dismiss dialog -->
@@ -2129,8 +2129,8 @@
     <string name="WebRtcCallActivity__approve_all">Alle goedkeuren</string>
     <!-- Message for dialog to approve all requests -->
     <plurals name="WebRtcCallActivity__d_people_will_be_added_to_the_call">
-        <item quantity="one">%1$d persoon wordt aan de oproep toegevoegd.</item>
-        <item quantity="other">%1$d personen worden aan de oproep toegevoegd.</item>
+        <item quantity="one">%1$d persoon wordt toegevoegd aan de oproep.</item>
+        <item quantity="other">%1$d personen worden toegevoegd aan de oproep.</item>
     </plurals>
     <!-- Title for dialog to deny all requests -->
     <plurals name="WebRtcCallActivity__deny_d_requests">
@@ -2139,8 +2139,8 @@
     </plurals>
     <!-- Message for dialog to deny all requests -->
     <plurals name="WebRtcCallActivity__d_people_will_not_be_added_to_the_call">
-        <item quantity="one">%1$d persoon wordt niet aan de oproep toegevoegd.</item>
-        <item quantity="other">%1$d personen worden niet aan de oproep toegevoegd.</item>
+        <item quantity="one">%1$d persoon wordt niet toegevoegd aan de oproep.</item>
+        <item quantity="other">%1$d personen worden niet toegevoegd aan de oproep.</item>
     </plurals>
     <!-- Positive action for call link deny all dialog -->
     <string name="WebRtcCallActivity__deny_all">Alle weigeren</string>
@@ -2192,7 +2192,7 @@
     <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">Je kunt niet deelnemen omdat deze groepsoproep het maximale aantal van %1$d deelnemers heeft bereikt. Probeer het later opnieuw.</string>
     <string name="WebRtcCallView__your_video_is_off">Je camera staat uit</string>
     <string name="WebRtcCallView__reconnecting">Opnieuw aan het verbinden…</string>
-    <string name="WebRtcCallView__joining">Verbinden met de groep aan het maken…</string>
+    <string name="WebRtcCallView__joining">Deelnemen…</string>
     <string name="WebRtcCallView__disconnected">Verbinding verbroken</string>
     <!-- Utilized in the lobby before joining a call link -->
     <string name="WebRtcCallView__signal_call_link">Signal-oproeplink</string>
@@ -2409,7 +2409,7 @@
     <string name="RegistrationActivity_terms_and_privacy">Gebruiksvoorwaarden &amp; privacybeleid</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal zal een aantal toestemmingen vragen: 1. Je contactenlijst lezen om personen weer te geven naar wie je berichten kunt verzenden. Je contactenlijst blijft altijd onleesbaar voor Signals servers. 2. Bestanden lezen van en schrijven naar de externe opslag, om bestanden bij te voegen als bijlagen en om ontvangen bijlagen op te kunnen slaan. 3. De telefoonstatus lezen om te voorkomen dat Signal-oproepen je andere oproepen verstoren.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal moet je contactenlijst lezen om personen weer te geven naar wie je berichten kunt sturen en met wie je oproepen kunt beginnen. Je contactenlijst blijft altijd onleesbaar voor Signals servers.</string>
-    <string name="RegistrationActivity_rate_limited_to_service">Je hebt te veel pogingen ondernomen om Signal voor dit telefoonnummer te registreren. Probeer het later opnieuw.</string>
+    <string name="RegistrationActivity_rate_limited_to_service">Je hebt te veel pogingen gedaan om Signal voor dit telefoonnummer te registreren. Probeer het later opnieuw.</string>
     <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
     <string name="RegistrationActivity_rate_limited_to_try_again">Je hebt te vaak geprobeerd dit nummer te registreren. Probeer het opnieuw over %1$s.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Het lukt niet om te verbinden met Signals servers. Controleer je internetverbinding en probeer het opnieuw.</string>
@@ -2603,7 +2603,7 @@
     <string name="ThreadRecord_delivery_issue">Afleverings­probleem</string>
     <string name="ThreadRecord_message_request">Gespreksverzoek</string>
     <!-- Thread preview for a recipient that has been hidden -->
-    <string name="ThreadRecord_hidden_recipient">Je hebt deze persoon verborgen. Als je hem of haar opnieuw een bericht stuurt, wordt diegene weer aan je lijst toegevoegd.</string>
+    <string name="ThreadRecord_hidden_recipient">Je hebt deze persoon verborgen. Als je opnieuw een bericht stuurt, wordt diegene weer aan je lijst toegevoegd.</string>
     <string name="ThreadRecord_photo">Afbeelding</string>
     <string name="ThreadRecord_gif">GIF</string>
     <string name="ThreadRecord_voice_message">Spraakbericht</string>
@@ -2785,7 +2785,7 @@
     <string name="MessageNotifier_group_story_title">Jij naar %1$s</string>
     <string name="MessageNotifier_failed_to_deliver_message">Het bericht afleveren is mislukt.</string>
     <string name="MessageNotifier_error_delivering_message">Fout bij afleveren bericht.</string>
-    <string name="MessageNotifier_message_delivery_paused">Berichten-aflevering is gepauzeerd.</string>
+    <string name="MessageNotifier_message_delivery_paused">Berichtaflevering is gepauzeerd.</string>
     <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifieer om door te kunnen gaan met het verzenden van berichten via Molly</string>
     <string name="MessageNotifier_mark_all_as_read">Alles markeren als gelezen</string>
     <string name="MessageNotifier_mark_read">Markeren als gelezen</string>
@@ -2808,7 +2808,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reageerde met %1$s op je sticker.</string>
     <string name="MessageNotifier_this_message_was_deleted">Dit bericht is verwijderd.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Zet meldingen uit over mensen die bereikbaar zijn via Molly. Je kunt ze opnieuw aanzetten in Molly &gt; Instellingen &gt; Meldingen.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Wil je meldingen over nieuwe personen die bereikbaar zijn via Molly uitzetten? Je kunt ze opnieuw aanzetten in Molly &gt; Instellingen &gt; Meldingen.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2926,7 +2926,7 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Je moet Molly toestaan om de microfoon te gebruiken voordat je de oproep kunt beantwoorden.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Om de oproep te beantwoorden, moet je Molly toegang geven tot je microfoon.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Geef Molly toegang tot je microfoon en camera om de video-oproep te beantwoorden.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly heeft toegang tot de microfoon en de camera nodig om oproepen te maken of te ontvangen, maar je hebt dit geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
@@ -2953,7 +2953,7 @@
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">Audio-uitvoer</string>
     <!-- Audio output option referring to the earpiece built into the phone -->
-    <string name="WebRtcAudioOutputToggle__phone_earpiece">Telefoonoortje</string>
+    <string name="WebRtcAudioOutputToggle__phone_earpiece">Telefoon</string>
     <!-- Audio output option referring to the louder speaker built into the phone -->
     <string name="WebRtcAudioOutputToggle__speaker">Luid­spreker</string>
     <!-- Audio output option referring to an external audio device connected via wireless Bluetooth -->
@@ -2966,7 +2966,7 @@
     <string name="WebRtcAudioOutputToggle__wired_headset_usb">Bedrade headset (USB)</string>
 
     <string name="WebRtcCallControls_answer_call_description">Oproep beantwoorden</string>
-    <string name="WebRtcCallControls_reject_call_description">Oproep afwijzen</string>
+    <string name="WebRtcCallControls_reject_call_description">Oproep weigeren</string>
 
     <!-- change_passphrase_activity -->
     <string name="change_passphrase_activity__old_passphrase">Oud wachtwoord</string>
@@ -3067,7 +3067,7 @@
     <string name="conversation_item__secure_message_description">Beveiligd bericht</string>
 
     <!-- conversation_item_sent -->
-    <string name="conversation_item_sent__send_failed_indicator_description">Verzenden mislukt</string>
+    <string name="conversation_item_sent__send_failed_indicator_description">Verzenden is mislukt</string>
     <string name="conversation_item_sent__pending_approval_description">In afwachting van goedkeuring</string>
     <string name="conversation_item_sent__delivered_description">Afgeleverd</string>
     <string name="conversation_item_sent__message_read">Bericht gelezen</string>
@@ -3089,7 +3089,7 @@
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">Verzoek blokkeren</string>
     <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Je hebt geen gemeenschappelijke groepen met deze persoon. Beoordeel dit gespreksverzoek zorgvuldig.</string>
-    <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">In deze groep zit niemand met wie je eerder een gesprek hebt gevoerd, overweeg daarom zorgvuldig of je wel lid wilt worden.</string>
+    <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">In deze groep zit niemand met wie je eerder een gesprek hebt gevoerd. Beoordeel dit gespreksverzoek zorgvuldig.</string>
     <string name="ConversationUpdateItem_view">Weergeven</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Zodra je een bericht verzendt zal de timer voor verdwijnende berichten op %1$s worden ingesteld.</string>
     <!-- Update item button text to show to boost a feature -->
@@ -3099,7 +3099,7 @@
     <!-- Update item button text to activate payments -->
     <string name="ConversationUpdateItem_activate_payments">Betalingen inschakelen</string>
     <!-- Update item alerting the user they hid this person and that they can message them to unhide them -->
-    <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">Je hebt deze persoon verwijderd. Als je hem of haar opnieuw een bericht stuurt, wordt diegene weer aan je lijst toegevoegd.</string>
+    <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">Je hebt deze persoon verwijderd. Als je opnieuw een bericht stuurt, wordt diegene weer aan je lijst toegevoegd.</string>
     <!-- Update item button text shown for the accepted message request update message -->
     <string name="ConversationUpdateItem_options">Opties</string>
     <!-- Update item button text shown for a profile name change. -->
@@ -3154,13 +3154,13 @@
     <string name="EnableCallNotificationSettingsDialog__call_notifications_enabled">Oproepmeldingen ingeschakeld.</string>
     <string name="EnableCallNotificationSettingsDialog__enable_call_notifications">Oproepmeldingen inschakelen</string>
     <string name="EnableCallNotificationSettingsDialog__enable_background_activity">Achtergrondactiviteit inschakelen</string>
-    <string name="EnableCallNotificationSettingsDialog__everything_looks_good_now">Het lijkt erop dat alles goed is</string>
+    <string name="EnableCallNotificationSettingsDialog__everything_looks_good_now">Alles ziet er nu goed uit!</string>
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_show_notifications">Tik hier en tik vervolgens op ‘Meldingen weergeven’ om oproepmeldingen te ontvangen.</string>
-    <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_notifications">Tik hier en schakel meldingen in en ga na dat geluiden en pop-ups zijn ingeschakeld om oproepmeldingen te ontvangen.</string>
+    <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_notifications">Tik hier en schakel meldingen in en zorg dat geluiden en pop-ups zijn ingeschakeld om oproepmeldingen te ontvangen.</string>
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_enable_background_activity_in_battery_settings">Tik hier en schakel in de batterij -instellingen achtergrondactiviteit in om oproepmeldingen te ontvangen. </string>
     <string name="EnableCallNotificationSettingsDialog__settings">Instellingen</string>
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_turn_on_show_notifications">Tik op ‘Instellingen’ en tik vervolgens op ‘Meldingen weergeven’ om oproepmeldingen te ontvangen.</string>
-    <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_turn_on_notifications">Tik op ‘Instellingen’ en schakel meldingen in en ga na dat geluiden en pop-ups zijn ingeschakeld om oproepmeldingen te ontvangen.</string>
+    <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_turn_on_notifications">Tik op ‘Instellingen’ en schakel meldingen in en zorg dat geluiden en pop-ups zijn ingeschakeld om oproepmeldingen te ontvangen.</string>
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_enable_background_activity_in_battery_settings">Tik op ‘Instellingen’ en schakel in de batterij -instellingen achtergrondactiviteit in om oproepmeldingen te ontvangen.</string>
 
     <!-- country_selection_fragment -->
@@ -3231,7 +3231,7 @@
     <string name="IdentityUtil_untrusted_dialog_many">Je veiligheidsnummers met %1$s, %2$s en %3$s zijn zojuist veranderd.</string>
 
     <plurals name="identity_others">
-        <item quantity="one">%1$d andere</item>
+        <item quantity="one">%1$d ander</item>
         <item quantity="other">%1$d anderen</item>
     </plurals>
 
@@ -3317,7 +3317,7 @@
     <string name="EditProfileNameFragment_first_name">Voornaam (verplicht)</string>
     <string name="EditProfileNameFragment_last_name_optional">Achternaam (optioneel)</string>
     <string name="EditProfileNameFragment_save">Opslaan</string>
-    <string name="EditProfileNameFragment_failed_to_save_due_to_network_issues_try_again_later">Het opslaan van de aanpassingen is mislukt door netwerkproblemen. Probeer het later opnieuw.</string>
+    <string name="EditProfileNameFragment_failed_to_save_due_to_network_issues_try_again_later">Opslaan mislukt door netwerkproblemen. Probeer het later opnieuw.</string>
 
     <!-- recipient_preferences_activity -->
     <string name="recipient_preference_activity__shared_media">Uitgewisselde media</string>
@@ -3335,7 +3335,7 @@
     <string name="verify_display_fragment__clear_verification">Verificatie ongedaan maken</string>
 
     <!-- verity_scan_fragment -->
-    <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Scan de QR-code op het apparaat van je gesprekspartner.</string>
+    <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Scan de QR-code op het apparaat van je contact.</string>
 
     <!-- webrtc_answer_decline_button -->
     <string name="webrtc_answer_decline_button__swipe_up_to_answer">Veeg omhoog om te beantwoorden</string>
@@ -3395,7 +3395,7 @@
     <string name="HelpFragment__signal_android_support_request">Signal-Android ondersteuningsverzoek</string>
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">Logs uploaden is mislukt</string>
-    <string name="HelpFragment__please_be_as_descriptive_as_possible">Probeer zo beschrijvend mogelijk te zijn om ons te helpen het probleem te begrijpen.</string>
+    <string name="HelpFragment__please_be_as_descriptive_as_possible">Probeer zo gedetailleerd mogelijk te beschrijven om ons te helpen het probleem te begrijpen.</string>
     <string-array name="HelpFragment__categories_5">
         <item>Selecteer een optie</item>
         <item>Er werkt iets niet goed</item>
@@ -3448,7 +3448,7 @@
     <string name="arrays__images">Afbeeldingen</string>
     <string name="arrays__audio">Audio</string>
     <string name="arrays__video">Video</string>
-    <string name="arrays__documents">Docu­ment­en</string>
+    <string name="arrays__documents">Document­en</string>
 
     <string name="arrays__small">Klein</string>
     <string name="arrays__normal">Normaal</string>
@@ -3469,8 +3469,8 @@
     <!-- preferences.xml -->
     <string name="preferences_beta">Bèta</string>
     <string name="preferences__sms_mms">Sms en mms</string>
-    <string name="preferences__pref_use_address_book_photos">Profielfoto\'s uit systeemcontactenlijst gebruiken</string>
-    <string name="preferences__display_contact_photos_from_your_address_book_if_available">Geef indien beschikbaar de profielfoto\'s uit je eigen systeemcontactenlijst weer</string>
+    <string name="preferences__pref_use_address_book_photos">Profielfoto\'s uit de contactenlijst van je telefoon gebruiken</string>
+    <string name="preferences__display_contact_photos_from_your_address_book_if_available">Geef indien beschikbaar de profielfoto\'s uit de contactenlijst van je telefoon weer</string>
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
     <string name="preferences__pref_keep_muted_chats_archived">Gedempte chats gearchiveerd houden</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
@@ -3486,9 +3486,9 @@
     <string name="preferences__inactivity_timeout_passphrase">Vergrendeling bij inactiviteit</string>
     <string name="preferences__inactivity_timeout_interval">Inactiviteitsduur voor vergrendeling</string>
     <string name="preferences__notifications">Meldingen</string>
-    <string name="preferences__led_color">Melding-LED-kleur</string>
+    <string name="preferences__led_color">LED-kleur</string>
     <string name="preferences__led_color_unknown">Onbekend</string>
-    <string name="preferences__pref_led_blink_title">Melding-LED-knipperpatroon</string>
+    <string name="preferences__pref_led_blink_title">LED-knipperpatroon</string>
     <string name="preferences__customize">Aanpassen</string>
     <string name="preferences__change_sound_and_vibration">Geluid en trillen aanpassen</string>
     <string name="preferences__sound">Berichtgeluid</string>
@@ -3669,8 +3669,8 @@
     <string name="preferences_save">Opslaan</string>
     <string name="preferences_connecting_to_proxy">Aan het verbinden met de proxy…</string>
     <string name="preferences_connected_to_proxy">Verbonden met de proxy</string>
-    <string name="preferences_connection_failed">Verbinding is verbroken</string>
-    <string name="preferences_couldnt_connect_to_the_proxy">Verbinding maken is mislukt. Ga na dat je het juiste proxyadres het ingevuld en probeer het opnieuw.</string>
+    <string name="preferences_connection_failed">Verbinding mislukt</string>
+    <string name="preferences_couldnt_connect_to_the_proxy">Verbinding maken is mislukt. Controleer of je het juiste proxyadres het ingevuld en probeer het opnieuw.</string>
     <string name="preferences_you_are_connected_to_the_proxy">Signal is verbonden met de proxy. Je kunt de proxy op elk gewenst moment uitschakelen vanuit Signals instellingen.</string>
     <string name="preferences_success">Succesvol</string>
     <string name="preferences_failed_to_connect">Verbinding maken is mislukt</string>
@@ -3856,7 +3856,7 @@
     <string name="PaymentsTransferFragment__you_can_transfer">Je kunt MobileCoin overschrijven door een deel van je krediet te sturen naar het adres van de portemonnee die je via de beurs hebt gekregen. Dat adres bestaat uit nummers en letters en je vindt het meestal onder de QR-code.</string>
     <string name="PaymentsTransferFragment__next">Volgende</string>
     <string name="PaymentsTransferFragment__invalid_address">Adres ongeldig</string>
-    <string name="PaymentsTransferFragment__check_the_wallet_address">Ga na dat het portemonnee-adres waarnaar je probeert over te schrijven juist is en probeer het opnieuw.</string>
+    <string name="PaymentsTransferFragment__check_the_wallet_address">Controleer of het portemonnee-adres waarnaar je probeert over te schrijven juist is en probeer het opnieuw.</string>
     <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Je kunt niet overschrijven naar je eigen Molly portemonnee-adres. Vul het portemonnee-adres van je account bij de beurs in.</string>
     <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Molly heeft toegang tot de camera nodig om een QR-code te kunnen scannen.</string>
     <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly heeft toegang tot de camera nodig om QR-codes te scannen, maar je hebt dit geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Camera’ in.</string>
@@ -3906,10 +3906,10 @@
     <string name="ConfirmPayment__processing_payment">Betaling aan het verwerken…</string>
     <string name="ConfirmPayment__payment_complete">Betaling succesvol afgerond</string>
     <string name="ConfirmPayment__payment_failed">Betaling is mislukt</string>
-    <string name="ConfirmPayment__payment_will_continue_processing">De betaling wordt nog verwerkt</string>
+    <string name="ConfirmPayment__payment_will_continue_processing">De betaling wordt verder verwerkt</string>
     <string name="ConfirmPaymentFragment__invalid_recipient">Ontvanger ongeldig</string>
     <!-- Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment -->
-    <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Betalingsvergrendeling niet weergegeven</string>
+    <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Betalingsvergrendeling kon niet worden weergegeven</string>
     <!-- Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment -->
     <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">Je hebt betalingsvergrendeling aangezet in je instellingen, maar het kan niet worden weergegeven.</string>
     <!-- Button in a dialog that will take the user to the privacy settings -->
@@ -4326,7 +4326,7 @@
     <string name="preferences_app_protection__pin_reminders">Pincode-herinneringen</string>
     <string name="preferences_app_protection__turn_off">Uitschakelen</string>
     <string name="preferences_app_protection__confirm_pin">Bevestig je pincode</string>
-    <string name="preferences_app_protection__confirm_your_signal_pin">Je Signal-pincode bevestigen</string>
+    <string name="preferences_app_protection__confirm_your_signal_pin">Bevestig je Signal-pincode</string>
     <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">Zorg ervoor dat je je Signal-pincode onthoudt of op een goed beveiligde manier opslaat, want je kunt je pincode niet herstellen. Als je je pincode toch vergeet, dan verlies je mogelijk gegevens bij het opnieuw registreren van je Signal-account.</string>
     <string name="preferences_app_protection__incorrect_pin_try_again">Onjuiste pincode, probeer het opnieuw.</string>
     <string name="preferences_app_protection__failed_to_enable_registration_lock">Het is niet gelukt om registratievergrendeling in te schakelen.</string>
@@ -4336,8 +4336,8 @@
     <string name="RegistrationActivity_you_must_enter_your_registration_lock_PIN">Je moet je pincode voor registratievergrendeling invoeren</string>
     <string name="RegistrationActivity_your_pin_has_at_least_d_digits_or_characters">Je pincode bestaat uit ten minste %1$d cijfers of karakters</string>
     <string name="RegistrationActivity_too_many_attempts">Te veel pogingen</string>
-    <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Je hebt te veel pogingen ondernomen om met een ongeldige pincode de registratievergrendeling uit te schakelen, probeer het morgen opnieuw.</string>
-    <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Je hebt te veel pogingen ondernomen. Probeer het later opnieuw.</string>
+    <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Je hebt te veel pogingen gedaan om met een onjuiste pincode de registratievergrendeling uit te schakelen. Probeer het morgen opnieuw.</string>
+    <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Je hebt te veel pogingen gedaan. Probeer het later opnieuw.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Fout bij het verbinden met Signals servers</string>
     <string name="preferences_chats__backups">Back-ups</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
@@ -4345,7 +4345,7 @@
     <!-- Description text explaining how to unlock Signal -->
     <string name="prompt_passphrase_activity__use_your_android_device">Gebruik de vergrendelingsinstellingen van je Android-apparaat om Molly te ontgrendelen.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Schermvergrendeling is ingeschakeld en Molly is beveiligd met de vergrendelingsinstellingen van je apparaat. Ontgrendel Molly op dezelfde manier als je normaal je telefoon ontgrendelt, dat kan gezichtsherkenning, je vingerafdruk, een pincode, wachtwoord of patroon zijn.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Appvergrendeling is ingeschakeld en Molly is beveiligd met de vergrendelingsinstellingen van je apparaat. Ontgrendel Molly op dezelfde manier als je normaal je telefoon ontgrendelt, dat kan gezichtsherkenning, je vingerafdruk, een pincode, wachtwoord of patroon zijn.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Neem contact op met ondersteuning</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4428,21 +4428,21 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Aan het voorbereiden om verbinding te maken met je oude Android-apparaat…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Een moment, dit duurt niet lang</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Aan het wachten tot je oude Android-apparaat verbinding maakt…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Om je oude Android-apparaat te kunnen detecteren en om er verbinding mee te maken, heeft de Molly-app een machtiging nodig om je locatie te lezen.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Om je oude Android-apparaat te kunnen detecteren en om er verbinding mee te maken, heeft Molly een machtiging nodig om je locatie te lezen.</string>
     <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Om je oude Android-apparaat te kunnen detecteren en om er verbinding mee te maken, is het nodig dat locatiebepaling op dit apparaat is ingeschakeld.</string>
     <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly heeft wifi nodig om je oude Android-apparaat te detecteren en om er verbinding mee te maken. Wifi moet zijn ingeschakeld, maar je hoeft niet verbonden te zijn met een wifi-netwerk.</string>
     <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, het lijkt er op dat dit apparaat geen ondersteuning biedt voor Wi-Fi Direct. Molly heeft Wi-Fi Direct nodig om je oude Android-apparaat te detecteren en om er verbinding mee te maken. Je kunt nog wel je gegevens overzetten door op je oude Android-apparaat in Molly een back-up te maken en vervolgens die back-up te herstellen op je nieuwe Android-apparaat.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Back-upgegevens terugzetten</string>
-    <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Er is een onverwachte fout opgetreden bij het proberen verbinding te maken met je oude Android-apparaat.</string>
+    <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Er is een onverwachte fout opgetreden bij het verbinding maken met je oude Android-apparaat.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Er wordt gezocht naar je nieuwe Android-apparaat…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Om je nieuwe Android-apparaat te kunnen detecteren en om er verbinding mee te maken, heeft de Molly-app een machtiging nodig om je locatie te lezen.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Om je nieuwe Android-apparaat te kunnen detecteren en om er verbinding mee te maken, heeft Molly een machtiging nodig om je locatie te lezen.</string>
     <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Om je nieuwe Android-apparaat te kunnen detecteren en om er verbinding mee te maken, is het nodig dat locatiebepaling op dit apparaat is ingeschakeld.</string>
     <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly heeft wifi nodig om je nieuwe Android-apparaat te detecteren en om er verbinding mee te maken. Wifi moet zijn ingeschakeld, maar je hoeft niet verbonden te zijn met een wifi-netwerk.</string>
     <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, het lijkt er op dat dit apparaat geen ondersteuning biedt voor Wi-Fi Direct. Molly heeft Wi-Fi Direct nodig om je nieuwe Android-apparaat te detecteren en om er verbinding mee te maken. Je kunt nog wel je gegevens overzetten door op je oude Android-apparaat in Molly een back-up te maken en vervolgens die back-up te herstellen op je nieuwe Android-apparaat.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Een back-up maken</string>
-    <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Er is een onverwachte fout opgetreden bij het proberen verbinding te maken met je nieuwe Android-apparaat.</string>
+    <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Er is een onverwachte fout opgetreden bij het verbinding maken met je nieuwe Android-apparaat.</string>
 
     <!-- DeviceTransferSetupFragment -->
     <string name="DeviceTransferSetup__unable_to_open_wifi_settings">Kan de wifi-instellingen niet openen. Zet handmatig je wifi aan.</string>
@@ -4452,22 +4452,22 @@
     <string name="DeviceTransferSetup__error_connecting">Fout bij het maken van verbinding</string>
     <string name="DeviceTransferSetup__retry">Opnieuw proberen</string>
     <string name="DeviceTransferSetup__submit_debug_logs">Foutopsporingslogs indienen</string>
-    <string name="DeviceTransferSetup__verify_code">Verificatiecode</string>
-    <string name="DeviceTransferSetup__verify_that_the_code_below_matches_on_both_of_your_devices">Ga na dat de code hieronder hetzelfde is op beide apparaten. Als dat zo is, tik dan op ‘Doorgaan’.</string>
+    <string name="DeviceTransferSetup__verify_code">Code verifiëren</string>
+    <string name="DeviceTransferSetup__verify_that_the_code_below_matches_on_both_of_your_devices">Controleer of de code hieronder hetzelfde is op beide apparaten. Als dat zo is, tik dan op ‘Doorgaan’.</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">De nummers komen niet overeen</string>
     <string name="DeviceTransferSetup__continue">Doorgaan</string>
-    <string name="DeviceTransferSetup__if_the_numbers_on_your_devices_do_not_match_its_possible_you_connected_to_the_wrong_device">Als de getallen op je apparaten niet overeenkomen dan is het mogelijk dat je bent verbonden met het verkeerde apparaat. Tik op ‘Overzetten annuleren’ en probeer het opnieuw. Houd je apparaten bij elkaar in de buurt.</string>
+    <string name="DeviceTransferSetup__if_the_numbers_on_your_devices_do_not_match_its_possible_you_connected_to_the_wrong_device">Als de nummers op je apparaten niet overeenkomen dan is het mogelijk dat je bent verbonden met het verkeerde apparaat. Tik op ‘Overzetten annuleren’ en probeer het opnieuw. Houd je apparaten bij elkaar in de buurt.</string>
     <string name="DeviceTransferSetup__stop_transfer">Overzetten annuleren</string>
     <string name="DeviceTransferSetup__unable_to_discover_old_device">Kan het oude apparaat niet detecteren</string>
     <string name="DeviceTransferSetup__unable_to_discover_new_device">Kan het nieuwe apparaat niet detecteren</string>
-    <string name="DeviceTransferSetup__make_sure_the_following_permissions_are_enabled">Ga na dat de volgende machtigingen en diensten zijn ingeschakeld:</string>
+    <string name="DeviceTransferSetup__make_sure_the_following_permissions_are_enabled">Zorg dat de volgende machtigingen en diensten zijn ingeschakeld:</string>
     <string name="DeviceTransferSetup__location_permission">Machtiging voor Signal om je locatie te lezen</string>
-    <string name="DeviceTransferSetup__location_services">Locatie-bepaling</string>
+    <string name="DeviceTransferSetup__location_services">Locatiebepaling</string>
     <string name="DeviceTransferSetup__wifi">Wifi</string>
     <string name="DeviceTransferSetup__on_the_wifi_direct_screen_remove_all_remembered_groups_and_unlink_any_invited_or_connected_devices">Verwijder in het wifi-directscherm alle onthouden groepen en verbreek de verbinding met alle verbonden of uitgenodigde apparaten.</string>
-    <string name="DeviceTransferSetup__wifi_direct_screen">Wifi-direct-scherm</string>
+    <string name="DeviceTransferSetup__wifi_direct_screen">WiFi Direct-scherm</string>
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">Probeer of het helpt om wifi uit te schakelen en weer in te schakelen op beide apparaten.</string>
-    <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Ga na dat beide apparaten in overzet-modus staan.</string>
+    <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Zorg ervoor dat beide apparaten in overzet-modus staan.</string>
     <string name="DeviceTransferSetup__go_to_support_page">Ga naar de ondersteuningspagina</string>
     <string name="DeviceTransferSetup__try_again">Opnieuw proberen</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">Aan het wachten op het andere apparaat…</string>
@@ -4481,7 +4481,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Gegevens aan het overzetten</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Houd de apparaten bij elkaar in de buurt. Schakel ze niet uit, en houd de Molly-app open. Het overzetten is goed beveiligd, want dit gebeurt altijd over een end-to-end-versleutelde verbinding.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Houd de apparaten bij elkaar in de buurt. Schakel ze niet uit, en houd de Molly-app open. Het overzetten is beveiligd via een end-to-end versleutelde verbinding.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d berichten tot nu toe…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% van de berichten tot nu toe…</string>
@@ -4499,7 +4499,7 @@
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Tik op ‘Account overzetten of herstellen’"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
-    <string name="OldDeviceTransferInstructions__select_transfer_from_android_device_when_prompted_and_then_continue">"Kies wanneer de optie wordt weergegeven ‘Overzetten vanaf een Android-apparaat’. Tik dan op ‘Doorgaan’. Houd de apparaten bij elkaar in de buurt."</string>
+    <string name="OldDeviceTransferInstructions__select_transfer_from_android_device_when_prompted_and_then_continue">"Kies de optie ‘Overzetten vanaf een Android-apparaat’ en tik vervolgens op ‘Doorgaan’. Houd de apparaten bij elkaar in de buurt."</string>
     <string name="OldDeviceTransferInstructions__continue">Doorgaan</string>
 
     <!-- OldDeviceTransferComplete -->
@@ -4548,7 +4548,7 @@
 
     <string name="RecipientBottomSheet_remove_s_from_the_group">%1$s uit deze groep verwijderen?</string>
     <!-- Dialog message shown when removing someone from a group with group link being active to indicate they will not be able to rejoin -->
-    <string name="RecipientBottomSheet_remove_s_from_the_group_they_will_not_be_able_to_rejoin">Wil je ‘%1$s’ uit de groep verwijderen? Als je dit doet dan kan deze persoon niet via de groepslink opnieuw lid worden van de groep.</string>
+    <string name="RecipientBottomSheet_remove_s_from_the_group_they_will_not_be_able_to_rejoin">Wil je ‘%1$s’ verwijderen uit de groep? Als je dit doet dan kan deze persoon niet via de groepslink opnieuw lid worden van de groep.</string>
     <string name="RecipientBottomSheet_remove">Verwijderen</string>
     <string name="RecipientBottomSheet_copied_to_clipboard">Gekopieerd naar klembord</string>
 
@@ -4592,13 +4592,13 @@
 
     <!-- ReviewCardDialogFragment -->
     <!-- Title of a screen where the user will be prompted to review group members with the same name -->
-    <string name="ReviewCardDialogFragment__review_members">Groepsleden vergelijken</string>
+    <string name="ReviewCardDialogFragment__review_members">Leden vergelijken</string>
     <!-- Title of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <string name="ReviewCardDialogFragment__review_request">Personen vergelijken</string>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <plurals name="ReviewCardDialogFragment__d_group_members_have_the_same_name">
-        <item quantity="one">%1$d groepslid heeft dezelfde naam. Vergelijk de groepsleden hieronder en onderneem actie indien je denkt dat een van hen zich probeert voor te doen als de ander.</item>
-        <item quantity="other">%1$d groepsleden hebben dezelfde naam. Vergelijk de groepsleden hieronder en onderneem actie indien je denkt dat een van hen zich probeert voor te doen als iemand anders.</item>
+        <item quantity="one">%1$d groepslid heeft dezelfde naam. Vergelijk de leden hieronder en onderneem actie indien je denkt dat een van hen zich probeert voor te doen als de ander.</item>
+        <item quantity="other">%1$d groepsleden hebben dezelfde naam. Vergelijk de leden hieronder en onderneem actie indien je denkt dat een van hen zich probeert voor te doen als iemand anders.</item>
     </plurals>
     <!-- Message of a screen where the user will be prompted to review a message request matching the name of someone they already know -->
     <plurals name="ReviewCardDialogFragment__if_youre_not_sure">
@@ -4627,18 +4627,18 @@
     <string name="ReviewCard__block">Blokkeren</string>
     <string name="ReviewCard__delete">Verwijderen</string>
     <!-- Displayed when a recent name change has occurred. First placeholder is new short name, second is previous name, third is new name. -->
-    <string name="ReviewCard__s_recently_changed">%1$s heeft recent diens profielnaam gewijzigd van %2$s naar %3$s</string>
+    <string name="ReviewCard__s_recently_changed">%1$s heeft recent diens profielnaam gewijzigd van ‘%2$s’ naar ‘%3$s’</string>
     <!-- Displayed when a review user is in your system contacts. Placeholder is short name. -->
     <string name="ReviewCard__s_is_in_your_system_contacts">%1$s staat in je telefooncontacten</string>
 
     <!-- CallParticipantsListUpdatePopupWindow -->
-    <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s neemt nu deel aan deze oproep</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s en %2$s nemen nu deel</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s en %3$s nemen nu deel</string>
+    <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s neemt nu deel aan de oproep</string>
+    <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s en %2$s nemen nu deel aan de oproep</string>
+    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s en %3$s nemen nu deel aan de oproep</string>
     <!-- Toast message shown in group call when 3 or more people join -->
     <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
-        <item quantity="one">%1$s, %2$s en %3$d ander nemen deel aan de oproep</item>
-        <item quantity="other">%1$s, %2$s en %3$d anderen nemen deel aan de oproep</item>
+        <item quantity="one">%1$s, %2$s en %3$d ander nemen nu deel aan de oproep</item>
+        <item quantity="other">%1$s, %2$s en %3$d anderen nemen nu deel aan de oproep</item>
     </plurals>
     <!-- Toast/popup text shown when someone leaves a group call -->
     <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s heeft de oproep verlaten</string>
@@ -4702,7 +4702,7 @@
     <string name="ShareActivity__send">Verzend</string>
     <string name="ShareActivity__comma_s">, %1$s</string>
     <!-- Toast when the incoming intent is invalid -->
-    <string name="ShareActivity__could_not_get_share_data_from_intent">Kon data uit Android-intent niet ophalen.</string>
+    <string name="ShareActivity__could_not_get_share_data_from_intent">Kan gegevens om te delen niet ophalen</string>
 
     <!-- MultiShareDialogs -->
     <string name="MultiShareDialogs__failed_to_send_to_some_users">Het verzenden is naar sommige personen mislukt</string>
@@ -4817,7 +4817,7 @@
     <string name="PaymentsRecoveryPasteFragment__recovery_phrase">Herstelzin</string>
     <string name="PaymentsRecoveryPasteFragment__next">Volgende</string>
     <string name="PaymentsRecoveryPasteFragment__invalid_recovery_phrase">Herstelzin ongeldig</string>
-    <string name="PaymentsRecoveryPasteFragment__make_sure">Ga na dat je %1$d woorden hebt ingevuld en probeer het opnieuw.</string>
+    <string name="PaymentsRecoveryPasteFragment__make_sure">Controleer of je %1$d woorden hebt ingevuld en probeer het opnieuw.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsRecoveryStartFragment__learn_more__view" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_wallet_view_passphrase</string> -->
   <!-- Removed by excludeNonTranslatables <string name="PaymentsRecoveryStartFragment__learn_more__restore" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_wallet_restore_passphrase</string> -->
@@ -4827,7 +4827,7 @@
     <string name="PaymentsRecoveryPhraseFragment__edit">Bewerken</string>
     <string name="PaymentsRecoveryPhraseFragment__your_recovery_phrase">Jouw herstelzin</string>
     <string name="PaymentsRecoveryPhraseFragment__write_down_the_following_d_words">Schrijf de volgende %1$d woorden op in dezelfde volgorde en bewaar ze op een veilige plaats.</string>
-    <string name="PaymentsRecoveryPhraseFragment__make_sure_youve_entered">Controleer of je je zin juist hebt ingevuld.</string>
+    <string name="PaymentsRecoveryPhraseFragment__make_sure_youve_entered">Zorg ervoor dat je je zin juist hebt ingevuld.</string>
     <string name="PaymentsRecoveryPhraseFragment__do_not_screenshot_or_send_by_email">Maak geen schermafdruk en verzend dit nooit via e-mail (ook niet aan jezelf).</string>
     <string name="PaymentsRecoveryPhraseFragment__payments_account_restored">Betalingsaccount is hersteld.</string>
     <string name="PaymentsRecoveryPhraseFragment__invalid_recovery_phrase">Herstelzin ongeldig</string>
@@ -4988,7 +4988,7 @@
     <!-- Dialog title shown if we were able to confirm your change number status (meaning we now know what the server thinks our number is) after a crash during the regular flow -->
     <string name="ChangeNumberLockActivity__change_status_confirmed">Telefoonnummer is succesvol gewijzigd</string>
     <!-- Dialog message shown if we were able to confirm your change number status (meaning we now know what the server thinks our number is) after a crash during the regular flow -->
-    <string name="ChangeNumberLockActivity__your_number_has_been_confirmed_as_s">Je nieuwe telefoonnummer %1$s is nu bevestigd. Herstart het ‘telefoonnummer wijzigen’-proces als dit niet je nieuwe telefoonnummer is.</string>
+    <string name="ChangeNumberLockActivity__your_number_has_been_confirmed_as_s">Je nieuwe telefoonnummer is nu bevestigd als %1$s. Als dit niet je nieuwe telefoonnummer is, begin het proces om je telefoonnummer te wijzigen dan opnieuw.</string>
     <!-- Dialog title shown if we were not able to confirm your phone number with the server and thus cannot let leave the change flow yet after a crash during the regular flow -->
     <string name="ChangeNumberLockActivity__change_status_unconfirmed">Onbekend of telefoonnummer is gewijzigd</string>
     <!-- Dialog message shown when we can\'t verify the phone number on the server, only shown if there was a network error communicating with the server after a crash during the regular flow -->
@@ -5037,7 +5037,7 @@
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Standaardtimer voor nieuwe chats</string>
     <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Stel een standaardtimer voor verdwijnende berichten in voor alle nieuwe chats die jij zelf begint</string>
     <!-- Summary for stories preference to launch into story privacy settings -->
-    <string name="PrivacySettingsFragment__payment_lock_require_lock">Vraag om een Android-schermvergrendeling of vingerafdruk om geld over te maken.</string>
+    <string name="PrivacySettingsFragment__payment_lock_require_lock">Vereis je Android-schermvergrendeling of vingerafdruk om geld over te maken.</string>
     <!-- Alert dialog title when payment lock cannot be enabled -->
     <string name="PrivacySettingsFragment__cant_enable_title">Kan betalingsvergrendeling niet aanzetten</string>
     <!-- Alert dialog description to setup screen lock or fingerprint in phone settings -->
@@ -5151,13 +5151,13 @@
     <!-- BecomeASustainerMegaphone -->
     <string name="BecomeASustainerMegaphone__become_a_sustainer">Help Signal mogelijk maken</string>
     <!-- Displayed in the Become a Sustainer megaphone -->
-    <string name="BecomeASustainerMegaphone__signal_is_powered_by">Signal wordt onder andere gefinancierd door donaties van mensen zoals jij. Als je aan ons doneert dan krijg je de mogelijkheid om op je profielafbeelding een badge weer te geven.</string>
+    <string name="BecomeASustainerMegaphone__signal_is_powered_by">Signal wordt onder andere gefinancierd door donaties van mensen zoals jij. Als je aan ons doneert dan krijg je de mogelijkheid om op je profielfoto een badge weer te geven.</string>
     <string name="BecomeASustainerMegaphone__not_now">Niet nu</string>
     <string name="BecomeASustainerMegaphone__donate">Doneren</string>
 
     <!-- KeyboardPagerFragment -->
     <string name="KeyboardPagerFragment_emoji">Emoji</string>
-    <string name="KeyboardPagerFragment_open_emoji_search">Emoji-zoeken</string>
+    <string name="KeyboardPagerFragment_open_emoji_search">Emoji zoeken</string>
     <string name="KeyboardPagerFragment_open_sticker_search">Sticker zoeken</string>
     <string name="KeyboardPagerFragment_open_gif_search">GIF zoeken</string>
     <string name="KeyboardPagerFragment_stickers">Stickers</string>
@@ -5210,7 +5210,7 @@
     <string name="ConversationSettingsFragment__unblock_group">Groep deblokkeren</string>
     <string name="ConversationSettingsFragment__add_to_a_group">Aan een groep toevoegen</string>
     <string name="ConversationSettingsFragment__see_all">Alles weergeven</string>
-    <string name="ConversationSettingsFragment__add_members">Groepsleden toevoegen</string>
+    <string name="ConversationSettingsFragment__add_members">Leden toevoegen</string>
     <string name="ConversationSettingsFragment__permissions">Machtigingen</string>
     <string name="ConversationSettingsFragment__requests_and_invites">Verzoeken &amp; uitnodigingen</string>
     <string name="ConversationSettingsFragment__group_link">Groepslink</string>
@@ -5224,14 +5224,14 @@
     <string name="ConversationSettingsFragment__get_badges">Door Signal te ondersteunen verdien je badges om op je profiel weer te geven. Tik op een badge om er meer over te leren.</string>
 
     <!-- PermissionsSettingsFragment -->
-    <string name="PermissionsSettingsFragment__add_members">Groepsleden toevoegen</string>
+    <string name="PermissionsSettingsFragment__add_members">Leden toevoegen</string>
     <string name="PermissionsSettingsFragment__edit_group_info">Groepsinformatie bewerken</string>
     <string name="PermissionsSettingsFragment__send_messages">Berichten verzenden &amp; oproepen beginnen</string>
-    <string name="PermissionsSettingsFragment__all_members">Alle groepsleden</string>
+    <string name="PermissionsSettingsFragment__all_members">Alle leden</string>
     <string name="PermissionsSettingsFragment__only_admins">Uitsluitend beheerders</string>
     <string name="PermissionsSettingsFragment__who_can_add_new_members">Wie mogen nieuwe leden toevoegen?</string>
     <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">Wie mogen de groepsinformatie bewerken?</string>
-    <string name="PermissionsSettingsFragment__who_can_send_messages">Wie kan berichten verzenden en oproepen starten?</string>
+    <string name="PermissionsSettingsFragment__who_can_send_messages">Wie kan berichten verzenden en oproepen beginnen?</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
     <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Meldingen dempen</string>
@@ -5302,7 +5302,7 @@
 
 
     <!-- AvatarPickerFragment -->
-    <string name="AvatarPickerFragment__avatar_preview">Voorbeeld van profielafbeelding</string>
+    <string name="AvatarPickerFragment__avatar_preview">Voorbeeld van profielfoto</string>
     <string name="AvatarPickerFragment__camera">Camera</string>
     <string name="AvatarPickerFragment__take_a_picture">Neem een foto</string>
     <string name="AvatarPickerFragment__choose_a_photo">Kies een afbeelding</string>
@@ -5310,8 +5310,8 @@
     <!-- Button label during avatar selection/creation that when tapped lets you generate an avatar from typed in text. -->
     <string name="AvatarPickerFragment__text">Tekst</string>
     <string name="AvatarPickerFragment__save">Opslaan</string>
-    <string name="AvatarPickerFragment__clear_avatar">Profielafbeelding verwijderen</string>
-    <string name="AvatarPickerRepository__failed_to_save_avatar">De profielafbeelding opslaan is mislukt</string>
+    <string name="AvatarPickerFragment__clear_avatar">Profielfoto verwijderen</string>
+    <string name="AvatarPickerRepository__failed_to_save_avatar">Profielfoto opslaan is mislukt</string>
 
     <!-- TextAvatarCreationFragment -->
     <string name="TextAvatarCreationFragment__preview">Voorbeeld</string>
@@ -5354,13 +5354,13 @@
         <item quantity="other">Kon sommige berichten niet doorsturen omdat die niet langer beschikbaar zijn.</item>
     </plurals>
     <!-- Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin -->
-    <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">Alleen beheerders kunnen in deze groep berichten sturen.</string>
+    <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">Alleen beheerders kunnen in deze groep berichten verzenden.</string>
     <!-- Error message shown when users try to choose more than 5 chats to send a message to -->
     <string name="MultiselectForwardFragment__you_cant_select_more_chats">Je kunt niet meer dan 5 chats selecteren</string>
 
     <!-- Media V2 -->
     <!-- Dialog message when sending a story via an add to group story button -->
-    <string name="MediaReviewFragment__add_to_the_group_story">Toevoegen aan groepsverhaal %1$s</string>
+    <string name="MediaReviewFragment__add_to_the_group_story">Toevoegen aan groepsverhaal ‘%1$s’</string>
     <!-- Positive dialog action when sending a story via an add to group story button -->
     <string name="MediaReviewFragment__add_to_story">Aan verhaal toevoegen</string>
     <string name="MediaReviewFragment__add_a_message">Berichttekst toevoegen</string>
@@ -5412,9 +5412,9 @@
     <string name="MediaReviewSelectedItem__tap_to_remove">Tik om te verwijderen</string>
     <string name="MediaReviewSelectedItem__tap_to_select">Tik om te selecteren</string>
 
-    <string name="MediaReviewImagePageFragment__discard">Verwerpen</string>
-    <string name="MediaReviewImagePageFragment__discard_changes">Aanpassingen verwerpen?</string>
-    <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Veranderingen die je aan deze afbeelding hebt gemaakt zullen verloren gaan.</string>
+    <string name="MediaReviewImagePageFragment__discard">Verwijderen</string>
+    <string name="MediaReviewImagePageFragment__discard_changes">Wijzigingen verwijderen?</string>
+    <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Alle wijzigingen die je in deze afbeelding hebt aangebracht zullen verloren gaan.</string>
 
     <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
     <string name="MediaCaptureFragment_username_dialog_title">%1$s gevonden</string>
@@ -5501,7 +5501,7 @@
     <string name="ManageDonationsFragment__my_support">Mijn bijdrage</string>
     <string name="ManageDonationsFragment__manage_subscription">Maandelijkse donatie beheren</string>
     <!-- Label for Donation Receipts button -->
-    <string name="ManageDonationsFragment__donation_receipts">Donatie-afschriften</string>
+    <string name="ManageDonationsFragment__donation_receipts">Donatiebewijzen</string>
     <string name="ManageDonationsFragment__badges">Badges</string>
     <string name="ManageDonationsFragment__subscription_faq">Informatie over maandelijkse donaties</string>
     <!-- Preference heading for other ways to donate -->
@@ -5574,7 +5574,7 @@
     <string name="ExpiredBadgeBottomSheetDialogFragment__go_to_google_pay">Google Pay openen</string>
 
     <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Signal kan je maandelijkse donatie niet verwerken</string>
-    <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Het lukt Signal niet om je maandelijkse donatie af te schrijven. Ga na dat je betalingsmethode nog steeds juist is. Werk je betalingsinformatie bij in Google Pay als dat nodig is. Signal zal je donatie binnen een paar dagen opnieuw proberen af te schrijven.</string>
+    <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Het lukt Signal niet om je maandelijkse donatie af te schrijven. Controleer of je betalingsmethode nog steeds juist is. Werk je betalingsinformatie bij in Google Pay als dat nodig is. Signal zal je donatie binnen een paar dagen opnieuw proberen af te schrijven.</string>
     <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Dit niet opnieuw weergeven</string>
 
     <string name="Subscription__contact_support">Neem contact op</string>
@@ -5652,11 +5652,11 @@
     <!-- PayPal decline code for payment declined -->
     <string name="DeclineCode__try_another_payment_method_or_contact_your_bank_for_more_information_if_this_was_a_paypal">Probeer het via een andere betalingsmethode of neem contact op met je bank voor meer informatie. Als dit een PayPal-transactie was, neem dan contact op met PayPal.</string>
     <!-- Stripe decline code verify on Google Pay and try again -->
-    <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again">Ga na dat je betalingsmethode nog steeds juist is. Werk je betalingsinformatie bij in Google Pay als dat nodig is. Probeer het daarna opnieuw.</string>
+    <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again">Controleer of je betalingsmethode nog steeds juist is. Werk je betalingsinformatie bij in Google Pay als dat nodig is. Probeer het daarna opnieuw.</string>
     <!-- Stripe decline code learn more action label -->
     <string name="DeclineCode__learn_more">Meer informatie</string>
     <!-- Stripe decline code contact issuer -->
-    <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again_if_the_problem">Ga na dat je betalingsmethode nog steeds juist is. Werk je betalingsinformatie bij in Google Pay als dat nodig is. Probeer het daarna opnieuw. Neem contact op met je bank om hen om meer informatie te vragen als dit probleem aanhoud.</string>
+    <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again_if_the_problem">Controleer of je betalingsmethode nog steeds juist is. Werk je betalingsinformatie bij in Google Pay als dat nodig is. Probeer het daarna opnieuw. Neem contact op met je bank om hen om meer informatie te vragen als dit probleem aanhoud.</string>
     <!-- Stripe decline code purchase not supported -->
     <string name="DeclineCode__your_card_does_not_support_this_type_of_purchase">Je betaalkaart ondersteunt dit type betaling niet. Probeer het via een andere betalingsmethode opnieuw.</string>
     <!-- Stripe decline code your card has expired -->
@@ -5879,19 +5879,19 @@
     <!-- Donation receipts date paid heading -->
     <string name="DonationReceiptDetailsFragment__date_paid">Datum van betaling</string>
     <!-- Donation receipts share PNG -->
-    <string name="DonationReceiptDetailsFragment__share_receipt">Afschrift delen</string>
+    <string name="DonationReceiptDetailsFragment__share_receipt">Donatiebewijs delen</string>
     <!-- Donation receipts list end note -->
-    <string name="DonationReceiptListFragment__if_you_have">Als je de Signal-app opnieuw hebt geïnstalleerd, zijn afschriften van eerdere donaties niet beschikbaar.</string>
+    <string name="DonationReceiptListFragment__if_you_have">Als je de Signal-app opnieuw hebt geïnstalleerd, zijn donatiebewijzen van eerdere donaties niet beschikbaar.</string>
     <!-- Donation receipts document title -->
-    <string name="DonationReceiptDetailsFragment__donation_receipt">Donatie-afschrift</string>
+    <string name="DonationReceiptDetailsFragment__donation_receipt">Donatiebewijs</string>
     <!-- Donation receipts amount title -->
     <string name="DonationReceiptDetailsFragment__amount">Bedrag</string>
     <!-- Donation receipts thanks -->
-    <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Bedankt dat je Signal steunt. Jouw bijdrage helpt bij het voortzetten van onze missie om opensource privacytechnologie te ontwikkelen waarmee van miljoenen mensen de vrijheid van expressie wordt gewaarborgd en waarmee beveiligde communicatie over de hele wereld mogelijk wordt gemaakt. Bewaar dit afschrift als je een inwoner bent van de Verenigde Staten van Amerika, zodat je je donatie kunt opgeven bij je belastingaangifte. Signal Technology Foundation is een van belasting uitgezonderde organisatie zonder winstoogmerk volgens sectie 501c3 van het Internal Revenue Code (het Amerikaanse belastingreglement). Ons federale-belasting-ID is 82–4506840.</string>
+    <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Bedankt dat je Signal steunt. Jouw bijdrage helpt bij het voortzetten van onze missie om opensource privacytechnologie te ontwikkelen waarmee van miljoenen mensen de vrijheid van expressie wordt gewaarborgd en waarmee beveiligde communicatie over de hele wereld mogelijk wordt gemaakt. Bewaar dit donatiebewijs als je een inwoner bent van de Verenigde Staten van Amerika, zodat je je donatie kunt opgeven bij je belastingaangifte. Signal Technology Foundation is een van belasting uitgezonderde organisatie zonder winstoogmerk volgens sectie 501c3 van het Internal Revenue Code (het Amerikaanse belastingreglement). Ons federale-belasting-ID is 82–4506840.</string>
     <!-- Donation receipt type -->
     <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
     <!-- Donation reciepts screen empty state title -->
-    <string name="DonationReceiptListFragment__no_receipts">Geen afschriften</string>
+    <string name="DonationReceiptListFragment__no_receipts">Geen donatiebewijzen</string>
 
     <!-- region "Stories Tab" -->
 
@@ -6003,7 +6003,7 @@
     <!-- Displayed when a story has no replies yet -->
     <string name="StoryGroupReplyFragment__no_replies_yet">Nog geen reacties</string>
     <!-- Displayed when no longer a group member -->
-    <string name="StoryGroupReplyFragment__you_cant_reply">Je kunt niet reageren op dit verhaal, omdat je geen lid van deze groep meer bent.</string>
+    <string name="StoryGroupReplyFragment__you_cant_reply">Je kunt niet reageren op dit verhaal, omdat je geen lid meer bent van deze groep.</string>
     <!-- Displayed for when you reacted to a story when viewing replies -->
     <string name="StoryGroupReactionReplyItem__you_reacted_to_the_story">Reageerde op dit verhaal</string>
     <!-- Displayed for other users that reacted to a story when viewing replies -->
@@ -7227,7 +7227,7 @@
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__cant_process_backup_payment">Kan betaling voor back-up niet verwerken</string>
     <!-- Sheet body when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">Het lukt Signal niet om je maandelijkse betaling voor back-ups af te schrijven. Zorg ervoor dat je betalingsinformatie up-to-date is. Werk je betalingsinformatie bij in Google Pay als dat nodig is. Signal zal je betaling binnen een paar dagen opnieuw proberen te verwerken.</string>
+    <string name="BackupAlertBottomSheet__were_having_trouble_collecting__google_pay">Het lukt Signal niet om je maandelijkse betaling voor back-ups af te schrijven. Zorg ervoor dat je betalingsinformatie nog steeds juist is. Werk je betalingsinformatie bij in Google Pay als dat nodig is. Signal zal je betaling binnen een paar dagen opnieuw proberen te verwerken.</string>
     <!-- Sheet title for generic backup error -->
     <string name="BackupAlertBottomSheet__couldnt_complete_backup">Back-up kon niet worden voltooid</string>
     <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->

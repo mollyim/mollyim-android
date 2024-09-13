@@ -210,7 +210,7 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
   }
 
   private fun bindCurrentState(currentState: MediaPreviewV2State) {
-    if (currentState.position == -1 && currentState.mediaRecords.isEmpty()) {
+    if (currentState.position < 0 && currentState.mediaRecords.isEmpty()) {
       onMediaNotAvailable()
       return
     }
@@ -225,7 +225,7 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
     val currentPosition = currentState.position
 
     val backingItems = currentState.mediaRecords.mapNotNull { it.attachment }
-    if (backingItems.isEmpty()) {
+    if (backingItems.isEmpty() || currentPosition < 0) {
       onMediaNotAvailable()
       return
     }
@@ -242,12 +242,12 @@ class MediaPreviewV2Fragment : LoggingFragment(R.layout.fragment_media_preview_v
    * {@link OnPageChangeCallback}.
    */
   private fun bindMediaReadyState(currentState: MediaPreviewV2State) {
-    if (currentState.mediaRecords.isEmpty()) {
+    val currentPosition: Int = currentState.position
+    if (currentState.mediaRecords.isEmpty() || currentPosition < 0) {
       onMediaNotAvailable()
       return
     }
 
-    val currentPosition: Int = currentState.position
     val currentItem: MediaTable.MediaRecord = currentState.mediaRecords[currentPosition]
     val currentItemTag: String? = pagerAdapter.getFragmentTag(currentPosition)
 
