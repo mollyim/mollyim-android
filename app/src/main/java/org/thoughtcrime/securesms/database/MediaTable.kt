@@ -6,7 +6,7 @@ import android.database.Cursor
 import androidx.compose.runtime.Immutable
 import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
-import org.signal.core.util.requireNonNullString
+import org.signal.core.util.requireString
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.MediaUtil
@@ -32,6 +32,7 @@ class MediaTable internal constructor(context: Context?, databaseHelper: SignalD
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.CDN_NUMBER},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.REMOTE_LOCATION},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.REMOTE_KEY},
+        ${AttachmentTable.TABLE_NAME}.${AttachmentTable.REMOTE_IV},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.REMOTE_DIGEST}, 
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.FAST_PREFLIGHT_ID},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.VOICE_NOTE}, 
@@ -55,8 +56,8 @@ class MediaTable internal constructor(context: Context?, databaseHelper: SignalD
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_CDN},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_MEDIA_NAME},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_MEDIA_ID},
-        ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_THUMBNAIL_CDN},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.THUMBNAIL_RESTORE_STATE},
+        ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_TRANSFER_STATE},
         ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ATTACHMENT_UUID},
         ${MessageTable.TABLE_NAME}.${MessageTable.TYPE}, 
         ${MessageTable.TABLE_NAME}.${MessageTable.DATE_SENT}, 
@@ -158,6 +159,7 @@ class MediaTable internal constructor(context: Context?, databaseHelper: SignalD
           )
         )"""
     )
+
     private fun applyEqualityOperator(threadId: Long, query: String): String {
       return query.replace("__EQUALITY__", if (threadId == ALL_THREADS.toLong()) "!=" else "=")
     }
@@ -206,7 +208,7 @@ class MediaTable internal constructor(context: Context?, databaseHelper: SignalD
     readableDatabase.rawQuery(UNIQUE_MEDIA_QUERY, null).use { cursor ->
       while (cursor.moveToNext()) {
         val size: Int = cursor.requireInt(AttachmentTable.DATA_SIZE)
-        val type: String = cursor.requireNonNullString(AttachmentTable.CONTENT_TYPE)
+        val type: String? = cursor.requireString(AttachmentTable.CONTENT_TYPE)
 
         when (MediaUtil.getSlideTypeFromContentType(type)) {
           SlideType.GIF,
@@ -214,17 +216,21 @@ class MediaTable internal constructor(context: Context?, databaseHelper: SignalD
           SlideType.MMS -> {
             photoSize += size.toLong()
           }
+
           SlideType.VIDEO -> {
             videoSize += size.toLong()
           }
+
           SlideType.AUDIO -> {
             audioSize += size.toLong()
           }
+
           SlideType.LONG_TEXT,
           SlideType.DOCUMENT -> {
             documentSize += size.toLong()
           }
-          else -> {}
+
+          SlideType.VIEW_ONCE -> Unit
         }
       }
     }

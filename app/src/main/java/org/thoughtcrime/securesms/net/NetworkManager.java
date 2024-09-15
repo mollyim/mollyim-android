@@ -16,6 +16,7 @@ import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.events.NetworkAvailableEvent;
+import org.thoughtcrime.securesms.util.AppForegroundObserver;
 
 import java.util.Objects;
 
@@ -164,7 +165,7 @@ public class NetworkManager {
             }
           }
           proxyOrbotPort = socksPort;
-          if (AppDependencies.getAppForegroundObserver().isForegrounded()) {
+          if (AppForegroundObserver.isForegrounded()) {
             Toast.makeText(application, R.string.ProxyManager_successfully_started_orbot, Toast.LENGTH_SHORT).show();
           }
         }

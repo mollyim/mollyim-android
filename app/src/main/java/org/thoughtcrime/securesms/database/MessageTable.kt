@@ -388,10 +388,10 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
             '${AttachmentTable.UPLOAD_TIMESTAMP}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.UPLOAD_TIMESTAMP},
             '${AttachmentTable.DATA_HASH_END}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.DATA_HASH_END},
             '${AttachmentTable.ARCHIVE_CDN}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_CDN},
-            '${AttachmentTable.ARCHIVE_THUMBNAIL_CDN}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_THUMBNAIL_CDN},
             '${AttachmentTable.ARCHIVE_MEDIA_NAME}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_MEDIA_NAME},
             '${AttachmentTable.ARCHIVE_MEDIA_ID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_MEDIA_ID},
             '${AttachmentTable.THUMBNAIL_RESTORE_STATE}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.THUMBNAIL_RESTORE_STATE},
+            '${AttachmentTable.ARCHIVE_TRANSFER_STATE}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ARCHIVE_TRANSFER_STATE},
             '${AttachmentTable.ATTACHMENT_UUID}', ${AttachmentTable.TABLE_NAME}.${AttachmentTable.ATTACHMENT_UUID}
           )
         ) AS ${AttachmentTable.ATTACHMENT_JSON_ALIAS}
@@ -1024,8 +1024,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     isCallFull: Boolean,
     isRingingOnLocalDevice: Boolean,
     expiresIn: Long,
-  ): Boolean {
-    return writableDatabase.withinTransaction { db ->
+  ) {
+    writableDatabase.withinTransaction { db ->
       val cursor = db
         .select(*MMS_PROJECTION)
         .from(TABLE_NAME)
@@ -1069,8 +1069,6 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         if (updated) {
           notifyConversationListeners(threadId)
         }
-
-        sameEraId
       }
     }
   }
@@ -2126,7 +2124,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     AppDependencies.databaseObserver.notifyConversationListListeners()
 
     if (deletedAttachments) {
-      AppDependencies.databaseObserver.notifyAttachmentObservers()
+      AppDependencies.databaseObserver.notifyAttachmentDeletedObservers()
     }
   }
 

@@ -36,6 +36,7 @@ import org.signal.ringrtc.PeekInfo;
 import org.signal.ringrtc.Remote;
 import org.signal.storageservice.protos.groups.GroupExternalCredential;
 import org.thoughtcrime.securesms.WebRtcCallActivity;
+import org.thoughtcrime.securesms.components.webrtc.v2.CallIntent;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.CallLinkTable;
 import org.thoughtcrime.securesms.database.CallTable;
@@ -392,11 +393,6 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
       return;
     }
 
-    if (!RemoteConfig.adHocCalling()) {
-      Log.i(TAG, "Ad Hoc Calling is disabled. Ignoring request to peek.");
-      return;
-    }
-
     networkExecutor.execute(() -> {
       try {
         Recipient              callLinkRecipient = Recipient.resolved(id);
@@ -435,15 +431,19 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
             }
           }
 
-          linkPeekInfoStore.update(store -> {
-            Map<RecipientId, CallLinkPeekInfo> newHashMap = new HashMap<>(store);
-            newHashMap.put(id, CallLinkPeekInfo.fromPeekInfo(info));
-            return newHashMap;
-          });
+          emitCallLinkPeekInfoUpdate(id, info);
         });
       } catch (CallException | VerificationFailedException | InvalidInputException | IOException e) {
         Log.i(TAG, "error peeking call link", e);
       }
+    });
+  }
+
+  public void emitCallLinkPeekInfoUpdate(@NonNull RecipientId recipientId, @NonNull PeekInfo peekInfo) {
+    linkPeekInfoStore.update(store -> {
+      Map<RecipientId, CallLinkPeekInfo> newHashMap = new HashMap<>(store);
+      newHashMap.put(recipientId, CallLinkPeekInfo.fromPeekInfo(peekInfo));
+      return newHashMap;
     });
   }
 
@@ -992,7 +992,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
         Log.i(TAG, "Starting call activity from foreground listener");
         startCallCardActivityIfPossible();
       }
-      AppDependencies.getAppForegroundObserver().removeListener(this);
+      AppForegroundObserver.removeListener(this);
       return s;
     });
   }
@@ -1219,7 +1219,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   public void relaunchPipOnForeground() {
-    AppDependencies.getAppForegroundObserver().addListener(new RelaunchListener(AppDependencies.getAppForegroundObserver().isForegrounded()));
+    AppForegroundObserver.addListener(new RelaunchListener(AppForegroundObserver.isForegrounded()));
   }
 
   private void processSendMessageFailureWithChangeDetection(@NonNull RemotePeer remotePeer,
@@ -1255,16 +1255,18 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
             WebRtcViewModel.State callState = s.getCallInfoState().getCallState();
 
             if (callState.getInOngoingCall()) {
-              Intent intent = new Intent(context, WebRtcCallActivity.class);
-              intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-              intent.putExtra(WebRtcCallActivity.EXTRA_LAUNCH_IN_PIP, true);
-              context.startActivity(intent);
+              context.startActivity(
+                  new CallIntent.Builder(context)
+                      .withIntentFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                      .withLaunchInPip(true)
+                      .build()
+              );
             }
 
             return s;
           });
         }
-        AppDependencies.getAppForegroundObserver().removeListener(this);
+        AppForegroundObserver.removeListener(this);
       }
     }
 

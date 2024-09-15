@@ -41,7 +41,6 @@ import org.thoughtcrime.securesms.calls.links.CallLinks
 import org.thoughtcrime.securesms.calls.links.EditCallLinkNameDialogFragment
 import org.thoughtcrime.securesms.calls.links.SignalCallRow
 import org.thoughtcrime.securesms.compose.ComposeFragment
-import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.database.CallLinkTable
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.webrtc.links.CallLinkCredentials
@@ -141,7 +140,7 @@ class CallLinkDetailsFragment : ComposeFragment(), CallLinkDetailsCallback {
     viewModel.setDisplayRevocationDialog(false)
     lifecycleDisposable += viewModel.delete().observeOn(AndroidSchedulers.mainThread()).subscribeBy(onSuccess = {
       when (it) {
-        is UpdateCallLinkResult.Update -> ActivityCompat.finishAfterTransition(requireActivity())
+        is UpdateCallLinkResult.Delete -> ActivityCompat.finishAfterTransition(requireActivity())
         else -> {
           Log.w(TAG, "Failed to revoke. $it")
           toastFailure()
@@ -200,12 +199,11 @@ private interface CallLinkDetailsCallback {
 @Preview
 @Composable
 private fun CallLinkDetailsPreview() {
-  val avatarColor = remember {
-    AvatarColor.random()
-  }
-
   val callLink = remember {
-    val credentials = CallLinkCredentials.generate()
+    val credentials = CallLinkCredentials(
+      byteArrayOf(1, 2, 3, 4),
+      byteArrayOf(3, 4, 5, 6)
+    )
     CallLinkTable.CallLink(
       recipientId = RecipientId.UNKNOWN,
       roomId = credentials.roomId,
@@ -215,7 +213,8 @@ private fun CallLinkDetailsPreview() {
         revoked = false,
         restrictions = Restrictions.NONE,
         expiration = Instant.MAX
-      )
+      ),
+      deletionTimestamp = 0L
     )
   }
 
@@ -258,6 +257,7 @@ private fun CallLinkDetails(
     Column(modifier = Modifier.padding(paddingValues)) {
       SignalCallRow(
         callLink = state.callLink,
+        callLinkPeekInfo = state.peekInfo,
         onJoinClicked = callback::onJoinClicked,
         modifier = Modifier.padding(top = 16.dp, bottom = 12.dp)
       )
@@ -276,7 +276,7 @@ private fun CallLinkDetails(
 
         Rows.ToggleRow(
           checked = state.callLink.state.restrictions == Restrictions.ADMIN_APPROVAL,
-          text = stringResource(id = R.string.CallLinkDetailsFragment__approve_all_members),
+          text = stringResource(id = R.string.CallLinkDetailsFragment__require_admin_approval),
           onCheckChanged = callback::onApproveAllMembersChanged
         )
 

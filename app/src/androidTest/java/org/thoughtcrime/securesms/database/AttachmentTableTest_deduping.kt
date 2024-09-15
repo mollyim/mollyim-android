@@ -15,7 +15,6 @@ import org.signal.core.util.Base64
 import org.signal.core.util.update
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.Cdn
-import org.thoughtcrime.securesms.attachments.PointerAttachment
 import org.thoughtcrime.securesms.backup.v2.BackupRepository.getMediaName
 import org.thoughtcrime.securesms.database.AttachmentTable.TransformProperties
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -27,7 +26,9 @@ import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.Util
+import org.whispersystems.signalservice.api.attachment.AttachmentUploadResult
 import org.whispersystems.signalservice.api.backup.MediaId
+import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId
 import org.whispersystems.signalservice.api.push.ServiceId
 import java.io.File
 import java.util.UUID
@@ -106,15 +107,6 @@ class AttachmentTableTest_deduping {
     test {
       val id1 = insertWithData(DATA_A, TransformProperties(videoTrim = true, videoTrimStartTimeUs = 0, videoTrimEndTimeUs = 1))
       val id2 = insertWithData(DATA_A, TransformProperties(videoTrim = true, videoTrimStartTimeUs = 0, videoTrimEndTimeUs = 2))
-
-      assertDataFilesAreDifferent(id1, id2)
-      assertDataHashStartMatches(id1, id2)
-    }
-
-    // Non-matching mp4 fast start
-    test {
-      val id1 = insertWithData(DATA_A, TransformProperties(mp4FastStart = true))
-      val id2 = insertWithData(DATA_A, TransformProperties(mp4FastStart = false))
 
       assertDataFilesAreDifferent(id1, id2)
       assertDataHashStartMatches(id1, id2)
@@ -661,7 +653,7 @@ class AttachmentTableTest_deduping {
     }
 
     fun upload(attachmentId: AttachmentId, uploadTimestamp: Long = System.currentTimeMillis()) {
-      SignalDatabase.attachments.finalizeAttachmentAfterUpload(attachmentId, createPointerAttachment(attachmentId, uploadTimestamp), uploadTimestamp)
+      SignalDatabase.attachments.finalizeAttachmentAfterUpload(attachmentId, createUploadResult(attachmentId, uploadTimestamp))
 
       val attachment = SignalDatabase.attachments.getAttachment(attachmentId)!!
       SignalDatabase.attachments.setArchiveData(
@@ -763,6 +755,7 @@ class AttachmentTableTest_deduping {
 
       assertEquals(lhsAttachment.remoteLocation, rhsAttachment.remoteLocation)
       assertEquals(lhsAttachment.remoteKey, rhsAttachment.remoteKey)
+      assertArrayEquals(lhsAttachment.remoteIv, rhsAttachment.remoteIv)
       assertArrayEquals(lhsAttachment.remoteDigest, rhsAttachment.remoteDigest)
       assertArrayEquals(lhsAttachment.incrementalDigest, rhsAttachment.incrementalDigest)
       assertEquals(lhsAttachment.incrementalMacChunkSize, rhsAttachment.incrementalMacChunkSize)
@@ -796,36 +789,19 @@ class AttachmentTableTest_deduping {
       return MediaStream(this.inputStream(), MediaUtil.IMAGE_JPEG, 2, 2)
     }
 
-    private fun createPointerAttachment(attachmentId: AttachmentId, uploadTimestamp: Long = System.currentTimeMillis()): PointerAttachment {
-      val location = "somewhere-${Random.nextLong()}"
-      val key = "somekey-${Random.nextLong()}"
-      val digest = Random.nextBytes(32)
-      val incrementalDigest = Random.nextBytes(16)
-
+    private fun createUploadResult(attachmentId: AttachmentId, uploadTimestamp: Long = System.currentTimeMillis()): AttachmentUploadResult {
       val databaseAttachment = SignalDatabase.attachments.getAttachment(attachmentId)!!
 
-      return PointerAttachment(
-        "image/jpeg",
-        AttachmentTable.TRANSFER_PROGRESS_DONE,
-        databaseAttachment.size, // size
-        null,
-        Cdn.CDN_3, // cdnNumber
-        location,
-        key,
-        digest,
-        incrementalDigest,
-        5, // incrementalMacChunkSize
-        null,
-        databaseAttachment.voiceNote,
-        databaseAttachment.borderless,
-        databaseAttachment.videoGif,
-        databaseAttachment.width,
-        databaseAttachment.height,
-        uploadTimestamp,
-        databaseAttachment.caption,
-        databaseAttachment.stickerLocator,
-        databaseAttachment.blurHash,
-        databaseAttachment.uuid
+      return AttachmentUploadResult(
+        remoteId = SignalServiceAttachmentRemoteId.V4("somewhere-${Random.nextLong()}"),
+        cdnNumber = Cdn.CDN_3.cdnNumber,
+        key = databaseAttachment.remoteKey?.let { Base64.decode(it) } ?: Util.getSecretBytes(64),
+        iv = databaseAttachment.remoteIv ?: Util.getSecretBytes(16),
+        digest = Random.nextBytes(32),
+        incrementalDigest = Random.nextBytes(16),
+        incrementalDigestChunkSize = 5,
+        uploadTimestamp = uploadTimestamp,
+        dataSize = databaseAttachment.size
       )
     }
   }

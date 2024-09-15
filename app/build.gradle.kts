@@ -18,8 +18,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1456
-val canonicalVersionName = "7.16.4"
+val canonicalVersionCode = 1458
+val canonicalVersionName = "7.17.1"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -90,6 +90,7 @@ android {
 
   kotlinOptions {
     jvmTarget = signalKotlinJvmTarget
+    freeCompilerArgs = listOf("-Xjvm-default=all")
   }
 
   signingConfigs {

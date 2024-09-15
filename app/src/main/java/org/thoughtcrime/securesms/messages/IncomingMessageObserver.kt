@@ -114,7 +114,7 @@ class IncomingMessageObserver(private val context: Application) {
 
     // MOLLY: Foreground service startup is handled inside the connection loop
 
-    AppDependencies.appForegroundObserver.addListener(object : AppForegroundObserver.Listener {
+    AppForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
         onAppForegrounded()
       }

@@ -101,6 +101,9 @@ import org.thoughtcrime.securesms.database.helpers.migration.V240_MessageFullTex
 import org.thoughtcrime.securesms.database.helpers.migration.V241_ExpireTimerVersion
 import org.thoughtcrime.securesms.database.helpers.migration.V242_MessageFullTextSearchEmojiSupportV2
 import org.thoughtcrime.securesms.database.helpers.migration.V243_MessageFullTextSearchDisableSecureDelete
+import org.thoughtcrime.securesms.database.helpers.migration.V244_AttachmentRemoteIv
+import org.thoughtcrime.securesms.database.helpers.migration.V245_DeletionTimestampOnCallLinks
+import org.thoughtcrime.securesms.database.helpers.migration.V246_DropThumbnailCdnFromAttachments
 
 /**
  * Contains all of the database migrations for [SignalDatabase]. Broken into a separate file for cleanliness.
@@ -206,10 +209,13 @@ object SignalDatabaseMigrations {
     240 to V240_MessageFullTextSearchSecureDelete,
     241 to V241_ExpireTimerVersion,
     242 to V242_MessageFullTextSearchEmojiSupportV2,
-    243 to V243_MessageFullTextSearchDisableSecureDelete
+    243 to V243_MessageFullTextSearchDisableSecureDelete,
+    244 to V244_AttachmentRemoteIv,
+    245 to V245_DeletionTimestampOnCallLinks,
+    246 to V246_DropThumbnailCdnFromAttachments
   )
 
-  const val DATABASE_VERSION = 243
+  const val DATABASE_VERSION = 246
 
   @JvmStatic
   fun migrate(context: Application, db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.jobs
 import android.text.TextUtils
 import okhttp3.internal.http2.StreamResetException
 import org.greenrobot.eventbus.EventBus
+import org.signal.core.util.Base64
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.inRoundedDays
 import org.signal.core.util.logging.Log
@@ -17,7 +18,6 @@ import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.AttachmentUploadUtil
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
-import org.thoughtcrime.securesms.attachments.PointerAttachment
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -27,11 +27,12 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobmanager.persistence.JobSpec
 import org.thoughtcrime.securesms.jobs.protos.AttachmentUploadJobData
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.mms.MmsException
 import org.thoughtcrime.securesms.net.NotPushRegisteredException
+import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.service.AttachmentProgressService
 import org.thoughtcrime.securesms.util.RemoteConfig
+import org.whispersystems.signalservice.api.attachment.AttachmentUploadResult
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream
@@ -39,7 +40,6 @@ import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResumab
 import org.whispersystems.signalservice.api.push.exceptions.ResumeLocationInvalidException
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
 import java.io.IOException
-import java.util.Optional
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
@@ -136,6 +136,8 @@ class AttachmentUploadJob private constructor(
       throw NotPushRegisteredException()
     }
 
+    SignalDatabase.attachments.createKeyIvIfNecessary(attachmentId)
+
     val messageSender = AppDependencies.signalServiceMessageSender
     val databaseAttachment = SignalDatabase.attachments.getAttachment(attachmentId) ?: throw InvalidAttachmentException("Cannot find the specified attachment.")
 
@@ -154,7 +156,17 @@ class AttachmentUploadJob private constructor(
 
     if (uploadSpec == null) {
       Log.d(TAG, "Need an upload spec. Fetching...")
-      uploadSpec = AppDependencies.signalServiceMessageSender.getResumableUploadSpec().toProto()
+      uploadSpec = SignalNetwork.attachments
+        .getAttachmentV4UploadForm()
+        .then { form ->
+          SignalNetwork.attachments.getResumableUploadSpec(
+            key = Base64.decode(databaseAttachment.remoteKey!!),
+            iv = databaseAttachment.remoteIv!!,
+            uploadForm = form
+          )
+        }
+        .successOrThrow()
+        .toProto()
     } else {
       Log.d(TAG, "Re-using existing upload spec.")
     }
@@ -163,10 +175,19 @@ class AttachmentUploadJob private constructor(
     try {
       getAttachmentNotificationIfNeeded(databaseAttachment).use { notification ->
         buildAttachmentStream(databaseAttachment, notification, uploadSpec!!).use { localAttachment ->
-          val remoteAttachment = messageSender.uploadAttachment(localAttachment)
-          val attachment = PointerAttachment.forPointer(Optional.of(remoteAttachment), null, databaseAttachment.fastPreflightId).get()
-          SignalDatabase.attachments.finalizeAttachmentAfterUpload(databaseAttachment.attachmentId, attachment, remoteAttachment.uploadTimestamp)
-          ArchiveThumbnailUploadJob.enqueueIfNecessary(databaseAttachment.attachmentId)
+          val uploadResult: AttachmentUploadResult = SignalNetwork.attachments.uploadAttachmentV4(localAttachment).successOrThrow()
+          SignalDatabase.attachments.finalizeAttachmentAfterUpload(databaseAttachment.attachmentId, uploadResult)
+          if (SignalStore.backup.backsUpMedia) {
+            when {
+              databaseAttachment.archiveTransferState == AttachmentTable.ArchiveTransferState.FINISHED -> {
+                Log.i(TAG, "[$attachmentId] Already archived. Skipping.")
+              }
+              else -> {
+                Log.i(TAG, "[$attachmentId] Enqueuing job to copy to archive.")
+                AppDependencies.jobManager.add(CopyAttachmentToArchiveJob(attachmentId))
+              }
+            }
+          }
         }
       }
     } catch (e: StreamResetException) {
@@ -223,11 +244,7 @@ class AttachmentUploadJob private constructor(
       return
     }
 
-    try {
-      database.setTransferProgressFailed(attachmentId, databaseAttachment.mmsId)
-    } catch (e: MmsException) {
-      Log.w(TAG, "Error marking attachment as failed upon failed/canceled upload.", e)
-    }
+    database.setTransferProgressFailed(attachmentId, databaseAttachment.mmsId)
   }
 
   override fun onShouldRetry(exception: Exception): Boolean {

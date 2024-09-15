@@ -102,7 +102,6 @@ import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
 import org.thoughtcrime.securesms.util.IdentityUtil
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.account.PreKeyUpload
@@ -1347,12 +1346,6 @@ object SyncMessageProcessor {
     }
 
     val roomId = CallLinkRoomId.fromCallLinkRootKey(callLinkRootKey)
-    if (callLinkUpdate.type == CallLinkUpdate.Type.DELETE) {
-      log(envelopeTimestamp, "Synchronize call link deletion.")
-      SignalDatabase.callLinks.deleteCallLink(roomId)
-
-      return
-    }
 
     if (SignalDatabase.callLinks.callLinkExists(roomId)) {
       log(envelopeTimestamp, "Synchronize call link for a link we already know about. Updating credentials.")
@@ -1373,9 +1366,12 @@ object SyncMessageProcessor {
             linkKeyBytes = callLinkRootKey.keyBytes,
             adminPassBytes = callLinkUpdate.adminPassKey?.toByteArray()
           ),
-          state = SignalCallLinkState()
+          state = SignalCallLinkState(),
+          deletionTimestamp = 0L
         )
       )
+
+      StorageSyncHelper.scheduleSyncForDataChange()
     }
 
     AppDependencies.jobManager.add(RefreshCallLinkDetailsJob(callLinkUpdate))
@@ -1421,11 +1417,6 @@ object SyncMessageProcessor {
 
   @Throws(BadGroupIdException::class)
   private fun handleSynchronizeGroupOrAdHocCallEvent(callEvent: SyncMessage.CallEvent, envelopeTimestamp: Long) {
-    if (!RemoteConfig.adHocCalling && callEvent.type == SyncMessage.CallEvent.Type.AD_HOC_CALL) {
-      log(envelopeTimestamp, "Ad-Hoc calling is not currently supported by this client, ignoring.")
-      return
-    }
-
     val callId: Long = callEvent.id!!
     val timestamp: Long = callEvent.timestamp ?: 0L
     val type: CallTable.Type? = CallTable.Type.from(callEvent.type)

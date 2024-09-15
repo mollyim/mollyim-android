@@ -74,6 +74,7 @@ import org.thoughtcrime.securesms.components.settings.app.internal.backup.Intern
 import org.thoughtcrime.securesms.components.settings.app.internal.backup.InternalBackupPlaygroundViewModel.BackupUploadState
 import org.thoughtcrime.securesms.components.settings.app.internal.backup.InternalBackupPlaygroundViewModel.ScreenState
 import org.thoughtcrime.securesms.compose.ComposeFragment
+import org.thoughtcrime.securesms.jobs.LocalBackupJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 
 class InternalBackupPlaygroundFragment : ComposeFragment() {
@@ -81,7 +82,6 @@ class InternalBackupPlaygroundFragment : ComposeFragment() {
   private val viewModel: InternalBackupPlaygroundViewModel by viewModels()
   private lateinit var exportFileLauncher: ActivityResultLauncher<Intent>
   private lateinit var importFileLauncher: ActivityResultLauncher<Intent>
-  private lateinit var importDirectoryLauncher: ActivityResultLauncher<Intent>
   private lateinit var validateFileLauncher: ActivityResultLauncher<Intent>
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,12 +105,6 @@ class InternalBackupPlaygroundFragment : ComposeFragment() {
             viewModel.import(length) { requireContext().contentResolver.openInputStream(uri)!! }
           }
         } ?: Toast.makeText(requireContext(), "No URI selected", Toast.LENGTH_SHORT).show()
-      }
-    }
-
-    importDirectoryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      if (result.resultCode == RESULT_OK) {
-        viewModel.import(result.data!!.data!!)
       }
     }
 
@@ -141,6 +135,7 @@ class InternalBackupPlaygroundFragment : ComposeFragment() {
         Screen(
           state = state,
           onExportClicked = { viewModel.export() },
+          onExportDirectoryClicked = { LocalBackupJob.enqueueArchive() },
           onImportMemoryClicked = { viewModel.import() },
           onImportFileClicked = {
             val intent = Intent().apply {
@@ -152,8 +147,7 @@ class InternalBackupPlaygroundFragment : ComposeFragment() {
             importFileLauncher.launch(intent)
           },
           onImportDirectoryClicked = {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            importDirectoryLauncher.launch(intent)
+            viewModel.import(SignalStore.settings.signalBackupDirectory!!)
           },
           onPlaintextClicked = { viewModel.onPlaintextToggled() },
           onSaveToDiskClicked = {
@@ -190,7 +184,8 @@ class InternalBackupPlaygroundFragment : ComposeFragment() {
           deleteArchivedMedia = { viewModel.deleteArchivedMedia(it) },
           batchArchiveAttachmentMedia = { viewModel.archiveAttachmentMedia(it) },
           batchDeleteBackupAttachmentMedia = { viewModel.deleteArchivedMedia(it) },
-          restoreArchivedMedia = { viewModel.restoreArchivedMedia(it) }
+          restoreArchivedMedia = { viewModel.restoreArchivedMedia(it, asThumbnail = false) },
+          restoreArchivedMediaThumbnail = { viewModel.restoreArchivedMedia(it, asThumbnail = true) }
         )
       }
     )
@@ -260,6 +255,7 @@ fun Tabs(
 fun Screen(
   state: ScreenState,
   onExportClicked: () -> Unit = {},
+  onExportDirectoryClicked: () -> Unit = {},
   onImportMemoryClicked: () -> Unit = {},
   onImportFileClicked: () -> Unit = {},
   onImportDirectoryClicked: () -> Unit = {},
@@ -303,6 +299,13 @@ fun Screen(
       }
 
       Buttons.LargePrimary(
+        onClick = onExportDirectoryClicked,
+        enabled = !state.backupState.inProgress && state.canReadWriteBackupDirectory
+      ) {
+        Text("Export to backup directory")
+      }
+
+      Buttons.LargePrimary(
         onClick = onTriggerBackupJobClicked,
         enabled = !state.backupState.inProgress
       ) {
@@ -323,9 +326,10 @@ fun Screen(
         Text("Import from file")
       }
       Buttons.LargeTonal(
-        onClick = onImportDirectoryClicked
+        onClick = onImportDirectoryClicked,
+        enabled = state.canReadWriteBackupDirectory
       ) {
-        Text("Import from directory")
+        Text("Import from backup directory")
       }
 
       Buttons.LargeTonal(
@@ -447,7 +451,8 @@ fun MediaList(
   deleteArchivedMedia: (InternalBackupPlaygroundViewModel.BackupAttachment) -> Unit,
   batchArchiveAttachmentMedia: (Set<AttachmentId>) -> Unit,
   batchDeleteBackupAttachmentMedia: (Set<AttachmentId>) -> Unit,
-  restoreArchivedMedia: (InternalBackupPlaygroundViewModel.BackupAttachment) -> Unit
+  restoreArchivedMedia: (InternalBackupPlaygroundViewModel.BackupAttachment) -> Unit,
+  restoreArchivedMediaThumbnail: (InternalBackupPlaygroundViewModel.BackupAttachment) -> Unit
 ) {
   if (!enabled) {
     Text(
@@ -547,6 +552,14 @@ fun MediaList(
                   onClick = {
                     selectionState = selectionState.copy(expandedOption = null)
                     restoreArchivedMedia(attachment)
+                  }
+                )
+
+                DropdownMenuItem(
+                  text = { Text("Pseudo Restore Thumbnail") },
+                  onClick = {
+                    selectionState = selectionState.copy(expandedOption = null)
+                    restoreArchivedMediaThumbnail(attachment)
                   }
                 )
 

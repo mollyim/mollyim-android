@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.JobTracker;
 import org.thoughtcrime.securesms.jobs.MessageFetchJob;
 import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
+import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 
 import java.util.Locale;
@@ -43,7 +44,7 @@ public final class RoutineMessageFetchReceiver extends ExportedBroadcastReceiver
       startOrUpdateAlarm(context);
     } else if (BROADCAST_ACTION.equals(intent.getAction())) {
 
-      if (AppDependencies.getAppForegroundObserver().isForegrounded()) {
+      if (AppForegroundObserver.isForegrounded()) {
         Log.i(TAG, "App is foregrounded");
         return;
       }

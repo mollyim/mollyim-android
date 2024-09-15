@@ -193,6 +193,7 @@ import org.thoughtcrime.securesms.conversation.v2.groups.ConversationGroupViewMo
 import org.thoughtcrime.securesms.conversation.v2.items.ChatColorsDrawable
 import org.thoughtcrime.securesms.conversation.v2.items.InteractiveConversationElement
 import org.thoughtcrime.securesms.conversation.v2.keyboard.AttachmentKeyboardFragment
+import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.DraftTable
 import org.thoughtcrime.securesms.database.model.IdentityRecord
 import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord
@@ -1060,8 +1061,14 @@ class ConversationFragment :
       this::handleReplyToMessage
     ).attachToRecyclerView(binding.conversationItemRecycler)
 
-    draftViewModel.loadShareOrDraftData(shareDataTimestampViewModel.timestamp)
-      .subscribeBy { data -> handleShareOrDraftData(data) }
+    viewModel
+      .inputReadyState
+      .take(1)
+      .flatMapMaybe { inputReadyState ->
+        draftViewModel.loadShareOrDraftData(shareDataTimestampViewModel.timestamp)
+          .map { inputReadyState to it }
+      }
+      .subscribeBy { (inputReadyState, data) -> handleShareOrDraftData(inputReadyState, data) }
       .addTo(disposables)
 
     disposables.add(
@@ -1254,7 +1261,7 @@ class ConversationFragment :
         videoGif,
         Optional.empty(),
         Optional.empty(),
-        Optional.empty(),
+        Optional.of(AttachmentTable.TransformProperties.forSentMediaQuality(SignalStore.settings.sentMediaQuality.code)),
         Optional.empty()
       )
       conversationActivityResultContracts.launchMediaEditor(listOf(media), recipientId, composeText.textTrimmed)
@@ -1507,8 +1514,17 @@ class ConversationFragment :
     }
   }
 
-  private fun handleShareOrDraftData(data: ShareOrDraftData) {
+  private fun handleShareOrDraftData(inputReadyState: InputReadyState, data: ShareOrDraftData) {
     shareDataTimestampViewModel.timestamp = args.shareDataTimestamp
+
+    if (inputReadyState.isAnnouncementGroup == true && inputReadyState.isAdmin == false) {
+      Toast.makeText(requireContext(), R.string.MultiselectForwardFragment__only_admins_can_send_messages_to_this_group, Toast.LENGTH_SHORT).show()
+      draftViewModel.clearDraft()
+      return
+    } else if (inputReadyState.shouldClearDraft()) {
+      draftViewModel.clearDraft()
+      return
+    }
 
     when (data) {
       is ShareOrDraftData.SendKeyboardImage -> sendMessageWithoutComposeInput(slide = data.slide, clearCompose = false)
@@ -1936,7 +1952,7 @@ class ConversationFragment :
 
     updateLinkPreviewState()
 
-    draftViewModel.onSendComplete()
+    draftViewModel.clearDraft()
 
     inputPanel.exitEditMessageMode()
 
