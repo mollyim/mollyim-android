@@ -155,8 +155,9 @@ public class BackupUtil {
     List<BackupInfo> backups = new ArrayList<>(files.length);
 
     for (DocumentFile file : files) {
-      if (file.isFile() && file.getName() != null && file.getName().endsWith(".backup")) {
-        long backupTimestamp = getBackupTimestamp(file.getName());
+      String backupName = file.getName();
+      if (file.isFile() && hasBackupExtension(backupName)) {
+        long backupTimestamp = getBackupTimestamp(backupName);
 
         if (backupTimestamp != -1) {
           backups.add(new BackupInfo(backupTimestamp, file.length(), file.getUri()));
@@ -167,6 +168,10 @@ public class BackupUtil {
     Collections.sort(backups, (a, b) -> Long.compare(b.timestamp, a.timestamp));
 
     return backups;
+  }
+
+  private static boolean hasBackupExtension(String fileName) {
+    return fileName != null && fileName.endsWith(".backup");
   }
 
   public static @Nullable BackupInfo getBackupInfoFromSingleUri(@NonNull Context context, @NonNull Uri singleUri) throws BackupFileException {
@@ -180,7 +185,7 @@ public class BackupUtil {
     BackupFileState backupFileState = getBackupFileState(documentFile);
 
     if (backupFileState.isSuccess()) {
-      long backupTimestamp = getBackupTimestamp(Objects.requireNonNull(documentFile.getName()));
+      long backupTimestamp = getBackupTimestamp(documentFile.getName());
       return new BackupInfo(backupTimestamp, documentFile.length(), documentFile.getUri());
     } else {
       Log.w(TAG, "Could not load backup info.");
@@ -242,8 +247,9 @@ public class BackupUtil {
     }
   }
 
-  private static long getBackupTimestamp(@NonNull String backupName) {
-    if (backupName.startsWith(BuildConfig.BACKUP_FILENAME) &&
+  private static long getBackupTimestamp(@Nullable String backupName) {
+    if (backupName != null &&
+        backupName.startsWith(BuildConfig.BACKUP_FILENAME) &&
         backupName.endsWith(".backup")) {
       String ts = backupName.substring(BuildConfig.BACKUP_FILENAME.length(),
                                        backupName.length() - ".backup".length());
@@ -275,7 +281,7 @@ public class BackupUtil {
       return BackupFileState.NOT_FOUND;
     } else if (!documentFile.canRead()) {
       return BackupFileState.NOT_READABLE;
-    } else if (Util.isEmpty(documentFile.getName()) || !documentFile.getName().endsWith(".backup")) {
+    } else if (!hasBackupExtension(documentFile.getName())) {
       return BackupFileState.UNSUPPORTED_FILE_EXTENSION;
     } else {
       return BackupFileState.READABLE;
