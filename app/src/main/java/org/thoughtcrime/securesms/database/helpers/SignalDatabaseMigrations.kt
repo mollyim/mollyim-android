@@ -2,10 +2,11 @@ package org.thoughtcrime.securesms.database.helpers
 
 import android.app.Application
 import android.content.Context
+import android.database.sqlite.SQLiteException
 import net.zetetic.database.sqlcipher.SQLiteDatabase
 import org.signal.core.util.areForeignKeyConstraintsEnabled
 import org.signal.core.util.logging.Log
-import org.signal.core.util.withinTransaction
+import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.helpers.migration.SignalDatabaseMigration
 import org.thoughtcrime.securesms.database.helpers.migration.V149_LegacyMigrations
 import org.thoughtcrime.securesms.database.helpers.migration.V150_UrgentMslFlagMigration
@@ -97,6 +98,14 @@ import org.thoughtcrime.securesms.database.helpers.migration.V236_FixInAppSubscr
 import org.thoughtcrime.securesms.database.helpers.migration.V237_ResetGroupForceUpdateTimestamps
 import org.thoughtcrime.securesms.database.helpers.migration.V238_AddGroupSendEndorsementsColumns
 import org.thoughtcrime.securesms.database.helpers.migration.V239_MessageFullTextSearchEmojiSupport
+import org.thoughtcrime.securesms.database.helpers.migration.V240_MessageFullTextSearchSecureDelete
+import org.thoughtcrime.securesms.database.helpers.migration.V241_ExpireTimerVersion
+import org.thoughtcrime.securesms.database.helpers.migration.V242_MessageFullTextSearchEmojiSupportV2
+import org.thoughtcrime.securesms.database.helpers.migration.V243_MessageFullTextSearchDisableSecureDelete
+import org.thoughtcrime.securesms.database.helpers.migration.V244_AttachmentRemoteIv
+import org.thoughtcrime.securesms.database.helpers.migration.V245_DeletionTimestampOnCallLinks
+import org.thoughtcrime.securesms.database.helpers.migration.V246_DropThumbnailCdnFromAttachments
+import org.thoughtcrime.securesms.database.helpers.migration.V247_ClearUploadTimestamp
 
 /**
  * Contains all of the database migrations for [SignalDatabase]. Broken into a separate file for cleanliness.
@@ -198,10 +207,18 @@ object SignalDatabaseMigrations {
     237 to V237_ResetGroupForceUpdateTimestamps,
     // MOLLY: Use 238 to fix the incorrect JSON serialization of AttachmentId
     238 to V238_AddGroupSendEndorsementsColumns,
-    239 to V239_MessageFullTextSearchEmojiSupport
+    239 to V239_MessageFullTextSearchEmojiSupport,
+    240 to V240_MessageFullTextSearchSecureDelete,
+    241 to V241_ExpireTimerVersion,
+    242 to V242_MessageFullTextSearchEmojiSupportV2,
+    243 to V243_MessageFullTextSearchDisableSecureDelete,
+    244 to V244_AttachmentRemoteIv,
+    245 to V245_DeletionTimestampOnCallLinks,
+    246 to V246_DropThumbnailCdnFromAttachments,
+    247 to V247_ClearUploadTimestamp
   )
 
-  const val DATABASE_VERSION = 239
+  const val DATABASE_VERSION = 247
 
   @JvmStatic
   fun migrate(context: Application, db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -214,10 +231,28 @@ object SignalDatabaseMigrations {
         Log.i(TAG, "Running migration for version $version: ${migration.javaClass.simpleName}. Foreign keys: ${migration.enableForeignKeys}")
         val startTime = System.currentTimeMillis()
 
+        var ftsException: SQLiteException? = null
+
         db.setForeignKeyConstraintsEnabled(migration.enableForeignKeys)
-        db.withinTransaction {
+        db.beginTransaction()
+        try {
           migration.migrate(context, db, oldVersion, newVersion)
           db.version = version
+          db.setTransactionSuccessful()
+        } catch (e: SQLiteException) {
+          if (e.message?.contains("invalid fts5 file format") == true || e.message?.contains("vtable constructor failed") == true) {
+            ftsException = e
+          } else {
+            throw e
+          }
+        } finally {
+          db.endTransaction()
+        }
+
+        if (ftsException != null) {
+          Log.w(TAG, "Encountered FTS format issue! Attempting to repair.", ftsException)
+          SignalDatabase.messageSearch.fullyResetTables(db)
+          throw ftsException
         }
 
         Log.i(TAG, "Successfully completed migration for version $version in ${System.currentTimeMillis() - startTime} ms")

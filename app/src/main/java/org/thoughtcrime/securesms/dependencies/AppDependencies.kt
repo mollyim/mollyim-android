@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.dependencies
 
 import android.annotation.SuppressLint
 import android.app.Application
-import androidx.annotation.MainThread
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.Subject
@@ -36,7 +35,6 @@ import org.thoughtcrime.securesms.service.PendingRetryReceiptManager
 import org.thoughtcrime.securesms.service.ScheduledMessageManager
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager
-import org.thoughtcrime.securesms.util.AppForegroundObserver
 import org.thoughtcrime.securesms.util.EarlyMessageCache
 import org.thoughtcrime.securesms.util.FrameRateTracker
 import org.thoughtcrime.securesms.video.exo.GiphyMp4Cache
@@ -47,12 +45,16 @@ import org.whispersystems.signalservice.api.SignalServiceDataStore
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver
 import org.whispersystems.signalservice.api.SignalServiceMessageSender
 import org.whispersystems.signalservice.api.SignalWebSocket
+import org.whispersystems.signalservice.api.archive.ArchiveApi
+import org.whispersystems.signalservice.api.attachment.AttachmentApi
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations
+import org.whispersystems.signalservice.api.keys.KeysApi
 import org.whispersystems.signalservice.api.services.CallLinksService
 import org.whispersystems.signalservice.api.services.DonationsService
 import org.whispersystems.signalservice.api.services.ProfileService
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
+import org.whispersystems.signalservice.internal.push.PushServiceSocket
 import java.util.function.Supplier
 
 /**
@@ -69,21 +71,15 @@ object AppDependencies {
   private var _application: Application? = ApplicationContext.getInstance()
   private lateinit var provider: Provider
 
-  // Needs special initialization because it needs to be created on the main thread
-  private lateinit var _appForegroundObserver: AppForegroundObserver
-
   @JvmStatic
-  @MainThread
+  @Synchronized
   fun init(application: Application, provider: Provider) {
     if (isInitialized) {
-      throw IllegalStateException("Already initialized!")
+      return
     }
 
     _application = application
     AppDependencies.provider = provider
-
-    _appForegroundObserver = provider.provideAppForegroundObserver()
-    _appForegroundObserver.begin()
   }
 
   @JvmStatic
@@ -93,10 +89,6 @@ object AppDependencies {
   @JvmStatic
   val application: Application
     get() = _application!!
-
-  @JvmStatic
-  val appForegroundObserver: AppForegroundObserver
-    get() = _appForegroundObserver
 
   @JvmStatic
   val recipientCache: LiveRecipientCache by lazy {
@@ -293,6 +285,18 @@ object AppDependencies {
     get() = networkModule.donationsService
 
   @JvmStatic
+  val archiveApi: ArchiveApi
+    get() = networkModule.archiveApi
+
+  @JvmStatic
+  val keysApi: KeysApi
+    get() = networkModule.keysApi
+
+  @JvmStatic
+  val attachmentApi: AttachmentApi
+    get() = networkModule.attachmentApi
+
+  @JvmStatic
   val okHttpClient: OkHttpClient
     get() = networkModule.okHttpClient
 
@@ -315,10 +319,11 @@ object AppDependencies {
   }
 
   interface Provider {
+    fun providePushServiceSocket(signalServiceConfiguration: SignalServiceConfiguration, groupsV2Operations: GroupsV2Operations): PushServiceSocket
     fun provideGroupsV2Operations(signalServiceConfiguration: SignalServiceConfiguration): GroupsV2Operations
-    fun provideSignalServiceAccountManager(signalServiceConfiguration: SignalServiceConfiguration, groupsV2Operations: GroupsV2Operations): SignalServiceAccountManager
-    fun provideSignalServiceMessageSender(signalWebSocket: SignalWebSocket, protocolStore: SignalServiceDataStore, signalServiceConfiguration: SignalServiceConfiguration): SignalServiceMessageSender
-    fun provideSignalServiceMessageReceiver(signalServiceConfiguration: SignalServiceConfiguration): SignalServiceMessageReceiver
+    fun provideSignalServiceAccountManager(pushServiceSocket: PushServiceSocket, groupsV2Operations: GroupsV2Operations): SignalServiceAccountManager
+    fun provideSignalServiceMessageSender(signalWebSocket: SignalWebSocket, protocolStore: SignalServiceDataStore, pushServiceSocket: PushServiceSocket): SignalServiceMessageSender
+    fun provideSignalServiceMessageReceiver(pushServiceSocket: PushServiceSocket): SignalServiceMessageReceiver
     fun provideSignalServiceNetworkAccess(): SignalServiceNetworkAccess
     fun provideRecipientCache(): LiveRecipientCache
     fun provideJobManager(): JobManager
@@ -336,7 +341,6 @@ object AppDependencies {
     fun provideTypingStatusSender(): TypingStatusSender
     fun provideDatabaseObserver(): DatabaseObserver
     fun providePayments(signalServiceAccountManager: SignalServiceAccountManager): Payments
-    fun provideAppForegroundObserver(): AppForegroundObserver
     fun provideSignalCallManager(): SignalCallManager
     fun providePendingRetryReceiptManager(): PendingRetryReceiptManager
     fun providePendingRetryReceiptCache(): PendingRetryReceiptCache
@@ -345,8 +349,8 @@ object AppDependencies {
     fun provideGiphyMp4Cache(): GiphyMp4Cache
     fun provideExoPlayerPool(): SimpleExoPlayerPool
     fun provideAndroidCallAudioManager(): AudioManagerCompat
-    fun provideDonationsService(signalServiceConfiguration: SignalServiceConfiguration, groupsV2Operations: GroupsV2Operations): DonationsService
-    fun provideCallLinksService(signalServiceConfiguration: SignalServiceConfiguration, groupsV2Operations: GroupsV2Operations): CallLinksService
+    fun provideDonationsService(pushServiceSocket: PushServiceSocket): DonationsService
+    fun provideCallLinksService(pushServiceSocket: PushServiceSocket): CallLinksService
     fun provideProfileService(profileOperations: ClientZkProfileOperations, signalServiceMessageReceiver: SignalServiceMessageReceiver, signalWebSocket: SignalWebSocket): ProfileService
     fun provideDeadlockDetector(): DeadlockDetector
     fun provideClientZkReceiptOperations(signalServiceConfiguration: SignalServiceConfiguration): ClientZkReceiptOperations
@@ -354,5 +358,8 @@ object AppDependencies {
     fun provideNetworkManager(): NetworkManager
     fun provideLibsignalNetwork(config: SignalServiceConfiguration): Network
     fun provideBillingApi(): BillingApi
+    fun provideArchiveApi(pushServiceSocket: PushServiceSocket): ArchiveApi
+    fun provideKeysApi(pushServiceSocket: PushServiceSocket): KeysApi
+    fun provideAttachmentApi(signalWebSocket: SignalWebSocket, pushServiceSocket: PushServiceSocket): AttachmentApi
   }
 }

@@ -133,6 +133,13 @@ class LinkDeviceFragment : ComposeFragment() {
       }
     }
 
+    LaunchedEffect(state.seenEducationSheet) {
+      if (state.seenEducationSheet) {
+        biometricAuth.authenticate(requireContext(), true) { biometricDeviceLockLauncher.launch(getString(R.string.LinkDeviceFragment__unlock_to_link)) }
+        viewModel.markEducationSheetSeen(false)
+      }
+    }
+
     Scaffolds.Settings(
       title = stringResource(id = R.string.preferences__linked_devices),
       onNavigationClick = { navController.popOrFinish() },
@@ -145,8 +152,8 @@ class LinkDeviceFragment : ComposeFragment() {
         modifier = Modifier.padding(contentPadding),
         onLearnMore = { navController.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceLearnMoreBottomSheet) },
         onLinkDevice = {
-          if (biometricAuth.canAuthenticate()) {
-            biometricAuth.authenticate(requireContext(), true) { biometricDeviceLockLauncher.launch(getString(R.string.LinkDeviceFragment__unlock_to_link)) }
+          if (biometricAuth.canAuthenticate(requireContext())) {
+            navController.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceEducationSheet)
           } else {
             navController.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
           }

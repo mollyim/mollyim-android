@@ -483,7 +483,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   @Override
   public void onStart() {
     super.onStart();
-    AppDependencies.getAppForegroundObserver().addListener(appForegroundObserver);
+    AppForegroundObserver.addListener(appForegroundObserver);
     itemAnimator.disable();
   }
 
@@ -500,7 +500,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   @Override
   public void onStop() {
     super.onStop();
-    AppDependencies.getAppForegroundObserver().removeListener(appForegroundObserver);
+    AppForegroundObserver.removeListener(appForegroundObserver);
   }
 
   @Override

@@ -11,7 +11,6 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.push.AccountManagerFactory
-import org.thoughtcrime.securesms.registration.RegistrationRepository
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository.AccountRegistrationResult
 import org.thoughtcrime.securesms.registration.data.network.DeviceUuidRequestResult
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult

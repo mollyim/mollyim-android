@@ -12,12 +12,8 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig.ShowCondition
-import org.thoughtcrime.securesms.util.ConnectivityWarning
-import org.thoughtcrime.securesms.util.NetworkUtil
 import java.util.concurrent.TimeUnit
-import kotlin.time.Duration.Companion.days
 
 /**
  * View model for checking for various app vitals, like slow notifications and crashes.
@@ -32,7 +28,7 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
     vitalsState = checkSubject
       .subscribeOn(Schedulers.io())
       .observeOn(Schedulers.io())
-      .throttleFirst(1, TimeUnit.MINUTES)
+      .throttleLast(15, TimeUnit.MINUTES)
       .switchMapSingle {
         checkHeuristics()
       }
@@ -64,13 +60,6 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
         return@fromCallable State.PROMPT_GENERAL_BATTERY_SAVER_DIALOG
       }
 
-      val timeSinceLastConnection = System.currentTimeMillis() - SignalStore.misc.lastWebSocketConnectTime
-      val timeSinceLastConnectionWarning = System.currentTimeMillis() - SignalStore.misc.lastConnectivityWarningTime
-
-      if (ConnectivityWarning.isEnabled && timeSinceLastConnection > ConnectivityWarning.threshold && timeSinceLastConnectionWarning > 14.days.inWholeMilliseconds && NetworkUtil.isConnected(context)) {
-        return@fromCallable State.PROMPT_CONNECTIVITY_WARNING
-      }
-
       return@fromCallable State.NONE
     }.subscribeOn(Schedulers.io())
   }
@@ -79,6 +68,5 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
     NONE,
     PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG,
     PROMPT_GENERAL_BATTERY_SAVER_DIALOG,
-    PROMPT_CONNECTIVITY_WARNING,
   }
 }

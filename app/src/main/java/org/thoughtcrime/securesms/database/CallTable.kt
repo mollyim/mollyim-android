@@ -619,7 +619,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     timestamp: Long,
     eraId: String
   ): Boolean {
-    return handleCallLinkUpdate(callRecipient, timestamp, CallId.fromEra(eraId), Direction.INCOMING)
+    return handleCallLinkUpdate(callRecipient, timestamp, CallId.fromEra(eraId), Direction.INCOMING, skipTimestampUpdate = true)
   }
 
   fun insertOrUpdateGroupCallFromLocalEvent(
@@ -724,10 +724,16 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         .run()
 
       if (exists && !skipTimestampUpdate) {
-        db.update(TABLE_NAME)
+        val updated = db.update(TABLE_NAME)
           .values(TIMESTAMP to timestamp)
           .where("$PEER = ? AND $CALL_ID = ? AND $TIMESTAMP < ?", callLinkRecipient.id.serialize(), callId.longValue(), timestamp)
-          .run()
+          .run() > 0
+
+        if (updated) {
+          Log.d(TAG, "Updated call event for call link. Call Id: $callId")
+          AppDependencies.databaseObserver.notifyCallUpdateObservers()
+        }
+
         false
       } else if (!exists) {
         db.insertInto(TABLE_NAME)
@@ -743,11 +749,12 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
           ).run(SQLiteDatabase.CONFLICT_ABORT)
 
         Log.d(TAG, "Inserted new call event for call link. Call Id: $callId")
+        AppDependencies.databaseObserver.notifyCallUpdateObservers()
+
         true
       } else false
     }
 
-    AppDependencies.databaseObserver.notifyCallUpdateObservers()
     return didInsert
   }
 
@@ -811,7 +818,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     peekJoinedUuids: Collection<UUID>,
     isCallFull: Boolean,
     expiresIn: Long,
-  ): Boolean {
+  ) {
     val callId = peekGroupCallEraId?.let { CallId.fromEra(it) }
     val recipientId = SignalDatabase.threads.getRecipientIdForThreadId(threadId)
     val call = if (callId != null && recipientId != null) {
@@ -820,7 +827,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
       null
     }
 
-    val sameEraId = SignalDatabase.messages.updatePreviousGroupCall(
+    SignalDatabase.messages.updatePreviousGroupCall(
       threadId = threadId,
       peekGroupCallEraId = peekGroupCallEraId,
       peekJoinedUuids = peekJoinedUuids,
@@ -831,10 +838,8 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
 
     if (call != null) {
       updateGroupCallState(call, peekJoinedUuids)
+      AppDependencies.databaseObserver.notifyCallUpdateObservers()
     }
-
-    AppDependencies.databaseObserver.notifyCallUpdateObservers()
-    return sameEraId
   }
 
   fun insertOrUpdateGroupCallFromRingState(
@@ -865,33 +870,43 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     return call.event != Event.RINGING && call.event != Event.GENERIC_GROUP_CALL
   }
 
+  /**
+   * @return whether or not a change is detected.
+   */
   private fun updateGroupCallState(
     call: Call,
     peekJoinedUuids: Collection<UUID>
-  ) {
-    updateGroupCallState(
+  ): Boolean {
+    return updateGroupCallState(
       call,
       peekJoinedUuids.contains(Recipient.self().requireServiceId().rawUuid),
       peekJoinedUuids.isNotEmpty()
     )
   }
 
+  /**
+   * @return Whether or not a change was detected
+   */
   private fun updateGroupCallState(
     call: Call,
     hasLocalUserJoined: Boolean,
     isGroupCallActive: Boolean
-  ) {
-    writableDatabase.update(TABLE_NAME)
+  ): Boolean {
+    val localJoined = call.didLocalUserJoin || hasLocalUserJoined
+
+    return writableDatabase.update(TABLE_NAME)
       .values(
-        LOCAL_JOINED to (call.didLocalUserJoin || hasLocalUserJoined),
+        LOCAL_JOINED to localJoined,
         GROUP_CALL_ACTIVE to isGroupCallActive
       )
       .where(
-        "$CALL_ID = ? AND $PEER = ?",
+        "$CALL_ID = ? AND $PEER = ? AND ($LOCAL_JOINED != ? OR $GROUP_CALL_ACTIVE != ?)",
         call.callId,
-        call.peer.toLong()
+        call.peer.toLong(),
+        localJoined.toInt(),
+        isGroupCallActive.toInt()
       )
-      .run()
+      .run() > 0
   }
 
   private fun handleGroupRingState(
@@ -1264,7 +1279,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     }
 
     val projection = if (isCount) {
-      "COUNT(*),"
+      "COUNT(*) OVER() as count,"
     } else {
       "p.$ID, p.$TIMESTAMP, $EVENT, $DIRECTION, $PEER, p.$TYPE, $CALL_ID, $MESSAGE_ID, $RINGER, $LOCAL_JOINED, $GROUP_CALL_ACTIVE, children, in_period, ${MessageTable.BODY},"
     }
@@ -1370,6 +1385,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
       LEFT JOIN ${MessageTable.TABLE_NAME} ON ${MessageTable.TABLE_NAME}.${MessageTable.ID} = $MESSAGE_ID
       LEFT JOIN ${GroupTable.TABLE_NAME} ON ${GroupTable.TABLE_NAME}.${GroupTable.RECIPIENT_ID} = ${RecipientTable.TABLE_NAME}.${RecipientTable.ID}
       WHERE true_parent = p.$ID ${if (queryClause.where.isNotEmpty()) "AND ${queryClause.where}" else ""}
+      GROUP BY CASE WHEN p.type = 4 THEN p.peer ELSE p._id END
       ORDER BY p.$TIMESTAMP DESC
       $offsetLimit
     """
@@ -1411,8 +1427,11 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
 
   fun getCallsCount(searchTerm: String?, filter: CallLogFilter): Int {
     return getCallsCursor(true, 0, 0, searchTerm, filter).use {
-      it.moveToFirst()
-      it.getInt(0)
+      if (it.moveToFirst()) {
+        it.getInt(0)
+      } else {
+        0
+      }
     }
   }
 

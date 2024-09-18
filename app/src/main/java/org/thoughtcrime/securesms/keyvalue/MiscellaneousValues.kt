@@ -37,8 +37,6 @@ class MiscellaneousValues internal constructor(store: KeyValueStore) : SignalSto
     private const val LEAST_ACTIVE_LINKED_DEVICE = "misc.linked_device.least_active"
     private const val NEXT_DATABASE_ANALYSIS_TIME = "misc.next_database_analysis_time"
     private const val LAST_NETWORK_RESET_TIME = "misc.last_network_reset_time"
-    private const val LAST_WEBSOCKET_CONNECT_TIME = "misc.last_websocket_connect_time"
-    private const val LAST_CONNECTIVITY_WARNING_TIME = "misc.last_connectivity_warning_time"
   }
 
   public override fun onFirstEverAppLaunch() {
@@ -248,14 +246,4 @@ class MiscellaneousValues internal constructor(store: KeyValueStore) : SignalSto
   var nextDatabaseAnalysisTime: Long by longValue(NEXT_DATABASE_ANALYSIS_TIME, 0)
 
   var lastNetworkResetDueToStreamResets: Long by longValue(LAST_NETWORK_RESET_TIME, 0L)
-
-  /**
-   * The last time you successfully connected to the websocket.
-   */
-  var lastWebSocketConnectTime: Long by longValue(LAST_WEBSOCKET_CONNECT_TIME, System.currentTimeMillis())
-
-  /**
-   * The last time we prompted the user regarding a [org.thoughtcrime.securesms.util.ConnectivityWarning].
-   */
-  var lastConnectivityWarningTime: Long by longValue(LAST_CONNECTIVITY_WARNING_TIME, 0)
 }

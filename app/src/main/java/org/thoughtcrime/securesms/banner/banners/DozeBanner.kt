@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.banner.banners
 
 import android.content.Context
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.flow.Flow
@@ -26,20 +27,21 @@ class DozeBanner(private val context: Context, val dismissed: Boolean, private v
     !SignalStore.account.pushAvailable && !TextSecurePreferences.hasPromptedOptimizeDoze(context) && !ServiceUtil.getPowerManager(context).isIgnoringBatteryOptimizations(context.packageName)
 
   @Composable
-  override fun DisplayBanner() {
+  override fun DisplayBanner(contentPadding: PaddingValues) {
     DefaultBanner(
       title = stringResource(id = dozeTitle),
       body = stringResource(id = dozeBody),
+      onDismissListener = {
+        TextSecurePreferences.setPromptedOptimizeDoze(context, true)
+        onDismiss()
+      },
       actions = listOf(
         Action(android.R.string.ok) {
           TextSecurePreferences.setPromptedOptimizeDoze(context, true)
           PowerManagerCompat.requestIgnoreBatteryOptimizations(context)
         }
       ),
-      onDismissListener = {
-        TextSecurePreferences.setPromptedOptimizeDoze(context, true)
-        onDismiss()
-      }
+      paddingValues = contentPadding
     )
   }
 

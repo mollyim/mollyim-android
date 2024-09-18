@@ -100,6 +100,7 @@ class CreateCallLinkBottomSheetDialogFragment : ComposeBottomSheetDialogFragment
 
       SignalCallRow(
         callLink = callLink,
+        callLinkPeekInfo = null,
         onJoinClicked = this@CreateCallLinkBottomSheetDialogFragment::onJoinClicked
       )
 
@@ -118,7 +119,7 @@ class CreateCallLinkBottomSheetDialogFragment : ComposeBottomSheetDialogFragment
 
       Rows.ToggleRow(
         checked = callLink.state.restrictions == CallLinkState.Restrictions.ADMIN_APPROVAL,
-        text = stringResource(id = R.string.CreateCallLinkBottomSheetDialogFragment__approve_all_members),
+        text = stringResource(id = R.string.CreateCallLinkBottomSheetDialogFragment__require_admin_approval),
         onCheckChanged = this@CreateCallLinkBottomSheetDialogFragment::setApproveAllMembers,
         modifier = Modifier.clickable(onClick = this@CreateCallLinkBottomSheetDialogFragment::toggleApproveAllMembers)
       )

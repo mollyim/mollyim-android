@@ -65,7 +65,6 @@ public class VoiceNotePlaybackService extends MediaSessionService {
 
   private MediaSession                         mediaSession;
   private VoiceNotePlayer                      player;
-  private VoiceNotePlayerEventListener         playerEventListener;
   private KeyClearedReceiver                   keyClearedReceiver;
   private VoiceNotePlayerCallback              voiceNotePlayerCallback;
 
@@ -75,44 +74,58 @@ public class VoiceNotePlaybackService extends MediaSessionService {
   public void onCreate() {
     super.onCreate();
     player = new VoiceNotePlayer(this);
-    playerEventListener = new VoiceNotePlayerEventListener();
-    player.addListener(playerEventListener);
+    player.addListener(new VoiceNotePlayerEventListener());
 
     voiceNotePlayerCallback = new VoiceNotePlayerCallback(this, player);
-    mediaSession            = buildMediaSession(false);
 
-    if (mediaSession == null) {
+    final MediaSession session = buildMediaSession(false);
+    if (session == null) {
       Log.e(TAG, "Unable to create media session at all, stopping service to avoid crash.");
       stopSelf();
       return;
+    } else {
+      mediaSession = session;
     }
 
-    keyClearedReceiver = new KeyClearedReceiver(this, mediaSession.getToken());
+    keyClearedReceiver = new KeyClearedReceiver(this, session.getToken());
 
     setMediaNotificationProvider(new VoiceNoteMediaNotificationProvider(this));
     setListener(new MediaSessionServiceListener());
-    AppDependencies.getDatabaseObserver().registerAttachmentObserver(attachmentDeletionObserver);
+    AppDependencies.getDatabaseObserver().registerAttachmentDeletedObserver(attachmentDeletionObserver);
   }
 
   @Override
   public void onTaskRemoved(Intent rootIntent) {
     super.onTaskRemoved(rootIntent);
 
-    mediaSession.getPlayer().stop();
-    mediaSession.getPlayer().clearMediaItems();
+    final MediaSession session = mediaSession;
+    if (session != null) {
+      session.getPlayer().stop();
+      session.getPlayer().clearMediaItems();
+    }
   }
 
   @Override
   public void onDestroy() {
-    player.removeListener(playerEventListener);
-    if (mediaSession != null) {
-      AppDependencies.getDatabaseObserver().unregisterObserver(attachmentDeletionObserver);
-      keyClearedReceiver.unregister();
-      player.release();
-      mediaSession.release();
-      mediaSession = null;
-      clearListener();
+    AppDependencies.getDatabaseObserver().unregisterObserver(attachmentDeletionObserver);
+
+    final VoiceNotePlayer voiceNotePlayer = player;
+    if (voiceNotePlayer != null) {
+      voiceNotePlayer.release();
     }
+
+    MediaSession session = mediaSession;
+    if (session != null) {
+      session.release();
+      mediaSession = null;
+    }
+
+    KeyClearedReceiver receiver = keyClearedReceiver;
+    if (receiver != null) {
+      receiver.unregister();
+    }
+
+    clearListener();
     super.onDestroy();
   }
 
@@ -251,11 +264,6 @@ public class VoiceNotePlaybackService extends MediaSessionService {
    * @return the built MediaSession, or null if the session cannot be built.
    */
   private @Nullable MediaSession buildMediaSession(boolean isRetry) {
-    if (KeyCachingService.isLocked()) {
-      Log.i(TAG, "Refuse to create media session when app is locked.");
-      return null;
-    }
-
     try {
       return new MediaSession.Builder(this, player).setCallback(voiceNotePlayerCallback).setId(SESSION_ID).build();
     } catch (IllegalStateException | IllegalArgumentException e) {

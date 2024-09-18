@@ -1,8 +1,10 @@
 package org.thoughtcrime.securesms.database
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
 import android.database.Cursor
+import android.database.sqlite.SQLiteException
 import android.text.TextUtils
 import net.zetetic.database.sqlcipher.SQLiteDatabase
 import org.intellij.lang.annotations.Language
@@ -10,6 +12,8 @@ import org.signal.core.util.SqlUtil
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.withinTransaction
+import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider
 import org.thoughtcrime.securesms.jobs.RebuildMessageSearchIndexJob
 
 /**
@@ -141,28 +145,43 @@ class SearchTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
    *
    * Warning: This is a potentially extremely-costly operation! It can take 10+ seconds on large installs and/or slow devices.
    * Be smart about where you call this.
+   *
+   * @return True if the rebuild was successful, otherwise false.
    */
-  fun rebuildIndex(batchSize: Long = 10_000L) {
-    val maxId: Long = SignalDatabase.messages.getNextId()
+  fun rebuildIndex(batchSize: Long = 10_000L): Boolean {
+    try {
+      val maxId: Long = SignalDatabase.messages.getNextId()
 
-    Log.i(TAG, "Re-indexing. Operating on ID's 1-$maxId in steps of $batchSize.")
+      Log.i(TAG, "Re-indexing. Operating on ID's 1-$maxId in steps of $batchSize.")
 
-    for (i in 1..maxId step batchSize) {
-      Log.i(TAG, "Reindexing ID's [$i, ${i + batchSize})")
-      writableDatabase.execSQL(
-        """
-        INSERT INTO $FTS_TABLE_NAME ($ID, $BODY) 
-            SELECT 
-              ${MessageTable.ID}, 
-              ${MessageTable.BODY}
-            FROM 
-              ${MessageTable.TABLE_NAME} 
-            WHERE 
-              ${MessageTable.ID} >= $i AND
-              ${MessageTable.ID} < ${i + batchSize}
-        """
-      )
+      for (i in 1..maxId step batchSize) {
+        Log.i(TAG, "Reindexing ID's [$i, ${i + batchSize})")
+
+        writableDatabase.withinTransaction { db ->
+          db.execSQL(
+            """
+            INSERT INTO $FTS_TABLE_NAME ($ID, $BODY)
+                SELECT
+                  ${MessageTable.ID},
+                  ${MessageTable.BODY}
+                FROM
+                  ${MessageTable.TABLE_NAME}
+                WHERE
+                  ${MessageTable.ID} >= $i AND
+                  ${MessageTable.ID} < ${i + batchSize}
+            """
+          )
+        }
+      }
+    } catch (e: SQLiteException) {
+      Log.w(TAG, "Failed to rebuild index!", e)
+      return false
+    } catch (e: IllegalStateException) {
+      Log.w(TAG, "Failed to rebuild index!", e)
+      return false
     }
+
+    return true
   }
 
   /**
@@ -243,11 +262,25 @@ class SearchTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
 
     try {
       Log.w(TAG, "[fullyResetTables] Dropping tables and triggers...")
-      db.execSQL("DROP TABLE IF EXISTS $FTS_TABLE_NAME")
-      db.execSQL("DROP TABLE IF EXISTS ${FTS_TABLE_NAME}_config")
-      db.execSQL("DROP TABLE IF EXISTS ${FTS_TABLE_NAME}_content")
-      db.execSQL("DROP TABLE IF EXISTS ${FTS_TABLE_NAME}_data")
-      db.execSQL("DROP TABLE IF EXISTS ${FTS_TABLE_NAME}_idx")
+
+      try {
+        db.execSQL("DROP TABLE IF EXISTS $FTS_TABLE_NAME")
+      } catch (e: SQLiteException) {
+        Log.w(TAG, "Failed to drop $FTS_TABLE_NAME! Attempting to do so a safer way.", e)
+
+        // Due to issues we've had in the past, the delete sequence here is very particular. It mimics the "safe drop" process in the SQLite source code
+        // that prevents weird vtable constructor issues when dropping potentially-corrupt tables. https://sqlite.org/src/info/4db9258a78?ln=1549-1592
+        db.withinTransaction {
+          if (SqlUtil.tableExists(db, FTS_TABLE_NAME)) {
+            db.execSQL("DELETE FROM ${FTS_TABLE_NAME}_data")
+            db.execSQL("DELETE FROM ${FTS_TABLE_NAME}_config")
+            db.execSQL("INSERT INTO ${FTS_TABLE_NAME}_data VALUES(10, X'0000000000')")
+            db.execSQL("INSERT INTO ${FTS_TABLE_NAME}_config VALUES('version', 4)")
+            db.execSQL("DROP TABLE $FTS_TABLE_NAME")
+          }
+        }
+      }
+
       db.execSQL("DROP TRIGGER IF EXISTS $TRIGGER_AFTER_INSERT")
       db.execSQL("DROP TRIGGER IF EXISTS $TRIGGER_AFTER_DELETE")
       db.execSQL("DROP TRIGGER IF EXISTS $TRIGGER_AFTER_UPDATE")
@@ -258,15 +291,20 @@ class SearchTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
       Log.w(TAG, "[fullyResetTables] Recreating triggers...")
       CREATE_TRIGGERS.forEach { db.execSQL(it) }
 
+      // There are specific error recovery paths where this is run inside of database initialization, before the job manager is initialized
+      if (!AppDependencies.isInitialized) {
+        AppDependencies.init(context as Application, ApplicationDependencyProvider(context))
+      }
+
       RebuildMessageSearchIndexJob.enqueue()
 
       Log.w(TAG, "[fullyResetTables] Done. Index will be rebuilt asynchronously)")
 
-      if (useTransaction) {
+      if (useTransaction && db.inTransaction()) {
         db.setTransactionSuccessful()
       }
     } finally {
-      if (useTransaction) {
+      if (useTransaction && db.inTransaction()) {
         db.endTransaction()
       }
     }

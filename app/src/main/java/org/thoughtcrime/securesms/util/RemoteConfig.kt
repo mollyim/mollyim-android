@@ -516,15 +516,6 @@ object RemoteConfig {
     defaultValue = null
   )
 
-  /** Whether to use the custom streaming muxer or built in android muxer.  */
-  @JvmStatic
-  @get:JvmName("useStreamingVideoMuxer")
-  val useStreamingVideoMuxer: Boolean by remoteBoolean(
-    key = "android.customVideoMuxer.1",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
   /** The time in between routine CDS refreshes, in seconds.  */
   @JvmStatic
   @get:JvmName("cdsRefreshIntervalSeconds")
@@ -707,6 +698,27 @@ object RemoteConfig {
   /** A comma-separated list of models that should *not* use software AEC for calling.  */
   val softwareAecBlocklistModels: String by remoteString(
     key = "android.calling.softwareAecBlockList",
+    defaultValue = "",
+    hotSwappable = true
+  )
+
+  /** Whether the Oboe ADM should be used or not.  */
+  val oboeDeployment: Boolean by remoteBoolean(
+    key = "android.calling.oboeDeployment",
+    defaultValue = false,
+    hotSwappable = false
+  )
+
+  /** A comma-separated list of models that should use the Java ADM instead of the Oboe ADM.  */
+  val useJavaAdmModels: String by remoteString(
+    key = "android.calling.useJavaAdmList",
+    defaultValue = "",
+    hotSwappable = true
+  )
+
+  /** A comma-separated list of models that should use software AEC for calling with the Oboe ADM.  */
+  val useSoftwareAecForOboeModels: String by remoteString(
+    key = "android.calling.useSoftwareAecForOboe",
     defaultValue = "",
     hotSwappable = true
   )
@@ -1084,9 +1096,17 @@ object RemoteConfig {
   )
 
   @JvmStatic
-  @get:JvmName("useNewCallApi")
+  @get:JvmName("newCallUi")
   val newCallUi: Boolean by remoteBoolean(
     key = "android.newCallUi",
+    defaultValue = false,
+    hotSwappable = false
+  )
+
+  @JvmStatic
+  @get:JvmName("useHevcEncoder")
+  val useHevcEncoder: Boolean by remoteBoolean(
+    key = "android.useHevcEncoder",
     defaultValue = false,
     hotSwappable = false
   )

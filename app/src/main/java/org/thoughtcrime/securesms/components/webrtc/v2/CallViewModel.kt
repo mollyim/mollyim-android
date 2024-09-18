@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.components.webrtc.v2
 
+import android.os.Build
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +19,8 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.webrtc.WebRtcAudioDevice
+import org.thoughtcrime.securesms.components.webrtc.WebRtcAudioOutput
 import org.thoughtcrime.securesms.components.webrtc.WebRtcCallViewModel
 import org.thoughtcrime.securesms.components.webrtc.controls.ControlsAndInfoViewModel
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -26,8 +29,10 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager
 import org.thoughtcrime.securesms.sms.MessageSender
+import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager
 import org.whispersystems.signalservice.api.messages.calls.HangupMessage
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Presentation logic and state holder for information that was generally done
@@ -44,9 +49,17 @@ class CallViewModel(
 
   private var previousEvent: WebRtcViewModel? = null
   private var enableVideoIfAvailable = false
+  private var lastProcessedIntentTimestamp = 0L
+  private var enterPipOnResume = false
 
   private val internalCallScreenState = MutableStateFlow(CallScreenState())
   val callScreenState: StateFlow<CallScreenState> = internalCallScreenState
+
+  fun consumeEnterPipOnResume(): Boolean {
+    val enter = enterPipOnResume
+    enterPipOnResume = false
+    return enter
+  }
 
   fun unregisterEventBus() {
     EventBus.getDefault().unregister(this)
@@ -310,5 +323,55 @@ class CallViewModel(
       WebRtcViewModel.GroupCallState.CONNECTED_AND_JOINING -> CallString.ResourceString(R.string.WebRtcCallView__waiting_to_be_let_in)
       else -> null
     }
+  }
+
+  fun onAudioDeviceSheetDisplayChanged(displayed: Boolean) {
+    internalCallScreenState.update {
+      it.copy(isDisplayingAudioToggleSheet = displayed)
+    }
+  }
+
+  fun onSelectedAudioDeviceChanged(audioDevice: WebRtcAudioDevice) {
+    // TODO [alex]     maybeDisplaySpeakerphonePopup(audioOutput);
+    if (Build.VERSION.SDK_INT >= 31) {
+      AppDependencies.signalCallManager.selectAudioDevice(SignalAudioManager.ChosenAudioDeviceIdentifier(audioDevice.deviceId!!))
+    } else {
+      val managerDevice = when (audioDevice.webRtcAudioOutput) {
+        WebRtcAudioOutput.HANDSET -> SignalAudioManager.AudioDevice.EARPIECE
+        WebRtcAudioOutput.SPEAKER -> SignalAudioManager.AudioDevice.SPEAKER_PHONE
+        WebRtcAudioOutput.BLUETOOTH_HEADSET -> SignalAudioManager.AudioDevice.BLUETOOTH
+        WebRtcAudioOutput.WIRED_HEADSET -> SignalAudioManager.AudioDevice.WIRED_HEADSET
+      }
+
+      AppDependencies.signalCallManager.selectAudioDevice(SignalAudioManager.ChosenAudioDeviceIdentifier(managerDevice))
+    }
+  }
+
+  fun processCallIntent(callIntent: CallIntent) {
+    if (callIntent.action == CallIntent.Action.ANSWER_VIDEO) {
+      enableVideoIfAvailable = true
+    } else if (callIntent.action == CallIntent.Action.ANSWER_AUDIO || callIntent.isStartedFromFullScreen) {
+      enableVideoIfAvailable = false
+    } else {
+      enableVideoIfAvailable = callIntent.shouldEnableVideoIfAvailable
+      callIntent.shouldEnableVideoIfAvailable = false
+    }
+
+    when (callIntent.action) {
+      CallIntent.Action.ANSWER_AUDIO -> startCall(false)
+      CallIntent.Action.ANSWER_VIDEO -> startCall(true)
+      CallIntent.Action.DENY -> deny()
+      CallIntent.Action.END_CALL -> hangup()
+      CallIntent.Action.VIEW -> Unit
+      CallIntent.Action.NO_ACTION -> Unit
+    }
+
+    // Prevents some issues around intent re-use when dealing with picture-in-picture.
+    val now = System.currentTimeMillis()
+    if (now - lastProcessedIntentTimestamp > 1.seconds.inWholeMilliseconds) {
+      enterPipOnResume = callIntent.shouldLaunchInPip
+    }
+
+    lastProcessedIntentTimestamp = now
   }
 }

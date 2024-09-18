@@ -144,7 +144,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Personas bloqueadas</string>
     <string name="BlockedUsersActivity__add_blocked_user">Añadir persona bloqueada</string>
-    <string name="BlockedUsersActivity__blocked_users_will">Las personas bloqueadas no podrán llamarte ni enviarte mensajes.</string>
+    <string name="BlockedUsersActivity__blocked_users_will">Las personas que bloquees no podrán llamarte ni enviarte mensajes.</string>
     <string name="BlockedUsersActivity__no_blocked_users">No hay personas bloqueadas</string>
     <string name="BlockedUsersActivity__block_user">¿Bloquear a esta persona?</string>
     <string name="BlockedUserActivity__s_will_not_be_able_to">%1$s no podrá llamarte ni enviarte mensajes.</string>
@@ -195,15 +195,15 @@
     <!-- BlockUnblockDialog -->
     <string name="BlockUnblockDialog_block_and_leave_s">¿Bloquear y abandonar \"%1$s\"?</string>
     <string name="BlockUnblockDialog_block_s">¿Bloquear a %1$s?</string>
-    <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">No podrás recibir más mensajes ni actualizaciones de este grupo y sus participantes no podrán añadirte de nuevo.</string>
+    <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Ya no recibirás mensajes ni actualizaciones de este grupo y sus participantes no podrán añadirte de nuevo.</string>
     <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Los participantes del grupo no podrán añadirte de nuevo.</string>
     <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Los participantes del grupo podrán añadirte de nuevo.</string>
     <!-- Text that is shown when unblocking a Signal contact -->
     <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Podrás chatear y hablar por teléfono, y tu nombre y foto se compartirán con esta persona.</string>
     <!-- Text that is shown when unblocking an SMS contact -->
     <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">Podrás chatear con esta persona.</string>
-    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Las personas bloqueadas no podrán llamarte o enviarte mensajes.</string>
-    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Las personas bloqueadas no podrán llamarte ni enviarte mensajes.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Las personas que bloquees no podrán llamarte ni enviarte mensajes.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Las personas que bloquees no podrán llamarte ni enviarte mensajes.</string>
     <!-- Message shown on block dialog when blocking the Signal release notes recipient -->
     <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">No recibir noticias y novedades de Signal.</string>
     <!-- Message shown on unblock dialog when unblocking the Signal release notes recipient -->
@@ -263,9 +263,9 @@
     <!-- Button text asking for access to camera permissions -->
     <string name="CameraXFragment_allow_access">Permitir acceso</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Permite acceso a tu cámara y micrófono</string>
+    <string name="CameraXFragment_allow_access_camera_microphone">Permitir acceso a tu cámara y micrófono</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Permite acceso a tu cámara</string>
+    <string name="CameraXFragment_allow_access_camera">Permitir acceso a tu cámara</string>
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Permitir acceso a tu micrófono</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
@@ -388,7 +388,7 @@
 
     <!-- ConversationItem -->
     <string name="ConversationItem_error_not_sent_tap_for_details">No se ha enviado. Toca para ver más información.</string>
-    <string name="ConversationItem_error_partially_not_delivered">Enviado parcialmente. Toca para ver más información.</string>
+    <string name="ConversationItem_error_partially_not_delivered">No se ha enviado a todas las personas. Toca aquí para ver más información.</string>
     <string name="ConversationItem_error_network_not_delivered">No se ha podido enviar</string>
     <string name="ConversationItem_group_action_left">%1$s ha abandonado el grupo.</string>
     <string name="ConversationItem_send_paused">Envío pausado</string>
@@ -417,7 +417,7 @@
     <!-- Dialog error message shown when user can\'t download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
     <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">No se puede descargar el vídeo Tendrás que enviarlo de nuevo.</string>
     <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp represents a message that has been edited within the last minute. -->
-    <string name="ConversationItem_edited_now_timestamp_footer">Editado ahora</string>
+    <string name="ConversationItem_edited_now_timestamp_footer">editado ahora</string>
     <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit has occurred between 1-59 minutes ago. -->
     <string name="ConversationItem_edited_relative_timestamp_footer">editado %1$s</string>
     <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit occurred at least 1 hour ago. -->
@@ -605,13 +605,13 @@
     <!-- Dialog title for block group link join requests -->
     <string name="ConversationFragment__block_request">¿Vetar solicitudes?</string>
     <!-- Dialog message for block group link join requests -->
-    <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s no podrá unirse al grupo ni solicitar unirse mediante el enlace al grupo, pero se le puede añadir manualmente.</string>
+    <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s no podrá unirse ni solicitar unirse al grupo mediante enlace, pero se le puede añadir manualmente.</string>
     <!-- Dialog confirm block request button -->
     <string name="ConversationFragment__block_request_button">Vetar solicitudes</string>
     <!-- Dialog cancel block request button -->
     <string name="ConversationFragment__cancel">Cancelar</string>
     <!-- Message shown after successfully blocking join requests for a user -->
-    <string name="ConversationFragment__blocked">Vetada</string>
+    <string name="ConversationFragment__blocked">Bloqueado</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
     <string name="ConversationFragment__update_build">Actualiza Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
@@ -714,7 +714,7 @@
     <string name="ConversationListFragment_pin">Fijar</string>
     <string name="ConversationListFragment_unpin">Desfijar</string>
     <string name="ConversationListFragment_mute">Silenciar</string>
-    <string name="ConversationListFragment_unmute">No silenciar</string>
+    <string name="ConversationListFragment_unmute">Reactivar</string>
     <string name="ConversationListFragment_select">Seleccionar</string>
     <string name="ConversationListFragment_archive">Archivar</string>
     <string name="ConversationListFragment_unarchive">Desarchivar</string>
@@ -848,7 +848,7 @@
     <string name="RestoreMediaReminder__Skip_restore">Omitir restauración</string>
 
     <!-- BackupsPreferenceFragment -->
-    <string name="BackupsPreferenceFragment__chat_backups">Copias de seguridad de chats</string>
+    <string name="BackupsPreferenceFragment__chat_backups">Copias de seguridad de los chats</string>
     <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Las copias de seguridad se cifran con una clave y se guardan en tu dispositivo.</string>
     <string name="BackupsPreferenceFragment__create_backup">Crear copia de seguridad</string>
     <string name="BackupsPreferenceFragment__last_backup">Última copia: %1$s</string>
@@ -968,6 +968,12 @@
     <string name="LinkDeviceFragment__no_linked_devices">No hay dispositivos vinculados</string>
     <!-- Title on biometrics prompt explaining what biometrics are being used for -->
     <string name="LinkDeviceFragment__unlock_to_link">Desbloquear para vincular un dispositivo</string>
+    <!-- Title on bottom sheet explaining our usage of biometrics to link a device -->
+    <string name="LinkDeviceFragment__before_linking">Before linking, confirm it\'s you</string>
+    <!-- Body of bottom sheet explaining that users should use their device pin or biometrics and not their Signal pin -->
+    <string name="LinkDeviceFragment__tap_continue_and_enter_phone">Tap continue and enter your phone\'s lock to confirm. Do not enter your Signal PIN.</string>
+    <!-- Button that dismisses the bottom sheet -->
+    <string name="LinkDeviceFragment__continue">Continue</string>
 
     <!-- AddLinkDeviceFragment -->
     <!-- Description text shown on the QR code scanner when linking a device -->
@@ -1002,7 +1008,7 @@
 
     <!-- DeviceListItem -->
     <string name="DeviceListItem_unnamed_device">Dispositivo sin nombre</string>
-    <string name="DeviceListItem_linked_s">%1$s vinculado</string>
+    <string name="DeviceListItem_linked_s">Vinculado: %1$s</string>
     <string name="DeviceListItem_last_active_s">Última actividad: %1$s</string>
     <string name="DeviceListItem_today">Hoy</string>
 
@@ -1078,8 +1084,8 @@
 
     <!-- GroupsV1MigrationLearnMoreBottomSheetDialogFragment -->
     <string name="GroupsV1MigrationLearnMore_what_are_new_groups">¿Qué son los nuevos grupos?</string>
-    <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">Los nuevos grupos incluyen funciones como @menciones y admins, y se añadirán más en el futuro.</string>
-    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Todos los mensajes y adjuntos se han mantenido tras la actualización.</string>
+    <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">Los nuevos grupos incluyen funciones como @menciones y admins, y añadiremos más en el futuro.</string>
+    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Se ha conservado todo el historial de mensajes y todos los archivos multimedia que tenías antes de la actualización.</string>
     <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">Deberás aceptar una invitación para volver a unirte a este grupo y no recibirás ningún mensaje del grupo hasta que aceptes.</string>
     <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
         <item quantity="one">Esta persona tiene que aceptar la invitación para volver a unirse al grupo y no recibirá ningún mensaje del grupo hasta que acepte:</item>
@@ -1093,8 +1099,8 @@
     <!-- GroupsV1MigrationInitiationBottomSheetDialogFragment -->
     <string name="GroupsV1MigrationInitiation_upgrade_to_new_group">Actualizar al nuevo sistema de grupos</string>
     <string name="GroupsV1MigrationInitiation_upgrade_this_group">Actualizar este grupo</string>
-    <string name="GroupsV1MigrationInitiation_new_groups_have_features_like_mentions">Los nuevos grupos incluyen funciones como @menciones y admins, y se añadirán más en el futuro.</string>
-    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">Se conservará el historial de mensajes y los archivos que tenías antes de actualizar.</string>
+    <string name="GroupsV1MigrationInitiation_new_groups_have_features_like_mentions">Los nuevos grupos incluyen funciones como @menciones y admins, y añadiremos más en el futuro.</string>
+    <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">Se conservará todo el historial de mensajes y todos los archivos multimedia que tenías antes de la actualización.</string>
     <string name="GroupsV1MigrationInitiation_encountered_a_network_error">Error en la conexión de red. Inténtalo de nuevo más tarde.</string>
     <string name="GroupsV1MigrationInitiation_failed_to_upgrade">No se ha podido actualizar.</string>
     <plurals name="GroupsV1MigrationInitiation_these_members_will_need_to_accept_an_invite">
@@ -1141,7 +1147,7 @@
 
     <!-- LeaveGroupDialog -->
     <string name="LeaveGroupDialog_leave_group">¿Abandonar grupo?</string>
-    <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">No podrás enviar ni recibir más mensajes en este grupo.</string>
+    <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">Ya no podrás enviar ni recibir mensajes en este grupo.</string>
     <string name="LeaveGroupDialog_leave">Abandonar</string>
     <string name="LeaveGroupDialog_choose_new_admin">Designa a otra persona como admin</string>
     <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Antes de abandonar el grupo, designa a otra persona como admin.</string>
@@ -1335,7 +1341,7 @@
     <string name="ManageProfileFragment__username_footer_no_username">Ahora, las personas pueden enviarte mensajes usando tu alias opcional, con lo que no necesitas dar tu número de teléfono. </string>
     <string name="ManageProfileFragment_profile_name">Nombre de perfil</string>
     <string name="ManageProfileFragment_username">Alias</string>
-    <string name="ManageProfileFragment_about">Información</string>
+    <string name="ManageProfileFragment_about">Sobre mí</string>
     <string name="ManageProfileFragment_failed_to_set_avatar">No se ha podido seleccionar la imagen</string>
     <string name="ManageProfileFragment_badges">Insignias</string>
     <!-- Text for a button that will take the user to the screen to manage their username link and QR code -->
@@ -1423,7 +1429,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">No es posible unirse al grupo</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">No puedes volver a unirte a este grupo vía enlace porque un admin te ha vetado.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">No puedes volver a unirte a este grupo mediante enlace porque un admin te ha eliminado.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">El enlace a este grupo no es válido.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -1458,11 +1464,11 @@
 
     <!-- GV2 Request confirmation dialog -->
     <string name="RequestConfirmationDialog_add_s_to_the_group">¿Añadir a %1$s al grupo?</string>
-    <string name="RequestConfirmationDialog_deny_request_from_s">¿Denegar la solicitud de %1$s?</string>
+    <string name="RequestConfirmationDialog_deny_request_from_s">¿Rechazar la solicitud de %1$s?</string>
     <!-- Confirm dialog message shown when deny a group link join request and group link is enabled. -->
-    <string name="RequestConfirmationDialog_deny_request_from_s_they_will_not_be_able_to_request">¿Denegar solicitudes de %1$s? Esta persona ya no podrá solicitar mediante enlace que la añadan al grupo.</string>
+    <string name="RequestConfirmationDialog_deny_request_from_s_they_will_not_be_able_to_request">¿Rechazar solicitudes de %1$s? Esta persona ya no podrá solicitar unirse al grupo mediante enlace.</string>
     <string name="RequestConfirmationDialog_add">Añadir</string>
-    <string name="RequestConfirmationDialog_deny">Denegar</string>
+    <string name="RequestConfirmationDialog_deny">Rechazar</string>
 
     <!-- ImageEditorHud -->
     <string name="ImageEditorHud_blur_faces">Difuminar caras</string>
@@ -1711,10 +1717,10 @@
         <item quantity="one">%1$s ha retirado la invitación a unirse al grupo.</item>
         <item quantity="other">%1$s ha retirado %2$d invitaciones a unirse al grupo.</item>
     </plurals>
-    <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Alguien ha rechazado la invitación al grupo.</string>
+    <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Alguien ha rechazado una invitación al grupo.</string>
     <string name="MessageRecord_you_declined_the_invitation_to_the_group">Has rechazado la invitación al grupo.</string>
     <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s ha retirado tu invitación al grupo.</string>
-    <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Un admin ha retirado tu invitación al grupo.</string>
+    <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Alguien que es admin ha retirado tu invitación al grupo.</string>
     <plurals name="MessageRecord_d_invitations_were_revoked">
         <item quantity="one">Se ha retirado 1 invitación a unirse al grupo.</item>
         <item quantity="other">Se han retirado %1$d invitaciones a unirse al grupo.</item>
@@ -1802,9 +1808,9 @@
     <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">Se ha aprobado la solicitud de %1$s para unirse al grupo.</string>
 
     <!-- GV2 group link deny -->
-    <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Un admin ha denegado tu solicitud para unirte al grupo.</string>
-    <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s ha denegado la solicitud de %2$s para unirse al grupo.</string>
-    <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">Se ha denegado la solicitud de %1$s para unirse al grupo.</string>
+    <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Alguien que es admin ha rechazado tu solicitud para unirte al grupo.</string>
+    <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s ha rechazado la solicitud de %2$s para unirse al grupo.</string>
+    <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">Se ha rechazado la solicitud de %1$s para unirse al grupo.</string>
     <string name="MessageRecord_you_canceled_your_request_to_join_the_group">Has cancelado tu solicitud para unirte al grupo.</string>
     <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s ha cancelado su solicitud para unirse al grupo.</string>
 
@@ -2011,8 +2017,8 @@
     <string name="PinRestoreEntryFragment_incorrect_pin">PIN incorrecto</string>
     <string name="PinRestoreEntryFragment_skip_pin_entry">¿No introducir PIN?</string>
     <string name="PinRestoreEntryFragment_need_help">¿Necesitas ayuda?</string>
-    <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">Tu PIN es un código numérico o alfanumérico de %1$d o más dígitos que has creado.\n\nSi no recuerdas tu PIN, puedes crear uno nuevo. Podrás registrar y usar tu cuenta, pero se perderán algunos ajustes ya guardados, como tu información de perfil.</string>
-    <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">Si no recuerdas tu PIN, puedes crear uno nuevo. Podrás registrar y usar tu cuenta, pero se perderán algunos ajustes ya guardados, como tu información de perfil.</string>
+    <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">Tu PIN es un código numérico o alfanumérico de %1$d o más dígitos que has creado.\n\nSi olvidas tu PIN, puedes crear uno nuevo. Podrás registrarte y usar tu cuenta, pero se perderán algunos ajustes ya guardados, como tu información de perfil.</string>
+    <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">Si olvidas tu PIN, puedes crear uno nuevo. Podrás registrarte y usar tu cuenta, pero se perderán algunos ajustes ya guardados, como tu información de perfil.</string>
     <string name="PinRestoreEntryFragment_create_new_pin">Crear nuevo PIN</string>
     <string name="PinRestoreEntryFragment_contact_support">Contactar con asistencia</string>
     <string name="PinRestoreEntryFragment_cancel">Cancelar</string>
@@ -2034,9 +2040,9 @@
     <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
     <string name="ReRegisterWithPinFragment_support_email_subject">Registro en Signal - Ayuda para volver a registrarse con el PIN en Android</string>
     <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
-    <string name="ReRegisterWithPinFragment_need_help_local">Tu PIN es un código de %1$d+ caracteres creado por ti, que puede constar de dígitos o caracteres alfanuméricos.\n\nSi no puedes recordar tu PIN, puedes crear uno nuevo.</string>
+    <string name="ReRegisterWithPinFragment_need_help_local">Tu PIN es un código numérico o alfanumérico de %1$d o más dígitos que has creado.\n\nSi olvidas tu PIN, puedes crear uno nuevo.</string>
     <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
-    <string name="ReRegisterWithPinFragment_skip_local">Si no puedes recordar tu PIN, puedes crear uno nuevo.</string>
+    <string name="ReRegisterWithPinFragment_skip_local">Si olvidas tu PIN, puedes crear uno nuevo.</string>
     <!-- Dialog message shown in reregister flow when user uses up all of their guesses for their pin and we are going to move on -->
     <string name="ReRegisterWithPinFragment_out_of_guesses_local">Se te han acabado los intentos para introducir tu PIN, pero aún puedes acceder a tu cuenta de Signal creando un nuevo PIN.</string>
 
@@ -2069,7 +2075,7 @@
     <!-- Recipient -->
     <string name="Recipient_you">Tú</string>
     <!-- Name of recipient representing user\'s \'My Story\' -->
-    <string name="Recipient_my_story">Mi historia</string>
+    <string name="Recipient_my_story">Mis historias</string>
     <!-- Name of recipient for a call link without a name -->
     <string name="Recipient_signal_call">Llamada de Molly</string>
 
@@ -2134,8 +2140,8 @@
     </plurals>
     <!-- Title for dialog to deny all requests -->
     <plurals name="WebRtcCallActivity__deny_d_requests">
-        <item quantity="one">¿Denegar %1$d solicitud?</item>
-        <item quantity="other">¿Denegar %1$d solicitudes?</item>
+        <item quantity="one">¿Rechazar %1$d solicitud?</item>
+        <item quantity="other">¿Rechazar %1$d solicitudes?</item>
     </plurals>
     <!-- Message for dialog to deny all requests -->
     <plurals name="WebRtcCallActivity__d_people_will_not_be_added_to_the_call">
@@ -2155,19 +2161,19 @@
         <item quantity="other">%1$d personas</item>
     </plurals>
     <!-- Title of dialog displayed when a user\'s join request is denied for call link entry -->
-    <string name="WebRtcCallActivity__join_request_denied">Solicitud para unirse denegada</string>
+    <string name="WebRtcCallActivity__join_request_denied">Solicitud para unirse rechazada</string>
     <!-- Message of dialog displayed when a user\'s join request is denied for call link entry -->
-    <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">Se ha denegado tu solicitud para unirte a la llamada.</string>
+    <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">Se ha rechazado tu solicitud para unirte a la llamada.</string>
     <!-- Title of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__removed_from_call">Se ha eliminado de la llamada</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Alguien te ha eliminado de la llamada.</string>
     <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="WebRtcCallActivity__allow_access_camera_microphone">Permite acceso a tu cámara y micrófono</string>
+    <string name="WebRtcCallActivity__allow_access_camera_microphone">Permitir acceso a tu cámara y micrófono</string>
     <!-- Dialog title asking users for microphone permission -->
-    <string name="WebRtcCallActivity__allow_access_microphone">Permite acceso a tu micrófono</string>
+    <string name="WebRtcCallActivity__allow_access_microphone">Permitir acceso a tu micrófono</string>
     <!-- Dialog title asking users for camera permission -->
-    <string name="WebRtcCallActivity__allow_access_camera">Permite acceso a tu cámara</string>
+    <string name="WebRtcCallActivity__allow_access_camera">Permitir acceso a tu cámara</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
     <string name="WebRtcCallActivity__to_start_call_camera_microphone">Para iniciar o unirte a una llamada, permite a Molly acceso a la cámara y al micrófono.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
@@ -2338,7 +2344,7 @@
         <item quantity="other">%1$d grupos en común</item>
     </plurals>
     <!-- Text displayed in title for external recipients -->
-    <string name="AboutSheet__about">Información</string>
+    <string name="AboutSheet__about">Sobre mí</string>
     <!-- Text displayed in title for you -->
     <string name="AboutSheet__you">Tú</string>
     <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
@@ -2363,12 +2369,12 @@
     </plurals>
 
     <!-- CallParticipantView -->
-    <string name="CallParticipantView__s_is_blocked">%1$s está bloqueadx</string>
+    <string name="CallParticipantView__s_is_blocked">Se ha bloqueado a %1$s</string>
     <string name="CallParticipantView__more_info">Más detalles</string>
     <string name="CallParticipantView__you_wont_receive_their_audio_or_video">No recibirás el audio ni el vídeo de esta persona y ella no recibirá los tuyos.</string>
     <string name="CallParticipantView__cant_receive_audio_video_from_s">No se puede recibir audio ni vídeo de %1$s</string>
     <string name="CallParticipantView__cant_receive_audio_and_video_from_s">No se puede recibir audio ni vídeo de %1$s</string>
-    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Esto se puede deber a que no han verificado el cambio de tus cifras de seguridad, hay un problema con su dispositivo, o te han bloqueado.</string>
+    <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Esto se puede deber a que no han verificado el cambio de tu número de seguridad, hay un problema con su dispositivo o te han bloqueado.</string>
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Desliza para ver la pantalla compartida</string>
@@ -2464,7 +2470,7 @@
     <!-- RegistrationLockV2Dialog -->
     <string name="RegistrationLockV2Dialog_turn_on_registration_lock">¿Activar el bloqueo de registro?</string>
     <string name="RegistrationLockV2Dialog_turn_off_registration_lock">¿Desactivar el bloqueo de registro?</string>
-    <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">Si olvidas tu PIN de Signal al registrarte nuevamente en Signal, no podrás acceder a tu cuenta durante 7 días.</string>
+    <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">Si olvidas tu PIN de Signal al volver a registrarte en Signal, no podrás acceder a tu cuenta durante 7 días.</string>
     <string name="RegistrationLockV2Dialog_turn_on">Activar</string>
     <string name="RegistrationLockV2Dialog_turn_off">Desactivar</string>
 
@@ -2530,7 +2536,7 @@
     <!-- StickerManagementAdapter -->
     <string name="StickerManagementAdapter_installed_stickers">Stickers instalados</string>
     <string name="StickerManagementAdapter_stickers_you_received">Stickers recibidos</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Paquetes de artistas de Signal</string>
+    <string name="StickerManagementAdapter_signal_artist_series">Stickers de artistas de Signal</string>
     <string name="StickerManagementAdapter_no_stickers_installed">No hay ningún sticker instalado</string>
     <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Los stickers que recibas en mensajes aparecerán aquí</string>
     <string name="StickerManagementAdapter_untitled">Sin nombre</string>
@@ -2685,7 +2691,7 @@
     <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
     <string name="UsernameEditFragment_recovery_dialog_confirmation">Si recuperas tu alias, se restablecerán tu código QR y tu enlace. ¿Quieres hacerlo de todos modos?</string>
     <!-- The body of an alert dialog asking the user to confirm that they want to change their username, even if it resets their link -->
-    <string name="UsernameEditFragment_change_confirmation_message">Si cambias tu alias, se restablecerán tu código QR y tu enlace. ¿Quieres cambiarlo de todos modos?</string>
+    <string name="UsernameEditFragment_change_confirmation_message">Si cambias tu alias, se restablecerán tu código QR y tu enlace actuales. ¿Cambiarlo de todos modos?</string>
     <!-- Text for a button in a dialog asking if the user would like to continue the operation of changing their username -->
     <string name="UsernameEditFragment_continue">Continuar</string>
 
@@ -2892,7 +2898,7 @@
     <!-- Button label for not right now -->
     <string name="NewWaysToConnectDialogFragment__not_now">Ahora no</string>
     <!-- Button label for continue -->
-    <string name="NewWaysToConnectDialogFragment__set_up_your_username">Configurar alias</string>
+    <string name="NewWaysToConnectDialogFragment__set_up_your_username">Crear alias</string>
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">Reproducir vídeo</string>
@@ -2934,7 +2940,7 @@
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Rechazada en un dispositivo vinculado.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">No disponible en un dispositivo vinculado.</string>
     <!-- Tooltip message shown first time user is in a video call after switch camera button moved -->
-    <string name="WebRtcCallActivity__flip_camera_tooltip">El botón para cambiar de cámara se ha movido para aquí; pulsa tu vídeo para probarlo</string>
+    <string name="WebRtcCallActivity__flip_camera_tooltip">El botón para cambiar de cámara ahora está aquí. Toca el vídeo para probarlo.</string>
 
     <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">El número de seguridad de alguien que se ha unido a esta llamada ha cambiado.</string>
 
@@ -2983,7 +2989,7 @@
     <!-- Row item title for finding people on Signal via your contacts -->
     <string name="contact_selection_activity__find_people_you_know">Encuentra a personas que conoces en Signal</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
-    <string name="contact_selection_activity__allow_access_to_contacts">Permite acceso a tus contactos</string>
+    <string name="contact_selection_activity__allow_access_to_contacts">Permite el acceso a tus contactos</string>
     <!-- Row header title for more section -->
     <string name="contact_selection_activity__more">Más</string>
 
@@ -3026,7 +3032,7 @@
     <!-- Text on button to dismiss Signal\'s request for contact permissions -->
     <string name="ContactSelectionListFragment__no_thanks">No, gracias</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Permite acceso a tus contactos. Tus contactos están cifrados y no son visibles para el servicio de Signal.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Permite el acceso a tus contactos. Tus contactos están cifrados y no son visibles para el servicio de Signal.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly necesita acceso a tus contactos para poder mostrarlos.</string>
@@ -3125,7 +3131,7 @@
     <!-- Label indicating that the story being replied to no longer exists -->
     <string name="QuoteView_no_longer_available">Ya no está disponible</string>
     <!-- Label for quoted gift -->
-    <string name="QuoteView__donation_for_a_friend">Donación en nombre de un amigo</string>
+    <string name="QuoteView__donation_for_a_friend">Donación a nombre de alguien</string>
 
     <!-- conversation_fragment -->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Desliza hasta el final</string>
@@ -3326,12 +3332,12 @@
 
     <!-- verify_display_fragment -->
     <!-- Explanation of how to verify the safety numbers. %s is replaced with the name of the other recipient -->
-    <string name="verify_display_fragment__pnp_verify_safety_numbers_explanation_with_s">Para verificar el cifrado con %1$s, compara las cifras de arriba con las del dispositivo de esa persona. También puedes escanear el código de su dispositivo.</string>
+    <string name="verify_display_fragment__pnp_verify_safety_numbers_explanation_with_s">Para verificar el cifrado con %1$s, compara los números que aparecen arriba con los del dispositivo de esa persona. También puedes escanear el código de su dispositivo.</string>
     <string name="verify_display_fragment__tap_to_scan">Toca para escanear</string>
     <string name="verify_display_fragment__successful_match">Los números coinciden</string>
     <string name="verify_display_fragment__failed_to_verify_safety_number">No se ha podido verificar el número de seguridad</string>
     <string name="verify_display_fragment__loading">Cargando…</string>
-    <string name="verify_display_fragment__mark_as_verified">Marcar persona como verificada</string>
+    <string name="verify_display_fragment__mark_as_verified">Verificar identidad</string>
     <string name="verify_display_fragment__clear_verification">Retirar marca de verificación</string>
 
     <!-- verity_scan_fragment -->
@@ -3474,9 +3480,9 @@
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
     <string name="preferences__pref_keep_muted_chats_archived">Dejar archivados chats silenciados</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
-    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Hacer que los chats silenciados que haya archivado permanezcan archivados aunque reciba un nuevo mensaje.</string>
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Los chats silenciados que hayas archivado permanecerán archivados aunque recibas un nuevo mensaje.</string>
     <string name="preferences__generate_link_previews">Generar vista previa de enlaces</string>
-    <string name="preferences__retrieve_link_previews_from_websites_for_messages">Obtener vistas previas de enlaces directamente de los sitios web para los mensajes que envío.</string>
+    <string name="preferences__retrieve_link_previews_from_websites_for_messages">Elige mostrar las vistas previas de los enlaces directamente de los sitios web para los mensajes que envías.</string>
     <string name="preferences__change_passphrase">Cambiar clave de acceso</string>
     <string name="preferences__change_your_passphrase">Cambia tu clave de acceso</string>
     <string name="preferences__enable_passphrase">Activar bloqueo de pantalla con clave de acceso</string>
@@ -3624,7 +3630,7 @@
 
     <string name="preferences_storage__custom">Personalizado</string>
     <string name="preferences_advanced__use_system_emoji">Usar emojis del sistema</string>
-    <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Redirige todas las llamadas a través del servidor de Signal para evitar revelar tu dirección IP. Activar esta opción reducirá la calidad de las llamadas.</string>
+    <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Redirige todas las llamadas a través del servidor de Signal para evitar revelar tu dirección IP. Si activas esta opción, se reducirá la calidad de las llamadas.</string>
     <string name="preferences_advanced__always_relay_calls">Redirigir llamadas siempre</string>
     <!-- Privacy settings payments section title -->
     <string name="preferences_app_protection__payments">Pagos</string>
@@ -3743,7 +3749,7 @@
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
     <string name="PaymentsHomeFragment__turn_on">¿Activar el bloqueo de pagos para futuros envíos?</string>
     <!-- Alert dialog description for why payment lock should be enabled before sending payments -->
-    <string name="PaymentsHomeFragment__add_an_additional_layer">Añade un nivel extra de seguridad y activa el bloqueo de pantalla o la huella dactilar de Android para transferir fondos.</string>
+    <string name="PaymentsHomeFragment__add_an_additional_layer">Añade una capa adicional de seguridad y activa el bloqueo de pantalla o la huella dactilar de Android para transferir fondos.</string>
     <!-- Alert dialog button to enable payment lock -->
     <string name="PaymentsHomeFragment__enable">Activar</string>
     <!-- Alert dialog button to not enable payment lock for now -->
@@ -3833,8 +3839,8 @@
     <string name="PaymentsDetailsFragment__network_fee">Comisión de red</string>
     <string name="PaymentsDetailsFragment__sent_by">Enviado por</string>
     <string name="PaymentsDetailsFragment__sent_to_s">Enviado a %1$s</string>
-    <string name="PaymentsDetailsFragment__you_on_s_at_s">Tú (fecha y hora: %1$s - %2$s)</string>
-    <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s (fecha y hora: %2$s - %3$s)</string>
+    <string name="PaymentsDetailsFragment__you_on_s_at_s">Tú (%2$s del %1$s)</string>
+    <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s (%3$s del %2$s)</string>
     <!-- Prefix to a name to indicate who a payment was sent to -->
     <string name="PaymentsDetailsFragment__to">Para</string>
     <string name="PaymentsDetailsFragment__from">De</string>
@@ -4012,7 +4018,7 @@
     <!-- conversation_secure_verified -->
 
     <!-- conversation_muted -->
-    <string name="conversation_muted__unmute">No silenciar</string>
+    <string name="conversation_muted__unmute">Reactivar notificaciones</string>
 
     <!-- conversation_unmuted -->
     <string name="conversation_unmuted__mute_notifications">Silenciar notificaciones</string>
@@ -4116,7 +4122,7 @@
         <item quantity="other">El PIN debe contener al menos %1$d dígitos</item>
     </plurals>
     <string name="CreateKbsPinFragment__create_a_new_pin">Crear nuevo PIN</string>
-    <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Puedes modificar tu PIN, siempre que este dispositivo esté registrado.</string>
+    <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Puedes cambiar tu PIN siempre que este dispositivo esté registrado.</string>
     <string name="CreateKbsPinFragment__create_your_pin">Crea tu PIN</string>
     <string name="CreateKbsPinFragment__pins_can_help_you_restore_your_account">Los PINs pueden ayudarte a restaurar tu cuenta y mantener tu información encriptada con Signal. </string>
     <string name="CreateKbsPinFragment__choose_a_stronger_pin">Elige un PIN más seguro</string>
@@ -4290,7 +4296,7 @@
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Número de teléfono</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Elegir quién puede ver mi número de teléfono y quién puede usarlo para buscarme en Molly.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Elige quién puede ver tu número de teléfono y quién puede usarlo para buscarte en Molly.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Quién puede ver mi número</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4322,7 +4328,7 @@
     <string name="preferences_app_protection__to_use_screen_lock">Para usar el bloqueo de pantalla, establece un PIN, un patrón o una contraseña en este dispositivo.</string>
     <string name="preferences_app_protection__signal_pin">PIN de Signal</string>
     <string name="preferences_app_protection__create_a_pin">Crear un PIN</string>
-    <string name="preferences_app_protection__change_your_pin">Modifica tu PIN</string>
+    <string name="preferences_app_protection__change_your_pin">Cambiar PIN</string>
     <string name="preferences_app_protection__pin_reminders">Recordatorios de PIN</string>
     <string name="preferences_app_protection__turn_off">Desactivar</string>
     <string name="preferences_app_protection__confirm_pin">Confirmar PIN</string>
@@ -4555,7 +4561,7 @@
     <string name="GroupRecipientListItem_admin">Admin</string>
     <!-- Button text to approve a user that has requested to join a group -->
     <string name="GroupRecipientListItem_approve_description">Aprobar</string>
-    <string name="GroupRecipientListItem_deny_description">Denegar</string>
+    <string name="GroupRecipientListItem_deny_description">Rechazar</string>
 
 
     <!-- GroupsLearnMoreBottomSheetDialogFragment -->
@@ -4715,17 +4721,17 @@
     <string name="ChatWallpaperFragment__reset_chat_colors">Restablecer colores del chat</string>
     <string name="ChatWallpaperFragment__reset_chat_color">Restablecer color del chat</string>
     <string name="ChatWallpaperFragment__reset_chat_color_question">¿Restablecer color del chat?</string>
-    <string name="ChatWallpaperFragment__set_wallpaper">Establecer fondo de pantalla</string>
+    <string name="ChatWallpaperFragment__set_wallpaper">Elegir fondo de pantalla</string>
     <string name="ChatWallpaperFragment__dark_mode_dims_wallpaper">Tema oscuro atenúa el fondo</string>
     <string name="ChatWallpaperFragment__contact_name">Nombre del contacto</string>
     <string name="ChatWallpaperFragment__reset">Restablecer</string>
     <string name="ChatWallpaperFragment__wallpaper_preview_description">Vista previa del fondo</string>
     <string name="ChatWallpaperFragment__would_you_like_to_override_all_chat_colors">¿Deseas cambiar los colores de todos tus chats?</string>
     <string name="ChatWallpaperFragment__would_you_like_to_override_all_wallpapers">¿Deseas cambiar los fondos de todos los chats?</string>
-    <string name="ChatWallpaperFragment__reset_default_colors">Restablecer colores predeterminados</string>
-    <string name="ChatWallpaperFragment__reset_all_colors">Restablecer todos los colores</string>
-    <string name="ChatWallpaperFragment__reset_default_wallpaper">Restablecer fondo predeterminado</string>
-    <string name="ChatWallpaperFragment__reset_all_wallpapers">Restablecer todos los fondos</string>
+    <string name="ChatWallpaperFragment__reset_default_colors">Restablecer predeterminados</string>
+    <string name="ChatWallpaperFragment__reset_all_colors">Restablecer todos</string>
+    <string name="ChatWallpaperFragment__reset_default_wallpaper">Restablecer predeterminado</string>
+    <string name="ChatWallpaperFragment__reset_all_wallpapers">Restablecer todos</string>
     <string name="ChatWallpaperFragment__reset_wallpapers">Restablecer fondos de pantalla</string>
     <string name="ChatWallpaperFragment__reset_wallpaper">Restablecer fondo de pantalla</string>
     <string name="ChatWallpaperFragment__reset_wallpaper_question">¿Restablecer fondo de pantalla?</string>
@@ -4736,18 +4742,18 @@
 
     <!-- ChatWallpaperPreviewActivity -->
     <string name="ChatWallpaperPreviewActivity__preview">Vista previa</string>
-    <string name="ChatWallpaperPreviewActivity__set_wallpaper">Establecer fondo de pantalla</string>
-    <string name="ChatWallpaperPreviewActivity__swipe_to_preview_more_wallpapers">Desliza para ver más fondos de pantalla</string>
-    <string name="ChatWallpaperPreviewActivity__set_wallpaper_for_all_chats">Establecer para todos los chats</string>
-    <string name="ChatWallpaperPreviewActivity__set_wallpaper_for_s">Establecer fondo para %1$s</string>
+    <string name="ChatWallpaperPreviewActivity__set_wallpaper">Elegir fondo de pantalla</string>
+    <string name="ChatWallpaperPreviewActivity__swipe_to_preview_more_wallpapers">Deslizar para ver más fondos de pantalla</string>
+    <string name="ChatWallpaperPreviewActivity__set_wallpaper_for_all_chats">Elige un fondo para todos los chats</string>
+    <string name="ChatWallpaperPreviewActivity__set_wallpaper_for_s">Elegir fondo para %1$s</string>
     <string name="ChatWallpaperPreviewActivity__viewing_your_gallery_requires_the_storage_permission">Signal necesita acceso al almacenamiento para mostrar la galería.</string>
 
     <!-- WallpaperImageSelectionActivity -->
 
     <!-- WallpaperCropActivity -->
     <string name="WallpaperCropActivity__pinch_to_zoom_drag_to_adjust">Pellizca la imagen para ampliarla y arrástrala para ajustar.</string>
-    <string name="WallpaperCropActivity__set_wallpaper_for_all_chats">Establecer fondo para todos los chats.</string>
-    <string name="WallpaperCropActivity__set_wallpaper_for_s">Establecer fondo para %1$s.</string>
+    <string name="WallpaperCropActivity__set_wallpaper_for_all_chats">Elegir fondo para todos los chats.</string>
+    <string name="WallpaperCropActivity__set_wallpaper_for_s">Elegir fondo para %1$s.</string>
     <string name="WallpaperCropActivity__error_setting_wallpaper">No se ha podido establecer el fondo de pantalla.</string>
     <string name="WallpaperCropActivity__blur_photo">Difuminar foto</string>
 
@@ -4896,7 +4902,7 @@
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">Cuenta</string>
     <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Te lo pediremos menos a menudo con el tiempo</string>
-    <string name="AccountSettingsFragment__require_your_signal_pin">Necesitarás tu PIN de Signal si quieres volver a registrar tu número de teléfono en Signal.</string>
+    <string name="AccountSettingsFragment__require_your_signal_pin">Usa tu PIN de Signal para volver a registrar tu número de teléfono en Signal.</string>
     <string name="AccountSettingsFragment__change_phone_number">Cambiar número de teléfono</string>
     <!-- Account setting that allows user to request and export their signal account data -->
     <string name="AccountSettingsFragment__request_account_data">Datos de tu cuenta</string>
@@ -5022,7 +5028,7 @@
     <string name="NotificationProfilesFragment__create_profile">Crear perfil</string>
 
     <!-- PrivacySettingsFragment -->
-    <string name="PrivacySettingsFragment__blocked">Personas bloqueadas</string>
+    <string name="PrivacySettingsFragment__blocked">Bloqueados</string>
     <!-- Settings label that shows the number blocked contacts -->
     <plurals name="PrivacySettingsFragment__d_contacts">
         <item quantity="one">%1$d contacto o grupo</item>
@@ -5035,7 +5041,7 @@
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Bloquea capturas de pantalla en la lista de aplicaciones recientes y dentro de la aplicación</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Mensajes y llamadas de Signal: siempre redirigir las llamadas y usar remitente confidencial</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Duración predeterminada en chats nuevos</string>
-    <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Elegir una duración predeterminada de los mensajes temporales para todos los chats nuevos que inicio.</string>
+    <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Elige una duración predeterminada de los mensajes temporales para todos los chats nuevos que inicies.</string>
     <!-- Summary for stories preference to launch into story privacy settings -->
     <string name="PrivacySettingsFragment__payment_lock_require_lock">Requiere el bloqueo de pantalla de Android o la huella dactilar para transferir fondos</string>
     <!-- Alert dialog title when payment lock cannot be enabled -->
@@ -5053,8 +5059,8 @@
     <string name="AdvancedPrivacySettingsFragment__show_an_icon">Se muestra un icono en los detalles del mensaje cuando se ha entregado con la opción de remitente confidencial.</string>
 
     <!-- ExpireTimerSettingsFragment -->
-    <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Con esta opción activa, los mensajes enviados y recibidos en chats que tú inicies desaparecerán tras ser vistos.</string>
-    <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">Si habilitas esta función, los mensajes enviados y recibidos en este chat desaparecerán tras ser vistos.</string>
+    <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Si activas esta función, los mensajes enviados y recibidos en nuevos chats que tú inicies desaparecerán tras ser vistos.</string>
+    <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">Si activas esta función, los mensajes enviados y recibidos en este chat desaparecerán tras ser vistos.</string>
     <string name="ExpireTimerSettingsFragment__off">Desactivado</string>
     <string name="ExpireTimerSettingsFragment__4_weeks">4 semanas</string>
     <string name="ExpireTimerSettingsFragment__1_week">1 semana</string>
@@ -5082,7 +5088,7 @@
     <string name="HelpSettingsFragment__licenses">Licencias</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Términos y Política de privacidad</string>
     <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
-    <string name="HelpFragment__licenced_under_the_agplv3">App liberada bajo GNU AGPLv3</string>
+    <string name="HelpFragment__licenced_under_the_agplv3">Licencia GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
     <string name="DataAndStorageSettingsFragment__media_quality">Calidad de fotos y vídeos</string>
@@ -5196,7 +5202,7 @@
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__mute">Silenciar</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="ConversationSettingsFragment__muted">Silenciada</string>
+    <string name="ConversationSettingsFragment__muted">Silenciado</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__search">Buscar</string>
     <string name="ConversationSettingsFragment__disappearing_messages">Mensajes temporales</string>
@@ -5215,7 +5221,7 @@
     <string name="ConversationSettingsFragment__requests_and_invites">Solicitudes e invitaciones</string>
     <string name="ConversationSettingsFragment__group_link">Enlace al grupo</string>
     <string name="ConversationSettingsFragment__add_as_a_contact">Añadir como contacto</string>
-    <string name="ConversationSettingsFragment__unmute">No silenciar</string>
+    <string name="ConversationSettingsFragment__unmute">Reactivar</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
     <string name="ConversationSettingsFragment__conversation_muted_until_s">Chat silenciado hasta %1$s</string>
     <string name="ConversationSettingsFragment__conversation_muted_forever">Chat silenciado para siempre</string>
@@ -5246,9 +5252,9 @@
 
     <!-- PlaybackSpeedToggleTextView -->
     <string name="PlaybackSpeedToggleTextView__p5x">0,5</string>
-    <string name="PlaybackSpeedToggleTextView__1x">1</string>
-    <string name="PlaybackSpeedToggleTextView__1p5x">1,5</string>
-    <string name="PlaybackSpeedToggleTextView__2x">2</string>
+    <string name="PlaybackSpeedToggleTextView__1x">x1</string>
+    <string name="PlaybackSpeedToggleTextView__1p5x">x1,5</string>
+    <string name="PlaybackSpeedToggleTextView__2x">x2</string>
 
     <!-- PaymentRecipientSelectionFragment -->
     <string name="PaymentRecipientSelectionFragment__new_payment">Nuevo pago</string>
@@ -5507,7 +5513,7 @@
     <!-- Preference heading for other ways to donate -->
     <string name="ManageDonationsFragment__other_ways_to_give">Otras formas de aportar</string>
     <!-- Preference label to launch badge gifting -->
-    <string name="ManageDonationsFragment__donate_for_a_friend">Donar en nombre de un amigo</string>
+    <string name="ManageDonationsFragment__donate_for_a_friend">Donar a nombre de alguien</string>
     <!-- Dialog title shown when a donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet -->
     <string name="ManageDonationsFragment__couldnt_confirm_donation">No se ha podido confirmar la donación</string>
     <!-- Dialog message shown when a monthly donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet, placeholder is money amount -->
@@ -5704,9 +5710,9 @@
     <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification -->
     <string name="StripeFailureCode__an_error_occurred_while_processing_this_payment">Se produjo un error al procesar esta donación; inténtalo de nuevo.</string>
     <!-- Failure code text for a closed account, deceased recipient, or one with blocked direct debits, displayed in a dialog or notification -->
-    <string name="StripeFailureCode__the_bank_details_provided_could_not_be_processed">Los datos bancarios proporcionados no han podido ser procesados. Ponte en contacto con tu banco para obtener más información.</string>
+    <string name="StripeFailureCode__the_bank_details_provided_could_not_be_processed">No se han podido procesar los datos bancarios proporcionados. Contacta con tu banco para obtener más información.</string>
     <!-- Failure code text for a non-existent bank branch, invalid account holder, invalid iban, generic failure, or unknown bank failure, displayed in a dialog or notification -->
-    <string name="StripeFailureCode__verify_your_bank_details_are_correct">Comprueba que los datos de tu banco son correctos e inténtalo de nuevo. Si el problema persiste, contacta con tu banco.</string>
+    <string name="StripeFailureCode__verify_your_bank_details_are_correct">Comprueba que tus datos bancarios son correctos e inténtalo de nuevo. Si el problema persiste, contacta con tu banco.</string>
 
     <!-- Title of create notification profile screen -->
     <string name="EditNotificationProfileFragment__name_your_profile">Asigna un nombre de perfil</string>
@@ -5871,9 +5877,9 @@
     <!-- Donation receipts one-time tab label -->
     <string name="DonationReceiptListFragment__one_time">Puntual</string>
     <!-- Donation receipts gift tab -->
-    <string name="DonationReceiptListFragment__for_a_friend">En nombre de un amigo</string>
+    <string name="DonationReceiptListFragment__for_a_friend">A nombre de alguien</string>
     <!-- Donation receipts gift tab label -->
-    <string name="DonationReceiptListFragment__donation_for_a_friend">Donación en nombre de un amigo</string>
+    <string name="DonationReceiptListFragment__donation_for_a_friend">Donación a nombre de alguien</string>
     <!-- Donation receipts donation type heading -->
     <string name="DonationReceiptDetailsFragment__donation_type">Tipo de donación</string>
     <!-- Donation receipts date paid heading -->
@@ -5930,7 +5936,7 @@
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">No se ha podido enviar</string>
     <!-- Label when a story fails to send due to identity mismatch -->
-    <string name="StoriesLandingItem__partially_sent">Enviado parcialmente</string>
+    <string name="StoriesLandingItem__partially_sent">No se ha enviado a todas las personas</string>
     <!-- Status label when a story fails to send indicating user action to retry -->
     <string name="StoriesLandingItem__tap_to_retry">Toca para reintentar</string>
     <!-- Title of dialog confirming decision to hide a story -->
@@ -5981,7 +5987,7 @@
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">Responder</string>
     <!-- Displayed when viewing a post that has failed to send to some users -->
-    <string name="StoryViewerPageFragment__partially_sent">Parcialmente enviado. Toca aquí para ver los detalles</string>
+    <string name="StoryViewerPageFragment__partially_sent">No se ha enviado a todas las personas. Toca aquí para ver más información.</string>
     <!-- Displayed when viewing a post that has failed to send -->
     <string name="StoryViewerPageFragment__send_failed">No se ha podido enviar. Toca para reintentar</string>
     <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
@@ -6022,7 +6028,7 @@
     <!-- Context menu item to delete a story response -->
     <string name="StoryGroupReplyItem__delete">Eliminar</string>
     <!-- Page title for My Story options -->
-    <string name="MyStorySettingsFragment__my_story">Mi historia</string>
+    <string name="MyStorySettingsFragment__my_story">Mis historias</string>
     <!-- Number of total signal connections displayed in "All connections" row item -->
     <plurals name="MyStorySettingsFragment__viewers">
         <item quantity="one">%1$d persona</item>
@@ -6177,7 +6183,7 @@
     <!-- Choose story type bottom sheet group story title -->
     <string name="ChooseStoryTypeBottomSheet__group_story">Historia de grupo</string>
     <!-- Choose story type bottom sheet group story summary -->
-    <string name="ChooseStoryTypeBottomSheet__share_to_an_existing_group">Compartir con un grupo</string>
+    <string name="ChooseStoryTypeBottomSheet__share_to_an_existing_group">Compartir en un grupo</string>
     <!-- Choose groups bottom sheet title -->
     <string name="ChooseGroupStoryBottomSheet__choose_groups">Elegir grupos</string>
     <!-- Displayed when copying group story reply text to clipboard -->
@@ -6226,11 +6232,11 @@
         <item quantity="other">%1$s · %2$d días</item>
     </plurals>
     <!-- Headline text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__donate_for_a_friend">Donar en nombre de un amigo</string>
+    <string name="GiftFlowStartFragment__donate_for_a_friend">Donar a nombre de alguien</string>
     <!-- Description text on start fragment for gifting a badge -->
     <plurals name="GiftFlowStartFragment__support_signal_by">
-        <item quantity="one">Apoya a Signal haciendo una donación en nombre de un amigo o familiar que use Signal. Recibirán una insignia para mostrar en su perfil durante %1$d día</item>
-        <item quantity="other">Apoya a Signal haciendo una donación en nombre de un amigo o familiar que use Signal. Recibirán una insignia para mostrar en su perfil durante %1$d días</item>
+        <item quantity="one">Apoya a Signal haciendo una donación en nombre de un amigo o familiar que use Signal. La persona que elijas recibirá una insignia para mostrar en su perfil durante %1$d día.</item>
+        <item quantity="other">Apoya a Signal haciendo una donación en nombre de un amigo o familiar que use Signal. La persona que elijas recibirá una insignia para mostrar en su perfil durante %1$d días.</item>
     </plurals>
     <!-- Action button label for start fragment for gifting a badge -->
     <string name="GiftFlowStartFragment__next">Siguiente</string>
@@ -6395,9 +6401,9 @@
     <string name="SafetyNumberReviewConnectionsFragment__remove">Eliminar</string>
 
     <!-- Title of initial My Story settings configuration shown when sending to My Story for the first time -->
-    <string name="ChooseInitialMyStoryMembershipFragment__my_story_privacy">Privacidad de mi historia</string>
+    <string name="ChooseInitialMyStoryMembershipFragment__my_story_privacy">Privacidad de mis historias</string>
     <!-- Subtitle of initial My Story settings configuration shown when sending to My Story for the first time -->
-    <string name="ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings">Elige quién puede ver lo que subes a tu historia. Siempre puedes hacer cambios en tus ajustes.</string>
+    <string name="ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings">Elige quién puede ver tus historias. Siempre puedes hacer cambios en tus ajustes.</string>
     <!-- All connections option for initial My Story settings configuration shown when sending to My Story for the first time -->
     <string name="ChooseInitialMyStoryMembershipFragment__all_signal_connections">Mis contactos de Signal</string>
     <!-- All connections except option for initial My Story settings configuration shown when sending to My Story for the first time -->
@@ -6439,7 +6445,7 @@
     <!-- Story view receipts toggle title -->
     <string name="StoriesPrivacySettingsFragment__view_receipts">Confirmaciones de visualización</string>
     <!-- Story view receipts toggle message -->
-    <string name="StoriesPrivacySettingsFragment__see_and_share">Mostrar y compartir cuándo se ven las historias. Si lo desactivas, no podrás saber cuándo otras personas ven tus historias.</string>
+    <string name="StoriesPrivacySettingsFragment__see_and_share">Mira y comparte cuándo se ven las historias. Si lo desactivas, no podrás saber cuándo otras personas ven tus historias.</string>
 
     <!-- NewStoryItem -->
     <string name="NewStoryItem__new_story">Nueva historia</string>
@@ -6527,7 +6533,7 @@
     <!-- Button label for paying with a credit card -->
     <string name="GatewaySelectorBottomSheet__credit_or_debit_card">Tarjeta de crédito o débito</string>
     <!-- Sheet summary when giving donating for a friend -->
-    <string name="GatewaySelectorBottomSheet__donate_for_a_friend">Donar en nombre de un amigo</string>
+    <string name="GatewaySelectorBottomSheet__donate_for_a_friend">Donar a nombre de alguien</string>
     <!-- Button label for paying with iDEAL -->
     <string name="GatewaySelectorBottomSheet__ideal">iDEAL</string>
 
@@ -6935,7 +6941,7 @@
     <!-- Option to open a full screen dialog to edit a call name -->
     <string name="CreateCallLinkBottomSheetDialogFragment__edit_call_name">Editar nombre de llamada</string>
     <!-- Toggle to require approval for all members before joining -->
-    <string name="CreateCallLinkBottomSheetDialogFragment__approve_all_members">Aprobar todas las solicitudes</string>
+    <string name="CreateCallLinkBottomSheetDialogFragment__require_admin_approval">Require admin approval</string>
     <!-- Row label to share the link via Signal -->
     <string name="CreateCallLinkBottomSheetDialogFragment__share_link_via_signal">Compartir enlace vía Signal</string>
     <!-- Row label to copy the link to the clipboard -->
@@ -6951,9 +6957,9 @@
 
     <!-- CallLinkIncomingRequestSheet -->
     <!-- Displayed as line item in sheet for approving or denying a single user -->
-    <string name="CallLinkIncomingRequestSheet__approve_entry">Aprobar entrada</string>
+    <string name="CallLinkIncomingRequestSheet__approve_entry">Aprobar solicitud</string>
     <!-- Displayed as line item in sheet for approving or denying a single user -->
-    <string name="CallLinkIncomingRequestSheet__deny_entry">Denegar entrada</string>
+    <string name="CallLinkIncomingRequestSheet__deny_entry">Rechazar solicitud</string>
 
     <!-- EditCallLinkNameDialogFragment -->
     <!-- App bar title for editing a call name -->
@@ -6991,7 +6997,7 @@
     <!-- Displayed in a text row, allowing the user to click and add a call name -->
     <string name="CallLinkDetailsFragment__add_call_name">Añadir nombre de llamada</string>
     <!-- Displayed in a toggle row, allowing the user to click to enable or disable member approval -->
-    <string name="CallLinkDetailsFragment__approve_all_members">Aprobar todas las solicitudes</string>
+    <string name="CallLinkDetailsFragment__require_admin_approval">Require admin approval</string>
     <!-- Displayed in a text row, allowing the user to share the call link -->
     <string name="CallLinkDetailsFragment__share_link">Compartir enlace</string>
     <!-- Displayed in a text row, allowing the user to delete the call link -->
@@ -7277,7 +7283,7 @@
 
     <!-- RemoteRestoreActivity -->
     <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Fecha y hora de tu última copia de seguridad: %1$s, %2$s.</string>
+    <string name="RemoteRestoreActivity__backup_created_at">Última copia de seguridad: %2$s del %1$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7291,7 +7297,7 @@
     <!-- Setting title for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_title">Aplicar límites a los dispositivos vinculados</string>
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
-    <string name="ManageStorageSettingsFragment_apply_limits_description">Cuando los límites del chat están habilitados, también se eliminarán los mensajes de tus dispositivos vinculados.</string>
+    <string name="ManageStorageSettingsFragment_apply_limits_description">Si activas los límites del chat, también se eliminarán los mensajes de tus dispositivos vinculados.</string>
     <!-- Setting section title header for storage optimization -->
     <string name="ManageStorageSettingsFragment__on_device_storage">Almacenamiento en el dispositivo</string>
     <!-- Setting row title for storage optimization -->

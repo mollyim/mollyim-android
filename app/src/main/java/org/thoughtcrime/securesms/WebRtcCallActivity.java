@@ -85,9 +85,10 @@ import org.thoughtcrime.securesms.components.webrtc.controls.ControlsAndInfoCont
 import org.thoughtcrime.securesms.components.webrtc.controls.ControlsAndInfoViewModel;
 import org.thoughtcrime.securesms.components.webrtc.participantslist.CallParticipantsListDialog;
 import org.thoughtcrime.securesms.components.webrtc.requests.CallLinkIncomingRequestSheet;
-import org.thoughtcrime.securesms.components.webrtc.v2.CallEvent;
-import org.thoughtcrime.securesms.components.webrtc.v2.CallPermissionsDialogController;
 import org.thoughtcrime.securesms.components.webrtc.v2.CallControlsChange;
+import org.thoughtcrime.securesms.components.webrtc.v2.CallEvent;
+import org.thoughtcrime.securesms.components.webrtc.v2.CallIntent;
+import org.thoughtcrime.securesms.components.webrtc.v2.CallPermissionsDialogController;
 import org.thoughtcrime.securesms.conversation.ui.error.SafetyNumberChangeDialog;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
@@ -133,24 +134,6 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   private static final int STANDARD_DELAY_FINISH = 1000;
   private static final int VIBRATE_DURATION      = 50;
 
-  /**
-   * ANSWER the call via voice-only.
-   */
-  public static final String ANSWER_ACTION = WebRtcCallActivity.class.getCanonicalName() + ".ANSWER_ACTION";
-
-  /**
-   * ANSWER the call via video.
-   */
-  public static final String ANSWER_VIDEO_ACTION = WebRtcCallActivity.class.getCanonicalName() + ".ANSWER_VIDEO_ACTION";
-  public static final String DENY_ACTION         = WebRtcCallActivity.class.getCanonicalName() + ".DENY_ACTION";
-  public static final String NO_ACTION           = WebRtcCallActivity.class.getCanonicalName() + ".NO_ACTION";
-  public static final String END_CALL_ACTION     = WebRtcCallActivity.class.getCanonicalName() + ".END_CALL_ACTION";
-
-  public static final String EXTRA_ENABLE_VIDEO_IF_AVAILABLE = WebRtcCallActivity.class.getCanonicalName() + ".ENABLE_VIDEO_IF_AVAILABLE";
-  public static final String EXTRA_STARTED_FROM_FULLSCREEN   = WebRtcCallActivity.class.getCanonicalName() + ".STARTED_FROM_FULLSCREEN";
-  public static final String EXTRA_STARTED_FROM_CALL_LINK    = WebRtcCallActivity.class.getCanonicalName() + ".STARTED_FROM_CALL_LINK";
-  public static final String EXTRA_LAUNCH_IN_PIP             = WebRtcCallActivity.class.getCanonicalName() + ".STARTED_FROM_CALL_LINK";
-
   private CallParticipantsListUpdatePopupWindow participantUpdateWindow;
   private CallStateUpdatePopupWindow            callStateUpdatePopupWindow;
   private CallOverflowPopupWindow               callOverflowPopupWindow;
@@ -186,7 +169,8 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   @SuppressLint({ "MissingInflatedId" })
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    Log.i(TAG, "onCreate(" + getIntent().getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false) + ")");
+    CallIntent callIntent = getCallIntent();
+    Log.i(TAG, "onCreate(" + callIntent.isStartedFromFullScreen() + ")");
 
     lifecycleDisposable = new LifecycleDisposable();
     lifecycleDisposable.bindTo(this);
@@ -216,18 +200,18 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
     lifecycleDisposable.add(controlsAndInfo);
 
-    logIntent(getIntent());
+    logIntent(callIntent);
 
-    if (ANSWER_VIDEO_ACTION.equals(getIntent().getAction())) {
+    if (callIntent.getAction() == CallIntent.Action.ANSWER_VIDEO) {
       enableVideoIfAvailable = true;
-    } else if (ANSWER_ACTION.equals(getIntent().getAction()) || getIntent().getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false)) {
+    } else if (callIntent.getAction() == CallIntent.Action.ANSWER_AUDIO || callIntent.isStartedFromFullScreen()) {
       enableVideoIfAvailable = false;
     } else {
-      enableVideoIfAvailable = getIntent().getBooleanExtra(EXTRA_ENABLE_VIDEO_IF_AVAILABLE, false);
-      getIntent().removeExtra(EXTRA_ENABLE_VIDEO_IF_AVAILABLE);
+      enableVideoIfAvailable = callIntent.shouldEnableVideoIfAvailable();
+      callIntent.setShouldEnableVideoIfAvailable(false);
     }
 
-    processIntent(getIntent());
+    processIntent(callIntent);
 
     registerSystemPipChangeListeners();
 
@@ -305,20 +289,20 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   protected void onPostResume(boolean screenLocked) {
     super.onPostResume(screenLocked);
     if (!screenLocked) {
-      if (ANSWER_ACTION.equals(getIntent().getAction())) {
-        handleAnswerWithAudio();
-      } else if (ANSWER_VIDEO_ACTION.equals(getIntent().getAction())) {
-        handleAnswerWithVideo();
+      switch (getCallIntent().getAction()) {
+        case ANSWER_AUDIO -> handleAnswerWithAudio();
+        case ANSWER_VIDEO -> handleAnswerWithVideo();
       }
     }
   }
 
   @Override
   public void onNewIntent(Intent intent) {
-    Log.i(TAG, "onNewIntent(" + intent.getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false) + ")");
+    CallIntent callIntent = getCallIntent();
+    Log.i(TAG, "onNewIntent(" + callIntent.isStartedFromFullScreen() + ")");
     super.onNewIntent(intent);
-    logIntent(intent);
-    processIntent(intent);
+    logIntent(callIntent);
+    processIntent(callIntent);
   }
 
   @Override
@@ -376,6 +360,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   @Override
   protected void onUserLeaveHint() {
+    super.onUserLeaveHint();
     enterPipModeIfPossible();
   }
 
@@ -389,6 +374,10 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   @Override
   protected void onAuthenticationCancel() {
     super.onBackPressed();
+  }
+
+  private @NonNull CallIntent getCallIntent() {
+    return new CallIntent(getIntent());
   }
 
   private boolean enterPipModeIfPossible() {
@@ -414,26 +403,22 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     return isSystemPipEnabledAndAvailable() && isInPictureInPictureMode();
   }
 
-  private void logIntent(@NonNull Intent intent) {
-    Log.d(TAG, "Intent: Action: " + intent.getAction());
-    Log.d(TAG, "Intent: EXTRA_STARTED_FROM_FULLSCREEN: " + intent.getBooleanExtra(EXTRA_STARTED_FROM_FULLSCREEN, false));
-    Log.d(TAG, "Intent: EXTRA_ENABLE_VIDEO_IF_AVAILABLE: " + intent.getBooleanExtra(EXTRA_ENABLE_VIDEO_IF_AVAILABLE, false));
-    Log.d(TAG, "Intent: EXTRA_LAUNCH_IN_PIP: " + intent.getBooleanExtra(EXTRA_LAUNCH_IN_PIP, false));
+  private void logIntent(@NonNull CallIntent intent) {
+    Log.d(TAG, intent.toString());
   }
 
-  private void processIntent(@NonNull Intent intent) {
-    final String action = intent.getAction();
-    if (ANSWER_ACTION.equals(action) || ANSWER_VIDEO_ACTION.equals(action) || NO_ACTION.equals(action)) {
+  private void processIntent(@NonNull CallIntent intent) {
+    switch (intent.getAction()) {
       // MOLLY: Hold this action until activity's screen is unlocked
-      setIntent(intent);
-    } else if (DENY_ACTION.equals(action)) {
-      handleDenyCall();
-    } else if (END_CALL_ACTION.equals(action)) {
-      handleEndCall();
+      case NO_ACTION -> setIntent(intent.getIntent());
+      case ANSWER_AUDIO -> setIntent(intent.getIntent());
+      case ANSWER_VIDEO -> setIntent(intent.getIntent());
+      case DENY -> handleDenyCall();
+      case END_CALL -> handleEndCall();
     }
 
     if (System.currentTimeMillis() - lastProcessedIntentTimestamp > TimeUnit.SECONDS.toMillis(1)) {
-      enterPipOnResume = intent.getBooleanExtra(EXTRA_LAUNCH_IN_PIP, false);
+      enterPipOnResume = intent.shouldLaunchInPip();
     }
 
     lastProcessedIntentTimestamp = System.currentTimeMillis();
@@ -539,7 +524,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
     lifecycleDisposable.add(viewModel.getInCallstatus().subscribe(this::handleInCallStatus));
 
-    boolean isStartedFromCallLink = getIntent().getBooleanExtra(WebRtcCallActivity.EXTRA_STARTED_FROM_CALL_LINK, false);
+    boolean isStartedFromCallLink = getCallIntent().isStartedFromCallLink();
     LiveDataUtil.combineLatest(LiveDataReactiveStreams.fromPublisher(viewModel.getCallParticipantsState().toFlowable(BackpressureStrategy.LATEST)),
                                orientationAndLandscapeEnabled,
                                viewModel.getEphemeralState(),

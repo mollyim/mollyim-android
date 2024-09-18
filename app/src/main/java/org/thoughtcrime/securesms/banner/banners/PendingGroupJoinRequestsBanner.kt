@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.banner.banners
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.pluralStringResource
 import kotlinx.coroutines.flow.Flow
@@ -17,18 +18,19 @@ import org.thoughtcrime.securesms.banner.ui.compose.DefaultBanner
 class PendingGroupJoinRequestsBanner(override val enabled: Boolean, private val suggestionsSize: Int, private val onViewClicked: () -> Unit, private val onDismissListener: (() -> Unit)?) : Banner() {
 
   @Composable
-  override fun DisplayBanner() {
+  override fun DisplayBanner(contentPadding: PaddingValues) {
     DefaultBanner(
       title = null,
       body = pluralStringResource(
-        id = R.plurals.GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group,
+        id = R.plurals.PendingGroupJoinRequestsReminder_d_pending_member_requests,
         count = suggestionsSize,
         suggestionsSize
       ),
+      onDismissListener = onDismissListener,
       actions = listOf(
         Action(R.string.PendingGroupJoinRequestsReminder_view, onClick = onViewClicked)
       ),
-      onDismissListener = onDismissListener
+      paddingValues = contentPadding
     )
   }
 

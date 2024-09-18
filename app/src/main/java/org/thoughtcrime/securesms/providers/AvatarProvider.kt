@@ -15,6 +15,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.ParcelFileDescriptor
 import org.signal.core.util.concurrent.SignalExecutors
+import org.signal.core.util.logging.AndroidLogger
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.BuildConfig
@@ -22,6 +23,8 @@ import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.SqlCipherLibraryLoader
+import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -77,6 +80,13 @@ class AvatarProvider : BaseContentProvider() {
     )
 
     SignalStore.init(application)
+
+    Log.initialize(AndroidLogger)
+
+    if (!AppDependencies.isInitialized) {
+      Log.i(TAG, "Initializing AppDependencies.")
+      AppDependencies.init(application, ApplicationDependencyProvider(application))
+    }
 
     return application
   }

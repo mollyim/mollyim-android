@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.components.webrtc.v2
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -18,8 +19,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rxjava3.subscribeAsState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -33,14 +36,17 @@ import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.components.webrtc.CallParticipantsState
+import org.thoughtcrime.securesms.components.webrtc.WebRtcAudioDevice
 import org.thoughtcrime.securesms.components.webrtc.WebRtcCallViewModel
 import org.thoughtcrime.securesms.components.webrtc.controls.CallInfoView
 import org.thoughtcrime.securesms.components.webrtc.controls.ControlsAndInfoViewModel
+import org.thoughtcrime.securesms.components.webrtc.controls.RaiseHandSnackbar
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.WebRtcViewModel
 import org.thoughtcrime.securesms.messagerequests.CalleeMustAcceptMessageRequestActivity
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.VibrateUtil
 import org.thoughtcrime.securesms.util.viewModel
 import org.whispersystems.signalservice.api.messages.calls.HangupMessage
@@ -77,6 +83,8 @@ class CallActivity : BaseActivity(), CallControlsCallback {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    val fullscreenHelper = FullscreenHelper(this)
+
     lifecycleDisposable.bindTo(this)
     val compositeDisposable = CompositeDisposable()
     lifecycleDisposable.add(compositeDisposable)
@@ -84,6 +92,7 @@ class CallActivity : BaseActivity(), CallControlsCallback {
     val callInfoCallbacks = CallInfoCallbacks(this, controlsAndInfoViewModel, compositeDisposable)
 
     observeCallEvents()
+    viewModel.processCallIntent(CallIntent(intent))
 
     setContent {
       val lifecycleOwner = LocalLifecycleOwner.current
@@ -120,10 +129,20 @@ class CallActivity : BaseActivity(), CallControlsCallback {
         }
       }
 
+      var areControlsVisible by remember { mutableStateOf(true) }
+
+      LaunchedEffect(areControlsVisible) {
+        if (areControlsVisible) {
+          fullscreenHelper.showSystemUI()
+        } else {
+          fullscreenHelper.hideSystemUI()
+        }
+      }
+
       SignalTheme {
         Surface {
           CallScreen(
-            callRecipient = recipient ?: Recipient.UNKNOWN,
+            callRecipient = recipient,
             webRtcCallState = callParticipantsState.callState,
             callScreenState = callScreenState,
             callControlsState = callControlsState,
@@ -134,6 +153,7 @@ class CallActivity : BaseActivity(), CallControlsCallback {
               isRenderInPip = callParticipantsState.isInPipMode,
               hideAvatar = callParticipantsState.hideAvatar
             ),
+            overflowParticipants = callParticipantsState.listParticipants,
             localParticipant = callParticipantsState.localParticipant,
             localRenderState = callParticipantsState.localRenderState,
             callInfoView = {
@@ -145,12 +165,25 @@ class CallActivity : BaseActivity(), CallControlsCallback {
                   .alpha(it)
               )
             },
+            raiseHandSnackbar = {
+              RaiseHandSnackbar.View(
+                webRtcCallViewModel = webRtcCallViewModel,
+                showCallInfoListener = { /*TODO*/ },
+                modifier = it
+              )
+            },
             onNavigationClick = { finish() },
-            onLocalPictureInPictureClicked = webRtcCallViewModel::onLocalPictureInPictureClicked
+            onLocalPictureInPictureClicked = webRtcCallViewModel::onLocalPictureInPictureClicked,
+            onControlsToggled = { areControlsVisible = it }
           )
         }
       }
     }
+  }
+
+  override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    viewModel.processCallIntent(CallIntent(intent))
   }
 
   override fun onResume() {
@@ -177,13 +210,9 @@ class CallActivity : BaseActivity(), CallControlsCallback {
       }
     }
 
-    /*
-    TODO
-    if (enterPipOnResume) {
-      enterPipOnResume = false;
-      enterPipModeIfPossible();
+    if (viewModel.consumeEnterPipOnResume()) {
+      // TODO enterPipModeIfPossible()
     }
-     */
   }
 
   override fun onPause() {
@@ -234,8 +263,16 @@ class CallActivity : BaseActivity(), CallControlsCallback {
   }
 
   @SuppressLint("MissingSuperCall")
-  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
     Permissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults)
+  }
+
+  override fun onAudioDeviceSheetDisplayChanged(displayed: Boolean) {
+    viewModel.onAudioDeviceSheetDisplayChanged(displayed)
+  }
+
+  override fun onSelectedAudioDeviceChanged(audioDevice: WebRtcAudioDevice) {
+    viewModel.onSelectedAudioDeviceChanged(audioDevice)
   }
 
   override fun onVideoToggleClick(enabled: Boolean) {

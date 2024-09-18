@@ -36,10 +36,9 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.pin.SvrWrongPinException
-import org.thoughtcrime.securesms.registration.RegistrationData
-import org.thoughtcrime.securesms.registration.RegistrationUtil
 import org.thoughtcrime.securesms.registration.data.LinkDeviceRepository
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil
+import org.thoughtcrime.securesms.registration.data.RegistrationData
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.data.network.BackupAuthCheckResult
 import org.thoughtcrime.securesms.registration.data.network.Challenge
@@ -64,6 +63,7 @@ import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequ
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.Success
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.TokenNotAccepted
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.UnknownError
+import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.registration.viewmodel.SvrAuthCredentialSet
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.Util
@@ -832,25 +832,24 @@ class RegistrationViewModel : ViewModel() {
 
     if (reglockEnabled) {
       SignalStore.onboarding.clearAll()
-      val stopwatch = Stopwatch("RegistrationLockRestore")
+    }
+
+    if (reglockEnabled || SignalStore.storageService.lastSyncTime == 0L) {
+      val stopwatch = Stopwatch("post-reg-storage-service")
 
       AppDependencies.jobManager.runSynchronously(StorageAccountRestoreJob(), StorageAccountRestoreJob.LIFESPAN)
-      stopwatch.split("AccountRestore")
+      stopwatch.split("account-restore")
 
       AppDependencies.jobManager
         .startChain(StorageSyncJob())
         .then(ReclaimUsernameAndLinkJob())
         .enqueueAndBlockUntilCompletion(TimeUnit.SECONDS.toMillis(10))
-      stopwatch.split("ContactRestore")
-
-      refreshRemoteConfig()
-
-      stopwatch.split("RemoteConfig")
+      stopwatch.split("storage-sync")
 
       stopwatch.stop(TAG)
-    } else {
-      refreshRemoteConfig()
     }
+
+    refreshRemoteConfig()
 
     store.update {
       it.copy(

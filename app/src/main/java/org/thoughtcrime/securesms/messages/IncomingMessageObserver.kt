@@ -114,7 +114,7 @@ class IncomingMessageObserver(private val context: Application) {
 
     // MOLLY: Foreground service startup is handled inside the connection loop
 
-    AppDependencies.appForegroundObserver.addListener(object : AppForegroundObserver.Listener {
+    AppForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
         onAppForegrounded()
       }
@@ -400,10 +400,6 @@ class IncomingMessageObserver(private val context: Application) {
           // Any change to a non-connected state means that we are not drained
           if (state != WebSocketConnectionState.CONNECTED) {
             decryptionDrained = false
-          }
-
-          if (state == WebSocketConnectionState.CONNECTED) {
-            SignalStore.misc.lastWebSocketConnectTime = System.currentTimeMillis()
           }
         }
 
