@@ -401,10 +401,6 @@ class IncomingMessageObserver(private val context: Application) {
           if (state != WebSocketConnectionState.CONNECTED) {
             decryptionDrained = false
           }
-
-          if (state == WebSocketConnectionState.CONNECTED) {
-            SignalStore.misc.lastWebSocketConnectTime = System.currentTimeMillis()
-          }
         }
 
         signalWebSocket.connect(shouldKeepAliveUnidentified())

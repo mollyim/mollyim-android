@@ -20,7 +20,6 @@ import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.signal.donations.StripeApi;
 import org.thoughtcrime.securesms.components.DeviceSpecificNotificationBottomSheet;
 import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment;
-import org.thoughtcrime.securesms.components.ConnectivityWarningBottomSheet;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
@@ -121,9 +120,6 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
         break;
       case PROMPT_GENERAL_BATTERY_SAVER_DIALOG:
         PromptBatterySaverDialogFragment.show(getSupportFragmentManager());
-        break;
-      case PROMPT_CONNECTIVITY_WARNING:
-        ConnectivityWarningBottomSheet.show(getSupportFragmentManager());
         break;
     }
   }
