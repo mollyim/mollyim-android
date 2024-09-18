@@ -1000,6 +1000,10 @@ class AttachmentTable(
       values.put(REMOTE_IV, iv)
       values.put(REMOTE_DIGEST, digest)
 
+      if (digestChanged) {
+        values.put(UPLOAD_TIMESTAMP, 0)
+      }
+
       db.update(TABLE_NAME)
         .values(values)
         .where("$ID = ?", attachmentId.id)
