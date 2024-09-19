@@ -22,11 +22,13 @@ RUN yes | sdkmanager --licenses
 
 RUN sdkmanager "platform-tools"
 
-ARG ANDROID_API_LEVEL=34
-ARG ANDROID_BUILD_TOOLS_VERSION=34.0.0
+ARG NDK_VERSION=27.0.12077973
+ARG COMPILE_SDK_VERSION=34
+ARG BUILD_TOOLS_VERSION=34.0.0
 
-RUN sdkmanager "platforms;android-${ANDROID_API_LEVEL}"
-RUN sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
+RUN sdkmanager "ndk;${NDK_VERSION}"
+RUN sdkmanager "platforms;android-${COMPILE_SDK_VERSION}"
+RUN sdkmanager "build-tools;${BUILD_TOOLS_VERSION}"
 
 COPY gradlew /molly/
 COPY gradle /molly/gradle/
