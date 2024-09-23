@@ -1052,4 +1052,5 @@ public class SignalServiceAccountManager {
   public AuthCredentials getPaymentsAuthorization() throws IOException {
     return pushServiceSocket.getPaymentsAuthorization();
   }
+
 }

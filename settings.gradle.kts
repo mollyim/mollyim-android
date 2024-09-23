@@ -18,12 +18,6 @@ dependencyResolutionManagement {
       }
     }
     maven {
-      url = uri("https://jitpack.io")
-      content {
-        includeModule("com.github.UnifiedPush", "android-connector")
-      }
-    }
-    maven {
       url = uri("https://raw.githubusercontent.com/mollyim/maven/master/argon2/releases/")
       content {
         includeModule("im.molly", "argon2")

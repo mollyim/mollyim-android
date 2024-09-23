@@ -534,8 +534,12 @@ dependencies {
   implementation(libs.molly.glide.webp.decoder)
   implementation(libs.gosimple.nbvcxz)
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
-  implementation(libs.unifiedpush.connector)
-  implementation(libs.unifiedpush.connector.ui)
+  implementation(libs.unifiedpush.connector) {
+    exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
+  }
+  implementation(libs.unifiedpush.connector.ui) {
+    exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
+  }
 
   "gmsImplementation"(project(":billing"))
 
