@@ -33,6 +33,7 @@ class DSLConfiguration {
   fun radioListPref(
     title: DSLSettingsText,
     icon: DSLSettingsIcon? = null,
+    iconEnd: DSLSettingsIcon? = null,
     dialogTitle: DSLSettingsText = title,
     isEnabled: Boolean = true,
     listItems: Array<String>,
@@ -43,6 +44,7 @@ class DSLConfiguration {
     val preference = RadioListPreference(
       title = title,
       icon = icon,
+      iconEnd = iconEnd,
       isEnabled = isEnabled,
       dialogTitle = dialogTitle,
       listItems = listItems,
@@ -251,6 +253,7 @@ abstract class PreferenceModel<T : PreferenceModel<T>>(
     return areItemsTheSame(newItem) &&
       newItem.summary == summary &&
       newItem.icon == icon &&
+      newItem.iconEnd == iconEnd &&
       newItem.isEnabled == isEnabled &&
       newItem.iconEnd == iconEnd
   }
@@ -274,6 +277,7 @@ class DividerPreference : PreferenceModel<DividerPreference>() {
 class RadioListPreference(
   override val title: DSLSettingsText,
   override val icon: DSLSettingsIcon? = null,
+  override val iconEnd: DSLSettingsIcon? = null,
   override val isEnabled: Boolean,
   val dialogTitle: DSLSettingsText = title,
   val listItems: Array<String>,
