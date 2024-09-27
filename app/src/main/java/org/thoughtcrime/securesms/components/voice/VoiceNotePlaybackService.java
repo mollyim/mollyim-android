@@ -264,6 +264,10 @@ public class VoiceNotePlaybackService extends MediaSessionService {
    * @return the built MediaSession, or null if the session cannot be built.
    */
   private @Nullable MediaSession buildMediaSession(boolean isRetry) {
+    if (KeyCachingService.isLocked()) {
+      Log.i(TAG, "Refuse to create media session when app is locked.");
+      return null;
+    }
     try {
       return new MediaSession.Builder(this, player).setCallback(voiceNotePlayerCallback).setId(SESSION_ID).build();
     } catch (IllegalStateException | IllegalArgumentException e) {
