@@ -178,8 +178,6 @@ android {
 
     applicationId = basePackageId
 
-    multiDexEnabled = true
-
     buildConfigField("String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\"")
     buildConfigField("String", "SIGNAL_CANONICAL_VERSION_NAME", "\"$canonicalVersionName\"")
     buildConfigField("int", "SIGNAL_CANONICAL_VERSION_CODE", "$canonicalVersionCode")
@@ -450,7 +448,6 @@ dependencies {
   implementation(libs.androidx.compose.runtime.livedata)
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.constraintlayout)
-  implementation(libs.androidx.multidex)
   implementation(libs.androidx.navigation.fragment.ktx)
   implementation(libs.androidx.navigation.ui.ktx)
   implementation(libs.androidx.navigation.compose)
@@ -550,7 +547,6 @@ dependencies {
   testImplementation(testLibs.robolectric.robolectric) {
     exclude(group = "com.google.protobuf", module = "protobuf-java")
   }
-  testImplementation(testLibs.robolectric.shadows.multidex)
   testImplementation(testLibs.bouncycastle.bcprov.jdk15on) {
     version {
       strictly("1.70")

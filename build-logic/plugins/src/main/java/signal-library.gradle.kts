@@ -27,7 +27,6 @@ android {
   defaultConfig {
     minSdk = signalMinSdkVersion
     targetSdk = signalTargetSdkVersion
-    multiDexEnabled = true
   }
 
   compileOptions {
@@ -57,7 +56,6 @@ dependencies {
   implementation(libs.rxjava3.rxandroid)
   implementation(libs.rxjava3.rxjava)
   implementation(libs.rxjava3.rxkotlin)
-  implementation(libs.androidx.multidex)
   implementation(libs.kotlin.stdlib.jdk8)
 
   testImplementation(testLibs.junit.junit)
