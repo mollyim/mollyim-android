@@ -162,6 +162,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
             this, new BiometricDialogFragment.Listener() {
               @Override
               public boolean onSuccess() {
+                setInputEnabled(false);
                 ScreenLockController.setLockScreenAtStart(false);
                 handlePassphrase(passphrase);
                 return true;
@@ -174,7 +175,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
                 } else {
                   setInputEnabled(true);
                 }
-                return true;
+                return fromUser;
               }
 
               @Override
