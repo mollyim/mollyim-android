@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="AppProtectionPreferenceFragment_instant">立即</string>
-    <string name="preferences__passphrase_lock">版权加密</string>
+    <string name="preferences__passphrase_lock">数据库加密</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">正在生成密钥。可能要花费一些时间…</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">请选择一个将用于本地加密数据的密码。\n\n这应该是一个强密码。</string>
     <string name="ChangePassphraseDialogFragment_passphrase">密码</string>
@@ -30,9 +30,9 @@
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">你和%1$s的聊天会被删除。</string>
     <string name="BlockUnblockDialog_delete_this_contact">删除这个联系人？</string>
     <string name="ConversationSettingsFragment__add_to_your_phones_contacts">添加到设备联系人</string>
-    <string name="preferences_network__tunnels_network_traffic">隧道网络交通</string>
+    <string name="preferences_network__tunnels_network_traffic">隧道网络流量</string>
     <string name="preferences_network__hostname_or_ip_address">主机名或IP地址</string>
-    <string name="preferences_network__port">港口</string>
+    <string name="preferences_network__port">端口</string>
     <string name="preferences_network__host">主机</string>
     <string name="preferences_network__proxy">代理</string>
     <string name="preferences_network__connection">连接</string>
@@ -51,7 +51,7 @@
     <string name="preferences_network__connecting">连接中…</string>
     <string name="preferences_network__check_connection">检查连接</string>
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">阻止你从未联系过的用户和未保存为联系人的用户。</string>
-    <string name="preferences__block_unknown">拦截未知</string>
+    <string name="preferences__block_unknown">拦截陌生人</string>
     <string name="BackupsPreferenceFragment__number_of_backups_to_retain">要保留的备份数</string>
     <string name="BackupsPreferenceFragment__change_schedule">更改计划</string>
     <string name="arrays__weekly">每周</string>
@@ -118,5 +118,5 @@
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">安卓设备：访问 %s 安装 Molly。</string>
     <string name="LinkDeviceFragment__use_molly_on_another_devices">在另一台设备上使用 Molly。你的消息将同步到你链接的设备。</string>
     <string name="LinkDeviceFragment__messaging_is_private_on_all_linked_devices">收发信息在所有链接的设备上都是私密的。</string>
-    <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly 支持链接到其他运行 Molly 的安卓设备，以及运行 Signal 的桌面设备和 iPads。</string>
+    <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly 支持链接到其他运行 Molly 的安卓设备，以及运行 Signal 的桌面设备和 iPad。</string>
 </resources>
