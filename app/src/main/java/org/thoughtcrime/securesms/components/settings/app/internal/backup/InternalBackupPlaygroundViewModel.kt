@@ -244,7 +244,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
           .filter { attachments.contains(it.dbAttachment.attachmentId) }
           .map { it.dbAttachment }
 
-        BackupRepository.archiveMedia(toArchive)
+        BackupRepository.copyAttachmentToArchive(toArchive)
       }
       .subscribeOn(Schedulers.io())
       .observeOn(Schedulers.single())
@@ -268,7 +268,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
   }
 
   fun archiveAttachmentMedia(attachment: BackupAttachment) {
-    disposables += Single.fromCallable { BackupRepository.archiveMedia(attachment.dbAttachment) }
+    disposables += Single.fromCallable { BackupRepository.copyAttachmentToArchive(attachment.dbAttachment) }
       .subscribeOn(Schedulers.io())
       .observeOn(Schedulers.single())
       .doOnSubscribe { _mediaState.set { update(inProgress = inProgressMediaIds + attachment.dbAttachment.attachmentId) } }
@@ -383,7 +383,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
           )
         } else {
           AppDependencies.jobManager.add(
-            RestoreAttachmentJob(
+            RestoreAttachmentJob.forInitialRestore(
               messageId = insertMessage.messageId,
               attachmentId = archivedAttachment.attachmentId
             )

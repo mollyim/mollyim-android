@@ -310,7 +310,7 @@ private fun DecryptedGroup.toSnapshot(): Group.GroupSnapshot? {
   return Group.GroupSnapshot(
     title = Group.GroupAttributeBlob(title = this.title),
     avatarUrl = this.avatar,
-    disappearingMessagesTimer = Group.GroupAttributeBlob(disappearingMessagesDuration = this.disappearingMessagesTimer?.duration ?: 0),
+    disappearingMessagesTimer = this.disappearingMessagesTimer?.takeIf { it.duration > 0 }?.let { Group.GroupAttributeBlob(disappearingMessagesDuration = it.duration) },
     accessControl = this.accessControl?.toSnapshot(),
     version = this.revision,
     members = this.members.map { it.toSnapshot() },
@@ -324,11 +324,11 @@ private fun DecryptedGroup.toSnapshot(): Group.GroupSnapshot? {
 }
 
 private fun Group.Member.toLocal(): DecryptedMember {
-  return DecryptedMember(aciBytes = userId, role = role.toLocal(), profileKey = profileKey, joinedAtRevision = joinedAtVersion)
+  return DecryptedMember(aciBytes = userId, role = role.toLocal(), joinedAtRevision = joinedAtVersion)
 }
 
 private fun DecryptedMember.toSnapshot(): Group.Member {
-  return Group.Member(userId = aciBytes, role = role.toSnapshot(), profileKey = profileKey, joinedAtVersion = joinedAtRevision)
+  return Group.Member(userId = aciBytes, role = role.toSnapshot(), joinedAtVersion = joinedAtRevision)
 }
 
 private fun Group.MemberPendingProfileKey.toLocal(operations: GroupsV2Operations.GroupOperations): DecryptedPendingMember {
@@ -355,7 +355,6 @@ private fun DecryptedPendingMember.toSnapshot(): Group.MemberPendingProfileKey {
 private fun Group.MemberPendingAdminApproval.toLocal(): DecryptedRequestingMember {
   return DecryptedRequestingMember(
     aciBytes = this.userId,
-    profileKey = this.profileKey,
     timestamp = this.timestamp
   )
 }
@@ -363,7 +362,6 @@ private fun Group.MemberPendingAdminApproval.toLocal(): DecryptedRequestingMembe
 private fun DecryptedRequestingMember.toSnapshot(): Group.MemberPendingAdminApproval {
   return Group.MemberPendingAdminApproval(
     userId = this.aciBytes,
-    profileKey = this.profileKey,
     timestamp = this.timestamp
   )
 }

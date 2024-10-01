@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -26,6 +27,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -56,6 +58,7 @@ fun DefaultBanner(
   Box(
     modifier = Modifier
       .padding(paddingValues)
+      .clip(RoundedCornerShape(12.dp))
       .background(
         color = when (importance) {
           Importance.NORMAL -> MaterialTheme.colorScheme.surface
@@ -104,7 +107,10 @@ fun DefaultBanner(
               if (progressPercent >= 0) {
                 LinearProgressIndicator(
                   progress = { progressPercent / 100f },
-                  color = MaterialTheme.colorScheme.primary,
+                  color = when (importance) {
+                    Importance.NORMAL -> MaterialTheme.colorScheme.primary
+                    Importance.ERROR -> colorResource(id = R.color.signal_light_colorPrimary)
+                  },
                   trackColor = MaterialTheme.colorScheme.primaryContainer,
                   modifier = Modifier
                     .padding(vertical = 12.dp)
@@ -112,20 +118,23 @@ fun DefaultBanner(
                 )
               } else {
                 LinearProgressIndicator(
-                  color = MaterialTheme.colorScheme.primary,
+                  color = when (importance) {
+                    Importance.NORMAL -> MaterialTheme.colorScheme.primary
+                    Importance.ERROR -> colorResource(id = R.color.signal_light_colorPrimary)
+                  },
                   trackColor = MaterialTheme.colorScheme.primaryContainer,
                   modifier = Modifier.padding(vertical = 12.dp)
                 )
               }
-              Text(
-                text = progressText,
-                style = MaterialTheme.typography.bodySmall,
-                color = when (importance) {
-                  Importance.NORMAL -> MaterialTheme.colorScheme.onSurfaceVariant
-                  Importance.ERROR -> colorResource(id = R.color.signal_light_colorOnSurface)
-                }
-              )
             }
+            Text(
+              text = progressText,
+              style = MaterialTheme.typography.bodySmall,
+              color = when (importance) {
+                Importance.NORMAL -> MaterialTheme.colorScheme.onSurfaceVariant
+                Importance.ERROR -> colorResource(id = R.color.signal_light_colorOnSurface)
+              }
+            )
           }
 
           Box(modifier = Modifier.size(48.dp)) {
@@ -152,7 +161,13 @@ fun DefaultBanner(
             .padding(end = 8.dp)
         ) {
           for (action in actions) {
-            TextButton(onClick = action.onClick) {
+            TextButton(
+              onClick = action.onClick,
+              colors = when (importance) {
+                Importance.NORMAL -> ButtonDefaults.textButtonColors()
+                Importance.ERROR -> ButtonDefaults.textButtonColors(contentColor = colorResource(R.color.signal_light_colorPrimary))
+              }
+            ) {
               Text(
                 text = if (!action.isPluralizedLabel) {
                   stringResource(id = action.label)

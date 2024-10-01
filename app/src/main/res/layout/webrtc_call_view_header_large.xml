@@ -18,11 +18,11 @@
         android:textColor="@color/core_white"
         android:visibility="gone"
         android:layout_marginTop="8dp"
-        app:drawableStartCompat="@drawable/ic_signal_logo_small"
+        app:drawableStartCompat="@drawable/ic_notification"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Signal video call" />
+        tools:text="Molly video call" />
 
     <org.thoughtcrime.securesms.components.AvatarImageView
         android:id="@+id/call_screen_header_avatar"
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/call_screen_recipient_name"
-        tools:text="Signal Calling..." />
+        tools:text="Molly Calling..." />
 
     <LinearLayout
         android:id="@+id/missing_permissions_container"

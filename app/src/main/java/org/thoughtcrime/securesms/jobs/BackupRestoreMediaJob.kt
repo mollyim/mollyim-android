@@ -7,8 +7,8 @@ package org.thoughtcrime.securesms.jobs
 
 import org.signal.core.util.logging.Log
 import org.signal.core.util.withinTransaction
+import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.database.AttachmentTable
-import org.thoughtcrime.securesms.database.AttachmentTable.RestorableAttachment
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -56,20 +56,22 @@ class BackupRestoreMediaJob private constructor(parameters: Parameters) : BaseJo
 
     do {
       val restoreThumbnailJobs: MutableList<RestoreAttachmentThumbnailJob> = mutableListOf()
-      val restoreFullAttachmentJobs: MutableMap<RestorableAttachment, RestoreAttachmentJob> = mutableMapOf()
+      val restoreFullAttachmentJobs: MutableList<RestoreAttachmentJob> = mutableListOf()
 
-      val restoreThumbnailOnlyAttachments: MutableList<RestorableAttachment> = mutableListOf()
-      val notRestorable: MutableList<RestorableAttachment> = mutableListOf()
+      val restoreThumbnailOnlyAttachmentsIds: MutableList<AttachmentId> = mutableListOf()
+      val notRestorable: MutableList<AttachmentId> = mutableListOf()
 
       val attachmentBatch = SignalDatabase.attachments.getRestorableAttachments(batchSize)
       val messageIds = attachmentBatch.map { it.mmsId }.toSet()
       val messageMap = SignalDatabase.messages.getMessages(messageIds).associate { it.id to (it as MmsMessageRecord) }
 
       for (attachment in attachmentBatch) {
+        val isWallpaper = attachment.mmsId == AttachmentTable.WALLPAPER_MESSAGE_ID
+
         val message = messageMap[attachment.mmsId]
-        if (message == null) {
-          Log.w(TAG, "Unable to find message for ${attachment.attachmentId}")
-          notRestorable += attachment
+        if (message == null && !isWallpaper) {
+          Log.w(TAG, "Unable to find message for ${attachment.attachmentId}, mmsId: ${attachment.mmsId}")
+          notRestorable += attachment.attachmentId
           continue
         }
 
@@ -79,39 +81,37 @@ class BackupRestoreMediaJob private constructor(parameters: Parameters) : BaseJo
           highPriority = false
         )
 
-        if (shouldRestoreFullSize(message, restoreTime, SignalStore.backup.optimizeStorage)) {
-          restoreFullAttachmentJobs += attachment to RestoreAttachmentJob(
+        if (isWallpaper || shouldRestoreFullSize(message!!, restoreTime, SignalStore.backup.optimizeStorage)) {
+          restoreFullAttachmentJobs += RestoreAttachmentJob.forInitialRestore(
             messageId = attachment.mmsId,
             attachmentId = attachment.attachmentId
           )
         } else {
-          restoreThumbnailOnlyAttachments += attachment
+          restoreThumbnailOnlyAttachmentsIds += attachment.attachmentId
         }
       }
 
       SignalDatabase.rawDatabase.withinTransaction {
         // Mark not restorable thumbnails and attachments as failed
-        SignalDatabase.attachments.setThumbnailRestoreState(notRestorable.map { it.attachmentId }, AttachmentTable.ThumbnailRestoreState.PERMANENT_FAILURE)
+        SignalDatabase.attachments.setThumbnailRestoreState(notRestorable, AttachmentTable.ThumbnailRestoreState.PERMANENT_FAILURE)
         SignalDatabase.attachments.setRestoreTransferState(notRestorable, AttachmentTable.TRANSFER_PROGRESS_FAILED)
 
-        // Mark restorable thumbnails and attachments as in progress
-        SignalDatabase.attachments.setThumbnailRestoreState(restoreThumbnailJobs.map { it.attachmentId }, AttachmentTable.ThumbnailRestoreState.IN_PROGRESS)
-        SignalDatabase.attachments.setRestoreTransferState(restoreFullAttachmentJobs.keys, AttachmentTable.TRANSFER_RESTORE_IN_PROGRESS)
-
         // Set thumbnail only attachments as offloaded
-        SignalDatabase.attachments.setRestoreTransferState(restoreThumbnailOnlyAttachments, AttachmentTable.TRANSFER_RESTORE_OFFLOADED)
-
-        jobManager.addAll(restoreThumbnailJobs + restoreFullAttachmentJobs.values)
+        SignalDatabase.attachments.setRestoreTransferState(restoreThumbnailOnlyAttachmentsIds, AttachmentTable.TRANSFER_RESTORE_OFFLOADED)
       }
+
+      // Intentionally enqueues one at a time for safer attachment transfer state management
+      restoreThumbnailJobs.forEach { jobManager.add(it) }
+      restoreFullAttachmentJobs.forEach { jobManager.add(it) }
     } while (restoreThumbnailJobs.isNotEmpty() && restoreFullAttachmentJobs.isNotEmpty() && notRestorable.isNotEmpty())
 
     SignalStore.backup.totalRestorableAttachmentSize = SignalDatabase.attachments.getRemainingRestorableAttachmentSize()
 
-    jobManager.add(CheckRestoreMediaLeftJob(RestoreAttachmentJob.constructQueueString()))
+    jobManager.add(CheckRestoreMediaLeftJob(RestoreAttachmentJob.constructQueueString(RestoreAttachmentJob.RestoreOperation.INITIAL_RESTORE)))
   }
 
   private fun shouldRestoreFullSize(message: MmsMessageRecord, restoreTime: Long, optimizeStorage: Boolean): Boolean {
-    return !optimizeStorage || ((restoreTime - message.dateSent) < 30.days.inWholeMilliseconds)
+    return !optimizeStorage || ((restoreTime - message.dateReceived) < 30.days.inWholeMilliseconds)
   }
 
   override fun onShouldRetry(e: Exception): Boolean = false

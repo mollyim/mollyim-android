@@ -5,10 +5,10 @@
 
 package org.thoughtcrime.securesms.jobs
 
-import org.greenrobot.eventbus.EventBus
+import org.signal.core.util.Stopwatch
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
-import org.thoughtcrime.securesms.backup.v2.BackupV2Event
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
@@ -37,14 +37,18 @@ class BackupMessagesJob private constructor(parameters: Parameters) : Job(parame
      */
     fun enqueue(pruneAbandonedRemoteMedia: Boolean = false) {
       val jobManager = AppDependencies.jobManager
+
+      val chain = jobManager.startChain(BackupMessagesJob())
+
       if (pruneAbandonedRemoteMedia) {
-        jobManager
-          .startChain(BackupMessagesJob())
-          .then(SyncArchivedMediaJob())
-          .enqueue()
-      } else {
-        jobManager.add(BackupMessagesJob())
+        chain.then(SyncArchivedMediaJob())
       }
+
+      if (SignalStore.backup.optimizeStorage && SignalStore.backup.backsUpMedia) {
+        chain.then(OptimizeMediaJob())
+      }
+
+      chain.enqueue()
     }
   }
 
@@ -53,7 +57,7 @@ class BackupMessagesJob private constructor(parameters: Parameters) : Job(parame
       .addConstraint(if (SignalStore.backup.backupWithCellular) NetworkConstraint.KEY else WifiConstraint.KEY)
       .setMaxAttempts(3)
       .setMaxInstancesForFactory(1)
-      .setQueue(BackfillDigestJob.QUEUE) // We want to ensure digests have been backfilled before this runs. Could eventually remove this constraint.b
+      .setQueue(BackfillDigestJob.QUEUE) // We want to ensure digests have been backfilled before this runs. Could eventually remove this constraint.
       .build()
   )
 
@@ -64,11 +68,19 @@ class BackupMessagesJob private constructor(parameters: Parameters) : Job(parame
   override fun onFailure() = Unit
 
   override fun run(): Result {
-    EventBus.getDefault().postSticky(BackupV2Event(type = BackupV2Event.Type.PROGRESS_MESSAGES, count = 0, estimatedTotalCount = 0))
+    val stopwatch = Stopwatch("BackupMessagesJob")
+
+    SignalDatabase.attachments.createKeyIvDigestForAttachmentsThatNeedArchiveUpload().takeIf { it > 0 }?.let { count -> Log.w(TAG, "Needed to create $count key/iv/digests.") }
+    stopwatch.split("key-iv-digest")
+
+    ArchiveUploadProgress.begin()
     val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
 
     val outputStream = FileOutputStream(tempBackupFile)
     BackupRepository.export(outputStream = outputStream, append = { tempBackupFile.appendBytes(it) }, plaintext = false)
+    stopwatch.split("export")
+
+    ArchiveUploadProgress.onMessageBackupCreated()
 
     FileInputStream(tempBackupFile).use {
       when (val result = BackupRepository.uploadBackupFile(it, tempBackupFile.length())) {
@@ -78,6 +90,7 @@ class BackupMessagesJob private constructor(parameters: Parameters) : Job(parame
         is NetworkResult.ApplicationError -> throw result.throwable
       }
     }
+    stopwatch.split("upload")
 
     SignalStore.backup.lastBackupProtoSize = tempBackupFile.length()
     if (!tempBackupFile.delete()) {
@@ -87,20 +100,22 @@ class BackupMessagesJob private constructor(parameters: Parameters) : Job(parame
     SignalStore.backup.lastBackupTime = System.currentTimeMillis()
     SignalStore.backup.usedBackupMediaSpace = when (val result = BackupRepository.getRemoteBackupUsedSpace()) {
       is NetworkResult.Success -> result.result ?: 0
-      is NetworkResult.NetworkError -> SignalStore.backup.usedBackupMediaSpace // TODO enqueue a secondary job to fetch the latest number -- no need to fail this one
+      is NetworkResult.NetworkError -> SignalStore.backup.usedBackupMediaSpace // TODO [backup] enqueue a secondary job to fetch the latest number -- no need to fail this one
       is NetworkResult.StatusCodeError -> {
         Log.w(TAG, "Failed to get used space: ${result.code}")
         SignalStore.backup.usedBackupMediaSpace
       }
       is NetworkResult.ApplicationError -> throw result.throwable
     }
+    stopwatch.split("used-space")
+    stopwatch.stop(TAG)
 
     if (SignalDatabase.attachments.doAnyAttachmentsNeedArchiveUpload()) {
       Log.i(TAG, "Enqueuing attachment backfill job.")
       AppDependencies.jobManager.add(ArchiveAttachmentBackfillJob())
     } else {
       Log.i(TAG, "No attachments need to be uploaded, we can finish.")
-      EventBus.getDefault().postSticky(BackupV2Event(BackupV2Event.Type.FINISHED, 0, 0))
+      ArchiveUploadProgress.onMessageBackupFinishedEarly()
     }
 
     return Result.success()
