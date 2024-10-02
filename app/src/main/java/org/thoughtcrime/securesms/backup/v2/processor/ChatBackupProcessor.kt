@@ -20,7 +20,7 @@ object ChatBackupProcessor {
   val TAG = Log.tag(ChatBackupProcessor::class.java)
 
   fun export(db: SignalDatabase, exportState: ExportState, emitter: BackupFrameEmitter) {
-    db.threadTable.getThreadsForBackup().use { reader ->
+    db.threadTable.getThreadsForBackup(db).use { reader ->
       for (chat in reader) {
         if (exportState.recipientIds.contains(chat.recipientId)) {
           exportState.threadIds.add(chat.id)
@@ -39,7 +39,7 @@ object ChatBackupProcessor {
       return
     }
 
-    SignalDatabase.threads.restoreFromBackup(chat, recipientId, importState)?.let { threadId ->
+    SignalDatabase.threads.restoreFromBackup(chat, recipientId, importState).let { threadId ->
       importState.chatIdToLocalRecipientId[chat.id] = recipientId
       importState.chatIdToLocalThreadId[chat.id] = threadId
       importState.chatIdToBackupRecipientId[chat.id] = chat.recipientId

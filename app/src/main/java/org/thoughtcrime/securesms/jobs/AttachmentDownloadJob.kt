@@ -4,6 +4,7 @@
  */
 package org.thoughtcrime.securesms.jobs
 
+import androidx.annotation.MainThread
 import okio.Source
 import okio.buffer
 import org.greenrobot.eventbus.EventBus
@@ -82,8 +83,11 @@ class AttachmentDownloadJob private constructor(
     }
 
     @JvmStatic
+    @MainThread
     fun downloadAttachmentIfNeeded(databaseAttachment: DatabaseAttachment): String? {
       return when (val transferState = databaseAttachment.transferState) {
+        AttachmentTable.TRANSFER_PROGRESS_DONE -> null
+
         AttachmentTable.TRANSFER_RESTORE_OFFLOADED,
         AttachmentTable.TRANSFER_NEEDS_RESTORE -> RestoreAttachmentJob.restoreAttachment(databaseAttachment)
 
@@ -109,10 +113,9 @@ class AttachmentDownloadJob private constructor(
         }
 
         AttachmentTable.TRANSFER_RESTORE_IN_PROGRESS,
-        AttachmentTable.TRANSFER_PROGRESS_DONE,
         AttachmentTable.TRANSFER_PROGRESS_STARTED,
         AttachmentTable.TRANSFER_PROGRESS_PERMANENT_FAILURE -> {
-          Log.d(TAG, "$databaseAttachment is downloading, downloaded already or permanently failed, transferState: $transferState")
+          Log.d(TAG, "${databaseAttachment.attachmentId} is downloading or permanently failed, transferState: $transferState")
           null
         }
 
@@ -215,6 +218,7 @@ class AttachmentDownloadJob private constructor(
         retrieveAttachmentForReleaseChannel(messageId, attachmentId, attachment)
         false
       }
+
       else -> {
         retrieveAttachment(messageId, attachmentId, attachment)
       }
@@ -225,14 +229,17 @@ class AttachmentDownloadJob private constructor(
         attachment.archiveTransferState == AttachmentTable.ArchiveTransferState.FINISHED -> {
           Log.i(TAG, "[$attachmentId] Already archived. Skipping.")
         }
+
         digestChanged -> {
           Log.i(TAG, "[$attachmentId] Digest for attachment changed after download. Re-uploading to archive.")
           AppDependencies.jobManager.add(UploadAttachmentToArchiveJob(attachmentId))
         }
+
         attachment.cdn !in CopyAttachmentToArchiveJob.ALLOWED_SOURCE_CDNS -> {
           Log.i(TAG, "[$attachmentId] Attachment CDN doesn't support copying to archive. Re-uploading to archive.")
           AppDependencies.jobManager.add(UploadAttachmentToArchiveJob(attachmentId))
         }
+
         else -> {
           Log.i(TAG, "[$attachmentId] Enqueuing job to copy to archive.")
           AppDependencies.jobManager.add(CopyAttachmentToArchiveJob(attachmentId))
@@ -403,7 +410,7 @@ class AttachmentDownloadJob private constructor(
             messageId,
             attachmentId,
             LimitedInputStream.withoutLimits((body.source() as Source).buffer().inputStream()),
-            iv = updatedAttachment.remoteIv
+            iv = updatedAttachment.remoteIv!!
           )
         }
       }

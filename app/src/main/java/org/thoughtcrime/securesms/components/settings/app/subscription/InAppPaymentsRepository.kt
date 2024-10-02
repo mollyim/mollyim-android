@@ -45,7 +45,7 @@ import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
 import org.whispersystems.signalservice.api.subscriptions.SubscriberId
 import org.whispersystems.signalservice.internal.push.DonationProcessor
-import org.whispersystems.signalservice.internal.push.exceptions.DonationProcessorError
+import org.whispersystems.signalservice.internal.push.exceptions.InAppPaymentProcessorError
 import java.security.SecureRandom
 import java.util.Currency
 import java.util.Optional
@@ -94,7 +94,7 @@ object InAppPaymentsRepository {
 
     val donationError: DonationError = when (error) {
       is DonationError -> error
-      is DonationProcessorError -> error.toDonationError(donationErrorSource, paymentSourceType)
+      is InAppPaymentProcessorError -> error.toDonationError(donationErrorSource, paymentSourceType)
       else -> DonationError.genericBadgeRedemptionFailure(donationErrorSource)
     }
 
@@ -234,6 +234,7 @@ object InAppPaymentsRepository {
    */
   fun PaymentSourceType.toPaymentMethodType(): InAppPaymentData.PaymentMethodType {
     return when (this) {
+      PaymentSourceType.GooglePlayBilling -> InAppPaymentData.PaymentMethodType.GOOGLE_PLAY_BILLING
       PaymentSourceType.PayPal -> InAppPaymentData.PaymentMethodType.PAYPAL
       PaymentSourceType.Stripe.CreditCard -> InAppPaymentData.PaymentMethodType.CARD
       PaymentSourceType.Stripe.GooglePay -> InAppPaymentData.PaymentMethodType.GOOGLE_PAY
@@ -254,6 +255,7 @@ object InAppPaymentsRepository {
       InAppPaymentData.PaymentMethodType.IDEAL -> PaymentSourceType.Stripe.IDEAL
       InAppPaymentData.PaymentMethodType.SEPA_DEBIT -> PaymentSourceType.Stripe.SEPADebit
       InAppPaymentData.PaymentMethodType.UNKNOWN -> PaymentSourceType.Unknown
+      InAppPaymentData.PaymentMethodType.GOOGLE_PLAY_BILLING -> PaymentSourceType.GooglePlayBilling
     }
   }
 
@@ -570,6 +572,7 @@ object InAppPaymentsRepository {
         InAppPaymentData.PaymentMethodType.SEPA_DEBIT -> PendingOneTimeDonation.PaymentMethodType.SEPA_DEBIT
         InAppPaymentData.PaymentMethodType.IDEAL -> PendingOneTimeDonation.PaymentMethodType.IDEAL
         InAppPaymentData.PaymentMethodType.PAYPAL -> PendingOneTimeDonation.PaymentMethodType.PAYPAL
+        InAppPaymentData.PaymentMethodType.GOOGLE_PLAY_BILLING -> error("One-time donation do not support purchase via Google Play Billing.")
       },
       amount = data.amount!!,
       badge = data.badge!!,
@@ -660,6 +663,7 @@ object InAppPaymentsRepository {
       InAppPaymentData.PaymentMethodType.SEPA_DEBIT -> DonationProcessor.STRIPE
       InAppPaymentData.PaymentMethodType.IDEAL -> DonationProcessor.STRIPE
       InAppPaymentData.PaymentMethodType.PAYPAL -> DonationProcessor.PAYPAL
+      InAppPaymentData.PaymentMethodType.GOOGLE_PLAY_BILLING -> error("Google Play Billing does not support donation payments.")
     }
   }
 

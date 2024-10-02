@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.biometric;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AlertDialogLayout;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -119,14 +119,6 @@ public class BiometricDialogFragment extends DialogFragment {
 
     int theme = fullScreen ? R.style.Signal_DayNight_BiometricDialog_FullScreen : 0;
     setStyle(STYLE_NO_FRAME, theme);
-
-    biometricPromptInfo = new BiometricPrompt.PromptInfo.Builder()
-        .setTitle(getString(R.string.BiometricDialogFragment__biometric_verification))
-        .setSubtitle(getString(R.string.BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly))
-        .setNegativeButtonText(getString(android.R.string.cancel))
-        .setAllowedAuthenticators(BIOMETRIC_AUTHENTICATORS_ALLOWED)
-        .setConfirmationRequired(false)
-        .build();
   }
 
   @Override
@@ -158,65 +150,83 @@ public class BiometricDialogFragment extends DialogFragment {
   @Override
   public void onResume() {
     super.onResume();
-
-    if (showPrompt) {
-      requestAuthentication();
-    }
+    if (showPrompt) requestAuthentication();
   }
 
   @Override
   public void onPause() {
     super.onPause();
-
-    if (biometricCallback != null) {
-      biometricCallback.onHostActivityPaused();
-    }
-
-    biometricPrompt   = null;
-    biometricCallback = null;
+    biometricCallback.onHostActivityPaused();
   }
 
   @Override
   public void onDismiss(@NonNull DialogInterface dialog) {
     super.onDismiss(dialog);
-    hidePrompt();
+    cancelAuthentication();
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    biometricPromptInfo = null;
+    biometricPrompt     = null;
+    biometricCallback   = null;
   }
 
   public void showPrompt(@NonNull FragmentActivity activity, @NonNull Listener listener) {
-    Log.d(TAG, "showPrompt: canAuthenticate returned " + getAuthenticationStatus(activity));
+    int authenticators = BIOMETRIC_AUTHENTICATORS_ALLOWED;
+    int authStatus     = checkBiometricAvailability(activity, authenticators);
 
-    biometricCallback = new AuthenticationCallback(listener);
-    biometricPrompt   = new BiometricPrompt(activity, biometricCallback);
+    Log.d(TAG, "canAuthenticate returned " + authStatus);
 
-    if (!isAdded()) {
-      showPrompt = true;
-      return;
+    if (authStatus == BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ||
+        authStatus == BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE)
+    {
+      Log.w(TAG, "Biometric hardware unavailable, allowing device credentials as fallback");
+      authenticators |= BiometricManager.Authenticators.BIOMETRIC_WEAK;
+      authenticators |= BiometricManager.Authenticators.DEVICE_CREDENTIAL;
     }
 
-    showPrompt = false;
-    requestAuthentication();
+    BiometricPrompt.PromptInfo.Builder promptInfoBuilder =
+        new BiometricPrompt.PromptInfo.Builder()
+            .setTitle(activity.getString(R.string.BiometricDialogFragment__biometric_verification))
+            .setSubtitle(activity.getString(R.string.BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly))
+            .setAllowedAuthenticators(authenticators)
+            .setConfirmationRequired(false);
+
+    if ((authenticators & BiometricManager.Authenticators.DEVICE_CREDENTIAL) == 0) {
+      promptInfoBuilder.setNegativeButtonText(activity.getString(android.R.string.cancel));
+    }
+
+    biometricCallback   = new AuthenticationCallback(listener);
+    biometricPrompt     = new BiometricPrompt(activity, biometricCallback);
+    biometricPromptInfo = promptInfoBuilder.build();
+
+    showPrompt = true;
+
+    if (isAdded()) {
+      requestAuthentication();
+    }
   }
 
   private void requestAuthentication() {
     ThreadUtil.postToMain(() -> {
-      if (biometricPrompt != null) {
+      if (showPrompt) {
+        showPrompt = false;
         biometricPrompt.authenticate(biometricPromptInfo);
-      } else {
-        Log.e(TAG, "biometricPrompt was null");
       }
     });
   }
 
-  private void hidePrompt() {
-    showPrompt = false;
-
-    if (biometricPrompt != null) {
+  private void cancelAuthentication() {
+    if (showPrompt) {
+      showPrompt = false;
       biometricPrompt.cancelAuthentication();
     }
   }
 
-  private int getAuthenticationStatus(@NonNull FragmentActivity activity) {
-    return BiometricManager.from(activity).canAuthenticate(BIOMETRIC_AUTHENTICATORS_ALLOWED);
+  static public int checkBiometricAvailability(@NonNull Context context, int allowedAuthenticators) {
+    return BiometricManager.from(context).canAuthenticate(allowedAuthenticators);
   }
 
   private class AuthenticationCallback extends BiometricPrompt.AuthenticationCallback {
@@ -259,7 +269,7 @@ public class BiometricDialogFragment extends DialogFragment {
         if (isDismissed) {
           dismissAllowingStateLoss();
         } else {
-          hidePrompt();
+          cancelAuthentication();
         }
       }
     }
@@ -281,11 +291,10 @@ public class BiometricDialogFragment extends DialogFragment {
         case BiometricPrompt.ERROR_TIMEOUT:
           isDismissed = listener.onCancel(false);
           break;
-        case BiometricPrompt.ERROR_HW_NOT_PRESENT:
         case BiometricPrompt.ERROR_NO_BIOMETRICS:
           isDismissed = listener.onNotEnrolled(getErrorMessage(errString));
           break;
-        default:
+        default:  // Handles hardware or unspecified errors
           isDismissed = listener.onError(getErrorMessage(errString));
       }
 

@@ -41,7 +41,6 @@ import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
-import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.seconds
 
 private val TAG = Log.tag(PrivacySettingsFragment::class.java)
@@ -273,10 +272,14 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
   private fun onBiometricScreenLockClicked(enabled: Boolean) {
     if (enabled) {
-      val biometricManager = BiometricManager.from(requireContext())
-      when (biometricManager.canAuthenticate(BiometricDialogFragment.BIOMETRIC_AUTHENTICATORS_ALLOWED)) {
+      val status = BiometricDialogFragment.checkBiometricAvailability(
+        requireContext(), BiometricDialogFragment.BIOMETRIC_AUTHENTICATORS_ALLOWED
+      )
+      when (status) {
+        BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE,
         BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
           Toast.makeText(context, R.string.PrivacySettingsFragment__no_biometric_features_available_on_this_device, Toast.LENGTH_LONG).show()
+
         BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
           if (Build.VERSION.SDK_INT >= 30) {
             try {
@@ -289,6 +292,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
             Toast.makeText(context, R.string.PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings, Toast.LENGTH_LONG).show()
           }
         }
+
         else -> onBiometricEnrollFinished()
       }
     } else {

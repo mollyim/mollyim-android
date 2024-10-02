@@ -27,6 +27,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.TypefaceSpan;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -152,7 +153,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     return sourceIntent;
   }
 
-  private void onOkClicked(View view) {
+  private void unlock() {
     char[] passphrase = getEnteredPassphrase(passphraseInput);
     if (passphrase.length > 0) {
       setInputEnabled(false);
@@ -161,6 +162,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
             this, new BiometricDialogFragment.Listener() {
               @Override
               public boolean onSuccess() {
+                setInputEnabled(false);
                 ScreenLockController.setLockScreenAtStart(false);
                 handlePassphrase(passphrase);
                 return true;
@@ -173,7 +175,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
                 } else {
                   setInputEnabled(true);
                 }
-                return true;
+                return fromUser;
               }
 
               @Override
@@ -199,6 +201,18 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     } else {
       showFailureAndEnableInput(true);
     }
+  }
+
+  private void onOkClicked(View view) {
+    unlock();
+  }
+
+  private boolean onEditorActionTriggered(View view, int actionId, KeyEvent event) {
+    if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+      unlock();
+      return true;
+    }
+    return false;
   }
 
   private void handlePassphrase(char[] passphrase) {
@@ -229,6 +243,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     hint.setSpan(new TypefaceSpan("sans-serif-light"), 0, hint.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     passphraseInput.setHint(hint);
+    passphraseInput.setOnEditorActionListener(this::onEditorActionTriggered);
 
     okButton.setOnClickListener(this::onOkClicked);
   }

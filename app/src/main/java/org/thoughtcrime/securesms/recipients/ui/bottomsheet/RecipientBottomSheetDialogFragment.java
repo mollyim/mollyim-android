@@ -28,6 +28,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.avatar.view.AvatarView;
 import org.thoughtcrime.securesms.badges.BadgeImageView;
+import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar;
 import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon;
 import org.thoughtcrime.securesms.components.settings.conversation.preferences.ButtonStripPreference;
 import org.thoughtcrime.securesms.fonts.SignalSymbols;
@@ -269,12 +270,12 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
             return Unit.INSTANCE;
           },
           () -> {
-            viewModel.onSecureVideoCallClicked(requireActivity());
+            viewModel.onSecureVideoCallClicked(requireActivity(), () -> YouAreAlreadyInACallSnackbar.show(requireView()));
             return Unit.INSTANCE;
           },
           () -> {
             if (buttonStripState.isAudioSecure()) {
-              viewModel.onSecureCallClicked(requireActivity());
+              viewModel.onSecureCallClicked(requireActivity(), () -> YouAreAlreadyInACallSnackbar.show(requireView()));
             } else {
               viewModel.onInsecureCallClicked(requireActivity());
             }

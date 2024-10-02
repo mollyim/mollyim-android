@@ -18,8 +18,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1462
-val canonicalVersionName = "7.17.5"
+val canonicalVersionCode = 1465
+val canonicalVersionName = "7.18.2"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -177,8 +177,6 @@ android {
     targetSdk = signalTargetSdkVersion
 
     applicationId = basePackageId
-
-    multiDexEnabled = true
 
     buildConfigField("String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\"")
     buildConfigField("String", "SIGNAL_CANONICAL_VERSION_NAME", "\"$canonicalVersionName\"")
@@ -450,7 +448,6 @@ dependencies {
   implementation(libs.androidx.compose.runtime.livedata)
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.constraintlayout)
-  implementation(libs.androidx.multidex)
   implementation(libs.androidx.navigation.fragment.ktx)
   implementation(libs.androidx.navigation.ui.ktx)
   implementation(libs.androidx.navigation.compose)
@@ -550,7 +547,6 @@ dependencies {
   testImplementation(testLibs.robolectric.robolectric) {
     exclude(group = "com.google.protobuf", module = "protobuf-java")
   }
-  testImplementation(testLibs.robolectric.shadows.multidex)
   testImplementation(testLibs.bouncycastle.bcprov.jdk15on) {
     version {
       strictly("1.70")

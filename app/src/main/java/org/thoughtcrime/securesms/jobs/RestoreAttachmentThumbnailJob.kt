@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
 import org.whispersystems.signalservice.api.push.exceptions.MissingConfigurationException
+import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -70,6 +71,10 @@ class RestoreAttachmentThumbnailJob private constructor(
 
   override fun getFactoryKey(): String {
     return KEY
+  }
+
+  override fun onAdded() {
+    SignalDatabase.attachments.setThumbnailRestoreState(attachmentId, AttachmentTable.ThumbnailRestoreState.IN_PROGRESS)
   }
 
   @Throws(Exception::class, IOException::class, InvalidAttachmentException::class, InvalidMessageException::class, MissingConfigurationException::class)
@@ -142,6 +147,12 @@ class RestoreAttachmentThumbnailJob private constructor(
   }
 
   override fun onShouldRetry(exception: Exception): Boolean {
+    if (exception is NonSuccessfulResponseCodeException) {
+      if (exception.code == 404) {
+        Log.w(TAG, "[$attachmentId-thumbnail] Unable to find file")
+        return false
+      }
+    }
     return exception is IOException
   }
 
