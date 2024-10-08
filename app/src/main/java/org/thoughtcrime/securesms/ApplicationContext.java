@@ -525,6 +525,12 @@ public class ApplicationContext extends Application implements AppForegroundObse
       long nextSetTime = lastSetTime + TimeUnit.HOURS.toMillis(6);
       long now         = System.currentTimeMillis();
 
+      // MOLLY: Token may have been invalidated while the app was locked
+      if (TextSecurePreferences.shouldRefreshFcmToken(this)) {
+        TextSecurePreferences.setShouldRefreshFcmToken(this, false);
+        nextSetTime = now;
+      }
+
       if (SignalStore.account().getFcmToken() == null || nextSetTime <= now || lastSetTime > now) {
         AppDependencies.getJobManager().add(new FcmRefreshJob());
       }
