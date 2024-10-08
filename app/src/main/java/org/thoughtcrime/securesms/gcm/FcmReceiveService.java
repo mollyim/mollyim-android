@@ -73,6 +73,7 @@ public class FcmReceiveService extends FirebaseMessagingService {
     Log.i(TAG, "onNewToken()");
 
     if (KeyCachingService.isLocked()) {
+      TextSecurePreferences.setShouldRefreshFcmToken(AppDependencies.getApplication(), true);
       return;
     }
 
