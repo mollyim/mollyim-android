@@ -63,6 +63,7 @@ public class TextSecurePreferences {
   private static final String PROMPTED_PUSH_REGISTRATION_PREF  = "pref_prompted_push_registration";
   private static final String PROMPTED_OPTIMIZE_DOZE_PREF      = "pref_prompted_optimize_doze";
   public  static final String DIRECTORY_FRESH_TIME_PREF        = "pref_directory_refresh_time";
+  public  static final String REFRESH_FCM_TOKEN_PREF           = "pref_refresh_fcm_token";
   public  static final String UPDATE_APK_ENABLED               = "pref_update_apk_enabled";
   public  static final String UPDATE_APK_INCLUDE_BETA          = "pref_update_apk_include_beta";
   private static final String UPDATE_APK_REFRESH_TIME_PREF     = "pref_update_apk_refresh_time";
@@ -711,6 +712,14 @@ public class TextSecurePreferences {
 
   public static void setDirectoryRefreshTime(Context context, long value) {
     setLongPreference(context, DIRECTORY_FRESH_TIME_PREF, value);
+  }
+
+  public static boolean shouldRefreshFcmToken(Context context) {
+    return getBooleanPreference(context, REFRESH_FCM_TOKEN_PREF, false);
+  }
+
+  public static void setShouldRefreshFcmToken(Context context, boolean value) {
+    setBooleanPreference(context, REFRESH_FCM_TOKEN_PREF, value);
   }
 
   public static void removeDirectoryRefreshTime(Context context) {

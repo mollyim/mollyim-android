@@ -119,6 +119,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
+import im.molly.unifiedpush.util.UnifiedPushHelper;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.security.Security;
@@ -126,6 +127,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import im.molly.unifiedpush.jobs.UnifiedPushRefreshJob;
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
@@ -495,14 +497,22 @@ public class ApplicationContext extends Application implements AppForegroundObse
     }
   }
 
-  private void initializeFcmCheck() {
+  // MOLLY: this initialize FCM, websocket and UnifiedPush
+  public void initializeFcmCheck() {
     if (!SignalStore.account().isRegistered()) {
       return;
     }
 
     PlayServicesUtil.PlayServicesStatus fcmStatus = PlayServicesUtil.getPlayServicesStatus(this);
+    boolean unifiedPushAvailable                  = UnifiedPushHelper.isUnifiedPushAvailable();
+    boolean forceWebSocket                        = SignalStore.internal().isWebsocketModeForced();
 
-    if (fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
+    if (unifiedPushAvailable || forceWebSocket
+        || fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
+      if (unifiedPushAvailable && !SignalStore.unifiedpush().getAirGaped()) {
+        AppDependencies.getJobManager().add(new UnifiedPushRefreshJob());
+      }
+      AppDependencies.getJobManager().cancel(new FcmRefreshJob().getId());
       if (SignalStore.account().isFcmEnabled()) {
         Log.i(TAG, "Play Services are disabled. Disabling FCM.");
         SignalStore.account().setFcmEnabled(false);
@@ -524,6 +534,12 @@ public class ApplicationContext extends Application implements AppForegroundObse
       long lastSetTime = SignalStore.account().getFcmTokenLastSetTime();
       long nextSetTime = lastSetTime + TimeUnit.HOURS.toMillis(6);
       long now         = System.currentTimeMillis();
+
+      // MOLLY: Token may have been invalidated while the app was locked
+      if (TextSecurePreferences.shouldRefreshFcmToken(this)) {
+        TextSecurePreferences.setShouldRefreshFcmToken(this, false);
+        nextSetTime = now;
+      }
 
       if (SignalStore.account().getFcmToken() == null || nextSetTime <= now || lastSetTime > now) {
         AppDependencies.getJobManager().add(new FcmRefreshJob());

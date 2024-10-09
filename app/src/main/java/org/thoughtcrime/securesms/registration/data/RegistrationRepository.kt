@@ -587,7 +587,6 @@ object RegistrationRepository {
     return started == true
   }
 
-  @VisibleForTesting
   fun generateSignedAndLastResortPreKeys(identity: IdentityKeyPair, metadataStore: PreKeyMetadataStore): PreKeyCollection {
     val signedPreKey = PreKeyUtil.generateSignedPreKey(metadataStore.nextSignedPreKeyId, identity.privateKey)
     val lastResortKyberPreKey = PreKeyUtil.generateLastResortKyberPreKey(metadataStore.nextKyberPreKeyId, identity.privateKey)
