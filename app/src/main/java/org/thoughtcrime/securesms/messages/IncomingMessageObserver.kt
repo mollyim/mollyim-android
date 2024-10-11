@@ -192,7 +192,6 @@ class IncomingMessageObserver(private val context: Application) {
     }
 
     val registered = SignalStore.account.isRegistered
-    val fcmEnabled = SignalStore.account.fcmEnabled
     val pushAvailable = SignalStore.account.pushAvailable
     val hasNetwork = NetworkConstraint.isMet(context)
     val hasProxy = AppDependencies.networkManager.isProxyEnabled
@@ -223,8 +222,7 @@ class IncomingMessageObserver(private val context: Application) {
 
     val needsConnectionString = if (conclusion) "Needs Connection" else "Does Not Need Connection"
 
-    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, FCM: $fcmEnabled, Stay open requests: $keepAliveEntries, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket" +
-      "PushAvailable: $pushAvailable")
+    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, PushAvailable: $pushAvailable, Stay open requests: $keepAliveEntries, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket")
     return conclusion
   }
 
@@ -376,7 +374,7 @@ class IncomingMessageObserver(private val context: Application) {
       Log.i(TAG, "Initializing! (${this.hashCode()})")
       uncaughtExceptionHandler = this
 
-      sleepTimer = if (!SignalStore.account.fcmEnabled || SignalStore.internal.isWebsocketModeForced) AlarmSleepTimer(context) else UptimeSleepTimer()
+      sleepTimer = if (!SignalStore.account.pushAvailable || SignalStore.internal.isWebsocketModeForced) AlarmSleepTimer(context) else UptimeSleepTimer()
     }
 
     override fun run() {

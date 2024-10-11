@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 
 import org.signal.core.util.logging.Log;
@@ -67,6 +68,7 @@ public final class SettingsValues extends SignalStoreValues {
   private static final String KEEP_MUTED_CHATS_ARCHIVED               = "settings.keepMutedChatsArchived";
   private static final String USE_COMPACT_NAVIGATION_BAR              = "settings.useCompactNavigationBar";
   private static final String THREAD_TRIM_SYNC_TO_LINKED_DEVICES      = "settings.storage.syncThreadTrimDeletes";
+  private static final String MOLLY_NOTIFICATION_METHOD               = "molly.notificationMethod";
 
   public static final int BACKUP_DEFAULT_HOUR   = 2;
   public static final int BACKUP_DEFAULT_MINUTE = 0;
@@ -476,6 +478,14 @@ public final class SettingsValues extends SignalStoreValues {
     return getBoolean(USE_COMPACT_NAVIGATION_BAR, false);
   }
 
+  public NotificationDeliveryMethod getPreferredNotificationMethod() {
+    return NotificationDeliveryMethod.deserialize(getString(MOLLY_NOTIFICATION_METHOD, NotificationDeliveryMethod.FCM.serialize()));
+  }
+
+  public void setPreferredNotificationMethod(NotificationDeliveryMethod method) {
+    putString(MOLLY_NOTIFICATION_METHOD, method.serialize());
+  }
+
   private @Nullable Uri getUri(@NonNull String key) {
     String uri = getString(key, "");
 
@@ -537,6 +547,25 @@ public final class SettingsValues extends SignalStoreValues {
         default:
           throw new IllegalArgumentException("Unrecognized value " + value);
       }
+    }
+  }
+
+  public enum NotificationDeliveryMethod {
+    FCM, WEBSOCKET;
+
+    public @NonNull String serialize() {
+      return name();
+    }
+
+    public static @NonNull NotificationDeliveryMethod deserialize(@NonNull String value) {
+      return NotificationDeliveryMethod.valueOf(value);
+    }
+
+    public @StringRes int getStringId() {
+      return switch (this) {
+        case FCM -> R.string.NotificationDeliveryMethod__fcm;
+        case WEBSOCKET -> R.string.NotificationDeliveryMethod__websocket;
+      };
     }
   }
 }

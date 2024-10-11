@@ -29,11 +29,13 @@ import androidx.core.app.NotificationCompat;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
+import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.PendingIntentFlags;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.PlayServicesProblemActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
+import org.thoughtcrime.securesms.events.PushServiceEvent;
 import org.thoughtcrime.securesms.gcm.FcmUtil;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
@@ -50,12 +52,13 @@ import java.util.concurrent.TimeUnit;
 public class FcmRefreshJob extends BaseJob {
 
   public static final String KEY = "FcmRefreshJob";
+  public static final String QUEUE_KEY = KEY;
 
   private static final String TAG = Log.tag(FcmRefreshJob.class);
 
   public FcmRefreshJob() {
     this(new Job.Parameters.Builder()
-                           .setQueue("FcmRefreshJob")
+                           .setQueue(QUEUE_KEY)
                            .addConstraint(NetworkConstraint.KEY)
                            .setMaxAttempts(3)
                            .setLifespan(TimeUnit.HOURS.toMillis(6))
@@ -79,7 +82,17 @@ public class FcmRefreshJob extends BaseJob {
 
   @Override
   public void onRun() throws Exception {
-    if (!SignalStore.account().isFcmEnabled()) return;
+    String oldToken = SignalStore.account().getFcmToken();
+
+    if (!SignalStore.account().isFcmEnabled()) {
+      if (oldToken != null) {
+        Log.i(TAG, "FCM not allowed: clearing existing token...");
+        AppDependencies.getSignalServiceAccountManager().setGcmId(Optional.empty());
+        SignalStore.account().setFcmToken(null);
+        SignalStore.account().setFcmTokenLastSetTime(-1);
+      }
+      return;
+    }
 
     Log.i(TAG, "Reregistering FCM...");
 
@@ -91,8 +104,6 @@ public class FcmRefreshJob extends BaseJob {
       Optional<String> token = FcmUtil.getToken(context);
 
       if (token.isPresent()) {
-        String oldToken = SignalStore.account().getFcmToken();
-
         if (!token.get().equals(oldToken)) {
           int oldLength = oldToken != null ? oldToken.length() : -1;
           Log.i(TAG, "Token changed. oldLength: " + oldLength + "  newLength: " + token.get().length());
@@ -102,6 +113,10 @@ public class FcmRefreshJob extends BaseJob {
 
         AppDependencies.getSignalServiceAccountManager().setGcmId(token);
         SignalStore.account().setFcmToken(token.get());
+        if (oldToken == null) {
+          AppDependencies.resetNetwork(true);
+        }
+        EventBus.getDefault().post(PushServiceEvent.INSTANCE);
       } else {
         throw new RetryLaterException(new IOException("Failed to retrieve a token."));
       }

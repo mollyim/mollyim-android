@@ -124,4 +124,9 @@
     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">Once linked, new messages sync across devices, but previous message history will not be transferred.</string>
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly supports linking to other Android devices running Molly, as well as desktops and iPads running Signal.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">For Android devices: Visit %s to install Molly.</string>
+    <string name="NotificationsSettingsFragment__push_notifications">Push notifications</string>
+    <string name="NotificationsSettingsFragment__preferred_method_for_receiving_notifications_from_the_signal_service">Preferred method for receiving notifications from the Signal service. If your selected method is unavailable, the app will automatically switch to WebSocket.</string>
+    <string name="NotificationsSettingsFragment__delivery_method">Delivery method</string>
+    <string name="NotificationDeliveryMethod__fcm" translatable="false">Google Services (FCM)</string>
+    <string name="NotificationDeliveryMethod__websocket" translatable="false">WebSocket</string>
 </resources>

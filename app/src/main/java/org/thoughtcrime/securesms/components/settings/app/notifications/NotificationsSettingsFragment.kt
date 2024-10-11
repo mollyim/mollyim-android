@@ -19,12 +19,17 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
+import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.components.settings.PreferenceViewHolder
@@ -32,10 +37,14 @@ import org.thoughtcrime.securesms.components.settings.RadioListPreference
 import org.thoughtcrime.securesms.components.settings.RadioListPreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.components.settings.models.Banner
+import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
+import org.thoughtcrime.securesms.events.PushServiceEvent
+import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet
 import org.thoughtcrime.securesms.util.BottomSheetUtil
+import org.thoughtcrime.securesms.util.PlayServicesUtil
 import org.thoughtcrime.securesms.util.RingtoneUtil
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.ViewUtil
@@ -63,6 +72,11 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
 
   private val ledBlinkValues by lazy { resources.getStringArray(R.array.pref_led_blink_pattern_values) }
   private val ledBlinkLabels by lazy { resources.getStringArray(R.array.pref_led_blink_pattern_entries) }
+
+  private val notificationMethodValues = NotificationDeliveryMethod.entries.filterNot { method ->
+    method == NotificationDeliveryMethod.FCM && !BuildConfig.USE_PLAY_SERVICES
+  }
+  private val notificationMethodLabels by lazy { notificationMethodValues.map { resources.getString(it.stringId) }.toTypedArray() }
 
   private lateinit var viewModel: NotificationsSettingsViewModel
 
@@ -97,6 +111,13 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
     viewModel.state.observe(viewLifecycleOwner) {
       adapter.submitList(getConfiguration(it).toMappingModelList())
     }
+
+    EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
+  }
+
+  @Subscribe(threadMode = ThreadMode.MAIN)
+  fun onPushServiceEvent(event: PushServiceEvent) {
+    viewModel.refresh()
   }
 
   private fun getConfiguration(state: NotificationsSettingsState): DSLConfiguration {
@@ -314,6 +335,54 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
           viewModel.setNotifyWhenContactJoinsSignal(!state.notifyWhenContactJoinsSignal)
         }
       )
+
+      dividerPref()
+
+      sectionHeaderPref(R.string.NotificationsSettingsFragment__push_notifications)
+
+      textPref(
+        summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__preferred_method_for_receiving_notifications_from_the_signal_service)
+      )
+
+      val showAlertIcon = when (state.preferredNotificationMethod) {
+        NotificationDeliveryMethod.FCM -> !state.canReceiveFcm
+        NotificationDeliveryMethod.WEBSOCKET -> false
+      }
+      radioListPref(
+        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__delivery_method),
+        listItems = notificationMethodLabels,
+        selected = notificationMethodValues.indexOf(state.preferredNotificationMethod),
+        isEnabled = !state.isLinkedDevice,  // MOLLY: TODO
+        iconEnd = if (showAlertIcon) DSLSettingsIcon.from(R.drawable.ic_alert) else null,
+        onSelected = {
+          onNotificationMethodChanged(notificationMethodValues[it], state.preferredNotificationMethod)
+        }
+      )
+    }
+  }
+
+  private fun onNotificationMethodChanged(
+    method: NotificationDeliveryMethod,
+    previousMethod: NotificationDeliveryMethod
+  ) {
+    when (method) {
+      NotificationDeliveryMethod.FCM -> {
+        viewModel.setPreferredNotificationMethod(method)
+        val msgId = when (viewModel.fcmState) {
+          PlayServicesUtil.PlayServicesStatus.SUCCESS -> null
+          PlayServicesUtil.PlayServicesStatus.DISABLED -> R.string.RegistrationActivity_missing_google_play_services
+          PlayServicesUtil.PlayServicesStatus.MISSING -> R.string.RegistrationActivity_missing_google_play_services
+          PlayServicesUtil.PlayServicesStatus.NEEDS_UPDATE -> R.string.RegistrationActivity_google_play_services_is_updating_or_unavailable
+          PlayServicesUtil.PlayServicesStatus.TRANSIENT_ERROR -> R.string.RegistrationActivity_play_services_error
+        }
+        if (msgId != null) {
+          Toast.makeText(requireContext(), getString(msgId), Toast.LENGTH_LONG).show()
+        }
+      }
+
+      NotificationDeliveryMethod.WEBSOCKET -> {
+        viewModel.setPreferredNotificationMethod(method)
+      }
     }
   }
 

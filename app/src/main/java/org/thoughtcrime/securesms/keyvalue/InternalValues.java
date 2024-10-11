@@ -26,7 +26,6 @@ public final class InternalValues extends SignalStoreValues {
   public static final String CALLING_DISABLE_TELECOM              = "internal.calling_disable_telecom";
   public static final String CALLING_ENABLE_OBOE_ADM              = "internal.calling_enable_oboe_adm";
   public static final String DISABLE_STORAGE_SERVICE              = "internal.disable_storage_service";
-  public static final String FORCE_WEBSOCKET_MODE                 = "internal.force_websocket_mode";
   public static final String LAST_SCROLL_POSITION                 = "internal.last_scroll_position";
   public static final String CONVERSATION_ITEM_V2_MEDIA           = "internal.conversation_item_v2_media";
   public static final String FORCE_ENTER_RESTORE_V2_FLOW          = "internal.force_enter_restore_v2_flow";
@@ -170,11 +169,7 @@ public final class InternalValues extends SignalStoreValues {
    * Whether or not the system is forced to be in 'websocket mode', where FCM is ignored and we use a foreground service to keep the app alive.
    */
   public boolean isWebsocketModeForced() {
-    if (RemoteConfig.internalUser()) {
-      return getBoolean(FORCE_WEBSOCKET_MODE, false);
-    } else {
-      return false;
-    }
+    return SignalStore.settings().getPreferredNotificationMethod() == SettingsValues.NotificationDeliveryMethod.WEBSOCKET;
   }
 
   public void setHevcEncoding(boolean enabled) {
