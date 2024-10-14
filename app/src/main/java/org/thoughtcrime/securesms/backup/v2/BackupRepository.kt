@@ -27,14 +27,15 @@ import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
-import org.thoughtcrime.securesms.backup.v2.database.ChatItemImportInserter
+import org.thoughtcrime.securesms.backup.v2.database.clearAllDataForBackup
 import org.thoughtcrime.securesms.backup.v2.database.clearAllDataForBackupRestore
-import org.thoughtcrime.securesms.backup.v2.processor.AccountDataProcessor
-import org.thoughtcrime.securesms.backup.v2.processor.AdHocCallBackupProcessor
-import org.thoughtcrime.securesms.backup.v2.processor.ChatBackupProcessor
-import org.thoughtcrime.securesms.backup.v2.processor.ChatItemBackupProcessor
-import org.thoughtcrime.securesms.backup.v2.processor.RecipientBackupProcessor
-import org.thoughtcrime.securesms.backup.v2.processor.StickerBackupProcessor
+import org.thoughtcrime.securesms.backup.v2.importer.ChatItemArchiveImporter
+import org.thoughtcrime.securesms.backup.v2.processor.AccountDataArchiveProcessor
+import org.thoughtcrime.securesms.backup.v2.processor.AdHocCallArchiveProcessor
+import org.thoughtcrime.securesms.backup.v2.processor.ChatArchiveProcessor
+import org.thoughtcrime.securesms.backup.v2.processor.ChatItemArchiveProcessor
+import org.thoughtcrime.securesms.backup.v2.processor.RecipientArchiveProcessor
+import org.thoughtcrime.securesms.backup.v2.processor.StickerArchiveProcessor
 import org.thoughtcrime.securesms.backup.v2.proto.BackupInfo
 import org.thoughtcrime.securesms.backup.v2.stream.BackupExportWriter
 import org.thoughtcrime.securesms.backup.v2.stream.BackupImportReader
@@ -105,6 +106,7 @@ object BackupRepository {
       403 -> {
         Log.w(TAG, "Received status 403. The user is not in the media tier. Updating local state.", error.exception)
         SignalStore.backup.backupTier = MessageBackupTier.FREE
+        SignalStore.uiHints.markHasEverEnabledRemoteBackups()
         // TODO [backup] If the user thought they were in media tier but aren't, feels like we should have a special UX flow for this?
       }
     }
@@ -284,37 +286,37 @@ object BackupRepository {
         // We're using a snapshot, so the transaction is more for perf than correctness
         dbSnapshot.rawWritableDatabase.withinTransaction {
           progressEmitter?.onAccount()
-          AccountDataProcessor.export(dbSnapshot, signalStoreSnapshot) {
+          AccountDataArchiveProcessor.export(dbSnapshot, signalStoreSnapshot) {
             writer.write(it)
             eventTimer.emit("account")
           }
 
           progressEmitter?.onRecipient()
-          RecipientBackupProcessor.export(dbSnapshot, signalStoreSnapshot, exportState) {
+          RecipientArchiveProcessor.export(dbSnapshot, signalStoreSnapshot, exportState) {
             writer.write(it)
             eventTimer.emit("recipient")
           }
 
           progressEmitter?.onThread()
-          ChatBackupProcessor.export(dbSnapshot, exportState) { frame ->
+          ChatArchiveProcessor.export(dbSnapshot, exportState) { frame ->
             writer.write(frame)
             eventTimer.emit("thread")
           }
 
           progressEmitter?.onCall()
-          AdHocCallBackupProcessor.export(dbSnapshot) { frame ->
+          AdHocCallArchiveProcessor.export(dbSnapshot) { frame ->
             writer.write(frame)
             eventTimer.emit("call")
           }
 
           progressEmitter?.onSticker()
-          StickerBackupProcessor.export(dbSnapshot) { frame ->
+          StickerArchiveProcessor.export(dbSnapshot) { frame ->
             writer.write(frame)
             eventTimer.emit("sticker-pack")
           }
 
           progressEmitter?.onMessage()
-          ChatItemBackupProcessor.export(dbSnapshot, exportState) { frame ->
+          ChatItemArchiveProcessor.export(dbSnapshot, exportState) { frame ->
             writer.write(frame)
             eventTimer.emit("message")
           }
@@ -385,8 +387,6 @@ object BackupRepository {
       return ImportResult.Failure
     }
 
-    // Note: Without a transaction, bad imports could lead to lost data. But because we have a transaction,
-    // writes from other threads are blocked. This is something to think more about.
     SignalDatabase.rawDatabase.withinTransaction {
       SignalDatabase.recipients.clearAllDataForBackupRestore()
       SignalDatabase.distributionLists.clearAllDataForBackupRestore()
@@ -397,6 +397,8 @@ object BackupRepository {
       SignalDatabase.reactions.clearAllDataForBackupRestore()
       SignalDatabase.inAppPayments.clearAllDataForBackupRestore()
       SignalDatabase.chatColors.clearAllDataForBackupRestore()
+      SignalDatabase.calls.clearAllDataForBackup()
+      SignalDatabase.callLinks.clearAllDataForBackup()
 
       // Add back self after clearing data
       val selfId: RecipientId = SignalDatabase.recipients.getAndPossiblyMerge(selfData.aci, selfData.pni, selfData.e164, pniVerified = true, changeSelf = true)
@@ -405,38 +407,38 @@ object BackupRepository {
 
       eventTimer.emit("setup")
       val importState = ImportState(backupKey)
-      val chatItemInserter: ChatItemImportInserter = ChatItemBackupProcessor.beginImport(importState)
+      val chatItemInserter: ChatItemArchiveImporter = ChatItemArchiveProcessor.beginImport(importState)
 
       val totalLength = frameReader.getStreamLength()
       for (frame in frameReader) {
         when {
           frame.account != null -> {
-            AccountDataProcessor.import(frame.account, selfId, importState)
+            AccountDataArchiveProcessor.import(frame.account, selfId, importState)
             eventTimer.emit("account")
           }
 
           frame.recipient != null -> {
-            RecipientBackupProcessor.import(frame.recipient, importState)
+            RecipientArchiveProcessor.import(frame.recipient, importState)
             eventTimer.emit("recipient")
           }
 
           frame.chat != null -> {
-            ChatBackupProcessor.import(frame.chat, importState)
+            ChatArchiveProcessor.import(frame.chat, importState)
             eventTimer.emit("chat")
           }
 
           frame.adHocCall != null -> {
-            AdHocCallBackupProcessor.import(frame.adHocCall, importState)
+            AdHocCallArchiveProcessor.import(frame.adHocCall, importState)
             eventTimer.emit("call")
           }
 
           frame.stickerPack != null -> {
-            StickerBackupProcessor.import(frame.stickerPack)
+            StickerArchiveProcessor.import(frame.stickerPack)
             eventTimer.emit("sticker-pack")
           }
 
           frame.chatItem != null -> {
-            chatItemInserter.insert(frame.chatItem)
+            chatItemInserter.import(frame.chatItem)
             eventTimer.emit("chatItem")
             // TODO if there's stuff in the stream after chatItems, we need to flush the inserter before going to the next phase
           }
@@ -454,6 +456,9 @@ object BackupRepository {
         SignalDatabase.threads.update(it, unarchive = false, allowDeletion = false)
       }
     }
+
+    AppDependencies.recipientCache.clear()
+    AppDependencies.recipientCache.warmUp()
 
     Log.d(TAG, "import() ${eventTimer.stop().summary}")
 
@@ -846,6 +851,11 @@ object BackupRepository {
       Log.i(TAG, "Could not retrieve backup tier.", e)
       null
     }
+
+    if (SignalStore.backup.backupTier != null) {
+      SignalStore.uiHints.markHasEverEnabledRemoteBackups()
+    }
+
     return SignalStore.backup.backupTier
   }
 

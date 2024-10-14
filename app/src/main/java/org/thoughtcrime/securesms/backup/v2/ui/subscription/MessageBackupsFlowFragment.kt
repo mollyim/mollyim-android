@@ -6,19 +6,26 @@
 package org.thoughtcrime.securesms.backup.v2.ui.subscription
 
 import android.app.Activity
+import android.os.Bundle
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.os.bundleOf
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.rx3.asFlowable
+import org.signal.core.util.getSerializableCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
+import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentCheckoutDelegate
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.Nav
+import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.viewModel
@@ -26,9 +33,34 @@ import org.thoughtcrime.securesms.util.viewModel
 /**
  * Handles the selection, payment, and changing of a user's backup tier.
  */
-class MessageBackupsFlowFragment : ComposeFragment() {
+class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelegate.ErrorHandlerCallback {
 
-  private val viewModel: MessageBackupsFlowViewModel by viewModel { MessageBackupsFlowViewModel() }
+  companion object {
+
+    private const val TIER = "tier"
+
+    fun create(messageBackupTier: MessageBackupTier?): MessageBackupsFlowFragment {
+      return MessageBackupsFlowFragment().apply {
+        arguments = bundleOf(TIER to messageBackupTier)
+      }
+    }
+  }
+
+  private val viewModel: MessageBackupsFlowViewModel by viewModel {
+    MessageBackupsFlowViewModel(requireArguments().getSerializableCompat(TIER, MessageBackupTier::class.java))
+  }
+
+  private val errorHandler = InAppPaymentCheckoutDelegate.ErrorHandler()
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    errorHandler.attach(
+      fragment = this,
+      errorHandlerCallback = this,
+      inAppPaymentIdSource = viewModel.stateFlow.asFlowable()
+        .filter { it.inAppPayment != null }
+        .map { it.inAppPayment!!.id }
+    )
+  }
 
   @Composable
   override fun FragmentContent() {
@@ -47,6 +79,17 @@ class MessageBackupsFlowFragment : ComposeFragment() {
           }
         }
       )
+    }
+
+    LaunchedEffect(
+      state.selectedMessageBackupTier,
+      state.selectedMessageBackupTierLabel,
+      state.availableBackupTypes
+    ) {
+      if (state.selectedMessageBackupTierLabel == null && state.selectedMessageBackupTier != null && state.availableBackupTypes.isNotEmpty()) {
+        val type = state.availableBackupTypes.firstOrNull { it.tier == state.selectedMessageBackupTier } ?: return@LaunchedEffect
+        viewModel.onMessageBackupTierUpdated(type.tier, getTypeLabel(type))
+      }
     }
 
     Nav.Host(
@@ -83,17 +126,14 @@ class MessageBackupsFlowFragment : ComposeFragment() {
 
       composable(route = MessageBackupsStage.Route.TYPE_SELECTION.name) {
         MessageBackupsTypeSelectionScreen(
+          stage = state.stage,
           currentBackupTier = state.currentMessageBackupTier,
           selectedBackupTier = state.selectedMessageBackupTier,
           availableBackupTypes = state.availableBackupTypes.filter { it.tier == MessageBackupTier.FREE || state.hasBackupSubscriberAvailable },
           onMessageBackupsTierSelected = { tier ->
             val type = state.availableBackupTypes.first { it.tier == tier }
-            val label = when (type) {
-              is MessageBackupsType.Free -> requireContext().resources.getQuantityString(R.plurals.MessageBackupsTypeSelectionScreen__text_plus_d_days_of_media, type.mediaRetentionDays, type.mediaRetentionDays)
-              is MessageBackupsType.Paid -> requireContext().getString(R.string.MessageBackupsTypeSelectionScreen__text_plus_all_your_media)
-            }
 
-            viewModel.onMessageBackupTierUpdated(tier, label)
+            viewModel.onMessageBackupTierUpdated(tier, getTypeLabel(type))
           },
           onNavigationClick = viewModel::goToPreviousStage,
           onReadMoreClicked = {},
@@ -122,5 +162,19 @@ class MessageBackupsFlowFragment : ComposeFragment() {
         requireActivity().finishAfterTransition()
       }
     }
+  }
+
+  private fun getTypeLabel(type: MessageBackupsType): String {
+    return when (type) {
+      is MessageBackupsType.Free -> requireContext().resources.getQuantityString(R.plurals.MessageBackupsTypeSelectionScreen__text_plus_d_days_of_media, type.mediaRetentionDays, type.mediaRetentionDays)
+      is MessageBackupsType.Paid -> requireContext().getString(R.string.MessageBackupsTypeSelectionScreen__text_plus_all_your_media)
+    }
+  }
+
+  override fun onUserLaunchedAnExternalApplication() = error("Not supported by this fragment.")
+
+  override fun navigateToDonationPending(inAppPayment: InAppPaymentTable.InAppPayment) = error("Not supported by this fragment.")
+  override fun exitCheckoutFlow() {
+    requireActivity().finishAfterTransition()
   }
 }

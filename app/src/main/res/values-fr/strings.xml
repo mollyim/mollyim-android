@@ -19,6 +19,9 @@
   <!-- Removed by excludeNonTranslatables <string name="pending_transfer_url" translatable="false">https://support.signal.org/hc/articles/360031949872#pending</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_faq_url" translatable="false">https://support.signal.org/hc/articles/360031949872#donate</string> -->
 
+    <!-- First placeholder is productId, second placeholder is app package -->
+    <string name="backup_subscription_management_url">https://play.google.com/store/account/subscriptions?sku=%1$s&amp;package=%2$s</string>
+
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="delete">Supprimer</string>
@@ -92,7 +95,7 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">Accéder aux paramètres</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Vous n’avez accordé à Molly  qu’un accès limité à vos photos et vidéos.</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Vous n\'avez accordé à Molly  qu\'un accès limité à vos photos et vidéos.</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">Aucune photo disponible. Sélectionnez des photos et des vidéos à afficher ici ou modifiez les autorisations.</string>
 
@@ -182,7 +185,7 @@
     <!-- Button label to confirm credit card input and proceed with subscription payment -->
     <string name="CreditCardFragment__donate_s_month">Faire un don de %1$s/mois</string>
     <!-- Button label to confirm credit card input and proceed with backups payment. Placeholder is formatted price. -->
-    <string name="CreditCardFragment__pay_s_month">Faire un don de %1$s/mois</string>
+    <string name="CreditCardFragment__pay_s_month">Payer %1$s/mois pour soutenir Signal</string>
 
     <!-- OneTimeDonationPreference -->
     <!-- Preference title with placeholder for amount. -->
@@ -257,6 +260,7 @@
 
     <!-- CameraXFragment -->
     <string name="CameraXFragment_tap_for_photo_hold_for_video">Touchez pour une photo, maintenez pour une vidéo</string>
+    <!-- Accessibility content description to describe the capture button when taking an image/video -->
     <string name="CameraXFragment_capture_description">Prendre une photo ou une vidéo</string>
     <string name="CameraXFragment_change_camera_description">Changer de caméra</string>
     <string name="CameraXFragment_open_gallery_description">Ouvrir la galerie</string>
@@ -343,7 +347,7 @@
     <!-- Message on dialog when call link url cannot be parsed -->
     <string name="CommunicationActions_this_is_not_a_valid_call_link">Ce lien d’appel n’est pas valide. Vérifiez qu’il n’est pas tronqué et qu’il s’agit du bon lien.</string>
     <!-- Displayed in a snackbar when the user is already in a call -->
-    <string name="CommunicationActions__you_are_already_in_a_call">You are already in a call</string>
+    <string name="CommunicationActions__you_are_already_in_a_call">Vous êtes déjà en communication</string>
 
     <!-- ConfirmIdentityDialog -->
 
@@ -400,6 +404,7 @@
     <string name="ConversationItem_unable_to_open_media">Impossible de trouver une appli pour ouvrir ce média.</string>
     <string name="ConversationItem_copied_text">Copié %1$s</string>
     <string name="ConversationItem_from_s">de %1$s</string>
+    <!-- Footer shown in legacy SMS message where %s is the name of the recipient the message is going to -->
     <string name="ConversationItem_to_s">à %1$s</string>
     <string name="ConversationItem_read_more">  Lire la suite</string>
     <string name="ConversationItem_download_more">  Télécharger plus</string>
@@ -433,6 +438,7 @@
     <string name="ConversationActivity_send_edit">Envoyer les modifications</string>
     <string name="ConversationActivity_compose_message">Rédiger un message</string>
     <string name="ConversationActivity_sorry_there_was_an_error_setting_your_attachment">Oups ! Une erreur s’est produite lors de l’ajout de la pièce jointe.</string>
+    <!-- Toast shown when user is unable to find the recipient when sending a message -->
     <string name="ConversationActivity_recipient_is_not_a_valid_sms_or_email_address_exclamation">Le destinataire n’est pas une adresse texto ou courriel valide.</string>
     <string name="ConversationActivity_message_is_empty_exclamation">Le message est vide.</string>
     <string name="ConversationActivity_group_members">Membres du groupe</string>
@@ -459,7 +465,7 @@
     <string name="ConversationActivity_transport_signal">Message Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Envoyer un message</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Passons à Molly %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Et si on passait à Molly ? %1$s</string>
     <string name="ConversationActivity_specify_recipient">Veuillez choisir un contact</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Le fichier joint dépasse la limite de taille pour le type de message que vous envoyez.</string>
     <string name="ConversationActivity_unable_to_record_audio">Enregistrement audio impossible.</string>
@@ -528,7 +534,7 @@
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
     <string name="ConversationActivity__this_person_is_no_longer_using_signal">Ce contact n’utilise plus Molly. Invitez-le à rejoindre la plateforme pour reprendre votre conversation.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Inviter à Molly</string>
+    <string name="ConversationActivity__invite_to_signal">Inviter sur Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Vous recevrez un rappel bientôt.</string>
 
@@ -551,8 +557,8 @@
     <!-- Toast text when contacts activity is not found -->
     <string name="ConversationFragment__contacts_app_not_found">Impossible de retrouver l\'application Contacts.</string>
     <plurals name="ConversationFragment_delete_selected_messages">
-        <item quantity="one">Supprimer le message sélectionné ?</item>
-        <item quantity="other">Supprimer les messages sélectionnés ?</item>
+        <item quantity="one">Supprimer le message sélectionné ?</item>
+        <item quantity="other">Supprimer les messages sélectionnés ?</item>
     </plurals>
     <string name="ConversationFragment_save_to_sd_card">Enregistrer dans la mémoire ?</string>
     <plurals name="ConversationFragment_saving_n_media_to_storage_warning">
@@ -573,6 +579,7 @@
         <item quantity="other">Enregistrement de %1$d fichiers joints dans l\'espace de stockage…</item>
     </plurals>
     <string name="ConversationFragment_pending">En attente…</string>
+    <!-- Describes how the message was sent when looking at a message detail. Previously, messages could be through other means like SMS -->
     <string name="ConversationFragment_push">Données (Signal)</string>
     <string name="ConversationFragment_mms">Message multimédia</string>
     <string name="ConversationFragment_sms">Texto</string>
@@ -668,7 +675,7 @@
     <!-- Title of tip 3 -->
     <string name="SafetyTips_tip3_title">Messages contenant des liens</string>
     <!-- Message of tip 3 -->
-    <string name="SafetyTips_tip3_message">Soyez vigilant lorsque des inconnus vous envoient des messages contenant des liens vers des sites Internet. Ne consultez jamais les liens envoyés par des personnes en qui vous n’avez pas confiance.</string>
+    <string name="SafetyTips_tip3_message">Soyez vigilant lorsque des inconnus vous envoient des messages contenant des liens vers des sites web. Ne consultez jamais les liens envoyés par des personnes en qui vous n’avez pas confiance.</string>
     <!-- Title of tip 4 -->
     <string name="SafetyTips_tip4_title">Fausses entreprises et institutions</string>
     <!-- Message of tip 4 -->
@@ -1003,6 +1010,7 @@
     <string name="DeviceListActivity_unlink_s">Dissocier \"%1$s\" ?</string>
     <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">En annulant le lien avec cet appareil, il ne pourra plus ni envoyer ni recevoir de messages.</string>
     <string name="DeviceListActivity_network_connection_failed">Échec de connexion au réseau</string>
+    <!-- Button label on an alert dialog. The dialog informs the user they have network issues. If pressed, we will retry the network request. -->
     <string name="DeviceListActivity_try_again">Réessayer</string>
     <string name="DeviceListActivity_unlinking_device">Annulation du lien avec l’appareil…</string>
     <string name="DeviceListActivity_unlinking_device_no_ellipsis">Annulation du lien avec l’appareil</string>
@@ -1405,7 +1413,7 @@
     <string name="ShareableGroupLinkDialogFragment__group_link">Lien de groupe</string>
     <string name="ShareableGroupLinkDialogFragment__share">Partager</string>
     <string name="ShareableGroupLinkDialogFragment__reset_link">Réinitialiser le lien</string>
-    <string name="ShareableGroupLinkDialogFragment__require_admin_approval">Require admin approval</string>
+    <string name="ShareableGroupLinkDialogFragment__require_admin_approval">Exiger l\'approbation d\'un admin</string>
     <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Un administrateur doit approuver les nouveaux membres qui rejoignent le groupe via le lien.</string>
     <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">Voulez-vous vraiment réinitialiser le lien du groupe ? Personne ne pourra plus rejoindre le groupe via le lien actuel.</string>
 
@@ -1497,13 +1505,14 @@
     <string name="InviteActivity_cancel">Annuler</string>
     <string name="InviteActivity_sending">Envoi…</string>
     <string name="InviteActivity_invitations_sent">L’invitation a été envoyée.</string>
-    <string name="InviteActivity_invite_to_signal">Inviter à Molly</string>
+    <string name="InviteActivity_invite_to_signal">Inviter sur Molly</string>
     <string name="InviteActivity_send_sms">Envoyer un texto (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Envoyer %1$d invitation par SMS ?</item>
         <item quantity="other">Envoyer %1$d invitations par SMS ?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Passons à Molly : %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Et si on passait à Molly ? %1$s</string>
+    <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">Vous semblez n’avoir aucune appli vers laquelle partager.</string>
 
     <!-- LearnMoreTextView -->
@@ -1848,7 +1857,7 @@
     <!-- Title for dialog explaining why a specific mobile coin payment does not have any transaction details -->
     <string name="PaymentTombstoneLearnMoreDialog_title">Infos de paiement indisponibles</string>
     <!-- Message for dialog explaining why a specific mobile coin payment does not have any transaction details because it was restored from a backup-->
-    <string name="PaymentTombstoneLearnMoreDialog_message">Les informations de paiement sont indisponibles, car Signal a récupéré vos messages à partir d’un appareil qui ne contenait pas l’historique de cette transaction. Cela n’a aucune incidence sur le solde de votre compte, ni sur l’état de vos anciens paiements.</string>
+    <string name="PaymentTombstoneLearnMoreDialog_message">Les informations relatives à ce paiement sont indisponibles, car Signal a récupéré vos messages à partir d\'un appareil qui ne contenait pas l\'historique de cette transaction. Cela n\'a aucune incidence sur le solde de votre compte, ni sur l\'état de vos anciens paiements.</string>
 
     <!-- Group Calling update messages -->
     <!-- Chat log text for an ongoing group call that has one participant with a placeholder for the short display name of the user that joined and a placeholder for formatted time -->
@@ -1928,6 +1937,7 @@
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Autoriser %1$s à vous envoyer des messages et partager vos nom et photo avec ce contact ? Vous ne recevrez aucun message tant que vous ne l’aurez pas débloqué.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Autoriser %1$s à vous envoyer un message ? Vous ne recevrez aucun message tant que vous ne l’aurez pas débloqué.</string>
+    <!-- Shown in message request flow. Describes what will happen if you unblock the Signal release notes channel -->
     <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Recevoir voir des nouvelles de%1$s ? Vous ne recevrez aucune nouvelle tant que vous ne l’aurez pas débloqué.</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Poursuivre votre conversation avec ce groupe et partager vos nom et photo avec ses membres ?</string>
     <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">Les groupes hérités ne peuvent plus être utilisés. Créez un nouveau groupe pour activer les nouvelles fonctionnalités telles que les @mentions et les administrateurs.</string>
@@ -2040,7 +2050,7 @@
     <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
     <string name="ReRegisterWithPinFragment_send_sms_code">Envoyer un code par SMS</string>
     <!-- Email subject used when user contacts support about an issue with the reregister flow. -->
-    <string name="ReRegisterWithPinFragment_support_email_subject">Inscription à Signal - Besoin d’aide pour inscrire un PIN sur un appareil Android</string>
+    <string name="ReRegisterWithPinFragment_support_email_subject">Inscription à Signal – Besoin d\'aide : code PIN sous Android</string>
     <!-- Dialog message shown in reregister flow when tapping a informational button to to learn about pins or contact support for help -->
     <string name="ReRegisterWithPinFragment_need_help_local">Votre PIN est un code numérique ou alphanumérique d’au moins %1$d caractères que vous avez créé.\n\nSi vous avez oublié votre PIN, vous pouvez en créer un autre.</string>
     <!-- Dialog message shown in reregister flow when user requests to skip this flow and return to the normal flow -->
@@ -2242,6 +2252,7 @@
 
     <string name="WebRtcCallView__no_one_else_is_here">Il n’y a personne d’autre ici</string>
     <string name="WebRtcCallView__s_is_in_this_call">%1$s est dans cet appel</string>
+    <!-- Description of who is in the call when it is only you, %1$s is replaced with either CallParticipant__you or CallParticipant__you_on_another_device -->
     <string name="WebRtcCallView__s_are_in_this_call">%1$s sont dans cet appel</string>
     <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s et %2$s font partie de cet appel</string>
 
@@ -2501,13 +2512,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Ajouter aux contacts</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Inviter à Molly</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Inviter sur Molly</string>
     <string name="SharedContactDetailsActivity_signal_message">Message Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Appel Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Ajouter aux contacts</string>
-    <string name="SharedContactView_invite_to_signal">Inviter à Molly</string>
+    <string name="SharedContactView_invite_to_signal">Inviter sur Molly</string>
     <string name="SharedContactView_message">Message Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2644,7 +2655,7 @@
     <string name="ApkUpdateNotifications_failed_general_body">Nous réessaierons plus tard.</string>
     <string name="ApkUpdateNotifications_auto_update_success_title">Molly a été mis à jour avec succès</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">La version %1$s a été automatiquement installée.</string>
-    <string name="ApkUpdateNotifications_manual_update_success_body">You updated to version %1$s.</string>
+    <string name="ApkUpdateNotifications_manual_update_success_body">Vous avez installé la version %1$s.</string>
 
     <!-- UntrustedSendDialog -->
     <string name="UntrustedSendDialog_send_message">Envoyer le message ?</string>
@@ -2935,7 +2946,7 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Pour répondre à l’appel, accordez à Molly l’accès à votre microphone.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Pour répondre à l\'appel, autorisez Molly à accéder à votre microphone.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Pour répondre à l’appel vidéo, veuillez autoriser Molly à accéder à votre micro et votre appareil photo.</string>
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Pour passer et recevoir des appels, Molly doit accéder au microphone et à l\'appareil photo, mais vous lui en avez interdit l\'accès. Ouvrez l\'application Paramètres de votre appareil, puis touchez Applications &gt; Molly &gt; Autorisations et activez les options \"Microphone\" et \"Appareil photo\".</string>
@@ -2983,7 +2994,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Répéter la nouvelle phrase de passe</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Inviter à Molly</string>
+    <string name="contact_selection_activity__invite_to_signal">Inviter sur Molly</string>
     <string name="contact_selection_activity__new_group">Nouveau groupe</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Actualiser la liste des contacts</string>
@@ -3064,6 +3075,7 @@
     <string name="conversation_activity__attachment_thumbnail">Imagette de fichiers joints</string>
     <string name="conversation_activity__quick_attachment_drawer_toggle_camera_description">Afficher/masquer le tiroir de l’appareil photo à basse résolution</string>
     <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">Enregistrer et envoyer un message audio en pièce jointe</string>
+    <!-- Accessibility content description describing how a user can lock voice note recording. -->
     <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Verrouiller l’enregistrement de pièces jointes au format audio</string>
     <string name="conversation_activity__message_could_not_be_sent">Le message n’a pas pu être envoyé. Veuillez vérifier votre connexion et réessayer.</string>
 
@@ -3082,6 +3094,7 @@
     <string name="conversation_item_sent__message_read">Message lu</string>
 
     <!-- conversation_item_received -->
+    <!-- Content description for profile pictures -->
     <string name="conversation_item_received__contact_photo_description">Photo du contact</string>
 
     <!-- ConversationUpdateItem -->
@@ -3166,6 +3179,7 @@
     <string name="EnableCallNotificationSettingsDialog__everything_looks_good_now">Tout semble en ordre maintenant !</string>
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_show_notifications">Pour recevoir les notifications d\'appel, appuyez ici et activez l\'option \"Notifications\".</string>
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_notifications">Pour recevoir les notifications d’appel, touchez cette option, activez les notifications et vérifiez que le son et les pop-ups sont bien activés.</string>
+    <!-- Message shown when Signal determines potential issues with getting call notifications and how to fix it -->
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_enable_background_activity_in_battery_settings">Pour recevoir les notifications d\'appel, appuyez ici et autorisez l\'activité en arrière-plan sous Paramètres &gt; Batterie. </string>
     <string name="EnableCallNotificationSettingsDialog__settings">Paramètres</string>
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_turn_on_show_notifications">Pour recevoir les notifications d\'appel, appuyez sur \"Paramètres\" et activez l\'option \"Notifications\".</string>
@@ -3302,8 +3316,6 @@
     <string name="EditAboutFragment_free_to_chat">Prêt à converser</string>
     <string name="EditAboutFragment_taking_a_break">Je prends une pause</string>
     <string name="EditAboutFragment_working_on_something_new">Je travaille sur quelque chose de nouveau</string>
-    <!-- Error text shown when the About text contains an invalid character -->
-    <string name="EditAboutFragment_one_or_more_characters">One or more characters is invalid.</string>
 
     <!-- EditProfileFragment -->
     <string name="EditProfileFragment__edit_group">Modifier le groupe</string>
@@ -3402,7 +3414,8 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__emoji_1" translatable="false">emoji_1</string> -->
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__link__debug_info" translatable="false">https://support.signal.org/hc/articles/360007318591</string> -->
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__link__faq" translatable="false">https://support.signal.org</string> -->
-    <string name="HelpFragment__support_info">Infos d\'assistance</string>
+    <!-- Heading used within support email that lists additional information to help with debugging -->
+    <string name="HelpFragment__support_info">Infos destinées à l\'assistance</string>
     <string name="HelpFragment__signal_android_support_request">Demande d’assistance – Signal pour Android</string>
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">Impossible d’importer les journaux.</string>
@@ -3490,7 +3503,8 @@
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Pour les messages que vous envoyez, récupérez des aperçus de lien directement des sites Web.</string>
     <string name="preferences__change_passphrase">Changer la phrase de passe</string>
     <string name="preferences__change_your_passphrase">Changer votre phrase de passe</string>
-    <string name="preferences__enable_passphrase">Activer le verrouillage de l’écran avec phrase de passe</string>
+    <!-- Legacy preference menu item to enable a passphrase screen lock that is only available to those who have previously had a passphrase -->
+    <string name="preferences__enable_passphrase">Activer le verrouillage de l\'écran avec phrase de passe</string>
     <string name="preferences__lock_signal_and_message_notifications_with_a_passphrase">Verrouiller l’écran et les notifications avec une phrase de passe</string>
     <string name="preferences__screen_security">Sécurité de l’écran</string>
     <string name="preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity">Verrouiller Signal automatiquement après un délai d’inactivité déterminé</string>
@@ -3502,6 +3516,7 @@
     <string name="preferences__pref_led_blink_title">Rythme de clignotement de la DEL</string>
     <string name="preferences__customize">Personnaliser</string>
     <string name="preferences__change_sound_and_vibration">Modifier le son et les vibrations</string>
+    <!-- Preference menu item to control the sound of notifications -->
     <string name="preferences__sound">Son</string>
     <string name="preferences__silent">Silencieux</string>
     <string name="preferences__default">Valeur par défaut</string>
@@ -3612,8 +3627,8 @@
     <string name="preferences_storage__this_will_permanently_delete_all_message_history_and_media">L’historique et les contenus multimédias des messages de plus de %1$s seront irrémédiablement supprimés de votre appareil.</string>
     <!-- The body of an alert dialog that is shown when confirming a trim operation. Trimming will delete all but the most recent messages in a chat. The placeholder represents how many messages are kept in each chat. All older messages are deleted. -->
     <plurals name="preferences_storage__this_will_permanently_trim_all_conversations_to_the_d_most_recent_messages">
-        <item quantity="one">Toutes les conversations seront réduites de manière permanente pour contenir le message le plus récent.</item>
-        <item quantity="other">Toutes les conversations seront réduites de manière permanente pour contenir les %1$s messages les plus récents.</item>
+        <item quantity="one">Les anciens messages seront définitivement supprimés de toutes les conversations. Celles-ci n\'afficheront plus que le dernier message reçu.</item>
+        <item quantity="other">Les anciens messages seront définitivement supprimés de toutes les conversations. Celles-ci n\'afficheront plus que les %1$s derniers messages reçus.</item>
     </plurals>
     <string name="preferences_storage__this_will_delete_all_message_history_and_media_from_your_device">Tout l’historique et tous les contenus multimédias des messages seront irrémédiablement supprimés de votre appareil.</string>
     <!-- Dialog message warning about delete chat message history will delete everything everywhere including linked devices -->
@@ -3658,7 +3673,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Contournement de la censure</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Contournement de la censure</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Si cette option est activée, Molly tentera de contourner la censure. N’activez cette fonction que si vous êtes situé en un lieu où Molly est censurée.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Lorsque cette option est activée, Molly tente de contourner la censure. Ne l\'activez que si vous vous trouvez dans une zone géographique où Molly est censuré.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Le contournement de la censure a été activé d’après le numéro de téléphone de votre compte.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3675,7 +3690,7 @@
     <string name="preferences_off">Désactivé</string>
     <string name="preferences_on">Activé</string>
     <string name="preferences_proxy_address">Adresse du proxy</string>
-    <string name="preferences_only_use_a_proxy_if">N’utilisez un proxy que s’il vous est impossible de vous connecter à Signal via les données mobiles ou via le Wi-Fi.</string>
+    <string name="preferences_only_use_a_proxy_if">N\'utilisez un proxy que s\'il vous est impossible de vous connecter à Signal via les données mobiles ou le Wi-Fi.</string>
     <string name="preferences_share">Partager</string>
     <string name="preferences_save">Enregistrer</string>
     <string name="preferences_connecting_to_proxy">Connexion au proxy…</string>
@@ -3745,7 +3760,7 @@
     <string name="PaymentsHomeFragment__details">Détails</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Vous pouvez désormais utiliser Molly pour envoyer et recevoir des MobileCoin. Tous les paiements sont soumis aux conditions d’utilisation de MobileCoins et de MobileCoin Wallet. Des problèmes pourraient survenir. Les paiements et les soldes que vous pourriez perdre sont irrécupérables. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Vous pouvez utiliser Molly pour envoyer et recevoir des MobileCoins. Tous les paiements sont soumis aux conditions d\'utilisation de MobileCoin et de MobileCoin Wallet. Avertissement : des problèmes peuvent se produire et entraîner la perte de paiements et de soldes. De telles pertes sont irrécupérables. </string>
     <string name="PaymentsHomeFragment__activate">Activer</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Afficher les CGU de MobileCoin</string>
     <string name="PaymentsHomeFragment__payments_not_available">Les paiements ne sont plus proposés dans Molly. Vous pouvez encore transférer des fonds vers une plateforme de change, mais vous ne pouvez plus ni envoyer, ni recevoir de paiements, ni ajouter de fonds.</string>
@@ -3754,7 +3769,7 @@
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
     <string name="PaymentsHomeFragment__turn_on">Activer le blocage des paiements pour les prochains envois ?</string>
     <!-- Alert dialog description for why payment lock should be enabled before sending payments -->
-    <string name="PaymentsHomeFragment__add_an_additional_layer">Ajoutez une couche de sécurité et activez le verrouillage de l\'écran ou la demande de l\'empreinte digitale d\'Android pour effectuer un paiement.</string>
+    <string name="PaymentsHomeFragment__add_an_additional_layer">Pour plus de sécurité, exigez l\'empreinte digitale ou la méthode de déverrouillage d\'écran Android pour effectuer des paiements.</string>
     <!-- Alert dialog button to enable payment lock -->
     <string name="PaymentsHomeFragment__enable">Activer</string>
     <!-- Alert dialog button to not enable payment lock for now -->
@@ -3828,10 +3843,10 @@
 
     <!-- PaymentsAddMoneyFragment -->
     <string name="PaymentsAddMoneyFragment__add_funds">Ajouter des fonds</string>
-    <string name="PaymentsAddMoneyFragment__your_wallet_address">L’adresse de votre portefeuille</string>
+    <string name="PaymentsAddMoneyFragment__your_wallet_address">Adresse de votre portefeuille</string>
     <string name="PaymentsAddMoneyFragment__copy">Copier</string>
     <string name="PaymentsAddMoneyFragment__copied_to_clipboard">A été copié dans le presse-papiers</string>
-    <string name="PaymentsAddMoneyFragment__to_add_funds">Pour ajouter des fonds, envoyez des MobileCoins à l’adresse de votre porte-monnaie. Lancez une transaction de votre compte vers une plateforme de change qui accepte les MobileCoins, puis lisez le code QR ou copiez l’adresse de votre porte-monnaie.</string>
+    <string name="PaymentsAddMoneyFragment__to_add_funds">Pour ajouter des fonds, envoyez des MobileCoins à l\'adresse de votre portefeuille. Démarrez une transaction depuis votre compte sur une plateforme de change qui accepte les MobileCoins, puis scannez le code QR ou copiez l\'adresse de votre portefeuille.</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsAddMoneyFragment__learn_more__information" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_from_exchange</string> -->
 
     <!-- PaymentsDetailsFragment -->
@@ -3863,12 +3878,12 @@
     <!-- PaymentsTransferFragment -->
     <string name="PaymentsTransferFragment__transfer">Transférer</string>
     <string name="PaymentsTransferFragment__scan_qr_code">Lire le code QR</string>
-    <string name="PaymentsTransferFragment__to_scan_or_enter_wallet_address">À : lisez ou saisissez l’adresse du portefeuille</string>
-    <string name="PaymentsTransferFragment__you_can_transfer">Vous pouvez transférer des MobileCoins en finalisant un transfert vers l’adresse de porte-monnaie indiquée par la plateforme de change. L’adresse de porte-monnaie est une chaîne de chiffres et de lettres généralement située sous le code QR.</string>
+    <string name="PaymentsTransferFragment__to_scan_or_enter_wallet_address">Destinataire : scannez ou saisissez l\'adresse du portefeuille</string>
+    <string name="PaymentsTransferFragment__you_can_transfer">Pour virer des MobileCoins, effectuez un virement vers l\'adresse de portefeuille fournie par la plateforme de change. L\'adresse de portefeuille est une suite de chiffres et de lettres qui s\'affiche généralement sous le code QR.</string>
     <string name="PaymentsTransferFragment__next">Suivant</string>
     <string name="PaymentsTransferFragment__invalid_address">Adresse invalide</string>
-    <string name="PaymentsTransferFragment__check_the_wallet_address">Vérifiez l’adresse de porte-monnaie vers laquelle vous tentez de faire un transfert, puis réessayez.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Vous ne pouvez pas effectuer de transferts vers l’adresse de votre propre porte-monnaie Molly. Saisissez l’adresse de porte-monnaie de votre compte sur une plateforme de change prise en charge.</string>
+    <string name="PaymentsTransferFragment__check_the_wallet_address">Veuillez vérifier l\'adresse de portefeuille vers laquelle vous tentez d\'effectuer un virement et réessayer.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Vous ne pouvez pas effectuer de virements vers l\'adresse de votre propre portefeuille Molly. Saisissez l\'adresse de portefeuille associée à votre autre compte. Celui-ci doit être hébergé sur une plateforme de change compatible.</string>
     <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Pour lire un code QR, Molly a besoin d’accéder à l’appareil photo.</string>
     <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly a besoin de l\'autorisation Appareil photo pour scanner un code QR. Accédez à Paramètres &gt; Autorisations et activez \"Appareil photo\".</string>
     <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Pour lire un code QR, Molly a besoin d’accéder à l’appareil photo.</string>
@@ -4326,11 +4341,11 @@
     <string name="PhoneNumberPrivacySettingsFragment__cancel">Annuler</string>
     <string name="PhoneNumberPrivacy_everyone">Tout le monde</string>
     <string name="PhoneNumberPrivacy_nobody">Personne</string>
-    <string name="preferences_app_protection__screen_lock">Verrouillage de l’écran</string>
-    <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Verrouiller l’accès à Signal avec l’empreinte digitale ou le verrouillage d’écran Android</string>
-    <string name="preferences_app_protection__screen_lock_inactivity_timeout">Délai d’inactivité avant verrouillage de l’écran</string>
+    <string name="preferences_app_protection__screen_lock">Verrouillage de l\'écran</string>
+    <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Verrouiller l\'accès à Signal avec l\'empreinte digitale ou le verrouillage d\'écran Android</string>
+    <string name="preferences_app_protection__screen_lock_inactivity_timeout">Délai d\'inactivité avant verrouillage de l\'écran</string>
     <!-- Snackbar text shown when trying to enable screen lock but the user does not have a password or biometrics enabled -->
-    <string name="preferences_app_protection__to_use_screen_lock">Pour activer le verrouillage de l’écran, définissez un code PIN, un schéma de déverrouillage ou un mot de passe sur cet appareil.</string>
+    <string name="preferences_app_protection__to_use_screen_lock">Pour activer le verrouillage de l\'écran, définissez un code PIN, un schéma de déverrouillage ou un mot de passe sur cet appareil.</string>
     <string name="preferences_app_protection__signal_pin">Code PIN Signal</string>
     <string name="preferences_app_protection__create_a_pin">Créer un code PIN</string>
     <string name="preferences_app_protection__change_your_pin">Changer de code PIN</string>
@@ -4356,7 +4371,7 @@
     <!-- Description text explaining how to unlock Signal -->
     <string name="prompt_passphrase_activity__use_your_android_device">Pour déverrouiller Molly, accédez aux paramètres de verrouillage de votre appareil Android.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Le verrouillage de l’écran est activé. L’accès à Molly est donc sécurisé grâce aux paramètres de verrouillage de votre appareil. Pour déverrouiller Molly, utilisez la même méthode que pour déverrouiller votre téléphone : reconnaissance faciale, empreinte digitale, code PIN, mot de passe ou schéma de déverrouillage.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Le verrouillage de l\'écran est activé. L\'accès à Molly est donc sécurisé grâce aux paramètres de verrouillage de votre appareil. Pour déverrouiller Molly, utilisez la même méthode que pour déverrouiller votre téléphone : reconnaissance faciale, empreinte digitale, code PIN, mot de passe ou schéma de déverrouillage.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Contacter l’assistance</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4366,11 +4381,11 @@
     <!-- Text shown when screen lock is not enabled -->
     <string name="ScreenLockSettingsFragment__off">Désactivé</string>
     <!-- Text shown with toggle that when switched on will enable screen lock -->
-    <string name="ScreenLockSettingsFragment__use_screen_lock">Activer le verrouillage de l’écran</string>
+    <string name="ScreenLockSettingsFragment__use_screen_lock">Activer le verrouillage de l\'écran</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
     <string name="ScreenLockSettingsFragment__your_android_device">Vous devrez utiliser la méthode de déverrouillage de votre appareil Android pour déverrouiller Molly lorsque vous quittez l’appli ou passez d’une appli à l’autre. Lorsque l’écran est verrouillé, les aperçus des notifications n’affichent pas le contenu des messages.</string>
     <!-- Title text explaining when users should start the screen lock -->
-    <string name="ScreenLockSettingsFragment__start_screen_lock">Verrouiller l’écran</string>
+    <string name="ScreenLockSettingsFragment__start_screen_lock">Verrouiller l\'écran</string>
     <!-- Option text explaining that screen lock should start immediately -->
     <string name="ScreenLockSettingsFragment__immediately">Immédiatement</string>
     <!-- Option text explaining that screen lock should start after 1 minute of inactivity -->
@@ -4382,9 +4397,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">Délai personnalisé</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Activer le verrouillage de l’écran Molly ?</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Activer le verrouillage de l\'écran Molly ?</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Désactiver le verrouillage de l’écran Molly ?</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Désactiver le verrouillage de l\'écran Molly ?</string>
 
     <string name="Recipient_unknown">Inconnu</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4515,7 +4530,7 @@
 
     <!-- OldDeviceTransferComplete -->
     <string name="OldDeviceTransferComplete__go_to_your_new_device">Allez sur votre nouvel appareil</string>
-    <string name="OldDeviceTransferComplete__your_signal_data_has_Been_transferred_to_your_new_device">Vos données relatives à Signal ont été transférées vers votre nouvel appareil. Pour terminer le processus de transfert, vous devez poursuivre l’inscription sur votre nouvel appareil.</string>
+    <string name="OldDeviceTransferComplete__your_signal_data_has_Been_transferred_to_your_new_device">Vos données Signal ont été transférées vers votre nouvel appareil. Pour terminer le processus de transfert, poursuivez l\'inscription sur votre nouvel appareil.</string>
     <string name="OldDeviceTransferComplete__close">Fermer</string>
 
     <!-- NewDeviceTransferComplete -->
@@ -4766,7 +4781,7 @@
     <string name="payment_info_card_about_mobilecoin">À propos de MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin est une nouvelle monnaie numérique axée sur la protection des données personnelles.</string>
     <string name="payment_info_card_adding_funds">Ajouter des fonds</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Vous pouvez ajouter des fonds à utiliser dans Molly en envoyant des MobileCoin à l’adresse de votre portefeuille.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Pour virer des fonds à utiliser dans Molly, envoyez des MobileCoins à l\'adresse de votre portefeuille.</string>
     <string name="payment_info_card_cashing_out">Encaisser</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Vous pouvez encaisser des MobileCoins n’importe quand sur une plateforme de change qui accepte les MobileCoins. Il vous suffit d’effectuer un transfert vers votre compte sur cette plateforme de change.</string>
     <string name="payment_info_card_hide_this_card">Masquer cette carte ?</string>
@@ -4787,13 +4802,13 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Désactiver le portefeuille</string>
     <string name="DeactivateWalletFragment__your_balance">Votre solde</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Il est recommandé de transférer vos fonds vers une autre adresse de portefeuille avant de désactiver les paiements. Si vous choisissez de ne pas transférer vos fonds maintenant, ils resteront dans votre portefeuille lié à Molly si vous réactivez les paiements.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Il est recommandé de transférer vos fonds vers une autre adresse de portefeuille avant de désactiver les paiements. Si vous choisissez de ne pas transférer vos fonds maintenant, ils seront conservés dans le portefeuille associé à Molly si vous réactivez les paiements.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Transférer le solde restant</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Désactiver dans transférer</string>
     <string name="DeactivateWalletFragment__deactivate">Désactiver</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Désactiver sans transférer ?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Votre solde restera dans votre porte-monnaie lié à Molly si vous choisissez de réactiver les paiements.</string>
-    <string name="DeactivateWalletFragment__error_deactivating_wallet">Erreur lors de la désactivation du portefeuille.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Votre solde sera conservé dans le portefeuille associé à Molly si vous réactivez les paiements..</string>
+    <string name="DeactivateWalletFragment__error_deactivating_wallet">Une erreur s\'est produite lors de la désactivation du portefeuille.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
     <!-- PaymentsRecoveryStartFragment -->
@@ -5041,18 +5056,18 @@
     </plurals>
     <string name="PrivacySettingsFragment__messaging">Messagerie</string>
     <string name="PrivacySettingsFragment__disappearing_messages">Messages éphémères</string>
-    <string name="PrivacySettingsFragment__app_security">Sécurité de l’appli</string>
+    <string name="PrivacySettingsFragment__app_security">Sécurité de l\'appli</string>
     <!-- This refers to the multi-tasking overview (recent apps) from the Android operating system.-->
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Bloquer les captures d’écran dans la liste des récents et dans l’appli</string>
     <string name="PrivacySettingsFragment__signal_message_and_calls">Messages et appels Signal : \"Toujours relayer les appels\" et \"Expéditeur scellé\"</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Délai avant disparition</string>
     <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Définissez le délai après lequel les messages éphémères disparaissent des nouvelles conversations que vous avez initiées.</string>
     <!-- Summary for stories preference to launch into story privacy settings -->
-    <string name="PrivacySettingsFragment__payment_lock_require_lock">Exiger le verrouillage d’écran Android ou l’empreinte digitale pour effectuer des paiements</string>
+    <string name="PrivacySettingsFragment__payment_lock_require_lock">Exiger le verrouillage d\'écran Android ou l\'empreinte digitale pour effectuer des paiements</string>
     <!-- Alert dialog title when payment lock cannot be enabled -->
     <string name="PrivacySettingsFragment__cant_enable_title">Impossible d’activer le verrouillage des paiements</string>
     <!-- Alert dialog description to setup screen lock or fingerprint in phone settings -->
-    <string name="PrivacySettingsFragment__cant_enable_description">Pour utiliser la fonction de blocage du paiement, vous devez d\'abord activer le verrouillage de l\'écran ou l\'identification digitale dans les paramètres de votre téléphone.</string>
+    <string name="PrivacySettingsFragment__cant_enable_description">Pour utiliser la fonctionnalité de blocage des paiements, vous devez d\'abord activer le verrouillage de l\'écran ou l\'ID d\'empreinte digitale dans les paramètres de votre téléphone.</string>
     <!-- Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings -->
     <string name="PrivacySettingsFragment__failed_to_navigate_to_system_settings">Impossible de consulter les paramètres du système</string>
     <!-- Alert dialog button to go to phone settings -->
@@ -5064,8 +5079,8 @@
     <string name="AdvancedPrivacySettingsFragment__show_an_icon">Afficher une icône dans les infos des messages lorsqu\'ils sont remis avec l\'option \"Expéditeur scellé\".</string>
 
     <!-- ExpireTimerSettingsFragment -->
-    <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Si cette option est activée, les nouveaux messages envoyés et reçus dans les nouvelles conversations disparaîtront après avoir été lus.</string>
-    <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">Si cette option est activée, les nouveaux messages envoyés et reçus dans cette conversation disparaîtront après avoir été lus.</string>
+    <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Si vous activez cette option et démarrez de nouvelles conversations, les nouveaux messages que vous enverrez et recevrez dans ces conversations disparaîtront une fois lus.</string>
+    <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">Si vous activez cette option, les nouveaux messages que vous enverrez et recevrez dans cette conversation disparaîtront une fois lus.</string>
     <string name="ExpireTimerSettingsFragment__off">Désactivé</string>
     <string name="ExpireTimerSettingsFragment__4_weeks">4 semaines</string>
     <string name="ExpireTimerSettingsFragment__1_week">1 semaine</string>
@@ -5139,7 +5154,7 @@
     <!-- Title text for prompt to donate. Shown in a popup at the bottom of the chat list. -->
     <string name="Donate2022Q2Megaphone_donate_to_signal">Faire un don à Signal</string>
     <!-- Body text for prompt to donate. Shown in a popup at the bottom of the chat list. -->
-    <string name="Donate2022Q2Megaphone_signal_is_powered_by_people_like_you">Signal dépend de personnes comme vous. Faites un don mensuel et recevez un macaron.</string>
+    <string name="Donate2022Q2Megaphone_signal_is_powered_by_people_like_you">Signal dépend de personnes comme vous. Soutenez-nous grâce à un don mensuel et gagnez un macaron.</string>
     <!-- Button label that brings a user to the donate screen. Shown in a popup at the bottom of the chat list. -->
     <string name="Donate2022Q2Megaphone_donate">Faire un don</string>
     <!-- Button label that dismissed a prompt to donate. Shown in a popup at the bottom of the chat list. -->
@@ -5162,7 +5177,7 @@
     <!-- BecomeASustainerMegaphone -->
     <string name="BecomeASustainerMegaphone__become_a_sustainer">Devenir donateur mensuel</string>
     <!-- Displayed in the Become a Sustainer megaphone -->
-    <string name="BecomeASustainerMegaphone__signal_is_powered_by">Signal dépend de personnes comme vous. Faites un don et recevez un macaron.</string>
+    <string name="BecomeASustainerMegaphone__signal_is_powered_by">Signal dépend de personnes comme vous. Faites un don et gagnez un macaron.</string>
     <string name="BecomeASustainerMegaphone__not_now">Plus tard</string>
     <string name="BecomeASustainerMegaphone__donate">Faire un don</string>
 
@@ -5232,7 +5247,7 @@
     <string name="ConversationSettingsFragment__conversation_muted_forever">Conversation en sourdine définitivement</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Numéro de téléphone copié dans le presse-papier.</string>
     <string name="ConversationSettingsFragment__phone_number">Numéro de téléphone</string>
-    <string name="ConversationSettingsFragment__get_badges">Obtenez des macarons pour votre profil en soutenant Signal. Appuyez sur un macaron pour en savoir plus.</string>
+    <string name="ConversationSettingsFragment__get_badges">Soutenez Signal et gagnez des macarons à afficher sur votre profil. Appuyez sur un macaron pour en savoir plus.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Ajouter des membres</string>
@@ -5375,12 +5390,13 @@
     <!-- Positive dialog action when sending a story via an add to group story button -->
     <string name="MediaReviewFragment__add_to_story">Ajouter à la story</string>
     <string name="MediaReviewFragment__add_a_message">Ajouter un message</string>
+    <!-- Hint text inside of a compose box that is shown when the user is adding media while quoting a message. -->
     <string name="MediaReviewFragment__add_a_reply">Ajouter une réponse</string>
     <string name="MediaReviewFragment__send_to">Envoyer à</string>
     <string name="MediaReviewFragment__view_once_message">Média à vue unique</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">Un ou plusieurs fichiers sont trop volumineux.</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">Un élément ou plus étaient invalides</string>
-    <string name="MediaReviewFragment__too_many_items_selected">Vous avez sélectionné un trop grand nombre d’éléments</string>
+    <string name="MediaReviewFragment__too_many_items_selected">Vous avez sélectionné un trop grand nombre d\'éléments</string>
     <!-- Small notification presented to the user when they set their video to view-once mode -->
     <string name="MediaReviewFragment__video_set_to_view_once">Vue unique activée pour cette vidéo</string>
     <!-- Small notification presented to the user when they set their photo to view-once mode -->
@@ -5423,8 +5439,8 @@
     <string name="MediaReviewSelectedItem__tap_to_remove">Appuyez pour supprimer</string>
     <string name="MediaReviewSelectedItem__tap_to_select">Appuyez pour sélectionner</string>
 
-    <string name="MediaReviewImagePageFragment__discard">Abandonner</string>
-    <string name="MediaReviewImagePageFragment__discard_changes">Abandonner les changements ?</string>
+    <string name="MediaReviewImagePageFragment__discard">Supprimer</string>
+    <string name="MediaReviewImagePageFragment__discard_changes">Supprimer les modifications ?</string>
     <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Vous perdrez toutes les modifications apportées à cette photo.</string>
 
     <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
@@ -5443,7 +5459,7 @@
 
 
     <string name="BadgesOverviewFragment__my_badges">Mes macarons</string>
-    <string name="BadgesOverviewFragment__featured_badge">Macarons mis en avant</string>
+    <string name="BadgesOverviewFragment__featured_badge">Macaron affiché</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">Afficher les macarons sur le profil</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">Échec de la mise à jour du profil</string>
 
@@ -5458,15 +5474,15 @@
     <!-- Title of a page in the bottom sheet. Placeholder is a user\'s short-name -->
     <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal">%1$s soutient Signal</string>
     <!-- Description of a page in the bottom sheet of a monthly badge. Placeholder is a user\'s short-name -->
-    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_monthly">%1$s soutient Signal par un don mensuel. Signal est un organisme à but non lucratif, sans annonceurs ni investisseurs, soutenu uniquement par des personnes comme vous.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_monthly">%1$s soutient Signal chaque mois grâce à un don mensuel. Signal est un organisme à but non lucratif.  Ici, ni annonceurs, ni investisseurs. Signal n\'existe que grâce à des personnes comme vous.</string>
     <!-- Description of a page in the bottom sheet of a one-time badge. Placeholder is a user\'s short-name -->
-    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_donation">%1$s a soutenu Signal par un don. Signal est un organisme à but non lucratif, sans annonceurs ni investisseurs, soutenu uniquement par des personnes comme vous.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_donation">%1$s soutient Signal grâce à un don. Signal est un organisme à but non lucratif.  Ici, ni annonceurs, ni investisseurs. Signal n\'existe que grâce à des personnes comme vous.</string>
 
     <string name="ImageView__badge">Macaron</string>
 
     <string name="SubscribeFragment__cancel_subscription">Annuler l’abonnement</string>
     <string name="SubscribeFragment__confirm_cancellation">Confirmer l’annulation ?</string>
-    <string name="SubscribeFragment__you_wont_be_charged_again">Vous ne serez plus facturé. Votre macaron sera supprimé de votre profil à la fin de votre période de facturation.</string>
+    <string name="SubscribeFragment__you_wont_be_charged_again">Vous ne serez plus facturé. Votre macaron sera supprimé de votre profil à la fin de la période de facturation.</string>
     <string name="SubscribeFragment__not_now">Plus tard</string>
     <string name="SubscribeFragment__confirm">Confirmer</string>
     <string name="SubscribeFragment__update_subscription">Mettre à jour l’abonnement</string>
@@ -5492,16 +5508,16 @@
 
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">Merci pour votre soutien !</string>
     <!-- Subtext underneath the dialog title on the thanks sheet -->
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge">Vous avez gagné un badge de donateur Signal ! Affichez-le sur votre profil pour montrer votre soutien.</string>
+    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge">Vous avez gagné un macaron de donateur Signal ! Affichez-le sur votre profil pour montrer que vous nous soutenez.</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__you_can_also">Vous pouvez aussi</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">devenir un donateur mensuel.</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Afficher sur le profil</string>
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Mettre en avant ce macaron</string>
+    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Afficher ce macaron</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__continue">Poursuivre</string>
-    <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Si vous avez plus d’un macaron, vous pouvez choisir celui que les autres pourront voir sur votre profil.</string>
+    <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Si vous avez plusieurs macarons, vous pouvez choisir celui que vous voulez afficher sur votre profil.</string>
 
-    <string name="BecomeASustainerFragment__get_badges">Obtenez des macarons pour votre profil en soutenant Signal.</string>
-    <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal est un organisme sans but lucratif, sans annonceurs ni investisseurs, soutenu uniquement par des personnes comme vous.</string>
+    <string name="BecomeASustainerFragment__get_badges">Soutenez Signal et gagnez des macarons à afficher sur votre profil.</string>
+    <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal est un organisme à but non lucratif.  Ici, ni annonceurs, ni investisseurs. Signal n\'existe que grâce à des personnes comme vous.</string>
 
     <!-- Button label for creating a donation -->
     <string name="ManageDonationsFragment__donate_to_signal">Faire un don à Signal</string>
@@ -5534,7 +5550,7 @@
     <string name="MySupportPreference__renews_s">Renouvellement %1$s</string>
     <string name="MySupportPreference__processing_transaction">Traitement de la transaction…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
-    <string name="MySupportPreference__couldnt_add_badge_s">Impossible d’ajouter un macaron. %1$s</string>
+    <string name="MySupportPreference__couldnt_add_badge_s">Impossible d\'ajouter un macaron. %1$s</string>
     <string name="MySupportPreference__please_contact_support">Veuillez contacter l’assistance.</string>
     <!-- Displayed as a subtitle on a row in the Manage Donations screen when payment for a donation is pending -->
     <string name="MySupportPreference__payment_pending">Paiement en attente</string>
@@ -5562,34 +5578,34 @@
     <string name="ReregisterSignalDialog__cancel_action">Annuler</string>
 
     <!-- Title of expiry sheet when boost badge falls off profile unexpectedly. -->
-    <string name="ExpiredBadgeBottomSheetDialogFragment__boost_badge_expired">Macaron Coup de pouce expiré</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__boost_badge_expired">Expiration du macaron Coup de pouce</string>
     <!-- Displayed in the bottom sheet if a monthly donation badge unexpectedly falls off the user\'s profile -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__monthly_donation_cancelled">Don mensuel résilié</string>
     <!-- Displayed in the bottom sheet when a boost badge expires -->
-    <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired_and">Votre macaron Coup de pouce a expiré et n’est plus visible sur votre profil.</string>
-    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Vous pouvez réactiver votre macaron Coup de pouce pour 30 jours supplémentaires en versant une somme unique.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired_and">Votre macaron Coup de pouce est arrivé à expiration et n\'est plus visible sur votre profil.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Vous pouvez réactiver votre macaron Coup de pouce pour 30 jours de plus grâce à un don ponctuel.</string>
     <!-- Displayed when we do not think the user is a subscriber when their boost expires -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_keep">Vous pouvez continuer à utiliser Signal, mais pour soutenir une technologie conçue pour vous, envisagez de devenir un donateur mensuel en faisant un don chaque mois.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Devenir donateur mensuel</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Donner un Coup de pouce</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Plus tard</string>
     <!-- Copy displayed when badge expires after user inactivity -->
-    <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_automatically">Votre don mensuel récurrent a été automatiquement annulé car vous êtes resté inactif trop longtemps. Votre macaron %1$s n’est plus visible sur votre profil.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_automatically">Votre don mensuel récurrent a été automatiquement annulé car votre compte Signal est resté inactif trop longtemps. Votre macaron %1$s n\'est plus visible sur votre profil.</string>
     <!-- Copy displayed when badge expires after payment failure -->
-    <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled">Votre don mensuel a automatiquement été résilié car nous n’avons pas pu traiter votre paiement. Votre macaron n’est plus visible sur votre profil.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled">Votre don mensuel a automatiquement été résilié car nous n\'avons pas pu traiter votre paiement. Votre macaron n\'est plus visible sur votre profil.</string>
     <!-- Copy displayed when badge expires after a payment failure and we have a displayable charge failure reason -->
-    <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled_s">Votre don mensuel récurrent a été automatiquement annulé. %1$s Votre macaron %2$s n’est plus affiché sur votre profil.</string>
-    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Vous pouvez continuer à utiliser Signal. Cependant, afin de soutenir l’appli et réactiver votre macaron, veuillez renouveler votre abonnement.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled_s">Votre don mensuel récurrent a été automatiquement annulé. %1$s Votre macaron %2$s n\'est plus visible sur votre profil.</string>
+    <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Vous pouvez bien sûr continuer d\'utiliser l\'appli, mais pour soutenir Signal et réactiver votre macaron, n\'hésitez pas à renouveler votre don.</string>
     <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Renouveler l’abonnement</string>
     <!-- Button label to send user to Google Pay website -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__go_to_google_pay">Allez sur Google Pay</string>
 
     <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Impossible de traiter le paiement de l’abonnement</string>
-    <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Nous avons des difficultés à encaisser le paiement de votre don mensuel à Signal. Vérifiez que votre mode de paiement est à jour. Si ce n’est pas le cas, mettez-le à jour dans Google Pay. Signal essaiera de traiter à nouveau le paiement dans quelques jours.</string>
-    <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Ne plus montrer cela</string>
+    <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Nous ne parvenons pas à encaisser le paiement de votre don mensuel à Signal. Votre mode de paiement est-il à jour ? Si tel n\'est pas le cas, nous vous invitons à le mettre à jour dans Google Pay. Signal réessaiera de traiter le paiement dans quelques jours. Merci !</string>
+    <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Ne plus afficher</string>
 
     <string name="Subscription__contact_support">Contacter l’assistance</string>
-    <string name="Subscription__get_a_s_badge">Obtenez un macaron %1$s</string>
+    <string name="Subscription__get_a_s_badge">Gagnez un macaron %1$s</string>
 
     <!-- *PaymentInProgressFragment strings -->
     <string name="InAppPaymentInProgressFragment__processing_donation">Don en cours de traitement…</string>
@@ -5619,20 +5635,20 @@
     <string name="DonationsErrors__error_processing_payment_s">Erreur de traitement du don. %1$s</string>
     <string name="DonationsErrors__your_payment">Votre don n’a pas pu être traité et vous n’avez pas été débité. Veuillez réessayer.</string>
     <string name="DonationsErrors__still_processing">En cours de traitement</string>
-    <string name="DonationsErrors__couldnt_add_badge">Impossible d’ajouter le macaron</string>
+    <string name="DonationsErrors__couldnt_add_badge">Impossible d\'ajouter le macaron.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
-    <string name="DonationsErrors__failed_to_validate_badge">Échec de la validation du macaron</string>
+    <string name="DonationsErrors__failed_to_validate_badge">Validation du macaron impossible.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__could_not_validate">Impossible de valider la réponse du serveur. Contactez l\'assistance.</string>
     <!-- Displayed as title when some generic error happens during sending donation on behalf of another user -->
     <string name="DonationsErrors__donation_failed">Échec de l\'envoi du don</string>
     <!-- Displayed as message when some generic error happens during sending donation on behalf of another user -->
     <string name="DonationsErrors__your_payment_was_processed_but">Votre don a été traité, mais Signal n\'a pas pu envoyer le message de confirmation. Veuillez contacter l’assistance.</string>
-    <string name="DonationsErrors__your_badge_could_not">Votre macaron n’a pas pu être ajouté à votre compte, mais vous avez peut-être été facturé. Veuillez contacter le service d’assistance.</string>
+    <string name="DonationsErrors__your_badge_could_not">Nous n\'avons pas pu ajouter votre macaron à votre compte, mais vous avez peut-être été facturé. Merci de contacter l\'assistance.</string>
     <string name="DonationsErrors__your_payment_is_still">Votre don est en cours de traitement. Cela peut prendre quelques minutes en fonction de votre connexion.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">Échec de l’annulation de l’abonnement</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">L’annulation de l’abonnement nécessite une connexion Internet.</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Votre appareil ne prend pas en charge Google Pay, vous ne pouvez donc pas vous abonner pour gagner un macaron. Vous pouvez toujours soutenir Signal en faisant un don sur notre site Web.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Votre appareil n\'est pas compatible avec Google Pay : vous ne pouvez donc pas vous abonner pour gagner un macaron, mais vous pouvez encore soutenir Signal et faire un don via notre site web.</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Erreur réseau. Vérifiez votre connexion et réessayez.</string>
     <string name="NetworkFailure__retry">Réessayer</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -5898,7 +5914,7 @@
     <!-- Donation receipts amount title -->
     <string name="DonationReceiptDetailsFragment__amount">Montant</string>
     <!-- Donation receipts thanks -->
-    <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Nous vous remercions de votre soutien à Signal. Votre contribution aide à alimenter la mission de développement d’une technologie ouverte de protection de la vie privée et des données personnelles, qui protège la liberté d’expression et permet à des millions de personnes une communication sécurisée à l’échelle planétaire. Si vous êtes résident des États-Unis d\'Amérique, veuillez conserver ce reçu pour vos dossiers fiscaux. La Fondation de la technologie Signal (Signal Technology Foundation) est un organisme exempt de taxes aux États-Unis d’Amérique conformément à la section 501c du code des taxes intérieures des É.-U.. Notre ID fiscal fédéral est 82-4506840.</string>
+    <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Merci de soutenir Signal. Votre contribution nous aide à mener à bien notre mission : développer une technologie open source axée sur la confidentialité, qui favorise la liberté d\'expression et offre des communications sécurisées à des millions de personnes du monde entier. Si vous résidez aux États-Unis, conservez ce reçu pour le communiquer aux services fiscaux. La Signal Technology Foundation est un organisme à but non lucratif, régi par le code fédéral des impôts des États-Unis. Notre numéro d\'identification fiscale est le suivant : 82-4506840.</string>
     <!-- Donation receipt type -->
     <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
     <!-- Donation reciepts screen empty state title -->
@@ -5979,6 +5995,8 @@
         <item quantity="one">%1$d réponse</item>
         <item quantity="other">%1$d réponses</item>
     </plurals>
+    <!-- Toast / Snackbar label when unhiding a story during viewer -->
+    <string name="StoryViewerPageFragment__story_no_longer_hidden">La story n\'est plus masquée.</string>
     <!-- Label on group stories to add a story -->
     <string name="StoryViewerPageFragment__add">Ajouter</string>
     <!-- Used when view receipts are disabled -->
@@ -6059,7 +6077,7 @@
     <!-- Privacy setting title for only sharing your story with specified connections -->
     <string name="MyStorySettingsFragment__only_share_with">Ne partager qu’avec…</string>
     <!-- Privacy setting description for only sharing your story with specified connections -->
-    <string name="MyStorySettingsFragment__only_share_with_selected_people">Ne partager qu’avec les contacts sélectionnés</string>
+    <string name="MyStorySettingsFragment__only_share_with_selected_people">Ne partager qu\'avec les contacts sélectionnés</string>
     <!-- Summary of clickable option displaying how many people you have included to send to in your story -->
     <plurals name="MyStorySettingsFragment__d_people">
         <item quantity="one">%1$d personne</item>
@@ -6264,9 +6282,9 @@
     <!-- Title for sheet shown when opening a sent gift -->
     <string name="ViewSentGiftBottomSheet__thanks_for_your_support">Merci pour votre soutien !</string>
     <!-- Description for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_to_signal">%1$s a effectué un don à Signal de votre part ! Affichez votre soutien à Signal sur votre profil.</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_to_signal">%1$s a fait un don à Signal pour vous ! Vous pouvez afficher votre soutien à Signal sur votre profil.</string>
     <!-- Description for sheet shown when opening a sent gift -->
-    <string name="ViewSentGiftBottomSheet__youve_made_a_donation_to_signal">Vous avez effectué un don à Signal de la part de %1$s. Il/elle aura la possibilité d\'afficher son soutien sur son profil.</string>
+    <string name="ViewSentGiftBottomSheet__youve_made_a_donation_to_signal">Vous avez fait un don à Signal pour %1$s. Cette personne aura la possibilité d\'afficher son soutien sur son profil.</string>
     <!-- Primary action for pending gift sheet to redeem badge now -->
     <string name="ViewReceivedGiftSheet__redeem">Échanger</string>
     <!-- Primary action for pending gift sheet to redeem badge later -->
@@ -6274,11 +6292,11 @@
     <!-- Dialog text while redeeming a gift -->
     <string name="ViewReceivedGiftSheet__redeeming_badge">Récupération du macaron…</string>
     <!-- Description text in gift thanks sheet -->
-    <string name="GiftThanksSheet__youve_made_a_donation">Vous avez effectué un don à Signal de la part de %1$s. Il/elle aura la possibilité d\'afficher son soutien sur son profil.</string>
+    <string name="GiftThanksSheet__youve_made_a_donation">Vous avez effectué un don à Signal pour %1$s. Cette personne aura la possibilité d\'afficher son soutien sur son profil.</string>
     <!-- Expired gift sheet title -->
-    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired">Votre macaron a expiré</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired">Votre macaron est arrivé à expiration</string>
     <!-- Expired gift sheet top description text -->
-    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired_and_is">Votre macaron a expiré et n’est plus visible par les autres utilisateurs sur votre profil.</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired_and_is">Votre macaron est arrivé à expiration et n\'est plus visible sur votre profil.</string>
     <!-- Expired gift sheet bottom description text -->
     <string name="ExpiredGiftSheetConfiguration__to_continue">Pour continuer à soutenir une technologie conçue pour vous, veuillez envisager de devenir donateur mensuel.</string>
     <!-- Expired gift sheet make a monthly donation button -->
@@ -6523,15 +6541,15 @@
 
     <!-- GatewaySelectorBottomSheet -->
     <!-- Sheet title when subscribing -->
-    <string name="GatewaySelectorBottomSheet__donate_s_month_to_signal">Faire un don de %1$s/par mois à Signal</string>
+    <string name="GatewaySelectorBottomSheet__donate_s_month_to_signal">Donner %1$s/par mois pour soutenir Signal</string>
     <!-- Sheet summary when subscribing -->
-    <string name="GatewaySelectorBottomSheet__get_a_s_badge">Obtenez un macaron %1$s</string>
+    <string name="GatewaySelectorBottomSheet__get_a_s_badge">Gagnez un macaron %1$s</string>
     <!-- Sheet title when giving a one-time donation -->
     <string name="GatewaySelectorBottomSheet__donate_s_to_signal">Faire un don de %1$s à Signal</string>
     <!-- Sheet summary when giving a one-time donation -->
     <plurals name="GatewaySelectorBottomSheet__get_a_s_badge_for_d_days">
-        <item quantity="one">Obtenez un macaron %1$s pour %2$d jour</item>
-        <item quantity="other">Obtenez un macaron %1$s pour %2$d jours</item>
+        <item quantity="one">Gagnez un macaron %1$s pour %2$d jour</item>
+        <item quantity="other">Gagnez un macaron %1$s pour %2$d jours</item>
     </plurals>
     <!-- Button label for paying with a bank transfer -->
     <string name="GatewaySelectorBottomSheet__bank_transfer">Virement bancaire</string>
@@ -6652,9 +6670,9 @@
     <!-- Title of donation pending sheet displayed after making a bank transfer -->
     <string name="DonationPendingBottomSheet__donation_pending">Don en attente</string>
     <!-- Top text block of donation pending sheet displayed after subscribing via a bank transfer. Placeholder is the badge name. -->
-    <string name="DonationPendingBottomSheet__your_monthly_donation_is_pending">Votre don mensuel est en attente. Une fois votre don reçu, vous pourrez afficher le macaron %1$s dans votre profil.</string>
+    <string name="DonationPendingBottomSheet__your_monthly_donation_is_pending">Votre don mensuel est en attente. Vous pourrez afficher le macaron %1$s sur votre profil dès que nous recevrons votre don.</string>
     <!-- Top text block of donation pending sheet displayed after one-time donation via a bank transfer. Placeholder is the badge name. -->
-    <string name="DonationPendingBottomSheet__your_one_time_donation_is_pending">Votre don ponctuel est en attente. Une fois votre don reçu, vous pourrez afficher le macaron %1$s dans votre profil.</string>
+    <string name="DonationPendingBottomSheet__your_one_time_donation_is_pending">Votre don ponctuel est en attente. Vous pourrez afficher le macaron %1$s sur votre profil dès que nous recevrons votre don.</string>
     <!-- Bottom text block of donation pending sheet displayed after donating via a bank transfer. Placeholder is for learn more. -->
     <string name="DonationPendingBottomSheet__bank_transfers_usually_take">Les virements sont généralement traités en 1 à 14 jours ouvrés. %1$s</string>
     <!-- Learn more text for donation pending sheet displayed after donating via a bank transfer. -->
@@ -6674,7 +6692,7 @@
     <!-- Title of \'Donation Complete\' sheet displayed after a bank transfer completes and the badge is redeemed -->
     <string name="DonationCompletedBottomSheet__donation_complete">Don effectué</string>
     <!-- Text block of \'Donation Complete\' sheet displayed after a bank transfer completes and the badge is redeemed -->
-    <string name="DonationCompleteBottomSheet__your_bank_transfer_was_received">Votre virement a bien été reçu. Vous pouvez afficher ce macaron sur votre profil pour montrer votre soutien.</string>
+    <string name="DonationCompleteBottomSheet__your_bank_transfer_was_received">Nous avons bien reçu votre virement. Vous pouvez afficher ce macaron sur votre profil pour montrer que vous soutenez Signal.</string>
     <!-- Button text of \'Donation Complete\' sheet displayed after a bank transfer completes and the badge is redeemed to dismiss sheet -->
     <string name="DonationCompleteBottomSheet__done">Terminé</string>
 
@@ -6789,7 +6807,7 @@
     <!-- Shown in a time duration picker for selecting duration in hours and minutes, label for button that will apply the setting -->
     <string name="TimeDurationPickerDialog_positive_button">Définir</string>
     <!-- Shown in a time duration picker for selecting duration in hours and minutes, helper text indicating minimum allowable duration -->
-    <string name="TimeDurationPickerDialog_minimum_duration_warning">Le temps minimum avant que le verrouillage de l’écran ne s’applique est de 1 minute.</string>
+    <string name="TimeDurationPickerDialog_minimum_duration_warning">Le délai minimal avant avant verrouillage de l\'écran est de 1 minute.</string>
 
     <!-- Call Log -->
     <!-- Displayed below the user\'s name in row items on the call log. First placeholder is the call status, second is when it occurred -->
@@ -6918,7 +6936,7 @@
 
     <!-- CreateCallLink -->
     <!-- Call link creation item title on calls tab -->
-    <string name="CreateCallLink__create_a_call_link">Créer un lien d’appel</string>
+    <string name="CreateCallLink__create_a_call_link">Créer un lien d\'appel</string>
     <!-- Call link creation item description on calls tab -->
     <string name="CreateCallLink__share_a_link_for">Partager le lien d’un appel Signal</string>
     <!-- Text inserted when sharing a call link within Signal. Placeholder is a call link url. -->
@@ -7264,11 +7282,27 @@
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
-    <string name="BackupStatus__free_up_s_of_space_to_download_your_media">Libérez %1$s d’espace pour télécharger vos médias.</string>
+    <string name="BackupStatus__free_up_s_of_space_to_download_your_media">Libérez %1$s d’espace pour restaurer vos médias.</string>
+    <!-- Status title for banner when user is actively restoring media from a backup -->
+    <string name="BackupStatus__restoring_media">Restauration des médias en cours</string>
+    <!-- Status title for banner when user has paused restore media from a backup -->
+    <string name="BackupStatus__restore_paused">Restauration mise en pause</string>
+    <!-- Status title for banner when user has completed restoring restore media from a backup -->
+    <string name="BackupStatus__restore_complete">Restauration terminée</string>
+
+    <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
+    <string name="BackupStatus__status_waiting_for_wifi">En attente de Wi-Fi…</string>
+    <!-- Status subtitle for banner when restoring media pauses for internet in general -->
+    <string name="BackupStatus__status_no_internet">Aucune connexion Internet…</string>
+    <!-- Status subtitle for banner when restoring media pauses for low battery -->
+    <string name="BackupStatus__status_device_has_low_battery">Batterie faible</string>
+    <!-- Status subtitle for banner when restoring media. Placeholders are size already restored and total size to restore. e.g., 4.5MB of 100MB -->
+    <string name="BackupStatus__status_size_of_size">%1$s sur %2$s</string>
+
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__google_play">Google Play</string>
+    <string name="BackupsTypeSettingsFragment__google_play">Google Play</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__credit_or_debit_card">Carte de crédit ou de débit</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -7316,7 +7350,7 @@
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
     <string name="UpgradeToEnableOptimizedStorageSheet__upgrade_to_enable_this_feature">Cette fonctionnalité nécessite une mise à niveau</string>
     <!-- Subtitle of bottom sheet detailing that the user must upgrade to enable storage optimization -->
-    <string name="UpgradeToEnableOptimizedStorageSheet__storage_optimization_can_only_be_used">L’optimisation de l’espace de stockage n’est disponible qu’avec la version payante du forfait de sauvegarde Signal. Donnez un coup de pouce à Signal et passez à la version payante pour utiliser cette fonctionnalité.</string>
+    <string name="UpgradeToEnableOptimizedStorageSheet__storage_optimization_can_only_be_used">L\'optimisation de l\'espace de stockage n\'est disponible qu\'avec la version payante du forfait de sauvegarde Signal. Donnez un coup de pouce à Signal et passez à la version payante pour utiliser cette fonctionnalité.</string>
     <!-- Primary action to launch upgrade flow -->
     <string name="UpgradeToEnableOptimizedStorageSheet__upgrade_now">Mettre à niveau</string>
 
@@ -7327,19 +7361,15 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">OK</string>
 
-    <!-- RemoteBackupsPaymentHistoryFragment -->
-    <!-- Title of the screen for payment history -->
-    <string name="RemoteBackupsPaymentHistoryFragment__payment_history">Historique des paiements</string>
-    <!-- Description for backup rows -->
-    <string name="RemoteBackupsPaymentHistoryFragment__text_and_all_media_backup">Sauvegarde des messages et de tous les médias</string>
-    <!-- Title of the screen for payment details -->
-    <string name="RemoteBackupsPaymentHistoryFragment__payment_details">Détails des paiements</string>
-    <!-- Title of row specifying the type of backup -->
-    <string name="RemoteBackupsPaymentHistoryFragment__backup_type">Type de sauvegarde</string>
-    <!-- Title of row specifying the date the backup was paid on -->
-    <string name="RemoteBackupsPaymentHistoryFragment__date_paid">Date de paiement</string>
-    <!-- Button label to share the receipt -->
-    <string name="RemoteBackupsPaymentHistoryFragment__share">Partager</string>
+    <!-- BackupsSettingsFragment -->
+    <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
+    <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/mois, prochaine échéance le %2$s</string>
+    <!-- Subtitle for row for active backup, placeholder is last date of backup -->
+    <string name="BackupsSettingsFragment_last_backup_s">Dernière sauvegarde : %1$s</string>
+    <!-- Subtitle for row for no backup ever created -->
+    <string name="BackupsSettingsFragment_automatic_backups_with_signals">Signal sauvegarde automatiquement vos données avec son service de stockage sécurisé et chiffré de bout en bout.</string>
+    <!-- Action button label to set up backups -->
+    <string name="BackupsSettingsFragment_set_up">Configurer</string>
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Displayed on the title bar -->
@@ -7349,11 +7379,15 @@
     <!-- Section header for backup information -->
     <string name="RemoteBackupsSettingsFragment__backup_details">Détails de la sauvegarde</string>
     <!-- Row label for backup size -->
-    <string name="RemoteBackupsSettingsFragment__backup_size">Taille de la sauvegarde</string>
+    <string name="RemoteBackupsSettingsFragment__backup_size">Taille de la sauvegarde :</string>
     <!-- Row label for backup frequency -->
-    <string name="RemoteBackupsSettingsFragment__backup_frequency">Fréquence de sauvegarde</string>
+    <string name="RemoteBackupsSettingsFragment__backup_frequency">Fréquence de sauvegarde :</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
     <string name="RemoteBackupsSettingsFragment__back_up_using_cellular">Sauvegarder via les données cellulaires</string>
+    <!-- Row label for viewing backup key -->
+    <string name="RemoteBackupsSettingsFragment__view_backup_key">Afficher la clé de sauvegarde</string>
+    <!-- Prompt title for unlocking device to view backup key -->
+    <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Déverrouillez l\'appareil pour afficher la clé de sauvegarde</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Désactiver et supprimer la sauvegarde</string>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
@@ -7367,13 +7401,27 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Signal créera une sauvegarde cette nuit.</string>
     <!-- Title text in row detailing selected backup type -->
-    <string name="RemoteBackupsSettingsFragment__backup_type">Type de sauvegarde</string>
+    <string name="RemoteBackupsSettingsFragment__backup_plan">Forfait de sauvegarde</string>
     <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
     <string name="RemoteBackupsSettingsFragment__backups_disabled">Sauvegardes désactivées</string>
-    <!-- Format string for backup and cost. First placeholder is backup title, second is cost per month. -->
-    <string name="RemoteBackupsSettingsFragment__s_dot_s_per_month">%1$s · %2$s/mois</string>
-    <!-- Button label to enable backups -->
-    <string name="RemoteBackupsSettingsFragment__enable_backups">Activer les sauvegardes</string>
+    <!-- Format string for backup and cost. First placeholder is cost per month. -->
+    <string name="RemoteBackupsSettingsFragment__s_per_month">%1$s/mois</string>
+    <!-- String for free backups -->
+    <string name="RemoteBackupsSettingsFragment__your_backup_plan_is_free">Votre forfait de sauvegarde est gratuit</string>
+    <!-- Displays the date the subscription will renew -->
+    <string name="RemoteBackupsSettingsFragment__renews_s">Prochaine échéance le %1$s</string>
+    <!-- Displayed at the top of the screen when no backup is currently enabled -->
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Sauvegardez l\'historique de vos messages pour conserver toutes vos données – même si vous changez de téléphone ou réinstallez Molly.</string>
+    <!-- Section header for other ways to back up -->
+    <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Autres méthodes de sauvegarde</string>
+    <!-- Row title for performing on-device backup -->
+    <string name="RemoteBackupsSettingsFragment__on_device_backups">Sauvegardes sur l\'appareil</string>
+    <!-- Row label for performing on-device backup -->
+    <string name="RemoteBackupsSettingsFragment__save_your_backups_to">Enregistrez vos sauvegardes dans un dossier sur cet appareil</string>
+    <!-- Button label to manage or cancel backups -->
+    <string name="RemoteBackupsSettingsFragment__manage_or_cancel">Gérer ou résilier</string>
+    <!-- button label to upgrade backups -->
+    <string name="RemoteBackupsSettingsFragment__upgrade">Mettre à niveau</string>
     <!-- Progress indicator subtext displayed when a backup is in progress -->
     <string name="RemoteBackupsSettingsFragment__d_slash_d">%1$d/%2$d</string>
     <!-- Title text in row detailing last backup -->
@@ -7423,33 +7471,33 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Your backup key</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Votre clé de sauvegarde</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Your backup key is a 64-digit code that lets you restore your backup when you re-install Signal.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Votre clé de sauvegarde est un code de 64 chiffres qui vous permet de restaurer votre sauvegarde après avoir réinstallé Molly.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">If you forget your key, you will not be able to restore your backup. Signal cannot help you recover your backup.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Si vous oubliez votre clé, vous ne pourrez pas restaurer votre sauvegarde et Molly ne pourra pas vous aider à la récupérer.</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyEducationScreen__next">Next</string>
+    <string name="MessageBackupsKeyEducationScreen__next">Suivant</string>
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyRecordScreen__record_your_backup_key">Record your backup key</string>
+    <string name="MessageBackupsKeyRecordScreen__record_your_backup_key">Enregistrez votre clé de sauvegarde</string>
     <!-- Screen subhead -->
-    <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">This key is required to recover your account and data. Store this key somewhere safe. If you lose it, you won’t be able to recover your account.</string>
+    <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">Vous devrez fournir cette clé pour récupérer votre compte et vos données. Conservez-la en lieu sûr. Si vous la perdez, vous ne pourrez pas récupérer votre compte.</string>
     <!-- Copy to clipboard button label -->
-    <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Copy to clipboard</string>
+    <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Copier dans le presse-papiers</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyRecordScreen__next">Next</string>
+    <string name="MessageBackupsKeyRecordScreen__next">Suivant</string>
     <!-- Bottom sheet title -->
-    <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Keep your key safe</string>
+    <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Conservez votre clé en lieu sûr</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Signal will not be able to help you restore your backup if you lose your key. Store it somewhere safe and secure, and do not share it with others.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Molly ne pourra pas vous aider à restaurer votre sauvegarde si vous perdez votre clé. Conservez-la dans un endroit sécurisé et ne la partagez avec personne.</string>
     <!-- Checkbox label -->
-    <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">I\'ve recorded my key</string>
+    <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">J\'ai enregistré ma clé</string>
     <!-- Sheet action button label -->
-    <string name="MessageBackupsKeyRecordScreen__continue">Continue</string>
+    <string name="MessageBackupsKeyRecordScreen__continue">Continuer</string>
     <!-- Sheet secondary action button label -->
-    <string name="MessageBackupsKeyRecordScreen__see_key_again">See key again</string>
+    <string name="MessageBackupsKeyRecordScreen__see_key_again">Afficher de nouveau la clé</string>
 
     <!-- MessagesBackupsTypeSelectionScreen -->
     <!-- Screen headline -->

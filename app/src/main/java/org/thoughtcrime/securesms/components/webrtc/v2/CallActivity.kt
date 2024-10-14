@@ -29,7 +29,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -48,6 +47,7 @@ import org.thoughtcrime.securesms.events.WebRtcViewModel
 import org.thoughtcrime.securesms.messagerequests.CalleeMustAcceptMessageRequestActivity
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
 import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.VibrateUtil
 import org.thoughtcrime.securesms.util.viewModel
@@ -88,10 +88,8 @@ class CallActivity : BaseActivity(), CallControlsCallback {
     val fullscreenHelper = FullscreenHelper(this)
 
     lifecycleDisposable.bindTo(this)
-    val compositeDisposable = CompositeDisposable()
-    lifecycleDisposable.add(compositeDisposable)
 
-    val callInfoCallbacks = CallInfoCallbacks(this, controlsAndInfoViewModel, compositeDisposable)
+    val callInfoCallbacks = CallInfoCallbacks(this, controlsAndInfoViewModel)
 
     observeCallEvents()
     viewModel.processCallIntent(CallIntent(intent))
@@ -101,6 +99,8 @@ class CallActivity : BaseActivity(), CallControlsCallback {
         viewModel.callActions.collect {
           when (it) {
             CallViewModel.Action.EnableVideo -> onVideoToggleClick(true)
+            is CallViewModel.Action.ShowGroupCallSafetyNumberChangeDialog -> SafetyNumberBottomSheet.forGroupCall(it.untrustedIdentities).show(supportFragmentManager)
+            CallViewModel.Action.SwitchToSpeaker -> Unit // TODO - Switch user to speaker view.
           }
         }
       }
@@ -322,6 +322,10 @@ class CallActivity : BaseActivity(), CallControlsCallback {
 
   override fun onEndCallClick() {
     viewModel.hangup()
+  }
+
+  override fun onVideoTooltipDismissed() {
+    viewModel.onVideoTooltipDismissed()
   }
 
   private fun observeCallEvents() {

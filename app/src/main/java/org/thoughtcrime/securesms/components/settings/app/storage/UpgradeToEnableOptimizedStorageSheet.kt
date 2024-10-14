@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -29,10 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import org.signal.core.ui.BottomSheets
 import org.signal.core.ui.Buttons
-import org.signal.core.ui.Icons
 import org.signal.core.ui.Previews
 import org.signal.core.ui.SignalPreview
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.ui.BackupsIconColors
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsTypeBlock
@@ -49,7 +50,7 @@ class UpgradeToEnableOptimizedStorageSheet : ComposeBottomSheetDialogFragment() 
 
   private val viewModel: UpgradeToEnableOptimizedStorageViewModel by viewModels()
 
-  private lateinit var checkoutLauncher: ActivityResultLauncher<Unit>
+  private lateinit var checkoutLauncher: ActivityResultLauncher<MessageBackupTier?>
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -62,7 +63,7 @@ class UpgradeToEnableOptimizedStorageSheet : ComposeBottomSheetDialogFragment() 
     UpgradeToEnableOptimizedStorageSheetContent(
       messageBackupsType = type,
       onUpgradeNowClick = {
-        checkoutLauncher.launch(Unit)
+        checkoutLauncher.launch(MessageBackupTier.PAID)
         dismissAllowingStateLoss()
       },
       onCancelClick = {
@@ -89,10 +90,10 @@ private fun UpgradeToEnableOptimizedStorageSheetContent(
   ) {
     BottomSheets.Handle()
 
-    Icons.BrushedForeground(
+    Icon(
       painter = painterResource(id = R.drawable.symbol_backup_light),
       contentDescription = null,
-      foregroundBrush = BackupsIconColors.Normal.foreground,
+      tint = BackupsIconColors.Normal.foreground,
       modifier = Modifier
         .padding(top = 8.dp, bottom = 12.dp)
         .size(88.dp)
