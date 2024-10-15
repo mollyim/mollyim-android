@@ -37,6 +37,7 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
@@ -543,12 +544,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
         fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT)
         return false
       }
-
-      null -> {
-        Log.w(TAG, "Null result received from PlayServicesUtil, marking Play Services as missing.")
-        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_MISSING)
-        return false
-      }
     }
   }
 
@@ -578,7 +573,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       setMessage(message)
       setPositiveButton(android.R.string.ok) { _, _ ->
         Log.d(TAG, "User confirmed number.")
-        if (missingFcmConsentRequired) {
+        if (missingFcmConsentRequired && BuildConfig.USE_PLAY_SERVICES) {
           handlePromptForNoPlayServices()
         } else {
           sharedViewModel.onUserConfirmedPhoneNumber(requireContext())
