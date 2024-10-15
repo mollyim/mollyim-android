@@ -11,7 +11,8 @@ data class NotificationsSettingsState(
   val notifyWhenContactJoinsSignal: Boolean,
   val isLinkedDevice: Boolean,
   val preferredNotificationMethod: NotificationDeliveryMethod,
-  val canReceiveFcm: Boolean
+  val canReceiveFcm: Boolean,
+  val canReceiveUnifiedPush: Boolean
 )
 
 data class MessageNotificationsState(

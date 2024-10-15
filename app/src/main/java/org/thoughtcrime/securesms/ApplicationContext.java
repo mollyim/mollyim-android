@@ -121,6 +121,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
+import im.molly.unifiedpush.util.UnifiedPushHelper;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.security.Security;
@@ -128,6 +129,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import im.molly.unifiedpush.jobs.UnifiedPushRefreshJob;
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
@@ -507,15 +509,19 @@ public class ApplicationContext extends Application implements AppForegroundObse
     PlayServicesUtil.PlayServicesStatus fcmStatus = PlayServicesUtil.getPlayServicesStatus(this);
 
     boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
+    boolean unifiedPushEnabled = SignalStore.unifiedpush().isEnabled();
     boolean forceWebSocket     = SignalStore.internal().isWebsocketModeForced();
 
-    if (forceWebSocket || fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
+    if (unifiedPushEnabled || forceWebSocket || fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
       if (fcmEnabled) {
         Log.i(TAG, "Play Services are disabled. Disabling FCM.");
         updateFcmStatus(false);
       } else {
         Log.d(TAG, "FCM is disabled.");
         SignalStore.account().setFcmTokenLastSetTime(-1);
+      }
+      if (unifiedPushEnabled) {
+        AppDependencies.getJobManager().add(new UnifiedPushRefreshJob());
       }
     } else if (fcmStatus == PlayServicesUtil.PlayServicesStatus.SUCCESS && !fcmEnabled &&
                SignalStore.account().getFcmTokenLastSetTime() < 0) {

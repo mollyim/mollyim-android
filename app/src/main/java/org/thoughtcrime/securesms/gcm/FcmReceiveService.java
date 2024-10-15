@@ -95,7 +95,8 @@ public class FcmReceiveService extends FirebaseMessagingService {
     Log.w(TAG, "onSendError()", e);
   }
 
-  private static void handleReceivedNotification(Context context, @Nullable RemoteMessage remoteMessage) {
+  // MOLLY: Make this function public to use it from UnifiedPushReceiver
+  public static void handleReceivedNotification(Context context, @Nullable RemoteMessage remoteMessage) {
     boolean highPriority = remoteMessage != null && remoteMessage.getPriority() == RemoteMessage.PRIORITY_HIGH;
     try {
       Log.d(TAG, String.format(Locale.US, "[handleReceivedNotification] API: %s, RemoteMessagePriority: %s", Build.VERSION.SDK_INT, remoteMessage != null ? remoteMessage.getPriority() : "n/a"));
