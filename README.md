@@ -49,7 +49,6 @@ Molly has unique features compared to Signal:
 - **Automatic lock** - Lock the app automatically under certain conditions
 - **Multi-device support** -- Link multiple devices, including Android tablets, to a single account
 - **Block unknown contacts** - Block messages and calls from unknown senders for security and anti-spam
-- **Contact deletion** - Allows you to delete contacts and stop sharing your profile
 - **Disappearing call history** - Clear call notifications together with expiring messages
 - **Debug logs are optional** - Android logging can be disabled
 - **Custom backup scheduling** - Choose between a daily or weekly interval and the number of backups to retain
