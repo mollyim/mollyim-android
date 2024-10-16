@@ -27,7 +27,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
@@ -91,7 +90,6 @@ import org.thoughtcrime.securesms.mms.SignalGlideComponents;
 import org.thoughtcrime.securesms.mms.SignalGlideModule;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
-import org.thoughtcrime.securesms.notifications.NotificationIds;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.ratelimit.RateLimitUtil;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -113,7 +111,6 @@ import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.FileUtils;
-import org.thoughtcrime.securesms.util.PlayServicesUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
 import org.thoughtcrime.securesms.util.StorageUtil;
@@ -504,22 +501,19 @@ public class ApplicationContext extends Application implements AppForegroundObse
       return;
     }
 
-    PlayServicesUtil.PlayServicesStatus fcmStatus = PlayServicesUtil.getPlayServicesStatus(this);
-
     boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
     boolean forceWebSocket     = SignalStore.internal().isWebsocketModeForced();
+    boolean forceFcm           = SignalStore.internal().isFcmModeForced();
 
-    if (forceWebSocket || fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
+    if (forceWebSocket || !BuildConfig.USE_PLAY_SERVICES) {
       if (fcmEnabled) {
-        Log.i(TAG, "Play Services are disabled. Disabling FCM.");
+        Log.i(TAG, "Play Services not allowed. Disabling FCM.");
         updateFcmStatus(false);
       } else {
         Log.d(TAG, "FCM is disabled.");
-        SignalStore.account().setFcmTokenLastSetTime(-1);
       }
-    } else if (fcmStatus == PlayServicesUtil.PlayServicesStatus.SUCCESS && !fcmEnabled &&
-               SignalStore.account().getFcmTokenLastSetTime() < 0) {
-      Log.i(TAG, "Play Services are newly-available. Updating to use FCM.");
+    } else if (forceFcm && !fcmEnabled && BuildConfig.USE_PLAY_SERVICES) {
+      Log.i(TAG, "FCM preferred. Updating to use FCM.");
       updateFcmStatus(true);
     } else {
       long lastSetTime = SignalStore.account().getFcmTokenLastSetTime();
@@ -541,7 +535,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
   private void updateFcmStatus(boolean fcmEnabled) {
     SignalStore.account().setFcmEnabled(fcmEnabled);
     if (!fcmEnabled) {
-      NotificationManagerCompat.from(this).cancel(NotificationIds.FCM_FAILURE);
+      FcmRefreshJob.cancelFcmFailureNotification(this);
     }
     AppDependencies.getJobManager().startChain(new FcmRefreshJob())
                                    .then(new RefreshAttributesJob())

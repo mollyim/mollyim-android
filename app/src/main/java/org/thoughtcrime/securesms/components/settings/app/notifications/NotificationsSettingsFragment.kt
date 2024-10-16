@@ -316,7 +316,6 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         onToggle = { isChecked ->
           if (isChecked && !state.canEnableNotifyWhileLocked) {
             MaterialAlertDialogBuilder(requireContext())
-              .setTitle(R.string.NotificationsSettingsFragment__push_notifications_unavailable)
               .setMessage(R.string.NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush)
               .setPositiveButton(android.R.string.ok, null)
               .show()
@@ -341,7 +340,7 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
       sectionHeaderPref(R.string.NotificationsSettingsFragment__push_notifications)
 
       textPref(
-        summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__preferred_method_for_receiving_notifications_from_the_signal_service)
+        summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications)
       )
 
       val showAlertIcon = when (state.preferredNotificationMethod) {
@@ -349,11 +348,11 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         NotificationDeliveryMethod.WEBSOCKET -> false
       }
       radioListPref(
-        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__delivery_method),
+        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__delivery_service),
         listItems = notificationMethodLabels,
         selected = notificationMethodValues.indexOf(state.preferredNotificationMethod),
         isEnabled = !state.isLinkedDevice,  // MOLLY: TODO
-        iconEnd = if (showAlertIcon) DSLSettingsIcon.from(R.drawable.ic_alert) else null,
+        iconEnd = if (showAlertIcon) DSLSettingsIcon.from(R.drawable.ic_alert, R.color.signal_alert_primary) else null,
         onSelected = {
           onNotificationMethodChanged(notificationMethodValues[it], state.preferredNotificationMethod)
         }

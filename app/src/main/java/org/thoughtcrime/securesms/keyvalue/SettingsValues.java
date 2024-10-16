@@ -11,6 +11,7 @@ import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.mms.SentMediaQuality;
@@ -479,7 +480,13 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public NotificationDeliveryMethod getPreferredNotificationMethod() {
-    return NotificationDeliveryMethod.deserialize(getString(MOLLY_NOTIFICATION_METHOD, NotificationDeliveryMethod.FCM.serialize()));
+    final NotificationDeliveryMethod method = NotificationDeliveryMethod.deserialize(
+        getString(MOLLY_NOTIFICATION_METHOD, NotificationDeliveryMethod.FCM.serialize())
+    );
+    if (!BuildConfig.USE_PLAY_SERVICES && method == NotificationDeliveryMethod.FCM) {
+      return NotificationDeliveryMethod.WEBSOCKET;
+    }
+    return method;
   }
 
   public void setPreferredNotificationMethod(NotificationDeliveryMethod method) {

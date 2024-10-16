@@ -110,7 +110,8 @@ class IncomingMessageObserver(private val context: Application) {
   init {
     MessageRetrievalThread().start()
 
-    // MOLLY: Foreground service startup is handled inside the connection loop
+    // MOLLY: Ensure the foreground service is stopped, it will be started if needed in the connection loop
+    ForegroundService.stop(context)
 
     AppForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
@@ -458,9 +459,6 @@ class IncomingMessageObserver(private val context: Application) {
         Log.i(TAG, "Looping...")
       }
       Log.w(TAG, "Terminated! (${this.hashCode()})")
-
-      // MOLLY: Stop foreground service, it will be restarted if needed
-      ForegroundService.stop(context)
     }
 
     override fun uncaughtException(t: Thread, e: Throwable) {
