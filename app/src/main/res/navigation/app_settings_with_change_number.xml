@@ -396,6 +396,11 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
 
+        <argument
+            android:name="scroll_to_push_services"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
     </fragment>
 
     <!-- region Privacy -->

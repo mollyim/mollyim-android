@@ -67,8 +67,6 @@
     <string name="preferences__include_beta_updates">ベータ版の更新も含める</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly は、友達を見つけてメッセージを送信するために、連絡先へのアクセス権限が必要です。あなたの連絡先は、Signal のプライベートな連絡先の検出機能を使用してアップロードされます。連絡先の情報はエンドツーエンドで暗号化され、Signal サービスに表示されることはありません。</string>
     <string name="DeviceAddFragment__link_without_scanning">スキャンせずにリンク</string>
-    <string name="DozeReminder_optimize_for_timely_notifications">通知を適切なタイミングで受信するよう最適化</string>
-    <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">タップすると、デバイスがスタンバイ状態のときに Molly がメッセージを取得できるようになります。</string>
     <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">ベータ版はテスト用のため、バグがある可能性があります</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly は、友達を見つけてメッセージを送信するために、連絡先とメディアのアクセス権限が必要です。あなたの連絡先は、Signal のプライベートな連絡先の検出機能を使用してアップロードされます。連絡先の情報はエンドツーエンドで暗号化され、Signal サービスに表示されることはありません。</string>
     <string name="BiometricDialogFragment__biometric_verification">生体認証</string>
@@ -114,7 +112,6 @@
     <string name="RegistrationActivity_link_timeout">優先デバイスの待機中にタイムアウトになりました。デバイスで QR コードの読み取りを待機して、再度お試しください</string>
     <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">アプリがロックされている際にメッセージまたは着信に関する通知を受信。</string>
     <string name="RegistrationActivity_link_retry">リンクを再試行</string>
-    <string name="NotificationsSettingsFragment__push_notifications_unavailable">プッシュ通知が利用できません</string>
     <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">この機能には FCM または UnifiedPush によるプッシュ通知が必要ですが、現在プッシュ通知は利用できません。</string>
     <string name="AppUpdatesSettingsFragment__last_checked_s">最終更新日：%s</string>
     <string name="RegistrationActivity_provider_declined">プロバイダーが通知コードの送信を拒否しました。おそらく詐欺防止のルールによるものです。</string>

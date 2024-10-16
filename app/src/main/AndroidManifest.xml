@@ -885,11 +885,6 @@
               android:finishOnTaskLaunch="true"
               android:exported="false"/>
 
-    <activity android:name=".PlayServicesProblemActivity"
-              android:exported="false"
-              android:theme="@style/TextSecure.DialogActivity"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
-
     <activity android:name=".SmsSendtoActivity" android:exported="true">
         <intent-filter tools:ignore="AppLinkUrlError">
             <action android:name="android.intent.action.VIEW" />

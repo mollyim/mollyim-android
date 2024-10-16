@@ -78,8 +78,8 @@
     <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">For updates, please check your app store. This version does not include an in-app updater.</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly needs the contacts and media permissions to help you find your friends and send messages. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly needs the contacts permission to help you find your friends. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
-    <string name="DozeReminder_optimize_for_timely_notifications">Optimize for timely notifications</string>
-    <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Tap to allow Molly to retrieve messages while the device is in standby.</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Allow Molly to deliver timely notifications, even when your device is in standby.</string>
+    <string name="DozeReminder_disable_battery_restrictions">Disable battery restrictions</string>
     <string name="BiometricDialogFragment__biometric_verification">Biometric verification</string>
     <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Please confirm it is really you to use Molly</string>
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Lock Molly access with fingerprint or face recognition</string>
@@ -114,7 +114,6 @@
     <string name="RegistrationActivity_provider_declined">The provider has declined to send you a verification code, likely due to fraud prevention rules.</string>
     <string name="NotificationsSettingsFragment__new_activity_while_locked">New activity while locked</string>
     <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Receive notifications for messages or missed calls when the app is locked.</string>
-    <string name="NotificationsSettingsFragment__push_notifications_unavailable">Push notifications unavailable</string>
     <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">Sorry, this feature requires push notifications delivered via FCM or UnifiedPush, which are currently unavailable.</string>
     <string name="AppUpdatesSettingsFragment__last_checked_s">Last checked: %s</string>
     <string name="prompt_passphrase_activity__molly_is_locked">Molly is locked</string>
@@ -124,10 +123,12 @@
     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">Once linked, new messages sync across devices, but previous message history will not be transferred.</string>
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly supports linking to other Android devices running Molly, as well as desktops and iPads running Signal.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">For Android devices: Visit %s to install Molly.</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">"Unable to register with Play Services</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Switch to an alternative push service in Settings &gt; Notifications or fix the issue with Play Services.</string>
     <string name="NotificationsSettingsFragment__push_notifications">Push notifications</string>
-    <string name="NotificationsSettingsFragment__preferred_method_for_receiving_notifications_from_the_signal_service">Preferred method for receiving notifications from the Signal service. If your selected method is unavailable, the app will automatically switch to WebSocket.</string>
-    <string name="NotificationsSettingsFragment__delivery_method">Delivery method</string>
-    <string name="NotificationDeliveryMethod__fcm" translatable="false">Google Services (FCM)</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Select your preferred service for push notifications. If unavailable, the app will automatically use WebSocket to ensure notifications are delivered.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">Delivery service</string>
+    <string name="NotificationDeliveryMethod__fcm" translatable="false">FCM (Google Play Services)</string>
     <string name="NotificationDeliveryMethod__websocket" translatable="false">WebSocket</string>
     <string name="IncomingMessageObserver_websocket_service">WebSocket Service</string>
 </resources>
