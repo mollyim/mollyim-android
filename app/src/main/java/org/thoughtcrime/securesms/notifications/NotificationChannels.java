@@ -76,7 +76,7 @@ public class NotificationChannels {
   public final String OTHER                            = "other_v3";
   public final String VOICE_NOTES                      = "voice_notes";
   public final String JOIN_EVENTS                      = "join_events";
-  public final String BACKGROUND                       = "background_connection";
+  public static final String BACKGROUND                = "background_connection";
   public final String CALL_STATUS                      = "call_status";
   public final String APP_ALERTS                       = "app_alerts";
   public static final String ADDITIONAL_MESSAGE_NOTIFICATIONS = "additional_message_notifications";

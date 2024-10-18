@@ -97,8 +97,6 @@ class IncomingMessageObserver(private val context: Application) {
 
   private val messageContentProcessor = MessageContentProcessor(context)
 
-  private var foregroundServiceStartPending = AtomicBoolean(true)
-
   private var appVisible = false
   private var lastInteractionTime: Long = System.currentTimeMillis()
 
@@ -198,21 +196,7 @@ class IncomingMessageObserver(private val context: Application) {
     val forceWebsocket = SignalStore.internal.isWebsocketModeForced
 
     if (registered && (!pushAvailable || forceWebsocket)) {
-      // MOLLY: Try to start the foreground service only once
-      if (foregroundServiceStartPending.getAndSet(false)) {
-        try {
-          ForegroundServiceUtil.start(context, Intent(context, ForegroundService::class.java))
-        } catch (e: UnableToStartException) {
-          Log.w(TAG, "Unable to start foreground service for websocket. Deferring to background to try with blocking")
-          SignalExecutors.UNBOUNDED.execute {
-            try {
-              startWhenCapable(context, Intent(context, ForegroundService::class.java))
-            } catch (e: UnableToStartException) {
-              Log.w(TAG, "Unable to start foreground service for websocket!", e)
-            }
-          }
-        }
-      }
+      ForegroundService.ensureServiceStarted(context)
     }
 
     val lastInteractionString = if (appVisibleSnapshot) "N/A" else timeIdle.toString() + " ms (" + (if (timeIdle < maxBackgroundTime) "within limit" else "over limit") + ")"
@@ -475,9 +459,8 @@ class IncomingMessageObserver(private val context: Application) {
       }
       Log.w(TAG, "Terminated! (${this.hashCode()})")
 
-      // MOLLY: Ensure services are stopped normally
+      // MOLLY: Stop foreground service, it will be restarted if needed
       ForegroundService.stop(context)
-      BackgroundService.stop(context)
     }
 
     override fun uncaughtException(t: Thread, e: Throwable) {
@@ -491,26 +474,30 @@ class IncomingMessageObserver(private val context: Application) {
     }
 
     override fun onCreate() {
-      // MOLLY: Do not foreground on service restart
+      postForegroundNotification()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-      if (intent == null || KeyCachingService.isLocked()) {
-        Log.i(TAG, "Delaying the startup of the foreground service for websocket.")
-        stopForeground(STOP_FOREGROUND_REMOVE)
-        return START_NOT_STICKY
-      }
-
-      Log.d(TAG, "Foreground service for websocket started.")
+      super.onStartCommand(intent, flags, startId)
 
       postForegroundNotification()
 
-      return START_STICKY
+      return if (KeyCachingService.isLocked()) {
+        stopForeground(STOP_FOREGROUND_REMOVE)
+        stopSelf()
+        START_NOT_STICKY
+      } else {
+        START_STICKY
+      }
+    }
+
+    override fun onDestroy() {
+      restartPending.set(true)
     }
 
     private fun postForegroundNotification() {
-      val notification = NotificationCompat.Builder(applicationContext, NotificationChannels.getInstance().BACKGROUND)
-        .setContentTitle(applicationContext.getString(R.string.app_name))
+      val notification = NotificationCompat.Builder(applicationContext, NotificationChannels.BACKGROUND)
+        .setContentTitle(applicationContext.getString(R.string.IncomingMessageObserver_websocket_service))
         .setContentText(applicationContext.getString(R.string.MessageRetrievalService_ready_to_receive_messages))
         .setPriority(NotificationCompat.PRIORITY_MIN)
         .setCategory(NotificationCompat.CATEGORY_SERVICE)
@@ -521,11 +508,30 @@ class IncomingMessageObserver(private val context: Application) {
       startForeground(FOREGROUND_ID, notification)
     }
 
-    override fun onDestroy() {
-      Log.d(TAG, "Foreground service for websocket destroyed.")
-    }
-
     companion object {
+      private val restartPending = AtomicBoolean(true)
+
+      fun ensureServiceStarted(context: Context) {
+        if (restartPending.getAndSet(false)) {
+          start(context)
+        }
+      }
+
+      private fun start(context: Context) {
+        try {
+          ForegroundServiceUtil.start(context, Intent(context, ForegroundService::class.java))
+        } catch (e: UnableToStartException) {
+          Log.w(TAG, "Unable to start foreground service for websocket. Deferring to background to try with blocking")
+          SignalExecutors.UNBOUNDED.execute {
+            try {
+              startWhenCapable(context, Intent(context, ForegroundService::class.java))
+            } catch (e: UnableToStartException) {
+              Log.w(TAG, "Unable to start foreground service for websocket!", e)
+            }
+          }
+        }
+      }
+
       fun stop(context: Context) {
         context.stopService(Intent(context, ForegroundService::class.java))
       }
