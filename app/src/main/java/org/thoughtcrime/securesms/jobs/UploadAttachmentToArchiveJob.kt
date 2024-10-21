@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.jobs
 
 import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
+import org.signal.core.util.readLength
 import org.signal.protos.resumableuploads.ResumableUpload
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.AttachmentUploadUtil
@@ -24,6 +25,8 @@ import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.archive.ArchiveMediaUploadFormStatusCodes
 import org.whispersystems.signalservice.api.attachment.AttachmentUploadResult
 import java.io.IOException
+import java.net.ProtocolException
+import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 
 /**
@@ -40,7 +43,11 @@ class UploadAttachmentToArchiveJob private constructor(
     private val TAG = Log.tag(UploadAttachmentToArchiveJob::class)
     const val KEY = "UploadAttachmentToArchiveJob"
 
-    fun buildQueueKey(attachmentId: AttachmentId) = "ArchiveAttachmentJobs_${attachmentId.id}"
+    /**
+     * This randomly selects between one of two queues. It's a fun way of limiting the concurrency of the upload jobs to
+     * take up at most two job runners.
+     */
+    fun buildQueueKey() = "ArchiveAttachmentJobs_${Random.nextInt(0, 2)}"
   }
 
   constructor(attachmentId: AttachmentId) : this(
@@ -50,7 +57,7 @@ class UploadAttachmentToArchiveJob private constructor(
       .addConstraint(NetworkConstraint.KEY)
       .setLifespan(30.days.inWholeMilliseconds)
       .setMaxAttempts(Parameters.UNLIMITED)
-      .setQueue(buildQueueKey(attachmentId))
+      .setQueue(buildQueueKey())
       .build()
   )
 
@@ -72,6 +79,7 @@ class UploadAttachmentToArchiveJob private constructor(
   override fun run(): Result {
     if (!SignalStore.backup.backsUpMedia) {
       Log.w(TAG, "[$attachmentId] This user does not back up media. Skipping.")
+      SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
       return Result.success()
     }
 
@@ -140,6 +148,19 @@ class UploadAttachmentToArchiveJob private constructor(
       is NetworkResult.ApplicationError -> throw result.throwable
       is NetworkResult.NetworkError -> {
         Log.w(TAG, "[$attachmentId] Failed to upload due to network error.", result.exception)
+
+        if (result.exception.cause is ProtocolException) {
+          Log.w(TAG, "[$attachmentId] Length may be incorrect. Recalculating.", result.exception)
+
+          val actualLength = SignalDatabase.attachments.getAttachmentStream(attachmentId, 0).readLength()
+          if (actualLength != attachment.size) {
+            Log.w(TAG, "[$attachmentId] Length was incorrect! Will update. Previous: ${attachment.size}, Newly-Calculated: $actualLength", result.exception)
+            SignalDatabase.attachments.updateAttachmentLength(attachmentId, actualLength)
+          } else {
+            Log.i(TAG, "[$attachmentId] Length was correct. No action needed. Will retry.")
+          }
+        }
+
         return Result.retry(defaultBackoff())
       }
       is NetworkResult.StatusCodeError -> {
@@ -156,7 +177,15 @@ class UploadAttachmentToArchiveJob private constructor(
     return Result.success()
   }
 
-  override fun onFailure() = Unit
+  override fun onFailure() {
+    if (this.isCanceled) {
+      Log.w(TAG, "[$attachmentId] Job was canceled, updating archive transfer state to ${AttachmentTable.ArchiveTransferState.NONE}.")
+      SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
+    } else {
+      Log.w(TAG, "[$attachmentId] Job failed, updating archive transfer state to ${AttachmentTable.ArchiveTransferState.TEMPORARY_FAILURE}.")
+      SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.TEMPORARY_FAILURE)
+    }
+  }
 
   private fun fetchResumableUploadSpec(key: ByteArray, iv: ByteArray): Pair<ResumableUpload?, Result?> {
     val uploadSpec = BackupRepository

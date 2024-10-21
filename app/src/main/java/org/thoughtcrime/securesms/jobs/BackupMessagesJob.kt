@@ -77,14 +77,21 @@ class BackupMessagesJob private constructor(parameters: Parameters) : Job(parame
     val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
 
     val outputStream = FileOutputStream(tempBackupFile)
-    BackupRepository.export(outputStream = outputStream, append = { tempBackupFile.appendBytes(it) }, plaintext = false)
+    BackupRepository.export(outputStream = outputStream, append = { tempBackupFile.appendBytes(it) }, plaintext = false, cancellationSignal = { this.isCanceled })
     stopwatch.split("export")
+
+    if (isCanceled) {
+      return Result.failure()
+    }
 
     ArchiveUploadProgress.onMessageBackupCreated()
 
     FileInputStream(tempBackupFile).use {
       when (val result = BackupRepository.uploadBackupFile(it, tempBackupFile.length())) {
-        is NetworkResult.Success -> Log.i(TAG, "Successfully uploaded backup file.")
+        is NetworkResult.Success -> {
+          Log.i(TAG, "Successfully uploaded backup file.")
+          SignalStore.backup.hasBackupBeenUploaded = true
+        }
         is NetworkResult.NetworkError -> return Result.retry(defaultBackoff())
         is NetworkResult.StatusCodeError -> return Result.retry(defaultBackoff())
         is NetworkResult.ApplicationError -> throw result.throwable
@@ -110,11 +117,11 @@ class BackupMessagesJob private constructor(parameters: Parameters) : Job(parame
     stopwatch.split("used-space")
     stopwatch.stop(TAG)
 
-    if (SignalDatabase.attachments.doAnyAttachmentsNeedArchiveUpload()) {
+    if (SignalStore.backup.backsUpMedia && SignalDatabase.attachments.doAnyAttachmentsNeedArchiveUpload()) {
       Log.i(TAG, "Enqueuing attachment backfill job.")
       AppDependencies.jobManager.add(ArchiveAttachmentBackfillJob())
     } else {
-      Log.i(TAG, "No attachments need to be uploaded, we can finish.")
+      Log.i(TAG, "No attachments need to be uploaded, we can finish. Tier: ${SignalStore.backup.backupTier}")
       ArchiveUploadProgress.onMessageBackupFinishedEarly()
     }
 

@@ -597,7 +597,12 @@ class AttachmentTable(
         val iv = cursor.requireBlob(REMOTE_IV) ?: Util.getSecretBytes(16)
         val digest = run {
           val fileInfo = getDataFileInfo(attachmentId)!!
-          calculateDigest(fileInfo, key, iv)
+          try {
+            calculateDigest(fileInfo, key, iv)
+          } catch (e: FileNotFoundException) {
+            Log.w(TAG, "[createKeyIvDigestForAttachmentsThatNeedArchiveUpload][$attachmentId] Could not find file ${fileInfo.file}. Delete all later?")
+            return@forEach
+          }
         }
 
         writableDatabase.update(TABLE_NAME)
@@ -1065,6 +1070,23 @@ class AttachmentTable(
           .run()
       }
     }
+  }
+
+  /**
+   * Updates the attachment (and all attachments that share the same data file) with a new length.
+   */
+  fun updateAttachmentLength(attachmentId: AttachmentId, length: Long) {
+    val dataFile = getDataFileInfo(attachmentId)
+    if (dataFile == null) {
+      Log.w(TAG, "[$attachmentId] Failed to find data file!")
+      return
+    }
+
+    writableDatabase
+      .update(TABLE_NAME)
+      .values(DATA_SIZE to length)
+      .where("$DATA_FILE = ?", dataFile.file.absolutePath)
+      .run()
   }
 
   /**
@@ -2797,7 +2819,10 @@ class AttachmentTable(
     FINISHED(3),
 
     /** It is impossible to upload this attachment. */
-    PERMANENT_FAILURE(4);
+    PERMANENT_FAILURE(4),
+
+    /** Upload failed, but in a way where it may be worth retrying later. */
+    TEMPORARY_FAILURE(5);
 
     companion object {
       fun deserialize(value: Int): ArchiveTransferState {
