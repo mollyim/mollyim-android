@@ -67,6 +67,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   val nameCollisionTables: NameCollisionTables = NameCollisionTables(context, this)
   val inAppPaymentTable: InAppPaymentTable = InAppPaymentTable(context, this)
   val inAppPaymentSubscriberTable: InAppPaymentSubscriberTable = InAppPaymentSubscriberTable(context, this)
+  val chatFoldersTable: ChatFolderTables = ChatFolderTables(context, this)
 
   override fun onOpen(db: net.zetetic.database.sqlcipher.SQLiteDatabase) {
     db.setForeignKeyConstraintsEnabled(true)
@@ -103,7 +104,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     db.execSQL(CallLinkTable.CREATE_TABLE)
     db.execSQL(CallTable.CREATE_TABLE)
     db.execSQL(KyberPreKeyTable.CREATE_TABLE)
-    NameCollisionTables.createTables(db)
+    executeStatements(db, NameCollisionTables.CREATE_TABLE)
     db.execSQL(InAppPaymentTable.CREATE_TABLE)
     db.execSQL(InAppPaymentSubscriberTable.CREATE_TABLE)
     executeStatements(db, SearchTable.CREATE_TABLE)
@@ -111,6 +112,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     executeStatements(db, MessageSendLogTables.CREATE_TABLE)
     executeStatements(db, NotificationProfileDatabase.CREATE_TABLE)
     executeStatements(db, DistributionListTables.CREATE_TABLE)
+    executeStatements(db, ChatFolderTables.CREATE_TABLE)
 
     executeStatements(db, RecipientTable.CREATE_INDEXS)
     executeStatements(db, MessageTable.CREATE_INDEXS)
@@ -132,13 +134,14 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     executeStatements(db, CallTable.CREATE_INDEXES)
     executeStatements(db, ReactionTable.CREATE_INDEXES)
     executeStatements(db, KyberPreKeyTable.CREATE_INDEXES)
+    executeStatements(db, ChatFolderTables.CREATE_INDEXES)
+    executeStatements(db, NameCollisionTables.CREATE_INDEXES)
 
     executeStatements(db, SearchTable.CREATE_TRIGGERS)
     executeStatements(db, MessageSendLogTables.CREATE_TRIGGERS)
 
-    NameCollisionTables.createIndexes(db)
-
     DistributionListTables.insertInitialDistributionListAtCreationTime(db)
+    ChatFolderTables.insertInitialChatFoldersAtCreationTime(db)
 
     if (context.getDatabasePath("messages.db").exists()) {
       throw AssertionError("Unsupported Signal database: version is too old")
@@ -510,5 +513,10 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     @get:JvmName("inAppPaymentSubscribers")
     val inAppPaymentSubscribers: InAppPaymentSubscriberTable
       get() = instance!!.inAppPaymentSubscriberTable
+
+    @get:JvmStatic
+    @get:JvmName("chatFolders")
+    val chatFolders: ChatFolderTables
+      get() = instance!!.chatFoldersTable
   }
 }

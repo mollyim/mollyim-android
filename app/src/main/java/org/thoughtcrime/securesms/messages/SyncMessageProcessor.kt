@@ -1432,7 +1432,7 @@ object SyncMessageProcessor {
       }
 
       val recipient = resolveCallLinkRecipient(callEvent)
-      SignalDatabase.calls.insertOrUpdateAdHocCallFromObserveEvent(
+      SignalDatabase.calls.insertOrUpdateAdHocCallFromRemoteObserveEvent(
         callRecipient = recipient,
         timestamp = callEvent.timestamp!!,
         callId = callId

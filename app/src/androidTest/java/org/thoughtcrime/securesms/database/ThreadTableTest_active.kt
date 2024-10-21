@@ -6,14 +6,18 @@
 package org.thoughtcrime.securesms.database
 
 import androidx.test.platform.app.InstrumentationRegistry
+import io.mockk.every
+import io.mockk.mockkStatic
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFolderRecord
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.testing.SignalDatabaseRule
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.push.ServiceId.ACI
 import java.util.UUID
 
@@ -25,9 +29,14 @@ class ThreadTableTest_active {
   val databaseRule = SignalDatabaseRule()
 
   private lateinit var recipient: Recipient
+  private val allChats: ChatFolderRecord = ChatFolderRecord(folderType = ChatFolderRecord.FolderType.ALL)
 
   @Before
   fun setUp() {
+    mockkStatic(RemoteConfig::class)
+
+    every { RemoteConfig.showChatFolders } returns true
+
     recipient = Recipient.resolved(SignalDatabase.recipients.getOrInsertFromServiceId(ACI.from(UUID.randomUUID())))
   }
 
@@ -41,7 +50,8 @@ class ThreadTableTest_active {
       ConversationFilter.OFF,
       false,
       0,
-      10
+      10,
+      allChats
     ).use { threads ->
       assertEquals(1, threads.count)
 
@@ -63,7 +73,8 @@ class ThreadTableTest_active {
       ConversationFilter.OFF,
       false,
       0,
-      10
+      10,
+      allChats
     ).use { threads ->
       assertEquals(0, threads.count)
     }
@@ -83,7 +94,8 @@ class ThreadTableTest_active {
       ConversationFilter.OFF,
       false,
       0,
-      10
+      10,
+      allChats
     ).use { threads ->
       assertEquals(0, threads.count)
     }

@@ -18,9 +18,9 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1470
-val canonicalVersionName = "7.20.2"
-val currentHotfixVersion = 1
+val canonicalVersionCode = 1474
+val canonicalVersionName = "7.21.3"
+val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
 
