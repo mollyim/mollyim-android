@@ -228,7 +228,10 @@ class SwitchPreferenceViewHolder(itemView: View) : PreferenceViewHolder<SwitchPr
     }
 
     itemView.setOnClickListener {
-      model.onClick()
+      val targetState = !switchWidget.isChecked
+      if (model.onToggle(targetState)) {
+        model.onClick()
+      }
     }
 
     if (payload.contains(SwitchPreference.PAYLOAD_CHECKED)) {

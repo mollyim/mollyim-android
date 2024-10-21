@@ -59,8 +59,6 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 import kotlin.random.Random
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.seconds
 
 class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__internal_preferences) {
 
@@ -339,25 +337,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       dividerPref()
 
       sectionHeaderPref(DSLSettingsText.from("Network"))
-
-      switchPref(
-        title = DSLSettingsText.from("Force websocket mode"),
-        summary = DSLSettingsText.from("Pretend you have no Play Services. Ignores websocket messages and keeps the websocket open in a foreground service. You have to manually force-stop the app for changes to take effect."),
-        isChecked = state.forceWebsocketMode,
-        onClick = {
-          viewModel.setForceWebsocketMode(!state.forceWebsocketMode)
-          SimpleTask.run({
-            val jobState = AppDependencies.jobManager.runSynchronously(RefreshAttributesJob(), 10.seconds.inWholeMilliseconds)
-            return@run jobState.isPresent && jobState.get().isComplete
-          }, { success ->
-            if (success) {
-              Toast.makeText(context, "Successfully refreshed attributes. Force-stop the app for changes to take effect.", Toast.LENGTH_SHORT).show()
-            } else {
-              Toast.makeText(context, "Failed to refresh attributes.", Toast.LENGTH_SHORT).show()
-            }
-          })
-        }
-      )
 
       switchPref(
         title = DSLSettingsText.from("Allow censorship circumvention toggle"),

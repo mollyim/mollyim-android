@@ -386,7 +386,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   private boolean enterPipModeIfPossible() {
     if (isSystemPipEnabledAndAvailable() && isEnterPipAllowed()) {
-      if (viewModel.canEnterPipMode()) {
+      if (Boolean.TRUE.equals(viewModel.canEnterPipMode().getValue())) {
         try {
           enterPictureInPictureMode(pipBuilderParams.build());
         } catch (Exception e) {
@@ -396,6 +396,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
         return true;
       }
+
       if (Build.VERSION.SDK_INT >= 31) {
         pipBuilderParams.setAutoEnterEnabled(false);
       }
@@ -583,15 +584,24 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
       pipBuilderParams = new PictureInPictureParams.Builder();
       pipBuilderParams.setAspectRatio(aspectRatio);
+
       if (Build.VERSION.SDK_INT >= 31) {
-        pipBuilderParams.setAutoEnterEnabled(true);
+        viewModel.canEnterPipMode().observe(this, canEnterPipMode -> {
+          pipBuilderParams.setAutoEnterEnabled(canEnterPipMode);
+          tryToSetPictureInPictureParams();
+        });
+      } else {
+        tryToSetPictureInPictureParams();
       }
-      if (Build.VERSION.SDK_INT >= 26) {
-        try {
-          setPictureInPictureParams(pipBuilderParams.build());
-        } catch (Exception e) {
-          Log.w(TAG, "System lied about having PiP available.", e);
-        }
+    }
+  }
+
+  private void tryToSetPictureInPictureParams() {
+    if (Build.VERSION.SDK_INT >= 26) {
+      try {
+        setPictureInPictureParams(pipBuilderParams.build());
+      } catch (Exception e) {
+        Log.w(TAG, "System lied about having PiP available.", e);
       }
     }
   }

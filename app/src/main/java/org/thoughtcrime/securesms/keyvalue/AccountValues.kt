@@ -312,9 +312,12 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   @get:JvmName("isFcmEnabled")
   var fcmEnabled: Boolean by booleanValue(KEY_FCM_ENABLED, false)
 
+  val canReceiveFcm: Boolean
+    get() = fcmEnabled && fcmToken != null
+
   @get:JvmName("isPushAvailable")
   val pushAvailable: Boolean
-    get() = fcmEnabled
+    get() = canReceiveFcm
 
   /** The FCM token, which allows the server to send us FCM messages. */
   var fcmToken: String?
@@ -335,9 +338,8 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     }
 
   /** When we last set the [fcmToken] */
-  var fcmTokenLastSetTime: Long
+  val fcmTokenLastSetTime: Long
     get() = getLong(KEY_FCM_TOKEN_LAST_SET_TIME, 0)
-    set(value) = putLong(KEY_FCM_TOKEN_LAST_SET_TIME, value)
 
   /** Whether or not the user is registered with the Signal service. */
   val isRegistered: Boolean

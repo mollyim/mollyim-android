@@ -19,7 +19,6 @@
     <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">베타 버전은 테스트용이며 버그가 있을 수 있습니다</string>
     <string name="preferences_network__check_connection">연결 확인하기</string>
     <string name="preferences_network__connecting">연결 중…</string>
-    <string name="DozeReminder_optimize_for_timely_notifications">적시 알림을 위한 최적화</string>
     <string name="preferences__network">네트워크</string>
     <string name="preferences_network__connection">연결</string>
     <string name="preferences__autoupdate_molly">Molly 자동 업데이트</string>
@@ -69,7 +68,6 @@
     <string name="NotificationsSettingsFragment__new_activity_while_locked">잠겨 있는 동안의 새로운 활동</string>
     <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">죄송합니다. 이 기능을 사용하려면 현재 사용할 수 없는 FCM 또는 UnifiedPush를 통해 푸시 알림을 전달해야 합니다.</string>
     <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">앱이 잠겨있을 때 온 메시지나 부재중 전화의 알림을 받습니다.</string>
-    <string name="NotificationsSettingsFragment__push_notifications_unavailable">푸시 알림 이용 불가</string>
     <string name="WipeMemoryService_clearing_unencrypted_data_from_ram">RAM에서 암호화되지 않은 데이터를 제거하는 중</string>
     <string name="PrivacySettingsFragment_data_at_rest">휴면 데이터</string>
     <string name="ChangePassphraseDialogFragment_passphrase">암호</string>
@@ -109,7 +107,6 @@
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">유효한 포트 번호는 0과 65535 사이입니다</string>
     <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">업데이트를 위해, 앱 스토어를 확인해주세요. 이 버전은 인앱 업데이터를 포함하지 않습니다.</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly는 친구를 찾고 메시지 전송을 돕기 위해 연락처와 미디어 권한이 필요합니다. 연락처는 Signal의 비공개 연락처 검색을 이용하여 업로드되므로, 종단간 암호화 되어 Signal 서비스에서 절대 볼 수 없습니다.</string>
-    <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">기기가 대기 상태일 때 Molly가 메시지를 수신할 수 있도록 하려면 누릅니다.</string>
     <string name="BioTextPreference_no_linked_devices">연결된 기기 없음</string>
     <string name="RegistrationActivity_link_error">기기 연결 중 오류가 발생했습니다. 네트워크 연결을 확인하고 재시도하세요</string>
     <string name="LinkDeviceFragment__messaging_is_private_on_all_linked_devices">모든 연결된 기기의 메시지는 비공개됩니다.</string>

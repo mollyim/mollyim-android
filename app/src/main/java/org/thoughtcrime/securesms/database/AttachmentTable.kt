@@ -283,6 +283,8 @@ class AttachmentTable(
       )
       """
 
+    private const val DATA_FILE_INDEX = "attachment_data_index"
+
     @JvmField
     val CREATE_INDEXS = arrayOf(
       "CREATE INDEX IF NOT EXISTS attachment_message_id_index ON $TABLE_NAME ($MESSAGE_ID);",
@@ -290,7 +292,7 @@ class AttachmentTable(
       "CREATE INDEX IF NOT EXISTS attachment_sticker_pack_id_index ON $TABLE_NAME ($STICKER_PACK_ID);",
       "CREATE INDEX IF NOT EXISTS attachment_data_hash_start_index ON $TABLE_NAME ($DATA_HASH_START);",
       "CREATE INDEX IF NOT EXISTS attachment_data_hash_end_index ON $TABLE_NAME ($DATA_HASH_END);",
-      "CREATE INDEX IF NOT EXISTS attachment_data_index ON $TABLE_NAME ($DATA_FILE);",
+      "CREATE INDEX IF NOT EXISTS $DATA_FILE_INDEX ON $TABLE_NAME ($DATA_FILE);",
       "CREATE INDEX IF NOT EXISTS attachment_archive_media_id_index ON $TABLE_NAME ($ARCHIVE_MEDIA_ID);",
       "CREATE INDEX IF NOT EXISTS attachment_archive_transfer_state ON $TABLE_NAME ($ARCHIVE_TRANSFER_STATE);"
     )
@@ -443,6 +445,17 @@ class AttachmentTable(
         val attachment = cursor.readAttachment()
         attachment.mmsId to attachment
       }
+  }
+
+  fun getMostRecentValidAttachmentUsingDataFile(dataFile: String): DatabaseAttachment? {
+    return readableDatabase
+      .select(*PROJECTION)
+      .from(TABLE_NAME)
+      .where("$DATA_FILE = ? AND $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE", dataFile)
+      .orderBy("$ID DESC")
+      .limit(1)
+      .run()
+      .readToSingleObject { it.readAttachment() }
   }
 
   fun hasAttachment(id: AttachmentId): Boolean {
@@ -1128,8 +1141,13 @@ class AttachmentTable(
       values.put(TRANSFER_FILE, null as String?)
       values.put(TRANSFORM_PROPERTIES, TransformProperties.forSkipTransform().serialize())
       values.put(ARCHIVE_TRANSFER_FILE, null as String?)
+      values.put(REMOTE_LOCATION, existingPlaceholder.remoteLocation)
+      values.put(CDN_NUMBER, existingPlaceholder.cdn.serialize())
+      values.put(REMOTE_KEY, existingPlaceholder.remoteKey!!)
       values.put(REMOTE_IV, iv)
       values.put(REMOTE_DIGEST, digest)
+      values.put(REMOTE_INCREMENTAL_DIGEST, existingPlaceholder.incrementalDigest)
+      values.put(REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE, existingPlaceholder.incrementalMacChunkSize)
 
       if (digestChanged) {
         values.put(UPLOAD_TIMESTAMP, 0)
@@ -1139,9 +1157,11 @@ class AttachmentTable(
         values.put(OFFLOAD_RESTORED_AT, offloadRestoredAt.inWholeMilliseconds)
       }
 
+      val dataFilePath = hashMatch?.file?.absolutePath ?: fileWriteResult.file.absolutePath
+
       db.update(TABLE_NAME)
         .values(values)
-        .where("$ID = ?", attachmentId.id)
+        .where("$ID = ? OR $DATA_FILE = ?", attachmentId.id, dataFilePath)
         .run()
 
       Log.i(TAG, "[finalizeAttachmentAfterDownload] Finalized downloaded data for $attachmentId. (MessageId: $mmsId, $attachmentId)")
@@ -1397,6 +1417,31 @@ class AttachmentTable(
   }
 
   /**
+   * A query for a specific migration. Retrieves attachments that we'd need to create a new digest for.
+   * This is basically all attachments that have data and are finished downloading.
+   */
+  fun getDataFilesWithMultipleValidAttachments(): List<String> {
+    return readableDatabase
+      .select("DISTINCT(a1.$DATA_FILE)")
+      .from("$TABLE_NAME a1 INDEXED BY $DATA_FILE_INDEX")
+      .where(
+        """
+        a1.$DATA_FILE NOT NULL AND
+        a1.$TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND EXISTS (
+          SELECT 1
+          FROM $TABLE_NAME a2 INDEXED BY $DATA_FILE_INDEX
+          WHERE 
+            a1.$DATA_FILE = a2.$DATA_FILE AND
+            a2.$TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND
+            a2.$ID != a1.$ID
+        )
+        """
+      )
+      .run()
+      .readToList { it.requireNonNullString(DATA_FILE) }
+  }
+
+  /**
    * As part of the digest backfill process, this updates the (key, IV, digest) tuple for an attachment.
    */
   fun updateKeyIvDigest(attachmentId: AttachmentId, key: ByteArray, iv: ByteArray, digest: ByteArray) {
@@ -1408,6 +1453,21 @@ class AttachmentTable(
         REMOTE_DIGEST to digest
       )
       .where("$ID = ?", attachmentId.id)
+      .run()
+  }
+
+  /**
+   * As part of the digest backfill process, this updates the (key, IV, digest) tuple for all attachments that share a data file (and are done downloading).
+   */
+  fun updateKeyIvDigestByDataFile(dataFile: String, key: ByteArray, iv: ByteArray, digest: ByteArray) {
+    writableDatabase
+      .update(TABLE_NAME)
+      .values(
+        REMOTE_KEY to Base64.encodeWithPadding(key),
+        REMOTE_IV to iv,
+        REMOTE_DIGEST to digest
+      )
+      .where("$DATA_FILE = ? AND $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE", dataFile)
       .run()
   }
 

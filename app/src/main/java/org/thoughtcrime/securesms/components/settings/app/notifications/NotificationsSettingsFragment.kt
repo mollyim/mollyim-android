@@ -18,13 +18,20 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
+import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.components.settings.PreferenceViewHolder
@@ -32,10 +39,14 @@ import org.thoughtcrime.securesms.components.settings.RadioListPreference
 import org.thoughtcrime.securesms.components.settings.RadioListPreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.components.settings.models.Banner
+import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
+import org.thoughtcrime.securesms.events.PushServiceEvent
+import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet
 import org.thoughtcrime.securesms.util.BottomSheetUtil
+import org.thoughtcrime.securesms.util.PlayServicesUtil
 import org.thoughtcrime.securesms.util.RingtoneUtil
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.ViewUtil
@@ -64,7 +75,17 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
   private val ledBlinkValues by lazy { resources.getStringArray(R.array.pref_led_blink_pattern_values) }
   private val ledBlinkLabels by lazy { resources.getStringArray(R.array.pref_led_blink_pattern_entries) }
 
+  private val notificationMethodValues = NotificationDeliveryMethod.entries.filterNot { method ->
+    method == NotificationDeliveryMethod.FCM && !BuildConfig.USE_PLAY_SERVICES
+  }
+  private val notificationMethodLabels by lazy { notificationMethodValues.map { resources.getString(it.stringId) }.toTypedArray() }
+
   private lateinit var viewModel: NotificationsSettingsViewModel
+
+  private val args: NotificationsSettingsFragmentArgs by navArgs()
+
+  private val layoutManager: LinearLayoutManager?
+    get() = recyclerView?.layoutManager as? LinearLayoutManager
 
   override fun onResume() {
     super.onResume()
@@ -96,7 +117,17 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
 
     viewModel.state.observe(viewLifecycleOwner) {
       adapter.submitList(getConfiguration(it).toMappingModelList())
+      if (args.scrollToPushServices) {
+        layoutManager?.scrollToPosition(adapter.itemCount - 1)
+      }
     }
+
+    EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
+  }
+
+  @Subscribe(threadMode = ThreadMode.MAIN)
+  fun onPushServiceEvent(event: PushServiceEvent) {
+    viewModel.refresh()
   }
 
   private fun getConfiguration(state: NotificationsSettingsState): DSLConfiguration {
@@ -295,7 +326,6 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         onToggle = { isChecked ->
           if (isChecked && !state.canEnableNotifyWhileLocked) {
             MaterialAlertDialogBuilder(requireContext())
-              .setTitle(R.string.NotificationsSettingsFragment__push_notifications_unavailable)
               .setMessage(R.string.NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush)
               .setPositiveButton(android.R.string.ok, null)
               .show()
@@ -314,6 +344,54 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
           viewModel.setNotifyWhenContactJoinsSignal(!state.notifyWhenContactJoinsSignal)
         }
       )
+
+      dividerPref()
+
+      sectionHeaderPref(R.string.NotificationsSettingsFragment__push_notifications)
+
+      textPref(
+        summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications)
+      )
+
+      val showAlertIcon = when (state.preferredNotificationMethod) {
+        NotificationDeliveryMethod.FCM -> !state.canReceiveFcm
+        NotificationDeliveryMethod.WEBSOCKET -> false
+      }
+      radioListPref(
+        title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__delivery_service),
+        listItems = notificationMethodLabels,
+        selected = notificationMethodValues.indexOf(state.preferredNotificationMethod),
+        isEnabled = !state.isLinkedDevice,  // MOLLY: TODO
+        iconEnd = if (showAlertIcon) DSLSettingsIcon.from(R.drawable.ic_alert, R.color.signal_alert_primary) else null,
+        onSelected = {
+          onNotificationMethodChanged(notificationMethodValues[it], state.preferredNotificationMethod)
+        }
+      )
+    }
+  }
+
+  private fun onNotificationMethodChanged(
+    method: NotificationDeliveryMethod,
+    previousMethod: NotificationDeliveryMethod
+  ) {
+    when (method) {
+      NotificationDeliveryMethod.FCM -> {
+        viewModel.setPreferredNotificationMethod(method)
+        val msgId = when (viewModel.fcmState) {
+          PlayServicesUtil.PlayServicesStatus.SUCCESS -> null
+          PlayServicesUtil.PlayServicesStatus.DISABLED -> R.string.RegistrationActivity_missing_google_play_services
+          PlayServicesUtil.PlayServicesStatus.MISSING -> R.string.RegistrationActivity_missing_google_play_services
+          PlayServicesUtil.PlayServicesStatus.NEEDS_UPDATE -> R.string.RegistrationActivity_google_play_services_is_updating_or_unavailable
+          PlayServicesUtil.PlayServicesStatus.TRANSIENT_ERROR -> R.string.RegistrationActivity_play_services_error
+        }
+        if (msgId != null) {
+          Toast.makeText(requireContext(), getString(msgId), Toast.LENGTH_LONG).show()
+        }
+      }
+
+      NotificationDeliveryMethod.WEBSOCKET -> {
+        viewModel.setPreferredNotificationMethod(method)
+      }
     }
   }
 

@@ -75,6 +75,7 @@ import org.thoughtcrime.securesms.jobs.PreKeysSyncJob;
 import org.thoughtcrime.securesms.jobs.ProfileUploadJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RefreshSvrCredentialsJob;
+import org.thoughtcrime.securesms.jobs.RestoreOptimizedMediaJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.jobs.RetrieveRemoteAnnouncementsJob;
 import org.thoughtcrime.securesms.jobs.StoryOnboardingDownloadJob;
@@ -110,8 +111,6 @@ import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.FileUtils;
-import org.thoughtcrime.securesms.util.PlayServicesUtil;
-import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
 import org.thoughtcrime.securesms.util.StorageUtil;
@@ -201,9 +200,9 @@ public class ApplicationContext extends Application implements AppForegroundObse
                             .addBlocking("scrubber", () -> Scrubber.setIdentifierHmacKeyProvider(() -> SignalStore.svr().getOrCreateMasterKey().deriveLoggingKey()))
                             .addBlocking("network-settings", this::initializeNetworkSettings)
                             .addBlocking("first-launch", this::initializeFirstEverAppLaunch)
-                            .addBlocking("gcm-check", this::initializeFcmCheck)
                             .addBlocking("app-migrations", this::initializeApplicationMigrations)
                             .addBlocking("lifecycle-observer", () -> AppForegroundObserver.addListener(this))
+                            .addBlocking("push", this::updatePushNotificationServices)
                             .addBlocking("message-retriever", this::initializeMessageRetrieval)
                             .addBlocking("blob-provider", this::initializeBlobProvider)
                             .addBlocking("remote-config", RemoteConfig::init)
@@ -249,6 +248,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
                             .addPostRender(LinkedDeviceInactiveCheckJob::enqueueIfNecessary)
                             .addPostRender(() -> ActiveCallManager.clearNotifications(this))
                             .addPostRender(() -> GroupSendEndorsementInternalNotifier.init())
+                            .addPostRender(RestoreOptimizedMediaJob::enqueueIfNecessary)
                             .execute();
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -427,11 +427,11 @@ public class ApplicationContext extends Application implements AppForegroundObse
     ApplicationMigrations.onApplicationCreate(this, AppDependencies.getJobManager());
   }
 
-  public void initializeMessageRetrieval() {
+  private void initializeMessageRetrieval() {
     AppDependencies.getIncomingMessageObserver();
   }
 
-  public void finalizeMessageRetrieval() {
+  private void finalizeMessageRetrieval() {
     AppDependencies.resetNetwork(false);
   }
 
@@ -495,40 +495,51 @@ public class ApplicationContext extends Application implements AppForegroundObse
     }
   }
 
-  private void initializeFcmCheck() {
+  @MainThread
+  public void updatePushNotificationServices() {
     if (!SignalStore.account().isRegistered()) {
       return;
     }
 
-    PlayServicesUtil.PlayServicesStatus fcmStatus = PlayServicesUtil.getPlayServicesStatus(this);
+    boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
+    boolean forceWebSocket     = SignalStore.internal().isWebsocketModeForced();
+    boolean forceFcm           = !forceWebSocket && SignalStore.internal().isFcmModeForced();
 
-    if (fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
-      if (SignalStore.account().isFcmEnabled()) {
-        Log.i(TAG, "Play Services are disabled. Disabling FCM.");
-        SignalStore.account().setFcmEnabled(false);
-        SignalStore.account().setFcmToken(null);
-        SignalStore.account().setFcmTokenLastSetTime(-1);
-        AppDependencies.getJobManager().add(new RefreshAttributesJob());
+    if (forceWebSocket || !BuildConfig.USE_PLAY_SERVICES) {
+      if (fcmEnabled) {
+        Log.i(TAG, "Play Services not allowed. Disabling FCM.");
+        updateFcmStatus(false);
       } else {
-        SignalStore.account().setFcmTokenLastSetTime(-1);
+        Log.d(TAG, "FCM is disabled.");
       }
-    } else if (fcmStatus == PlayServicesUtil.PlayServicesStatus.SUCCESS &&
-               !SignalStore.account().isFcmEnabled() &&
-               SignalStore.account().getFcmTokenLastSetTime() < 0) {
-      Log.i(TAG, "Play Services are newly-available. Updating to use FCM.");
-      SignalStore.account().setFcmEnabled(true);
-      AppDependencies.getJobManager().startChain(new FcmRefreshJob())
-                                             .then(new RefreshAttributesJob())
-                                             .enqueue();
+    } else if (forceFcm && !fcmEnabled && BuildConfig.USE_PLAY_SERVICES) {
+      Log.i(TAG, "FCM preferred. Updating to use FCM.");
+      updateFcmStatus(true);
     } else {
       long lastSetTime = SignalStore.account().getFcmTokenLastSetTime();
       long nextSetTime = lastSetTime + TimeUnit.HOURS.toMillis(6);
       long now         = System.currentTimeMillis();
 
+      // MOLLY: Token may have been invalidated while the app was locked
+      if (TextSecurePreferences.shouldRefreshFcmToken(this)) {
+        TextSecurePreferences.setShouldRefreshFcmToken(this, false);
+        nextSetTime = now;
+      }
+
       if (SignalStore.account().getFcmToken() == null || nextSetTime <= now || lastSetTime > now) {
         AppDependencies.getJobManager().add(new FcmRefreshJob());
       }
     }
+  }
+
+  private void updateFcmStatus(boolean fcmEnabled) {
+    SignalStore.account().setFcmEnabled(fcmEnabled);
+    if (!fcmEnabled) {
+      FcmRefreshJob.cancelFcmFailureNotification(this);
+    }
+    AppDependencies.getJobManager().startChain(new FcmRefreshJob())
+                                   .then(new RefreshAttributesJob())
+                                   .enqueue();
   }
 
   private void initializeExpiringMessageManager() {

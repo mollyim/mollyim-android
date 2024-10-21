@@ -6,12 +6,16 @@ import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+
+import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.SlowNotificationHeuristics
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference
+import org.thoughtcrime.securesms.util.PlayServicesUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.livedata.Store
 
@@ -108,6 +112,18 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     refresh()
   }
 
+  fun setPreferredNotificationMethod(method: NotificationDeliveryMethod) {
+    SignalStore.settings.preferredNotificationMethod = method
+    TextSecurePreferences.setPromptedOptimizeDoze(AppDependencies.application, false)
+    ApplicationContext.getInstance().updatePushNotificationServices()
+    AppDependencies.resetNetwork(true)
+    // Avoid calling refresh() here to prevent updating canReceiveFcm
+    // while the FCM token is still being refreshed.
+    store.update { it.copy(preferredNotificationMethod = method) }
+  }
+
+  val fcmState get() = PlayServicesUtil.getPlayServicesStatus(AppDependencies.application)
+
   /**
    * @param currentState If provided and [calculateSlowNotifications] = false, then we will copy the slow notification state from it
    * @param calculateSlowNotifications If true, calculate the true slow notification state (this is not main-thread safe). Otherwise, it will copy from
@@ -142,7 +158,10 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     ),
     notifyWhileLocked = TextSecurePreferences.isPassphraseLockNotificationsEnabled(AppDependencies.application) && SignalStore.account.pushAvailable,
     canEnableNotifyWhileLocked = SignalStore.account.pushAvailable,
-    notifyWhenContactJoinsSignal = SignalStore.settings.isNotifyWhenContactJoinsSignal
+    notifyWhenContactJoinsSignal = SignalStore.settings.isNotifyWhenContactJoinsSignal,
+    isLinkedDevice = SignalStore.account.isLinkedDevice,
+    preferredNotificationMethod = SignalStore.settings.preferredNotificationMethod,
+    canReceiveFcm = SignalStore.account.canReceiveFcm,
   )
 
   private fun canEnableNotifications(): Boolean {
