@@ -11,13 +11,16 @@ import org.thoughtcrime.securesms.backup.v2.ImportState
 import org.thoughtcrime.securesms.backup.v2.exporters.ChatItemArchiveExporter
 import org.thoughtcrime.securesms.backup.v2.importer.ChatItemArchiveImporter
 import org.thoughtcrime.securesms.database.MessageTable
-import org.thoughtcrime.securesms.database.MessageTypes
 import org.thoughtcrime.securesms.database.SignalDatabase
 import java.util.concurrent.TimeUnit
 
-private const val COLUMN_BASE_TYPE = "base_type"
-
 fun MessageTable.getMessagesForBackup(db: SignalDatabase, backupTime: Long, mediaBackupEnabled: Boolean): ChatItemArchiveExporter {
+  // We create a temporary index on date_received to drastically speed up perf here.
+  // Remember that we're working on a temporary snapshot of the database, so we can create an index and not worry about cleaning it up.
+
+  val dateReceivedIndex = "message_date_received"
+  writableDatabase.execSQL("CREATE INDEX $dateReceivedIndex ON ${MessageTable.TABLE_NAME} (${MessageTable.DATE_RECEIVED} ASC)")
+
   val cursor = readableDatabase
     .select(
       MessageTable.ID,
@@ -51,10 +54,11 @@ fun MessageTable.getMessagesForBackup(db: SignalDatabase, backupTime: Long, medi
       MessageTable.READ,
       MessageTable.NETWORK_FAILURES,
       MessageTable.MISMATCHED_IDENTITIES,
-      "${MessageTable.TYPE} & ${MessageTypes.BASE_TYPE_MASK} AS $COLUMN_BASE_TYPE",
-      MessageTable.MESSAGE_EXTRAS
+      MessageTable.TYPE,
+      MessageTable.MESSAGE_EXTRAS,
+      MessageTable.VIEW_ONCE
     )
-    .from(MessageTable.TABLE_NAME)
+    .from("${MessageTable.TABLE_NAME} INDEXED BY $dateReceivedIndex")
     .where(
       """
       (
@@ -72,7 +76,7 @@ fun MessageTable.getMessagesForBackup(db: SignalDatabase, backupTime: Long, medi
 }
 
 fun MessageTable.createChatItemInserter(importState: ImportState): ChatItemArchiveImporter {
-  return ChatItemArchiveImporter(writableDatabase, importState, 100)
+  return ChatItemArchiveImporter(writableDatabase, importState, 500)
 }
 
 fun MessageTable.clearAllDataForBackupRestore() {

@@ -89,6 +89,7 @@ import org.thoughtcrime.securesms.migrations.TrimByLengthSettingsMigrationJob;
 import org.thoughtcrime.securesms.migrations.UpdateSmsJobsMigrationJob;
 import org.thoughtcrime.securesms.migrations.UserNotificationMigrationJob;
 import org.thoughtcrime.securesms.migrations.UuidMigrationJob;
+import org.thoughtcrime.securesms.migrations.WallpaperCleanupMigrationJob;
 import org.thoughtcrime.securesms.migrations.WallpaperStorageMigrationJob;
 
 import java.util.Arrays;
@@ -121,6 +122,7 @@ public final class JobManagerFactories {
       put(BackupRestoreJob.KEY,                      new BackupRestoreJob.Factory());
       put(BackupRestoreMediaJob.KEY,                 new BackupRestoreMediaJob.Factory());
       put("BoostReceiptCredentialsSubmissionJob",    new FailingJob.Factory());
+      put(BackupSubscriptionCheckJob.KEY,            new BackupSubscriptionCheckJob.Factory());
       put(BuildExpirationConfirmationJob.KEY,        new BuildExpirationConfirmationJob.Factory());
       put(CallLinkPeekJob.KEY,                       new CallLinkPeekJob.Factory());
       put(CallLinkUpdateSendJob.KEY,                 new CallLinkUpdateSendJob.Factory());
@@ -311,6 +313,7 @@ public final class JobManagerFactories {
       put(UpdateSmsJobsMigrationJob.KEY,                new UpdateSmsJobsMigrationJob.Factory());
       put(UserNotificationMigrationJob.KEY,             new UserNotificationMigrationJob.Factory());
       put(UuidMigrationJob.KEY,                         new FailingJob.Factory());
+      put(WallpaperCleanupMigrationJob.KEY,             new WallpaperCleanupMigrationJob.Factory());
       put(WallpaperStorageMigrationJob.KEY,             new WallpaperStorageMigrationJob.Factory());
 
       // Dead jobs

@@ -34,6 +34,7 @@ import org.thoughtcrime.securesms.backup.v2.proto.SendStatus
 import org.thoughtcrime.securesms.backup.v2.proto.SimpleChatUpdate
 import org.thoughtcrime.securesms.backup.v2.proto.StandardMessage
 import org.thoughtcrime.securesms.backup.v2.proto.Sticker
+import org.thoughtcrime.securesms.backup.v2.proto.ViewOnceMessage
 import org.thoughtcrime.securesms.backup.v2.util.toLocalAttachment
 import org.thoughtcrime.securesms.contactshare.Contact
 import org.thoughtcrime.securesms.database.CallTable
@@ -429,6 +430,15 @@ class ChatItemArchiveImporter(
       }
     }
 
+    if (this.viewOnceMessage != null) {
+      val attachment = this.viewOnceMessage.attachment?.toLocalAttachment()
+      if (attachment != null) {
+        followUp = { messageRowId ->
+          SignalDatabase.attachments.insertAttachmentsForMessage(messageRowId, listOf(attachment), emptyList())
+        }
+      }
+    }
+
     return MessageInsert(contentValues, followUp)
   }
 
@@ -449,26 +459,36 @@ class ChatItemArchiveImporter(
     contentValues.put(MessageTable.EXPIRES_IN, this.expiresInMs)
     contentValues.put(MessageTable.EXPIRE_STARTED, this.expireStartDate)
 
-    if (this.outgoing != null) {
-      val viewed = this.outgoing.sendStatus.any { it.viewed != null }
-      val hasReadReceipt = viewed || this.outgoing.sendStatus.any { it.read != null }
-      val hasDeliveryReceipt = viewed || hasReadReceipt || this.outgoing.sendStatus.any { it.delivered != null }
+    when {
+      this.outgoing != null -> {
+        val viewed = this.outgoing.sendStatus.any { it.viewed != null }
+        val hasReadReceipt = viewed || this.outgoing.sendStatus.any { it.read != null }
+        val hasDeliveryReceipt = viewed || hasReadReceipt || this.outgoing.sendStatus.any { it.delivered != null }
 
-      contentValues.put(MessageTable.VIEWED_COLUMN, viewed.toInt())
-      contentValues.put(MessageTable.HAS_READ_RECEIPT, hasReadReceipt.toInt())
-      contentValues.put(MessageTable.HAS_DELIVERY_RECEIPT, hasDeliveryReceipt.toInt())
-      contentValues.put(MessageTable.UNIDENTIFIED, this.outgoing.sendStatus.count { it.sealedSender })
-      contentValues.put(MessageTable.READ, 1)
+        contentValues.put(MessageTable.VIEWED_COLUMN, viewed.toInt())
+        contentValues.put(MessageTable.HAS_READ_RECEIPT, hasReadReceipt.toInt())
+        contentValues.put(MessageTable.HAS_DELIVERY_RECEIPT, hasDeliveryReceipt.toInt())
+        contentValues.put(MessageTable.UNIDENTIFIED, this.outgoing.sendStatus.count { it.sealedSender })
+        contentValues.put(MessageTable.READ, 1)
 
-      contentValues.addNetworkFailures(this, importState)
-      contentValues.addIdentityKeyMismatches(this, importState)
-    } else {
-      contentValues.put(MessageTable.VIEWED_COLUMN, 0)
-      contentValues.put(MessageTable.HAS_READ_RECEIPT, 0)
-      contentValues.put(MessageTable.HAS_DELIVERY_RECEIPT, 0)
-      contentValues.put(MessageTable.UNIDENTIFIED, this.incoming?.sealedSender?.toInt() ?: 0)
-      contentValues.put(MessageTable.READ, this.incoming?.read?.toInt() ?: 0)
-      contentValues.put(MessageTable.NOTIFIED, 1)
+        contentValues.addNetworkFailures(this, importState)
+        contentValues.addIdentityKeyMismatches(this, importState)
+      }
+      this.incoming != null -> {
+        contentValues.put(MessageTable.VIEWED_COLUMN, 0)
+        contentValues.put(MessageTable.HAS_READ_RECEIPT, 0)
+        contentValues.put(MessageTable.HAS_DELIVERY_RECEIPT, 0)
+        contentValues.put(MessageTable.UNIDENTIFIED, this.incoming.sealedSender.toInt())
+        contentValues.put(MessageTable.READ, this.incoming.read.toInt())
+        contentValues.put(MessageTable.NOTIFIED, 1)
+      }
+      this.directionless != null -> {
+        contentValues.put(MessageTable.VIEWED_COLUMN, 0)
+        contentValues.put(MessageTable.HAS_READ_RECEIPT, 0)
+        contentValues.put(MessageTable.HAS_DELIVERY_RECEIPT, 0)
+        contentValues.put(MessageTable.READ, 1)
+        contentValues.put(MessageTable.NOTIFIED, 1)
+      }
     }
 
     contentValues.put(MessageTable.QUOTE_ID, 0)
@@ -484,6 +504,7 @@ class ChatItemArchiveImporter(
       this.updateMessage != null -> contentValues.addUpdateMessage(this.updateMessage)
       this.paymentNotification != null -> contentValues.addPaymentNotification(this, chatRecipientId)
       this.giftBadge != null -> contentValues.addGiftBadge(this.giftBadge)
+      this.viewOnceMessage != null -> contentValues.addViewOnce(this.viewOnceMessage)
     }
 
     return contentValues
@@ -526,6 +547,7 @@ class ChatItemArchiveImporter(
       this.standardMessage != null -> this.standardMessage.reactions
       this.contactMessage != null -> this.contactMessage.reactions
       this.stickerMessage != null -> this.stickerMessage.reactions
+      this.viewOnceMessage != null -> this.viewOnceMessage.reactions
       else -> emptyList()
     }
 
@@ -578,21 +600,16 @@ class ChatItemArchiveImporter(
 
   private fun ChatItem.getMessageType(): Long {
     var type: Long = if (this.outgoing != null) {
-      if (this.outgoing.sendStatus.count { it.failed?.reason == SendStatus.Failed.FailureReason.IDENTITY_KEY_MISMATCH } > 0) {
+      if (this.outgoing.sendStatus.any { it.failed?.reason == SendStatus.Failed.FailureReason.IDENTITY_KEY_MISMATCH }) {
         MessageTypes.BASE_SENT_FAILED_TYPE
-      } else if (this.outgoing.sendStatus.count { it.failed?.reason == SendStatus.Failed.FailureReason.UNKNOWN } > 0) {
+      } else if (this.outgoing.sendStatus.any { it.failed?.reason == SendStatus.Failed.FailureReason.UNKNOWN }) {
         MessageTypes.BASE_SENT_FAILED_TYPE
-      } else if (this.outgoing.sendStatus.count { it.failed?.reason == SendStatus.Failed.FailureReason.NETWORK } > 0) {
+      } else if (this.outgoing.sendStatus.any { it.failed?.reason == SendStatus.Failed.FailureReason.NETWORK }) {
+        MessageTypes.BASE_SENT_FAILED_TYPE
+      } else if (this.outgoing.sendStatus.any { it.pending != null }) {
         MessageTypes.BASE_SENDING_TYPE
-      } else if (this.outgoing.sendStatus.count { it.pending != null } > 0) {
-        MessageTypes.BASE_SENDING_TYPE
-      } else if (this.outgoing.sendStatus.count { it.skipped != null } > 0) {
-        val count = this.outgoing.sendStatus.count { it.skipped != null }
-        if (count == this.outgoing.sendStatus.size) {
-          MessageTypes.BASE_SENDING_SKIPPED_TYPE
-        } else {
-          MessageTypes.BASE_SENDING_TYPE
-        }
+      } else if (this.outgoing.sendStatus.all { it.skipped != null }) {
+        MessageTypes.BASE_SENDING_SKIPPED_TYPE
       } else {
         MessageTypes.BASE_SENT_TYPE
       }
@@ -825,6 +842,10 @@ class ChatItemArchiveImporter(
     )
 
     put(MessageTable.BODY, Base64.encodeWithPadding(GiftBadge.ADAPTER.encode(dbGiftBadge)))
+  }
+
+  private fun ContentValues.addViewOnce(viewOnce: ViewOnceMessage) {
+    put(MessageTable.VIEW_ONCE, true.toInt())
   }
 
   private fun String?.tryParseMoney(): Money? {

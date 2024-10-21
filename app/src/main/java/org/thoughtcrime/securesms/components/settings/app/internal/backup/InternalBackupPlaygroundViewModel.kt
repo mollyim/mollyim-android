@@ -24,6 +24,7 @@ import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.v2.BackupMetadata
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
+import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.local.ArchiveFileSystem
 import org.thoughtcrime.securesms.backup.v2.local.ArchiveResult
 import org.thoughtcrime.securesms.backup.v2.local.LocalArchiver
@@ -33,6 +34,7 @@ import org.thoughtcrime.securesms.database.MessageType
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.AttachmentUploadJob
+import org.thoughtcrime.securesms.jobs.BackfillDigestJob
 import org.thoughtcrime.securesms.jobs.BackupMessagesJob
 import org.thoughtcrime.securesms.jobs.BackupRestoreJob
 import org.thoughtcrime.securesms.jobs.BackupRestoreMediaJob
@@ -65,7 +67,8 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
       canReadWriteBackupDirectory = SignalStore.settings.signalBackupDirectory?.let {
         val file = DocumentFile.fromTreeUri(AppDependencies.application, it)
         file != null && file.canWrite() && file.canRead()
-      } ?: false
+      } ?: false,
+      backupTier = SignalStore.backup.backupTier
     )
   )
   val state: State<ScreenState> = _state
@@ -211,10 +214,13 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
 
   fun wipeAllDataAndRestoreFromRemote() {
     SignalExecutors.BOUNDED_IO.execute {
-      SignalDatabase.threads.deleteAllConversations()
-      AppDependencies.messageNotifier.updateNotification(AppDependencies.application)
       restoreFromRemote()
     }
+  }
+
+  fun onBackupTierSelected(backupTier: MessageBackupTier?) {
+    SignalStore.backup.backupTier = backupTier
+    _state.value = _state.value.copy(backupTier = backupTier)
   }
 
   private fun restoreFromRemote() {
@@ -417,7 +423,8 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
     val uploadState: BackupUploadState = BackupUploadState.NONE,
     val remoteBackupState: RemoteBackupState = RemoteBackupState.Unknown,
     val plaintext: Boolean,
-    val canReadWriteBackupDirectory: Boolean = false
+    val canReadWriteBackupDirectory: Boolean = false,
+    val backupTier: MessageBackupTier? = null
   )
 
   enum class BackupState(val inProgress: Boolean = false) {
@@ -505,5 +512,12 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
 
   fun <T> MutableState<T>.set(update: T.() -> T) {
     this.value = this.value.update()
+  }
+
+  fun haltAllJobs() {
+    AppDependencies.jobManager.cancelAllInQueue(BackfillDigestJob.QUEUE)
+    AppDependencies.jobManager.cancelAllInQueue("ArchiveAttachmentJobs_0")
+    AppDependencies.jobManager.cancelAllInQueue("ArchiveAttachmentJobs_1")
+    AppDependencies.jobManager.cancelAllInQueue("ArchiveThumbnailUploadJob")
   }
 }
