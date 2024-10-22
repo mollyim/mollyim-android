@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import im.molly.unifiedpush.jobs.UnifiedPushRefreshJob
 import im.molly.unifiedpush.model.UnifiedPushStatus
+import im.molly.unifiedpush.model.saveStatus
 import im.molly.unifiedpush.util.MollySocketRequest
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
@@ -111,6 +112,12 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
         false
       }
       processNewStatus()
+    }
+  }
+
+  fun pingMollySocket() {
+    EXECUTOR.enqueue {
+      MollySocketRequest.registerToMollySocketServer(true).saveStatus()
     }
   }
 

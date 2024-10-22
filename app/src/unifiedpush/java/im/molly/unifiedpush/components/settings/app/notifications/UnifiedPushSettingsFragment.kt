@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.text.InputType
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import im.molly.unifiedpush.model.UnifiedPushStatus
@@ -94,6 +95,15 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
           summary = DSLSettingsText.from(state.mollySocketUrl ?: getString(R.string.UnifiedPushSettingsFragment__no_server_url_summary)),
           iconEnd = getMollySocketUrlIcon(state),
           onClick = { urlDialog(state) },
+        )
+
+        clickPref(
+          title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__test)),
+          summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__test_summary)),
+          onClick = {
+            viewModel.pingMollySocket()
+            Toast.makeText(context, getString(R.string.UnifiedPushSettingsFragment__test_toast), Toast.LENGTH_SHORT).show()
+          },
         )
       }
     }

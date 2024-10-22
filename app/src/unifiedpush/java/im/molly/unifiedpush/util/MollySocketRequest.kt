@@ -30,6 +30,7 @@ data class ConnectionData(
   @JsonProperty("device_id") val device_id: Int,
   @JsonProperty("password") val password: String,
   @JsonProperty("endpoint") val endpoint: String,
+  @JsonProperty("ping") val ping: Boolean,
 )
 
 object MollySocketRequest {
@@ -68,7 +69,7 @@ object MollySocketRequest {
     return true
   }
 
-  fun registerToMollySocketServer(): RegistrationStatus {
+  fun registerToMollySocketServer(ping: Boolean): RegistrationStatus {
     try {
       val data = SignalStore.unifiedpush.device?.let {
         val endpoint = SignalStore.unifiedpush.endpoint ?: return RegistrationStatus.NO_ENDPOINT
@@ -76,7 +77,8 @@ object MollySocketRequest {
           uuid = it.uuid,
           device_id = it.deviceId,
           password = it.password,
-          endpoint = endpoint
+          endpoint = endpoint,
+          ping = ping
         )
       } ?: return RegistrationStatus.NO_DEVICE
 

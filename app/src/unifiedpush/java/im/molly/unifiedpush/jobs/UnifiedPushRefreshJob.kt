@@ -112,7 +112,7 @@ class UnifiedPushRefreshJob private constructor(parameters: Parameters) : BaseJo
       UnifiedPushStatus.INTERNAL_ERROR -> {
         Log.i(TAG, "Registering to MollySocket...")
         SignalStore.unifiedpush.pending = false
-        val msStatus = MollySocketRequest.registerToMollySocketServer()
+        val msStatus = MollySocketRequest.registerToMollySocketServer(true)
         msStatus.saveStatus()
         when (msStatus) {
           RegistrationStatus.INTERNAL_ERROR -> Log.d(TAG, "An error occurred while trying to re-register with MollySocket.")
@@ -125,7 +125,7 @@ class UnifiedPushRefreshJob private constructor(parameters: Parameters) : BaseJo
       }
       UnifiedPushStatus.OK -> {
         Log.i(TAG, "Registering again to MollySocket...")
-        when (val msStatus = MollySocketRequest.registerToMollySocketServer()) {
+        when (val msStatus = MollySocketRequest.registerToMollySocketServer(false)) {
           RegistrationStatus.INTERNAL_ERROR -> Log.d(TAG, "An error occurred while trying to re-register with MollySocket. It may be a bad connection: ignore it.")
           RegistrationStatus.OK -> Log.d(TAG, "Successfully re-registered to MollySocket")
           else -> {
