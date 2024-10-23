@@ -116,9 +116,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     TextSecurePreferences.setPromptedOptimizeDoze(AppDependencies.application, false)
     ApplicationContext.getInstance().updatePushNotificationServices()
     AppDependencies.resetNetwork(true)
-    // Avoid calling refresh() here to prevent updating canReceiveFcm
-    // while the FCM token is still being refreshed.
-    store.update { it.copy(preferredNotificationMethod = method) }
+    refresh()
   }
 
   fun setPlayServicesErrorCode(errorCode: Int?) {
