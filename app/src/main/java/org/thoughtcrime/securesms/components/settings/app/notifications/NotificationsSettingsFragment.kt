@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.common.ConnectionResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -87,6 +88,8 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
   private val layoutManager: LinearLayoutManager?
     get() = recyclerView?.layoutManager as? LinearLayoutManager
 
+  private var hasShownPlayServicesError = false
+
   override fun onResume() {
     super.onResume()
     viewModel.refresh()
@@ -117,10 +120,16 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
 
     viewModel.state.observe(viewLifecycleOwner) {
       adapter.submitList(getConfiguration(it).toMappingModelList())
-      if (args.scrollToPushServices) {
+
+      val errorCode = viewModel.state.value?.playServicesErrorCode
+      if (errorCode != null && errorCode != ConnectionResult.SUCCESS) {
         layoutManager?.scrollToPosition(adapter.itemCount - 1)
+        showPlayServicesErrorDialog(errorCode)
+        viewModel.setPlayServicesErrorCode(null)
       }
     }
+
+    viewModel.setPlayServicesErrorCode(args.playServicesErrorCode)
 
     EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
   }
@@ -364,35 +373,31 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         isEnabled = !state.isLinkedDevice,  // MOLLY: TODO
         iconEnd = if (showAlertIcon) DSLSettingsIcon.from(R.drawable.ic_alert, R.color.signal_alert_primary) else null,
         onSelected = {
-          onNotificationMethodChanged(notificationMethodValues[it], state.preferredNotificationMethod)
+          viewModel.setPreferredNotificationMethod(notificationMethodValues[it])
         }
       )
     }
   }
 
-  private fun onNotificationMethodChanged(
-    method: NotificationDeliveryMethod,
-    previousMethod: NotificationDeliveryMethod
-  ) {
-    when (method) {
-      NotificationDeliveryMethod.FCM -> {
-        viewModel.setPreferredNotificationMethod(method)
-        val msgId = when (viewModel.fcmState) {
-          PlayServicesUtil.PlayServicesStatus.SUCCESS -> null
-          PlayServicesUtil.PlayServicesStatus.DISABLED -> R.string.RegistrationActivity_missing_google_play_services
-          PlayServicesUtil.PlayServicesStatus.MISSING -> R.string.RegistrationActivity_missing_google_play_services
-          PlayServicesUtil.PlayServicesStatus.NEEDS_UPDATE -> R.string.RegistrationActivity_google_play_services_is_updating_or_unavailable
-          PlayServicesUtil.PlayServicesStatus.TRANSIENT_ERROR -> R.string.RegistrationActivity_play_services_error
-        }
-        if (msgId != null) {
-          Toast.makeText(requireContext(), getString(msgId), Toast.LENGTH_LONG).show()
+  private fun showPlayServicesErrorDialog(errorCode: Int) {
+    val causeId = when (errorCode) {
+      ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED -> {
+        if (PlayServicesUtil.isGooglePlayPackageEnabled(context)) {
+          R.string.RegistrationActivity_google_play_services_is_updating_or_unavailable
+        } else {
+          R.string.NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled
         }
       }
 
-      NotificationDeliveryMethod.WEBSOCKET -> {
-        viewModel.setPreferredNotificationMethod(method)
-      }
+      else -> R.string.NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled
     }
+
+    MaterialAlertDialogBuilder(requireContext())
+      .setNegativeButton(android.R.string.ok, null)
+      .setMessage(
+        getString(R.string.NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s, getString(causeId))
+      )
+      .show()
   }
 
   private fun getRingtoneSummary(uri: Uri): String {

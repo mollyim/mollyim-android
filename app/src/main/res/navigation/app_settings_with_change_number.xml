@@ -451,9 +451,9 @@
             app:popExitAnim="@anim/fragment_close_exit" />
 
         <argument
-            android:name="scroll_to_push_services"
-            android:defaultValue="false"
-            app:argType="boolean" />
+            android:name="play_services_error_code"
+            android:defaultValue="0"
+            app:argType="integer" />
 
     </fragment>
 

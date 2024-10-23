@@ -99,7 +99,7 @@ public class FcmRefreshJob extends BaseJob {
     int result = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
 
     if (result != ConnectionResult.SUCCESS) {
-      notifyFcmFailure();
+      notifyFcmFailure(result);
     } else {
       Optional<String> token = FcmUtil.getToken(context);
 
@@ -137,8 +137,8 @@ public class FcmRefreshJob extends BaseJob {
     return true;
   }
 
-  private void notifyFcmFailure() {
-    Intent                     intent        = AppSettingsActivity.pushNotifications(context).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+  private void notifyFcmFailure(int errorCode) {
+    Intent                     intent        = AppSettingsActivity.playServicesProblem(context, errorCode).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
     PendingIntent              pendingIntent = PendingIntent.getActivity(context, 1122, intent, PendingIntentFlags.cancelCurrent());
     NotificationCompat.Builder builder       = new NotificationCompat.Builder(context, NotificationChannels.getInstance().FAILURES);
 

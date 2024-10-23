@@ -12,6 +12,7 @@ import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.chats.folders.CreateFoldersFragmentArgs
+import org.thoughtcrime.securesms.components.settings.app.notifications.NotificationsSettingsFragmentArgs
 import org.thoughtcrime.securesms.components.settings.app.notifications.profiles.EditNotificationProfileScheduleFragmentArgs
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentComponent
 import org.thoughtcrime.securesms.components.settings.app.subscription.StripeRepository
@@ -55,7 +56,7 @@ class AppSettingsActivity : DSLSettingsActivity(), InAppPaymentComponent {
           .setStartCategoryIndex(intent.getIntExtra(HelpFragment.START_CATEGORY_INDEX, 0))
         StartLocation.PROXY -> AppSettingsFragmentDirections.actionDirectToNetworkPreferenceFragment()
         StartLocation.NOTIFICATIONS -> AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
-        StartLocation.PUSH_NOTIFICATIONS -> AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment().setScrollToPushServices(true)
+          .setPlayServicesErrorCode(NotificationsSettingsFragmentArgs.fromBundle(intent.getBundleExtra(START_ARGUMENTS)!!).playServicesErrorCode)
         StartLocation.CHANGE_NUMBER -> AppSettingsFragmentDirections.actionDirectToChangeNumberFragment()
         StartLocation.SUBSCRIPTIONS -> AppSettingsFragmentDirections.actionDirectToManageDonations().setDirectToCheckoutType(InAppPaymentType.RECURRING_DONATION)
         StartLocation.MANAGE_SUBSCRIPTIONS -> AppSettingsFragmentDirections.actionDirectToManageDonations()
@@ -161,7 +162,14 @@ class AppSettingsActivity : DSLSettingsActivity(), InAppPaymentComponent {
     fun notifications(context: Context): Intent = getIntentForStartLocation(context, StartLocation.NOTIFICATIONS)
 
     @JvmStatic
-    fun pushNotifications(context: Context): Intent = getIntentForStartLocation(context, StartLocation.PUSH_NOTIFICATIONS)
+    fun playServicesProblem(context: Context, errorCode: Int): Intent {
+      val arguments = NotificationsSettingsFragmentArgs.Builder()
+        .setPlayServicesErrorCode(errorCode)
+        .build()
+        .toBundle()
+
+      return getIntentForStartLocation(context, StartLocation.NOTIFICATIONS).putExtra(START_ARGUMENTS, arguments)
+    }
 
     @JvmStatic
     fun changeNumber(context: Context): Intent = getIntentForStartLocation(context, StartLocation.CHANGE_NUMBER)
@@ -228,7 +236,6 @@ class AppSettingsActivity : DSLSettingsActivity(), InAppPaymentComponent {
     HELP(2),
     PROXY(3),
     NOTIFICATIONS(4),
-    PUSH_NOTIFICATIONS(1004),
     CHANGE_NUMBER(5),
     SUBSCRIPTIONS(6),
     // BOOST(7),
