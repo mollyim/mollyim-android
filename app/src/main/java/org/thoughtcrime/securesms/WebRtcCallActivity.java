@@ -92,8 +92,11 @@ import org.thoughtcrime.securesms.components.webrtc.v2.CallPermissionsDialogCont
 import org.thoughtcrime.securesms.conversation.ui.error.SafetyNumberChangeDialog;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.messagerequests.CalleeMustAcceptMessageRequestActivity;
 import org.thoughtcrime.securesms.permissions.Permissions;
+import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment;
+import org.thoughtcrime.securesms.ratelimit.RecaptchaRequiredEvent;
 import org.thoughtcrime.securesms.reactions.any.ReactWithAnyEmojiBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -117,7 +120,6 @@ import org.whispersystems.signalservice.api.messages.calls.HangupMessage;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -128,7 +130,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 import static org.thoughtcrime.securesms.components.sensors.Orientation.PORTRAIT_BOTTOM_EDGE;
 
-public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChangeDialog.Callback, ReactWithAnyEmojiBottomSheetDialogFragment.Callback {
+public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChangeDialog.Callback, ReactWithAnyEmojiBottomSheetDialogFragment.Callback, RecaptchaProofBottomSheetFragment.Callback {
 
   private static final String TAG = Log.tag(WebRtcCallActivity.class);
 
@@ -297,6 +299,9 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
         case ANSWER_AUDIO -> handleAnswerWithAudio();
         case ANSWER_VIDEO -> handleAnswerWithVideo();
       }
+      if (SignalStore.rateLimit().needsRecaptcha()) {
+        RecaptchaProofBottomSheetFragment.show(getSupportFragmentManager());
+      }
     }
   }
 
@@ -313,6 +318,8 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   public void onPause() {
     Log.i(TAG, "onPause");
     super.onPause();
+
+    EventBus.getDefault().unregister(this);
 
     if (!callPermissionsDialogController.isAskingForPermission() && !viewModel.isCallStarting() && !isChangingConfigurations()) {
       CallParticipantsState state = viewModel.getCallParticipantsStateSnapshot();
@@ -354,6 +361,11 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     super.onDestroy();
     windowInfoTrackerCallbackAdapter.removeWindowLayoutInfoListener(windowLayoutInfoConsumer);
     EventBus.getDefault().unregister(this);
+  }
+
+  @Subscribe(threadMode = ThreadMode.MAIN)
+  public void onRecaptchaRequiredEvent(RecaptchaRequiredEvent recaptchaRequiredEvent) {
+    RecaptchaProofBottomSheetFragment.show(getSupportFragmentManager());
   }
 
   @SuppressLint("MissingSuperCall")
@@ -430,10 +442,6 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   }
 
   private void initializePendingParticipantFragmentListener() {
-    if (!RemoteConfig.adHocCalling()) {
-      return;
-    }
-
     getSupportFragmentManager().setFragmentResultListener(
         PendingParticipantsBottomSheet.REQUEST_KEY,
         this,
@@ -528,6 +536,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     viewModel.getEvents().observe(this, this::handleViewModelEvent);
 
     lifecycleDisposable.add(viewModel.getInCallstatus().subscribe(this::handleInCallStatus));
+    lifecycleDisposable.add(viewModel.getRecipientFlowable().subscribe(callScreen::setRecipient));
 
     boolean isStartedFromCallLink = getCallIntent().isStartedFromCallLink();
     LiveDataUtil.combineLatest(LiveDataReactiveStreams.fromPublisher(viewModel.getCallParticipantsState().toFlowable(BackpressureStrategy.LATEST)),
@@ -946,7 +955,6 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     previousEvent = event;
 
     viewModel.setRecipient(event.getRecipient());
-    callScreen.setRecipient(event.getRecipient());
     controlsAndInfoViewModel.setRecipient(event.getRecipient());
 
     switch (event.getState()) {
@@ -1097,6 +1105,11 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   public void onReactWithAnyEmojiSelected(@NonNull String emoji) {
     AppDependencies.getSignalCallManager().react(emoji);
     callOverflowPopupWindow.dismiss();
+  }
+
+  @Override
+  public void onProofCompleted() {
+    AppDependencies.getSignalCallManager().resendMediaKeys();
   }
 
   private final class ControlsListener implements WebRtcCallView.ControlsListener {

@@ -1,14 +1,18 @@
 package org.thoughtcrime.securesms.database
 
+import io.mockk.every
+import io.mockk.mockkStatic
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.signal.core.util.CursorUtil
+import org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFolderRecord
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.testing.SignalDatabaseRule
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.push.ServiceId.ACI
 import java.util.UUID
 
@@ -20,9 +24,14 @@ class ThreadTableTest_pinned {
   val databaseRule = SignalDatabaseRule()
 
   private lateinit var recipient: Recipient
+  private val allChats: ChatFolderRecord = ChatFolderRecord(folderType = ChatFolderRecord.FolderType.ALL)
 
   @Before
   fun setUp() {
+    mockkStatic(RemoteConfig::class)
+
+    every { RemoteConfig.showChatFolders } returns true
+
     recipient = Recipient.resolved(SignalDatabase.recipients.getOrInsertFromServiceId(ACI.from(UUID.randomUUID())))
   }
 
@@ -52,7 +61,7 @@ class ThreadTableTest_pinned {
     SignalDatabase.messages.deleteMessage(messageId)
 
     // THEN
-    val unarchivedCount = SignalDatabase.threads.getUnarchivedConversationListCount(ConversationFilter.OFF)
+    val unarchivedCount = SignalDatabase.threads.getUnarchivedConversationListCount(ConversationFilter.OFF, allChats)
     assertEquals(1, unarchivedCount)
   }
 
@@ -67,7 +76,7 @@ class ThreadTableTest_pinned {
     SignalDatabase.messages.deleteMessage(messageId)
 
     // THEN
-    SignalDatabase.threads.getUnarchivedConversationList(ConversationFilter.OFF, true, 0, 1).use {
+    SignalDatabase.threads.getUnarchivedConversationList(ConversationFilter.OFF, true, 0, 1, allChats).use {
       it.moveToFirst()
       assertEquals(threadId, CursorUtil.requireLong(it, ThreadTable.ID))
     }

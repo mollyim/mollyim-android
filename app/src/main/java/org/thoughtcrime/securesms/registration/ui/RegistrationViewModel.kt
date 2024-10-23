@@ -70,6 +70,7 @@ import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.dualsim.MccMncProducer
 import org.whispersystems.signalservice.api.SvrNoDataException
 import org.whispersystems.signalservice.api.kbs.MasterKey
+import org.whispersystems.signalservice.internal.push.RegistrationSessionMetadataJson
 import org.whispersystems.signalservice.internal.push.RegistrationSessionMetadataResponse
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -684,10 +685,14 @@ class RegistrationViewModel : ViewModel() {
    */
   private suspend fun registerAccountInternal(context: Context, sessionId: String?, registrationData: RegistrationData, pin: String?, masterKey: MasterKey): Pair<RegisterAccountResult, Boolean> {
     Log.v(TAG, "registerAccountInternal()")
-    val registrationResult: RegisterAccountResult = RegistrationRepository.registerAccount(context = context, sessionId = sessionId, registrationData = registrationData, pin = pin) { masterKey }
+    var registrationResult: RegisterAccountResult = RegistrationRepository.registerAccount(context = context, sessionId = sessionId, registrationData = registrationData, pin = pin)
 
     // Check if reg lock is enabled
     if (registrationResult !is RegisterAccountResult.RegistrationLocked) {
+      if (registrationResult is RegisterAccountResult.Success) {
+        registrationResult = RegisterAccountResult.Success(registrationResult.accountRegistrationResult.copy(masterKey = masterKey))
+      }
+
       Log.i(TAG, "Received a non-registration lock response to registration. Assuming registration lock as DISABLED")
       return Pair(registrationResult, false)
     }
@@ -748,21 +753,26 @@ class RegistrationViewModel : ViewModel() {
 
     var reglock = registrationLocked
 
-    val sessionId = getOrCreateValidSession(context)?.body?.id ?: return
-    val registrationData = getRegistrationData()
+    val session: RegistrationSessionMetadataJson? = getOrCreateValidSession(context)?.body
+    val sessionId: String = session?.id ?: return
+    val registrationData: RegistrationData = getRegistrationData()
 
-    Log.d(TAG, "Submitting verification code…")
+    if (session.verified) {
+      Log.i(TAG, "Session is already verified, registering account.")
+    } else {
+      Log.d(TAG, "Submitting verification code…")
 
-    val verificationResponse = RegistrationRepository.submitVerificationCode(context, sessionId, registrationData)
+      val verificationResponse = RegistrationRepository.submitVerificationCode(context, sessionId, registrationData)
 
-    val submissionSuccessful = verificationResponse is Success
-    val alreadyVerified = verificationResponse is AlreadyVerified
+      val submissionSuccessful = verificationResponse is Success
+      val alreadyVerified = verificationResponse is AlreadyVerified
 
-    Log.d(TAG, "Verification code submission network call completed. Submission successful? $submissionSuccessful Account already verified? $alreadyVerified")
+      Log.d(TAG, "Verification code submission network call completed. Submission successful? $submissionSuccessful Account already verified? $alreadyVerified")
 
-    if (!submissionSuccessful && !alreadyVerified) {
-      handleSessionStateResult(context, verificationResponse)
-      return
+      if (!submissionSuccessful && !alreadyVerified) {
+        handleSessionStateResult(context, verificationResponse)
+        return
+      }
     }
 
     Log.d(TAG, "Submitting registration…")
