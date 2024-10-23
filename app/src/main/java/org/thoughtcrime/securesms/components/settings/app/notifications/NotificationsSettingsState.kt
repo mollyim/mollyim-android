@@ -12,7 +12,8 @@ data class NotificationsSettingsState(
   val isLinkedDevice: Boolean,
   val preferredNotificationMethod: NotificationDeliveryMethod,
   val playServicesErrorCode: Int?,
-  val canReceiveFcm: Boolean
+  val canReceiveFcm: Boolean,
+  val canReceiveUnifiedPush: Boolean
 )
 
 data class MessageNotificationsState(

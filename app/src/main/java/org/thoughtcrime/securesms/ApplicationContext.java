@@ -119,6 +119,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
+import im.molly.unifiedpush.util.UnifiedPushHelper;
 import java.io.InterruptedIOException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -127,6 +128,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import im.molly.unifiedpush.jobs.UnifiedPushRefreshJob;
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
@@ -505,15 +507,19 @@ public class ApplicationContext extends Application implements AppForegroundObse
     }
 
     boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
-    boolean forceWebSocket     = SignalStore.internal().isWebsocketModeForced();
+    boolean unifiedPushEnabled = SignalStore.unifiedpush().isEnabled();
+    boolean forceWebSocket     = !unifiedPushEnabled && SignalStore.internal().isWebsocketModeForced();
     boolean forceFcm           = !forceWebSocket && SignalStore.internal().isFcmModeForced();
 
-    if (forceWebSocket || !BuildConfig.USE_PLAY_SERVICES) {
+    if (unifiedPushEnabled || forceWebSocket || !BuildConfig.USE_PLAY_SERVICES) {
       if (fcmEnabled) {
         Log.i(TAG, "Play Services not allowed. Disabling FCM.");
         updateFcmStatus(false);
       } else {
         Log.d(TAG, "FCM is disabled.");
+      }
+      if (unifiedPushEnabled) {
+        AppDependencies.getJobManager().add(new UnifiedPushRefreshJob());
       }
     } else if (forceFcm && !fcmEnabled && BuildConfig.USE_PLAY_SERVICES) {
       Log.i(TAG, "FCM preferred. Updating to use FCM.");

@@ -564,7 +564,7 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public enum NotificationDeliveryMethod {
-    FCM, WEBSOCKET;
+    FCM, WEBSOCKET, UNIFIEDPUSH;
 
     public @NonNull String serialize() {
       return name();
@@ -578,6 +578,7 @@ public final class SettingsValues extends SignalStoreValues {
       return switch (this) {
         case FCM -> R.string.NotificationDeliveryMethod__fcm;
         case WEBSOCKET -> R.string.NotificationDeliveryMethod__websocket;
+        case UNIFIEDPUSH -> R.string.NotificationDeliveryMethod__unifiedpush;
       };
     }
   }
