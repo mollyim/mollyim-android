@@ -107,8 +107,6 @@ public class VoiceNotePlaybackService extends MediaSessionService {
 
   @Override
   public void onDestroy() {
-    AppDependencies.getDatabaseObserver().unregisterObserver(attachmentDeletionObserver);
-
     final VoiceNotePlayer voiceNotePlayer = player;
     if (voiceNotePlayer != null) {
       voiceNotePlayer.release();
@@ -116,6 +114,7 @@ public class VoiceNotePlaybackService extends MediaSessionService {
 
     MediaSession session = mediaSession;
     if (session != null) {
+      AppDependencies.getDatabaseObserver().unregisterObserver(attachmentDeletionObserver);
       session.release();
       mediaSession = null;
     }
