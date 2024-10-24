@@ -87,9 +87,9 @@
     <string name="NetworkPreferenceFragment_get_orbot">Iegūt Orbot</string>
     <string name="DonateMegaphone_molly_is_free_software">Molly ir brīva programmatūra</string>
     <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">Mēs uzturam Molly ar Tavu atbalstu. Apsver iespēju ziedot Open Collective!</string>
-    <string name="BackupsPreferenceFragment__schedule">Grafiks</string>
+    <string name="BackupsPreferenceFragment__schedule">Biežums</string>
     <string name="arrays__daily">Ikdienas</string>
-    <string name="BackupsPreferenceFragment__change_schedule">Mainīt grafiku</string>
+    <string name="BackupsPreferenceFragment__change_schedule">Mainīt biežumu</string>
     <string name="BackupsPreferenceFragment__number_of_backups_to_retain">Paturamo rezerves kopiju skaits</string>
     <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Pievieno ierīces kontaktpersonām</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Tērzēšana ar %1$s tiks izdzēsta, un %1$s tiks noņemta no ierīces kontaktpersonām.</string>
@@ -117,4 +117,14 @@
     <string name="RegistrationActivity_link">Sasaistīt</string>
     <string name="RegistrationActivity_provider_declined">Pakalpojumu sniedzējs ir atteicies nosūtīt apliecinājuma kodu, iespējams, krāpšanas novēršanas noteikumu dēļ.</string>
     <string name="AppUpdatesSettingsFragment__last_checked_s">Pēdējoreiz pārbaudīts: %s</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Nevar reģistrēties ar Play pakalpojumuiem</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Uz citu pašpiegādes pakalpojumu var pārslēgties Iestatījumi &gt; Paziņojumi vai jānovērš nepilnības ar Play pakalpojumiem.</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Ļauj Molly piegādāt laicīgus paziņojums, pat tad, kad ierīce ir gaidstāvē.</string>
+    <string name="DozeReminder_disable_battery_restrictions">Atspējot akumulatora ierobežojumus</string>
+    <string name="NotificationsSettingsFragment__push_notifications">Pašpiegādes paziņojumi</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Jāatlasa vēlamais pašpiegādes paziņojumu pakalpojums. Ja nav pieejams, lietotne automātiski izmantos Websocket, lai nodrošinātu, ka paziņojumi tiek piegādāti.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">Piegādes pakalpojums</string>
+    <string name="IncomingMessageObserver_websocket_service">WebSocket pakalpojums</string>
+    <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">Atgadījās kļūda, kamēr notika reģistrēšanās pašpiegādes paziņojumiem. %s</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Lūgums pārbaudīt, vai Google Play pakalpojumi ir uzstādīti un iespējoti, vai pārslēgties uz citu pašpiegādes pakalpojumu.</string>
 </resources>

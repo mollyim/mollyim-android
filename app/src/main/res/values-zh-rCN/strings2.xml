@@ -116,4 +116,14 @@
     <string name="LinkDeviceFragment__use_molly_on_another_devices">在另一台设备上使用 Molly。你的消息将同步到你链接的设备。</string>
     <string name="LinkDeviceFragment__messaging_is_private_on_all_linked_devices">收发信息在所有链接的设备上都是私密的。</string>
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly 支持链接到其他运行 Molly 的安卓设备，以及运行 Signal 的桌面设备和 iPad。</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">在“设置 &gt; 通知”中切换到替代推送服务或者修复 Play Services 的问题。</string>
+    <string name="NotificationsSettingsFragment__delivery_service">通知传递服务</string>
+    <string name="NotificationsSettingsFragment__push_notifications">推送通知</string>
+    <string name="DozeReminder_disable_battery_restrictions">停用电池限制</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">允许 Molly 及时传递通知，即便在设备处于待机状态时。</string>
+    <string name="IncomingMessageObserver_websocket_service">WebSocket 服务</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">无法注册 Play Services</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">选择首选的推送通知服务。如果不可用，应用将自动使用 WebSocket 确保通知被传递。</string>
+    <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">注册推送通知时出错。%s</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">请检查是否已安装并启用 Google Play 服务，或者切换到替代推送服务。</string>
 </resources>

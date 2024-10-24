@@ -118,4 +118,12 @@
     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">Una vez vinculados, los mensajes nuevos se sincronizan entre los dispositivos, pero el historial de mensajes anteriores no se transfiere.</string>
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly permite enlazar con otros dispositivos Android que ejecuten Molly, así como con ordenadores de sobremesa e iPads que ejecuten Signal.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Para dispositivos Android: Visita %s para instalar Molly.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">Servicio de entrega</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Permite que Molly envíe notificaciones de forma oportuna, incluso cuando el dispositivo está en espera.</string>
+    <string name="DozeReminder_disable_battery_restrictions">Deshabilitar las restricciones de la batería</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Cambiar a un servicio de envío por push alternativo en Ajustes &gt; Notificaciones o solucionar el problema con Play Services.</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">No se puede registrar con Google Play Services</string>
+    <string name="NotificationsSettingsFragment__push_notifications">Notificaciones push</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Seleccione su servicio preferido para las notificaciones push. Si no está disponible, la aplicación utilizará automáticamente WebSocket para garantizar que se entreguen las notificaciones.</string>
+    <string name="IncomingMessageObserver_websocket_service">Servicio de WebSocket</string>
 </resources>
