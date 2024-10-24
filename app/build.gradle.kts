@@ -22,7 +22,7 @@ val canonicalVersionCode = 1476
 val canonicalVersionName = "7.21.5"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
-val mollyRevision = 1
+val mollyRevision = 2
 
 val sourceVersionNameWithRevision = "${canonicalVersionName}-${mollyRevision}"
 
