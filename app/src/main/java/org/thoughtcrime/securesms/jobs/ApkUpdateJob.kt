@@ -186,7 +186,6 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
       setTitle("Downloading ${R.string.app_name} update")
       setDescription("Downloading ${R.string.app_name} $versionName")
       setDestinationInExternalFilesDir(context, null, "molly-update.apk")
-      setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN)
     }
 
     val downloadId = context.getDownloadManager().enqueue(downloadRequest)
