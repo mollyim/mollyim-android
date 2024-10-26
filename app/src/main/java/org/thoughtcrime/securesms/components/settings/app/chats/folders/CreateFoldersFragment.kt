@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.components.settings.app.chats.folders
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,8 +20,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -32,6 +35,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -41,6 +45,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -54,8 +59,11 @@ import org.signal.core.ui.SignalPreview
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.AvatarImage
 import org.thoughtcrime.securesms.compose.ComposeFragment
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
+
+private const val MAX_CHAT_COUNT = 5
 
 /**
  * Fragment that allows user to create, edit, or delete an individual folder
@@ -71,7 +79,7 @@ class CreateFoldersFragment : ComposeFragment() {
       viewLifecycleOwner,
       object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-          if (viewModel.hasChanges()) {
+          if (viewModel.hasChanges() && !viewModel.hasEmptyName()) {
             viewModel.showConfirmationDialog(true)
           } else {
             findNavController().popBackStack()
@@ -91,13 +99,21 @@ class CreateFoldersFragment : ComposeFragment() {
     LaunchedEffect(Unit) {
       if (state.originalFolder == state.currentFolder) {
         viewModel.setCurrentFolderId(arguments?.getLong(KEY_FOLDER_ID) ?: -1)
+        viewModel.addThreadToIncludedChat(arguments?.getLong(KEY_THREAD_ID))
+      }
+    }
+
+    LaunchedEffect(Unit) {
+      if (!SignalStore.uiHints.hasSeenChatFoldersEducationSheet) {
+        SignalStore.uiHints.hasSeenChatFoldersEducationSheet = true
+        navController.safeNavigate(R.id.action_createFoldersFragment_to_chatFoldersEducationSheet)
       }
     }
 
     Scaffolds.Settings(
       title = if (isNewFolder) stringResource(id = R.string.CreateFoldersFragment__create_a_folder) else stringResource(id = R.string.CreateFoldersFragment__edit_folder),
       onNavigationClick = {
-        if (viewModel.hasChanges()) {
+        if (viewModel.hasChanges() && !viewModel.hasEmptyName()) {
           viewModel.showConfirmationDialog(true)
         } else {
           navController.popBackStack()
@@ -125,7 +141,7 @@ class CreateFoldersFragment : ComposeFragment() {
         onToggleShowMuted = { viewModel.toggleShowMutedChats(it) },
         onDeleteClicked = { viewModel.showDeleteDialog(true) },
         onDeleteConfirmed = {
-          viewModel.deleteFolder()
+          viewModel.deleteFolder(requireContext())
           navController.popBackStack()
         },
         onDeleteDismissed = {
@@ -146,6 +162,9 @@ class CreateFoldersFragment : ComposeFragment() {
           if (shouldExit) {
             navController.popBackStack()
           }
+        },
+        onShowToast = {
+          Toast.makeText(requireContext(), R.string.CreateFoldersFragment__please_enter_name, Toast.LENGTH_LONG).show()
         }
       )
     }
@@ -153,6 +172,7 @@ class CreateFoldersFragment : ComposeFragment() {
 
   companion object {
     private val KEY_FOLDER_ID = "folder_id"
+    private val KEY_THREAD_ID = "thread_id"
   }
 }
 
@@ -172,8 +192,12 @@ fun CreateFolderScreen(
   onDeleteConfirmed: () -> Unit = {},
   onDeleteDismissed: () -> Unit = {},
   onCreateConfirmed: (Boolean) -> Unit = {},
-  onCreateDismissed: (Boolean) -> Unit = {}
+  onCreateDismissed: (Boolean) -> Unit = {},
+  onShowToast: () -> Unit = {}
 ) {
+  var expandIncluded by remember { mutableStateOf(false) }
+  var expandExcluded by remember { mutableStateOf(false) }
+
   if (state.showDeleteDialog) {
     Dialogs.SimpleAlertDialog(
       title = "",
@@ -183,24 +207,14 @@ fun CreateFolderScreen(
       dismiss = stringResource(id = android.R.string.cancel),
       onDismiss = onDeleteDismissed
     )
-  } else if (state.showConfirmationDialog && isNewFolder) {
-    Dialogs.SimpleAlertDialog(
-      title = stringResource(id = R.string.CreateFoldersFragment__create_folder_title),
-      body = stringResource(id = R.string.CreateFoldersFragment__do_you_want_to_create, state.currentFolder.name),
-      confirm = stringResource(id = R.string.CreateFoldersFragment__create_folder),
-      onConfirm = { onCreateConfirmed(false) },
-      dismiss = stringResource(id = R.string.CreateFoldersFragment__discard),
-      onDismiss = { onCreateDismissed(true) },
-      onDismissRequest = { onCreateDismissed(false) }
-    )
   } else if (state.showConfirmationDialog) {
     Dialogs.SimpleAlertDialog(
-      title = stringResource(id = R.string.CreateFoldersFragment__save_changes_title),
-      body = stringResource(id = R.string.CreateFoldersFragment__do_you_want_to_save),
-      confirm = stringResource(id = R.string.CreateFoldersFragment__save_changes),
-      onConfirm = { onCreateConfirmed(false) },
-      dismiss = stringResource(id = R.string.CreateFoldersFragment__discard),
-      onDismiss = { onCreateDismissed(true) },
+      title = stringResource(id = R.string.CreateFoldersFragment__discard_changes_title),
+      body = stringResource(id = R.string.CreateFoldersFragment__you_will_lose_changes),
+      confirm = stringResource(id = R.string.CreateFoldersFragment__discard),
+      onConfirm = { onCreateDismissed(true) },
+      dismiss = stringResource(id = android.R.string.cancel),
+      onDismiss = { onCreateDismissed(false) },
       onDismissRequest = { onCreateDismissed(false) }
     )
   }
@@ -212,6 +226,7 @@ fun CreateFolderScreen(
           value = state.currentFolder.name,
           label = { Text(text = stringResource(id = R.string.CreateFoldersFragment__folder_name)) },
           onValueChange = onNameChange,
+          keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
           singleLine = true,
           modifier = modifier
             .fillMaxWidth()
@@ -229,16 +244,14 @@ fun CreateFolderScreen(
         FolderRow(
           icon = R.drawable.symbol_plus_compact_16,
           title = stringResource(R.string.CreateFoldersFragment__add_chats),
-          onClick = onAddChat,
-          modifier = Modifier.padding(start = 12.dp)
+          onClick = onAddChat
         )
 
         if (state.currentFolder.showIndividualChats) {
           FolderRow(
             icon = R.drawable.symbol_person_light_24,
             title = stringResource(R.string.ChatFoldersFragment__one_on_one_chats),
-            onClick = onAddChat,
-            modifier = Modifier.padding(start = 12.dp)
+            onClick = onAddChat
           )
         }
 
@@ -246,17 +259,32 @@ fun CreateFolderScreen(
           FolderRow(
             icon = R.drawable.symbol_group_light_20,
             title = stringResource(R.string.ChatFoldersFragment__groups),
-            onClick = onAddChat,
-            modifier = Modifier.padding(start = 12.dp)
+            onClick = onAddChat
           )
         }
       }
 
-      items(state.currentFolder.includedRecipients.toList()) { recipient ->
-        ChatRow(
-          recipient = recipient,
-          onClick = onAddChat
-        )
+      if (!expandIncluded && state.currentFolder.includedRecipients.size > MAX_CHAT_COUNT) {
+        items(state.currentFolder.includedRecipients.toList().subList(0, MAX_CHAT_COUNT)) { recipient ->
+          ChatRow(
+            recipient = recipient,
+            onClick = onAddChat
+          )
+        }
+        item {
+          FolderRow(
+            icon = R.drawable.symbol_chevron_down_24,
+            title = stringResource(R.string.CreateFoldersFragment__see_all),
+            onClick = { expandIncluded = true }
+          )
+        }
+      } else {
+        items(state.currentFolder.includedRecipients.toList()) { recipient ->
+          ChatRow(
+            recipient = recipient,
+            onClick = onAddChat
+          )
+        }
       }
 
       item {
@@ -277,16 +305,31 @@ fun CreateFolderScreen(
         FolderRow(
           icon = R.drawable.symbol_plus_compact_16,
           title = stringResource(R.string.CreateFoldersFragment__exclude_chats),
-          onClick = onRemoveChat,
-          modifier = Modifier.padding(start = 12.dp)
+          onClick = onRemoveChat
         )
       }
 
-      items(state.currentFolder.excludedRecipients.toList()) { recipient ->
-        ChatRow(
-          recipient = recipient,
-          onClick = onRemoveChat
-        )
+      if (!expandExcluded && state.currentFolder.excludedRecipients.size > MAX_CHAT_COUNT) {
+        items(state.currentFolder.excludedRecipients.toList().subList(0, MAX_CHAT_COUNT)) { recipient ->
+          ChatRow(
+            recipient = recipient,
+            onClick = onAddChat
+          )
+        }
+        item {
+          FolderRow(
+            icon = R.drawable.symbol_chevron_down_24,
+            title = stringResource(R.string.CreateFoldersFragment__see_all),
+            onClick = { expandExcluded = true }
+          )
+        }
+      } else {
+        items(state.currentFolder.excludedRecipients.toList()) { recipient ->
+          ChatRow(
+            recipient = recipient,
+            onClick = onRemoveChat
+          )
+        }
       }
 
       item {
@@ -334,8 +377,27 @@ fun CreateFolderScreen(
       }
     } else if (!isNewFolder) {
       Buttons.MediumTonal(
+        colors = ButtonDefaults.filledTonalButtonColors(
+          contentColor = if (state.currentFolder.name.isEmpty()) {
+            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+          } else {
+            MaterialTheme.colorScheme.onSurface
+          },
+          containerColor = if (state.currentFolder.name.isEmpty()) {
+            MaterialTheme.colorScheme.surfaceVariant
+          } else {
+            MaterialTheme.colorScheme.primaryContainer
+          },
+          disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
         enabled = hasChanges,
-        onClick = { onCreateConfirmed(true) },
+        onClick = {
+          if (state.currentFolder.name.isEmpty()) {
+            onShowToast()
+          } else {
+            onCreateConfirmed(true)
+          }
+        },
         modifier = modifier
           .align(Alignment.BottomEnd)
           .padding(end = 16.dp, bottom = 16.dp)
@@ -451,10 +513,11 @@ fun ChatRow(
         recipient = recipient,
         modifier = Modifier
           .padding(start = 24.dp, end = 16.dp)
-          .size(40.dp)
+          .size(40.dp),
+        useProfile = false
       )
     }
 
-    Text(text = recipient.getShortDisplayName(LocalContext.current))
+    Text(text = if (recipient.isSelf) stringResource(id = R.string.note_to_self) else recipient.getShortDisplayName(LocalContext.current))
   }
 }
