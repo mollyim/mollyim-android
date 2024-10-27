@@ -121,4 +121,14 @@
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">يدعم تطبيق مولي الارتباط بأجهزة أندرويد الأخرى التي تشغّل مولي، بالإضافة إلى أجهزة سطح المكتب وأجهزة iPad التي تشغّل سيجنال.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">بالنسبة للأجهزة التي تعمل بنظام أندوريد: قم بزيارة %s لتثبيت مولي.</string>
     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">بمجرد الربط، تتم مزامنة الرسائل الجديدة عبر الأجهزة، ولكن لن يتم نقل سجل الرسائل السابق.</string>
+    <string name="DozeReminder_disable_battery_restrictions">عطّل قيود البطارية</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">قم بالتبديل إلى خدمة push بديلة في الإعدادات &gt; الإشعارات أو قم بإصلاح المشكلة باستخدام خدمات Play.</string>
+    <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">حدث خطأ أثناء التسجيل للحصول على إشعارات push. %s</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">يُرجى التحقق من تثبيت خدمات Google Play وتمكينها، أو التبديل إلى خدمة push بديلة.</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">اسمح لتطبيق Molly بإرسال الإشعارات في الوقت المناسب، حتى عندما يكون جهازك في وضع الاستعداد.</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">غير قادر على التسجيل في خدمات Play</string>
+    <string name="NotificationsSettingsFragment__push_notifications">إشعارات push</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">حدد الخدمة المفضلة لديك لتلقي إشعارات push. إذا لم تكن الخدمة متاحة، فسيستخدم التطبيق تلقائيًا WebSocket لضمان تسليم الإشعارات.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">خدمة التوصيل</string>
+    <string name="IncomingMessageObserver_websocket_service">خدمة WebSocket</string>
 </resources>

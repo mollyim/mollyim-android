@@ -9,12 +9,12 @@
     <string name="WipeMemoryService_secure_wipe_in_progress">보안 초기화 진행중</string>
     <string name="preferences__passphrase_changed">변경된 암호</string>
     <string name="preferences__device_lock_timeout">기기 잠금 시간 초과</string>
-    <string name="preferences__automatic_lockdown">자동 폐쇄</string>
+    <string name="preferences__automatic_lockdown">자동 잠금</string>
     <string name="preferences__protect_molly_database_with_a_passphrase">암호로 Molly의 데이터베이스를 보호하세요</string>
     <string name="preferences__passphrase_lock">데이터베이스 암호화</string>
     <string name="arrays__on_inactivity_timeout">일정 시간 동안 기기 잠금을 해제하지 않은 경우</string>
     <string name="BlockUnblockDialog_block_and_delete">차단하고 삭제하기</string>
-    <string name="prompt_passphrase_activity__molly_is_locked">Molly이 잠김</string>
+    <string name="prompt_passphrase_activity__molly_is_locked">Molly가 잠김</string>
     <string name="preferences__include_beta_updates">베타 업데이트 포함하기</string>
     <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">베타 버전은 테스트용이며 버그가 있을 수 있습니다</string>
     <string name="preferences_network__check_connection">연결 확인하기</string>
@@ -115,4 +115,14 @@
     <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">PIN 설정은 연결된 기기에서 변경할 수 없습니다</string>
     <string name="DeviceListItem_device_d">기기 #%d</string>
     <string name="AppUpdatesSettingsFragment__last_checked_s">마지막 확인: %s</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">기기가 대기 상태일 때에도 Molly가 적시에 알림을 전달할 수 있도록 허용합니다.</string>
+    <string name="DozeReminder_disable_battery_restrictions">배터리 제한 해제</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Play 서비스에 등록할 수 없음</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">설정 &gt; 알림에서 대체 푸시 서비스로 전환하거나 Play 서비스의 문제를 해결하세요.</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">선호하는 푸시 알림 서비스를 고르세요. 이용 불가능하다면, 알림 전송을 보장하기 위해 자동으로 웹소켓을 사용합니다.</string>
+    <string name="NotificationsSettingsFragment__push_notifications">푸시 알림</string>
+    <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">푸시 알림을 등록하는데 오류가 발생했습니다. %s</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">구글 Play 서비스가 활성화 되었는지 확인하거나, 대체 푸시 서비스로 전환해주세요.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">전달 서비스</string>
+    <string name="IncomingMessageObserver_websocket_service">웹소켓 서비스</string>
 </resources>

@@ -118,4 +118,12 @@
     <string name="AppUpdatesSettingsFragment__last_checked_s">Τελευταίος έλεγχος: %s</string>
     <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Επέτρεψε στο Molly να παρέχει έγκαιρες ειδοποιήσεις, ακόμη και όταν η συσκευή σου είναι σε αναμονή.</string>
     <string name="DozeReminder_disable_battery_restrictions">Απενεργοποίηση περιορισμών μπαταρίας</string>
+    <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">Προέκυψε σφάλμα κατά την εγγραφή για ειδοποιήσεις push. %s</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Παρακαλούμε έλεγξε εάν οι Υπηρεσίες Google Play είναι εγκατεστημένες και ενεργοποιημένες ή μεταβάσου σε μια εναλλακτική υπηρεσία push.</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Αδυναμία εγγραφής με Υπηρεσίες Play</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Μετάβαση σε μια εναλλακτική υπηρεσία push στις ρυθμίσεις &gt; Ειδοποιήσεις ή διόρθωση του θέματος με τις Υπηρεσίες Play.</string>
+    <string name="NotificationsSettingsFragment__push_notifications">Ειδοποιήσεις push</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Επέλεξε την υπηρεσία που προτιμάς για ειδοποιήσεις push. Εάν δεν είναι διαθέσιμη, η εφαρμογή θα χρησιμοποιήσει αυτόματα το WebSocket για να διασφαλίσει την παράδοση των ειδοποιήσεων.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">Υπηρεσία παράδοσης</string>
+    <string name="IncomingMessageObserver_websocket_service">Υπηρεσία WebSocket</string>
 </resources>
