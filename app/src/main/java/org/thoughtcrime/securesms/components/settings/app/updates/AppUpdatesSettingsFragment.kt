@@ -6,6 +6,9 @@
 package org.thoughtcrime.securesms.components.settings.app.updates
 
 import androidx.fragment.app.viewModels
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -14,7 +17,8 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.app.help.HelpSettingsState
 import org.thoughtcrime.securesms.components.settings.app.help.HelpSettingsViewModel
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
+import org.thoughtcrime.securesms.events.ApkUpdateEvent
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import java.util.Locale
@@ -30,6 +34,13 @@ class AppUpdatesSettingsFragment : DSLSettingsFragment(R.string.preferences_app_
     viewModel.state.observe(viewLifecycleOwner) { state ->
       adapter.submitList(getConfiguration(state).toMappingModelList())
     }
+
+    EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
+  }
+
+  @Subscribe(threadMode = ThreadMode.MAIN)
+  fun onApkUpdateEvent(event: ApkUpdateEvent) {
+    viewModel.refreshState()
   }
 
   private fun getConfiguration(state: HelpSettingsState): DSLConfiguration {
@@ -60,7 +71,9 @@ class AppUpdatesSettingsFragment : DSLSettingsFragment(R.string.preferences_app_
 
       clickPref(
         title = DSLSettingsText.from(R.string.EnableAppUpdatesMegaphone_check_for_updates),
-        summary = DSLSettingsText.from(getString(R.string.AppUpdatesSettingsFragment__last_checked_s, lastSuccessfulUpdateString)),
+        summary = DSLSettingsText.from(
+          getString(R.string.AppUpdatesSettingsFragment__last_checked_s, formatCheckTime(state.lastUpdateCheckTime))
+        ),
         isEnabled = state.updateApkEnabled,
         onClick = {
           viewModel.checkForUpdates()
@@ -69,14 +82,11 @@ class AppUpdatesSettingsFragment : DSLSettingsFragment(R.string.preferences_app_
     }
   }
 
-  private val lastSuccessfulUpdateString: String
-    get() {
-      val lastUpdateTime = SignalStore.apkUpdate.lastSuccessfulCheck
-
-      return if (lastUpdateTime > 0) {
-        DateUtils.getExtendedRelativeTimeSpanString(requireContext(), Locale.getDefault(), lastUpdateTime)
-      } else {
-        getString(R.string.preferences__never)
-      }
+  private fun formatCheckTime(timestamp: Long): String {
+    return if (timestamp > 0) {
+      DateUtils.getExtendedRelativeTimeSpanString(requireContext(), Locale.getDefault(), timestamp)
+    } else {
+      getString(R.string.preferences__never)
     }
+  }
 }
