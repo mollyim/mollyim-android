@@ -103,15 +103,6 @@ class AppearanceSettingsFragment : DSLSettingsFragment(R.string.preferences__app
           ChooseNavigationBarStyleFragment().show(childFragmentManager, null)
         }
       )
-
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences_appearance__show_calls),
-        summary = DSLSettingsText.from(R.string.preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar),
-        isChecked = state.navbarShowCalls,
-        onClick = {
-          viewModel.setNavbarShowCalls(!state.navbarShowCalls)
-        }
-      )
     }
   }
 }
