@@ -29,7 +29,7 @@ dependencies {
 tasks.jar {
   manifest {
     attributes(
-      "Lint-Registry-v2" to "org.signal.lint.Registry"
+      "Lint-Registry-v2" to "im.molly.lint.checks.Registry"
     )
   }
 }
