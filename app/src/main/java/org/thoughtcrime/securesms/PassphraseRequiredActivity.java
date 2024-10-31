@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
@@ -18,7 +16,6 @@ import org.signal.core.util.tracing.Tracer;
 import org.signal.devicetransfer.TransferStatus;
 import org.thoughtcrime.securesms.components.settings.app.changenumber.ChangeNumberLockActivity;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
-import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceTransferActivity;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity;
@@ -26,7 +23,6 @@ import org.thoughtcrime.securesms.migrations.ApplicationMigrationActivity;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.pin.PinRestoreActivity;
 import org.thoughtcrime.securesms.profiles.edit.CreateProfileActivity;
-import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.ui.RegistrationActivity;
 import org.thoughtcrime.securesms.restore.RestoreActivity;
@@ -35,12 +31,9 @@ import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
-import java.util.Locale;
-
 public abstract class PassphraseRequiredActivity extends PassphraseActivity implements MasterSecretListener {
   private static final String TAG = Log.tag(PassphraseRequiredActivity.class);
 
-  public static final String LOCALE_EXTRA      = "locale_extra";
   public static final String NEXT_INTENT_EXTRA = "next_intent";
 
   private static final int STATE_NORMAL              = 0;
@@ -56,7 +49,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   private static final int STATE_CHANGE_NUMBER_LOCK  = 10;
   private static final int STATE_TRANSFER_OR_RESTORE = 11;
 
-  private BroadcastReceiver          clearKeyReceiver;
+  private BroadcastReceiver clearKeyReceiver;
 
   @Override
   protected final void onCreate(Bundle savedInstanceState) {
@@ -92,38 +85,6 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   public void onMasterSecretCleared() {
     Log.d(TAG, "[" + Log.tag(getClass()) + "] onMasterSecretCleared()");
     finishAndRemoveTask();
-  }
-
-  protected <T extends Fragment> T initFragment(@IdRes int target,
-                                                @NonNull T fragment)
-  {
-    return initFragment(target, fragment, null);
-  }
-
-  protected <T extends Fragment> T initFragment(@IdRes int target,
-                                                @NonNull T fragment,
-                                                @Nullable Locale locale)
-  {
-    return initFragment(target, fragment, locale, null);
-  }
-
-  protected <T extends Fragment> T initFragment(@IdRes int target,
-                                                @NonNull T fragment,
-                                                @Nullable Locale locale,
-                                                @Nullable Bundle extras)
-  {
-    Bundle args = new Bundle();
-    args.putSerializable(LOCALE_EXTRA, locale);
-
-    if (extras != null) {
-      args.putAll(extras);
-    }
-
-    fragment.setArguments(args);
-    getSupportFragmentManager().beginTransaction()
-                               .replace(target, fragment)
-                               .commitAllowingStateLoss();
-    return fragment;
   }
 
   private void routeApplicationState(boolean locked) {
