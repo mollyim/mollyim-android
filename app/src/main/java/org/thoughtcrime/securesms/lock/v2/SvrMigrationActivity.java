@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.lock.v2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.DynamicRegistrationTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 
+@SuppressLint("BaseActivitySubclass")
 public class SvrMigrationActivity extends BaseActivity {
 
   public static final int REQUEST_NEW_PIN = CreateSvrPinActivity.REQUEST_NEW_PIN;

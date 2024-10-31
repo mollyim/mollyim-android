@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.registration.ui.restore
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -69,6 +70,7 @@ import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Util
 import java.util.Locale
 
+@SuppressLint("BaseActivitySubclass")
 class RemoteRestoreActivity : BaseActivity() {
   companion object {
     fun getIntent(context: Context): Intent {

@@ -26,7 +26,7 @@ import org.signal.imageeditor.core.ImageEditorView;
 import org.signal.imageeditor.core.model.EditorElement;
 import org.signal.imageeditor.core.model.EditorModel;
 import org.signal.imageeditor.core.renderers.FaceBlurRenderer;
-import org.thoughtcrime.securesms.BaseActivity;
+import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.ProgressCard;
 import org.thoughtcrime.securesms.conversation.colors.ColorizerView;
@@ -43,7 +43,7 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Objects;
 
-public final class WallpaperCropActivity extends BaseActivity {
+public final class WallpaperCropActivity extends PassphraseRequiredActivity {
 
   private static final String TAG = Log.tag(WallpaperCropActivity.class);
 
@@ -73,8 +73,8 @@ public final class WallpaperCropActivity extends BaseActivity {
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+  protected void onCreate(Bundle savedInstanceState, boolean ready) {
+    super.onCreate(savedInstanceState, ready);
     dynamicTheme.onCreate(this);
     setContentView(R.layout.chat_wallpaper_crop_activity);
 

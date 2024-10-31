@@ -90,6 +90,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   private void routeApplicationState(boolean locked) {
     final int applicationState = getApplicationState(locked);
     Intent    intent           = getIntentForState(applicationState);
+    // MOLLY: If the current activity matches the intent target, skip the routing
     if (intent == null || (intent.getComponent() != null && getLocalClassName().equals(intent.getComponent().getClassName()))) {
       return;
     }
