@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.components.settings.app.updates
 
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -45,40 +46,52 @@ class AppUpdatesSettingsFragment : DSLSettingsFragment(R.string.preferences_app_
 
   private fun getConfiguration(state: HelpSettingsState): DSLConfiguration {
     return configure {
+      if (!BuildConfig.MANAGES_MOLLY_UPDATES) {
+        textPref(
+          title = DSLSettingsText.from(
+            R.string.HelpSettingsFragment_for_updates_please_check_your_app_store,
+            DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
+            DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant))
+          )
+        )
+      }
+
       textPref(
         title = DSLSettingsText.from(R.string.HelpSettingsFragment__version),
         summary = DSLSettingsText.from(BuildConfig.VERSION_NAME)
       )
 
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences__autoupdate_molly),
-        summary = DSLSettingsText.from(R.string.preferences__periodically_check_for_new_releases_and_ask_to_install_them),
-        isChecked = state.updateApkEnabled,
-        onClick = {
-          viewModel.setUpdateApkEnabled(!state.updateApkEnabled)
-        }
-      )
+      if (BuildConfig.MANAGES_MOLLY_UPDATES) {
+        switchPref(
+          title = DSLSettingsText.from(R.string.preferences__autoupdate_molly),
+          summary = DSLSettingsText.from(R.string.preferences__periodically_check_for_new_releases_and_ask_to_install_them),
+          isChecked = state.updateApkEnabled,
+          onClick = {
+            viewModel.setUpdateApkEnabled(!state.updateApkEnabled)
+          }
+        )
 
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences__include_beta_updates),
-        summary = DSLSettingsText.from(R.string.preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs),
-        isChecked = state.includeBetaEnabled,
-        isEnabled = state.updateApkEnabled,
-        onClick = {
-          viewModel.setIncludeBetaEnabled(!state.includeBetaEnabled)
-        }
-      )
+        switchPref(
+          title = DSLSettingsText.from(R.string.preferences__include_beta_updates),
+          summary = DSLSettingsText.from(R.string.preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs),
+          isChecked = state.includeBetaEnabled,
+          isEnabled = state.updateApkEnabled,
+          onClick = {
+            viewModel.setIncludeBetaEnabled(!state.includeBetaEnabled)
+          }
+        )
 
-      clickPref(
-        title = DSLSettingsText.from(R.string.EnableAppUpdatesMegaphone_check_for_updates),
-        summary = DSLSettingsText.from(
-          getString(R.string.AppUpdatesSettingsFragment__last_checked_s, formatCheckTime(state.lastUpdateCheckTime))
-        ),
-        isEnabled = state.updateApkEnabled,
-        onClick = {
-          viewModel.checkForUpdates()
-        }
-      )
+        clickPref(
+          title = DSLSettingsText.from(R.string.EnableAppUpdatesMegaphone_check_for_updates),
+          summary = DSLSettingsText.from(
+            getString(R.string.AppUpdatesSettingsFragment__last_checked_s, formatCheckTime(state.lastUpdateCheckTime))
+          ),
+          isEnabled = state.updateApkEnabled,
+          onClick = {
+            viewModel.checkForUpdates()
+          }
+        )
+      }
     }
   }
 
