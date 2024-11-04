@@ -2,14 +2,11 @@ package org.thoughtcrime.securesms.components.settings.app.appearance
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import io.reactivex.rxjava3.core.Flowable
-import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob
 import org.thoughtcrime.securesms.keyvalue.SettingsValues.Theme
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.SplashScreenUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.rx.RxStore
 
 class AppearanceSettingsViewModel : ViewModel() {
@@ -42,17 +39,11 @@ class AppearanceSettingsViewModel : ViewModel() {
     SignalStore.settings.messageFontSize = size
   }
 
-  fun setNavbarShowCalls(value: Boolean) {
-    store.update { it.copy(navbarShowCalls = value) }
-    TextSecurePreferences.setNavbarShowCalls(AppDependencies.application, value)
-  }
-
   private fun getState(): AppearanceSettingsState {
     return AppearanceSettingsState(
       SignalStore.settings.theme,
       SignalStore.settings.messageFontSize,
       SignalStore.settings.language,
-      navbarShowCalls = TextSecurePreferences.getNavbarShowCalls(AppDependencies.application),
       SignalStore.settings.useCompactNavigationBar
     )
   }

@@ -796,6 +796,17 @@
         <item quantity="many">%1$d roghnaithe</item>
         <item quantity="other">%1$d roghnaithe</item>
     </plurals>
+    <!-- Context menu option to add a chat to a folder -->
+    <string name="ConversationListFragment_add_to_folder">Cuir le fillteán</string>
+    <!-- Context menu option to remove a chat from a folder -->
+    <string name="ConversationListFragment_remove_from_folder">Bain den fhillteán</string>
+
+    <!-- Bottom sheet title when choosing a folder to add a chat to -->
+    <string name="AddToFolderBottomSheet_choose_a_folder">Roghnaigh fillteán</string>
+    <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
+    <string name="AddToFolderBottomSheet_added_to_s">Curtha le \"%1$s\"</string>
+    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
+    <string name="AddToFolderBottomSheet_this_chat_is_already">This chat is already in the folder \"%1$s\"</string>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Próifíl fógraí</string>
@@ -5410,8 +5421,28 @@
     <string name="ChatsSettingsFragment__send_with_enter">Seol leis an eochair iontrála</string>
     <!-- Heading within chats settings for chat folders -->
     <string name="ChatsSettingsFragment__chat_folders">Fillteáin comhráite</string>
-    <!-- Option within settings to add a new chat folder -->
+    <!-- Option within settings to add a new chat folder if you have never created a folder before -->
     <string name="ChatsSettingsFragment__add_chat_folder">Cuir fillteán comhráite leis</string>
+    <!-- Option within settings to add or edit chat folders that is shown when you have already created folders -->
+    <string name="ChatsSettingsFragment__add_edit_chat_folder">Cuir le fillteáin nó cuir in eagar iad</string>
+    <!-- Text describing the number of folders you have -->
+    <plurals name="ChatsSettingsFragment__d_folder">
+        <item quantity="one">%1$d fhillteán</item>
+        <item quantity="two">%1$d fhillteán</item>
+        <item quantity="few">%1$d fhillteán</item>
+        <item quantity="many">%1$d bhfillteán</item>
+        <item quantity="other">%1$d fillteán</item>
+    </plurals>
+
+    <!-- ChatFoldersEducationSheet -->
+    <!-- Text in a bottom sheet describing chat folders and what they can be created for -->
+    <string name="ChatFoldersEducationSheet__create_folders_for_family">Cruthaigh fillteáin don teaghlach, do chairde, don obair agus go leor eile</string>
+    <!-- Text in a bottom sheet explaining how chat folders can be configured to only show unread chats  -->
+    <string name="ChatFoldersEducationSheet__choose_to_show_unread">Roghnaigh comhráite neamhléite amháin le taispeáint </string>
+    <!-- Text in a bottom sheet stating that suggested folders can be easily created -->
+    <string name="ChatFoldersEducationSheet__easily_add_suggested">Cuir fillteáin mholta leis go héasca</string>
+    <!-- Button text to dismiss bottom sheet -->
+    <string name="ChatFoldersEducationSheet__continue">Ar aghaidh</string>
 
     <!-- ChatFoldersFragment -->
     <!-- Description of what chat folders are -->
@@ -5425,7 +5456,7 @@
     <!-- Header for section showing suggested chat folders for users to have -->
     <string name="ChatFoldersFragment__suggested_folders">Fillteáin mholta</string>
     <!-- Name of a chat folder that contains all chats that currently have unread messages -->
-    <string name="ChatFoldersFragment__unreads">Neamhléite</string>
+    <string name="ChatFoldersFragment__unread">Neamhléite</string>
     <!-- Description of the suggested unread chat folder -->
     <string name="ChatFoldersFragment__unread_messages">Teachtaireachtaí neamhléite ó gach comhrá</string>
     <!-- Name of a chat folder that contains all 1:1 (individual) chats -->
@@ -5442,14 +5473,10 @@
     <string name="ChatFoldersFragment__folder_added">Fillteán %1$s curtha leis.</string>
     <!-- Option in context menu to edit the folder -->
     <string name="ChatFoldersFragment__edit_folder">Cuir fillteán in eagar</string>
-    <!-- Option in context menu to delete the folder -->
-    <string name="ChatFoldersFragment__delete_folder">Scrios an fillteán</string>
-    <!-- Option in context menu to add a new folder -->
-    <string name="ChatFoldersFragment__add_new_folder">Cuir fillteán leis</string>
     <!-- Option in context menu to mute all chats in the folder -->
     <string name="ChatFoldersFragment__mute_all">Balbhaigh gach comhrá</string>
-    <!-- Option in context menu to reorder the positions of the folder -->
-    <string name="ChatFoldersFragment__reorder_folder">Cuir fillteáin in ord nua</string>
+    <!-- Option in context menu to unmute all chats in the folder -->
+    <string name="ChatFoldersFragment__unmute_all">Díbhalbhaigh gach rud</string>
     <!-- Option in context menu to mark all of the chats in a folder as read -->
     <string name="ChatFoldersFragment__mark_all_read">Marcáil iad uile léite</string>
     <!-- Text describing the number of chat types in a folder -->
@@ -5476,6 +5503,8 @@
         <item quantity="many">%1$d gcomhrá as an áireamh</item>
         <item quantity="other">%1$d comhrá as an áireamh</item>
     </plurals>
+    <!-- Badge shown in chat folder tab when unread count is greater than 99 -->
+    <string name="ChatFolderAdapter__99p">99+</string>
 
     <!-- CreateFoldersFragment -->
     <!-- Title of the screen when creating a folder, displayed in the toolbar -->
@@ -5502,28 +5531,24 @@
     <string name="CreateFoldersFragment__include_muted_chats">Cuir comhráite balbhaithe san áireamh</string>
     <!-- Button text to create a folder -->
     <string name="CreateFoldersFragment__create">Cruthaigh</string>
-    <!-- Alert dialog title to create a chat folder -->
-    <string name="CreateFoldersFragment__create_folder_title">Cruthaigh fillteán?</string>
-    <!-- Alert dialog description when creating a chat folder where %s is the name of the folder -->
-    <string name="CreateFoldersFragment__do_you_want_to_create">An bhfuil fonn ort an fillteán comhráite \"%1$s\" a chruthú?</string>
-    <!-- Alert dialog confirmation button text to save the changes -->
-    <string name="CreateFoldersFragment__create_folder">Cruthaigh fillteán</string>
     <!-- Section title shown when editing an existing folder   -->
     <string name="CreateFoldersFragment__edit_folder">Cuir fillteán in eagar</string>
     <!-- Button text to save the changes to a folder after it has been edited -->
     <string name="CreateFoldersFragment__save">Sábháil</string>
-    <!-- Alert dialog title to save changes made to the current folder -->
-    <string name="CreateFoldersFragment__save_changes_title">Sábháil na hathruithe?</string>
-    <!-- Alert dialog description when saving a folder that has had changes made to it -->
-    <string name="CreateFoldersFragment__do_you_want_to_save">An bhfuil fonn ort na hathruithe a rinne tú ar an bhfillteán comhráite seo a shábháil?</string>
-    <!-- Alert dialog confirmation button text to save the changes -->
-    <string name="CreateFoldersFragment__save_changes">Sábháil na hathruithe</string>
-    <!-- Alert dialog button to dismiss the dialog and discard any changes -->
+    <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
+    <string name="CreateFoldersFragment__discard_changes_title">Discard changes?</string>
+    <!-- Alert dialog description explaining that any changes made will be discarded -->
+    <string name="CreateFoldersFragment__you_will_lose_changes">You\'ll lose the changes you\'ve made to this folder.</string>
+    <!-- Alert dialog confirmation text to discard the changes -->
     <string name="CreateFoldersFragment__discard">Cuileáil</string>
     <!-- Text that when pressed will delete the current folder -->
     <string name="CreateFoldersFragment__delete_folder">Scrios an fillteán</string>
     <!-- Alert dialog title to delete the current folder -->
     <string name="CreateFoldersFragment__delete_this_chat_folder">Scrios an fillteán comhráite seo?</string>
+    <!-- Option to see all of the chats if the chat list was too long and had been truncated -->
+    <string name="CreateFoldersFragment__see_all">Féach ar gach rud</string>
+    <!-- Toast shown when trying to make a folder with no name -->
+    <string name="CreateFoldersFragment__please_enter_name">Please enter a folder name</string>
 
     <!-- ChooseChatsFragment -->
     <!-- Section title representing chat types that can be added to the folder  -->
@@ -6144,6 +6169,10 @@
     <string name="InAppPaymentInProgressFragment__processing_donation">Tabhartas á phróiseáil…</string>
     <string name="InAppPaymentInProgressFragment__processing_payment">Íocaíocht á próiseáil…</string>
 
+    <!--InAppDonations -->
+    <!-- Label displayed in google play and on receipts for recurring subscriptions. Placeholder is level -->
+    <string name="InAppDonations__recurring_d">%1$d athfhillteach</string>
+
     <!-- InAppPaymentErrors -->
     <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
     <string name="InAppPaymentErrors__error_processing_payment">Earráid le próiseáil na híocaíochta</string>
@@ -6358,13 +6387,13 @@
     <!-- Descriptor text indicating what the user can do with this screen -->
     <string name="EditNotificationProfileSchedule__set_up_a_schedule_to_enable_this_notification_profile_automatically">Socraigh sceideal chun an phróifíl fógraí seo a chumasú go huathoibríoch.</string>
     <!-- Text shown next to toggle switch to enable/disable schedule -->
-    <string name="EditNotificationProfileSchedule__schedule">Sceideal</string>
+    <string name="EditNotificationProfileSchedule__schedule">Sceidealaigh</string>
     <!-- Label for showing the start time for the schedule -->
-    <string name="EditNotificationProfileSchedule__start">Tosaigh</string>
+    <string name="EditNotificationProfileSchedule__start">Tús</string>
     <!-- Label for showing the end time for the schedule -->
     <string name="EditNotificationProfileSchedule__end">Deireadh</string>
     <!-- First letter of Sunday -->
-    <string name="EditNotificationProfileSchedule__sunday_first_letter">Do</string>
+    <string name="EditNotificationProfileSchedule__sunday_first_letter">D</string>
     <!-- First letter of Monday -->
     <string name="EditNotificationProfileSchedule__monday_first_letter">L</string>
     <!-- First letter of Tuesday -->
@@ -6372,7 +6401,7 @@
     <!-- First letter of Wednesday -->
     <string name="EditNotificationProfileSchedule__wednesday_first_letter">C</string>
     <!-- First letter of Thursday -->
-    <string name="EditNotificationProfileSchedule__thursday_first_letter">Dé</string>
+    <string name="EditNotificationProfileSchedule__thursday_first_letter">D</string>
     <!-- First letter of Friday -->
     <string name="EditNotificationProfileSchedule__friday_first_letter">A</string>
     <!-- First letter of Saturday -->
@@ -8051,12 +8080,18 @@
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Cruthófar cúltaca thar oíche.</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">Síntiús neamhghníomhach</string>
+    <!-- Text displayed in card when free tier is inactive -->
+    <string name="RemoteBackupsSettingsFragment__you_turned_off_backups">Chas tú as cúltacaí</string>
     <!-- Title text in row detailing selected backup type -->
     <string name="RemoteBackupsSettingsFragment__backup_plan">Plean cúltaca</string>
     <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
     <string name="RemoteBackupsSettingsFragment__backups_disabled">Cúltacaí díchumasaithe</string>
     <!-- Format string for backup and cost. First placeholder is cost per month. -->
     <string name="RemoteBackupsSettingsFragment__s_per_month">%1$s/mí</string>
+    <!-- Displayed in card at top of screen while payment processing is pending -->
+    <string name="RemoteBackupsSettingsFragment__payment_pending">Íocaíocht ar feitheamh…</string>
+    <!-- Displayed in card while waiting for network -->
+    <string name="RemoteBackupsSettingsFragment__waiting_for_network">Ag feitheamh le líonra…</string>
     <!-- String for free backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_plan_is_free">Tá do phlean cúltaca saor in aisce</string>
     <!-- Displays the date the subscription will renew. Placeholder is the date. -->
@@ -8113,6 +8148,10 @@
     <string name="RemoteBackupsSettingsFragment__reenable_backups">Athchumasaigh cúltacaí</string>
     <!-- Notice displayed when backups have been disabled and deleted -->
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off">Tá cúltacaí casta as agus tá do shonraí scriosta ó sheirbhís stórála shlán Signal.</string>
+    <!-- Dialog title for dialog which alerts user their optimized media will be downloaded -->
+    <string name="RemoteBackupsSettingsFragment__downloading_your_backup">Do chúltaca á íoslódáil</string>
+    <!-- Dialog message for dialog which alerts user their optimized media will be downloaded -->
+    <string name="RemoteBackupsSettingsFragment__depending_on_the_size">Ag brath ar mhéid do chúltaca, d\'fhéadfadh sé seo go leor ama a thógáil. Is féidir leat do ghuthán a úsáid mar is gnáth le linn an chúltacaithe.</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -8201,6 +8240,8 @@
         <item quantity="many">Na %1$d lá dheireanacha de mheáin</item>
         <item quantity="other">Na %1$d lá dheireanacha de mheáin</item>
     </plurals>
+    <!-- Text designating that an option is your current plan -->
+    <string name="MessageBackupsTypeSelectionScreen__current_plan">Plean reatha</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->

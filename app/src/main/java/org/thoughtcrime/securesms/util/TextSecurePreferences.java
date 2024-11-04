@@ -107,8 +107,6 @@ public class TextSecurePreferences {
   private static final String BACKUP_INTERVAL             = "pref_backup_interval";
   private static final String BACKUP_MAX_FILES            = "pref_backup_max_files";
 
-  public  static final String NAVBAR_SHOW_CALLS = "pref_navbar_show_calls";
-
   public  static final String PASSPHRASE_LOCK               = "pref_passphrase_lock";
   public  static final String PASSPHRASE_LOCK_TIMEOUT       = "pref_passphrase_lock_timeout";
   public  static final String PASSPHRASE_LOCK_TRIGGER       = "pref_passphrase_lock_trigger";
@@ -222,7 +220,6 @@ public class TextSecurePreferences {
       BLOCK_UNKNOWN,
       BIOMETRIC_SCREEN_LOCK,
       PASSPHRASE_LOCK_NOTIFICATIONS,
-      NAVBAR_SHOW_CALLS,
   };
 
   private static final String[] stringSetPreferencesToBackupMolly = {PASSPHRASE_LOCK_TRIGGER};
@@ -512,12 +509,8 @@ public class TextSecurePreferences {
     return getIntegerPreference(context, BACKUP_MAX_FILES, 2);
   }
 
-  public static void setNavbarShowCalls(@NonNull Context context, boolean value) {
-    setBooleanPreference(context, NAVBAR_SHOW_CALLS, value);
-  }
-
   public static boolean getNavbarShowCalls(@NonNull Context context) {
-    return getBooleanPreference(context, NAVBAR_SHOW_CALLS, true);
+    return true;
   }
 
   public static void setAttachmentEncryptedSecret(@NonNull Context context, @NonNull String secret) {

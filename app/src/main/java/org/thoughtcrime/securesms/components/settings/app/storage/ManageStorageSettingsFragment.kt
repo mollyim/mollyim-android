@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.components.settings.app.storage
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -63,6 +64,7 @@ import org.signal.core.ui.Texts
 import org.signal.core.ui.theme.SignalTheme
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.billing.upgrade.UpgradeToEnableOptimizedStorageSheet
+import org.thoughtcrime.securesms.billing.upgrade.UpgradeToPaidTierBottomSheet
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.database.MediaTable
 import org.thoughtcrime.securesms.keyvalue.KeepMessagesDuration
@@ -81,6 +83,12 @@ import java.text.NumberFormat
 class ManageStorageSettingsFragment : ComposeFragment() {
 
   private val viewModel by viewModel<ManageStorageSettingsViewModel> { ManageStorageSettingsViewModel() }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    UpgradeToPaidTierBottomSheet.addResultListener(this) {
+      viewModel.setOptimizeStorage(true)
+    }
+  }
 
   @ExperimentalMaterial3Api
   @Composable
@@ -108,7 +116,9 @@ class ManageStorageSettingsFragment : ComposeFragment() {
             onSyncTrimThreadDeletes = { viewModel.setSyncTrimDeletes(it) },
             onDeleteChatHistory = { navController.navigate("confirm-delete-chat-history") },
             onToggleOnDeviceStorageOptimization = { enabled ->
-              if (state.onDeviceStorageOptimizationState == ManageStorageSettingsViewModel.OnDeviceStorageOptimizationState.REQUIRES_PAID_TIER) {
+              if (state.isPaidTierPending) {
+                navController.navigate("paid-tier-pending")
+              } else if (state.onDeviceStorageOptimizationState == ManageStorageSettingsViewModel.OnDeviceStorageOptimizationState.REQUIRES_PAID_TIER) {
                 UpgradeToEnableOptimizedStorageSheet().show(parentFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
               } else {
                 viewModel.setOptimizeStorage(enabled)
@@ -226,6 +236,19 @@ class ManageStorageSettingsFragment : ComposeFragment() {
                 viewModel.setChatLengthLimit(newLengthLimit)
               }
             },
+            onDismiss = { navController.popBackStack() }
+          )
+        }
+
+        dialog(
+          route = "paid-tier-pending"
+        ) {
+          // TODO [backups] Finalized copy
+          Dialogs.SimpleAlertDialog(
+            title = "Paid tier pending",
+            body = "TODO",
+            confirm = stringResource(android.R.string.ok),
+            onConfirm = {},
             onDismiss = { navController.popBackStack() }
           )
         }

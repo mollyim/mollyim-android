@@ -8,6 +8,7 @@ import android.net.Uri
 import com.fasterxml.jackson.annotation.JsonProperty
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.greenrobot.eventbus.EventBus
 import org.signal.core.util.Hex
 import org.signal.core.util.forEach
 import org.signal.core.util.getDownloadManager
@@ -18,6 +19,7 @@ import org.signal.core.util.requireString
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateDownloadManagerReceiver
+import org.thoughtcrime.securesms.events.ApkUpdateEvent
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -123,6 +125,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     }
 
     SignalStore.apkUpdate.lastSuccessfulCheck = System.currentTimeMillis()
+    EventBus.getDefault().post(ApkUpdateEvent)
   }
 
   public override fun onShouldRetry(e: Exception): Boolean {

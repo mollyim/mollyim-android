@@ -716,6 +716,17 @@
     <plurals name="ConversationListFragment_s_selected">
         <item quantity="other">%1$d ရွေးထားပြီး</item>
     </plurals>
+    <!-- Context menu option to add a chat to a folder -->
+    <string name="ConversationListFragment_add_to_folder">ဖိုင်တွဲထဲထည့်သွင်းရန်</string>
+    <!-- Context menu option to remove a chat from a folder -->
+    <string name="ConversationListFragment_remove_from_folder">ဖိုင်တွဲမှဖယ်ရှားရန်</string>
+
+    <!-- Bottom sheet title when choosing a folder to add a chat to -->
+    <string name="AddToFolderBottomSheet_choose_a_folder">ဖိုင်တွဲတစ်ခုရွေးချယ်ပါ</string>
+    <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
+    <string name="AddToFolderBottomSheet_added_to_s">\"%1$s\" သို့ ထည့်ခဲ့သည်</string>
+    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
+    <string name="AddToFolderBottomSheet_this_chat_is_already">This chat is already in the folder \"%1$s\"</string>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">အသိပေးချက် ပရိုဖိုင်</string>
@@ -4934,8 +4945,24 @@
     <string name="ChatsSettingsFragment__send_with_enter">Enter ဖြင့် ပို့ပါ</string>
     <!-- Heading within chats settings for chat folders -->
     <string name="ChatsSettingsFragment__chat_folders">ချက်(တ်)ဖိုင်တွဲများ</string>
-    <!-- Option within settings to add a new chat folder -->
+    <!-- Option within settings to add a new chat folder if you have never created a folder before -->
     <string name="ChatsSettingsFragment__add_chat_folder">ချက်(တ်)ဖိုင်တွဲတစ်ခုထည့်ရန်</string>
+    <!-- Option within settings to add or edit chat folders that is shown when you have already created folders -->
+    <string name="ChatsSettingsFragment__add_edit_chat_folder">ဖိုင်တွဲများ ထည့်သွင်းရန် သို့မဟုတ် တည်းဖြတ်ရန်</string>
+    <!-- Text describing the number of folders you have -->
+    <plurals name="ChatsSettingsFragment__d_folder">
+        <item quantity="other">ဖိုင်တွဲ %1$d ခု</item>
+    </plurals>
+
+    <!-- ChatFoldersEducationSheet -->
+    <!-- Text in a bottom sheet describing chat folders and what they can be created for -->
+    <string name="ChatFoldersEducationSheet__create_folders_for_family">မိသားစု၊ သူငယ်ချင်း၊ အလုပ်နှင့် အခြားအရာများအတွက် ဖိုင်တွဲများ ဖန်တီးရန်</string>
+    <!-- Text in a bottom sheet explaining how chat folders can be configured to only show unread chats  -->
+    <string name="ChatFoldersEducationSheet__choose_to_show_unread">မဖတ်ရသေးသော ချက်(တ်)များကိုသာပြသရန် ရွေးချယ်ပါ </string>
+    <!-- Text in a bottom sheet stating that suggested folders can be easily created -->
+    <string name="ChatFoldersEducationSheet__easily_add_suggested">အကြံပြုထားသောဖိုင်တွဲများကို အလွယ်တကူထည့်ပါ</string>
+    <!-- Button text to dismiss bottom sheet -->
+    <string name="ChatFoldersEducationSheet__continue">ဆက်လုပ်ရန်</string>
 
     <!-- ChatFoldersFragment -->
     <!-- Description of what chat folders are -->
@@ -4949,7 +4976,7 @@
     <!-- Header for section showing suggested chat folders for users to have -->
     <string name="ChatFoldersFragment__suggested_folders">အကြံပြုထားသောဖိုင်တွဲများ</string>
     <!-- Name of a chat folder that contains all chats that currently have unread messages -->
-    <string name="ChatFoldersFragment__unreads">မဖတ်ရသေး</string>
+    <string name="ChatFoldersFragment__unread">မဖတ်ရသေး</string>
     <!-- Description of the suggested unread chat folder -->
     <string name="ChatFoldersFragment__unread_messages">ချက်(တ်)အားလုံးမှ မဖတ်ရသေးသော မက်ဆေ့ချ်များ</string>
     <!-- Name of a chat folder that contains all 1:1 (individual) chats -->
@@ -4966,14 +4993,10 @@
     <string name="ChatFoldersFragment__folder_added">%1$s ဖိုင်တွဲကို ထည့်ထားသည်။</string>
     <!-- Option in context menu to edit the folder -->
     <string name="ChatFoldersFragment__edit_folder">ဖိုင်တွဲကို တည်းဖြတ်ရန်</string>
-    <!-- Option in context menu to delete the folder -->
-    <string name="ChatFoldersFragment__delete_folder">ဖိုင်တွဲကိုဖျက်မည်</string>
-    <!-- Option in context menu to add a new folder -->
-    <string name="ChatFoldersFragment__add_new_folder">ဖိုင်တွဲအသစ်ထည့်မည်</string>
     <!-- Option in context menu to mute all chats in the folder -->
     <string name="ChatFoldersFragment__mute_all">အားလုံးကို အသံပိတ်ရန်</string>
-    <!-- Option in context menu to reorder the positions of the folder -->
-    <string name="ChatFoldersFragment__reorder_folder">ဖိုင်တွဲများကို ပြန်စီမည်</string>
+    <!-- Option in context menu to unmute all chats in the folder -->
+    <string name="ChatFoldersFragment__unmute_all">အသံပြန်ဖွင့်ရန်</string>
     <!-- Option in context menu to mark all of the chats in a folder as read -->
     <string name="ChatFoldersFragment__mark_all_read">အားလုံးကို ဖတ်ပြီးသားအဖြစ် မှတ်ပါ</string>
     <!-- Text describing the number of chat types in a folder -->
@@ -4988,6 +5011,8 @@
     <plurals name="ChatFoldersFragment__d_chats_excluded">
         <item quantity="other">ချက်(တ်) %1$d ခုကို ဖယ်ထုတ်ထားသည်</item>
     </plurals>
+    <!-- Badge shown in chat folder tab when unread count is greater than 99 -->
+    <string name="ChatFolderAdapter__99p">99+</string>
 
     <!-- CreateFoldersFragment -->
     <!-- Title of the screen when creating a folder, displayed in the toolbar -->
@@ -5014,28 +5039,24 @@
     <string name="CreateFoldersFragment__include_muted_chats">အသံပိတ်ထားသော ချက်(တ်)များ ပါဝင်ရန်</string>
     <!-- Button text to create a folder -->
     <string name="CreateFoldersFragment__create">ဖန်တီးပါ</string>
-    <!-- Alert dialog title to create a chat folder -->
-    <string name="CreateFoldersFragment__create_folder_title">ဖိုင်တွဲကို ဖန်တီးမလား။</string>
-    <!-- Alert dialog description when creating a chat folder where %s is the name of the folder -->
-    <string name="CreateFoldersFragment__do_you_want_to_create">ချက်(တ်)ဖိုင်တွဲ \"%1$s\" ကို ဖန်တီးလိုပါသလား။</string>
-    <!-- Alert dialog confirmation button text to save the changes -->
-    <string name="CreateFoldersFragment__create_folder">ဖိုင်တွဲ ဖန်တီးမည်</string>
     <!-- Section title shown when editing an existing folder   -->
     <string name="CreateFoldersFragment__edit_folder">ဖိုင်တွဲကို တည်းဖြတ်ရန်</string>
     <!-- Button text to save the changes to a folder after it has been edited -->
     <string name="CreateFoldersFragment__save">သိမ်းရန်</string>
-    <!-- Alert dialog title to save changes made to the current folder -->
-    <string name="CreateFoldersFragment__save_changes_title">အပြောင်းအလဲကို သိမ်းမလား။</string>
-    <!-- Alert dialog description when saving a folder that has had changes made to it -->
-    <string name="CreateFoldersFragment__do_you_want_to_save">ဤချက်(တ်)ဖိုင်တွဲတွင် ပြုလုပ်ထားသော အပြောင်းအလဲများကို သိမ်းဆည်းလိုပါသလား။</string>
-    <!-- Alert dialog confirmation button text to save the changes -->
-    <string name="CreateFoldersFragment__save_changes">အပြောင်းအလဲကို သိမ်းဆည်းမည်</string>
-    <!-- Alert dialog button to dismiss the dialog and discard any changes -->
+    <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
+    <string name="CreateFoldersFragment__discard_changes_title">Discard changes?</string>
+    <!-- Alert dialog description explaining that any changes made will be discarded -->
+    <string name="CreateFoldersFragment__you_will_lose_changes">You\'ll lose the changes you\'ve made to this folder.</string>
+    <!-- Alert dialog confirmation text to discard the changes -->
     <string name="CreateFoldersFragment__discard">ပယ်ဖျက်မည်</string>
     <!-- Text that when pressed will delete the current folder -->
     <string name="CreateFoldersFragment__delete_folder">ဖိုင်တွဲကိုဖျက်မည်</string>
     <!-- Alert dialog title to delete the current folder -->
     <string name="CreateFoldersFragment__delete_this_chat_folder">ဤချက်(တ်)ဖိုင်တွဲကို ဖျက်မလား။</string>
+    <!-- Option to see all of the chats if the chat list was too long and had been truncated -->
+    <string name="CreateFoldersFragment__see_all">အားလုံးကြည့်ရန်</string>
+    <!-- Toast shown when trying to make a folder with no name -->
+    <string name="CreateFoldersFragment__please_enter_name">Please enter a folder name</string>
 
     <!-- ChooseChatsFragment -->
     <!-- Section title representing chat types that can be added to the folder  -->
@@ -5615,6 +5636,10 @@
     <!-- *PaymentInProgressFragment strings -->
     <string name="InAppPaymentInProgressFragment__processing_donation">လှူဒါန်းမှုကို စီမံလုပ်ဆောင်နေဆဲ…</string>
     <string name="InAppPaymentInProgressFragment__processing_payment">ငွေပေးချေမှု လုပ်ဆောင်နေသည်…</string>
+
+    <!--InAppDonations -->
+    <!-- Label displayed in google play and on receipts for recurring subscriptions. Placeholder is level -->
+    <string name="InAppDonations__recurring_d">ထပ်တလဲလဲ လှူဒါန်းမှု %1$d</string>
 
     <!-- InAppPaymentErrors -->
     <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
@@ -7403,12 +7428,18 @@
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">ဘက်ခ်အပ်ကို ညတွင်းချင်း ဖန်တီးပါမည်။</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">ပုံမှန်လှူဒါန်းမှု အသက်မဝင်ပါ</string>
+    <!-- Text displayed in card when free tier is inactive -->
+    <string name="RemoteBackupsSettingsFragment__you_turned_off_backups">ဘက်ခ်အပ်ကို သင်ပိတ်ထားသည်</string>
     <!-- Title text in row detailing selected backup type -->
     <string name="RemoteBackupsSettingsFragment__backup_plan">ဘက်ခ်အပ်အစီအစဉ်</string>
     <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
     <string name="RemoteBackupsSettingsFragment__backups_disabled">ဘက်ခ်အပ် ပိတ်ထားသည်</string>
     <!-- Format string for backup and cost. First placeholder is cost per month. -->
     <string name="RemoteBackupsSettingsFragment__s_per_month">တစ်လလျှင် %1$s</string>
+    <!-- Displayed in card at top of screen while payment processing is pending -->
+    <string name="RemoteBackupsSettingsFragment__payment_pending">ငွေပေးချေမှုကို လုပ်ဆောင်နေဆဲ…</string>
+    <!-- Displayed in card while waiting for network -->
+    <string name="RemoteBackupsSettingsFragment__waiting_for_network">ကွန်ရက်ကို စောင့်နေသည်…</string>
     <!-- String for free backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_plan_is_free">သင်၏ ဘက်ခ်အပ်အစီအစဉ်သည် အခမဲ့ဖြစ်သည်</string>
     <!-- Displays the date the subscription will renew. Placeholder is the date. -->
@@ -7465,6 +7496,10 @@
     <string name="RemoteBackupsSettingsFragment__reenable_backups">ဘက်ခ်အပ် ပြန်လည်လုပ်ဆောင်မည်</string>
     <!-- Notice displayed when backups have been disabled and deleted -->
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off">ဘက်ခ်အပ်ကို ပိတ်ထားသဖြင့် Signal ၏ လုံခြုံသော သိုလှောင်ရေးဝန်ဆောင်မှုမှ သင့်ဒေတာများကို ဖျက်လိုက်ပါပြီ။</string>
+    <!-- Dialog title for dialog which alerts user their optimized media will be downloaded -->
+    <string name="RemoteBackupsSettingsFragment__downloading_your_backup">ဘက်ခ်အပ်ကို ဒေါင်းလုဒ်လုပ်နေသည်</string>
+    <!-- Dialog message for dialog which alerts user their optimized media will be downloaded -->
+    <string name="RemoteBackupsSettingsFragment__depending_on_the_size">သင်၏ ဘက်ခ်အပ်အရွယ်အစားပေါ်မူတည်၍ အချိန်ကြာမြင့်နိုင်သည်။ ဘက်ခ်အပ်လုပ်နေစဉ် ပုံမှန်အတိုင်း သင့်ဖုန်းကို အသုံးပြုနိုင်သည်။</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -7545,6 +7580,8 @@
     <plurals name="MessageBackupsTypeSelectionScreen__last_d_days_of_media">
         <item quantity="other">သင်၏ နောက်ဆုံးမီဒီယာ %1$d ရက်</item>
     </plurals>
+    <!-- Text designating that an option is your current plan -->
+    <string name="MessageBackupsTypeSelectionScreen__current_plan">လက်ရှိအစီအစဉ်</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->

@@ -35,7 +35,7 @@ import org.greenrobot.eventbus.EventBus
 import org.signal.core.ui.theme.SignalTheme
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.BaseActivity
+import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.components.webrtc.CallParticipantsState
 import org.thoughtcrime.securesms.components.webrtc.WebRtcAudioDevice
 import org.thoughtcrime.securesms.components.webrtc.WebRtcCallViewModel
@@ -57,7 +57,7 @@ import kotlin.time.Duration.Companion.seconds
 /**
  * Entry-point for receiving and making Signal calls.
  */
-class CallActivity : BaseActivity(), CallControlsCallback {
+class CallActivity : PassphraseRequiredActivity(), CallControlsCallback {
 
   companion object {
     private val TAG = Log.tag(CallActivity::class.java)
@@ -82,8 +82,8 @@ class CallActivity : BaseActivity(), CallControlsCallback {
     super.attachBaseContext(newBase)
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+    super.onCreate(savedInstanceState, ready)
 
     val fullscreenHelper = FullscreenHelper(this)
 

@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.restore
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -22,6 +23,7 @@ import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 /**
  * Activity to hold the restore from backup flow.
  */
+@SuppressLint("BaseActivitySubclass")
 class RestoreActivity : BaseActivity() {
 
   private val dynamicTheme = DynamicNoActionBarTheme()

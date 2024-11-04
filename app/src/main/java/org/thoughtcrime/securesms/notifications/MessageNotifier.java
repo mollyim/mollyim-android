@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.notifications;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
@@ -11,6 +10,7 @@ import org.signal.core.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.notifications.v2.ConversationId;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
 
 import java.util.Optional;
 
@@ -30,9 +30,9 @@ public interface MessageNotifier {
   void addStickyThread(@NonNull ConversationId conversationId, long earliestTimestamp);
   void removeStickyThread(@NonNull ConversationId conversationId);
 
-  class ReminderReceiver extends BroadcastReceiver {
+  class ReminderReceiver extends ExportedBroadcastReceiver {
     @Override
-    public void onReceive(final Context context, final Intent intent) {
+    public void onReceiveUnlock(final Context context, final Intent intent) {
       SignalExecutors.BOUNDED.execute(() -> {
         AppDependencies.getMessageNotifier().updateNotification(context);
       });

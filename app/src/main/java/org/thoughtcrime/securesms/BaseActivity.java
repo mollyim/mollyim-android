@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -271,19 +270,6 @@ public abstract class BaseActivity extends AppCompatActivity {
   public void applyOverrideConfiguration(@NonNull Configuration overrideConfiguration) {
     DynamicLanguageContextWrapper.prepareOverrideConfiguration(this, overrideConfiguration);
     super.applyOverrideConfiguration(overrideConfiguration);
-  }
-
-  // MOLLY: Workaround for WebView crashes in devices API 21-25 with outdated WebView
-  // https://issuetracker.google.com/issues/141351441
-  // Not reproducible in Signal because RegistrationNavigationActivity does not inherit
-  // this class and thus does not override the configuration.
-  @Override
-  public AssetManager getAssets() {
-    if (Build.VERSION.SDK_INT <= 25) {
-      return getResources().getAssets();  // Ignore overridden configuration
-    } else {
-      return super.getAssets();
-    }
   }
 
   private void logEvent(@NonNull String event) {

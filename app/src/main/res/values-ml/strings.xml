@@ -736,6 +736,17 @@
         <item quantity="one">%1$d തിരഞ്ഞെടുത്തു</item>
         <item quantity="other">%1$d തിരഞ്ഞെടുത്തു</item>
     </plurals>
+    <!-- Context menu option to add a chat to a folder -->
+    <string name="ConversationListFragment_add_to_folder">ഫോൾഡറിലേക്ക് ചേർക്കുക</string>
+    <!-- Context menu option to remove a chat from a folder -->
+    <string name="ConversationListFragment_remove_from_folder">ഫോൾഡറിൽ നിന്ന് നീക്കം ചെയ്യുക</string>
+
+    <!-- Bottom sheet title when choosing a folder to add a chat to -->
+    <string name="AddToFolderBottomSheet_choose_a_folder">ഒരു ഫോൾഡർ തിരഞ്ഞെടുക്കുക</string>
+    <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
+    <string name="AddToFolderBottomSheet_added_to_s">\"%1$s\" എന്നതിലേക്ക് ചേർത്തു</string>
+    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
+    <string name="AddToFolderBottomSheet_this_chat_is_already">This chat is already in the folder \"%1$s\"</string>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">അറിയിപ്പ് രൂപരേഖ</string>
@@ -5053,8 +5064,25 @@
     <string name="ChatsSettingsFragment__send_with_enter">എൻ്റർ ചെയ്ത് അയയ്ക്കുക</string>
     <!-- Heading within chats settings for chat folders -->
     <string name="ChatsSettingsFragment__chat_folders">ചാറ്റ് ഫോൾഡറുകൾ</string>
-    <!-- Option within settings to add a new chat folder -->
+    <!-- Option within settings to add a new chat folder if you have never created a folder before -->
     <string name="ChatsSettingsFragment__add_chat_folder">ഒരു ചാറ്റ് ഫോൾഡർ ചേർക്കുക</string>
+    <!-- Option within settings to add or edit chat folders that is shown when you have already created folders -->
+    <string name="ChatsSettingsFragment__add_edit_chat_folder">ഫോൾഡറുകൾ ചേർക്കുക അല്ലെങ്കിൽ എഡിറ്റ് ചെയ്യുക</string>
+    <!-- Text describing the number of folders you have -->
+    <plurals name="ChatsSettingsFragment__d_folder">
+        <item quantity="one">%1$d ഫോൾഡർ</item>
+        <item quantity="other">%1$d ഫോൾഡറുകൾ</item>
+    </plurals>
+
+    <!-- ChatFoldersEducationSheet -->
+    <!-- Text in a bottom sheet describing chat folders and what they can be created for -->
+    <string name="ChatFoldersEducationSheet__create_folders_for_family">കുടുംബത്തിനും സുഹൃത്തുക്കൾക്കും ജോലിക്കും മറ്റും ഫോൾഡറുകൾ സൃഷ്‌ടിക്കുക</string>
+    <!-- Text in a bottom sheet explaining how chat folders can be configured to only show unread chats  -->
+    <string name="ChatFoldersEducationSheet__choose_to_show_unread">വായിക്കാത്ത ചാറ്റുകൾ മാത്രം കാണിക്കാൻ തിരഞ്ഞെടുക്കുക </string>
+    <!-- Text in a bottom sheet stating that suggested folders can be easily created -->
+    <string name="ChatFoldersEducationSheet__easily_add_suggested">നിർദ്ദേശിച്ച ഫോൾഡറുകൾ എളുപ്പത്തിൽ ചേർക്കുക</string>
+    <!-- Button text to dismiss bottom sheet -->
+    <string name="ChatFoldersEducationSheet__continue">തുടരുക</string>
 
     <!-- ChatFoldersFragment -->
     <!-- Description of what chat folders are -->
@@ -5068,7 +5096,7 @@
     <!-- Header for section showing suggested chat folders for users to have -->
     <string name="ChatFoldersFragment__suggested_folders">നിർദ്ദേശിക്കപ്പെട്ട ഫോൾഡറുകൾ</string>
     <!-- Name of a chat folder that contains all chats that currently have unread messages -->
-    <string name="ChatFoldersFragment__unreads">വായിക്കാത്തവ</string>
+    <string name="ChatFoldersFragment__unread">വായിക്കാത്തവ</string>
     <!-- Description of the suggested unread chat folder -->
     <string name="ChatFoldersFragment__unread_messages">എല്ലാ ചാറ്റുകളിൽ നിന്നുമുള്ള വായിക്കാത്ത സന്ദേശങ്ങൾ</string>
     <!-- Name of a chat folder that contains all 1:1 (individual) chats -->
@@ -5085,14 +5113,10 @@
     <string name="ChatFoldersFragment__folder_added">%1$s ഫോൾഡർ ചേർത്തു.</string>
     <!-- Option in context menu to edit the folder -->
     <string name="ChatFoldersFragment__edit_folder">ഫോൾഡർ എഡിറ്റ് ചെയ്യുക</string>
-    <!-- Option in context menu to delete the folder -->
-    <string name="ChatFoldersFragment__delete_folder">ഫോൾഡർ ഇല്ലാതാക്കുക</string>
-    <!-- Option in context menu to add a new folder -->
-    <string name="ChatFoldersFragment__add_new_folder">പുതിയ ഫോൾഡർ ചേർക്കുക</string>
     <!-- Option in context menu to mute all chats in the folder -->
     <string name="ChatFoldersFragment__mute_all">എല്ലാം മ്യൂട്ട് ചെയ്യുക</string>
-    <!-- Option in context menu to reorder the positions of the folder -->
-    <string name="ChatFoldersFragment__reorder_folder">ഫോൾഡറുകൾ പുനഃക്രമീകരിക്കുക</string>
+    <!-- Option in context menu to unmute all chats in the folder -->
+    <string name="ChatFoldersFragment__unmute_all">എല്ലാം അൺമ്യൂട്ട് ചെയ്യുക</string>
     <!-- Option in context menu to mark all of the chats in a folder as read -->
     <string name="ChatFoldersFragment__mark_all_read">എല്ലാം വായിച്ചതായി കാണിക്കൂ</string>
     <!-- Text describing the number of chat types in a folder -->
@@ -5110,6 +5134,8 @@
         <item quantity="one">%1$d ചാറ്റ് ഒഴിവാക്കി</item>
         <item quantity="other">%1$d ചാറ്റുകൾ ഒഴിവാക്കി</item>
     </plurals>
+    <!-- Badge shown in chat folder tab when unread count is greater than 99 -->
+    <string name="ChatFolderAdapter__99p">99+</string>
 
     <!-- CreateFoldersFragment -->
     <!-- Title of the screen when creating a folder, displayed in the toolbar -->
@@ -5136,28 +5162,24 @@
     <string name="CreateFoldersFragment__include_muted_chats">മ്യൂട്ട് ചെയ്ത ചാറ്റുകൾ ഉൾപ്പെടുത്തുക</string>
     <!-- Button text to create a folder -->
     <string name="CreateFoldersFragment__create">സൃഷ്ടിക്കൂ</string>
-    <!-- Alert dialog title to create a chat folder -->
-    <string name="CreateFoldersFragment__create_folder_title">ഫോൾഡർ സൃഷ്ടിക്കണോ?</string>
-    <!-- Alert dialog description when creating a chat folder where %s is the name of the folder -->
-    <string name="CreateFoldersFragment__do_you_want_to_create">നിങ്ങൾക്ക് \"%1$s\" എന്ന ചാറ്റ് ഫോൾഡർ സൃഷ്ടിക്കണോ?</string>
-    <!-- Alert dialog confirmation button text to save the changes -->
-    <string name="CreateFoldersFragment__create_folder">ഫോൾഡർ സൃഷ്ടിക്കുക</string>
     <!-- Section title shown when editing an existing folder   -->
     <string name="CreateFoldersFragment__edit_folder">ഫോൾഡർ എഡിറ്റ് ചെയ്യുക</string>
     <!-- Button text to save the changes to a folder after it has been edited -->
     <string name="CreateFoldersFragment__save">സംരക്ഷിക്കൂ</string>
-    <!-- Alert dialog title to save changes made to the current folder -->
-    <string name="CreateFoldersFragment__save_changes_title">മാറ്റങ്ങൾ സംരക്ഷിക്കണോ?</string>
-    <!-- Alert dialog description when saving a folder that has had changes made to it -->
-    <string name="CreateFoldersFragment__do_you_want_to_save">ഈ ചാറ്റ് ഫോൾഡറിൽ നിങ്ങൾ വരുത്തിയ മാറ്റങ്ങൾ സംരക്ഷിക്കണോ?</string>
-    <!-- Alert dialog confirmation button text to save the changes -->
-    <string name="CreateFoldersFragment__save_changes">മാറ്റങ്ങൾ സംരക്ഷിക്കുക</string>
-    <!-- Alert dialog button to dismiss the dialog and discard any changes -->
+    <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
+    <string name="CreateFoldersFragment__discard_changes_title">Discard changes?</string>
+    <!-- Alert dialog description explaining that any changes made will be discarded -->
+    <string name="CreateFoldersFragment__you_will_lose_changes">You\'ll lose the changes you\'ve made to this folder.</string>
+    <!-- Alert dialog confirmation text to discard the changes -->
     <string name="CreateFoldersFragment__discard">കളയുക</string>
     <!-- Text that when pressed will delete the current folder -->
     <string name="CreateFoldersFragment__delete_folder">ഫോൾഡർ ഇല്ലാതാക്കുക</string>
     <!-- Alert dialog title to delete the current folder -->
     <string name="CreateFoldersFragment__delete_this_chat_folder">ഈ ചാറ്റ് ഫോൾഡർ ഇല്ലാതാക്കണോ?</string>
+    <!-- Option to see all of the chats if the chat list was too long and had been truncated -->
+    <string name="CreateFoldersFragment__see_all">എല്ലാം കാണുക</string>
+    <!-- Toast shown when trying to make a folder with no name -->
+    <string name="CreateFoldersFragment__please_enter_name">Please enter a folder name</string>
 
     <!-- ChooseChatsFragment -->
     <!-- Section title representing chat types that can be added to the folder  -->
@@ -5747,6 +5769,10 @@
     <!-- *PaymentInProgressFragment strings -->
     <string name="InAppPaymentInProgressFragment__processing_donation">സംഭാവന പ്രോസസ് ചെയ്യുന്നു…</string>
     <string name="InAppPaymentInProgressFragment__processing_payment">പേയ്‌മെന്റ് പ്രോസസ്സ് ചെയ്യുന്നു…</string>
+
+    <!--InAppDonations -->
+    <!-- Label displayed in google play and on receipts for recurring subscriptions. Placeholder is level -->
+    <string name="InAppDonations__recurring_d">ആവർത്തിച്ചുള്ള %1$d</string>
 
     <!-- InAppPaymentErrors -->
     <!-- Displayed as a title in a dialog or notification when a payment failure happens. -->
@@ -7565,12 +7591,18 @@
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">ഒറ്റരാത്രികൊണ്ട് ബാക്കപ്പ് സൃഷ്ടിക്കപ്പെടും.</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">സബ്സ്ക്രിപ്ഷൻ നിഷ്‌ക്രിയമാണ്</string>
+    <!-- Text displayed in card when free tier is inactive -->
+    <string name="RemoteBackupsSettingsFragment__you_turned_off_backups">നിങ്ങൾ ബാക്കപ്പുകൾ ഓഫാക്കി</string>
     <!-- Title text in row detailing selected backup type -->
     <string name="RemoteBackupsSettingsFragment__backup_plan">ബാക്കപ്പ് പ്ലാൻ</string>
     <!-- Subtitle text in row detailing selected backup type displayed when backups are disabled -->
     <string name="RemoteBackupsSettingsFragment__backups_disabled">ബാക്കപ്പുകൾ പ്രവർത്തനരഹിതമാക്കി</string>
     <!-- Format string for backup and cost. First placeholder is cost per month. -->
     <string name="RemoteBackupsSettingsFragment__s_per_month">%1$s/ മാസം</string>
+    <!-- Displayed in card at top of screen while payment processing is pending -->
+    <string name="RemoteBackupsSettingsFragment__payment_pending">പേയ്‌മെൻ്റ് തീർച്ചപ്പെടുത്തിയിട്ടില്ല…</string>
+    <!-- Displayed in card while waiting for network -->
+    <string name="RemoteBackupsSettingsFragment__waiting_for_network">നെറ്റ്‌വർക്കിനായി കാത്തിരിക്കുന്നു…</string>
     <!-- String for free backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_plan_is_free">നിങ്ങളുടെ ബാക്കപ്പ് പ്ലാൻ സൗജന്യമാണ്</string>
     <!-- Displays the date the subscription will renew. Placeholder is the date. -->
@@ -7627,6 +7659,10 @@
     <string name="RemoteBackupsSettingsFragment__reenable_backups">ബാക്കപ്പുകൾ വീണ്ടും പ്രവർത്തനക്ഷമമാക്കുക</string>
     <!-- Notice displayed when backups have been disabled and deleted -->
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off">Signal-ൻ്റെ സുരക്ഷിത സംഭരണ സേവനത്തിൽ നിന്ന് ബാക്കപ്പുകൾ ഓഫാക്കി നിങ്ങളുടെ ഡാറ്റ ഇല്ലാതാക്കി.</string>
+    <!-- Dialog title for dialog which alerts user their optimized media will be downloaded -->
+    <string name="RemoteBackupsSettingsFragment__downloading_your_backup">നിങ്ങളുടെ ബാക്കപ്പ് ഡൗൺലോഡ് ചെയ്യുന്നു</string>
+    <!-- Dialog message for dialog which alerts user their optimized media will be downloaded -->
+    <string name="RemoteBackupsSettingsFragment__depending_on_the_size">നിങ്ങളുടെ ബാക്കപ്പിൻ്റെ വലുപ്പത്തെ ആശ്രയിച്ച്, ഇതിന് വളരെയധികം സമയമെടുത്തേക്കാം. ഡൗൺലോഡ് നടക്കുമ്പോൾ നിങ്ങൾ സാധാരണ ഉപയോഗിക്കുന്നതുപോലെ നിങ്ങളുടെ ഫോൺ ഉപയോഗിക്കാം.</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -7709,6 +7745,8 @@
         <item quantity="one">മീഡിയയുടെ അവസാന %1$d ദിവസം</item>
         <item quantity="other">മീഡിയയുടെ അവസാന %1$d ദിവസം</item>
     </plurals>
+    <!-- Text designating that an option is your current plan -->
+    <string name="MessageBackupsTypeSelectionScreen__current_plan">നിലവിലെ പ്ലാൻ</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->

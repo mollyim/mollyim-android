@@ -4,4 +4,5 @@ data class HelpSettingsState(
   val updateApkEnabled: Boolean,
   val includeBetaEnabled: Boolean,
   val logEnabled: Boolean,
+  val lastUpdateCheckTime: Long
 )

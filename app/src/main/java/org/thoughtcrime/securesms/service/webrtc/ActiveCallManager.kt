@@ -32,6 +32,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.UnableToStartException
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver
 import org.thoughtcrime.securesms.service.SafeForegroundService
 import org.thoughtcrime.securesms.util.TelephonyUtil
 import org.thoughtcrime.securesms.webrtc.CallNotificationBuilder
@@ -398,14 +399,14 @@ class ActiveCallManager(
     }
   }
 
-  class ActiveCallServiceReceiver : BroadcastReceiver() {
+  class ActiveCallServiceReceiver : ExportedBroadcastReceiver() {
 
     companion object {
       const val ACTION_DENY = "org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.DENY"
       const val ACTION_HANGUP = "org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.HANGUP"
     }
 
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceiveUnlock(context: Context?, intent: Intent?) {
       Log.d(TAG, "action: ${intent?.action}")
       when (intent?.action) {
         ACTION_DENY -> AppDependencies.signalCallManager.denyCall()

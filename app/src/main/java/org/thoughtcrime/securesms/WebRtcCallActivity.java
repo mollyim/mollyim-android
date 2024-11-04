@@ -130,7 +130,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 import static org.thoughtcrime.securesms.components.sensors.Orientation.PORTRAIT_BOTTOM_EDGE;
 
-public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChangeDialog.Callback, ReactWithAnyEmojiBottomSheetDialogFragment.Callback, RecaptchaProofBottomSheetFragment.Callback {
+public class WebRtcCallActivity extends PassphraseRequiredActivity implements SafetyNumberChangeDialog.Callback, ReactWithAnyEmojiBottomSheetDialogFragment.Callback, RecaptchaProofBottomSheetFragment.Callback {
 
   private static final String TAG = Log.tag(WebRtcCallActivity.class);
 
@@ -171,7 +171,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   @SuppressLint({ "MissingInflatedId" })
   @Override
-  public void onCreate(Bundle savedInstanceState) {
+  public void onCreate(Bundle savedInstanceState, boolean ready) {
     CallIntent callIntent = getCallIntent();
     Log.i(TAG, "onCreate(" + callIntent.isStartedFromFullScreen() + ")");
 
@@ -180,7 +180,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    super.onCreate(savedInstanceState);
+    super.onCreate(savedInstanceState, ready);
 
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(R.layout.webrtc_call_activity);

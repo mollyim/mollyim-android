@@ -8,6 +8,7 @@ import org.thoughtcrime.securesms.apkupdate.ApkUpdateNotifications
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.ApkUpdateJob
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.livedata.Store
 
@@ -48,7 +49,7 @@ class HelpSettingsViewModel : ViewModel() {
     refreshState()
   }
 
-  private fun refreshState() {
+  fun refreshState() {
     store.update { getCurrentState() }
   }
 
@@ -57,6 +58,7 @@ class HelpSettingsViewModel : ViewModel() {
       updateApkEnabled = TextSecurePreferences.isUpdateApkEnabled(application),
       includeBetaEnabled = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(application),
       logEnabled = TextSecurePreferences.isLogEnabled(application),
+      lastUpdateCheckTime = SignalStore.apkUpdate.lastSuccessfulCheck
     )
   }
 }

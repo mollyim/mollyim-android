@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.util.BundleExtensions;
 import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.signal.donations.StripeApi;
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar;
@@ -44,7 +45,8 @@ import org.thoughtcrime.securesms.util.WindowUtil;
 
 public class MainActivity extends PassphraseRequiredActivity implements VoiceNoteMediaControllerOwner {
 
-  public static final int RESULT_CONFIG_CHANGED = Activity.RESULT_FIRST_USER + 901;
+  private static final String KEY_STARTING_TAB      = "STARTING_TAB";
+  public static final  int    RESULT_CONFIG_CHANGED = Activity.RESULT_FIRST_USER + 901;
 
   private final DynamicTheme  dynamicTheme = new DynamicNoActionBarTheme();
   private final MainNavigator navigator    = new MainNavigator(this);
@@ -63,6 +65,13 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                     Intent.FLAG_ACTIVITY_NEW_TASK |
                     Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+    return intent;
+  }
+
+  public static @NonNull Intent clearTopAndOpenTab(@NonNull Context context, @NonNull ConversationListTab startingTab) {
+    Intent intent = clearTop(context);
+    intent.putExtra(KEY_STARTING_TAB, startingTab);
 
     return intent;
   }
@@ -92,8 +101,14 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
 
     mediaController = new VoiceNoteMediaController(this, true);
 
+
+    ConversationListTab startingTab = null;
+    if (getIntent().getExtras() != null) {
+      startingTab = BundleExtensions.getSerializableCompat(getIntent().getExtras(), KEY_STARTING_TAB, ConversationListTab.class);
+    }
+
     ConversationListTabRepository         repository = new ConversationListTabRepository();
-    ConversationListTabsViewModel.Factory factory    = new ConversationListTabsViewModel.Factory(repository);
+    ConversationListTabsViewModel.Factory factory    = new ConversationListTabsViewModel.Factory(startingTab, repository);
 
     handleDeeplinkIntent(getIntent());
 
@@ -136,6 +151,25 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     handleDeeplinkIntent(intent);
+
+    if (intent.getExtras() != null) {
+      ConversationListTab startingTab = BundleExtensions.getSerializableCompat(intent.getExtras(), KEY_STARTING_TAB, ConversationListTab.class);
+      if (startingTab != null) {
+        switch (startingTab) {
+          case CHATS -> conversationListTabsViewModel.onChatsSelected();
+          case CALLS -> {
+            if (TextSecurePreferences.getNavbarShowCalls(this)) {
+              conversationListTabsViewModel.onCallsSelected();
+            }
+          }
+          case STORIES -> {
+            if (Stories.isFeatureEnabled()) {
+              conversationListTabsViewModel.onStoriesSelected();
+            }
+          }
+        }
+      }
+    }
   }
 
   @Override

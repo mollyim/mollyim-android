@@ -1,10 +1,8 @@
 package org.thoughtcrime.securesms.components.settings.app.help
 
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.signal.core.util.dp
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -45,22 +43,13 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
 
       dividerPref()
 
-      textPref(
+      clickPref(
         title = DSLSettingsText.from(R.string.HelpSettingsFragment__version),
-        summary = DSLSettingsText.from(BuildConfig.VERSION_NAME)
+        summary = DSLSettingsText.from(BuildConfig.VERSION_NAME),
+        onClick = {
+          Navigation.findNavController(requireView()).safeNavigate(R.id.action_helpSettingsFragment_to_appUpdatesFragment)
+        }
       )
-
-      if (!BuildConfig.MANAGES_MOLLY_UPDATES) {
-        noPadTextPref(
-          title = DSLSettingsText.from(
-            R.string.HelpSettingsFragment_for_updates_please_check_your_app_store,
-            DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
-            DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant))
-          )
-        )
-
-        space(16.dp)
-      }
 
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__enable_debug_log),

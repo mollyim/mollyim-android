@@ -50,6 +50,8 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val COUNTRY_CODE_PAKISTAN = 92
 
     // MOLLY: Add new hostnames and URLs to HOSTNAMES below
+    private const val SIGNALCAPTCHAS_HOST = "signalcaptchas.org"
+    private const val UPDATES2_HOST = "updates2.signal.org"
     private const val G_HOST = "reflector-nrgwuv7kwq-uc.a.run.app"
     private const val F_SERVICE_HOST = "chat-signal.global.ssl.fastly.net"
     private const val F_STORAGE_HOST = "storage.signal.org.global.prod.fastly.net"
@@ -64,7 +66,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val HTTPS_CLIENTS_4_GOOGLE_COM = "https://clients4.google.com"
     private const val HTTPS_INBOX_GOOGLE_COM = "https://inbox.google.com"
     private const val HTTPS_SLATE_COM = "https://slate.com"
-    private const val HTTPS_ZESTY_IO = "https://www.zesty.io"
+    private const val HTTPS_SPLASHTHAT_COM = "https://splashthat.com"
     private const val HTTPS_OPEN_SCDN_CO = "https://open.scdn.co"
     private const val HTTPS_WWW_REDDITSTATIC_COM = "https://www.redditstatic.com"
     private const val HTTPS_WWW_GOOGLE_COM_EG = "https://www.google.com.eg"
@@ -83,11 +85,13 @@ open class SignalServiceNetworkAccess(context: Context) {
       BuildConfig.SIGNAL_CDN2_URL.stripProtocol(),
       BuildConfig.SIGNAL_CDN3_URL.stripProtocol(),
       BuildConfig.SIGNAL_CDSI_URL.stripProtocol(),
+      // SIGNAL_SERVICE_STATUS_URL
+      BuildConfig.SIGNAL_SVR2_URL.stripProtocol(),
       BuildConfig.SIGNAL_SFU_URL.stripProtocol(),
       BuildConfig.SIGNAL_STAGING_SFU_URL.stripProtocol(),
-      BuildConfig.CONTENT_PROXY_HOST.stripProtocol(),
-      BuildConfig.SIGNAL_CDSI_URL.stripProtocol(),
-      BuildConfig.SIGNAL_SVR2_URL.stripProtocol(),
+      BuildConfig.CONTENT_PROXY_HOST,
+      SIGNALCAPTCHAS_HOST,
+      UPDATES2_HOST,
       G_HOST,
       F_SERVICE_HOST,
       F_STORAGE_HOST,
@@ -102,7 +106,7 @@ open class SignalServiceNetworkAccess(context: Context) {
       HTTPS_CLIENTS_4_GOOGLE_COM.stripProtocol(),
       HTTPS_INBOX_GOOGLE_COM.stripProtocol(),
       HTTPS_SLATE_COM.stripProtocol(),
-      HTTPS_ZESTY_IO.stripProtocol(),
+      HTTPS_SPLASHTHAT_COM.stripProtocol(),
       HTTPS_OPEN_SCDN_CO.stripProtocol(),
       HTTPS_WWW_REDDITSTATIC_COM.stripProtocol(),
       HTTPS_WWW_GOOGLE_COM_EG.stripProtocol(),
@@ -207,7 +211,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     HostConfig(HTTPS_INBOX_GOOGLE_COM, G_HOST, GMAIL_CONNECTION_SPEC)
   )
 
-  private val fUrls = arrayOf(HTTPS_SLATE_COM, HTTPS_ZESTY_IO, HTTPS_WWW_REDDITSTATIC_COM)
+  private val fUrls = arrayOf(HTTPS_SLATE_COM, HTTPS_SPLASHTHAT_COM, HTTPS_WWW_REDDITSTATIC_COM)
 
   private val fConfig: SignalServiceConfiguration = SignalServiceConfiguration(
     signalServiceUrls = fUrls.map { SignalServiceUrl(it, F_SERVICE_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),

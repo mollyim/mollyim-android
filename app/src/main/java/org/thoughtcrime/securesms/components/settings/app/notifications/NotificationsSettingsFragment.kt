@@ -370,7 +370,6 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__delivery_service),
         listItems = notificationMethodLabels,
         selected = notificationMethodValues.indexOf(state.preferredNotificationMethod),
-        isEnabled = !state.isLinkedDevice,  // MOLLY: TODO
         iconEnd = if (showAlertIcon) DSLSettingsIcon.from(R.drawable.ic_alert, R.color.signal_alert_primary) else null,
         onSelected = {
           viewModel.setPreferredNotificationMethod(notificationMethodValues[it])
