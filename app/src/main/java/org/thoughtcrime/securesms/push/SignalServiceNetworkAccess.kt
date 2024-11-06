@@ -65,9 +65,8 @@ open class SignalServiceNetworkAccess(context: Context) {
     private const val HTTPS_CLIENTS_3_GOOGLE_COM = "https://clients3.google.com"
     private const val HTTPS_CLIENTS_4_GOOGLE_COM = "https://clients4.google.com"
     private const val HTTPS_INBOX_GOOGLE_COM = "https://inbox.google.com"
-    private const val HTTPS_SLATE_COM = "https://slate.com"
-    private const val HTTPS_SPLASHTHAT_COM = "https://splashthat.com"
-    private const val HTTPS_OPEN_SCDN_CO = "https://open.scdn.co"
+    private const val HTTPS_GITHUB_GITHUBASSETS_COM = "https://github.githubassets.com"
+    private const val HTTPS_PINTEREST_COM = "https://pinterest.com"
     private const val HTTPS_WWW_REDDITSTATIC_COM = "https://www.redditstatic.com"
     private const val HTTPS_WWW_GOOGLE_COM_EG = "https://www.google.com.eg"
     private const val HTTPS_WWW_GOOGLE_AE = "https://www.google.ae"
@@ -105,9 +104,8 @@ open class SignalServiceNetworkAccess(context: Context) {
       HTTPS_CLIENTS_3_GOOGLE_COM.stripProtocol(),
       HTTPS_CLIENTS_4_GOOGLE_COM.stripProtocol(),
       HTTPS_INBOX_GOOGLE_COM.stripProtocol(),
-      HTTPS_SLATE_COM.stripProtocol(),
-      HTTPS_SPLASHTHAT_COM.stripProtocol(),
-      HTTPS_OPEN_SCDN_CO.stripProtocol(),
+      HTTPS_GITHUB_GITHUBASSETS_COM.stripProtocol(),
+      HTTPS_PINTEREST_COM.stripProtocol(),
       HTTPS_WWW_REDDITSTATIC_COM.stripProtocol(),
       HTTPS_WWW_GOOGLE_COM_EG.stripProtocol(),
       HTTPS_WWW_GOOGLE_AE.stripProtocol(),
@@ -211,7 +209,7 @@ open class SignalServiceNetworkAccess(context: Context) {
     HostConfig(HTTPS_INBOX_GOOGLE_COM, G_HOST, GMAIL_CONNECTION_SPEC)
   )
 
-  private val fUrls = arrayOf(HTTPS_SLATE_COM, HTTPS_SPLASHTHAT_COM, HTTPS_WWW_REDDITSTATIC_COM)
+  private val fUrls = arrayOf(HTTPS_GITHUB_GITHUBASSETS_COM, HTTPS_PINTEREST_COM, HTTPS_WWW_REDDITSTATIC_COM)
 
   private val fConfig: SignalServiceConfiguration = SignalServiceConfiguration(
     signalServiceUrls = fUrls.map { SignalServiceUrl(it, F_SERVICE_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),

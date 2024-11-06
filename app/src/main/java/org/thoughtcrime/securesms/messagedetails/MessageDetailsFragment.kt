@@ -374,6 +374,10 @@ class MessageDetailsFragment : FullScreenDialogFragment(), MessageDetailsAdapter
     Log.w(TAG, "Not yet implemented!", Exception())
   }
 
+  override fun onDisplayMediaNoLongerAvailableSheet() {
+    Log.w(TAG, "Not yet implemented!", Exception())
+  }
+
   interface Callback {
     fun onMessageDetailsFragmentDismissed()
   }

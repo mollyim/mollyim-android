@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  --><!-- smartling.instruction_comments_enabled = on --><resources>
+  -->
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -42,12 +45,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Molly sedang mengemas kini…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Signal sedang mengemas kini…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Anda belum lagi menetapkan ungkapan laluan!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Menyahdayakan ungkapan laluan?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ini akan membuka kunci Molly dan pemberitahuan mesej secara kekal.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ini akan membuka kunci Signal dan pemberitahuan mesej secara kekal.</string>
     <string name="ApplicationPreferencesActivity_disable">Nyahdayakan</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Ralat ketika menyambung ke pelayan!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN adalah wajib untuk kunci daftar. Untuk menyahaktif PIN, sila nyahaktif terdahulu kunci daftar</string>
@@ -84,7 +87,7 @@
     <string name="AttachmentKeyboard_file">Fail</string>
     <string name="AttachmentKeyboard_contact">Kenalan</string>
     <string name="AttachmentKeyboard_location">Lokasi</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly perlukan kebenaran anda untuk menunjukkan gambar dan video anda</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal perlukan kebenaran anda untuk menunjukkan gambar dan video anda</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Benarkan Capaian</string>
     <string name="AttachmentKeyboard_payment">Pembayaran</string>
@@ -95,7 +98,7 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">Pergi ke Tetapan</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Molly mempunyai akses terhad kepada foto atau video</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Signal mempunyai akses terhad kepada foto atau video</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">Tiada foto ditemui, pilih foto dan video untuk dipaparkan di sini atau tukar kebenaran</string>
 
@@ -105,24 +108,24 @@
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Tidak dapat mencari aplikasi untuk memilih media.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly memerlukan kebenaran Storan untuk melampirkan foto, video atau audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly memerlukan kebenaran Kenalan untuk melampirkan maklumat hubungan, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly memerlukan kebenaran Lokasi untuk melampirkan lokasi, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Lokasi\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal memerlukan kebenaran Storan untuk melampirkan foto, video atau audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal memerlukan kebenaran Kenalan untuk melampirkan maklumat hubungan, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal memerlukan kebenaran Lokasi untuk melampirkan lokasi, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Lokasi\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Benarkan akses kepada lokasi anda</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Untuk menghantar lokasi anda:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Benarkan akses Molly untuk menghantar lokasi anda.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Benarkan akses Signal untuk menghantar lokasi anda.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Molly perlukan akses lokasi untuk menghantar lokasi anda.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Signal perlukan akses lokasi untuk menghantar lokasi anda.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Benarkan akses kepada storan</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Untuk tunjuk foto dan video:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Molly memerlukan akses untuk menunjukkan foto dan video anda.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Signal memerlukan akses untuk menunjukkan foto dan video anda.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s belum mengaktifkan Pembayaran </string>
@@ -307,7 +310,7 @@
     <string name="CameraContacts_no_signal_contacts">Tiada kenalan Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Anda hanya boleh menggunakan butang kamera untuk hantar foto kepada kenalan Signal </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Tidak dapat mencari siapa yang anda sedang cari?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Jemput kenalan untuk sertai Molly</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Jemput kenalan untuk sertai Signal</string>
     <string name="CameraContacts__menu_search">Cari</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -321,12 +324,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Tidak, terima kasih</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Kemas Kini Molly</string>
+    <string name="ClientDeprecatedActivity_update_signal">Kemas Kini Signal</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Versi aplikasi ini tidak lagi akan disokong. Untuk menghantar dan menerima mesej semula, sila update ke versi terkini.</string>
     <string name="ClientDeprecatedActivity_update">Kemas Kini</string>
     <string name="ClientDeprecatedActivity_dont_update">Jangan Update</string>
     <string name="ClientDeprecatedActivity_warning">Amaran</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Versi aplikasi Molly anda telah tamat tempoh. Anda boleh melihat sejarah mesej anda tetapi tidak boleh menghantar dan menerima mesej sehinggalah anda mengemas kini.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Versi aplikasi Signal anda telah tamat tempoh. Anda boleh melihat sejarah mesej anda tetapi tidak boleh menghantar dan menerima mesej sehinggalah anda mengemas kini.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Pelayar web tidak dijumpai.</string>
@@ -367,8 +370,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Mesej %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Panggilan Suara Molly %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Panggilan Video Molly %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Panggilan Suara Signal %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Panggilan Video Signal %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -462,7 +465,7 @@
     <string name="ConversationActivity_transport_signal">Mesej Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Menghantar mesej</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Mari beralih kepada Molly %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Mari beralih kepada Signal %1$s</string>
     <string name="ConversationActivity_specify_recipient">Sila pilih kenalan</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Lampiran melebihi had saiz untuk jenis mesej yang anda hantar.</string>
     <string name="ConversationActivity_unable_to_record_audio">Tidak dapat merakam audio!</string>
@@ -481,18 +484,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Untuk menghantar mesej suara:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Untuk menghantar mesej suara, benarkan Molly mengakses mikrofon anda.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Untuk menghantar mesej suara, benarkan Signal mengakses mikrofon anda.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly perlukan akses mikrofon untuk merakam mesej suara.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly memerlukan kebenaran Mikrofon untuk menghantar mesej audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal perlukan akses mikrofon untuk merakam mesej suara.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal memerlukan kebenaran Mikrofon untuk menghantar mesej audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly memerlukan kebenaran Mikrofon dan Kamera untuk memanggil %1$s, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Untuk menangkap foto dan video, benarkan Molly untuk mengakses kamera anda.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly memerlukan kebenaran Kamera untuk menangkap foto dan video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly memerlukan kebenaran Kamera untuk menangkap foto dan video</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal memerlukan kebenaran Mikrofon dan Kamera untuk memanggil %1$s, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Untuk menangkap foto dan video, benarkan Signal untuk mengakses kamera anda.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal memerlukan kebenaran Kamera untuk menangkap foto dan video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal memerlukan kebenaran Kamera untuk menangkap foto dan video</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Dayakan kebenaran mikrofon untuk rakam video dengan bunyi</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly memerlukan kebenaran Mikrofon untuk merakam video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly memerlukan kebenaran mikrofon untuk merakam video.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal memerlukan kebenaran Mikrofon untuk merakam video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal memerlukan kebenaran mikrofon untuk merakam video.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
     <string name="ConversationActivity_no">Tidak</string>
@@ -513,9 +516,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Untuk mulakan panggilan:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Untuk mulakan panggilan, benarkan Molly mengakses mikrofon anda.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Untuk mulakan panggilan, benarkan Signal mengakses mikrofon anda.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly perlukan akses mikrofon untuk mulakan panggilan.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal perlukan akses mikrofon untuk mulakan panggilan.</string>
 
 
     <string name="ConversationActivity_join">Sertai</string>
@@ -529,9 +532,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Pemesejan SMS tidak lagi disokong dalam Signal. Jemput %1$s ke Signal untuk meneruskan perbualan di sini.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Orang ini tidak lagi menggunakan Molly. Jemput ke Molly untuk meneruskan perbualan di sini.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Orang ini tidak lagi menggunakan Signal. Jemput ke Signal untuk meneruskan perbualan di sini.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Jemput ke Molly</string>
+    <string name="ConversationActivity__invite_to_signal">Jemput ke Signal</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Anda akan diingatkan semula tidak lama lagi.</string>
 
@@ -613,13 +616,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Disekat</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Kemas Kini Molly</string>
+    <string name="ConversationFragment__update_build">Kemas Kini Signal</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Daftar semula Molly</string>
+    <string name="ConversationFragment__reregister_signal">Daftar semula Signal</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Nagivasi kembali.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Buka Molly</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Buka Signal</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Tidak lagi disahkan</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -780,9 +783,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Siapa yang boleh cari saya melalui nombor?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Sesiapa yang mempunyai nombor telefon anda akan dapat melihat anda di Molly dan boleh mula bersembang dengan anda.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Sesiapa yang mempunyai nombor telefon anda akan dapat melihat anda di Signal dan boleh mula bersembang dengan anda.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Tiada sesiapa boleh melihat anda di Molly melainkan anda menghantar mesej kepada mereka atau mempunyai sembang sedia ada dengan mereka.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Tiada sesiapa boleh melihat anda di Signal melainkan anda menghantar mesej kepada mereka atau mempunyai sembang sedia ada dengan mereka.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Memulihkan daripada sandaran?</string>
@@ -861,7 +864,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Uji frasa laluan sandaran anda dan sahkan bahawa ia sepadan</string>
     <string name="BackupsPreferenceFragment__turn_on">Hidupkan</string>
     <string name="BackupsPreferenceFragment__turn_off">Matikan</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Untuk memulihkan sandaran, pasang salinan Molly baharu. Buka aplikasi dan ketik \"Pulihkan sandaran\", kemudian cari fail sandaran. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Untuk memulihkan sandaran, pasang salinan Signal baharu. Buka aplikasi dan ketik \"Pulihkan sandaran\", kemudian cari fail sandaran. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Ketahui lebih lanjut</string>
     <string name="BackupsPreferenceFragment__in_progress">Dalam progres…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -869,7 +872,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d setakat ini…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% setakat ini…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly memerlukan kebenaran storan luaran untuk mencipta sandaran, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal memerlukan kebenaran storan luaran untuk mencipta sandaran, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Tetapkan masa sandaran</string>
 
@@ -936,7 +939,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Sesi sembang dimulakan semula</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly menggunakan penyulitan hujung ke hujung dan kadangkala perlu menyegarkan sesi sembang anda. Hal ini tidak mempengaruhi keselamatan sembang anda, tetapi anda mungkin terlepas mesej daripada kenalan ini, dan anda boleh minta mereka untuk menghantar semula mesej.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal menggunakan penyulitan hujung ke hujung dan kadangkala perlu menyegarkan sesi sembang anda. Hal ini tidak mempengaruhi keselamatan sembang anda, tetapi anda mungkin terlepas mesej daripada kenalan ini, dan anda boleh minta mereka untuk menghantar semula mesej.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -958,14 +961,18 @@
     <string name="LinkDeviceFragment__my_linked_devices">Peranti saya yang dipautkan</string>
     <!-- Dialog confirmation to unlink a device -->
     <string name="LinkDeviceFragment__unlink">Menyahpaut</string>
-    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
-    <string name="LinkDeviceFragment__s_unlinked">%1$s tidak lagi dipautkan</string>
+    <!-- Toast message indicating a device has been unlinked, where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_unlinked">\"%1$s\" unlinked</string>
+    <!-- Toast message indicating a device has been successfully linked, where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_linked">\"%1$s\" linked</string>
     <!-- Progress dialog message indicating that a device is currently being linked with an account -->
     <string name="LinkDeviceFragment__linking_device">Memautkan peranti…</string>
     <!-- Toast message shown after a device has been linked -->
     <string name="LinkDeviceFragment__device_approved">Peranti diluluskan</string>
     <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
     <string name="LinkDeviceFragment__loading">Memuatkan…</string>
+    <!-- Progress dialog message indicating that you are syncing messages to your linked device -->
+    <string name="LinkDeviceFragment__syncing_messages">Syncing messages…</string>
     <!-- Text message shown when the user has no linked devices -->
     <string name="LinkDeviceFragment__no_linked_devices">Tiada peranti dipautkan</string>
     <!-- Title on biometrics prompt explaining what biometrics are being used for -->
@@ -976,6 +983,14 @@
     <string name="LinkDeviceFragment__tap_continue_and_enter_phone">Ketik teruskan dan masukkan kunci telefon anda untuk mengesahkan. Jangan masukkan PIN Signal anda.</string>
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Teruskan</string>
+    <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_title">Message sync failed</string>
+    <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_body">Your messages couldn\'t be transferred to your linked device. You can try re-linking and transferring again, or continue without transferring your message history.</string>
+    <!-- Text button of a button in a dialog that, when pressed, will restart the process of linking a device -->
+    <string name="LinkDeviceFragment__sync_failure_retry_button">Try linking again</string>
+    <!-- Text button of a button in a dialog that, when pressed, will ignore syncing errors and link a new device without syncing message content -->
+    <string name="LinkDeviceFragment__sync_failure_dismiss_button">Continue without transferring</string>
 
     <!-- AddLinkDeviceFragment -->
     <!-- Description text shown on the QR code scanner when linking a device -->
@@ -991,7 +1006,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Selesaikan pemautan pada peranti anda yang lain</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Selesai memautkan Molly pada peranti anda yang lain.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Selesai memautkan Signal pada peranti anda yang lain.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Gagal Memaut Peranti</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1000,7 +1015,7 @@
     <string name="AddLinkDeviceFragment__retry">Cuba Semula</string>
 
     <!-- DeviceListActivity -->
-    <string name="DeviceListActivity_unlink_s">Nyahpaut \'%1$s</string>
+    <string name="DeviceListActivity_unlink_s">Nyahpaut \"%1$s\"?</string>
     <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">Dengan menyahpautkan peranti ini, ia tidak akan dapat menghantar atau menerima mesej lagi.</string>
     <string name="DeviceListActivity_network_connection_failed">Gagal menyambung rangkaian</string>
     <!-- Button label on an alert dialog. The dialog informs the user they have network issues. If pressed, we will retry the network request. -->
@@ -1020,10 +1035,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimumkan untuk ketiadaan Perkhidmatan Play</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Peranti ini tidak menyokong Perkhidmatan Play. Ketik untuk menyahdayakan pengoptimuman bateri sistem yang menghalang Molly daripada mengambil mesej semasa tidak aktif.  </string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Peranti ini tidak menyokong Perkhidmatan Play. Ketik untuk menyahdayakan pengoptimuman bateri sistem yang menghalang Signal daripada mengambil mesej semasa tidak aktif.  </string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Versi Molly ini telah tamat tempoh. Kemas kini sekarang untuk menghantar dan menerima mesej.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Versi Signal ini telah tamat tempoh. Kemas kini sekarang untuk menghantar dan menerima mesej.</string>
     <string name="ExpiredBuildReminder_update_now">Update sekarang</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1160,7 +1175,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Log nyahpepijat membantu kami mendiagnosis dan membetulkan isu tersebut dan tidak mengandungi maklumat pengenalpastian.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly menghadapi masalah. Hantar log nyahpepijat?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal menghadapi masalah. Hantar log nyahpepijat?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Anda mungkin tidak akan menerima mesej. Hantar log nyahpepijat?</string>
 
@@ -1168,12 +1183,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Pemberitahuan mungkin ditangguhkan kerana pengoptimuman bateri</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Anda boleh nyahdayakan pengoptimuman bateri untuk Molly bagi memastikan pemberitahuan mesej tidak akan ditangguhkan.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Anda boleh nyahdayakan pengoptimuman bateri untuk Signal bagi memastikan pemberitahuan mesej tidak akan ditangguhkan.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Pemberitahuan mungkin ditangguhkan kerana pengoptimuman bateri</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Nyahdayakan pengoptimuman bateri untuk Molly bagi memastikan pemberitahuan mesej tidak akan ditangguhkan. Ketik \"Teruskan\" untuk melihat arahan khusus peranti.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Nyahdayakan pengoptimuman bateri untuk Signal bagi memastikan pemberitahuan mesej tidak akan ditangguhkan. Ketik \"Teruskan\" untuk melihat arahan khusus peranti.</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Tidak, terima kasih</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1182,7 +1197,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">Anda mungkin tidak akan menerima mesej</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">Memulakan semula peranti anda boleh membantu menyelesaikan isu penghantaran mesej. Jika masalah ini berterusan, hubungi sokongan Molly.</string>
+    <string name="ConnectivityWarningBottomSheet_body">Memulakan semula peranti anda boleh membantu menyelesaikan isu penghantaran mesej. Jika masalah ini berterusan, hubungi sokongan Signal.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">Faham</string>
 
@@ -1476,12 +1491,12 @@
     <string name="InviteActivity_cancel">Batal</string>
     <string name="InviteActivity_sending">Menghantar…</string>
     <string name="InviteActivity_invitations_sent">Jemputan dihantar!</string>
-    <string name="InviteActivity_invite_to_signal">Jemput ke Molly</string>
+    <string name="InviteActivity_invite_to_signal">Jemput ke Signal</string>
     <string name="InviteActivity_send_sms">Hantar SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="other">Hantar %1$d jemputan SMS?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Mari tukar ke Molly: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Mari tukar ke Signal: %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">Nampaknya anda tidak mempunyai sebarang aplikasi untuk dikongsi.</string>
 
@@ -1496,7 +1511,7 @@
     <string name="LongMessageActivity_your_message">Mesej anda</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">Sambungan latar belakang didayakan</string>
 
     <!-- MediaOverviewActivity -->
@@ -1560,10 +1575,10 @@
     <string name="MessageQuotesBottomSheet_replies">Balasan</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Mewujudkan panggilan Molly</string>
+    <string name="NotificationBarManager__establishing_signal_call">Mewujudkan panggilan Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Memulakan perkhidmatan panggilan Molly</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Menghentikan perkhidmatan panggilan Molly</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Memulakan perkhidmatan panggilan Signal</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Menghentikan perkhidmatan panggilan Signal</string>
     <string name="NotificationBarManager__cancel_call">Batalkan panggilan</string>
 
     <!-- NotificationsMegaphone -->
@@ -1869,7 +1884,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Anda tidak lagi boleh menghantar mesej SMS daripada Signal tidak lama lagi. Jemput %1$s ke Signal untuk meneruskan perbualan di sini.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Anda tidak lagi boleh menghantar mesej SMS dalam Molly. Jemput %1$s ke Molly untuk meneruskan perbualan di sini.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Anda tidak lagi boleh menghantar mesej SMS dalam Signal. Jemput %1$s ke Signal untuk meneruskan perbualan di sini.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Pembayaran: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -1950,7 +1965,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Memautkan satu peranti Signal?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Nampaknya anda cuba memautkan satu peranti Signal dengan menggunakan pengimbas pihak ke-3. Untuk perlindungan anda, sila imbas kod semula dalam Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly memerlukan kebenaran Kamera untuk mengimbas kod QR, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal memerlukan kebenaran Kamera untuk mengimbas kod QR, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Tidak dapat mengimbas kod QR tanpa kebenaran Kamera</string>
 
     <!-- OutdatedBuildReminder -->
@@ -1962,12 +1977,12 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Masukkan frasa laluan</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">ikon Molly</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">ikon Signal</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Hantar frasa laluan</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Frasa laluan tidak sah!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Buka Molly</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Buka Signal</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Kunci Skrin</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Kunci Skrin</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Peta</string>
@@ -2034,7 +2049,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Sahkan untuk meneruskan pemesejan</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Untuk bantu mengelakkan spam di Molly, sila lengkapkan pengesahan.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Untuk bantu mengelakkan spam di Signal, sila lengkapkan pengesahan.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Selepas pengesahan, anda boleh meneruskan pemesejan. Sebarang mesej yang dijeda akan dihantar secara automatik.</string>
 
     <!-- Recipient -->
@@ -2042,7 +2057,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Cerita Saya</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Panggilan Molly</string>
+    <string name="Recipient_signal_call">Panggilan Signal</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Sekat</string>
@@ -2078,8 +2093,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Ketik sini untuk dayakan video anda</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Untuk memanggil %1$s, Molly memerlukan akses kepada kamera anda</string>
-    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Untuk memanggil %1$s, Signal memerlukan akses kepada kamera anda</string>
+    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
     <string name="WebRtcCallActivity__calling">Memanggil…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Menyambung Semula…</string>
@@ -2134,23 +2149,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Benarkan akses kepada kamera anda</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Untuk memulakan atau menyertai panggilan, benarkan akses Molly kepada kamera dan mikrofon anda.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Untuk memulakan atau menyertai panggilan, benarkan akses Signal kepada kamera dan mikrofon anda.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">Untuk memulakan atau menyertai panggilan, benarkan akses Molly kepada mikrofon anda.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">Untuk memulakan atau menyertai panggilan, benarkan akses Signal kepada mikrofon anda.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Untuk mendayakan video anda, benarkan akses Molly kepada kamera anda.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Untuk mendayakan video anda, benarkan akses Signal kepada kamera anda.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly memerlukan kebenaran mikrofon untuk memulakan atau menyertai panggilan.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal memerlukan kebenaran mikrofon untuk memulakan atau menyertai panggilan.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly perlukan akses kamera untuk mendayakan video anda</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal perlukan akses kamera untuk mendayakan video anda</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Untuk memulakan atau menyertai panggilan:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Untuk mendayakan video anda:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Panggilan Molly</string>
-    <string name="WebRtcCallView__signal_video_call">Panggilan Video Molly</string>
+    <string name="WebRtcCallView__signal_call">Panggilan Signal</string>
+    <string name="WebRtcCallView__signal_video_call">Panggilan Video Signal</string>
     <string name="WebRtcCallView__start_call">Mulakan Panggilan</string>
     <string name="WebRtcCallView__join_call">Sertai Panggilan</string>
     <string name="WebRtcCallView__call_is_full">Panggilan penuh</string>
@@ -2354,7 +2369,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Anda akan menerima panggilan untuk mengesahkan nombor ini.</string>
     <string name="RegistrationActivity_edit_number">Edit nombor</string>
     <string name="RegistrationActivity_missing_google_play_services">Kehilangan Perkhidmatan Google Play</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Peranti ini kehilangan Perkhidmatan Google Play. Anda masih boleh gunakan Molly, tetapi konfigurasi ini boleh menyebabkan kebolehpercayaan atau prestasi yang kurang.\n\nKalau anda bukan pengguna lanjutan, tidak menjalankan ROM Android selepas jualan, atau anda percaya melihat ini kerana ralat, sila hubungi support@molly.im untuk penyelesaian masalah.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Peranti ini kehilangan Perkhidmatan Google Play. Anda masih boleh gunakan Signal, tetapi konfigurasi ini boleh menyebabkan kebolehpercayaan atau prestasi yang kurang.\n\nKalau anda bukan pengguna lanjutan, tidak menjalankan ROM Android selepas jualan, atau anda percaya melihat ini kerana ralat, sila hubungi support@signal.org untuk penyelesaian masalah.</string>
     <string name="RegistrationActivity_i_understand">Saya faham</string>
     <string name="RegistrationActivity_play_services_error">Ralat Perkhidmatan Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Perkhidmatan Google Play sedang dikemas kini atau tidak tersedia sementara waktu. Sila cuba sekali lagi.</string>
@@ -2372,7 +2387,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Format nombor bukan standard</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Nombor yang anda telah masukkan (%1$s) adalah dalam format bukan standard.\n\nAdakah anda maksudkan %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Format Nombor Telefon</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - Format Nombor Telefon</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Panggilan diminta</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2444,13 +2459,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Tambah kepada Kenalan</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Jemput ke Molly</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Jemput ke Signal</string>
     <string name="SharedContactDetailsActivity_signal_message">Mesej Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Panggilan Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Tambah kepada Kenalan</string>
-    <string name="SharedContactView_invite_to_signal">Jemput ke Molly</string>
+    <string name="SharedContactView_invite_to_signal">Jemput ke Signal</string>
     <string name="SharedContactView_message">Mesej Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2583,11 +2598,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s milik %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Kemas kini Molly</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Versi baharu Molly tersedia. Ketik untuk mengemas kini.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Molly gagal dikemas kini</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Kemas kini Signal</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Versi baharu Signal tersedia. Ketik untuk mengemas kini.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Signal gagal dikemas kini</string>
     <string name="ApkUpdateNotifications_failed_general_body">Kita akan cuba lagi nanti.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly berjaya dikemas kini</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal berjaya dikemas kini</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Anda telah dikemas kini secara automatik kepada versi %1$s.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">Anda mengemas kini kepada versi %1$s.</string>
 
@@ -2658,7 +2673,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Nombor keselamatan Signal kami:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Nampaknya anda tidak mempunyai sebarang aplikasi untuk dikongsi.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Tiada nombor keselamatan untuk membandingkan ditemui di papan klip</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly memerlukan kebenaran Kamera untuk mengimbas kod QR, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal memerlukan kebenaran Kamera untuk mengimbas kod QR, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Kod QR tidak dapat diimbas tanpa kebenaran Kamera</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Anda mesti saling bermesej terlebih dahulu untuk melihat nombor keselamatan %1$s.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2688,14 +2703,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Sentuh untuk buka</string>
-    <string name="KeyCachingService_passphrase_cached">Molly dibuka</string>
-    <string name="KeyCachingService_lock">Kunci Molly</string>
+    <string name="KeyCachingService_passphrase_cached">Signal dibuka</string>
+    <string name="KeyCachingService_lock">Kunci Signal</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Anda</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Jenis media yang tidak disokong</string>
     <string name="MediaPreviewActivity_draft">Draf</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly memerlukan kebenaran Storan untuk menyimpan ke storan luaran, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal memerlukan kebenaran Storan untuk menyimpan ke storan luaran, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Tidak dapat menyimpan ke storan luaran tanpa kebenaran</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Padam mesej?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Ini akan memadam mesej ini secara kekal.</string>
@@ -2738,7 +2753,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Gagal untuk menghantar mesej.</string>
     <string name="MessageNotifier_error_delivering_message">Ralat menghantarkan mesej.</string>
     <string name="MessageNotifier_message_delivery_paused">Penghantaran mesej telah dijeda.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Sahkan untuk meneruskan pemesejan di Molly.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Sahkan untuk meneruskan pemesejan di Signal.</string>
     <string name="MessageNotifier_mark_all_as_read">Tandakan semua sebagai dibaca</string>
     <string name="MessageNotifier_mark_read">Tandakan dibaca</string>
     <string name="MessageNotifier_turn_off_these_notifications">Matikan pemberitahuan ini</string>
@@ -2760,7 +2775,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Memberi reaksi %1$s kepada pelekat anda.</string>
     <string name="MessageNotifier_this_message_was_deleted">Mesej ini telah dipadam.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Matikan pemberitahuan kenalan telah menyertai Molly? Anda boleh mendayakannya lagi dalam Molly &gt; Tetapan &gt; Pemberitahuan.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Matikan pemberitahuan kenalan telah menyertai Signal? Anda boleh mendayakannya lagi dalam Signal &gt; Tetapan &gt; Pemberitahuan.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2801,7 +2816,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Respons pantas tidak tersedia apabila Molly dikunci!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Respons pantas tidak tersedia apabila Signal dikunci!</string>
     <string name="QuickResponseService_problem_sending_message">Masalah menghantar mesej!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2821,7 +2836,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Pintasan tak sah</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Mesej baru</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Permintaan mesej</string>
     <string name="SingleRecipientNotificationBuilder_you">Anda</string>
@@ -2866,7 +2881,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Peranti tidak lagi didaftarkan. Ini berkemungkinan kerana anda mendaftarkan nombor telefon anda dengan Molly pada peranti lain.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Peranti tidak lagi didaftarkan. Ini berkemungkinan kerana anda mendaftarkan nombor telefon anda dengan Signal pada peranti lain.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Daftar Semula Peranti</string>
 
@@ -2879,10 +2894,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Untuk menjawab panggilan, berikan Molly akses kepada mikrofon anda.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Untuk menjawab panggilan, berikan Signal akses kepada mikrofon anda.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Untuk menjawab panggilan video, berikan Molly akses kepada mikrofon dan kamera anda.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly memerlukan kebenaran Mikrofon dan Kamera untuk memanggil atau menerima panggilan, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Untuk menjawab panggilan video, berikan Signal akses kepada mikrofon dan kamera anda.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal memerlukan kebenaran Mikrofon dan Kamera untuk memanggil atau menerima panggilan, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Dijawab pada peranti yang dipautkan.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Ditolak pada peranti yang dipautkan.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Sibuk pada peranti yang dipautkan.</string>
@@ -2927,7 +2942,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Ulangi frasa laluan baru</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Jemput ke Molly</string>
+    <string name="contact_selection_activity__invite_to_signal">Jemput ke Signal</string>
     <string name="contact_selection_activity__new_group">Kumpulan baru</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Segar semula kenalan</string>
@@ -2953,7 +2968,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Foto Kenalan</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly memerlukan kebenaran Kenalan untuk memaparkan kenalan anda, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal memerlukan kebenaran Kenalan untuk memaparkan kenalan anda, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Ralat mengambil kenalan, semak sambungan rangkaian anda</string>
     <string name="ContactSelectionListFragment_username_not_found">Nama pengguna tidak dijumpai</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" bukan pengguna Signal. Sila periksa nama pengguna dan cuba lagi."</string>
@@ -2981,7 +2996,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Benarkan akses kepada kenalan anda. Kenalan anda disulitkan dan tidak kelihatan kepada perkhidmatan Signal.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly memerlukan akses kepada kenalan anda untuk memaparkannya.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal memerlukan akses kepada kenalan anda untuk memaparkannya.</string>
     <string name="contact_selection_list_fragment__show_contacts">Tunjukkan Kenalan</string>
 
     <!-- contact_selection_list_item -->
@@ -3084,7 +3099,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Bubbles ialah ciri Android yang anda boleh matikan untuk sembang Molly.</string>
+    <string name="BubbleOptOutTooltip__description">Bubbles ialah ciri Android yang anda boleh matikan untuk sembang Signal.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Bukan sekarang</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3246,9 +3261,9 @@
     <string name="EditProfileFragment__group_description">Penerangan kumpulan</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Kemas Kini Molly</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Kemas Kini Signal</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Versi Molly ini telah tamat tempoh. Kemas kini sekarang untuk terus menggunakan Molly.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Versi Signal ini telah tamat tempoh. Kemas kini sekarang untuk terus menggunakan Signal.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Kemas Kini</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3463,7 +3478,7 @@
     <string name="preferences__slow">Lambat</string>
     <string name="preferences__help">Bantu</string>
     <string name="preferences__advanced">Lanjutan</string>
-    <string name="preferences__donate_to_signal">Derma kepada Molly</string>
+    <string name="preferences__donate_to_signal">Derma kepada Signal</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Privasi</string>
     <!-- Preference label for stories -->
@@ -3500,13 +3515,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Tukar ikon dan nama aplikasi kepada \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Molly perlu ditutup untuk menukar ikon dan nama aplikasi. Pemberitahuan akan sentiasa memaparkan ikon dan nama Molly lalai.</string>
+    <string name="preferences__app_icon_dialog_description">Signal perlu ditutup untuk menukar ikon dan nama aplikasi. Pemberitahuan akan sentiasa memaparkan ikon dan nama Signal lalai.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Pilih ikon dan nama aplikasi, yang akan kelihatan pada skrin utama telefon anda dan laci aplikasi. Pemberitahuan akan sentiasa memaparkan ikon dan nama Molly lalai. Ketahui lebih lanjut</string>
+    <string name="preferences__app_icon_warning_learn_more">Pilih ikon dan nama aplikasi, yang akan kelihatan pada skrin utama telefon anda dan laci aplikasi. Pemberitahuan akan sentiasa memaparkan ikon dan nama Signal lalai. Ketahui lebih lanjut</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Ikon dan nama aplikasi boleh dilihat pada skrin utama dan laci aplikasi.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Pemberitahuan akan sentiasa memaparkan ikon dan nama Molly lalai.</string>
+    <string name="preferences__app_icon_notification_warning">Pemberitahuan akan sentiasa memaparkan ikon dan nama Signal lalai.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Ketahui lebih lanjut</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3596,7 +3611,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Penapisan pemintasan</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Penapisan pemintasan</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Jika didayakan, Molly akan cuba memintas penapisan. Jangan mendayakan ciri ini melainkan jika anda berada di lokasi di mana Molly ditapis.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Jika didayakan, Signal akan cuba memintas penapisan. Jangan mendayakan ciri ini melainkan jika anda berada di lokasi di mana Signal ditapis.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Pemintasan penapisan telah diaktifkan berdasarkan nombor telefon akaun anda.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3648,7 +3663,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Memperkenalkan Pembayaran</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Gunakan Molly untuk menghantar dan menerima MobileCoin, mata wang digital yang mementingkan privasi. Aktifkan untuk bermula.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Gunakan Signal untuk menghantar dan menerima MobileCoin, mata wang digital yang mementingkan privasi. Aktifkan untuk bermula.</string>
     <string name="PaymentsHomeFragment__activate_payments">Aktifkan Pembayaran</string>
     <string name="PaymentsHomeFragment__activating_payments">Mengaktifkan pembayaran…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Pulihkan akaun pembayaran</string>
@@ -3674,7 +3689,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Pembayaran tidak tersedia di wilayah anda.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Tidak dapat mendayakan pembayaran. Cuba sebentar lagi.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Nyahaktifkan Pembayaran?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Anda tidak akan dapat menghantar atau menerima MobileCoin dalam Molly jika anda menyahaktifkan pembayaran.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Anda tidak akan dapat menghantar atau menerima MobileCoin dalam Signal jika anda menyahaktifkan pembayaran.</string>
     <string name="PaymentsHomeFragment__deactivate">Nyahaktifkan</string>
     <string name="PaymentsHomeFragment__continue">Teruskan</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Baki tidak tersedia buat masa ini.</string>
@@ -3683,10 +3698,10 @@
     <string name="PaymentsHomeFragment__details">Butiran</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Anda boleh menggunakan Molly untuk menghantar dan menerima MobileCoin. Semua pembayaran adalah tertakluk kepada Syarat Penggunaan untuk MobileCoins dan MobileCoin Wallet. Anda mungkin menghadapi beberapa isu dan pembayaran atau baki yang mungkin hilang tidak dapat dipulihkan. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Anda boleh menggunakan Signal untuk menghantar dan menerima MobileCoin. Semua pembayaran adalah tertakluk kepada Syarat Penggunaan untuk MobileCoins dan MobileCoin Wallet. Anda mungkin menghadapi beberapa isu dan pembayaran atau baki yang mungkin hilang tidak dapat dipulihkan. </string>
     <string name="PaymentsHomeFragment__activate">Aktifkan</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Lihat terma MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Pembayaran dalam Molly tidak lagi tersedia. Anda masih boleh memindah dana ke pertukaran tetapi anda tidak lagi dapat menghantar dan menerima pembayaran atau menambah dana.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Pembayaran dalam Signal tidak lagi tersedia. Anda masih boleh memindah dana ke pertukaran tetapi anda tidak lagi dapat menghantar dan menerima pembayaran atau menambah dana.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3714,7 +3729,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Beri kebenaran</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Untuk membantu anda menghantar mesej kepada orang yang anda kenali, Molly akan meminta kebenaran ini. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Untuk membantu anda menghantar mesej kepada orang yang anda kenali, Signal akan meminta kebenaran ini. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Pemberitahuan</string>
     <!-- Notifications permission row description -->
@@ -3806,10 +3821,10 @@
     <string name="PaymentsTransferFragment__next">Seterusnya</string>
     <string name="PaymentsTransferFragment__invalid_address">Alamat tidak sah</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Periksa alamat dompet yang anda cuba pindah ke dan cuba lagi.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Anda tidak boleh memindahkan bayaran ke alamat dompet Molly anda sendiri. Masukkan alamat dompet daripada akaun anda di pertukaran yang disokong.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Untuk mengimbas kod QR, Molly memerlukan akses kepada kamera.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly memerlukan kebenaran Kamera untuk menangkap kod QR. Pergi ke tetapan, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Untuk mengimbas kod QR, Molly memerlukan akses kepada kamera.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Anda tidak boleh memindahkan bayaran ke alamat dompet Signal anda sendiri. Masukkan alamat dompet daripada akaun anda di pertukaran yang disokong.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Untuk mengimbas kod QR, Signal memerlukan akses kepada kamera.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal memerlukan kebenaran Kamera untuk menangkap kod QR. Pergi ke tetapan, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Untuk mengimbas kod QR, Signal memerlukan akses kepada kamera.</string>
     <string name="PaymentsTransferFragment__settings">Tetapan</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4154,17 +4169,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Panggilan suara Molly masuk</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Panggilan suara Signal masuk</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Panggilan video Molly Masuk</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Panggilan video Signal Masuk</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Panggilan kumpulan Molly masuk</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Panggilan kumpulan Signal masuk</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Panggilan suara Molly sedang berjalan</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Panggilan suara Signal sedang berjalan</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Panggilan video Molly sedang berjalan</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Panggilan video Signal sedang berjalan</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Panggilan kumpulan Molly sedang berjalan</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Panggilan kumpulan Signal sedang berjalan</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Memuatkan…</string>
@@ -4212,9 +4227,9 @@
     <string name="BackupDialog_verify">Sahkan</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Anda berjaya memasukkan frasa laluan sandaran anda</string>
     <string name="BackupDialog_passphrase_was_not_correct">Frasa laluan tidak betul</string>
-    <string name="LocalBackupJob_creating_signal_backup">Mencipta sandaran Molly…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Mencipta sandaran Signal…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Mengesahkan sandaran Molly…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Mengesahkan sandaran Signal…</string>
     <string name="LocalBackupJobApi29_backup_failed">Sandaran gagal</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Direktori sandaran anda telah dipadamkan atau dipindahkan.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Fail sandaran anda terlalu besar untuk disimpan pada volum ini.</string>
@@ -4229,15 +4244,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Hubungi saya (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Hantar semula Kod (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Hubungi Sokongan Molly</string>
-    <string name="RegistrationActivity_code_support_subject">Pendaftaran Molly - Kod Pengesahan untuk Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Hubungi Sokongan Signal</string>
+    <string name="RegistrationActivity_code_support_subject">Pendaftaran Signal - Kod Pengesahan untuk Android</string>
     <string name="RegistrationActivity_incorrect_code">Kod salah</string>
     <string name="BackupUtil_never">Tidak pernah</string>
     <string name="BackupUtil_unknown">Tidak diketahui</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Nombor telefon</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Pilih siapa yang boleh melihat nombor telefon anda dan siapa yang boleh menghubungi nombor anda di Molly.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Pilih siapa yang boleh melihat nombor telefon anda dan siapa yang boleh menghubungi nombor anda di Signal.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Siapa boleh lihat nombor saya</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4288,11 +4303,11 @@
     <string name="RegistrationActivity_error_connecting_to_service">Ralat menyambung ke perkhidmatan</string>
     <string name="preferences_chats__backups">Sandaran</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">Buka Kunci Molly</string>
+    <string name="prompt_passphrase_activity__unlock_signal">Buka Kunci Signal</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Gunakan tetapan kunci peranti Android anda untuk membuka kunci Molly.</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Gunakan tetapan kunci peranti Android anda untuk membuka kunci Signal.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Kunci skrin dihidupkan dan Molly selamat dengan tetapan kunci peranti anda. Buka Kunci Molly dengan cara yang sama seperti membuka kunci telefon anda, sama ada dengan Buka Kunci Wajah, Buka Kunci Cap Jari, PIN, kata laluan atau corak.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Kunci skrin dihidupkan dan Signal selamat dengan tetapan kunci peranti anda. Buka Kunci Signal dengan cara yang sama seperti membuka kunci telefon anda, sama ada dengan Buka Kunci Wajah, Buka Kunci Cap Jari, PIN, kata laluan atau corak.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Hubungi sokongan</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4304,7 +4319,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">Gunakan kunci skrin</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Tetapan kunci peranti Android anda diperlukan untuk membuka kunci Molly apabila anda meninggalkan atau menukar aplikasi. Apabila dikunci, pratonton pemberitahuan tidak akan menunjukkan kandungan mesej.</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Tetapan kunci peranti Android anda diperlukan untuk membuka kunci Signal apabila anda meninggalkan atau menukar aplikasi. Apabila dikunci, pratonton pemberitahuan tidak akan menunjukkan kandungan mesej.</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">Mulakan kunci skrin</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4318,9 +4333,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">Masa tersuai</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Gunakan kunci skrin Molly</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Gunakan kunci skrin Signal</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Matikan kunci skrin Molly</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Matikan kunci skrin Signal</string>
 
     <string name="Recipient_unknown">Tidak diketahui</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4375,19 +4390,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Bersedia untuk menyambung ke peranti Android lama…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Sebentar, akan tersedia sebentar lagi</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Menunggu peranti Android lama untuk disambungkan…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly memerlukan kebenaran lokasi untuk menemui dan menyambung ke peranti Android lama anda.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly memerlukan perkhidmatan lokasi didayakan untuk menemui dan menyambung dengan peranti Android lama anda.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly memerlukan Wi-Fi untuk menemui dan menyambung dengan peranti Android lama anda. Wi-Fi perlu dihidupkan tetapi tidak perlu disambungkan ke rangkaian Wi-Fi.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Maaf, nampaknya peranti ini tidak menyokong Wi-Fi Direct. Molly menggunakan Wi-Fi Direct untuk menemui dan menyambung dengan peranti Android lama anda. Anda masih boleh memulihkan sandaran untuk memulihkan akaun anda daripada peranti Android lama anda.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal memerlukan kebenaran lokasi untuk menemui dan menyambung ke peranti Android lama anda.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal memerlukan perkhidmatan lokasi didayakan untuk menemui dan menyambung dengan peranti Android lama anda.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal memerlukan Wi-Fi untuk menemui dan menyambung dengan peranti Android lama anda. Wi-Fi perlu dihidupkan tetapi tidak perlu disambungkan ke rangkaian Wi-Fi.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Maaf, nampaknya peranti ini tidak menyokong Wi-Fi Direct. Signal menggunakan Wi-Fi Direct untuk menemui dan menyambung dengan peranti Android lama anda. Anda masih boleh memulihkan sandaran untuk memulihkan akaun anda daripada peranti Android lama anda.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Pulihkan sandaran</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ralat yang tidak dijangka berlaku semasa cuba menyambung ke peranti Android lama anda.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Mencari peranti Android baharu…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly memerlukan kebenaran lokasi untuk menemui dan menyambung ke peranti Android baharu anda.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly memerlukan perkhidmatan lokasi didayakan untuk menemui dan menyambung dengan peranti Android baharu anda.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly memerlukan Wi-Fi dihidupkan untuk menemui dan menyambung dengan peranti Android baharu anda. Wi-Fi perlu dihidupkan tetapi tidak perlu disambungkan ke rangkaian Wi-Fi.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Maaf, nampaknya peranti ini tidak menyokong Wi-Fi Direct. Molly menggunakan Wi-Fi Direct untuk menemui dan menyambung dengan peranti Android baharu anda. Anda masih boleh mencipta sandaran untuk memulihkan akaun pada peranti Android baharu anda.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal memerlukan kebenaran lokasi untuk menemui dan menyambung ke peranti Android baharu anda.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal memerlukan perkhidmatan lokasi didayakan untuk menemui dan menyambung dengan peranti Android baharu anda.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal memerlukan Wi-Fi dihidupkan untuk menemui dan menyambung dengan peranti Android baharu anda. Wi-Fi perlu dihidupkan tetapi tidak perlu disambungkan ke rangkaian Wi-Fi.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Maaf, nampaknya peranti ini tidak menyokong Wi-Fi Direct. Signal menggunakan Wi-Fi Direct untuk menemui dan menyambung dengan peranti Android baharu anda. Anda masih boleh mencipta sandaran untuk memulihkan akaun pada peranti Android baharu anda.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Cipta sandaran</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ralat yang tidak dijangka berlaku semasa cuba menyambung ke peranti Android baharu anda.</string>
 
@@ -4429,7 +4444,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Memindahkan data</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Pastikan kedua-dua peranti dekat antara satu sama lain. Jangan matikan peranti dan pastikan Molly dibuka. Pemindahan disulitkan dari hujung ke hujung.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Pastikan kedua-dua peranti dekat antara satu sama lain. Jangan matikan peranti dan pastikan Signal dibuka. Pemindahan disulitkan dari hujung ke hujung.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d mesej setakat ini…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% mesej setakat ini…</string>
@@ -4443,7 +4458,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Pindahkan Akaun</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Muat turun Molly pada peranti Android baharu anda</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Muat turun Signal pada peranti Android baharu anda</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Ketik \"Pindahkan atau pulihkan akaun\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4517,7 +4532,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Sesiapa sahaja yang mempunyai pautan ini dapat melihat nama dan foto kumpulan dan meminta untuk menyertai kumpulan. Kongsikannya dengan orang yang anda percayai.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Sesiapa sahaja yang mempunyai pautan ini dapat melihat nama dan foto kumpulan dan menyertai kumpulan. Kongsikannya dengan orang yang anda percayai.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Kongsi melalui Molly</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Kongsi melalui Signal</string>
     <string name="GroupLinkBottomSheet_copy">Salin</string>
     <string name="GroupLinkBottomSheet_qr_code">Kod QR</string>
     <string name="GroupLinkBottomSheet_share">Kongsi</string>
@@ -4697,7 +4712,7 @@
     <string name="payment_info_card_about_mobilecoin">Mengenai MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin merupakan mata wang digital yang mementingkan privasi.</string>
     <string name="payment_info_card_adding_funds">Menambah dana</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Anda boleh menambah dana untuk digunakan dalam Molly dengan menghantar MobileCoin ke alamat dompet anda.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Anda boleh menambah dana untuk digunakan dalam Signal dengan menghantar MobileCoin ke alamat dompet anda.</string>
     <string name="payment_info_card_cashing_out">Mengeluarkan wang</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Anda boleh mengeluarkan MobileCoin pada bila-bila sahaja di pertukaran yang menyokong MobileCoin. Hanya buat pemindahan ke akaun anda di pertukaran tersebut.</string>
     <string name="payment_info_card_hide_this_card">Sembunyikan kad ini?</string>
@@ -4718,12 +4733,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Nyahaktifkan Dompet</string>
     <string name="DeactivateWalletFragment__your_balance">Baki anda</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Anda disyorkan agar memindahkan dana anda ke alamat dompet lain sebelum menyahaktifkan pembayaran. Jika anda memilih untuk tidak memindahkan dana anda sekarang, ia akan kekal dalam dompet anda yang dipautkan ke Molly jika anda mengaktifkan semula pembayaran.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Anda disyorkan agar memindahkan dana anda ke alamat dompet lain sebelum menyahaktifkan pembayaran. Jika anda memilih untuk tidak memindahkan dana anda sekarang, ia akan kekal dalam dompet anda yang dipautkan ke Signal jika anda mengaktifkan semula pembayaran.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Pindah baki yang tinggal</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Nyahaktifkan tanpa pemindahan</string>
     <string name="DeactivateWalletFragment__deactivate">Nyahaktifkan</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Nyahaktifkan tanpa pemindahan?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Baki anda akan kekal dalam dompet anda yang dipautkan ke Molly jika anda memilih untuk mengaktifkan semula pembayaran.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Baki anda akan kekal dalam dompet anda yang dipautkan ke Signal jika anda memilih untuk mengaktifkan semula pembayaran.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Ralat semasa menyahaktifkan dompet.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -4826,6 +4841,9 @@
     <string name="QualitySelectorBottomSheetDialog__media_quality">Kualiti media</string>
 
     <!-- AppSettingsFragment -->
+    <!-- String alerting user that something is wrong with their backups subscription -->
+    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Renew your Signal Backups subscription</string>
+    <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Jemput rakan anda</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
     <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">Menyalin id pelanggan penderma ke papan keratan</string>
@@ -4986,7 +5004,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">Kumpulan</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Hanya mesej daripada sembang kumpulan</string>
+    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">Tambah</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -5044,7 +5062,7 @@
     <!-- Button text to save the changes to a folder after it has been edited -->
     <string name="CreateFoldersFragment__save">Simpan</string>
     <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
-    <string name="CreateFoldersFragment__discard_changes_title">Discard changes?</string>
+    <string name="CreateFoldersFragment__discard_changes_title">Abaikan perubahan?</string>
     <!-- Alert dialog description explaining that any changes made will be discarded -->
     <string name="CreateFoldersFragment__you_will_lose_changes">You\'ll lose the changes you\'ve made to this folder.</string>
     <!-- Alert dialog confirmation text to discard the changes -->
@@ -5141,7 +5159,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Lesen</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Terma &amp; Dasar Privasi</string>
-    <string name="HelpFragment__copyright_signal_messenger">Hak Cipta Molly Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Hak Cipta Signal Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Berlesen di bawah GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5586,9 +5604,9 @@
     <string name="MySupportPreference__learn_more">Ketahui lebih lanjut</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Kemas Kini Molly</string>
+    <string name="UpdateSignalExpiredDialog__title">Kemas Kini Signal</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Versi Molly ini telah tamat tempoh. Kemas kini sekarang untuk terus menggunakan Molly.</string>
+    <string name="UpdateSignalExpiredDialog__message">Versi Signal ini telah tamat tempoh. Kemas kini sekarang untuk terus menggunakan Signal.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Kemas Kini</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5597,7 +5615,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Peranti tidak didaftarkan</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Peranti tidak lagi didaftarkan. Daftar semula untuk terus menggunakan Molly pada peranti ini.</string>
+    <string name="ReregisterSignalDialog__message">Peranti tidak lagi didaftarkan. Daftar semula untuk terus menggunakan Signal pada peranti ini.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Daftar semula</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5857,7 +5875,7 @@
     <!-- Text shown next to toggle switch to enable/disable schedule -->
     <string name="EditNotificationProfileSchedule__schedule">Jadual</string>
     <!-- Label for showing the start time for the schedule -->
-    <string name="EditNotificationProfileSchedule__start">Mulakan</string>
+    <string name="EditNotificationProfileSchedule__start">Mula</string>
     <!-- Label for showing the end time for the schedule -->
     <string name="EditNotificationProfileSchedule__end">Tamat</string>
     <!-- First letter of Sunday -->
@@ -5912,7 +5930,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Gagal untuk membuka pemilih.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Untuk mendayakan pemberitahuan, Molly memerlukan kebenaran untuk memaparkannya.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Untuk mendayakan pemberitahuan, Signal memerlukan kebenaran untuk memaparkannya.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Hidupkan</string>
 
@@ -7380,6 +7398,16 @@
     <!-- Primary action to launch upgrade flow. Placeholder is formatted price. -->
     <string name="UpgradeToStartMediaBackupSheet__subscribe_for_s_month">Langgan dengan %1$s/bulan</string>
 
+    <!-- MediaNoLongerAvailableSheet -->
+    <!-- Title on a bottom sheet explaining that the given media is no longer available. -->
+    <string name="MediaNoLongerAvailableSheet__this_media_is_no_longer_available">Media ini tidak lagi tersedia</string>
+    <!-- Body on a bottom sheet explaining that the user can enable backups -->
+    <string name="MediaNoLongerAvailableSheet__to_start_backing_up_all_your_media">To start backing up all your media, enable Signal Backups and choose the paid tier.</string>
+    <!-- Primary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__continue">Teruskan</string>
+    <!-- Secondary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__not_now">Bukan sekarang</string>
+
     <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_title">Pemadaman kini disegerakkan merentas semua peranti anda</string>
     <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
@@ -7449,7 +7477,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">Tamat tempoh pada %1$s</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Sandarkan sejarah mesej anda supaya anda tidak kehilangan data apabila menggunakan telefon baharu atau memasang semula Molly.</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Sandarkan sejarah mesej anda supaya anda tidak kehilangan data apabila menggunakan telefon baharu atau memasang semula Signal.</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Cara lain untuk membuat sandaran</string>
     <!-- Row title for performing on-device backup -->
@@ -7500,6 +7528,52 @@
     <string name="RemoteBackupsSettingsFragment__downloading_your_backup">Memuat turun sandaran anda</string>
     <!-- Dialog message for dialog which alerts user their optimized media will be downloaded -->
     <string name="RemoteBackupsSettingsFragment__depending_on_the_size">Bergantung pada saiz sandaran anda, ini mungkin mengambil masa yang lama. Anda boleh menggunakan telefon anda seperti biasa semasa sandaran dilakukan.</string>
+    <!-- Displayed in card when user has a signal subscription but the device doesn\'t see a google play billing subscription. Placeholder is days until subscription expiration. -->
+    <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
+        <item quantity="other">Your subscription on this device is valid for the next %1$d days. Renew to continue using Signal Backups</item>
+    </plurals>
+    <!-- Button label to start subscription renewal -->
+    <string name="RemoteBackupsSettingsFragment__renew">Renew</string>
+    <!-- Button label to learn more about why subscription disappeared -->
+    <string name="RemoteBackupsSettingsFragment__learn_more">Ketahui lebih lanjut</string>
+    <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
+    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
+        <item quantity="other">You have %1$s of backup data that’s not on this device. Your backup will be deleted when your subscription ends in %2$d days.</item>
+    </plurals>
+    <!-- Displayed in row when backup is available for download to let user start download -->
+    <string name="RemoteBackupsSettingsFragment__download">Muat turun</string>
+    <!-- Dialog title for skipping download of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_download_question">Skip download?</string>
+    <!-- Dialog body for skiping download of backed up media -->
+    <plurals name="RemoteBackupsSettingsFragment__if_you_skip_downloading">
+        <item quantity="other">If you skip downloading the remaining media and attachments in your backup will be deleted in %1$d days.</item>
+    </plurals>
+    <!-- Positive dialog action to skip download -->
+    <string name="RemoteBackupsSettingsFragment__skip">Langkau</string>
+    <!-- Dialog title for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Couldn\'t turn off and delete backups</string>
+    <!-- Dialog body for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">A network error occurred. Please check your internet connection and try again.</string>
+
+    <!-- SubscriptionNotFoundBottomSheet -->
+    <!-- Displayed as a bottom sheet title -->
+    <string name="SubscriptionNotFoundBottomSheet__subscription_not_found">Subscription not found</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_couldnt_be_restored">Your subscription couldn\'t be restored.</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__this_could_happen_if">This could happen if:</string>
+    <!-- First item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__youre_signed_into_the_play_store_with_a_different_google_account">You\'re signed into the Play Store with a different Google account.</string>
+    <!-- Second item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__you_transferred_from_an_iphone">You transferred from an iPhone.</string>
+    <!-- Third item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_recently_expired">Your subscription recently expired.</string>
+    <!-- Note underneath bullet points -->
+    <string name="SubscriptionNotFoundBottomSheet__if_you_have_an_active_subscription_on">If you have an active subscription on your old phone consider canceling it before it renews.</string>
+    <!-- Action button label to acknowledge and dismiss sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__got_it">Faham</string>
+    <!-- Action button label to contact support -->
+    <string name="SubscriptionNotFoundBottomSheet__contact_support">Hubungi sokongan</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -7519,9 +7593,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Kunci sandaran anda</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Kunci sandaran anda ialah kod 64 digit yang boleh memulihkan sandaran apabila anda memasang semula Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Kunci sandaran anda ialah kod 64 digit yang boleh memulihkan sandaran apabila anda memasang semula Signal.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Jika terlupa PIN, anda tidak akan dapat memulihkan sandaran. Molly tidak dapat membantu memulihkan sandaran anda.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Jika terlupa PIN, anda tidak akan dapat memulihkan sandaran. Signal tidak dapat membantu memulihkan sandaran anda.</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">Seterusnya</string>
 
@@ -7537,7 +7611,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Pastikan kunci anda selamat</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Molly tidak akan dapat membantu memulihkan sandaran jika anda kehilangan kunci. Simpannya di tempat yang selamat dan jangan kongsikannya dengan orang lain.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Signal tidak akan dapat membantu memulihkan sandaran jika anda kehilangan kunci. Simpannya di tempat yang selamat dan jangan kongsikannya dengan orang lain.</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">Saya telah merekodkan kunci saya</string>
     <!-- Sheet action button label -->

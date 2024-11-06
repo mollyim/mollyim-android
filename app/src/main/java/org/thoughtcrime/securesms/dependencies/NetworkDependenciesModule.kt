@@ -32,6 +32,7 @@ import org.whispersystems.signalservice.api.archive.ArchiveApi
 import org.whispersystems.signalservice.api.attachment.AttachmentApi
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations
 import org.whispersystems.signalservice.api.keys.KeysApi
+import org.whispersystems.signalservice.api.link.LinkDeviceApi
 import org.whispersystems.signalservice.api.push.TrustStore
 import org.whispersystems.signalservice.api.services.CallLinksService
 import org.whispersystems.signalservice.api.services.DonationsService
@@ -137,6 +138,10 @@ class NetworkDependenciesModule(
 
   val attachmentApi: AttachmentApi by lazy {
     provider.provideAttachmentApi(signalWebSocket, pushServiceSocket)
+  }
+
+  val linkDeviceApi: LinkDeviceApi by lazy {
+    provider.provideLinkDeviceApi(pushServiceSocket)
   }
 
   val okHttpClient: OkHttpClient by lazy {

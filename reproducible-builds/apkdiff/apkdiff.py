@@ -11,6 +11,8 @@ class ApkDiff:
         "META-INF/MANIFEST.MF",
         "META-INF/*.RSA",
         "META-INF/*.SF",
+        "META-INF/code_transparency_signed.jwt",
+        "stamp-cert-sha256"
     ]
 
     # MOLLY: Allow to exclude files with glob patterns

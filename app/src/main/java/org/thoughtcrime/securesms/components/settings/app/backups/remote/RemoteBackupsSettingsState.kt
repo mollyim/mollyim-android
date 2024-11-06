@@ -92,6 +92,14 @@ data class RemoteBackupsSettingsState(
     ) : WithTypeAndRenewalTime
 
     /**
+     * Subscription mismatch detected.
+     */
+    data class SubscriptionMismatchMissingGooglePlay(
+      override val messageBackupsType: MessageBackupsType,
+      override val renewalTime: Duration
+    ) : WithTypeAndRenewalTime
+
+    /**
      * An error occurred retrieving the network state
      */
     data object Error : BackupState
@@ -103,7 +111,9 @@ data class RemoteBackupsSettingsState(
     BACKUP_FREQUENCY,
     PROGRESS_SPINNER,
     DOWNLOADING_YOUR_BACKUP,
-    TURN_OFF_FAILED
+    TURN_OFF_FAILED,
+    SUBSCRIPTION_NOT_FOUND,
+    SKIP_MEDIA_RESTORE_PROTECTION
   }
 
   enum class Snackbar {

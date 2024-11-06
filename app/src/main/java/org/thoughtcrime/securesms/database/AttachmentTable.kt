@@ -433,7 +433,7 @@ class AttachmentTable(
       return emptyMap()
     }
 
-    val query = SqlUtil.buildSingleCollectionQuery(MESSAGE_ID, mmsIds)
+    val query = SqlUtil.buildFastCollectionQuery(MESSAGE_ID, mmsIds)
 
     return readableDatabase
       .select(*PROJECTION)

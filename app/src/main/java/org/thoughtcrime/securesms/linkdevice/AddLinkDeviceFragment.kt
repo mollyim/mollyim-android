@@ -48,21 +48,24 @@ class AddLinkDeviceFragment : ComposeFragment() {
       navController = navController,
       hasPermissions = cameraPermissionState.status.isGranted,
       linkWithoutQrCode = state.linkWithoutQrCode,
-      onLinkDeviceWithUrl = { url ->
-        viewModel.onQrCodeScanned(url)
-        viewModel.addDevice()
-      },
       onRequestPermissions = { askPermissions() },
       onShowFrontCamera = { viewModel.showFrontCamera() },
       onQrCodeScanned = { data -> viewModel.onQrCodeScanned(data) },
-      onQrCodeApproved = { viewModel.addDevice() },
-      onQrCodeDismissed = { viewModel.onQrCodeDismissed() },
-      onQrCodeRetry = { viewModel.onQrCodeScanned(state.url) },
-      onLinkDeviceSuccess = {
-        viewModel.onLinkDeviceResult(true)
+      onLinkNewDeviceWithUrl = { url ->
         navController.popBackStack()
+        viewModel.onQrCodeScanned(url)
+        viewModel.addDevice()
       },
-      onLinkDeviceFailure = { viewModel.onLinkDeviceResult(false) }
+      onQrCodeApproved = {
+        navController.popBackStack()
+        viewModel.addDevice()
+      },
+      onQrCodeDismissed = { viewModel.onQrCodeDismissed() },
+      onQrCodeRetry = { viewModel.onQrCodeScanned(state.linkUri.toString()) },
+      onLinkDeviceSuccess = {
+        viewModel.onLinkDeviceResult(showSheet = true)
+      },
+      onLinkDeviceFailure = { viewModel.onLinkDeviceResult(showSheet = false) }
     )
   }
 
@@ -87,7 +90,7 @@ private fun MainScreen(
   navController: NavController? = null,
   hasPermissions: Boolean = false,
   linkWithoutQrCode: Boolean = false,
-  onLinkDeviceWithUrl: (String) -> Unit = {},
+  onLinkNewDeviceWithUrl: (String) -> Unit = {},
   onRequestPermissions: () -> Unit = {},
   onShowFrontCamera: () -> Unit = {},
   onQrCodeScanned: (String) -> Unit = {},
@@ -115,8 +118,7 @@ private fun MainScreen(
         hasPermission = hasPermissions,
         onRequestPermissions = onRequestPermissions,
         showFrontCamera = state.showFrontCamera,
-        qrCodeFound = state.qrCodeFound,
-        qrCodeInvalid = state.qrCodeInvalid,
+        qrCodeState = state.qrCodeState,
         onQrCodeScanned = onQrCodeScanned,
         onQrCodeAccepted = onQrCodeApproved,
         onQrCodeDismissed = onQrCodeDismissed,
@@ -128,8 +130,7 @@ private fun MainScreen(
       )
     } else {
       LinkDeviceManualEntryScreen(
-        onLinkDeviceWithUrl = onLinkDeviceWithUrl,
-        qrCodeFound = state.qrCodeFound,
+        onLinkNewDeviceWithUrl = onLinkNewDeviceWithUrl,
         linkDeviceResult = state.linkDeviceResult,
         onLinkDeviceSuccess = onLinkDeviceSuccess,
         onLinkDeviceFailure = onLinkDeviceFailure,

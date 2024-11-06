@@ -65,10 +65,12 @@ import org.whispersystems.signalservice.api.archive.GetArchiveCdnCredentialsResp
 import org.whispersystems.signalservice.api.crypto.SealedSenderAccess;
 import org.whispersystems.signalservice.api.groupsv2.CredentialResponse;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2AuthorizationString;
+import org.whispersystems.signalservice.api.link.LinkedDeviceVerificationCodeResponse;
+import org.whispersystems.signalservice.api.link.SetLinkedDeviceTransferArchiveRequest;
+import org.whispersystems.signalservice.api.link.WaitForLinkedDeviceResponse;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.ProgressListener;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId;
 import org.whispersystems.signalservice.api.messages.calls.CallingResponse;
-import org.whispersystems.signalservice.api.messages.calls.TurnServerInfo;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo;
 import org.whispersystems.signalservice.api.payments.CurrencyConversions;
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
@@ -247,12 +249,14 @@ public class PushServiceSocket {
   private static final String PREKEY_DEVICE_PATH        = "/v2/keys/%s/%s";
   private static final String PREKEY_CHECK_PATH        = "/v2/keys/check";
 
-  private static final String TURN_SERVER_INFO           = "/v1/calling/relays";
+  private static final String CALLING_RELAYS = "/v2/calling/relays";
 
   private static final String PROVISIONING_CODE_PATH    = "/v1/devices/provisioning/code";
   private static final String PROVISIONING_MESSAGE_PATH = "/v1/provisioning/%s";
   private static final String DEVICE_PATH               = "/v1/devices/%s";
   private static final String DEVICE_LINK_PATH          = "/v1/devices/link";
+  private static final String WAIT_FOR_DEVICES_PATH     = "/v1/devices/wait_for_linked_device/%s?timeout=%s";
+  private static final String TRANSFER_ARCHIVE_PATH     = "/v1/devices/transfer_archive";
 
   private static final String MESSAGE_PATH              = "/v1/messages/%s";
   private static final String GROUP_MESSAGE_PATH        = "/v1/messages/multi_recipient?ts=%s&online=%s&urgent=%s&story=%s";
@@ -712,14 +716,43 @@ public class PushServiceSocket {
     if (responseCode == 409) throw new MissingCapabilitiesException();
   };
 
-  public String getNewDeviceVerificationCode() throws IOException {
-    String responseText = makeServiceRequest(PROVISIONING_CODE_PATH, "GET", null);
-    return JsonUtil.fromJson(responseText, DeviceCode.class).getVerificationCode();
+  public LinkedDeviceVerificationCodeResponse getLinkedDeviceVerificationCode() throws IOException {
+    String responseText = makeServiceRequest(PROVISIONING_CODE_PATH, "GET", null, NO_HEADERS, UNOPINIONATED_HANDLER, SealedSenderAccess.NONE);
+    return JsonUtil.fromJson(responseText, LinkedDeviceVerificationCodeResponse.class);
   }
 
   public List<DeviceInfo> getDevices() throws IOException {
     String responseText = makeServiceRequest(String.format(DEVICE_PATH, ""), "GET", null);
     return JsonUtil.fromJson(responseText, DeviceInfoList.class).getDevices();
+  }
+
+  /**
+   * This is a long-polling endpoint that relies on the fact that our normal connection timeout is already 30s.
+   */
+  public WaitForLinkedDeviceResponse waitForLinkedDevice(String token, int timeoutSeconds) throws IOException {
+    // Note: We consider 204 failure, since that means that we timed out before determining if a device was linked. Easier that way.
+
+    String response = makeServiceRequest(String.format(Locale.US, WAIT_FOR_DEVICES_PATH, token, timeoutSeconds), "GET", null, NO_HEADERS, (responseCode, body) -> {
+      if (responseCode == 204 || responseCode < 200 || responseCode > 299) {
+        String bodyString = null;
+        if (body != null) {
+          try {
+            bodyString = readBodyString(body);
+          } catch (MalformedResponseException e) {
+            Log.w(TAG, "Failed to read body string", e);
+          }
+        }
+
+        throw new NonSuccessfulResponseCodeException(responseCode, "Response: " + responseCode, bodyString);
+      }
+    }, SealedSenderAccess.NONE);
+
+    return JsonUtil.fromJsonResponse(response, WaitForLinkedDeviceResponse.class);
+  }
+
+  public void setLinkedDeviceTransferArchive(SetLinkedDeviceTransferArchiveRequest request) throws IOException {
+    String body = JsonUtil.toJson(request);
+    makeServiceRequest(String.format(Locale.US, TRANSFER_ARCHIVE_PATH), "PUT", body, NO_HEADERS, UNOPINIONATED_HANDLER, SealedSenderAccess.NONE);
   }
 
   public void removeDevice(long deviceId) throws IOException {
@@ -1560,9 +1593,9 @@ public class PushServiceSocket {
     return getAuthCredentials(PAYMENTS_AUTH_PATH);
   }
 
-  public TurnServerInfo getTurnServerInfo() throws IOException {
-    String response = makeServiceRequest(TURN_SERVER_INFO, "GET", null);
-    return JsonUtil.fromJson(response, TurnServerInfo.class);
+  public GetCallingRelaysResponse getCallingRelays() throws IOException {
+    String response = makeServiceRequest(CALLING_RELAYS, "GET", null);
+    return JsonUtil.fromJson(response, GetCallingRelaysResponse.class);
   }
 
   public String getStorageAuth() throws IOException {
@@ -1648,21 +1681,6 @@ public class PushServiceSocket {
                        null, null);
   }
 
-  public Pair<Long, AttachmentDigest> uploadAttachment(PushAttachmentData attachment, AttachmentV2UploadAttributes uploadAttributes)
-      throws PushNetworkException, NonSuccessfulResponseCodeException
-  {
-    long             id     = Long.parseLong(uploadAttributes.getAttachmentId());
-    AttachmentDigest digest = uploadToCdn0(ATTACHMENT_UPLOAD_PATH, uploadAttributes.getAcl(), uploadAttributes.getKey(),
-                                           uploadAttributes.getPolicy(), uploadAttributes.getAlgorithm(),
-                                           uploadAttributes.getCredential(), uploadAttributes.getDate(),
-                                           uploadAttributes.getSignature(), attachment.getData(),
-                                           "application/octet-stream", attachment.getDataSize(),
-                                           attachment.getIncremental(), attachment.getOutputStreamFactory(),
-                                           attachment.getListener(), attachment.getCancelationSignal());
-
-    return new Pair<>(id, digest);
-  }
-
   public ResumableUploadSpec getResumableUploadSpec(AttachmentUploadForm uploadForm) throws IOException {
     return new ResumableUploadSpec(Util.getSecretBytes(64),
                                    Util.getSecretBytes(16),
@@ -1673,19 +1691,9 @@ public class PushServiceSocket {
                                    uploadForm.headers);
   }
 
-  public ResumableUploadSpec getResumableUploadSpecWithKey(AttachmentUploadForm uploadForm, byte[] secretKey) throws IOException {
-    return new ResumableUploadSpec(secretKey,
-                                   Util.getSecretBytes(16),
-                                   uploadForm.key,
-                                   uploadForm.cdn,
-                                   getResumableUploadUrl(uploadForm),
-                                   System.currentTimeMillis() + CDN2_RESUMABLE_LINK_LIFETIME_MILLIS,
-                                   uploadForm.headers);
-  }
-
   public AttachmentDigest uploadAttachment(PushAttachmentData attachment) throws IOException {
 
-    if (attachment.getResumableUploadSpec() == null || attachment.getResumableUploadSpec().getExpirationTimestamp() < System.currentTimeMillis()) {
+    if (attachment.getResumableUploadSpec().getExpirationTimestamp() < System.currentTimeMillis()) {
       throw new ResumeLocationInvalidException();
     }
 

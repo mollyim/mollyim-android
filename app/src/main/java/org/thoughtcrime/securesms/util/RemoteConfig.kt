@@ -1116,5 +1116,9 @@ object RemoteConfig {
     hotSwappable = false
   )
 
+  /** Whether or not this device supports syncing data to newly-linked device. */
+  @JvmStatic
+  val linkAndSync: Boolean = false
+
   // endregion
 }

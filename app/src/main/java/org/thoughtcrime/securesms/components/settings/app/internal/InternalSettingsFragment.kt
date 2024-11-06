@@ -393,7 +393,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
       clickPref(
         title = DSLSettingsText.from("Force emoji download"),
-        summary = DSLSettingsText.from("Download the latest emoji set if it\\'s newer than what we have."),
+        summary = DSLSettingsText.from("Download the latest emoji set if it's newer than what we have."),
         onClick = {
           AppDependencies.jobManager.add(DownloadLatestEmojiDataJob(true))
         }
@@ -401,7 +401,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
       clickPref(
         title = DSLSettingsText.from("Force search index download"),
-        summary = DSLSettingsText.from("Download the latest emoji search index if it\\'s newer than what we have."),
+        summary = DSLSettingsText.from("Download the latest emoji search index if it's newer than what we have."),
         onClick = {
           EmojiSearchIndexDownloadJob.scheduleImmediately()
         }

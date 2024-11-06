@@ -30,53 +30,59 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
   companion object {
     private val TAG = Log.tag(AccountValues::class.java)
+    private const val KEY_SERVICE_PASSWORD = "account.service_password"
+    private const val KEY_REGISTRATION_ID = "account.registration_id"
+    private const val KEY_FCM_ENABLED = "account.fcm_enabled"
+    private const val KEY_FCM_TOKEN = "account.fcm_token"
+    private const val KEY_FCM_TOKEN_VERSION = "account.fcm_token_version"
+    private const val KEY_FCM_TOKEN_LAST_SET_TIME = "account.fcm_token_last_set_time"
+    private const val KEY_DEVICE_NAME = "account.device_name"
+    private const val KEY_DEVICE_ID = "account.device_id"
+    private const val KEY_PNI_REGISTRATION_ID = "account.pni_registration_id"
 
-    // MOLLY: Ensure all keys below are parametrized with the account number
-    private const val KEY_SERVICE_PASSWORD = "account.1.service_password"
-    private const val KEY_REGISTRATION_ID = "account.1.registration_id"
-    private const val KEY_FCM_ENABLED = "account.1.fcm_enabled"
-    private const val KEY_FCM_TOKEN = "account.1.fcm_token"
-    private const val KEY_FCM_TOKEN_VERSION = "account.1.fcm_token_version"
-    private const val KEY_FCM_TOKEN_LAST_SET_TIME = "account.1.fcm_token_last_set_time"
-    private const val KEY_DEVICE_NAME = "account.1.device_name"
-    private const val KEY_DEVICE_ID = "account.1.device_id"
-    private const val KEY_PNI_REGISTRATION_ID = "account.1.pni_registration_id"
-    private const val KEY_ACI_SIGNED_PREKEY_REGISTERED = "account.1.aci_signed_prekey_registered"
-    private const val KEY_ACI_NEXT_SIGNED_PREKEY_ID = "account.1.aci_next_signed_prekey_id"
-    private const val KEY_ACI_ACTIVE_SIGNED_PREKEY_ID = "account.1.aci_active_signed_prekey_id"
-    private const val KEY_ACI_LAST_SIGNED_PREKEY_ROTATION_TIME = "account.1.aci_last_signed_prekey_rotation_time"
-    private const val KEY_ACI_NEXT_ONE_TIME_PREKEY_ID = "account.1.aci_next_one_time_prekey_id"
-    private const val KEY_PNI_SIGNED_PREKEY_REGISTERED = "account.1.pni_signed_prekey_registered"
-    private const val KEY_PNI_NEXT_SIGNED_PREKEY_ID = "account.1.pni_next_signed_prekey_id"
-    private const val KEY_PNI_ACTIVE_SIGNED_PREKEY_ID = "account.1.pni_active_signed_prekey_id"
-    private const val KEY_PNI_LAST_SIGNED_PREKEY_ROTATION_TIME = "account.1.pni_last_signed_prekey_rotation_time"
-    private const val KEY_PNI_NEXT_ONE_TIME_PREKEY_ID = "account.1.pni_next_one_time_prekey_id"
-    private const val KEY_E164 = "account.1.e164"
-    private const val KEY_ACI = "account.1.aci"
-    private const val KEY_PNI = "account.1.pni"
-    private const val KEY_IS_REGISTERED = "account.1.is_registered"
-
-    // MOLLY: Leave these keys untouched to preserve compatibility with Signal backups
     private const val KEY_ACI_IDENTITY_PUBLIC_KEY = "account.aci_identity_public_key"
     private const val KEY_ACI_IDENTITY_PRIVATE_KEY = "account.aci_identity_private_key"
-    private const val KEY_PNI_IDENTITY_PUBLIC_KEY = "account.pni_identity_public_key"
-    private const val KEY_PNI_IDENTITY_PRIVATE_KEY = "account.pni_identity_private_key"
+    private const val KEY_ACI_SIGNED_PREKEY_REGISTERED = "account.aci_signed_prekey_registered"
+    private const val KEY_ACI_NEXT_SIGNED_PREKEY_ID = "account.aci_next_signed_prekey_id"
+    private const val KEY_ACI_ACTIVE_SIGNED_PREKEY_ID = "account.aci_active_signed_prekey_id"
+    private const val KEY_ACI_LAST_SIGNED_PREKEY_ROTATION_TIME = "account.aci_last_signed_prekey_rotation_time"
+    private const val KEY_ACI_NEXT_ONE_TIME_PREKEY_ID = "account.aci_next_one_time_prekey_id"
     private const val KEY_ACI_NEXT_KYBER_PREKEY_ID = "account.aci_next_kyber_prekey_id"
     private const val KEY_ACI_LAST_RESORT_KYBER_PREKEY_ID = "account.aci_last_resort_kyber_prekey_id"
     private const val KEY_ACI_LAST_RESORT_KYBER_PREKEY_ROTATION_TIME = "account.aci_last_resort_kyber_prekey_rotation_time"
+
+    private const val KEY_PNI_IDENTITY_PUBLIC_KEY = "account.pni_identity_public_key"
+    private const val KEY_PNI_IDENTITY_PRIVATE_KEY = "account.pni_identity_private_key"
+    private const val KEY_PNI_SIGNED_PREKEY_REGISTERED = "account.pni_signed_prekey_registered"
+    private const val KEY_PNI_NEXT_SIGNED_PREKEY_ID = "account.pni_next_signed_prekey_id"
+    private const val KEY_PNI_ACTIVE_SIGNED_PREKEY_ID = "account.pni_active_signed_prekey_id"
+    private const val KEY_PNI_LAST_SIGNED_PREKEY_ROTATION_TIME = "account.pni_last_signed_prekey_rotation_time"
+    private const val KEY_PNI_NEXT_ONE_TIME_PREKEY_ID = "account.pni_next_one_time_prekey_id"
     private const val KEY_PNI_NEXT_KYBER_PREKEY_ID = "account.pni_next_kyber_prekey_id"
     private const val KEY_PNI_LAST_RESORT_KYBER_PREKEY_ID = "account.pni_last_resort_kyber_prekey_id"
     private const val KEY_PNI_LAST_RESORT_KYBER_PREKEY_ROTATION_TIME = "account.pni_last_resort_kyber_prekey_rotation_time"
+
     private const val KEY_USERNAME = "account.username"
     private const val KEY_USERNAME_LINK_ENTROPY = "account.username_link_entropy"
     private const val KEY_USERNAME_LINK_SERVER_ID = "account.username_link_server_id"
     private const val KEY_USERNAME_SYNC_STATE = "phoneNumberPrivacy.usernameSyncState"
     private const val KEY_USERNAME_SYNC_ERROR_COUNT = "phoneNumberPrivacy.usernameErrorCount"
+
+    private const val KEY_E164 = "account.e164"
+    private const val KEY_ACI = "account.aci"
+    private const val KEY_PNI = "account.pni"
+    private const val KEY_IS_REGISTERED = "account.is_registered"
+
+    private const val KEY_HAS_LINKED_DEVICES = "account.has_linked_devices"
   }
 
   init {
     if (!store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)) {
-      migrateFromSharedPrefs(context)
+      migrateFromSharedPrefsV1(context)
+    }
+
+    if (!store.containsKey(KEY_HAS_LINKED_DEVICES)) {
+      migrateFromSharedPrefsV3(context)
     }
 
     store.getString(KEY_PNI, null)?.let { pni ->
@@ -447,8 +453,15 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     AppDependencies.groupsV2Authorization.clear()
   }
 
-  private fun migrateFromSharedPrefs(context: Context) {
-    Log.i(TAG, "Migrating account values from shared prefs:")
+  /**
+   * Whether or not the user has linked devices.
+   */
+  @get:JvmName("hasLinkedDevices")
+  var hasLinkedDevices by booleanValue(KEY_HAS_LINKED_DEVICES, false)
+
+  /** Do not alter. If you need to migrate more stuff, create a new method. */
+  private fun migrateFromSharedPrefsV1(context: Context) {
+    Log.i(TAG, "[V1]Migrating account values from shared prefs:")
 
     val sharedPrefs = SecurePreferenceManager.getSecurePreferences(context)
     val identitySharedPrefs = EncryptedPreferences.create(context, "SecureSMS-Preferences")
@@ -512,6 +525,13 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     } else {
       Log.w(TAG, "No pre-existing identity key! No migration.")
     }
+  }
+
+  /** Do not alter. If you need to migrate more stuff, create a new method. */
+  private fun migrateFromSharedPrefsV3(context: Context) {
+    Log.i(TAG, "[V3] Migrating account values from shared prefs.")
+
+    putBoolean(KEY_HAS_LINKED_DEVICES, TextSecurePreferences.getBooleanPreference(context, "pref_multi_device", false))
   }
 
   enum class UsernameSyncState(private val value: Long) {

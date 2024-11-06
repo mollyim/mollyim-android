@@ -36,6 +36,7 @@ dependencyResolutionManagement {
 
       // Accompanist
       library("accompanist-permissions", "com.google.accompanist", "accompanist-permissions").versionRef("accompanist")
+      library("accompanist-drawablepainter", "com.google.accompanist:accompanist-drawablepainter:0.36.0")
 
       // Desugaring
       library("android-tools-desugar", "com.android.tools:desugar_jdk_libs:1.1.6")
@@ -127,7 +128,7 @@ dependencyResolutionManagement {
       library("libsignal-client", "org.signal", "libsignal-client").versionRef("libsignal-client")
       library("libsignal-android", "org.signal", "libsignal-android").versionRef("libsignal-client")
       library("signal-aesgcmprovider", "org.signal:aesgcmprovider:0.0.3")
-      library("molly-ringrtc", "im.molly:ringrtc-android:2.48.1-1")
+      library("molly-ringrtc", "im.molly:ringrtc-android:2.48.4-1")
       library("signal-android-database-sqlcipher", "org.signal:sqlcipher-android:4.6.0-S1")
 
       // MOLLY

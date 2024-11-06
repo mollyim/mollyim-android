@@ -157,6 +157,7 @@ class MiscellaneousValues internal constructor(store: KeyValueStore) : SignalSto
   /**
    * Whether or not the user has linked devices.
    */
+  @get:JvmName("hasLinkedDevices")
   var hasLinkedDevices by booleanValue(HAS_LINKED_DEVICES, false)
 
   /**
