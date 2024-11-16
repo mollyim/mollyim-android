@@ -538,6 +538,7 @@ dependencies {
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
   implementation(libs.unifiedpush.connector) {
     exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
+    exclude(group = "com.google.protobuf", module = "protobuf-java")
   }
   implementation(libs.unifiedpush.connector.ui) {
     exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")

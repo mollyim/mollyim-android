@@ -121,7 +121,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
   }
 
   fun initializeUnifiedPushDistributor() {
-    UnifiedPushDistributor.selectFirstDistributor()
+    UnifiedPushDistributor.selectCurrentOrDefaultDistributor()
   }
 
   fun setPlayServicesErrorCode(errorCode: Int?) {

@@ -14,8 +14,11 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
+import org.unifiedpush.android.connector.FailedReason
 import org.unifiedpush.android.connector.MessagingReceiver
 import org.unifiedpush.android.connector.UnifiedPush
+import org.unifiedpush.android.connector.data.PushEndpoint
+import org.unifiedpush.android.connector.data.PushMessage
 
 class UnifiedPushReceiver : MessagingReceiver() {
 
@@ -28,10 +31,10 @@ class UnifiedPushReceiver : MessagingReceiver() {
   private val appLocked
     get() = KeyCachingService.isLocked()
 
-  override fun onNewEndpoint(context: Context, endpoint: String, instance: String) {
+  override fun onNewEndpoint(context: Context, endpoint: PushEndpoint, instance: String) {
     Log.i(TAG, "onNewEndpoint($instance)")
     if (!appLocked) {
-      refreshEndpoint(endpoint)
+      refreshEndpoint(endpoint.url)
       if (SignalStore.unifiedpush.airGapped) {
         updateLastReceivedTime(0)
         UnifiedPushNotificationBuilder(context).setNotificationEndpointChangedAirGapped()
@@ -39,10 +42,13 @@ class UnifiedPushReceiver : MessagingReceiver() {
     }
   }
 
-  override fun onRegistrationFailed(context: Context, instance: String) {
+  override fun onRegistrationFailed(context: Context, reason: FailedReason, instance: String) {
     // called when the registration is not possible, eg. no network
     Log.w(TAG, "onRegistrationFailed($instance)")
     if (!appLocked) {
+      // TODO when `reason` is INTERNAL_ERROR, try to register again _one time_
+      // TODO when `reason` is ACTION_REQUIRED, tell the distributor requires a user interaction
+      // TODO when `reason` is NETWORK, tell to try again when network is back, or implement it.
       UnifiedPushNotificationBuilder(context).setNotificationRegistrationFailed()
     }
   }
@@ -57,8 +63,8 @@ class UnifiedPushReceiver : MessagingReceiver() {
     }
   }
 
-  override fun onMessage(context: Context, message: ByteArray, instance: String) {
-    val msg = message.toString(Charsets.UTF_8)
+  override fun onMessage(context: Context, message: PushMessage, instance: String) {
+    val msg = message.content.toString(Charsets.UTF_8)
 
     if (appLocked) {
       onMessageLocked(context, msg)
