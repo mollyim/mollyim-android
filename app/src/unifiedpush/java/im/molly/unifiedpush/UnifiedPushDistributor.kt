@@ -2,9 +2,8 @@ package im.molly.unifiedpush
 
 import android.content.Context
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.unifiedpush.android.connector.INSTANCE_DEFAULT
 import org.unifiedpush.android.connector.UnifiedPush
-import org.unifiedpush.android.connector.ui.SelectDistributorDialogBuilder
+import org.unifiedpush.android.connector.ui.SelectDistributorDialogsBuilder
 import org.unifiedpush.android.connector.ui.UnifiedPushFunctions
 
 object UnifiedPushDistributor {
@@ -19,26 +18,34 @@ object UnifiedPushDistributor {
     UnifiedPush.unregisterApp(AppDependencies.application)
   }
 
-  fun selectFirstDistributor() {
+  fun selectCurrentOrDefaultDistributor() {
     val context = AppDependencies.application
-    UnifiedPush.getSavedDistributor(context)
-      ?: UnifiedPush.getDistributors(context).firstOrNull()?.also {
-        UnifiedPush.saveDistributor(context, it)
+    UnifiedPush.tryUseCurrentOrDefaultDistributor(context) { success ->
+      if (!success) {
+        // If there are multiple distributors installed, but none of them follow the last
+        // specifications, we fall back to the first we found.
+        UnifiedPush.getDistributors(context).firstOrNull()?.also {
+          UnifiedPush.saveDistributor(context, it)
+        }
       }
+    }
   }
 
   @JvmStatic
   fun showSelectDistributorDialog(context: Context) {
-    SelectDistributorDialogBuilder(
+    SelectDistributorDialogsBuilder(
       context,
-      listOf(INSTANCE_DEFAULT),
       object : UnifiedPushFunctions {
         override fun getAckDistributor(): String? = UnifiedPush.getAckDistributor(context)
         override fun getDistributors(): List<String> = UnifiedPush.getDistributors(context)
         override fun registerApp(instance: String) = UnifiedPush.registerApp(context, instance)
         override fun saveDistributor(distributor: String) = UnifiedPush.saveDistributor(context, distributor)
+        override fun tryUseDefaultDistributor(callback: (Boolean) -> Unit) = UnifiedPush.tryUseDefaultDistributor(context, callback)
       }
-    ).show()
+    ).apply {
+      mayUseCurrent = false
+      mayUseDefault = false
+    }.run()
   }
 
   fun checkIfActive(): Boolean {
