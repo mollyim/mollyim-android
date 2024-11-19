@@ -67,10 +67,12 @@ class UnifiedPushRefreshJob private constructor(
         SignalStore.unifiedpush.registrationStatus = newStatus
       }
 
-      if (newStatus == RegistrationStatus.REGISTERED) {
-        UnifiedPushNotificationBuilder(context).clearAlerts()
-      } else if (newStatus.notifyUser) {
-        UnifiedPushNotificationBuilder(context).setNotificationMollySocketRegistrationChanged()
+      when (newStatus) {
+        RegistrationStatus.REGISTERED -> UnifiedPushNotificationBuilder(context).clearAlerts()
+        RegistrationStatus.FORBIDDEN_ENDPOINT -> UnifiedPushNotificationBuilder(context).setNotificationMollySocketForbiddenEndpoint()
+        RegistrationStatus.FORBIDDEN_UUID -> UnifiedPushNotificationBuilder(context).setNotificationMollySocketForbiddenUuid()
+        RegistrationStatus.FORBIDDEN_PASSWORD -> UnifiedPushNotificationBuilder(context).setNotificationMollySocketForbiddenPassword()
+        else -> {}
       }
     } catch (t: Throwable) {
       Log.e(TAG, "Error checking registration status", t)
