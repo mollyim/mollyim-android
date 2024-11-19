@@ -91,10 +91,10 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
     refreshAndUpdateRegistration()
   }
 
-  fun setMollySocketUrl(url: String): Boolean {
+  fun setMollySocketUrl(url: String?): Boolean {
     SignalStore.unifiedpush.lastReceivedTime = 0
 
-    val normalizedUrl = if (url.lastOrNull() != '/') "$url/" else url
+    val normalizedUrl = if (url?.lastOrNull() != '/') "$url/" else url ?: ""
     val httpUrl = normalizedUrl.toHttpUrlOrNull()
 
     return if (httpUrl != null) {
@@ -142,6 +142,10 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
 
   fun pingMollySocket() {
     refreshAndUpdateRegistration(pingOnRegister = true)
+  }
+
+  fun setMollySocketVapid(vapid: String) {
+    SignalStore.unifiedpush.mollySocketVapid = vapid
   }
 
   class Factory(private val application: Application) : ViewModelProvider.Factory {

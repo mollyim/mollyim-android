@@ -14,6 +14,8 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.launch
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +24,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -80,6 +83,14 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
   private lateinit var viewModel: NotificationsSettingsViewModel
 
   private val args: NotificationsSettingsFragmentArgs by navArgs()
+
+  private val qrScanLauncher: ActivityResultLauncher<Unit> = registerForActivityResult(MollySocketQrScannerActivity.Contract()) { data ->
+    if (data != null) {
+      viewModel.initializeUnifiedPushDistributor(data.type == "airgapped", data.url, data.vapid)
+      viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
+      navigateToUnifiedPushSettings()
+    }
+  }
 
   private val layoutManager: LinearLayoutManager?
     get() = recyclerView?.layoutManager as? LinearLayoutManager
@@ -407,9 +418,7 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
             .setTitle(R.string.NotificationsSettingsFragment__mollysocket_server)
             .setMessage(R.string.NotificationsSettingsFragment__to_use_unifiedpush_you_need_a_mollysocket_server)
             .setPositiveButton(R.string.yes) { _, _ ->
-              viewModel.initializeUnifiedPushDistributor()
-              viewModel.setPreferredNotificationMethod(method)
-              navigateToUnifiedPushSettings()
+              qrScanLauncher.launch()
             }
             .setNegativeButton(R.string.no, null)
             .setNeutralButton(R.string.LearnMoreTextView_learn_more) { _, _ ->

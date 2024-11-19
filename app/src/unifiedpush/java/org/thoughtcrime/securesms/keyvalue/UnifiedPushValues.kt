@@ -14,6 +14,7 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val MOLLYSOCKET_STATUS = "mollysocket.status"
     private const val MOLLYSOCKET_AIR_GAPPED = "mollysocket.airGapped"
     private const val MOLLYSOCKET_URL = "mollysocket.url"
+    private const val MOLLYSOCKET_VAPID = "mollysocket.vapid"
     private const val UNIFIEDPUSH_ENABLED = "up.enabled"
     private const val UNIFIEDPUSH_ENDPOINT = "up.endpoint"
     private const val UNIFIEDPUSH_LAST_RECEIVED_TIME = "up.lastRecvTime"
@@ -51,6 +52,8 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
   var airGapped: Boolean by booleanValue(MOLLYSOCKET_AIR_GAPPED, false)
 
   var mollySocketUrl: String? by stringValue(MOLLYSOCKET_URL, null)
+
+  var mollySocketVapid: String? by stringValue(MOLLYSOCKET_VAPID, null)
 
   var lastReceivedTime: Long by longValue(UNIFIEDPUSH_LAST_RECEIVED_TIME, 0)
 

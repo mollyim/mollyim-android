@@ -1,12 +1,15 @@
 package im.molly.unifiedpush
 
 import android.content.Context
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.unifiedpush.android.connector.UnifiedPush
 import org.unifiedpush.android.connector.ui.SelectDistributorDialogsBuilder
 import org.unifiedpush.android.connector.ui.UnifiedPushFunctions
 
 object UnifiedPushDistributor {
+
+  private const val TAG = "UnifiedPushDistributor"
 
   @JvmStatic
   fun registerApp() {
@@ -24,6 +27,7 @@ object UnifiedPushDistributor {
       if (!success) {
         // If there are multiple distributors installed, but none of them follow the last
         // specifications, we fall back to the first we found.
+        Log.d(TAG, "Multiple distributors found, none of them follow last specifications")
         UnifiedPush.getDistributors(context).firstOrNull()?.also {
           UnifiedPush.saveDistributor(context, it)
         }

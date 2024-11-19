@@ -1069,6 +1069,8 @@
             android:windowSoftInputMode="adjustResize"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"/>
+    <activity android:name="im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity" />
+    <activity android:name="im.molly.unifiedpush.components.settings.app.notifications.QrImageSelectionActivity" />
 
     <service
         android:enabled="true"
