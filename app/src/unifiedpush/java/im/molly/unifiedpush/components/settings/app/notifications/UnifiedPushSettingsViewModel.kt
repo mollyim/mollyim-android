@@ -144,10 +144,6 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
     refreshAndUpdateRegistration(pingOnRegister = true)
   }
 
-  fun setMollySocketVapid(vapid: String) {
-    SignalStore.unifiedpush.mollySocketVapid = vapid
-  }
-
   class Factory(private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
       return requireNotNull(modelClass.cast(UnifiedPushSettingsViewModel(application)))
