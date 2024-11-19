@@ -2,7 +2,6 @@ package im.molly.unifiedpush
 
 import android.content.Context
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.unifiedpush.android.connector.UnifiedPush
 import org.unifiedpush.android.connector.ui.SelectDistributorDialogsBuilder
 import org.unifiedpush.android.connector.ui.UnifiedPushFunctions
@@ -10,8 +9,8 @@ import org.unifiedpush.android.connector.ui.UnifiedPushFunctions
 object UnifiedPushDistributor {
 
   @JvmStatic
-  fun registerApp() {
-    UnifiedPush.registerApp(AppDependencies.application, vapid = SignalStore.unifiedpush.mollySocketVapid)
+  fun registerApp(vapid: String?) {
+    UnifiedPush.registerApp(AppDependencies.application, vapid = vapid)
   }
 
   @JvmStatic

@@ -85,31 +85,29 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
 
   private val args: NotificationsSettingsFragmentArgs by navArgs()
 
-  private val linkDefaultDistributorLauncher: ActivityResultLauncher<Unit> = registerForActivityResult(
-    UnifiedPushDefaultDistributorLinkActivity.Contract()
-  ) { success ->
-    if (success != true) {
-      // If there are no distributors or
-      // if there are multiple distributors installed, but none of them follow the last
-      // specifications,
-      // we try to fall back to the first we found.
-      viewModel.selectFirstDistributor()
+  private val linkDefaultDistributorLauncher: ActivityResultLauncher<Unit> =
+    registerForActivityResult(UnifiedPushDefaultDistributorLinkActivity.Contract()) { success ->
+      if (success != true) {
+        // If there are no distributors or
+        // if there are multiple distributors installed, but none of them follow the last
+        // specifications,
+        // we try to fall back to the first we found.
+        viewModel.selectFirstDistributor()
+      }
+      navigateToUnifiedPushSettings()
     }
-    navigateToUnifiedPushSettings()
-  }
 
-  private val qrScanLauncher: ActivityResultLauncher<Unit> = registerForActivityResult(MollySocketQrScannerActivity.Contract()) { data ->
-    if (data != null) {
-      viewModel.initializeMollySocket(data.type == "airgapped", data.url, data.vapid)
-      viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
-      linkDefaultDistributorLauncher.launch()
+  private val qrScanLauncher: ActivityResultLauncher<Unit> =
+    registerForActivityResult(MollySocketQrScannerActivity.Contract()) { mollySocket ->
+      if (mollySocket != null) {
+        viewModel.initializeMollySocket(mollySocket)
+        viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
+        linkDefaultDistributorLauncher.launch()
+      }
     }
-  }
 
   private val layoutManager: LinearLayoutManager?
     get() = recyclerView?.layoutManager as? LinearLayoutManager
-
-  private var hasShownPlayServicesError = false
 
   override fun onResume() {
     super.onResume()
@@ -430,11 +428,11 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         if (method != previousMethod) {
           MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.NotificationsSettingsFragment__mollysocket_server)
-            .setMessage(R.string.NotificationsSettingsFragment__to_use_unifiedpush_you_need_a_mollysocket_server)
-            .setPositiveButton(R.string.yes) { _, _ ->
+            .setMessage(R.string.NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_running_mollysocket)
+            .setPositiveButton(R.string.RegistrationActivity_i_understand) { _, _ ->
               qrScanLauncher.launch()
             }
-            .setNegativeButton(R.string.no, null)
+            .setNegativeButton(R.string.RegistrationActivity_cancel, null)
             .setNeutralButton(R.string.LearnMoreTextView_learn_more) { _, _ ->
               CommunicationActions.openBrowserLink(requireContext(), getString(R.string.mollysocket_setup_url))
             }

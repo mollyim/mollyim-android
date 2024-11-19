@@ -568,7 +568,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
   private void updateUnifiedPushStatus(boolean enabled) {
     SignalStore.unifiedpush().setEnabled(enabled);
     if (enabled) {
-      UnifiedPushDistributor.registerApp();
+      UnifiedPushDistributor.registerApp(SignalStore.unifiedpush().getMollySocketVapid());
     } else {
       UnifiedPushDistributor.unregisterApp();
     }

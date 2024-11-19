@@ -107,6 +107,17 @@
 
     <!-- MOLLY: GMS and Google Maps stuff moved to gms/AndroidManifest.xml -->
 
+    <activity
+        android:name="im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+        android:exported="false" />
+
+    <activity
+        android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity"
+        android:theme="@style/TextSecure.DialogActivity"
+        android:exported="false" />
+
     <meta-data android:name="android.supports_size_changes"
                android:value="true" />
 
@@ -1069,9 +1080,6 @@
             android:windowSoftInputMode="adjustResize"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"/>
-    <activity android:name="im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity" />
-    <activity android:name="im.molly.unifiedpush.components.settings.app.notifications.QrImageSelectionActivity" />
-    <activity android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity" android:theme="@style/TextSecure.DialogActivity" />
 
     <service
         android:enabled="true"
