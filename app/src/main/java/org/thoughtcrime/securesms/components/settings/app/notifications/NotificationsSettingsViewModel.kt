@@ -120,11 +120,14 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     refresh()
   }
 
-  fun initializeUnifiedPushDistributor(airgapped: Boolean, url: String?, vapid: String) {
+  fun selectFirstDistributor() {
+    UnifiedPushDistributor.selectFirstDistributor()
+  }
+
+  fun initializeMollySocket(airgapped: Boolean, url: String?, vapid: String) {
     SignalStore.unifiedpush.airGapped = airgapped
     SignalStore.unifiedpush.mollySocketUrl = url
     SignalStore.unifiedpush.mollySocketVapid = vapid
-    UnifiedPushDistributor.selectCurrentOrDefaultDistributor()
   }
 
   fun setPlayServicesErrorCode(errorCode: Int?) {

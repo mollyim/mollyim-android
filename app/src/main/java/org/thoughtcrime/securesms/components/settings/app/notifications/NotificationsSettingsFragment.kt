@@ -24,6 +24,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity
 import im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -84,11 +85,24 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
 
   private val args: NotificationsSettingsFragmentArgs by navArgs()
 
+  private val linkDefaultDistributorLauncher: ActivityResultLauncher<Unit> = registerForActivityResult(
+    UnifiedPushDefaultDistributorLinkActivity.Contract()
+  ) { success ->
+    if (success != true) {
+      // If there are no distributors or
+      // if there are multiple distributors installed, but none of them follow the last
+      // specifications,
+      // we try to fall back to the first we found.
+      viewModel.selectFirstDistributor()
+    }
+    navigateToUnifiedPushSettings()
+  }
+
   private val qrScanLauncher: ActivityResultLauncher<Unit> = registerForActivityResult(MollySocketQrScannerActivity.Contract()) { data ->
     if (data != null) {
-      viewModel.initializeUnifiedPushDistributor(data.type == "airgapped", data.url, data.vapid)
+      viewModel.initializeMollySocket(data.type == "airgapped", data.url, data.vapid)
       viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
-      navigateToUnifiedPushSettings()
+      linkDefaultDistributorLauncher.launch()
     }
   }
 
