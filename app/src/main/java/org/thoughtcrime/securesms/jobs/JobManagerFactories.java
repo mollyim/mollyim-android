@@ -97,8 +97,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import im.molly.unifiedpush.jobs.UnifiedPushRefreshJob;
-
 public final class JobManagerFactories {
 
   public static Map<String, Job.Factory> getJobFactories(@NonNull Application application) {

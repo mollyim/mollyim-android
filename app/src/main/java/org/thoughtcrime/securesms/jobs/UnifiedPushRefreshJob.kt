@@ -1,4 +1,4 @@
-package im.molly.unifiedpush.jobs
+package org.thoughtcrime.securesms.jobs
 
 import im.molly.unifiedpush.MollySocketRepository
 import im.molly.unifiedpush.MollySocketRepository.isLinked
@@ -14,8 +14,6 @@ import org.thoughtcrime.securesms.events.PushServiceEvent
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JsonJobData
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
-import org.thoughtcrime.securesms.jobs.BaseJob
-import org.thoughtcrime.securesms.jobs.FcmRefreshJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
 import org.whispersystems.signalservice.internal.push.DeviceLimitExceededException

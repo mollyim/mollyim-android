@@ -122,10 +122,6 @@ android {
     getByName("androidTest") {
       java.srcDir("$projectDir/src/testShared")
     }
-
-    getByName("main") {
-      java.srcDir("$projectDir/src/unifiedpush/java")
-    }
   }
 
   compileOptions {
