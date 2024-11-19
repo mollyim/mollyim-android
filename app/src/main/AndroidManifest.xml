@@ -1071,6 +1071,7 @@
             android:exported="false"/>
     <activity android:name="im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity" />
     <activity android:name="im.molly.unifiedpush.components.settings.app.notifications.QrImageSelectionActivity" />
+    <activity android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity" android:theme="@style/TextSecure.DialogActivity" />
 
     <service
         android:enabled="true"
