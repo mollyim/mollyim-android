@@ -52,8 +52,17 @@ class UnifiedPushNotificationBuilder(val context: Context) {
     notify(NOTIFICATION_ID, context.getString(R.string.UnifiedPushNotificationBuilder__mollysocket_device_limit_hit, deviceLimit - 1))
   }
 
-  fun setNotificationMollySocketRegistrationChanged() {
-    notify(NOTIFICATION_ID, context.getString(R.string.UnifiedPushNotificationBuilder__mollysocket_registration_changed))
+
+  fun setNotificationMollySocketForbiddenEndpoint() {
+    notify(NOTIFICATION_ID, context.getString(R.string.UnifiedPushNotificationBuilder__mollysocket_forbidden_endpoint))
+  }
+
+  fun setNotificationMollySocketForbiddenUuid() {
+    notify(NOTIFICATION_ID, context.getString(R.string.UnifiedPushNotificationBuilder__mollysocket_forbidden_uuid))
+  }
+
+  fun setNotificationMollySocketForbiddenPassword() {
+    notify(NOTIFICATION_ID, context.getString(R.string.UnifiedPushNotificationBuilder__mollysocket_forbidden_password))
   }
 
   fun setNotificationEndpointChangedAirGapped() {

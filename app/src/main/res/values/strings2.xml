@@ -157,12 +157,15 @@
     <string name="UnifiedPushSettingsFragment__status_summary_missing_endpoint">Waiting for UnifiedPush distributor response</string>
     <string name="UnifiedPushSettingsFragment__status_summary_forbidden_endpoint">The endpoint is forbidden by the server</string>
     <string name="UnifiedPushSettingsFragment__status_summary_no_distributor">No UnifiedPush distributor installed</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_bad_password">The registration is no longer valid</string>
     <string name="UnifiedPushSettingsFragment__status_summary_distributor_not_selected">No distributor app selected</string>
     <string name="UnifiedPushSettingsFragment__air_gapped_summary">Enable if your MollySocket server can\'t be reached from the internet. You\'ll need to manually add your account to the server.</string>
     <string name="UnifiedPushSettingsViewModel__mollysocket_server_not_found">"MollySocket server not found. Please check the URL and try again."</string>
     <string name="UnifiedPushNotificationBuilder__mollysocket_device_limit_hit">You\'ve reached the limit of %d linked devices. To link your MollySocket server, please remove a device first.</string>
     <string name="UnifiedPushNotificationBuilder__endpoint_changed_air_gapped">Your UnifiedPush endpoint has changed. You must update your connection on MollySocket.</string>
-    <string name="UnifiedPushNotificationBuilder__mollysocket_registration_changed">Your registration on MollySocket is no longer valid. Please remove the linked device and try registering again.</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_password">Your registration on MollySocket is no longer valid. Please remove the linked device and try registering again.</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_uuid">Your MollySocket server is configured to refuse this account.</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_endpoint">Your MollySocket server is configured to refuse this push server.</string>
     <string name="UnifiedPushNotificationBuilder__registration_failed">Registration with your UnifiedPush distributor failed. This could be due to a network issue or a missing requirement from your distributor.</string>
     <string name="UnifiedPushNotificationBuilder__this_is_a_test_notification">This is a test notification from the MollySocket server.</string>
     <string name="NotificationDeliveryMethod__unifiedpush" translatable="false">UnifiedPush</string>
