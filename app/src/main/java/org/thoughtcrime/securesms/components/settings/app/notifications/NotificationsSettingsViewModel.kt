@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import im.molly.unifiedpush.UnifiedPushDistributor
+import im.molly.unifiedpush.model.MollySocket
 
 import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -124,10 +125,12 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     UnifiedPushDistributor.selectFirstDistributor()
   }
 
-  fun initializeMollySocket(airgapped: Boolean, url: String?, vapid: String) {
-    SignalStore.unifiedpush.airGapped = airgapped
-    SignalStore.unifiedpush.mollySocketUrl = url
-    SignalStore.unifiedpush.mollySocketVapid = vapid
+  fun initializeMollySocket(mollySocket: MollySocket) {
+    SignalStore.unifiedpush.apply {
+      airGapped = mollySocket is MollySocket.AirGapped
+      mollySocketUrl = (mollySocket as? MollySocket.WebServer)?.url
+      mollySocketVapid = mollySocket.vapid
+    }
   }
 
   fun setPlayServicesErrorCode(errorCode: Int?) {

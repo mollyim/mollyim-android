@@ -1,8 +1,3 @@
-/*
- * Copyright 2024 Signal Messenger, LLC
- * SPDX-License-Identifier: AGPL-3.0-only
- */
-
 @file:OptIn(ExperimentalPermissionsApi::class)
 
 package im.molly.unifiedpush.components.settings.app.notifications
@@ -11,6 +6,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
@@ -36,11 +32,13 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.accompanist.permissions.rememberPermissionState
+import im.molly.unifiedpush.model.MollySocket
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.signal.core.ui.Dialogs
 import org.signal.core.ui.theme.SignalTheme
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.settings.app.usernamelinks.main.QrImageSelectionActivity
 import org.thoughtcrime.securesms.permissions.PermissionCompat
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.util.DynamicTheme
@@ -50,12 +48,6 @@ import org.thoughtcrime.securesms.util.DynamicTheme
  * See [Contract].
  */
 class MollySocketQrScannerActivity : AppCompatActivity() {
-
-  companion object {
-    private const val KEY_URL = "url"
-    private const val KEY_TYPE = "type"
-    private const val KEY_VAPID = "vapid"
-  }
 
   private val viewModel: MollySocketQrScannerViewModel by viewModels()
   private val disposables = LifecycleDisposable()
@@ -107,15 +99,11 @@ class MollySocketQrScannerActivity : AppCompatActivity() {
             }
           },
           onDataFound = { data ->
-            val intent = Intent().apply {
-              putExtra(KEY_VAPID, data.vapid)
-              putExtra(KEY_URL, data.url)
-              putExtra(KEY_TYPE, data.type)
-            }
-            setResult(RESULT_OK, intent)
+            setResult(RESULT_OK, Intent().setData(Uri.parse(data)))
             finish()
           },
           onBackNavigationPressed = {
+            setResult(RESULT_CANCELED)
             finish()
           }
         )
@@ -132,18 +120,16 @@ class MollySocketQrScannerActivity : AppCompatActivity() {
       .execute()
   }
 
-  class Contract : ActivityResultContract<Unit, MollySocketLinkData?>() {
+  class Contract : ActivityResultContract<Unit, MollySocket?>() {
     override fun createIntent(context: Context, input: Unit): Intent {
       return Intent(context, MollySocketQrScannerActivity::class.java)
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): MollySocketLinkData? {
-      return intent?.let {
-        MollySocketLinkData(
-          type = intent.getStringExtra(KEY_TYPE) ?: return null,
-          url = intent.getStringExtra(KEY_URL),
-          vapid = intent.getStringExtra(KEY_VAPID) ?: return null
-        )
+    override fun parseResult(resultCode: Int, intent: Intent?): MollySocket? {
+      return if (resultCode == RESULT_OK) {
+        MollySocket.parseLink(intent?.data!!)
+      } else {
+        null
       }
     }
   }
@@ -161,7 +147,7 @@ fun Content(
   onQrResultHandled: () -> Unit,
   onOpenCameraClicked: () -> Unit,
   onOpenGalleryClicked: () -> Unit,
-  onDataFound: (MollySocketLinkData) -> Unit,
+  onDataFound: (String) -> Unit,
   onBackNavigationPressed: () -> Unit
 ) {
   Scaffold(

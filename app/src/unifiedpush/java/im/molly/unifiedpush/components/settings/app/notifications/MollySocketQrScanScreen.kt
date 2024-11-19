@@ -42,7 +42,7 @@ fun MollySocketQrScanScreen(
   onQrResultHandled: () -> Unit,
   onOpenCameraClicked: () -> Unit,
   onOpenGalleryClicked: () -> Unit,
-  onDataFound: (MollySocketLinkData) -> Unit,
+  onDataFound: (String) -> Unit,
   hasCameraPermission: Boolean,
   modifier: Modifier = Modifier
 ) {
@@ -57,14 +57,14 @@ fun MollySocketQrScanScreen(
 
     QrScanResult.QrNotFound -> {
       QrScanResultDialog(
-        title = stringResource(R.string.MollySocketLink_qr_code_not_found),
+        title = stringResource(R.string.UsernameLinkSettings_qr_code_not_found),
         message = stringResource(R.string.MollySocketLink_try_scanning_another_image_containing_a_mollysocket_qr_code),
         onDismiss = onQrResultHandled
       )
     }
 
     is QrScanResult.NotFound -> {
-      QrScanResultDialog(message = stringResource(R.string.MollySocketLink_mollysocket_server_not_found_at_s, qrScanResult.url), onDismiss = onQrResultHandled)
+      QrScanResultDialog(message = stringResource(R.string.MollySocketLink_mollysocket_server_not_found_at_s, qrScanResult.data), onDismiss = onQrResultHandled)
     }
 
     is QrScanResult.Success -> {

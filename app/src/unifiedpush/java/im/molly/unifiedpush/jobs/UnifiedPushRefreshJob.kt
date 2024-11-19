@@ -1,22 +1,22 @@
 package im.molly.unifiedpush.jobs
 
+import im.molly.unifiedpush.MollySocketRepository
+import im.molly.unifiedpush.MollySocketRepository.isLinked
 import im.molly.unifiedpush.UnifiedPushDistributor
 import im.molly.unifiedpush.UnifiedPushNotificationBuilder
+import im.molly.unifiedpush.model.RegistrationStatus
+import im.molly.unifiedpush.model.toRegistrationStatus
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.greenrobot.eventbus.EventBus
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.PushServiceEvent
 import org.thoughtcrime.securesms.jobmanager.Job
+import org.thoughtcrime.securesms.jobmanager.JsonJobData
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobs.BaseJob
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import im.molly.unifiedpush.MollySocketRepository
-import im.molly.unifiedpush.MollySocketRepository.isLinked
-import im.molly.unifiedpush.model.RegistrationStatus
-import im.molly.unifiedpush.model.toRegistrationStatus
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import org.thoughtcrime.securesms.jobmanager.JsonJobData
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
 import org.whispersystems.signalservice.internal.push.DeviceLimitExceededException
 import java.io.IOException
@@ -98,6 +98,7 @@ class UnifiedPushRefreshJob private constructor(
     val airGapped = SignalStore.unifiedpush.airGapped
     val mollySocketUrl = SignalStore.unifiedpush.mollySocketUrl?.toHttpUrlOrNull()
     val lastReceivedTime = SignalStore.unifiedpush.lastReceivedTime
+    val vapid = SignalStore.unifiedpush.mollySocketVapid
 
     Log.d(TAG, "Last notification received at: $lastReceivedTime")
 
@@ -108,7 +109,7 @@ class UnifiedPushRefreshJob private constructor(
       }
     }
 
-    UnifiedPushDistributor.registerApp()
+    UnifiedPushDistributor.registerApp(vapid)
 
     if (!UnifiedPushDistributor.checkIfActive() || endpoint == null) {
       Log.e(TAG, "Distributor is not active or endpoint is missing.")

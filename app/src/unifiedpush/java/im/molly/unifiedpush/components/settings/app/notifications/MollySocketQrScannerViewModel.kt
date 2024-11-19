@@ -1,8 +1,3 @@
-/*
- * Copyright 2024 Signal Messenger, LLC
- * SPDX-License-Identifier: AGPL-3.0-only
- */
-
 package im.molly.unifiedpush.components.settings.app.notifications
 
 import android.content.Context
@@ -22,10 +17,10 @@ class MollySocketQrScannerViewModel : ViewModel() {
 
   private val disposables = CompositeDisposable()
 
-  fun onQrScanned(url: String) {
+  fun onQrScanned(data: String) {
     _state.value = state.value.copy(indeterminateProgress = true)
 
-    disposables += MollySocketQrScanRepository.lookupUrl(url)
+    disposables += MollySocketQrScanRepository.lookupQrLink(data)
       .observeOn(AndroidSchedulers.mainThread())
       .subscribe { result ->
         _state.value = _state.value.copy(
