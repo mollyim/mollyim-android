@@ -3,13 +3,13 @@ package im.molly.unifiedpush.receiver
 import android.content.Context
 import androidx.core.os.bundleOf
 import com.google.firebase.messaging.RemoteMessage
-import im.molly.unifiedpush.jobs.UnifiedPushRefreshJob
 import im.molly.unifiedpush.UnifiedPushNotificationBuilder
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.gcm.FcmFetchManager
 import org.thoughtcrime.securesms.gcm.FcmReceiveService
+import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.TextSecurePreferences
