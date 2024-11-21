@@ -1,14 +1,10 @@
 package im.molly.unifiedpush.components.settings.app.notifications
 
-import android.content.DialogInterface
-import android.content.res.Resources
-import android.text.InputType
-import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.launch
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import im.molly.unifiedpush.model.RegistrationStatus
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -27,6 +23,14 @@ import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDeliveryMethod__unifiedpush) {
 
   private lateinit var viewModel: UnifiedPushSettingsViewModel
+
+  private val qrScanLauncher: ActivityResultLauncher<Unit> =
+    registerForActivityResult(MollySocketQrScannerActivity.Contract()) { mollySocket ->
+      if (mollySocket != null) {
+        viewModel.initializeMollySocket(mollySocket)
+        viewModel.refresh()
+      }
+    }
 
   override fun bindAdapter(adapter: MappingAdapter) {
     val factory = UnifiedPushSettingsViewModel.Factory(requireActivity().application)
@@ -54,6 +58,19 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         summary = DSLSettingsText.from(getStatusSummary(state)),
       )
 
+      textPref(
+        title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__mollysocket_server_title),
+        summary = DSLSettingsText.from(
+          if (state.airGapped) {
+            getString(R.string.UnifiedPushSettingsFragment__mollysocket_server_sumarry_air_gapped)
+          } else {
+            state.mollySocketUrl ?: "Error"
+          }
+        )
+      )
+
+      dividerPref()
+
       if (state.distributors.isEmpty()) {
         textPref(
           title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__distributor_app),
@@ -69,17 +86,6 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
           },
         )
       }
-
-      dividerPref()
-
-      switchPref(
-        title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__air_gapped)),
-        summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__air_gapped_summary)),
-        isChecked = state.airGapped,
-        onClick = {
-          viewModel.setUnifiedPushAirGapped(!state.airGapped)
-        }
-      )
 
       if (state.airGapped) {
         val parameters = getServerParameters(state) ?: ""
@@ -106,13 +112,6 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         )
 
         clickPref(
-          title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_url)),
-          summary = DSLSettingsText.from(state.mollySocketUrl ?: getString(R.string.UnifiedPushSettingsFragment__no_server_url_summary)),
-          iconEnd = getMollySocketUrlIcon(state),
-          onClick = { urlDialog(state) },
-        )
-
-        clickPref(
           title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__test_configuration)),
           summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__tap_to_request_a_test_notification_from_mollysocket)),
           onClick = {
@@ -121,6 +120,13 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
           },
         )
       }
+      clickPref(
+        title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__change_mollysocket_configuration_title)),
+        summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__change_mollysocket_configuration_summary)),
+        onClick = {
+          qrScanLauncher.launch()
+        },
+      )
     }
   }
 
@@ -129,49 +135,6 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
     val device = state.device ?: return null
     val endpoint = state.endpoint ?: return null
     return "connection add $aci ${device.deviceId} ${device.password} $endpoint"
-  }
-
-  private fun urlDialog(state: UnifiedPushSettingsState) {
-    val alertDialog = MaterialAlertDialogBuilder(requireContext())
-    val input = EditText(requireContext()).apply {
-      inputType = InputType.TYPE_TEXT_VARIATION_URI
-      setText(state.mollySocketUrl)
-    }
-    alertDialog.setEditText(
-      input
-    )
-    alertDialog.setPositiveButton(getString(android.R.string.ok)) { _: DialogInterface, _: Int ->
-      val isValid = viewModel.setMollySocketUrl(input.text.toString())
-      if (!isValid && input.text.isNotEmpty()) {
-        Toast.makeText(requireContext(), R.string.UnifiedPushSettingsFragment__invalid_server_url, Toast.LENGTH_LONG).show()
-      }
-    }
-    alertDialog.show()
-  }
-
-  private val Float.toPx: Int
-    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
-
-  private fun MaterialAlertDialogBuilder.setEditText(editText: EditText): MaterialAlertDialogBuilder {
-    val container = FrameLayout(context)
-    container.addView(editText)
-    val containerParams = FrameLayout.LayoutParams(
-      FrameLayout.LayoutParams.MATCH_PARENT,
-      FrameLayout.LayoutParams.WRAP_CONTENT
-    )
-    val marginHorizontal = 48F
-    val marginTop = 16F
-    containerParams.topMargin = (marginTop / 2).toPx
-    containerParams.leftMargin = marginHorizontal.toInt()
-    containerParams.rightMargin = marginHorizontal.toInt()
-    container.layoutParams = containerParams
-
-    val superContainer = FrameLayout(context)
-    superContainer.addView(container)
-
-    setView(superContainer)
-
-    return this
   }
 
   @StringRes
@@ -206,14 +169,6 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         RegistrationStatus.FORBIDDEN_UUID -> R.string.UnifiedPushSettingsFragment__status_summary_forbidden_uuid
         RegistrationStatus.FORBIDDEN_ENDPOINT -> R.string.UnifiedPushSettingsFragment__status_summary_forbidden_endpoint
       }
-    }
-  }
-
-  private fun getMollySocketUrlIcon(state: UnifiedPushSettingsState): DSLSettingsIcon? {
-    return when (state.serverUnreachable) {
-      true -> DSLSettingsIcon.from(R.drawable.ic_alert)
-      false -> DSLSettingsIcon.from(R.drawable.ic_check_20)
-      else -> null
     }
   }
 }

@@ -139,15 +139,11 @@
     <string name="UnifiedPushSettingsFragment__distributor_app">Distributor app</string>
     <string name="UnifiedPushSettingsFragment__status">Status</string>
     <string name="UnifiedPushSettingsFragment__tap_to_copy_to_clipboard">Tap to copy to clipboard</string>
-    <string name="UnifiedPushSettingsFragment__air_gapped">Air gapped</string>
     <string name="UnifiedPushSettingsFragment__server_parameters">Server parameters</string>
     <string name="UnifiedPushSettingsFragment__account_id">Account ID</string>
-    <string name="UnifiedPushSettingsFragment__server_url">Server URL</string>
-    <string name="UnifiedPushSettingsFragment__no_server_url_summary">Please provide the MollySocket server URL</string>
     <string name="UnifiedPushSettingsFragment__test_configuration">Test configuration</string>
     <string name="UnifiedPushSettingsFragment__tap_to_request_a_test_notification_from_mollysocket">Tap to request a test notification from MollySocket</string>
     <string name="UnifiedPushSettingsFragment__a_test_notification_should_appear_in_a_few_moments">A test notification should appear in a few moments…</string>
-    <string name="UnifiedPushSettingsFragment__invalid_server_url">Invalid server URL</string>
     <string name="UnifiedPushSettingsFragment__status_summary_mollysocket_url_missing">Missing MollySocket URL</string>
     <string name="UnifiedPushSettingsFragment__status_summary_pending">Pending</string>
     <string name="UnifiedPushSettingsFragment__status_summary_air_gapped_pending">Waiting for confirmation from the MollySocket server</string>
@@ -158,7 +154,6 @@
     <string name="UnifiedPushSettingsFragment__status_summary_forbidden_endpoint">The endpoint is forbidden by the server</string>
     <string name="UnifiedPushSettingsFragment__status_summary_no_distributor">No UnifiedPush distributor installed</string>
     <string name="UnifiedPushSettingsFragment__status_summary_distributor_not_selected">No distributor app selected</string>
-    <string name="UnifiedPushSettingsFragment__air_gapped_summary">Enable if your MollySocket server can\'t be reached from the internet. You\'ll need to manually add your account to the server.</string>
     <string name="UnifiedPushSettingsViewModel__mollysocket_server_not_found">"MollySocket server not found. Please check the URL and try again."</string>
     <string name="UnifiedPushNotificationBuilder__mollysocket_device_limit_hit">You\'ve reached the limit of %d linked devices. To link your MollySocket server, please remove a device first.</string>
     <string name="UnifiedPushNotificationBuilder__endpoint_changed_air_gapped">Your UnifiedPush endpoint has changed. You must update your connection on MollySocket.</string>
@@ -175,4 +170,8 @@
     <string name="MollySocketLink_the_qr_code_was_invalid">The QR code was invalid</string>
     <string name="MollySocketLink_mollysocket_server_not_found_at_s">MollySocket server not found at \'%s\'</string>
     <string name="MollySocketLink_experienced_a_network_error_please_try_again">Experienced a network error. Please try again.</string>
+    <string name="UnifiedPushSettingsFragment__change_mollysocket_configuration_title">Scan MollySocket QR Code</string>
+    <string name="UnifiedPushSettingsFragment__change_mollysocket_configuration_summary">Tap to scan and select a new MollySocket server</string>
+    <string name="UnifiedPushSettingsFragment__mollysocket_server_title">MollySocket server</string>
+    <string name="UnifiedPushSettingsFragment__mollysocket_server_sumarry_air_gapped">Air gapped</string>
 </resources>
