@@ -58,6 +58,19 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         summary = DSLSettingsText.from(getStatusSummary(state)),
       )
 
+      textPref(
+        title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__mollysocket_server_title),
+        summary = DSLSettingsText.from(
+          if (state.airGapped) {
+            getString(R.string.UnifiedPushSettingsFragment__mollysocket_server_sumarry_air_gapped)
+          } else {
+            state.mollySocketUrl ?: "Error"
+          }
+        )
+      )
+
+      dividerPref()
+
       if (state.distributors.isEmpty()) {
         textPref(
           title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__distributor_app),
@@ -73,8 +86,6 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
           },
         )
       }
-
-      dividerPref()
 
       if (state.airGapped) {
         val parameters = getServerParameters(state) ?: ""
