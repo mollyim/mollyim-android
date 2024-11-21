@@ -91,6 +91,7 @@ class UnifiedPushReceiver : MessagingReceiver() {
       message.contains("\"test\":true") -> {
         Log.d(TAG, "Test message received.")
         UnifiedPushNotificationBuilder(context).setNotificationTest()
+        AppDependencies.jobManager.add(UnifiedPushRefreshJob())
       }
 
       else -> {
