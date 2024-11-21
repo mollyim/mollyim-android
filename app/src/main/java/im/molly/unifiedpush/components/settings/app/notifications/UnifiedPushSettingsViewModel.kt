@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import im.molly.unifiedpush.MollySocketRepository
+import im.molly.unifiedpush.model.MollySocket
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.signal.core.util.ThreadUtil
@@ -31,6 +32,14 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
 
   fun refresh() {
     store.update { getState() }
+  }
+
+  fun initializeMollySocket(mollySocket: MollySocket) {
+    SignalStore.unifiedpush.apply {
+      airGapped = mollySocket is MollySocket.AirGapped
+      mollySocketUrl = (mollySocket as? MollySocket.WebServer)?.url
+      mollySocketVapid = mollySocket.vapid
+    }
   }
 
   private fun refreshAndUpdateRegistration(pingOnRegister: Boolean = false) {
