@@ -107,6 +107,17 @@
 
     <!-- MOLLY: GMS and Google Maps stuff moved to gms/AndroidManifest.xml -->
 
+    <activity
+        android:name="im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+        android:exported="false" />
+
+    <activity
+        android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity"
+        android:theme="@style/TextSecure.DialogActivity"
+        android:exported="false" />
+
     <meta-data android:name="android.supports_size_changes"
                android:value="true" />
 
@@ -1299,6 +1310,18 @@
         android:exported="true">
         <intent-filter>
             <action android:name="info.guardianproject.panic.action.TRIGGER" />
+        </intent-filter>
+    </receiver>
+
+    <receiver
+        android:name="im.molly.unifiedpush.receiver.UnifiedPushReceiver"
+        android:enabled="true"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="org.unifiedpush.android.connector.MESSAGE" />
+            <action android:name="org.unifiedpush.android.connector.UNREGISTERED" />
+            <action android:name="org.unifiedpush.android.connector.NEW_ENDPOINT" />
+            <action android:name="org.unifiedpush.android.connector.REGISTRATION_FAILED" />
         </intent-filter>
     </receiver>
 

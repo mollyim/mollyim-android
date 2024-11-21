@@ -6,6 +6,8 @@ import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import im.molly.unifiedpush.UnifiedPushDistributor
+import im.molly.unifiedpush.model.MollySocket
 
 import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -119,6 +121,18 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     refresh()
   }
 
+  fun selectFirstDistributor() {
+    UnifiedPushDistributor.selectFirstDistributor()
+  }
+
+  fun initializeMollySocket(mollySocket: MollySocket) {
+    SignalStore.unifiedpush.apply {
+      airGapped = mollySocket is MollySocket.AirGapped
+      mollySocketUrl = (mollySocket as? MollySocket.WebServer)?.url
+      mollySocketVapid = mollySocket.vapid
+    }
+  }
+
   fun setPlayServicesErrorCode(errorCode: Int?) {
     store.update { it.copy(playServicesErrorCode = errorCode) }
   }
@@ -161,7 +175,8 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     isLinkedDevice = SignalStore.account.isLinkedDevice,
     preferredNotificationMethod = SignalStore.settings.preferredNotificationMethod,
     playServicesErrorCode = currentState?.playServicesErrorCode,
-    canReceiveFcm = SignalStore.account.canReceiveFcm
+    canReceiveFcm = SignalStore.account.canReceiveFcm,
+    canReceiveUnifiedPush = SignalStore.unifiedpush.isAvailableOrAirGapped
   )
 
   private fun canEnableNotifications(): Boolean {

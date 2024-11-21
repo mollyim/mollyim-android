@@ -219,6 +219,22 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         }
       )
 
+      clickPref(
+        title = DSLSettingsText.from("Delete UnifiedPush ping"),
+        summary = DSLSettingsText.from("Make as Molly never received the ping from MollySocket. Will cause UnifiedPush to stop and Websocket to restart."),
+        onClick = {
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Delete UnifiedPush ping?")
+            .setMessage("Are you sure?")
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+              SignalStore.unifiedpush.lastReceivedTime = 0
+              Toast.makeText(requireContext(), "UnifiedPush ping deleted!", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+        }
+      )
+
       dividerPref()
 
       sectionHeaderPref(DSLSettingsText.from("Logging"))

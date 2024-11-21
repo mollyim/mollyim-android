@@ -80,7 +80,9 @@ import org.thoughtcrime.securesms.jobs.RestoreOptimizedMediaJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.jobs.RetrieveRemoteAnnouncementsJob;
 import org.thoughtcrime.securesms.jobs.StoryOnboardingDownloadJob;
+import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.KeepMessagesDuration;
+import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.PersistentLogger;
@@ -127,6 +129,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import im.molly.unifiedpush.UnifiedPushDistributor;
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
@@ -504,18 +507,35 @@ public class ApplicationContext extends Application implements AppForegroundObse
       return;
     }
 
-    boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
-    boolean forceWebSocket     = SignalStore.internal().isWebsocketModeForced();
-    boolean forceFcm           = !forceWebSocket && SignalStore.internal().isFcmModeForced();
+    NotificationDeliveryMethod method = SignalStore.settings().getPreferredNotificationMethod();
 
-    if (forceWebSocket || !BuildConfig.USE_PLAY_SERVICES) {
+    boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
+    boolean unifiedPushEnabled = SignalStore.unifiedpush().isEnabled();
+
+    if (method != NotificationDeliveryMethod.FCM || !BuildConfig.USE_PLAY_SERVICES) {
       if (fcmEnabled) {
         Log.i(TAG, "Play Services not allowed. Disabling FCM.");
         updateFcmStatus(false);
       } else {
-        Log.d(TAG, "FCM is disabled.");
+        Log.d(TAG, "FCM is already disabled.");
       }
-    } else if (forceFcm && !fcmEnabled && BuildConfig.USE_PLAY_SERVICES) {
+      if (method == NotificationDeliveryMethod.UNIFIEDPUSH) {
+        if (SignalStore.account().isLinkedDevice()) {
+          Log.i(TAG, "UnifiedPush not supported in linked devices.");
+          updateUnifiedPushStatus(false);
+        } else if (!unifiedPushEnabled) {
+          Log.i(TAG, "Switching to UnifiedPush.");
+          updateUnifiedPushStatus(true);
+        } else {
+          AppDependencies.getJobManager().add(new UnifiedPushRefreshJob());
+        }
+      } else {
+        if (unifiedPushEnabled) {
+          Log.i(TAG, "Switching to WebSocket.");
+          updateUnifiedPushStatus(false);
+        }
+      }
+    } else if (!fcmEnabled) {
       Log.i(TAG, "FCM preferred. Updating to use FCM.");
       updateFcmStatus(true);
     } else {
@@ -543,6 +563,16 @@ public class ApplicationContext extends Application implements AppForegroundObse
     AppDependencies.getJobManager().startChain(new FcmRefreshJob())
                                    .then(new RefreshAttributesJob())
                                    .enqueue();
+  }
+
+  private void updateUnifiedPushStatus(boolean enabled) {
+    SignalStore.unifiedpush().setEnabled(enabled);
+    if (enabled) {
+      UnifiedPushDistributor.registerApp(SignalStore.unifiedpush().getMollySocketVapid());
+    } else {
+      UnifiedPushDistributor.unregisterApp();
+    }
+    AppDependencies.getJobManager().add(new UnifiedPushRefreshJob());
   }
 
   private void initializeExpiringMessageManager() {

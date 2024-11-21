@@ -137,6 +137,10 @@ dependencyResolutionManagement {
       library("molly-argon2", "im.molly:argon2:13.1-1")
       library("molly-glide-webp-decoder", "im.molly:glide-webp-decoder:1.3.2-2")
 
+      // UnifiedPush
+      library("unifiedpush-connector", "org.unifiedpush.android:connector:3.0.0-rc2")
+      library("unifiedpush-connector-ui", "org.unifiedpush.android:connector-ui:1.1.0-rc3")
+
       // Third Party
       library("greenrobot-eventbus", "org.greenrobot:eventbus:3.0.0")
       library("jackson-core", "com.fasterxml.jackson.core:jackson-databind:2.17.2")

@@ -14,6 +14,8 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.launch
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +24,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity
+import im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -47,6 +51,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet
 import org.thoughtcrime.securesms.util.BottomSheetUtil
+import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.PlayServicesUtil
 import org.thoughtcrime.securesms.util.RingtoneUtil
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
@@ -76,19 +81,33 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
   private val ledBlinkValues by lazy { resources.getStringArray(R.array.pref_led_blink_pattern_values) }
   private val ledBlinkLabels by lazy { resources.getStringArray(R.array.pref_led_blink_pattern_entries) }
 
-  private val notificationMethodValues = NotificationDeliveryMethod.entries.filterNot { method ->
-    method == NotificationDeliveryMethod.FCM && !BuildConfig.USE_PLAY_SERVICES
-  }
-  private val notificationMethodLabels by lazy { notificationMethodValues.map { resources.getString(it.stringId) }.toTypedArray() }
-
   private lateinit var viewModel: NotificationsSettingsViewModel
 
   private val args: NotificationsSettingsFragmentArgs by navArgs()
 
+  private val linkDefaultDistributorLauncher: ActivityResultLauncher<Unit> =
+    registerForActivityResult(UnifiedPushDefaultDistributorLinkActivity.Contract()) { success ->
+      if (success != true) {
+        // If there are no distributors or
+        // if there are multiple distributors installed, but none of them follow the last
+        // specifications,
+        // we try to fall back to the first we found.
+        viewModel.selectFirstDistributor()
+      }
+      navigateToUnifiedPushSettings()
+    }
+
+  private val qrScanLauncher: ActivityResultLauncher<Unit> =
+    registerForActivityResult(MollySocketQrScannerActivity.Contract()) { mollySocket ->
+      if (mollySocket != null) {
+        viewModel.initializeMollySocket(mollySocket)
+        viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
+        linkDefaultDistributorLauncher.launch()
+      }
+    }
+
   private val layoutManager: LinearLayoutManager?
     get() = recyclerView?.layoutManager as? LinearLayoutManager
-
-  private var hasShownPlayServicesError = false
 
   override fun onResume() {
     super.onResume()
@@ -362,20 +381,71 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         summary = DSLSettingsText.from(R.string.NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications)
       )
 
+      val notificationMethods = NotificationDeliveryMethod.entries.filter { method ->
+        when (method) {
+          NotificationDeliveryMethod.FCM -> BuildConfig.USE_PLAY_SERVICES
+          NotificationDeliveryMethod.WEBSOCKET -> true
+          NotificationDeliveryMethod.UNIFIEDPUSH -> !state.isLinkedDevice
+        }
+      }
+
       val showAlertIcon = when (state.preferredNotificationMethod) {
         NotificationDeliveryMethod.FCM -> !state.canReceiveFcm
         NotificationDeliveryMethod.WEBSOCKET -> false
+        NotificationDeliveryMethod.UNIFIEDPUSH -> !state.canReceiveUnifiedPush
       }
+
       radioListPref(
         title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__delivery_service),
-        listItems = notificationMethodLabels,
-        selected = notificationMethodValues.indexOf(state.preferredNotificationMethod),
+        listItems = notificationMethods.map { resources.getString(it.stringId) }.toTypedArray(),
+        selected = notificationMethods.indexOf(state.preferredNotificationMethod),
         iconEnd = if (showAlertIcon) DSLSettingsIcon.from(R.drawable.ic_alert, R.color.signal_alert_primary) else null,
         onSelected = {
-          viewModel.setPreferredNotificationMethod(notificationMethodValues[it])
+          onNotificationMethodChanged(notificationMethods[it], state.preferredNotificationMethod)
         }
       )
+
+      if (!state.isLinkedDevice) {
+        clickPref(
+          title = DSLSettingsText.from(R.string.NotificationsSettingsFragment__configure_unifiedpush),
+          isEnabled = state.preferredNotificationMethod == NotificationDeliveryMethod.UNIFIEDPUSH,
+          onClick = {
+            navigateToUnifiedPushSettings()
+          }
+        )
+      }
     }
+  }
+
+  private fun onNotificationMethodChanged(
+    method: NotificationDeliveryMethod,
+    previousMethod: NotificationDeliveryMethod
+  ) {
+    when (method) {
+      NotificationDeliveryMethod.FCM -> viewModel.setPreferredNotificationMethod(method)
+      NotificationDeliveryMethod.WEBSOCKET -> viewModel.setPreferredNotificationMethod(method)
+      NotificationDeliveryMethod.UNIFIEDPUSH -> {
+        if (method != previousMethod) {
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.NotificationsSettingsFragment__mollysocket_server)
+            .setMessage(R.string.NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_running_mollysocket)
+            .setPositiveButton(R.string.RegistrationActivity_i_understand) { _, _ ->
+              qrScanLauncher.launch()
+            }
+            .setNegativeButton(R.string.RegistrationActivity_cancel, null)
+            .setNeutralButton(R.string.LearnMoreTextView_learn_more) { _, _ ->
+              CommunicationActions.openBrowserLink(requireContext(), getString(R.string.mollysocket_setup_url))
+            }
+            .show()
+        } else {
+          navigateToUnifiedPushSettings()
+        }
+      }
+    }
+  }
+
+  private fun navigateToUnifiedPushSettings() {
+    findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_unifiedPushFragment)
   }
 
   private fun showPlayServicesErrorDialog(errorCode: Int) {

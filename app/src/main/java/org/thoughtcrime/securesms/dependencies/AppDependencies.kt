@@ -336,7 +336,7 @@ object AppDependencies {
     fun provideMegaphoneRepository(): MegaphoneRepository
     fun provideEarlyMessageCache(): EarlyMessageCache
     fun provideMessageNotifier(): MessageNotifier
-    fun provideIncomingMessageObserver(): IncomingMessageObserver
+    fun provideIncomingMessageObserver(signalWebSocket: SignalWebSocket): IncomingMessageObserver
     fun provideTrimThreadsByDateManager(): TrimThreadsByDateManager
     fun provideViewOnceMessageManager(): ViewOnceMessageManager
     fun provideExpiringStoriesManager(): ExpiringStoriesManager
