@@ -34,8 +34,7 @@ class UnifiedPushReceiver : MessagingReceiver() {
   override fun onNewEndpoint(context: Context, endpoint: PushEndpoint, instance: String) {
     Log.i(TAG, "onNewEndpoint($instance)")
     if (!appLocked) {
-      refreshEndpoint(endpoint.url)
-      if (SignalStore.unifiedpush.airGapped) {
+      if (refreshEndpoint(endpoint.url) && SignalStore.unifiedpush.airGapped) {
         updateLastReceivedTime(0)
         UnifiedPushNotificationBuilder(context).setNotificationEndpointChangedAirGapped()
       }
@@ -109,6 +108,11 @@ class UnifiedPushReceiver : MessagingReceiver() {
     SignalStore.unifiedpush.lastReceivedTime = timestamp
   }
 
+  /**
+   * Update UnifiedPush endpoint
+   *
+   * @return `true` if the endpoint has been updated, `false` if the endpoint is the same
+   */
   private fun refreshEndpoint(endpoint: String?): Boolean {
     val stored = SignalStore.unifiedpush.endpoint
     return if (endpoint != stored) {
