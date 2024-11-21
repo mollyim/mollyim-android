@@ -35,7 +35,7 @@ object MollySocketQrScanRepository {
             QrScanResult.Success(data)
           } else {
             // TODO add network check
-            QrScanResult.NotFound(data)
+            QrScanResult.NotFound(mollySocket.url)
           }
         }.subscribeOn(Schedulers.io())
       }
