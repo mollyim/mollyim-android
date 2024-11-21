@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -45,12 +42,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signal yra atnaujinama…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Molly yra atnaujinama…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Jūs dar nesate nustatę slaptafrazės!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Išjungti slaptafrazę?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tai visiems laikams atrakins Signal ir žinučių pranešimus.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tai visiems laikams atrakins Molly ir žinučių pranešimus.</string>
     <string name="ApplicationPreferencesActivity_disable">Išjungti</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Klaida prisijungiant prie serverio!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN kodai yra reikalingi registracijos užraktui. Norėdami išjungti PIN kodus, iš pradžių, išjunkite registracijos užraktą.</string>
@@ -87,7 +84,7 @@
     <string name="AttachmentKeyboard_file">Failas</string>
     <string name="AttachmentKeyboard_contact">Adresatas</string>
     <string name="AttachmentKeyboard_location">Vieta</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">„Signal“ reikia leidimo rodyti jūsų nuotraukas ir vaizdo įrašus</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">„Molly“ reikia leidimo rodyti jūsų nuotraukas ir vaizdo įrašus</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Leisti prieigą</string>
     <string name="AttachmentKeyboard_payment">Mokėjimas</string>
@@ -98,34 +95,34 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">Pereiti į nustatymus</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">„Signal“ prieiga prie nuotraukų ir vaizdo įrašų yra ribojama</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">„Molly“ prieiga prie nuotraukų ir vaizdo įrašų yra ribojama</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">Nerasta nuotraukų, pasirinkite nuotraukas ir vaizdo įrašus, kurie bus rodomi čia, arba pakeiskite leidimus</string>
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Nerasta jokių nuotraukų ar vaizdo įrašų. „Signal“ turi prieigą tik prie jūsų pasirinktų nuotraukų ir vaizdo įrašų.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Nerasta jokių nuotraukų ar vaizdo įrašų. „Molly“ turi prieigą tik prie jūsų pasirinktų nuotraukų ir vaizdo įrašų.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Nerasta programėlė medijos pasirinkimui.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Norint pridėti nuotraukas, vaizdo įrašus ar garsą, Signal reikia saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Norint pridėti kontaktinę informaciją, Signal reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Norint pridėti vietą, Signal reikia vietos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Vietą“.</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Norint pridėti nuotraukas, vaizdo įrašus ar garsą, Molly reikia saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Norint pridėti kontaktinę informaciją, Molly reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Norint pridėti vietą, Molly reikia vietos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Vietą“.</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Leisti prieigą prie buvimo vietos</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Norėdami siųsti savo buvimo vietą:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Leiskite „Signal“ siųsti jūsų buvimo vietą.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Leiskite „Molly“ siųsti jūsų buvimo vietą.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Tam, kad „Signal“ galėtų nusiųsti jūsų buvimo vietą, reikalinga prieiga prie jūsų buvimo vietos duomenų.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Tam, kad „Molly“ galėtų nusiųsti jūsų buvimo vietą, reikalinga prieiga prie jūsų buvimo vietos duomenų.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Leisti prieigą prie saugyklos</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Jei norite, kad būtų rodomos nuotraukos ir vaizdo įrašai:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">„Signal“ reikia prieigos, kad galėtų rodyti jūsų nuotraukas ir vaizdo įrašus.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">„Molly“ reikia prieigos, kad galėtų rodyti jūsų nuotraukas ir vaizdo įrašus.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s neįjungė Mokėjimų </string>
@@ -280,25 +277,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Leisti prieigą prie mikrofono</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Jei norite fotografuoti, leiskite „Signal“ prieigą prie kameros.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Jei norite fotografuoti, leiskite „Molly“ prieigą prie kameros.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Norėdami fotografuoti ir filmuoti vaizdo įrašus, leiskite Signal prieigą prie kameros.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Norėdami fotografuoti ir filmuoti vaizdo įrašus, leiskite Molly prieigą prie kameros.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Jei norite fotografuoti ir filmuoti, leiskite „Signal“ prieigą prie kameros ir mikrofono.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Jei norite fotografuoti ir filmuoti, leiskite „Molly“ prieigą prie kameros ir mikrofono.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Jei norite filmuoti su garsu, leiskite „Signal“ prieigą prie mikrofono.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Jei norite filmuoti su garsu, leiskite „Molly“ prieigą prie mikrofono.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Jei norite nuskenuoti QR kodą, leiskite „Signal“ prieigą prie kameros.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Jei norite nuskenuoti QR kodą, leiskite „Molly“ prieigą prie kameros.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Kad būtų galima fotografuoti, „Signal“ reikalinga prieiga prie kameros</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Kad būtų galima fotografuoti, „Molly“ reikalinga prieiga prie kameros</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Kad būtų galima nuskaityti QR kodus, „Signal“ reikalinga prieiga prie kameros</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Kad būtų galima nuskaityti QR kodus, „Molly“ reikalinga prieiga prie kameros</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Kad būtų galima filmuoti, „Signal“ reikalinga prieiga prie mikrofono</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Kad būtų galima filmuoti, „Molly“ reikalinga prieiga prie mikrofono</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Jei norite fotografuoti per „Signal“:</string>
+    <string name="CameraXFragment_to_capture_photos">Jei norite fotografuoti per „Molly“:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Jei norite fotografuoti ir filmuoti per „Signal“:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Jei norite fotografuoti ir filmuoti per „Molly“:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Jei norite filmuoti vaizdo įrašus su garsu:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -319,7 +316,7 @@
     <string name="CameraContacts_no_signal_contacts">Nėra Signal adresatų</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Galite naudoti kameros mygtuką tik tam, kad siųstumėte nuotraukas Signal adresatams. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Nerandate ieškomo žmogaus?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Pakvieskite adresatą prisijungti prie Signal</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Pakvieskite adresatą prisijungti prie Molly</string>
     <string name="CameraContacts__menu_search">Ieškoti</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -333,12 +330,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Ne, ačiū</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Atnaujinti Signal</string>
+    <string name="ClientDeprecatedActivity_update_signal">Atnaujinti Molly</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Ši programėlės versija daugiau nebepalaikoma. Norėdami ir toliau siųsti bei gauti žinutes, atnaujinkite programėlę iki naujausios versijos.</string>
     <string name="ClientDeprecatedActivity_update">Atnaujinti</string>
     <string name="ClientDeprecatedActivity_dont_update">Neatnaujinti</string>
     <string name="ClientDeprecatedActivity_warning">Įspėjimas</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Tavo „Signal“ versija nebegalioja. Gali žiūrėti žinučių istoriją, tačiau nebegalėsi nei siųsti, nei gauti žinučių, kol neatnaujinsi programėlės.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Tavo „Molly“ versija nebegalioja. Gali žiūrėti žinučių istoriją, tačiau nebegalėsi nei siųsti, nei gauti žinučių, kol neatnaujinsi programėlės.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Nerasta jokios saityno naršyklės.</string>
@@ -379,8 +376,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Žinutė %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">„Signal“ balso skambutis %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signalinis vaizdo skambutis %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">„Molly“ balso skambutis %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Mollyinis vaizdo skambutis %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -480,7 +477,7 @@
     <string name="ConversationActivity_transport_signal">Signal žinutė</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Siųsti žinutę</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Bendraukime per Signal %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Bendraukime per Molly %1$s</string>
     <string name="ConversationActivity_specify_recipient">Pasirinkite adresatą</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Priedas viršija jūsų siunčiamos žinutės tipui leidžiamą dydį.</string>
     <string name="ConversationActivity_unable_to_record_audio">Nepavyksta įrašyti garso!</string>
@@ -499,18 +496,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Norėdami siųsti balso žinutes:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Norėdami siųsti balso žinutes, leiskite „Signal“ prieigą prie mikrofono.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Norėdami siųsti balso žinutes, leiskite „Molly“ prieigą prie mikrofono.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Kad būtų galima įrašyti balso žinutę, „Signal“ reikia prieigos prie mikrofono.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Norint siųsti garso žinutes, Signal reikia mikrofono leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Kad būtų galima įrašyti balso žinutę, „Molly“ reikia prieigos prie mikrofono.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Norint siųsti garso žinutes, Molly reikia mikrofono leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“.</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Norint skambinti %1$s, programai Signal reikia mikrofono ir kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Norėdami fotografuoti ir filmuoti vaizdo įrašus, leiskite Signal prieigą prie kameros.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Norint fotografuoti, Signal reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Norint fotografuoti ar filmuoti, Signal reikalinga prieiga prie kameros</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Norint skambinti %1$s, programai Molly reikia mikrofono ir kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Norėdami fotografuoti ir filmuoti vaizdo įrašus, leiskite Molly prieigą prie kameros.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Norint fotografuoti, Molly reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Norint fotografuoti ar filmuoti, Molly reikalinga prieiga prie kameros</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Norėdami įrašinėti vaizdo įrašus su garsu, įjunkite prieigą prie mikrofono.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Norint įrašinėti vaizdo įrašus, Signal reikia mikrofono leidimo, tačiau jis buvo uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Norint įrašinėti vaizdo įrašus, Signal reikalingas mikrofono leidimas.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Norint įrašinėti vaizdo įrašus, Molly reikia mikrofono leidimo, tačiau jis buvo uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Norint įrašinėti vaizdo įrašus, Molly reikalingas mikrofono leidimas.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Ne</string>
@@ -531,9 +528,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Norėdami pradėti skambutį:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Norėdami pradėti skambutį, leiskite „Signal“ prieigą prie mikrofono.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Norėdami pradėti skambutį, leiskite „Molly“ prieigą prie mikrofono.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Kad būtų galima pradėti skambutį, „Signal“ reikia prieigos prie mikrofono.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Kad būtų galima pradėti skambutį, „Molly“ reikia prieigos prie mikrofono.</string>
 
 
     <string name="ConversationActivity_join">Prisijungti</string>
@@ -547,9 +544,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">SMS žinutės programėlėje „Signal“ nebepalaikomos. Pakviesk %1$s į „Signal“ ir pratęsk pokalbį čia.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Šis žmogus nebenaudoja „Signal“. Pakvieskite jį (ją) į „Signal“ ir pratęskite pokalbį čia.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Šis žmogus nebenaudoja „Molly“. Pakvieskite jį (ją) į „Molly“ ir pratęskite pokalbį čia.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Pakviesti į Signal</string>
+    <string name="ConversationActivity__invite_to_signal">Pakviesti į Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Netrukus gausi dar vieną priminimą.</string>
 
@@ -649,13 +646,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Užblokuotas</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Atnaujinti Signal</string>
+    <string name="ConversationFragment__update_build">Atnaujinti Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Iš naujo registruoti „Signal“</string>
+    <string name="ConversationFragment__reregister_signal">Iš naujo registruoti „Molly“</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Grįžti atgal.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Atidaryti „Signal“</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Atidaryti „Molly“</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Nebepatvirtintas</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -789,7 +786,7 @@
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">Pridėta į „%1$s“</string>
     <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">This chat is already in the folder \"%1$s\"</string>
+    <string name="AddToFolderBottomSheet_this_chat_is_already">Šis pokalbis jau yra aplanke „%1$s“</string>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Pranešimų profilis</string>
@@ -843,9 +840,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Kas gali mane rasti pagal numerį?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Visi jūsų telefono numerį turintys žmonės matys, kad naudojatės „Signal“, ir galės su jumis pradėti pokalbį.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Visi jūsų telefono numerį turintys žmonės matys, kad naudojatės „Molly“, ir galės su jumis pradėti pokalbį.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Niekas nematys, kad naudojatės „Signal“, nebent išsiųsite jiems žinutę arba jau esate pradėję pokalbį.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Niekas nematys, kad naudojatės „Molly“, nebent išsiųsite jiems žinutę arba jau esate pradėję pokalbį.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Atkurti iš atsarginės kopijos?</string>
@@ -924,7 +921,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Išbandyti savo atsarginės kopijos slaptafrazę ir patikrinti ar ji sutampa</string>
     <string name="BackupsPreferenceFragment__turn_on">Įjungti</string>
     <string name="BackupsPreferenceFragment__turn_off">Išjungti</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Norėdami atkurti atsarginę kopiją, įsidiekite naują Signal kopiją. Atverkite programėlę ir bakstelėkite ant „Atkurti atsarginę kopiją“, o tuomet nustatykite atsarginės kopijos failo vietą. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Norėdami atkurti atsarginę kopiją, įsidiekite naują Molly kopiją. Atverkite programėlę ir bakstelėkite ant „Atkurti atsarginę kopiją“, o tuomet nustatykite atsarginės kopijos failo vietą. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Sužinoti daugiau</string>
     <string name="BackupsPreferenceFragment__in_progress">Vykdoma…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -932,7 +929,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">Jau %1$d…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">Jau %1$s%%…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Norint daryti atsargines kopijas, Signal reikia išorinės saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Norint daryti atsargines kopijas, Molly reikia išorinės saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Nustatyti atsarginės kopijos atlikimo laiką</string>
 
@@ -999,7 +996,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Pokalbio seansas atnaujintas</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal programėlė naudoja ištisinį šifravimą ir jai kartais gali tekti atnaujinti jūsų pokalbio seansą. Tai neįtakoja jūsų pokalbio saugumo, bet gali būti, kad praleidote ir negavote žinutės nuo šio adresato, todėl galite jo paprašyti, kad išsiųstų žinutę dar kartą.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly programėlė naudoja ištisinį šifravimą ir jai kartais gali tekti atnaujinti jūsų pokalbio seansą. Tai neįtakoja jūsų pokalbio saugumo, bet gali būti, kad praleidote ir negavote žinutės nuo šio adresato, todėl galite jo paprašyti, kad išsiųstų žinutę dar kartą.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1022,9 +1019,9 @@
     <!-- Dialog confirmation to unlink a device -->
     <string name="LinkDeviceFragment__unlink">Atsieti</string>
     <!-- Toast message indicating a device has been unlinked, where %s is the name of the device -->
-    <string name="LinkDeviceFragment__s_unlinked">\"%1$s\" unlinked</string>
+    <string name="LinkDeviceFragment__s_unlinked">„%1$s“ atsietas</string>
     <!-- Toast message indicating a device has been successfully linked, where %s is the name of the device -->
-    <string name="LinkDeviceFragment__s_linked">\"%1$s\" linked</string>
+    <string name="LinkDeviceFragment__s_linked">„%1$s“ susietas</string>
     <!-- Progress dialog message indicating that a device is currently being linked with an account -->
     <string name="LinkDeviceFragment__linking_device">Susiejamas įrenginys…</string>
     <!-- Toast message shown after a device has been linked -->
@@ -1032,7 +1029,7 @@
     <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
     <string name="LinkDeviceFragment__loading">Įkeliama…</string>
     <!-- Progress dialog message indicating that you are syncing messages to your linked device -->
-    <string name="LinkDeviceFragment__syncing_messages">Syncing messages…</string>
+    <string name="LinkDeviceFragment__syncing_messages">Sinchronizuojamos žinutės…</string>
     <!-- Text message shown when the user has no linked devices -->
     <string name="LinkDeviceFragment__no_linked_devices">Nėra susietų įrenginių</string>
     <!-- Title on biometrics prompt explaining what biometrics are being used for -->
@@ -1044,13 +1041,13 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Tęsti</string>
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
-    <string name="LinkDeviceFragment__sync_failure_title">Message sync failed</string>
+    <string name="LinkDeviceFragment__sync_failure_title">Nepavyko sinchronizuoti žinučių</string>
     <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
-    <string name="LinkDeviceFragment__sync_failure_body">Your messages couldn\'t be transferred to your linked device. You can try re-linking and transferring again, or continue without transferring your message history.</string>
+    <string name="LinkDeviceFragment__sync_failure_body">Jūsų žinučių nepavyko perkelti į susietą įrenginį. Galite pabandyti iš naujo susieti ir vėl perkelti arba tęsti neperkėlę žinučių istorijos.</string>
     <!-- Text button of a button in a dialog that, when pressed, will restart the process of linking a device -->
-    <string name="LinkDeviceFragment__sync_failure_retry_button">Try linking again</string>
+    <string name="LinkDeviceFragment__sync_failure_retry_button">Bandykite susieti dar kartą</string>
     <!-- Text button of a button in a dialog that, when pressed, will ignore syncing errors and link a new device without syncing message content -->
-    <string name="LinkDeviceFragment__sync_failure_dismiss_button">Continue without transferring</string>
+    <string name="LinkDeviceFragment__sync_failure_dismiss_button">Tęsti neperkėlus</string>
 
     <!-- AddLinkDeviceFragment -->
     <!-- Description text shown on the QR code scanner when linking a device -->
@@ -1066,7 +1063,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Užbaikite susiejimą kitame įrenginyje</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Užbaikite „Signal“ susiejimą kitame įrenginyje.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Užbaikite „Molly“ susiejimą kitame įrenginyje.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Įrenginio susiejimas nepavyko</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1075,7 +1072,7 @@
     <string name="AddLinkDeviceFragment__retry">Bandyti dar kartą</string>
 
     <!-- DeviceListActivity -->
-    <string name="DeviceListActivity_unlink_s">Unlink \"%1$s\"?</string>
+    <string name="DeviceListActivity_unlink_s">Atsieti „%1$s“?</string>
     <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">Atsiejus šį įrenginį, jis daugiau nebegalės siųsti ar gauti žinučių.</string>
     <string name="DeviceListActivity_network_connection_failed">Tinklo ryšys patyrė nesėkmę</string>
     <!-- Button label on an alert dialog. The dialog informs the user they have network issues. If pressed, we will retry the network request. -->
@@ -1095,10 +1092,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimizuoti trūkstamoms „Play“ paslaugoms</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Šis įrenginys nepalaiko „Play“ paslaugų. Bakstelėkite, norėdami išjungti sistemos baterijos optimizavimus, kurie neleidžia Signal gauti žinučių tol, kol įrenginys yra neaktyvus.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Šis įrenginys nepalaiko „Play“ paslaugų. Bakstelėkite, norėdami išjungti sistemos baterijos optimizavimus, kurie neleidžia Molly gauti žinučių tol, kol įrenginys yra neaktyvus.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ši Signal versija nebegalioja. Norėdami siųsti ir gauti žinutes, atnaujinkite programėlę dabar.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ši Molly versija nebegalioja. Norėdami siųsti ir gauti žinutes, atnaujinkite programėlę dabar.</string>
     <string name="ExpiredBuildReminder_update_now">Atnaujinti dabar</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1277,7 +1274,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Derinimo žurnalai padeda mums diagnozuoti ir išspręsti problemą, juose nėra identifikavimo informacijos.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">„Signal“ susidūrė su problema. Pateikti derinimo žurnalą?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">„Molly“ susidūrė su problema. Pateikti derinimo žurnalą?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Gali būti, kad negaunate žinučių. Pateikti derinimo žurnalą?</string>
 
@@ -1285,12 +1282,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Pranešimai gali vėluoti dėl baterijos optimizavimo</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Gali išjungti baterijos optimizavimą programėlei „Signal“ ir taip užtikrinti, kad žinučių pranešimai nevėluotų.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Gali išjungti baterijos optimizavimą programėlei „Molly“ ir taip užtikrinti, kad žinučių pranešimai nevėluotų.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Pranešimai gali vėluoti dėl baterijos optimizavimo</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Išjunkite baterijos optimizavimą programėlei „Signal“ ir taip užtikrinkite, kad žinučių pranešimai nevėluotų. Bakstelėkite „Tęsti“, kad pamatytumėte konkrečiam įrenginiui skirtas instrukcijas.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Išjunkite baterijos optimizavimą programėlei „Molly“ ir taip užtikrinkite, kad žinučių pranešimai nevėluotų. Bakstelėkite „Tęsti“, kad pamatytumėte konkrečiam įrenginiui skirtas instrukcijas.</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Ne, ačiū</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1299,7 +1296,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">Gali būti, kad negaunate žinučių</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">Paleiskite įrenginį iš naujo – galbūt tai padės išspręsti žinučių pristatymo problemą. Jei problema išlieka, kreipkitės į „Signal“ palaikymo komandą.</string>
+    <string name="ConnectivityWarningBottomSheet_body">Paleiskite įrenginį iš naujo – galbūt tai padės išspręsti žinučių pristatymo problemą. Jei problema išlieka, kreipkitės į „Molly“ palaikymo komandą.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">Supratau</string>
 
@@ -1617,7 +1614,7 @@
     <string name="InviteActivity_cancel">Atsisakyti</string>
     <string name="InviteActivity_sending">Siunčiama…</string>
     <string name="InviteActivity_invitations_sent">Pakvietimai išsiųsti!</string>
-    <string name="InviteActivity_invite_to_signal">Pakviesti į Signal</string>
+    <string name="InviteActivity_invite_to_signal">Pakviesti į Molly</string>
     <string name="InviteActivity_send_sms">Siųsti SMS žinutę (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Siųsti %1$d SMS pakvietimą?</item>
@@ -1625,7 +1622,7 @@
         <item quantity="many">Siųsti %1$d SMS pakvietimų?</item>
         <item quantity="other">Siųsti %1$d SMS pakvietimų?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Bendraukime per Signal: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Bendraukime per Molly: %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">Atrodo, kad neturite programėlių su kuriomis bendrinti.</string>
 
@@ -1640,7 +1637,7 @@
     <string name="LongMessageActivity_your_message">Jūsų žinutė</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">Foninis ryšys įjungtas</string>
 
     <!-- MediaOverviewActivity -->
@@ -1719,10 +1716,10 @@
     <string name="MessageQuotesBottomSheet_replies">Atsakymai</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Užmezgiamas Signal skambutis</string>
+    <string name="NotificationBarManager__establishing_signal_call">Užmezgiamas Molly skambutis</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Pradedama tekti „Signal“ skambučių paslauga</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Stabdoma Signal skambučių paslauga</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Pradedama tekti „Molly“ skambučių paslauga</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Stabdoma Molly skambučių paslauga</string>
     <string name="NotificationBarManager__cancel_call">Atsisakyti skambučio</string>
 
     <!-- NotificationsMegaphone -->
@@ -2058,7 +2055,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Greitai nebegalėsi siųsti SMS žinučių per programėlę „Signal“. Pakviesk %1$s į „Signal“ ir pratęsk pokalbį čia.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Per programėlę „Signal“ nebegalima siųsti SMS žinučių. Pakviesk %1$s į „Signal“ ir pratęsk pokalbį čia.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Per programėlę „Molly“ nebegalima siųsti SMS žinučių. Pakviesk %1$s į „Molly“ ir pratęsk pokalbį čia.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Mokėjimas: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -2151,27 +2148,27 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Susieti Signal įrenginį?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Atrodo, kad bandote susieti Signal įrenginį, naudodami trečiųjų šalių skenerį. Jūsų saugumui, dar kartą nuskenuokite kodą, naudodami Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Norint skenuoti QR kodą, Signal reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Norint skenuoti QR kodą, Molly reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nepavyksta nuskenuoti QR kodo be kameros leidimo</string>
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Atnaujinti dabar</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Šiandien nustos galioti ši Signal versija. Atnaujinkite Signal iki naujausios versijos.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Šiandien nustos galioti ši Molly versija. Atnaujinkite Molly iki naujausios versijos.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Ši „Signal“ versija nustos galioti rytoj. Atnaujink „Signal“ į naujausią versiją.</item>
-        <item quantity="few">Ši „Signal“ versija nustos galioti po %1$d dienų. Atnaujink „Signal“ į naujausią versiją.</item>
-        <item quantity="many">Ši „Signal“ versija nustos galioti po %1$d d. Atnaujink „Signal“ į naujausią versiją.</item>
-        <item quantity="other">Ši „Signal“ versija nustos galioti po %1$d dienų. Atnaujink „Signal“ į naujausią versiją.</item>
+        <item quantity="one">Ši „Molly“ versija nustos galioti rytoj. Atnaujink „Molly“ į naujausią versiją.</item>
+        <item quantity="few">Ši „Molly“ versija nustos galioti po %1$d dienų. Atnaujink „Molly“ į naujausią versiją.</item>
+        <item quantity="many">Ši „Molly“ versija nustos galioti po %1$d d. Atnaujink „Molly“ į naujausią versiją.</item>
+        <item quantity="other">Ši „Molly“ versija nustos galioti po %1$d dienų. Atnaujink „Molly“ į naujausią versiją.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Įveskite slaptafrazę</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Signal piktograma</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Molly piktograma</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Pateikti slaptafrazę</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Neteisinga slaptafrazė!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Atrakinti Signal</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Atrakinti Molly</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal „Android“ - Ekrano užraktas</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly „Android“ - Ekrano užraktas</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Žemėlapis</string>
@@ -2241,7 +2238,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Patvirtinkite norėdami tęsti susirašinėjimą</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Siekdami neleisti brukalo Signal programėlėje, prašome jūsų užbaigti patvirtinimą.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Siekdami neleisti brukalo Molly programėlėje, prašome jūsų užbaigti patvirtinimą.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Po patvirtinimo galėsite tęsti susirašinėjimą. Visos pristabdytos žinutės bus automatiškai išsiųstos.</string>
 
     <!-- Recipient -->
@@ -2249,7 +2246,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">„Mano istorija“</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">„Signal“ skambutis</string>
+    <string name="Recipient_signal_call">„Molly“ skambutis</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Užblokuoti</string>
@@ -2285,8 +2282,8 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Bakstelėkite čia norėdami įjungti savo vaizdą</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Norint skambinti %1$s, Signal reikia prieigos prie jūsų kameros</string>
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Norint skambinti %1$s, Molly reikia prieigos prie jūsų kameros</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">Skambinama…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Jungiamasi iš naujo…</string>
@@ -2359,23 +2356,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Leiskite prieigą prie kameros</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Jei norite pradėti skambutį arba prie jo prisijungti, leiskite „Signal“ prieigą prie kameros ir mikrofono.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Jei norite pradėti skambutį arba prie jo prisijungti, leiskite „Molly“ prieigą prie kameros ir mikrofono.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">Jei norite pradėti skambutį arba prie jo prisijungti, leiskite „Signal“ prieigą prie mikrofono.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">Jei norite pradėti skambutį arba prie jo prisijungti, leiskite „Molly“ prieigą prie mikrofono.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Jei norite įjungti vaizdą, leiskite „Signal“ prieigą prie kameros.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Jei norite įjungti vaizdą, leiskite „Molly“ prieigą prie kameros.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Norint pradėti skambutį arba prie jo prisijungti, „Signal“ reikalingas mikrofono leidimas.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Norint pradėti skambutį arba prie jo prisijungti, „Molly“ reikalingas mikrofono leidimas.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Norint įjungti vaizdą, „Signal“ reikalinga prieiga prie jūsų kameros</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Norint įjungti vaizdą, „Molly“ reikalinga prieiga prie jūsų kameros</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Norėdami pradėti skambutį arba prie jo prisijungti:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Jei norite įjungti vaizdą:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">„Signal“ skambutis</string>
-    <string name="WebRtcCallView__signal_video_call">Signal vaizdo skambutis</string>
+    <string name="WebRtcCallView__signal_call">„Molly“ skambutis</string>
+    <string name="WebRtcCallView__signal_video_call">Molly vaizdo skambutis</string>
     <string name="WebRtcCallView__start_call">Pradėti skambutį</string>
     <string name="WebRtcCallView__join_call">Prisijungti prie skambučio</string>
     <string name="WebRtcCallView__call_is_full">Skambutis yra pilnas</string>
@@ -2621,7 +2618,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Sulauksite skambučio, kad patvirtintumėte šį numerį.</string>
     <string name="RegistrationActivity_edit_number">Taisyti numerį</string>
     <string name="RegistrationActivity_missing_google_play_services">Trūksta „Google Play“ paslaugų</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šiame įrenginyje nėra „Google Play“ paslaugų. Jūs vis tiek galite naudoti Signal, tačiau tokia konfigūracija gali sąlygoti mažesnį patikimumą ir našumą.\n\nJeigu jūs nesate pažengęs naudotojas, nenaudojate atsarginių dalių „Android“ ROM ar manote, jog matote tai per klaidą, tuomet pagalbai ir nesklandumų šalinimui susisiekite su support@signal.org.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šiame įrenginyje nėra „Google Play“ paslaugų. Jūs vis tiek galite naudoti Molly, tačiau tokia konfigūracija gali sąlygoti mažesnį patikimumą ir našumą.\n\nJeigu jūs nesate pažengęs naudotojas, nenaudojate atsarginių dalių „Android“ ROM ar manote, jog matote tai per klaidą, tuomet pagalbai ir nesklandumų šalinimui susisiekite su support@molly.im.</string>
     <string name="RegistrationActivity_i_understand">Aš suprantu</string>
     <string name="RegistrationActivity_play_services_error">„Play“ paslaugų klaida</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">„Google Play“ paslaugos yra atnaujinamos arba laikinai neprieinamos. Prašome bandyti dar kartą.</string>
@@ -2639,7 +2636,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Nestandartinis numerio formatas</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Atrodo, kad jūsų įvestas numeris (%1$s) yra nestandartinio formato.\n\nAr turėjote omenyje %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal „Android“ - Telefono numerio formatas</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly „Android“ - Telefono numerio formatas</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Užklausta skambučio</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2714,13 +2711,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Pridėti į adresatus</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Pakviesti į Signal</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Pakviesti į Molly</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal žinutė</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal skambutis</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Pridėti į adresatus</string>
-    <string name="SharedContactView_invite_to_signal">Pakviesti į Signal</string>
+    <string name="SharedContactView_invite_to_signal">Pakviesti į Molly</string>
     <string name="SharedContactView_message">Signal žinutė</string>
 
     <!-- SignalBottomActionBar -->
@@ -2853,11 +2850,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s priklauso %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Signal atnaujinimas</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Galima nauja „Signal“ versija. Bakstelėk, jei nori atnaujinti.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Nepavyko atnaujinti „Signal“</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Molly atnaujinimas</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Galima nauja „Molly“ versija. Bakstelėk, jei nori atnaujinti.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Nepavyko atnaujinti „Molly“</string>
     <string name="ApkUpdateNotifications_failed_general_body">Vėliau pabandysime dar kartą.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">„Signal“ sėkmingai atnaujinta</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">„Molly“ sėkmingai atnaujinta</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Automatiškai atnaujinta į versiją %1$s.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">Atnaujinote į versiją %1$s.</string>
 
@@ -2931,7 +2928,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Mūsų Signal saugumo numeris:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Atrodo, kad neturite programėlių su kuriomis dalintis.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Iškarpinėje palyginimui nebuvo rasta jokio saugumo numerio</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Norint skenuoti QR kodą, Signal reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Norint skenuoti QR kodą, Molly reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Nepavyksta nuskenuoti QR kodo be kameros leidimo</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Norėdami matyti naudotojo %1$s saugumo numerį, iš pradžių, turite apsikeisti su juo žinutėmis.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2961,14 +2958,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Prilieskite, kad atvertumėte.</string>
-    <string name="KeyCachingService_passphrase_cached">Signal yra atrakinta</string>
-    <string name="KeyCachingService_lock">Užrakinti Signal</string>
+    <string name="KeyCachingService_passphrase_cached">Molly yra atrakinta</string>
+    <string name="KeyCachingService_lock">Užrakinti Molly</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Jūs</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Nepalaikomas medijos tipas</string>
     <string name="MediaPreviewActivity_draft">Juodraštis</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Norint įrašyti į išorinę saugyklą, Signal reikia saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Norint įrašyti į išorinę saugyklą, Molly reikia saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nepavyksta įrašyti į išorinę saugyklą be leidimų</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Ištrinti žinutę?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Tai visiems laikams ištrins šią žinutę.</string>
@@ -3017,7 +3014,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Nepavyko pristatyti žinutės.</string>
     <string name="MessageNotifier_error_delivering_message">Klaida, pristatant žinutę.</string>
     <string name="MessageNotifier_message_delivery_paused">Žinučių pristatymas pristabdytas.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Patvirtinkite, norėdami tęsti susirašinėjimą per Signal.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Patvirtinkite, norėdami tęsti susirašinėjimą per Molly.</string>
     <string name="MessageNotifier_mark_all_as_read">Žymėti visas kaip skaitytas</string>
     <string name="MessageNotifier_mark_read">Žymėti kaip skaitytą</string>
     <string name="MessageNotifier_turn_off_these_notifications">Išjungti šiuos pranešimus</string>
@@ -3039,7 +3036,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Sureagavo į tavo lipduką %1$s.</string>
     <string name="MessageNotifier_this_message_was_deleted">Ši žinutė buvo ištrinta.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Išjungti pranešimus apie tai, kad adresatai prisijungė prie Signal? Galėsite ir vėl įjungti šiuos pranešimus, perėję į Signal &gt; Nustatymai &gt; Pranešimai.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Išjungti pranešimus apie tai, kad adresatai prisijungė prie Molly? Galėsite ir vėl įjungti šiuos pranešimus, perėję į Molly &gt; Nustatymai &gt; Pranešimai.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -3080,7 +3077,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Spartusis atsakymas neprieinamas, kai Signal yra užrakinta!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Spartusis atsakymas neprieinamas, kai Molly yra užrakinta!</string>
     <string name="QuickResponseService_problem_sending_message">Problemos siunčiant žinutę!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -3100,7 +3097,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Neteisingas šaukinys</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Nauja žinutė</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Žinutės užklausa</string>
     <string name="SingleRecipientNotificationBuilder_you">Jūs</string>
@@ -3148,7 +3145,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Šis įrenginys nebėra registruotas. Taip gali būti dėl to, kad registravai savo telefono numerį „Signal“ programėlėje kitame įrenginyje.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Šis įrenginys nebėra registruotas. Taip gali būti dėl to, kad registravai savo telefono numerį „Molly“ programėlėje kitame įrenginyje.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Iš naujo registruoti įrenginį</string>
 
@@ -3161,10 +3158,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Norėdami atsiliepti, suteikite Signal prieigą prie mikrofono.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Norėdami atsiliepti, suteikite Molly prieigą prie mikrofono.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Kad atsilieptum į vaizdo skambutį, suteik „Signal“ prieigą prie mikrofono ir kameros.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Norint skambinti ar gauti skambučius, Signal reikia mikrofono ir kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Kad atsilieptum į vaizdo skambutį, suteik „Molly“ prieigą prie mikrofono ir kameros.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Norint skambinti ar gauti skambučius, Molly reikia mikrofono ir kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Atsiliepta susietame įrenginyje.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Atmesta susietame įrenginyje.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Užimta susietame įrenginyje.</string>
@@ -3209,7 +3206,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Pakartokite naują slaptafrazę</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Pakviesti į Signal</string>
+    <string name="contact_selection_activity__invite_to_signal">Pakviesti į Molly</string>
     <string name="contact_selection_activity__new_group">Nauja grupė</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Atnaujinti kontaktus</string>
@@ -3235,7 +3232,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Adresato nuotrauka</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Norint rodyti jūsų adresatus, Signal reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Norint rodyti jūsų adresatus, Molly reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Klaida gaunant adresatus, patikrinkite tinklo ryšį</string>
     <string name="ContactSelectionListFragment_username_not_found">Naudotojo vardas nerastas</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"„%1$s“ nėra „Signal“ naudotojas. Patikrinkite naudotojo vardą ir bandykite dar kartą."</string>
@@ -3266,7 +3263,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Leiskite prieigą prie savo kontaktų. Jūsų kontaktai yra užšifruoti ir „Signal“ jų nemato.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Norint rodyti jūsų adresatus, Signal reikia prieigos prie jų.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Norint rodyti jūsų adresatus, Molly reikia prieigos prie jų.</string>
     <string name="contact_selection_list_fragment__show_contacts">Rodyti adresatus</string>
 
     <!-- contact_selection_list_item -->
@@ -3375,7 +3372,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Burbulai yra „Android“ ypatybė, kurią Signal pokalbiams galite išjungti.</string>
+    <string name="BubbleOptOutTooltip__description">Burbulai yra „Android“ ypatybė, kurią Molly pokalbiams galite išjungti.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Ne dabar</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3558,9 +3555,9 @@
     <string name="EditProfileFragment__group_description">Grupės aprašas</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Atnaujinti Signal</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Atnaujinti Molly</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Ši „Signal“ versija nebegalioja. Atnaujink programėlę dabar ir naudokis toliau.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Ši „Molly“ versija nebegalioja. Atnaujink programėlę dabar ir naudokis toliau.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Atnaujinti</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3655,7 +3652,7 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">Nepavyko atnaujinti žurnalų</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Kaip įmanoma išsamiau aprašykite problemą, kad lengviau ją suprastume.</string>
-    <string-array name="HelpFragment__categories_5">
+    <string-array name="HelpFragment__categories_6">
         <item>Pasirink</item>
         <item>Kažkas neveikia</item>
         <item>Prašymas pridėti naują funkciją</item>
@@ -3664,6 +3661,7 @@
         <item>Kitas</item>
         <item>Mokėjimai („MobileCoin“)</item>
         <item>Parama ir ženkleliai</item>
+        <item>Signal Android Backup</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">„Signal“ „Android“ derinimo žurnalo pateikimas</string>
@@ -3778,7 +3776,7 @@
     <string name="preferences__slow">Lėtas</string>
     <string name="preferences__help">Pagalba</string>
     <string name="preferences__advanced">Išplėstiniai</string>
-    <string name="preferences__donate_to_signal">Paremk „Signal“</string>
+    <string name="preferences__donate_to_signal">Paremk „Molly“</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Privatumas</string>
     <!-- Preference label for stories -->
@@ -3815,13 +3813,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Keisti programėlės piktogramą ir pavadinimą į „%1$s“</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Keičiant programėlės piktogramą ir pavadinimą, „Signal“ turės užsiverti. Pranešimuose visada bus rodoma numatytoji „Signal“ piktograma ir pavadinimas.</string>
+    <string name="preferences__app_icon_dialog_description">Keičiant programėlės piktogramą ir pavadinimą, „Molly“ turės užsiverti. Pranešimuose visada bus rodoma numatytoji „Molly“ piktograma ir pavadinimas.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Pasirink programėlės piktogramą ir pavadinimą, kurie bus matomi telefono pradžios ekrane ir programėlių aplanke. Pranešimuose visada bus rodoma numatytoji „Signal“ piktograma ir pavadinimas. Sužinoti daugiau</string>
+    <string name="preferences__app_icon_warning_learn_more">Pasirink programėlės piktogramą ir pavadinimą, kurie bus matomi telefono pradžios ekrane ir programėlių aplanke. Pranešimuose visada bus rodoma numatytoji „Molly“ piktograma ir pavadinimas. Sužinoti daugiau</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Programėlių piktogramos ir pavadinimai matomi telefono pradžios ekrane ir programėlių aplanke.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Pranešimuose visada bus rodoma numatytoji „Signal“ piktograma ir pavadinimas.</string>
+    <string name="preferences__app_icon_notification_warning">Pranešimuose visada bus rodoma numatytoji „Molly“ piktograma ir pavadinimas.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Sužinoti daugiau</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3917,7 +3915,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Cenzūravimo apėjimas</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Cenzūravimo apėjimas</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Jei įjungta, Signal bandys apeiti cenzūravimą. Neįjunkite šios ypatybės, nebent esate vietoje, kurioje Signal yra cenzūruojama.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Jei įjungta, Molly bandys apeiti cenzūravimą. Neįjunkite šios ypatybės, nebent esate vietoje, kurioje Molly yra cenzūruojama.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Cenzūravimo apėjimas buvo aktyvuotas pagal jūsų paskyros telefono numerį.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3969,7 +3967,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Pristatome: mokėjimai</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Su „Signal“ siųsk ir gauk „MobileCoin“ – naują į privatumą orientuotą skaitmeninę valiutą. Įjunk ir pradėk.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Su „Molly“ siųsk ir gauk „MobileCoin“ – naują į privatumą orientuotą skaitmeninę valiutą. Įjunk ir pradėk.</string>
     <string name="PaymentsHomeFragment__activate_payments">Aktyvuoti mokėjimus</string>
     <string name="PaymentsHomeFragment__activating_payments">Aktyvuojami mokėjimai…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Atkurti mokėjimų paskyrą</string>
@@ -3995,7 +3993,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Mokėjimai yra neprieinami jūsų regione.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Nepavyko įjungti mokėjimų. Vėliau bandykite dar kartą.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Pasyvinti mokėjimus?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Pasyvinę mokėjimus, negalėsite Signal programėlėje siųsti ar gauti „MobileCoin“ valiutą.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Pasyvinę mokėjimus, negalėsite Molly programėlėje siųsti ar gauti „MobileCoin“ valiutą.</string>
     <string name="PaymentsHomeFragment__deactivate">Pasyvinti</string>
     <string name="PaymentsHomeFragment__continue">Tęsti</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Šiuo metu likutis neprieinamas.</string>
@@ -4004,10 +4002,10 @@
     <string name="PaymentsHomeFragment__details">Išsamesnė informacija</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Naudojant „Signal“ galima siųsti ir gauti „Mobile Coin“. Visiems mokėjimams taikomos „Mobile Coin“ ir „Mobile Coin Wallet“ naudojimo sąlygos. Gali būti, kad susidursi su tam tikromis problemomis, ir mokėjimai ar likučiai, kuriuos galbūt prarasi, nebus atkurti. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Naudojant „Molly“ galima siųsti ir gauti „Mobile Coin“. Visiems mokėjimams taikomos „Mobile Coin“ ir „Mobile Coin Wallet“ naudojimo sąlygos. Gali būti, kad susidursi su tam tikromis problemomis, ir mokėjimai ar likučiai, kuriuos galbūt prarasi, nebus atkurti. </string>
     <string name="PaymentsHomeFragment__activate">Aktyvuoti</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Rodyti „MobileCoin“ sąlygas</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Mokėjimai Signal programėlėje daugiau nebeprieinami. Jūs vis dar galite pervesti lėšas į valiutos keitimo punktą, bet nebegalite siųsti ir gauti mokėjimų ar pridėti lėšų.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Mokėjimai Molly programėlėje daugiau nebeprieinami. Jūs vis dar galite pervesti lėšas į valiutos keitimo punktą, bet nebegalite siųsti ir gauti mokėjimų ar pridėti lėšų.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -4035,7 +4033,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Suteik leidimus</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Kad padėtų tau siųsti žinutes savo pažįstamiems, „Signal“ paprašys šių leidimų. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Kad padėtų tau siųsti žinutes savo pažįstamiems, „Molly“ paprašys šių leidimų. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Pranešimai</string>
     <!-- Notifications permission row description -->
@@ -4127,10 +4125,10 @@
     <string name="PaymentsTransferFragment__next">Kitas</string>
     <string name="PaymentsTransferFragment__invalid_address">Neteisingas adresas</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Patikrinkite piniginės, į kurią bandote pervesti, adresą ir bandykite dar kartą.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Negalite pervesti į savo asmeninės Signal piniginės adresą. Įveskite piniginės adresą iš paskyros, kuri yra palaikomame valiutos keitimo punkte.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Norint nuskenuoti QR kodą, Signal reikia prieigos prie kameros.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Norint nuskenuoti QR kodą, Signal reikia kameros leidimo. Pereikite į Nustatymus, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Norint nuskenuoti QR kodą, Signal reikia prieigos prie kameros.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Negalite pervesti į savo asmeninės Molly piniginės adresą. Įveskite piniginės adresą iš paskyros, kuri yra palaikomame valiutos keitimo punkte.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Norint nuskenuoti QR kodą, Molly reikia prieigos prie kameros.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Norint nuskenuoti QR kodą, Molly reikia kameros leidimo. Pereikite į Nustatymus, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Norint nuskenuoti QR kodą, Molly reikia prieigos prie kameros.</string>
     <string name="PaymentsTransferFragment__settings">Nustatymai</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4502,17 +4500,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Gaunamasis „Signal“ balso skambutis</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Gaunamasis „Molly“ balso skambutis</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Gaunamasis „Signal“ vaizdo skambutis</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Gaunamasis „Molly“ vaizdo skambutis</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Gaunamasis Signal grupės skambutis</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Gaunamasis Molly grupės skambutis</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Vykstantis „Signal“ balso skambutis</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Vykstantis „Molly“ balso skambutis</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Vykstantis „Signal“ vaizdo skambutis</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Vykstantis „Molly“ vaizdo skambutis</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Vykstantis „Signal“ grupės skambutis</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Vykstantis „Molly“ grupės skambutis</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Įkeliama…</string>
@@ -4560,9 +4558,9 @@
     <string name="BackupDialog_verify">Patvirtinti</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Jūs sėkmingai įvedėte savo atsarginės kopijos slaptafrazę</string>
     <string name="BackupDialog_passphrase_was_not_correct">Slaptafrazė buvo neteisinga</string>
-    <string name="LocalBackupJob_creating_signal_backup">Daroma Signal atsarginė kopija…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Daroma Molly atsarginė kopija…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Tvirtinama „Signal“ atsarginė kopija…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Tvirtinama „Molly“ atsarginė kopija…</string>
     <string name="LocalBackupJobApi29_backup_failed">Atsarginė kopija nepavyko</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Tavo atsarginių kopijų katalogas buvo ištrintas ar perkeltas.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Jūsų atsarginės kopijos failas yra per didelis, kad jį galima būtų laikyti šiame tome.</string>
@@ -4577,15 +4575,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Skambinti man (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Siųsti kodą iš naujo (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Susisiekti su Signal palaikymu</string>
-    <string name="RegistrationActivity_code_support_subject">Signal registracija - Patvirtinimo kodas, skirtas „Android“</string>
+    <string name="RegistrationActivity_contact_signal_support">Susisiekti su Molly palaikymu</string>
+    <string name="RegistrationActivity_code_support_subject">Molly registracija - Patvirtinimo kodas, skirtas „Android“</string>
     <string name="RegistrationActivity_incorrect_code">Neteisingas kodas</string>
     <string name="BackupUtil_never">Niekada</string>
     <string name="BackupUtil_unknown">Nežinoma</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Telefono numeris</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Pasirink, kas gali matyti tavo telefono numerį, ir kas gali juo su tavimi susisiekti per „Signal“.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Pasirink, kas gali matyti tavo telefono numerį, ir kas gali juo su tavimi susisiekti per „Molly“.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Kas gali matyti mano tel. numerį</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4636,11 +4634,11 @@
     <string name="RegistrationActivity_error_connecting_to_service">Klaida, jungiantis prie paslaugos</string>
     <string name="preferences_chats__backups">Atsarginės kopijos</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">Atrakinti „Signal“</string>
+    <string name="prompt_passphrase_activity__unlock_signal">Atrakinti „Molly“</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Norėdami atrakinti „Signal“ naudokite „Android“ įrenginio užrakto nustatymus.</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Norėdami atrakinti „Molly“ naudokite „Android“ įrenginio užrakto nustatymus.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Ekrano užraktas įjungtas ir „Signal“ yra apsaugota naudojant jūsų įrenginio užrakto nustatymus. Atrakinkite „Signal“ taip, kaip atrakinate telefoną, pvz., pagal veidą, piršto atspaudu, PIN kodu, slaptažodžiu ar šablonu.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Ekrano užraktas įjungtas ir „Molly“ yra apsaugota naudojant jūsų įrenginio užrakto nustatymus. Atrakinkite „Molly“ taip, kaip atrakinate telefoną, pvz., pagal veidą, piršto atspaudu, PIN kodu, slaptažodžiu ar šablonu.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Susisiekti su aptarnavimo komanda</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4652,7 +4650,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">Naudoti ekrano užraktą?</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Jūsų „Android“ įrenginio užrakto nustatymai bus reikalingi norint atrakinti „Signal“, kai išeisite iš programos arba ją perjungsite. Užrakinus, pranešimų peržiūrose pranešimų turinys nebus rodomas.</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Jūsų „Android“ įrenginio užrakto nustatymai bus reikalingi norint atrakinti „Molly“, kai išeisite iš programos arba ją perjungsite. Užrakinus, pranešimų peržiūrose pranešimų turinys nebus rodomas.</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">Įjungti ekrano užraktą</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4666,9 +4664,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">Tinkintas laikas</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Naudoti „Signal“ ekrano užraktą?</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Naudoti „Molly“ ekrano užraktą?</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Išjungti „Signal“ ekrano užraktą?</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Išjungti „Molly“ ekrano užraktą?</string>
 
     <string name="Recipient_unknown">Nežinoma</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4723,19 +4721,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Ruošiamasi prisijungti prie senojo „Android“ įrenginio…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Dar minutėlę, netrukus turėtų būti paruošta</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Laukiama, kol prisijungs senasis „Android“ įrenginys…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal yra reikalingas įrenginio vietos leidimas tam, kad galėtų atrasti ir prisijungti prie jūsų senojo „Android“ įrenginio.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal reikia įjungtų vietos paslaugų, kad galėtų atrasti ir prisijungti prie jūsų senojo „Android“ įrenginio.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal reikia įjungto belaidžio (Wi-Fi) ryšio, kad atrastų ir prisijungtų prie jūsų senojo „Android“ įrenginio. Belaidis (Wi-Fi) ryšys turi būti įjungtas, tačiau įrenginys neprivalo būti prisijungęs prie belaidžio (Wi-Fi) tinklo.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Atleiskite, atrodo, kad šis įrenginys nepalaiko „Wi-Fi Direct“. Signal naudoja „Wi-Fi Direct“, kad atrastų ir prisijungtų prie jūsų senojo „Android“ įrenginio. Norėdami atkurti savo paskyrą iš senojo „Android“ įrenginio, vis dar galite atkurti atsarginę kopiją.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly yra reikalingas įrenginio vietos leidimas tam, kad galėtų atrasti ir prisijungti prie jūsų senojo „Android“ įrenginio.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly reikia įjungtų vietos paslaugų, kad galėtų atrasti ir prisijungti prie jūsų senojo „Android“ įrenginio.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly reikia įjungto belaidžio (Wi-Fi) ryšio, kad atrastų ir prisijungtų prie jūsų senojo „Android“ įrenginio. Belaidis (Wi-Fi) ryšys turi būti įjungtas, tačiau įrenginys neprivalo būti prisijungęs prie belaidžio (Wi-Fi) tinklo.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Atleiskite, atrodo, kad šis įrenginys nepalaiko „Wi-Fi Direct“. Molly naudoja „Wi-Fi Direct“, kad atrastų ir prisijungtų prie jūsų senojo „Android“ įrenginio. Norėdami atkurti savo paskyrą iš senojo „Android“ įrenginio, vis dar galite atkurti atsarginę kopiją.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Atkurti atsarginę kopiją</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Atsirado netikėta klaida, bandant prisijungti prie jūsų senojo „Android“ įrenginio.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Ieškoma naujojo „Android“ įrenginio…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal yra reikalingas įrenginio vietos leidimas tam, kad galėtų atrasti ir prisijungti prie jūsų naujojo „Android“ įrenginio.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal reikia įjungtų vietos paslaugų, kad galėtų atrasti ir prisijungti prie jūsų naujojo „Android“ įrenginio.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal reikia įjungto belaidžio (Wi-Fi) ryšio, kad atrastų ir prisijungtų prie jūsų naujojo „Android“ įrenginio. Belaidis (Wi-Fi) ryšys turi būti įjungtas, tačiau įrenginys neprivalo būti prisijungęs prie belaidžio (Wi-Fi) tinklo.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Atleiskite, atrodo, kad šis įrenginys nepalaiko „Wi-Fi Direct“. Signal naudoja „Wi-Fi Direct“, kad atrastų ir prisijungtų prie jūsų naujojo „Android“ įrenginio. Norėdami atkurti savo paskyrą naujajame „Android“ įrenginyje, vis dar galite padaryti atsarginę kopiją.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly yra reikalingas įrenginio vietos leidimas tam, kad galėtų atrasti ir prisijungti prie jūsų naujojo „Android“ įrenginio.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly reikia įjungtų vietos paslaugų, kad galėtų atrasti ir prisijungti prie jūsų naujojo „Android“ įrenginio.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly reikia įjungto belaidžio (Wi-Fi) ryšio, kad atrastų ir prisijungtų prie jūsų naujojo „Android“ įrenginio. Belaidis (Wi-Fi) ryšys turi būti įjungtas, tačiau įrenginys neprivalo būti prisijungęs prie belaidžio (Wi-Fi) tinklo.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Atleiskite, atrodo, kad šis įrenginys nepalaiko „Wi-Fi Direct“. Molly naudoja „Wi-Fi Direct“, kad atrastų ir prisijungtų prie jūsų naujojo „Android“ įrenginio. Norėdami atkurti savo paskyrą naujajame „Android“ įrenginyje, vis dar galite padaryti atsarginę kopiją.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Daryti atsarginę kopiją</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Atsirado netikėta klaida, bandant prisijungti prie jūsų naujojo „Android“ įrenginio.</string>
 
@@ -4777,7 +4775,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Duomenų perkėlimas</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Laikykite įrenginius vieną šalia kito. Neišjunkite įrenginių ir palikite Signal atvertą. Perkėlimai yra šifruoti ištisiniu būdu.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Laikykite įrenginius vieną šalia kito. Neišjunkite įrenginių ir palikite Molly atvertą. Perkėlimai yra šifruoti ištisiniu būdu.</string>
     <string name="DeviceTransfer__d_messages_so_far">Jau %1$d žinučių…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">Jau %1$s%% žinučių…</string>
@@ -4791,7 +4789,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Perkelti paskyrą</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Savo naujajame „Android“ įrenginyje atsisiųskite Signal</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Savo naujajame „Android“ įrenginyje atsisiųskite Molly</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Bakstelėkite ant „Perkelti ar atkurti paskyrą“"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4865,7 +4863,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Kiekvienas, turintis šią nuorodą, gali peržiūrėti grupės pavadinimą ir nuotrauką bei gali prašyti prisijungti prie grupės. Bendrinkite nuorodą su žmonėmis, kuriais pasitikite.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Kiekvienas, turintis šią nuorodą, gali peržiūrėti grupės pavadinimą ir nuotrauką bei gali prisijungti prie grupės. Bendrinkite nuorodą su žmonėmis, kuriais pasitikite.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Bendrinti per Signal</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Bendrinti per Molly</string>
     <string name="GroupLinkBottomSheet_copy">Kopijuoti</string>
     <string name="GroupLinkBottomSheet_qr_code">QR kodas</string>
     <string name="GroupLinkBottomSheet_share">Bendrinti</string>
@@ -5066,7 +5064,7 @@
     <string name="payment_info_card_about_mobilecoin">Apie „MobileCoin“</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">„MobileCoin“ yra nauja į privatumą orientuota skaitmeninė valiuta.</string>
     <string name="payment_info_card_adding_funds">Lėšų pridėjimas</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Galite pridėti lėšas, skirtas naudoti Signal programėlėje, išsiųsdami „MobileCoin“ valiutą į savo piniginės adresą.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Galite pridėti lėšas, skirtas naudoti Molly programėlėje, išsiųsdami „MobileCoin“ valiutą į savo piniginės adresą.</string>
     <string name="payment_info_card_cashing_out">Pinigų išgryninimas</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">„MobileCoin“ valiutą bet kuriuo metu galite išgryninti valiutos keitimo punktuose, kurie palaiko „MobileCoin“. Tiesiog, atlikite pervedimą į savo sąskaitą tame valiutos keitimo punkte.</string>
     <string name="payment_info_card_hide_this_card">Slėpti šią kortelę?</string>
@@ -5087,12 +5085,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Pasyvinti piniginę</string>
     <string name="DeactivateWalletFragment__your_balance">Jūsų likutis</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Prieš deaktyvinant mokėjimus rekomenduojama pervesti savo lėšas į kitos piniginės adresą. Jei dabar pasirinksi nepervesti savo lėšų, jos liks su „Signal“ susietoje tavo piniginėje, jei iš naujo aktyvinsi mokėjimus.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Prieš deaktyvinant mokėjimus rekomenduojama pervesti savo lėšas į kitos piniginės adresą. Jei dabar pasirinksi nepervesti savo lėšų, jos liks su „Molly“ susietoje tavo piniginėje, jei iš naujo aktyvinsi mokėjimus.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Pervesti likusį likutį</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Pasyvinti be pervedimo</string>
     <string name="DeactivateWalletFragment__deactivate">Pasyvinti</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Pasyvinti be pervedimo?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Tavo likutis liks su „Signal“ susietoje tavo piniginėje, jei pasirinksi iš naujo aktyvinti mokėjimus.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Tavo likutis liks su „Molly“ susietoje tavo piniginėje, jei pasirinksi iš naujo aktyvinti mokėjimus.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Klaida pasyvinant piniginę.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5199,7 +5197,9 @@
 
     <!-- AppSettingsFragment -->
     <!-- String alerting user that something is wrong with their backups subscription -->
-    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Renew your Signal Backups subscription</string>
+    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Atnaujinkite savo „Signal“ atsarginių kopijų prenumeratą</string>
+    <!-- String alerting user that backup failed -->
+    <string name="AppSettingsFragment__couldnt_complete_backup">Nepavyko sukurti atsarginės kopijos</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Pakvieskite savo draugus</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -5433,7 +5433,7 @@
     <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
     <string name="CreateFoldersFragment__discard_changes_title">Atmesti pakeitimus?</string>
     <!-- Alert dialog description explaining that any changes made will be discarded -->
-    <string name="CreateFoldersFragment__you_will_lose_changes">You\'ll lose the changes you\'ve made to this folder.</string>
+    <string name="CreateFoldersFragment__you_will_lose_changes">Prarasite šiam aplankui atliktus pakeitimus.</string>
     <!-- Alert dialog confirmation text to discard the changes -->
     <string name="CreateFoldersFragment__discard">Atmesti</string>
     <!-- Text that when pressed will delete the current folder -->
@@ -5443,7 +5443,7 @@
     <!-- Option to see all of the chats if the chat list was too long and had been truncated -->
     <string name="CreateFoldersFragment__see_all">Žiūrėti visas</string>
     <!-- Toast shown when trying to make a folder with no name -->
-    <string name="CreateFoldersFragment__please_enter_name">Please enter a folder name</string>
+    <string name="CreateFoldersFragment__please_enter_name">Įveskite aplanko pavadinimą</string>
 
     <!-- ChooseChatsFragment -->
     <!-- Section title representing chat types that can be added to the folder  -->
@@ -5531,7 +5531,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Licencijos</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Sąlygos ir Privatumo politika</string>
-    <string name="HelpFragment__copyright_signal_messenger">Autorių teisės Signal pokalbių programėlė</string>
+    <string name="HelpFragment__copyright_signal_messenger">Autorių teisės Molly pokalbių programėlė</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Licencijuota pagal GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -6003,9 +6003,9 @@
     <string name="MySupportPreference__learn_more">Sužinoti daugiau</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Atnaujinti Signal</string>
+    <string name="UpdateSignalExpiredDialog__title">Atnaujinti Molly</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Ši „Signal“ versija nebegalioja. Atnaujink programėlę dabar ir naudokis toliau.</string>
+    <string name="UpdateSignalExpiredDialog__message">Ši „Molly“ versija nebegalioja. Atnaujink programėlę dabar ir naudokis toliau.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Atnaujinti</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -6014,7 +6014,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Įrenginys neregistruotas</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Šis įrenginys nebėra registruotas. Registruok iš naujo ir toliau naudok „Signal“ šiame įrenginyje.</string>
+    <string name="ReregisterSignalDialog__message">Šis įrenginys nebėra registruotas. Registruok iš naujo ir toliau naudok „Molly“ šiame įrenginyje.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Iš naujo registruoti</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6329,7 +6329,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Nepavyko atverti parinkiklio.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Kad įgalintų pranešimus, „Signal“ reikalingas leidimas juos rodyti.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Kad įgalintų pranešimus, „Molly“ reikalingas leidimas juos rodyti.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Įjungti</string>
 
@@ -7747,17 +7747,12 @@
     <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Jūsų įrašai bus ištrinti šiandien</string>
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Jūsų „Signal“ įrašų atsarginės kopijos planas buvo atšauktas, nes negalėjome apdoroti mokėjimo. Tai paskutinė galimybė atsisiųsti įrašus iš atsarginės kopijos prieš ją ištrinant.</string>
-    <!-- Sheet title when user does not have enough space to download their backup -->
-    <string name="BackupAlertBottomSheet__cant_complete_download">Nepavyko užbaigti atsisiuntimo</string>
+    <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Jūsų įrenginyje trūksta vietos. Atlaisvinkite %1$s vietos, kad galėtumėte atsisiųsti įrašus iš atsarginės kopijos.</string>
-    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
-    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
-        <item quantity="one">Jei pasirinksite „Praleisti“, įrašai iš atsarginių kopijų bus ištrinti po %1$d d.</item>
-        <item quantity="few">Jei pasirinksite „Praleisti“, įrašai iš atsarginių kopijų bus ištrinti po %1$d d.</item>
-        <item quantity="many">Jei pasirinksite „Praleisti“, įrašai iš atsarginių kopijų bus ištrinti po %1$d d.</item>
-        <item quantity="other">Jei pasirinksite „Praleisti“, įrašai iš atsarginių kopijų bus ištrinti po %1$d d.</item>
-    </plurals>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Nepavyko atnaujinti atsarginių kopijų prenumeratos</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7769,7 +7764,11 @@
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Sužinoti daugiau</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
-    <string name="BackupAlertBottomSheet__skip">Praleisti</string>
+    <string name="BackupAlertBottomSheet__skip_restore">Praleisti atkūrimą</string>
+    <!-- Primary action button to start backup immediately -->
+    <string name="BackupAlertBottomSheet__back_up_now">Daryti atsarginę kopiją dabar</string>
+    <!-- Primary action button when user doesn\'t have enough space -->
+    <string name="BackupAlertBottomSheet__got_it">Supratau</string>
     <!-- Primary action button to manage subscription in Google Play -->
     <string name="BackupAlertBottomSheet__manage_subscription">Tvarkyti prenumeratą</string>
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
@@ -7780,6 +7779,8 @@
     <string name="BackupAlertBottomSheet__dont_download_media">Neatsisiųsti įrašų</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Ne dabar</string>
+    <!-- Secondary action button to dismiss could not complete backup sheet -->
+    <string name="BackupAlertBottomSheet__try_later">Try later</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Įrašai bus ištrinti</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7788,6 +7789,12 @@
     <string name="BackupAlertBottomSheet__download">Atsisiųsti</string>
     <!-- Dialog action to not download now -->
     <string name="BackupAlertBottomSheet__dont_download">Neatsisiųsti</string>
+    <!-- Dialog action to skip media download -->
+    <string name="BackupAlertBottomSheet__skip">Praleisti</string>
+    <!-- Dialog title for skipping media restore -->
+    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <!-- Dialog text for skipping media restore -->
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7798,6 +7805,8 @@
     <string name="BackupStatus__restore_paused">Atkūrimas pristabdytas</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Atkūrimas užbaigtas</string>
+    <!-- Status action label for seeing more details about storage space -->
+    <string name="BackupStatus__details">Išsamesnė informacija</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Laukiama belaidžio ryšio (Wi-Fi)…</string>
@@ -7891,7 +7900,7 @@
     <!-- Title on a bottom sheet explaining that the given media is no longer available. -->
     <string name="MediaNoLongerAvailableSheet__this_media_is_no_longer_available">Šis įrašas nebeprieinamas</string>
     <!-- Body on a bottom sheet explaining that the user can enable backups -->
-    <string name="MediaNoLongerAvailableSheet__to_start_backing_up_all_your_media">To start backing up all your media, enable Signal Backups and choose the paid tier.</string>
+    <string name="MediaNoLongerAvailableSheet__to_start_backing_up_all_your_media">Norėdami kurti visų įrašų atsargines kopijas, įjunkite „Signal“ atsargines kopijas ir pasirinkite mokamą variantą.</string>
     <!-- Primary action button on bottom sheet -->
     <string name="MediaNoLongerAvailableSheet__continue">Tęsti</string>
     <!-- Secondary action button on bottom sheet -->
@@ -7966,7 +7975,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">Baigė galioti %1$s</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Sukurkite savo žinučių istorijos atsarginę kopiją, kad niekada neprarastumėte duomenų įsigiję naują telefoną arba iš naujo įdiegę „Signal“.</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Sukurkite savo žinučių istorijos atsarginę kopiją, kad niekada neprarastumėte duomenų įsigiję naują telefoną arba iš naujo įdiegę „Molly“.</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Kiti atsarginės kopijos kūrimo būdai</string>
     <!-- Row title for performing on-device backup -->
@@ -8019,55 +8028,55 @@
     <string name="RemoteBackupsSettingsFragment__depending_on_the_size">Priklausomai nuo atsarginės kopijos dydžio, tai gali ilgai užtrukti. Kol vyksta atsisiuntimas, telefoną naudoti galite kaip įprasta.</string>
     <!-- Displayed in card when user has a signal subscription but the device doesn\'t see a google play billing subscription. Placeholder is days until subscription expiration. -->
     <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
-        <item quantity="one">Your subscription on this device is valid for the next %1$d day. Renew to continue using Signal Backups</item>
-        <item quantity="few">Your subscription on this device is valid for the next %1$d days. Renew to continue using Signal Backups</item>
-        <item quantity="many">Your subscription on this device is valid for the next %1$d days. Renew to continue using Signal Backups</item>
-        <item quantity="other">Your subscription on this device is valid for the next %1$d days. Renew to continue using Signal Backups</item>
+        <item quantity="one">Jūsų prenumerata šiame įrenginyje galioja dar %1$d d. Atnaujinkite, kad galėtumėte toliau naudoti „Signal“ atsargines kopijas</item>
+        <item quantity="few">Jūsų prenumerata šiame įrenginyje galioja dar %1$d d. Atnaujinkite, kad galėtumėte toliau naudoti „Signal“ atsargines kopijas</item>
+        <item quantity="many">Jūsų prenumerata šiame įrenginyje galioja dar %1$d d. Atnaujinkite, kad galėtumėte toliau naudoti „Signal“ atsargines kopijas</item>
+        <item quantity="other">Jūsų prenumerata šiame įrenginyje galioja dar %1$d d. Atnaujinkite, kad galėtumėte toliau naudoti „Signal“ atsargines kopijas</item>
     </plurals>
     <!-- Button label to start subscription renewal -->
-    <string name="RemoteBackupsSettingsFragment__renew">Renew</string>
+    <string name="RemoteBackupsSettingsFragment__renew">Atnaujinti</string>
     <!-- Button label to learn more about why subscription disappeared -->
     <string name="RemoteBackupsSettingsFragment__learn_more">Sužinoti daugiau</string>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
     <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">You have %1$s of backup data that’s not on this device. Your backup will be deleted when your subscription ends in %2$d day.</item>
-        <item quantity="few">You have %1$s of backup data that’s not on this device. Your backup will be deleted when your subscription ends in %2$d days.</item>
-        <item quantity="many">You have %1$s of backup data that’s not on this device. Your backup will be deleted when your subscription ends in %2$d days.</item>
-        <item quantity="other">You have %1$s of backup data that’s not on this device. Your backup will be deleted when your subscription ends in %2$d days.</item>
+        <item quantity="one">Turite %1$s atsarginės kopijos duomenų, kurių nėra šiame įrenginyje. Atsarginė kopija bus ištrinta, kai prenumerata baigsis po %2$d d.</item>
+        <item quantity="few">Turite %1$s atsarginės kopijos duomenų, kurių nėra šiame įrenginyje. Atsarginė kopija bus ištrinta, kai prenumerata baigsis po %2$d d.</item>
+        <item quantity="many">Turite %1$s atsarginės kopijos duomenų, kurių nėra šiame įrenginyje. Atsarginė kopija bus ištrinta, kai prenumerata baigsis po %2$d d.</item>
+        <item quantity="other">Turite %1$s atsarginės kopijos duomenų, kurių nėra šiame įrenginyje. Atsarginė kopija bus ištrinta, kai prenumerata baigsis po %2$d d.</item>
     </plurals>
     <!-- Displayed in row when backup is available for download to let user start download -->
     <string name="RemoteBackupsSettingsFragment__download">Atsisiųsti</string>
     <!-- Dialog title for skipping download of backed up media -->
-    <string name="RemoteBackupsSettingsFragment__skip_download_question">Skip download?</string>
+    <string name="RemoteBackupsSettingsFragment__skip_download_question">Praleisti atsisiuntimą?</string>
     <!-- Dialog body for skiping download of backed up media -->
     <plurals name="RemoteBackupsSettingsFragment__if_you_skip_downloading">
-        <item quantity="one">If you skip downloading the remaining media and attachments in your backup will be deleted in %1$d day.</item>
-        <item quantity="few">If you skip downloading the remaining media and attachments in your backup will be deleted in %1$d days.</item>
-        <item quantity="many">If you skip downloading the remaining media and attachments in your backup will be deleted in %1$d days.</item>
-        <item quantity="other">If you skip downloading the remaining media and attachments in your backup will be deleted in %1$d days.</item>
+        <item quantity="one">Jei pasirinksite praleisti atsisiuntimą, likę įrašai ir priedai iš atsarginės kopijos bus ištrinti po %1$d d.</item>
+        <item quantity="few">Jei pasirinksite praleisti atsisiuntimą, likę įrašai ir priedai iš atsarginės kopijos bus ištrinti po %1$d d.</item>
+        <item quantity="many">Jei pasirinksite praleisti atsisiuntimą, likę įrašai ir priedai iš atsarginės kopijos bus ištrinti po %1$d d.</item>
+        <item quantity="other">Jei pasirinksite praleisti atsisiuntimą, likę įrašai ir priedai iš atsarginės kopijos bus ištrinti po %1$d d.</item>
     </plurals>
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">Praleisti</string>
     <!-- Dialog title for network error while trying to disable backups -->
-    <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Couldn\'t turn off and delete backups</string>
+    <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Nepavyko išjungti ir ištrinti atsarginių kopijų</string>
     <!-- Dialog body for network error while trying to disable backups -->
-    <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">A network error occurred. Please check your internet connection and try again.</string>
+    <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">Įvyko tinklo klaida. Patikrinkite interneto ryšį ir bandykite dar kartą.</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
-    <string name="SubscriptionNotFoundBottomSheet__subscription_not_found">Subscription not found</string>
+    <string name="SubscriptionNotFoundBottomSheet__subscription_not_found">Prenumerata nerasta</string>
     <!-- Displayed below title on bottom sheet -->
-    <string name="SubscriptionNotFoundBottomSheet__your_subscription_couldnt_be_restored">Your subscription couldn\'t be restored.</string>
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_couldnt_be_restored">Nepavyko atkurti jūsų prenumeratos.</string>
     <!-- Displayed below title on bottom sheet -->
-    <string name="SubscriptionNotFoundBottomSheet__this_could_happen_if">This could happen if:</string>
+    <string name="SubscriptionNotFoundBottomSheet__this_could_happen_if">Tai gali atsitikti, jei:</string>
     <!-- First item in a bulleted list of reasons -->
-    <string name="SubscriptionNotFoundBottomSheet__youre_signed_into_the_play_store_with_a_different_google_account">You\'re signed into the Play Store with a different Google account.</string>
+    <string name="SubscriptionNotFoundBottomSheet__youre_signed_into_the_play_store_with_a_different_google_account">Prisijungėte prie „Play“ parduotuvės naudodami kitą „Google“ paskyrą.</string>
     <!-- Second item in a bulleted list of reasons -->
-    <string name="SubscriptionNotFoundBottomSheet__you_transferred_from_an_iphone">You transferred from an iPhone.</string>
+    <string name="SubscriptionNotFoundBottomSheet__you_transferred_from_an_iphone">Perkėlėte paskyrą iš „iPhone“.</string>
     <!-- Third item in a bulleted list of reasons -->
-    <string name="SubscriptionNotFoundBottomSheet__your_subscription_recently_expired">Your subscription recently expired.</string>
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_recently_expired">Jūsų prenumerata neseniai pasibaigė.</string>
     <!-- Note underneath bullet points -->
-    <string name="SubscriptionNotFoundBottomSheet__if_you_have_an_active_subscription_on">If you have an active subscription on your old phone consider canceling it before it renews.</string>
+    <string name="SubscriptionNotFoundBottomSheet__if_you_have_an_active_subscription_on">Jei senajame telefone turite aktyvią prenumeratą, apsvarstykite galimybę ją atšaukti, kol ji neatsinaujino.</string>
     <!-- Action button label to acknowledge and dismiss sheet -->
     <string name="SubscriptionNotFoundBottomSheet__got_it">Supratau</string>
     <!-- Action button label to contact support -->
@@ -8091,9 +8100,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Jūsų atsarginės kopijos raktas</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Atsarginis raktas yra 64 skaitmenų kodas, leidžiantis atkurti atsarginę kopiją iš naujo įdiegus „Signal“.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Atsarginis raktas yra 64 skaitmenų kodas, leidžiantis atkurti atsarginę kopiją iš naujo įdiegus „Molly“.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Pamiršę savo raktą atsarginės kopijos atkurti negalėsite. „Signal“ negali padėti jums atkurti atsarginės kopijos.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Pamiršę savo raktą atsarginės kopijos atkurti negalėsite. „Molly“ negali padėti jums atkurti atsarginės kopijos.</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">Kitas</string>
 
@@ -8109,7 +8118,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Saugokite savo raktą</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">„Signal“ negalės padėti jums atkurti atsarginės kopijos, jei pamesite raktą. Išsaugokite jį saugioje vietoje ir nesidalykite juo su kitais.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">„Molly“ negalės padėti jums atkurti atsarginės kopijos, jei pamesite raktą. Išsaugokite jį saugioje vietoje ir nesidalykite juo su kitais.</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">Aš įrašiau savo raktą</string>
     <!-- Sheet action button label -->

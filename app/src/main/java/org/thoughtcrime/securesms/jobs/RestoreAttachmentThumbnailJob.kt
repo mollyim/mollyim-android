@@ -117,13 +117,13 @@ class RestoreAttachmentThumbnailJob private constructor(
       override fun shouldCancel(): Boolean = this@RestoreAttachmentThumbnailJob.isCanceled
     }
 
-    val cdnCredentials = BackupRepository.getCdnReadCredentials(attachment.archiveCdn).successOrThrow().headers
+    val cdnCredentials = BackupRepository.getCdnReadCredentials(BackupRepository.CredentialType.MEDIA, attachment.archiveCdn).successOrThrow().headers
     val pointer = attachment.createArchiveThumbnailPointer()
 
     Log.i(TAG, "Downloading thumbnail for $attachmentId")
     val downloadResult = AppDependencies.signalServiceMessageReceiver
       .retrieveArchivedAttachment(
-        SignalStore.svr.getOrCreateMasterKey().deriveBackupKey().deriveMediaSecrets(attachment.getThumbnailMediaName()),
+        SignalStore.backup.mediaRootBackupKey.deriveMediaSecrets(attachment.getThumbnailMediaName()),
         cdnCredentials,
         thumbnailTransferFile,
         pointer,

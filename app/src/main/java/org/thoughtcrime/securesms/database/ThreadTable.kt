@@ -2348,7 +2348,7 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
 
     companion object {
       fun deserialize(value: Int): ReadStatus {
-        for (status in values()) {
+        for (status in entries) {
           if (status.value == value) {
             return status
           }

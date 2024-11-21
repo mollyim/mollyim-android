@@ -8,6 +8,7 @@ import org.signal.core.util.logging.Log
 import org.signal.core.util.logging.logW
 import org.signal.libsignal.protocol.InvalidKeyException
 import org.signal.libsignal.protocol.ecc.Curve
+import org.thoughtcrime.securesms.backup.v2.ArchiveValidator
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -18,7 +19,7 @@ import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
 import org.whispersystems.signalservice.api.NetworkResult
-import org.whispersystems.signalservice.api.backup.BackupKey
+import org.whispersystems.signalservice.api.backup.MessageBackupKey
 import org.whispersystems.signalservice.api.link.LinkedDeviceVerificationCodeResponse
 import org.whispersystems.signalservice.api.link.WaitForLinkedDeviceResponse
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo
@@ -115,9 +116,9 @@ object LinkDeviceRepository {
   /**
    * Adds a linked device to the account.
    *
-   * @param ephemeralBackupKey An ephemeral key to provide the linked device to sync existing message content. Do not set if link+sync is unsupported.
+   * @param ephemeralMessageBackupKey An ephemeral key to provide the linked device to sync existing message content. Do not set if link+sync is unsupported.
    */
-  fun addDevice(uri: Uri, ephemeralBackupKey: BackupKey?): LinkDeviceResult {
+  fun addDevice(uri: Uri, ephemeralMessageBackupKey: MessageBackupKey?): LinkDeviceResult {
     if (!isValidQr(uri)) {
       Log.w(TAG, "Bad URI! $uri")
       return LinkDeviceResult.BadCode
@@ -153,9 +154,9 @@ object LinkDeviceRepository {
       aciIdentityKeyPair = SignalStore.account.aciIdentityKey,
       pniIdentityKeyPair = SignalStore.account.pniIdentityKey,
       profileKey = ProfileKeyUtil.getSelfProfileKey(),
-      masterKey = SignalStore.svr.getOrCreateMasterKey(),
+      masterKey = SignalStore.svr.masterKey,
       code = verificationCodeResult.verificationCode,
-      ephemeralBackupKey = ephemeralBackupKey
+      ephemeralMessageBackupKey = ephemeralMessageBackupKey
     )
 
     return when (deviceLinkResult) {
@@ -227,17 +228,32 @@ object LinkDeviceRepository {
   /**
    * Performs the entire process of creating and uploading an archive for a newly-linked device.
    */
-  fun createAndUploadArchive(ephemeralBackupKey: BackupKey, deviceId: Int, deviceCreatedAt: Long): LinkUploadArchiveResult {
+  fun createAndUploadArchive(ephemeralMessageBackupKey: MessageBackupKey, deviceId: Int, deviceCreatedAt: Long): LinkUploadArchiveResult {
     val stopwatch = Stopwatch("link-archive")
     val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
     val outputStream = FileOutputStream(tempBackupFile)
 
     try {
-      BackupRepository.export(outputStream = outputStream, append = { tempBackupFile.appendBytes(it) }, backupKey = ephemeralBackupKey, mediaBackupEnabled = false)
+      BackupRepository.export(outputStream = outputStream, append = { tempBackupFile.appendBytes(it) }, messageBackupKey = ephemeralMessageBackupKey, mediaBackupEnabled = false)
     } catch (e: Exception) {
       return LinkUploadArchiveResult.BackupCreationFailure(e)
     }
     stopwatch.split("create-backup")
+
+    when (val result = ArchiveValidator.validate(tempBackupFile, ephemeralMessageBackupKey)) {
+      ArchiveValidator.ValidationResult.Success -> {
+        Log.d(TAG, "Successfully passed validation.")
+      }
+      is ArchiveValidator.ValidationResult.ReadError -> {
+        Log.w(TAG, "Failed to read the file during validation!", result.exception)
+        return LinkUploadArchiveResult.BackupCreationFailure(result.exception)
+      }
+      is ArchiveValidator.ValidationResult.ValidationError -> {
+        Log.w(TAG, "The backup file fails validation!", result.exception)
+        return LinkUploadArchiveResult.BackupCreationFailure(result.exception)
+      }
+    }
+    stopwatch.split("validate-backup")
 
     val uploadForm = when (val result = SignalNetwork.attachments.getAttachmentV4UploadForm()) {
       is NetworkResult.Success -> result.result

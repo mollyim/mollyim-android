@@ -18,7 +18,6 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.CustomDefaultPreference;
 import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 
@@ -65,7 +64,7 @@ public abstract class CorrectedPreferenceFragment extends PreferenceFragmentComp
       public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         Preference preference = getItem(position);
-        View iconFrame = holder.itemView.findViewById(R.id.icon_frame);
+        View iconFrame = holder.itemView.findViewById(androidx.preference.R.id.icon_frame);
         if (iconFrame != null) {
           iconFrame.setVisibility(preference.getIcon() == null ? View.GONE : View.VISIBLE);
         }

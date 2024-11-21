@@ -457,6 +457,7 @@ open class MessageContentProcessor(private val context: Context) {
         SyncMessageProcessor.process(
           context,
           senderRecipient,
+          threadRecipient,
           envelope,
           content,
           metadata,

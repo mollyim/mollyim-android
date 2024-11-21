@@ -19,6 +19,7 @@ import org.whispersystems.signalservice.internal.push.http.ResumableUploadSpec
 import org.whispersystems.signalservice.internal.websocket.WebSocketRequestMessage
 import java.io.InputStream
 import java.security.SecureRandom
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Class to interact with various attachment-related endpoints.
@@ -107,7 +108,8 @@ class AttachmentApi(
         incrementalDigest = digestInfo.incrementalDigest,
         incrementalDigestChunkSize = digestInfo.incrementalMacChunkSize,
         uploadTimestamp = attachmentStream.uploadTimestamp,
-        dataSize = attachmentStream.length
+        dataSize = attachmentStream.length,
+        blurHash = attachmentStream.blurHash.getOrNull()
       )
     }
   }

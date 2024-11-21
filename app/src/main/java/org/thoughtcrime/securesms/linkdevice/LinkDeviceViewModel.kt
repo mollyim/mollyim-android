@@ -17,7 +17,7 @@ import org.thoughtcrime.securesms.linkdevice.LinkDeviceSettingsState.OneTimeEven
 import org.thoughtcrime.securesms.linkdevice.LinkDeviceSettingsState.QrCodeState
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.Util
-import org.whispersystems.signalservice.api.backup.BackupKey
+import org.whispersystems.signalservice.api.backup.MessageBackupKey
 import org.whispersystems.signalservice.api.link.WaitForLinkedDeviceResponse
 import kotlin.time.Duration.Companion.seconds
 
@@ -195,8 +195,8 @@ class LinkDeviceViewModel : ViewModel() {
   }
 
   private fun addDeviceWithSync(linkUri: Uri) {
-    val ephemeralBackupKey = BackupKey(Util.getSecretBytes(32))
-    val result = LinkDeviceRepository.addDevice(linkUri, ephemeralBackupKey)
+    val ephemeralMessageBackupKey = MessageBackupKey(Util.getSecretBytes(32))
+    val result = LinkDeviceRepository.addDevice(linkUri, ephemeralMessageBackupKey)
 
     _state.update {
       it.copy(
@@ -232,7 +232,7 @@ class LinkDeviceViewModel : ViewModel() {
     }
 
     Log.i(TAG, "Beginning the archive generation process...")
-    val uploadResult = LinkDeviceRepository.createAndUploadArchive(ephemeralBackupKey, waitResult.id, waitResult.created)
+    val uploadResult = LinkDeviceRepository.createAndUploadArchive(ephemeralMessageBackupKey, waitResult.id, waitResult.created)
     when (uploadResult) {
       LinkDeviceRepository.LinkUploadArchiveResult.Success -> {
         _state.update {
@@ -255,7 +255,7 @@ class LinkDeviceViewModel : ViewModel() {
   }
 
   private fun addDeviceWithoutSync(linkUri: Uri) {
-    val result = LinkDeviceRepository.addDevice(linkUri, ephemeralBackupKey = null)
+    val result = LinkDeviceRepository.addDevice(linkUri, ephemeralMessageBackupKey = null)
 
     _state.update {
       it.copy(

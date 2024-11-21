@@ -27,6 +27,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
@@ -51,6 +52,7 @@ import org.signal.core.ui.horizontalGutters
 import org.signal.core.ui.theme.SignalTheme
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.AvatarImage
+import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.banner.Banner
 import org.thoughtcrime.securesms.banner.BannerManager
 import org.thoughtcrime.securesms.banner.banners.DeprecatedBuildBanner
@@ -63,6 +65,7 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.BadgeImag
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.completed.InAppPaymentsBottomSheetDelegate
 import org.thoughtcrime.securesms.compose.ComposeFragment
+import org.thoughtcrime.securesms.compose.StatusBarColorNestedScrollConnection
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.profiles.ProfileName
@@ -96,11 +99,16 @@ class AppSettingsFragment : ComposeFragment(), Callbacks {
       )
     }
 
+    val nestedScrollConnection = remember {
+      StatusBarColorNestedScrollConnection(requireActivity())
+    }
+
     AppSettingsContent(
       self = self!!,
       state = state!!,
       bannerManager = bannerManager,
-      callbacks = this
+      callbacks = this,
+      lazyColumnModifier = Modifier.nestedScroll(nestedScrollConnection)
     )
   }
 
@@ -160,7 +168,8 @@ private fun AppSettingsContent(
   self: BioRecipientState,
   state: AppSettingsState,
   bannerManager: BannerManager,
-  callbacks: Callbacks
+  callbacks: Callbacks,
+  lazyColumnModifier: Modifier = Modifier
 ) {
   val isRegisteredAndUpToDate by rememberUpdatedState(state.isRegisteredAndUpToDate())
 
@@ -175,7 +184,9 @@ private fun AppSettingsContent(
     ) {
       bannerManager.Banner()
 
-      LazyColumn {
+      LazyColumn(
+        modifier = lazyColumnModifier
+      ) {
         item {
           BioRow(
             self = self,
@@ -183,42 +194,39 @@ private fun AppSettingsContent(
           )
         }
 
-        if (state.backupFailureState != BackupFailureState.NONE) {
-          item {
-            Dividers.Default()
-          }
+        when (state.backupFailureState) {
+          BackupFailureState.SUBSCRIPTION_STATE_MISMATCH -> {
+            item {
+              Dividers.Default()
 
-          item {
-            Rows.TextRow(
-              text = {
-                Text(text = stringResource(R.string.AppSettingsFragment__renew_your_signal_backups_subscription))
-              },
-              icon = {
-                Box {
-                  Icon(
-                    painter = painterResource(R.drawable.symbol_backup_24),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    contentDescription = null
-                  )
-
-                  Box(
-                    modifier = Modifier
-                      .absoluteOffset(3.dp, (-2).dp)
-                      .background(color = Color(0xFFFFCC00), shape = CircleShape)
-                      .size(12.dp)
-                      .align(Alignment.TopEnd)
-                  )
+              BackupsWarningRow(
+                text = stringResource(R.string.AppSettingsFragment__renew_your_signal_backups_subscription),
+                onClick = {
+                  callbacks.navigate(R.id.action_appSettingsFragment_to_remoteBackupsSettingsFragment)
                 }
-              },
-              onClick = {
-                callbacks.navigate(R.id.action_appSettingsFragment_to_remoteBackupsSettingsFragment)
-              }
-            )
+              )
+
+              Dividers.Default()
+            }
           }
 
-          item {
-            Dividers.Default()
+          BackupFailureState.COULD_NOT_COMPLETE_BACKUP -> {
+            item {
+              Dividers.Default()
+
+              BackupsWarningRow(
+                text = stringResource(R.string.AppSettingsFragment__couldnt_complete_backup),
+                onClick = {
+                  BackupRepository.markBackupFailedIndicatorClicked()
+                  callbacks.navigate(R.id.action_appSettingsFragment_to_remoteBackupsSettingsFragment)
+                }
+              )
+
+              Dividers.Default()
+            }
           }
+
+          BackupFailureState.NONE -> Unit
         }
 
         item {
@@ -402,6 +410,36 @@ private fun AppSettingsContent(
       }
     }
   }
+}
+
+@Composable
+private fun BackupsWarningRow(
+  text: String,
+  onClick: () -> Unit
+) {
+  Rows.TextRow(
+    text = {
+      Text(text = text)
+    },
+    icon = {
+      Box {
+        Icon(
+          painter = painterResource(R.drawable.symbol_backup_24),
+          tint = MaterialTheme.colorScheme.onSurface,
+          contentDescription = null
+        )
+
+        Box(
+          modifier = Modifier
+            .absoluteOffset(3.dp, (-2).dp)
+            .background(color = Color(0xFFFFCC00), shape = CircleShape)
+            .size(12.dp)
+            .align(Alignment.TopEnd)
+        )
+      }
+    },
+    onClick = onClick
+  )
 }
 
 @Composable

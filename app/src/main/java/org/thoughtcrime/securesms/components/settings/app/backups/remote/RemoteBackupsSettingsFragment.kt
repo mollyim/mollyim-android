@@ -87,10 +87,12 @@ import org.thoughtcrime.securesms.backup.v2.ui.status.BackupStatusData
 import org.thoughtcrime.securesms.backup.v2.ui.status.BackupStatusRow
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
 import org.thoughtcrime.securesms.billing.launchManageBackupsSubscription
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.subscription.MessageBackupsCheckoutLauncher.createBackupsCheckoutLauncher
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.fonts.SignalSymbols
 import org.thoughtcrime.securesms.fonts.SignalSymbols.SignalSymbol
+import org.thoughtcrime.securesms.help.HelpFragment
 import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.DateUtils
@@ -105,6 +107,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Remote backups settings fragment.
@@ -203,11 +206,11 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     }
 
     override fun onStartMediaRestore() {
-      // TODO - [backups] Begin media restore.
+      viewModel.beginMediaRestore()
     }
 
     override fun onCancelMediaRestore() {
-      // TODO - [backups] Cancel in-progress media restoration
+      viewModel.cancelMediaRestore()
     }
 
     override fun onDisplaySkipMediaRestoreProtectionDialog() {
@@ -215,7 +218,7 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     }
 
     override fun onSkipMediaRestore() {
-      // TODO - [backups] Skip disk-full media restoration
+      viewModel.skipMediaRestore()
     }
 
     override fun onLearnMoreAboutLostSubscription() {
@@ -227,7 +230,8 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     }
 
     override fun onContactSupport() {
-      // TODO - [backups] Need to contact support.
+      requireActivity().finish()
+      requireActivity().startActivity(AppSettingsActivity.help(requireContext(), HelpFragment.REMOTE_BACKUPS_INDEX))
     }
   }
 
@@ -272,7 +276,7 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
   private inner class AuthListener : BiometricPrompt.AuthenticationCallback() {
     override fun onAuthenticationFailed() {
       Log.w(TAG, "onAuthenticationFailed")
-      Toast.makeText(requireContext(), R.string.authentication_required, Toast.LENGTH_SHORT).show()
+      Toast.makeText(requireContext(), androidx.media3.session.R.string.authentication_required, Toast.LENGTH_SHORT).show()
     }
 
     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -901,7 +905,7 @@ private fun InProgressBackupRow(
 ) {
   Row(
     modifier = Modifier
-      .padding(horizontal = dimensionResource(id = R.dimen.core_ui__gutter))
+      .padding(horizontal = dimensionResource(id = CoreUiR.dimen.gutter))
       .padding(top = 16.dp, bottom = 14.dp)
   ) {
     Column(
@@ -932,7 +936,7 @@ private fun LastBackupRow(
 ) {
   Row(
     modifier = Modifier
-      .padding(horizontal = dimensionResource(id = R.dimen.core_ui__gutter))
+      .padding(horizontal = dimensionResource(id = CoreUiR.dimen.gutter))
       .padding(top = 16.dp, bottom = 14.dp)
   ) {
     Column(
@@ -1090,7 +1094,7 @@ private fun BackupFrequencyDialog(
           modifier = Modifier.padding(24.dp)
         )
 
-        BackupFrequency.values().forEach {
+        BackupFrequency.entries.forEach {
           Rows.RadioRow(
             selected = selected == it,
             text = getTextForFrequency(backupsFrequency = it),

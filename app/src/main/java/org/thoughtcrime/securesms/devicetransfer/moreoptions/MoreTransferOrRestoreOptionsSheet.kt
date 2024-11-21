@@ -42,6 +42,7 @@ import org.signal.core.ui.Previews
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
 import org.thoughtcrime.securesms.devicetransfer.newdevice.BackupRestorationType
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Lists a set of options the user can choose from for restoring backup or skipping restoration
@@ -112,7 +113,7 @@ private fun MoreOptionsSheetContent(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
       .fillMaxWidth()
-      .padding(horizontal = dimensionResource(id = R.dimen.core_ui__gutter))
+      .padding(horizontal = dimensionResource(id = CoreUiR.dimen.gutter))
   ) {
     BottomSheets.Handle()
 
@@ -188,7 +189,7 @@ private fun LogInWithoutTransferringOption(
         modifier = Modifier.padding(horizontal = 18.dp)
       ) {
         Icon(
-          painter = painterResource(id = R.drawable.symbol_backup_light), // TODO [message-backups] Finalized asset.
+          painter = painterResource(id = R.drawable.symbol_backup_light), // TODO [backups] Finalized asset.
           contentDescription = null,
           tint = MaterialTheme.colorScheme.primary,
           modifier = Modifier.size(36.dp)
@@ -224,7 +225,7 @@ private fun TransferFromAndroidDeviceOption(
         modifier = Modifier.padding(horizontal = 18.dp)
       ) {
         Icon(
-          painter = painterResource(id = R.drawable.symbol_backup_light), // TODO [message-backups] Finalized asset.
+          painter = painterResource(id = R.drawable.symbol_backup_light), // TODO [backups] Finalized asset.
           contentDescription = null,
           tint = MaterialTheme.colorScheme.primary,
           modifier = Modifier.size(36.dp)
@@ -260,7 +261,7 @@ private fun RestoreLocalBackupOption(
         modifier = Modifier.padding(horizontal = 18.dp)
       ) {
         Icon(
-          painter = painterResource(id = R.drawable.symbol_backup_light), // TODO [message-backups] Finalized asset.
+          painter = painterResource(id = R.drawable.symbol_backup_light), // TODO [backups] Finalized asset.
           contentDescription = null,
           tint = MaterialTheme.colorScheme.primary,
           modifier = Modifier.size(36.dp)

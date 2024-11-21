@@ -96,8 +96,8 @@ fun FilePointer?.toLocalAttachment(
       cdnKey = this.backupLocator.transitCdnKey,
       archiveCdn = this.backupLocator.cdnNumber,
       archiveMediaName = this.backupLocator.mediaName,
-      archiveMediaId = importState.backupKey.deriveMediaId(MediaName(this.backupLocator.mediaName)).encode(),
-      archiveThumbnailMediaId = importState.backupKey.deriveMediaId(MediaName.forThumbnailFromMediaName(this.backupLocator.mediaName)).encode(),
+      archiveMediaId = importState.mediaRootBackupKey.deriveMediaId(MediaName(this.backupLocator.mediaName)).encode(),
+      archiveThumbnailMediaId = importState.mediaRootBackupKey.deriveMediaId(MediaName.forThumbnailFromMediaName(this.backupLocator.mediaName)).encode(),
       digest = this.backupLocator.digest.toByteArray(),
       incrementalMac = this.incrementalMac?.toByteArray(),
       incrementalMacChunkSize = this.incrementalMacChunkSize,
@@ -123,8 +123,8 @@ fun FilePointer?.toLocalAttachment(
 fun DatabaseAttachment.toRemoteFilePointer(mediaArchiveEnabled: Boolean, contentTypeOverride: String? = null): FilePointer {
   val builder = FilePointer.Builder()
   builder.contentType = contentTypeOverride ?: this.contentType?.takeUnless { it.isBlank() }
-  builder.incrementalMac = this.incrementalDigest?.toByteString()
-  builder.incrementalMacChunkSize = this.incrementalMacChunkSize.takeIf { it > 0 }
+  builder.incrementalMac = this.incrementalDigest?.takeIf { it.isNotEmpty() && this.incrementalMacChunkSize > 0 }?.toByteString()
+  builder.incrementalMacChunkSize = this.incrementalMacChunkSize.takeIf { it > 0 && builder.incrementalMac != null }
   builder.fileName = this.fileName
   builder.width = this.width.takeIf { it > 0 }
   builder.height = this.height.takeIf { it > 0 }

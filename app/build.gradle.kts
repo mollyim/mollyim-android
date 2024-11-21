@@ -18,8 +18,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1481
-val canonicalVersionName = "7.23.1"
+val canonicalVersionCode = 1484
+val canonicalVersionName = "7.24.2"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 2
@@ -157,6 +157,7 @@ android {
   }
 
   buildFeatures {
+    buildConfig = true
     viewBinding = true
     compose = true
   }

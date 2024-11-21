@@ -32,7 +32,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -94,7 +93,10 @@ import org.thoughtcrime.securesms.MainNavigator;
 import org.thoughtcrime.securesms.MuteDialog;
 import org.thoughtcrime.securesms.NewConversationActivity;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.backup.v2.ui.BackupAlert;
+import org.thoughtcrime.securesms.backup.v2.ui.BackupAlertBottomSheet;
 import org.thoughtcrime.securesms.backup.v2.ui.BackupAlertDelegate;
+import org.thoughtcrime.securesms.backup.v2.ui.status.BackupStatusData;
 import org.thoughtcrime.securesms.banner.Banner;
 import org.thoughtcrime.securesms.banner.BannerManager;
 import org.thoughtcrime.securesms.banner.banners.CdsPermanentErrorBanner;
@@ -865,8 +867,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
         }),
         new MediaRestoreProgressBanner(new MediaRestoreProgressBanner.RestoreProgressBannerListener() {
           @Override
-          public void onSkip() {
-            // TODO [backups] add skip restore ability
+          public void onActionClick(@NonNull BackupStatusData backupStatusData) {
+            if (backupStatusData instanceof BackupStatusData.NotEnoughFreeSpace) {
+              BackupAlertBottomSheet.create(new BackupAlert.DiskFull(((BackupStatusData.NotEnoughFreeSpace) backupStatusData).getRequiredSpace()))
+                                    .show(getParentFragmentManager(), null);
+            }
           }
 
           @Override
@@ -1444,7 +1449,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
         items.add(new ActionItem(R.drawable.symbol_folder_add, getString(R.string.ConversationListFragment_add_to_folder), () ->
           AddToFolderBottomSheet.showChatFolderSheet(folders, conversation.getThreadRecord().getThreadId(), conversation.getThreadRecord().getRecipient().isIndividual()).show(getParentFragmentManager(), BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
         ));
-      } else {
+      } else if (viewModel.getCurrentFolder().getFolderType() != ChatFolderRecord.FolderType.ALL) {
         items.add(new ActionItem(R.drawable.symbol_folder_minus, getString(R.string.ConversationListFragment_remove_from_folder), () -> viewModel.removeChatFromFolder(conversation.getThreadRecord().getThreadId())));
       }
       items.add(new ActionItem(R.drawable.symbol_archive_24, getResources().getString(R.string.ConversationListFragment_archive), () -> handleArchive(id, false)));
@@ -1606,31 +1611,16 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
       @Override
       protected void executeAction(@Nullable Long parameter) {
-        Context context = requireActivity();
-
         pinnedThreadIds = threadTable.getPinnedThreadIds();
         threadTable.archiveConversation(threadId);
-
-        if (unreadCount > 0) {
-          List<MarkedMessageInfo> messageIds = threadTable.setRead(threadId, false);
-          AppDependencies.getMessageNotifier().updateNotification(context);
-          MarkReadReceiver.process(messageIds);
-        }
 
         ConversationUtil.refreshRecipientShortcuts();
       }
 
       @Override
       protected void reverseAction(@Nullable Long parameter) {
-        Context context = requireActivity();
-
         threadTable.unarchiveConversation(threadId);
         threadTable.restorePins(pinnedThreadIds);
-
-        if (unreadCount > 0) {
-          threadTable.incrementUnread(threadId, unreadCount, unreadSelfMentionsCount);
-          AppDependencies.getMessageNotifier().updateNotification(context);
-        }
 
         ConversationUtil.refreshRecipientShortcuts();
       }

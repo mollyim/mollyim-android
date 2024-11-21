@@ -69,6 +69,7 @@ import org.thoughtcrime.securesms.restore.transferorrestore.TransferOrRestoreMor
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Util
 import java.util.Locale
+import org.signal.core.ui.R as CoreUiR
 
 @SuppressLint("BaseActivitySubclass")
 class RemoteRestoreActivity : BaseActivity() {
@@ -264,7 +265,7 @@ class RemoteRestoreActivity : BaseActivity() {
   ) {
     Column(
       modifier = Modifier
-        .padding(horizontal = dimensionResource(id = R.dimen.core_ui__gutter))
+        .padding(horizontal = dimensionResource(id = CoreUiR.dimen.gutter))
         .padding(top = 40.dp, bottom = 24.dp)
     ) {
       Text(
